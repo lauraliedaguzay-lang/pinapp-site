@@ -1,0 +1,35 @@
+================================================================================
+  PINAPP — Déployer sur Netlify (version complète, pas une page isolée)
+================================================================================
+
+PROBLÈME SI TU VOIS UNE PAGE BLANCHE OU SANS STYLE
+  → Souvent il manque le dossier "assets" ou les sous-pages sur Netlify.
+  → Il faut déployer TOUT le site d’un coup (voir ci-dessous).
+
+ÉTAPE 1 — Créer le ZIP sur ton PC
+  - Double-clique ou exécute :  pinapp-site\tools\package-netlify.ps1
+  - Le fichier est créé ici :  C:\Users\laura\Downloads\pinapp-site-NETLIFY-COMPLET.zip
+
+ÉTAPE 2 — Envoyer sur Netlify
+  A) Site déjà existant (ex. zippy-bombolone-…)
+     1. Va sur https://app.netlify.com
+     2. Ouvre ton site → onglet "Deploys"
+     3. Glisse-dépose le fichier  pinapp-site-NETLIFY-COMPLET.zip  dans la zone prévue
+     4. Attends la fin du déploiement (1–2 minutes)
+
+  B) Nouveau site
+     1. https://app.netlify.com → "Add new site" → "Deploy manually"
+     2. Glisse-dépose le même ZIP
+
+ÉTAPE 3 — Vérifier que c’est bon
+  Dans le navigateur, ouvre (remplace par ton URL Netlify) :
+    https://TON-SITE.netlify.app/assets/variables.css
+  Tu dois voir du texte CSS. Si tu vois "Page not found", le ZIP était incomplet
+  ou mal déposé — refais l’étape 1 et 2.
+
+IMPORTANT
+  - Ne dépose pas seulement index.html : le ZIP doit contenir assets, offres, faq, etc.
+  - Ne pas mettre le ZIP dans un sous-dossier sur Netlify : la racine du site doit être
+    la racine du ZIP (index.html et le dossier assets au même niveau).
+
+================================================================================

@@ -1,0 +1,441 @@
+/* PINAPP — animations.css v4.4 — aligné palette dossier global (mode clair lavande/rose) */
+
+/* ① Respiration signature — logo + CTA */
+@keyframes breathe {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.85; transform: scale(1.008); }
+}
+.pinapp-breathe {
+  animation: breathe var(--t-breathe);
+  will-change: opacity, transform;
+}
+
+/* ② Aurora background */
+@keyframes aurora {
+  0%   { background-position: 0% 50%;   opacity: 0.08; }
+  50%  { background-position: 100% 50%; opacity: 0.12; }
+  100% { background-position: 0% 50%;   opacity: 0.08; }
+}
+.aurora-bg {
+  background: linear-gradient(135deg,
+    rgba(0,229,204,0.14), rgba(123,79,232,0.1),
+    rgba(57,224,117,0.08), rgba(79,195,247,0.06), rgba(0,229,204,0.12));
+  background-size: 400% 400%;
+  animation: aurora var(--t-aurora);
+  will-change: background-position, opacity;
+  filter: saturate(1.15);
+}
+
+html[data-theme="light"] .aurora-bg {
+  background: linear-gradient(135deg,
+    rgba(244, 160, 176, 0.12), rgba(0, 180, 166, 0.1),
+    rgba(91, 79, 232, 0.08), rgba(46, 175, 107, 0.07), rgba(244, 160, 176, 0.08));
+  filter: saturate(1.08);
+}
+
+@media (prefers-color-scheme: light) {
+  html:not([data-theme]) .aurora-bg {
+    background: linear-gradient(135deg,
+      rgba(244, 160, 176, 0.12), rgba(0, 180, 166, 0.1),
+      rgba(91, 79, 232, 0.08), rgba(46, 175, 107, 0.07), rgba(244, 160, 176, 0.08));
+    filter: saturate(1.08);
+  }
+}
+
+/* ③ Grain noise */
+.noise-overlay {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 1;
+  background-image: url("data:image/svg+xml,<svg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+html[data-theme="dark"] .noise-overlay { opacity: 0.035; mix-blend-mode: overlay; }
+html[data-theme="light"] .noise-overlay { opacity: 0.025; mix-blend-mode: multiply; }
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) .noise-overlay { opacity: 0.035; mix-blend-mode: overlay; }
+}
+@media (prefers-color-scheme: light) {
+  html:not([data-theme]) .noise-overlay { opacity: 0.025; mix-blend-mode: multiply; }
+}
+
+/* ④ Scroll progress — zéro shimmer, zéro transition (snap strict avec le scroll) */
+.scroll-progress {
+  position: fixed; top: 0; left: 0;
+  height: 3px;
+  z-index: 400;
+  pointer-events: none;
+  background: linear-gradient(90deg, #39E075, #00E5CC, #7B4FE8);
+  transform-origin: left; transform: scaleX(0);
+  transition: none;
+  will-change: transform;
+  box-shadow:
+    0 0 14px rgba(57, 224, 117, 0.55),
+    0 0 28px rgba(0, 229, 204, 0.35),
+    0 2px 12px rgba(123, 79, 232, 0.25);
+}
+
+html[data-theme="light"] .scroll-progress {
+  background: linear-gradient(90deg, #2EAF6B, #00B4A6, #F4A0B0);
+  box-shadow:
+    0 0 12px rgba(46, 175, 107, 0.35),
+    0 0 22px rgba(0, 180, 166, 0.22),
+    0 2px 10px rgba(244, 160, 176, 0.2);
+}
+
+@media (prefers-color-scheme: light) {
+  html:not([data-theme]) .scroll-progress {
+    background: linear-gradient(90deg, #2EAF6B, #00B4A6, #F4A0B0);
+    box-shadow:
+      0 0 12px rgba(46, 175, 107, 0.35),
+      0 0 22px rgba(0, 180, 166, 0.22),
+      0 2px 10px rgba(244, 160, 176, 0.2);
+  }
+}
+
+/* ⑤ Nav scroll-aware — zéro transition sur transform (masquage instantané, pas d’effet « scroll smooth ») */
+.nav { transition: background 300ms ease; }
+.nav.nav-hidden { transform: translateY(-100%); }
+
+/* ⑥ Nav link underline */
+.nav-link { position: relative; text-decoration: none; }
+.nav-link::after {
+  content: ''; position: absolute;
+  bottom: -2px; left: 0; width: 0; height: 1px;
+  background: var(--accent-teal);
+  transition: width var(--t-hover);
+}
+@media (hover: hover) { .nav-link:hover::after { width: 100%; } }
+
+/* ⑦ Section entrées — visibles au chargement (pas d’apparition pilotée par le scroll, règle zéro scroll) */
+.section-enter {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+.section-enter.visible { opacity: 1; transform: none; }
+.stagger-0 { transition-delay: 0ms; }
+.stagger-1 { transition-delay: 80ms; }
+.stagger-2 { transition-delay: 160ms; }
+.stagger-3 { transition-delay: 240ms; }
+.stagger-4 { transition-delay: 320ms; }
+
+/* ⑧ Hero mots — visible sans JS (évite page blanche si main.js absent) ; main.js peut encore ajouter .visible */
+.hero-word {
+  opacity: 1;
+  transform: translateY(0);
+  display: inline-block;
+  transition: opacity 400ms ease, transform 400ms ease;
+}
+.hero-word.visible { opacity: 1; transform: translateY(0); }
+.hero-word.accent  {
+  color: var(--accent-teal);
+  filter: drop-shadow(0 0 12px rgba(0, 229, 204, 0.35)) drop-shadow(0 0 28px rgba(123, 79, 232, 0.2));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-word.accent.visible {
+    animation: hero-accent-glow 4.5s ease-in-out infinite;
+  }
+}
+
+@keyframes hero-accent-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 10px rgba(0, 229, 204, 0.3)) drop-shadow(0 0 24px rgba(123, 79, 232, 0.15));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(0, 229, 204, 0.55)) drop-shadow(0 0 40px rgba(123, 79, 232, 0.28));
+  }
+}
+
+[data-chapter="invitation"] h1 {
+  text-shadow:
+    0 2px 24px rgba(0, 0, 0, 0.35),
+    0 0 60px rgba(123, 79, 232, 0.12),
+    0 0 100px rgba(0, 229, 204, 0.06);
+}
+
+/* ⑨ Hero éléments — idem */
+.hero-el {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity var(--t-enter), transform var(--t-enter);
+}
+.hero-el.visible { opacity: 1; transform: translateY(0); }
+.hero-cta {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+.hero-cta.visible { opacity: 1; transform: scale(1); }
+
+/* ⑩ Scroll chevron */
+@keyframes bounce-chevron {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50%       { transform: translateY(6px); opacity: 1; }
+}
+.scroll-chevron { animation: bounce-chevron 1.5s ease-in-out infinite; }
+
+/* ⑪ Cards hover */
+@media (hover: hover) {
+  .card {
+    transition: transform var(--t-hover), box-shadow var(--t-hover);
+  }
+  .card:hover {
+    transform: translateY(-3px) scale(1.005);
+    box-shadow:
+      0 0 40px rgba(0,229,204,0.08),
+      0 0 80px rgba(0,229,204,0.04),
+      0 0 120px rgba(0,229,204,0.02);
+  }
+}
+.card:active { transform: scale(0.98); transition: transform var(--t-press); }
+
+/* ⑫ Boutons */
+.btn:active { transform: scale(0.97); transition: transform var(--t-press); }
+.btn-secondary .arrow {
+  display: inline-block;
+  transition: transform var(--t-hover);
+}
+@media (hover: hover) {
+  .btn-secondary:hover .arrow { transform: translateX(4px); }
+}
+
+/* ⑬ CTA principal — breathe uniquement */
+.btn-primary { animation: breathe var(--t-breathe); }
+
+/* ⑭ Switcher démo */
+.demo-tab { transition: background var(--t-hover), color var(--t-hover); }
+.demo-panel { opacity: 0; transition: opacity 200ms ease; pointer-events: none; position: absolute; }
+.demo-panel.active { opacity: 1; pointer-events: auto; position: relative; }
+
+/* ⑮ Pipeline */
+.pipeline-block {
+  opacity: 0; transform: translateX(-8px);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+.pipeline-block.active { opacity: 1; transform: translateX(0); }
+.pipeline-line {
+  width: 0; height: 2px;
+  background: linear-gradient(90deg, #39E075, #00E5CC);
+  transition: width var(--t-standard); border-radius: 100px;
+}
+.pipeline-line.active { width: 100%; }
+
+/* ⑯ Checkmark SVG */
+@keyframes check-draw {
+  from { stroke-dashoffset: 100; }
+  to   { stroke-dashoffset: 0; }
+}
+.checkmark path {
+  stroke-dasharray: 100; stroke-dashoffset: 100;
+  animation: check-draw 300ms ease forwards;
+}
+
+/* ⑰ Typing indicator */
+@keyframes typing-dot {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30%           { transform: translateY(-4px); opacity: 1; }
+}
+.typing-dot {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--accent-teal); display: inline-block;
+}
+.typing-dot:nth-child(1) { animation: typing-dot 1s ease infinite 0ms; }
+.typing-dot:nth-child(2) { animation: typing-dot 1s ease infinite 150ms; }
+.typing-dot:nth-child(3) { animation: typing-dot 1s ease infinite 300ms; }
+
+/* ⑱ Point LIVE */
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+.live-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent-teal); display: inline-block;
+  animation: live-pulse 2s linear infinite;
+}
+
+/* ⑲ Onboarding questions */
+.question {
+  opacity: 0; transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 400ms ease, transform 400ms ease;
+}
+.question.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+@keyframes fade-msg {
+  0%   { opacity: 0; transform: scale(0.95); }
+  40%  { opacity: 1; transform: scale(1); }
+  70%  { opacity: 1; }
+  100% { opacity: 0; transform: scale(1.02); }
+}
+.transition-msg { animation: fade-msg 600ms ease forwards; }
+@keyframes check-final {
+  0%   { transform: scale(0); opacity: 0; }
+  60%  { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.check-final { animation: check-final 300ms cubic-bezier(0.25,0.1,0.25,1) forwards; }
+
+/* ⑳ Réalisations modal */
+.modal {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--t-standard), visibility var(--t-standard);
+}
+.modal.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.modal-content {
+  transform: scale(0.96);
+  transition: transform var(--t-standard);
+  border-radius: var(--radius-modal);
+  box-shadow:
+    0 0 0 1px rgba(0, 229, 204, 0.12) inset,
+    0 24px 80px rgba(0, 0, 0, 0.45),
+    0 0 60px rgba(123, 79, 232, 0.2),
+    0 0 100px rgba(0, 229, 204, 0.08);
+  border: 1px solid var(--border-card);
+}
+.modal.open .modal-content { transform: scale(1); }
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.skeleton-pulse {
+  width: 200px; height: 4px; border-radius: 100px;
+  background: linear-gradient(90deg,
+    var(--bg-card) 25%, var(--accent-teal) 50%, var(--bg-card) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease infinite;
+}
+
+/* ㉑ FAQ accordéon */
+.faq-content { max-height: 0; overflow: hidden; opacity: 0;
+  transition: max-height var(--t-standard), opacity var(--t-standard); }
+.faq-item.open .faq-content { max-height: 300px; opacity: 1; }
+.faq-chevron { transition: transform var(--t-standard); }
+.faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+/* ㉒ Loader — JS retire .hidden ; si /assets/js/*.js en 404, secours CSS après 12s */
+@keyframes pinapp-loader-failsafe {
+  0%, 99.5% {
+    opacity: 1;
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+#loader {
+  transition: opacity var(--t-standard), visibility var(--t-standard);
+}
+
+#loader:not(.hidden) {
+  animation: pinapp-loader-failsafe 12s linear forwards;
+}
+
+#loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  animation: none;
+}
+
+/* ㉓ Cards réalisations */
+@media (hover: hover) {
+  .realisation-card { transition: transform var(--t-hover), box-shadow var(--t-hover), filter var(--t-hover); }
+  .realisation-card:hover {
+    transform: translateY(-6px) scale(1.01);
+    filter: brightness(1.04);
+    box-shadow:
+      0 0 0 1px rgba(0, 229, 204, 0.12) inset,
+      0 0 48px rgba(0, 229, 204, 0.18),
+      0 0 96px rgba(123, 79, 232, 0.1),
+      0 20px 40px rgba(0, 0, 0, 0.25);
+  }
+}
+
+/* ㉔ Étapes process — pas d’animation déclenchée par la vue au scroll */
+.step-item {
+  opacity: 1;
+  transform: none;
+}
+.step-item.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ═══ Lumière ambiante plein écran + suivi --spot-x / --spot-y (JS desktop) ═══ */
+@keyframes ambient-field {
+  0%, 100% { opacity: 0.72; }
+  50% { opacity: 0.9; }
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(520px circle at var(--spot-x, 50%) var(--spot-y, 32%),
+      rgba(0, 229, 204, 0.12), transparent 52%),
+    radial-gradient(ellipse 88% 58% at 6% -8%, rgba(123, 79, 232, 0.16), transparent 50%),
+    radial-gradient(ellipse 72% 48% at 104% 96%, rgba(57, 224, 117, 0.09), transparent 44%),
+    radial-gradient(ellipse 50% 40% at 50% 108%, rgba(79, 195, 247, 0.06), transparent 50%);
+  opacity: 0.88;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body::after {
+    animation: ambient-field 24s ease-in-out infinite;
+  }
+}
+
+html[data-theme="light"] body::after {
+  background:
+    radial-gradient(520px circle at var(--spot-x, 50%) var(--spot-y, 32%),
+      rgba(0, 180, 166, 0.12), transparent 52%),
+    radial-gradient(ellipse 92% 62% at 8% -6%, rgba(244, 160, 176, 0.14), transparent 50%),
+    radial-gradient(ellipse 78% 52% at 102% 98%, rgba(91, 79, 232, 0.09), transparent 44%),
+    radial-gradient(ellipse 58% 42% at 50% 108%, rgba(244, 160, 176, 0.07), transparent 50%);
+  opacity: 0.92;
+}
+
+@media (prefers-color-scheme: light) {
+  html:not([data-theme]) body::after {
+    background:
+      radial-gradient(520px circle at var(--spot-x, 50%) var(--spot-y, 32%),
+        rgba(0, 180, 166, 0.12), transparent 52%),
+      radial-gradient(ellipse 92% 62% at 8% -6%, rgba(244, 160, 176, 0.14), transparent 50%),
+      radial-gradient(ellipse 78% 52% at 102% 98%, rgba(91, 79, 232, 0.09), transparent 44%),
+      radial-gradient(ellipse 58% 42% at 50% 108%, rgba(244, 160, 176, 0.07), transparent 50%);
+    opacity: 0.92;
+  }
+}
+
+/* ACCESSIBILITÉ — en dernier */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .section-enter, .hero-el, .hero-word,
+  .hero-cta, .question { opacity: 1 !important; transform: none !important; }
+  .pinapp-breathe, .aurora-bg, .noise-overlay,
+  .live-dot, .scroll-chevron { animation: none !important; }
+  body::after { opacity: 0.55 !important; }
+  .hero-word.accent.visible { animation: none !important; filter: none !important; }
+  #loader::before { animation: none !important; }
+  /* Évite loader bloqué si l’animation failsafe est écrasée ailleurs */
+  #loader:not(.hidden) {
+    animation: pinapp-loader-failsafe 0.02s linear forwards !important;
+  }
+}

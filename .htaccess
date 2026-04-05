@@ -1,0 +1,38 @@
+# HTTPS forcé
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Compression Gzip
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# Cache navigateur
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType text/css "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+  ExpiresByType image/svg+xml "access plus 1 month"
+</IfModule>
+
+# Protection dashboard
+<Files "dashboard">
+  AuthType Basic
+  AuthName "Pinapp"
+  AuthUserFile /home/.htpasswd
+  Require valid-user
+</Files>
+
+# iframes démo autorisées depuis pinapp.fr
+Header set Content-Security-Policy "frame-ancestors 'self' https://pinapp.fr"
+
+# Headers sécurité
+Header always set X-Content-Type-Options "nosniff"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+# 404 custom
+ErrorDocument 404 /404.html

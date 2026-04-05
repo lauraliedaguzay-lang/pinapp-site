@@ -1,0 +1,23 @@
+---
+description: Pinapp — zéro scroll animé (smooth off, pas de shimmer barre, pas de parallaxe décorative)
+alwaysApply: true
+---
+
+# Règle « zéro scroll » (Pinapp)
+
+Cette règle complète `.cursorrules` (section techniques). **Ne pas la contourner** sauf demande explicite de l’utilisateur.
+
+## Obligations
+
+1. **`html { scroll-behavior: auto; }`** — ne pas utiliser `scroll-behavior: smooth` (pas d’inertie / défilement lissé sur ancres et navigation).
+2. **Barre `#scrollProgress`** — gradient **statique** ; **interdit** : animation de fond, shimmer, boucle CSS ; **`transition: none`** sur `transform` (la barre doit **coller** au scroll, sans lissage CSS).
+3. **Navigation au scroll** — masquage autorisé, mais **pas de `transition` sur `transform`** pour la nav (affichage / masquage **instantanés**).
+4. **Parallaxe / décor lié au scroll** — **interdit** : `transform` sur `.aurora-bg` piloté par `scrollY`.
+5. **Révélation au scroll** — **interdit** : `IntersectionObserver` (ou équivalent) pour faire apparaître `.section-enter` / `.step-item` quand ils entrent dans le viewport ; le contenu est **visible dès le rendu** (animations réservées au **chargement** ex. hero, pas au défilement).
+6. **Autorisé** sur `scroll` : mise à jour **directe** de `scaleX` sur `#scrollProgress` ; logique **nav** (`nav-hidden`).
+
+## Fichiers de référence
+
+- `assets/grid.css` → `html` scroll-behavior  
+- `assets/animations.css` → `.scroll-progress`, `.nav`, `.section-enter`, `.step-item`  
+- `assets/js/main.js` → pas de parallaxe aurora, pas d’IO sections  

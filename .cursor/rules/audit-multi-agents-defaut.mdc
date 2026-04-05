@@ -1,0 +1,43 @@
+---
+description: Audit multi-agents Pinapp par défaut (+ agent senior Avatar / scène visuelle) — synthèse Bloquant/Majeur/Mineur
+alwaysApply: true
+---
+
+# Audit multi-agents — comportement par défaut (Pinapp)
+
+## Obligation
+
+Pour le dépôt **pinapp-site**, l’assistant exécute **par défaut** la passe d’audit multi-agents décrite ci-dessous lorsque :
+
+- l’utilisateur demande un **audit**, des **problématiques**, une **réunion d’agents**, un **QC**, un **bilan risques**, ou une **vérification avant mise en ligne** ;
+- la tâche est une **revue large** du site (plusieurs pages, déploiement, conformité, refonte) et **n’est pas** un correctif ponctuel explicite.
+
+**Exceptions (ne pas lancer la passe)** : une seule modification ciblée (typo, un lien, un fichier nommé) ; ou l’utilisateur demande explicitement de **sauter** l’audit multi-agents.
+
+Alignement avec **`.cursorrules`** : rappeler qu’**aucun déploiement production** sans vérification manuelle ; l’audit aide cette vérification, il ne la remplace pas. Respecter aussi la règle **« zéro scroll »** (`pinapp-zero-scroll.mdc`) lors des suggestions d’effets (pas de `smooth`, pas de shimmer sur la barre de scroll, pas de parallaxe décorative).
+
+## Procédure
+
+1. Lancer **en parallèle** des appels `Task` (sous-agents), **lecture seule** sauf si l’utilisateur demande des correctifs immédiats :
+   - `quality-control`
+   - `da-premium-apple`
+   - **`visual-scene-designer`** — **agent senior Avatar / Avatar Studio** : lumière, profondeur, matière, cohérence fond / image / grain, risque cheap vs luxe (brief orienté scène visuelle, pas le code pour lui-même).
+   - `expert-apple`
+   - `accessibilite-wcag`
+   - `performance-web`
+   - `ux-premium-flow`
+   - `conformite-mentions`
+   - `contenu-editorial-seo`
+
+2. **Brief type** pour chaque agent : analyser `pinapp-site` (HTML, CSS, JS, légal, sitemap ; pour Avatar : calques, images, ressenti visuel) ; retourner **6–10 problèmes max** en français, avec gravité **`[Bloquant | Majeur | Mineur]`**, une ligne par item (l’Avatar peut rester en Majeur/Mineur sauf risque image de marque critique → Bloquant).
+
+3. **Synthèse unique** obligatoire après les retours :
+   - fusionner les **doublons** entre agents ;
+   - livrer des sections **`## Bloquant`**, **`## Majeur`**, **`## Mineur`** (ou tableaux équivalents) ;
+   - optionnel : regroupement par domaine (parcours, légal, a11y, perf, SEO, DA, **scène visuelle / Avatar**) **sans** répéter trois fois le même constat.
+
+4. **Ne pas** inclure dans la réponse utilisateur les identifiants techniques des sous-agents.
+
+## Livrable
+
+- Listes ou tableaux **actionnables**, priorité claire, pas de rapport long sans structure.

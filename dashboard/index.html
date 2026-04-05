@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="theme-color" id="pinapp-theme-color" content="#050A14">
+  <script src="/assets/js/theme-init.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Dashboard — Pinapp</title>
+  <meta name="description" content="Tableau de bord interne Pinapp.">
+  <meta property="og:title" content="Dashboard — Pinapp">
+  <meta property="og:description" content="Tableau de bord interne Pinapp.">
+  <meta property="og:image" content="https://pinapp.fr/og-image.webp">
+  <meta property="og:url" content="https://pinapp.fr/dashboard/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/assets/variables.css">
+  <link rel="stylesheet" href="/assets/grid.css">
+  <link rel="stylesheet" href="/assets/animations.css">
+</head>
+<body class="page-with-bottom-nav">
+  <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
+  <div class="scroll-progress" id="scrollProgress"></div>
+  <div id="loader" role="status" aria-label="Chargement">
+    <svg viewBox="0 0 40 48" width="48" height="58" fill="none" stroke="var(--accent-teal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M20 2 C16 6 12 8 14 12"/><path d="M20 2 C20 7 20 9 20 12"/><path d="M20 2 C24 6 28 8 26 12"/>
+      <ellipse cx="20" cy="30" rx="12" ry="16"/>
+      <path d="M8 24 L20 18 L32 24 L20 30 Z"/><path d="M8 30 L20 24 L32 30 L20 36 Z"/><path d="M8 36 L20 30 L32 36 L20 42 Z"/>
+    </svg>
+    <p>Pinapp se prépare.</p>
+  </div>
+  <div class="noise-overlay" aria-hidden="true"></div>
+  <nav class="nav" id="mainNav" role="navigation">
+    <div class="container nav-inner">
+            <a href="/" class="pinapp-breathe nav-logo" aria-label="Pinapp Studio — accueil">
+        <img src="/assets/images/pinapp-logo.png" alt="Pinapp" width="200" height="60" decoding="async" class="nav-logo-img">
+      </a>
+      <div class="nav-links">
+        <a href="/pourquoi-pinapp/" class="nav-link" style="font-size:14px;opacity:0.8;" title="Pourquoi Pinapp">Pourquoi</a>
+        <a href="/comment-ca-marche/" class="nav-link" style="font-size:14px;opacity:0.8;">Comment ça marche</a>
+        <a href="/offres/" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
+        <a href="/realisations/" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
+        <a href="/diagnostic/" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Diagnostic offert</a>
+      </div>
+      <div class="nav-trailing">
+        <button type="button" class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
+          <svg class="theme-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="theme-icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button type="button" class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileDrawer">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+  <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" role="dialog" aria-label="Menu" aria-modal="true">
+    <div class="mobile-drawer-panel">
+      <button type="button" id="drawerClose" aria-label="Fermer le menu">×</button>
+      <a href="/pourquoi-pinapp/">Pourquoi Pinapp</a>
+      <a href="/comment-ca-marche/">Comment ça marche</a>
+      <a href="/offres/">Offres</a>
+      <a href="/realisations/">Réalisations</a>
+      <a href="/confiance/">Confiance</a>
+      <a href="/votre-projet/">Votre projet</a>
+      <a href="/faq/">FAQ</a>
+      <a href="/auralis/">Auralis RH</a>
+      <a href="/diagnostic/">Diagnostic offert</a>
+      <a href="/a-propos/">À propos</a>
+    </div>
+  </div>
+  <div class="bottom-bar" role="navigation" aria-label="Navigation mobile">
+    <a href="/">Accueil</a>
+    <a href="/offres/">Offres</a>
+    <a href="/realisations/">Réalisations</a>
+    <a href="/diagnostic/">Diagnostic</a>
+  </div>
+  <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
+    <section class="section" style="padding-top:var(--space-8);">
+      <div class="container" style="max-width:75rem;">
+        <h1 style="font-size:32px;margin-bottom:var(--space-5);">Bonjour Lauralie</h1>
+        <div class="grid grid-4" style="margin-bottom:var(--space-4);">
+          <div class="card"><p class="label">CA CE MOIS</p><p style="font-size:32px;font-weight:600;">0€</p><div class="progress-bar" style="height:3px;margin-top:var(--space-2);width:0%;"></div></div>
+          <div class="card"><p class="label">DIAGNOSTICS</p><p style="font-size:32px;font-weight:600;">0</p></div>
+          <div class="card"><p class="label">MISSIONS</p><p style="font-size:32px;font-weight:600;">0</p></div>
+          <div class="card"><p class="label">CHARGE</p><p style="font-size:32px;font-weight:600;">0h</p><div class="progress-bar" style="height:3px;margin-top:var(--space-2);width:0%;"></div></div>
+        </div>
+        <div class="card"><h2 style="font-size:18px;">En attente</h2><p style="opacity:0.5;font-size:14px;">Aucune action (Make à brancher).</p></div>
+      </div>
+    </section>
+  </main>
+  <footer style="border-top:1px solid var(--separator);padding:var(--space-5) 0;">
+    <div class="container" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:var(--space-3);opacity:0.6;font-size:13px;">
+      <span>Pinapp © 2026</span>
+      <div style="display:flex;gap:var(--space-3);">
+        <a href="https://www.linkedin.com/in/lauralie-daguzay-4a4542197/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
+      </div>
+      <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;">
+        <a href="/legal/mentions.html">Mentions légales</a>
+        <a href="/legal/cgv.html">CGV</a>
+        <a href="/legal/confidentialite.html">Confidentialité</a>
+        <a href="/legal/accessibilite.html">Accessibilité</a>
+        <a href="/legal/ethique.html">Éthique</a>
+      </div>
+      <span style="width:100%;text-align:center;font-size:var(--text-label);color:var(--accent-teal);opacity:0.6;letter-spacing:0.12em;">PINAPP AU CONCOURS LÉPINE 2026</span>
+    </div>
+  </footer>
+  <div id="cookie-banner" role="dialog" aria-label="Cookies" style="position:fixed;bottom:0;left:0;right:0;padding:var(--space-3);background:var(--bg-card);border-top:1px solid var(--border-card);backdrop-filter:blur(20px);z-index:9000;display:none;">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap;">
+      <p style="font-size:13px;opacity:0.8;max-width:600px;">Ce site utilise des cookies de mesure d’audience anonymes (Plausible Analytics — sans tracking personnel).</p>
+      <div style="display:flex;gap:var(--space-2);">
+        <button type="button" id="cookieAccept" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Accepter</button>
+        <button type="button" id="cookieRefuse" class="btn btn-secondary" style="font-size:13px;padding:10px 20px;">Refuser</button>
+      </div>
+    </div>
+  </div>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>
