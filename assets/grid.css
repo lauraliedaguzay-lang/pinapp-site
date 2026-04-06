@@ -1060,3 +1060,179 @@ button:focus-visible,
   outline: 2px solid var(--accent-teal);
   outline-offset: 4px;
 }
+
+/* ════════════════════════════════════════════════════════════════════
+   RESPONSIVE MOBILE & TABLETTE — glass adapté, touch, typographie
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ─── Touch : supprimer les effets hover (jamais de :hover sur touch) ─── */
+@media (hover: none) {
+  * { -webkit-tap-highlight-color: transparent; }
+
+  .card:hover       { transform: none; box-shadow: 0 1px 0 rgba(255,255,255,0.08) inset, 0 8px 32px rgba(0,0,0,0.14); border-color: var(--border-card); }
+  .btn-primary:hover  { transform: none; }
+  .btn-secondary:hover { transform: none; }
+  .nav-link:hover   { opacity: 0.8; }
+  .nav-link:hover::after { width: 0; }
+  .filter-btn:hover:not(.active) { border-color: var(--border-card); box-shadow: none; }
+  .pill-btn:hover   { border-color: var(--border-card); box-shadow: none; background: rgba(107,158,255,0.06); }
+
+  /* Feedback tactile rapide sur les éléments interactifs */
+  .card:active    { transform: scale(0.97); }
+  .btn:active     { transform: scale(0.96); }
+}
+
+/* ─── Mobile (<768px) ─── */
+@media (max-width: 767px) {
+
+  /* Sections — espacement réduit */
+  section { padding: var(--space-7) var(--space-3); }
+
+  /* Grilles — 1 colonne */
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  /* Split section — empilé */
+  .split-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  /* Cards — glassmorphism préservé sur les 3 premières, opacifié ensuite
+     (max 3 backdrop-filter simultanés sur mobile pour les performances GPU) */
+  .card:not(:nth-child(-n+3)) {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgba(6, 12, 28, 0.88);
+  }
+
+  /* Le reflet spéculaire reste sur toutes les cards */
+  .card::before { opacity: 0.8; }
+
+  /* Padding card réduit */
+  .card { padding: var(--space-3); }
+
+  /* Boutons — pleine largeur sur petits écrans */
+  .btn-block-mobile {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Hero typographie — fluid */
+  .hero-title, h1.hero-title {
+    font-size: clamp(2rem, 9vw, 3rem);
+    letter-spacing: -0.04em;
+    line-height: 1.08;
+  }
+
+  /* Taglines / sous-titres hero */
+  .hero-lead { font-size: clamp(0.9375rem, 4vw, 1.125rem); }
+
+  /* Navigation sur mobile */
+  nav.scrolled {
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%);
+    background: var(--glass-nav);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  /* Inputs — taille min 16px pour éviter le zoom Safari */
+  input, textarea, select { font-size: max(1rem, 16px); }
+
+  /* Tiroir mobile — effet verre préservé */
+  .mobile-drawer-panel {
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    backdrop-filter: blur(40px) saturate(180%);
+  }
+
+  /* Footer colonnes */
+  footer .grid-3, footer .grid-4 {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}
+
+/* ─── Tablette (768px – 1023px) ─── */
+@media (min-width: 768px) and (max-width: 1023px) {
+
+  /* Sections */
+  section { padding: 100px 48px; }
+
+  /* Grilles — 2 colonnes */
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+  .grid-4 { grid-template-columns: 1fr 1fr; }
+
+  /* Split section */
+  .split-section {
+    flex-direction: column;
+    align-items: center;
+    gap: 64px;
+  }
+
+  /* Cards — backdrop-filter préservé sur tablette (GPU suffisant) */
+  .card {
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    backdrop-filter: blur(24px) saturate(160%);
+    padding: var(--space-4);
+  }
+
+  /* Boutons — taille intermédiaire */
+  .btn {
+    padding: 0.875rem var(--space-4);
+    font-size: 0.9375rem;
+  }
+
+  /* Hero */
+  .hero-title, h1.hero-title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+  }
+}
+
+/* ─── Très petits écrans (<400px) ─── */
+@media (max-width: 399px) {
+  section { padding: var(--space-6) var(--space-2); }
+
+  .hero-title, h1.hero-title {
+    font-size: clamp(1.75rem, 8vw, 2.5rem);
+    letter-spacing: -0.035em;
+  }
+
+  .card { padding: var(--space-3) var(--space-2); border-radius: var(--radius-card); }
+
+  .btn {
+    padding: 0.75rem var(--space-3);
+    font-size: 0.875rem;
+  }
+}
+
+/* ─── Orientation paysage sur petits écrans ─── */
+@media (max-height: 500px) and (orientation: landscape) {
+  nav { height: 40px; }
+  section { padding-top: var(--space-5); padding-bottom: var(--space-5); }
+}
+
+/* ─── Reduced motion — désactiver les animations lourdes ─── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .aurora-orb, canvas, .pinapp-particle, .holo-grid { display: none; }
+}
+
+/* ─── Fallback backdrop-filter (Safari ancien / Firefox sans flag) ─── */
+@supports not (backdrop-filter: blur(1px)) {
+  .card,
+  [class*="card"] {
+    background: rgba(6, 12, 28, 0.90);
+  }
+  nav.scrolled { background: rgba(4, 8, 18, 0.96); }
+  .mobile-drawer-panel { background: rgba(4, 8, 18, 0.97); }
+}

@@ -1,0 +1,144 @@
+/* PINAPP — aurora-mobile.css — Orbes CSS + grille holo — mobile & tablette */
+
+/* ─── Orbes aurora mobile (CSS — pas de canvas pour économiser le GPU) ─── */
+.aurora-mobile {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.aurora-orb {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+/* ── MODE NUIT ── */
+body:not(.mode-jour) .aurora-orb-1 {
+  width: clamp(220px, 80vw, 320px);
+  height: clamp(220px, 80vw, 320px);
+  background: rgba(0, 229, 204, 0.20);
+  filter: blur(70px);
+  top: -80px;
+  left: -60px;
+  animation: float-a 9s ease-in-out infinite;
+}
+
+body:not(.mode-jour) .aurora-orb-2 {
+  width: clamp(180px, 70vw, 280px);
+  height: clamp(180px, 70vw, 280px);
+  background: rgba(123, 79, 232, 0.16);
+  filter: blur(60px);
+  bottom: 15%;
+  right: -50px;
+  animation: float-b 11s ease-in-out infinite;
+}
+
+body:not(.mode-jour) .aurora-orb-3 {
+  width: clamp(160px, 60vw, 220px);
+  height: clamp(160px, 60vw, 220px);
+  background: rgba(57, 224, 117, 0.12);
+  filter: blur(55px);
+  top: 42%;
+  left: 18%;
+  animation: float-c 7s ease-in-out infinite;
+}
+
+/* ── MODE JOUR ── */
+body.mode-jour .aurora-orb-1 {
+  width: clamp(220px, 80vw, 320px);
+  height: clamp(220px, 80vw, 320px);
+  background: rgba(255, 182, 193, 0.32);
+  filter: blur(70px);
+  top: -80px;
+  left: -60px;
+  animation: float-a 9s ease-in-out infinite;
+}
+
+body.mode-jour .aurora-orb-2 {
+  width: clamp(180px, 70vw, 280px);
+  height: clamp(180px, 70vw, 280px);
+  background: rgba(200, 160, 220, 0.28);
+  filter: blur(60px);
+  bottom: 15%;
+  right: -50px;
+  animation: float-b 11s ease-in-out infinite;
+}
+
+body.mode-jour .aurora-orb-3 {
+  width: clamp(160px, 60vw, 220px);
+  height: clamp(160px, 60vw, 220px);
+  background: rgba(255, 215, 0, 0.18);
+  filter: blur(55px);
+  top: 42%;
+  left: 18%;
+  animation: float-c 7s ease-in-out infinite;
+}
+
+/* ── Tablette — orbes plus larges ── */
+@media (min-width: 768px) {
+  .aurora-orb-1 { width: 460px; height: 460px; }
+  .aurora-orb-2 { width: 380px; height: 380px; }
+  .aurora-orb-3 { width: 300px; height: 300px; }
+}
+
+/* ── Desktop — orbes gérées par canvas aurora.js, CSS caché ── */
+@media (min-width: 1024px) {
+  .aurora-mobile { display: none; }
+}
+
+/* ── Animations flottantes ── */
+@keyframes float-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(24px, -32px) scale(1.06); }
+}
+@keyframes float-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(-18px, 28px) scale(0.94); }
+}
+@keyframes float-c {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(14px, -16px) scale(1.04); }
+}
+
+/* ─── Grille holographique — sur tous les écrans ─── */
+.holo-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(0, 229, 204, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 204, 0.018) 1px, transparent 1px);
+  background-size: 80px 80px;
+  animation: grid-breathe 6s ease-in-out infinite;
+}
+
+body.mode-jour .holo-grid {
+  background-image:
+    linear-gradient(rgba(123, 79, 232, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(123, 79, 232, 0.015) 1px, transparent 1px);
+}
+
+@keyframes grid-breathe {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 1; }
+}
+
+/* ── Tablette : grille un peu plus dense ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .holo-grid { background-size: 96px 96px; }
+}
+
+/* ── Desktop : grille plus fine ── */
+@media (min-width: 1024px) {
+  .holo-grid { background-size: 120px 120px; }
+}
+
+/* ─── Accessibilité — reduced motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  .aurora-orb { animation: none; }
+  .holo-grid  { animation: none; opacity: 0.3; }
+}
