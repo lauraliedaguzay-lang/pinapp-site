@@ -1,23 +1,47 @@
 ---
-description: Pinapp — zéro scroll animé (smooth off, pas de shimmer barre, pas de parallaxe décorative)
+description: Pinapp — zéro scroll animé + volume de défilement minimal (web critique, mobile très peu)
 alwaysApply: true
 ---
 
 # Règle « zéro scroll » (Pinapp)
 
-Cette règle complète `.cursorrules` (section techniques). **Ne pas la contourner** sauf demande explicite de l’utilisateur.
+Complète `.cursorrules`. **Priorité critique** : ne pas la contourner sauf demande explicite de l’utilisateur.
 
-## Obligations
+## Volume de défilement (UX) — critique
 
-1. **`html { scroll-behavior: auto; }`** — ne pas utiliser `scroll-behavior: smooth` (pas d’inertie / défilement lissé sur ancres et navigation).
-2. **Barre `#scrollProgress`** — gradient **statique** ; **interdit** : animation de fond, shimmer, boucle CSS ; **`transition: none`** sur `transform` (la barre doit **coller** au scroll, sans lissage CSS).
-3. **Navigation au scroll** — masquage autorisé, mais **pas de `transition` sur `transform`** pour la nav (affichage / masquage **instantanés**).
-4. **Parallaxe / décor lié au scroll** — **interdit** : `transform` sur `.aurora-bg` piloté par `scrollY`.
-5. **Révélation au scroll** — **interdit** : `IntersectionObserver` (ou équivalent) pour faire apparaître `.section-enter` / `.step-item` quand ils entrent dans le viewport ; le contenu est **visible dès le rendu** (animations réservées au **chargement** ex. hero, pas au défilement).
-6. **Autorisé** sur `scroll` : mise à jour **directe** de `scaleX` sur `#scrollProgress` ; logique **nav** (`nav-hidden`).
+1. **Web / desktop** — Viser **quasi zéro scroll** pour comprendre l’essentiel : hiérarchie serrée, peu de sections empilées, CTA et promesse lisibles **sans** descendre une longue page. Éviter les « murs » de texte et les pages type one-pager interminable si une mise en page plus **dense** (grille, colonnes, replis) suffit.
+2. **Mobile** — **Très peu de scroll** pour le parcours principal (accroche → action). Le contenu secondaire peut défiler, mais **pas** de remplissage vertical inutile ; pas d’empilement de blocs répétitifs.
+3. **Démos / pages hommage** — Même logique : sections courtes, pas de longue suite de cartes quand un pattern plus compact existe.
 
-## Fichiers de référence
+## Comportement technique du scroll
 
-- `assets/grid.css` → `html` scroll-behavior  
-- `assets/animations.css` → `.scroll-progress`, `.nav`, `.section-enter`, `.step-item`  
-- `assets/js/main.js` → pas de parallaxe aurora, pas d’IO sections  
+1. **`html { scroll-behavior: auto; }`** — pas de `scroll-behavior: smooth`.
+2. **Barre `#scrollProgress`** — gradient statique ; pas de shimmer ; **`transition: none`** sur `transform`.
+3. **Nav au scroll** — masquage OK ; **pas** de `transition` sur `transform` pour la nav.
+4. **Parallaxe / décor lié au scroll** — **interdit** (ex. `transform` sur `.aurora-bg` via `scrollY`).
+5. **Révélation au scroll** — **interdit** : `IntersectionObserver` pour révéler `.section-enter` / `.step-item` ; contenu **visible au chargement** (animations réservées au hero / loader, pas au défilement).
+6. **Autorisé** sur `scroll` : `scaleX` sur `#scrollProgress` ; classe `nav-hidden`.
+
+## Références code
+
+- `assets/grid.css` — `scroll-behavior`, layout ; bloc **`main.home-landing`** (accueil compact desktop / mobile)
+- `assets/animations.css` — `.scroll-progress`, `.nav`, sections
+- `assets/js/main.js` — pas de parallaxe aurora, pas d’IO sections
+- `index.html` / `tools/home-main.html` — `class="home-landing"` sur `<main>`, **`home-landing__lead`** sur le paragraphe d’intro sous `#parcours`
+
+## Anti-patterns
+
+```css
+/* ❌ */
+html { scroll-behavior: smooth; }
+.scroll-progress { transition: transform 0.2s ease; }
+
+/* ✅ */
+html { scroll-behavior: auto; }
+.scroll-progress { transition: none; }
+```
+
+```js
+// ❌ IntersectionObserver pour opacity sur chaque section au scroll
+// ✅ Contenu visible par défaut ; animations limitées au load (hero)
+```

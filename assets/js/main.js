@@ -28,18 +28,44 @@
     );
   }
 
+  /* Ancre dans l’URL (#contenu-principal) : le loader fixe masque la cible au 1er paint ;
+     après retrait du loader, on rescroll pour file:// et HTTPS. */
+  function applyHashScroll() {
+    var h = location.hash;
+    if (!h || h.length < 2) return;
+    var raw;
+    try {
+      raw = decodeURIComponent(h.slice(1).split('&')[0]);
+    } catch (e) {
+      return;
+    }
+    if (!/^[a-zA-Z0-9_-]+$/.test(raw)) return;
+    var el = document.getElementById(raw);
+    if (!el) return;
+    el.scrollIntoView({ behavior: 'auto', block: 'start' });
+  }
+
   /* Loader : retrait au load + secours si une ressource bloque l’événement load */
   function dismissLoader() {
     var loader = document.getElementById('loader');
-    if (!loader || loader.dataset.dismissed === '1') return;
+    if (!loader || loader.dataset.dismissed === '1') {
+      window.setTimeout(applyHashScroll, 0);
+      return;
+    }
     loader.dataset.dismissed = '1';
     loader.classList.add('hidden');
     window.setTimeout(function () {
       if (loader && loader.parentNode) loader.remove();
+      applyHashScroll();
     }, 300);
   }
 
   window.addEventListener('load', dismissLoader);
+  window.addEventListener('load', function () {
+    [450, 900].forEach(function (ms) {
+      window.setTimeout(applyHashScroll, ms);
+    });
+  });
 
   function armLoaderFailsafe() {
     window.setTimeout(dismissLoader, 4000);

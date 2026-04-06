@@ -1,0 +1,33 @@
+# Vérifie que le site statique reste cohérent à chaque push / PR
+name: Site — vérifications
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+permissions:
+  contents: read
+
+jobs:
+  fichiers:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fichiers critiques présents
+        run: |
+          set -e
+          test -f index.html
+          test -f robots.txt
+          test -f sitemap.xml
+          test -f .htaccess
+          test -f SECURITY.md
+          test -f .well-known/security.txt
+
+      - name: Secrets locaux non versionnés (fichiers interdits à la racine)
+        run: |
+          if [ -f .env ]; then echo "::error::.env ne doit pas être commité"; exit 1; fi
+          if [ -f .htpasswd ]; then echo "::error::.htpasswd ne doit pas être commité"; exit 1; fi

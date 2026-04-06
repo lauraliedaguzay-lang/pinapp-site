@@ -93,8 +93,15 @@ html[data-theme="light"] .scroll-progress {
 }
 
 /* ⑤ Nav scroll-aware — zéro transition sur transform (masquage instantané, pas d’effet « scroll smooth ») */
-.nav { transition: background 300ms ease; }
-.nav.nav-hidden { transform: translateY(-100%); }
+.nav {
+  transition-property: background-color, backdrop-filter, border-color, box-shadow;
+  transition-duration: 300ms;
+  transition-timing-function: ease;
+}
+.nav.nav-hidden {
+  transform: translateY(-100%);
+  transition: none;
+}
 
 /* ⑥ Nav link underline */
 .nav-link { position: relative; text-decoration: none; }

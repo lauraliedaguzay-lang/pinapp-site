@@ -9,13 +9,65 @@ function includeHtml(file) {
   return fs.readFileSync(path.join(__dirname, 'html-includes', file), 'utf8');
 }
 
-export function shell(title, desc, ogPath, mainInner, includeLdJson = true) {
+/** Nombre de ../ depuis le dossier du fichier HTML jusqu'à la racine du site (pour file:// et zip). */
+function pathToRootPrefix(file) {
+  const dir = path.dirname(file);
+  if (!dir || dir === '.') return '';
+  const depth = dir.split(/[/\\]/).filter(Boolean).length;
+  return '../'.repeat(depth);
+}
+
+function assetHref(rootPrefix, absPath) {
+  const tail = absPath.replace(/^\//, '');
+  if (!rootPrefix) return tail;
+  return rootPrefix + tail;
+}
+
+/** Chemins /foo/ → relatifs (file:// + déploiement sous-dossier). Racine : sans premier slash. */
+function siteUrl(rootPrefix, pathname) {
+  let hash = '';
+  let x = pathname;
+  const hi = x.indexOf('#');
+  if (hi !== -1) {
+    hash = x.slice(hi);
+    x = x.slice(0, hi);
+  }
+  let query = '';
+  const qi = x.indexOf('?');
+  if (qi !== -1) {
+    query = x.slice(qi);
+    x = x.slice(0, qi);
+  }
+  const raw = x.replace(/^\/+/, '').replace(/\/+$/, '');
+  if (!raw) return (rootPrefix || '') + 'index.html' + query + hash;
+  const lastSeg = raw.split('/').pop() || '';
+  if (/\.[a-z0-9]{2,8}$/i.test(lastSeg)) {
+    return (rootPrefix || '') + raw + query + hash;
+  }
+  return (rootPrefix || '') + raw + '/index.html' + query + hash;
+}
+
+function rewriteBodySiteLinks(html, rootPrefix) {
+  let out = html.replace(/\bhref=(["'])(\/[^"']*)\1/g, (m, q, pth) => {
+    if (pth.startsWith('//')) return m;
+    return 'href=' + q + siteUrl(rootPrefix, pth) + q;
+  });
+  out = out.replace(/\bsrc=(["'])(\/[^"']+)\1/g, (m, q, pth) => {
+    if (/^\/\//.test(pth)) return m;
+    return 'src=' + q + assetHref(rootPrefix, pth) + q;
+  });
+  return out;
+}
+
+export function shell(title, desc, ogPath, mainInner, includeLdJson = true, rootPrefix = '') {
+  const a = (p) => assetHref(rootPrefix, p);
+  const u = (p) => siteUrl(rootPrefix, p);
   return `<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="theme-color" id="pinapp-theme-color" content="#050A14">
-  <script src="/assets/js/theme-init.js"></script>
+  <script src="${a('/assets/js/theme-init.js')}"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>${title}</title>
   <meta name="description" content="${desc.replace(/"/g, '&quot;')}">
@@ -25,11 +77,11 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true) {
   <meta property="og:url" content="https://pinapp.fr${ogPath}">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/variables.css">
-  <link rel="stylesheet" href="/assets/grid.css">
-  <link rel="stylesheet" href="/assets/animations.css">
+  <link rel="icon" type="image/svg+xml" href="${a('/favicon.svg')}">
+  <link rel="preload" href="${a('/assets/fonts/inter-var.woff2')}" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="${a('/assets/variables.css')}">
+  <link rel="stylesheet" href="${a('/assets/grid.css')}">
+  <link rel="stylesheet" href="${a('/assets/animations.css')}">
   ${includeLdJson ? `<script type="application/ld+json">
   {"@context":"https://schema.org","@type":"ProfessionalService","name":"Pinapp Studio","founder":{"@type":"Person","name":"Lauralie Daguzay"},"email":"lauralie.daguzay@pinapp.fr","url":"https://pinapp.fr","sameAs":"https://www.linkedin.com/in/lauralie-daguzay-4a4542197/"}
   </script>` : ''}
@@ -48,15 +100,15 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true) {
   <div class="noise-overlay" aria-hidden="true"></div>
   <nav class="nav" id="mainNav" role="navigation">
     <div class="container nav-inner">
-      <a href="/" class="pinapp-breathe nav-logo" aria-label="Pinapp Studio — accueil">
-        <img src="/assets/images/pinapp-logo.png" alt="Pinapp" width="200" height="60" decoding="async" class="nav-logo-img">
+      <a href="${u('/')}" class="pinapp-breathe nav-logo" aria-label="Pinapp Studio — accueil">
+        <img src="${a('/assets/images/pinapp-logo.png')}" alt="Pinapp" width="200" height="60" decoding="async" class="nav-logo-img">
       </a>
       <div class="nav-links">
-        <a href="/pourquoi-pinapp/" class="nav-link" style="font-size:14px;opacity:0.8;" title="Pourquoi Pinapp">Pourquoi</a>
-        <a href="/comment-ca-marche/" class="nav-link" style="font-size:14px;opacity:0.8;">Comment ça marche</a>
-        <a href="/offres/" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
-        <a href="/realisations/" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
-        <a href="/diagnostic/" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Diagnostic offert</a>
+        <a href="${u('/pourquoi-pinapp/')}" class="nav-link" style="font-size:14px;opacity:0.8;" title="Pourquoi Pinapp">Pourquoi</a>
+        <a href="${u('/comment-ca-marche/')}" class="nav-link" style="font-size:14px;opacity:0.8;">Comment ça marche</a>
+        <a href="${u('/offres/')}" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
+        <a href="${u('/realisations/')}" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
+        <a href="${u('/diagnostic/')}" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Diagnostic offert</a>
       </div>
       <div class="nav-trailing">
         <button type="button" class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
@@ -72,23 +124,23 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true) {
   <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" role="dialog" aria-label="Menu" aria-modal="true">
     <div class="mobile-drawer-panel">
       <button type="button" id="drawerClose" aria-label="Fermer le menu">×</button>
-      <a href="/pourquoi-pinapp/">Pourquoi Pinapp</a>
-      <a href="/comment-ca-marche/">Comment ça marche</a>
-      <a href="/offres/">Offres</a>
-      <a href="/realisations/">Réalisations</a>
-      <a href="/confiance/">Confiance</a>
-      <a href="/votre-projet/">Votre projet</a>
-      <a href="/faq/">FAQ</a>
-      <a href="/auralis/">Auralis RH</a>
-      <a href="/diagnostic/">Diagnostic offert</a>
-      <a href="/a-propos/">À propos</a>
+      <a href="${u('/pourquoi-pinapp/')}">Pourquoi Pinapp</a>
+      <a href="${u('/comment-ca-marche/')}">Comment ça marche</a>
+      <a href="${u('/offres/')}">Offres</a>
+      <a href="${u('/realisations/')}">Réalisations</a>
+      <a href="${u('/confiance/')}">Confiance</a>
+      <a href="${u('/votre-projet/')}">Votre projet</a>
+      <a href="${u('/faq/')}">FAQ</a>
+      <a href="${u('/auralis/')}">Auralis RH</a>
+      <a href="${u('/diagnostic/')}">Diagnostic offert</a>
+      <a href="${u('/a-propos/')}">À propos</a>
     </div>
   </div>
   <div class="bottom-bar" role="navigation" aria-label="Navigation mobile">
-    <a href="/">Accueil</a>
-    <a href="/offres/">Offres</a>
-    <a href="/realisations/">Réalisations</a>
-    <a href="/diagnostic/">Diagnostic</a>
+    <a href="${u('/')}">Accueil</a>
+    <a href="${u('/offres/')}">Offres</a>
+    <a href="${u('/realisations/')}">Réalisations</a>
+    <a href="${u('/diagnostic/')}">Diagnostic</a>
   </div>
   <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
 ${mainInner}
@@ -101,11 +153,11 @@ ${mainInner}
         <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
       </div>
       <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;">
-        <a href="/legal/mentions.html">Mentions légales</a>
-        <a href="/legal/cgv.html">CGV</a>
-        <a href="/legal/confidentialite.html">Confidentialité</a>
-        <a href="/legal/accessibilite.html">Accessibilité</a>
-        <a href="/legal/ethique.html">Éthique</a>
+        <a href="${u('/legal/mentions.html')}">Mentions légales</a>
+        <a href="${u('/legal/cgv.html')}">CGV</a>
+        <a href="${u('/legal/confidentialite.html')}">Confidentialité</a>
+        <a href="${u('/legal/accessibilite.html')}">Accessibilité</a>
+        <a href="${u('/legal/ethique.html')}">Éthique</a>
       </div>
       <span style="width:100%;text-align:center;font-size:var(--text-label);color:var(--accent-teal);opacity:0.6;letter-spacing:0.12em;">PINAPP AU CONCOURS LÉPINE 2026</span>
     </div>
@@ -119,7 +171,7 @@ ${mainInner}
       </div>
     </div>
   </div>
-  <script src="/assets/js/main.js" defer></script>
+  <script src="${a('/assets/js/main.js')}" defer></script>
 </body>
 </html>`;
 }
@@ -700,6 +752,12 @@ const pages = [
 for (const p of pages) {
   const dir = path.join(root, path.dirname(p.file));
   fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(path.join(root, p.file), shell(p.title, p.desc, p.og, p.body), 'utf8');
+  const rootPrefix = pathToRootPrefix(p.file);
+  const body = rewriteBodySiteLinks(p.body, rootPrefix);
+  fs.writeFileSync(
+    path.join(root, p.file),
+    shell(p.title, p.desc, p.og, body, true, rootPrefix),
+    'utf8'
+  );
   console.log('Wrote', p.file);
 }

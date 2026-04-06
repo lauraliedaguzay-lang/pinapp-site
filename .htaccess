@@ -1,3 +1,6 @@
+# Pas de listing de répertoires
+Options -Indexes
+
 # HTTPS forcé
 RewriteEngine On
 RewriteCond %{HTTPS} off
@@ -19,20 +22,33 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
   ExpiresByType image/svg+xml "access plus 1 month"
 </IfModule>
 
-# Protection dashboard
-<Files "dashboard">
+# Protection /dashboard/ (Apache 2.4+ — <Files "dashboard"> ne couvre pas le dossier)
+# Remplacez AuthUserFile par le chemin ABSOLU du .htpasswd sur votre hébergement (hors dépôt Git).
+<If "%{REQUEST_URI} =~ m#^/dashboard(/|$)#">
   AuthType Basic
   AuthName "Pinapp"
-  AuthUserFile /home/.htpasswd
+  AuthUserFile "/home/.htpasswd"
   Require valid-user
-</Files>
+</If>
 
-# iframes démo autorisées depuis pinapp.fr
-Header set Content-Security-Policy "frame-ancestors 'self' https://pinapp.fr"
+# --- Content-Security-Policy (Pinapp) ---
+# Compat : styles inline massifs ; scripts inline (JSON-LD accueil + config démos sectorielles) ;
+# bruit SVG en data: dans le CSS ; iframe démos sur /realisations/ (même origine).
+# Plausible : script + envoi d’événements sur https://plausible.io (retirer si vous n’activez pas l’outil).
+# Domaine Plausible personnalisé : ajoutez-le dans script-src et connect-src (ex. https://analytics.pinapp.fr).
+# Webhooks (Make, Brevo, etc.) : ajoutez l’URL HTTPS exacte dans connect-src quand vous branchez les formulaires.
+# Durcir plus tard : nonces + externaliser la config démo → retirer 'unsafe-inline' pour script-src.
+Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self' https://pinapp.fr; frame-src 'self'; script-src 'self' 'unsafe-inline' https://plausible.io; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://plausible.io; form-action 'self'; upgrade-insecure-requests;"
+
+# APIs navigateur inutiles ici (réduit la surface)
+Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=()"
 
 # Headers sécurité
 Header always set X-Content-Type-Options "nosniff"
 Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set X-Frame-Options "SAMEORIGIN"
+# Décommenter après validation HTTPS stable (sinon risque de bloquer des sous-domaines de test)
+# Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 
 # 404 custom
 ErrorDocument 404 /404.html

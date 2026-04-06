@@ -7,13 +7,23 @@ while ($listener.IsListening) {
   $req = $ctx.Request
   $res = $ctx.Response
   $p = $req.Url.LocalPath
-  if ($p -eq '/' -or $p -eq '') { $p = '/index.html' }
-  $rel = $p.TrimStart('/').Replace('/', [IO.Path]::DirectorySeparatorChar)
-  $file = [IO.Path]::GetFullPath((Join-Path $root $rel))
+  if ([string]::IsNullOrWhiteSpace($p) -or $p -eq '/') {
+    $p = '/index.html'
+  }
+  # Enlever slash final : /comment-ca-marche/ -> fichier dossier, pas une feuille inexistante
+  $rel = $p.TrimStart('/').TrimEnd('/').Replace('/', [IO.Path]::DirectorySeparatorChar)
+  if ([string]::IsNullOrEmpty($rel)) {
+    $file = [IO.Path]::GetFullPath((Join-Path $root 'index.html'))
+  } else {
+    $file = [IO.Path]::GetFullPath((Join-Path $root $rel))
+  }
   if (-not $file.StartsWith($root, [StringComparison]::OrdinalIgnoreCase)) {
     $res.StatusCode = 403
     $res.Close()
     continue
+  }
+  if (Test-Path $file -PathType Container) {
+    $file = [IO.Path]::GetFullPath((Join-Path $file 'index.html'))
   }
   if (Test-Path $file -PathType Leaf) {
     $bytes = [IO.File]::ReadAllBytes($file)

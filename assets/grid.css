@@ -50,7 +50,48 @@ html[data-theme='dark'] body {
   opacity: 0.5;
 }
 
+/* Accueil — règle zéro scroll (cf. .cursor/rules/pinapp-zero-scroll.mdc) */
+@media (min-width: 1024px) {
+  main.home-landing .pinapp-hero-viewport {
+    min-height: auto;
+    padding-top: max(2.5rem, calc(env(safe-area-inset-top, 0px) + 2rem));
+    padding-bottom: var(--space-3);
+  }
+  main.home-landing #parcours.section {
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-4);
+  }
+  main.home-landing #parcours .grid.grid-2 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-2);
+  }
+  main.home-landing #parcours .card {
+    padding: var(--space-3);
+  }
+  main.home-landing #parcours h2 {
+    margin-bottom: var(--space-2);
+  }
+  main.home-landing #parcours .home-landing__lead {
+    margin-bottom: var(--space-4);
+  }
+}
+
 @media (max-width: 767px) {
+  main.home-landing .pinapp-hero-viewport {
+    min-height: auto;
+    padding-top: max(2.5rem, calc(env(safe-area-inset-top, 0px) + 2rem));
+    padding-bottom: var(--space-3);
+  }
+  main.home-landing #parcours.section {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
+  }
+  main.home-landing #parcours .grid.grid-2 {
+    gap: var(--space-2);
+  }
+  main.home-landing #parcours .home-landing__lead {
+    margin-bottom: var(--space-4) !important;
+  }
   input,
   textarea,
   select {
@@ -136,6 +177,11 @@ input, textarea {
 .stack-above-bg {
   position: relative;
   z-index: 1;
+}
+
+/* Ancre #contenu-principal : éviter que le titre passe sous la nav fixe */
+main#contenu-principal {
+  scroll-margin-top: calc(4.75rem + env(safe-area-inset-top, 0px));
 }
 
 /* --- Mobile d’abord (largeur type ~390px) --- */

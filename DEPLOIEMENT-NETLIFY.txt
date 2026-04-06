@@ -6,6 +6,15 @@ PROBLÈME SI TU VOIS UNE PAGE BLANCHE OU SANS STYLE
   → Souvent il manque le dossier "assets" ou les sous-pages sur Netlify.
   → Il faut déployer TOUT le site d’un coup (voir ci-dessous).
 
+OUVRIR UN .HTML EN LOCAL (double-clic / file://)
+  → Les liens commençant par / pointent vers la racine du disque : sans serveur HTTP,
+    le CSS et le JS ne se chargent pas (page blanche ou sans mise en forme).
+  → Ce dépôt utilise des chemins relatifs (assets/..., ../...) pour que l’aperçu local
+    fonctionne depuis n’importe quel sous-dossier.
+  → Après modification des pages avec node tools/build-pages.mjs, relancer si besoin :
+    powershell -File tools\patch-local-file-urls.ps1
+  → Alternative : lancer un petit serveur statique à la racine pinapp-site (Live Server, etc.).
+
 ÉTAPE 1 — Créer le ZIP sur ton PC
   - Double-clique ou exécute :  pinapp-site\tools\package-netlify.ps1
   - Le fichier est créé ici :  C:\Users\laura\Downloads\pinapp-site-NETLIFY-COMPLET.zip
