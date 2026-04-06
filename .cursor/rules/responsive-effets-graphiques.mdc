@@ -1,0 +1,89 @@
+---
+description: Effets graphiques identiques PC et téléphone — fonds Avatar jour/nuit, halos, aurora, orbes
+globs: assets/**/*.css, assets/**/*.js, **/*.html
+alwaysApply: false
+---
+
+# Cohérence graphique PC ↔ Téléphone
+
+Le fond (bg-sombre.png / bg-clair.png) et les effets bioluminescents **doivent avoir le même rendu sur grand et petit écran**.
+
+## Règle principale : ne jamais supprimer un effet dans @media (hover: hover)
+
+`@media (hover: hover)` peut enrichir un effet au survol, mais **ne doit pas être le seul endroit** où il est défini. L'effet de base doit exister en dehors, pour tous les appareils.
+
+```css
+/* ❌ MAUVAIS — halo visible seulement sur PC */
+@media (hover: hover) {
+  .card:hover {
+    box-shadow: 0 0 40px rgba(62,235,214,0.1);
+  }
+}
+
+/* ✅ BON — halo présent partout, renforcé au survol */
+.card {
+  box-shadow: 0 0 20px rgba(62,235,214,0.08);
+}
+@media (hover: hover) {
+  .card:hover {
+    box-shadow: 0 0 40px rgba(62,235,214,0.14);
+  }
+}
+```
+
+## Aurora et orbes de section
+
+Les classes `.aurora-bg` et `.section::after` s'appliquent à tous les écrans.  
+Ne jamais les désactiver via `@media (min-width: …)` seul.
+
+```css
+/* ❌ MAUVAIS */
+@media (min-width: 900px) {
+  .aurora-bg { display: block; }
+}
+
+/* ✅ BON — présent partout, ajusté en taille si besoin */
+.aurora-bg { display: block; }
+.section::after {
+  width: min(80vw, 26rem);  /* s'adapte naturellement */
+}
+```
+
+## Palette de couleurs — toujours via les tokens
+
+Ne jamais écrire de couleurs hex brutes dans les effets. Utiliser les variables :
+
+| Effet | Token dark | Token light |
+|-------|-----------|-------------|
+| Halo teal | `rgba(62,235,214, x)` | `rgba(10,143,130, x)` |
+| Halo bleu | `rgba(107,158,255, x)` | `rgba(75,111,214, x)` |
+| Halo vert | `rgba(74,232,138, x)` | `rgba(42,155,94, x)` |
+| Accent | `var(--accent-teal)` | `var(--accent-teal)` |
+
+```css
+/* ❌ MAUVAIS */
+box-shadow: 0 0 30px #00E5CC;
+
+/* ✅ BON */
+box-shadow: 0 0 30px rgba(62, 235, 214, 0.14);
+```
+
+## background-attachment sur mobile
+
+iOS ne supporte pas `fixed` de manière fiable. Le repli est déjà géré dans `variables.css` :
+
+```css
+@supports (-webkit-touch-callout: none) {
+  body { background-attachment: scroll; }
+}
+```
+
+Ne pas supprimer ce bloc. Sur mobile le fond sera `scroll` — c'est normal et intentionnel.
+
+## Vérification rapide
+
+Après tout ajout d'effet visuel, vérifier :
+- [ ] L'effet existe **sans** `@media (hover: hover)`
+- [ ] Les couleurs utilisent les rgba du tableau ci-dessus (jamais d'hex `#00E5CC`, `#7B4FE8`, etc.)
+- [ ] Le mode clair a son équivalent dans `html[data-theme="light"]` et `@media (prefers-color-scheme: light)`
+- [ ] Le bloc `@supports (-webkit-touch-callout: none)` est intact dans `variables.css`
