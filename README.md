@@ -44,7 +44,11 @@ npm install
 npm run dev
 ```
 
-Ouvrir l’URL affichée (souvent `http://localhost:5173/`). Les pages profondes fonctionnent en MPA (`/offres/index.html`, etc.).
+- La fenêtre du terminal doit **rester ouverte** : sinon le navigateur affiche **ERR_CONNECTION_REFUSED**.  
+- URL : **`http://127.0.0.1:5173/`** ou `http://localhost:5173/` (le serveur écoute sur toutes les interfaces).  
+- **Windows** : `powershell -ExecutionPolicy Bypass -File tools\dev-vite.ps1` (vérifie Node, lance `npm install` si besoin, puis Vite).
+
+Les pages profondes fonctionnent en MPA (`/offres/index.html`, etc.).
 
 - `npm run format` — formater le dépôt (vérifiez le diff avant commit).
 - `npm run format:check` — contrôle sans écrire (adaptable en CI).

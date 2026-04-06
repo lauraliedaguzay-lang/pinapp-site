@@ -11,7 +11,10 @@ export default defineConfig({
   appType: 'mpa',
   root: __dirname,
   server: {
+    // Écoute sur toutes les interfaces (IPv4 + IPv6) : évite refused si localhost/127.0.0.1 ne matche pas
+    host: true,
     port: 5173,
     strictPort: false,
+    open: '/index.html',
   },
 });
