@@ -33,7 +33,17 @@ Après chaque push sur **`main`**, le workflow **Déployer GitHub Pages** publie
 
 1. Sur GitHub : **Settings → Pages** → **Build and deployment** : source **GitHub Actions** (pas « Deploy from a branch »).
 2. Au premier déploiement, autorisez l’environnement **`github-pages`** si GitHub le demande.
-3. URL du site : **[https://lauraliedaguzay-lang.github.io/pinapp-site/](https://lauraliedaguzay-lang.github.io/pinapp-site/)**
+3. URL du site : **[https://lauraliedaguzay-lang.github.io/pinapp-site/](https://lauraliedaguzay-lang.github.io/pinapp-site/)**  
+   - Ouvrir **exactement** ce lien (avec **`/pinapp-site/`**).  
+   - **`https://lauraliedaguzay-lang.github.io/`** seul → **404** (normal : ce n’est pas un site « utilisateur » à la racine).
+
+### Si vous voyez encore une 404
+
+1. **Settings → Pages** : la source doit être **GitHub Actions**, pas « Deploy from a branch ».
+2. **Actions** : le workflow **Déployer GitHub Pages** doit être vert ; en cas d’échec, ouvrir le log du job **deploy**.
+3. **Environnement** : au premier déploiement, valider **`github-pages`** dans **Settings → Environments** si une protection est activée.
+4. Dépôt **privé** sur compte gratuit : vérifiez la [doc GitHub Pages](https://docs.github.com/pages) (visibilité du site).
+5. Relancer manuellement : **Actions → Déployer GitHub Pages → Run workflow**.
 
 Les fichiers **`.htaccess`** (Apache) ne s’appliquent pas sur Pages ; pour la prod **pinapp.fr**, utilisez **Hostinger** (ou équivalent) avec le ZIP ou le FTP.
 

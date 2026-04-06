@@ -1,11 +1,13 @@
 # Déploiement automatique sur GitHub Pages à chaque push sur main.
-# À activer une fois : dépôt → Settings → Pages → Build : GitHub Actions.
-# URL : https://lauraliedaguzay-lang.github.io/pinapp-site/
+# À activer une fois : dépôt → Settings → Pages → Source : GitHub Actions (obligatoire).
+# URL exacte du site projet : https://lauraliedaguzay-lang.github.io/pinapp-site/
+# (sans /pinapp-site/ à la fin → 404, car ce n’est pas un site utilisateur *.github.io racine)
 name: Déployer GitHub Pages
 
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -26,6 +28,7 @@ jobs:
       - name: Préparer le dossier publiable (sans outils / config IDE)
         run: |
           mkdir -p _site
+          # Source avec / final = contenu du dépôt à la racine du site (pas de dossier . imbriqué)
           rsync -a \
             --exclude='.git/' \
             --exclude='.github/' \
@@ -33,12 +36,22 @@ jobs:
             --exclude='.cursor/' \
             --exclude='.cursorrules' \
             --exclude='.gitattributes' \
+            --exclude='_site/' \
             ./ _site/
+          # Évite tout traitement Jekyll côté Pages (fichiers / dossiers avec _ en tête)
+          touch _site/.nojekyll
+          echo "—— Contenu publié (extrait) ——"
+          ls -la _site | head -25
+          test -f _site/index.html || (echo "::error::index.html manquant dans _site"; exit 1)
+          test -f _site/assets/variables.css || (echo "::error::assets/variables.css manquant"; exit 1)
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: _site
+          name: github-pages
+          # Sinon .nojekyll et .well-known/ sont exclus → Jekyll / security.txt cassés
+          include-hidden-files: true
 
   deploy:
     needs: build
