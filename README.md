@@ -27,6 +27,30 @@ git remote set-url origin https://github.com/lauraliedaguzay-lang/pinapp-site.gi
 git push -u origin main
 ```
 
+## Outils de développement (frameworks / chaîne locale)
+
+Le site reste **HTML + CSS + JS vanilla** en production (pas de React/Vue). La chaîne npm sert au **confort local** :
+
+| Outil | Rôle |
+|--------|------|
+| **[Vite](https://vitejs.dev/)** | Serveur de dev multi-pages (`appType: 'mpa'`), rechargement rapide, chemins comme en HTTP réel. |
+| **[Prettier](https://prettier.io/)** | Formatage optionnel HTML/CSS/JS/JSON/YAML. |
+
+**Prérequis :** [Node.js 20+](https://nodejs.org/)
+
+```bash
+cd pinapp-site
+npm install
+npm run dev
+```
+
+Ouvrir l’URL affichée (souvent `http://localhost:5173/`). Les pages profondes fonctionnent en MPA (`/offres/index.html`, etc.).
+
+- `npm run format` — formater le dépôt (vérifiez le diff avant commit).
+- `npm run format:check` — contrôle sans écrire (adaptable en CI).
+
+**Important :** le déploiement (Hostinger, GitHub Pages, ZIP Netlify) continue d’utiliser les **fichiers sources** tels quels ; il n’y a **pas** d’étape `vite build` en prod pour éviter tout conflit avec le dossier `assets/` existant.
+
 ## Déploiement prévisualisation (GitHub Pages)
 
 Après chaque push sur **`main`**, le workflow **Déployer GitHub Pages** publie le site.
