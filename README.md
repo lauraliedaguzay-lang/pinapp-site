@@ -27,9 +27,20 @@ git remote set-url origin https://github.com/lauraliedaguzay-lang/pinapp-site.gi
 git push -u origin main
 ```
 
-## Déploiement production
+## Déploiement prévisualisation (GitHub Pages)
+
+Après chaque push sur **`main`**, le workflow **Déployer GitHub Pages** publie le site.
+
+1. Sur GitHub : **Settings → Pages** → **Build and deployment** : source **GitHub Actions** (pas « Deploy from a branch »).
+2. Au premier déploiement, autorisez l’environnement **`github-pages`** si GitHub le demande.
+3. URL du site : **[https://lauraliedaguzay-lang.github.io/pinapp-site/](https://lauraliedaguzay-lang.github.io/pinapp-site/)**
+
+Les fichiers **`.htaccess`** (Apache) ne s’appliquent pas sur Pages ; pour la prod **pinapp.fr**, utilisez **Hostinger** (ou équivalent) avec le ZIP ou le FTP.
+
+## Déploiement production (pinapp.fr)
 
 - Hébergement type **Hostinger** (Apache) : uploader le contenu du dossier à la racine du domaine, en conservant **`.htaccess`** à la racine.
+- ZIP complet pour Netlify manuel : `powershell -File tools\package-netlify.ps1` (voir `DEPLOIEMENT-NETLIFY.txt`).
 - Vérifiez que **`/.well-known/security.txt`** est accessible en HTTPS.
 - Ne déployez **jamais** `.htpasswd` ni `.env` via le dépôt : créez le fichier mot de passe **uniquement sur le serveur**.
 
