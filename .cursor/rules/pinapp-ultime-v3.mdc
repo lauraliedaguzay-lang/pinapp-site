@@ -1,0 +1,189 @@
+---
+description: PINAPP — Règles absolues v3 (design, contenu, technique, Avatar) — référence permanente
+alwaysApply: true
+---
+
+# PINAPP — RÈGLES ABSOLUES v3
+
+## Contenu — zéro exception
+
+- Zéro "Lépine" dans le rendu visible
+- Zéro codes HEX visibles (#E8760A etc.)
+- Zéro "Chaque étape a sa page"
+- Zéro "3 opportunités" → "des idées concrètes"
+- Zéro "Vous récoltez" → "Ça tourne"
+- Zéro "Conceptrice d'Auralis RH" dans le hero
+- Zéro "téléphone" → "Google Meet"
+- Zéro placeholder visible
+- Zéro fond blanc opaque
+
+## Design — zéro exception
+
+- Texte `#FFFFFF` dans les **deux** modes — absolu
+- Overlay nuit : `rgba(4,8,18,0.38)` / Overlay jour : `rgba(4,8,18,0.58)`
+- Glassmorphism sur **toutes** les surfaces
+- Teal : labels + logo + barres uniquement
+- Violet : 1 seul CTA primaire par page
+- Vert : barres de progression uniquement
+- Breathe 4s : logo + CTA principal uniquement
+- **1 effet signature par page** — pas 15
+
+## Technique — zéro exception
+
+- Vanilla JS — zéro framework
+- `height: 100svh` — jamais `100vh`
+- Animer uniquement : `transform` · `opacity` · `filter`
+- `{ passive: true }` sur tous les scroll listeners
+- `will-change` : ajouté avant · `auto` après animation
+- `rel="noopener noreferrer"` sur tous les liens externes
+- `font-size` minimum `16px` sur tous les inputs
+- `prefers-reduced-motion` respecté partout
+- `transform: translateZ(0)` sur tout ce qui a `backdrop-filter`
+- Maximum **3 éléments** avec `backdrop-filter` visibles simultanément mobile
+
+## Règle Avatar (signature)
+
+> Si le visiteur **remarque** un effet → trop fort
+> Si le site semble **vivant sans qu'on sache pourquoi** → réussi
+
+---
+
+## Design System — tokens de référence
+
+```css
+/* COULEURS */
+--teal:   #00E5CC; /* labels · logo · barres */
+--violet: #7B4FE8; /* CTA primaire uniquement */
+--green:  #39E075; /* barres progression */
+--text:   #FFFFFF; /* toujours */
+--text-2: rgba(255,255,255,0.72);
+--text-3: rgba(255,255,255,0.50);
+--text-4: rgba(255,255,255,0.30);
+
+/* GLASSMORPHISM */
+--glass-nav:   rgba(4,8,18,0.55);
+--glass-card:  rgba(255,255,255,0.05);
+--glass-tag:   rgba(255,255,255,0.03);
+--glass-modal: rgba(4,8,18,0.82);
+--blur-nav:    blur(20px) saturate(160%);
+--blur-card:   blur(40px) saturate(180%) brightness(105%);
+--blur-modal:  blur(60px) saturate(200%);
+
+/* OMBRES */
+--shadow-sm:  0 2px 8px rgba(0,0,0,0.15);
+--shadow-md:  0 8px 24px rgba(0,0,0,0.20), 0 0 0 1px rgba(255,255,255,0.06);
+--shadow-lg:  0 24px 48px rgba(0,0,0,0.28), 0 0 0 1px rgba(255,255,255,0.08);
+--shadow-xl:  0 40px 80px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.10);
+--glow-teal:  0 0 24px rgba(0,229,204,0.25), 0 0 48px rgba(0,229,204,0.12);
+--glow-violet:0 0 24px rgba(123,79,232,0.30), 0 0 48px rgba(123,79,232,0.15);
+
+/* BORDER RADIUS */
+--r-xs:6px; --r-sm:10px; --r-md:14px;
+--r-lg:20px; --r-xl:28px; --r-pill:100px;
+
+/* TYPOGRAPHIE */
+--hero: clamp(52px,9vw,110px);
+--h1:   clamp(36px,5vw,72px);
+--h2:   clamp(24px,3vw,44px);
+--h3:   clamp(18px,2vw,28px);
+--body: 16px; --label: 11px;
+
+/* ESPACEMENT */
+--s1:8px; --s2:16px; --s3:24px; --s4:32px;
+--s5:48px; --s6:64px; --s7:80px; --s8:120px; --s9:160px;
+
+/* TIMING */
+--t-micro:   80ms  cubic-bezier(0.25,0.1,0.25,1);
+--t-hover:   200ms cubic-bezier(0.25,0.1,0.25,1);
+--t-std:     300ms cubic-bezier(0.25,0.1,0.25,1);
+--t-reveal:  600ms cubic-bezier(0.25,0.1,0.25,1);
+--t-page:    500ms cubic-bezier(0.77,0,0.18,1);
+--t-breathe: 4s ease-in-out infinite;
+```
+
+## Fond (mode-nuit / mode-jour)
+
+```css
+body.mode-nuit, body:not(.mode-jour) {
+  background-image: url('/assets/images/bg-sombre.webp');
+}
+body.mode-jour {
+  background-image: url('/assets/images/bg-clair.webp');
+}
+/* Overlay — NE PAS MODIFIER les valeurs */
+body:not(.mode-jour)::before { background: rgba(4,8,18,0.38); }
+body.mode-jour::before       { background: rgba(4,8,18,0.58); }
+```
+
+## Carte (glassmorphism Apple)
+
+```css
+.card {
+  background: var(--glass-card);
+  backdrop-filter: blur(40px) saturate(180%) brightness(105%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%) brightness(105%);
+  border: 1px solid var(--border-card);
+  border-radius: var(--r-lg);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), var(--shadow-lg);
+  transform: translateZ(0);
+}
+/* Reflet supérieur Apple */
+.card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:45%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 100%);
+  pointer-events: none;
+}
+```
+
+## Bouton primaire — 1 seul par page
+
+```css
+.btn-primary {
+  background: var(--violet);
+  color: #FFFFFF;
+  box-shadow: var(--glow-violet);
+  animation: breathe var(--t-breathe);
+  border-radius: var(--r-pill);
+}
+/* ❌ Jamais 2 .btn-primary sur une même page */
+```
+
+## Textes protégés — NE JAMAIS TOUCHER
+
+```
+"Vous repoussez ce qui s'accumule.
+ Pinapp prépare. Vous décidez. C'est réglé."
+"Ce n'est pas un problème d'organisation."
+"Pas de présentation. Pas de pitch."
+```
+
+## Anti-flash (dans chaque <head> avant le CSS)
+
+```html
+<script>(function(){
+  const s=localStorage.getItem('pinapp-mode');
+  const d=window.matchMedia('(prefers-color-scheme:dark)').matches;
+  const m=s||(d?'nuit':'jour');
+  document.documentElement.setAttribute('data-mode',m);
+  document.body&&document.body.classList.add('mode-'+m);
+  document.addEventListener('DOMContentLoaded',function(){
+    document.body.classList.add('mode-'+m);
+  });
+})();</script>
+```
+
+## Décisions stratégiques intégrées
+
+```
+① PRIX DE LANCEMENT — 3 premiers clients :
+   Site : 700€ · Auto : 600€ · Système : 1200€
+   Badge "Prix fondateur — 3 places" sur /offres/
+
+② POSITIONNEMENT :
+   "Je construis des systèmes — pas des sites."
+   Auralis + Mémoire & Présence = preuves réelles.
+
+③ TRANSPARENCE CGV :
+   "Certaines communications initiales peuvent être préparées
+   par des outils IA et validées par Lauralie avant envoi."
+```

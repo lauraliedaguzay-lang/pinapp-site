@@ -1,4 +1,4 @@
-/* PINAPP — variables.css v4.7 — modernité Apple : scale display, spring timing, radius uniforme */
+/* PINAPP — variables.css v4.8 — design system ultime v3 (texte blanc absolu, overlay Avatar, glass) */
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:ital,wght@0,400;0,500;0,600;1,400&display=swap');
 
@@ -61,52 +61,46 @@ html[data-theme="dark"] {
   }
 }
 
-/* ----- Tokens mode clair — jour brume / végétation (lisible sur bg-clair) ----- */
+/* ----- Tokens mode clair — overlay sombre v3 → texte #FFF toujours lisible ----- */
 html[data-theme="light"] {
-  color-scheme: light;
-  --bg-primary:     #E8F2EF;
-  --bg-secondary:   #F2F8F6;
-  --bg-card:        rgba(255, 255, 255, 0.78);
-  --bg-overlay:     rgba(236, 248, 244, 0.92);
-  --bg-deep:        #DCEEE8;
-  --text-primary:   #0F2E28;
-  --text-secondary: rgba(15, 46, 40, 0.66);
-  --text-tertiary:  rgba(15, 46, 40, 0.45);
-  --accent-teal:    #0A8F82;
-  --accent-violet:  #4B6FD6;
-  --accent-green:   #2A9B5E;
-  --accent-peach:   #D4927A;
-  --accent-rose:    #E8A896;
-  --accent-blue:    #2A8FA8;
-  --glow-teal:      rgba(10, 143, 130, 0.09);
-  --glow-teal-lg:   rgba(10, 143, 130, 0.04);
-  --separator:      rgba(15, 46, 40, 0.26);
-  --border-card:    rgba(10, 143, 130, 0.14);
-  --nav-bg:         rgba(232, 242, 239, 0.88);
+  color-scheme: dark;
+  --bg-primary:     #050A14;
+  --bg-card:        rgba(255, 255, 255, 0.05);
+  --bg-overlay:     rgba(4, 8, 18, 0.82);
+  --bg-deep:        #07101A;
+  --text-primary:   #FFFFFF;
+  --text-secondary: rgba(255, 255, 255, 0.72);
+  --text-tertiary:  rgba(255, 255, 255, 0.50);
+  --accent-teal:    #00E5CC;
+  --accent-violet:  #7B4FE8;
+  --accent-green:   #39E075;
+  --accent-blue:    #5FD4F0;
+  --glow-teal:      rgba(0, 229, 204, 0.10);
+  --glow-teal-lg:   rgba(0, 229, 204, 0.05);
+  --separator:      rgba(255, 255, 255, 0.08);
+  --border-card:    rgba(255, 255, 255, 0.10);
+  --nav-bg:         rgba(4, 8, 18, 0.55);
 }
 
 @media (prefers-color-scheme: light) {
   html:not([data-theme]) {
-    color-scheme: light;
-    --bg-primary:     #E8F2EF;
-    --bg-secondary:   #F2F8F6;
-    --bg-card:        rgba(255, 255, 255, 0.78);
-    --bg-overlay:     rgba(236, 248, 244, 0.92);
-    --bg-deep:        #DCEEE8;
-    --text-primary:   #0F2E28;
-    --text-secondary: rgba(15, 46, 40, 0.66);
-    --text-tertiary:  rgba(15, 46, 40, 0.45);
-    --accent-teal:    #0A8F82;
-    --accent-violet:  #4B6FD6;
-    --accent-green:   #2A9B5E;
-    --accent-peach:   #D4927A;
-    --accent-rose:    #E8A896;
-    --accent-blue:    #2A8FA8;
-    --glow-teal:      rgba(10, 143, 130, 0.09);
-    --glow-teal-lg:   rgba(10, 143, 130, 0.04);
-    --separator:      rgba(15, 46, 40, 0.26);
-    --border-card:    rgba(10, 143, 130, 0.14);
-    --nav-bg:         rgba(232, 242, 239, 0.88);
+    color-scheme: dark;
+    --bg-primary:     #050A14;
+    --bg-card:        rgba(255, 255, 255, 0.05);
+    --bg-overlay:     rgba(4, 8, 18, 0.82);
+    --bg-deep:        #07101A;
+    --text-primary:   #FFFFFF;
+    --text-secondary: rgba(255, 255, 255, 0.72);
+    --text-tertiary:  rgba(255, 255, 255, 0.50);
+    --accent-teal:    #00E5CC;
+    --accent-violet:  #7B4FE8;
+    --accent-green:   #39E075;
+    --accent-blue:    #5FD4F0;
+    --glow-teal:      rgba(0, 229, 204, 0.10);
+    --glow-teal-lg:   rgba(0, 229, 204, 0.05);
+    --separator:      rgba(255, 255, 255, 0.08);
+    --border-card:    rgba(255, 255, 255, 0.10);
+    --nav-bg:         rgba(4, 8, 18, 0.55);
   }
 }
 
@@ -132,8 +126,8 @@ html[data-theme="dark"] body::before {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  /* Voile nuit : laisse lire le film sur bg-sombre (bioluminescence) */
-  background: rgba(4, 18, 28, 0.52);
+  /* Voile nuit — règle v3 : rgba(4,8,18,0.38) — texte #FFF lisible */
+  background: rgba(4, 8, 18, 0.38);
 }
 
 html[data-theme="light"] body {
@@ -149,8 +143,8 @@ html[data-theme="light"] body::before {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  /* Voile jour : brume alignée sur bg-clair (flore / ciel Pandora) */
-  background: rgba(220, 238, 232, 0.48);
+  /* Voile jour — règle v3 : rgba(4,8,18,0.58) — texte #FFF lisible sur bg-clair */
+  background: rgba(4, 8, 18, 0.58);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -167,7 +161,7 @@ html[data-theme="light"] body::before {
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    background: rgba(4, 18, 28, 0.52);
+    background: rgba(4, 8, 18, 0.38);
   }
 }
 
@@ -185,7 +179,7 @@ html[data-theme="light"] body::before {
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    background: rgba(220, 238, 232, 0.48);
+    background: rgba(4, 8, 18, 0.58);
   }
 }
 
@@ -202,13 +196,39 @@ body, body::before {
               opacity 500ms ease;
 }
 
+/* Tokens v3 — primaires (jamais en dur dans les composants) */
+:root {
+  /* Couleurs accent */
+  --teal:   #00E5CC;
+  --violet: #7B4FE8;
+  --green:  #39E075;
+
+  /* Glassmorphism */
+  --glass-nav:   rgba(4,8,18,0.55);
+  --glass-card:  rgba(255,255,255,0.05);
+  --glass-tag:   rgba(255,255,255,0.03);
+  --glass-modal: rgba(4,8,18,0.82);
+
+  /* Bordures */
+  --border-card:   rgba(255,255,255,0.10);
+  --border-subtle: rgba(255,255,255,0.06);
+
+  /* Ombres */
+  --shadow-sm:  0 2px 8px rgba(0,0,0,0.15);
+  --shadow-md:  0 8px 24px rgba(0,0,0,0.20), 0 0 0 1px rgba(255,255,255,0.06);
+  --shadow-lg:  0 24px 48px rgba(0,0,0,0.28), 0 0 0 1px rgba(255,255,255,0.08);
+  --shadow-xl:  0 40px 80px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.10);
+  --glow-teal:  0 0 24px rgba(0,229,204,0.25), 0 0 48px rgba(0,229,204,0.12);
+  --glow-violet:0 0 24px rgba(123,79,232,0.30), 0 0 48px rgba(123,79,232,0.15);
+}
+
 /* Système 8px */
 :root {
   --space-1: 8px;   --space-2: 16px;
   --space-3: 24px;  --space-4: 32px;
   --space-5: 48px;  --space-6: 64px;
-  --space-7: 80px;  --space-8: 96px;
-  --space-9: 120px;
+  --space-7: 80px;  --space-8: 120px;
+  --space-9: 160px;
 }
 
 /* Border radius — Apple : superellipse douce, cohérente partout */
