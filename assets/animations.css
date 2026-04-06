@@ -1,9 +1,9 @@
-/* PINAPP — animations.css v4.5 — aurora / halos alignés fonds jour·nuit (v4.6) */
+/* PINAPP — animations.css v4.6 — modernité Apple : spring, entrées fluides, glow épuré */
 
-/* ① Respiration signature — logo + CTA */
+/* ① Respiration signature — logo + CTA (Apple : amplitude minimale, rythme lent) */
 @keyframes breathe {
   0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: 0.85; transform: scale(1.008); }
+  50%       { opacity: 0.9; transform: scale(1.005); }
 }
 .pinapp-breathe {
   animation: breathe var(--t-breathe);
@@ -103,15 +103,26 @@ html[data-theme="light"] .scroll-progress {
   transition: none;
 }
 
-/* ⑥ Nav link underline */
-.nav-link { position: relative; text-decoration: none; }
+/* ⑥ Nav link — Apple : soulignement fin 0.5px, opacity au hover */
+.nav-link {
+  position: relative;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  opacity: 0.8;
+  transition: opacity var(--t-hover);
+}
 .nav-link::after {
   content: ''; position: absolute;
-  bottom: -2px; left: 0; width: 0; height: 1px;
+  bottom: -2px; left: 0; width: 0; height: 0.5px;
   background: var(--accent-teal);
-  transition: width var(--t-hover);
+  transition: width var(--t-spring);
 }
-@media (hover: hover) { .nav-link:hover::after { width: 100%; } }
+@media (hover: hover) {
+  .nav-link:hover { opacity: 1; }
+  .nav-link:hover::after { width: 100%; }
+}
 
 /* ⑦ Section entrées — visibles au chargement (pas d’apparition pilotée par le scroll, règle zéro scroll) */
 .section-enter {
@@ -161,17 +172,21 @@ html[data-theme="light"] .scroll-progress {
     0 0 100px rgba(62, 235, 214, 0.06);
 }
 
-/* ⑨ Hero éléments — idem */
+/* ⑨ Hero éléments — spring Apple à l'entrée */
 .hero-el {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity var(--t-enter), transform var(--t-enter);
+  transition:
+    opacity var(--t-enter),
+    transform 560ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 .hero-el.visible { opacity: 1; transform: translateY(0); }
 .hero-cta {
   opacity: 1;
   transform: scale(1);
-  transition: opacity 300ms ease, transform 300ms ease;
+  transition:
+    opacity 320ms cubic-bezier(0.32, 0.72, 0, 1),
+    transform 400ms cubic-bezier(0.175, 0.885, 0.32, 1.05);
 }
 .hero-cta.visible { opacity: 1; transform: scale(1); }
 

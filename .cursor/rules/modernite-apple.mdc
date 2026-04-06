@@ -1,0 +1,95 @@
+---
+description: Modernité Apple — typographie serrée, radius uniforme, spring, cartes vitrées, nav 46px
+globs: assets/**/*.css, **/*.html
+alwaysApply: false
+---
+
+# Modernité Apple (Pinapp)
+
+Le site suit l'esthétique Apple 2024 : espacement généreux, typographie à grand tracking négatif, composants cohérents, transitions spring.
+
+## Typographie
+
+```css
+/* Titres : tracking très serré, line-height compact */
+h1, h2 { letter-spacing: -0.04em; line-height: 1.1; }
+h3, h4  { letter-spacing: -0.025em; line-height: 1.2; }
+
+/* Labels : capitales, tracking large, font-weight 600 */
+.label { letter-spacing: 0.15em; font-weight: 600; text-transform: uppercase; }
+
+/* Corps : antialiasing systématique */
+body { -webkit-font-smoothing: antialiased; }
+```
+
+## Border radius — uniformité totale
+
+| Composant | Token | Valeur |
+|-----------|-------|--------|
+| Carte | `--radius-card-lg` | 24px |
+| Input | `--radius-input` | 12px |
+| Modal / drawer | `--radius-modal` | 28px |
+| Chip / tag | `--radius-chip` | 8px |
+| Bouton | `--radius-pill` | 100px |
+
+```css
+/* ❌ Radius irrégulier — non Apple */
+border-radius: 1.25rem 1.375rem 1.25rem 1.125rem;
+
+/* ✅ Uniforme */
+border-radius: var(--radius-card-lg);
+```
+
+## Cartes — frosted glass Apple
+
+```css
+.card {
+  background: var(--bg-card);
+  backdrop-filter: blur(28px) saturate(170%);
+  -webkit-backdrop-filter: blur(28px) saturate(170%);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-card-lg);
+  /* Reflet supérieur (spécularité) */
+  box-shadow: 0 1px 0 rgba(255,255,255,0.08) inset, …;
+}
+```
+
+## Bouton primaire — une couleur, lumineux
+
+```css
+/* ❌ Gradient arc-en-ciel */
+background: linear-gradient(135deg, teal, blue, violet);
+
+/* ✅ Un seul accent, reflet interne */
+background: var(--accent-teal);
+box-shadow: 0 1px 0 rgba(255,255,255,0.32) inset, 0 2px 12px rgba(62,235,214,0.3);
+```
+
+## Timing — spring obligatoire sur les interactions
+
+```css
+/* Interactions (hover, scale) */
+transition: transform var(--t-spring);     /* 400ms spring */
+
+/* Entrées de composants */
+transition: opacity var(--t-enter), transform 560ms cubic-bezier(0.16,1,0.3,1);
+
+/* ❌ ease ou linear seuls */
+transition: transform 200ms ease;
+```
+
+## Navigation
+
+- Hauteur `2.875rem` (46px — barre Apple)
+- `backdrop-filter: blur(32px) saturate(200%)`
+- Séparateur bas : `0.5px` semi-transparent, pas de barre de couleur vive
+- Liens : `opacity: 0.8`, `font-size: 0.875rem`, soulignement `0.5px` au hover
+
+## Espacement sections
+
+| Breakpoint | `padding` section |
+|------------|------------------|
+| Mobile | `var(--space-7)` = 80px |
+| Tablette 768px+ | `var(--space-8)` = 96px |
+
+Ne jamais descendre sous `--space-6` (64px) pour une section principale.

@@ -1,4 +1,4 @@
-/* PINAPP — variables.css v4.6 — cohérence graphique avec fonds jour/nuit (film Pandora) + typo premium */
+/* PINAPP — variables.css v4.7 — modernité Apple : scale display, spring timing, radius uniforme */
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:ital,wght@0,400;0,500;0,600;1,400&display=swap');
 
@@ -211,23 +211,26 @@ body, body::before {
   --space-9: 120px;
 }
 
-/* Border radius */
+/* Border radius — Apple : superellipse douce, cohérente partout */
 :root {
   --radius-pill:    100px;
-  --radius-card:    16px;
-  --radius-card-lg: 20px;
+  --radius-card:    20px;
+  --radius-card-lg: 24px;
   --radius-input:   12px;
-  --radius-modal:   24px;
+  --radius-modal:   28px;
+  --radius-chip:    8px;
 }
 
-/* Timing */
+/* Timing — Apple : spring sur les interactions, ease-out sur les entrées */
 :root {
-  --t-press:    80ms ease;
-  --t-hover:    200ms cubic-bezier(0.25,0.1,0.25,1);
-  --t-standard: 300ms cubic-bezier(0.25,0.1,0.25,1);
-  --t-enter:    600ms cubic-bezier(0.25,0.1,0.25,1);
+  --t-press:    80ms cubic-bezier(0.32, 0.72, 0, 1);
+  --t-hover:    220ms cubic-bezier(0.32, 0.72, 0, 1);
+  --t-spring:   400ms cubic-bezier(0.175, 0.885, 0.32, 1.05);
+  --t-standard: 320ms cubic-bezier(0.32, 0.72, 0, 1);
+  --t-enter:    560ms cubic-bezier(0.16, 1, 0.3, 1);
+  --t-exit:     260ms cubic-bezier(0.32, 0, 0.67, 0);
   --t-breathe:  4s ease-in-out infinite;
-  --t-aurora:   12s ease infinite;
+  --t-aurora:   14s ease infinite;
 }
 
 /* Spotlight curseur + FX (animations.css) */
@@ -236,16 +239,17 @@ body, body::before {
   --spot-y: 32%;
 }
 
-/* Typographie (rem) */
+/* Typographie — Apple : display imposant, body aéré, labels lisibles */
 :root {
-  --text-hero:  clamp(3rem, 8vw, 6rem);
-  --text-h1:    clamp(2rem, 5vw, 4rem);
-  --text-h2:    clamp(1.5rem, 3vw, 3rem);
-  --text-h3:    clamp(1.125rem, 2vw, 2rem);
-  --text-body:  1rem;
-  --text-label: 0.6875rem;
-  --text-cta:   0.875rem;
-  --text-legal: 0.5625rem;
+  --text-display: clamp(3.75rem, 10vw, 7.5rem);
+  --text-hero:    clamp(2.75rem, 7vw, 5.5rem);
+  --text-h1:      clamp(2rem, 4.5vw, 3.75rem);
+  --text-h2:      clamp(1.5rem, 2.8vw, 2.75rem);
+  --text-h3:      clamp(1.125rem, 1.8vw, 1.875rem);
+  --text-body:    1.0625rem;
+  --text-label:   0.6875rem;
+  --text-cta:     0.9375rem;
+  --text-legal:   0.5625rem;
 }
 
 /* Barres progression — vert */
