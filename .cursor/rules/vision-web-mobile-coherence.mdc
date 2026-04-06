@@ -1,0 +1,26 @@
+---
+description: Vérifier desktop et mobile en parallèle (cohérence nav, calques, breakpoints Pinapp)
+globs: pinapp-site/**/*.{html,css,js}
+alwaysApply: false
+---
+
+# Vision web + mobile simultanée (cohérence)
+
+Lorsque tu touches la mise en page, la navigation, les modales, le loader ou le JS global :
+
+1. **Deux largeurs obligatoires** — Valider **≤ 767 px** (menu hamburger, `.mobile-drawer`, `.bottom-bar`, `nav-hidden` au scroll) et **≥ 768 px** (`.nav-links`, grille large). Référence : `assets/grid.css` (`@media (min-width: 768px)`).
+
+2. **Même itération, deux lectures** — Ne pas livrer un correctif « desktop only » : vérifier CTA visibles, liens cliquables (z-index / `pointer-events` / loader), texte non tronqué, safe areas (`env(safe-area-inset-*)`).
+
+3. **Calques** — Après changement sur `#loader`, `.scroll-progress`, `.nav`, `.mobile-drawer`, bandeaux : confirmer qu’aucune couche plein écran ne laisse des **clics absorbés** quand elle est censée être inactive (`pointer-events`, `.hidden`).
+
+4. **Tokens** — Préférer variables existantes (`assets/variables.css`, `--space-*`, couleurs) plutôt que valeurs magiques dupliquées entre breakpoints.
+
+5. **Contrôle minimal post-diff** — Au moins **accueil** + **une page intérieure** sur les deux largeurs ; si navigation ou pied de page : cohérence libellés / URLs entre menu desktop, drawer et barre du bas.
+
+```text
+❌ Valider uniquement en fenêtre large ou uniquement l’émulateur téléphone sans repasser le desktop.
+✅ Décrire ou tester explicitement les deux contextes (ou signaler l’écart restant à traiter).
+```
+
+Ne pas contredire la règle projet « zéro scroll » Pinapp (`pinapp-site/.cursor/rules/pinapp-zero-scroll.mdc`).

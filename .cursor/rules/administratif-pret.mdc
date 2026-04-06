@@ -1,0 +1,65 @@
+---
+description: Checklist administrative complète — tout ce qui doit être prêt avant mise en ligne d'un site ou lancement d'un service
+alwaysApply: true
+---
+
+# Prêt administratif — règle permanente
+
+**Pinapp :** croiser avec `.cursor/rules/pinapp-veille-rh-admin.mdc` (digests mail, RH assistée) et **ignorer** ci-dessous les items propres à un autre site (ex. Netlify/Michaël) si tu prépares **uniquement** pinapp.fr.
+
+Avant toute mise en production d'un site ou service, vérifier et compléter systématiquement :
+
+## Légal obligatoire (France)
+
+- [ ] **SIRET** (14 chiffres) visible dans le footer de chaque page HTML
+- [ ] **Raison sociale** + forme juridique dans `mentions-legales.html`
+- [ ] **Adresse du siège** dans mentions légales (boîte postale acceptée)
+- [ ] **Directeur de publication** nommé (mentions légales)
+- [ ] **Hébergeur** identifié (nom, adresse, téléphone) dans mentions légales
+- [ ] **Durée d'hébergement** précisée dans les CGV (ex. "5 ans renouvelables")
+- [ ] **Email de contact** opérationnel testé (formulaire + réponse)
+
+## Automatisation CRM (Google Apps Script)
+
+- [ ] `CONFIG.CLAUDE_API_KEY` remplacé par la vraie clé Anthropic
+- [ ] `CONFIG.EMAIL_MICHAEL` remplacé par le vrai email de Michaël
+- [ ] `CONFIG.MON_EMAIL` vérifié = email Gmail actif avec notifications activées
+- [ ] `CONFIG.LABEL_SUIVI` = label "MP-Suivi" créé dans Gmail
+- [ ] `installTrigger()` exécuté une fois → déclencheur actif toutes les 5 min
+- [ ] Test `testAccompagnement()` exécuté → brouillon reçu dans Gmail ✓
+- [ ] Test `testSuivi()` exécuté → suivi client fonctionnel ✓
+- [ ] Filtre Gmail créé : objet contient "🔔 MP —" → label "MP-Notifs"
+- [ ] Notifications push Gmail activées sur le téléphone
+
+## Domaine et déploiement
+
+- [ ] Domaine personnalisé acheté et configuré (CNAME → GitHub Pages)
+- [ ] HTTPS actif (GitHub Pages Settings → Pages → Enforce HTTPS)
+- [ ] Fichier `CNAME` présent à la racine du repo
+- [ ] `<link rel="canonical">` mis à jour avec le vrai domaine sur toutes les pages
+- [ ] `og:url` mis à jour avec le vrai domaine sur toutes les pages
+- [ ] `sitemap.xml` généré et soumis à Google Search Console
+- [ ] Google Search Console connecté + propriété vérifiée
+
+## Formulaires et données
+
+- [ ] Formulaires Netlify testés de bout en bout (envoi réel → email reçu → AR automatique envoyé)
+- [ ] `data-netlify="true"` et `name="..."` sur chaque `<form>`
+- [ ] Email de notification Netlify configuré dans le dashboard Netlify
+- [ ] Politique de confidentialité à jour (base légale RGPD, mention Netlify Forms)
+
+## Contenu
+
+- [ ] Pas de `placeholder-inline` visible dans les pages publiques
+- [ ] Photos équipe réelles intégrées (`portrait-lauralie.jpg`, `portrait-michael.jpg`)
+- [ ] Vidéo hommage demo intégrée (URL YouTube/Vimeo non répertoriée)
+- [ ] Galeries hommage remplies (vraies photos ou photos IA générées)
+- [ ] Témoignages annotés "identités modifiées à la demande des familles"
+
+## Règle de vérification automatique
+
+Quand je modifie un fichier HTML, vérifier systématiquement :
+```
+grep "placeholder-inline|à compléter|SIRET.*compléter"
+```
+Si trouvé → signaler et bloquer la mise en prod jusqu'à remplissage.

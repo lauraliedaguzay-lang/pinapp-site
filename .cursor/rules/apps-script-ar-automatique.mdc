@@ -1,0 +1,48 @@
+---
+description: Apps Script — accusé de réception automatique obligatoire dès réception d'un formulaire client
+globs: apps-script/**
+alwaysApply: false
+---
+
+# Accusé de réception automatique (AR)
+
+Dès qu'un formulaire Netlify est reçu, envoyer automatiquement un email court au client
+AVANT que Lauralie ouvre son brouillon. Cela évite l'angoisse du "est-ce qu'ils ont reçu ?"
+
+## Règle
+
+Toujours envoyer l'AR via `GmailApp.sendEmail()` immédiatement après parsing du formulaire,
+avant l'appel Claude et la création du brouillon.
+
+## Ton de l'AR
+
+- Sobre, humain, chaleureux — pas de "votre message a bien été enregistré dans notre système"
+- Mentionner le délai de réponse : sous 24h en général
+- Signer en tant que Lauralie
+- Ne jamais promettre de tarif ni de délai de livraison dans l'AR
+- Si deuil récent détectable (honor_name présent) : ton encore plus doux
+
+## Format
+
+```javascript
+function _sendAutoReply(clientEmail, clientName, formType, hasDefunt) {
+  if (!clientEmail) return; // pas d'email = pas d'AR
+
+  const isAccompagnement = hasDefunt;
+  const subject = isAccompagnement
+    ? 'Nous avons bien reçu votre message — Mémoire & Présence'
+    : 'Votre demande — Mémoire & Présence';
+
+  const body = isAccompagnement
+    ? `Madame, Monsieur,\n\nNous avons bien reçu votre message et nous vous en remercions.\n\nNous savons que ce type de démarche demande un effort particulier. Nous lisons votre demande avec attention et vous répondons en principe sous 24 h.\n\nLauralie\nMémoire & Présence\nmemoirepresence@gmail.com — 07 86 17 37 15`
+    : `Madame, Monsieur,\n\nVotre demande a bien été reçue. Nous vous répondons en principe sous 24 h.\n\nLauralie\nMémoire & Présence\nmemoirepresence@gmail.com — 07 86 17 37 15`;
+
+  GmailApp.sendEmail(clientEmail, subject, body);
+}
+```
+
+## Ce qui reste sous validation Lauralie
+
+- La réponse complète et personnalisée (brouillon Gmail)
+- Le brief Michaël (brouillon séparé)
+- Toute information sur les tarifs ou délais

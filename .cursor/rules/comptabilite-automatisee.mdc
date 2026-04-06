@@ -1,0 +1,63 @@
+---
+description: Pinapp — suivi devis / facturation via Google Sheet + Apps Script ; préfixe factures PP- ; pas de conseil fiscal personnalisé
+alwaysApply: true
+---
+
+# Comptabilité & suivi commercial — Pinapp
+
+## Principe
+
+Un **Google Sheet** centralise le **pipeline commercial** (demandes → devis → commande → facturation → paiement). Les montants sensibles restent saisis ou validés par **Lauralie** ; le script peut **logger** les entrées et **rappeler** les lignes en retard.
+
+**Avertissement** : ce dépôt ne remplace pas un **expert-comptable** ni les **obligations légales** (TVA, statut, facturation). Adapter les mentions (micro / société) avec ton conseil.
+
+## Onglet recommandé : `Pinapp`
+
+| Colonne | Contenu |
+|---------|---------|
+| Date réception | Horodatage auto ou manuel |
+| Nom client | Extrait mail / formulaire |
+| Email client | |
+| Type | CONTACT / DEVIS / FORMATION / SITE / AUTO / IA / AUTRE |
+| Statut | EN ATTENTE / DEVIS ENVOYÉ / ACCEPTÉ / EN COURS / LIVRÉ / ANNULÉ |
+| Montant devis (€) | Saisi / validé par toi |
+| Montant facturé (€) | Idem |
+| Date paiement | Idem |
+| Notes | Libre |
+
+## Numérotation factures Pinapp
+
+- Préfixe suggéré : **PP-AAAA-NNN** (ex. `PP-2026-001`).
+
+## CONFIG Apps Script (exemple)
+
+```javascript
+SHEET_ID  : 'ID_DU_GOOGLE_SHEET',
+SHEET_TAB : 'Pinapp',
+```
+
+## Fonction utilitaire (log ligne)
+
+```javascript
+function _logPinappRow(formData, type) {
+  const ss = SpreadsheetApp.openById(CONFIG.SHEET_ID);
+  const sh = ss.getSheetByName(CONFIG.SHEET_TAB) || ss.insertSheet(CONFIG.SHEET_TAB);
+  sh.appendRow([
+    new Date(),
+    formData.name || formData['Prénom et nom'] || '',
+    formData.email || formData['Email'] || '',
+    type,
+    'EN ATTENTE',
+    '', '', '', ''
+  ]);
+}
+```
+
+## Rappels automatiques (optionnel)
+
+- Lignes **EN ATTENTE** depuis **+7 jours** → e-mail court de rappel à `lauralie.daguzay@pinapp.fr`.
+- Lier au flux **mail Claude** : après label `Pinapp-Devis-accepté`, mettre à jour la colonne Statut (manuel ou script déclenché).
+
+## Liaison veille / admin
+
+- Le digest hebdo **RH & admin** (`docs/automation/DIGESTS-EMAIL-PINAPP.md`) peut inclure : « X lignes sans montant devis » si tu exposes un compteur via Sheets API.

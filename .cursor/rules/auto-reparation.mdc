@@ -1,0 +1,74 @@
+---
+description: Auto-réparation permanente — tout défaut détecté sur n'importe quel site de Laura doit être corrigé immédiatement, sans attendre qu'elle le signale
+alwaysApply: true
+---
+
+# Auto-réparation — règle permanente tous projets
+
+## Principe
+
+Dès qu'un défaut est détecté (pendant une modification, un audit, un déploiement
+ou une lecture de fichier), le corriger immédiatement sans attendre d'instruction.
+Signaler ce qui a été corrigé APRÈS l'avoir fait, pas avant.
+
+## Ce qui déclenche une auto-réparation
+
+### Fichiers HTML
+- `placeholder-inline` ou `À compléter` visible dans une page publique → signaler
+- `aria-current="page"` manquant sur le lien nav actif → corriger
+- `style.css?v=` ou `script.js?v=` non uniforme entre les pages → bumper partout
+- Logo footer différent entre pages → harmoniser
+- Nav hamburger avec plus de 8 liens ou liens internes → nettoyer
+- `<div class="hommage-content__photo">` vide sans image → générer un portrait SVG
+
+### CSS / JS
+- `overflow-x: hidden` sur `html` ET `body` en même temps → retirer de `html`
+- `backdrop-filter: blur()` > 10px sur un élément `position: fixed` mobile → réduire
+- `will-change` absent sur header fixe → ajouter
+- `touch-action: manipulation` absent sur boutons/liens → ajouter
+- Version CSS/JS non synchrone entre pages → bumper uniformément
+
+### Git / Déploiement
+- `gh-pages` désynchronisé avec `main` après un push → re-sync automatique
+- ZIP Netlify obsolète → reconstruire avec `git archive`
+- Lien `canonical` pointant vers un ancien domaine → mettre à jour
+
+### Apps Script / Automatisation
+- Clé API `sk-ant-XXXXXXXX` encore présente → signaler immédiatement
+- `CONFIG.EMAIL_MICHAEL` générique → signaler
+- `DOC_FOLDER_ID` = `XXXXXXXX` → signaler
+- Trigger non installé → proposer `installTrigger()` à exécuter
+
+### Images
+- `<img>` sans `alt`, `width`, `height`, `loading="lazy"`, `decoding="async"` → compléter
+- Portrait hommage absent ou SVG basique → générer avec IA image
+- Photos galerie Swiper avec placeholder "Photo 1…5" → noter dans TODO
+
+### Contenu
+- Lorem ipsum ou texte purement générique → signaler
+- Témoignage sans mention "identités modifiées" → ajouter
+- Données fictives sans disclaimer → ajouter
+
+## Workflow de réparation
+
+```
+1. Détecter le défaut (pendant toute lecture/modification de fichier)
+2. Corriger directement — ne pas demander la permission pour les corrections mineures
+3. Bumper le cache si CSS/JS modifié
+4. Commiter avec un message clair : "Fix : [description courte]"
+5. Pusher + syncer gh-pages si site web
+6. Signaler à Laura : "Corrigé automatiquement : [quoi]"
+```
+
+## Ce qui nécessite validation avant réparation
+
+- Suppression de contenu ou de pages entières
+- Modification du tarif ou d'informations légales
+- Changement de domaine ou d'email de contact
+- Remplacement d'une photo réelle par une IA
+
+## Périmètre : tous les projets
+
+- `memoire-presence-site/` (Mémoire & Présence)
+- `pinapp-site/` (Pinapp)
+- Tout nouveau projet créé dans ce workspace

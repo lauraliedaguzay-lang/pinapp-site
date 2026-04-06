@@ -1,0 +1,40 @@
+---
+description: Pinapp — veille tech par mail, suggestions pour Cursor ; RH & admin assistés (pas de remplacement légal/compta)
+alwaysApply: true
+---
+
+# Veille tech + RH + administratif (Pinapp)
+
+## Ce qui est visé (réaliste)
+
+- **E-mails de synthèse** (hebdo ou en cas d’alerte) : nouveautés utiles pour **pinapp-site** (stack : HTML statique, CSS tokens, JS vanilla, GitHub Actions, évent. Vite en dev, APIs Claude, Apps Script).
+- Chaque message inclut **3 à 5 suggestions actionnables** + **prompt type** à coller dans **Cursor** pour demander une mise à jour du code.
+- **RH & admin** : **rappels**, **checklists**, **brouillons** (mails, courriers), **classement Drive** — pas d’exécution silencieuse d’obligations légales à ta place.
+
+## Ce qui n’est **pas** automatisable par un script + LLM (France)
+
+- Dépôt de **DPAE**, **bulletins de paie**, **déclarations fiscales/sociales** définitives : **expert-comptable / logiciel agréé / toi** avec signature.
+- **Contrats** qui t’engagent : relecture humaine obligatoire.
+- **Claude / Cursor** : pas une présence **24h/24** ; ce sont des **déclencheurs planifiés** (ex. lundi 7h) + réponses à la demande.
+
+## Règle de confirmation (identique au mail client)
+
+- Tout ce qui sort vers **tiers** (URSSAF, client, fournisseur) : **brouillon** validé par toi sauf AR neutres documentés.
+
+## Fichiers de référence dans le dépôt
+
+- Modèles de mails & flux : `docs/automation/DIGESTS-EMAIL-PINAPP.md`
+- Compta / suivi devis : `.cursor/rules/comptabilite-automatisee.mdc` (onglet Pinapp, préfixe factures **PP-**)
+
+## Sources veille (à brancher dans Make ou Apps Script)
+
+- Releases GitHub : `vitejs/vite`, `actions/*`, dépendances npm du repo si utilisées.
+- Blogs : Anthropic, GitHub Changelog, MDN / web.dev pour le front.
+- Sécurité : GitHub Dependabot alerts (résumé hebdo), `npm audit` en CI si applicable.
+
+## RH — périmètre « pris en charge » = assisté
+
+- **Onboarding / offboarding** : listes de tâches + dates + brouillons de mails.
+- **Congés / absences** : rappel de procédure interne (pas de gestion paie auto).
+- **Entretiens** : suggestions d’ordre du jour (brouillon).
+- Documenter le **référent humain** (toi + conseil extérieur si micro-entreprise / société).

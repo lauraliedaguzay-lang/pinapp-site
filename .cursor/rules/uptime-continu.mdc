@@ -1,0 +1,47 @@
+---
+description: Tous les sites en ligne H24 — objectif zéro intervention courante (hébergement managé, CI, alertes)
+alwaysApply: true
+---
+
+# Sites H24 — sans intervention au quotidien
+
+## Principe (non négociable)
+
+Les sites livrés doivent **rester accessibles en continu** sans action manuelle récurrente (pas de « je dois me connecter pour que ça marche »). L’humain intervient **seulement** en cas d’alerte, incident ou évolution produit.
+
+## Ce que l’agent / les PR doivent privilégier
+
+| Faire | Éviter |
+|--------|--------|
+| **Hébergement statique managé** (GitHub Pages, Netlify, hébergeur mutualisé avec déploiement automatisé) | Serveur perso à SSH, process Node « à garder vivant » sans superviseur |
+| **Déploiement par push** (GitHub Actions, branche `main` → prod) | FTP manuel comme seul mode de mise en ligne par défaut |
+| **Pas de backend obligatoire** pour la vitrine ; formulaires via service managé (Netlify Forms, Tally, webhook Make) | API maison sur VM sans monitoring |
+| **Cache-bust** `?v=` sur CSS/JS quand le fichier change | Oublier le cache et « ça marche chez moi » |
+| **Health check planifié** (Apps Script, UptimeRobot, cron GitHub) + email si KO | Aucune sonde après déploiement |
+
+## Après chaque déploiement (automatisé ou manuel)
+
+Vérifier au minimum : **HTTP 200** accueil, **assets** (CSS/JS/images) sans 404, **liens nav** principaux, **formulaires** si présents.
+
+## Monitoring (référence Apps Script)
+
+Maintenir une liste d’URLs à sonder (Mémoire & Présence, Pinapp, miroirs Netlify, etc.). En cas d’échec : **email d’alerte** ; la correction peut être un `revert` ou un redéploiement CI — documenter dans le message.
+
+## Si un site tombe
+
+1. Onglet **Actions** / logs hébergeur  
+2. Dernier commit : `git log --oneline -5`  
+3. Régression probable → `git revert` + push  
+4. Notifier avec URL, code HTTP, heure (UTC ou locale cohérente)
+
+## Tableau des sites (à tenir à jour)
+
+| Site | URL prod | Déploiement |
+|------|----------|-------------|
+| Mémoire & Présence | `https://lauraliedaguzay-lang.github.io/memoireetpresence/` | GitHub Pages |
+| Pinapp | `https://pinapp.fr/` (ou Pages `…/pinapp-site/`) | Hostinger / GitHub Actions |
+| Miroirs / previews | Netlify selon dépôt | ZIP ou connect Git |
+
+---
+
+*Cette règle complète `.cursorrules` et les règles déploiement : pas de promesse magique — **H24** = architecture adaptée + alertes, pas une présence humaine 24h/24 devant un terminal.*

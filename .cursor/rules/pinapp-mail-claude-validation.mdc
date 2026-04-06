@@ -1,0 +1,29 @@
+---
+description: Mail Pinapp — Claude analyse et propose ; Lauralie valide toujours ; contexte neuf après devis accepté
+alwaysApply: true
+---
+
+# Mail Pinapp + Claude — mode passif avec confirmation obligatoire
+
+## Comportement attendu (produit / automatisations)
+
+- **Claude analyse** les mails entrants (ou le fil) et produit : (1) **quoi faire** (actions concrètes, ordre, priorités) ; (2) **proposition de réponse** au client.
+- **Lauralie reste passive** dans le sens où elle ne rédige pas from scratch : elle **lit** la proposition et **valide / ajuste**.
+- **Jamais d’envoi automatique** au client pour les messages à risque (devis, engagement, prix, délais). Tout passe par **brouillon Gmail** (ou équivalent) ; seul un envoi **après action explicite** de Lauralie est acceptable.
+
+## Confirmation toujours requise
+
+- Aucun `sendEmail` client dans le script de production pour les réponses générées — **brouillons uniquement**.
+- Les accusés de réception très neutres (« bien reçu ») peuvent être optionnellement automatisés **uniquement** si une règle métier distincte et documentée le prévoit ; sinon, même flux brouillon.
+
+## Nouvelle « conversation » Claude après devis accepté
+
+- Dès qu’un **devis est accepté** (signal explicite : mail client, label Gmail `Pinapp-Devis-accepté`, ou statut dossier), **toute la suite** (livrables, planning, questions techniques) doit s’appuyer sur un **contexte Claude neuf** :
+  - **Ne pas** réinjecter tout l’historique pré-devis (négociation, hésitations) dans le prompt.
+  - Fournir un **brief de synthèse** : ce qui est vendu, montant, délai, périmètre, contacts — puis les nouveaux mails.
+- En pratique (API) : appels **sans chaînage** sur l’ancien fil d’outils / ancien `response_id` pour la phase « exécution » ; ou fichier « brief dossier » versionné remis à zéro à l’acceptation.
+
+## Implémentation future (Apps Script / Make)
+
+- Un déclencheur ou scénario crée **un brouillon** par mail à traiter (ou par thread), avec sections **ACTIONS** et **BROUILLON CLIENT** clairement séparées.
+- Appliquer un **label de phase** : `Pinapp-Avant-devis` | `Pinapp-Devis-accepté` | `Pinapp-Production` pour router le prompt (contexte court vs contexte neuf).

@@ -1,0 +1,39 @@
+---
+description: Apps Script Mémoire & Présence — notification mobile obligatoire à chaque nouveau client
+globs: apps-script/**
+alwaysApply: false
+---
+
+# Notification mobile — règle obligatoire
+
+Chaque fois qu'un brouillon est créé (nouveau formulaire ou réponse client),
+envoyer AUSSI un email de notification courte à `CONFIG.MON_EMAIL`.
+
+Cet email déclenche la notification push Gmail sur le téléphone de Lauralie.
+
+## Format obligatoire
+
+```javascript
+MailApp.sendEmail({
+  to      : CONFIG.MON_EMAIL,
+  subject : `\ud83d\udd14 MP \u2014 [TYPE] [Nom client]`,
+  body    : `Nouveau brouillon pret dans Gmail.\n\nClient : [nom]\nType : [type]\nEmail : [email]\n\nOuvrir Gmail pour lire l'analyse et valider la reponse.`
+});
+```
+
+## Règles
+
+- Toujours envoyer APRÈS la création du brouillon, jamais avant
+- Sujet court (< 60 caractères) pour être lisible sur écran verrouillé
+- Corps court (< 10 lignes) — l'analyse complète est dans le brouillon Gmail
+- Ne jamais mettre de données sensibles dans la notif (pas de détails du deuil)
+- Si l'email client est absent → mentionner "email client manquant" dans la notif
+
+## Filtre Gmail recommandé (à configurer une fois)
+
+Créer un filtre Gmail :
+- De : memoirepresence@gmail.com
+- Objet contient : 🔔 MP —
+- Action : Appliquer label "MP-Notifs", ne pas archiver
+
+Ainsi les notifications sont séparées des vrais emails clients.

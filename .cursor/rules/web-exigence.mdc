@@ -1,0 +1,91 @@
+---
+description: Niveau d'exigence pour tous les sites web — navigation, frameworks, déploiement, légal
+alwaysApply: true
+---
+
+# Exigences Web — Mémoire & Présence (niveau de référence)
+
+## Navigation hamburger
+
+- Maximum 8 liens dans le burger, uniquement les pages critiques pour le visiteur
+- Supprimer : pages démo internes, pages techniques, liens redondants avec le CTA header
+- `nav-secondary` = visible burger uniquement (hidden desktop via CSS)
+- Le CTA principal (`Demander un devis`) reste dans le header, PAS dans le burger
+
+```html
+<!-- ✅ Structure burger critique -->
+<li><a href="offre.html">Le service</a></li>
+<li><a href="plaques-qr.html">Plaques & QR</a></li>
+<li class="nav-secondary"><a href="accompagnement.html">Accompagnement</a></li>
+<li><a href="qui-sommes-nous.html">Qui sommes-nous</a></li>
+<li class="nav-secondary"><a href="faq.html">FAQ</a></li>
+<li><a href="contact.html">Contact</a></li>
+```
+
+## Frameworks — intégration systématique
+
+| Framework | Portée | Usage |
+|-----------|--------|-------|
+| **AOS** | Toutes pages marketing | `data-aos="fade-up"` sur sections, cards, steps |
+| **GSAP** | Toutes inner pages | Animation `.page-title` + `.brief-lead` à l'ouverture |
+| **Swiper** | Pages avec galeries / témoignages | Carousel photos hommage, témoignages index |
+| **GLightbox** | Images significatives | `.glightbox` class + `<a href="...">` autour des img |
+| **Alpine.js** | Accordions, checkboxes interactives | Process steps, valeurs, checklist devis, FAQ |
+
+```html
+<!-- ✅ Init AOS + GLightbox groupée -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 650, once: true, offset: 50, easing: "ease-out-quart" });
+  if (typeof GLightbox !== "undefined") {
+    GLightbox({ selector: ".glightbox", touchNavigation: true, loop: false });
+  }
+</script>
+```
+
+## Cache busting
+
+- Toujours versionner : `style.css?v=XX` et `script.js?v=XX`
+- Bumper le numéro à chaque modification CSS ou JS significative
+- Appliquer sur toutes les pages HTML du site en une seule passe
+
+## Déploiement Git
+
+```
+main (source) → git push origin main
+gh-pages (GitHub Pages) → sync manuel après chaque commit main
+netlify → git archive --format=zip HEAD:site/ -o memoire-presence-NETLIFY.zip
+```
+
+- Ne jamais committer directement sur `gh-pages`
+- Toujours reconstruire le ZIP Netlify après le push
+
+## Pages légales obligatoires (sites français)
+
+- `mentions-legales.html` : hébergeur, éditeur, SIRET, dirigeant
+- `confidentialite.html` : RGPD, base légale, Netlify Forms
+- `cgv.html` : 8 sections minimum (art. 293B CGI, L.221-28 Code conso)
+- Footer : SIRET visible + liens légaux systématiques
+
+## Formulaires
+
+- `data-netlify="true"` + `name="..."` sur chaque `<form>`
+- `<input type="hidden" name="form-name" value="...">` à l'intérieur
+- Soumission via `fetch` POST (pas `mailto:`)
+- Feedback utilisateur (`aria-live="polite"`) affiché après soumission
+
+## Pages hommage
+
+- Portrait de l'être honoré : `<img>` réel ou SVG dessiné, jamais un `<div>` vide
+- Format portrait `3/4`, `border-radius: 50% 50% 12px 12px`
+- Galerie photos : Swiper avec pagination + autoplay
+- Accès par code : gate JS + URL param `?demo=open` pour contourner en démo
+- Jamais de données réelles dans les maquettes de démonstration
+
+## Qualité générale
+
+- Pas de liens morts (vérifier avant déploiement)
+- `aria-current="page"` sur le lien actif dans chaque nav
+- `<meta name="description">` unique et pertinent sur chaque page
+- Images : `decoding="async"` + `loading="lazy"` systématiques
+- Témoignages fictifs : mention "identités modifiées à la demande des familles"

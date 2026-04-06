@@ -1,0 +1,53 @@
+---
+description: Pinapp — automatisation contenus réseaux (Claude + Apps Script) ; validation Lauralie avant publication
+alwaysApply: true
+---
+
+# Social media Pinapp — automatisation (avec confirmation)
+
+## Inclus dans le périmètre Pinapp
+
+Oui : **génération assistée** de contenus (légendes, hooks, idées de carrousels, scripts courts) pour les canaux pertinents (**LinkedIn** en priorité B2B ; **Instagram** / **TikTok** si tu les utilises pour la marque).
+
+Même principe que le mail : **Claude propose** → **Lauralie valide** → publication manuelle ou via Buffer / Later / Meta Business (pas de post auto sans ton clic).
+
+## Architecture cible (à brancher dans Apps Script)
+
+```
+Lundi 8h (trigger) → Apps Script appelle l’API Claude
+                  → N posts / scripts pour la semaine (selon CONFIG)
+                  → Doc Google « Pinapp — Social semaine … » dans Drive
+                  → Notif / mail court à Lauralie
+                  → Tu relis → Canva / CapCut → tu programmes ou publies
+```
+
+Fichier prévu dans ce dépôt : `apps-script/pinapp-social-media.js` (à créer / coller dans script.google.com).  
+Pas de commit de clé API : **Propriétés du script** ou **Secret Manager** côté Google.
+
+## Réunion critique (plusieurs « voix » dans un seul prompt Claude)
+
+| Voix | Rôle Pinapp |
+|------|-------------|
+| Direction de marque | Cohérence avec `pinapp.fr` : premium, calme, pas start-up cheap |
+| Copy B2B | Clarté, preuves douces, pas de promesses IA magiques |
+| Crédibilité / éthique | Transparence, pas de FOMO toxique, RGPD-friendly |
+| Performance réseaux | Accroche, CTA, longueur adaptée au format |
+| Verdict | Synthèse + modifications avant validation humaine |
+
+**Aucune publication sans validation** : le script ne poste pas à ta place.
+
+## Cohérence visuelle (Pinapp)
+
+S’aligner sur la charte site : tokens dans `assets/variables.css` (ex. teal accent, fond sombre / mode clair).  
+Pas la palette « sable / hommage » d’un autre site — **uniquement identité Pinapp**.
+
+## À ne pas publier (Pinapp)
+
+- Prix ou devis détaillés en post public
+- Captures d’écran données clients sans accord
+- Ton cynique ou « hustle » incompatible premium
+- Promesses légales / résultats garantis non vérifiables
+
+## Planification indicative (à adapter)
+
+- LinkedIn B2B : mardi / jeudi matin souvent efficaces — ajuster selon tes stats Plausible + analytics réseaux.
