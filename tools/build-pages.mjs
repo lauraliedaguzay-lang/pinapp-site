@@ -83,6 +83,7 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true, root
   <link rel="stylesheet" href="${a('/assets/grid.css')}">
   <link rel="stylesheet" href="${a('/assets/animations.css')}">
   <link rel="stylesheet" href="${a('/assets/css/aurora-mobile.css')}">
+  <link rel="stylesheet" href="${a('/assets/css/cursor.css')}">
   ${includeLdJson ? `<script type="application/ld+json">
   {"@context":"https://schema.org","@type":"ProfessionalService","name":"Pinapp Studio","founder":{"@type":"Person","name":"Lauralie Daguzay"},"email":"lauralie.daguzay@pinapp.fr","url":"https://pinapp.fr","sameAs":"https://www.linkedin.com/in/lauralie-daguzay-4a4542197/"}
   </script>` : ''}
@@ -180,6 +181,10 @@ ${mainInner}
   </div>
   <script src="${a('/assets/js/main.js')}" defer></script>
   <script src="${a('/assets/js/particles.js')}" defer></script>
+  <script src="${a('/assets/js/aurora.js')}" defer></script>
+  <script src="${a('/assets/js/parallax.js')}" defer></script>
+  <script src="${a('/assets/js/scroll-cinema.js')}" defer></script>
+  <script src="${a('/assets/js/cursor.js')}" defer></script>
 </body>
 </html>`;
 }

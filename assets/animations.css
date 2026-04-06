@@ -126,16 +126,78 @@ html[data-theme="light"] .scroll-progress {
 
 /* ⑦ Section entrées — visibles au chargement (pas d’apparition pilotée par le scroll, règle zéro scroll) */
 .section-enter {
-  opacity: 1;
-  transform: none;
-  transition: none;
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 600ms cubic-bezier(0.25,0.1,0.25,1),
+    transform 600ms cubic-bezier(0.25,0.1,0.25,1);
 }
-.section-enter.visible { opacity: 1; transform: none; }
+.section-enter.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.no-js .section-enter { opacity: 1; transform: none; }
 .stagger-0 { transition-delay: 0ms; }
 .stagger-1 { transition-delay: 80ms; }
 .stagger-2 { transition-delay: 160ms; }
 .stagger-3 { transition-delay: 240ms; }
 .stagger-4 { transition-delay: 320ms; }
+
+/* -- Hero line *//
+.hero-line { overflow: hidden; }
+.hero-line span {
+  display: block;
+  transform: translateY(105%);
+  animation: revealLine 900ms cubic-bezier(0.77,0,0.18,1) forwards;
+}
+@keyframes revealLine {
+  to { transform: translateY(0); }
+}
+
+/* -- Images reveal *//
+.img-reveal {
+  opacity: 0;
+  transform: translateY(20px) scale(0.98);
+  transition:
+    opacity 700ms cubic-bezier(0.25,0.1,0.25,1),
+    transform 700ms cubic-bezier(0.25,0.1,0.25,1);
+  will-change: opacity, transform;
+}
+.img-reveal.visible { opacity: 1; transform: translateY(0) scale(1); }
+.img-wrapper {
+  display: block; overflow: hidden;
+  border-radius: var(--r-lg, 16px);
+  background: linear-gradient(135deg, rgba(0,229,204,0.05), rgba(123,79,232,0.05));
+  animation: skeleton-pulse 1.5s ease infinite;
+}
+.img-wrapper:has(.img-reveal.visible) { animation: none; }
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1; }
+}
+
+/* -- Texte gradient anime *//
+.text-gradient {
+  background: linear-gradient(90deg, #00E5CC, #7B4FE8, #39E075, #00E5CC);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 4s ease infinite;
+}
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+/* -- View transitions *//
+::view-transition-old(root) { animation: vt-out 200ms ease forwards; }
+::view-transition-new(root) { animation: vt-in  200ms ease forwards; }
+@keyframes vt-out { to   { opacity: 0; transform: scale(0.98); } }
+@keyframes vt-in  { from { opacity: 0; transform: scale(1.02); } }
+nav { view-transition-name: pinapp-nav; }
+::view-transition-old(pinapp-nav),
+::view-transition-new(pinapp-nav) { animation: none; }
 
 /* ⑧ Hero mots — visible sans JS (évite page blanche si main.js absent) ; main.js peut encore ajouter .visible */
 .hero-word {

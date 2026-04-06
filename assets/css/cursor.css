@@ -1,0 +1,70 @@
+/* PINAPP — cursor.css — Curseur magnétique (desktop uniquement) */
+
+/* Masquer le curseur natif sur desktop */
+@media (min-width: 1024px) {
+  *,
+  *::before,
+  *::after { cursor: none !important; }
+}
+
+/* ── Point principal ── */
+#pcursor {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition:
+    width 200ms ease,
+    height 200ms ease,
+    opacity 150ms ease,
+    transform 100ms ease;
+  will-change: left, top;
+}
+
+#pcursor.hover {
+  width: 40px;
+  height: 40px;
+  opacity: 0.35;
+}
+
+#pcursor.clicking {
+  transform: translate(-50%, -50%) scale(0.6);
+  opacity: 1;
+}
+
+/* ── Trail (anneau) ── */
+#pcursor-trail {
+  position: fixed;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  border: 1px solid transparent;
+  background: transparent;
+  will-change: left, top;
+  transition: width 200ms ease, height 200ms ease;
+}
+
+#pcursor-trail.hover {
+  width: 60px;
+  height: 60px;
+}
+
+/* ── Masqué sur mobile et tablette ── */
+@media (max-width: 1023px) {
+  #pcursor,
+  #pcursor-trail { display: none; }
+  body { cursor: auto !important; }
+}
+
+/* ── Reduced motion : désactiver ── */
+@media (prefers-reduced-motion: reduce) {
+  #pcursor,
+  #pcursor-trail { display: none; }
+  body { cursor: auto !important; }
+}
