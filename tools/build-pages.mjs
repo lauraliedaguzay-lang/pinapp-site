@@ -188,7 +188,7 @@ const pages = [
         <h1 style="font-size:var(--text-h1);letter-spacing:-0.02em;margin-bottom:var(--space-3);">Comment ça marche</h1>
         <p style="font-size:20px;opacity:0.7;margin-bottom:var(--space-7);">De la première conversation à la livraison finale. Voici exactement ce qui se passe.</p>
         <div class="step-item" style="display:grid;grid-template-columns:64px 1fr;gap:var(--space-4);margin-bottom:var(--space-6);">
-          <div style="width:64px;height:64px;border-radius:50%;border:2px solid var(--accent-violet);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:24px;color:var(--accent-violet);font-family:Georgia,serif;">1</span></div>
+          <div style="width:64px;height:64px;border-radius:50%;border:2px solid var(--accent-violet);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:24px;color:var(--accent-violet);">1</span></div>
           <div>
             <h2 style="font-size:24px;margin-bottom:var(--space-1);">On se parle — 30 minutes offertes</h2>
             <p style="opacity:0.7;line-height:1.8;margin-bottom:var(--space-2);">Vous me racontez votre quotidien. Vos outils, vos tâches, ce qui vous prend du temps, ce qui vous frustre. Je cartographie tout et identifie 3 opportunités concrètes.</p>
@@ -197,21 +197,21 @@ const pages = [
           </div>
         </div>
         <div class="step-item" style="display:grid;grid-template-columns:64px 1fr;gap:var(--space-4);margin-bottom:var(--space-6);">
-          <div style="width:64px;height:64px;border-radius:50%;border:2px solid var(--accent-violet);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:24px;color:var(--accent-violet);font-family:Georgia,serif;">2</span></div>
+          <div style="width:64px;height:64px;border-radius:50%;border:2px solid var(--accent-violet);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:24px;color:var(--accent-violet);">2</span></div>
           <div>
             <h2 style="font-size:24px;margin-bottom:var(--space-1);">Une proposition claire sous 48h</h2>
             <p style="opacity:0.7;line-height:1.8;">Une page. Pas un roman. Ce qu'on fait exactement, ce que ça coûte, ce que vous gagnez. Délai précis. Prix fixe. Vous signez électroniquement si ça vous convient — sinon aucun problème.</p>
           </div>
         </div>
         <div class="step-item" style="display:grid;grid-template-columns:64px 1fr;gap:var(--space-4);margin-bottom:var(--space-6);">
-          <div style="width:64px;height:64px;border-radius:50%;border:2px solid var(--accent-violet);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:24px;color:var(--accent-violet);font-family:Georgia,serif;">3</span></div>
+          <div style="width:64px;height:64px;border-radius:50%;border:2px solid var(--accent-violet);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:24px;color:var(--accent-violet);">3</span></div>
           <div>
             <h2 style="font-size:24px;margin-bottom:var(--space-1);">Je construis — vous vivez votre vie</h2>
             <p style="opacity:0.7;line-height:1.8;">Vous me donnez les accès nécessaires. Je travaille. Je vous tiens informé à chaque étape clé — pas chaque heure. Votre temps est précieux. Vous intervenez uniquement pour les validations importantes.</p>
           </div>
         </div>
         <div class="step-item" style="display:grid;grid-template-columns:64px 1fr;gap:var(--space-4);margin-bottom:var(--space-6);">
-          <div style="width:64px;height:64px;border-radius:50%;border:2px solid var(--accent-green);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:24px;color:var(--accent-green);font-family:Georgia,serif;">4</span></div>
+          <div style="width:64px;height:64px;border-radius:50%;border:2px solid var(--accent-green);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:24px;color:var(--accent-green);">4</span></div>
           <div>
             <h2 style="font-size:24px;margin-bottom:var(--space-1);">Votre business tourne tout seul</h2>
             <p style="opacity:0.7;line-height:1.8;margin-bottom:var(--space-2);">On teste ensemble. Si quelque chose ne va pas — on corrige. Pas de livraison définitive tant que vous n'êtes pas satisfait.</p>
@@ -646,20 +646,20 @@ const pages = [
             </div>
           </div>
           <div style="display:flex;justify-content:center;">
-            <div style="width:240px;height:480px;background:#0A1628;border-radius:32px;border:2px solid rgba(0,229,204,0.2);box-shadow:0 0 40px rgba(0,229,204,0.08),0 0 80px rgba(0,229,204,0.04);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:var(--space-4);gap:var(--space-3);">
-              <p style="font-family:Georgia,serif;font-size:14px;color:var(--accent-teal);letter-spacing:0.1em;">AURALIS RH</p>
+            <div style="width:240px;height:480px;background:#0A1628;border-radius:32px;border:2px solid rgba(62,235,214,0.22);box-shadow:0 0 40px rgba(62,235,214,0.1),0 0 80px rgba(62,235,214,0.05);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:var(--space-4);gap:var(--space-3);">
+              <p style="font-size:14px;color:var(--accent-teal);letter-spacing:0.1em;">AURALIS RH</p>
               <svg width="100" height="100" viewBox="0 0 100 100" aria-hidden="true">
-                <circle cx="50" cy="50" r="36" fill="none" stroke="rgba(0,229,204,0.15)" stroke-width="3"/>
-                <circle cx="50" cy="50" r="36" fill="none" stroke="#00E5CC" stroke-width="3" stroke-dasharray="226" stroke-dashoffset="68" stroke-linecap="round" transform="rotate(-90 50 50)"/>
-                <text x="50" y="50" text-anchor="middle" dominant-baseline="central" font-family="Inter,sans-serif" font-size="20" font-weight="600" fill="#E8F4F8">82</text>
-                <text x="50" y="65" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="rgba(232,244,248,0.5)">/100</text>
+                <circle cx="50" cy="50" r="36" fill="none" stroke="rgba(62,235,214,0.18)" stroke-width="3"/>
+                <circle cx="50" cy="50" r="36" fill="none" stroke="#3EEBD6" stroke-width="3" stroke-dasharray="226" stroke-dashoffset="68" stroke-linecap="round" transform="rotate(-90 50 50)"/>
+                <text x="50" y="50" text-anchor="middle" dominant-baseline="central" font-family="Jost,sans-serif" font-size="20" font-weight="600" fill="#E4F7F3">82</text>
+                <text x="50" y="65" text-anchor="middle" font-family="Jost,sans-serif" font-size="8" fill="rgba(228,247,243,0.5)">/100</text>
               </svg>
               <div style="width:100%;">
-                <p style="font-size:10px;opacity:0.5;margin-bottom:6px;font-family:Inter,sans-serif;letter-spacing:0.1em;">BIEN-ÊTRE</p>
-                <div style="height:3px;background:rgba(0,229,204,0.15);border-radius:100px;"><div class="auralis-bar" style="height:3px;width:68%;"></div></div>
+                <p style="font-size:10px;opacity:0.5;margin-bottom:6px;font-family:Jost,sans-serif;letter-spacing:0.1em;">BIEN-ÊTRE</p>
+                <div style="height:3px;background:rgba(62,235,214,0.18);border-radius:100px;"><div class="auralis-bar" style="height:3px;width:68%;"></div></div>
               </div>
-              <div style="background:rgba(0,229,204,0.05);border:1px solid rgba(0,229,204,0.1);border-radius:12px;padding:10px;width:100%;">
-                <p style="font-size:11px;opacity:0.7;font-family:Inter,sans-serif;line-height:1.5;">Votre semaine semble chargée. Une pause de 10 min est disponible.</p>
+              <div style="background:rgba(62,235,214,0.06);border:1px solid rgba(62,235,214,0.12);border-radius:12px;padding:10px;width:100%;">
+                <p style="font-size:11px;opacity:0.7;font-family:Jost,sans-serif;line-height:1.5;">Votre semaine semble chargée. Une pause de 10 min est disponible.</p>
               </div>
             </div>
           </div>

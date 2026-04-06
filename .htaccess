@@ -38,7 +38,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 # Domaine Plausible personnalisé : ajoutez-le dans script-src et connect-src (ex. https://analytics.pinapp.fr).
 # Webhooks (Make, Brevo, etc.) : ajoutez l’URL HTTPS exacte dans connect-src quand vous branchez les formulaires.
 # Durcir plus tard : nonces + externaliser la config démo → retirer 'unsafe-inline' pour script-src.
-Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self' https://pinapp.fr; frame-src 'self'; script-src 'self' 'unsafe-inline' https://plausible.io; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://plausible.io; form-action 'self'; upgrade-insecure-requests;"
+Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self' https://pinapp.fr; frame-src 'self'; script-src 'self' 'unsafe-inline' https://plausible.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://plausible.io; form-action 'self'; upgrade-insecure-requests;"
 
 # APIs navigateur inutiles ici (réduit la surface)
 Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=()"

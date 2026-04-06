@@ -468,7 +468,7 @@
       ctx.clearRect(0, 0, w, h);
       var teal = getComputedStyle(document.documentElement)
         .getPropertyValue('--accent-teal')
-        .trim() || '#00E5CC';
+        .trim() || '#3EEBD6';
 
       particles.forEach(function (p) {
         p.x += p.vx;
