@@ -1,0 +1,101 @@
+---
+description: Blocs transparents effet Apple iOS 7/2013 — frosted glass cohérent avec fonds Avatar jour/nuit
+globs: assets/**/*.css, **/*.html
+alwaysApply: false
+---
+
+# Blocs translucides — Apple Frosted Glass (iOS 2013)
+
+Toutes les cartes, nav, modales, drawers et overlays Pinapp utilisent l'effet de verre givré d'iOS 7 :  
+`backdrop-filter: blur(…) saturate(…%)` + fond semi-transparent + bordure lumineuse fine.
+
+## Recette de base
+
+```css
+.card, .panel, .modal, nav {
+  background: var(--bg-card);          /* semi-transparent via tokens */
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid var(--border-card);
+  border-radius: 1.25rem;
+}
+```
+
+## Tokens à utiliser (ne jamais coder de rgba en dur)
+
+| Élément | Mode sombre | Mode clair |
+|---------|------------|------------|
+| Fond carte | `rgba(8, 22, 32, 0.82)` → `--bg-card` | `rgba(255, 255, 255, 0.78)` → `--bg-card` |
+| Bordure | `rgba(62,235,214,0.12)` → `--border-card` | `rgba(10,143,130,0.14)` → `--border-card` |
+| Nav | `rgba(5,14,22,0.88)` → `--nav-bg` | `rgba(232,242,239,0.88)` → `--nav-bg` |
+| Overlay sombre | `rgba(5,10,20,0.95)` → `--bg-overlay` | — |
+
+## Intensité du blur selon le contexte
+
+```css
+/* Carte standard */
+backdrop-filter: blur(24px) saturate(160%);
+
+/* Nav / header flottant — plus léger pour laisser voir le fond Avatar */
+backdrop-filter: blur(16px) saturate(140%);
+
+/* Modale / drawer plein écran — plus fort */
+backdrop-filter: blur(40px) saturate(180%);
+```
+
+## Bordure lumineuse interne (effet vibrancy)
+
+Ajouter un `box-shadow` intérieur blanc très faible pour simuler la lumière traversante :
+
+```css
+box-shadow:
+  0 0 0 1px rgba(255, 255, 255, 0.08) inset,  /* reflet interne */
+  0 0 48px var(--glow-teal),                   /* halo biolume */
+  0 12px 40px rgba(0, 0, 0, 0.18);             /* ombre portée */
+```
+
+## Filet supérieur (spécularité — signature iOS 7)
+
+```css
+/* Ligne lumineuse en haut du bloc comme les cartes iOS */
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  pointer-events: none;
+}
+```
+
+## Ce qu'il ne faut PAS faire
+
+```css
+/* ❌ fond opaque — casse le fond Pandora */
+background: #0A1628;
+
+/* ❌ blur sans -webkit- — invisible sur Safari/iOS */
+backdrop-filter: blur(24px);
+
+/* ❌ saturate manquant — effet terne, pas Apple */
+backdrop-filter: blur(24px);
+/* ✅ */ backdrop-filter: blur(24px) saturate(160%);
+```
+
+## Repli si backdrop-filter non supporté
+
+```css
+@supports not (backdrop-filter: blur(1px)) {
+  .card {
+    background: var(--bg-overlay);   /* fond plus opaque, pas transparent */
+  }
+}
+```
+
+## Checklist avant commit
+
+- [ ] `backdrop-filter` ET `-webkit-backdrop-filter` présents
+- [ ] `saturate(…%)` inclus dans la valeur
+- [ ] Fond via token `--bg-card` / `--nav-bg` (jamais de couleur fixe)
+- [ ] `box-shadow` inset blanc ≤ 0.12 opacity
+- [ ] Repli `@supports` si l'élément est critique (nav, modale)
