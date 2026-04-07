@@ -126,7 +126,7 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true, root
       </a>
       <div class="nav-links">
         <a href="${u('/offres/')}" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
-        <a href="${u('/formation-gratuite/')}" class="nav-link" style="font-size:14px;opacity:0.8;">Formations</a>
+        <a href="${u('/offres/formation/')}" class="nav-link" style="font-size:14px;opacity:0.8;">Formations</a>
         <a href="${u('/realisations/')}" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
         <a href="${u('/a-propos/')}" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
         <a href="${u('/faq/')}" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
@@ -149,7 +149,7 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true, root
     <div class="mobile-drawer-panel">
       <button type="button" id="drawerClose" aria-label="Fermer le menu">×</button>
       <a href="${u('/offres/')}">Offres</a>
-      <a href="${u('/formation-gratuite/')}">Formations</a>
+      <a href="${u('/offres/formation/')}">Formations</a>
       <a href="${u('/realisations/')}">Réalisations</a>
       <a href="${u('/a-propos/')}">À propos</a>
       <a href="${u('/faq/')}">FAQ</a>
@@ -167,7 +167,7 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true, root
     <a href="${u('/offres/')}">Offres</a>
     <a href="${u('/diagnostic/')}" class="bottom-bar-cta">Démarrer</a>
     <a href="${u('/univers/')}">Univers</a>
-    <a href="${u('/formation-gratuite/')}">Form.</a>
+    <a href="${u('/offres/formation/')}">Form.</a>
     <a href="${u('/realisations/')}">Réalis.</a>
   </div>
   <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
