@@ -15,8 +15,9 @@ html[data-theme='light'],
 body.mode-jour {
   --wow-stroke: rgba(0, 0, 0, 0.08);
   --wow-stroke-soft: rgba(0, 0, 0, 0.06);
-  --wow-fill: rgba(255, 255, 255, 0.6);
-  --wow-fill-2: rgba(255, 255, 255, 0.42);
+  /* Mode jour: surfaces moins “flashy”, contraste plus stable */
+  --wow-fill: rgba(255, 255, 255, 0.78);
+  --wow-fill-2: rgba(255, 255, 255, 0.62);
 }
 
 .wow-surface {
@@ -33,6 +34,14 @@ body.mode-jour {
   transform: translateZ(0);
 }
 
+body.mode-jour .wow-surface,
+html[data-theme='light'] .wow-surface {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.75) inset,
+    0 -1px 0 rgba(26, 10, 46, 0.06) inset,
+    0 14px 36px rgba(26, 10, 46, 0.12);
+}
+
 .wow-surface::after {
   content: '';
   position: absolute;
@@ -40,6 +49,11 @@ body.mode-jour {
   border-radius: inherit;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   pointer-events: none;
+}
+
+body.mode-jour .wow-surface::after,
+html[data-theme='light'] .wow-surface::after {
+  border-top-color: rgba(255, 255, 255, 0.55);
 }
 
 .wow-kpi-row {
@@ -74,6 +88,12 @@ body.mode-jour {
   opacity: 0.75;
 }
 
+body.mode-jour .wow-kpi .wow-kpi-title,
+html[data-theme='light'] .wow-kpi .wow-kpi-title {
+  opacity: 0.9;
+  color: rgba(26, 10, 46, 0.85);
+}
+
 .wow-kpi .wow-kpi-badge {
   font-size: 11px;
   padding: 4px 10px;
@@ -84,6 +104,13 @@ body.mode-jour {
   white-space: nowrap;
 }
 
+body.mode-jour .wow-kpi .wow-kpi-badge,
+html[data-theme='light'] .wow-kpi .wow-kpi-badge {
+  opacity: 1;
+  color: rgba(26, 10, 46, 0.78);
+  border-color: rgba(26, 10, 46, 0.12);
+}
+
 .wow-kpi .wow-kpi-value {
   font-size: clamp(28px, 5vw, 38px);
   letter-spacing: -0.04em;
@@ -91,10 +118,21 @@ body.mode-jour {
   margin-bottom: 6px;
 }
 
+body.mode-jour .wow-kpi .wow-kpi-value,
+html[data-theme='light'] .wow-kpi .wow-kpi-value {
+  color: rgba(26, 10, 46, 0.92);
+}
+
 .wow-kpi .wow-kpi-sub {
   font-size: 13px;
   opacity: 0.68;
   line-height: 1.55;
+}
+
+body.mode-jour .wow-kpi .wow-kpi-sub,
+html[data-theme='light'] .wow-kpi .wow-kpi-sub {
+  opacity: 0.75;
+  color: rgba(26, 10, 46, 0.68);
 }
 
 .wow-mini-widgets {
@@ -162,6 +200,12 @@ body.mode-jour {
   box-shadow: 0 0 0 3px rgba(0, 229, 204, 0.12);
 }
 
+body.mode-jour .wow-dot,
+html[data-theme='light'] .wow-dot {
+  box-shadow: 0 0 0 2px rgba(0, 155, 140, 0.14);
+  background: rgba(0, 155, 140, 0.9);
+}
+
 .wow-item .wow-item-title {
   font-size: 13px;
   font-weight: 600;
@@ -189,6 +233,12 @@ body.mode-jour {
     var(--wow-fill-2);
 }
 
+body.mode-jour .wow-notif,
+html[data-theme='light'] .wow-notif {
+  background: var(--wow-fill-2);
+  border-color: rgba(26, 10, 46, 0.12);
+}
+
 .wow-notif .wow-notif-top {
   display: flex;
   align-items: center;
@@ -204,15 +254,33 @@ body.mode-jour {
   opacity: 0.7;
 }
 
+body.mode-jour .wow-notif .wow-notif-app,
+html[data-theme='light'] .wow-notif .wow-notif-app {
+  opacity: 0.85;
+  color: rgba(26, 10, 46, 0.78);
+}
+
 .wow-notif .wow-notif-time {
   font-size: 11px;
   opacity: 0.55;
+}
+
+body.mode-jour .wow-notif .wow-notif-time,
+html[data-theme='light'] .wow-notif .wow-notif-time {
+  opacity: 0.6;
+  color: rgba(26, 10, 46, 0.6);
 }
 
 .wow-notif .wow-notif-body {
   font-size: 12.5px;
   opacity: 0.78;
   line-height: 1.45;
+}
+
+body.mode-jour .wow-notif .wow-notif-body,
+html[data-theme='light'] .wow-notif .wow-notif-body {
+  opacity: 0.78;
+  color: rgba(26, 10, 46, 0.78);
 }
 
 /* Cohérence mobile: ne pas dépendre du hover pour exister */
