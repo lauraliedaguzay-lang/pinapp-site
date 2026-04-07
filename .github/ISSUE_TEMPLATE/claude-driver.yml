@@ -1,0 +1,65 @@
+name: "Claude Driver — demande (Pinapp)"
+description: "Demander à Claude de te driver: actions, réponses proposées, prompts Cursor. Rien n’est envoyé sans ton accord."
+title: "Claude Driver — "
+labels: ["claude-driver"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Principe**
+        - Tu décris le contexte ci-dessous.
+        - L’automatisation répond dans cette issue avec :
+          - **ACTIONS** (priorités + ordre)
+          - **RÉPONSES PROPOSÉES** (brouillons à valider)
+          - **PROMPTS CURSOR** (prêts à copier)
+        - **Aucune action externe** (email, post, paiement, déploiement) n’est faite automatiquement.
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type de demande
+      options:
+        - "Mail client (réponse à proposer)"
+        - "Brief client (questions à poser + plan)"
+        - "Audit / correction site (UX, copy, a11y, perf)"
+        - "Automatisation / workflow (Make, Apps Script, Zapier)"
+        - "Social (LinkedIn — brouillons à valider)"
+        - "Décision business (positionnement, offre, pricing, objections)"
+        - "Autre"
+    validations:
+      required: true
+
+  - type: textarea
+    id: contexte
+    attributes:
+      label: Contexte (copie-colle ce que tu as)
+      description: "Ex: mail reçu, capture texte, contraintes, deadline, ce que tu veux éviter, ton souhaité."
+      placeholder: |
+        - Qui écrit ?
+        - Qu'est-ce qui est demandé ?
+        - Ce que je veux obtenir
+        - Contraintes / risques / ton
+    validations:
+      required: true
+
+  - type: textarea
+    id: pieces
+    attributes:
+      label: Pièces / données (optionnel)
+      description: "Liens, extraits, métriques, texte du site, erreurs console, etc."
+      placeholder: "Colle ici (ou mets des liens GitHub)."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: garde_fous
+    attributes:
+      label: Garde-fous (obligatoires)
+      options:
+        - label: "Aucune réponse n’est envoyée à un client sans mon accord (brouillon uniquement)."
+          required: true
+        - label: "Aucune publication (LinkedIn, etc.) sans mon accord."
+          required: true
+        - label: "Si la demande implique un engagement (prix/délai/légal), proposer 2 variantes + un message de clarification."
+          required: true
+

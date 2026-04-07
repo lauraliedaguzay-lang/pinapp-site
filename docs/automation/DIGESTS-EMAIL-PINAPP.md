@@ -7,11 +7,11 @@ Implémentation typique : **Make** (scénario hebdo) ou **Google Apps Script** +
 
 ## 0. Sujet des e-mails (exemples)
 
-| Type | Objet suggéré |
-|------|----------------|
-| Veille tech hebdo | `Pinapp — Veille tech · semaine du JJ/MM/AAAA` |
-| Alertes sécurité | `Pinapp — Alertes dépendances / sécurité (action)` |
-| RH & admin | `Pinapp — RH & admin · semaine du JJ/MM/AAAA` |
+| Type              | Objet suggéré                                      |
+| ----------------- | -------------------------------------------------- |
+| Veille tech hebdo | `Pinapp — Veille tech · semaine du JJ/MM/AAAA`     |
+| Alertes sécurité  | `Pinapp — Alertes dépendances / sécurité (action)` |
+| RH & admin        | `Pinapp — RH & admin · semaine du JJ/MM/AAAA`      |
 
 ---
 
@@ -141,4 +141,4 @@ Le mail hebdo RH/admin peut inclure une ligne : « Lignes Sheet en attente de mo
 
 ---
 
-*Document interne Pinapp — à adapter à ton outil d’automatisation (Make, n8n, Apps Script).*
+_Document interne Pinapp — à adapter à ton outil d’automatisation (Make, n8n, Apps Script)._

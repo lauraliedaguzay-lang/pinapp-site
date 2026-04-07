@@ -17,6 +17,7 @@ const required = [
   'assets/variables.css',
   'assets/js/auralis-config.js',
   'auralis/index.html',
+  'academy/index.html',
 ];
 
 let err = 0;

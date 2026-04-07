@@ -1,278 +1,249 @@
 /* ═══════════════════════════════════════════════════════════════
-   PANDORA JOUR OVERRIDE — Couche maître mode clair
-   Chargée EN DERNIER — gagne sur toutes les autres feuilles.
+  PANDORA JOUR OVERRIDE — Couche maître mode clair
+  Chargée EN DERNIER — gagne sur toutes les autres feuilles.
 
-   PALETTE DYLAN COLE / AVATAR 3 — Aube sur Pandora
-   ─────────────────────────────────────────────────
-   #FBF5E8  Ivoire chaud (fond canopée)
-   #C87A08  Ambre Pandora (accent principal jour)
-   #1E9E80  Jade bioluminescent résiduel
-   #5B3FD8  Violet (CTA, liens actifs)
-   #1A0A2E  Encre sombre (texte principal)
-   rgba(255,252,245,0.88)  Verre chaud (cartes)
-   rgba(255,248,238,0.90)  Verre ivoire (nav)
-   ═══════════════════════════════════════════════════════════════ */
+  OBJECTIF (2026) : MODE JOUR PREMIUM “VERRE + PROFONDEUR”
+  - Palette harmonisée avec `assets/variables.css` (ivoire / lavande / jade)
+  - Accents UI : teal + violet (pas d’ambre dominant)
+  - Plus de profondeur : ombrage, reflets, contraste doux (sans fond blanc opaque)
+  ═══════════════════════════════════════════════════════════════ */
 
 /* ──────────────────────────────────────────────────────────────
    0. TOKENS MAÎTRES (via html[data-theme] pour atteindre les vars héritées)
    ────────────────────────────────────────────────────────────── */
-html[data-theme="light"],
-html[data-mode="jour"] {
-  /* Fixes la cascade des variables avant body */
-  --bg-primary:    #FBF5E8;
-  --fond-actif:    #FBF5E8;
+html[data-theme='light'],
+html[data-mode='jour'] {
   color-scheme: light;
 }
 
 body.mode-jour,
-html[data-theme="light"] body {
-  /* Fond */
-  --fond-jour:       #FBF5E8;
-  --bg-primary:      #FBF5E8;
-  background-color:  #FBF5E8 !important;
+html[data-theme='light'] body {
+  /* Le socle “jour” est défini dans assets/variables.css :
+     ici on ne réécrit pas les tokens, on renforce la profondeur visuelle. */
   color-scheme: light;
-
-  /* Texte */
-  --text:          #1A0A2E;
-  --text-primary:  #1A0A2E;
-  --text-2:        rgba(26,10,46,0.72);
-  --text-3:        rgba(26,10,46,0.50);
-  --text-4:        rgba(26,10,46,0.28);
-  color:           #1A0A2E;
-
-  /* Accents */
-  --teal:          #1E9E80;
-  --accent-teal:   #1E9E80;
-  --ambre:         #C87A08;
-  --accent-ambre:  #C87A08;
-  --violet:        #5B3FD8;
-  --accent-violet: #5B3FD8;
-  --green:         #2A9A5C;
-
-  /* Verre */
-  --glass:         rgba(255,252,245,0.82);
-  --glass-nav:     rgba(255,248,238,0.90);
-  --glass-card:    rgba(255,252,245,0.88);
-
-  /* Bordures */
-  --border-card:   rgba(0,0,0,0.10);
-  --border-subtle: rgba(26,10,46,0.07);
-  --c-divider:     rgba(90,60,20,0.15);
-
-  /* Ombres */
-  --shadow-md:  0 4px 20px rgba(26,10,46,0.08), 0 1px 4px rgba(26,10,46,0.05);
-  --shadow-lg:  0 12px 40px rgba(26,10,46,0.10), 0 2px 8px rgba(26,10,46,0.06);
-  --shadow-xl:  0 24px 64px rgba(26,10,46,0.12), 0 4px 16px rgba(26,10,46,0.07);
-
-  /* Glows */
-  --glow-teal:   0 0 20px rgba(30,158,128,0.25), 0 0 40px rgba(30,158,128,0.10);
-  --glow-violet: 0 0 20px rgba(91,63,216,0.25),  0 0 40px rgba(91,63,216,0.10);
-  --glow-ambre:  0 0 16px rgba(200,122,8,0.30),  0 0 36px rgba(200,122,8,0.12);
 }
 
 /* ──────────────────────────────────────────────────────────────
    1. NAVIGATION
    ────────────────────────────────────────────────────────────── */
 body.mode-jour nav.nav,
-html[data-theme="light"] nav.nav {
-  background: rgba(255,248,238,0.90) !important;
-  border-bottom: 1px solid rgba(200,122,8,0.10) !important;
-  box-shadow: 0 1px 0 rgba(255,248,238,0.80), var(--glass-shadow-sm, 0 2px 12px rgba(26,10,46,0.06)) !important;
+html[data-theme='light'] nav.nav {
+  background: var(--glass-nav) !important;
+  border-bottom: 1px solid var(--border-subtle) !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.55) inset,
+    0 10px 30px rgba(26, 10, 46, 0.08) !important;
 }
 
 body.mode-jour .nav-logo,
-html[data-theme="light"] .nav-logo,
+html[data-theme='light'] .nav-logo,
 body.mode-jour .nav-links a,
-html[data-theme="light"] .nav-links a {
-  color: #1A0A2E !important;
+html[data-theme='light'] .nav-links a {
+  color: #1a0a2e !important;
 }
 
 body.mode-jour .nav-links a:hover,
-html[data-theme="light"] .nav-links a:hover,
+html[data-theme='light'] .nav-links a:hover,
 body.mode-jour nav a.active,
-html[data-theme="light"] nav a.active {
-  color: var(--ambre, #C87A08) !important;
+html[data-theme='light'] nav a.active {
+  color: var(--accent-teal) !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
    2. LABELS / TAGS
    ────────────────────────────────────────────────────────────── */
 body.mode-jour .label,
-html[data-theme="light"] .label,
-body.mode-jour [class*="label-"],
-html[data-theme="light"] [class*="label-"] {
-  color: var(--ambre, #C87A08) !important;
+html[data-theme='light'] .label,
+body.mode-jour [class*='label-'],
+html[data-theme='light'] [class*='label-'] {
+  color: var(--accent-teal) !important;
 }
 
 body.mode-jour .tag,
-html[data-theme="light"] .tag,
+html[data-theme='light'] .tag,
 body.mode-jour .badge,
-html[data-theme="light"] .badge,
-body.mode-jour [class*="-tag"]:not(.offre-tag),
-html[data-theme="light"] [class*="-tag"]:not(.offre-tag) {
-  background: rgba(200,122,8,0.10) !important;
-  color: #A06000 !important;
-  border-color: rgba(200,122,8,0.20) !important;
+html[data-theme='light'] .badge,
+body.mode-jour [class*='-tag']:not(.offre-tag),
+html[data-theme='light'] [class*='-tag']:not(.offre-tag) {
+  background: rgba(0, 155, 140, 0.09) !important;
+  color: rgba(26, 10, 46, 0.78) !important;
+  border-color: rgba(26, 10, 46, 0.12) !important;
 }
 
 body.mode-jour .offre-secteur-tag,
-html[data-theme="light"] .offre-secteur-tag {
-  background: rgba(200,122,8,0.10) !important;
-  color: #9A5A00 !important;
+html[data-theme='light'] .offre-secteur-tag {
+  background: rgba(0, 155, 140, 0.09) !important;
+  color: rgba(26, 10, 46, 0.78) !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
    3. CARTES & BLOCS
    ────────────────────────────────────────────────────────────── */
 body.mode-jour .block,
-html[data-theme="light"] .block,
+html[data-theme='light'] .block,
 body.mode-jour .card,
-html[data-theme="light"] .card,
+html[data-theme='light'] .card,
 body.mode-jour .offre-card,
-html[data-theme="light"] .offre-card,
-body.mode-jour [class*="-card"],
-html[data-theme="light"] [class*="-card"],
+html[data-theme='light'] .offre-card,
+body.mode-jour [class*='-card'],
+html[data-theme='light'] [class*='-card'],
 body.mode-jour .etape-card,
-html[data-theme="light"] .etape-card,
+html[data-theme='light'] .etape-card,
 body.mode-jour .tech-card,
-html[data-theme="light"] .tech-card,
+html[data-theme='light'] .tech-card,
 body.mode-jour .form-card,
-html[data-theme="light"] .form-card {
-  background: rgba(255,252,245,0.88) !important;
-  border-color: rgba(200,122,8,0.12) !important;
+html[data-theme='light'] .form-card {
+  background: var(--glass-card) !important;
+  border-color: var(--border-card) !important;
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.90),
-    0 8px 32px rgba(26,10,46,0.08),
-    0 1px 4px rgba(26,10,46,0.04) !important;
-  color: #1A0A2E !important;
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    inset 0 -1px 0 rgba(26, 10, 46, 0.06),
+    0 18px 54px rgba(26, 10, 46, 0.1),
+    0 1px 8px rgba(26, 10, 46, 0.06) !important;
+  color: var(--text-primary) !important;
 }
 
 body.mode-jour .block:hover,
-html[data-theme="light"] .block:hover,
+html[data-theme='light'] .block:hover,
 body.mode-jour .card:hover,
-html[data-theme="light"] .card:hover {
+html[data-theme='light'] .card:hover {
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.95),
-    0 16px 48px rgba(26,10,46,0.10),
-    0 0 0 1px rgba(200,122,8,0.16) !important;
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    0 26px 70px rgba(26, 10, 46, 0.12),
+    0 0 0 1px rgba(0, 155, 140, 0.12) !important;
 }
 
 /* Blocs colorés — variantes Pandora jour */
 body.mode-jour .block-cyan,
-html[data-theme="light"] .block-cyan {
-  background: linear-gradient(135deg, rgba(30,158,128,0.10) 0%, transparent 60%), rgba(235,255,250,0.88) !important;
-  border-color: rgba(30,158,128,0.20) !important;
+html[data-theme='light'] .block-cyan {
+  background:
+    linear-gradient(135deg, rgba(30, 158, 128, 0.1) 0%, transparent 60%), rgba(235, 255, 250, 0.88) !important;
+  border-color: rgba(30, 158, 128, 0.2) !important;
 }
 body.mode-jour .block-violet,
-html[data-theme="light"] .block-violet {
-  background: linear-gradient(135deg, rgba(91,63,216,0.09) 0%, transparent 60%), rgba(248,242,255,0.88) !important;
-  border-color: rgba(91,63,216,0.18) !important;
+html[data-theme='light'] .block-violet {
+  background:
+    linear-gradient(135deg, rgba(91, 63, 216, 0.09) 0%, transparent 60%), rgba(248, 242, 255, 0.88) !important;
+  border-color: rgba(91, 63, 216, 0.18) !important;
 }
 body.mode-jour .block-vert,
-html[data-theme="light"] .block-vert {
-  background: linear-gradient(135deg, rgba(42,154,92,0.10) 0%, transparent 60%), rgba(238,255,246,0.88) !important;
-  border-color: rgba(42,154,92,0.18) !important;
+html[data-theme='light'] .block-vert {
+  background:
+    linear-gradient(135deg, rgba(42, 154, 92, 0.1) 0%, transparent 60%), rgba(238, 255, 246, 0.88) !important;
+  border-color: rgba(42, 154, 92, 0.18) !important;
 }
 body.mode-jour .block-ambre,
-html[data-theme="light"] .block-ambre {
-  background: linear-gradient(135deg, rgba(200,122,8,0.12) 0%, transparent 60%), rgba(255,248,230,0.88) !important;
-  border-color: rgba(200,122,8,0.20) !important;
+html[data-theme='light'] .block-ambre {
+  background:
+    linear-gradient(135deg, rgba(91, 63, 216, 0.1) 0%, transparent 62%), rgba(252, 250, 255, 0.78) !important;
+  border-color: rgba(91, 63, 216, 0.18) !important;
 }
 body.mode-jour .block-or,
-html[data-theme="light"] .block-or {
-  background: linear-gradient(135deg, rgba(168,106,16,0.12) 0%, transparent 60%), rgba(255,252,235,0.88) !important;
-  border-color: rgba(168,106,16,0.18) !important;
+html[data-theme='light'] .block-or {
+  background:
+    linear-gradient(135deg, rgba(0, 155, 140, 0.1) 0%, transparent 62%), rgba(252, 255, 253, 0.78) !important;
+  border-color: rgba(0, 155, 140, 0.18) !important;
 }
 body.mode-jour .block-rose,
-html[data-theme="light"] .block-rose {
-  background: linear-gradient(135deg, rgba(180,40,80,0.08) 0%, transparent 60%), rgba(255,240,246,0.88) !important;
-  border-color: rgba(180,40,80,0.15) !important;
+html[data-theme='light'] .block-rose {
+  background:
+    linear-gradient(135deg, rgba(180, 40, 80, 0.08) 0%, transparent 60%), rgba(255, 240, 246, 0.88) !important;
+  border-color: rgba(180, 40, 80, 0.15) !important;
 }
 body.mode-jour .block-neutre,
-html[data-theme="light"] .block-neutre {
-  background: rgba(255,252,245,0.88) !important;
-  border-color: rgba(0,0,0,0.10) !important;
+html[data-theme='light'] .block-neutre {
+  background: rgba(255, 252, 245, 0.88) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
    4. SECTIONS & FONDS
    ────────────────────────────────────────────────────────────── */
 body.mode-jour section,
-html[data-theme="light"] section {
-  color: #1A0A2E;
+html[data-theme='light'] section {
+  color: #1a0a2e;
 }
 
 /* Sections avec fonds sombres explicites → transparents en mode-jour */
-body.mode-jour [class*="-section"],
-html[data-theme="light"] [class*="-section"],
-body.mode-jour [class*="-hero"],
-html[data-theme="light"] [class*="-hero"],
+body.mode-jour [class*='-section'],
+html[data-theme='light'] [class*='-section'],
+body.mode-jour [class*='-hero'],
+html[data-theme='light'] [class*='-hero'],
 body.mode-jour .cta-final,
-html[data-theme="light"] .cta-final {
+html[data-theme='light'] .cta-final {
   background: transparent !important;
 }
 
 /* Sections alternées : légère teinte ivoire */
 body.mode-jour .section-alt,
-html[data-theme="light"] .section-alt,
+html[data-theme='light'] .section-alt,
 body.mode-jour .bg-alt,
-html[data-theme="light"] .bg-alt {
-  background: rgba(244,238,224,0.50) !important;
+html[data-theme='light'] .bg-alt {
+  background: rgba(244, 238, 224, 0.5) !important;
 }
 
 /* Pipeline / Étapes */
 body.mode-jour .pipeline-offres,
-html[data-theme="light"] .pipeline-offres,
+html[data-theme='light'] .pipeline-offres,
 body.mode-jour .section-steps,
-html[data-theme="light"] .section-steps {
+html[data-theme='light'] .section-steps {
   background: transparent !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
    5. TEXTES — CONTRASTE CORRECT
    ────────────────────────────────────────────────────────────── */
-body.mode-jour h1, body.mode-jour h2, body.mode-jour h3,
-body.mode-jour h4, body.mode-jour h5, body.mode-jour h6,
-html[data-theme="light"] h1, html[data-theme="light"] h2,
-html[data-theme="light"] h3, html[data-theme="light"] h4 {
-  color: #1A0A2E !important;
+body.mode-jour h1,
+body.mode-jour h2,
+body.mode-jour h3,
+body.mode-jour h4,
+body.mode-jour h5,
+body.mode-jour h6,
+html[data-theme='light'] h1,
+html[data-theme='light'] h2,
+html[data-theme='light'] h3,
+html[data-theme='light'] h4 {
+  color: #1a0a2e !important;
 }
 
-body.mode-jour p, body.mode-jour li, body.mode-jour span,
-html[data-theme="light"] p, html[data-theme="light"] li,
-html[data-theme="light"] span {
-  color: rgba(26,10,46,0.82);
+body.mode-jour p,
+body.mode-jour li,
+body.mode-jour span,
+html[data-theme='light'] p,
+html[data-theme='light'] li,
+html[data-theme='light'] span {
+  color: rgba(26, 10, 46, 0.82);
 }
 
 body.mode-jour .hero-titre,
-body.mode-jour [class*="-titre"],
-body.mode-jour [class*="-title"],
-html[data-theme="light"] .hero-titre,
-html[data-theme="light"] [class*="-titre"],
-html[data-theme="light"] [class*="-title"] {
-  color: #1A0A2E !important;
+body.mode-jour [class*='-titre'],
+body.mode-jour [class*='-title'],
+html[data-theme='light'] .hero-titre,
+html[data-theme='light'] [class*='-titre'],
+html[data-theme='light'] [class*='-title'] {
+  color: #1a0a2e !important;
 }
 
 body.mode-jour .hero-sous-titre,
-body.mode-jour [class*="-sous-titre"],
-body.mode-jour [class*="-subtitle"],
-html[data-theme="light"] .hero-sous-titre {
-  color: rgba(26,10,46,0.70) !important;
+body.mode-jour [class*='-sous-titre'],
+body.mode-jour [class*='-subtitle'],
+html[data-theme='light'] .hero-sous-titre {
+  color: rgba(26, 10, 46, 0.7) !important;
 }
 
 /* Accent de texte teal / ambre */
 body.mode-jour .accent,
-body.mode-jour [class*="-accent"],
+body.mode-jour [class*='-accent'],
 body.mode-jour .text-teal,
-html[data-theme="light"] .accent,
-html[data-theme="light"] .text-teal {
-  color: #1E9E80 !important;
+html[data-theme='light'] .accent,
+html[data-theme='light'] .text-teal {
+  color: #1e9e80 !important;
 }
 
 body.mode-jour .text-ambre,
-body.mode-jour [class*="-ambre"],
-html[data-theme="light"] .text-ambre {
-  color: #C87A08 !important;
+body.mode-jour [class*='-ambre'],
+html[data-theme='light'] .text-ambre {
+  color: #c87a08 !important;
 }
 
 /* Accent hero jour : gradient défini dans apple-finish.css (ne pas écraser) */
@@ -281,35 +252,39 @@ html[data-theme="light"] .text-ambre {
    6. BOUTONS
    ────────────────────────────────────────────────────────────── */
 body.mode-jour .btn-primary,
-html[data-theme="light"] .btn-primary {
-  background: linear-gradient(135deg, #5B3FD8 0%, #7B5FE8 100%) !important;
-  color: #FFFFFF !important;
-  box-shadow: 0 4px 20px rgba(91,63,216,0.30), 0 1px 4px rgba(91,63,216,0.15) !important;
+html[data-theme='light'] .btn-primary {
+  background: linear-gradient(135deg, #5b3fd8 0%, #7b5fe8 100%) !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 4px 20px rgba(91, 63, 216, 0.3),
+    0 1px 4px rgba(91, 63, 216, 0.15) !important;
 }
 body.mode-jour .btn-primary:hover,
-html[data-theme="light"] .btn-primary:hover {
-  box-shadow: 0 8px 32px rgba(91,63,216,0.40), 0 2px 8px rgba(91,63,216,0.20) !important;
+html[data-theme='light'] .btn-primary:hover {
+  box-shadow:
+    0 8px 32px rgba(91, 63, 216, 0.4),
+    0 2px 8px rgba(91, 63, 216, 0.2) !important;
   transform: translateY(-2px) scale(1.02) !important;
 }
 
 body.mode-jour .btn-secondary,
-html[data-theme="light"] .btn-secondary {
-  background: rgba(255,252,245,0.80) !important;
-  color: #1A0A2E !important;
-  border: 1px solid rgba(200,122,8,0.22) !important;
-  box-shadow: 0 2px 12px rgba(26,10,46,0.07) !important;
+html[data-theme='light'] .btn-secondary {
+  background: rgba(255, 252, 245, 0.8) !important;
+  color: #1a0a2e !important;
+  border: 1px solid rgba(200, 122, 8, 0.22) !important;
+  box-shadow: 0 2px 12px rgba(26, 10, 46, 0.07) !important;
 }
 body.mode-jour .btn-secondary:hover,
-html[data-theme="light"] .btn-secondary:hover {
-  background: rgba(255,252,245,0.95) !important;
-  border-color: rgba(200,122,8,0.35) !important;
+html[data-theme='light'] .btn-secondary:hover {
+  background: rgba(255, 252, 245, 0.95) !important;
+  border-color: rgba(200, 122, 8, 0.35) !important;
 }
 
 /* Bouton ambre (CTA secondaire jour) */
 body.mode-jour .btn-ambre,
-html[data-theme="light"] .btn-ambre {
-  background: linear-gradient(135deg, #C87A08 0%, #E09010 100%) !important;
-  color: #FFFFFF !important;
+html[data-theme='light'] .btn-ambre {
+  background: linear-gradient(135deg, #c87a08 0%, #e09010 100%) !important;
+  color: #ffffff !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -318,22 +293,22 @@ html[data-theme="light"] .btn-ambre {
 body.mode-jour .pill,
 body.mode-jour .filtre-pill,
 body.mode-jour .secteur-pill,
-body.mode-jour [class*="-pill"],
-html[data-theme="light"] .pill,
-html[data-theme="light"] .filtre-pill,
-html[data-theme="light"] [class*="-pill"] {
-  background: rgba(255,248,230,0.80) !important;
-  color: rgba(26,10,46,0.70) !important;
-  border-color: rgba(200,122,8,0.15) !important;
+body.mode-jour [class*='-pill'],
+html[data-theme='light'] .pill,
+html[data-theme='light'] .filtre-pill,
+html[data-theme='light'] [class*='-pill'] {
+  background: rgba(255, 248, 230, 0.8) !important;
+  color: rgba(26, 10, 46, 0.7) !important;
+  border-color: rgba(200, 122, 8, 0.15) !important;
 }
 body.mode-jour .pill.selected,
 body.mode-jour .filtre-pill.selected,
-body.mode-jour [class*="-pill"].active,
-html[data-theme="light"] .pill.selected,
-html[data-theme="light"] .filtre-pill.selected {
-  background: rgba(200,122,8,0.14) !important;
-  color: #8A5000 !important;
-  border-color: rgba(200,122,8,0.30) !important;
+body.mode-jour [class*='-pill'].active,
+html[data-theme='light'] .pill.selected,
+html[data-theme='light'] .filtre-pill.selected {
+  background: rgba(200, 122, 8, 0.14) !important;
+  color: #8a5000 !important;
+  border-color: rgba(200, 122, 8, 0.3) !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -342,72 +317,74 @@ html[data-theme="light"] .filtre-pill.selected {
 body.mode-jour input,
 body.mode-jour textarea,
 body.mode-jour select,
-html[data-theme="light"] input,
-html[data-theme="light"] textarea,
-html[data-theme="light"] select {
-  background: rgba(255,252,245,0.90) !important;
-  border-color: rgba(0,0,0,0.14) !important;
-  color: #1A0A2E !important;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05) !important;
+html[data-theme='light'] input,
+html[data-theme='light'] textarea,
+html[data-theme='light'] select {
+  background: rgba(255, 252, 245, 0.9) !important;
+  border-color: rgba(0, 0, 0, 0.14) !important;
+  color: #1a0a2e !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05) !important;
 }
 body.mode-jour input::placeholder,
 body.mode-jour textarea::placeholder,
-html[data-theme="light"] input::placeholder,
-html[data-theme="light"] textarea::placeholder {
-  color: rgba(26,10,46,0.35) !important;
+html[data-theme='light'] input::placeholder,
+html[data-theme='light'] textarea::placeholder {
+  color: rgba(26, 10, 46, 0.35) !important;
 }
 body.mode-jour input:focus,
 body.mode-jour textarea:focus,
 body.mode-jour select:focus,
-html[data-theme="light"] input:focus,
-html[data-theme="light"] textarea:focus,
-html[data-theme="light"] select:focus {
-  border-color: rgba(200,122,8,0.40) !important;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.04) !important;
-  outline: 2px solid rgba(200,122,8,0.80) !important;
+html[data-theme='light'] input:focus,
+html[data-theme='light'] textarea:focus,
+html[data-theme='light'] select:focus {
+  border-color: rgba(200, 122, 8, 0.4) !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+  outline: 2px solid rgba(200, 122, 8, 0.8) !important;
   outline-offset: 2px !important;
 }
 body.mode-jour input:focus-visible,
 body.mode-jour textarea:focus-visible,
 body.mode-jour select:focus-visible,
-html[data-theme="light"] input:focus-visible,
-html[data-theme="light"] textarea:focus-visible,
-html[data-theme="light"] select:focus-visible {
-  border-color: rgba(200,122,8,0.45) !important;
+html[data-theme='light'] input:focus-visible,
+html[data-theme='light'] textarea:focus-visible,
+html[data-theme='light'] select:focus-visible {
+  border-color: rgba(200, 122, 8, 0.45) !important;
   box-shadow:
-    inset 0 1px 3px rgba(0,0,0,0.04),
-    0 0 0 3px rgba(200,122,8,0.14),
-    0 0 16px rgba(200,122,8,0.08) !important;
-  outline: 2px solid rgba(200,122,8,0.85) !important;
+    inset 0 1px 3px rgba(0, 0, 0, 0.04),
+    0 0 0 3px rgba(200, 122, 8, 0.14),
+    0 0 16px rgba(200, 122, 8, 0.08) !important;
+  outline: 2px solid rgba(200, 122, 8, 0.85) !important;
   outline-offset: 2px !important;
 }
 
 /* Labels de formulaires */
 body.mode-jour label,
-html[data-theme="light"] label {
-  color: rgba(26,10,46,0.75) !important;
+html[data-theme='light'] label {
+  color: rgba(26, 10, 46, 0.75) !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
    9. NAVIGATION MOBILE (bottom-bar)
    ────────────────────────────────────────────────────────────── */
 body.mode-jour .bottom-bar,
-html[data-theme="light"] .bottom-bar {
-  background: rgba(255,248,238,0.92) !important;
-  border-top: 1px solid rgba(200,122,8,0.12) !important;
-  box-shadow: 0 -1px 0 rgba(255,255,255,0.80), 0 -4px 20px rgba(26,10,46,0.06) !important;
+html[data-theme='light'] .bottom-bar {
+  background: rgba(255, 248, 238, 0.92) !important;
+  border-top: 1px solid rgba(200, 122, 8, 0.12) !important;
+  box-shadow:
+    0 -1px 0 rgba(255, 255, 255, 0.8),
+    0 -4px 20px rgba(26, 10, 46, 0.06) !important;
 }
 body.mode-jour .bottom-bar a,
 body.mode-jour .bottom-bar button,
-html[data-theme="light"] .bottom-bar a,
-html[data-theme="light"] .bottom-bar button {
-  color: rgba(26,10,46,0.55) !important;
+html[data-theme='light'] .bottom-bar a,
+html[data-theme='light'] .bottom-bar button {
+  color: rgba(26, 10, 46, 0.55) !important;
 }
 body.mode-jour .bottom-bar a.active,
 body.mode-jour .bottom-bar .active,
-html[data-theme="light"] .bottom-bar a.active,
-html[data-theme="light"] .bottom-bar .active {
-  color: #C87A08 !important;
+html[data-theme='light'] .bottom-bar a.active,
+html[data-theme='light'] .bottom-bar .active {
+  color: #c87a08 !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -415,40 +392,40 @@ html[data-theme="light"] .bottom-bar .active {
    ────────────────────────────────────────────────────────────── */
 body.mode-jour .site-footer,
 body.mode-jour footer,
-html[data-theme="light"] .site-footer,
-html[data-theme="light"] footer {
-  background: rgba(244,238,224,0.80) !important;
-  border-top: 1px solid rgba(200,122,8,0.12) !important;
-  color: rgba(26,10,46,0.65) !important;
+html[data-theme='light'] .site-footer,
+html[data-theme='light'] footer {
+  background: rgba(244, 238, 224, 0.8) !important;
+  border-top: 1px solid rgba(200, 122, 8, 0.12) !important;
+  color: rgba(26, 10, 46, 0.65) !important;
 }
 body.mode-jour .site-footer a,
-html[data-theme="light"] .site-footer a,
+html[data-theme='light'] .site-footer a,
 body.mode-jour footer a,
-html[data-theme="light"] footer a {
-  color: rgba(26,10,46,0.60) !important;
+html[data-theme='light'] footer a {
+  color: rgba(26, 10, 46, 0.6) !important;
 }
 body.mode-jour .site-footer a:hover,
-html[data-theme="light"] .site-footer a:hover {
-  color: #C87A08 !important;
+html[data-theme='light'] .site-footer a:hover {
+  color: #c87a08 !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
    11. SÉPARATEURS
    ────────────────────────────────────────────────────────────── */
 body.mode-jour hr,
-html[data-theme="light"] hr,
+html[data-theme='light'] hr,
 body.mode-jour .separator,
-html[data-theme="light"] .separator,
+html[data-theme='light'] .separator,
 body.mode-jour .section-separator,
-html[data-theme="light"] .section-separator {
-  border-color: rgba(90,60,20,0.12) !important;
-  background: linear-gradient(90deg, transparent, rgba(200,122,8,0.20), transparent) !important;
+html[data-theme='light'] .section-separator {
+  border-color: rgba(90, 60, 20, 0.12) !important;
+  background: linear-gradient(90deg, transparent, rgba(200, 122, 8, 0.2), transparent) !important;
 }
 
 body.mode-jour .section-separator-dot,
-html[data-theme="light"] .section-separator-dot {
-  background: rgba(200,122,8,0.40) !important;
-  box-shadow: 0 0 8px rgba(200,122,8,0.30) !important;
+html[data-theme='light'] .section-separator-dot {
+  background: rgba(200, 122, 8, 0.4) !important;
+  box-shadow: 0 0 8px rgba(200, 122, 8, 0.3) !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -458,15 +435,15 @@ html[data-theme="light"] .section-separator-dot {
 body.mode-jour .bio-filaments,
 body.mode-jour .lucioles-night,
 body.mode-jour .pandora-breath,
-html[data-theme="light"] .bio-filaments,
-html[data-theme="light"] .lucioles-night,
-html[data-theme="light"] .pandora-breath {
+html[data-theme='light'] .bio-filaments,
+html[data-theme='light'] .lucioles-night,
+html[data-theme='light'] .pandora-breath {
   display: none !important;
 }
 
 /* Stars container → opacité 0 (fadeout) */
 body.mode-jour .pandora-stars,
-html[data-theme="light"] .pandora-stars {
+html[data-theme='light'] .pandora-stars {
   opacity: 0 !important;
   pointer-events: none !important;
 }
@@ -475,80 +452,82 @@ html[data-theme="light"] .pandora-stars {
    13. SCROLL INDICATOR
    ────────────────────────────────────────────────────────────── */
 body.mode-jour .scroll-indicator,
-html[data-theme="light"] .scroll-indicator {
-  border-color: rgba(200,122,8,0.30) !important;
+html[data-theme='light'] .scroll-indicator {
+  border-color: rgba(200, 122, 8, 0.3) !important;
 }
 body.mode-jour .scroll-chevron,
-html[data-theme="light"] .scroll-chevron {
-  color: rgba(200,122,8,0.60) !important;
+html[data-theme='light'] .scroll-chevron {
+  color: rgba(200, 122, 8, 0.6) !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
    14. SÉLECTION & SCROLLBAR
    ────────────────────────────────────────────────────────────── */
 body.mode-jour ::selection,
-html[data-theme="light"] ::selection {
-  background: rgba(200,122,8,0.18) !important;
-  color: #1A0A2E !important;
+html[data-theme='light'] ::selection {
+  background: rgba(200, 122, 8, 0.18) !important;
+  color: #1a0a2e !important;
 }
 body.mode-jour *::-webkit-scrollbar-thumb,
-html[data-theme="light"] *::-webkit-scrollbar-thumb {
-  background: rgba(200,122,8,0.22) !important;
+html[data-theme='light'] *::-webkit-scrollbar-thumb {
+  background: rgba(200, 122, 8, 0.22) !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
    15. COMPTEURS / STATS
    ────────────────────────────────────────────────────────────── */
 body.mode-jour [data-count],
-html[data-theme="light"] [data-count],
+html[data-theme='light'] [data-count],
 body.mode-jour .stat-number,
-html[data-theme="light"] .stat-number,
+html[data-theme='light'] .stat-number,
 body.mode-jour .counter,
-html[data-theme="light"] .counter {
-  color: #C87A08 !important;
-  text-shadow: 0 0 16px rgba(200,122,8,0.25) !important;
+html[data-theme='light'] .counter {
+  color: #c87a08 !important;
+  text-shadow: 0 0 16px rgba(200, 122, 8, 0.25) !important;
 }
 body.mode-jour [data-count].counting,
-html[data-theme="light"] [data-count].counting {
-  text-shadow: 0 0 24px rgba(200,122,8,0.40), 0 0 48px rgba(200,122,8,0.20) !important;
+html[data-theme='light'] [data-count].counting {
+  text-shadow:
+    0 0 24px rgba(200, 122, 8, 0.4),
+    0 0 48px rgba(200, 122, 8, 0.2) !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
    16. DRAWERS / MODALES
    ────────────────────────────────────────────────────────────── */
 body.mode-jour .mobile-drawer-panel,
-html[data-theme="light"] .mobile-drawer-panel {
-  background: rgba(255,250,242,0.96) !important;
-  border-color: rgba(200,122,8,0.10) !important;
+html[data-theme='light'] .mobile-drawer-panel {
+  background: rgba(255, 250, 242, 0.96) !important;
+  border-color: rgba(200, 122, 8, 0.1) !important;
 }
 
 body.mode-jour #cookie-banner,
-html[data-theme="light"] #cookie-banner {
-  background: rgba(255,250,242,0.96) !important;
-  color: #1A0A2E !important;
-  border-color: rgba(200,122,8,0.12) !important;
+html[data-theme='light'] #cookie-banner {
+  background: rgba(255, 250, 242, 0.96) !important;
+  color: #1a0a2e !important;
+  border-color: rgba(200, 122, 8, 0.12) !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
    17. OFFRES — éléments spécifiques
    ────────────────────────────────────────────────────────────── */
 body.mode-jour .offre-prix,
-html[data-theme="light"] .offre-prix,
+html[data-theme='light'] .offre-prix,
 body.mode-jour .prix-principal,
-html[data-theme="light"] .prix-principal {
-  color: #1A0A2E !important;
+html[data-theme='light'] .prix-principal {
+  color: #1a0a2e !important;
 }
 
 body.mode-jour .offre-footer,
-html[data-theme="light"] .offre-footer {
-  border-top-color: rgba(0,0,0,0.08) !important;
+html[data-theme='light'] .offre-footer {
+  border-top-color: rgba(0, 0, 0, 0.08) !important;
 }
 
 body.mode-jour .offre-tag,
-html[data-theme="light"] .offre-tag {
-  background: rgba(200,122,8,0.10) !important;
-  color: #8A5000 !important;
-  border-color: rgba(200,122,8,0.20) !important;
+html[data-theme='light'] .offre-tag {
+  background: rgba(200, 122, 8, 0.1) !important;
+  color: #8a5000 !important;
+  border-color: rgba(200, 122, 8, 0.2) !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -556,45 +535,68 @@ html[data-theme="light"] .offre-tag {
    ────────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   body.mode-jour .block,
-  html[data-theme="light"] .block,
+  html[data-theme='light'] .block,
   body.mode-jour .card,
-  html[data-theme="light"] .card,
+  html[data-theme='light'] .card,
   body.mode-jour .offre-card,
-  html[data-theme="light"] .offre-card {
-    background: rgba(255,252,245,0.92) !important;
-    border-color: rgba(200,122,8,0.12) !important;
-    color: #1A0A2E !important;
+  html[data-theme='light'] .offre-card {
+    background: rgba(255, 252, 245, 0.92) !important;
+    border-color: rgba(200, 122, 8, 0.12) !important;
+    color: #1a0a2e !important;
   }
   body.mode-jour .block-cyan,
-  html[data-theme="light"] .block-cyan { background: linear-gradient(135deg,rgba(30,158,128,0.10) 0%,transparent 60%), rgba(235,255,250,0.92) !important; }
+  html[data-theme='light'] .block-cyan {
+    background:
+      linear-gradient(135deg, rgba(30, 158, 128, 0.1) 0%, transparent 60%),
+      rgba(235, 255, 250, 0.92) !important;
+  }
   body.mode-jour .block-violet,
-  html[data-theme="light"] .block-violet { background: linear-gradient(135deg,rgba(91,63,216,0.09) 0%,transparent 60%), rgba(248,242,255,0.92) !important; }
+  html[data-theme='light'] .block-violet {
+    background:
+      linear-gradient(135deg, rgba(91, 63, 216, 0.09) 0%, transparent 60%),
+      rgba(248, 242, 255, 0.92) !important;
+  }
   body.mode-jour .block-vert,
-  html[data-theme="light"] .block-vert { background: linear-gradient(135deg,rgba(42,154,92,0.10) 0%,transparent 60%), rgba(238,255,246,0.92) !important; }
+  html[data-theme='light'] .block-vert {
+    background:
+      linear-gradient(135deg, rgba(42, 154, 92, 0.1) 0%, transparent 60%), rgba(238, 255, 246, 0.92) !important;
+  }
   body.mode-jour .block-ambre,
-  html[data-theme="light"] .block-ambre { background: linear-gradient(135deg,rgba(200,122,8,0.12) 0%,transparent 60%), rgba(255,248,230,0.92) !important; }
+  html[data-theme='light'] .block-ambre {
+    background:
+      linear-gradient(135deg, rgba(200, 122, 8, 0.12) 0%, transparent 60%),
+      rgba(255, 248, 230, 0.92) !important;
+  }
   body.mode-jour .block-or,
-  html[data-theme="light"] .block-or { background: linear-gradient(135deg,rgba(168,106,16,0.12) 0%,transparent 60%), rgba(255,252,235,0.92) !important; }
+  html[data-theme='light'] .block-or {
+    background:
+      linear-gradient(135deg, rgba(168, 106, 16, 0.12) 0%, transparent 60%),
+      rgba(255, 252, 235, 0.92) !important;
+  }
   body.mode-jour .block-rose,
-  html[data-theme="light"] .block-rose { background: linear-gradient(135deg,rgba(180,40,80,0.08) 0%,transparent 60%), rgba(255,240,246,0.92) !important; }
+  html[data-theme='light'] .block-rose {
+    background:
+      linear-gradient(135deg, rgba(180, 40, 80, 0.08) 0%, transparent 60%),
+      rgba(255, 240, 246, 0.92) !important;
+  }
 }
 
 /* ──────────────────────────────────────────────────────────────
    19. ICÔNES MODE TOGGLE
    ────────────────────────────────────────────────────────────── */
 body.mode-jour .mode-toggle,
-html[data-theme="light"] .mode-toggle {
-  color: rgba(26,10,46,0.60) !important;
+html[data-theme='light'] .mode-toggle {
+  color: rgba(26, 10, 46, 0.6) !important;
 }
 body.mode-jour .mode-toggle:hover,
-html[data-theme="light"] .mode-toggle:hover {
-  color: #C87A08 !important;
+html[data-theme='light'] .mode-toggle:hover {
+  color: #c87a08 !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
    20. LOADER PANDORA JOUR
    ────────────────────────────────────────────────────────────── */
 body.mode-jour #pandora-loader,
-html[data-theme="light"] #pandora-loader {
-  background: #FBF5E8 !important;
+html[data-theme='light'] #pandora-loader {
+  background: #fbf5e8 !important;
 }

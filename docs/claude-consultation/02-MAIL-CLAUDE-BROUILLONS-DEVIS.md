@@ -18,9 +18,9 @@ Elle reste **active sur la décision** : **aucun envoi client automatique** pour
 
 ## Signaux Gmail suggérés
 
-- `Pinapp-À-traiter` — à analyser  
-- `Pinapp-Suivi` — fil actif avant signature  
-- `Pinapp-Devis-accepté` ou `Pinapp-Production` — route vers prompt « livraison » + contexte neuf  
+- `Pinapp-À-traiter` — à analyser
+- `Pinapp-Suivi` — fil actif avant signature
+- `Pinapp-Devis-accepté` ou `Pinapp-Production` — route vers prompt « livraison » + contexte neuf
 - `Pinapp-Traité-Claude` — optionnel, anti-boucle
 
 ## Format de sortie Claude (parsing / brouillon)

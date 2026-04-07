@@ -77,4 +77,4 @@
 
 ---
 
-*Document généré pour consultation externe — périmètre strict **Pinapp**.*
+_Document généré pour consultation externe — périmètre strict **Pinapp**._
