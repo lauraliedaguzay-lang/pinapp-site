@@ -7,12 +7,14 @@
   <meta charset="UTF-8">
   <meta name="theme-color" id="pinapp-theme-color" content="#050A14">
   <script src="../assets/js/theme-init.js"></script>
+  <meta name="view-transition" content="same-origin">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Guide offert — 5 automatisations — Pinapp Studio</title>
+  <title>Formation IA — Automatisation pas à pas — Pinapp Studio</title>
   <meta name="description" content="Téléchargez le guide offert Pinapp : 5 automatisations pour votre PME.">
-  <meta property="og:title" content="Guide offert — 5 automatisations — Pinapp Studio">
-  <meta property="og:description" content="Téléchargez le guide offert Pinapp : 5 automatisations pour votre PME.">
-  <meta property="og:image" content="https://pinapp.fr/og-image.webp">
+  <meta property="og:title" content="Formation IA — Automatisation pas à pas — Pinapp Studio">
+  <meta property="og:description" content="3 packs de formation pour apprendre à automatiser avec Claude IA. Débutant à expert. Lancement été 2026.">
+  <meta property="og:image" content="https://pinapp.fr/assets/images/og-home.webp">
   <meta property="og:url" content="https://pinapp.fr/formation-gratuite/">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
@@ -25,7 +27,40 @@
   <link rel="stylesheet" href="../assets/css/aurora-mobile.css"><link rel="stylesheet" href="../assets/css/pandora-jour.css">
   <link rel="stylesheet" href="../assets/css/cursor.css">
   <link rel="stylesheet" href="../assets/css/pandora-ux.css">
-</head>
+  <style>
+  .formation-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-5);align-items:start;padding:var(--space-2) 0;}
+  .dossier-3d{position:relative;cursor:default;transform-style:preserve-3d;transition:transform 0.4s cubic-bezier(0.23,1,0.32,1);}
+  .dossier-3d:hover{transform:translateY(-8px) rotateX(3deg);}
+  .dossier-3d.dossier-featured{transform:translateY(-12px);}
+  .dossier-3d.dossier-featured:hover{transform:translateY(-20px) rotateX(3deg);}
+  .dossier-tabs{display:flex;gap:6px;margin-bottom:-4px;padding-left:20px;}
+  .dossier-tab{width:60px;height:12px;border-radius:6px 6px 0 0;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-bottom:none;}
+  .dossier-3d[data-color="teal"] .dossier-tab{background:rgba(0,180,216,0.2);border-color:rgba(0,180,216,0.35);}
+  .dossier-3d[data-color="violet"] .dossier-tab{background:rgba(139,92,246,0.2);border-color:rgba(139,92,246,0.35);}
+  .dossier-3d[data-color="gradient"] .dossier-tab{background:linear-gradient(90deg,rgba(0,180,216,0.2),rgba(139,92,246,0.2));border-color:rgba(200,150,255,0.3);}
+  .dossier-body{background:var(--glass);backdrop-filter:blur(20px);border-radius:0 16px 16px 16px;border:1px solid var(--border-card);padding:var(--space-5);box-shadow:0 20px 60px rgba(0,0,0,0.3);}
+  .dossier-3d[data-color="teal"] .dossier-body{border-color:rgba(0,180,216,0.25);box-shadow:0 20px 60px rgba(0,180,216,0.08);}
+  .dossier-3d[data-color="violet"] .dossier-body{border-color:rgba(139,92,246,0.3);box-shadow:0 20px 60px rgba(139,92,246,0.1);}
+  .dossier-3d[data-color="gradient"] .dossier-body{border-color:rgba(200,150,255,0.25);box-shadow:0 20px 60px rgba(139,92,246,0.08);}
+  .dossier-icon{font-size:2.2rem;margin-bottom:8px;}
+  .dossier-badge{font-size:11px;font-weight:700;letter-spacing:0.08em;opacity:0.55;margin-bottom:4px;text-transform:uppercase;}
+  .dossier-price{font-size:2.8rem;font-weight:700;letter-spacing:-0.03em;margin:0 0 4px;}
+  .dossier-3d[data-color="teal"] .dossier-price{color:#3EEBD6;}
+  .dossier-3d[data-color="violet"] .dossier-price{color:#A78BFA;}
+  .dossier-3d[data-color="gradient"] .dossier-price{background:linear-gradient(90deg,#3EEBD6,#A78BFA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .dossier-sub{font-size:13px;opacity:0.55;margin-bottom:var(--space-4);font-style:italic;}
+  .dossier-modules{list-style:none;padding:0;margin:0 0 var(--space-4);display:flex;flex-direction:column;gap:8px;}
+  .dossier-modules li{font-size:13px;opacity:0.75;padding-left:16px;position:relative;line-height:1.5;}
+  .dossier-modules li::before{content:"—";position:absolute;left:0;opacity:0.4;}
+  .dossier-features{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:var(--space-4);}
+  .dossier-features span{font-size:11px;padding:3px 10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:100px;opacity:0.7;}
+  .dossier-cta{width:100%;text-align:center;}
+  @media(max-width:640px){.formation-grid{grid-template-columns:1fr;}.dossier-3d.dossier-featured{transform:none;}}
+  </style>  <link rel="canonical" href="https://pinapp.fr/formation-gratuite/">
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"Pinapp Studio","founder":{"@type":"Person","name":"Lauralie Daguzay"},"email":"lauralie.daguzay@pinapp.fr","url":"https://pinapp.fr","areaServed":"FR","priceRange":"\u20ac\u20ac","serviceType":["Site web","Automatisation","IA"]}
+</script>  <script defer data-domain="pinapp.fr" src="https://plausible.io/js/script.js"></script>
+<script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)};document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('.btn-primary').forEach(function(b){b.addEventListener('click',function(){plausible('CTA Click',{props:{page:location.pathname,text:b.textContent.trim()}});});});});</script></head>
 <body class="page-with-bottom-nav">
 <div id="pandora-loader" aria-hidden="true">
   <svg width="32" height="38" viewBox="0 0 32 38" fill="none">
@@ -109,19 +144,140 @@
         <a href="../faq/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
         <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Démarrer ma demande</a>
       </div>
-  <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
-    <section class="section">
-      <div class="container" style="max-width:600px;text-align:center;">
-        <p class="label">OFFERT</p>
-        <h1 style="font-size:var(--text-h1);letter-spacing:-0.02em;">5 automatisations pour votre PME</h1>
-        <p style="font-size:18px;opacity:0.7;margin-bottom:var(--space-3);">Téléchargez le guide. Appliquez dès aujourd'hui. Sans coder. Sans technicien.</p>
-        <p style="font-size:14px;opacity:0.55;margin-bottom:var(--space-5);max-width:28rem;margin-left:auto;margin-right:auto;line-height:1.6;">Pour aller plus loin : parcours <strong>97€</strong> (vidéos + accès à vie) et <strong>497€</strong> (6 semaines live). <a href="../offres/formation/index.html" style="color:var(--accent-teal);text-decoration:underline;">Voir les formations Pinapp</a></p>
-        <div style="background:var(--bg-card);border-radius:var(--radius-card-lg);padding:var(--space-5);border:1px solid var(--border-card);">
-          <label class="visually-hidden" for="leadEmail">Adresse email</label>
-          <input type="email" placeholder="votre@email.fr" id="leadEmail" autocomplete="email" style="width:100%;margin-bottom:var(--space-3);">
-          <button type="button" class="btn btn-primary" style="width:100%;" id="leadSubmit">Recevoir le guide</button>
+    <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
+    <!-- Hero Formation -->
+    <section class="section section-enter" style="text-align:center;padding-top:var(--space-10);">
+      <div class="container" style="max-width:760px;">
+        <p class="label">FORMATION IA</p>
+        <h1 style="font-size:var(--text-h1);letter-spacing:-0.02em;margin-bottom:var(--space-3);line-height:1.1;">Apprenez à automatiser avec l'IA.<br>Étape par étape.</h1>
+        <p style="font-size:1.0625rem;opacity:0.7;margin-bottom:var(--space-2);line-height:1.7;">Claude comme formateur. Quiz par module. Certificat à complétion.</p>
+        <p style="font-size:1.0625rem;font-style:italic;font-family:Georgia,serif;opacity:0.6;margin-bottom:var(--space-6);">Les dossiers se débloquent au fur et à mesure. Progressez à votre rythme.</p>
+        <span style="background:rgba(57,224,117,0.15);color:#39E075;border:1px solid rgba(57,224,117,0.35);font-size:11px;font-weight:700;padding:6px 16px;border-radius:100px;letter-spacing:0.06em;">LANCEMENT — ÉTÉ 2026</span>
+      </div>
+    </section>
+
+    <!-- 3 Dossiers 3D -->
+    <section class="section section-enter">
+      <div class="container">
+        <div class="formation-grid">
+
+          <!-- Pack 1 -->
+          <div class="dossier-3d" data-color="teal">
+            <div class="dossier-tabs">
+              <div class="dossier-tab"></div>
+              <div class="dossier-tab"></div>
+            </div>
+            <div class="dossier-body">
+              <div class="dossier-icon">🌱</div>
+              <div class="dossier-badge">Pack 1</div>
+              <h2 class="dossier-price">47€</h2>
+              <p class="dossier-sub">Débutant → Intermédiaire</p>
+              <ul class="dossier-modules">
+                <li>Module 1 — Comprendre l'automatisation</li>
+                <li>Module 2 — Vos 1ers workflows n8n</li>
+                <li>Module 3 — Connecter vos outils</li>
+                <li>Module 4 — Votre 1er projet complet</li>
+              </ul>
+              <div class="dossier-features">
+                <span>Quiz 3 questions / module</span>
+                <span>Notion interactive</span>
+                <span>Certificat PDF</span>
+              </div>
+              <a href="https://tally.so" target="_blank" rel="noopener noreferrer" class="btn btn-primary dossier-cta">Liste d'attente &rarr;</a>
+            </div>
+          </div>
+
+          <!-- Pack 2 -->
+          <div class="dossier-3d dossier-featured" data-color="violet">
+            <div class="dossier-tabs">
+              <div class="dossier-tab"></div>
+              <div class="dossier-tab"></div>
+            </div>
+            <div class="dossier-body">
+              <div class="dossier-icon">🌿</div>
+              <div class="dossier-badge">Pack 2</div>
+              <h2 class="dossier-price">147€</h2>
+              <p class="dossier-sub">Intermédiaire → Avancé</p>
+              <ul class="dossier-modules">
+                <li>Module 1 — Architectures IA avancées</li>
+                <li>Module 2 — Intégrer Claude API</li>
+                <li>Module 3 — Automatiser le CRM</li>
+                <li>Module 4 — Facturation & onboarding</li>
+                <li>Module 5 — Votre système complet</li>
+              </ul>
+              <div class="dossier-features">
+                <span>Quiz 3 questions / module</span>
+                <span>Notion interactive</span>
+                <span>Dossiers débloqués progressivement</span>
+                <span>Certificat PDF</span>
+              </div>
+              <a href="https://tally.so" target="_blank" rel="noopener noreferrer" class="btn btn-primary dossier-cta">Liste d'attente &rarr;</a>
+            </div>
+          </div>
+
+          <!-- Pack 3 -->
+          <div class="dossier-3d" data-color="gradient">
+            <div class="dossier-tabs">
+              <div class="dossier-tab"></div>
+              <div class="dossier-tab"></div>
+            </div>
+            <div class="dossier-body">
+              <div class="dossier-icon">⭐</div>
+              <div class="dossier-badge">Pack 3</div>
+              <h2 class="dossier-price">397€</h2>
+              <p class="dossier-sub">Avancé → Expert</p>
+              <ul class="dossier-modules">
+                <li>Module 1 — Systèmes multi-agents</li>
+                <li>Module 2 — Deploy & monitoring</li>
+                <li>Module 3 — Sécurité & RGPD IA</li>
+                <li>Module 4 — Vendre vos services IA</li>
+                <li>Module 5 — Scale & délégation</li>
+                <li>Module 6 — Dashboard & reporting</li>
+                <li>Module 7 — Cas clients avancés</li>
+                <li>Module 8 — Projet capstone + 1h coaching</li>
+              </ul>
+              <div class="dossier-features">
+                <span>Quiz 3 questions / module</span>
+                <span>Notion interactive</span>
+                <span>Dossiers débloqués progressivement</span>
+                <span>1h coaching individuel</span>
+                <span>Certificat PDF</span>
+              </div>
+              <a href="https://tally.so" target="_blank" rel="noopener noreferrer" class="btn btn-primary dossier-cta">Liste d'attente &rarr;</a>
+            </div>
+          </div>
+
         </div>
-        <p style="font-size:var(--text-legal);opacity:0.4;margin-top:var(--space-3);">Zéro spam. Désinscription en un clic.</p>
+      </div>
+    </section>
+
+    <!-- Méthode pédagogique -->
+    <section class="section section-enter">
+      <div class="container" style="max-width:700px;text-align:center;">
+        <p class="label">MÉTHODE</p>
+        <h2 style="font-size:var(--text-h2);letter-spacing:-0.02em;margin-bottom:var(--space-5);">Claude IA comme formateur.<br>Vous comme créateur.</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--space-4);text-align:left;">
+          <div style="background:var(--glass);border:1px solid var(--border-card);border-radius:var(--radius-card);padding:var(--space-4);">
+            <div style="font-size:24px;margin-bottom:8px;">🎓</div>
+            <p style="font-weight:600;margin-bottom:6px;font-size:15px;">Formateur IA</p>
+            <p style="font-size:13px;opacity:0.65;line-height:1.6;">Claude adapte les explications à votre niveau et répond à vos questions en temps réel.</p>
+          </div>
+          <div style="background:var(--glass);border:1px solid var(--border-card);border-radius:var(--radius-card);padding:var(--space-4);">
+            <div style="font-size:24px;margin-bottom:8px;">📋</div>
+            <p style="font-weight:600;margin-bottom:6px;font-size:15px;">Quiz par module</p>
+            <p style="font-size:13px;opacity:0.65;line-height:1.6;">3 questions validées avant d'accéder au module suivant. Progression assurée.</p>
+          </div>
+          <div style="background:var(--glass);border:1px solid var(--border-card);border-radius:var(--radius-card);padding:var(--space-4);">
+            <div style="font-size:24px;margin-bottom:8px;">🗂</div>
+            <p style="font-weight:600;margin-bottom:6px;font-size:15px;">Notion interactive</p>
+            <p style="font-size:13px;opacity:0.65;line-height:1.6;">Chaque module a son espace Notion : ressources, exercices, templates prêts à l'emploi.</p>
+          </div>
+          <div style="background:var(--glass);border:1px solid var(--border-card);border-radius:var(--radius-card);padding:var(--space-4);">
+            <div style="font-size:24px;margin-bottom:8px;">🏅</div>
+            <p style="font-weight:600;margin-bottom:6px;font-size:15px;">Certificat PDF</p>
+            <p style="font-size:13px;opacity:0.65;line-height:1.6;">Attestation de complétion à télécharger et partager sur LinkedIn.</p>
+          </div>
+        </div>
       </div>
     </section>
   </main>
