@@ -86,7 +86,7 @@ html[data-theme='light'] .secteur-pill,
 body.mode-jour [class*='-pill'],
 html[data-theme='light'] [class*='-pill'] {
   text-shadow: none !important;
-  box-shadow: none !important;
+  /* Garder le verre iOS (géré par ios-glass.css) — on retire seulement le "glow" */
 }
 
 body.mode-jour .offre-secteur-tag,
@@ -98,6 +98,8 @@ html[data-theme='light'] .offre-secteur-tag {
 /* ──────────────────────────────────────────────────────────────
    3. CARTES & BLOCS
    ────────────────────────────────────────────────────────────── */
+/* Le verre Apple (blur + bg semi-transparent) est piloté par ios-glass.css.
+   Ici, on ne force PAS de background/ombre opaques en mode jour. */
 body.mode-jour .block,
 html[data-theme='light'] .block,
 body.mode-jour .card,
@@ -112,13 +114,6 @@ body.mode-jour .tech-card,
 html[data-theme='light'] .tech-card,
 body.mode-jour .form-card,
 html[data-theme='light'] .form-card {
-  background: var(--glass-card) !important;
-  border-color: var(--border-card) !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.72),
-    inset 0 -1px 0 rgba(26, 10, 46, 0.06),
-    0 18px 54px rgba(26, 10, 46, 0.1),
-    0 1px 8px rgba(26, 10, 46, 0.06) !important;
   color: var(--text-primary) !important;
 }
 
@@ -126,10 +121,7 @@ body.mode-jour .block:hover,
 html[data-theme='light'] .block:hover,
 body.mode-jour .card:hover,
 html[data-theme='light'] .card:hover {
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.82),
-    0 26px 70px rgba(26, 10, 46, 0.12),
-    0 0 0 1px rgba(0, 155, 140, 0.12) !important;
+  /* Hover glass géré par ios-glass.css — ne pas écraser ici */
 }
 
 /* Blocs colorés — variantes Pandora jour */
