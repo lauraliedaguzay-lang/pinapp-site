@@ -12,6 +12,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Votre espace — Pinapp</title>
   <meta name="description" content="Espace client Pinapp.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
   <meta property="og:title" content="Votre espace — Pinapp">
   <meta property="og:description" content="Espace client Pinapp.">
   <meta property="og:image" content="https://pinapp.fr/assets/images/og-home.png">
@@ -83,17 +85,208 @@
     <a href="../offres/index.html">Offres</a>
     <a href="../diagnostic/index.html" class="bottom-bar-cta" style="background:var(--accent-teal);color:#020810;padding:6px 14px;border-radius:6px;font-weight:600;font-size:12px;">D&eacute;marrer &rarr;</a>
   </div>
+  <style>
+    .idea-pills { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:var(--space-4); }
+    .idea-pill { display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border-radius:100px; border:1.5px solid var(--border-card); background:transparent; color:var(--text); font-size:13px; font-weight:500; cursor:pointer; transition:all .2s; font-family:inherit; }
+    .idea-pill:hover { border-color:var(--accent-teal); color:var(--accent-teal); }
+    .idea-pill.active { background:linear-gradient(135deg,rgba(123,79,232,.18),rgba(0,229,204,.12)); border-color:var(--accent-teal); color:var(--accent-teal); }
+    .idea-field { width:100%; background:var(--bg-card); border:1.5px solid var(--border-card); border-radius:12px; padding:14px 16px; color:var(--text); font-size:14px; font-family:inherit; transition:border-color .2s; resize:vertical; }
+    .idea-field:focus { outline:none; border-color:var(--accent-teal); }
+    .idea-field::placeholder { opacity:.4; }
+    .idea-label { font-size:12px; letter-spacing:.08em; color:var(--text); opacity:.5; text-transform:uppercase; font-weight:600; margin-bottom:8px; display:block; }
+    .success-card { display:none; text-align:center; padding:var(--space-6); }
+    .success-card.visible { display:block; }
+    .idea-form-wrap.submitted { display:none; }
+  </style>
+
   <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
     <section class="section" style="padding-top:var(--space-8);">
-      <div class="container" style="max-width:600px;">
+      <div class="container" style="max-width:620px;">
+
         <p class="label">VOTRE ESPACE PINAPP</p>
-        <h1 style="font-size:32px;margin-bottom:var(--space-5);">Bienvenue</h1>
-        <div class="card" style="margin-bottom:var(--space-3);"><p class="label">VOTRE PROJET</p><h2 style="font-size:18px;">Mission en cours</h2><div style="height:3px;background:var(--border-card);border-radius:100px;margin-top:var(--space-2);"><div class="progress-bar" style="width:60%;height:3px;"></div></div></div>
-        <div class="card" style="margin-bottom:var(--space-3);"><p class="label">DOCUMENTS</p><a href="../legal/cgv.html" style="color:var(--accent-teal);font-size:14px;">CGV</a></div>
-        <div class="card"><a href="mailto:lauralie.daguzay@pinapp.fr" class="btn btn-primary">Message</a></div>
+        <h1 style="font-size:clamp(26px,5vw,36px);margin-bottom:var(--space-2);">Bienvenue</h1>
+        <p style="opacity:.55;font-size:14px;margin-bottom:var(--space-6);">Partagez vos idées, suivez l'avancement, contactez-moi.</p>
+
+        <!-- Projet en cours -->
+        <div class="card" style="margin-bottom:var(--space-3);">
+          <p class="label" style="margin-bottom:var(--space-2);">VOTRE PROJET</p>
+          <h2 style="font-size:17px;font-weight:600;margin-bottom:var(--space-3);">Mission en cours</h2>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span style="font-size:12px;opacity:.5;">Progression</span>
+            <span style="font-size:12px;font-weight:600;color:var(--accent-teal);">60 %</span>
+          </div>
+          <div style="height:4px;background:var(--border-card);border-radius:100px;">
+            <div style="width:60%;height:4px;background:linear-gradient(90deg,#7B4FE8,#00E5CC);border-radius:100px;"></div>
+          </div>
+          <p style="font-size:12px;opacity:.4;margin-top:var(--space-2);">Pour toute question sur l'avancement : <a href="mailto:lauralie.daguzay@pinapp.fr" style="color:var(--accent-teal);">m'écrire</a></p>
+        </div>
+
+        <!-- Formulaire d'idées -->
+        <div class="card" style="margin-bottom:var(--space-3);" id="idees-card">
+          <p class="label" style="margin-bottom:var(--space-2);">PARTAGEZ UNE IDÉE</p>
+          <p style="font-size:14px;opacity:.6;margin-bottom:var(--space-4);line-height:1.6;">Nouvelle page, modification, inspiration… notez tout ici. Je lis chaque message.</p>
+
+          <!-- Formulaire actif -->
+          <div class="idea-form-wrap" id="ideaFormWrap">
+            <form
+              name="idees-client"
+              method="POST"
+              data-netlify="true"
+              netlify-honeypot="bot-field"
+              id="ideaForm"
+              novalidate
+            >
+              <input type="hidden" name="form-name" value="idees-client">
+              <p style="display:none;"><label>Ne pas remplir : <input name="bot-field"></label></p>
+
+              <!-- Type -->
+              <label class="idea-label">Type d'idée</label>
+              <div class="idea-pills" role="group" aria-label="Type d'idée">
+                <button type="button" class="idea-pill" data-group="type" data-val="Nouvelle page">Nouvelle page</button>
+                <button type="button" class="idea-pill" data-group="type" data-val="Modification">Modification</button>
+                <button type="button" class="idea-pill" data-group="type" data-val="Fonctionnalité">Fonctionnalité</button>
+                <button type="button" class="idea-pill" data-group="type" data-val="Contenu">Contenu</button>
+                <button type="button" class="idea-pill" data-group="type" data-val="Autre">Autre</button>
+              </div>
+              <input type="hidden" name="type" id="ideaType" value="">
+
+              <!-- Titre -->
+              <div style="margin-bottom:var(--space-4);">
+                <label class="idea-label" for="ideaTitre">Résumé en une ligne</label>
+                <input type="text" id="ideaTitre" name="titre" class="idea-field" placeholder="Ex : Ajouter une section témoignages" required>
+              </div>
+
+              <!-- Description -->
+              <div style="margin-bottom:var(--space-4);">
+                <label class="idea-label" for="ideaDesc">Description de l'idée</label>
+                <textarea id="ideaDesc" name="description" class="idea-field" rows="4" placeholder="Décrivez votre idée avec le plus de détails possible. Ambiance, contenu, fonctionnement…" required></textarea>
+              </div>
+
+              <!-- Référence -->
+              <div style="margin-bottom:var(--space-4);">
+                <label class="idea-label" for="ideaRef">Référence ou inspiration <span style="opacity:.5;font-weight:400;text-transform:none;">(optionnel)</span></label>
+                <input type="text" id="ideaRef" name="reference" class="idea-field" placeholder="Un lien, une couleur, un site qui vous inspire…">
+              </div>
+
+              <!-- Priorité -->
+              <label class="idea-label">Priorité</label>
+              <div class="idea-pills" role="group" aria-label="Priorité">
+                <button type="button" class="idea-pill" data-group="priorite" data-val="Urgent">Urgent</button>
+                <button type="button" class="idea-pill" data-group="priorite" data-val="Bientôt">Bientôt</button>
+                <button type="button" class="idea-pill active" data-group="priorite" data-val="Quand vous pouvez">Quand vous pouvez</button>
+              </div>
+              <input type="hidden" name="priorite" id="ideaPriorite" value="Quand vous pouvez">
+
+              <button type="submit" class="btn btn-primary" style="width:100%;margin-top:var(--space-2);">Envoyer l'idée &rarr;</button>
+            </form>
+          </div>
+
+          <!-- Confirmation -->
+          <div class="success-card" id="ideaSuccess">
+            <div style="font-size:32px;margin-bottom:var(--space-3);">✓</div>
+            <p style="font-weight:600;font-size:16px;margin-bottom:8px;">Idée reçue !</p>
+            <p style="font-size:14px;opacity:.6;">Je la lis dès que possible et vous reviens si besoin.</p>
+            <button type="button" class="btn btn-secondary" style="margin-top:var(--space-4);font-size:13px;" id="ideaReset">Ajouter une autre idée</button>
+          </div>
+        </div>
+
+        <!-- Documents & contact -->
+        <div class="card" style="margin-bottom:var(--space-3);">
+          <p class="label" style="margin-bottom:var(--space-3);">DOCUMENTS</p>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;">
+            <a href="../legal/cgv.html" style="color:var(--accent-teal);font-size:14px;display:inline-flex;align-items:center;gap:6px;">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 2h6l3 3v9H4V2z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M10 2v3h3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Conditions générales
+            </a>
+          </div>
+        </div>
+
+        <div class="card">
+          <p class="label" style="margin-bottom:var(--space-3);">CONTACT DIRECT</p>
+          <a href="mailto:lauralie.daguzay@pinapp.fr" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:8px;">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="1" y="3" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M1 5l7 5 7-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+            Écrire à Lauralie
+          </a>
+        </div>
+
       </div>
     </section>
   </main>
+
+  <script>
+  (function() {
+    // Pill toggles
+    document.querySelectorAll('.idea-pill').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var group = this.dataset.group;
+        document.querySelectorAll('.idea-pill[data-group="' + group + '"]').forEach(function(b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        var field = group === 'type' ? document.getElementById('ideaType') : document.getElementById('ideaPriorite');
+        if (field) field.value = this.dataset.val;
+      });
+    });
+
+    // Form submit
+    var form = document.getElementById('ideaForm');
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var titre = document.getElementById('ideaTitre');
+        if (!titre || !titre.value.trim()) { titre && titre.focus(); return; }
+        var desc = document.getElementById('ideaDesc');
+        if (!desc || !desc.value.trim()) { desc && desc.focus(); return; }
+
+        var btn = form.querySelector('[type="submit"]');
+        if (btn) { btn.disabled = true; btn.textContent = 'Envoi…'; }
+
+        var data = new FormData(form);
+        fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(data).toString() })
+          .then(function() { showSuccess(); })
+          .catch(function() { showSuccess(); });
+      });
+    }
+
+    function showSuccess() {
+      var wrap = document.getElementById('ideaFormWrap');
+      var ok = document.getElementById('ideaSuccess');
+      if (wrap) wrap.classList.add('submitted');
+      if (ok) ok.classList.add('visible');
+
+      // Optional: notify via n8n webhook
+      if (window.PinappConfig && window.PinappConfig.webhooks && window.PinappConfig.features && window.PinappConfig.features.diagnosticWebhook) {
+        var url = window.PinappConfig.webhooks.diagnosticLead;
+        if (url) {
+          try {
+            fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ source: 'idees-client', timestamp: new Date().toISOString() }) });
+          } catch(e) {}
+        }
+      }
+    }
+
+    // Reset
+    var resetBtn = document.getElementById('ideaReset');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', function() {
+        var wrap = document.getElementById('ideaFormWrap');
+        var ok = document.getElementById('ideaSuccess');
+        var f = document.getElementById('ideaForm');
+        if (wrap) wrap.classList.remove('submitted');
+        if (ok) ok.classList.remove('visible');
+        if (f) f.reset();
+        document.getElementById('ideaType').value = '';
+        document.getElementById('ideaPriorite').value = 'Quand vous pouvez';
+        document.querySelectorAll('.idea-pill[data-group="type"]').forEach(function(b) { b.classList.remove('active'); });
+        document.querySelectorAll('.idea-pill[data-group="priorite"]').forEach(function(b) {
+          b.classList.toggle('active', b.dataset.val === 'Quand vous pouvez');
+        });
+        var btn = f && f.querySelector('[type="submit"]');
+        if (btn) { btn.disabled = false; btn.innerHTML = 'Envoyer l\'id\u00e9e &rarr;'; }
+      });
+    }
+  })();
+  </script>
   <footer style="border-top:1px solid var(--separator);padding:var(--space-5) 0;">
     <div class="container" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:var(--space-3);opacity:0.6;font-size:13px;">
       <span>Pinapp © 2026</span>
