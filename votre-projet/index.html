@@ -332,5 +332,114 @@
     <script src="../assets/js/scroll-cinema.js" defer></script>
     <script src="../assets/js/cursor.js" defer></script>
     <script src="../assets/js/bio-particles.js" defer></script>
+    <script>
+      (function () {
+        'use strict';
+        var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var answers = {};
+        var progressMap = { 1: 25, 2: 50, 3: 75, 4: 100 };
+        var stage = document.getElementById('onboardingStage');
+        var bar = document.getElementById('onboardingProgress');
+
+        function show(id) {
+          var el = document.getElementById(id);
+          if (el) el.classList.add('active');
+        }
+        function hide(id) {
+          var el = document.getElementById(id);
+          if (el) el.classList.remove('active');
+        }
+
+        function transitionMsg(text) {
+          if (!stage || prefersReducedMotion) return;
+          var msg = document.createElement('div');
+          msg.className = 'transition-msg';
+          msg.textContent = text;
+          msg.style.cssText =
+            'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:18px;color:var(--accent-teal);pointer-events:none;';
+          stage.appendChild(msg);
+          window.setTimeout(function () {
+            if (msg && msg.parentNode) msg.remove();
+          }, 750);
+        }
+
+        function submitAnswers() {
+          try {
+            localStorage.setItem(
+              'pinapp-votre-projet',
+              JSON.stringify({ answers: answers, at: new Date().toISOString() }),
+            );
+          } catch (e) {}
+          // Netlify Forms (sans backend): on envoie un POST form-encoded
+          // La capture côté Netlify marche seulement si un <form data-netlify> existe dans le HTML (ci-dessous).
+          var payload = {
+            'form-name': 'pinapp-votre-projet',
+            besoin: answers[1] || '',
+            structure: answers[2] || '',
+            delai: answers[3] || '',
+            budget: answers[4] || '',
+            page: location.pathname,
+            url: location.href,
+          };
+          var body = Object.keys(payload)
+            .map(function (k) {
+              return encodeURIComponent(k) + '=' + encodeURIComponent(String(payload[k]));
+            })
+            .join('&');
+          fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: body,
+          }).catch(function () {});
+        }
+
+        document.querySelectorAll('.pill-btn').forEach(function (btn) {
+          btn.style.cssText =
+            'padding:10px 20px;border-radius:100px;border:1px solid var(--border-card);font-size:14px;color:var(--text-primary);background:transparent;cursor:pointer;transition:all 200ms ease;touch-action:manipulation;';
+          btn.addEventListener('click', function () {
+            var q = parseInt(btn.getAttribute('data-q') || '0', 10);
+            var val = btn.getAttribute('data-val') || '';
+            if (!q) return;
+            answers[q] = val;
+            if (bar && progressMap[q]) bar.style.width = progressMap[q] + '%';
+
+            var messages = { 1: 'Bien noté.', 2: 'Parfait.', 3: 'On y est presque.' };
+            if (q < 4) {
+              transitionMsg(messages[q] || '');
+              hide('q' + q);
+              window.setTimeout(
+                function () {
+                  show('q' + (q + 1));
+                },
+                prefersReducedMotion ? 0 : 700,
+              );
+              return;
+            }
+
+            // Fin
+            hide('q4');
+            if (bar) bar.style.width = '100%';
+            var finMessage = document.getElementById('finMessage');
+            if (finMessage && answers[4] === 'moins-1000') {
+              finMessage.textContent =
+                'Parfait pour un format Starter. Réponse sous 24 h par écrit — vous confirmez ensuite si vous voulez avancer.';
+            }
+            show('qfin');
+            submitAnswers();
+          });
+        });
+      })();
+    </script>
+
+    <!-- Netlify Forms (invisible) — permet la collecte sans backend -->
+    <form name="pinapp-votre-projet" data-netlify="true" hidden>
+      <input type="hidden" name="form-name" value="pinapp-votre-projet" />
+      <input type="text" name="besoin" />
+      <input type="text" name="structure" />
+      <input type="text" name="delai" />
+      <input type="text" name="budget" />
+      <input type="text" name="page" />
+      <input type="text" name="url" />
+    </form>
   </body>
 </html>

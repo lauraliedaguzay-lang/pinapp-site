@@ -26,6 +26,107 @@
     );
   }
 
+  /* Onboarding (Votre projet) — progression + export vers Netlify Forms (fallback) */
+  function wireVotreProjetOnboarding() {
+    var stage = document.getElementById('onboardingStage');
+    if (!stage) return;
+    var progress = document.getElementById('onboardingProgress');
+    var pills = Array.prototype.slice.call(document.querySelectorAll('.pill-btn'));
+    if (!pills.length) return;
+
+    var answers = {};
+    var progressMap = { 1: 25, 2: 50, 3: 75, 4: 100 };
+
+    function setActive(id) {
+      Array.prototype.slice.call(stage.querySelectorAll('.question')).forEach(function (q) {
+        q.classList.remove('active');
+      });
+      var next = document.getElementById(id);
+      if (next) next.classList.add('active');
+    }
+
+    function toFormEncoded(data) {
+      var parts = [];
+      for (var k in data) {
+        if (!Object.prototype.hasOwnProperty.call(data, k)) continue;
+        parts.push(
+          encodeURIComponent(k) + '=' + encodeURIComponent(String(data[k] == null ? '' : data[k])),
+        );
+      }
+      return parts.join('&');
+    }
+
+    function submitNetlifyForm(payload) {
+      // Netlify Forms — fonctionne seulement si la page est servie par Netlify (ou build équivalent).
+      // Sur un hébergement “simple”, le formulaire reste utilisable via mailto fallback (voir page).
+      try {
+        return fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: toFormEncoded(payload),
+        }).then(function () {});
+      } catch (e) {
+        return Promise.resolve();
+      }
+    }
+
+    pills.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var q = parseInt(btn.getAttribute('data-q') || '0', 10);
+        if (!q) return;
+        var val = btn.getAttribute('data-val') || '';
+        answers['q' + q] = val;
+
+        if (progress && progressMap[q]) progress.style.width = progressMap[q] + '%';
+
+        if (q < 4) {
+          setActive('q' + (q + 1));
+          return;
+        }
+
+        // Q4 => fin + envoi (best-effort)
+        setActive('qfin');
+        if (progress) progress.style.width = '100%';
+
+        var finMessage = document.getElementById('finMessage');
+        if (finMessage && val === 'moins-1000') {
+          finMessage.textContent =
+            'Parfait. Je te propose une option rapide et cohérente, puis tu me confirmes si tu veux avancer.';
+        }
+
+        // Payload Netlify
+        var ts = new Date().toISOString();
+        var payload = {
+          'form-name': 'votre-projet',
+          submittedAt: ts,
+          source: location.pathname,
+          ...answers,
+        };
+        submitNetlifyForm(payload);
+
+        // Met à jour le mailto (fallback) si présent
+        var mailLink = document.getElementById('votreProjetMailto');
+        if (mailLink && mailLink.tagName === 'A') {
+          var lines = [];
+          lines.push('Votre projet — réponses');
+          lines.push('Date: ' + ts);
+          lines.push('Page: ' + location.href);
+          lines.push('');
+          lines.push('Besoin: ' + (answers.q1 || ''));
+          lines.push('Structure: ' + (answers.q2 || ''));
+          lines.push('Délai: ' + (answers.q3 || ''));
+          lines.push('Budget: ' + (answers.q4 || ''));
+          var body = encodeURIComponent(lines.join('\n'));
+          mailLink.href =
+            'mailto:lauralie.daguzay@pinapp.fr?subject=' +
+            encodeURIComponent('Demande Pinapp — Votre projet') +
+            '&body=' +
+            body;
+        }
+      });
+    });
+  }
+
   /* Ancre dans l’URL (#contenu-principal) : le loader fixe masque la cible au 1er paint ;
      après retrait du loader, on rescroll pour file:// et HTTPS. */
   function applyHashScroll() {
@@ -85,6 +186,12 @@
     },
     { passive: true },
   );
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wireVotreProjetOnboarding);
+  } else {
+    wireVotreProjetOnboarding();
+  }
 
   /* Nav scroll-aware : masquage au scroll uniquement sur petit écran (évite « nav morte » sur bureau) */
   var navHideMq = window.matchMedia('(max-width: 767px)');
@@ -500,8 +607,7 @@
 
           var finMsg = document.getElementById('finMessage');
           if (finMsg && answers[4] === 'moins-1000') {
-            finMsg.textContent =
-              'Parfait pour notre Starter à 349€. Je reviens vers vous sous 24h.';
+            finMsg.textContent = 'Parfait pour notre Starter. Je reviens vers vous sous 24h.';
           }
 
           var qfin = document.getElementById('qfin');
