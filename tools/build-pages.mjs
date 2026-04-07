@@ -200,14 +200,14 @@ const pages = [
       <div class="container" style="max-width:800px;">
         <p class="label" style="margin-bottom:var(--space-2);">SIMPLE ET TRANSPARENT</p>
         <h1 style="font-size:var(--text-h1);letter-spacing:-0.02em;margin-bottom:var(--space-3);">Comment ça marche</h1>
-        <p style="font-size:20px;opacity:0.7;margin-bottom:var(--space-7);">De la première conversation à la livraison finale. Voici exactement ce qui se passe.</p>
+        <p style="font-size:20px;opacity:0.7;margin-bottom:var(--space-7);">Du premier message écrit à la livraison finale. Voici exactement ce qui se passe.</p>
         <div class="step-item" style="display:grid;grid-template-columns:64px 1fr;gap:var(--space-4);margin-bottom:var(--space-6);">
           <div style="width:64px;height:64px;border-radius:50%;border:2px solid var(--accent-violet);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:24px;color:var(--accent-violet);">1</span></div>
           <div>
-            <h2 style="font-size:24px;margin-bottom:var(--space-1);">On se parle — 30 minutes offertes</h2>
-            <p style="opacity:0.7;line-height:1.8;margin-bottom:var(--space-2);">Vous me racontez votre quotidien. Vos outils, vos tâches, ce qui vous prend du temps, ce qui vous frustre. Je cartographie tout et identifie 3 opportunités concrètes.</p>
-            <p style="opacity:0.7;line-height:1.8;">Vous repartez avec des idées actionnables — même si vous ne travaillez pas avec moi ensuite. C'est offert. Zéro engagement.</p>
-            <a href="/diagnostic/" class="btn btn-primary" style="display:inline-flex;margin-top:var(--space-3);">Réserver mon diagnostic</a>
+            <h2 style="font-size:24px;margin-bottom:var(--space-1);">Vous écrivez — diagnostic offert</h2>
+            <p style="opacity:0.7;line-height:1.8;margin-bottom:var(--space-2);">Par formulaire puis email : votre quotidien, vos outils, ce qui vous prend du temps. Je cartographie et je vous renvoie des opportunités concrètes.</p>
+            <p style="opacity:0.7;line-height:1.8;">Pas d'appel ni visio. Même si vous ne travaillez pas avec moi ensuite, vous gardez des pistes actionnables. C'est offert. Zéro engagement.</p>
+            <a href="/diagnostic/" class="btn btn-primary" style="display:inline-flex;margin-top:var(--space-3);">Démarrer ma demande par écrit</a>
           </div>
         </div>
         <div class="step-item" style="display:grid;grid-template-columns:64px 1fr;gap:var(--space-4);margin-bottom:var(--space-6);">
@@ -234,22 +234,22 @@ const pages = [
         </div>
         <div style="text-align:center;padding:var(--space-6);background:var(--bg-card);border-radius:var(--radius-card-lg);border:1px solid var(--border-card);">
           <h3 style="font-size:24px;margin-bottom:var(--space-2);">Prêt à commencer ?</h3>
-          <p style="opacity:0.7;margin-bottom:var(--space-4);">30 minutes offertes. Zéro engagement. Vous repartez avec des idées concrètes.</p>
-          <a href="/diagnostic/" class="btn btn-primary pinapp-breathe">Réserver mon diagnostic offert</a>
+          <p style="opacity:0.7;margin-bottom:var(--space-4);">Diagnostic par écrit offert. Zéro engagement. Réponse sous 24 h.</p>
+          <a href="/diagnostic/" class="btn btn-primary pinapp-breathe">Démarrer ma demande par écrit</a>
         </div>
       </div>
     </section>`,
   },
   {
     file: 'diagnostic/index.html',
-    title: 'Diagnostic offert — Pinapp Studio',
-    desc: 'Réservez 30 minutes avec Pinapp : cartographie et 3 opportunités concrètes.',
+    title: 'Diagnostic offert — tout par écrit — Pinapp Studio',
+    desc: 'Décrivez votre besoin par écrit. Réponse détaillée sous 24 h — sans appel ni visio.',
     og: '/diagnostic/',
     body: `    <section class="section">
       <div class="container" style="max-width:700px;text-align:center;">
         <p class="label" style="margin-bottom:var(--space-2);">OFFERT · SANS ENGAGEMENT</p>
-        <h1 style="font-size:var(--text-h1);letter-spacing:-0.02em;margin-bottom:var(--space-3);">30 minutes pour transformer votre business.</h1>
-        <p style="font-size:18px;opacity:0.7;margin-bottom:var(--space-6);">Pas de présentation. Pas de pitch. Une conversation.</p>
+        <h1 style="font-size:var(--text-h1);letter-spacing:-0.02em;margin-bottom:var(--space-3);">Tout par écrit — réponse sous 24 h.</h1>
+        <p style="font-size:18px;opacity:0.7;margin-bottom:var(--space-6);">Pas de présentation. Pas de pitch. Formulaire et email uniquement.</p>
         <div class="grid grid-3" style="margin-bottom:var(--space-6);text-align:left;">
           <div>
             <h3 style="font-size:16px;color:var(--accent-teal);margin-bottom:var(--space-1);">Ce qu'on fait</h3>
@@ -261,7 +261,7 @@ const pages = [
           </div>
           <div>
             <h3 style="font-size:16px;color:var(--accent-teal);margin-bottom:var(--space-1);">Comment ça se passe</h3>
-            <p style="font-size:14px;opacity:0.7;">Google Meet ou téléphone. Vous parlez, j'écoute. Simple.</p>
+            <p style="font-size:14px;opacity:0.7;">Pas d'appel ni visio — vous écrivez, je réponds par email.</p>
           </div>
         </div>
         <div style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-card-lg);padding:var(--space-5);margin-bottom:var(--space-4);">
@@ -271,7 +271,7 @@ const pages = [
           <a href="mailto:lauralie.daguzay@pinapp.fr?subject=Demande%20de%20diagnostic%20Pinapp" class="btn btn-primary" style="margin-top:var(--space-3);">Envoyer un email</a>
         </div>
         <div style="background:var(--bg-card);border-radius:var(--radius-card);padding:var(--space-3);border:1px solid rgba(57,224,117,0.2);">
-          <p style="font-size:14px;opacity:0.7;"><strong style="color:var(--accent-green);">Garantie :</strong> Si ces 30 minutes ne vous apportent rien de concret, je vous offre un template de votre secteur.</p>
+          <p style="font-size:14px;opacity:0.7;"><strong style="color:var(--accent-green);">Garantie :</strong> Si ma réponse écrite ne vous apporte rien de concret, je vous offre un template de votre secteur.</p>
         </div>
         <p style="font-size:var(--text-legal);opacity:0.4;margin-top:var(--space-4);">Vos informations sont utilisées uniquement pour organiser ce rendez-vous. Aucun démarchage ultérieur sans votre accord. <a href="/legal/confidentialite.html" style="text-decoration:underline;">Politique de confidentialité</a></p>
       </div>
@@ -656,7 +656,7 @@ const pages = [
             <p style="opacity:0.7;margin-bottom:var(--space-5);">Pinapp l’a pensé, conçu et structuré. Votre projet mérite le même niveau d’exigence.</p>
             <div style="display:flex;gap:var(--space-2);align-items:center;flex-wrap:wrap;">
               <span style="background:var(--accent-green);color:#050A14;font-size:11px;font-weight:600;padding:4px 12px;border-radius:100px;">Concours Lépine 2026</span>
-              <a href="/diagnostic/?projet=auralis" style="font-size:14px;color:var(--accent-teal);">Parler de mon projet →</a>
+              <a href="/diagnostic/?projet=auralis" style="font-size:14px;color:var(--accent-teal);">Écrire sur mon projet →</a>
             </div>
           </div>
           <div style="display:flex;justify-content:center;">

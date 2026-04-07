@@ -29,7 +29,7 @@ const MONDES = [
     prix: '1 990€',
     delai: '7 jours',
     demo_feature: 'Quiz diagnostic peau → soin personnalisé recommandé + réservation',
-    demo_temoignage: '"J\'y vais chaque mois. Mon téléphone reste dans le sac." — Sophie M.',
+    demo_temoignage: '"J\'y vais chaque mois. Je réserve en ligne, sans jouer au ping-pong de messages." — Sophie M.',
   },
 
   {
@@ -177,7 +177,7 @@ const MONDES = [
     prix: '1 800€',
     delai: '10 jours',
     demo_feature: 'Arbre de décision juridique — 3 niveaux → recommandation + formulaire contact',
-    demo_temoignage: '"Appelé un vendredi à 17h. Rappelé dans l\'heure." — Pierre M., Directeur',
+    demo_temoignage: '"Formulaire un vendredi à 17 h. Réponse écrite dans l\'heure." — Pierre M., Directeur',
   },
 
   {
