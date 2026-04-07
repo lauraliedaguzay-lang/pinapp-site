@@ -220,7 +220,7 @@ const UniversQ = {
     resultat.innerHTML = `
       <p style="font-size:13px;color:var(--text-4);margin-bottom:8px;">${intro}</p>
 
-      <div class="univers-nom">✦ ${u.nom || 'Votre Univers'}</div>
+      <div class="univers-nom">✦ ${_he(u.nom || 'Votre Univers')}</div>
 
       ${
         u.palette

@@ -222,7 +222,7 @@ const UniversDigital = {
         u.signature
           ? `
         <div class="univers-signature">
-          ◈ Signature visuelle : ${u.signature}
+          ◈ Signature visuelle : ${_he(u.signature)}
         </div>
       `
           : ''
