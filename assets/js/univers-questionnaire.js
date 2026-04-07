@@ -1,8 +1,8 @@
 ﻿/* XSS protection */
 var _he = function(s){return s==null?'':String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#x27;');};
 /* PINAPP — univers-questionnaire.js
-   3 questions → Aurora génère un univers unique
-   API : placeholder n8n (connecter quand prêt)
+   Questions structurantes + texte libre → brief JSON (brief_orient_claude)
+   pour orienter Claude via webhook n8n. Fallback local si endpoint absent.
    ============================================================ */
 
 /* endpoint résolu depuis config.js si disponible */
@@ -11,7 +11,7 @@ const AURORA_UNIVERS_ENDPOINT = (window.PinappConfig && window.PinappConfig._isR
   : null; /* null = mode fallback local actif */
 
 const UniversQ = {
-  state: { lieu: null, emotion: null, reference: '', prenom: '' },
+  state: { lieu: null, emotion: null, reference: '', prenom: '', briefOrientClaude: '' },
 
   init() {
     document.querySelectorAll('#pills-lieu .univers-pill').forEach(p => {
@@ -59,7 +59,7 @@ const UniversQ = {
           next.style.opacity = '1';
           next.style.transform = 'translateY(0)';
         });
-        if (n === 3) setTimeout(() => document.getElementById('input-reference')?.focus(), 420);
+        if (n === 3) setTimeout(() => document.getElementById('input-brief-claude')?.focus(), 420);
       }
     }, 320);
 
@@ -71,8 +71,10 @@ const UniversQ = {
   async generer() {
     const ref    = document.getElementById('input-reference')?.value?.trim();
     const prenom = document.getElementById('input-prenom')?.value?.trim();
+    const brief  = document.getElementById('input-brief-claude')?.value?.trim() || '';
     this.state.reference = ref || 'aucune référence';
     this.state.prenom = prenom || '';
+    this.state.briefOrientClaude = brief;
 
     if (!this.state.lieu || !this.state.emotion) return;
 
@@ -108,7 +110,8 @@ const UniversQ = {
           lieu: this.state.lieu,
           emotion: this.state.emotion,
           reference: this.state.reference,
-          prenom: this.state.prenom
+          prenom: this.state.prenom,
+          brief_orient_claude: brief
         })
       });
 
@@ -117,13 +120,24 @@ const UniversQ = {
       this.afficher(u);
 
       try {
-        localStorage.setItem('pinapp-univers', JSON.stringify({ ...u, prenom: this.state.prenom }));
+        localStorage.setItem('pinapp-univers', JSON.stringify({
+          ...u,
+          prenom: this.state.prenom,
+          brief_orient_claude: this.state.briefOrientClaude || undefined
+        }));
       } catch(e) {}
 
     } catch(e) {
       /* Fallback local si webhook non connecté */
       const univers = this.genererLocal();
       this.afficher(univers);
+      try {
+        localStorage.setItem('pinapp-univers', JSON.stringify({
+          ...univers,
+          prenom: this.state.prenom,
+          brief_orient_claude: this.state.briefOrientClaude || undefined
+        }));
+      } catch (err) {}
     }
   },
 
@@ -137,11 +151,16 @@ const UniversQ = {
     const nom    = noms[Math.floor(Math.random() * noms.length)];
     const fond   = fondsSombres[Math.floor(Math.random() * fondsSombres.length)];
     const ac     = accs[Math.floor(Math.random() * accs.length)];
+    const brief  = this.state.briefOrientClaude;
+    const baseAtmo = `Un espace qui respire à votre rythme. Chaque visiteur ressent immédiatement que quelqu'un a pensé à lui.`;
+    const atmosphere = brief
+      ? `${baseAtmo} (aperçu hors ligne : votre texte libre sera intégré au brief Claude en production.)`
+      : baseAtmo;
 
     return {
       nom,
       palette: { fond, accent1: ac[0], accent2: ac[1] },
-      atmosphere: `Un espace qui respire à votre rythme. Chaque visiteur ressent immédiatement que quelqu'un a pensé à lui.`,
+      atmosphere,
       promesse: 'Vos clients arrivent. Ils restent. Ils reviennent.'
     };
   },
@@ -213,7 +232,7 @@ const UniversQ = {
   },
 
   reset() {
-    this.state = { lieu: null, emotion: null, reference: '', prenom: '' };
+    this.state = { lieu: null, emotion: null, reference: '', prenom: '', briefOrientClaude: '' };
     ['step-2', 'step-3'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.classList.add('hidden');
@@ -227,7 +246,7 @@ const UniversQ = {
     if (fill) fill.style.width = '0%';
     const iface = document.querySelector('.univers-interface');
     if (iface) { iface.style.background = ''; iface.style.borderColor = ''; }
-    ['input-reference', 'input-prenom'].forEach(id => {
+    ['input-reference', 'input-prenom', 'input-brief-claude'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.value = '';
     });

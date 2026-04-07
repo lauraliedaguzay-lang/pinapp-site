@@ -20,6 +20,7 @@ const UniversDigital = {
     lieu: null,
     emotion: null,
     reference: '',
+    briefOrientClaude: '',
     step: 1,
   },
 
@@ -83,7 +84,7 @@ const UniversDigital = {
         next.classList.add('entering');
         if (n === 3) {
           setTimeout(() => {
-            document.getElementById('input-reference')?.focus();
+            document.getElementById('input-brief-claude')?.focus();
           }, 400);
         }
       }, 350);
@@ -97,7 +98,9 @@ const UniversDigital = {
 
   async generer() {
     const ref = document.getElementById('input-reference')?.value?.trim();
+    const brief = document.getElementById('input-brief-claude')?.value?.trim() || '';
     this.state.reference = ref || 'aucune référence particulière';
+    this.state.briefOrientClaude = brief;
 
     if (!this.state.lieu || !this.state.emotion) return;
 
@@ -136,6 +139,7 @@ const UniversDigital = {
           lieu:      this.state.lieu,
           emotion:   this.state.emotion,
           reference: this.state.reference,
+          brief_orient_claude: brief,
         })
       });
 
@@ -151,7 +155,7 @@ const UniversDigital = {
         <p style="color:var(--text-2)">
           Aurora n&rsquo;a pas pu composer votre univers.<br>
           <a href="/diagnostic/" style="color:var(--teal)">
-            Parlons-en directement &rarr;
+            Demander une synth&egrave;se par &eacute;crit &rarr;
           </a>
         </p>`;
     }
@@ -254,7 +258,10 @@ const UniversDigital = {
 
     // Sauvegarder dans localStorage pour /diagnostic/
     try {
-      localStorage.setItem('pinapp-univers', JSON.stringify(u));
+      localStorage.setItem('pinapp-univers', JSON.stringify({
+        ...u,
+        brief_orient_claude: this.state.briefOrientClaude || undefined,
+      }));
     } catch (e) {}
   },
 
@@ -268,6 +275,7 @@ const UniversDigital = {
           lieu:      this.state.lieu,
           emotion:   this.state.emotion,
           reference: this.state.reference,
+          brief_orient_claude: this.state.briefOrientClaude || '',
           univers:   u.nom,
           palette:   u.palette,
           timestamp: new Date().toISOString(),
@@ -278,7 +286,7 @@ const UniversDigital = {
   },
 
   reset() {
-    this.state = { lieu: null, emotion: null, reference: '', step: 1 };
+    this.state = { lieu: null, emotion: null, reference: '', briefOrientClaude: '', step: 1 };
 
     ['step-2', 'step-3'].forEach(id => {
       const el = document.getElementById(id);
@@ -313,6 +321,8 @@ const UniversDigital = {
 
     const input = document.getElementById('input-reference');
     if (input) input.value = '';
+    const briefEl = document.getElementById('input-brief-claude');
+    if (briefEl) briefEl.value = '';
   }
 };
 

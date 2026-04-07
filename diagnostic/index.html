@@ -440,7 +440,8 @@ document.addEventListener('DOMContentLoaded', function() {
     ctx.className = 'block block-rose';
     ctx.style.cssText = 'padding:20px 24px;margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto;text-align:left;';
     var safeName = (window.PinappSec ? window.PinappSec.htmlEscape(u.nom) : u.nom.replace(/</g,'&lt;').replace(/>/g,'&gt;'));
-    ctx.innerHTML = '<p class="label" style="margin-bottom:8px;">VOTRE UNIVERS</p><p style="font-family:Georgia,serif;font-size:22px;color:var(--text);margin-bottom:8px;">✦ ' + safeName + '</p><p style="font-size:14px;opacity:0.65;line-height:1.5;">Lauralie a reçu votre univers.<br>Elle arrive préparée.</p>';
+    var briefNote = u.brief_orient_claude ? '<p style="font-size:12px;opacity:0.55;margin-top:10px;line-height:1.5;">Brief texte libre : transmis avec vos r&eacute;ponses pour orienter Claude.</p>' : '';
+    ctx.innerHTML = '<p class="label" style="margin-bottom:8px;">VOTRE UNIVERS</p><p style="font-family:Georgia,serif;font-size:22px;color:var(--text);margin-bottom:8px;">✦ ' + safeName + '</p><p style="font-size:14px;opacity:0.65;line-height:1.5;">Lauralie a reçu votre univers.<br>Elle arrive préparée.</p>' + briefNote;
   } catch(e) {}
 });
 </script>
