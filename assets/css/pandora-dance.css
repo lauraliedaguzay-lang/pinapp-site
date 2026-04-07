@@ -1,4 +1,4 @@
-/* ════════════════════════════════════════════════════════════════
+﻿/* ════════════════════════════════════════════════════════════════
    PANDORA DANCE — v1
    Chorégraphie vivante : filaments, lucioles, micro-float, souffles
    Tout bouge comme dans Avatar — aucune interaction brutale
@@ -192,11 +192,11 @@ html[data-theme="light"] .pandora-breath { display: none; }
   will-change: transform;
 }
 /* Démarre seulement quand la carte est en vue */
-.section-enter.is-visible .card,
-.section-enter.is-visible .offre-card,
-.section-enter.is-visible .realisation-card,
-.section-enter.is-visible .univers-card,
-.section-enter.is-visible [class*="-card"] {
+.section-enter.visible .card,
+.section-enter.visible .offre-card,
+.section-enter.visible .realisation-card,
+.section-enter.visible .univers-card,
+.section-enter.visible [class*="-card"] {
   animation-play-state: running;
 }
 /* Chaque carte dans une grille a son propre décalage */
@@ -207,9 +207,9 @@ html[data-theme="light"] .pandora-breath { display: none; }
 .card:nth-child(6),  .offre-card:nth-child(6),  [class*="-card"]:nth-child(6)  { animation-delay: 2.0s; }
 
 @keyframes card-breathe {
-  0%,100% { transform: translateY(0px)   scale(1.000); }
-  30%      { transform: translateY(-3px)  scale(1.002); }
-  60%      { transform: translateY( 2px)  scale(0.999); }
+  0%,100% { transform: translateY(0px)    scale(1.000); }
+  40%      { transform: translateY(-1.5px) scale(1.001); }
+  70%      { transform: translateY( 1px)   scale(0.9995); }
 }
 
 /* Hover : petite élévation avec ombre lumineuse */
@@ -371,17 +371,17 @@ html[data-theme="light"] nav a.active {
     opacity  700ms cubic-bezier(0.22, 1, 0.36, 1),
     transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
 }
-.section-enter.is-visible {
+.section-enter.visible {
   opacity: 1;
   transform: translateY(0px);
 }
 
 /* Décalage en cascade pour les éléments enfants */
-.section-enter.is-visible > *:nth-child(1) { transition-delay:  80ms; }
-.section-enter.is-visible > *:nth-child(2) { transition-delay: 160ms; }
-.section-enter.is-visible > *:nth-child(3) { transition-delay: 240ms; }
-.section-enter.is-visible > *:nth-child(4) { transition-delay: 320ms; }
-.section-enter.is-visible > *:nth-child(5) { transition-delay: 400ms; }
+.section-enter.visible > *:nth-child(1) { transition-delay:  80ms; }
+.section-enter.visible > *:nth-child(2) { transition-delay: 160ms; }
+.section-enter.visible > *:nth-child(3) { transition-delay: 240ms; }
+.section-enter.visible > *:nth-child(4) { transition-delay: 320ms; }
+.section-enter.visible > *:nth-child(5) { transition-delay: 400ms; }
 
 @media (max-width: 767px) {
   .section-enter {

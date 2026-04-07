@@ -17,13 +17,13 @@
   inset: -6px;
   border-radius: inherit;
   border: 1.5px solid rgba(123, 79, 232, 0.0);
-  animation: cta-invite 3.5s ease-in-out infinite;
+  animation: cta-invite 5s ease-in-out infinite;
   pointer-events: none;
 }
 @keyframes cta-invite {
-  0%,100% { inset: -6px;  border-color: rgba(123,79,232,0.00); opacity: 0; }
-  40%      { inset: -10px; border-color: rgba(123,79,232,0.40); opacity: 1; }
-  80%      { inset: -16px; border-color: rgba(123,79,232,0.00); opacity: 0; }
+  0%,100% { inset: -4px;  border-color: rgba(123,79,232,0.00); opacity: 0; }
+  35%      { inset: -8px;  border-color: rgba(123,79,232,0.28); opacity: 1; }
+  75%      { inset: -13px; border-color: rgba(123,79,232,0.00); opacity: 0; }
 }
 
 /* Hero prix — discret, aligné Apple */
@@ -142,14 +142,10 @@ textarea[id*="aurora"]:focus,
 input[id*="aurora"]:focus {
   border-color: var(--accent-teal) !important;
   box-shadow:
-    0 0 0 3px rgba(0,229,204,0.12),
-    0 0 24px rgba(0,229,204,0.08),
-    0 0 0 1px rgba(0,229,204,0.25) !important;
-  animation: aurora-scan 2s linear infinite;
-}
-@keyframes aurora-scan {
-  0%,100% { box-shadow: 0 0 0 3px rgba(0,229,204,0.12), 0 0 24px rgba(0,229,204,0.08), 0 0 0 1px rgba(0,229,204,0.25); }
-  50%      { box-shadow: 0 0 0 3px rgba(0,229,204,0.20), 0 0 36px rgba(0,229,204,0.14), 0 0 0 1px rgba(0,229,204,0.40); }
+    0 0 0 3px rgba(0,229,204,0.14),
+    0 0 20px rgba(0,229,204,0.10),
+    0 0 0 1px rgba(0,229,204,0.28) !important;
+  transition: box-shadow 300ms ease, border-color 200ms ease !important;
 }
 
 
@@ -269,10 +265,10 @@ html[data-theme="light"] [data-chapter="cta"]::before {
 .bottom-bar-cta {
   background: linear-gradient(
     135deg,
-    var(--accent-teal) 0%,
-    rgba(0,180,216,0.9) 100%
+    var(--violet, #7B4FE8) 0%,
+    rgba(100,55,220,0.92) 100%
   ) !important;
-  box-shadow: 0 2px 12px rgba(0,229,204,0.35) !important;
+  box-shadow: 0 2px 12px rgba(123,79,232,0.35) !important;
   border-radius: 8px !important;
   font-weight: 600 !important;
   letter-spacing: -0.01em !important;
