@@ -1,0 +1,181 @@
+/* PINAPP — pandora-jour.css — v5
+   Fond Pandora JOUR — CSS animé
+   Colorimétrie : Dylan Cole Avatar 3 — coucher de soleil lavande-or-jade
+   Tempo : The Light Always Returns — 3.5s
+   ================================================================= */
+
+/* =====================================================
+   FOND JOUR — gradient radial animé
+   ===================================================== */
+
+body.mode-jour,
+html[data-theme="light"] body {
+  /* Fond de base lavande-rose Dylan Cole */
+  background-color: #F8F0FF;
+  /* On garde la photo bg-clair.png comme texture,
+     les gradients s'ajoutent en overlay via ::before */
+}
+
+body.mode-jour::before,
+html[data-theme="light"] body::before {
+  background:
+    /* Or coucher de soleil — bas droite */
+    radial-gradient(ellipse 80% 60% at 85% 90%,
+      rgba(255,200,80,0.30) 0%,
+      rgba(255,160,80,0.12) 40%, transparent 70%),
+    /* Rose pêche — centre */
+    radial-gradient(ellipse 100% 70% at 50% 60%,
+      rgba(255,180,160,0.20) 0%,
+      rgba(240,160,200,0.10) 50%, transparent 75%),
+    /* Lavande — haut gauche */
+    radial-gradient(ellipse 70% 50% at 15% 20%,
+      rgba(200,160,240,0.25) 0%,
+      rgba(180,140,220,0.12) 45%, transparent 70%),
+    /* Bleu perle irisé — droite */
+    radial-gradient(ellipse 50% 40% at 80% 30%,
+      rgba(160,200,240,0.16) 0%,
+      rgba(140,180,220,0.08) 50%, transparent 70%),
+    /* Jade eau — bas gauche */
+    radial-gradient(ellipse 60% 40% at 10% 80%,
+      rgba(100,200,180,0.14) 0%, transparent 60%),
+    /* Voile de clarté */
+    linear-gradient(
+      180deg,
+      rgba(248,240,255,0.60) 0%,
+      rgba(248,232,248,0.52) 50%,
+      rgba(245,228,242,0.62) 100%
+    );
+  animation: pandora-jour-drift 3.5s ease-in-out infinite alternate;
+}
+
+/* Dérive douce au tempo musical */
+@keyframes pandora-jour-drift {
+  0%   { filter: hue-rotate(0deg)  brightness(1.00); }
+  50%  { filter: hue-rotate(8deg)  brightness(1.02); }
+  100% { filter: hue-rotate(-4deg) brightness(0.99); }
+}
+
+/* =====================================================
+   FORMES ORGANIQUES FLOTTANTES — mode jour uniquement
+   ===================================================== */
+
+.pandora-shapes {
+  position: fixed; inset: 0;
+  z-index: 0; pointer-events: none;
+  overflow: hidden;
+}
+body:not(.mode-jour) .pandora-shapes,
+html[data-theme="dark"] .pandora-shapes {
+  display: none;
+}
+
+.pandora-shape {
+  position: absolute;
+  border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+  filter: blur(65px);
+  animation: shape-ascend var(--dur, 20s) ease-in-out
+    infinite var(--delay, 0s);
+  will-change: transform, opacity;
+}
+
+.pandora-shape-1 {
+  width: 500px; height: 400px;
+  background: rgba(200,150,240,0.18);
+  top: -80px; left: -80px;
+  --dur: 20s; --delay: -2s;
+  --dx: 40px; --dy: -30px; --rot: 8deg;
+}
+.pandora-shape-2 {
+  width: 600px; height: 350px;
+  background: rgba(255,180,120,0.15);
+  bottom: -60px; right: -60px;
+  --dur: 25s; --delay: -10s;
+  --dx: -35px; --dy: 25px; --rot: -6deg;
+}
+.pandora-shape-3 {
+  width: 400px; height: 500px;
+  background: rgba(140,200,230,0.12);
+  top: 30%; right: 8%;
+  --dur: 18s; --delay: -6s;
+  --dx: -20px; --dy: -40px; --rot: 12deg;
+}
+.pandora-shape-4 {
+  width: 350px; height: 300px;
+  background: rgba(80,200,160,0.10);
+  bottom: 20%; left: 5%;
+  --dur: 22s; --delay: -14s;
+  --dx: 30px; --dy: 20px; --rot: -4deg;
+}
+
+@keyframes shape-ascend {
+  0%, 100% {
+    opacity: 0;
+    transform: translate(0,0) scale(1) rotate(0deg);
+  }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  50% {
+    opacity: 0.85;
+    transform:
+      translate(var(--dx,30px), var(--dy,-20px))
+      scale(1.08)
+      rotate(var(--rot, 6deg));
+  }
+}
+
+/* Mobile — formes plus petites */
+@media (max-width: 767px) {
+  .pandora-shape-1 { width: 280px; height: 220px; filter: blur(45px); }
+  .pandora-shape-2 { width: 320px; height: 200px; filter: blur(40px); }
+  .pandora-shape-3 { display: none; }
+  .pandora-shape-4 { display: none; }
+}
+
+/* =====================================================
+   GRILLE HOLOGRAPHIQUE — ultra-subtile (0.018 opacity)
+   ===================================================== */
+
+.holo-grid {
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,180,216,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,180,216,0.018) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+  z-index: 0;
+  animation: grid-breathe 3.5s ease-in-out infinite;
+}
+body.mode-jour .holo-grid,
+html[data-theme="light"] .holo-grid {
+  background-image:
+    linear-gradient(rgba(26,10,46,0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,10,46,0.012) 1px, transparent 1px);
+}
+@keyframes grid-breathe {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 1; }
+}
+
+/* Mobile — pas de grille */
+@media (max-width: 767px) {
+  .holo-grid { display: none; }
+}
+
+/* =====================================================
+   LOADER PANDORA
+   ===================================================== */
+
+#pandora-loader {
+  position: fixed; inset: 0;
+  background: #020810;
+  display: flex; align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  transition: opacity 400ms ease;
+}
+body.mode-jour #pandora-loader {
+  background: #F8F0FF;
+}
+#pandora-loader svg {
+  animation: kiri-soar 3.5s ease-in-out infinite;
+}
