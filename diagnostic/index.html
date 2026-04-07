@@ -112,7 +112,7 @@
           <img src="../assets/images/lauralie.jpg" alt="Lauralie Daguzay, fondatrice Pinapp Studio"
             style="width:56px;height:56px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid rgba(0,229,204,0.3);"
             onerror="this.style.display='none'">
-          <div>
+          <div style="min-width:0;flex:1;">
             <p style="font-size:14px;font-weight:600;margin-bottom:4px;">Lauralie Daguzay — Pinapp Studio</p>
             <p style="font-size:13px;opacity:0.7;line-height:1.6;">Je lis chaque message personnellement et je vous réponds sous 24 h. Pas de formulaire qui part dans le vide. Pas de relance commerciale si vous n'êtes pas intéressé.</p>
           </div>
@@ -235,15 +235,13 @@
       <p style="font-size:12px;opacity:0.35;letter-spacing:0.04em;">Pinapp Studio © 2026</p>
     </div>
   </footer>
-  <div id="cookie-banner" role="dialog" aria-label="Cookies" style="position:fixed;bottom:0;left:0;right:0;padding:var(--space-3);background:var(--bg-card);border-top:1px solid var(--border-card);backdrop-filter:blur(20px);z-index:9000;display:none;">
-    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap;">
-      <p style="font-size:13px;opacity:0.8;max-width:600px;">Ce site utilise des cookies de mesure d’audience anonymes (Plausible Analytics — sans tracking personnel).</p>
-      <div style="display:flex;gap:var(--space-2);">
-        <button type="button" id="cookieAccept" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Accepter</button>
-        <button type="button" id="cookieRefuse" class="btn btn-secondary" style="font-size:13px;padding:10px 20px;">Refuser</button>
-      </div>
-    </div>
+    <div id="cookie-banner" role="dialog" aria-label="Cookies" style="position:fixed;bottom:calc(56px + env(safe-area-inset-bottom,0px));right:16px;left:auto;max-width:300px;padding:12px 16px;background:rgba(2,8,20,0.92);border:0.5px solid rgba(255,255,255,0.10);border-radius:16px;backdrop-filter:blur(28px) saturate(160%);z-index:8900;display:none;box-shadow:0 8px 32px rgba(0,0,0,0.42);">
+      <p style="font-size:12px;opacity:0.70;margin-bottom:10px;line-height:1.5;">Mesure d&rsquo;audience anonyme &mdash; sans tracking.</p>
+  <div style="display:flex;gap:8px;">
+    <button type="button" id="cookieAccept" style="flex:1;background:var(--violet,#7B4FE8);color:#fff;border:none;border-radius:100px;padding:10px 0;min-height:44px;font-size:13px;font-weight:500;cursor:pointer;">OK</button>
+    <button type="button" id="cookieRefuse" style="flex:1;background:rgba(255,255,255,0.06);color:inherit;border:0.5px solid rgba(255,255,255,0.12);border-radius:100px;padding:10px 0;min-height:44px;font-size:13px;cursor:pointer;opacity:0.70;">Non merci</button>
   </div>
+</div>
     <script>
   /* Questionnaire diagnostic — flux q1→q2→q3→q4→qcontact→qfin */
   document.addEventListener('DOMContentLoaded', () => {
@@ -314,6 +312,17 @@
             body: new URLSearchParams(formData).toString()
           });
           if (resp.ok) {
+            /* Webhook n8n si configuré */
+            if (window.PinappConfig && typeof window.PinappConfig.sendDiagnosticLead === 'function') {
+              window.PinappConfig.sendDiagnosticLead({
+                nom: prenom, email,
+                secteur:   answers.q1 || '',
+                besoin:    answers.q2 || '',
+                situation: answers.q3 || '',
+                budget:    answers.q4 || '',
+                message,
+              });
+            }
             show('qfin');
           } else {
             throw new Error('Serveur: ' + resp.status);

@@ -359,13 +359,13 @@
     }
   });
 
-  /* Onboarding */
+  /* Onboarding — actif uniquement sur la page index (présence de #onboardingStage) */
   var answers = {};
   var progressMap = { 1: 25, 2: 50, 3: 75, 4: 100 };
   var onboardingStage = document.getElementById('onboardingStage');
   var progressEl = document.getElementById('onboardingProgress');
 
-  document.querySelectorAll('.pill-btn').forEach(function (btn) {
+  if (onboardingStage) document.querySelectorAll('.pill-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var q = parseInt(btn.getAttribute('data-q'), 10);
       var val = btn.getAttribute('data-val');

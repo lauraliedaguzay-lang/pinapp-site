@@ -1,43 +1,84 @@
 /* =====================================================
    PINAPP STUDIO — config.js
    Configuration centralisée de tous les modules
-   ⚙️  SEUL FICHIER À ÉDITER pour brancher vos webhooks n8n
+
+   SEUL FICHIER À ÉDITER pour brancher vos webhooks n8n.
+   Remplacez [TON-N8N] par votre sous-domaine n8n.
+   Ex : https://lauralie.n8n.cloud/webhook/...
+
+   FEATURE FLAGS : passez à true au fur et à mesure
+   que vous activez les workflows n8n correspondants.
    ===================================================== */
 
 window.PinappConfig = {
 
-  /* ─── WEBHOOKS N8N ─────────────────────────────────
-     Remplacez [TON-N8N] par votre sous-domaine n8n
-     Ex : https://lauralie.n8n.cloud/webhook/...
-     ─────────────────────────────────────────────── */
+  /* ─── WEBHOOKS N8N ─────────────────────────────────── */
   webhooks: {
-    auroraAnalyse:   'https://[TON-N8N]/webhook/aurora-analyse',
-    auroraUnivers:   'https://[TON-N8N]/webhook/aurora-univers',
-    onboarding:      'https://[TON-N8N]/webhook/onboarding-lead',
-    leadMagnet:      'https://[TON-N8N]/webhook/lead-guide',
-    notifWhatsapp:   'https://[TON-N8N]/webhook/notif-lauralie',
+    /* Leads & Diagnostic */
+    diagnosticLead:  'https://[TON-N8N]/webhook/diagnostic-lead',   // ① Lead entrant
+    formApproval:    'https://[TON-N8N]/webhook/lead-decision',      // ② Décision approve/decline
+
+    /* Onboarding questionnaire index.html */
+    onboarding:      'https://[TON-N8N]/webhook/onboarding-lead',    // ③ Parcours onboarding
+
+    /* Lead magnet / guide offert */
+    leadMagnet:      'https://[TON-N8N]/webhook/lead-guide',         // ④ Guide gratuit demandé
+
+    /* Aurora IA */
+    auroraAnalyse:   'https://[TON-N8N]/webhook/aurora-analyse',     // ⑤ Analyse site IA
+    auroraUnivers:   'https://[TON-N8N]/webhook/aurora-univers',     // ⑥ Univers généré IA
+
+    /* Notifications internes */
+    notifWhatsapp:   'https://[TON-N8N]/webhook/notif-lauralie',     // ⑦ Notif WhatsApp Lauralie
+
+    /* Projet signé */
+    projetSigne:     'https://[TON-N8N]/webhook/projet-signe',       // ⑧ Nouveau client signé
+
+    /* Satisfaction / avis */
+    demandeAvis:     'https://[TON-N8N]/webhook/demande-avis',       // ⑨ Demande avis fin mission
   },
 
-  /* ─── FEATURE FLAGS ─────────────────────────────────
-     true  = utilise le webhook n8n (nécessite l'URL réelle)
-     false = mode fallback local (toujours fonctionnel)
-     ─────────────────────────────────────────────── */
+  /* ─── FEATURE FLAGS ────────────────────────────────── */
   features: {
-    auroraAnalyseIA: false,   // passer à true quand n8n est branché
-    auroraUniversIA: false,   // passer à true quand n8n est branché
-    onboardingWebhook: false, // passer à true quand n8n est branché
-    leadWebhook: false,       // passer à true quand n8n est branché
+    /* Automation leads */
+    diagnosticWebhook:   false,  // ① Activer quand n8n workflow "diagnostic-lead" est prêt
+    onboardingWebhook:   false,  // ③ Activer quand n8n workflow "onboarding" est prêt
+    leadWebhook:         false,  // ④ Activer quand n8n workflow "lead-guide" est prêt
+
+    /* Aurora IA */
+    auroraAnalyseIA:     false,  // ⑤ Activer quand Claude branché via n8n
+    auroraUniversIA:     false,  // ⑥ Activer quand Claude branché via n8n
+
+    /* Notifications */
+    whatsappNotifs:      false,  // ⑦ Activer quand WhatsApp Business API configurée
   },
 
-  /* ─── CONTACT ────────────────────────────────────── */
+  /* ─── CONTACT ──────────────────────────────────────── */
   email:    'lauralie.daguzay@pinapp.fr',
-  whatsapp: 'https://wa.me/33XXXXXXXXX', // remplacer par le vrai numéro
+  whatsapp: 'https://wa.me/33XXXXXXXXX',   // ← remplacer par le vrai numéro
 
-  /* ─── BRANDING ───────────────────────────────────── */
+  /* ─── BRANDING ─────────────────────────────────────── */
   siteUrl: 'https://pinapp.fr',
+
+  /* ─── AUTOMATION APPROVE URL (WhatsApp flow) ───────── */
+  /* Utilisé par n8n pour générer le lien d'approbation :
+     {siteUrl}/.netlify/functions/approve?id={leadId}&token={hmacToken}&action=approve */
+  approveEndpoint: 'https://pinapp.fr/.netlify/functions/approve',
 };
 
 /* Détection : webhook est-il une vraie URL ? */
 window.PinappConfig._isRealUrl = function(url) {
   return url && !url.includes('[TON-N8N]') && url.startsWith('https://');
+};
+
+/* Helper : déclencher le webhook diagnostic si activé */
+window.PinappConfig.sendDiagnosticLead = function(payload) {
+  var cfg = window.PinappConfig;
+  if (cfg.features.diagnosticWebhook && cfg._isRealUrl(cfg.webhooks.diagnosticLead)) {
+    fetch(cfg.webhooks.diagnosticLead, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(Object.assign({ source: 'diagnostic', timestamp: new Date().toISOString() }, payload)),
+    }).catch(function(){});
+  }
 };
