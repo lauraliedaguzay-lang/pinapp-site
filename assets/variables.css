@@ -191,7 +191,8 @@ body:not(.mode-jour) {
 body:not(.mode-jour)::before {
   background-image: url('./images/bg-dark-pandora-apple.svg');
   /* Photo lisible en texture, flou modéré — halos teal/violet viennent des layers */
-  filter: blur(18px) saturate(118%) brightness(0.88) hue-rotate(-5deg);
+  /* Nuit OLED : assombri fortement, biolume conservée par les layers (orbes/étoiles) */
+  filter: blur(18px) saturate(118%) brightness(0.66) hue-rotate(-5deg);
   animation: pandora-nuit-photo-breathe 22s ease-in-out infinite alternate;
 }
 
@@ -201,7 +202,7 @@ html[data-theme='dark'] body {
 }
 html[data-theme='dark']::before {
   background-image: url('./images/bg-dark-pandora-apple.svg');
-  filter: blur(18px) saturate(118%) brightness(0.88) hue-rotate(-5deg);
+  filter: blur(18px) saturate(118%) brightness(0.66) hue-rotate(-5deg);
   animation: pandora-nuit-photo-breathe 22s ease-in-out infinite alternate;
 }
 
@@ -211,18 +212,18 @@ html[data-theme='dark']::before {
   }
   html:not([data-theme])::before {
     background-image: url('./images/bg-dark-pandora-apple.svg');
-    filter: blur(18px) saturate(118%) brightness(0.88) hue-rotate(-5deg);
+    filter: blur(18px) saturate(118%) brightness(0.66) hue-rotate(-5deg);
     animation: pandora-nuit-photo-breathe 22s ease-in-out infinite alternate;
   }
 }
 
 @keyframes pandora-nuit-photo-breathe {
   0% {
-    filter: blur(17px) saturate(112%) brightness(0.84) hue-rotate(-4deg);
+    filter: blur(17px) saturate(112%) brightness(0.6) hue-rotate(-4deg);
     transform: scale(1.08);
   }
   100% {
-    filter: blur(20px) saturate(128%) brightness(0.93) hue-rotate(-9deg);
+    filter: blur(20px) saturate(128%) brightness(0.72) hue-rotate(-9deg);
     transform: scale(1.095);
   }
 }
@@ -256,14 +257,14 @@ html[data-theme='dark'] body::after {
     radial-gradient(
       95% 50% at 50% -12%,
       rgba(100, 60, 180, 0.14) 0%,
-      rgba(2, 8, 7, 0.25) 52%,
-      rgba(1, 3, 5, 0.82) 100%
+      rgba(2, 8, 7, 0.38) 52%,
+      rgba(0, 0, 0, 0.92) 100%
     ),
     linear-gradient(
       180deg,
-      rgba(0, 0, 0, 0.22) 0%,
-      rgba(2, 18, 22, 0.14) 42%,
-      rgba(0, 0, 0, 0.48) 100%
+      rgba(0, 0, 0, 0.38) 0%,
+      rgba(2, 18, 22, 0.18) 42%,
+      rgba(0, 0, 0, 0.62) 100%
     );
 }
 html[data-theme='light'] body::after {
@@ -307,7 +308,7 @@ html[data-theme='light'] body::after {
   }
   /* Photo fond â€” ajustement mobile */
   body:not(.mode-jour)::before {
-    filter: blur(24px) saturate(115%) brightness(0.87) hue-rotate(-5deg);
+    filter: blur(24px) saturate(115%) brightness(0.64) hue-rotate(-5deg);
     transform: scale(1.12);
     animation: pandora-nuit-photo-breathe 24s ease-in-out infinite alternate;
   }
