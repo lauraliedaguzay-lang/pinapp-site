@@ -55,16 +55,29 @@
   height: 60px;
 }
 
+/* ── Traîne bioluminescente — 6 points décroissants (Woodsprite sillage) ── */
+.pcursor-dot {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9997;
+  transform: translate(-50%, -50%);
+  will-change: left, top;
+  transition: background 250ms ease, box-shadow 250ms ease;
+}
+
 /* ── Masqué sur mobile et tablette ── */
 @media (max-width: 1023px) {
   #pcursor,
-  #pcursor-trail { display: none; }
+  #pcursor-trail,
+  .pcursor-dot { display: none; }
   body { cursor: auto !important; }
 }
 
 /* ── Reduced motion : désactiver ── */
 @media (prefers-reduced-motion: reduce) {
   #pcursor,
-  #pcursor-trail { display: none; }
+  #pcursor-trail,
+  .pcursor-dot { display: none; }
   body { cursor: auto !important; }
 }

@@ -1,4 +1,15 @@
-/* PINAPP — scroll-cinema.js — Nav scroll, section reveal, counters, sticky CTA */
+/* PINAPP — scroll-cinema.js — Nav scroll, section reveal, counters, sticky CTA, Pandora ripple */
+
+/* ── RIPPLE BIOLUMINESCENT — position CSS var pour le radial-gradient card ── */
+document.addEventListener('mousemove', e => {
+  const card = e.target.closest('.card');
+  if (!card) return;
+  const r = card.getBoundingClientRect();
+  const x = ((e.clientX - r.left) / r.width  * 100).toFixed(1) + '%';
+  const y = ((e.clientY - r.top)  / r.height * 100).toFixed(1) + '%';
+  card.style.setProperty('--ripple-x', x);
+  card.style.setProperty('--ripple-y', y);
+}, { passive: true });
 
 /* ── NAV : classe "scrolled" au scroll ── */
 const nav = document.querySelector('nav');

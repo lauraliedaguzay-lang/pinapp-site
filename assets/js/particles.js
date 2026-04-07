@@ -1,45 +1,95 @@
-/* PINAPP — particles.js — 4 particules bioluminescentes (mobile + desktop) */
+/* PINAPP — particles.js — Woodsprites Na'vi : spores bioluminescentes montant vers le ciel */
 
 const Particles = {
-  count: 4,
+  count: 7,
 
   isJour() {
     const t = document.documentElement.getAttribute('data-theme');
     if (t === 'light') return true;
-    if (t === 'dark') return false;
+    if (t === 'dark')  return false;
     return document.body.classList.contains('mode-jour');
   },
 
-  getColor() {
-    /* Jour : ambre chaud Pandora / Nuit : teal bioluminescent */
+  getColors() {
+    /* Jour : ambre+jade Pandora / Nuit : teal+violet bioluminescent */
     return this.isJour()
-      ? () => `rgba(232,160,48,${(0.18 + Math.random() * 0.22).toFixed(2)})`
-      : () => `rgba(0,229,204,${(0.15 + Math.random() * 0.20).toFixed(2)})`;
+      ? ['rgba(232,160,48,0.55)', 'rgba(29,232,176,0.40)', 'rgba(58,212,110,0.45)']
+      : ['rgba(0,229,204,0.55)',  'rgba(107,158,255,0.40)', 'rgba(29,232,176,0.50)'];
   },
 
   createCSS() {
-    if (document.getElementById('pinapp-particle-css')) return;
+    if (document.getElementById('pinapp-particle-css')) {
+      document.getElementById('pinapp-particle-css').remove();
+    }
+    const jour = this.isJour();
+    const glowA = jour ? 'rgba(232,160,48,0.60)' : 'rgba(0,229,204,0.60)';
+    const glowB = jour ? 'rgba(58,212,110,0.50)' : 'rgba(107,158,255,0.50)';
+
     const style = document.createElement('style');
     style.id = 'pinapp-particle-css';
     style.textContent = `
-      @keyframes particle-float {
-        0%, 100% { transform: translate(0,0) scale(1); opacity: 0.15; }
-        33%       { transform: translate(15px,-25px) scale(1.4); opacity: 0.35; }
-        66%       { transform: translate(-10px,15px) scale(0.8); opacity: 0.20; }
+      /* --- Woodsprite : monte de bas en haut avec dérive organique --- */
+      @keyframes spore-rise {
+        0%   { transform: translate(0, 0)       scale(0.4); opacity: 0; }
+        8%   { opacity: 1; }
+        45%  { transform: translate(var(--dx1), -42vh)      scale(1); }
+        85%  { transform: translate(var(--dx2), -88vh)      scale(0.75); opacity: 0.5; }
+        100% { transform: translate(var(--dx3), -110vh)     scale(0.3); opacity: 0; }
       }
-      @keyframes particle-float-b {
-        0%, 100% { transform: translate(0,0) scale(1); opacity: 0.12; }
-        40%       { transform: translate(-18px,-20px) scale(1.3); opacity: 0.30; }
-        70%       { transform: translate(12px,18px) scale(0.85); opacity: 0.18; }
-      }
+
       .pinapp-particle {
         position: fixed;
+        bottom: -10px;
         border-radius: 50%;
         pointer-events: none;
         z-index: 1;
-        filter: blur(1px);
         will-change: transform, opacity;
+        opacity: 0;
+        animation: spore-rise var(--dur) ease-in-out infinite;
+        animation-delay: var(--delay);
       }
+
+      /* Halo pulsant autour du corps central */
+      .pinapp-particle::before {
+        content: '';
+        position: absolute;
+        inset: -150%;
+        border-radius: 50%;
+        animation: halo-pulse var(--dur-halo) ease-in-out infinite;
+      }
+      @keyframes halo-pulse {
+        0%, 100% { opacity: 0.20; transform: scale(1); }
+        50%       { opacity: 0.55; transform: scale(1.35); }
+      }
+
+      /* Jour */
+      html[data-theme="light"]  .pinapp-particle:nth-child(3n+1)::before,
+      body.mode-jour .pinapp-particle:nth-child(3n+1)::before {
+        background: radial-gradient(circle, ${glowA} 0%, transparent 70%);
+      }
+      html[data-theme="light"]  .pinapp-particle:nth-child(3n+2)::before,
+      body.mode-jour .pinapp-particle:nth-child(3n+2)::before {
+        background: radial-gradient(circle, ${glowB} 0%, transparent 70%);
+      }
+      html[data-theme="light"]  .pinapp-particle:nth-child(3n)::before,
+      body.mode-jour .pinapp-particle:nth-child(3n)::before {
+        background: radial-gradient(circle, rgba(29,232,176,0.50) 0%, transparent 70%);
+      }
+
+      /* Nuit */
+      html[data-theme="dark"]  .pinapp-particle:nth-child(3n+1)::before,
+      body.mode-nuit .pinapp-particle:nth-child(3n+1)::before {
+        background: radial-gradient(circle, ${glowA} 0%, transparent 70%);
+      }
+      html[data-theme="dark"]  .pinapp-particle:nth-child(3n+2)::before,
+      body.mode-nuit .pinapp-particle:nth-child(3n+2)::before {
+        background: radial-gradient(circle, ${glowB} 0%, transparent 70%);
+      }
+      html[data-theme="dark"]  .pinapp-particle:nth-child(3n)::before,
+      body.mode-nuit .pinapp-particle:nth-child(3n)::before {
+        background: radial-gradient(circle, rgba(29,232,176,0.55) 0%, transparent 70%);
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .pinapp-particle { display: none; }
       }
@@ -47,42 +97,53 @@ const Particles = {
     document.head.appendChild(style);
   },
 
-  init() {
-    this.createCSS();
-    const colorFn = this.getColor();
-    const anims = ['particle-float', 'particle-float-b'];
+  clearParticles() {
+    document.querySelectorAll('.pinapp-particle').forEach(p => p.remove());
+  },
 
+  buildParticles() {
+    const colors = this.getColors();
     for (let i = 0; i < this.count; i++) {
-      const p = document.createElement('div');
+      const p   = document.createElement('div');
       p.className = 'pinapp-particle';
-      const size = 2 + Math.random() * 2;
-      const dur  = 10 + Math.random() * 6;
-      const anim = anims[i % 2];
 
-      p.style.cssText = [
-        `width:${size}px`,
-        `height:${size}px`,
-        `background:${colorFn()}`,
-        `left:${10 + Math.random() * 80}%`,
-        `top:${10 + Math.random() * 80}%`,
-        `animation:${anim} ${dur}s ease-in-out infinite`,
-        `animation-delay:-${(Math.random() * dur).toFixed(1)}s`,
-      ].join(';');
+      const size    = 2 + Math.random() * 3;         /* 2–5px */
+      const dur     = 14 + Math.random() * 12;        /* 14–26s */
+      const durHalo = 2 + Math.random() * 3;          /* 2–5s */
+      const delay   = -(Math.random() * dur).toFixed(1);
+      const left    = 5 + Math.random() * 90;         /* 5–95% horizontal */
+      const color   = colors[i % colors.length];
+
+      /* Dérive horizontale organique : 3 waypoints CSS custom props */
+      const dx = () => `${(Math.random() * 80 - 40).toFixed(0)}px`;
+
+      Object.assign(p.style, {
+        width:  `${size}px`,
+        height: `${size}px`,
+        left:   `${left}%`,
+        background: color,
+        boxShadow: `0 0 ${size * 2}px ${size / 2}px ${color}`,
+        '--dur':      `${dur}s`,
+        '--dur-halo': `${durHalo}s`,
+        '--delay':    `${delay}s`,
+        '--dx1':      dx(),
+        '--dx2':      dx(),
+        '--dx3':      dx(),
+      });
 
       document.body.appendChild(p);
     }
+  },
 
-    /* Mettre à jour les couleurs au changement de mode */
+  init() {
+    this.createCSS();
+    this.buildParticles();
+
+    /* Reconstituer les spores lors d'un changement de mode */
     document.body.addEventListener('modeChange', () => {
-      const jour = this.isJour();
-      document.querySelectorAll('.pinapp-particle').forEach(p => {
-        const alpha = jour
-          ? (0.18 + Math.random() * 0.22).toFixed(2)
-          : (0.15 + Math.random() * 0.20).toFixed(2);
-        p.style.background = jour
-          ? `rgba(232,160,48,${alpha})`
-          : `rgba(0,229,204,${alpha})`;
-      });
+      this.clearParticles();
+      this.createCSS();
+      this.buildParticles();
     });
   }
 };

@@ -1,0 +1,297 @@
+/* PINAPP — pandora-ux.css — Expérience utilisateur Pandora
+   Chaque interaction doit rappeler la forêt bioluminescente d'Avatar.
+   Organique · Respirant · Vivant · Jamais mécanique. */
+
+/* ═══════════════════════════════════════════════════════════════
+   1. EMERGENCE DE LA BRUME — Section reveal Pandora
+   Les sections n'apparaissent pas — elles émergent de la forêt.
+   ═══════════════════════════════════════════════════════════════ */
+
+.section-enter {
+  opacity: 0;
+  transform: translateY(20px);
+  filter: blur(4px);
+  transition:
+    opacity  900ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    transform 900ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    filter   700ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.section-enter.visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+.no-js .section-enter { opacity: 1; transform: none; filter: none; }
+
+/* Décalages échelonnés pour groupes de sections */
+.section-enter.stagger-1 { transition-delay: 80ms; }
+.section-enter.stagger-2 { transition-delay: 160ms; }
+.section-enter.stagger-3 { transition-delay: 240ms; }
+.section-enter.stagger-4 { transition-delay: 320ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .section-enter { filter: none; transition-duration: 0.01ms !important; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   2. RESPIRATION DES LABELS — Hologramme Na'vi
+   Les labels pulsent comme des readouts bioluminescents.
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: no-preference) {
+  .label {
+    animation: label-breathe 5s ease-in-out infinite;
+  }
+}
+
+@keyframes label-breathe {
+  0%, 100% { opacity: 0.65; }
+  50%       { opacity: 1; text-shadow: 0 0 14px currentColor; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   3. RIPPLE BIOLUMINESCENT — Toucher une plante Pandora
+   Chaque survol de card génère une vague teal depuis le centre.
+   ═══════════════════════════════════════════════════════════════ */
+
+.card {
+  isolation: isolate; /* crée un nouveau stacking context */
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--ripple-x, 50%) var(--ripple-y, 50%),
+    rgba(29, 232, 176, 0.13) 0%,
+    rgba(29, 232, 176, 0.05) 45%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+@media (hover: hover) {
+  .card:hover::after { opacity: 1; }
+}
+
+/* Mode jour — ripple ambre */
+html[data-theme="light"] .card::after,
+body.mode-jour .card::after {
+  background: radial-gradient(
+    circle at var(--ripple-x, 50%) var(--ripple-y, 50%),
+    rgba(232, 160, 48, 0.14) 0%,
+    rgba(58, 212, 110, 0.06) 45%,
+    transparent 70%
+  );
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   4. GLOW BIOLUMINESCENT SUR LES TITRES ACCENTUÉS
+   Les mots accent ne brillent pas — ils respirent.
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-word.accent {
+    animation: accent-breathe 5s ease-in-out infinite;
+  }
+}
+
+@keyframes accent-breathe {
+  0%, 100% {
+    filter:
+      drop-shadow(0 0 8px rgba(29, 232, 176, 0.25))
+      drop-shadow(0 0 24px rgba(29, 232, 176, 0.10));
+  }
+  50% {
+    filter:
+      drop-shadow(0 0 16px rgba(29, 232, 176, 0.55))
+      drop-shadow(0 0 48px rgba(29, 232, 176, 0.22))
+      drop-shadow(0 0 80px rgba(107, 158, 255, 0.12));
+  }
+}
+
+/* Mode jour — ambre */
+html[data-theme="light"] .hero-word.accent,
+body.mode-jour .hero-word.accent {
+  animation: accent-breathe-jour 5s ease-in-out infinite;
+}
+
+@keyframes accent-breathe-jour {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(29,232,176,0.30));
+  }
+  50% {
+    filter:
+      drop-shadow(0 0 16px rgba(29,232,176,0.60))
+      drop-shadow(0 0 40px rgba(232,160,48,0.20));
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   5. BOUTONS — Activation bioluminescente
+   Le bouton primaire pulse comme une fleur qui s'ouvre.
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: no-preference) {
+  .btn-primary {
+    position: relative;
+  }
+
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: inherit;
+    background: transparent;
+    border: 1px solid rgba(29, 232, 176, 0);
+    transition:
+      border-color 350ms ease,
+      box-shadow 350ms ease,
+      inset 350ms ease;
+    pointer-events: none;
+  }
+
+  @media (hover: hover) {
+    .btn-primary:hover::after {
+      inset: -6px;
+      border-color: rgba(29, 232, 176, 0.35);
+      box-shadow: 0 0 20px rgba(29, 232, 176, 0.15);
+    }
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   6. LIGNE FOOTER — Bioluminescence du sol Pandora
+   Le séparateur pulsionnaire au rythme de la forêt.
+   ═══════════════════════════════════════════════════════════════ */
+
+footer::before {
+  animation: footer-pulse 4s ease-in-out infinite;
+}
+
+@keyframes footer-pulse {
+  0%, 100% { opacity: 0.35; }
+  50%       { opacity: 0.75; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   7. NAV SCROLLED — Voile forêt organique
+   La nav devient un auvent de feuilles en verre bioluminescent.
+   ═══════════════════════════════════════════════════════════════ */
+
+nav.scrolled {
+  box-shadow:
+    0 1px 0 rgba(29, 232, 176, 0.10) inset,
+    0 8px 32px rgba(0, 0, 0, 0.22);
+}
+
+/* Pointillé bioluminescent bas de nav au scroll */
+nav.scrolled::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+  right: 5%;
+  height: 0.5px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(29, 232, 176, 0.45) 25%,
+    rgba(58, 212, 110, 0.60) 50%,
+    rgba(29, 232, 176, 0.45) 75%,
+    transparent
+  );
+  animation: nav-line-pulse 3s ease-in-out infinite;
+}
+
+@keyframes nav-line-pulse {
+  0%, 100% { opacity: 0.5; transform: scaleX(0.85); }
+  50%       { opacity: 1;   transform: scaleX(1); }
+}
+
+/* Mode jour — teinte jade forêt */
+html[data-theme="light"] nav.scrolled::after,
+body.mode-jour nav.scrolled::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(29, 232, 176, 0.50) 25%,
+    rgba(232, 160, 48, 0.55) 50%,
+    rgba(29, 232, 176, 0.50) 75%,
+    transparent
+  );
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   8. SCROLL INDICATOR HERO — Souffle de la forêt
+   ═══════════════════════════════════════════════════════════════ */
+
+.scroll-indicator {
+  color: rgba(29, 232, 176, 0.65);
+  filter: drop-shadow(0 0 8px rgba(29, 232, 176, 0.40));
+  transition: opacity 400ms ease;
+}
+
+html[data-theme="light"] .scroll-indicator,
+body.mode-jour .scroll-indicator {
+  color: rgba(29, 232, 176, 0.75);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   9. IMAGES — Révélation organique (pas un simple fade)
+   ═══════════════════════════════════════════════════════════════ */
+
+.img-reveal {
+  filter: blur(6px) saturate(0.7);
+  transition:
+    opacity   800ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    transform 800ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    filter    800ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.img-reveal.visible {
+  filter: blur(0) saturate(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .img-reveal { filter: none; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   10. SÉLECTION TEXTE — Teinte bioluminescente
+   ═══════════════════════════════════════════════════════════════ */
+
+::selection {
+  background: rgba(29, 232, 176, 0.28);
+  color: #ffffff;
+}
+
+html[data-theme="light"] ::selection,
+body.mode-jour ::selection {
+  background: rgba(232, 160, 48, 0.32);
+  color: #ffffff;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   11. FOCUS VISIBLE — Forêt qui s'éveille
+   ═══════════════════════════════════════════════════════════════ */
+
+:focus-visible {
+  outline: 1.5px solid rgba(29, 232, 176, 0.80);
+  outline-offset: 4px;
+  border-radius: 4px;
+  box-shadow: 0 0 0 4px rgba(29, 232, 176, 0.10);
+}
