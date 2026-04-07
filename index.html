@@ -96,6 +96,14 @@
       list-style: none; margin: 0; padding: 0;
       display: flex; flex-direction: column; gap: 6px; flex: 1; min-height: 0;
     }
+    /* Animation type « notifications » — entrée / pause / sortie, décalée par ligne */
+    @keyframes iphone-pme-row {
+      0%   { opacity: 0; transform: translateX(22px); }
+      7%   { opacity: 1; transform: translateX(0); }
+      54%  { opacity: 1; transform: translateX(0); }
+      62%  { opacity: 0; transform: translateX(-10px); }
+      100% { opacity: 0; transform: translateX(22px); }
+    }
     .iphone-pme-list li {
       display: flex; gap: 8px; align-items: flex-start;
       font-size: 11px; line-height: 1.35; font-weight: 500;
@@ -103,7 +111,13 @@
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.08);
       backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      opacity: 0;
+      animation: iphone-pme-row 14s ease-in-out infinite;
     }
+    .iphone-pme-list li:nth-child(1) { animation-delay: 0s; }
+    .iphone-pme-list li:nth-child(2) { animation-delay: 2.1s; }
+    .iphone-pme-list li:nth-child(3) { animation-delay: 4.2s; }
+    .iphone-mockup:hover .iphone-pme-list li { animation-play-state: paused; }
     .iphone-pme-tag {
       flex-shrink: 0; font-size: 7px; font-weight: 700;
       padding: 3px 5px; border-radius: 5px; letter-spacing: 0.04em;
@@ -114,24 +128,184 @@
     .iphone-pme-tag--auto { background: rgba(57,224,117,0.18); color: var(--accent-green, #39E075); }
     .iphone-pme-li-main { opacity: 0.92; }
     .iphone-pme-li-sub { display: block; font-size: 9px; font-weight: 500; opacity: 0.5; margin-top: 2px; }
+    /* ─── Mode jour — mockup & cartes aussi travaillés que la nuit (ivoire · ambre · jade) ─── */
+    body.mode-jour .iphone-mockup,
+    html[data-theme="light"] .iphone-mockup {
+      border: 2px solid rgba(200, 122, 8, 0.22);
+      background: linear-gradient(
+        168deg,
+        rgba(255, 252, 248, 0.94) 0%,
+        rgba(255, 248, 236, 0.9) 42%,
+        rgba(251, 242, 228, 0.93) 100%
+      );
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.98) inset,
+        0 2px 0 rgba(200, 122, 8, 0.08) inset,
+        0 24px 56px rgba(91, 63, 216, 0.07),
+        0 0 0 1px rgba(26, 10, 46, 0.06),
+        0 0 48px rgba(30, 158, 128, 0.08);
+    }
+    body.mode-jour .iphone-mockup::before,
+    html[data-theme="light"] .iphone-mockup::before {
+      background: linear-gradient(
+        90deg,
+        transparent 5%,
+        rgba(200, 122, 8, 0.45) 50%,
+        transparent 95%
+      );
+      height: 2px;
+      opacity: 0.85;
+    }
+    body.mode-jour .iphone-pme-status,
+    html[data-theme="light"] .iphone-pme-status {
+      color: rgba(26, 10, 46, 0.55);
+      opacity: 1;
+    }
+    body.mode-jour .iphone-pme-title,
+    html[data-theme="light"] .iphone-pme-title {
+      color: #1a0a2e;
+      opacity: 1;
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid rgba(200, 122, 8, 0.18);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
     body.mode-jour .iphone-pme-kpi,
     html[data-theme="light"] .iphone-pme-kpi {
-      background: rgba(255,255,255,0.72);
-      border-color: rgba(26,10,46,0.08);
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.98) 0%,
+        rgba(255, 250, 242, 0.92) 55%,
+        rgba(255, 252, 248, 0.96) 100%
+      );
+      border: 1px solid rgba(200, 122, 8, 0.16);
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 1) inset,
+        0 5px 14px rgba(26, 10, 46, 0.05),
+        0 0 24px rgba(30, 158, 128, 0.07);
+    }
+    body.mode-jour .iphone-pme-kpi::after,
+    html[data-theme="light"] .iphone-pme-kpi::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 42%;
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.75) 0%,
+        transparent 100%
+      );
+      pointer-events: none;
+      border-radius: 11px 11px 0 0;
+    }
+    body.mode-jour .iphone-pme-kpi-val,
+    html[data-theme="light"] .iphone-pme-kpi-val {
+      position: relative;
+      z-index: 1;
+      color: var(--accent-teal, #1e9e80);
+      text-shadow: 0 0 20px rgba(30, 158, 128, 0.18);
+    }
+    body.mode-jour .iphone-pme-kpi:nth-child(3) .iphone-pme-kpi-val,
+    html[data-theme="light"] .iphone-pme-kpi:nth-child(3) .iphone-pme-kpi-val {
+      color: var(--ambre, #c87a08);
+      text-shadow: 0 0 18px rgba(200, 122, 8, 0.2);
+    }
+    body.mode-jour .iphone-pme-kpi-lbl,
+    html[data-theme="light"] .iphone-pme-kpi-lbl {
+      position: relative;
+      z-index: 1;
+      color: rgba(26, 10, 46, 0.45);
+      opacity: 1;
+    }
+    body.mode-jour .iphone-pme-section,
+    html[data-theme="light"] .iphone-pme-section {
+      opacity: 1;
+      color: rgba(26, 10, 46, 0.5);
+      display: inline-block;
+      padding: 5px 10px 4px;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      background: linear-gradient(
+        90deg,
+        rgba(30, 158, 128, 0.1) 0%,
+        rgba(200, 122, 8, 0.08) 50%,
+        rgba(91, 63, 216, 0.08) 100%
+      );
+      border: 1px solid rgba(26, 10, 46, 0.06);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
     }
     body.mode-jour .iphone-pme-list li,
     html[data-theme="light"] .iphone-pme-list li {
-      background: rgba(255,255,255,0.65);
-      border-color: rgba(26,10,46,0.08);
+      background: linear-gradient(
+        125deg,
+        rgba(255, 255, 255, 0.97) 0%,
+        rgba(255, 253, 248, 0.9) 100%
+      );
+      border: 1px solid rgba(91, 63, 216, 0.12);
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 1) inset,
+        0 4px 14px rgba(26, 10, 46, 0.04),
+        0 0 20px rgba(30, 158, 128, 0.05);
+    }
+    body.mode-jour .iphone-pme-li-main,
+    html[data-theme="light"] .iphone-pme-li-main {
+      color: rgba(26, 10, 46, 0.88);
+      opacity: 1;
+    }
+    body.mode-jour .iphone-pme-li-sub,
+    html[data-theme="light"] .iphone-pme-li-sub {
+      color: rgba(26, 10, 46, 0.48);
+      opacity: 1;
     }
     body.mode-jour .iphone-pme-dots span,
     html[data-theme="light"] .iphone-pme-dots span {
-      background: rgba(26,10,46,0.2);
+      background: linear-gradient(180deg, #5b3fd8 0%, #1e9e80 100%);
+      opacity: 0.85;
+      box-shadow: 0 0 6px rgba(91, 63, 216, 0.25);
+    }
+    body.mode-jour .iphone-pme-tag--rdv,
+    html[data-theme="light"] .iphone-pme-tag--rdv {
+      color: #0f6b58;
+      background: linear-gradient(
+        135deg,
+        rgba(30, 158, 128, 0.22) 0%,
+        rgba(30, 158, 128, 0.1) 100%
+      );
+      border: 1px solid rgba(30, 158, 128, 0.25);
+      box-shadow: 0 0 12px rgba(30, 158, 128, 0.15);
     }
     body.mode-jour .iphone-pme-tag--dev,
     html[data-theme="light"] .iphone-pme-tag--dev {
-      color: var(--accent-violet, #5B3FD8);
-      background: rgba(91,63,216,0.12);
+      color: #4a32b8;
+      background: linear-gradient(
+        135deg,
+        rgba(91, 63, 216, 0.18) 0%,
+        rgba(91, 63, 216, 0.08) 100%
+      );
+      border: 1px solid rgba(91, 63, 216, 0.22);
+      box-shadow: 0 0 12px rgba(91, 63, 216, 0.12);
+    }
+    body.mode-jour .iphone-pme-tag--auto,
+    html[data-theme="light"] .iphone-pme-tag--auto {
+      color: #2a7a45;
+      background: linear-gradient(
+        135deg,
+        rgba(42, 154, 92, 0.2) 0%,
+        rgba(200, 122, 8, 0.1) 100%
+      );
+      border: 1px solid rgba(42, 154, 92, 0.22);
+      box-shadow: 0 0 10px rgba(42, 154, 92, 0.12);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .iphone-pme-list li {
+        opacity: 1;
+        transform: none;
+        animation: none;
+      }
     }
     @media (max-width: 600px) {
       .iphone-mockup { width: 180px; height: 360px; border-radius: 28px; }
