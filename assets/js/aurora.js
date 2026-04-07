@@ -31,7 +31,8 @@ const Aurora = {
   },
 
   init() {
-    if (window.innerWidth < 768) return;
+    /* Canvas léger sur tout écran ≥390px (mobile inclus) — désactivé si réduit mouvement */
+    if (window.innerWidth < 390) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     this.canvas = document.createElement('canvas');

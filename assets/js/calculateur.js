@@ -159,4 +159,8 @@ const Calculateur = {
   }
 };
 
-document.addEventListener('DOMContentLoaded', () => Calculateur.init());
+document.addEventListener('DOMContentLoaded', () => {
+  Calculateur.init();
+  /* Premier rendu : afficher 0 € ou total si une pill est déjà active */
+  Calculateur.calculate();
+});

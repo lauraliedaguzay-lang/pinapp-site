@@ -2,8 +2,8 @@
 <html lang="fr">
 <head>
 <script>(function(){var t=localStorage.getItem('pinapp-theme')||localStorage.getItem('pinapp-mode');var d=window.matchMedia('(prefers-color-scheme:dark)').matches;var m=(t==='light'||t==='jour')?'jour':(t==='dark'||t==='nuit')?'nuit':(d?'nuit':'jour');document.documentElement.setAttribute('data-mode',m);document.documentElement.setAttribute('data-theme',m==='jour'?'light':'dark');if(document.body){document.body.classList.add('mode-'+m);}document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('mode-'+m);});}());</script>
-  <link rel="preload" as="image" href="assets/images/bg-pandora-nuit.png" fetchpriority="high">
-  <link rel="preload" as="image" href="assets/images/bg-pandora-jour.png">
+  <link rel="preload" as="image" href="assets/images/bg-pandora-nuit.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/images/bg-pandora-jour.webp">
   <link rel="preload" as="image" href="assets/images/pinapp-logo.png" fetchpriority="high">
   <meta charset="UTF-8">
   <meta name="theme-color" id="pinapp-theme-color" content="#020810">
@@ -11,9 +11,9 @@
   <meta name="view-transition" content="same-origin">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Pinapp Studio — Ingénierie web, automatisation &amp; IA pour TPE</title>
+  <title>Votre site, vos relances, vos devis — Pinapp prépare. Vous validez.</title>
   <meta name="description" content="M&ecirc;me finition que ce site pour le v&ocirc;tre. Ing&eacute;nierie web et automatisation : analyse, plan concret (Claude + validation studio), devis personnalis&eacute; par email si besoin &mdash; tout par &eacute;crit. Diagnostic offert.">
-  <meta property="og:title" content="Pinapp Studio — Ingénierie digitale, flux &amp; IA">
+  <meta property="og:title" content="Votre site, vos relances, vos devis — Pinapp prépare. Vous validez.">
   <meta property="og:description" content="Ce site est la d&eacute;mo : m&ecirc;me finition pour votre projet. Sites et flux automatis&eacute;s : pr&eacute;paration c&ocirc;t&eacute; Pinapp, vous confirmez &mdash; tout par &eacute;crit. Diagnostic offert.">
   <meta property="og:image" content="https://pinapp.fr/assets/images/og-home.png">
   <meta property="og:url" content="https://pinapp.fr/">
@@ -21,7 +21,7 @@
   <meta property="og:locale" content="fr_FR">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://pinapp.fr/assets/images/og-home.png">
-  <meta name="twitter:title" content="Pinapp Studio — Ingénierie digitale &amp; systèmes pour TPE">
+  <meta name="twitter:title" content="Votre site, vos relances, vos devis — Pinapp prépare. Vous validez.">
   <meta name="twitter:description" content="Du Starter (349 €) au système complet (1 990 €) : présence en ligne premium, flux automatisés, IA cadrée. Un investissement unique, pensé pour durer.">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.bunny.net">
@@ -413,9 +413,9 @@
     }
     @media (prefers-reduced-motion: reduce) {
       .iphone-pme-list li {
-        opacity: 1;
+        opacity: 1 !important;
         transform: none;
-        animation: none;
+        animation: none !important;
       }
     }
     @media (max-width: 600px) {
@@ -558,6 +558,7 @@
   <!-- 1. HERO -->
   <section class="pinapp-hero-viewport" data-chapter="invitation">
     <div class="aurora-bg" style="position:absolute;inset:0;z-index:0;"></div>
+    <canvas id="particles" style="position:absolute;inset:0;z-index:1;pointer-events:none;" width="400" height="800" aria-hidden="true"></canvas>
     <div class="container" style="position:relative;z-index:2;max-width:50rem;">
       <p class="label" style="text-align:center;margin-bottom:var(--space-4);">Studio d'ingénierie digitale · Artisans, indépendants &amp; TPE exigeantes</p>
       <h1 aria-label="Votre site, vos relances, vos devis : tout est préparé et automatisé côté exécution. Vous confirmez aux étapes clés. C'est réglé."
@@ -567,13 +568,12 @@
         <span class="hero-word accent" style="--delay:1380ms">je</span>&#32;<span class="hero-word accent" style="--delay:1560ms">prépare</span>&#32;<span class="hero-word accent" style="--delay:1740ms">tout.</span>
       </h1>
       <p class="hero-subtitle" style="text-align:center;">Quand le num&eacute;rique sature votre agenda, Pinapp encha&icirc;ne la pr&eacute;paration : contenus, int&eacute;grations, relances &mdash; calibr&eacute;s pour tourner sans vous solliciter &agrave; chaque d&eacute;tail. Vous confirmez aux jalons ; rien ne part sans votre feu vert.</p>
-      <p class="hero-meta">Pr&eacute;sence en ligne haute finition &middot; Parcours clients automatis&eacute;s &middot; Tout par &eacute;crit &mdash; vous validez ce qui compte</p>
+      <p class="hero-meta">Finition premium &middot; Flux calibr&eacute;s pour vous &middot; Tout par &eacute;crit &mdash; vous validez ce qui compte</p>
       <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;justify-content:center;margin-bottom:var(--space-3);align-items:center;">
         <a href="diagnostic/index.html" class="btn btn-primary">D&eacute;crire mon projet &mdash; diagnostic par &eacute;crit</a>
         <a href="offres/index.html" class="btn btn-secondary">Voir les offres &amp; tarifs</a>
       </div>
       <p style="text-align:center;font-size:13px;opacity:0.55;margin-bottom:var(--space-4);max-width:26rem;margin-left:auto;margin-right:auto;line-height:1.5;">Vous &ecirc;tes d&eacute;j&agrave; dans un livrable Pinapp : m&ecirc;me exigence pour le v&ocirc;tre.</p>
-      <p class="hero-prix">À partir de 349 € · Paiement sur livrable &middot; Pas d&rsquo;abonnement impos&eacute; sur le p&eacute;rim&egrave;tre convenu</p>
       <p class="hero-signature">Lauralie Daguzay &mdash; Pinapp Studio</p>
     </div>
     <div class="scroll-indicator" id="heroScrollIndicator" aria-hidden="true">
@@ -608,7 +608,7 @@
     <div class="container neuro-home-band__wrap">
       <div class="neuro-home-band__audience">
       <h2 id="neuro-pour-qui-title" style="font-size:var(--text-h1);text-align:center;letter-spacing:-0.02em;margin-bottom:var(--space-2);">C'est fait pour vous si&hellip;</h2>
-      <p style="text-align:center;opacity:0.65;font-size:1.0625rem;margin-bottom:var(--space-6);">Vous portez un m&eacute;tier exigeant &mdash; pas un poste &laquo; digital &raquo;. Le syst&egrave;re doit travailler pour vous, pas l&rsquo;inverse.</p>
+      <p style="text-align:center;opacity:0.65;font-size:1.0625rem;margin-bottom:var(--space-6);">Vous portez un m&eacute;tier exigeant &mdash; pas un poste &laquo; digital &raquo;. Le syst&egrave;me doit travailler pour vous, pas l&rsquo;inverse.</p>
       <div class="grid grid-3" style="max-width:900px;margin:0 auto;">
         <div class="card" style="padding:var(--space-5);">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-teal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block;margin-bottom:var(--space-3)"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
@@ -742,6 +742,7 @@
     <div class="container">
       <h2 style="font-size:var(--text-h1);text-align:center;letter-spacing:-0.02em;margin-bottom:var(--space-2);">Composez votre stack.</h2>
       <p style="text-align:center;opacity:0.65;font-size:1.0625rem;margin-bottom:var(--space-2);max-width:40rem;margin-left:auto;margin-right:auto;">Tarifs 2026 : le m&ecirc;me niveau d&rsquo;exigence que sur pinapp.fr &mdash; livrables calibr&eacute;s comme un produit, int&eacute;grations et accompagnement &agrave; la hauteur. Un investissement unique, souvent rentabilis&eacute; en quelques semaines.</p>
+      <p style="text-align:center;opacity:0.55;font-size:0.9375rem;margin-bottom:var(--space-3);max-width:34rem;margin-left:auto;margin-right:auto;line-height:1.55;"><strong style="font-weight:600;">Indicatif :</strong> &agrave; partir de 349 &euro; (Starter) jusqu&rsquo;&agrave; l&rsquo;&eacute;cosyst&egrave;me complet &mdash; paiement sur livrable convenu, pas d&rsquo;abonnement impos&eacute; sur le p&eacute;rim&egrave;tre fix&eacute; ensemble.</p>
       <p style="text-align:center;opacity:0.55;font-size:0.9375rem;margin-bottom:var(--space-6);">D&eacute;lais sur chaque fiche &middot; conditions dans les <a href="legal/cgv.html" style="color:var(--accent-teal);">CGV</a></p>
       <div class="grid grid-2" style="max-width:860px;margin:0 auto;gap:var(--space-4);">
         <a href="offres/starter/index.html" class="card" style="text-decoration:none;color:inherit;display:block;padding:var(--space-5);">
@@ -858,7 +859,7 @@
   <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
 
   <!-- AURORA ANALYSE — L'IA comprend votre activité -->
-  <section class="section section-enter aurora-section" id="aurora">
+  <section class="section section-enter aurora-section" id="aurora" hidden>
     <div class="container">
       <p class="label" style="margin-bottom:var(--space-2);">CO-PILOTE IA &mdash; AURORA</p>
       <h2 style="font-size:var(--text-h2);letter-spacing:-0.02em;line-height:1.2;margin-bottom:var(--space-2);">D&eacute;crivez votre activit&eacute;.<br>Aurora contextualise en direct.</h2>
@@ -883,7 +884,7 @@
   <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
 
   <!-- UNIVERS DIGITAL — Aurora directrice artistique -->
-  <section class="section-enter univers-section" id="univers">
+  <section class="section-enter univers-section" id="univers" hidden>
     <div style="text-align:center;margin-bottom:48px;">
       <p class="label" style="margin-bottom:var(--space-2);">UNIVERS DIGITAL</p>
       <h2 style="font-size:var(--text-h2);letter-spacing:-0.02em;line-height:1.15;margin-bottom:var(--space-3);">Questions + texte libre.<br>Un brief qui oriente Claude.</h2>
@@ -996,7 +997,7 @@
           <a href="diagnostic/index.html" class="btn-primary" style="display:block;text-align:center;">
             Faire valider cette estimation &mdash; diagnostic offert &rarr;
           </a>
-          <p class="result-note">R&eacute;ponse sous 24 h par &eacute;crit &middot; Pas d&rsquo;appel ni visio &middot; M&ecirc;me exigence que ce site &mdash; vous confirmez la suite quand vous &ecirc;tes pr&ecirc;t.</p>
+          <p class="result-note">R&eacute;ponse sous 24 h par &eacute;crit &middot; Pas d&rsquo;appel ni visio &middot; M&ecirc;me exigence que ce site &mdash; vous confirmez la suite quand vous &ecirc;tes pr&ecirc;t(e).</p>
         </div>
       </div>
     </div>
@@ -1059,7 +1060,7 @@
               <span style="color:var(--accent-teal);font-size:1.25rem;min-width:1.5rem;">✓</span>
               <div>
                 <p style="font-weight:600;margin-bottom:4px;">Satisfaction et remboursement</p>
-                <p style="font-size:14px;opacity:0.7;">Les modalit&eacute;s (d&eacute;lais, remboursement, ajustements) sont d&eacute;finies dans les <a href="legal/cgv.html" style="color:var(--accent-teal);">CGV</a> &mdash; nous les appliquons telles quelles.</p>
+                <p style="font-size:14px;opacity:0.7;">Si la livraison ne correspond pas au brief valid&eacute;, on ajuste. Les d&eacute;tails financiers et les cas limites sont &eacute;crits clairement dans les <a href="legal/cgv.html" style="color:var(--accent-teal);">CGV</a>.</p>
               </div>
             </div>
             <div style="display:flex;gap:var(--space-3);align-items:flex-start;">
@@ -1072,16 +1073,11 @@
           </div>
         </div>
         <div style="flex:1;min-width:260px;max-width:340px;text-align:center;">
-          <div style="position:relative;display:inline-block;margin-bottom:var(--space-4);">
-            <img src="assets/images/lauralie.png" alt="Lauralie Daguzay — fondatrice Pinapp Studio" width="200" height="200" loading="lazy"
-                 style="width:200px;height:200px;border-radius:50%;object-fit:cover;object-position:top center;
-                        border:2px solid rgba(0,229,204,0.25);
-                        box-shadow:0 0 0 6px rgba(0,229,204,0.06),0 20px 50px rgba(0,0,0,0.35);
-                        display:block;margin:0 auto;">
-            <div style="position:absolute;bottom:4px;right:4px;width:20px;height:20px;
-                        background:var(--accent-teal);border-radius:50%;
-                        border:3px solid var(--fond-nuit);"></div>
-          </div>
+          <div style="display:inline-flex;align-items:center;justify-content:center;width:120px;height:120px;margin:0 auto var(--space-4);border-radius:24px;
+                      background:linear-gradient(145deg,rgba(123,79,232,0.22),rgba(0,229,204,0.18));
+                      border:1px solid rgba(0,229,204,0.28);
+                      box-shadow:0 0 0 6px rgba(0,229,204,0.06),0 20px 50px rgba(0,0,0,0.25);
+                      font-family:Georgia,serif;font-size:clamp(2.25rem,6vw,2.75rem);font-weight:600;letter-spacing:-0.04em;color:var(--text-primary);" aria-hidden="true">LD</div>
           <h3 style="font-size:1.1rem;margin-bottom:4px;">Lauralie Daguzay</h3>
           <p style="font-size:12px;color:var(--accent-teal);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:var(--space-3);">Fondatrice — Pinapp Studio</p>
           <p style="font-size:14px;opacity:0.70;line-height:1.7;margin-bottom:var(--space-4);max-width:300px;margin-left:auto;margin-right:auto;">Pas d&rsquo;agence, pas de sous-traitants : vous savez &agrave; qui vous parlez. <strong style="font-weight:600;opacity:0.95;">Ce site, je l&rsquo;assume comme vitrine</strong> &mdash; c&rsquo;est le niveau que je vise pour vous.</p>
@@ -1164,7 +1160,21 @@
   <script src="assets/js/particles.js" defer></script>
   <script src="assets/js/aurora.js" defer></script>
   <script src="assets/js/parallax.js" defer></script>
-  <script src="assets/js/intelligence.js" defer></script><script src="assets/js/scroll-cinema.js" defer></script><script src="assets/js/graphiques.js" defer></script><script src="assets/js/pipeline.js" defer></script><script src="assets/js/calculateur.js" defer></script><script src="assets/js/aurora-analyse.js" defer></script><script src="assets/js/univers.js" defer></script>
+  <script src="assets/js/intelligence.js" defer></script><script src="assets/js/scroll-cinema.js" defer></script><script src="assets/js/graphiques.js" defer></script><script src="assets/js/pipeline.js" defer></script><script src="assets/js/calculateur.js" defer></script><script src="assets/js/aurora-analyse.js" defer></script>  <script src="assets/js/univers.js" defer></script>
+  <script>
+    (function () {
+      var c = window.PinappConfig;
+      if (!c || !c.features) return;
+      if (c.features.auroraAnalyseIA && c._isRealUrl(c.webhooks.auroraAnalyse)) {
+        var a = document.getElementById('aurora');
+        if (a) a.removeAttribute('hidden');
+      }
+      if (c.features.auroraUniversIA && c._isRealUrl(c.webhooks.auroraUnivers)) {
+        var u = document.getElementById('univers');
+        if (u) u.removeAttribute('hidden');
+      }
+    })();
+  </script>
   <script src="assets/js/cursor.js" defer></script>
   <script>
     (function(){

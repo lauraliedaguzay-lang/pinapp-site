@@ -1,188 +1,56 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<script>(function(){var t=localStorage.getItem('pinapp-theme')||localStorage.getItem('pinapp-mode');var d=window.matchMedia('(prefers-color-scheme:dark)').matches;var m=(t==='light'||t==='jour')?'jour':(t==='dark'||t==='nuit')?'nuit':(d?'nuit':'jour');document.documentElement.setAttribute('data-mode',m);document.documentElement.setAttribute('data-theme',m==='jour'?'light':'dark');if(document.body){document.body.classList.add('mode-'+m);}document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('mode-'+m);});}());</script>
-  <link rel="preload" as="image" href="../assets/images/bg-pandora-nuit.png" fetchpriority="high">
-  <link rel="preload" as="image" href="../assets/images/bg-pandora-jour.png">
   <meta charset="UTF-8">
-  <meta name="theme-color" id="pinapp-theme-color" content="#020810">
-  <script src="../assets/js/theme-init.js" defer></script>
-  <meta name="view-transition" content="same-origin">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="theme-color" id="pinapp-theme-color" content="#050A14">
+  <script src="../assets/js/theme-init.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Formations digitales · Pinapp Studio</title>
-  <meta name="description" content="Apprenez le process Pinapp. n8n, Cursor, Claude API — de débutant à expert. Lancement été 2026. Liste d'attente ouverte.">
-  <meta property="og:title" content="Formation IA — Automatisation pas à pas — Pinapp Studio">
-  <meta property="og:description" content="Apprenez à automatiser votre activité avec n8n et Claude IA. 3 packs progressifs, quiz par module, certificat. Inscription liste d'attente gratuite.">
-  <meta property="og:image" content="https://pinapp.fr/assets/images/og-home.png">
+  <title>Guide offert — 5 automatisations pour votre PME — Pinapp Studio</title>
+  <meta name="description" content="Téléchargez le guide offert Pinapp : 5 automatisations pour votre PME.">
+  <meta property="og:title" content="Guide offert — 5 automatisations pour votre PME — Pinapp Studio">
+  <meta property="og:description" content="Téléchargez le guide offert Pinapp : 5 automatisations pour votre PME.">
+  <meta property="og:image" content="https://pinapp.fr/og-image.webp">
   <meta property="og:url" content="https://pinapp.fr/formation-gratuite/">
   <meta property="og:type" content="website">
-  <meta property="og:locale" content="fr_FR">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Formation IA — Automatisation pas à pas — Pinapp Studio">
-  <meta name="twitter:description" content="Apprenez à automatiser avec n8n et Claude IA. 3 packs progressifs. Liste d'attente gratuite.">
-  <meta name="twitter:image" content="https://pinapp.fr/assets/images/og-home.png">
-  <link rel="canonical" href="https://pinapp.fr/formation-gratuite/">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-  <link rel="preconnect" href="https://fonts.bunny.net">
-  <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap">
+  <link rel="preload" href="../assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/variables.css">
   <link rel="stylesheet" href="../assets/grid.css">
   <link rel="stylesheet" href="../assets/animations.css">
   <link rel="stylesheet" href="../assets/css/aurora-mobile.css">
-  <link rel="stylesheet" href="../assets/css/pandora-jour.css">
   <link rel="stylesheet" href="../assets/css/cursor.css">
   <link rel="stylesheet" href="../assets/css/pandora-ux.css">
   <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Course","name":"Formation IA Automatisation","description":"3 packs de formation pour apprendre à automatiser avec n8n et Claude IA. Débutant à expert.","provider":{"@type":"Organization","name":"Pinapp Studio","url":"https://pinapp.fr"},"offers":[{"@type":"Offer","price":"59","priceCurrency":"EUR"},{"@type":"Offer","price":"179","priceCurrency":"EUR"},{"@type":"Offer","price":"449","priceCurrency":"EUR"}]}
-</script>
-  <script defer data-domain="pinapp.fr" src="https://plausible.io/js/script.js"></script>
-  <script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)};document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('.btn-primary').forEach(function(b){b.addEventListener('click',function(){plausible('CTA Click',{props:{page:location.pathname,text:b.textContent.trim()}});});});});</script>
-  <style>
-  /* ── Dossiers 3D ───────────────────────────────────────── */
-  .formation-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-5);align-items:start;padding:var(--space-2) 0;}
-  .dossier-3d{position:relative;cursor:default;transform-style:preserve-3d;transition:transform 0.4s cubic-bezier(0.23,1,0.32,1);}
-  .dossier-3d:hover{transform:translateY(-8px) rotateX(3deg);}
-  .dossier-3d.dossier-featured{transform:translateY(-12px);}
-  .dossier-3d.dossier-featured:hover{transform:translateY(-20px) rotateX(3deg);}
-  .dossier-tabs{display:flex;gap:6px;margin-bottom:-4px;padding-left:20px;}
-  .dossier-tab{width:60px;height:12px;border-radius:6px 6px 0 0;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-bottom:none;}
-  .dossier-3d[data-color="teal"] .dossier-tab{background:rgba(0,180,216,0.2);border-color:rgba(0,180,216,0.35);}
-  .dossier-3d[data-color="violet"] .dossier-tab{background:rgba(139,92,246,0.2);border-color:rgba(139,92,246,0.35);}
-  .dossier-3d[data-color="gradient"] .dossier-tab{background:linear-gradient(90deg,rgba(0,180,216,0.2),rgba(139,92,246,0.2));border-color:rgba(200,150,255,0.3);}
-  .dossier-body{background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:0 16px 16px 16px;border:1px solid var(--border-card);padding:var(--space-5);box-shadow:0 20px 60px rgba(0,0,0,0.3);}
-  .dossier-3d[data-color="teal"] .dossier-body{border-color:rgba(0,180,216,0.25);box-shadow:0 20px 60px rgba(0,180,216,0.08);}
-  .dossier-3d[data-color="violet"] .dossier-body{border-color:rgba(139,92,246,0.3);box-shadow:0 20px 60px rgba(139,92,246,0.1);}
-  .dossier-3d[data-color="gradient"] .dossier-body{border-color:rgba(200,150,255,0.25);box-shadow:0 20px 60px rgba(139,92,246,0.08);}
-  .dossier-badge{font-size:11px;font-weight:700;letter-spacing:0.08em;opacity:0.55;margin-bottom:4px;text-transform:uppercase;}
-  .dossier-price{font-size:2.8rem;font-weight:700;letter-spacing:-0.03em;margin:0 0 4px;line-height:1.1;}
-  .dossier-3d[data-color="teal"] .dossier-price{color:#3EEBD6;}
-  .dossier-3d[data-color="violet"] .dossier-price{color:#A78BFA;}
-  .dossier-3d[data-color="gradient"] .dossier-price{background:linear-gradient(90deg,#3EEBD6,#A78BFA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-  .dossier-sub{font-size:13px;opacity:0.55;margin-bottom:var(--space-3);font-style:italic;}
-  .dossier-meta{display:flex;gap:12px;margin-bottom:var(--space-3);flex-wrap:wrap;}
-  .dossier-meta span{font-size:11px;opacity:0.5;display:flex;align-items:center;gap:4px;}
-  .dossier-prereq{font-size:12px;opacity:0.5;margin-bottom:var(--space-3);padding:8px 12px;background:rgba(255,255,255,0.04);border-radius:8px;border-left:2px solid rgba(255,255,255,0.12);line-height:1.5;}
-  .dossier-modules{list-style:none;padding:0;margin:0 0 var(--space-4);display:flex;flex-direction:column;gap:8px;}
-  .dossier-modules li{font-size:13px;opacity:0.75;padding-left:20px;position:relative;line-height:1.5;}
-  .dossier-modules li::before{content:"";position:absolute;left:0;top:6px;width:8px;height:8px;border-radius:50%;background:currentColor;opacity:0.3;}
-  .dossier-3d[data-color="teal"] .dossier-modules li::before{background:#3EEBD6;}
-  .dossier-3d[data-color="violet"] .dossier-modules li::before{background:#A78BFA;}
-  .dossier-3d[data-color="gradient"] .dossier-modules li::before{background:linear-gradient(90deg,#3EEBD6,#A78BFA);}
-  .dossier-features{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:var(--space-4);}
-  .dossier-features span{font-size:11px;padding:3px 10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:100px;opacity:0.7;}
-  .dossier-cta{width:100%;text-align:center;display:block;min-height:44px;line-height:44px;padding:0 20px;}
-  .popular-badge{position:absolute;top:-14px;right:20px;background:var(--accent-violet,#8B5CF6);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.08em;padding:4px 12px;border-radius:100px;text-transform:uppercase;}
-
-  /* ── Quiz niveau ───────────────────────────────────────── */
-  .quiz-step{display:none;}
-  .quiz-step.active{display:block;}
-  .quiz-options{display:flex;flex-direction:column;gap:10px;margin-top:var(--space-3);}
-  .quiz-opt{display:flex;align-items:center;gap:12px;padding:14px 18px;border-radius:14px;border:1px solid rgba(255,255,255,0.10);background:rgba(255,255,255,0.03);cursor:pointer;transition:all 200ms ease;text-align:left;font-size:15px;color:inherit;width:100%;}
-  .quiz-opt:hover{border-color:rgba(0,229,204,0.35);background:rgba(0,229,204,0.05);transform:translateX(4px);}
-  .quiz-opt-icon{font-size:22px;min-width:28px;text-align:center;}
-  .quiz-result{display:none;animation:fadeSlide 400ms ease forwards;}
-  .quiz-result.visible{display:block;}
-  @keyframes fadeSlide{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
-  .quiz-progress{display:flex;gap:6px;justify-content:center;margin-bottom:var(--space-3);}
-  .quiz-progress-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.15);transition:background 300ms ease;}
-  .quiz-progress-dot.done{background:var(--accent-teal);}
-  .quiz-progress-dot.current{background:rgba(0,229,204,0.5);}
-
-  /* ── Parcours progression ───────────────────────────────── */
-  .level-path{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:nowrap;overflow-x:auto;padding:var(--space-2) 0;scrollbar-width:none;}
-  .level-path::-webkit-scrollbar{display:none;}
-  .level-node{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:80px;}
-  .level-circle{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;border:2px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);transition:all 400ms ease;position:relative;}
-  .level-node.active .level-circle{border-color:var(--accent-teal);background:rgba(0,229,204,0.12);box-shadow:0 0 20px rgba(0,229,204,0.25);}
-  .level-node.done .level-circle{border-color:rgba(0,229,204,0.4);background:rgba(0,229,204,0.06);}
-  .level-label{font-size:11px;font-weight:600;letter-spacing:0.05em;opacity:0.5;text-align:center;text-transform:uppercase;}
-  .level-node.active .level-label,.level-node.done .level-label{opacity:0.85;}
-  .level-connector{height:2px;flex:1;min-width:24px;max-width:48px;background:rgba(255,255,255,0.08);position:relative;top:0;}
-  .level-connector.done{background:rgba(0,229,204,0.35);}
-  .level-pack-tag{font-size:10px;opacity:0.4;text-align:center;margin-top:2px;}
-  .level-node.active .level-pack-tag{opacity:0.7;color:var(--accent-teal);}
-
-  /* ── Module 0 aperçu ───────────────────────────────────── */
-  .module0-card{background:var(--glass);border:1px solid var(--border-card);border-radius:16px;padding:var(--space-5);position:relative;overflow:hidden;}
-  .module0-card::before{content:'MODULE 0 — GRATUIT';position:absolute;top:16px;right:16px;font-size:10px;font-weight:700;letter-spacing:0.08em;color:var(--accent-green,#39E075);opacity:0.8;background:rgba(57,224,117,0.1);border:1px solid rgba(57,224,117,0.25);padding:3px 10px;border-radius:100px;}
-  .lesson-row{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
-  .lesson-row:last-child{border-bottom:none;}
-  .lesson-num{font-size:11px;font-weight:700;color:var(--accent-teal);min-width:24px;opacity:0.7;padding-top:2px;}
-  .lesson-content p:first-child{font-size:14px;font-weight:600;margin-bottom:2px;}
-  .lesson-content p:last-child{font-size:12px;opacity:0.5;line-height:1.5;}
-
-  /* ── FAQ ─────────────────────────────────────────────────── */
-  .faq-f details{background:var(--glass);border:1px solid var(--border-card);border-radius:12px;padding:var(--space-3);transition:border-color 200ms ease;}
-  .faq-f details[open]{border-color:rgba(0,229,204,0.25);}
-  .faq-f summary{font-size:14px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;}
-  .faq-f summary::after{content:'+';opacity:0.4;font-size:20px;font-weight:300;flex-shrink:0;transition:transform 200ms ease;}
-  .faq-f details[open] summary::after{transform:rotate(45deg);opacity:0.7;}
-  .faq-f p{font-size:14px;opacity:0.7;margin-top:var(--space-2);line-height:1.7;}
-
-  /* ── Responsive ───────────────────────────────────────── */
-  @media(max-width:640px){
-    .formation-grid{grid-template-columns:1fr;}
-    .dossier-3d.dossier-featured{transform:none;}
-    .dossier-3d:hover{transform:none;}
-    .level-path{justify-content:flex-start;}
-  }
-  @media(prefers-reduced-motion:reduce){
-    .dossier-3d,.dossier-3d:hover,.dossier-3d.dossier-featured,.dossier-3d.dossier-featured:hover{transform:none;transition:none;}
-    @keyframes fadeSlide{from{opacity:1;}to{opacity:1;}}
-  }
-  </style>
-  <link rel="stylesheet" href="../assets/css/pandora-dance.css">
-  <link rel="stylesheet" href="../assets/css/ios-glass.css">
-  <link rel="stylesheet" href="../assets/css/apple-finish.css">
-  <link rel="stylesheet" href="../assets/css/pinapp-modern-biolume.css">
-  <link rel="stylesheet" href="../assets/css/pinapp-premium.css">
-  <link rel="stylesheet" href="../assets/css/deploy-harmonise.css">
-  <link rel="stylesheet" href="../assets/css/pandora-jour-override.css">
-  <link rel="stylesheet" href="../assets/css/mobile-premium.css">
-  <link rel="stylesheet" href="../assets/css/neuro-layout.css">
-  
-  <link rel="stylesheet" href="../assets/css/pandora-world.css">
-  <link rel="stylesheet" href="../assets/css/pandora-details.css">
+  {"@context":"https://schema.org","@type":"ProfessionalService","name":"Pinapp Studio","founder":{"@type":"Person","name":"Lauralie Daguzay"},"email":"lauralie.daguzay@pinapp.fr","url":"https://pinapp.fr","sameAs":"https://www.linkedin.com/in/lauralie-daguzay-4a4542197/"}
+  </script>
 </head>
-<body class="page-with-bottom-nav formation-hub">
-  <div id="pandora-world" aria-hidden="true">
-    <div class="pandora-orbs">
-      <div class="orb orb-1"></div>
-      <div class="orb orb-2"></div>
-      <div class="orb orb-3"></div>
-      <div class="orb orb-4"></div>
-    </div>
-    <div class="pandora-spores" id="spores-container"></div>
-    <div class="pandora-stars" id="stars-container"></div>
-    <div class="pandora-clouds" id="clouds-container">
-      <div class="cloud cloud-1"></div>
-      <div class="cloud cloud-2"></div>
-      <div class="cloud cloud-3"></div>
-    </div>
-    <div class="holo-grid"></div>
-  </div>
-<div id="pandora-loader" aria-hidden="true">
-  <svg width="32" height="38" viewBox="0 0 32 38" fill="none"><defs><linearGradient id="pg-l" x1="16" y1="36" x2="16" y2="2" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7B4FE8"/><stop offset="100%" stop-color="#00E5CC"/></linearGradient></defs><path d="M16 2 C13 5 10 6 11 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M16 2 L16 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round"/><path d="M16 2 C19 5 22 6 21 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none"/><ellipse cx="16" cy="24" rx="9" ry="12" fill="url(#pg-l)"/><path d="M7 20 L16 15 L25 20 L16 25 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none"/><path d="M7 26 L16 21 L25 26 L16 31 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none"/></svg>
-</div>
-<script>(function(){function hideLoader(){var l=document.getElementById('pandora-loader');if(l&&l.parentNode){l.style.opacity='0';setTimeout(function(){if(l.parentNode)l.remove();},400);}}window.addEventListener('load',hideLoader);setTimeout(hideLoader,2000);})();</script>
-<div class="aurora-mobile" aria-hidden="true"><div class="aurora-orb aurora-orb-1"></div><div class="aurora-orb aurora-orb-2"></div><div class="aurora-orb aurora-orb-3"></div><div class="aurora-orb aurora-orb-4"></div></div>
-<div class="pandora-shapes" aria-hidden="true"><div class="pandora-shape pandora-shape-1"></div><div class="pandora-shape pandora-shape-2"></div><div class="pandora-shape pandora-shape-3"></div><div class="pandora-shape pandora-shape-4"></div></div>
-<div class="holo-grid" aria-hidden="true"></div>
-<div class="noise" aria-hidden="true"></div>
-
+<body class="page-with-bottom-nav">
   <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
   <div class="scroll-progress" id="scrollProgress"></div>
+  <div id="loader" role="status" aria-label="Chargement">
+    <svg viewBox="0 0 40 48" width="48" height="58" fill="none" stroke="var(--accent-teal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M20 2 C16 6 12 8 14 12"/><path d="M20 2 C20 7 20 9 20 12"/><path d="M20 2 C24 6 28 8 26 12"/>
+      <ellipse cx="20" cy="30" rx="12" ry="16"/>
+      <path d="M8 24 L20 18 L32 24 L20 30 Z"/><path d="M8 30 L20 24 L32 30 L20 36 Z"/><path d="M8 36 L20 30 L32 36 L20 42 Z"/>
+    </svg>
+    <p class="visually-hidden" aria-hidden="true">Chargement</p>
+  </div>
   <div class="noise-overlay" aria-hidden="true"></div>
-
-  <nav class="nav" id="mainNav" aria-label="Navigation principale">
+  <div class="aurora-mobile" aria-hidden="true">
+    <div class="aurora-orb aurora-orb-1"></div>
+    <div class="aurora-orb aurora-orb-2"></div>
+    <div class="aurora-orb aurora-orb-3"></div>
+  </div>
+  <div class="holo-grid" aria-hidden="true"></div>
+  <nav class="nav" id="mainNav" role="navigation">
     <div class="container nav-inner">
-      <a href="../index.html" class="nav-logo" aria-label="Pinapp Studio — accueil" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
-        <img class="nav-logo-img" src="../assets/images/pinapp-logo.png" alt="" width="132" height="36" decoding="async" />
+      <a href="../index.html" class="pinapp-breathe nav-logo" aria-label="Pinapp Studio — accueil">
+        <img src="../assets/images/pinapp-logo.png" alt="Pinapp" width="200" height="60" decoding="async" class="nav-logo-img">
       </a>
       <div class="nav-links">
         <a href="../offres/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
-        <a href="../offres/formation/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Accès immédiat</a>
+        <a href="../formation-gratuite/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Formations</a>
         <a href="../realisations/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
         <a href="../a-propos/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
         <a href="../faq/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
@@ -191,669 +59,88 @@
         <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Démarrer ma demande</a>
       </div>
       <div class="nav-trailing">
-        <button type="button" class="mode-toggle" id="themeToggle" aria-label="Passer en mode jour"><svg class="icon-lune" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M15.5 10.5A6.5 6.5 0 0 1 7.5 2.5a6.5 6.5 0 1 0 8 8z" stroke="#00E5CC" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg><svg class="icon-soleil" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="3.5" stroke="#009B8C" stroke-width="1.5"/><line x1="9" y1="1" x2="9" y2="3" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="15" x2="9" y2="17" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="9" x2="3" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/><line x1="15" y1="9" x2="17" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        <button type="button" class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
+          <svg class="theme-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="theme-icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
         <button type="button" class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileDrawer">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
       </div>
     </div>
   </nav>
-
-  <nav class="formation-toc" aria-label="Sur cette page">
-    <div class="container formation-toc-inner">
-      <a href="#liste-attente">Liste</a>
-      <a href="#quiz-niveau">Quiz</a>
-      <a href="#parcours">Parcours</a>
-      <a href="#packs">Packs</a>
-      <a href="#dispo-maintenant">Dispo</a>
-      <a href="#faq-formation">FAQ</a>
-    </div>
-  </nav>
-
   <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" role="dialog" aria-label="Menu" aria-modal="true">
     <div class="mobile-drawer-panel">
-      <button type="button" id="drawerClose" aria-label="Fermer le menu">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M1 1l16 16M17 1L1 17"/></svg>
-      </button>
-      <div class="nav-links">
-        <a href="../offres/index.html" class="nav-link">Offres</a>
-        <a href="../offres/formation/index.html" class="nav-link">Accès immédiat</a>
-        <a href="../realisations/index.html" class="nav-link">Réalisations</a>
-        <a href="../a-propos/index.html" class="nav-link">À propos</a>
-        <a href="../faq/index.html" class="nav-link">FAQ</a>
-        <a href="../auralis/index.html" class="nav-link">Auralis</a>
-        <a href="../univers/index.html" class="nav-link">Univers</a>
-        <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Démarrer ma demande</a>
-      </div>
+      <button type="button" id="drawerClose" aria-label="Fermer le menu">×</button>
+      <a href="../offres/index.html">Offres</a>
+      <a href="../formation-gratuite/index.html">Formations</a>
+      <a href="../realisations/index.html">Réalisations</a>
+      <a href="../a-propos/index.html">À propos</a>
+      <a href="../faq/index.html">FAQ</a>
+      <a href="../auralis/index.html">Auralis</a>
+      <a href="../univers/index.html">Univers</a>
+      <a href="../confiance/index.html">Confiance</a>
+      <a href="../votre-projet/index.html">Votre projet</a>
+      <a href="../pourquoi-pinapp/index.html">Pourquoi Pinapp</a>
+      <a href="../comment-ca-marche/index.html">Comment ça marche</a>
+      <a href="../diagnostic/index.html">Démarrer ma demande</a>
     </div>
   </div>
-
-        <div class="bottom-bar bottom-bar--site bottom-bar--six" aria-label="Navigation du site">
+  <div class="bottom-bar" role="navigation" aria-label="Navigation mobile">
     <a href="../index.html">Accueil</a>
     <a href="../offres/index.html">Offres</a>
-    <a href="../diagnostic/index.html" class="bottom-bar-cta">D&eacute;marrer</a>
+    <a href="../diagnostic/index.html" class="bottom-bar-cta">Démarrer</a>
     <a href="../univers/index.html">Univers</a>
     <a href="../formation-gratuite/index.html">Form.</a>
-    <a href="../realisations/index.html">R&eacute;alis.</a>
+    <a href="../realisations/index.html">Réalis.</a>
   </div>
-<main id="contenu-principal" class="stack-above-bg" tabindex="-1">
-
-    <!-- ═══════════════════════════════════════════════════════
-         HERO
-    ═══════════════════════════════════════════════════════ -->
-    <section class="section section-enter" id="liste-attente" style="text-align:center;padding-top:clamp(var(--space-7),12vw,var(--space-10));">
-      <div class="container" style="max-width:760px;">
-        <p class="label">FORMATION IA · AUTOMATISATION</p>
-        <h1 style="font-size:var(--text-h1);letter-spacing:-0.02em;margin-bottom:var(--space-3);line-height:1.1;">Apprenez à automatiser avec l'IA.<br>Étape par étape.</h1>
-        <p style="font-size:1.0625rem;opacity:0.7;margin-bottom:var(--space-2);line-height:1.7;">n8n + Claude comme formateurs. Quiz par module. Certificat à la complétion.</p>
-        <p style="font-size:1.0625rem;font-style:italic;font-family:Georgia,serif;opacity:0.6;margin-bottom:var(--space-5);">Les modules se débloquent au fur et à mesure. Progressez à votre rythme, à votre niveau.</p>
-        <span style="display:inline-block;background:rgba(57,224,117,0.15);color:#39E075;border:1px solid rgba(57,224,117,0.35);font-size:11px;font-weight:700;padding:6px 16px;border-radius:100px;letter-spacing:0.06em;margin-bottom:var(--space-6);">LANCEMENT — ÉTÉ 2026</span>
-
-        <!-- Lead capture inline -->
-        <div style="background:var(--glass);border:1px solid var(--border-card);border-radius:var(--radius-card);padding:var(--space-5);margin-top:var(--space-2);">
-          <p style="font-size:15px;font-weight:600;margin-bottom:var(--space-1);">Soyez notifié au lancement — c'est gratuit</p>
-          <p style="font-size:13px;opacity:0.6;margin-bottom:var(--space-3);">Recevez le programme complet + une réduction exclusive de lancement.</p>
-          <form id="formWaitlist" data-netlify="true" name="waitlist-formation" netlify-honeypot="bot-field" style="display:flex;gap:var(--space-2);flex-wrap:wrap;justify-content:center;">
-            <input type="hidden" name="form-name" value="waitlist-formation">
-            <input type="hidden" name="bot-field" style="display:none;" aria-hidden="true">
-            <input type="hidden" name="pack-interet" id="packInteret" value="">
-            <input type="email" name="email" id="waitlistEmail" placeholder="votre@email.fr" required aria-label="Votre adresse email" autocomplete="email" style="flex:1 1 220px;min-width:0;padding:14px 18px;border-radius:var(--radius-btn,8px);border:1px solid var(--border-card);background:var(--glass);color:var(--text);font-size:16px;font-family:inherit;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='var(--accent-teal)'" onblur="this.style.borderColor='var(--border-card)'">
-            <button type="submit" id="waitlistBtn" class="btn btn-primary" style="min-height:44px;white-space:nowrap;">M'inscrire sur la liste &rarr;</button>
-          </form>
-          <p id="waitlistMsg" style="font-size:13px;margin-top:var(--space-2);display:none;"></p>
-          <p style="font-size:11px;opacity:0.4;margin-top:var(--space-2);">Aucun spam. Désabonnement en un clic.</p>
+  <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
+    <section class="section">
+      <div class="container" style="max-width:600px;text-align:center;">
+        <p class="label">OFFERT</p>
+        <h1 style="font-size:var(--text-h1);letter-spacing:-0.02em;">5 automatisations pour votre PME</h1>
+        <p style="font-size:18px;opacity:0.7;margin-bottom:var(--space-3);">Téléchargez le guide. Appliquez dès aujourd'hui. Sans coder. Sans technicien.</p>
+        <p style="font-size:14px;opacity:0.55;margin-bottom:var(--space-5);max-width:28rem;margin-left:auto;margin-right:auto;line-height:1.6;">Pour aller plus loin : parcours <strong>97€</strong> (vidéos + accès à vie) et <strong>497€</strong> (6 semaines live). <a href="../offres/formation/index.html" style="color:var(--accent-teal);text-decoration:underline;">Voir les formations Pinapp</a></p>
+        <div style="background:var(--bg-card);border-radius:var(--radius-card-lg);padding:var(--space-5);border:1px solid var(--border-card);">
+          <label class="visually-hidden" for="leadEmail">Adresse email</label>
+          <input type="email" placeholder="votre@email.fr" id="leadEmail" autocomplete="email" style="width:100%;margin-bottom:var(--space-3);">
+          <button type="button" class="btn btn-primary" style="width:100%;" id="leadSubmit">Recevoir le guide</button>
+          <!-- Connecter à Make / Tally pour envoi PDF -->
         </div>
+        <p style="font-size:var(--text-legal);opacity:0.4;margin-top:var(--space-3);">Zéro spam. Désinscription en un clic.</p>
       </div>
     </section>
-
-    <!-- ═══════════════════════════════════════════════════════
-         QUIZ — TROUVEZ VOTRE NIVEAU
-    ═══════════════════════════════════════════════════════ -->
-    <section class="section section-enter" id="quiz-niveau">
-      <div class="container" style="max-width:560px;">
-        <p class="label" style="text-align:center;">QUIZ · 30 SECONDES</p>
-        <h2 style="text-align:center;font-size:var(--text-h2);letter-spacing:-0.02em;margin-bottom:var(--space-5);">Quel pack est fait pour vous ?</h2>
-
-        <!-- Progress dots -->
-        <div class="quiz-progress" id="quizDots" aria-hidden="true">
-          <div class="quiz-progress-dot current" id="dot0"></div>
-          <div class="quiz-progress-dot" id="dot1"></div>
-          <div class="quiz-progress-dot" id="dot2"></div>
-        </div>
-
-        <!-- Q1 -->
-        <div class="quiz-step active" id="qz1" role="group" aria-labelledby="qz1-label">
-          <p id="qz1-label" style="font-size:1.0625rem;font-weight:600;margin-bottom:var(--space-3);text-align:center;">Avez-vous déjà utilisé un outil d'automatisation ?</p>
-          <div class="quiz-options">
-            <button class="quiz-opt" data-q="1" data-v="non" aria-label="Non, jamais">
-              <span class="quiz-opt-icon">◦</span>
-              <div><strong>Non, jamais</strong><br><span style="font-size:13px;opacity:0.6;">Je pars de zéro, mais je suis motivé</span></div>
-            </button>
-            <button class="quiz-opt" data-q="1" data-v="un-peu" aria-label="Un peu, j'ai testé">
-              <span class="quiz-opt-icon">→</span>
-              <div><strong>J'ai testé une ou deux fois</strong><br><span style="font-size:13px;opacity:0.6;">Zapier, Make ou n8n — sans trop aller loin</span></div>
-            </button>
-            <button class="quiz-opt" data-q="1" data-v="oui" aria-label="Oui régulièrement">
-              <span class="quiz-opt-icon">✦</span>
-              <div><strong>Oui, je l'utilise régulièrement</strong><br><span style="font-size:13px;opacity:0.6;">Je sais créer des workflows, je veux aller plus loin</span></div>
-            </button>
-          </div>
-        </div>
-
-        <!-- Q2 -->
-        <div class="quiz-step" id="qz2" role="group" aria-labelledby="qz2-label">
-          <p id="qz2-label" style="font-size:1.0625rem;font-weight:600;margin-bottom:var(--space-3);text-align:center;">Qu'est-ce que vous voulez automatiser en priorité ?</p>
-          <div class="quiz-options">
-            <button class="quiz-opt" data-q="2" data-v="business" aria-label="Mon business au quotidien">
-              <span class="quiz-opt-icon">◦</span>
-              <div><strong>Mon business au quotidien</strong><br><span style="font-size:13px;opacity:0.6;">Devis, relances, réservations, emails</span></div>
-            </button>
-            <button class="quiz-opt" data-q="2" data-v="outils" aria-label="Mes outils professionnels">
-              <span class="quiz-opt-icon">→</span>
-              <div><strong>Mes outils professionnels</strong><br><span style="font-size:13px;opacity:0.6;">CRM, facturation, Google Sheets, Notion</span></div>
-            </button>
-            <button class="quiz-opt" data-q="2" data-v="ia" aria-label="Des systèmes IA complexes">
-              <span class="quiz-opt-icon">✦</span>
-              <div><strong>Des systèmes IA complexes</strong><br><span style="font-size:13px;opacity:0.6;">Agents, Claude API, multi-workflow</span></div>
-            </button>
-          </div>
-        </div>
-
-        <!-- Q3 -->
-        <div class="quiz-step" id="qz3" role="group" aria-labelledby="qz3-label">
-          <p id="qz3-label" style="font-size:1.0625rem;font-weight:600;margin-bottom:var(--space-3);text-align:center;">Quel est votre objectif principal ?</p>
-          <div class="quiz-options">
-            <button class="quiz-opt" data-q="3" data-v="temps" aria-label="Gagner du temps chaque semaine">
-              <span class="quiz-opt-icon">◦</span>
-              <div><strong>Gagner du temps chaque semaine</strong><br><span style="font-size:13px;opacity:0.6;">Automatiser les tâches répétitives de mon activité</span></div>
-            </button>
-            <button class="quiz-opt" data-q="3" data-v="vendre" aria-label="Offrir des automations à mes clients">
-              <span class="quiz-opt-icon">→</span>
-              <div><strong>Proposer de l'automatisation à mes clients</strong><br><span style="font-size:13px;opacity:0.6;">En faire une offre de service ou un produit</span></div>
-            </button>
-            <button class="quiz-opt" data-q="3" data-v="produit" aria-label="Construire des produits IA">
-              <span class="quiz-opt-icon">✦</span>
-              <div><strong>Construire des produits IA</strong><br><span style="font-size:13px;opacity:0.6;">Agents autonomes, SaaS, systèmes sur mesure</span></div>
-            </button>
-          </div>
-        </div>
-
-        <!-- Résultat -->
-        <div class="quiz-result" id="quizResult" role="alert" aria-live="polite">
-          <div style="background:var(--glass);border:1px solid var(--border-card);border-radius:16px;padding:var(--space-5);text-align:center;">
-            <p style="font-size:11px;font-weight:700;letter-spacing:0.08em;opacity:0.5;margin-bottom:var(--space-2);">VOTRE RECOMMANDATION</p>
-            <p id="quizResultPack" style="font-size:1.5rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:var(--space-2);color:var(--accent-teal);"></p>
-            <p id="quizResultDesc" style="font-size:14px;opacity:0.7;line-height:1.6;margin-bottom:var(--space-4);"></p>
-            <div style="display:flex;gap:var(--space-2);justify-content:center;flex-wrap:wrap;">
-              <a href="#packs" class="btn btn-primary" onclick="document.getElementById('packs').scrollIntoView({behavior:'smooth'});return false;">Voir ce pack &rarr;</a>
-              <button class="btn btn-secondary" id="quizReset" style="font-size:13px;">Refaire le quiz</button>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════
-         PARCOURS PROGRESSION — VISUEL DÉBUTANT → EXPERT
-    ═══════════════════════════════════════════════════════ -->
-    <section class="section section-enter" id="parcours">
-      <div class="container" style="max-width:700px;text-align:center;">
-        <p class="label">VOTRE PARCOURS</p>
-        <h2 style="font-size:var(--text-h2);letter-spacing:-0.02em;margin-bottom:var(--space-2);">De zéro à expert. À votre rythme.</h2>
-        <p style="font-size:1rem;opacity:0.65;margin-bottom:var(--space-6);line-height:1.6;">Chaque niveau débloque le suivant. Vous commencez où vous êtes.</p>
-
-        <!-- Timeline progression -->
-        <div class="level-path" role="list" aria-label="Niveaux de progression">
-          <div class="level-node" role="listitem">
-            <div class="level-circle" aria-label="Niveau débutant">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-            </div>
-            <p class="level-label">Débutant</p>
-            <p class="level-pack-tag">Pack 1</p>
-          </div>
-          <div class="level-connector" aria-hidden="true"></div>
-          <div class="level-node active" role="listitem">
-            <div class="level-circle" aria-label="Niveau intermédiaire, niveau recommandé">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            </div>
-            <p class="level-label">Inter&shy;médiaire</p>
-            <p class="level-pack-tag">Pack 1→2</p>
-          </div>
-          <div class="level-connector" aria-hidden="true"></div>
-          <div class="level-node" role="listitem">
-            <div class="level-circle" aria-label="Niveau avancé">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L8 8l-6 1 4.5 4.2L5 20l7-3.8L19 20l-1.5-6.8L22 9l-6-1-4-6z"/></svg>
-            </div>
-            <p class="level-label">Avancé</p>
-            <p class="level-pack-tag">Pack 2→3</p>
-          </div>
-          <div class="level-connector" aria-hidden="true"></div>
-          <div class="level-node" role="listitem">
-            <div class="level-circle" aria-label="Niveau expert">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M8.46 8.46a5 5 0 0 0 0 7.07"/></svg>
-            </div>
-            <p class="level-label">Expert</p>
-            <p class="level-pack-tag">Pack 3</p>
-          </div>
-        </div>
-
-        <!-- Durées -->
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3);margin-top:var(--space-5);text-align:left;">
-          <div style="background:var(--glass);border:1px solid rgba(0,180,216,0.2);border-radius:12px;padding:var(--space-3);">
-            <p style="font-size:11px;opacity:0.45;margin-bottom:4px;font-weight:600;letter-spacing:0.05em;">PACK 1 · 59 €</p>
-            <p style="font-size:15px;font-weight:700;color:#3EEBD6;margin-bottom:4px;">~5 heures</p>
-            <p style="font-size:12px;opacity:0.55;line-height:1.5;">4 modules · 2 à 4 semaines selon votre rythme</p>
-          </div>
-          <div style="background:var(--glass);border:1px solid rgba(139,92,246,0.3);border-radius:12px;padding:var(--space-3);">
-            <p style="font-size:11px;opacity:0.45;margin-bottom:4px;font-weight:600;letter-spacing:0.05em;">PACK 2 · 179 €</p>
-            <p style="font-size:15px;font-weight:700;color:#A78BFA;margin-bottom:4px;">~8 heures</p>
-            <p style="font-size:12px;opacity:0.55;line-height:1.5;">5 modules · 3 à 6 semaines selon votre rythme</p>
-          </div>
-          <div style="background:var(--glass);border:1px solid rgba(200,150,255,0.2);border-radius:12px;padding:var(--space-3);">
-            <p style="font-size:11px;opacity:0.45;margin-bottom:4px;font-weight:600;letter-spacing:0.05em;">PACK 3 · 449 €</p>
-            <p style="font-size:15px;font-weight:700;background:linear-gradient(90deg,#3EEBD6,#A78BFA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:4px;">~15 heures</p>
-            <p style="font-size:12px;opacity:0.55;line-height:1.5;">8 modules + coaching · 6 à 10 semaines</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════
-         MODULE 0 — APERÇU GRATUIT
-    ═══════════════════════════════════════════════════════ -->
-    <section class="section section-enter">
-      <div class="container" style="max-width:660px;">
-        <p class="label" style="text-align:center;">APERÇU GRATUIT</p>
-        <h2 style="text-align:center;font-size:var(--text-h2);letter-spacing:-0.02em;margin-bottom:var(--space-2);">Ce que vous apprendrez dès le Module 1</h2>
-        <p style="text-align:center;font-size:1rem;opacity:0.6;margin-bottom:var(--space-5);">Une idée concrète de ce qui vous attend, avant même d'acheter.</p>
-
-        <div class="module0-card section-enter">
-          <p style="font-size:14px;font-weight:700;margin-bottom:var(--space-3);">Module 1 — Comprendre l'automatisation · Pack Débutant</p>
-          <div class="lesson-row">
-            <p class="lesson-num">01</p>
-            <div class="lesson-content">
-              <p>L'automatisation, c'est quoi concrètement ?</p>
-              <p>Les 3 types de tâches automatisables dans n'importe quelle activité</p>
-            </div>
-          </div>
-          <div class="lesson-row">
-            <p class="lesson-num">02</p>
-            <div class="lesson-content">
-              <p>Décrypter n8n en 10 minutes</p>
-              <p>Interface, nœuds, triggers, connexions — sans jargon</p>
-            </div>
-          </div>
-          <div class="lesson-row">
-            <p class="lesson-num">03</p>
-            <div class="lesson-content">
-              <p>Votre première automatisation utile</p>
-              <p>Recevoir une notification WhatsApp quand un formulaire est rempli</p>
-            </div>
-          </div>
-          <div class="lesson-row">
-            <p class="lesson-num">04</p>
-            <div class="lesson-content">
-              <p>Quiz de validation (3 questions)</p>
-              <p>Répondez correctement pour débloquer le module suivant</p>
-            </div>
-          </div>
-          <div style="margin-top:var(--space-4);padding-top:var(--space-3);border-top:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-            <span style="font-size:12px;opacity:0.45;">Durée estimée : 1 h 15 min</span>
-            <span style="font-size:12px;opacity:0.45;">·</span>
-            <span style="font-size:12px;opacity:0.45;">Prérequis : aucun</span>
-            <span style="font-size:12px;opacity:0.45;">·</span>
-            <span style="font-size:12px;opacity:0.45;">Livré : Notion + workflow n8n à importer</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════
-         3 PACKS — DOSSIERS 3D (enrichis)
-    ═══════════════════════════════════════════════════════ -->
-    <section class="section section-enter" id="packs">
-      <div class="container">
-        <h2 style="text-align:center;font-size:var(--text-h2);letter-spacing:-0.02em;margin-bottom:var(--space-2);">3 niveaux. Un seul objectif : vous rendre autonome.</h2>
-        <p style="text-align:center;font-size:1rem;opacity:0.6;margin-bottom:var(--space-6);">Les packs se complètent — commencez par le vôtre, continuez quand vous êtes prêt.</p>
-        <div class="formation-grid">
-
-          <!-- Pack 1 — Débutant -->
-          <div class="dossier-3d section-enter" data-color="teal">
-            <div class="dossier-tabs"><div class="dossier-tab"></div><div class="dossier-tab"></div></div>
-            <div class="dossier-body">
-              <div class="dossier-badge">Pack 1 · Débutant</div>
-              <p class="dossier-price">59 €</p>
-              <p class="dossier-sub">Débutant → Intermédiaire · 4 modules</p>
-              <div class="dossier-meta">
-                <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> ~5 h</span>
-                <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> 4 modules</span>
-                <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg> Solo</span>
-              </div>
-              <p class="dossier-prereq">Prérequis : aucun — juste un ordinateur et une connexion internet.</p>
-              <ul class="dossier-modules">
-                <li>Module 1 — Comprendre l'automatisation</li>
-                <li>Module 2 — Vos 1ers workflows n8n</li>
-                <li>Module 3 — Connecter vos outils (Gmail, Notion, Sheets)</li>
-                <li>Module 4 — Votre 1er projet complet opérationnel</li>
-              </ul>
-              <div class="dossier-features">
-                <span>Quiz 3 questions / module</span>
-                <span>Notion interactive</span>
-                <span>Certificat PDF</span>
-                <span>Workflows à importer</span>
-              </div>
-              <a href="#waitlistEmail" class="btn btn-primary dossier-cta" aria-label="Rejoindre la liste d'attente pour le Pack 1 Débutant" onclick="document.getElementById('waitlistEmail').focus();document.getElementById('packInteret').value='pack1';return false;">Rejoindre la liste d'attente &rarr;</a>
-            </div>
-          </div>
-
-          <!-- Pack 2 — Intermédiaire (featured) -->
-          <div class="dossier-3d dossier-featured section-enter" data-color="violet" style="position:relative;">
-            <div class="dossier-tabs"><div class="dossier-tab"></div><div class="dossier-tab"></div></div>
-            <div class="dossier-body">
-              <div class="popular-badge" aria-label="Le plus recommandé">Le plus choisi</div>
-              <div class="dossier-badge">Pack 2 · Intermédiaire</div>
-              <p class="dossier-price">179 €</p>
-              <p class="dossier-sub">Intermédiaire → Avancé · 5 modules</p>
-              <div class="dossier-meta">
-                <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> ~8 h</span>
-                <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> 5 modules</span>
-                <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Solo ou en équipe</span>
-              </div>
-              <p class="dossier-prereq">Prérequis : avoir terminé le Pack 1 ou savoir créer un workflow basique sur n8n.</p>
-              <ul class="dossier-modules">
-                <li>Module 1 — Architectures IA avancées</li>
-                <li>Module 2 — Intégrer Claude API dans vos workflows</li>
-                <li>Module 3 — Automatiser un CRM complet</li>
-                <li>Module 4 — Facturation &amp; onboarding clients auto</li>
-                <li>Module 5 — Votre système complet de A à Z</li>
-              </ul>
-              <div class="dossier-features">
-                <span>Quiz 3 questions / module</span>
-                <span>Notion interactive</span>
-                <span>Modules débloqués progressivement</span>
-                <span>Certificat PDF</span>
-              </div>
-              <a href="#waitlistEmail" class="btn btn-primary dossier-cta" aria-label="Rejoindre la liste d'attente pour le Pack 2 Intermédiaire" onclick="document.getElementById('waitlistEmail').focus();document.getElementById('packInteret').value='pack2';return false;">Rejoindre la liste d'attente &rarr;</a>
-            </div>
-          </div>
-
-          <!-- Pack 3 — Expert -->
-          <div class="dossier-3d section-enter" data-color="gradient">
-            <div class="dossier-tabs"><div class="dossier-tab"></div><div class="dossier-tab"></div></div>
-            <div class="dossier-body">
-              <div class="dossier-badge">Pack 3 · Expert</div>
-              <p class="dossier-price">449 €</p>
-              <p class="dossier-sub">Avancé → Expert · 8 modules + coaching</p>
-              <div class="dossier-meta">
-                <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> ~15 h</span>
-                <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> 8 modules + coaching</span>
-                <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg> Indépendant / Pro</span>
-              </div>
-              <p class="dossier-prereq">Prérequis : Pack 1 + Pack 2, ou expérience confirmée en n8n et Claude API.</p>
-              <ul class="dossier-modules">
-                <li>Module 1 — Systèmes multi-agents</li>
-                <li>Module 2 — Deploy &amp; monitoring en production</li>
-                <li>Module 3 — Sécurité &amp; RGPD IA</li>
-                <li>Module 4 — Vendre vos services IA</li>
-                <li>Module 5 — Scale &amp; délégation</li>
-                <li>Module 6 — Dashboard &amp; reporting client</li>
-                <li>Module 7 — Études de cas clients avancés</li>
-                <li>Module 8 — Projet capstone + 1 h coaching individuel</li>
-              </ul>
-              <div class="dossier-features">
-                <span>Quiz 3 questions / module</span>
-                <span>Notion interactive</span>
-                <span>Modules débloqués progressivement</span>
-                <span>1 h coaching individuel</span>
-                <span>Certificat Expert PDF</span>
-              </div>
-              <a href="#waitlistEmail" class="btn btn-primary dossier-cta" aria-label="Rejoindre la liste d'attente pour le Pack 3 Expert" onclick="document.getElementById('waitlistEmail').focus();document.getElementById('packInteret').value='pack3';return false;">Rejoindre la liste d'attente &rarr;</a>
-            </div>
-          </div>
-
-        </div>
-        <!-- Bundle mention -->
-        <p style="text-align:center;font-size:13px;opacity:0.4;margin-top:var(--space-4);">Pack 1 + 2 + 3 en bundle au lancement — réduction exclusive réservée aux inscrits sur la liste.</p>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════
-         MÉTHODE PÉDAGOGIQUE
-    ═══════════════════════════════════════════════════════ -->
-    <section class="section section-enter">
-      <div class="container" style="max-width:700px;text-align:center;">
-        <p class="label">MÉTHODE</p>
-        <h2 style="font-size:var(--text-h2);letter-spacing:-0.02em;margin-bottom:var(--space-5);">L'IA comme formateur.<br>Vous comme créateur.</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--space-4);text-align:left;">
-          <div style="background:var(--glass);border:1px solid var(--border-card);border-radius:var(--radius-card);padding:var(--space-4);">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-teal)" stroke-width="1.5" style="margin-bottom:8px;" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-            <p style="font-weight:600;margin-bottom:6px;font-size:15px;">Formateur IA</p>
-            <p style="font-size:13px;opacity:0.65;line-height:1.6;">Claude adapte les explications à votre niveau et répond à vos questions en temps réel.</p>
-          </div>
-          <div style="background:var(--glass);border:1px solid var(--border-card);border-radius:var(--radius-card);padding:var(--space-4);">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-violet)" stroke-width="1.5" style="margin-bottom:8px;" aria-hidden="true"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12l2 2 4-4"/></svg>
-            <p style="font-weight:600;margin-bottom:6px;font-size:15px;">Quiz de déblocage</p>
-            <p style="font-size:13px;opacity:0.65;line-height:1.6;">3 questions validées avant d'accéder au module suivant. Vous avancez seulement quand c'est acquis.</p>
-          </div>
-          <div style="background:var(--glass);border:1px solid var(--border-card);border-radius:var(--radius-card);padding:var(--space-4);">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-teal)" stroke-width="1.5" style="margin-bottom:8px;" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-            <p style="font-weight:600;margin-bottom:6px;font-size:15px;">Notion interactive</p>
-            <p style="font-size:13px;opacity:0.65;line-height:1.6;">Ressources, exercices, templates prêts à l'emploi — un espace dédié par module.</p>
-          </div>
-          <div style="background:var(--glass);border:1px solid var(--border-card);border-radius:var(--radius-card);padding:var(--space-4);">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green,#39E075)" stroke-width="1.5" style="margin-bottom:8px;" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/><path d="M17 12l2 2 4-4"/></svg>
-            <p style="font-weight:600;margin-bottom:6px;font-size:15px;">Certificat PDF</p>
-            <p style="font-size:13px;opacity:0.65;line-height:1.6;">Attestation de complétion à télécharger et partager sur LinkedIn. Preuves de compétence concrètes.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════
-         FAQ FORMATION
-    ═══════════════════════════════════════════════════════ -->
-    <section class="section section-enter" id="faq-formation">
-      <div class="container" style="max-width:680px;">
-        <p class="label" style="text-align:center;">FAQ</p>
-        <h2 style="text-align:center;font-size:var(--text-h2);letter-spacing:-0.02em;margin-bottom:var(--space-5);">Questions fréquentes</h2>
-        <div class="faq-f" style="display:flex;flex-direction:column;gap:var(--space-3);">
-          <details>
-            <summary>Dois-je acheter les packs dans l'ordre ?</summary>
-            <p>Non obligatoire, mais fortement recommandé. Le Pack 2 s'appuie sur les bases du Pack 1. Si vous avez déjà de l'expérience n8n, vous pouvez commencer directement au Pack 2 — le quiz d'entrée vous confirme si vous êtes prêt.</p>
-          </details>
-          <details>
-            <summary>Quelle stack technique est nécessaire ?</summary>
-            <p>Pour commencer : un compte n8n (cloud gratuit disponible), une adresse email, un ordinateur. Pour les niveaux avancés : un compte Anthropic (Claude API) — environ 5 à 10 €/mois selon usage, et une connexion à vos outils métier (Gmail, Notion, Sheets ou équivalents).</p>
-          </details>
-          <details>
-            <summary>Est-ce que j'ai accès à vie ?</summary>
-            <p>Oui. Une fois votre pack acheté, l'accès est permanent. Les mises à jour de contenu (nouvelles versions de n8n, nouvelles fonctions Claude) sont incluses sans frais supplémentaire.</p>
-          </details>
-          <details>
-            <summary>Combien de temps faut-il par semaine ?</summary>
-            <p>Comptez 1 à 2 heures par semaine pour avancer à un rythme confortable. Chaque leçon dure 20 à 40 minutes. Le quiz de validation prend 5 minutes. Vous n'êtes pas bloqué si vous faites une pause — vous reprenez exactement où vous en étiez.</p>
-          </details>
-          <details>
-            <summary>Puis-je obtenir le pack en commençant maintenant, avant le lancement ?</summary>
-            <p>Les 3 packs progressifs (59 € / 179 € / 449 €) sont en pré-lancement — inscription sur liste d'attente gratuite. En attendant, des formations courtes sont disponibles dès maintenant via <a href="../offres/formation/index.html" style="color:var(--teal,#00E5CC);border-bottom:0.5px solid currentColor;">l'espace formations actuelles</a>.</p>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════
-         PONT — FORMATIONS DISPONIBLES MAINTENANT
-    ═══════════════════════════════════════════════════════ -->
-    <section class="section section-enter" id="dispo-maintenant">
-      <div class="container" style="max-width:640px;text-align:center;">
-        <div style="background:var(--glass);border:1px solid rgba(0,229,204,0.2);border-radius:20px;padding:var(--space-5);">
-          <p class="label" style="color:var(--accent-teal);margin-bottom:var(--space-2);">DISPONIBLES DÈS MAINTENANT</p>
-          <h2 style="font-size:1.375rem;letter-spacing:-0.02em;margin-bottom:var(--space-3);">Pas prêt à attendre l'été 2026 ?</h2>
-          <p style="font-size:14px;opacity:0.7;line-height:1.7;margin-bottom:var(--space-4);">Deux formations courtes sont disponibles immédiatement — idéales pour commencer à automatiser votre activité dès cette semaine.</p>
-          <div style="display:flex;gap:var(--space-3);justify-content:center;flex-wrap:wrap;margin-bottom:var(--space-3);">
-            <div style="background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:var(--space-3);text-align:left;min-width:180px;">
-              <p style="font-size:11px;opacity:0.45;font-weight:600;margin-bottom:4px;">FORMATION COURTE</p>
-              <p style="font-size:1.125rem;font-weight:700;color:var(--accent-violet,#7B4FE8);">119 €</p>
-              <p style="font-size:13px;opacity:0.65;line-height:1.5;">Automatiser son activité en 1 journée · 4 h async</p>
-            </div>
-            <div style="background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:var(--space-3);text-align:left;min-width:180px;">
-              <p style="font-size:11px;opacity:0.45;font-weight:600;margin-bottom:4px;">PROGRAMME COMPLET</p>
-              <p style="font-size:1.125rem;font-weight:700;color:var(--accent-violet,#7B4FE8);">590 €</p>
-              <p style="font-size:13px;opacity:0.65;line-height:1.5;">Devenir autonome sur l'IA — 6 semaines</p>
-            </div>
-          </div>
-          <a href="../offres/formation/index.html" class="btn btn-secondary" style="font-size:14px;">Voir les formations disponibles maintenant &rarr;</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════
-         CTA FINAL
-    ═══════════════════════════════════════════════════════ -->
-    <section class="section section-enter" style="text-align:center;">
-      <div class="container" style="max-width:600px;">
-        <h2 style="font-size:var(--text-h2);letter-spacing:-0.02em;margin-bottom:var(--space-3);">Prêt à automatiser ?</h2>
-        <p style="font-size:1rem;opacity:0.7;margin-bottom:var(--space-5);line-height:1.7;">Rejoignez la liste d'attente et recevez le programme complet + une réduction exclusive de lancement en avant-première.</p>
-        <a href="#waitlistEmail" class="btn btn-primary pinapp-breathe" style="font-size:1rem;padding:16px 32px;" onclick="document.getElementById('waitlistEmail').focus();return false;">Rejoindre la liste d'attente — gratuit &rarr;</a>
-        <p style="font-size:13px;opacity:0.45;margin-top:var(--space-3);">Lancement prévu été 2026 &middot; Places limitées</p>
-      </div>
-    </section>
-
   </main>
-
-  <footer class="site-footer">
-    <div aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none;">
-      <svg viewBox="0 0 120 140" width="380" height="440" style="position:absolute;bottom:-60px;right:-40px;opacity:0.03;" aria-hidden="true" fill="currentColor"><ellipse cx="60" cy="80" rx="38" ry="48"/><path d="M60 32 C54 38 50 42 52 48"/><path d="M60 32 C60 38 60 42 60 48"/><path d="M60 32 C66 38 70 42 68 48"/><rect x="22" y="60" width="76" height="4" rx="2"/><rect x="22" y="72" width="76" height="4" rx="2"/><rect x="22" y="84" width="76" height="4" rx="2"/></svg>
-    </div>
-    <div class="container" style="position:relative;text-align:center;padding:var(--space-7) 0 var(--space-5);">
-      <p style="font-size:1.0625rem;opacity:0.55;margin-bottom:var(--space-4);font-style:italic;letter-spacing:-0.01em;">Pinapp orchestre. Vous validez. Toujours.</p>
-      <nav style="display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-3);margin-bottom:var(--space-4);font-size:13px;opacity:0.65;" aria-label="Liens footer">
-        <a href="https://linkedin.com/in/lauralie-daguzay-4a4542197/" rel="noopener noreferrer" target="_blank">LinkedIn</a>
+  <footer style="border-top:1px solid var(--separator);padding:var(--space-5) 0;">
+    <div class="container" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:var(--space-3);opacity:0.6;font-size:13px;">
+      <span>Pinapp © 2026</span>
+      <div style="display:flex;gap:var(--space-3);">
+        <a href="https://www.linkedin.com/in/lauralie-daguzay-4a4542197/" target="_blank" rel="noopener">LinkedIn</a>
         <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
+      </div>
+      <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;">
         <a href="../legal/mentions.html">Mentions légales</a>
         <a href="../legal/cgv.html">CGV</a>
         <a href="../legal/confidentialite.html">Confidentialité</a>
-      </nav>
-      <nav style="display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-3);margin-bottom:var(--space-3);font-size:12px;opacity:0.4;" aria-label="Liens secondaires">
-        <a href="../expertise-ia/index.html">IA &amp; systèmes</a>
-        <a href="../auralis/index.html">Auralis RH</a>
-        <a href="../offres/automatisation/index.html">Automatisation</a>
-      </nav>
-      <p style="font-size:12px;opacity:0.35;letter-spacing:0.04em;">Pinapp Studio © 2026</p>
+        <a href="../legal/accessibilite.html">Accessibilité</a>
+        <a href="../legal/ethique.html">Éthique</a>
+      </div>
     </div>
   </footer>
-
-  <div id="cookie-banner" role="dialog" aria-label="Cookies" style="position:fixed;bottom:calc(56px + env(safe-area-inset-bottom,0px));right:16px;left:auto;max-width:300px;padding:12px 16px;background:rgba(2,8,20,0.92);border:0.5px solid rgba(255,255,255,0.10);border-radius:16px;backdrop-filter:blur(28px) saturate(160%);z-index:8900;display:none;box-shadow:0 8px 32px rgba(0,0,0,0.42);">
-      <p style="font-size:12px;opacity:0.70;margin-bottom:10px;line-height:1.5;">Mesure d&rsquo;audience anonyme &mdash; sans tracking.</p>
-  <div style="display:flex;gap:8px;">
-    <button type="button" id="cookieAccept" style="flex:1;background:var(--violet,#7B4FE8);color:#fff;border:none;border-radius:100px;padding:10px 0;min-height:44px;font-size:13px;font-weight:500;cursor:pointer;">OK</button>
-    <button type="button" id="cookieRefuse" style="flex:1;background:rgba(255,255,255,0.06);color:inherit;border:0.5px solid rgba(255,255,255,0.12);border-radius:100px;padding:10px 0;min-height:44px;font-size:13px;cursor:pointer;opacity:0.70;">Non merci</button>
+  <div id="cookie-banner" role="dialog" aria-label="Cookies" style="position:fixed;bottom:0;left:0;right:0;padding:var(--space-3);background:var(--bg-card);border-top:1px solid var(--border-card);backdrop-filter:blur(20px);z-index:9000;display:none;">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap;">
+      <p style="font-size:13px;opacity:0.8;max-width:600px;">Ce site utilise des cookies de mesure d'audience anonymes (Plausible Analytics — sans tracking personnel).</p>
+      <div style="display:flex;gap:var(--space-2);">
+        <button type="button" id="cookieAccept" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Accepter</button>
+        <button type="button" id="cookieRefuse" class="btn btn-secondary" style="font-size:13px;padding:10px 20px;">Refuser</button>
+      </div>
+    </div>
   </div>
-</div>
-
-  <!-- Quiz handler -->
-  <script>
-  (function() {
-    var answers = {};
-    var dots    = [document.getElementById('dot0'), document.getElementById('dot1'), document.getElementById('dot2')];
-
-    function setDots(step) {
-      dots.forEach(function(d, i) {
-        d.className = 'quiz-progress-dot' + (i < step ? ' done' : i === step ? ' current' : '');
-      });
-    }
-
-    function showStep(id) {
-      document.querySelectorAll('.quiz-step').forEach(function(s) { s.classList.remove('active'); });
-      var el = document.getElementById(id);
-      if (el) el.classList.add('active');
-    }
-
-    function showResult() {
-      document.querySelectorAll('.quiz-step').forEach(function(s) { s.classList.remove('active'); });
-      document.getElementById('quizResult').classList.add('visible');
-      setDots(3);
-
-      var pack, desc;
-      var a1 = answers[1], a2 = answers[2], a3 = answers[3];
-
-      if (a1 === 'oui' || a3 === 'produit') {
-        pack = 'Pack 3 — Expert (449 €)';
-        desc = 'Vous avez déjà les bases. Ce pack vous emmène vers les systèmes multi-agents, Claude API avancé et la commercialisation de services IA.';
-      } else if (a1 === 'un-peu' || a2 === 'outils' || a3 === 'vendre') {
-        pack = 'Pack 2 — Intermédiaire (179 €)';
-        desc = 'Vous avez quelques bases. Ce pack vous donnera une architecture solide : CRM automatisé, Claude intégré, système complet en 5 modules.';
-      } else {
-        pack = 'Pack 1 — Débutant (59 €)';
-        desc = 'Vous partez de zéro — c\'est parfait. En 4 modules, vous aurez vos premiers workflows opérationnels et un projet complet fonctionnel.';
-      }
-
-      document.getElementById('quizResultPack').textContent = pack;
-      document.getElementById('quizResultDesc').textContent  = desc;
-      if (window.plausible) plausible('Quiz Formation Résultat', { props: { pack: pack } });
-    }
-
-    document.querySelectorAll('.quiz-opt').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        var q = parseInt(btn.getAttribute('data-q'), 10);
-        answers[q] = btn.getAttribute('data-v');
-
-        /* Feedback visuel */
-        btn.closest('.quiz-options').querySelectorAll('.quiz-opt').forEach(function(b) {
-          b.style.borderColor = '';
-          b.style.background  = '';
-        });
-        btn.style.borderColor = 'rgba(0,229,204,0.5)';
-        btn.style.background  = 'rgba(0,229,204,0.08)';
-
-        setTimeout(function() {
-          if (q === 1) { setDots(1); showStep('qz2'); }
-          else if (q === 2) { setDots(2); showStep('qz3'); }
-          else { showResult(); }
-        }, 280);
-      });
-    });
-
-    var resetBtn = document.getElementById('quizReset');
-    if (resetBtn) {
-      resetBtn.addEventListener('click', function() {
-        answers = {};
-        document.getElementById('quizResult').classList.remove('visible');
-        setDots(0);
-        showStep('qz1');
-        document.querySelectorAll('.quiz-opt').forEach(function(b) {
-          b.style.borderColor = '';
-          b.style.background  = '';
-        });
-      });
-    }
-  })();
-  </script>
-
-  <!-- Waitlist form handler -->
-  <script>
-  (function() {
-    var form = document.getElementById('formWaitlist');
-    var btn  = document.getElementById('waitlistBtn');
-    var msg  = document.getElementById('waitlistMsg');
-    if (!form) return;
-
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      var email = document.getElementById('waitlistEmail').value.trim();
-      if (!email) return;
-
-      btn.textContent = 'Inscription…';
-      btn.disabled = true;
-
-      var fd = new FormData(form);
-      fetch('/', { method: 'POST', headers: { 'Accept': 'application/json' }, body: fd })
-        .then(function(r) {
-          msg.style.display = 'block';
-          if (r.ok) {
-            msg.style.color = '#39E075';
-            msg.textContent = 'Parfait ! Vous serez notifié en avant-première au lancement.';
-            form.reset();
-            btn.textContent = 'Inscrit ✓';
-            /* Tracking */
-            if (window.plausible) plausible('Waitlist Formation', { props: { email: email } });
-            if (window.PinappIntel) PinappIntel.data.waitlistFormation = true;
-            /* n8n si configuré */
-            var cfg = window.PinappConfig;
-            if (cfg && cfg.features.leadWebhook && cfg._isRealUrl(cfg.webhooks.leadMagnet)) {
-              fetch(cfg.webhooks.leadMagnet, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: email, source: 'waitlist-formation', timestamp: new Date().toISOString() })
-              }).catch(function(){});
-            }
-          } else {
-            throw new Error('HTTP ' + r.status);
-          }
-        })
-        .catch(function() {
-          msg.style.display = 'block';
-          msg.style.color = 'var(--accent-teal)';
-          msg.textContent = 'Une erreur est survenue. Contactez-nous à lauralie.daguzay@pinapp.fr';
-          btn.textContent = 'Rejoindre la liste d\'attente →';
-          btn.disabled = false;
-        });
-    });
-  })();
-  </script>
-
-  <script src="../assets/js/config.js"></script>
-  <script src="../assets/js/security.js" defer></script>
   <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/particles.js" defer></script>
   <script src="../assets/js/aurora.js" defer></script>
-  <script src="../assets/js/intelligence.js" defer></script>
+  <script src="../assets/js/parallax.js" defer></script>
   <script src="../assets/js/scroll-cinema.js" defer></script>
   <script src="../assets/js/cursor.js" defer></script>
-  <script src="../assets/js/pandora-night.js" defer></script>
-  <script src="../assets/js/mode-toggle.js" defer></script>
-  <script src="../assets/js/bio-particles.js" defer></script>
-  <script src="../assets/js/pandora-world.js"></script>
-  <script src="../assets/js/pandora-interactions.js"></script>
 </body>
 </html>

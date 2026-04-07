@@ -74,7 +74,7 @@ const countObs = new IntersectionObserver(entries => {
     tick();
     countObs.unobserve(el);
   });
-}, { threshold: 0.5 });
+}, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
 
 document.querySelectorAll('[data-count]')
   .forEach(el => countObs.observe(el));

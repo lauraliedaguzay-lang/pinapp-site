@@ -189,6 +189,10 @@ body::before {
 /* MODE NUIT â€” ForÃªt Pandora */
 body:not(.mode-jour)::before {
   background-image: url('../assets/images/bg-pandora-nuit.png');
+  background-image: image-set(
+    url('../assets/images/bg-pandora-nuit.webp') type('image/webp'),
+    url('../assets/images/bg-pandora-nuit.png') type('image/png')
+  );
   /* Plus de lumière, moins de dérive bleue — tonalité sol bioluminescent */
   filter: blur(20px) saturate(128%) brightness(0.92) hue-rotate(-6deg);
 }
@@ -260,6 +264,10 @@ html[data-theme="light"] body {
 body.mode-jour::before,
 html[data-theme="light"] body::before {
   background-image: url('../assets/images/bg-pandora-jour.png');
+  background-image: image-set(
+    url('../assets/images/bg-pandora-jour.webp') type('image/webp'),
+    url('../assets/images/bg-pandora-jour.png') type('image/png')
+  );
   filter: blur(20px) saturate(160%) brightness(1.08);
 }
 

@@ -63,27 +63,55 @@ class BarChart {
   animate() {
     if (this.done) return;
     this.done = true;
-    this.el.querySelectorAll('.bar-fill').forEach((r, i) => {
-      setTimeout(() => {
-        const y = r.dataset.y, h = r.dataset.h;
-        r.style.transition =
-          `y 700ms cubic-bezier(0.45,0.05,0.55,0.95),
-           height 700ms cubic-bezier(0.45,0.05,0.55,0.95)`;
-        r.setAttribute('y', y);
-        r.setAttribute('height', h);
+    const bars = Array.from(this.el.querySelectorAll('.bar-fill'));
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduced) {
+      bars.forEach((r) => {
+        r.setAttribute('y', r.dataset.y);
+        r.setAttribute('height', r.dataset.h);
         const val = r.parentElement.querySelector('.bar-val');
-        if (val) {
-          val.style.transition = 'opacity 300ms ease 400ms';
-          val.style.opacity    = '1';
+        if (val) val.style.opacity = '1';
+      });
+      return;
+    }
+
+    const dur = 700;
+    const ease = (t) => {
+      const x = Math.min(1, Math.max(0, t));
+      return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+    };
+
+    bars.forEach((r, i) => {
+      const delay = i * 130;
+      const y1 = Number(r.getAttribute('y'));
+      const h1 = Number(r.getAttribute('height'));
+      const y2 = Number(r.dataset.y);
+      const h2 = Number(r.dataset.h);
+      const val = r.parentElement.querySelector('.bar-val');
+      const t0 = performance.now() + delay;
+
+      function frame(now) {
+        const t = Math.min(1, (now - t0) / dur);
+        const k = ease(t);
+        const y = y1 + (y2 - y1) * k;
+        const h = h1 + (h2 - h1) * k;
+        r.setAttribute('y', String(y));
+        r.setAttribute('height', String(h));
+        if (t < 1) {
+          requestAnimationFrame(frame);
+        } else if (val) {
+          val.style.opacity = '1';
         }
-      }, i * 130);
+      }
+      requestAnimationFrame(frame);
     });
   }
 
   observe() {
     new IntersectionObserver(([e]) => {
       if (e.isIntersecting) this.animate();
-    }, { threshold: 0.3 }).observe(this.el);
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }).observe(this.el);
   }
 }
 BarChart.prototype._id = 'main';
@@ -135,7 +163,9 @@ class LineChart {
   animate() {
     if (this.done) return;
     this.done = true;
-    this.el.querySelectorAll('path').forEach(p => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.el.querySelectorAll('path').forEach((p) => {
+      if (reduced) p.style.transition = 'none';
       p.style.strokeDashoffset = '0';
     });
   }
@@ -143,7 +173,7 @@ class LineChart {
   observe() {
     new IntersectionObserver(([e]) => {
       if (e.isIntersecting) this.animate();
-    }, { threshold: 0.3 }).observe(this.el);
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }).observe(this.el);
   }
 }
 
@@ -195,7 +225,9 @@ class DonutChart {
   animate() {
     if (this.done) return;
     this.done = true;
-    this.el.querySelectorAll('circle[data-dash]').forEach(c => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.el.querySelectorAll('circle[data-dash]').forEach((c) => {
+      if (reduced) c.style.transition = 'none';
       c.style.strokeDasharray = c.dataset.dash;
     });
   }
@@ -203,7 +235,7 @@ class DonutChart {
   observe() {
     new IntersectionObserver(([e]) => {
       if (e.isIntersecting) this.animate();
-    }, { threshold: 0.3 }).observe(this.el);
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }).observe(this.el);
   }
 }
 
