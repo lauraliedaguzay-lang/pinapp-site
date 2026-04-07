@@ -18,7 +18,7 @@
 
   g.PINAPP_DEMO_PHOTO_PACKS = {
     artisan: {
-      photoHero: img('1581094794329-c8112a89af12'),
+      photoHero: 'demo-artisan-hero.webp',
       galerieTitle: 'Chantiers & savoir-faire',
       galerie: [
         { src: img('1503389152951-9f343605f61e', qM), alt: 'Rénovation', caption: 'Pièce à vivre' },
@@ -48,7 +48,7 @@
     },
 
     restaurant: {
-      photoHero: img('1414235077428-338989a2e8c0'),
+      photoHero: 'demo-restaurant-hero.webp',
       galerieTitle: 'Ambiance & assiettes',
       galerie: [
         { src: img('1555396273-367ea4eb4db5', qM), alt: 'Salle', caption: 'Accueil' },
@@ -78,7 +78,7 @@
     },
 
     coach: {
-      photoHero: img('1544367567-0f2fcb009e0b'),
+      photoHero: 'demo-coach-hero.webp',
       galerieTitle: 'Accompagnement & transformation',
       galerie: [
         { src: img('1571019613454-1cb2f99b2d8b', qM), alt: 'Séance', caption: 'Coaching' },
@@ -108,7 +108,7 @@
     },
 
     trainer: {
-      photoHero: img('1534438327276-14e5300c3a48'),
+      photoHero: 'demo-trainer-hero.webp',
       galerieTitle: 'Performance & récupération',
       galerie: [
         { src: img('1571019614242-c3450a2ad572', qM), alt: 'Musculation', caption: 'Force' },
@@ -138,7 +138,7 @@
     },
 
     tatoueuse: {
-      photoHero: img('1611501279641-e541992fc7e4'),
+      photoHero: 'demo-tatoueuse-hero.webp',
       galerieTitle: 'Flash & projets sur mesure',
       galerie: [
         { src: img('1590246814883-57b34b9d0b40', qM), alt: 'Ligne', caption: 'Dessin' },
@@ -168,7 +168,7 @@
     },
 
     ongles: {
-      photoHero: img('1522337360788-8b13dee7a37e'),
+      photoHero: 'demo-ongles-hero.webp',
       galerieTitle: 'Nail art & soins',
       galerie: [
         { src: img('1604654894610-df63bc536371', qM), alt: 'Manucure', caption: 'Pose gel' },
@@ -198,7 +198,7 @@
     },
 
     estheticienne: {
-      photoHero: img('1570172618684-dfd03ed5d881'),
+      photoHero: 'demo-estheticienne-hero.webp',
       galerieTitle: 'Soins & détente',
       galerie: [
         { src: img('1515377902960-4688d4d4c5c4', qM), alt: 'Massage', caption: 'Relaxation' },
@@ -228,7 +228,7 @@
     },
 
     coiffeur: {
-      photoHero: img('1562320342-44ef4452d781'),
+      photoHero: 'demo-coiffeur-hero.webp',
       galerieTitle: 'Coupes & colorations',
       galerie: [
         { src: img('1562320342-44ef4452d781', qM), alt: 'Salon', caption: 'Fauteuils' },
@@ -258,7 +258,7 @@
     },
 
     cils: {
-      photoHero: img('1516975080914-ae6841e37f29'),
+      photoHero: 'demo-cils-hero.webp',
       galerieTitle: 'Regard & extensions',
       galerie: [
         { src: img('1516975080914-ae6841e37f29', qM), alt: 'Pose', caption: 'Volume' },
@@ -288,7 +288,7 @@
     },
 
     boulangerie: {
-      photoHero: img('1509440157566-624c7a7d2fc8'),
+      photoHero: 'demo-boulangerie-hero.webp',
       galerieTitle: 'Four & vitrine',
       galerie: [
         { src: img('1509440157566-624c7a7d2fc8', qM), alt: 'Pain', caption: 'Meule' },
@@ -318,7 +318,7 @@
     },
 
     barbier: {
-      photoHero: img('1503951914875-452612b0f003'),
+      photoHero: 'demo-barbier-hero.webp',
       galerieTitle: 'Style & tradition',
       galerie: [
         { src: img('1503951914875-452612b0f003', qM), alt: 'Taille', caption: 'Précision' },
@@ -348,7 +348,7 @@
     },
 
     avocat: {
-      photoHero: img('1589829540833-527e0e87d48a'),
+      photoHero: 'demo-avocat-hero.webp',
       galerieTitle: 'Cabinet & sérieux',
       galerie: [
         { src: img('1589829540833-527e0e87d48a', qM), alt: 'Bibliothèque', caption: 'Documentation' },
@@ -379,7 +379,7 @@
 
     /* Démo « sur-mesure » : site très riche type vitrine premium (hommage, lieu, ou marque haut de gamme) */
     surmesure: {
-      photoHero: img('1464822758483-df1963d3e9e0', q),
+      photoHero: 'demo-sur-mesure-hero.webp',
       galerieTitle: 'Moments, lieux, détails',
       galerie: [
         { src: img('1465146349255-7e60800f6453', qM), alt: 'Lumière naturelle', caption: 'Accueil' },

@@ -122,6 +122,18 @@ html {
   background-position: center;
   background-repeat: no-repeat;
   text-align: center;
+  animation: demo-hero-ken 32s ease-in-out infinite alternate;
+}
+
+@keyframes demo-hero-ken {
+  0% {
+    background-size: 100% auto;
+    background-position: 52% 42%;
+  }
+  100% {
+    background-size: 112% auto;
+    background-position: 48% 58%;
+  }
 }
 
 .hero::before {
@@ -1124,12 +1136,17 @@ button, .pill, .df-cta, .df-pill { cursor: pointer; user-select: none; }
   .demo-sector-page section:not(.hero) {
     animation: none !important; opacity: 1 !important; transform: none !important;
   }
+  .hero { animation: none !important; background-size: cover !important; background-position: center !important; }
+  .swipe-item.active .service-thumb { animation: none !important; }
   .hero::after { animation: none; }
   .progress-fill { animation: none; }
 }
 
 /* Mobile : désactiver les effets GPU-coûteux */
 @media (max-width: 767px) {
+  .hero {
+    animation: demo-hero-ken 48s ease-in-out infinite alternate;
+  }
   /* Glow hero : blur 100px trop lourd sur mobile → simplifié */
   .hero::after {
     filter: blur(40px);
@@ -1161,6 +1178,18 @@ button, .pill, .df-cta, .df-pill { cursor: pointer; user-select: none; }
   border-radius: 12px;
   margin-bottom: 12px;
   display: block;
+  transform-origin: center center;
+  transition: transform 480ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 320ms ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.22);
+}
+
+.swipe-item.active .service-thumb {
+  animation: demo-thumb-pulse 9s ease-in-out infinite;
+}
+
+@keyframes demo-thumb-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.035); }
 }
 
 .demo-galerie-section {

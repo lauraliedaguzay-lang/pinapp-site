@@ -505,30 +505,8 @@
     { passive: true }
   );
 
-  /* ── Section reveal au scroll (IntersectionObserver) ── */
-  if ('IntersectionObserver' in window) {
-    var sectionObserver = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-    document.querySelectorAll('.demo-sector-page section:not(.hero)').forEach(function (sec) {
-      sectionObserver.observe(sec);
-    });
-    /* Hero : toujours visible */
-    var heroEl = document.querySelector('.hero');
-    if (heroEl) heroEl.classList.add('visible');
-  } else {
-    /* Fallback */
-    document.querySelectorAll('.demo-sector-page section').forEach(function (sec) {
-      sec.classList.add('visible');
-      sec.style.opacity = '1';
-      sec.style.transform = 'none';
-    });
-  }
+  /* Sections visibles au chargement (règle zéro-scroll Pinapp — pas de révélation au défilement) */
+  document.querySelectorAll('.demo-sector-page section').forEach(function (sec) {
+    sec.classList.add('visible');
+  });
 })();
