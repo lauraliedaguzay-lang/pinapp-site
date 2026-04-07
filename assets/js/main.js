@@ -248,6 +248,22 @@
   var burger = document.getElementById('burger');
   var drawer = document.getElementById('mobileDrawer');
   var drawerClose = document.getElementById('drawerClose');
+  var lastFocus = null;
+
+  function setCookieBannerSuppressed(suppressed) {
+    if (!cookieBanner) return;
+    cookieBanner.dataset.suppressed = suppressed ? '1' : '0';
+    if (suppressed) {
+      cookieBanner.style.display = 'none';
+      cookieBanner.setAttribute('aria-hidden', 'true');
+      return;
+    }
+    try {
+      if (localStorage.getItem('cookie-consent')) return;
+    } catch (e) {}
+    cookieBanner.style.display = 'block';
+    cookieBanner.removeAttribute('aria-hidden');
+  }
 
   function setDrawer(open) {
     if (!drawer) return;
@@ -258,6 +274,19 @@
       burger.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
     }
     document.body.style.overflow = open ? 'hidden' : '';
+    document.body.classList.toggle('drawer-open', open);
+    setCookieBannerSuppressed(open);
+    if (open) {
+      lastFocus = document.activeElement;
+      window.setTimeout(function () {
+        if (drawerClose) drawerClose.focus();
+      }, 0);
+    } else {
+      var toFocus = burger || lastFocus;
+      window.setTimeout(function () {
+        if (toFocus && typeof toFocus.focus === 'function') toFocus.focus();
+      }, 0);
+    }
   }
 
   if (burger && drawer) {

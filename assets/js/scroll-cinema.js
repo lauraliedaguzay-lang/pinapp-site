@@ -34,50 +34,61 @@ setTimeout(function () {
 }, 100);
 
 /* =====================================================
-   IMAGES REVEAL
+   IMAGES REVEAL + COMPTEURS — respecte prefers-reduced-motion
    ===================================================== */
-const imgObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      imgObs.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.10 });
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-document.querySelectorAll('.img-reveal')
-  .forEach(img => imgObs.observe(img));
-
-/* =====================================================
-   COMPTEURS — data-count
-   ===================================================== */
-const countObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    const el     = e.target;
+if (prefersReducedMotion) {
+  /* Pas d'animations: état final immédiat */
+  document.querySelectorAll('.img-reveal').forEach(img => img.classList.add('visible'));
+  document.querySelectorAll('[data-count]').forEach(el => {
     const target = parseInt(el.dataset.count, 10);
-    if (isNaN(target)) return;
-    el.classList.add('counting');
-    const start = Date.now();
-    const dur   = 1400;
-    const tick  = () => {
-      const p    = Math.min((Date.now() - start) / dur, 1);
-      const ease = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.round(target * ease);
-      if (p < 1) {
-        requestAnimationFrame(tick);
-      } else {
-        el.classList.remove('counting');
-        el.classList.add('done');
-      }
-    };
-    tick();
-    countObs.unobserve(el);
+    if (!isNaN(target)) el.textContent = String(target);
+    el.classList.add('done');
   });
-}, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+} else {
+  /* IMAGES REVEAL */
+  const imgObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        imgObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.10 });
 
-document.querySelectorAll('[data-count]')
-  .forEach(el => countObs.observe(el));
+  document.querySelectorAll('.img-reveal')
+    .forEach(img => imgObs.observe(img));
+
+  /* COMPTEURS — data-count */
+  const countObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el     = e.target;
+      const target = parseInt(el.dataset.count, 10);
+      if (isNaN(target)) return;
+      el.classList.add('counting');
+      const start = Date.now();
+      const dur   = 1400;
+      const tick  = () => {
+        const p    = Math.min((Date.now() - start) / dur, 1);
+        const ease = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * ease);
+        if (p < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          el.classList.remove('counting');
+          el.classList.add('done');
+        }
+      };
+      tick();
+      countObs.unobserve(el);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+  document.querySelectorAll('[data-count]')
+    .forEach(el => countObs.observe(el));
+}
 
 /* =====================================================
    SCROLL INDICATOR — disparaît au premier scroll
@@ -115,7 +126,6 @@ if (!path.includes('diagnostic') && !path.includes('votre-projet')) {
 /* =====================================================
    PARALLAXE 3 COUCHES — desktop + prefers-reduced-motion
    ===================================================== */
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 if (window.innerWidth >= 1024 && !prefersReducedMotion) {
   const canvas    = document.querySelector('#pandora-canvas');
