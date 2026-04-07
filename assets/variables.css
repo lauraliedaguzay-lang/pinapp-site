@@ -186,15 +186,27 @@ body::before {
   will-change: transform;
 }
 
-/* MODE NUIT â€” ForÃªt Pandora */
+/* MODE NUIT — Univers Pandora (photo Lauralie · forêt + biolume) */
 body:not(.mode-jour)::before {
-  background-image: url('../assets/images/bg-pandora-nuit.png');
+  background-image: url('../assets/images/bg-dark-pandora-apple.png');
   background-image: image-set(
-    url('../assets/images/bg-pandora-nuit.webp') type('image/webp'),
-    url('../assets/images/bg-pandora-nuit.png') type('image/png')
+    url('../assets/images/bg-dark-pandora-apple.webp') type('image/webp'),
+    url('../assets/images/bg-dark-pandora-apple.png') type('image/png')
   );
-  /* Plus de lumière, moins de dérive bleue — tonalité sol bioluminescent */
-  filter: blur(20px) saturate(128%) brightness(0.92) hue-rotate(-6deg);
+  /* Photo lisible en texture, flou modéré — halos teal/violet viennent des layers */
+  filter: blur(18px) saturate(118%) brightness(0.88) hue-rotate(-5deg);
+  animation: pandora-nuit-photo-breathe 22s ease-in-out infinite alternate;
+}
+
+@keyframes pandora-nuit-photo-breathe {
+  0% {
+    filter: blur(17px) saturate(112%) brightness(0.84) hue-rotate(-4deg);
+    transform: scale(1.08);
+  }
+  100% {
+    filter: blur(20px) saturate(128%) brightness(0.93) hue-rotate(-9deg);
+    transform: scale(1.095);
+  }
 }
 
 /* Couche 2 â€” Overlay lisibilitÃ© */
@@ -207,20 +219,21 @@ body::after {
 }
 /* Aligné sur data-theme (défini dans le <head>) pour éviter un flash avant .mode-jour / .mode-nuit sur <body> */
 html[data-theme="dark"] body::after {
-  /* Nuit : OLED + biolume (halos teal/violet lisibles, vignette profonde) */
+  /* Nuit : canopy violet + sol bioluminescent + lueur d’eau (un univers, pas un fond plat) */
   background:
-    radial-gradient(95% 50% at 50% -8%, rgba(123, 79, 232, 0.12) 0%, rgba(2, 8, 7, 0.2) 48%, rgba(1, 4, 4, 0.85) 100%),
-    radial-gradient(120% 70% at 50% 102%, rgba(0, 229, 204, 0.14) 0%, rgba(0, 180, 160, 0.06) 42%, rgba(1, 6, 6, 0.65) 100%),
-    radial-gradient(130% 85% at 50% 100%, rgba(0, 210, 188, 0.22) 0%, rgba(2, 14, 14, 0.35) 50%, rgba(0, 0, 0, 0.25) 100%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.28) 0%, rgba(4, 22, 22, 0.12) 45%, rgba(0, 0, 0, 0.5) 100%);
+    radial-gradient(ellipse 120% 80% at 50% 108%, rgba(0, 229, 204, 0.20) 0%, rgba(0, 90, 85, 0.10) 35%, transparent 72%),
+    radial-gradient(ellipse 90% 60% at 12% 22%, rgba(123, 79, 232, 0.16) 0%, rgba(40, 15, 60, 0.08) 45%, transparent 70%),
+    radial-gradient(ellipse 70% 50% at 88% 18%, rgba(57, 224, 117, 0.08) 0%, transparent 55%),
+    radial-gradient(95% 50% at 50% -12%, rgba(100, 60, 180, 0.14) 0%, rgba(2, 8, 7, 0.25) 52%, rgba(1, 3, 5, 0.82) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.22) 0%, rgba(2, 18, 22, 0.14) 42%, rgba(0, 0, 0, 0.48) 100%);
 }
 html[data-theme="light"] body::after {
-  /* Jour : retour de la lumière — halo d’aube + lavande + jade résiduel */
+  /* Jour : serre lumineuse — ambre haut, jade bas, poussière violette au loin */
   background:
-    radial-gradient(120% 65% at 50% -8%, rgba(255, 228, 175, 0.15) 0%, transparent 48%),
-    radial-gradient(85% 50% at 92% 10%, rgba(190, 165, 240, 0.085) 0%, transparent 52%),
-    radial-gradient(90% 55% at 8% 88%, rgba(48, 195, 165, 0.075) 0%, transparent 55%),
-    linear-gradient(180deg, rgba(251, 245, 232, 0.09) 0%, transparent 38%, rgba(228, 255, 248, 0.06) 100%);
+    radial-gradient(ellipse 130% 70% at 50% -15%, rgba(255, 218, 150, 0.22) 0%, rgba(255, 245, 220, 0.08) 40%, transparent 62%),
+    radial-gradient(ellipse 90% 55% at 92% 12%, rgba(185, 160, 235, 0.10) 0%, transparent 55%),
+    radial-gradient(ellipse 100% 60% at 6% 85%, rgba(48, 195, 165, 0.11) 0%, transparent 58%),
+    linear-gradient(185deg, rgba(255, 250, 242, 0.12) 0%, rgba(235, 248, 255, 0.08) 45%, rgba(255, 236, 210, 0.10) 100%);
 }
 
 /* Fallback si PNG absent */
@@ -241,11 +254,12 @@ html[data-theme="light"] body::after {
   }
   /* Photo fond â€” ajustement mobile */
   body:not(.mode-jour)::before {
-    filter: blur(30px) saturate(120%) brightness(0.90) hue-rotate(-6deg);
+    filter: blur(24px) saturate(115%) brightness(0.87) hue-rotate(-5deg);
     transform: scale(1.12);
+    animation: pandora-nuit-photo-breathe 24s ease-in-out infinite alternate;
   }
   body.mode-jour::before {
-    filter: blur(30px) saturate(150%) brightness(1.05);
+    filter: blur(26px) saturate(145%) brightness(1.04);
     transform: scale(1.12);
   }
 }
@@ -260,15 +274,27 @@ html[data-theme="light"] body {
   color-scheme: light;
 }
 
-/* MODE JOUR â€” Ciel Ikran (dos d'Ikran, Dylan Cole Avatar 3) */
+/* MODE JOUR — Univers aube (photo Lauralie · lumière chaude + jade résiduel) */
 body.mode-jour::before,
 html[data-theme="light"] body::before {
-  background-image: url('../assets/images/bg-pandora-jour.png');
+  background-image: url('../assets/images/bg-light-pandora-apple.png');
   background-image: image-set(
-    url('../assets/images/bg-pandora-jour.webp') type('image/webp'),
-    url('../assets/images/bg-pandora-jour.png') type('image/png')
+    url('../assets/images/bg-light-pandora-apple.webp') type('image/webp'),
+    url('../assets/images/bg-light-pandora-apple.png') type('image/png')
   );
-  filter: blur(20px) saturate(160%) brightness(1.08);
+  filter: blur(16px) saturate(132%) brightness(1.06) hue-rotate(4deg);
+  animation: pandora-jour-photo-drift 32s ease-in-out infinite alternate;
+}
+
+@keyframes pandora-jour-photo-drift {
+  0% {
+    filter: blur(15px) saturate(126%) brightness(1.02) hue-rotate(2deg);
+    transform: scale(1.08);
+  }
+  100% {
+    filter: blur(18px) saturate(140%) brightness(1.10) hue-rotate(8deg);
+    transform: scale(1.09);
+  }
 }
 
 /* Tokens jour */
