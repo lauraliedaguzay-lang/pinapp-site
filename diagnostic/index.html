@@ -5,10 +5,10 @@
   <meta name="theme-color" id="pinapp-theme-color" content="#050A14">
   <script src="../assets/js/theme-init.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Diagnostic offert — Pinapp Studio</title>
-  <meta name="description" content="Réservez 30 minutes avec Pinapp : cartographie et 3 opportunités concrètes.">
-  <meta property="og:title" content="Diagnostic offert — Pinapp Studio">
-  <meta property="og:description" content="Réservez 30 minutes avec Pinapp : cartographie et 3 opportunités concrètes.">
+  <title>Démarrer ma demande — Pinapp Studio</title>
+  <meta name="description" content="Décrivez votre activité en 2 minutes. Je vous réponds sous 24 h avec des pistes concrètes — sans appel.">
+  <meta property="og:title" content="Démarrer ma demande — Pinapp Studio">
+  <meta property="og:description" content="Décrivez votre activité en 2 minutes. Je vous réponds sous 24 h avec des pistes concrètes — sans appel.">
   <meta property="og:image" content="https://pinapp.fr/og-image.webp">
   <meta property="og:url" content="https://pinapp.fr/diagnostic/">
   <meta property="og:type" content="website">
@@ -22,13 +22,7 @@
   <link rel="stylesheet" href="../assets/css/aurora-mobile.css">
   <link rel="stylesheet" href="../assets/css/cursor.css">
   <link rel="stylesheet" href="../assets/css/pandora-ux.css">
-<style>
-/* Calendly — masqué sur mobile, seul le CTA est visible */
-@media (max-width: 767px) {
-  .calendly-inline-widget { display: none !important; }
-}
-/* Calendly adapte ses couleurs via data-url — pas de surcharge possible en CSS */
-</style></head>
+</head>
 <body class="page-with-bottom-nav">
   <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
   <div class="scroll-progress" id="scrollProgress"></div>
@@ -57,7 +51,7 @@
         <a href="../realisations/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
         <a href="../a-propos/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
         <a href="../faq/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
-        <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Appel gratuit</a>
+        <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Démarrer ma demande</a>
       </div>
       <div class="nav-trailing">
         <button type="button" class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
@@ -77,7 +71,7 @@
       <a href="../realisations/index.html">Réalisations</a>
       <a href="../a-propos/index.html">À propos</a>
       <a href="../faq/index.html">FAQ</a>
-      <a href="../diagnostic/index.html">Appel gratuit — 30 min</a>
+      <a href="../diagnostic/index.html">Démarrer ma demande</a>
     </div>
   </div>
   <div class="bottom-bar" role="navigation" aria-label="Navigation mobile">
@@ -87,27 +81,93 @@
     <a href="../faq/index.html">FAQ</a>
     <a href="../diagnostic/index.html">Diagnostic</a>
   </div>
-  <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
+    <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
     <section class="section">
-      <div class="container" style="max-width:700px;text-align:center;">
-        <p class="label" style="margin-bottom:var(--space-2);">OFFERT · SANS ENGAGEMENT</p>
-        <h1 style="font-size:var(--text-h1);letter-spacing:-0.02em;margin-bottom:var(--space-3);">30 minutes pour transformer votre business.</h1>
-        <p style="font-size:18px;opacity:0.7;margin-bottom:var(--space-6);">Pas de présentation. Pas de pitch. Une conversation.</p>
-        <div class="grid grid-3" style="margin-bottom:var(--space-6);text-align:left;">
-          <div><h3 style="font-size:16px;color:var(--accent-teal);margin-bottom:var(--space-1);">Ce qu'on fait</h3><p style="font-size:14px;opacity:0.7;">Je cartographie vos tâches répétitives et identifie vos opportunités digitales.</p></div>
-          <div><h3 style="font-size:16px;color:var(--accent-teal);margin-bottom:var(--space-1);">Ce que vous gagnez</h3><p style="font-size:14px;opacity:0.7;">3 opportunités concrètes. Actionnables immédiatement — avec ou sans Pinapp.</p></div>
-          <div><h3 style="font-size:16px;color:var(--accent-teal);margin-bottom:var(--space-1);">Comment ça se passe</h3><p style="font-size:14px;opacity:0.7;">Google Meet ou téléphone. Vous parlez, j'écoute. Simple.</p></div>
+      <div class="container" style="max-width:620px;text-align:center;">
+        <p class="label" style="margin-bottom:var(--space-2);">GRATUIT · SANS APPEL · RÉPONSE SOUS 24 H</p>
+        <h1 style="font-size:var(--text-h1);letter-spacing:-0.02em;margin-bottom:var(--space-3);">Décrivez votre besoin.<br>Je vous réponds.</h1>
+        <p style="font-size:1.0625rem;opacity:0.7;margin-bottom:var(--space-5);">2 minutes. Pas d'appel, pas de réunion. Je lis votre demande et je vous envoie des pistes concrètes par email — avec ou sans Pinapp.</p>
+
+        <!-- Barre de progression -->
+        <div role="progressbar" aria-valuemin="1" aria-valuemax="5" aria-valuenow="1" id="onboardingProgress"
+          style="height:3px;background:var(--border-card);border-radius:2px;margin-bottom:var(--space-6);overflow:hidden;">
+          <div id="progressBar" style="height:100%;width:20%;background:var(--accent-teal);border-radius:2px;transition:width 0.4s ease;"></div>
         </div>
-        <div style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-card-lg);padding:var(--space-5);margin-bottom:var(--space-4);">
-          <a href="https://calendly.com/lauralie-daguzay/30min" target="_blank" rel="noopener noreferrer" class="btn btn-primary pinapp-breathe" style="display:inline-flex;margin-bottom:var(--space-4);">Réserver mon diagnostic — 30 min →</a>
-          <div class="calendly-inline-widget" data-url="https://calendly.com/lauralie-daguzay/30min?background_color=050A14&text_color=ffffff&primary_color=00E5CC" style="min-width:320px;height:630px;"></div>
-          <script src="https://assets.calendly.com/assets/external/widget.js" async crossorigin="anonymous"></script>
-          <p style="font-size:14px;opacity:0.7;margin-top:var(--space-3);">Je confirme le jour même.</p>
+
+        <!-- Questionnaire -->
+        <div id="questionnaire" style="min-height:220px;">
+
+          <div class="question" id="q1">
+            <p style="font-size:1.25rem;font-weight:600;margin-bottom:var(--space-4);">Votre activité ?</p>
+            <div style="display:flex;flex-wrap:wrap;gap:var(--space-2);justify-content:center;">
+              <button type="button" class="pill-btn" data-q="1" data-val="Artisan (plombier, électricien, maçon…)">🔧 Artisan</button>
+              <button type="button" class="pill-btn" data-q="1" data-val="Restaurateur / commerce">🍽️ Restaurateur / commerce</button>
+              <button type="button" class="pill-btn" data-q="1" data-val="Coach / thérapeute / consultant">💼 Coach / indépendant</button>
+              <button type="button" class="pill-btn" data-q="1" data-val="Autre activité">Autre</button>
+            </div>
+          </div>
+
+          <div class="question" id="q2" style="display:none;">
+            <p style="font-size:1.25rem;font-weight:600;margin-bottom:var(--space-4);">Ce dont vous avez besoin ?</p>
+            <div style="display:flex;flex-wrap:wrap;gap:var(--space-2);justify-content:center;">
+              <button type="button" class="pill-btn" data-q="2" data-val="Un site web professionnel">🌐 Un site web</button>
+              <button type="button" class="pill-btn" data-q="2" data-val="Automatiser mes relances et devis">⚡ Automatiser mes relances / devis</button>
+              <button type="button" class="pill-btn" data-q="2" data-val="Les deux (site + automatisation)">✦ Les deux</button>
+              <button type="button" class="pill-btn" data-q="2" data-val="Je ne sais pas encore">Je ne sais pas encore</button>
+            </div>
+          </div>
+
+          <div class="question" id="q3" style="display:none;">
+            <p style="font-size:1.25rem;font-weight:600;margin-bottom:var(--space-4);">Votre situation actuelle ?</p>
+            <div style="display:flex;flex-wrap:wrap;gap:var(--space-2);justify-content:center;">
+              <button type="button" class="pill-btn" data-q="3" data-val="Pas de site pour le moment">Pas de site pour le moment</button>
+              <button type="button" class="pill-btn" data-q="3" data-val="Un site à refaire ou améliorer">Site à refaire / améliorer</button>
+              <button type="button" class="pill-btn" data-q="3" data-val="Site ok, besoin d'automatisation">Site ok, besoin d'automatisation</button>
+              <button type="button" class="pill-btn" data-q="3" data-val="Je démarre mon activité">Je démarre mon activité</button>
+            </div>
+          </div>
+
+          <div class="question" id="q4" style="display:none;">
+            <p style="font-size:1.25rem;font-weight:600;margin-bottom:var(--space-4);">Votre budget indicatif ?</p>
+            <div style="display:flex;flex-wrap:wrap;gap:var(--space-2);justify-content:center;">
+              <button type="button" class="pill-btn" data-q="4" data-val="Moins de 500 €">Moins de 500 €</button>
+              <button type="button" class="pill-btn" data-q="4" data-val="500 – 1 500 €">500 – 1 500 €</button>
+              <button type="button" class="pill-btn" data-q="4" data-val="1 500 € et plus">1 500 € et plus</button>
+              <button type="button" class="pill-btn" data-q="4" data-val="À définir ensemble">À définir ensemble</button>
+            </div>
+          </div>
+
+          <!-- Étape contact -->
+          <div class="question" id="qcontact" style="display:none;" role="group" aria-labelledby="qcontact-label">
+            <p id="qcontact-label" style="font-size:1.25rem;font-weight:600;margin-bottom:var(--space-4);">Pour vous répondre par email :</p>
+            <div style="display:flex;flex-direction:column;gap:var(--space-2);max-width:340px;margin:0 auto var(--space-4);">
+              <input type="text" id="contactPrenom" name="prenom" placeholder="Votre prénom" autocomplete="given-name"
+                style="font-size:max(1rem,16px);padding:0.875rem 1rem;border-radius:var(--radius-input);border:1px solid var(--border-card);background:var(--glass-card);color:var(--text-primary);width:100%;box-sizing:border-box;">
+              <input type="email" id="contactEmail" name="email" placeholder="Votre adresse email" autocomplete="email"
+                style="font-size:max(1rem,16px);padding:0.875rem 1rem;border-radius:var(--radius-input);border:1px solid var(--border-card);background:var(--glass-card);color:var(--text-primary);width:100%;box-sizing:border-box;">
+              <textarea id="contactMessage" name="message" placeholder="Un mot sur votre situation (facultatif)" rows="3"
+                style="font-size:max(1rem,16px);padding:0.875rem 1rem;border-radius:var(--radius-input);border:1px solid var(--border-card);background:var(--glass-card);color:var(--text-primary);width:100%;box-sizing:border-box;resize:vertical;font-family:inherit;"></textarea>
+              <button type="button" id="submitContact" class="btn btn-primary" style="margin-top:var(--space-1);min-height:3rem;font-size:1rem;">
+                Envoyer ma demande →
+              </button>
+            </div>
+            <p style="font-size:12px;opacity:0.5;">Vos données servent uniquement à vous répondre. Aucun démarchage. <a href="../legal/confidentialite.html" style="text-decoration:underline;">Politique de confidentialité.</a></p>
+          </div>
+
+          <!-- Fin -->
+          <div class="question" id="qfin" style="display:none;">
+            <div style="width:56px;height:56px;margin:0 auto var(--space-4);">
+              <svg viewBox="0 0 56 56" fill="none" stroke="var(--accent-teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="28" cy="28" r="26"/>
+                <polyline points="16,28 23,35 40,18"/>
+              </svg>
+            </div>
+            <h2 style="font-size:1.5rem;margin-bottom:var(--space-3);">Demande reçue.</h2>
+            <p style="font-size:1rem;opacity:0.75;line-height:1.7;margin-bottom:var(--space-4);">Je vous réponds sous 24 h avec des pistes concrètes adaptées à votre activité.<br>Vous n'avez rien d'autre à faire.</p>
+            <p style="font-size:13px;opacity:0.5;">lauralie.daguzay@pinapp.fr</p>
+          </div>
+
         </div>
-        <div style="background:var(--bg-card);border-radius:var(--radius-card);padding:var(--space-3);border:1px solid rgba(57,224,117,0.2);">
-          <p style="font-size:14px;opacity:0.7;"><strong style="color:var(--accent-green);">Garantie :</strong> Si ces 30 minutes ne vous apportent rien de concret, je vous offre un template de votre secteur.</p>
-        </div>
-        <p style="font-size:var(--text-legal);opacity:0.4;margin-top:var(--space-4);"><a href="../legal/confidentialite.html" style="text-decoration:underline;">Politique de confidentialité</a></p>
       </div>
     </section>
   </main>
@@ -141,7 +201,68 @@
       </div>
     </div>
   </div>
-  <script src="../assets/js/main.js" defer></script>
+    <script>
+  /* Questionnaire diagnostic — flux q1→q2→q3→q4→qcontact→qfin */
+  document.addEventListener('DOMContentLoaded', () => {
+    const flow = ['q1','q2','q3','q4','qcontact','qfin'];
+    const progressBar = document.getElementById('progressBar');
+    const progressEl  = document.getElementById('onboardingProgress');
+    const answers = {};
+
+    const show = (id) => {
+      document.querySelectorAll('.question').forEach(q => {
+        q.style.display = q.id === id ? '' : 'none';
+      });
+      const idx = flow.indexOf(id);
+      if (progressBar && idx >= 0) {
+        const pct = Math.round(((idx + 1) / flow.length) * 100);
+        progressBar.style.width = pct + '%';
+        if (progressEl) {
+          progressEl.setAttribute('aria-valuenow', idx + 1);
+          progressEl.setAttribute('aria-label', 'Étape ' + (idx + 1) + ' sur ' + flow.length);
+        }
+      }
+    };
+
+    document.querySelectorAll('.pill-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const q = btn.dataset.q;
+        answers['q' + q] = btn.dataset.val;
+        btn.closest('.question')?.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const nextIdx = flow.indexOf('q' + q) + 1;
+        if (nextIdx < flow.length) setTimeout(() => show(flow[nextIdx]), 220);
+      });
+    });
+
+    const submitBtn = document.getElementById('submitContact');
+    if (submitBtn) {
+      submitBtn.addEventListener('click', () => {
+        const prenom  = document.getElementById('contactPrenom')?.value.trim();
+        const email   = document.getElementById('contactEmail')?.value.trim();
+        const message = document.getElementById('contactMessage')?.value.trim() || '';
+        const emailInput = document.getElementById('contactEmail');
+        if (!prenom || !email || !email.includes('@')) {
+          if (emailInput) emailInput.style.borderColor = 'var(--accent-violet)';
+          return;
+        }
+        answers.prenom  = prenom;
+        answers.email   = email;
+        const body = encodeURIComponent(
+          'Prénom : ' + prenom + '\n' +
+          'Email : ' + email + '\n\n' +
+          'Activité : ' + (answers.q1 || '—') + '\n' +
+          'Besoin : ' + (answers.q2 || '—') + '\n' +
+          'Situation : ' + (answers.q3 || '—') + '\n' +
+          'Budget : ' + (answers.q4 || '—') + '\n\n' +
+          (message ? 'Message : ' + message : '')
+        );
+        window.location.href = 'mailto:lauralie.daguzay@pinapp.fr?subject=Demande%20Pinapp%20%E2%80%94%20' + encodeURIComponent(prenom) + '&body=' + body;
+        setTimeout(() => show('qfin'), 400);
+      });
+    }
+  });
+  </script><script src="../assets/js/main.js" defer></script>
   <script src="../assets/js/particles.js" defer></script>
   <script src="../assets/js/aurora.js" defer></script>
   <script src="../assets/js/parallax.js" defer></script>
