@@ -164,6 +164,11 @@ body {
   font-size: var(--text-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Fond source-of-truth (robuste iOS + sous-dossiers) */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
   overflow-x: hidden;
   max-width: 100vw;
   min-height: 100svh;
@@ -188,6 +193,13 @@ html::before {
 }
 
 /* MODE NUIT — Univers Pandora (photo Lauralie · forêt + biolume) */
+body:not(.mode-jour) {
+  background-image: url('./images/bg-dark-pandora-apple.png');
+  background-image: image-set(
+    url('./images/bg-dark-pandora-apple.webp') type('image/webp'),
+    url('./images/bg-dark-pandora-apple.png') type('image/png')
+  );
+}
 body:not(.mode-jour)::before {
   background-image: url('./images/bg-dark-pandora-apple.png');
   background-image: image-set(
@@ -200,6 +212,13 @@ body:not(.mode-jour)::before {
 }
 
 /* Même rendu si la classe body n'est pas encore posée (thème piloté par <html>) */
+html[data-theme="dark"] body {
+  background-image: url('./images/bg-dark-pandora-apple.png');
+  background-image: image-set(
+    url('./images/bg-dark-pandora-apple.webp') type('image/webp'),
+    url('./images/bg-dark-pandora-apple.png') type('image/png')
+  );
+}
 html[data-theme="dark"]::before {
   background-image: url('./images/bg-dark-pandora-apple.png');
   background-image: image-set(
@@ -211,6 +230,13 @@ html[data-theme="dark"]::before {
 }
 
 @media (prefers-color-scheme: dark) {
+  html:not([data-theme]) body {
+    background-image: url('./images/bg-dark-pandora-apple.png');
+    background-image: image-set(
+      url('./images/bg-dark-pandora-apple.webp') type('image/webp'),
+      url('./images/bg-dark-pandora-apple.png') type('image/png')
+    );
+  }
   html:not([data-theme])::before {
     background-image: url('./images/bg-dark-pandora-apple.png');
     background-image: image-set(
@@ -299,6 +325,14 @@ html[data-theme="light"] body {
 }
 
 /* MODE JOUR — Univers aube (photo Lauralie · lumière chaude + jade résiduel) */
+body.mode-jour,
+html[data-theme="light"] body {
+  background-image: url('./images/bg-light-pandora-apple.png');
+  background-image: image-set(
+    url('./images/bg-light-pandora-apple.webp') type('image/webp'),
+    url('./images/bg-light-pandora-apple.png') type('image/png')
+  );
+}
 body.mode-jour::before,
 html[data-theme="light"] body::before {
   background-image: url('./images/bg-light-pandora-apple.png');
@@ -321,6 +355,13 @@ html[data-theme="light"]::before {
 }
 
 @media (prefers-color-scheme: light) {
+  html:not([data-theme]) body {
+    background-image: url('./images/bg-light-pandora-apple.png');
+    background-image: image-set(
+      url('./images/bg-light-pandora-apple.webp') type('image/webp'),
+      url('./images/bg-light-pandora-apple.png') type('image/png')
+    );
+  }
   html:not([data-theme])::before {
     background-image: url('./images/bg-light-pandora-apple.png');
     background-image: image-set(
@@ -369,6 +410,8 @@ html[data-theme="light"] body {
 
 /* iOS Safari â€” position fixed marche mais scale doit rester */
 @supports (-webkit-touch-callout: none) {
+  /* iOS/Safari: éviter background-attachment: fixed */
+  body { background-attachment: scroll; }
   /* iOS/Safari: html::before est plus fiable que body::before */
   body::before { content: none !important; }
   html::before { transform: scale(1.12); }
