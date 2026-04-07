@@ -340,7 +340,8 @@ html[data-theme="light"] body::before {
     url('./images/bg-light-pandora-apple.webp') type('image/webp'),
     url('./images/bg-light-pandora-apple.png') type('image/png')
   );
-  filter: blur(16px) saturate(132%) brightness(1.06) hue-rotate(4deg);
+  /* Jour : plus ivoire-lavande (évite le jaune/orange) */
+  filter: blur(16px) saturate(118%) brightness(1.03) hue-rotate(-6deg);
   animation: pandora-jour-photo-drift 32s ease-in-out infinite alternate;
 }
 
@@ -350,7 +351,8 @@ html[data-theme="light"]::before {
     url('./images/bg-light-pandora-apple.webp') type('image/webp'),
     url('./images/bg-light-pandora-apple.png') type('image/png')
   );
-  filter: blur(16px) saturate(132%) brightness(1.06) hue-rotate(4deg);
+  /* Jour : plus ivoire-lavande (évite le jaune/orange) */
+  filter: blur(16px) saturate(118%) brightness(1.03) hue-rotate(-6deg);
   animation: pandora-jour-photo-drift 32s ease-in-out infinite alternate;
 }
 
@@ -368,18 +370,18 @@ html[data-theme="light"]::before {
       url('./images/bg-light-pandora-apple.webp') type('image/webp'),
       url('./images/bg-light-pandora-apple.png') type('image/png')
     );
-    filter: blur(16px) saturate(132%) brightness(1.06) hue-rotate(4deg);
+    filter: blur(16px) saturate(118%) brightness(1.03) hue-rotate(-6deg);
     animation: pandora-jour-photo-drift 32s ease-in-out infinite alternate;
   }
 }
 
 @keyframes pandora-jour-photo-drift {
   0% {
-    filter: blur(15px) saturate(126%) brightness(1.02) hue-rotate(2deg);
+    filter: blur(15px) saturate(114%) brightness(1.01) hue-rotate(-8deg);
     transform: scale(1.08);
   }
   100% {
-    filter: blur(18px) saturate(140%) brightness(1.10) hue-rotate(8deg);
+    filter: blur(18px) saturate(122%) brightness(1.05) hue-rotate(-2deg);
     transform: scale(1.09);
   }
 }
@@ -392,11 +394,12 @@ html[data-theme="light"] body {
   --text-2:        rgba(26,10,46,0.70);
   --text-3:        rgba(26,10,46,0.45);
   --text-4:        rgba(26,10,46,0.25);
-  --glass:         rgba(255,255,255,0.78);
-  --glass-nav:     rgba(255,248,240,0.85);
-  --glass-card:    rgba(255,255,255,0.78);
-  --border-card:   rgba(0,0,0,0.12);
-  --border-subtle: rgba(26,10,46,0.08);
+  /* Verre jour : ivoire-lavande (moins “jaune”, plus premium) */
+  --glass:         rgba(252, 252, 255, 0.74);
+  --glass-nav:     rgba(250, 250, 255, 0.84);
+  --glass-card:    rgba(252, 252, 255, 0.74);
+  --border-card:   rgba(26,10,46,0.14);
+  --border-subtle: rgba(26,10,46,0.10);
   --teal:          #009B8C;
   --accent-teal:   #009B8C;
   --violet:        #5B3FD8;
@@ -404,8 +407,8 @@ html[data-theme="light"] body {
   --green:         #2EAF6B;
   --accent-green:  #2EAF6B;
   --glow-violet:   0 0 24px rgba(91,63,216,0.30), 0 0 48px rgba(91,63,216,0.15);
-  --nav-bg:        rgba(255,248,238,0.94);
-  --bg-deep:       #E4EFE9;
+  --nav-bg:        rgba(250, 250, 255, 0.90);
+  --bg-deep:       #EEF0FF;
 }
 
 /* iOS Safari â€” position fixed marche mais scale doit rester */
