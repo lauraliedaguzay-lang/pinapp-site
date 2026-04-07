@@ -6,9 +6,9 @@
 (function () {
   'use strict';
 
-  /* Uniquement sur desktop et sans prefers-reduced-motion */
+  /* Tablette+ (CSS masque les spores sous 768px) — sans prefers-reduced-motion */
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  if (window.innerWidth < 1024) return;
+  if (window.innerWidth < 768) return;
 
   const NUIT_TYPES  = ['spore', 'violet', 'wood', 'spore', 'violet'];
   const JOUR_TYPES  = ['ambre', 'ambre', 'wood', 'ambre', 'wood'];

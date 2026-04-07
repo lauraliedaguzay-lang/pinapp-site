@@ -83,8 +83,11 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true, root
   <link rel="stylesheet" href="${a('/assets/grid.css')}">
   <link rel="stylesheet" href="${a('/assets/animations.css')}">
   <link rel="stylesheet" href="${a('/assets/css/aurora-mobile.css')}">
+  <link rel="stylesheet" href="${a('/assets/css/avatar-pandora-biolume.css')}">
   <link rel="stylesheet" href="${a('/assets/css/cursor.css')}">
   <link rel="stylesheet" href="${a('/assets/css/pandora-ux.css')}">
+  <link rel="stylesheet" href="${a('/assets/css/apple-finish.css')}">
+  <link rel="stylesheet" href="${a('/assets/css/pinapp-modern-biolume.css')}">
   ${includeLdJson ? `<script type="application/ld+json">
   {"@context":"https://schema.org","@type":"ProfessionalService","name":"Pinapp Studio","founder":{"@type":"Person","name":"Lauralie Daguzay"},"email":"lauralie.daguzay@pinapp.fr","url":"https://pinapp.fr","sameAs":"https://www.linkedin.com/in/lauralie-daguzay-4a4542197/"}
   </script>` : ''}
@@ -105,7 +108,9 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true, root
     <div class="aurora-orb aurora-orb-1"></div>
     <div class="aurora-orb aurora-orb-2"></div>
     <div class="aurora-orb aurora-orb-3"></div>
+    <div class="aurora-orb aurora-orb-4"></div>
   </div>
+  <div class="pandora-biolume-layer" aria-hidden="true"></div>
   <div class="holo-grid" aria-hidden="true"></div>
   <nav class="nav" id="mainNav" role="navigation">
     <div class="container nav-inner">
@@ -192,6 +197,7 @@ ${mainInner}
   <script src="${a('/assets/js/parallax.js')}" defer></script>
   <script src="${a('/assets/js/scroll-cinema.js')}" defer></script>
   <script src="${a('/assets/js/cursor.js')}" defer></script>
+  <script src="${a('/assets/js/bio-particles.js')}" defer></script>
 </body>
 </html>`;
 }

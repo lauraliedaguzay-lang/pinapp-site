@@ -621,16 +621,12 @@ html[data-theme="light"] nav.scrolled {
    ===================================================== */
 
 @media (max-width: 768px) {
-  .block:not(:nth-child(-n+3)),
-  .card:not(:nth-child(-n+3)) {
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    background: rgba(6, 28, 32, 0.88) !important;
-  }
-  body.mode-jour .block:not(:nth-child(-n+3)),
-  body.mode-jour .card:not(:nth-child(-n+3)),
-  html[data-theme="light"] .card:not(:nth-child(-n+3)) {
-    background: rgba(248,240,255,0.92) !important;
+  /* Glass Apple conservé partout — blur légèrement réduit (GPU mobile) */
+  .block,
+  .card,
+  [class*="card"] {
+    -webkit-backdrop-filter: blur(18px) saturate(135%);
+    backdrop-filter: blur(18px) saturate(135%);
   }
 }
 

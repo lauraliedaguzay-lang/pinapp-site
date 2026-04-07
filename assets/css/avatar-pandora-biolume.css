@@ -1,0 +1,62 @@
+/* PINAPP — Avatar / Pandora bioluminescence layer (night + coherent day ambience)
+ * Couche fixe sous le contenu (z-index 0) — Apple glass au premier plan inchangé.
+ * Animations : opacity + filter uniquement (perf, prefers-reduced-motion respecté).
+ * ============================================================================= */
+
+.pandora-biolume-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: screen;
+  background:
+    radial-gradient(ellipse 85% 55% at 18% 88%, rgba(0, 229, 204, 0.14) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 50% at 82% 12%, rgba(123, 79, 232, 0.12) 0%, transparent 52%),
+    radial-gradient(ellipse 60% 45% at 55% 50%, rgba(57, 224, 117, 0.08) 0%, transparent 58%),
+    radial-gradient(ellipse 90% 40% at 50% 108%, rgba(0, 180, 216, 0.1) 0%, transparent 50%);
+}
+
+html[data-theme='dark'] body:not(.mode-jour) .pandora-biolume-layer,
+html[data-theme='dark'] .pandora-biolume-layer {
+  opacity: 1;
+  animation: pandora-biolume-breathe 14s ease-in-out infinite alternate;
+  will-change: opacity, filter;
+}
+
+body.mode-jour .pandora-biolume-layer,
+html[data-theme='light'] .pandora-biolume-layer {
+  mix-blend-mode: soft-light;
+  opacity: 0.55;
+  background:
+    radial-gradient(ellipse 80% 50% at 15% 85%, rgba(48, 195, 165, 0.09) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 45% at 85% 18%, rgba(190, 165, 240, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse 55% 40% at 50% 45%, rgba(255, 200, 120, 0.06) 0%, transparent 60%);
+  animation: pandora-dawn-shimmer 22s ease-in-out infinite alternate;
+}
+
+@keyframes pandora-biolume-breathe {
+  0% {
+    opacity: 0.72;
+    filter: saturate(108%) brightness(1);
+  }
+  100% {
+    opacity: 1;
+    filter: saturate(135%) brightness(1.06);
+  }
+}
+
+@keyframes pandora-dawn-shimmer {
+  0% { opacity: 0.48; }
+  100% { opacity: 0.62; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pandora-biolume-layer {
+    animation: none !important;
+  }
+  html[data-theme='dark'] body:not(.mode-jour) .pandora-biolume-layer {
+    opacity: 0.88;
+    filter: saturate(115%) brightness(1.02);
+  }
+}
