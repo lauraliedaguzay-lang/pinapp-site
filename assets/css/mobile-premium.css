@@ -263,15 +263,15 @@ html[data-theme="light"] .mobile-drawer-panel .nav-link:active {
 @media (max-width: 767px) {
   .block, .card, .offre-card,
   .etape-card, .tech-card {
-    /* Même glassmorphism que desktop */
-    background: var(--glass, rgba(0,15,30,0.50)) !important;
-    -webkit-backdrop-filter: var(--glass-blur, blur(24px) saturate(140%)) !important;
-    backdrop-filter: var(--glass-blur, blur(24px) saturate(140%)) !important;
+    /* Aligné tokens ios-glass — même matière que desktop */
+    background: var(--glass-base-bg) !important;
+    -webkit-backdrop-filter: var(--glass-base-blur) !important;
+    backdrop-filter: var(--glass-base-blur) !important;
     border: 1px solid var(--border-card, rgba(0,180,216,0.14)) !important;
-    border-radius: 20px !important;
-    /* Hover transformations désactivées sur mobile (tactile) */
+    border-radius: var(--radius-card-lg, 20px) !important;
     transform: none !important;
     transition: box-shadow 200ms ease !important;
+    box-shadow: var(--glass-top, 0 0.5px 0 rgba(255,255,255,0.18) inset), var(--glass-shadow-md, 0 8px 32px rgba(0,0,0,0.24)) !important;
   }
 
   body.mode-jour .block,
@@ -280,8 +280,8 @@ html[data-theme="light"] .mobile-drawer-panel .nav-link:active {
   html[data-theme="light"] .block,
   html[data-theme="light"] .card,
   html[data-theme="light"] .offre-card {
-    background: rgba(255,252,245,0.88) !important;
-    border-color: rgba(200,122,8,0.12) !important;
+    background: var(--glass-base-bg-l) !important;
+    border-color: var(--glass-border-l) !important;
   }
 }
 
@@ -424,13 +424,14 @@ html[data-theme="light"] .mobile-drawer-panel .nav-link:active {
     filter: blur(60px) !important;
   }
   .orb-3, .orb-4 {
-    display: none !important;
+    display: block !important;
+    width: min(52vw, 220px) !important;
+    height: min(52vw, 220px) !important;
   }
 
-  /* Grille holo — subtile sur mobile */
+  /* Grille holo — même respiration que desktop */
   .holo-grid {
-    opacity: 0.4 !important;
-    animation: none !important;
+    opacity: 0.44 !important;
   }
 
   /* Shapes Pandora jour — visibles mais allégées */

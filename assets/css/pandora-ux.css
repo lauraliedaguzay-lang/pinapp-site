@@ -15,10 +15,7 @@
 
 /* section-enter v5 : translateY seulement (pas de blur) — géré par animations.css */
 
-/* Particles JS — téléphone seulement (tablette : OK, cohérent règle effets graphiques) */
-@media (max-width: 767px) {
-  .bio-particle { display: none !important; }
-}
+/* Particules JS — visibles aussi sur téléphone (même ADN biolume que desktop) */
 
 /* Curseur v5 : géré par cursor.js + cursor.css (teal nuit / violet jour)
    Les anciens .pcursor-dot / .pcursor-ring sont obsolètes */
@@ -591,27 +588,10 @@ html[data-theme="light"] .aurora-orb-4 {
     transparent 70%);
 }
 
-/* Mobile — 4 orbes conservées ; respiration biolume légère (opacity + scale minimal) */
+/* Mobile — 4 orbes : mêmes trajectoires que desktop (pandora-ux), flou plafonné Safari */
 @media (max-width: 767px) {
   .aurora-mobile .aurora-orb {
-    opacity: 1;
-    filter: blur(46px) !important;
-    animation: aurora-biolume-mobile 16s ease-in-out infinite !important;
-  }
-  .aurora-mobile .aurora-orb-1 { animation-delay: 0s; }
-  .aurora-mobile .aurora-orb-2 { animation-delay: -4s; }
-  .aurora-mobile .aurora-orb-3 { animation-delay: -8s; }
-  .aurora-mobile .aurora-orb-4 { animation-delay: -12s; }
-}
-
-@keyframes aurora-biolume-mobile {
-  0%, 100% {
-    opacity: 0.38;
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    opacity: 0.58;
-    transform: translate(0, 0) scale(1.04);
+    filter: blur(min(72px, 18vw)) !important;
   }
 }
 
@@ -722,17 +702,10 @@ html[data-theme="light"] .bio-particle[data-type="spore"] { display: none; }
 
 /* Touch targets universels pour tous les éléments pill/button sur mobile */
 @media (max-width: 767px) {
-  /* Aurora orbs — moins d'animations en parallèle */
   .aurora-orb { animation-play-state: running; }
-  .aurora-orb-3, .aurora-orb-4 { display: none; } /* garder 2 orbs seulement */
 
-  /* Blocs sémantiques — animations pulsating désactivées (GPU) */
-  .block-cyan, .block-violet, .block-vert {
-    animation: none;
-  }
-
-  /* Label breathe — simplifié */
-  .label { animation: none; opacity: 0.6; }
+  /* Blocs sémantiques — même respiration biolume que desktop */
+  /* Labels — lisibilité inchangée (breathe conservé si défini) */
 
   /* Prix — taille réduite sur très petit écran */
   .prix-display { font-size: clamp(1.75rem, 8vw, 2.5rem); }

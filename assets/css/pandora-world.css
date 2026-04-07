@@ -223,24 +223,22 @@ body.mode-jour .holo-grid {
 ══════════════════════════════════════════ */
 
 @media (max-width: 767px) {
-  /* Désactiver turbulence */
-  body.mode-jour #pandora-world { animation: none; }
+  /* Même scène Pandora que desktop — échelle tactique seulement */
+  .orb-1, .orb-2 { width: min(72vw, 300px) !important; height: min(72vw, 300px) !important; }
 
-  /* Orbes réduites */
-  .orb-1, .orb-2 { width: 300px !important; height: 300px !important; }
+  .orb-3, .orb-4 {
+    display: block;
+    width: min(56vw, 240px) !important;
+    height: min(56vw, 240px) !important;
+  }
 
-  /* Désactiver les 2 orbes secondaires */
-  .orb-3, .orb-4 { display: none; }
+  .orb { filter: blur(56px) !important; }
 
-  /* Flou réduit */
-  .orb { filter: blur(50px) !important; }
-
-  /* Nuages réduits */
-  .cloud { width: 200px !important; height: 100px !important; }
+  .cloud { width: min(54vw, 200px) !important; height: min(28vw, 100px) !important; }
 }
 
 @media (max-width: 390px) {
-  .holo-grid { display: none; }
+  .holo-grid { opacity: 0.36; }
 }
 
 /* ══════════════════════════════════════════

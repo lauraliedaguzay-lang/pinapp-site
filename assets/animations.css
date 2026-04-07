@@ -809,13 +809,26 @@ body.mode-jour::after {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   MOBILE PERFORMANCE — GPU relief < 768px
-   Désactive les animations coûteuses (filter, hue-rotate plein écran)
+   MOBILE — même ambiance biolume que desktop (opacity / brightness seuls)
+   évite hue-rotate plein écran sur GPU mobile ; prefers-reduced-motion : inchangé
    ═══════════════════════════════════════════════════════════════ */
-@media (max-width: 767px) {
-  /* body::after ambiance statique sur mobile — pas de hue-rotate 8s */
-  body::after { animation: none; }
+@keyframes ambient-field-mobile {
+  0%   { opacity: 0.62; filter: brightness(1); }
+  50%  { opacity: 0.74; filter: brightness(1.04); }
+  100% { opacity: 0.62; filter: brightness(1); }
+}
 
+@media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
+  body::after {
+    animation: ambient-field-mobile 8s ease-in-out infinite;
+  }
+  html[data-theme="light"] body::after,
+  body.mode-jour::after {
+    animation: ambient-field-jour 6s ease-in-out infinite !important;
+  }
+}
+
+@media (max-width: 767px) {
   /* Sticky CTA — bottom-bar remplace sur mobile */
   .sticky-cta { display: none; }
 

@@ -6,13 +6,13 @@
 (function () {
   'use strict';
 
-  /* Tablette+ (CSS masque les spores sous 768px) — sans prefers-reduced-motion */
+  /* Toutes largeurs — cohérence mobile / desktop ; sans prefers-reduced-motion */
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  if (window.innerWidth < 768) return;
 
   const NUIT_TYPES  = ['spore', 'violet', 'wood', 'spore', 'violet'];
   const JOUR_TYPES  = ['ambre', 'ambre', 'wood', 'ambre', 'wood'];
-  const COUNT       = 12;
+  const narrow      = window.innerWidth < 768;
+  const COUNT       = narrow ? 8 : 12;
   let   particles   = [];
 
   /* Détermine si on est en mode jour */
@@ -85,5 +85,15 @@
 
   observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
   observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+  var _resizeTimer;
+  window.addEventListener(
+    'resize',
+    function () {
+      clearTimeout(_resizeTimer);
+      _resizeTimer = setTimeout(spawnParticles, 200);
+    },
+    { passive: true }
+  );
 
 })();
