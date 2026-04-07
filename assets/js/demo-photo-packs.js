@@ -133,7 +133,7 @@
       servicesSubtitle:
         'Structure et preuves sociales calibrées sport — identité visuelle et parcours uniques à chaque commande Pinapp.',
       bookingSub: 'Objectifs et créneaux en quelques clics (démo).',
-      confirmSub: 'Exemple : rappel ou message selon votre stack sur le site final.',
+      confirmSub: 'Exemple : rappel ou message selon vos outils sur le site final.',
       preuvePhoto: img('1568602471126-139295fcc3ee', qS)
     },
 

@@ -23,9 +23,9 @@ const Calculateur = {
     auto: {
       prix:     990,
       includes: [
-        '3 workflows n8n',
+        '3 scénarios d\'automatisation (Make / n8n)',
         'Confirmations automatiques',
-        'Relances clients auto',
+        'Relances clients automatiques',
       ]
     },
     ia: {
@@ -39,9 +39,9 @@ const Calculateur = {
     systeme: {
       prix:     1990,
       includes: [
-        'Site + Automatisation + IA',
-        'Stack complet Pinapp',
-        '1h coaching inclus',
+        'Site + automatisation + fonctions intelligentes',
+        'Ensemble cohérent Pinapp',
+        '1 h d\'accompagnement inclus',
       ]
     },
   },
