@@ -1,0 +1,384 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   PINAPP — MODERN BIOLUME v1
+   Couche globale : modernité (rayons, profondeur, micro-interactions)
+   + futuriste (HUD léger, liserés actifs) + bioluminescence (teal · violet · jade)
+   Chargée après apple-finish.css — pandora-jour-override peut encore ajuster le jour.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --bio-r-sm: 14px;
+  --bio-r-md: clamp(20px, 2.4vw, 26px);
+  --bio-r-lg: clamp(24px, 3vw, 32px);
+  --bio-r-pill: 100px;
+  --bio-transition: 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  --bio-glow-teal: 0 0 32px rgba(0, 229, 204, 0.14);
+  --bio-glow-violet: 0 0 36px rgba(123, 79, 232, 0.12);
+  --bio-glow-mint: 0 0 28px rgba(72, 228, 195, 0.16);
+  --bio-sheen: linear-gradient(
+    105deg,
+    rgba(255, 255, 255, 0.09) 0%,
+    transparent 42%,
+    transparent 58%,
+    rgba(0, 229, 204, 0.06) 100%
+  );
+}
+
+body.mode-jour,
+html[data-theme="light"] body {
+  --bio-glow-teal: 0 0 28px rgba(30, 158, 128, 0.12);
+  --bio-glow-violet: 0 0 32px rgba(91, 63, 216, 0.10);
+  --bio-glow-mint: 0 0 24px rgba(15, 191, 142, 0.14);
+  --bio-sheen: linear-gradient(
+    105deg,
+    rgba(255, 255, 255, 0.65) 0%,
+    transparent 45%,
+    transparent 55%,
+    rgba(200, 122, 8, 0.06) 100%
+  );
+}
+
+@keyframes bio-footer-pulse {
+  0%, 100% { opacity: 0.65; filter: brightness(1); }
+  50% { opacity: 1; filter: brightness(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  footer::before {
+    animation: none !important;
+  }
+}
+
+/* ─── Typo & hiérarchie — plus actuelle ─── */
+h1, h2, h3 {
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2 {
+  text-shadow:
+    0 0 40px rgba(0, 229, 204, 0.04),
+    0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+body.mode-jour h1,
+body.mode-jour h2,
+html[data-theme="light"] h1,
+html[data-theme="light"] h2 {
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* ─── Labels / kickers — trace biolume ─── */
+.label {
+  letter-spacing: 0.12em;
+  font-weight: 600;
+}
+
+html[data-theme="dark"] .label {
+  text-shadow:
+    0 0 20px rgba(0, 229, 204, 0.25),
+    0 0 40px rgba(123, 79, 232, 0.08);
+}
+
+body.mode-jour .label,
+html[data-theme="light"] .label {
+  text-shadow: 0 0 18px rgba(30, 158, 128, 0.15);
+}
+
+/* ─── Cartes & blocs — verre futuriste + halo au survol (souris seulement) ─── */
+.block,
+.card,
+[class*='card']:not([class*='card-']):not(.carousel-dot) {
+  border-radius: var(--bio-r-md);
+  transition:
+    box-shadow var(--bio-transition),
+    border-color var(--bio-transition),
+    transform var(--bio-transition);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html[data-theme='dark'] .block:hover,
+  html[data-theme='dark'] .card:hover,
+  html[data-theme='dark'] [class*='offre-card']:hover,
+  html[data-theme='dark'] [class*='etape-card']:hover,
+  html[data-theme='dark'] [class*='tech-card']:hover {
+    border-color: rgba(0, 229, 204, 0.28);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.12),
+      0 0 0 1px rgba(123, 79, 232, 0.12),
+      0 12px 48px rgba(0, 0, 0, 0.28),
+      var(--bio-glow-mint),
+      var(--bio-glow-violet);
+    transform: translateY(-2px) scale(1.002);
+  }
+
+  body.mode-jour .block:hover,
+  body.mode-jour .card:hover,
+  html[data-theme='light'] .block:hover,
+  html[data-theme='light'] .card:hover {
+    border-color: rgba(30, 158, 128, 0.22);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.85),
+      0 0 0 1px rgba(91, 63, 216, 0.08),
+      0 16px 48px rgba(26, 10, 46, 0.08),
+      var(--bio-glow-teal);
+    transform: translateY(-2px) scale(1.002);
+  }
+}
+
+/* ─── Navigation — liseré biolume (pas de ::after : réservé ailleurs) ─── */
+html[data-theme='dark'] nav,
+html[data-theme='dark'] .nav {
+  border-bottom-color: rgba(0, 229, 204, 0.14) !important;
+}
+
+html[data-theme='dark'] nav.scrolled,
+html[data-theme='dark'] .nav.scrolled {
+  box-shadow:
+    0 1px 0 rgba(0, 229, 204, 0.18),
+    0 12px 40px rgba(0, 0, 0, 0.18);
+}
+
+body.mode-jour nav,
+body.mode-jour .nav,
+html[data-theme='light'] nav,
+html[data-theme='light'] .nav {
+  border-bottom-color: rgba(30, 158, 128, 0.12) !important;
+}
+
+body.mode-jour nav.scrolled,
+body.mode-jour .nav.scrolled,
+html[data-theme='light'] nav.scrolled,
+html[data-theme='light'] .nav.scrolled {
+  box-shadow: 0 8px 32px rgba(26, 10, 46, 0.06);
+}
+
+/* ─── Bottom bar mobile — même ADN ─── */
+.bottom-bar {
+  position: relative;
+  border-top: none !important;
+}
+
+.bottom-bar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 6%;
+  right: 6%;
+  height: 1px;
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+html[data-theme='dark'] .bottom-bar::before {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 229, 204, 0.45) 30%,
+    rgba(123, 79, 232, 0.4) 70%,
+    transparent
+  );
+  box-shadow: 0 0 12px rgba(0, 229, 204, 0.2);
+}
+
+body.mode-jour .bottom-bar::before,
+html[data-theme='light'] .bottom-bar::before {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(30, 158, 128, 0.3) 35%,
+    rgba(91, 63, 216, 0.25) 65%,
+    transparent
+  );
+}
+
+/* ─── Footer — liseré plus « vivant » ─── */
+footer::before {
+  height: 2px;
+  opacity: 0.75;
+  box-shadow:
+    0 0 24px rgba(0, 229, 204, 0.25),
+    0 0 48px rgba(123, 79, 232, 0.12);
+}
+
+body.mode-jour footer::before,
+html[data-theme='light'] footer::before {
+  box-shadow:
+    0 0 20px rgba(30, 158, 128, 0.2),
+    0 0 40px rgba(91, 63, 216, 0.08);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  footer::before {
+    animation: bio-footer-pulse 5s ease-in-out infinite;
+  }
+}
+
+/* ─── Boutons primaires — halo biolume statique + kiri-soar existant ─── */
+html[data-theme='dark'] .btn-primary {
+  border-radius: var(--bio-r-pill);
+  position: relative;
+  box-shadow:
+    0 2px 16px rgba(123, 79, 232, 0.28),
+    0 0 36px rgba(0, 229, 204, 0.1);
+}
+
+body.mode-jour .btn-primary,
+html[data-theme='light'] .btn-primary {
+  border-radius: var(--bio-r-pill);
+  box-shadow:
+    0 2px 12px rgba(91, 63, 216, 0.15),
+    0 0 24px rgba(30, 158, 128, 0.08);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html[data-theme='dark'] .btn-primary:hover {
+    filter: brightness(1.06);
+    box-shadow:
+      0 4px 24px rgba(123, 79, 232, 0.35),
+      0 0 40px rgba(0, 229, 204, 0.15);
+  }
+
+  body.mode-jour .btn-primary:hover,
+  html[data-theme='light'] .btn-primary:hover {
+    box-shadow:
+      0 6px 28px rgba(91, 63, 216, 0.22),
+      0 0 36px rgba(30, 158, 128, 0.12);
+  }
+}
+
+/* Secondaires — bordure active futuriste */
+html[data-theme='dark'] .btn-secondary {
+  border-radius: var(--bio-r-pill);
+  border-color: rgba(0, 229, 204, 0.28);
+  background: rgba(4, 28, 30, 0.35);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html[data-theme='dark'] .btn-secondary:hover {
+    border-color: rgba(123, 79, 232, 0.4);
+    box-shadow: var(--bio-glow-teal);
+  }
+}
+
+body.mode-jour .btn-secondary,
+html[data-theme='light'] .btn-secondary {
+  border-radius: var(--bio-r-pill);
+}
+
+/* ─── Champs — focus « scan » biolume ─── */
+input:not([type='checkbox']):not([type='radio']),
+textarea,
+select {
+  border-radius: var(--bio-r-sm);
+  transition:
+    border-color var(--bio-transition),
+    box-shadow var(--bio-transition);
+}
+
+html[data-theme='dark'] input:focus-visible,
+html[data-theme='dark'] textarea:focus-visible,
+html[data-theme='dark'] select:focus-visible {
+  outline: none;
+  border-color: rgba(0, 229, 204, 0.55) !important;
+  box-shadow:
+    0 0 0 3px rgba(0, 229, 204, 0.12),
+    0 0 24px rgba(123, 79, 232, 0.12);
+}
+
+body.mode-jour input:focus-visible,
+body.mode-jour textarea:focus-visible,
+html[data-theme='light'] input:focus-visible,
+html[data-theme='light'] textarea:focus-visible {
+  border-color: rgba(91, 63, 216, 0.45) !important;
+  box-shadow:
+    0 0 0 3px rgba(91, 63, 216, 0.1),
+    0 0 20px rgba(30, 158, 128, 0.1);
+}
+
+/* ─── Focus clavier global — anneau double teinte ─── */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+.nav-link:focus-visible,
+.theme-toggle:focus-visible,
+.burger:focus-visible,
+.faq-trigger:focus-visible {
+  outline: 2px solid rgba(0, 229, 204, 0.85);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(123, 79, 232, 0.15);
+}
+
+body.mode-jour a:focus-visible,
+body.mode-jour button:focus-visible,
+html[data-theme='light'] a:focus-visible,
+html[data-theme='light'] button:focus-visible {
+  outline-color: rgba(91, 63, 216, 0.85);
+  box-shadow: 0 0 0 4px rgba(30, 158, 128, 0.12);
+}
+
+/* ─── Liens texte — soulignement dégradé au survol ─── */
+@media (hover: hover) and (pointer: fine) {
+  main p a:not(.btn):not(.nav-link):not(.footer-links a),
+  .prose a:not(.btn),
+  article a:not(.btn) {
+    text-decoration: none;
+    background-image: linear-gradient(
+      90deg,
+      rgba(0, 229, 204, 0.7),
+      rgba(123, 79, 232, 0.65)
+    );
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    transition: background-size var(--bio-transition);
+  }
+
+  main p a:not(.btn):not(.nav-link):hover,
+  .prose a:not(.btn):hover,
+  article a:not(.btn):hover {
+    background-size: 100% 1px;
+  }
+
+  body.mode-jour main p a:not(.btn):not(.nav-link):not(.footer-links a),
+  body.mode-jour .prose a:not(.btn),
+  html[data-theme='light'] main p a:not(.btn):not(.nav-link):not(.footer-links a) {
+    background-image: linear-gradient(
+      90deg,
+      rgba(30, 158, 128, 0.85),
+      rgba(91, 63, 216, 0.75)
+    );
+  }
+}
+
+/* ─── Barre de progression scroll — écho biolume ─── */
+.scroll-progress {
+  height: 3px;
+  filter: drop-shadow(0 0 8px rgba(0, 229, 204, 0.45));
+}
+
+body.mode-jour .scroll-progress,
+html[data-theme='light'] .scroll-progress {
+  filter: drop-shadow(0 0 6px rgba(30, 158, 128, 0.35));
+}
+
+/* ─── Hero — arrondi bas discret (futuriste, pleine largeur conservée) ─── */
+@media (min-width: 768px) {
+  .pinapp-hero-viewport {
+    border-radius: 0 0 var(--bio-r-md) var(--bio-r-md);
+  }
+}
+
+/* ─── Sélection — résidu biolume ─── */
+html[data-theme='dark'] ::selection {
+  background: rgba(0, 229, 204, 0.28);
+  color: #f8fffe;
+}
+
+/* ─── Skip link — plus visible ─── */
+.skip-link {
+  border-radius: var(--bio-r-pill);
+  box-shadow: var(--bio-glow-teal);
+}
