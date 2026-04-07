@@ -190,6 +190,8 @@ class Carousel3D {
         hide = line !== 'beaute';
       } else if (tier === 'all') {
         hide = false;
+      } else if (tier === 'perso') {
+        hide = t !== 'perso';
       } else {
         hide = t !== tier;
       }
@@ -260,7 +262,9 @@ class Carousel3D {
         this.applyFilter(tier);
         const gridAll = document.querySelector('.filter-btn[data-filter="all"]');
         const gridBeaute = document.querySelector('.filter-btn[data-filter="beaute"]');
+        const gridPerso = document.querySelector('.filter-btn[data-filter="perso"]');
         if (tier === 'beaute' && gridBeaute) gridBeaute.click();
+        else if (tier === 'perso' && gridPerso) gridPerso.click();
         else if (tier === 'all' && gridAll) gridAll.click();
       });
     });

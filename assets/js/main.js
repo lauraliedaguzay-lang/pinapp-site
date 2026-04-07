@@ -298,12 +298,14 @@
         var show =
           f === 'all' ||
           (f === 'beaute' && line === 'beaute') ||
-          (f !== 'all' && f !== 'beaute' && cat === f);
+          (f === 'perso' && cat === 'perso') ||
+          (f !== 'all' && f !== 'beaute' && f !== 'perso' && cat === f);
         card.style.display = show ? '' : 'none';
       });
       var car = window.__pinappCarousel3D;
       if (car && typeof car.applyFilter === 'function') {
         if (f === 'beaute') car.applyFilter('beaute');
+        else if (f === 'perso') car.applyFilter('perso');
         else car.applyFilter('all');
       }
     });
