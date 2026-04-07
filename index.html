@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
 <script>(function(){var t=localStorage.getItem('pinapp-theme')||localStorage.getItem('pinapp-mode');var d=window.matchMedia('(prefers-color-scheme:dark)').matches;var m=(t==='light'||t==='jour')?'jour':(t==='dark'||t==='nuit')?'nuit':(d?'nuit':'jour');document.documentElement.setAttribute('data-mode',m);document.documentElement.setAttribute('data-theme',m==='jour'?'light':'dark');if(document.body){document.body.classList.add('mode-'+m);}document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('mode-'+m);});}());</script>
@@ -55,41 +55,88 @@
       position: absolute; top: 0; left: 30%; right: 30%; height: 1px;
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35) 50%, transparent);
     }
-    .iphone-screen { display: flex; flex-direction: column; height: 100%; }
-    .iphone-time {
-      font-size: 38px; font-weight: 600; letter-spacing: -0.04em;
-      text-align: center; opacity: 0.9; margin-bottom: 24px; line-height: 1;
+    .iphone-screen { display: flex; flex-direction: column; height: 100%; min-height: 0; }
+    /* Aperçu « appli pro PME » — pilotage quotidien, pas un site web */
+    .iphone-pme-status {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 10px; font-size: 11px; font-weight: 600; opacity: 0.85;
+      letter-spacing: -0.02em;
     }
-    .iphone-notifs { display: flex; flex-direction: column; gap: 10px; }
-    .iphone-notif {
-      display: flex; align-items: center; gap: 10px;
+    .iphone-pme-dots { display: flex; gap: 3px; align-items: center; }
+    .iphone-pme-dots span {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+    }
+    .iphone-pme-title {
+      font-size: 13px; font-weight: 600; letter-spacing: -0.02em;
+      margin: 0 0 10px; opacity: 0.92;
+    }
+    .iphone-pme-kpis {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 12px;
+    }
+    .iphone-pme-kpi {
+      text-align: center; padding: 8px 4px; border-radius: 12px;
       background: rgba(255,255,255,0.07);
-      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 14px; padding: 12px 14px;
-      font-size: 14px; font-weight: 500;
-      opacity: 0; transform: translateX(30px);
-      animation: notif-slide 14s ease-in-out infinite;
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
     }
-    .iphone-notif-icon {
-      color: var(--accent-teal);
-      font-size: 16px; flex-shrink: 0;
-      text-shadow: 0 0 10px rgba(0,229,204,0.5);
+    .iphone-pme-kpi-val {
+      display: block; font-size: 14px; font-weight: 700; letter-spacing: -0.03em;
+      color: var(--accent-teal); line-height: 1.15;
     }
-    @keyframes notif-slide {
-      0%   { opacity: 0; transform: translateX(20px); }
-      8%   { opacity: 1; transform: translateX(0); }
-      55%  { opacity: 1; transform: translateX(0); }
-      63%  { opacity: 0; transform: translateX(-6px); }
-      100% { opacity: 0; transform: translateX(20px); }
+    .iphone-pme-kpi-lbl {
+      display: block; font-size: 8px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.08em; opacity: 0.5; margin-top: 2px;
     }
-    .iphone-mockup:hover .iphone-notif { animation-play-state: paused; }
+    .iphone-pme-section {
+      font-size: 9px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.12em; opacity: 0.45; margin: 0 0 6px;
+    }
+    .iphone-pme-list {
+      list-style: none; margin: 0; padding: 0;
+      display: flex; flex-direction: column; gap: 6px; flex: 1; min-height: 0;
+    }
+    .iphone-pme-list li {
+      display: flex; gap: 8px; align-items: flex-start;
+      font-size: 11px; line-height: 1.35; font-weight: 500;
+      padding: 8px 10px; border-radius: 12px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    }
+    .iphone-pme-tag {
+      flex-shrink: 0; font-size: 7px; font-weight: 700;
+      padding: 3px 5px; border-radius: 5px; letter-spacing: 0.04em;
+      line-height: 1; margin-top: 1px;
+    }
+    .iphone-pme-tag--rdv { background: rgba(0,229,204,0.18); color: var(--accent-teal); }
+    .iphone-pme-tag--dev { background: rgba(123,79,232,0.22); color: #c4b5fd; }
+    .iphone-pme-tag--auto { background: rgba(57,224,117,0.18); color: var(--accent-green, #39E075); }
+    .iphone-pme-li-main { opacity: 0.92; }
+    .iphone-pme-li-sub { display: block; font-size: 9px; font-weight: 500; opacity: 0.5; margin-top: 2px; }
+    body.mode-jour .iphone-pme-kpi,
+    html[data-theme="light"] .iphone-pme-kpi {
+      background: rgba(255,255,255,0.72);
+      border-color: rgba(26,10,46,0.08);
+    }
+    body.mode-jour .iphone-pme-list li,
+    html[data-theme="light"] .iphone-pme-list li {
+      background: rgba(255,255,255,0.65);
+      border-color: rgba(26,10,46,0.08);
+    }
+    body.mode-jour .iphone-pme-dots span,
+    html[data-theme="light"] .iphone-pme-dots span {
+      background: rgba(26,10,46,0.2);
+    }
+    body.mode-jour .iphone-pme-tag--dev,
+    html[data-theme="light"] .iphone-pme-tag--dev {
+      color: var(--accent-violet, #5B3FD8);
+      background: rgba(91,63,216,0.12);
+    }
     @media (max-width: 600px) {
       .iphone-mockup { width: 180px; height: 360px; border-radius: 28px; }
-      .iphone-time   { font-size: 30px; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .iphone-notif  { opacity: 1; transform: none; animation: none; }
+      .iphone-pme-kpi-val { font-size: 12px; }
+      .iphone-pme-list li { font-size: 10px; padding: 7px 8px; }
     }
   </style>
   <script type="application/ld+json">
@@ -281,24 +328,52 @@
             </div>
           </div>
         </div>
-        <!-- iPhone mockup -->
-        <div class="iphone-mockup" aria-label="Aperçu notifications" role="img" style="flex-shrink:0;">
-          <div class="iphone-screen">
-            <p class="iphone-time" aria-hidden="true">09:41</p>
-            <div class="iphone-notifs" >
-              <div class="iphone-notif" style="animation-delay:0s;">
-                <span class="iphone-notif-icon" aria-hidden="true">✓</span>
-                <span>Marie a signé</span>
+        <!-- iPhone mockup — tableau de bord PME (rdv, devis, trésorerie) -->
+        <div class="iphone-mockup" aria-label="Aperçu d’une application de pilotage pour TPE : rendez-vous, devis et suivi" role="img" style="flex-shrink:0;">
+          <div class="iphone-screen iphone-pme">
+            <div class="iphone-pme-status">
+              <span class="iphone-pme-time">09:41</span>
+              <span class="iphone-pme-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+            </div>
+            <p class="iphone-pme-title">Mon activité</p>
+            <div class="iphone-pme-kpis">
+              <div class="iphone-pme-kpi">
+                <span class="iphone-pme-kpi-val">4</span>
+                <span class="iphone-pme-kpi-lbl">rdv</span>
               </div>
-              <div class="iphone-notif" style="animation-delay:2s;">
-                <span class="iphone-notif-icon" aria-hidden="true">✓</span>
-                <span>Site généré</span>
+              <div class="iphone-pme-kpi">
+                <span class="iphone-pme-kpi-val">2</span>
+                <span class="iphone-pme-kpi-lbl">devis</span>
               </div>
-              <div class="iphone-notif" style="animation-delay:4s;">
-                <span class="iphone-notif-icon" aria-hidden="true">✓</span>
-                <span>900 € reçus</span>
+              <div class="iphone-pme-kpi">
+                <span class="iphone-pme-kpi-val">420€</span>
+                <span class="iphone-pme-kpi-lbl">ce jour</span>
               </div>
             </div>
+            <p class="iphone-pme-section">À traiter</p>
+            <ul class="iphone-pme-list">
+              <li>
+                <span class="iphone-pme-tag iphone-pme-tag--rdv">RDV</span>
+                <span class="iphone-pme-li-main">
+                  14:30 · rappel client
+                  <span class="iphone-pme-li-sub">M. Dupont — devis isolation</span>
+                </span>
+              </li>
+              <li>
+                <span class="iphone-pme-tag iphone-pme-tag--dev">DEV</span>
+                <span class="iphone-pme-li-main">
+                  Signature attendue
+                  <span class="iphone-pme-li-sub">Plomberie Martin — 1&nbsp;240&nbsp;€</span>
+                </span>
+              </li>
+              <li>
+                <span class="iphone-pme-tag iphone-pme-tag--auto">AUTO</span>
+                <span class="iphone-pme-li-main">
+                  Relances programmées
+                  <span class="iphone-pme-li-sub">3 dossiers · J+1</span>
+                </span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
