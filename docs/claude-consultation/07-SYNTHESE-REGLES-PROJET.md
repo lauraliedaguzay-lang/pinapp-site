@@ -5,6 +5,8 @@
 > Ce fichier résume les **intentions** codées dans `.cursor/rules/` pour **pinapp-site**.  
 > **Attention** : certaines règles peuvent être **aspirationnelles** (ex. Netlify Forms) alors que le site, **au moment de la rédaction du dossier consultation**, reposait surtout sur **mailto** et **console.log** pour les parcours — voir `01-CONTEXTE-ET-SITE.md`.
 
+**Audit d’écart CdC ↔ code (vitrine, mis à jour 2026) :** [`docs/AUDIT-CAHIER-DES-CHARGES.md`](../AUDIT-CAHIER-DES-CHARGES.md) — hiérarchie des règles, tableau de conformité, actions recommandées.
+
 ## Identité & périmètre
 
 - Projet **pinapp-site** ; marque **Pinapp Studio** ; **ne pas** mélanger textes ou visuels d’autres marques.

@@ -11,26 +11,27 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 /* =====================================================
-   SECTION ENTER — cordes musicales — 700ms ease-in-out
-   translateY(30px) → 0 · pas de blur
+   SECTION ENTER — pinapp-zero-scroll.mdc
+   Pas d’IntersectionObserver : le contenu n’est pas « révélé au scroll ».
+   .visible appliqué au chargement (animation une fois au load, pas liée au défilement).
    ===================================================== */
-const sectionObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      sectionObs.unobserve(e.target);
-    }
+function revealSectionsOnLoad() {
+  document.querySelectorAll('.section-enter').forEach(function (el) {
+    el.classList.add('visible');
   });
-}, { threshold: 0.05, rootMargin: '0px 0px 0px 0px' });
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', revealSectionsOnLoad);
+} else {
+  revealSectionsOnLoad();
+}
 
-document.querySelectorAll('.section-enter')
-  .forEach(el => sectionObs.observe(el));
-
-/* Fallback sécurité : toute section non visible après 1.8s → force visible */
-setTimeout(function() {
-  document.querySelectorAll('.section-enter:not(.visible)')
-    .forEach(el => el.classList.add('visible'));
-}, 1800);
+/* Secours si classList bloquée / DOM partiel */
+setTimeout(function () {
+  document.querySelectorAll('.section-enter:not(.visible)').forEach(function (el) {
+    el.classList.add('visible');
+  });
+}, 100);
 
 /* =====================================================
    IMAGES REVEAL
