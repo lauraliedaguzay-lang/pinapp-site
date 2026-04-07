@@ -324,7 +324,7 @@ const MONDES = [
     delai: '7 jours',
     demo_feature: 'Calculateur Harris-Benedict — poids/taille/âge → calories + programme',
     demo_temoignage: '"À la 8ème semaine je comprenais pourquoi ça marchait." — Alexandre D.',
-    preview_img: '../assets/images/monde-super-heros.png',
+    preview_img: '../images/monde-super-heros.png',
   },
 
   {
@@ -407,7 +407,7 @@ const MONDES = [
     demo_feature:
       'Générateur de personnage : classe × style × univers → fiche perso + lien vers les créations',
     demo_temoignage: '"Mes followers pensaient que c\'était une grande agence JP." — @yukicosplay',
-    preview_img: '../assets/images/monde-sakura-kai.png',
+    preview_img: '../images/monde-sakura-kai.png',
   },
 
   {
@@ -435,7 +435,7 @@ const MONDES = [
     demo_feature:
       'Configurateur de setup gaming : processeur × GPU × RAM → score performance animé + liste composants recommandés',
     demo_temoignage: '"Mon taux de conversion a doublé en 3 semaines." — Kevin, boutique gaming',
-    preview_img: '../assets/images/monde-pixel-quest.png',
+    preview_img: '../images/monde-pixel-quest.png',
   },
 
   {
