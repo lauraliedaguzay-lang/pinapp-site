@@ -166,20 +166,23 @@ body.mode-jour .hero-word.accent {
   .btn-primary::after {
     content: '';
     position: absolute;
-    inset: -3px;
+    top: -3px; right: -3px; bottom: -3px; left: -3px;
     border-radius: inherit;
     background: transparent;
     border: 1px solid rgba(123,79,232,0);
     transition:
       border-color 350ms ease,
       box-shadow 350ms ease,
-      inset 350ms ease;
+      top 350ms ease,
+      right 350ms ease,
+      bottom 350ms ease,
+      left 350ms ease;
     pointer-events: none;
   }
 
   @media (hover: hover) {
     .btn-primary:hover::after {
-      inset: -6px;
+      top: -6px; right: -6px; bottom: -6px; left: -6px;
       border-color: rgba(123,79,232,0.35);
       box-shadow: 0 0 20px rgba(123,79,232,0.15);
     }
@@ -603,9 +606,9 @@ html[data-theme="light"] .aurora-orb-4 {
     transparent 70%);
 }
 
-/* Réduire les orbs sur mobile (performances) */
+/* Réduire les orbs sur mobile (performances) — statiques, pas d'animation GPU */
 @media (max-width: 767px) {
-  .aurora-orb { opacity: 0.55 !important; filter: blur(50px) !important; }
+  .aurora-orb { opacity: 0.45 !important; filter: blur(50px) !important; animation: none !important; }
   .aurora-orb-3, .aurora-orb-4 { display: none; }
 }
 
