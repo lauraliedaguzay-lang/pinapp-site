@@ -96,7 +96,7 @@ https://pinapp.fr/.netlify/functions/approve?id={{leadId}}&token={{hmacToken}}&a
 **Actions** :
 1. Créer lead dans CRM (secteur, budget, urgence)
 2. Envoyer email de présentation personnalisée selon secteur
-3. (Si budget < 297€) Envoyer contenu éducatif au lieu d'offre directe
+3. (Si budget < 349 €) Envoyer contenu éducatif au lieu d'offre directe
 
 ---
 

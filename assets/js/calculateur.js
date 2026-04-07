@@ -12,7 +12,7 @@ const Calculateur = {
 
   configs: {
     site: {
-      prix:     1200,
+      prix:     1190,
       includes: [
         'Site vitrine premium',
         'Mode nuit / jour',
@@ -21,7 +21,7 @@ const Calculateur = {
       ]
     },
     auto: {
-      prix:     600,
+      prix:     990,
       includes: [
         '3 workflows n8n',
         'Confirmations automatiques',
@@ -29,7 +29,7 @@ const Calculateur = {
       ]
     },
     ia: {
-      prix:     500,
+      prix:     590,
       includes: [
         'Aurora sur votre site',
         'Analyse prospects',
@@ -37,7 +37,7 @@ const Calculateur = {
       ]
     },
     systeme: {
-      prix:     2200,
+      prix:     1990,
       includes: [
         'Site + Automatisation + IA',
         'Stack complet Pinapp',
@@ -111,9 +111,6 @@ const Calculateur = {
       });
     }
 
-    // Prix minimum garanti : 1 500 €
-    prix = Math.max(prix, 1500);
-
     // Délai urgent : +20%
     if (this.state.urgent) prix = Math.round(prix * 1.2);
 
@@ -146,8 +143,8 @@ const Calculateur = {
     const el = document.getElementById('result-montant');
     if (!el) return;
     const start = parseInt(
-      el.textContent.replace(/[\s\u00A0]/g, ''), 10
-    ) || 1500;
+      el.textContent.replace(/[\s\u00A0—\-]/g, ''), 10
+    ) || 0;
     const dur = 320;
     const t0  = Date.now();
 

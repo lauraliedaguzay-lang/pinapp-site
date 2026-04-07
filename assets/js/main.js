@@ -411,7 +411,7 @@
         var finMsg = document.getElementById('finMessage');
         if (finMsg && answers[4] === 'moins-1000') {
           finMsg.textContent =
-            'Parfait pour notre Starter à 297€. Je reviens vers vous sous 24h.';
+            'Parfait pour notre Starter à 349€. Je reviens vers vous sous 24h.';
         }
 
         var qfin = document.getElementById('qfin');

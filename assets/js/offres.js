@@ -69,7 +69,7 @@ function updateCalc() {
 
   const totalH     = Math.round(totalMins / 60 * 10) / 10;
   const totalJours = Math.round(totalH * 52 / 8);
-  const totalEuros = Math.round(totalH * 52 * 50);
+  const totalEuros = Math.round(totalH * 52 * 55);
 
   const totalEl = document.getElementById('calc-total');
   const subEl   = document.getElementById('calc-sub');
@@ -77,7 +77,7 @@ function updateCalc() {
 
   if (totalEl) totalEl.textContent = totalH;
   if (subEl)   subEl.textContent   = 'Soit ' + totalJours + ' jours récupérés par an.';
-  if (valEl)   valEl.textContent   = 'À 50€/h — c\'est ' +
+  if (valEl)   valEl.textContent   = 'À 55€/h (TPE / indépendant) — c\'est ' +
     totalEuros.toLocaleString('fr-FR') + '€ de valeur libérée par an.';
 }
 

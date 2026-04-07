@@ -339,22 +339,22 @@ const pages = [
           <a href="/offres/sites/" class="card" style="text-decoration:none;display:block;">
             <p class="label">SITE</p>
             <h2 style="font-size:1.5rem;margin:var(--space-2) 0;">Site web premium</h2>
-            <p style="opacity:0.7;font-size:14px;">À partir de 900€</p>
+            <p style="opacity:0.7;font-size:14px;">À partir de 1 190 €</p>
           </a>
           <a href="/offres/automatisation/" class="card" style="text-decoration:none;display:block;">
             <p class="label">FLUX</p>
             <h2 style="font-size:1.5rem;margin:var(--space-2) 0;">Automatisation</h2>
-            <p style="opacity:0.7;font-size:14px;">À partir de 800€</p>
+            <p style="opacity:0.7;font-size:14px;">À partir de 990 €</p>
           </a>
           <a href="/offres/systeme-complet/" class="card" style="text-decoration:none;display:block;">
             <p class="label">SYSTÈME</p>
             <h2 style="font-size:1.5rem;margin:var(--space-2) 0;">Système complet</h2>
-            <p style="opacity:0.7;font-size:14px;">À partir de 1500€</p>
+            <p style="opacity:0.7;font-size:14px;">À partir de 1 990 €</p>
           </a>
           <a href="/offres/starter/" class="card" style="text-decoration:none;display:block;border-color:var(--accent-violet);">
             <p class="label">RAPIDE</p>
             <h2 style="font-size:1.5rem;margin:var(--space-2) 0;">Pinapp Starter</h2>
-            <p style="opacity:0.7;font-size:14px;">297€ · 48h</p>
+            <p style="opacity:0.7;font-size:14px;">349 € · 48 h ouvrées</p>
           </a>
         </div>
         <div style="margin-top:var(--space-6);text-align:center;">
@@ -392,7 +392,7 @@ const pages = [
           <li>Maintenance mensuelle (150€/mois)</li>
         </ul>
         <div style="background:var(--bg-card);border-radius:var(--radius-card);padding:var(--space-4);border:1px solid var(--border-card);margin:var(--space-4) 0;">
-          <p style="font-size:32px;font-weight:600;">À partir de 900€</p>
+          <p style="font-size:32px;font-weight:600;">À partir de 1 190 €</p>
           <p style="opacity:0.6;font-size:14px;">TVA non applicable — art. 293B CGI · 50% à la commande · 50% à la livraison · Délai 5–7 jours</p>
         </div>
         <a href="/diagnostic/" class="btn btn-primary">Réserver mon diagnostic</a>
@@ -427,7 +427,7 @@ const pages = [
           <li>1 mois de support</li>
         </ul>
         <div style="background:var(--bg-card);border-radius:var(--radius-card);padding:var(--space-4);border:1px solid var(--border-card);margin:var(--space-4) 0;">
-          <p style="font-size:32px;font-weight:600;">À partir de 800€</p>
+          <p style="font-size:32px;font-weight:600;">À partir de 990 €</p>
           <p style="opacity:0.6;font-size:14px;">Délai 3–5 jours · 50% commande · 50% livraison</p>
         </div>
         <a href="/diagnostic/" class="btn btn-primary">Réserver mon diagnostic</a>
@@ -454,7 +454,7 @@ const pages = [
           <li>2 mois de support inclus</li>
         </ul>
         <div style="background:var(--bg-card);border-radius:var(--radius-card);padding:var(--space-4);border:1px solid var(--border-card);margin:var(--space-4) 0;">
-          <p style="font-size:32px;font-weight:600;">À partir de 1500€</p>
+          <p style="font-size:32px;font-weight:600;">À partir de 1 990 €</p>
           <p style="opacity:0.6;font-size:14px;">Délai 10–15 jours · 50% commande · 50% livraison</p>
         </div>
         <a href="/diagnostic/" class="btn btn-primary">Réserver mon diagnostic</a>
@@ -463,15 +463,15 @@ const pages = [
   },
   {
     file: 'offres/starter/index.html',
-    title: 'Pinapp Starter 297€ — Pinapp Studio',
+    title: 'Pinapp Starter 349 € — Pinapp Studio',
     desc: 'Site sectoriel premium livré en 48h sans diagnostic.',
     og: '/offres/starter/',
     body: `    <section class="section">
       <div class="container" style="max-width:700px;text-align:center;">
         <p class="label">RAPIDE · ACCESSIBLE</p>
         <h1 style="font-size:var(--text-h1);letter-spacing:-0.02em;">Pinapp Starter</h1>
-        <p style="font-size:48px;font-weight:600;color:var(--accent-violet);">297€</p>
-        <p style="font-size:20px;opacity:0.7;margin-bottom:var(--space-5);">Un site sectoriel premium. Livré en 48h. Sans diagnostic.</p>
+        <p style="font-size:48px;font-weight:600;color:var(--accent-violet);">349 €</p>
+        <p style="font-size:20px;opacity:0.7;margin-bottom:var(--space-5);">Un site sectoriel premium. Mise en ligne visée en 48 h ouvrées. Sans diagnostic.</p>
         <h2 style="font-size:1.25rem;margin-bottom:var(--space-2);">Ce qui est inclus</h2>
         <ul style="text-align:left;max-width:400px;margin:0 auto var(--space-5);opacity:0.85;line-height:1.8;">
           <li>Template sectoriel au choix (5 disponibles)</li>
@@ -479,7 +479,7 @@ const pages = [
           <li>Formulaire de contact fonctionnel</li>
           <li>Mobile-first responsive</li>
           <li>Déploiement sur votre hébergement</li>
-          <li>Livraison garantie 48h</li>
+          <li>Mise en ligne visée 48 h ouvrées</li>
         </ul>
         <h2 style="font-size:1.25rem;margin-bottom:var(--space-2);">Secteurs disponibles</h2>
         <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:var(--space-5);">
@@ -493,7 +493,7 @@ const pages = [
           <h3 style="margin-bottom:var(--space-3);">Commander maintenant</h3>
           <p style="opacity:0.6;font-size:14px;margin-bottom:var(--space-4);">Choisissez votre secteur et payez. Je vous contacte dans l'heure pour démarrer.</p>
           <!-- Paiement : lien Stripe Payment Link à configurer -->
-          <a href="mailto:lauralie.daguzay@pinapp.fr?subject=Commande%20Pinapp%20Starter" class="btn btn-primary">Commander — 297€</a>
+          <a href="mailto:lauralie.daguzay@pinapp.fr?subject=Commande%20Pinapp%20Starter" class="btn btn-primary">Commander — 349 €</a>
           <p style="font-size:var(--text-legal);opacity:0.4;margin-top:var(--space-3);">Paiement sécurisé · TVA non applicable art. 293B CGI · Satisfait ou révision offerte</p>
         </div>
       </div>
@@ -502,7 +502,7 @@ const pages = [
   {
     file: 'offres/formation/index.html',
     title: 'Formations — Pinapp Studio',
-    desc: 'Formations Pinapp : 97€ accès à vie (4h vidéo) · 497€ parcours 6 semaines live. Lead magnet guide offert.',
+    desc: 'Formations Pinapp : 119 € accès à vie (4h vidéo) · 590 € parcours 6 semaines live. Lead magnet guide offert.',
     og: '/offres/formation/',
     body: `    <section class="section">
       <div class="container" style="max-width:800px;">
@@ -517,11 +517,11 @@ const pages = [
               <p style="opacity:0.7;font-size:14px;max-width:500px;line-height:1.65;">4h de vidéos asynchrones + exercices pratiques. À la fin : votre première automatisation est en place. Accès à vie.</p>
             </div>
             <div style="text-align:right;">
-              <p style="font-size:32px;font-weight:600;color:var(--accent-violet);">97€</p>
+              <p style="font-size:32px;font-weight:600;color:var(--accent-violet);">119 €</p>
               <p style="font-size:12px;opacity:0.5;">Accès à vie</p>
             </div>
           </div>
-          <a href="mailto:lauralie.daguzay@pinapp.fr?subject=Formation%20Pinapp%2097%E2%82%AC" class="btn btn-primary pinapp-breathe" style="margin-top:var(--space-3);">Je m'inscris</a>
+          <a href="mailto:lauralie.daguzay@pinapp.fr?subject=Formation%20Pinapp%20119%E2%82%AC" class="btn btn-primary pinapp-breathe" style="margin-top:var(--space-3);">Je m'inscris</a>
           <p style="font-size:var(--text-legal);opacity:0.45;margin-top:var(--space-2);">Prix HT · TVA non applicable art. 293B CGI · Paiement et accès confirmés par email</p>
         </div>
         <div class="card" style="border-color:var(--accent-violet);">
@@ -532,11 +532,11 @@ const pages = [
               <p style="opacity:0.7;font-size:14px;max-width:500px;line-height:1.65;">Programme complet : sites, automatisations, IA, contenu. Sessions live hebdomadaires + accompagnement. Prochaine session : dates communiquées sur inscription.</p>
             </div>
             <div style="text-align:right;">
-              <p style="font-size:32px;font-weight:600;color:var(--accent-violet);">497€</p>
+              <p style="font-size:32px;font-weight:600;color:var(--accent-violet);">590 €</p>
               <p style="font-size:12px;opacity:0.5;">6 semaines · live</p>
             </div>
           </div>
-          <a href="mailto:lauralie.daguzay@pinapp.fr?subject=Formation%20premium%20Pinapp%20497%E2%82%AC" class="btn btn-primary pinapp-breathe" style="margin-top:var(--space-3);">Je m'inscris</a>
+          <a href="mailto:lauralie.daguzay@pinapp.fr?subject=Formation%20premium%20Pinapp%20590%E2%82%AC" class="btn btn-primary pinapp-breathe" style="margin-top:var(--space-3);">Je m'inscris</a>
           <p style="font-size:var(--text-legal);opacity:0.45;margin-top:var(--space-2);">Prix HT · TVA non applicable art. 293B CGI · Places limitées</p>
         </div>
         <div style="text-align:center;margin-top:var(--space-6);padding:var(--space-5);background:var(--bg-card);border-radius:var(--radius-card);border:1px solid var(--border-card);">
