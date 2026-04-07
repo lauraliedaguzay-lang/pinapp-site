@@ -172,7 +172,8 @@ body {
 }
 
 /* Couche 1 â€” Photo Pandora floue en position fixe */
-body::before {
+body::before,
+html::before {
   content: '';
   position: fixed;
   inset: -10%;
@@ -196,6 +197,29 @@ body:not(.mode-jour)::before {
   /* Photo lisible en texture, flou modéré — halos teal/violet viennent des layers */
   filter: blur(18px) saturate(118%) brightness(0.88) hue-rotate(-5deg);
   animation: pandora-nuit-photo-breathe 22s ease-in-out infinite alternate;
+}
+
+/* Même rendu si la classe body n'est pas encore posée (thème piloté par <html>) */
+html[data-theme="dark"]::before {
+  background-image: url('./images/bg-dark-pandora-apple.png');
+  background-image: image-set(
+    url('./images/bg-dark-pandora-apple.webp') type('image/webp'),
+    url('./images/bg-dark-pandora-apple.png') type('image/png')
+  );
+  filter: blur(18px) saturate(118%) brightness(0.88) hue-rotate(-5deg);
+  animation: pandora-nuit-photo-breathe 22s ease-in-out infinite alternate;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme])::before {
+    background-image: url('./images/bg-dark-pandora-apple.png');
+    background-image: image-set(
+      url('./images/bg-dark-pandora-apple.webp') type('image/webp'),
+      url('./images/bg-dark-pandora-apple.png') type('image/png')
+    );
+    filter: blur(18px) saturate(118%) brightness(0.88) hue-rotate(-5deg);
+    animation: pandora-nuit-photo-breathe 22s ease-in-out infinite alternate;
+  }
 }
 
 @keyframes pandora-nuit-photo-breathe {
@@ -286,6 +310,28 @@ html[data-theme="light"] body::before {
   animation: pandora-jour-photo-drift 32s ease-in-out infinite alternate;
 }
 
+html[data-theme="light"]::before {
+  background-image: url('./images/bg-light-pandora-apple.png');
+  background-image: image-set(
+    url('./images/bg-light-pandora-apple.webp') type('image/webp'),
+    url('./images/bg-light-pandora-apple.png') type('image/png')
+  );
+  filter: blur(16px) saturate(132%) brightness(1.06) hue-rotate(4deg);
+  animation: pandora-jour-photo-drift 32s ease-in-out infinite alternate;
+}
+
+@media (prefers-color-scheme: light) {
+  html:not([data-theme])::before {
+    background-image: url('./images/bg-light-pandora-apple.png');
+    background-image: image-set(
+      url('./images/bg-light-pandora-apple.webp') type('image/webp'),
+      url('./images/bg-light-pandora-apple.png') type('image/png')
+    );
+    filter: blur(16px) saturate(132%) brightness(1.06) hue-rotate(4deg);
+    animation: pandora-jour-photo-drift 32s ease-in-out infinite alternate;
+  }
+}
+
 @keyframes pandora-jour-photo-drift {
   0% {
     filter: blur(15px) saturate(126%) brightness(1.02) hue-rotate(2deg);
@@ -323,9 +369,9 @@ html[data-theme="light"] body {
 
 /* iOS Safari â€” position fixed marche mais scale doit rester */
 @supports (-webkit-touch-callout: none) {
-  body::before {
-    transform: scale(1.12);
-  }
+  /* iOS/Safari: html::before est plus fiable que body::before */
+  body::before { content: none !important; }
+  html::before { transform: scale(1.12); }
 }
 
 /* =====================================================
