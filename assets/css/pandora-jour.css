@@ -99,11 +99,14 @@ html[data-theme="dark"] .pandora-shapes {
   will-change: transform, opacity;
 }
 
-/* Végétation qui se balance — Pandora forest-sway */
+/* Végétation qui se balance — pendule Pandora, 5 keyframes pour la fluidité */
 @keyframes forest-sway {
-  0%, 100% { transform: rotate(0deg) translateX(0); }
-  25%       { transform: rotate(0.7deg) translateX(2px); }
-  75%       { transform: rotate(-0.5deg) translateX(-1px); }
+  0%   { transform: rotate(  0.0deg) translateX(  0px); }
+  18%  { transform: rotate(  2.2deg) translateX(  5px); }
+  36%  { transform: rotate( -1.4deg) translateX( -3px); }
+  55%  { transform: rotate(  1.8deg) translateX(  4px); }
+  73%  { transform: rotate( -0.9deg) translateX( -2px); }
+  100% { transform: rotate(  0.0deg) translateX(  0px); }
 }
 
 /* Shape 1 — jade forêt bioluminescent */
@@ -162,20 +165,16 @@ html[data-theme="dark"] .pandora-shapes {
   --dx: 30px; --dy: 20px; --rot: -4deg;
 }
 
+/* Shape ascend — danse en 6 actes, comme une méduse montant dans l'eau */
 @keyframes shape-ascend {
-  0%, 100% {
-    opacity: 0;
-    transform: translate(0,0) scale(1) rotate(0deg);
-  }
-  10% { opacity: 0.85; }
-  88% { opacity: 0.80; }
-  50% {
-    opacity: 1;
-    transform:
-      translate(var(--dx,30px), var(--dy,-20px))
-      scale(1.10)
-      rotate(var(--rot, 6deg));
-  }
+  0%   { opacity: 0.00; transform: translate(  0px,    0px) scale(1.00) rotate(0deg); }
+  8%   { opacity: 0.70; }
+  22%  { opacity: 0.90; transform: translate(calc(var(--dx,30px) * 0.4),  calc(var(--dy,-20px) * 0.3)) scale(1.04) rotate(calc(var(--rot,6deg) * 0.3)); }
+  42%  { opacity: 1.00; transform: translate(calc(var(--dx,30px) * 0.9),  calc(var(--dy,-20px) * 0.8)) scale(1.10) rotate(calc(var(--rot,6deg) * 0.8)); }
+  58%  { opacity: 0.95; transform: translate(var(--dx,30px),              var(--dy,-20px))              scale(1.12) rotate(var(--rot,6deg)); }
+  76%  { opacity: 0.85; transform: translate(calc(var(--dx,30px) * 0.6),  calc(var(--dy,-20px) * 0.5)) scale(1.05) rotate(calc(var(--rot,6deg) * 0.4)); }
+  92%  { opacity: 0.10; transform: translate(calc(var(--dx,30px) * 0.1),  calc(var(--dy,-20px) * 0.1)) scale(1.01) rotate(calc(var(--rot,6deg) * 0.1)); }
+  100% { opacity: 0.00; transform: translate(  0px,    0px) scale(1.00) rotate(0deg); }
 }
 
 @media (max-width: 767px) {
@@ -213,12 +212,16 @@ html[data-theme="light"] .jour-spores {
   will-change: transform, opacity;
 }
 
+/* Trajectoire parabolique avec balancement (comme pollen dans un souffle de vent) */
 @keyframes spore-jour-float {
-  0%   { transform: translateY(0) translateX(0); opacity: 0; }
-  8%   { opacity: 0.7; }
-  50%  { transform: translateY(calc(var(--dy,-80px))) translateX(calc(var(--dx,20px))); opacity: 0.5; }
-  92%  { opacity: 0.6; }
-  100% { transform: translateY(calc(var(--dy,-80px) * 2)) translateX(calc(var(--dx,20px) * 0.5)); opacity: 0; }
+  0%   { transform: translate(0, 0) scale(0.7) rotate(0deg); opacity: 0; }
+  6%   { opacity: 0.80; transform: scale(1.0); }
+  20%  { transform: translate(calc(var(--dx,18px) * 0.4),  calc(var(--dy,-35px) * 0.3)) scale(1.1) rotate( 8deg); opacity: 0.75; }
+  40%  { transform: translate(calc(var(--dx,18px) * 0.9),  calc(var(--dy,-35px) * 0.7)) scale(1.2) rotate(-6deg); opacity: 0.65; }
+  60%  { transform: translate(calc(var(--dx,18px) * 1.2),  calc(var(--dy,-35px) * 1.1)) scale(1.1) rotate( 10deg); opacity: 0.55; }
+  80%  { transform: translate(calc(var(--dx,18px) * 0.8),  calc(var(--dy,-35px) * 1.6)) scale(0.9) rotate(-4deg); opacity: 0.30; }
+  94%  { opacity: 0.05; }
+  100% { transform: translate(calc(var(--dx,18px) * 0.3),  calc(var(--dy,-35px) * 2.0)) scale(0.6) rotate(0deg); opacity: 0; }
 }
 
 /* Spore teal — résidu bioluminescent de la nuit */

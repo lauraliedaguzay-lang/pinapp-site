@@ -553,4 +553,49 @@
   } else {
     initParticles();
   }
+
+  /* ── Éléments DOM danse Pandora (filaments + lucioles + souffle) ── */
+  function initDanceElements() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    /* Souffle Eywa (nuit seulement, géré par CSS) */
+    if (!document.querySelector('.pandora-breath')) {
+      var breath = document.createElement('div');
+      breath.className = 'pandora-breath';
+      breath.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(breath);
+    }
+
+    /* Filaments bioluminescents */
+    if (!document.querySelector('.bio-filaments')) {
+      var filDiv = document.createElement('div');
+      filDiv.className = 'bio-filaments';
+      filDiv.setAttribute('aria-hidden', 'true');
+      for (var fi = 0; fi < 10; fi++) {
+        var fil = document.createElement('div');
+        fil.className = 'filament';
+        filDiv.appendChild(fil);
+      }
+      document.body.appendChild(filDiv);
+    }
+
+    /* Lucioles nuit */
+    if (!document.querySelector('.lucioles-night')) {
+      var lucDiv = document.createElement('div');
+      lucDiv.className = 'lucioles-night';
+      lucDiv.setAttribute('aria-hidden', 'true');
+      for (var li = 0; li < 8; li++) {
+        var luc = document.createElement('div');
+        luc.className = 'luciole';
+        lucDiv.appendChild(luc);
+      }
+      document.body.appendChild(lucDiv);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDanceElements);
+  } else {
+    initDanceElements();
+  }
 })();
