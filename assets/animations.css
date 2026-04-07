@@ -49,7 +49,144 @@
   margin-top: 8px;
 }
 
-/* kiri-soar déjà dans variables.css */
+/* kiri-soar défini dans variables.css */
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION ENTER — cordes musicales v5
+   translateY(30px) → 0 · 700ms · pas de blur
+   ═══════════════════════════════════════════════════════════════ */
+
+.section-enter {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity   var(--t-reveal, 700ms) cubic-bezier(0.45,0.05,0.55,0.95),
+    transform var(--t-reveal, 700ms) cubic-bezier(0.45,0.05,0.55,0.95);
+  will-change: opacity, transform;
+}
+.section-enter.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.stagger-1 { transition-delay: 100ms; }
+.stagger-2 { transition-delay: 200ms; }
+.stagger-3 { transition-delay: 300ms; }
+.stagger-4 { transition-delay: 400ms; }
+
+/* ═══════════════════════════════════════════════════════════════
+   IMAGE REVEAL
+   ═══════════════════════════════════════════════════════════════ */
+
+.img-reveal {
+  opacity: 0;
+  transform: translateY(20px) scale(0.98);
+  transition:
+    opacity   700ms cubic-bezier(0.45,0.05,0.55,0.95),
+    transform 700ms cubic-bezier(0.45,0.05,0.55,0.95);
+  will-change: opacity, transform;
+}
+.img-reveal.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Skeleton image */
+.img-wrapper {
+  display: block; overflow: hidden;
+  border-radius: var(--r-img, 20px);
+  background: linear-gradient(135deg,
+    rgba(0,160,210,0.05), rgba(90,10,150,0.05));
+  animation: skeleton-pulse 3.5s ease-in-out infinite;
+}
+.img-wrapper:has(.img-reveal.visible) { animation: none; }
+@keyframes skeleton-pulse {
+  0%,100% { opacity: 0.5; }
+  50%      { opacity: 1; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SCROLL INDICATOR — The Light Calls
+   ═══════════════════════════════════════════════════════════════ */
+
+.scroll-indicator {
+  position: absolute; bottom: 32px; left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.45;
+  animation: light-calls 3.5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes light-calls {
+  0%,100% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 0.30;
+  }
+  50% {
+    transform: translateX(-50%) translateY(8px);
+    opacity: 0.65;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   STICKY CTA — violet · apparaît après 30s ou 30% scroll
+   ═══════════════════════════════════════════════════════════════ */
+
+.sticky-cta {
+  position: fixed;
+  bottom: 88px; /* au-dessus de la bottom-bar mobile */
+  right: 20px;
+  z-index: var(--z-sticky, 10);
+  padding: 14px 28px;
+  background: var(--violet, #7B4FE8);
+  color: #FFFFFF;
+  text-decoration: none;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: var(--glow-violet);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 400ms ease, transform 400ms ease;
+  pointer-events: none;
+}
+.sticky-cta.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   NOISE — grain cinématique Avatar (ultra-subtil)
+   ═══════════════════════════════════════════════════════════════ */
+
+.noise {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.022;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,<svg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation: noise-anim 0.5s steps(2) infinite;
+}
+@keyframes noise-anim {
+  0%   { transform: translate(0,0); }
+  50%  { transform: translate(-2px,1px); }
+  100% { transform: translate(1px,-1px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-enter {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .img-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .noise { animation: none; }
+  .scroll-indicator { animation: none; }
+}
 
 /* ① Respiration signature — logo + CTA (Apple : amplitude minimale, rythme lent) */
 @keyframes breathe {

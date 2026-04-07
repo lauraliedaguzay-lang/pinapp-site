@@ -1,78 +1,59 @@
-/* PINAPP — scroll-cinema.js — Nav scroll, section reveal, counters, sticky CTA, Pandora ripple */
+/* PINAPP — scroll-cinema.js — v5
+   Animations au scroll — tempo The Light Always Returns — 3.5s
+   ================================================================= */
 
-/* ── RIPPLE BIOLUMINESCENT — position CSS var pour le radial-gradient card ── */
-document.addEventListener('mousemove', e => {
-  const card = e.target.closest('.card');
-  if (!card) return;
-  const r = card.getBoundingClientRect();
-  const x = ((e.clientX - r.left) / r.width  * 100).toFixed(1) + '%';
-  const y = ((e.clientY - r.top)  / r.height * 100).toFixed(1) + '%';
-  card.style.setProperty('--ripple-x', x);
-  card.style.setProperty('--ripple-y', y);
+/* =====================================================
+   NAV — glassmorphism au scroll
+   ===================================================== */
+const nav = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  nav?.classList.toggle('scrolled', window.scrollY > 40);
 }, { passive: true });
 
-/* ── NAV : classe "scrolled" au scroll ── */
-const nav = document.querySelector('nav');
-if (nav) {
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-  }, { passive: true });
-}
+/* =====================================================
+   SECTION ENTER — cordes musicales — 700ms ease-in-out
+   translateY(30px) → 0 · pas de blur
+   ===================================================== */
+const sectionObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      sectionObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
 
-/* ── BARRE DE PROGRESSION ── */
-const progressBar = document.getElementById('scrollProgress');
-if (progressBar) {
-  window.addEventListener('scroll', () => {
-    const h = document.documentElement.scrollHeight - window.innerHeight;
-    const p = h > 0 ? window.scrollY / h : 0;
-    progressBar.style.transform = `scaleX(${p})`;
-  }, { passive: true });
-}
+document.querySelectorAll('.section-enter')
+  .forEach(el => sectionObs.observe(el));
 
-/* ── SECTION ENTER — révélation au scroll ── */
-if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  const sectionObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        sectionObs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+/* =====================================================
+   IMAGES REVEAL
+   ===================================================== */
+const imgObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      imgObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.10 });
 
-  document.querySelectorAll('.section-enter')
-    .forEach(el => sectionObs.observe(el));
+document.querySelectorAll('.img-reveal')
+  .forEach(img => imgObs.observe(img));
 
-  /* IMAGES REVEAL */
-  const imgObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        imgObs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-  document.querySelectorAll('.img-reveal')
-    .forEach(img => imgObs.observe(img));
-}
-
-/* ── HERO LINES — délai de révélation échelonné ── */
-document.querySelectorAll('.hero-line span').forEach((span, i) => {
-  span.style.animationDelay = `${120 + i * 180}ms`;
-});
-
-/* ── COUNTERS — animation nombre au scroll ── */
+/* =====================================================
+   COMPTEURS — data-count
+   ===================================================== */
 const countObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (!e.isIntersecting) return;
     const el     = e.target;
     const target = parseInt(el.dataset.count, 10);
     if (isNaN(target)) return;
-    const start    = Date.now();
-    const duration = 1200;
-    const tick = () => {
-      const p    = Math.min((Date.now() - start) / duration, 1);
+    const start = Date.now();
+    const dur   = 1400;
+    const tick  = () => {
+      const p    = Math.min((Date.now() - start) / dur, 1);
       const ease = 1 - Math.pow(1 - p, 3);
       el.textContent = Math.round(target * ease);
       if (p < 1) requestAnimationFrame(tick);
@@ -85,49 +66,81 @@ const countObs = new IntersectionObserver(entries => {
 document.querySelectorAll('[data-count]')
   .forEach(el => countObs.observe(el));
 
-/* ── STICKY CTA — apparaît après 30s ou 30% de scroll ── */
-if (!location.pathname.includes('diagnostic')) {
-  const stickyCTA = document.createElement('a');
-  stickyCTA.href = '/diagnostic/';
-  stickyCTA.setAttribute('aria-label', 'Diagnostic offert — 30 min');
-  stickyCTA.textContent = 'Diagnostic offert — 30 min →';
-  stickyCTA.style.cssText = [
-    'position:fixed',
-    /* Au-dessus de la bottom-bar (3.5rem) + safe-area iPhone + marge */
-    'bottom:calc(3.5rem + env(safe-area-inset-bottom, 0px) + 12px)',
-    'right:max(16px, env(safe-area-inset-right, 16px))',
-    'z-index:var(--z-sticky,10)',
-    'padding:14px 28px',
-    'background:var(--violet,#7B4FE8)',
-    'color:#fff',
-    'border-radius:100px',
-    'text-decoration:none',
-    'font-size:14px',
-    'font-weight:500',
-    'letter-spacing:-0.01em',
-    'box-shadow:0 0 32px rgba(123,79,232,0.4)',
-    'opacity:0',
-    'transform:translateY(20px)',
-    'transition:opacity 400ms ease,transform 400ms ease',
-    'pointer-events:none',
-  ].join(';');
-
-  document.body.appendChild(stickyCTA);
-
-  const showCTA = () => {
-    stickyCTA.style.opacity = '1';
-    stickyCTA.style.transform = 'translateY(0)';
-    stickyCTA.style.pointerEvents = 'auto';
-  };
-
-  /* Apparaît après 30 secondes sur la page */
-  const timer = setTimeout(showCTA, 30000);
-
-  /* Ou dès que l'utilisateur a scrollé 30% */
+/* =====================================================
+   SCROLL INDICATOR — disparaît au premier scroll
+   ===================================================== */
+const indicator = document.querySelector('.scroll-indicator');
+if (indicator) {
   window.addEventListener('scroll', () => {
-    if (window.scrollY / document.body.scrollHeight > 0.3) {
-      clearTimeout(timer);
-      showCTA();
-    }
+    indicator.style.opacity    = '0';
+    indicator.style.transition = 'opacity 400ms ease';
   }, { passive: true, once: true });
 }
+
+/* =====================================================
+   STICKY CTA — après 30s ou 30% de scroll
+   (pas sur /diagnostic/ ni /offres/)
+   ===================================================== */
+const path = location.pathname;
+if (!path.includes('diagnostic') && !path.includes('votre-projet')) {
+  const stickyCTA       = document.createElement('a');
+  // Détecter la profondeur pour le bon lien relatif
+  const depth = (path.match(/\//g) || []).length - 1;
+  const prefix = '../'.repeat(Math.max(0, depth));
+  stickyCTA.href        = prefix + 'diagnostic/index.html';
+  stickyCTA.className   = 'sticky-cta';
+  stickyCTA.textContent = 'Démarrer ma demande →';
+  document.body.appendChild(stickyCTA);
+
+  const showCTA = () => stickyCTA.classList.add('visible');
+  setTimeout(showCTA, 30000);
+  window.addEventListener('scroll', () => {
+    if (window.scrollY / document.body.scrollHeight > 0.30) showCTA();
+  }, { passive: true, once: true });
+}
+
+/* =====================================================
+   PARALLAXE 3 COUCHES — desktop uniquement
+   Canvas + orbs bougent à des vitesses différentes
+   ===================================================== */
+if (window.innerWidth >= 1024) {
+  const canvas    = document.querySelector('#pandora-canvas');
+  const orbs      = document.querySelectorAll('.aurora-orb');
+  const shapes    = document.querySelectorAll('.pandora-shape');
+  let   ticking   = false;
+
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    requestAnimationFrame(() => {
+      const y = window.scrollY;
+      if (canvas)
+        canvas.style.transform = `translateY(${y * 0.06}px)`;
+      orbs.forEach(o =>
+        o.style.transform = `translateY(${y * -0.03}px)`);
+      shapes.forEach(s =>
+        s.style.transform = `translateY(${y * -0.05}px) rotate(${y * 0.01}deg)`);
+      ticking = false;
+    });
+    ticking = true;
+  }, { passive: true });
+}
+
+/* =====================================================
+   FLASH AURORA — transition entre pages
+   ===================================================== */
+document.querySelectorAll('a[href]').forEach(link => {
+  const url = link.getAttribute('href');
+  if (!url || url.startsWith('http') ||
+      url.startsWith('#') || url.startsWith('mailto'))
+    return;
+  link.addEventListener('click', () => {
+    const canvas = document.querySelector('#pandora-canvas');
+    if (!canvas) return;
+    const jour = document.body.classList.contains('mode-jour');
+    canvas.style.transition = 'opacity 180ms ease';
+    canvas.style.opacity    = jour ? '0.55' : '0.45';
+    setTimeout(() => {
+      canvas.style.opacity = jour ? '0.32' : '0.22';
+    }, 200);
+  });
+});
