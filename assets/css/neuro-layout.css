@@ -1,0 +1,108 @@
+/* =====================================================
+   NEURO-LAYOUT — charge cognitive, parcours, mobile = desktop
+   Principes : blocs limités, verticalité maîtrisée, même cartographie que la nav.
+   Pinapp Studio · 2026
+   ===================================================== */
+
+:root {
+  --neuro-band-gap: clamp(1.75rem, 4vw, 3rem);
+  --neuro-section-pad-y-mobile: clamp(1.25rem, 3.5vw, 2rem);
+}
+
+/* ── Accueil : bande « pour qui + parcours » = un seul bloc mental (desktop 2 col) ── */
+.neuro-home-band__wrap {
+  display: grid;
+  gap: var(--neuro-band-gap);
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+@media (min-width: 960px) {
+  .neuro-home-band__wrap {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+    align-items: start;
+    column-gap: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .neuro-home-band__audience .grid.grid-3 {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 1100px) {
+  .neuro-home-band__audience .grid.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Moins de scroll sur mobile : sections accueil plus serrées */
+@media (max-width: 767px) {
+  main.home-landing > .section:not(.pinapp-hero-viewport) {
+    padding-top: var(--neuro-section-pad-y-mobile);
+    padding-bottom: var(--neuro-section-pad-y-mobile);
+  }
+
+  main.home-landing > .section-separator {
+    margin-top: var(--space-3, 12px);
+    margin-bottom: var(--space-3, 12px);
+  }
+
+  .neuro-home-band__audience h2,
+  .neuro-home-band__process h2 {
+    font-size: clamp(1.5rem, 6vw, 2rem) !important;
+  }
+
+  /* Même logique sur les autres pages : moins de vide vertical, parcours plus court */
+  main:not(.prose) .section {
+    padding-top: var(--neuro-section-pad-y-mobile);
+    padding-bottom: var(--neuro-section-pad-y-mobile);
+  }
+
+  main:not(.prose) .section-separator {
+    margin-top: var(--space-3, 12px);
+    margin-bottom: var(--space-3, 12px);
+  }
+}
+
+/* Rendu différé : sections profondes (perception de vitesse, pas de layout shift majeur) */
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  main.home-landing .section-enter:nth-of-type(n + 6) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 420px;
+  }
+}
+
+/* Barre du bas : même grille 5 zones sur tout le site */
+.bottom-bar.bottom-bar--site {
+  justify-content: space-between;
+  padding-left: max(8px, env(safe-area-inset-left, 0px));
+  padding-right: max(8px, env(safe-area-inset-right, 0px));
+  gap: 2px;
+}
+
+.bottom-bar.bottom-bar--site a {
+  flex: 1 1 0;
+  min-width: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+  font-size: 9px;
+  letter-spacing: 0.05em;
+}
+
+.bottom-bar.bottom-bar--site .bottom-bar-cta {
+  flex: 1.15 1 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 34vw;
+}
+
+@media (max-width: 767px) {
+  .bottom-bar.bottom-bar--site .bottom-bar-cta {
+    font-size: 10px !important;
+    padding: 8px 10px !important;
+    text-transform: none;
+    letter-spacing: 0.03em;
+  }
+}
