@@ -164,6 +164,11 @@ body {
   font-size: var(--text-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Fond source-of-truth (robuste iOS + sous-dossiers) */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
   overflow-x: hidden;
   max-width: 100vw;
   min-height: 100svh;
@@ -172,7 +177,8 @@ body {
 }
 
 /* Couche 1 â€” Photo Pandora floue en position fixe */
-body::before {
+body::before,
+html::before {
   content: '';
   position: fixed;
   inset: -10%;
@@ -187,15 +193,59 @@ body::before {
 }
 
 /* MODE NUIT — Univers Pandora (photo Lauralie · forêt + biolume) */
-body:not(.mode-jour)::before {
-  background-image: url('../assets/images/bg-dark-pandora-apple.png');
+body:not(.mode-jour) {
+  background-image: url('./images/bg-dark-pandora-apple.png');
   background-image: image-set(
-    url('../assets/images/bg-dark-pandora-apple.webp') type('image/webp'),
-    url('../assets/images/bg-dark-pandora-apple.png') type('image/png')
+    url('./images/bg-dark-pandora-apple.webp') type('image/webp'),
+    url('./images/bg-dark-pandora-apple.png') type('image/png')
+  );
+}
+body:not(.mode-jour)::before {
+  background-image: url('./images/bg-dark-pandora-apple.png');
+  background-image: image-set(
+    url('./images/bg-dark-pandora-apple.webp') type('image/webp'),
+    url('./images/bg-dark-pandora-apple.png') type('image/png')
   );
   /* Photo lisible en texture, flou modéré — halos teal/violet viennent des layers */
   filter: blur(18px) saturate(118%) brightness(0.88) hue-rotate(-5deg);
   animation: pandora-nuit-photo-breathe 22s ease-in-out infinite alternate;
+}
+
+/* Même rendu si la classe body n'est pas encore posée (thème piloté par <html>) */
+html[data-theme="dark"] body {
+  background-image: url('./images/bg-dark-pandora-apple.png');
+  background-image: image-set(
+    url('./images/bg-dark-pandora-apple.webp') type('image/webp'),
+    url('./images/bg-dark-pandora-apple.png') type('image/png')
+  );
+}
+html[data-theme="dark"]::before {
+  background-image: url('./images/bg-dark-pandora-apple.png');
+  background-image: image-set(
+    url('./images/bg-dark-pandora-apple.webp') type('image/webp'),
+    url('./images/bg-dark-pandora-apple.png') type('image/png')
+  );
+  filter: blur(18px) saturate(118%) brightness(0.88) hue-rotate(-5deg);
+  animation: pandora-nuit-photo-breathe 22s ease-in-out infinite alternate;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) body {
+    background-image: url('./images/bg-dark-pandora-apple.png');
+    background-image: image-set(
+      url('./images/bg-dark-pandora-apple.webp') type('image/webp'),
+      url('./images/bg-dark-pandora-apple.png') type('image/png')
+    );
+  }
+  html:not([data-theme])::before {
+    background-image: url('./images/bg-dark-pandora-apple.png');
+    background-image: image-set(
+      url('./images/bg-dark-pandora-apple.webp') type('image/webp'),
+      url('./images/bg-dark-pandora-apple.png') type('image/png')
+    );
+    filter: blur(18px) saturate(118%) brightness(0.88) hue-rotate(-5deg);
+    animation: pandora-nuit-photo-breathe 22s ease-in-out infinite alternate;
+  }
 }
 
 @keyframes pandora-nuit-photo-breathe {
@@ -275,15 +325,52 @@ html[data-theme="light"] body {
 }
 
 /* MODE JOUR — Univers aube (photo Lauralie · lumière chaude + jade résiduel) */
+body.mode-jour,
+html[data-theme="light"] body {
+  background-image: url('./images/bg-light-pandora-apple.png');
+  background-image: image-set(
+    url('./images/bg-light-pandora-apple.webp') type('image/webp'),
+    url('./images/bg-light-pandora-apple.png') type('image/png')
+  );
+}
 body.mode-jour::before,
 html[data-theme="light"] body::before {
-  background-image: url('../assets/images/bg-light-pandora-apple.png');
+  background-image: url('./images/bg-light-pandora-apple.png');
   background-image: image-set(
-    url('../assets/images/bg-light-pandora-apple.webp') type('image/webp'),
-    url('../assets/images/bg-light-pandora-apple.png') type('image/png')
+    url('./images/bg-light-pandora-apple.webp') type('image/webp'),
+    url('./images/bg-light-pandora-apple.png') type('image/png')
   );
   filter: blur(16px) saturate(132%) brightness(1.06) hue-rotate(4deg);
   animation: pandora-jour-photo-drift 32s ease-in-out infinite alternate;
+}
+
+html[data-theme="light"]::before {
+  background-image: url('./images/bg-light-pandora-apple.png');
+  background-image: image-set(
+    url('./images/bg-light-pandora-apple.webp') type('image/webp'),
+    url('./images/bg-light-pandora-apple.png') type('image/png')
+  );
+  filter: blur(16px) saturate(132%) brightness(1.06) hue-rotate(4deg);
+  animation: pandora-jour-photo-drift 32s ease-in-out infinite alternate;
+}
+
+@media (prefers-color-scheme: light) {
+  html:not([data-theme]) body {
+    background-image: url('./images/bg-light-pandora-apple.png');
+    background-image: image-set(
+      url('./images/bg-light-pandora-apple.webp') type('image/webp'),
+      url('./images/bg-light-pandora-apple.png') type('image/png')
+    );
+  }
+  html:not([data-theme])::before {
+    background-image: url('./images/bg-light-pandora-apple.png');
+    background-image: image-set(
+      url('./images/bg-light-pandora-apple.webp') type('image/webp'),
+      url('./images/bg-light-pandora-apple.png') type('image/png')
+    );
+    filter: blur(16px) saturate(132%) brightness(1.06) hue-rotate(4deg);
+    animation: pandora-jour-photo-drift 32s ease-in-out infinite alternate;
+  }
 }
 
 @keyframes pandora-jour-photo-drift {
@@ -323,9 +410,11 @@ html[data-theme="light"] body {
 
 /* iOS Safari â€” position fixed marche mais scale doit rester */
 @supports (-webkit-touch-callout: none) {
-  body::before {
-    transform: scale(1.12);
-  }
+  /* iOS/Safari: éviter background-attachment: fixed */
+  body { background-attachment: scroll; }
+  /* iOS/Safari: html::before est plus fiable que body::before */
+  body::before { content: none !important; }
+  html::before { transform: scale(1.12); }
 }
 
 /* =====================================================
