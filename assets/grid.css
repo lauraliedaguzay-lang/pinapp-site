@@ -146,6 +146,7 @@ html[data-theme="light"] .nav-link {
   letter-spacing: 0.1em;
   color: rgba(62, 235, 214, 0.85);
   background: rgba(4, 14, 22, 0.96);
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
 }
 
@@ -368,9 +369,10 @@ html[data-theme="light"] .section:nth-of-type(3n)::after {
     0 0 40px rgba(62, 235, 214, 0.18);
 }
 
+/* Mode clair : texte sombre sur teal pour contraste WCAG AA ≥ 6.8:1 */
 html[data-theme="light"] .btn-primary {
   background: var(--accent-teal);
-  color: #f8fffd;
+  color: #0A1F12;
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.28) inset,
     0 2px 12px rgba(10, 143, 130, 0.28),
@@ -380,7 +382,7 @@ html[data-theme="light"] .btn-primary {
 @media (prefers-color-scheme: light) {
   html:not([data-theme]) .btn-primary {
     background: var(--accent-teal);
-    color: #f8fffd;
+    color: #0A1F12;
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.28) inset,
       0 2px 12px rgba(10, 143, 130, 0.28),
@@ -613,7 +615,6 @@ html[data-theme="light"] .label {
     overflow-y: hidden;
     gap: clamp(0.75rem, 1.5vw, 2rem);
     padding: 0 var(--space-1);
-    -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
   }
 
@@ -637,8 +638,8 @@ html[data-theme="light"] .label {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2.75rem;    /* 44px — HIG Apple */
+  height: 2.75rem;
   flex-shrink: 0;
   border-radius: var(--radius-input);
   border: 1px solid var(--border-card);
@@ -687,8 +688,8 @@ html[data-theme="light"] .theme-toggle .theme-icon-moon {
 
 .burger {
   display: flex;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2.75rem;    /* 44px — HIG Apple */
+  height: 2.75rem;
   align-items: center;
   justify-content: center;
   color: var(--text-primary);
@@ -787,6 +788,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-moon {
   align-items: center;
   justify-content: space-around;
   background: var(--nav-bg);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   backdrop-filter: blur(24px) saturate(180%);
   border-top: 1px solid var(--border-card);
   box-shadow:
@@ -803,10 +805,18 @@ html[data-theme="light"] .theme-toggle .theme-icon-moon {
   }
 }
 
+/* Tap target min 44px HIG Apple */
 .bottom-bar a {
   text-decoration: none;
   opacity: 0.75;
   color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.5rem;   /* = hauteur bottom-bar */
+  padding: 0 0.5rem;
+  gap: 2px;
 }
 
 @media (max-width: 767px) {

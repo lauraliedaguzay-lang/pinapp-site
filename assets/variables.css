@@ -32,8 +32,10 @@ html[data-theme="dark"] {
   --accent-violet:  #6B9EFF;
   --accent-green:   #4AE88A;
   --accent-blue:    #5FD4F0;
-  --glow-teal:      rgba(62,235,214,0.1);
-  --glow-teal-lg:   rgba(62,235,214,0.05);
+  --accent-rose:    #F4A0B0;
+  /* Glows — couleurs pures utilisées dans box-shadow : 0 0 48px var(--glow-teal) */
+  --glow-teal:      rgba(62,235,214,0.18);
+  --glow-teal-lg:   rgba(62,235,214,0.08);
   --separator:      rgba(95,212,240,0.22);
   --border-card:    rgba(62,235,214,0.12);
   --nav-bg:         rgba(5,14,22,0.88);
@@ -53,8 +55,9 @@ html[data-theme="dark"] {
     --accent-violet:  #6B9EFF;
     --accent-green:   #4AE88A;
     --accent-blue:    #5FD4F0;
-    --glow-teal:      rgba(62,235,214,0.1);
-    --glow-teal-lg:   rgba(62,235,214,0.05);
+    --accent-rose:    #F4A0B0;
+    --glow-teal:      rgba(62,235,214,0.18);
+    --glow-teal-lg:   rgba(62,235,214,0.08);
     --separator:      rgba(95,212,240,0.22);
     --border-card:    rgba(62,235,214,0.12);
     --nav-bg:         rgba(5,14,22,0.88);
@@ -99,6 +102,11 @@ html[data-theme="light"] {
   --text-primary:   #0A1F12;
   --text-secondary: rgba(10,31,18,0.68);
   --text-tertiary:  rgba(10,31,18,0.44);
+
+  /* Glows — couleurs pures pour box-shadow */
+  --glow-teal:    rgba(15,191,142,0.22);
+  --glow-teal-lg: rgba(15,191,142,0.10);
+  --accent-rose:  #D4916A;   /* ambre-rose Pandora jour */
 
   /* Séparateurs */
   --separator:  rgba(15,191,142,0.22);
@@ -226,9 +234,12 @@ html[data-theme="light"] body::before {
   }
 }
 
-/* iOS Safari — background-attachment: fixed non fiable */
+/* iOS Safari — background-attachment: fixed non fiable.
+   Spécificité élevée pour surpasser html[data-theme] body (0,1,1). */
 @supports (-webkit-touch-callout: none) {
-  body {
+  html[data-theme="dark"] body,
+  html[data-theme="light"] body,
+  html:not([data-theme]) body {
     background-attachment: scroll;
   }
 }
@@ -242,9 +253,10 @@ body, body::before {
 /* Tokens v3 — primaires (jamais en dur dans les composants) */
 :root {
   /* Couleurs accent */
-  --teal:   #00E5CC;
-  --violet: #7B4FE8;
-  --green:  #39E075;
+  --teal:        #00E5CC;
+  --violet:      #7B4FE8;
+  --green:       #39E075;
+  --accent-rose: #F4A0B0;  /* rose doux — barre de progression light mode */
 
   /* Glassmorphism */
   --glass-nav:   rgba(4,8,18,0.55);
@@ -257,12 +269,17 @@ body, body::before {
   --border-subtle: rgba(255,255,255,0.06);
 
   /* Ombres */
-  --shadow-sm:  0 2px 8px rgba(0,0,0,0.15);
-  --shadow-md:  0 8px 24px rgba(0,0,0,0.20), 0 0 0 1px rgba(255,255,255,0.06);
-  --shadow-lg:  0 24px 48px rgba(0,0,0,0.28), 0 0 0 1px rgba(255,255,255,0.08);
-  --shadow-xl:  0 40px 80px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.10);
-  --glow-teal:  0 0 24px rgba(0,229,204,0.25), 0 0 48px rgba(0,229,204,0.12);
-  --glow-violet:0 0 24px rgba(123,79,232,0.30), 0 0 48px rgba(123,79,232,0.15);
+  --shadow-sm:    0 2px 8px rgba(0,0,0,0.15);
+  --shadow-md:    0 8px 24px rgba(0,0,0,0.20), 0 0 0 1px rgba(255,255,255,0.06);
+  --shadow-lg:    0 24px 48px rgba(0,0,0,0.28), 0 0 0 1px rgba(255,255,255,0.08);
+  --shadow-xl:    0 40px 80px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.10);
+  /* Glows — valeurs couleurs uniquement (pas de shadow complet ici) */
+  --glow-teal:    rgba(0,229,204,0.25);
+  --glow-teal-lg: rgba(0,229,204,0.12);
+  --glow-violet:  rgba(123,79,232,0.30);
+
+  /* Nav repli (avant JS) */
+  --nav-bg: rgba(4,8,18,0.55);
 }
 
 /* Système 8px */

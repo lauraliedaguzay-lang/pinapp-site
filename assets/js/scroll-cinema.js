@@ -93,8 +93,9 @@ if (!location.pathname.includes('diagnostic')) {
   stickyCTA.textContent = 'Diagnostic offert — 30 min →';
   stickyCTA.style.cssText = [
     'position:fixed',
-    'bottom:24px',
-    'right:24px',
+    /* Au-dessus de la bottom-bar (3.5rem) + safe-area iPhone + marge */
+    'bottom:calc(3.5rem + env(safe-area-inset-bottom, 0px) + 12px)',
+    'right:max(16px, env(safe-area-inset-right, 16px))',
     'z-index:var(--z-sticky,10)',
     'padding:14px 28px',
     'background:var(--violet,#7B4FE8)',

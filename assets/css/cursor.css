@@ -1,7 +1,7 @@
 /* PINAPP — cursor.css — Curseur magnétique (desktop uniquement) */
 
-/* Masquer le curseur natif sur desktop */
-@media (min-width: 1024px) {
+/* Masquer le curseur natif uniquement sur vrai desktop souris (pas tablette tactile) */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
   *,
   *::before,
   *::after { cursor: none !important; }
@@ -66,8 +66,16 @@
   transition: background 250ms ease, box-shadow 250ms ease;
 }
 
-/* ── Masqué sur mobile et tablette ── */
+/* ── Masqué sur mobile / tablette / touch ── */
 @media (max-width: 1023px) {
+  #pcursor,
+  #pcursor-trail,
+  .pcursor-dot { display: none; }
+  body { cursor: auto !important; }
+}
+
+/* Sur grands écrans touch (iPad Pro, Surface) : pas de cursor custom */
+@media (pointer: coarse) {
   #pcursor,
   #pcursor-trail,
   .pcursor-dot { display: none; }

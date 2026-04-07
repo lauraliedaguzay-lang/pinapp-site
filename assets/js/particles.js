@@ -1,7 +1,10 @@
 /* PINAPP — particles.js — Woodsprites Na'vi : spores bioluminescentes montant vers le ciel */
 
 const Particles = {
-  count: 7,
+  get count() {
+    /* Réduire les particules sur mobile pour économiser le GPU iOS */
+    return window.matchMedia('(max-width: 767px)').matches ? 3 : 7;
+  },
 
   isJour() {
     const t = document.documentElement.getAttribute('data-theme');

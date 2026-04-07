@@ -14,6 +14,8 @@
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="../assets/variables.css">
   <link rel="stylesheet" href="../assets/grid.css">
   <link rel="stylesheet" href="../assets/animations.css">
@@ -83,7 +85,7 @@
     <a href="../index.html">Accueil</a>
     <a href="../offres/index.html">Offres</a>
     <a href="../realisations/index.html">Réalisations</a>
-    <a href="../expertise-ia/index.html">IA</a>
+    <a href="../expertise-ia/index.html">Contact</a>
     <a href="../diagnostic/index.html">Diagnostic</a>
   </div>
   <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
@@ -131,7 +133,16 @@
               <button type="button" class="pill-btn" data-q="4" data-val="a-definir">À définir ensemble</button>
             </div>
           </div>
-          <div class="question" id="qfin">
+                    <!-- Étape contact — collecte email avant confirmation -->
+          <div class="question" id="qcontact" role="group" aria-labelledby="qcontact-label">
+            <p id="qcontact-label" style="font-size:18px;margin-bottom:var(--space-3);">Pour vous répondre, comment vous joindre ?</p>
+            <div style="display:flex;flex-direction:column;gap:var(--space-2);max-width:320px;margin:0 auto;">
+              <input type="text" id="contactPrenom" name="prenom" placeholder="Votre prénom" autocomplete="given-name" style="font-size:max(1rem,16px);padding:0.8125rem 1rem;border-radius:var(--radius-input);border:1px solid var(--border-card);background:var(--glass-card);color:var(--text-primary);width:100%;box-sizing:border-box;">
+              <input type="email" id="contactEmail" name="email" placeholder="Votre email" autocomplete="email" style="font-size:max(1rem,16px);padding:0.8125rem 1rem;border-radius:var(--radius-input);border:1px solid var(--border-card);background:var(--glass-card);color:var(--text-primary);width:100%;box-sizing:border-box;">
+              <button type="button" id="submitContact" class="btn btn-primary" style="margin-top:var(--space-1);min-height:2.75rem;">Envoyer ma demande →</button>
+            </div>
+          </div>
+<div class="question" id="qfin">
             <div class="check-final" style="width:48px;height:48px;margin:0 auto var(--space-3);">
               <svg viewBox="0 0 48 48" fill="none" stroke="var(--accent-green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <circle cx="24" cy="24" r="22"/>
@@ -139,10 +150,10 @@
               </svg>
             </div>
             <h2 id="finMessage" style="font-size:20px;margin-bottom:var(--space-2);">C’est tout. Je vous réponds sous 24h.</h2>
-            <p style="font-size:14px;opacity:0.6;">lauralie.daguzay@pinapp.fr</p>
+            <p style="font-size:14px;opacity:0.7;">lauralie.daguzay@pinapp.fr</p>
           </div>
         </div>
-        <p style="font-size:var(--text-legal);opacity:0.4;margin-top:var(--space-4);">Vos données sont utilisées uniquement pour répondre à votre demande. Aucun démarchage. Conformément à notre <a href="../legal/confidentialite.html" style="text-decoration:underline;">politique de confidentialité</a>.</p>
+        <p style="font-size:0.75rem;opacity:0.65;margin-top:var(--space-4);">Vos données sont utilisées uniquement pour répondre à votre demande. Aucun démarchage. Conformément à notre <a href="../legal/confidentialite.html" style="text-decoration:underline;">politique de confidentialité</a>.</p>
         <p style="margin-top:var(--space-5);"><a href="../diagnostic/index.html" class="btn btn-secondary">Préférez un échange direct sur Google Meet ? Diagnostic offert →</a></p>
       </div>
     </section>
@@ -172,8 +183,78 @@
       </div>
     </div>
   </div>
+  <script>
+  /* Questionnaire — flux q1→q2→q3→q4→qcontact→qfin + soumission mailto */
+  document.addEventListener('DOMContentLoaded', () => {
+    const flow = ['q1','q2','q3','q4','qcontact','qfin'];
+    const progress = document.getElementById('onboardingProgress');
+    const answers = {};
+
+    const show = (id) => {
+      document.querySelectorAll('.question').forEach(q => {
+        const active = q.id === id;
+        q.classList.toggle('active', active);
+        q.style.display = active ? '' : 'none';
+      });
+      const idx = flow.indexOf(id);
+      if (progress && idx >= 0) {
+        const pct = Math.round((idx / (flow.length - 1)) * 100);
+        progress.style.width = pct + '%';
+        progress.setAttribute('aria-valuenow', idx + 1);
+        progress.setAttribute('aria-label', 'Progression — question ' + (idx + 1) + ' sur ' + (flow.length - 1));
+      }
+    };
+
+    /* Init — masquer tout sauf q1 */
+    document.querySelectorAll('.question').forEach((q, i) => {
+      if (i > 0) q.style.display = 'none';
+    });
+
+    /* Pill-btn clicks */
+    document.querySelectorAll('.pill-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const q = btn.dataset.q;
+        answers['q' + q] = btn.dataset.val;
+        btn.closest('.question')?.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const currentId = 'q' + q;
+        const nextIdx = flow.indexOf(currentId) + 1;
+        if (nextIdx < flow.length) setTimeout(() => show(flow[nextIdx]), 200);
+      });
+    });
+
+    /* Contact step submit */
+    const submitBtn = document.getElementById('submitContact');
+    if (submitBtn) {
+      submitBtn.addEventListener('click', () => {
+        const prenom = document.getElementById('contactPrenom')?.value.trim();
+        const email  = document.getElementById('contactEmail')?.value.trim();
+        if (!prenom || !email || !email.includes('@')) {
+          document.getElementById('contactEmail').style.borderColor = 'var(--accent-violet)';
+          return;
+        }
+        answers.prenom = prenom;
+        answers.email  = email;
+
+        /* Envoi via mailto */
+        const body = encodeURIComponent(
+          'Prénom : ' + prenom + '\n' +
+          'Email : ' + email + '\n\n' +
+          'Besoin : ' + (answers.q1 || '—') + '\n' +
+          'Structure : ' + (answers.q2 || '—') + '\n' +
+          'Délai : ' + (answers.q3 || '—') + '\n' +
+          'Budget : ' + (answers.q4 || '—')
+        );
+        window.location.href = 'mailto:lauralie.daguzay@pinapp.fr?subject=Demande%20Pinapp%20%E2%80%94%20' + encodeURIComponent(prenom) + '&body=' + body;
+
+        setTimeout(() => show('qfin'), 400);
+      });
+    }
+  });
+  </script>
   <script src="../assets/js/main.js" defer></script>
-  <script src="../assets/js/particles.js"></script>
+  <script src="../assets/js/particles.js" defer></script>
   <script src="../assets/js/aurora.js" defer></script>
   <script src="../assets/js/parallax.js" defer></script>
   <script src="../assets/js/scroll-cinema.js" defer></script>
