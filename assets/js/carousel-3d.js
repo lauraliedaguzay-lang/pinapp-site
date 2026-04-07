@@ -25,9 +25,7 @@ class Carousel3D {
   }
 
   refreshItems() {
-    this.items = this.allCards.filter(
-      (c) => !c.classList.contains('carousel-filter-hidden')
-    );
+    this.items = this.allCards.filter((c) => !c.classList.contains('carousel-filter-hidden'));
     this.total = this.items.length;
     if (this.current >= this.total) this.current = Math.max(0, this.total - 1);
   }
@@ -56,18 +54,16 @@ class Carousel3D {
       2: { x: 600, z: -420, s: 0.56, o: 0.35, b: 4, ry: -26, rx: 8, zi: 5 },
       '-2': { x: -600, z: -420, s: 0.56, o: 0.35, b: 4, ry: 26, rx: 8, zi: 5 },
     };
-    const raw =
-      map[String(d)] ||
-      {
-        x: diff > 0 ? 900 : -900,
-        z: -620,
-        s: 0.28,
-        o: 0,
-        b: 8,
-        ry: 0,
-        rx: 10,
-        zi: 1,
-      };
+    const raw = map[String(d)] || {
+      x: diff > 0 ? 900 : -900,
+      z: -620,
+      s: 0.28,
+      o: 0,
+      b: 8,
+      ry: 0,
+      rx: 10,
+      zi: 1,
+    };
     const p = this.scalePos(raw);
     if (this.prefersReduced) p.rx = 0;
     return p;
@@ -124,9 +120,7 @@ class Carousel3D {
       if (a) {
         a.href = c.dataset.link || '#';
         const isCreative = (c.dataset.tier || '') === 'creative';
-        a.textContent = isCreative
-          ? 'Découvrir les univers →'
-          : 'Explorer la démo →';
+        a.textContent = isCreative ? 'Découvrir les univers →' : 'Explorer la démo →';
         if (isCreative) {
           a.removeAttribute('target');
           a.removeAttribute('rel');
@@ -290,8 +284,7 @@ class Carousel3D {
       if (!this.el.closest('body')) return;
       const region = this.el.getBoundingClientRect();
       const vh = window.innerHeight || 0;
-      const visible =
-        region.top < vh * 0.92 && region.bottom > vh * 0.08;
+      const visible = region.top < vh * 0.92 && region.bottom > vh * 0.08;
       if (!visible) return;
       if (e.key === 'ArrowLeft') {
         e.preventDefault();
@@ -319,7 +312,7 @@ class Carousel3D {
         if (this.prefersReduced) return;
         this.onWheel(e);
       },
-      { passive: false }
+      { passive: false },
     );
 
     this.el.addEventListener('mousedown', (e) => {
@@ -346,7 +339,7 @@ class Carousel3D {
         touchStart = e.touches[0].clientX;
         this.stopAuto();
       },
-      { passive: true }
+      { passive: true },
     );
     this.el.addEventListener(
       'touchend',
@@ -354,7 +347,7 @@ class Carousel3D {
         const delta = e.changedTouches[0].clientX - touchStart;
         if (Math.abs(delta) > 45) delta < 0 ? this.next() : this.prev();
       },
-      { passive: true }
+      { passive: true },
     );
 
     const mq = window.matchMedia('(max-width: 767px)');
@@ -387,5 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (filtre === 'beaute') {
       document.querySelector('.filter-btn[data-filter="beaute"]')?.click();
     }
-  } catch (e) { /* noop */ }
+  } catch (e) {
+    /* noop */
+  }
 });
