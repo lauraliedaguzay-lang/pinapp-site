@@ -145,11 +145,19 @@
                     <!-- Étape contact — collecte email avant confirmation -->
           <div class="question" id="qcontact" role="group" aria-labelledby="qcontact-label">
             <p id="qcontact-label" style="font-size:18px;margin-bottom:var(--space-3);">Pour vous répondre, comment vous joindre ?</p>
-            <div style="display:flex;flex-direction:column;gap:var(--space-2);max-width:320px;margin:0 auto;">
-              <input type="text" id="contactPrenom" name="prenom" placeholder="Votre prénom" autocomplete="given-name" style="font-size:max(1rem,16px);padding:0.8125rem 1rem;border-radius:var(--radius-input);border:1px solid var(--border-card);background:var(--glass-card);color:var(--text-primary);width:100%;box-sizing:border-box;">
-              <input type="email" id="contactEmail" name="email" placeholder="Votre email" autocomplete="email" style="font-size:max(1rem,16px);padding:0.8125rem 1rem;border-radius:var(--radius-input);border:1px solid var(--border-card);background:var(--glass-card);color:var(--text-primary);width:100%;box-sizing:border-box;">
-              <button type="button" id="submitContact" class="btn btn-primary" style="margin-top:var(--space-1);min-height:2.75rem;">Envoyer ma demande →</button>
-            </div>
+            <form id="formProjet" name="votre-projet" method="POST" data-netlify="true" netlify-honeypot="bot-field"
+              style="display:flex;flex-direction:column;gap:var(--space-2);max-width:320px;margin:0 auto;">
+              <input type="hidden" name="form-name" value="votre-projet">
+              <p style="display:none;"><label>Ne pas remplir : <input name="bot-field"></label></p>
+              <input type="hidden" name="activite" id="h-activite">
+              <input type="hidden" name="besoin" id="h-besoin">
+              <input type="hidden" name="situation" id="h-situation">
+              <input type="hidden" name="budget" id="h-budget">
+              <input type="text" id="contactPrenom" name="prenom" required aria-required="true" aria-label="Votre prénom" placeholder="Votre prénom" autocomplete="given-name" style="font-size:max(1rem,16px);padding:0.8125rem 1rem;border-radius:var(--radius-input);border:1px solid var(--border-card);background:var(--glass-card);color:var(--text-primary);width:100%;box-sizing:border-box;">
+              <input type="email" id="contactEmail" name="email" required aria-required="true" aria-label="Votre adresse email" placeholder="Votre email" autocomplete="email" style="font-size:max(1rem,16px);padding:0.8125rem 1rem;border-radius:var(--radius-input);border:1px solid var(--border-card);background:var(--glass-card);color:var(--text-primary);width:100%;box-sizing:border-box;">
+              <p id="form-error" role="alert" style="color:var(--accent-violet);font-size:13px;display:none;margin:0;">Prénom et email valide requis.</p>
+              <button type="submit" id="submitContact" class="btn btn-primary" style="margin-top:var(--space-1);min-height:2.75rem;">Envoyer ma demande →</button>
+            </form>
           </div>
 <div class="question" id="qfin">
             <div class="check-final" style="width:48px;height:48px;margin:0 auto var(--space-3);">
@@ -238,31 +246,45 @@
       });
     });
 
-    /* Contact step submit */
-    const submitBtn = document.getElementById('submitContact');
-    if (submitBtn) {
-      submitBtn.addEventListener('click', () => {
+    /* Contact step submit — Netlify Forms avec fallback mailto */
+    const form = document.getElementById('formProjet');
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
         const prenom = document.getElementById('contactPrenom')?.value.trim();
         const email  = document.getElementById('contactEmail')?.value.trim();
+        const errEl  = document.getElementById('form-error');
+        const submitBtn = document.getElementById('submitContact');
         if (!prenom || !email || !email.includes('@')) {
-          document.getElementById('contactEmail').style.borderColor = 'var(--accent-violet)';
+          if (errEl) errEl.style.display = '';
           return;
         }
+        if (errEl) errEl.style.display = 'none';
         answers.prenom = prenom;
         answers.email  = email;
-
-        /* Envoi via mailto */
-        const body = encodeURIComponent(
-          'Prénom : ' + prenom + '\n' +
-          'Email : ' + email + '\n\n' +
-          'Besoin : ' + (answers.q1 || '—') + '\n' +
-          'Structure : ' + (answers.q2 || '—') + '\n' +
-          'Délai : ' + (answers.q3 || '—') + '\n' +
-          'Budget : ' + (answers.q4 || '—')
-        );
-        window.location.href = 'mailto:lauralie.daguzay@pinapp.fr?subject=Demande%20Pinapp%20%E2%80%94%20' + encodeURIComponent(prenom) + '&body=' + body;
-
-        setTimeout(() => show('qfin'), 400);
+        ['activite','besoin','situation','budget'].forEach((k, i) => {
+          const el = document.getElementById('h-' + k);
+          if (el) el.value = answers['q' + (i+1)] || '';
+        });
+        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Envoi…'; }
+        try {
+          const resp = await fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(new FormData(form)).toString()
+          });
+          if (resp.ok) { show('qfin'); }
+          else { throw new Error('HTTP ' + resp.status); }
+        } catch(err) {
+          const body = encodeURIComponent(
+            'Prénom : ' + prenom + '\nEmail : ' + email + '\n\nBesoin : ' + (answers.q1||'—') +
+            '\nStructure : ' + (answers.q2||'—') + '\nDélai : ' + (answers.q3||'—') + '\nBudget : ' + (answers.q4||'—')
+          );
+          window.location.href = 'mailto:lauralie.daguzay@pinapp.fr?subject=Demande%20Pinapp%20—%20' + encodeURIComponent(prenom) + '&body=' + body;
+          setTimeout(() => show('qfin'), 600);
+        } finally {
+          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Envoyer ma demande →'; }
+        }
       });
     }
   });

@@ -1,3 +1,5 @@
+﻿/* XSS protection: escape HTML in user-provided/localStorage data */
+var _he = function(s){return s==null?'':String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#x27;');};
 /* =====================================================
    UNIVERS DIGITAL — Aurora directrice artistique
    Pinapp Studio · Avril 2026
@@ -176,26 +178,26 @@ const UniversDigital = {
     // HTML du résultat
     resultat.innerHTML = `
       <div class="univers-nom">
-        ✦ ${u.nom || 'Votre Univers'}
+        ✦ ${_he(u.nom || 'Votre Univers')}
       </div>
 
       <div class="univers-palette">
-        ${u.palette ? `
+        ${_he(u.palette ? `
           <div class="univers-swatch"
-               style="background:${u.palette.fond}"
+               style="background:${u.palette.fond)}"
                title="Fond"></div>
           <div class="univers-swatch"
-               style="background:${u.palette.accent1}"
+               style="background:${_he(u.palette.accent1)}"
                title="Accent principal"></div>
           <div class="univers-swatch"
-               style="background:${u.palette.accent2}"
+               style="background:${_he(u.palette.accent2)}"
                title="Accent secondaire"></div>
           <span class="univers-palette-label">Votre palette</span>
         ` : ''}
       </div>
 
       <p class="univers-description">
-        &ldquo;${u.atmosphere || ''}&rdquo;
+        &ldquo;${_he(u.atmosphere || '')}&rdquo;
       </p>
 
       ${u.signature ? `
@@ -204,10 +206,10 @@ const UniversDigital = {
         </div>
       ` : ''}
 
-      ${u.promesse ? `
+      ${_he(u.promesse ? `
         <p style="font-size:18px;font-weight:500;color:var(--text);
                   margin-bottom:32px;font-family:Georgia,serif;">
-          ${u.promesse}
+          ${u.promesse)}
         </p>
       ` : ''}
 

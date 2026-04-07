@@ -1,3 +1,5 @@
+﻿/* XSS protection */
+var _he = function(s){return s==null?'':String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#x27;');};
 /* PINAPP — univers-questionnaire.js
    3 questions → Aurora génère un univers unique
    API : placeholder n8n (connecter quand prêt)
@@ -176,11 +178,11 @@ const UniversQ = {
 
       ${u.atmosphere ? `
         <p style="font-family:Georgia,serif;font-style:italic;font-size:15px;line-height:1.8;
-                  color:var(--text-2);margin-bottom:20px;">"${u.atmosphere}"</p>` : ''}
+                  color:var(--text-2);margin-bottom:20px;">"${_he(u.atmosphere)}"</p>` : ''}
 
       ${u.promesse ? `
         <p style="font-size:16px;font-weight:500;color:var(--text);margin-bottom:24px;
-                  font-family:Georgia,serif;">${u.promesse}</p>` : ''}
+                  font-family:Georgia,serif;">${_he(u.promesse)}</p>` : ''}
 
       <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
         <a href="../diagnostic/index.html?univers=${encodeURIComponent(u.nom || '')}"

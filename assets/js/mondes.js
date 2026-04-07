@@ -1,3 +1,4 @@
+﻿var _he=function(s){return s==null?'':String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');};
 /* PINAPP — mondes.js — Grid 15 mondes + Modal
    Utilise mondes-data.js (MONDES doit être chargé avant)
    ============================================================ */
@@ -65,8 +66,8 @@ const Mondes = {
     body.className = 'monde-body';
     body.innerHTML = `
       <span class="monde-emoji">${monde.emoji}</span>
-      <h3 class="monde-nom">${monde.nom}</h3>
-      <p class="monde-tagline">"${monde.tagline}"</p>
+      <h3 class="monde-nom">${_he(monde.nom)}</h3>
+      <p class="monde-tagline">"${_he(monde.tagline)}"</p>
       <span class="monde-clients" style="color:${monde.accent1}">${monde.clients}</span>
       <div class="monde-footer">
         <span class="monde-prix">À partir de ${monde.prix}</span>
@@ -175,12 +176,12 @@ const Mondes = {
       <div style="text-align:center;margin-bottom:36px;">
         <div style="font-size:48px;margin-bottom:12px;">${monde.emoji}</div>
         <h2 style="font-family:Georgia,serif;font-size:clamp(32px,5vw,56px);font-weight:300;
-                   color:${monde.texte||'var(--text)'};margin:0 0 8px;">${monde.nom}</h2>
-        <p style="font-style:italic;color:${monde.accent1};font-size:16px;">"${monde.tagline}"</p>
+                   color:${monde.texte||'var(--text)'};margin:0 0 8px;">${_he(monde.nom)}</h2>
+        <p style="font-style:italic;color:${monde.accent1};font-size:16px;">"${_he(monde.tagline)}"</p>
       </div>
 
       <p style="font-size:16px;line-height:1.85;color:var(--text-2);text-align:center;
-                max-width:520px;margin:0 auto 32px;">${monde.description}</p>
+                max-width:520px;margin:0 auto 32px;">${_he(monde.description)}</p>
 
       <div style="display:flex;gap:12px;justify-content:center;margin-bottom:32px;">${palette}</div>
 

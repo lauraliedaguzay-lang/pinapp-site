@@ -157,17 +157,27 @@
           <!-- Étape contact -->
           <div class="question" id="qcontact" style="display:none;" role="group" aria-labelledby="qcontact-label">
             <p id="qcontact-label" style="font-size:1.25rem;font-weight:600;margin-bottom:var(--space-4);">Pour vous répondre par email :</p>
-            <div style="display:flex;flex-direction:column;gap:var(--space-2);max-width:340px;margin:0 auto var(--space-4);">
+            <form id="formDiagnostic" name="diagnostic" method="POST" data-netlify="true" netlify-honeypot="bot-field"
+              style="display:flex;flex-direction:column;gap:var(--space-2);max-width:340px;margin:0 auto var(--space-4);">
+              <input type="hidden" name="form-name" value="diagnostic">
+              <!-- Honeypot anti-spam -->
+              <p style="display:none;"><label>Ne pas remplir : <input name="bot-field"></label></p>
+              <!-- Réponses questionnaire injectées par JS -->
+              <input type="hidden" name="activite" id="h-activite">
+              <input type="hidden" name="besoin" id="h-besoin">
+              <input type="hidden" name="situation" id="h-situation">
+              <input type="hidden" name="budget" id="h-budget">
               <input type="text" id="contactPrenom" aria-label="Votre prénom" required aria-required="true" name="prenom" placeholder="Votre prénom" autocomplete="given-name"
                 style="font-size:max(1rem,16px);padding:0.875rem 1rem;border-radius:var(--radius-input);border:1px solid var(--border-card);background:var(--glass-card);color:var(--text-primary);width:100%;box-sizing:border-box;">
               <input type="email" id="contactEmail" aria-label="Votre adresse email" required aria-required="true" name="email" placeholder="Votre adresse email" autocomplete="email"
                 style="font-size:max(1rem,16px);padding:0.875rem 1rem;border-radius:var(--radius-input);border:1px solid var(--border-card);background:var(--glass-card);color:var(--text-primary);width:100%;box-sizing:border-box;">
               <textarea id="contactMessage" name="message" placeholder="Un mot sur votre situation (facultatif)" rows="3"
                 style="font-size:max(1rem,16px);padding:0.875rem 1rem;border-radius:var(--radius-input);border:1px solid var(--border-card);background:var(--glass-card);color:var(--text-primary);width:100%;box-sizing:border-box;resize:vertical;font-family:inherit;"></textarea>
-              <button type="button" id="submitContact" class="btn btn-primary" style="margin-top:var(--space-1);min-height:3rem;font-size:1rem;">
+              <p id="form-error" role="alert" style="color:var(--accent-violet);font-size:13px;display:none;margin:0;">Veuillez renseigner votre prénom et un email valide.</p>
+              <button type="submit" id="submitContact" class="btn btn-primary" style="margin-top:var(--space-1);min-height:3rem;font-size:1rem;">
                 Envoyer ma demande →
               </button>
-            </div>
+            </form>
             <p style="font-size:12px;opacity:0.5;">Vos données servent uniquement à vous répondre. Aucun démarchage. <a href="../legal/confidentialite.html" style="text-decoration:underline;">Politique de confidentialité.</a></p>
           </div>
 
@@ -252,34 +262,63 @@
       });
     });
 
-    const submitBtn = document.getElementById('submitContact');
-    if (submitBtn) {
-      submitBtn.addEventListener('click', () => {
+    const form = document.getElementById('formDiagnostic');
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
         const prenom  = document.getElementById('contactPrenom')?.value.trim();
         const email   = document.getElementById('contactEmail')?.value.trim();
         const message = document.getElementById('contactMessage')?.value.trim() || '';
-        const emailInput = document.getElementById('contactEmail');
+        const errEl   = document.getElementById('form-error');
+        const submitBtn = document.getElementById('submitContact');
+
         if (!prenom || !email || !email.includes('@')) {
-          if (emailInput) emailInput.style.borderColor = 'var(--accent-violet)';
+          if (errEl) errEl.style.display = '';
           return;
         }
-        answers.prenom  = prenom;
-        answers.email   = email;
-        const body = encodeURIComponent(
-          'Prénom : ' + prenom + '\n' +
-          'Email : ' + email + '\n\n' +
-          'Activité : ' + (answers.q1 || '—') + '\n' +
-          'Besoin : ' + (answers.q2 || '—') + '\n' +
-          'Situation : ' + (answers.q3 || '—') + '\n' +
-          'Budget : ' + (answers.q4 || '—') + '\n\n' +
-          (message ? 'Message : ' + message : '')
-        );
-        window.location.href = 'mailto:lauralie.daguzay@pinapp.fr?subject=Demande%20Pinapp%20%E2%80%94%20' + encodeURIComponent(prenom) + '&body=' + body;
-        setTimeout(() => show('qfin'), 400);
+        if (errEl) errEl.style.display = 'none';
+
+        // Remplir les champs cachés avec les réponses du questionnaire
+        ['activite','besoin','situation','budget'].forEach((k, i) => {
+          const el = document.getElementById('h-' + k);
+          if (el) el.value = answers['q' + (i+1)] || '';
+        });
+
+        answers.prenom = prenom;
+        answers.email  = email;
+
+        // Désactiver le bouton pendant l'envoi
+        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Envoi…'; }
+
+        try {
+          const formData = new FormData(form);
+          const resp = await fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData).toString()
+          });
+          if (resp.ok) {
+            show('qfin');
+          } else {
+            throw new Error('Serveur: ' + resp.status);
+          }
+        } catch(err) {
+          // Fallback mailto si Netlify Forms non disponible (env local)
+          const body = encodeURIComponent(
+            'Prénom : ' + prenom + '\nEmail : ' + email + '\n\nActivité : ' + (answers.q1||'—') +
+            '\nBesoin : ' + (answers.q2||'—') + '\nSituation : ' + (answers.q3||'—') + '\nBudget : ' + (answers.q4||'—') +
+            (message ? '\n\nMessage : ' + message : '')
+          );
+          window.location.href = 'mailto:lauralie.daguzay@pinapp.fr?subject=Demande%20Pinapp%20—%20' + encodeURIComponent(prenom) + '&body=' + body;
+          setTimeout(() => show('qfin'), 600);
+        } finally {
+          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Envoyer ma demande →'; }
+        }
       });
     }
   });
-  </script><script src="../assets/js/main.js" defer></script>
+  </script><script src="../assets/js/security.js"></script>
+  <script src="../assets/js/main.js" defer></script>
   <script src="../assets/js/particles.js" defer></script>
   <script src="../assets/js/aurora.js" defer></script>
   <script src="../assets/js/parallax.js" defer></script>
@@ -296,10 +335,8 @@ document.addEventListener('DOMContentLoaded', function() {
     ctx.style.display = '';
     ctx.className = 'block block-rose';
     ctx.style.cssText = 'padding:20px 24px;margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto;text-align:left;';
-    ctx.innerHTML =
-      '<p class="label" style="margin-bottom:8px;">VOTRE UNIVERS</p>' +
-      '<p style="font-family:Georgia,serif;font-size:22px;color:var(--text);margin-bottom:8px;">✦ ' + u.nom + '</p>' +
-      '<p style="font-size:14px;opacity:0.65;line-height:1.5;">Lauralie a reçu votre univers.<br>Elle arrive préparée.</p>';
+    var safeName = (window.PinappSec ? window.PinappSec.htmlEscape(u.nom) : u.nom.replace(/</g,'&lt;').replace(/>/g,'&gt;'));
+    ctx.innerHTML = '<p class="label" style="margin-bottom:8px;">VOTRE UNIVERS</p><p style="font-family:Georgia,serif;font-size:22px;color:var(--text);margin-bottom:8px;">✦ ' + safeName + '</p><p style="font-size:14px;opacity:0.65;line-height:1.5;">Lauralie a reçu votre univers.<br>Elle arrive préparée.</p>';
   } catch(e) {}
 });
 </script></body>
