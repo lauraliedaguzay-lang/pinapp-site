@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'Je suis esthéticienne à Lyon et je gère mes RDV à la main…',
     'Je suis artisan électricien et mes devis prennent 2h chacun…',
     'Je suis coach certifiée et je relance mes prospects manuellement…',
-    'Je suis restaurateur et je confirme chaque réservation par téléphone…',
+    'Je suis restaurateur et je confirme chaque réservation à la main…',
     'Je suis photographe et ma facturation me prend une journée par mois…',
     'Je suis kiné et j\'envoie mes rappels de rendez-vous manuellement…',
     'Je suis fleuriste et je perds des commandes faute de site en ligne…',

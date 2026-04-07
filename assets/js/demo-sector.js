@@ -280,7 +280,7 @@
       var form = document.createElement('form');
       form.className = 'demo-rich-form';
       form.setAttribute('novalidate', '');
-      [['Prénom', 'text', 'demo-fn'], ['Email', 'email', 'demo-em'], ['Téléphone', 'tel', 'demo-tel']].forEach(
+      [['Prénom', 'text', 'demo-fn'], ['Email', 'email', 'demo-em'], ['Téléphone (optionnel)', 'tel', 'demo-tel']].forEach(
         function (row) {
           var lab = document.createElement('label');
           lab.className = 'demo-rich-label';
