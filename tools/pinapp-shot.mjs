@@ -39,4 +39,3 @@ for (const theme of themes) {
     await browser.close();
   }
 }
-

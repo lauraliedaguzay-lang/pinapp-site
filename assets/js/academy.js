@@ -12,7 +12,8 @@
 
   function getLocal(key) {
     try {
-      if (window.PinappStorage && typeof window.PinappStorage.get === 'function') return window.PinappStorage.get(key);
+      if (window.PinappStorage && typeof window.PinappStorage.get === 'function')
+        return window.PinappStorage.get(key);
       return localStorage.getItem(key);
     } catch {
       return null;
@@ -21,7 +22,8 @@
 
   function setLocal(key, value) {
     try {
-      if (window.PinappStorage && typeof window.PinappStorage.set === 'function') return window.PinappStorage.set(key, value);
+      if (window.PinappStorage && typeof window.PinappStorage.set === 'function')
+        return window.PinappStorage.set(key, value);
       localStorage.setItem(key, typeof value === 'string' ? value : JSON.stringify(value));
       return true;
     } catch {
@@ -152,7 +154,10 @@
         const sel = btn.getAttribute('data-copy');
         const target = sel ? QS(sel) : null;
         const text = target ? (target.value ?? target.textContent ?? '') : '';
-        const status = QS(btn.getAttribute('data-copy-status') || '', btn.closest('.card') || document);
+        const status = QS(
+          btn.getAttribute('data-copy-status') || '',
+          btn.closest('.card') || document,
+        );
         try {
           await navigator.clipboard.writeText(String(text).trim());
           if (status) setStatus(status, 'Copié', 'ok');

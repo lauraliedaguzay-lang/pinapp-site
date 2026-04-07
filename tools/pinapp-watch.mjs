@@ -19,7 +19,9 @@ const OWNER = process.env.GITHUB_REPOSITORY?.split('/')[0] || '';
 const REPO = process.env.GITHUB_REPOSITORY?.split('/')[1] || '';
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN || '';
-const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY || '';
+// Compat: ancien nom + nom "watch" dédié (workflow pinapp-watch.yml)
+const ANTHROPIC_API_KEY =
+  process.env.PINAPP_WATCH_ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY || '';
 
 const root = path.resolve(process.cwd());
 const stateDir = path.join(root, '.pinapp-watch');
@@ -32,7 +34,8 @@ function die(msg) {
 
 if (!OWNER || !REPO) die('pinapp-watch: GITHUB_REPOSITORY manquant');
 if (!GITHUB_TOKEN) die('pinapp-watch: GITHUB_TOKEN manquant');
-if (!ANTHROPIC_API_KEY) die('pinapp-watch: ANTHROPIC_API_KEY manquant (secret Actions)');
+if (!ANTHROPIC_API_KEY)
+  die('pinapp-watch: ANTHROPIC_API_KEY manquant (secret Actions: PINAPP_WATCH_ANTHROPIC_API_KEY)');
 
 function readState() {
   try {
