@@ -200,14 +200,21 @@ body::after {
   pointer-events: none;
   transition: background 600ms ease;
 }
-body:not(.mode-jour)::after {
-  /* Halo bas : pas sur le sol qui s’illumine (turquoise / menthe) */
+/* Aligné sur data-theme (défini dans le <head>) pour éviter un flash avant .mode-jour / .mode-nuit sur <body> */
+html[data-theme="dark"] body::after {
+  /* Nuit : sol bioluminescent + voile ciel (violet très doux) */
   background:
+    radial-gradient(95% 55% at 50% -5%, rgba(105, 55, 165, 0.09) 0%, transparent 44%),
     radial-gradient(130% 85% at 50% 100%, rgba(0, 210, 188, 0.16) 0%, transparent 52%),
     linear-gradient(180deg, rgba(6, 28, 30, 0.18) 0%, rgba(4, 36, 38, 0.36) 100%);
 }
-body.mode-jour::after {
-  background: transparent;
+html[data-theme="light"] body::after {
+  /* Jour : retour de la lumière — halo d’aube + lavande + jade résiduel */
+  background:
+    radial-gradient(120% 65% at 50% -8%, rgba(255, 228, 175, 0.15) 0%, transparent 48%),
+    radial-gradient(85% 50% at 92% 10%, rgba(190, 165, 240, 0.085) 0%, transparent 52%),
+    radial-gradient(90% 55% at 8% 88%, rgba(48, 195, 165, 0.075) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(251, 245, 232, 0.09) 0%, transparent 38%, rgba(228, 255, 248, 0.06) 100%);
 }
 
 /* Fallback si PNG absent */
@@ -474,8 +481,12 @@ html[data-theme="light"] .block-violet {
 }
 
 .btn-secondary {
-  display: inline-block;
-  padding: 14px 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 12px 32px;
+  box-sizing: border-box;
   background: rgba(255,255,255,0.06);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -520,10 +531,16 @@ input, textarea, select {
   width: 100%;
   box-sizing: border-box;
 }
-input:focus, textarea:focus {
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
   border-color: rgba(0,229,204,0.55);
   box-shadow: 0 0 0 3px rgba(0,229,204,0.12);
-  outline: none;
 }
 body.mode-jour input,
 body.mode-jour textarea,

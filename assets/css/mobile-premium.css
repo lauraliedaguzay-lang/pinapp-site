@@ -39,10 +39,12 @@ html[data-theme="light"] .mobile-drawer-panel {
 /* Bouton close — icône SVG propre */
 #drawerClose {
   position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + 16px);
-  right: 20px;
-  width: 36px;
-  height: 36px;
+  top: calc(env(safe-area-inset-top, 0px) + 12px);
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   border-radius: 50%;
   border: 1px solid rgba(255,255,255,0.12);
   background: rgba(255,255,255,0.06);
@@ -177,21 +179,23 @@ html[data-theme="light"] .mobile-drawer-panel .nav-link:active {
     color: #C87A08 !important;
   }
 
-  /* Bouton CTA bottom-bar */
+  /* Bouton CTA bottom-bar — zone tactile ≥ 44×44 pt (HIG) */
   .bottom-bar .bottom-bar-cta {
     background: linear-gradient(135deg, var(--violet, #7B4FE8), #9B6FF8) !important;
     color: #fff !important;
-    padding: 8px 16px !important;
+    padding: 10px 18px !important;
     border-radius: 100px !important;
     font-size: 12px !important;
     font-weight: 600 !important;
-    min-height: 36px !important;
+    min-height: 44px !important;
+    min-width: 44px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     box-shadow: 0 4px 16px rgba(123,79,232,0.35) !important;
     -webkit-tap-highlight-color: transparent;
     border: none !important;
+    touch-action: manipulation;
   }
 
   body.mode-jour .bottom-bar .bottom-bar-cta,

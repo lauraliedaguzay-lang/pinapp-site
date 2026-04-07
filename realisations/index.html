@@ -11,7 +11,7 @@
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Réalisations — Exemples de sites · Pinapp Studio</title>
-  <meta name="description" content="11 exemples de sites web sectoriels. Restaurant, esthéticienne, artisan, coach — chaque démo est interactive et fonctionnelle.">
+  <meta name="description" content="Carrousel 3D : démos métiers interactives et aperçus d’univers créatifs (super-héros, cosplay, fantasy). Restaurant, artisan, coach — chaque démo tourne sur le site.">
   <meta property="og:title" content="Réalisations — Pinapp Studio">
   <meta property="og:description" content="Exemples de sites et systèmes IA créés par Pinapp pour artisans, coachs, restaurateurs.">
   <meta property="og:image" content="https://pinapp.fr/assets/images/og-home.png">
@@ -40,8 +40,8 @@
   <link rel="stylesheet" href="../assets/css/deploy-harmonise.css">
   <link rel="stylesheet" href="../assets/css/pandora-jour-override.css">
   <link rel="stylesheet" href="../assets/css/mobile-premium.css">
-  <link rel="stylesheet" href="assets/css/pandora-world.css">
-  <link rel="stylesheet" href="assets/css/pandora-details.css">
+  <link rel="stylesheet" href="../assets/css/pandora-world.css">
+  <link rel="stylesheet" href="../assets/css/pandora-details.css">
 </head>
 <body class="page-with-bottom-nav">
   <div id="pandora-world" aria-hidden="true">
@@ -70,8 +70,7 @@
   <nav class="nav" id="mainNav" aria-label="Navigation principale">
     <div class="container nav-inner">
             <a href="../index.html" class="nav-logo" aria-label="Pinapp Studio — accueil" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
-        <svg width="30" height="36" viewBox="0 0 32 38" fill="none" aria-hidden="true" style="flex-shrink:0;"><defs><linearGradient id="pg-n" x1="16" y1="36" x2="16" y2="2" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7B4FE8"/><stop offset="100%" stop-color="#00E5CC"/></linearGradient></defs><path d="M16 2 C13 5 10 6 11 9" stroke="url(#pg-n)" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M16 2 L16 9" stroke="url(#pg-n)" stroke-width="2" stroke-linecap="round"/><path d="M16 2 C19 5 22 6 21 9" stroke="url(#pg-n)" stroke-width="2" stroke-linecap="round" fill="none"/><ellipse cx="16" cy="24" rx="9" ry="12" fill="url(#pg-n)"/><path d="M7 20 L16 15 L25 20 L16 25 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none"/><path d="M7 26 L16 21 L25 26 L16 31 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none"/></svg>
-        <span style="font-size:16px;font-weight:600;letter-spacing:-0.02em;background:linear-gradient(90deg,#7B4FE8,#00E5CC);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Pinapp</span>
+        <img class="nav-logo-img" src="../assets/images/pinapp-logo.png" alt="" width="132" height="36" decoding="async" />
       </a>
         <div class="nav-links">
         <a href="../offres/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
@@ -117,13 +116,19 @@
     <span style="color:var(--accent-teal);">ℹ</span>
     Ces exemples illustrent notre niveau d&apos;exécution. Les noms et témoignages sont fictifs — marqués [DÉMO].
   </div>
-        <p style="opacity:0.6;font-size:1rem;max-width:420px;margin:0 auto;">Cliquez sur une carte pour explorer la démo interactive.</p>
+        <p style="opacity:0.6;font-size:1rem;max-width:420px;margin:0 auto var(--space-3);">Cliquez sur une carte au centre pour ouvrir la démo ou la page — ou faites défiler pour tourner le carrousel 3D.</p>
+        <div class="carousel-filters" role="tablist" aria-label="Filtrer les exemples de sites">
+          <button type="button" class="carousel-filter-btn active" data-carousel-filter="all" role="tab" aria-selected="true">Tous</button>
+          <button type="button" class="carousel-filter-btn" data-carousel-filter="classic" role="tab" aria-selected="false">Métiers &amp; démos</button>
+          <button type="button" class="carousel-filter-btn" data-carousel-filter="creative" role="tab" aria-selected="false">Univers poussés</button>
+        </div>
+        <p class="carousel-scroll-hint">Molette, trackpad horizontal ou glisser : faites défiler les sites comme un coverflow 3D.</p>
       </div>
 
       <!-- Scène 3D -->
-      <div class="carousel-3d" role="region" aria-label="Carousel des démos">
+      <div class="carousel-3d" role="region" aria-label="Carousel des démos en trois dimensions" aria-roledescription="carousel">
 
-        <div class="demo-card-3d"
+        <div class="demo-card-3d" data-tier="classic"
              data-name="Renov &amp; Co"
              data-style="Graphique &amp; Impactant"
              data-tag="ARTISAN / BTP"
@@ -142,7 +147,7 @@
           </div>
         </div>
 
-        <div class="demo-card-3d"
+        <div class="demo-card-3d" data-tier="classic"
              data-name="Ōkami"
              data-style="Élégant &amp; Sombre"
              data-tag="RESTAURANT"
@@ -161,7 +166,7 @@
           </div>
         </div>
 
-        <div class="demo-card-3d"
+        <div class="demo-card-3d" data-tier="classic"
              data-name="Clara Fontaine"
              data-style="Clair &amp; Épuré"
              data-tag="COACH"
@@ -180,7 +185,7 @@
           </div>
         </div>
 
-        <div class="demo-card-3d"
+        <div class="demo-card-3d" data-tier="classic"
              data-name="Cabinet Renaud"
              data-style="Élégant &amp; Sombre"
              data-tag="AVOCAT"
@@ -199,7 +204,7 @@
           </div>
         </div>
 
-        <div class="demo-card-3d"
+        <div class="demo-card-3d" data-tier="classic"
              data-name="Studio Élise"
              data-style="Clair &amp; Épuré"
              data-tag="ESTHÉTIQUE"
@@ -218,7 +223,7 @@
           </div>
         </div>
 
-        <div class="demo-card-3d"
+        <div class="demo-card-3d" data-tier="classic"
              data-name="Lash Studio Camille"
              data-style="Élégant &amp; Sombre"
              data-tag="CILS"
@@ -237,7 +242,7 @@
           </div>
         </div>
 
-        <div class="demo-card-3d"
+        <div class="demo-card-3d" data-tier="classic"
              data-name="Nail Studio Nina"
              data-style="Clair &amp; Épuré"
              data-tag="NAIL ART"
@@ -256,7 +261,7 @@
           </div>
         </div>
 
-        <div class="demo-card-3d"
+        <div class="demo-card-3d" data-tier="classic"
              data-name="Salon Obsidian"
              data-style="Élégant &amp; Sombre"
              data-tag="COIFFURE"
@@ -275,7 +280,7 @@
           </div>
         </div>
 
-        <div class="demo-card-3d"
+        <div class="demo-card-3d" data-tier="classic"
              data-name="Barber &amp; Co"
              data-style="Élégant &amp; Sombre"
              data-tag="BARBIER"
@@ -294,7 +299,7 @@
           </div>
         </div>
 
-        <div class="demo-card-3d"
+        <div class="demo-card-3d" data-tier="classic"
              data-name="Maison Brioche"
              data-style="Clair &amp; Épuré"
              data-tag="BOULANGERIE"
@@ -313,7 +318,7 @@
           </div>
         </div>
 
-        <div class="demo-card-3d"
+        <div class="demo-card-3d" data-tier="classic"
              data-name="Forge Athletics"
              data-style="Graphique &amp; Impactant"
              data-tag="SPORT / FITNESS"
@@ -332,9 +337,66 @@
           </div>
         </div>
 
+        <div class="demo-card-3d" data-tier="creative"
+             data-name="Nexus Heroes"
+             data-style="Blockbuster · lumière cinéma · héroïque"
+             data-tag="UNIVERS SUPER-HÉROS"
+             data-link="../univers/index.html">
+          <div class="demo-card-preview">
+            <div class="demo-card-preview-bg" style="background:linear-gradient(145deg,#0a1628 0%,#1e3a8a 35%,#38bdf8 55%,#f0f9ff 100%);"></div>
+            <div class="demo-card-overlay"></div>
+            <div class="demo-card-meta">
+              <p class="demo-card-secteur">Univers créatif</p>
+              <p class="demo-card-style">Cosplay héroïque · affiches IA</p>
+            </div>
+          </div>
+          <div class="demo-card-footer">
+            <p class="demo-card-name">Nexus Heroes</p>
+            <span class="demo-card-tag" style="background:linear-gradient(90deg,#38bdf8,#7B4FE8);color:#fff;">HÉROS</span>
+          </div>
+        </div>
+
+        <div class="demo-card-3d" data-tier="creative"
+             data-name="Atelier Kai"
+             data-style="Convention · pop culture · néons"
+             data-tag="COSPLAY &amp; POP CULTURE"
+             data-link="../univers/index.html">
+          <div class="demo-card-preview">
+            <div class="demo-card-preview-bg" style="background:linear-gradient(135deg,#1a0a28,#5B21B6 45%,#EC4899 78%,#fae8ff);"></div>
+            <div class="demo-card-overlay"></div>
+            <div class="demo-card-meta">
+              <p class="demo-card-secteur">Univers créatif</p>
+              <p class="demo-card-style">Salon, studio photo, boutique cosplay</p>
+            </div>
+          </div>
+          <div class="demo-card-footer">
+            <p class="demo-card-name">Atelier Kai</p>
+            <span class="demo-card-tag" style="background:#EC4899;color:#fff;">COSPLAY</span>
+          </div>
+        </div>
+
+        <div class="demo-card-3d" data-tier="creative"
+             data-name="Oracle &amp; Cie"
+             data-style="Fantasy premium · mythologie · dorures"
+             data-tag="FANTASY &amp; SAGA"
+             data-link="../univers/index.html">
+          <div class="demo-card-preview">
+            <div class="demo-card-preview-bg" style="background:linear-gradient(160deg,#0f0518 0%,#4c1d95 40%,#C9A227 70%,#fef3c7);"></div>
+            <div class="demo-card-overlay"></div>
+            <div class="demo-card-meta">
+              <p class="demo-card-secteur">Univers créatif</p>
+              <p class="demo-card-style">RPG, éditeur, univers immersif</p>
+            </div>
+          </div>
+          <div class="demo-card-footer">
+            <p class="demo-card-name">Oracle &amp; Cie</p>
+            <span class="demo-card-tag" style="background:#C9A227;color:#1a0a12;">FANTASY</span>
+          </div>
+        </div>
+
         <!-- Contrôles -->
-        <button class="carousel-prev" aria-label="Démo précédente">&#8592;</button>
-        <button class="carousel-next" aria-label="Démo suivante">&#8594;</button>
+        <button type="button" class="carousel-prev" aria-label="Démo précédente">&#8592;</button>
+        <button type="button" class="carousel-next" aria-label="Démo suivante">&#8594;</button>
         <div class="carousel-dots" role="tablist" aria-label="Navigation carousel"></div>
       </div>
 
@@ -534,7 +596,7 @@
   <script src="../assets/js/cursor.js" defer></script>
 <script src="../assets/js/pandora-night.js" defer></script><script src="../assets/js/mode-toggle.js" defer></script>
   <script src="../assets/js/bio-particles.js" defer></script>
-  <script src="assets/js/pandora-world.js"></script>
-  <script src="assets/js/pandora-interactions.js"></script>
+  <script src="../assets/js/pandora-world.js"></script>
+  <script src="../assets/js/pandora-interactions.js"></script>
 </body>
 </html>

@@ -699,18 +699,93 @@ body.mode-jour .pill-choice.active {
   overflow: hidden;
 }
 
-/* Scène 3D */
+/* Filtres carrousel — même logique que pills Apple */
+.carousel-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin: 24px auto 8px;
+  max-width: 640px;
+  padding: 0 16px;
+}
+.carousel-filter-btn {
+  padding: 10px 18px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border: 1px solid rgba(0, 180, 216, 0.22);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-2, rgba(238, 248, 255, 0.78));
+  cursor: pointer;
+  transition:
+    background 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease,
+    box-shadow 200ms ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.carousel-filter-btn:hover {
+  border-color: rgba(0, 229, 204, 0.45);
+  background: rgba(0, 229, 204, 0.08);
+  color: var(--text, #eef8ff);
+}
+.carousel-filter-btn.active {
+  border-color: rgba(0, 229, 204, 0.55);
+  background: rgba(0, 229, 204, 0.14);
+  color: var(--text, #eef8ff);
+  box-shadow: 0 0 20px rgba(0, 229, 204, 0.12);
+}
+html[data-theme="light"] .carousel-filter-btn,
+body.mode-jour .carousel-filter-btn {
+  border-color: rgba(26, 10, 46, 0.12);
+  background: rgba(255, 252, 245, 0.75);
+  color: rgba(26, 10, 46, 0.65);
+}
+html[data-theme="light"] .carousel-filter-btn:hover,
+body.mode-jour .carousel-filter-btn:hover {
+  border-color: rgba(200, 122, 8, 0.35);
+  background: rgba(200, 122, 8, 0.08);
+  color: #1a0a2e;
+}
+html[data-theme="light"] .carousel-filter-btn.active,
+body.mode-jour .carousel-filter-btn.active {
+  border-color: rgba(200, 122, 8, 0.45);
+  background: rgba(200, 122, 8, 0.12);
+  color: #1a0a2e;
+  box-shadow: 0 2px 16px rgba(200, 122, 8, 0.12);
+}
+
+.carousel-filter-hidden {
+  display: none !important;
+}
+
+.carousel-scroll-hint {
+  font-size: 12px;
+  opacity: 0.45;
+  margin: 8px auto 0;
+  max-width: 420px;
+  padding: 0 16px;
+  line-height: 1.5;
+}
+
+/* Scène 3D — preserve-3d pour translateZ des cartes */
 .carousel-3d {
   position: relative;
   height: 380px;
-  perspective: 1200px;
-  perspective-origin: 50% 50%;
-  margin: 48px auto;
+  perspective: 1400px;
+  perspective-origin: 50% 42%;
+  margin: 32px auto 48px;
   max-width: 100%;
   user-select: none;
+  transform-style: preserve-3d;
+  touch-action: pan-y pinch-zoom;
 }
 
-/* Cartes */
+/* Cartes — facette 3D (rotateX/Y gérés en JS) */
 .demo-card-3d {
   width: 280px;
   height: 340px;
@@ -718,13 +793,24 @@ body.mode-jour .pill-choice.active {
   overflow: hidden;
   border: 1px solid rgba(0,180,216,0.14);
   box-shadow:
-    0 8px 40px rgba(0,0,0,0.40),
-    0 0 0 1px rgba(255,255,255,0.04) inset;
+    0 12px 48px rgba(0,0,0,0.45),
+    0 0 0 1px rgba(255,255,255,0.05) inset,
+    0 -20px 60px rgba(0, 200, 180, 0.06);
   background: rgba(5,15,30,0.60);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   display: flex;
   flex-direction: column;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.demo-card-3d[data-tier="creative"] {
+  border-color: rgba(123, 79, 232, 0.35);
+  box-shadow:
+    0 12px 48px rgba(0,0,0,0.45),
+    0 0 0 1px rgba(123, 79, 232, 0.2) inset,
+    0 0 40px rgba(123, 79, 232, 0.12);
 }
 .demo-card-3d:focus-visible {
   outline: 2px solid var(--teal);

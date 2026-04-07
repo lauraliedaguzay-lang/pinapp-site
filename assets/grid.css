@@ -578,8 +578,8 @@ html[data-theme="light"] .label {
   padding-left: env(safe-area-inset-left, 0px);
   padding-right: env(safe-area-inset-right, 0px);
   background: var(--nav-bg);
-  backdrop-filter: blur(32px) saturate(200%);
-  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  backdrop-filter: blur(28px) saturate(165%);
+  -webkit-backdrop-filter: blur(28px) saturate(165%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow:
     0 0 0 1px var(--border-card) inset,
@@ -812,10 +812,12 @@ html[data-theme="light"] .theme-toggle .theme-icon-moon {
 
 #drawerClose {
   position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + 16px);
-  right: 20px;
-  width: 36px;
-  height: 36px;
+  top: calc(env(safe-area-inset-top, 0px) + 12px);
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   border-radius: 50%;
   border: 1px solid rgba(255,255,255,0.12);
   background: rgba(255,255,255,0.06);
@@ -1192,6 +1194,16 @@ button:focus-visible,
   /* Feedback tactile rapide sur les éléments interactifs */
   .card:active    { transform: scale(0.97); }
   .btn:active     { transform: scale(0.96); }
+  .bottom-bar a:active,
+  .bottom-bar .bottom-bar-cta:active {
+    opacity: 0.88;
+  }
+  .bottom-bar .bottom-bar-cta:active {
+    transform: scale(0.97);
+  }
+  #drawerClose:active {
+    transform: scale(0.94);
+  }
 }
 
 /* ─── Mobile (<768px) ─── */
@@ -1338,7 +1350,10 @@ button:focus-visible,
 
 /* ─── Orientation paysage sur petits écrans ─── */
 @media (max-height: 500px) and (orientation: landscape) {
-  nav { height: 44px; } /* 40px risque de couper le contenu nav (min 44px) */
+  /* Ne pas fixer la hauteur de nav : .nav-inner fait 46px + safe-area — un height: 44px coupait le contenu */
+  .nav-inner {
+    height: 2.625rem;
+  }
   section { padding-top: var(--space-4); padding-bottom: var(--space-4); }
 }
 
@@ -1389,22 +1404,31 @@ button:focus-visible,
   color: var(--text);
 }
 
-/* Liens footer */
+/* Liens footer — contraste renforcé (WCAG / lisibilité type Apple footers) */
 .footer-links {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--space-3);
   margin-bottom: var(--space-4);
-  font-size: 13px;
-  opacity: 0.65;
+  font-size: 14px;
+  opacity: 0.88;
 }
 .footer-links a {
   color: var(--text);
   text-decoration: none;
+  font-weight: 500;
   transition: opacity var(--t-hover, 200ms);
 }
 .footer-links a:hover { opacity: 1; }
+html[data-theme="light"] .footer-links,
+body.mode-jour .footer-links {
+  opacity: 0.92;
+}
+html[data-theme="light"] .footer-links a,
+body.mode-jour .footer-links a {
+  color: rgba(26, 10, 46, 0.78);
+}
 
 /* Copyright */
 .footer-copy {
