@@ -1,3 +1,5 @@
+﻿// Mark current page in nav
+(function(){var path=window.location.pathname;document.querySelectorAll('.nav a,.nav-links a').forEach(function(a){if(a.getAttribute('href')&&path.endsWith(a.getAttribute('href').replace(/^\.+\//,'').replace(/index\.html$/,''))){a.setAttribute('aria-current','page');}});})();
 /* =====================================================
    PINAPP INTELLIGENCE — Le site observe · comprend · s'adapte
    Zéro cookie tiers — tout en localStorage

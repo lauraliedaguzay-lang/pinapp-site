@@ -19,8 +19,6 @@
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="assets/variables.css">
   <link rel="stylesheet" href="assets/grid.css">
   <link rel="stylesheet" href="assets/animations.css">
@@ -121,7 +119,7 @@
     <div class="aurora-orb aurora-orb-3"></div>
   </div>
   <div class="holo-grid" aria-hidden="true"></div><div class="noise" aria-hidden="true"></div>
-  <nav class="nav" id="mainNav" role="navigation">
+  <nav class="nav" id="mainNav" aria-label="Navigation principale">
     <div class="container nav-inner">
             <a href="index.html" class="nav-logo" aria-label="Pinapp Studio — accueil" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
         <svg width="30" height="36" viewBox="0 0 32 38" fill="none" aria-hidden="true" style="flex-shrink:0;">
@@ -155,7 +153,6 @@
   <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" role="dialog" aria-label="Menu" aria-modal="true">
     <div class="mobile-drawer-panel">
       <button type="button" id="drawerClose" aria-label="Fermer le menu">×</button>
-      <a href="offres/index.html">Offres</a>
       <div class="nav-links">
         <a href="univers/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Univers</a>
         <a href="offres/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
@@ -166,9 +163,10 @@
       </div>
   </div>
   </div>
-  <div class="bottom-bar" role="navigation" aria-label="Navigation mobile">
+  <div class="bottom-bar" aria-label="Navigation mobile">
     <a href="index.html">Accueil</a>
     <a href="offres/index.html">Offres</a>
+    <a href="diagnostic/index.html" class="bottom-bar-cta" style="background:var(--accent-teal);color:#020810;padding:6px 14px;border-radius:6px;font-weight:600;font-size:12px;">D&eacute;marrer &rarr;</a>
   </div>
   <main id="contenu-principal" class="stack-above-bg home-landing" tabindex="-1">
 
@@ -270,7 +268,7 @@
         <div class="iphone-mockup" aria-label="Aperçu notifications" role="img" style="flex-shrink:0;">
           <div class="iphone-screen">
             <p class="iphone-time" aria-hidden="true">09:41</p>
-            <div class="iphone-notifs" aria-live="polite">
+            <div class="iphone-notifs" >
               <div class="iphone-notif" style="animation-delay:0s;">
                 <span class="iphone-notif-icon" aria-hidden="true">✓</span>
                 <span>Marie a signé</span>
@@ -354,8 +352,9 @@
           <h3 style="font-size:1rem;margin:0 0 var(--space-2);">Cabinet RH ind&eacute;pendant</h3>
           <p style="font-size:13px;opacity:0.7;">Site + relances clients. 8h/semaine r&eacute;cup&eacute;r&eacute;es sur l'administratif.</p>
         </a>
-        <a href="realisations/index.html" class="btn btn-secondary">Voir toutes les réalisations →</a>
+  
     </div>
+      <div style="text-align:center;margin-top:var(--space-4);">      <a href="realisations/index.html" class="btn btn-secondary">Voir toutes les réalisations →</a></div>
   </section>
 
   <!-- PIPELINE SIMULATION — Ce qui se passe sans vous -->
@@ -365,7 +364,7 @@
       <h2 style="font-size:var(--text-h2);letter-spacing:-0.02em;margin-bottom:var(--space-2);">Ce qui se passe sans vous.</h2>
       <p style="font-size:1rem;opacity:0.6;max-width:460px;margin:0 auto var(--space-2);">De la demande à la livraison — aucune intervention de votre part.</p>
     </div>
-    <div class="pipeline-track" id="pipeline" role="list" aria-label="Étapes du système automatisé"></div>
+    <div class="pipeline-track" id="pipeline-track" role="list" aria-label="Étapes du système automatisé"></div>
     <p class="pipeline-tagline">
       Tout ça s'est passé sans vous.<br>
       <em>Vous n'avez rien fait.</em>
@@ -473,10 +472,10 @@
         <div class="calculateur-config">
           <p class="config-question">Vous avez besoin de :</p>
           <div class="pills-group" id="config-besoins">
-            <button class="pill-choice" data-val="site"    data-prix="1200">🌐 Site vitrine</button>
-            <button class="pill-choice" data-val="auto"    data-prix="600">⚡ Automatisation</button>
+            <button class="pill-choice" data-val="site" data-prix="900">🌐 Site vitrine</button>
+            <button class="pill-choice" data-val="auto" data-prix="800">⚡ Automatisation</button>
             <button class="pill-choice" data-val="ia"      data-prix="500">✦ Intégration IA</button>
-            <button class="pill-choice" data-val="systeme" data-prix="0">◈ Tout le système</button>
+            <button class="pill-choice" data-val="systeme" data-prix="1500">◈ Tout le système</button>
           </div>
 
           <p class="config-question">Votre délai :</p>
@@ -490,7 +489,7 @@
         <div class="calculateur-result block block-vert">
           <p class="label" style="margin-bottom:4px;">ESTIMATION</p>
           <div class="result-prix">
-            <span id="result-montant">1&nbsp;500</span>&nbsp;€
+            <span id="result-montant">—</span>&nbsp;€
           </div>
           <p class="result-delai-line">
             Livraison estimée&nbsp;: <strong id="result-delai">14</strong>&nbsp;jours
@@ -577,7 +576,7 @@
         </div>
         <div style="flex:1;min-width:260px;max-width:340px;text-align:center;">
           <div style="position:relative;display:inline-block;margin-bottom:var(--space-4);">
-            <img src="assets/images/lauralie.png" alt="Lauralie Daguzay — fondatrice Pinapp Studio"
+            <img src="assets/images/lauralie.png" alt="Lauralie Daguzay — fondatrice Pinapp Studio" width="200" height="200" loading="lazy"
                  style="width:200px;height:200px;border-radius:50%;object-fit:cover;object-position:top center;
                         border:2px solid rgba(0,229,204,0.25);
                         box-shadow:0 0 0 6px rgba(0,229,204,0.06),0 20px 50px rgba(0,0,0,0.35);
