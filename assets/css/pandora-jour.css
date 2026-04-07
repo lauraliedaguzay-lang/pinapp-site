@@ -123,12 +123,26 @@ html[data-theme="dark"] .pandora-shapes {
   }
 }
 
-/* Mobile — formes plus petites */
-@media (max-width: 767px) {
-  .pandora-shape-1 { width: 280px; height: 220px; filter: blur(45px); }
-  .pandora-shape-2 { width: 320px; height: 200px; filter: blur(40px); }
-  .pandora-shape-3 { display: none; }
-  .pandora-shape-4 { display: none; }
+/* Tailles adaptatives — fluides sur tous les écrans */
+.pandora-shape-1 {
+  width: clamp(260px, 45vw, 500px);
+  height: clamp(200px, 35vw, 400px);
+  filter: blur(clamp(45px, 8vw, 70px));
+}
+.pandora-shape-2 {
+  width: clamp(280px, 55vw, 600px);
+  height: clamp(180px, 30vw, 350px);
+  filter: blur(clamp(40px, 7vw, 65px));
+}
+.pandora-shape-3 {
+  width: clamp(180px, 35vw, 400px);
+  height: clamp(220px, 40vw, 500px);
+  filter: blur(clamp(40px, 7vw, 65px));
+}
+.pandora-shape-4 {
+  width: clamp(160px, 30vw, 350px);
+  height: clamp(140px, 25vw, 300px);
+  filter: blur(clamp(40px, 7vw, 65px));
 }
 
 /* =====================================================
@@ -156,10 +170,7 @@ html[data-theme="light"] .holo-grid {
   50%       { opacity: 1; }
 }
 
-/* Mobile — pas de grille */
-@media (max-width: 767px) {
-  .holo-grid { display: none; }
-}
+/* Grille visible partout — 0.018 opacity, invisible à l'œil conscient */
 
 /* =====================================================
    LOADER PANDORA

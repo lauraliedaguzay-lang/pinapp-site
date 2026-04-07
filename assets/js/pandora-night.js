@@ -42,8 +42,8 @@ const PandoraNight = {
   ],
 
   init() {
-    if (window.innerWidth < 768) return;
     if (this.canvas) return;
+    const isMobile = window.innerWidth < 768;
 
     this.canvas = document.createElement('canvas');
     this.canvas.id = 'pandora-canvas';
@@ -57,9 +57,17 @@ const PandoraNight = {
     this.ctx = this.canvas.getContext('2d');
     this.active = true;
 
+    // Mobile : canvas à demi-résolution pour les performances
+    this._scale = isMobile ? 0.5 : 1;
+    // Mobile : utiliser 4 couches sur 6
+    if (isMobile) this.layers = this.layers.slice(0, 4);
+
     const resize = () => {
-      this.canvas.width  = window.innerWidth;
-      this.canvas.height = window.innerHeight;
+      const s = this._scale;
+      this.canvas.width  = Math.round(window.innerWidth  * s);
+      this.canvas.height = Math.round(window.innerHeight * s);
+      this.canvas.style.width  = window.innerWidth  + 'px';
+      this.canvas.style.height = window.innerHeight + 'px';
     };
     window.addEventListener('resize', resize, { passive: true });
     resize();

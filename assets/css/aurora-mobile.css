@@ -1,107 +1,120 @@
 /* PINAPP — aurora-mobile.css — v5
-   Aurora orbes mobiles — remplacement du canvas desktop
+   Aurora orbes CSS — visibles sur TOUTES tailles d'écran
+   Complètent le canvas pandora-night.js (qui gère sa propre taille)
    Colorimétrie : Parc Avatar Disney (nuit) + Dylan Cole (jour)
-   Mobile uniquement (< 768px)
    ================================================================= */
 
-@media (max-width: 767px) {
+.aurora-mobile {
+  position: fixed; inset: 0;
+  z-index: 0; pointer-events: none;
+  overflow: hidden;
+}
 
-  .aurora-mobile {
-    position: fixed; inset: 0;
-    z-index: 0; pointer-events: none;
-    overflow: hidden;
-  }
+.aurora-orb {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
 
-  .aurora-orb {
-    position: absolute;
-    border-radius: 50%;
-    will-change: transform;
-  }
+/* =====================================================
+   NUIT — 4 orbes bioluminescents
+   (fallback CSS si canvas désactivé ou slow device)
+   ===================================================== */
 
-  /* =====================================================
-     NUIT — 4 orbes bioluminescents
-     ===================================================== */
+body:not(.mode-jour) .aurora-orb-1,
+html:not([data-theme="light"]) body .aurora-orb-1 {
+  width: clamp(280px, 50vw, 480px);
+  height: clamp(280px, 50vw, 480px);
+  background: rgba(0,160,210,0.22);
+  filter: blur(clamp(60px, 10vw, 100px));
+  top: -15%; left: -10%;
+  animation: aurora-float-a 9s ease-in-out infinite;
+}
+body:not(.mode-jour) .aurora-orb-2,
+html:not([data-theme="light"]) body .aurora-orb-2 {
+  width: clamp(240px, 45vw, 400px);
+  height: clamp(240px, 45vw, 400px);
+  background: rgba(90,10,150,0.18);
+  filter: blur(clamp(50px, 9vw, 90px));
+  bottom: 8%; right: -8%;
+  animation: aurora-float-b 11s ease-in-out infinite;
+}
+body:not(.mode-jour) .aurora-orb-3,
+html:not([data-theme="light"]) body .aurora-orb-3 {
+  width: clamp(200px, 40vw, 360px);
+  height: clamp(200px, 40vw, 360px);
+  background: rgba(0,210,170,0.16);
+  filter: blur(clamp(50px, 8vw, 80px));
+  top: 40%; left: 15%;
+  animation: aurora-float-c 7s ease-in-out infinite;
+}
+body:not(.mode-jour) .aurora-orb-4,
+html:not([data-theme="light"]) body .aurora-orb-4 {
+  width: clamp(180px, 35vw, 300px);
+  height: clamp(180px, 35vw, 300px);
+  background: rgba(180,20,140,0.09);
+  filter: blur(clamp(60px, 10vw, 100px));
+  top: 62%; right: -5%;
+  animation: aurora-float-a 13s ease-in-out infinite reverse;
+}
 
-  body:not(.mode-jour) .aurora-orb-1,
-  html:not([data-theme="light"]) body .aurora-orb-1 {
-    width: 380px; height: 380px;
-    background: rgba(0,160,210,0.28);
-    filter: blur(80px);
-    top: -120px; left: -80px;
-    animation: aurora-float-a 9s ease-in-out infinite;
-  }
-  body:not(.mode-jour) .aurora-orb-2,
-  html:not([data-theme="light"]) body .aurora-orb-2 {
-    width: 320px; height: 320px;
-    background: rgba(90,10,150,0.22);
-    filter: blur(70px);
-    bottom: 10%; right: -60px;
-    animation: aurora-float-b 11s ease-in-out infinite;
-  }
-  body:not(.mode-jour) .aurora-orb-3,
-  html:not([data-theme="light"]) body .aurora-orb-3 {
-    width: 280px; height: 280px;
-    background: rgba(0,210,170,0.18);
-    filter: blur(65px);
-    top: 42%; left: 18%;
-    animation: aurora-float-c 7s ease-in-out infinite;
-  }
-  body:not(.mode-jour) .aurora-orb-4,
-  html:not([data-theme="light"]) body .aurora-orb-4 {
-    width: 240px; height: 240px;
-    background: rgba(180,20,140,0.10);
-    filter: blur(90px);
-    top: 65%; right: -50px;
-    animation: aurora-float-a 13s ease-in-out infinite reverse;
-  }
+/* =====================================================
+   JOUR — 3 orbes or/pêche/jade
+   ===================================================== */
 
-  /* =====================================================
-     JOUR — 3 orbes or/pêche/jade
-     ===================================================== */
+body.mode-jour .aurora-orb-1,
+html[data-theme="light"] body .aurora-orb-1 {
+  width: clamp(280px, 50vw, 480px);
+  height: clamp(280px, 50vw, 480px);
+  background: rgba(255,190,60,0.20);
+  filter: blur(clamp(60px, 10vw, 100px));
+  top: -15%; left: -10%;
+  animation: aurora-float-a 9s ease-in-out infinite;
+}
+body.mode-jour .aurora-orb-2,
+html[data-theme="light"] body .aurora-orb-2 {
+  width: clamp(240px, 45vw, 400px);
+  height: clamp(240px, 45vw, 400px);
+  background: rgba(255,140,100,0.16);
+  filter: blur(clamp(50px, 9vw, 90px));
+  bottom: 8%; right: -8%;
+  animation: aurora-float-b 11s ease-in-out infinite;
+}
+body.mode-jour .aurora-orb-3,
+html[data-theme="light"] body .aurora-orb-3 {
+  width: clamp(200px, 40vw, 360px);
+  height: clamp(200px, 40vw, 360px);
+  background: rgba(80,200,160,0.14);
+  filter: blur(clamp(50px, 8vw, 80px));
+  top: 40%; left: 15%;
+  animation: aurora-float-c 7s ease-in-out infinite;
+}
+body.mode-jour .aurora-orb-4,
+html[data-theme="light"] body .aurora-orb-4 {
+  display: none;
+}
 
-  body.mode-jour .aurora-orb-1,
-  html[data-theme="light"] body .aurora-orb-1 {
-    width: 380px; height: 380px;
-    background: rgba(255,190,60,0.22);
-    filter: blur(80px);
-    top: -120px; left: -80px;
-    animation: aurora-float-a 9s ease-in-out infinite;
-  }
-  body.mode-jour .aurora-orb-2,
-  html[data-theme="light"] body .aurora-orb-2 {
-    width: 320px; height: 320px;
-    background: rgba(255,140,100,0.18);
-    filter: blur(70px);
-    bottom: 10%; right: -60px;
-    animation: aurora-float-b 11s ease-in-out infinite;
-  }
-  body.mode-jour .aurora-orb-3,
-  html[data-theme="light"] body .aurora-orb-3 {
-    width: 280px; height: 280px;
-    background: rgba(80,200,160,0.15);
-    filter: blur(65px);
-    top: 42%; left: 18%;
-    animation: aurora-float-c 7s ease-in-out infinite;
-  }
-  body.mode-jour .aurora-orb-4,
-  html[data-theme="light"] body .aurora-orb-4 {
-    display: none;
-  }
+/* =====================================================
+   ANIMATIONS FLOTTEMENT
+   ===================================================== */
 
-  /* =====================================================
-     ANIMATIONS FLOTTEMENT
-     ===================================================== */
+@keyframes aurora-float-a {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  50%       { transform: translate(28px,-35px) scale(1.07); }
+}
+@keyframes aurora-float-b {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  50%       { transform: translate(-22px,30px) scale(0.93); }
+}
+@keyframes aurora-float-c {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  50%       { transform: translate(18px,-18px) scale(1.05); }
+}
 
-  @keyframes aurora-float-a {
-    0%, 100% { transform: translate(0,0) scale(1); }
-    50%       { transform: translate(28px,-35px) scale(1.07); }
-  }
-  @keyframes aurora-float-b {
-    0%, 100% { transform: translate(0,0) scale(1); }
-    50%       { transform: translate(-22px,30px) scale(0.93); }
-  }
-  @keyframes aurora-float-c {
-    0%, 100% { transform: translate(0,0) scale(1); }
-    50%       { transform: translate(18px,-18px) scale(1.05); }
-  }
+/* =====================================================
+   REDUCED MOTION — orbes statiques
+   ===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-orb { animation: none !important; }
 }
