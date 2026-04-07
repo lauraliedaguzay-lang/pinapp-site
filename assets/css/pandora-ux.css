@@ -10,8 +10,8 @@
 /* Noise-overlay : grain permanent, supprimé */
 .noise-overlay { display: none !important; }
 
-/* Section::after orbs : 6 orbes invisibles par section, supprimés */
-section::after { display: none !important; }
+/* Section::after orbs : actifs — bioluminescence Pandora par section */
+/* (ancienne désactivation supprimée — les orbes respirent maintenant) */
 
 /* section-enter v5 : translateY seulement (pas de blur) — géré par animations.css */
 
@@ -59,8 +59,17 @@ section::after { display: none !important; }
 }
 
 @keyframes label-breathe {
-  0%, 100% { opacity: 0.65; }
-  50%       { opacity: 1; text-shadow: 0 0 14px currentColor; }
+  0%, 100% {
+    opacity:     0.65;
+    text-shadow: 0 0 8px rgba(0,229,204,0.22),
+                 0 0 24px rgba(0,229,204,0.08);
+  }
+  50% {
+    opacity:     1;
+    text-shadow: 0 0 10px rgba(0,229,204,0.82),
+                 0 0 32px rgba(0,229,204,0.42),
+                 0 0 72px rgba(0,180,216,0.18);
+  }
 }
 
 
@@ -486,4 +495,224 @@ input, textarea, select {
   input, textarea, select {
     font-size: inherit;
   }
+}
+/* ═══════════════════════════════════════════════════════════════
+   BIOLUMINESCENCE — Aurora Orbs Pandora
+   Couches lumineuses flottant dans la nuit de la forêt Na'vi
+   ═══════════════════════════════════════════════════════════════ */
+
+.aurora-orb {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+}
+
+.aurora-orb-1 {
+  width:  clamp(300px, 42vw, 640px);
+  height: clamp(300px, 42vw, 640px);
+  background: radial-gradient(circle,
+    rgba(0,229,204,0.32) 0%,
+    rgba(0,180,216,0.16) 42%,
+    transparent 68%);
+  filter: blur(88px);
+  top: -12%; left: -10%;
+  animation: orb-float-1 22s ease-in-out infinite;
+}
+
+.aurora-orb-2 {
+  width:  clamp(260px, 36vw, 560px);
+  height: clamp(260px, 36vw, 560px);
+  background: radial-gradient(circle,
+    rgba(123,79,232,0.34) 0%,
+    rgba(100,20,160,0.18) 40%,
+    transparent 66%);
+  filter: blur(100px);
+  bottom: -8%; right: -8%;
+  animation: orb-float-2 28s ease-in-out infinite;
+}
+
+.aurora-orb-3 {
+  width:  clamp(200px, 28vw, 420px);
+  height: clamp(200px, 28vw, 420px);
+  background: radial-gradient(circle,
+    rgba(57,224,117,0.22) 0%,
+    rgba(0,200,160,0.12) 46%,
+    transparent 70%);
+  filter: blur(80px);
+  top: 32%; right: 6%;
+  animation: orb-float-3 18s ease-in-out infinite;
+}
+
+.aurora-orb-4 {
+  width:  clamp(180px, 24vw, 360px);
+  height: clamp(180px, 24vw, 360px);
+  background: radial-gradient(circle,
+    rgba(0,180,216,0.20) 0%,
+    rgba(100,180,240,0.10) 48%,
+    transparent 72%);
+  filter: blur(72px);
+  top: 58%; left: 12%;
+  animation: orb-float-4 20s ease-in-out infinite;
+}
+
+@keyframes orb-float-1 {
+  0%,100% { transform: translate(0,0)       scale(1.00); opacity: 0.78; }
+  33%      { transform: translate(55px,-42px) scale(1.14); opacity: 0.96; }
+  66%      { transform: translate(-28px,48px) scale(0.90); opacity: 0.60; }
+}
+@keyframes orb-float-2 {
+  0%,100% { transform: translate(0,0)        scale(1.00); opacity: 0.72; }
+  38%      { transform: translate(-68px,28px) scale(1.18); opacity: 0.92; }
+  74%      { transform: translate(42px,-58px) scale(0.86); opacity: 0.54; }
+}
+@keyframes orb-float-3 {
+  0%,100% { transform: translate(0,0)        scale(1.00); opacity: 0.68; }
+  50%      { transform: translate(-38px,-52px) scale(1.12); opacity: 0.90; }
+}
+@keyframes orb-float-4 {
+  0%,100% { transform: translate(0,0)       scale(1.00); opacity: 0.60; }
+  45%      { transform: translate(30px,40px)  scale(1.08); opacity: 0.82; }
+}
+
+/* Mode jour — orbs chaleureux */
+body.mode-jour .aurora-orb-1,
+html[data-theme="light"] .aurora-orb-1 {
+  background: radial-gradient(circle,
+    rgba(255,195,75,0.28) 0%,
+    rgba(255,160,60,0.14) 42%,
+    transparent 68%);
+}
+body.mode-jour .aurora-orb-2,
+html[data-theme="light"] .aurora-orb-2 {
+  background: radial-gradient(circle,
+    rgba(91,63,216,0.20) 0%,
+    rgba(150,100,240,0.10) 44%,
+    transparent 68%);
+}
+body.mode-jour .aurora-orb-3,
+html[data-theme="light"] .aurora-orb-3 {
+  background: radial-gradient(circle,
+    rgba(55,210,165,0.30) 0%,
+    rgba(0,180,140,0.14) 44%,
+    transparent 68%);
+}
+body.mode-jour .aurora-orb-4,
+html[data-theme="light"] .aurora-orb-4 {
+  background: radial-gradient(circle,
+    rgba(232,146,10,0.22) 0%,
+    rgba(255,185,60,0.10) 48%,
+    transparent 70%);
+}
+
+/* Réduire les orbs sur mobile (performances) */
+@media (max-width: 767px) {
+  .aurora-orb { opacity: 0.55 !important; filter: blur(50px) !important; }
+  .aurora-orb-3, .aurora-orb-4 { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-orb { animation: none !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BIOLUMINESCENCE — Spores + Particules Pandora
+   ═══════════════════════════════════════════════════════════════ */
+
+.bio-particle {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  will-change: transform, opacity;
+  mix-blend-mode: screen;
+}
+
+.bio-particle[data-type="spore"] {
+  width: 3px; height: 3px;
+  background: rgba(0,229,204,0.92);
+  box-shadow:
+    0 0 6px rgba(0,229,204,0.75),
+    0 0 14px rgba(0,229,204,0.35);
+  animation: spore-drift var(--sp-dur, 14s) ease-in-out infinite var(--sp-delay, 0s);
+}
+.bio-particle[data-type="violet"] {
+  width: 3px; height: 3px;
+  background: rgba(123,79,232,0.90);
+  box-shadow:
+    0 0 6px rgba(123,79,232,0.80),
+    0 0 14px rgba(123,79,232,0.35);
+  animation: spore-drift var(--sp-dur, 14s) ease-in-out infinite var(--sp-delay, 0s);
+}
+.bio-particle[data-type="wood"] {
+  width: 2px; height: 2px;
+  background: rgba(57,224,117,0.95);
+  box-shadow:
+    0 0 5px rgba(57,224,117,0.80),
+    0 0 12px rgba(57,224,117,0.35);
+  animation: spore-drift var(--sp-dur, 11s) ease-in-out infinite var(--sp-delay, 0s);
+}
+.bio-particle[data-type="ambre"] {
+  width: 4px; height: 4px;
+  background: rgba(255,195,75,0.88);
+  box-shadow:
+    0 0 8px rgba(255,195,75,0.70),
+    0 0 18px rgba(232,146,10,0.30);
+  animation: spore-drift var(--sp-dur, 18s) ease-in-out infinite var(--sp-delay, 0s);
+}
+
+@keyframes spore-drift {
+  0% {
+    transform: translate(0, 0) scale(0.7);
+    opacity: 0;
+  }
+  8%  { opacity: 1; }
+  88% { opacity: 0.80; }
+  100% {
+    transform: translate(var(--sp-dx, 30px), -90vh) scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* Masquer spores ambre en mode nuit, teal en mode jour */
+body:not(.mode-jour) .bio-particle[data-type="ambre"] { display: none; }
+body.mode-jour .bio-particle[data-type="spore"],
+html[data-theme="light"] .bio-particle[data-type="spore"] { display: none; }
+
+@media (max-width: 1023px) {
+  .bio-particle { display: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bio-particle { display: none !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BIOLUMINESCENCE — Blocs sémantiques qui respirent
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: no-preference) {
+  .block-cyan {
+    animation: block-cyan-pulse 5s ease-in-out infinite;
+  }
+  .block-violet {
+    animation: block-violet-pulse 5.5s ease-in-out infinite;
+  }
+  .block-vert {
+    animation: block-vert-pulse 4.5s ease-in-out infinite;
+  }
+}
+
+@keyframes block-cyan-pulse {
+  0%, 100% { border-color: rgba(0,229,204,0.14); box-shadow: none; }
+  50% { border-color: rgba(0,229,204,0.42); box-shadow: 0 0 28px rgba(0,229,204,0.16); }
+}
+@keyframes block-violet-pulse {
+  0%, 100% { border-color: rgba(123,79,232,0.16); box-shadow: none; }
+  50% { border-color: rgba(123,79,232,0.44); box-shadow: 0 0 28px rgba(123,79,232,0.18); }
+}
+@keyframes block-vert-pulse {
+  0%, 100% { border-color: rgba(57,224,117,0.14); box-shadow: none; }
+  50% { border-color: rgba(57,224,117,0.40); box-shadow: 0 0 24px rgba(57,224,117,0.15); }
 }
