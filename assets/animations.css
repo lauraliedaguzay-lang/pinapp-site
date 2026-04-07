@@ -20,7 +20,7 @@
 
 /* Sous-titre poétique — murmure */
 .hero-subtitle {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--font-body);  /* Inter — cohérence système, pas Georgia */
   font-style: italic;
   font-size: clamp(1rem, 2vw, 1.25rem);
   color: var(--text-2);
@@ -339,27 +339,7 @@ html[data-theme="light"] .scroll-progress {
   to { transform: translateY(0); }
 }
 
-/* -- Images reveal *//
-.img-reveal {
-  opacity: 0;
-  transform: translateY(20px) scale(0.98);
-  transition:
-    opacity 700ms cubic-bezier(0.25,0.1,0.25,1),
-    transform 700ms cubic-bezier(0.25,0.1,0.25,1);
-  will-change: opacity, transform;
-}
-.img-reveal.visible { opacity: 1; transform: translateY(0) scale(1); }
-.img-wrapper {
-  display: block; overflow: hidden;
-  border-radius: var(--r-lg, 16px);
-  background: linear-gradient(135deg, rgba(0,229,204,0.05), rgba(123,79,232,0.05));
-  animation: skeleton-pulse 1.5s ease infinite;
-}
-.img-wrapper:has(.img-reveal.visible) { animation: none; }
-@keyframes skeleton-pulse {
-  0%, 100% { opacity: 0.5; }
-  50%       { opacity: 1; }
-}
+/* -- Images reveal : déclaration unique (doublon supprimé) *//
 
 /* -- Texte gradient anime *//
 .text-gradient {

@@ -106,10 +106,11 @@ if (!path.includes('diagnostic') && !path.includes('votre-projet')) {
 }
 
 /* =====================================================
-   PARALLAXE 3 COUCHES — desktop uniquement
-   Canvas + orbs bougent à des vitesses différentes
+   PARALLAXE 3 COUCHES — desktop + prefers-reduced-motion
    ===================================================== */
-if (window.innerWidth >= 1024) {
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (window.innerWidth >= 1024 && !prefersReducedMotion) {
   const canvas    = document.querySelector('#pandora-canvas');
   const orbs      = document.querySelectorAll('.aurora-orb');
   const shapes    = document.querySelectorAll('.pandora-shape');
@@ -140,6 +141,7 @@ document.querySelectorAll('a[href]').forEach(link => {
       url.startsWith('#') || url.startsWith('mailto'))
     return;
   link.addEventListener('click', () => {
+    if (prefersReducedMotion) return;  /* respecter accessibilité */
     const canvas = document.querySelector('#pandora-canvas');
     if (!canvas) return;
     const jour = document.body.classList.contains('mode-jour');

@@ -81,13 +81,16 @@ const Cursor = {
   },
 
   animate() {
-    this.x += (this.tx - this.x) * 0.15;
-    this.y += (this.ty - this.y) * 0.15;
+    const dx = this.tx - this.x;
+    const dy = this.ty - this.y;
+    this.x += dx * 0.15;
+    this.y += dy * 0.15;
     if (this.el) {
       this.el.style.left = this.tx + 'px';
       this.el.style.top  = this.ty + 'px';
     }
-    if (this.trail) {
+    /* N'écrire dans le DOM que si le trail bouge vraiment (évite RAF infini à 120 Hz) */
+    if (this.trail && (Math.abs(dx) > 0.05 || Math.abs(dy) > 0.05)) {
       this.trail.style.left = this.x + 'px';
       this.trail.style.top  = this.y + 'px';
     }

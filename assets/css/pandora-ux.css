@@ -216,7 +216,6 @@ nav.scrolled::after {
   left: 5%;
   right: 5%;
   height: 0.5px;
-  will-change: transform, opacity;
   background: linear-gradient(
     90deg,
     transparent,
@@ -366,10 +365,16 @@ body.mode-jour ::selection {
    ═══════════════════════════════════════════════════════════════ */
 
 :focus-visible {
-  outline: 1.5px solid rgba(29, 232, 176, 0.80);
+  outline: 2px solid #00E5CC;       /* opaque ≥2px — WCAG 2.2 SC 2.4.11 */
   outline-offset: 4px;
   border-radius: 4px;
-  box-shadow: 0 0 0 4px rgba(29, 232, 176, 0.10);
+  box-shadow: 0 0 0 5px rgba(0, 229, 204, 0.18);
+}
+
+html[data-theme="light"] :focus-visible,
+body.mode-jour :focus-visible {
+  outline: 2px solid #0A6B4E;
+  box-shadow: 0 0 0 5px rgba(10, 107, 78, 0.14);
 }
 
 /* === AVATAR DEPTH — Dualité teal/violet === */
@@ -402,10 +407,83 @@ body.mode-jour ::selection {
 }
 /* Section label canonical */
 .section-label {
-  font-size: 11px;
+  font-size: 0.75rem;  /* 12px minimum HIG Apple */
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   opacity: 0.55;
   margin-bottom: var(--space-2);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   APPLE/HIG — CORRECTIONS COHÉRENCE
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Touch targets minimum 44×44pt HIG */
+.mode-toggle,
+.burger,
+#drawerClose,
+[class*="nav-close"] {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Feedback tactile iOS (:hover ne fonctionne pas sur touch) */
+@media (hover: none) {
+  .btn-primary:active,
+  .btn-secondary:active {
+    transform: scale(0.96);
+    opacity: 0.82;
+    transition: transform 60ms ease, opacity 60ms ease;
+  }
+
+  .card:active {
+    transform: scale(0.984);
+    opacity: 0.9;
+    transition: transform 80ms ease;
+  }
+
+  .univers-pill:active,
+  .pill-choice:active,
+  [class*="pill"]:active {
+    transform: scale(0.93);
+    opacity: 0.72;
+    transition: transform 70ms ease;
+  }
+
+  .nav-link:active {
+    opacity: 0.55;
+    transition: opacity 60ms ease;
+  }
+}
+
+/* Cookie banner : webkit prefix + safe-area */
+#cookie-banner {
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  backdrop-filter: blur(20px) saturate(1.8);
+  padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom, 0px));
+}
+
+/* Drawer : stopper le scroll leakthrough iOS */
+.mobile-drawer {
+  overscroll-behavior: contain;
+}
+
+.mobile-drawer-panel,
+[class*="drawer-panel"] {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
+/* iOS Safari : inputs < 16px déclenchent un zoom automatique */
+input, textarea, select {
+  font-size: 16px;
+}
+@media (min-width: 768px) {
+  input, textarea, select {
+    font-size: inherit;
+  }
 }

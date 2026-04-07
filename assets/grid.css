@@ -158,9 +158,9 @@ body.demo-page #contenu-principal.demo-main {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display, 'Cormorant Garamond', Georgia, serif);
+  font-family: var(--font-display);  /* Inter — cohérence système Apple */
   font-weight: 400;
-  line-height: 1.1;
+  line-height: 1.15;  /* 1.1 crée des collisions sur Inter — 1.15 Apple standard */
   letter-spacing: -0.04em;
 }
 
@@ -198,7 +198,7 @@ main#contenu-principal {
   width: 100%;
   max-width: 80rem;
   margin: 0 auto;
-  padding: 0 var(--space-2);
+  padding: 0 var(--space-3);  /* 16px mobile — Apple minimum (était 8px) */
 }
 
 .section {
@@ -1145,7 +1145,7 @@ button:focus-visible,
 @media (min-width: 768px) and (max-width: 1023px) {
 
   /* Sections */
-  section { padding: 100px 48px; }
+  section { padding: 96px 48px; }  /* 96px sur grille 8px (était 100px) */
 
   /* Grilles — 2 colonnes */
   .grid-3 { grid-template-columns: 1fr 1fr; }
