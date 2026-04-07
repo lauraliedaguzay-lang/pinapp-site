@@ -19,6 +19,16 @@
 }
 
 /* =====================================================
+   MODE "FOND STATIQUE" — désactive les halos animés
+   (évite l'effet "ça bouge partout" / fatigue visuelle)
+   ===================================================== */
+
+.aurora-orb {
+  animation: none !important;
+  transform: none !important;
+}
+
+/* =====================================================
    NUIT — 4 orbes bioluminescents
    (fallback CSS si canvas désactivé ou slow device)
    ===================================================== */
@@ -31,7 +41,7 @@ html:not([data-theme='light']) body .aurora-orb-1 {
   filter: blur(clamp(60px, 10vw, 100px));
   top: -15%;
   left: -10%;
-  animation: aurora-float-a 9s ease-in-out infinite;
+  animation: none !important;
 }
 body:not(.mode-jour) .aurora-orb-2,
 html:not([data-theme='light']) body .aurora-orb-2 {
@@ -41,7 +51,7 @@ html:not([data-theme='light']) body .aurora-orb-2 {
   filter: blur(clamp(50px, 9vw, 90px));
   bottom: 8%;
   right: -8%;
-  animation: aurora-float-b 11s ease-in-out infinite;
+  animation: none !important;
 }
 body:not(.mode-jour) .aurora-orb-3,
 html:not([data-theme='light']) body .aurora-orb-3 {
@@ -51,7 +61,7 @@ html:not([data-theme='light']) body .aurora-orb-3 {
   filter: blur(clamp(50px, 8vw, 80px));
   top: 40%;
   left: 15%;
-  animation: aurora-float-c 7s ease-in-out infinite;
+  animation: none !important;
 }
 body:not(.mode-jour) .aurora-orb-4,
 html:not([data-theme='light']) body .aurora-orb-4 {
@@ -61,7 +71,7 @@ html:not([data-theme='light']) body .aurora-orb-4 {
   filter: blur(clamp(60px, 10vw, 100px));
   top: 62%;
   right: -5%;
-  animation: aurora-float-a 13s ease-in-out infinite reverse;
+  animation: none !important;
 }
 
 /* =====================================================
@@ -76,7 +86,7 @@ html[data-theme='light'] body .aurora-orb-1 {
   filter: blur(clamp(60px, 10vw, 100px));
   top: -15%;
   left: -10%;
-  animation: aurora-float-a 9s ease-in-out infinite;
+  animation: none !important;
 }
 body.mode-jour .aurora-orb-2,
 html[data-theme='light'] body .aurora-orb-2 {
@@ -86,7 +96,7 @@ html[data-theme='light'] body .aurora-orb-2 {
   filter: blur(clamp(50px, 9vw, 90px));
   bottom: 8%;
   right: -8%;
-  animation: aurora-float-b 11s ease-in-out infinite;
+  animation: none !important;
 }
 body.mode-jour .aurora-orb-3,
 html[data-theme='light'] body .aurora-orb-3 {
@@ -96,7 +106,7 @@ html[data-theme='light'] body .aurora-orb-3 {
   filter: blur(clamp(50px, 8vw, 80px));
   top: 40%;
   left: 15%;
-  animation: aurora-float-c 7s ease-in-out infinite;
+  animation: none !important;
 }
 body.mode-jour .aurora-orb-4,
 html[data-theme='light'] body .aurora-orb-4 {
@@ -107,7 +117,7 @@ html[data-theme='light'] body .aurora-orb-4 {
   filter: blur(clamp(44px, 8vw, 76px));
   top: 58%;
   right: 2%;
-  animation: aurora-float-a 11s ease-in-out infinite reverse;
+  animation: none !important;
 }
 
 /* =====================================================

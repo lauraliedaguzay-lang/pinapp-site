@@ -1003,10 +1003,12 @@ body::after {
   opacity: 0.7;
 }
 
+/* Désactivation globale : fond dynamique/halo (réduction fatigue visuelle) */
 @media (prefers-reduced-motion: no-preference) {
-  /* Mode nuit : pas de “lumière ambiante” animée en fond (on privilégie les scintillements) */
-  html[data-theme='dark'] body::after,
-  body:not(.mode-jour)::after {
+  body::after {
+    animation: none !important;
+  }
+  html::after {
     animation: none !important;
   }
 }
@@ -1043,28 +1045,34 @@ html::after {
 
 @media (prefers-reduced-motion: no-preference) {
   html[data-theme='dark']::after {
-    /* Micro-étoiles blanches + points bioluminescents (violet/bleu/vert/teal) */
+    /* Points OLED : blancs + bioluminescents, répartis sur l’écran.
+       “Dynamique” = micro-variation d’opacité (pas de halos qui se déplacent). */
+    opacity: 0.16;
     background:
       /* Blanc — étoiles */
-      radial-gradient(1px 1px at 12% 22%, rgba(255, 255, 255, 0.55) 0%, transparent 60%),
-      radial-gradient(1px 1px at 28% 64%, rgba(255, 255, 255, 0.4) 0%, transparent 60%),
-      radial-gradient(1px 1px at 44% 18%, rgba(255, 255, 255, 0.35) 0%, transparent 60%),
-      radial-gradient(1px 1px at 58% 38%, rgba(255, 255, 255, 0.5) 0%, transparent 60%),
-      radial-gradient(1px 1px at 71% 72%, rgba(255, 255, 255, 0.36) 0%, transparent 60%),
-      radial-gradient(1px 1px at 86% 28%, rgba(255, 255, 255, 0.46) 0%, transparent 60%),
-      radial-gradient(1px 1px at 91% 61%, rgba(255, 255, 255, 0.3) 0%, transparent 60%),
-      radial-gradient(1px 1px at 8% 82%, rgba(255, 255, 255, 0.34) 0%, transparent 60%),
-      /* Biolume — points légèrement plus “soft” */
-        radial-gradient(1px 1px at 18% 46%, rgba(123, 79, 232, 0.42) 0%, transparent 62%),
-      radial-gradient(1px 1px at 36% 76%, rgba(107, 158, 255, 0.38) 0%, transparent 62%),
-      radial-gradient(1px 1px at 63% 22%, rgba(57, 224, 117, 0.26) 0%, transparent 62%),
-      radial-gradient(1px 1px at 77% 54%, rgba(0, 229, 204, 0.28) 0%, transparent 62%),
-      radial-gradient(1px 1px at 54% 58%, rgba(123, 79, 232, 0.24) 0%, transparent 62%),
-      radial-gradient(1px 1px at 24% 12%, rgba(107, 158, 255, 0.22) 0%, transparent 62%),
-      radial-gradient(1px 1px at 92% 86%, rgba(0, 229, 204, 0.18) 0%, transparent 62%),
-      radial-gradient(1px 1px at 6% 66%, rgba(57, 224, 117, 0.16) 0%, transparent 62%);
+      radial-gradient(1px 1px at 6% 18%, rgba(255, 255, 255, 0.52) 0%, transparent 62%),
+      radial-gradient(1px 1px at 12% 72%, rgba(255, 255, 255, 0.38) 0%, transparent 62%),
+      radial-gradient(1px 1px at 18% 46%, rgba(255, 255, 255, 0.44) 0%, transparent 62%),
+      radial-gradient(1px 1px at 26% 14%, rgba(255, 255, 255, 0.32) 0%, transparent 62%),
+      radial-gradient(1px 1px at 34% 84%, rgba(255, 255, 255, 0.36) 0%, transparent 62%),
+      radial-gradient(1px 1px at 42% 28%, rgba(255, 255, 255, 0.42) 0%, transparent 62%),
+      radial-gradient(1px 1px at 50% 62%, rgba(255, 255, 255, 0.34) 0%, transparent 62%),
+      radial-gradient(1px 1px at 58% 18%, rgba(255, 255, 255, 0.48) 0%, transparent 62%),
+      radial-gradient(1px 1px at 66% 76%, rgba(255, 255, 255, 0.3) 0%, transparent 62%),
+      radial-gradient(1px 1px at 74% 44%, rgba(255, 255, 255, 0.4) 0%, transparent 62%),
+      radial-gradient(1px 1px at 82% 14%, rgba(255, 255, 255, 0.36) 0%, transparent 62%),
+      radial-gradient(1px 1px at 90% 58%, rgba(255, 255, 255, 0.28) 0%, transparent 62%),
+      radial-gradient(1px 1px at 94% 84%, rgba(255, 255, 255, 0.32) 0%, transparent 62%),
+      /* Biolume — teintes Pandora */
+        radial-gradient(1px 1px at 10% 34%, rgba(0, 229, 204, 0.26) 0%, transparent 66%),
+      radial-gradient(1px 1px at 22% 66%, rgba(123, 79, 232, 0.32) 0%, transparent 66%),
+      radial-gradient(1px 1px at 38% 52%, rgba(107, 158, 255, 0.24) 0%, transparent 66%),
+      radial-gradient(1px 1px at 52% 12%, rgba(57, 224, 117, 0.18) 0%, transparent 66%),
+      radial-gradient(1px 1px at 68% 30%, rgba(0, 229, 204, 0.2) 0%, transparent 66%),
+      radial-gradient(1px 1px at 78% 72%, rgba(123, 79, 232, 0.2) 0%, transparent 66%),
+      radial-gradient(1px 1px at 88% 26%, rgba(107, 158, 255, 0.18) 0%, transparent 66%);
     mix-blend-mode: screen;
-    animation: night-sparkle 9.5s ease-in-out infinite;
+    animation: night-sparkle 8.5s ease-in-out infinite;
   }
 }
 
