@@ -78,9 +78,7 @@ exports.handler = async (event) => {
   const summary = {
     ok: missing.length === 0,
     missing: Array.from(new Set(missing)),
-    present: Object.fromEntries(
-      Object.keys(env).map((k) => [k, env[k] ? true : false]),
-    ),
+    present: Object.fromEntries(Object.keys(env).map((k) => [k, env[k] ? true : false])),
     redacted: {
       APPROVE_SECRET: env.APPROVE_SECRET ? redacted(env.APPROVE_SECRET) : '',
       N8N_APPROVE_URL: env.N8N_APPROVE_URL ? env.N8N_APPROVE_URL : '',
@@ -114,4 +112,3 @@ exports.handler = async (event) => {
 
   return json(summary.ok ? 200 : 500, Object.assign({}, summary, { probes }));
 };
-

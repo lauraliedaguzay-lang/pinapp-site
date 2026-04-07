@@ -36,8 +36,8 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 
 if (prefersReducedMotion) {
   /* Pas d'animations: état final immédiat */
-  document.querySelectorAll('.img-reveal').forEach(img => img.classList.add('visible'));
-  document.querySelectorAll('[data-count]').forEach(el => {
+  document.querySelectorAll('.img-reveal').forEach((img) => img.classList.add('visible'));
+  document.querySelectorAll('[data-count]').forEach((el) => {
     const target = parseInt(el.dataset.count, 10);
     if (!isNaN(target)) el.textContent = String(target);
     el.classList.add('done');
@@ -94,18 +94,16 @@ if (indicator) {
 /* =====================================================
    FLASH AURORA — transition entre pages
    ===================================================== */
-document.querySelectorAll('a[href]').forEach(link => {
+document.querySelectorAll('a[href]').forEach((link) => {
   const url = link.getAttribute('href');
-  if (!url || url.startsWith('http') ||
-      url.startsWith('#') || url.startsWith('mailto'))
-    return;
+  if (!url || url.startsWith('http') || url.startsWith('#') || url.startsWith('mailto')) return;
   link.addEventListener('click', () => {
-    if (prefersReducedMotion) return;  /* respecter accessibilité */
+    if (prefersReducedMotion) return; /* respecter accessibilité */
     const canvas = document.querySelector('#pandora-canvas');
     if (!canvas) return;
     const jour = document.body.classList.contains('mode-jour');
     canvas.style.transition = 'opacity 180ms ease';
-    canvas.style.opacity    = jour ? '0.55' : '0.45';
+    canvas.style.opacity = jour ? '0.55' : '0.45';
     setTimeout(() => {
       canvas.style.opacity = jour ? '0.32' : '0.22';
     }, 200);

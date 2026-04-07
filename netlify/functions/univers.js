@@ -2,7 +2,6 @@
 // Génération d'univers digital via Claude — clé API jamais en front-end
 
 exports.handler = async (event) => {
-
   const headers = {
     'Access-Control-Allow-Origin': 'https://pinapp.fr',
     'Access-Control-Allow-Headers': 'Content-Type',
@@ -14,19 +13,22 @@ exports.handler = async (event) => {
   }
 
   let body;
-  try { body = JSON.parse(event.body); }
-  catch {
+  try {
+    body = JSON.parse(event.body);
+  } catch {
     return {
-      statusCode: 400, headers,
-      body: JSON.stringify({ error: 'Invalid JSON' })
+      statusCode: 400,
+      headers,
+      body: JSON.stringify({ error: 'Invalid JSON' }),
     };
   }
 
   const { lieu, emotion, reference } = body;
   if (!lieu || !emotion) {
     return {
-      statusCode: 400, headers,
-      body: JSON.stringify({ error: 'Missing fields' })
+      statusCode: 400,
+      headers,
+      body: JSON.stringify({ error: 'Missing fields' }),
     };
   }
 
@@ -70,11 +72,13 @@ Règles :
 → Couleurs cohérentes avec l'univers
 → Tout en français
 → JSON valide uniquement`,
-        messages: [{
-          role: 'user',
-          content: `Lieu : ${lieu}\nÉmotion : ${emotion}\nRéférence : ${reference || 'aucune'}`
-        }]
-      })
+        messages: [
+          {
+            role: 'user',
+            content: `Lieu : ${lieu}\nÉmotion : ${emotion}\nRéférence : ${reference || 'aucune'}`,
+          },
+        ],
+      }),
     });
 
     if (!resp.ok) throw new Error('API error');
@@ -84,14 +88,15 @@ Règles :
     const univers = JSON.parse(clean);
 
     return {
-      statusCode: 200, headers,
-      body: JSON.stringify({ univers })
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({ univers }),
     };
-
-  } catch(e) {
+  } catch (e) {
     return {
-      statusCode: 500, headers,
-      body: JSON.stringify({ error: 'Erreur serveur' })
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({ error: 'Erreur serveur' }),
     };
   }
 };
