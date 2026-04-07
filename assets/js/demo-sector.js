@@ -12,6 +12,13 @@
     return;
   }
 
+  function escAttr(val) {
+    return String(val == null ? '' : val)
+      .replace(/&/g, '&amp;')
+      .replace(/'/g, '&#39;')
+      .replace(/"/g, '&quot;');
+  }
+
   var root = document.documentElement;
 
   function setVars(map) {
@@ -87,8 +94,14 @@
             imgBase = new URL('../images/', sc.src).href;
           }
         } catch (e) {}
+        var heroUrl = S.photoHero;
+        if (!/^https?:\/\//i.test(heroUrl) && heroUrl.indexOf('//') !== 0) {
+          heroUrl = imgBase + S.photoHero;
+        }
         hero.style.backgroundImage =
-          "url('" + imgBase + S.photoHero + "'), linear-gradient(135deg, " +
+          "url('" +
+          String(heroUrl).replace(/'/g, '\\\'') +
+          "'), linear-gradient(135deg, " +
           (S.accentDark || S.accent) +
           ', ' +
           S.accent +
@@ -145,21 +158,190 @@
 
   fillCopy();
 
+  if (S.serviceImages && S.serviceImages.length) {
+    S.services.forEach(function (svc, i) {
+      if (S.serviceImages[i]) svc.image = S.serviceImages[i];
+    });
+  }
+
+  function injectRichSections() {
+    var servicesSection = document.querySelector('.services-section');
+    if (!servicesSection || !servicesSection.parentNode) return;
+    function insertAfter(node, el) {
+      if (node.nextSibling) node.parentNode.insertBefore(el, node.nextSibling);
+      else node.parentNode.appendChild(el);
+    }
+    var anchor = servicesSection;
+
+    if (S.galerie && S.galerie.length) {
+      var gal = document.createElement('section');
+      gal.className = 'demo-galerie-section' + (S.galerie.length >= 10 ? ' demo-galerie-section--dense' : '');
+      gal.setAttribute('aria-label', 'Galerie photos');
+      var h2g = document.createElement('h2');
+      h2g.className = 'demo-galerie-title';
+      h2g.textContent = S.galerieTitle || 'En images';
+      gal.appendChild(h2g);
+      var grid = document.createElement('div');
+      grid.className = 'demo-galerie-grid';
+      S.galerie.forEach(function (item) {
+        var fig = document.createElement('figure');
+        fig.className = 'demo-galerie-item';
+        var im = document.createElement('img');
+        im.src = item.src;
+        im.alt = item.alt || '';
+        im.loading = 'lazy';
+        im.decoding = 'async';
+        fig.appendChild(im);
+        if (item.caption) {
+          var fc = document.createElement('figcaption');
+          fc.textContent = item.caption;
+          fig.appendChild(fc);
+        }
+        grid.appendChild(fig);
+      });
+      gal.appendChild(grid);
+      insertAfter(anchor, gal);
+      anchor = gal;
+    }
+
+    if (S.apropos && S.apropos.texte) {
+      var ap = document.createElement('section');
+      ap.className = 'demo-apropos-section';
+      ap.setAttribute('aria-label', 'À propos');
+      var inner = document.createElement('div');
+      inner.className = 'demo-apropos-inner';
+      if (S.apropos.photo) {
+        var ph = document.createElement('div');
+        ph.className = 'demo-apropos-photo';
+        var pi = document.createElement('img');
+        pi.src = S.apropos.photo;
+        pi.alt = '';
+        pi.loading = 'lazy';
+        ph.appendChild(pi);
+        inner.appendChild(ph);
+      }
+      var txt = document.createElement('div');
+      txt.className = 'demo-apropos-text';
+      var ht = document.createElement('h2');
+      ht.className = 'demo-apropos-title';
+      ht.textContent = S.apropos.titre || 'À propos';
+      txt.appendChild(ht);
+      var p = document.createElement('p');
+      p.className = 'demo-apropos-lead';
+      p.textContent = S.apropos.texte;
+      txt.appendChild(p);
+      inner.appendChild(txt);
+      ap.appendChild(inner);
+      insertAfter(anchor, ap);
+      anchor = ap;
+    }
+
+    if (S.preuvePhoto) {
+      var preuve = document.querySelector('.preuve-section');
+      var wrap = preuve ? preuve.querySelector('div') : null;
+      if (wrap) {
+        var pw = document.createElement('div');
+        pw.className = 'preuve-photo-wrap';
+        var pim = document.createElement('img');
+        pim.src = S.preuvePhoto;
+        pim.alt = '';
+        pim.className = 'preuve-photo';
+        pim.loading = 'lazy';
+        pw.appendChild(pim);
+        wrap.insertBefore(pw, wrap.firstChild);
+      }
+    }
+
+    var footer = document.querySelector('.demo-sector-page .site-footer');
+    if (footer && S.contactRich !== false) {
+      var cs = document.createElement('section');
+      cs.className = 'demo-contact-rich';
+      cs.id = 'contact-rich';
+      cs.setAttribute('aria-label', 'Contact');
+      var ch = document.createElement('h2');
+      ch.className = 'demo-contact-rich-title';
+      ch.textContent = S.contactRichTitle || 'Un message, une réponse rapide';
+      cs.appendChild(ch);
+      var sub = document.createElement('p');
+      sub.className = 'demo-contact-rich-intro';
+      sub.textContent =
+        S.contactRichIntro ||
+        'Complétez le formulaire (démo : rien n’est envoyé). Sur votre site livré, les champs partent vers votre email ou votre automatisation.';
+      cs.appendChild(sub);
+      var form = document.createElement('form');
+      form.className = 'demo-rich-form';
+      form.setAttribute('novalidate', '');
+      [['Prénom', 'text', 'demo-fn'], ['Email', 'email', 'demo-em'], ['Téléphone', 'tel', 'demo-tel']].forEach(
+        function (row) {
+          var lab = document.createElement('label');
+          lab.className = 'demo-rich-label';
+          lab.textContent = row[0];
+          var inp = document.createElement('input');
+          inp.type = row[1];
+          inp.className = 'demo-rich-input';
+          inp.name = row[2];
+          if (row[1] === 'email') inp.autocomplete = 'email';
+          else if (row[1] === 'tel') inp.autocomplete = 'tel';
+          else inp.autocomplete = 'given-name';
+          lab.appendChild(inp);
+          form.appendChild(lab);
+        }
+      );
+      var lbm = document.createElement('label');
+      lbm.className = 'demo-rich-label';
+      lbm.textContent = 'Votre message';
+      var ta = document.createElement('textarea');
+      ta.className = 'demo-rich-textarea';
+      ta.name = 'demo-msg';
+      ta.rows = 5;
+      lbm.appendChild(ta);
+      form.appendChild(lbm);
+      var btn = document.createElement('button');
+      btn.type = 'submit';
+      btn.className = 'demo-rich-submit';
+      btn.textContent = 'Envoyer (démo)';
+      form.appendChild(btn);
+      var hint = document.createElement('p');
+      hint.className = 'demo-rich-hint';
+      hint.textContent = 'Démonstration Pinapp — aucune donnée transmise.';
+      form.appendChild(hint);
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (window.console && console.log) console.log('[DÉMO Pinapp] Formulaire riche (non envoyé)');
+        btn.textContent = 'Bien reçu (simulation)';
+        btn.disabled = true;
+      });
+      cs.appendChild(form);
+      footer.parentNode.insertBefore(cs, footer);
+    }
+  }
+
+  injectRichSections();
+
   /* --- Services swipe --- */
   var swipeContainer = document.getElementById('servicesSwipe');
   var dotsContainer = document.getElementById('servicesDots');
   var currentService = 0;
 
+  var iconSvg =
+    '<svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>';
+
   S.services.forEach(function (service, i) {
     var item = document.createElement('div');
     item.className = 'swipe-item' + (i === 0 ? ' active' : '');
+    var topMedia = service.image
+      ? '<img class="service-thumb" src="' +
+        escAttr(service.image) +
+        '" alt="" loading="lazy" decoding="async" width="400" height="200">'
+      : iconSvg;
     item.innerHTML =
-      '<svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>' +
-      '<p class="service-name"></p><p class="service-desc"></p><p class="service-prix"></p>';
+      topMedia + '<p class="service-name"></p><p class="service-desc"></p><p class="service-prix"></p>';
     item.querySelector('.service-name').textContent = service.nom;
     item.querySelector('.service-desc').textContent = service.description;
     item.querySelector('.service-prix').textContent = service.prix;
     swipeContainer.appendChild(item);
+
+    if (service.image) swipeContainer.classList.add('has-thumbs');
 
     var dot = document.createElement('button');
     dot.type = 'button';

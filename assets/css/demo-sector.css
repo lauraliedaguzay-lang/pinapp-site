@@ -117,6 +117,7 @@ html {
 }
 
 .hero {
+  position: relative;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1146,4 +1147,226 @@ button, .pill, .df-cta, .df-pill { cursor: pointer; user-select: none; }
   .swipe-item.active:hover {
     transform: none;
   }
+}
+
+/* ─── Galerie + à propos + contact riche (démos complètes) ─── */
+.swipe-container.has-thumbs {
+  height: 280px;
+  max-width: 420px;
+}
+.swipe-item .service-thumb {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.demo-galerie-section {
+  background: var(--demo-fond-services);
+  padding-top: clamp(32px, 8vh, 64px);
+  padding-bottom: clamp(32px, 8vh, 64px);
+}
+
+.demo-galerie-title {
+  font-family: var(--demo-typo-titre);
+  font-size: clamp(22px, 3.2vw, 38px);
+  letter-spacing: -0.02em;
+  text-align: center;
+  margin-bottom: clamp(20px, 4vw, 36px);
+  color: var(--demo-texte);
+  font-weight: 400;
+}
+
+.demo-galerie-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+@media (min-width: 900px) {
+  .demo-galerie-section--dense .demo-galerie-grid {
+    grid-template-columns: repeat(5, 1fr);
+    max-width: 1100px;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 767px) {
+  .demo-galerie-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+.demo-galerie-item {
+  margin: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--demo-border-card);
+  background: var(--demo-fond-card);
+}
+
+.demo-galerie-item img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  vertical-align: middle;
+}
+
+.demo-galerie-item figcaption {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 8px 10px;
+  opacity: 0.65;
+  color: var(--demo-texte);
+}
+
+.demo-apropos-section {
+  background: var(--demo-fond-preuve);
+}
+
+.demo-apropos-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: clamp(24px, 4vw, 48px);
+  align-items: center;
+  max-width: 920px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (max-width: 767px) {
+  .demo-apropos-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+.demo-apropos-photo img {
+  width: 100%;
+  border-radius: 18px;
+  object-fit: cover;
+  aspect-ratio: 5 / 4;
+  border: 1px solid var(--demo-border-card);
+}
+
+.demo-apropos-title {
+  font-family: var(--demo-typo-titre);
+  font-size: clamp(22px, 3vw, 34px);
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  color: var(--demo-texte);
+  font-weight: 400;
+}
+
+.demo-apropos-lead {
+  font-size: 15px;
+  line-height: 1.75;
+  opacity: 0.82;
+  color: var(--demo-texte);
+}
+
+.preuve-photo-wrap {
+  margin-bottom: 24px;
+}
+
+.preuve-photo {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--demo-border-card);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.demo-contact-rich {
+  background: var(--demo-fond-booking);
+}
+
+.demo-contact-rich-title {
+  font-family: var(--demo-typo-titre);
+  font-size: clamp(22px, 3vw, 34px);
+  text-align: center;
+  margin-bottom: 10px;
+  color: var(--demo-texte);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.demo-contact-rich-intro {
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.65;
+  max-width: 460px;
+  margin: 0 auto 28px;
+  line-height: 1.6;
+  color: var(--demo-texte);
+}
+
+.demo-rich-form {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.demo-rich-label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--demo-texte);
+  opacity: 0.75;
+}
+
+.demo-rich-input,
+.demo-rich-textarea {
+  font-size: 16px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--demo-border-card);
+  background: var(--demo-fond-card);
+  color: var(--demo-texte);
+  font-family: inherit;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.demo-rich-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.demo-rich-submit {
+  margin-top: 8px;
+  padding: 14px 28px;
+  border-radius: 100px;
+  border: none;
+  background: var(--demo-accent);
+  color: var(--demo-texte-btn);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.demo-rich-submit:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.demo-rich-hint {
+  font-size: 11px;
+  opacity: 0.45;
+  text-align: center;
+  margin-top: 4px;
 }
