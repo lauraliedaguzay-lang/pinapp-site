@@ -1,4 +1,4 @@
-/* PINAPP — mondes-data.js — 15 univers premium
+﻿/* PINAPP — mondes-data.js — 15 univers premium
    Colorimétrie extraite des vraies palettes de chaque secteur
    ============================================================ */
 
@@ -306,6 +306,7 @@ const MONDES = [
     delai: '7 jours',
     demo_feature: 'Calculateur Harris-Benedict — poids/taille/âge → calories + programme',
     demo_temoignage: '"À la 8ème semaine je comprenais pourquoi ça marchait." — Alexandre D.',
+    preview_img: '../assets/images/monde-super-heros.png',
   },
 
   {
