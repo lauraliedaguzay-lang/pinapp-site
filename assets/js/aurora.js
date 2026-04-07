@@ -5,15 +5,22 @@ const Aurora = {
   t: 0,
   raf: null,
 
+  isJour() {
+    /* Priorité data-theme (main.js), fallback mode-jour (classe body) */
+    const t = document.documentElement.getAttribute('data-theme');
+    if (t === 'light') return true;
+    if (t === 'dark') return false;
+    return document.body.classList.contains('mode-jour');
+  },
+
   getColors() {
-    const jour = document.body.classList.contains('mode-jour');
-    return jour
+    return this.isJour()
       ? ['#FFB6C1', '#C8A0DC', '#FFD580']
       : ['#00E5CC', '#7B4FE8', '#39E075'];
   },
 
   getOpacity() {
-    return document.body.classList.contains('mode-jour') ? 0.32 : 0.22;
+    return this.isJour() ? 0.32 : 0.22;
   },
 
   init() {

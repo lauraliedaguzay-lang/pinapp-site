@@ -3,9 +3,15 @@
 const Particles = {
   count: 4,
 
+  isJour() {
+    const t = document.documentElement.getAttribute('data-theme');
+    if (t === 'light') return true;
+    if (t === 'dark') return false;
+    return document.body.classList.contains('mode-jour');
+  },
+
   getColor() {
-    const jour = document.body.classList.contains('mode-jour');
-    return jour
+    return this.isJour()
       ? () => `rgba(123,79,232,${(0.15 + Math.random() * 0.2).toFixed(2)})`
       : () => `rgba(0,229,204,${(0.15 + Math.random() * 0.2).toFixed(2)})`;
   },
@@ -67,8 +73,8 @@ const Particles = {
 
     /* Mettre à jour les couleurs au changement de mode */
     document.body.addEventListener('modeChange', () => {
+      const jour = this.isJour();
       document.querySelectorAll('.pinapp-particle').forEach(p => {
-        const jour = document.body.classList.contains('mode-jour');
         const alpha = (0.15 + Math.random() * 0.2).toFixed(2);
         p.style.background = jour
           ? `rgba(123,79,232,${alpha})`

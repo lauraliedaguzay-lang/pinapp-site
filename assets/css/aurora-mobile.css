@@ -15,7 +15,9 @@
   will-change: transform;
 }
 
-/* ── MODE NUIT ── */
+/* ── MODE NUIT — body:not(.mode-jour) ET html[data-theme="dark"] (les deux systèmes) ── */
+html[data-theme="dark"] .aurora-orb-1,
+html:not([data-theme]) .aurora-orb-1,
 body:not(.mode-jour) .aurora-orb-1 {
   width: clamp(220px, 80vw, 320px);
   height: clamp(220px, 80vw, 320px);
@@ -26,6 +28,8 @@ body:not(.mode-jour) .aurora-orb-1 {
   animation: float-a 9s ease-in-out infinite;
 }
 
+html[data-theme="dark"] .aurora-orb-2,
+html:not([data-theme]) .aurora-orb-2,
 body:not(.mode-jour) .aurora-orb-2 {
   width: clamp(180px, 70vw, 280px);
   height: clamp(180px, 70vw, 280px);
@@ -36,6 +40,8 @@ body:not(.mode-jour) .aurora-orb-2 {
   animation: float-b 11s ease-in-out infinite;
 }
 
+html[data-theme="dark"] .aurora-orb-3,
+html:not([data-theme]) .aurora-orb-3,
 body:not(.mode-jour) .aurora-orb-3 {
   width: clamp(160px, 60vw, 220px);
   height: clamp(160px, 60vw, 220px);
@@ -47,6 +53,7 @@ body:not(.mode-jour) .aurora-orb-3 {
 }
 
 /* ── MODE JOUR ── */
+html[data-theme="light"] .aurora-orb-1,
 body.mode-jour .aurora-orb-1 {
   width: clamp(220px, 80vw, 320px);
   height: clamp(220px, 80vw, 320px);
@@ -57,6 +64,7 @@ body.mode-jour .aurora-orb-1 {
   animation: float-a 9s ease-in-out infinite;
 }
 
+html[data-theme="light"] .aurora-orb-2,
 body.mode-jour .aurora-orb-2 {
   width: clamp(180px, 70vw, 280px);
   height: clamp(180px, 70vw, 280px);
@@ -67,6 +75,7 @@ body.mode-jour .aurora-orb-2 {
   animation: float-b 11s ease-in-out infinite;
 }
 
+html[data-theme="light"] .aurora-orb-3,
 body.mode-jour .aurora-orb-3 {
   width: clamp(160px, 60vw, 220px);
   height: clamp(160px, 60vw, 220px);
@@ -116,6 +125,7 @@ body.mode-jour .aurora-orb-3 {
   animation: grid-breathe 6s ease-in-out infinite;
 }
 
+html[data-theme="light"] .holo-grid,
 body.mode-jour .holo-grid {
   background-image:
     linear-gradient(rgba(123, 79, 232, 0.015) 1px, transparent 1px),

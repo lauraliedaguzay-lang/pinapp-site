@@ -5,8 +5,15 @@ const Cursor = {
   tx: 0, ty: 0,
   x: 0,  y: 0,
 
+  isJour() {
+    const t = document.documentElement.getAttribute('data-theme');
+    if (t === 'light') return true;
+    if (t === 'dark') return false;
+    return document.body.classList.contains('mode-jour');
+  },
+
   getColor() {
-    return document.body.classList.contains('mode-jour')
+    return this.isJour()
       ? { main: '#7B4FE8', glow: 'rgba(123,79,232,', blend: 'multiply' }
       : { main: '#00E5CC', glow: 'rgba(0,229,204,',  blend: 'screen'   };
   },
