@@ -16,7 +16,8 @@ const Particles = {
   getColors() {
     /* Jour : ambre+jade Pandora / Nuit : teal+violet bioluminescent */
     return this.isJour()
-      ? ['rgba(232,160,48,0.55)', 'rgba(29,232,176,0.40)', 'rgba(58,212,110,0.45)']
+      /* Jour : ambre · jade · pêche corail */
+      ? ['rgba(232,160,48,0.55)', 'rgba(29,232,176,0.40)', 'rgba(224,130,90,0.50)']
       : ['rgba(0,229,204,0.55)',  'rgba(107,158,255,0.40)', 'rgba(29,232,176,0.50)'];
   },
 
@@ -25,8 +26,9 @@ const Particles = {
       document.getElementById('pinapp-particle-css').remove();
     }
     const jour = this.isJour();
-    const glowA = jour ? 'rgba(232,160,48,0.60)' : 'rgba(0,229,204,0.60)';
-    const glowB = jour ? 'rgba(58,212,110,0.50)' : 'rgba(107,158,255,0.50)';
+    /* Jour : ambre · jade · pêche corail — Nuit : teal · violet · jade */
+    const glowA = jour ? 'rgba(232,160,48,0.60)'  : 'rgba(0,229,204,0.60)';
+    const glowB = jour ? 'rgba(224,130,90,0.55)'  : 'rgba(107,158,255,0.50)';  /* pêche jour */
 
     const style = document.createElement('style');
     style.id = 'pinapp-particle-css';
