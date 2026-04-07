@@ -1,6 +1,9 @@
 /**
  * PINAPP — visuels démo (Unsplash, format cohérent)
  * Fusion : Object.assign(PINAPP_DEMO_SITE, PINAPP_DEMO_PHOTO_PACKS.xxx)
+ *
+ * Chaque pack peut inclure servicesTitle, servicesSubtitle, bookingSub, confirmSub
+ * (textes de section uniques — vitrine sur mesure, pas thème clé en main).
  */
 (function (g) {
   'use strict';
@@ -36,6 +39,11 @@
           'Artisans RGE, devis clairs, chantiers tenus dans les temps. Nous intervenons en Île-de-France avec la même exigence sur la finition que sur la sécurité.',
         photo: img('1504307651254-35680f356dfd', qM)
       },
+      servicesTitle: 'Interventions',
+      servicesSubtitle:
+        'Parcours et textes calibrés pour ce métier — vitrine sur mesure Pinapp, pas un thème générique revendu à la chaîne.',
+      bookingSub: 'Trois réponses pour cadrer l’urgence et la zone (démo : rien n’est transmis).',
+      confirmSub: 'Exemple : premier retour par message sous 2 h ouvrées.',
       preuvePhoto: img('1573496359142-b8d87734a5a2', qS)
     },
 
@@ -61,6 +69,11 @@
           'Cuisine japonaise contemporaine, produits sourcés, équipe soudée. Réservations en ligne et accueil personnalisé.',
         photo: img('1552566626-52a8f8283a9e', qM)
       },
+      servicesTitle: 'Carte & expériences',
+      servicesSubtitle:
+        'Mise en scène, menus et réservation pensés pour Ōkami — exemple de site fabriqué pour une seule adresse.',
+      bookingSub: 'Quatre choix pour préparer votre table (démo).',
+      confirmSub: 'Exemple : confirmation affichée ici ; en réel, lien vers votre logiciel ou votre boîte mail.',
       preuvePhoto: img('1438761681033-6461ffad8d80', qS)
     },
 
@@ -86,6 +99,11 @@
           'ICF, bilans CPF, séances sur mesure. Un cadre bienveillant pour dépasser vos blocages et structurer votre projet.',
         photo: img('1552664730-d307ca884978', qM)
       },
+      servicesTitle: 'Accompagnements',
+      servicesSubtitle:
+        'Offres et ton adaptés au coaching — page conçue comme un vrai site pro, pas un gabarit « coach » figé.',
+      bookingSub: 'Premier cadrage par écrit, sans appel imposé (démo).',
+      confirmSub: 'Exemple : réponse personnalisée sous 24 h sur un site livré.',
       preuvePhoto: img('1494790108377-be9c29b29330', qS)
     },
 
@@ -111,6 +129,11 @@
           'Prépa physique, perte de poids, remise en forme durable. Séances en salle et suivi WhatsApp entre les cours.',
         photo: img('1581009148645-bfd3e74556ec', qM)
       },
+      servicesTitle: 'Programmes & suivi',
+      servicesSubtitle:
+        'Structure et preuves sociales calibrées sport — identité visuelle et parcours uniques à chaque commande Pinapp.',
+      bookingSub: 'Objectifs et créneaux en quelques clics (démo).',
+      confirmSub: 'Exemple : rappel ou message selon votre stack sur le site final.',
       preuvePhoto: img('1568602471126-139295fcc3ee', qS)
     },
 
@@ -136,6 +159,11 @@
           'Hygiène irréprochable, projet personnalisé, consentement et repos. Paris — premiers échanges par message.',
         photo: img('1507003211169-0a1dd7228f2d', qM)
       },
+      servicesTitle: 'Création & soin de la peau',
+      servicesSubtitle:
+        'Galerie et parcours pensés pour un studio réel — pas une landing tatouage copiée-collée.',
+      bookingSub: 'Projet, zone, disponibilités : cadrage rapide (démo).',
+      confirmSub: 'Exemple : prise de contact par message sécurisé sur site livré.',
       preuvePhoto: img('1438761681033-6461ffad8d80', qS)
     },
 
@@ -161,6 +189,11 @@
           'Pose américaine, nail art, réparation. Cabine lumineuse, produits sélectionnés, réservation en ligne.',
         photo: img('1560066984-138d3534f6d9', qM)
       },
+      servicesTitle: 'Prestations mains',
+      servicesSubtitle:
+        'Cartes et images alignées sur votre salon — chaque client Pinapp a sa propre hiérarchie et ses propres mots.',
+      bookingSub: 'Type de pose et créneau en trois étapes (démo).',
+      confirmSub: 'Exemple : confirmation de créneau côté outil que vous choisissez.',
       preuvePhoto: img('1544005313-94ddf0286df2', qS)
     },
 
@@ -186,6 +219,11 @@
           'Soins sur mesure, protocoles doux, confidentialité. Un moment rien que pour vous entre deux journées chargées.',
         photo: img('1522335780753-8ca7b8c0c34c', qM)
       },
+      servicesTitle: 'Rituels & soins',
+      servicesSubtitle:
+        'Ambiance spa et parcours réservation cohérents avec votre cabine — site sur mesure, zero catalogue de thème.',
+      bookingSub: 'Besoin et disponibilité sans friction (démo).',
+      confirmSub: 'Exemple : rappel ou SMS selon votre automatisation.',
       preuvePhoto: img('1534528741775-53994a69daeb', qS)
     },
 
@@ -211,6 +249,11 @@
           'Écoute, conseil couleur, finitions nettes. RDV en ligne, rappels automatiques — vous profitez du fauteuil.',
         photo: img('1562320342-44ef4452d781', qM)
       },
+      servicesTitle: 'Coupes, couleurs, barbe',
+      servicesSubtitle:
+        'Mise en avant des services qui vous rapportent — parcours écrit pour ce salon, pas pour « n’importe quel coiffeur ».',
+      bookingSub: 'Prestation et horaire en trois choix (démo).',
+      confirmSub: 'Exemple : agenda synchronisé sur le site livré.',
       preuvePhoto: img('1507003211169-0a1dd7228f2d', qS)
     },
 
@@ -236,6 +279,11 @@
           'Extensions pose à pose, remplissages réguliers, hygiène irréprochable. Spécialiste regard depuis 8 ans.',
         photo: img('1522335780753-8ca7b8c0c34c', qM)
       },
+      servicesTitle: 'Extensions & entretien',
+      servicesSubtitle:
+        'Détails techniques et photos pro pour rassurer — vitrine unique, pas une page cils toute faite.',
+      bookingSub: 'Type de pose et suivi en trois questions (démo).',
+      confirmSub: 'Exemple : rappel de rendez-vous automatisé chez vous.',
       preuvePhoto: img('1544005313-94ddf0286df2', qS)
     },
 
@@ -261,6 +309,11 @@
           'Boulangerie de quartier : commandes le week-end, retrait sans file d’attente grâce au site. Votre pain est prêt quand vous arrivez.',
         photo: img('1586444248900-2f6ed64b2dbb', qM)
       },
+      servicesTitle: 'Viennoiseries & commandes',
+      servicesSubtitle:
+        'Horaires, retrait et vitrine adaptés à votre fournil — développement sur mesure, pas un thème « bakery ».',
+      bookingSub: 'Commande et créneau de retrait (démo).',
+      confirmSub: 'Exemple : SMS « prêt à retirer » branché sur votre flux.',
       preuvePhoto: img('1438761681033-6461ffad8d80', qS)
     },
 
@@ -286,6 +339,11 @@
           'Coupe classique, fade, barbe sculptée. Bière ou café offert, musique sélectionnée — le rendez-vous devient un rituel.',
         photo: img('1585747860715-2baadb605fc3', qM)
       },
+      servicesTitle: 'Coupes & barbe',
+      servicesSubtitle:
+        'Identité forte et réservation simple — le même squelette technique Pinapp, une présentation différente à chaque barbershop.',
+      bookingSub: 'Service et disponibilité en trois taps (démo).',
+      confirmSub: 'Exemple : créneau bloqué dans votre agenda.',
       preuvePhoto: img('1568602471126-139295fcc3ee', qS)
     },
 
@@ -311,6 +369,11 @@
           'Droit des affaires et des particuliers. Première analyse par écrit, dossiers structurés, pas de surprise sur les honoraires.',
         photo: img('1521791059606-8242b1a0b31d', qM)
       },
+      servicesTitle: 'Domaines d’intervention',
+      servicesSubtitle:
+        'Hiérarchie de l’information et ton adaptés au cabinet — site professionnel sur mesure, conformité déontologique comprise.',
+      bookingSub: 'Nature du dossier et urgence, de façon structurée (démo).',
+      confirmSub: 'Exemple : accusé de réception et proposition de créneau par écrit.',
       preuvePhoto: img('1472094153963-57d48124d846', qS)
     },
 
@@ -346,10 +409,15 @@
           'Exemple de site sur-mesure Pinapp : plusieurs sections plein écran, galerie dense, témoignages, formulaire détaillé — le même niveau d’exigence éditorial et visuel que pour un projet « Mémoire & Présence ». Textes, photos et parcours sont adaptés à votre univers ; ici, illustration avec visuels Unsplash.',
         photo: img('1513506003901-1e6ad229e2d7', qM)
       },
+      servicesTitle: 'Ce que nous composons pour vous',
+      servicesSubtitle:
+        'Galerie, textes et parcours sont reconstruits pour chaque commande — ce n’est pas un kit « premium » à remplir.',
+      bookingSub: 'Premier filtre pour comprendre votre besoin (démo).',
+      confirmSub: 'Exemple : accusé de réception et suite par message sous 48 h.',
       preuvePhoto: img('1544005313-94ddf0286df2', qS),
       contactRichTitle: 'Écrire un message confidentiel',
       contactRichIntro:
-        'Prénom, email et message : tout reste sur cette démo (aucun envoi réel). Sur un site livré, ce bloc part vers votre boîte ou votre CRM.'
+        'Prénom, email et message : tout reste sur cette démo (aucun envoi réel). Sur un site livré, ce bloc part vers votre boîte ou votre CRM — interface conçue pour votre contexte, pas un formulaire générique.'
     }
   };
 })(typeof window !== 'undefined' ? window : this);

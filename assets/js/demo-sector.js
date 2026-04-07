@@ -154,6 +154,15 @@
     setText('footNom', S.nom);
     setText('footZone', S.zone);
     if (S.bookingTitle) setText('bookingTitle', S.bookingTitle);
+
+    var st = document.querySelector('.services-section .services-title');
+    if (st && S.servicesTitle) st.textContent = S.servicesTitle;
+    var ss = document.querySelector('.services-section .services-subtitle');
+    if (ss && S.servicesSubtitle) ss.textContent = S.servicesSubtitle;
+    var bs = document.querySelector('.booking-section .booking-sub');
+    if (bs && S.bookingSub) bs.textContent = S.bookingSub;
+    var cs = document.querySelector('.confirmation .confirm-sub');
+    if (cs && S.confirmSub) cs.textContent = S.confirmSub;
   }
 
   fillCopy();
@@ -266,7 +275,7 @@
       sub.className = 'demo-contact-rich-intro';
       sub.textContent =
         S.contactRichIntro ||
-        'Complétez le formulaire (démo : rien n’est envoyé). Sur votre site livré, les champs partent vers votre email ou votre automatisation.';
+        'Chaque projet Pinapp est conçu et développé pour une activité précise — pas un thème WordPress ou Wix recopié. Ici : démo sans envoi réel ; en production, vers votre boîte ou votre automatisation.';
       cs.appendChild(sub);
       var form = document.createElement('form');
       form.className = 'demo-rich-form';
