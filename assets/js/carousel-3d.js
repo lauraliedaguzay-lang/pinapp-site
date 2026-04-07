@@ -126,7 +126,7 @@ class Carousel3D {
         const isCreative = (c.dataset.tier || '') === 'creative';
         a.textContent = isCreative
           ? 'Découvrir les univers →'
-          : 'Explorer la démo →';
+          : 'Ouvrir la vitrine →';
         if (isCreative) {
           a.removeAttribute('target');
           a.removeAttribute('rel');

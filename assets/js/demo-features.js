@@ -627,7 +627,7 @@
             <span id="df-countdown">05:00</span>
           </div>
           <p class="df-confirm-txt" id="df-barber-msg"></p>
-          <p class="df-note">Créneau réservé 5 minutes · DÉMO</p>
+          <p class="df-note">Créneau simulé · vitrine sans réservation réelle</p>
         </div>
       </div>`);
 
@@ -704,7 +704,7 @@
           onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">
           Valider ma commande →
         </button>
-        <p class="df-note">Retrait en boutique · DÉMO</p>
+        <p class="df-note">Parcours type · aucune commande réelle depuis cette page</p>
       </div>`);
 
     var wrap = document.getElementById('df-produits');

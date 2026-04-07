@@ -308,16 +308,16 @@
       var btn = document.createElement('button');
       btn.type = 'submit';
       btn.className = 'demo-rich-submit';
-      btn.textContent = 'Envoyer (démo)';
+      btn.textContent = 'Envoyer';
       form.appendChild(btn);
       var hint = document.createElement('p');
       hint.className = 'demo-rich-hint';
-      hint.textContent = 'Démonstration Pinapp — aucune donnée transmise.';
+      hint.textContent = 'Vitrine : formulaire non connecté — aucune donnée transmise.';
       form.appendChild(hint);
       form.addEventListener('submit', function (e) {
         e.preventDefault();
-        if (window.console && console.log) console.log('[DÉMO Pinapp] Formulaire riche (non envoyé)');
-        btn.textContent = 'Bien reçu (simulation)';
+        if (window.console && console.log) console.log('[Pinapp vitrine] Formulaire (non envoyé)');
+        btn.textContent = 'Bien reçu (vitrine)';
         btn.disabled = true;
       });
       cs.appendChild(form);
@@ -448,7 +448,7 @@
         window.setTimeout(function () {
           circle.classList.add('animate');
         }, 100);
-        console.log('[DÉMO Pinapp] Réponses :', answers);
+        if (window.console && console.log) console.log('[Pinapp vitrine] Réponses questionnaire :', answers);
       }
     }, 400);
   }
