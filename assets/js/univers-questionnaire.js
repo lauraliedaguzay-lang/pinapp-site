@@ -5,7 +5,10 @@ var _he = function(s){return s==null?'':String(s).replace(/&/g,'&amp;').replace(
    API : placeholder n8n (connecter quand prêt)
    ============================================================ */
 
-const AURORA_UNIVERS_ENDPOINT = 'https://[TON-N8N]/webhook/aurora-univers'; /* ⚠️ CONFIGURATION REQUISE */
+/* endpoint résolu depuis config.js si disponible */
+const AURORA_UNIVERS_ENDPOINT = (window.PinappConfig && window.PinappConfig._isRealUrl(window.PinappConfig.webhooks.auroraUnivers))
+  ? window.PinappConfig.webhooks.auroraUnivers
+  : null; /* null = mode fallback local actif */
 
 const UniversQ = {
   state: { lieu: null, emotion: null, reference: '', prenom: '' },

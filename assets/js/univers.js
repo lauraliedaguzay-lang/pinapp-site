@@ -10,7 +10,10 @@ var _he = function(s){return s==null?'':String(s).replace(/&/g,'&amp;').replace(
    Ex : https://[votre-n8n]/webhook/aurora-univers
    ===================================================== */
 
-const AURORA_ENDPOINT = 'https://[TON-N8N]/webhook/aurora-univers';
+/* endpoint résolu depuis config.js si disponible */
+const AURORA_ENDPOINT = (window.PinappConfig && window.PinappConfig._isRealUrl(window.PinappConfig.webhooks.auroraUnivers))
+  ? window.PinappConfig.webhooks.auroraUnivers
+  : 'https://[TON-N8N]/webhook/aurora-univers';
 
 const UniversDigital = {
   state: {
@@ -182,9 +185,9 @@ const UniversDigital = {
       </div>
 
       <div class="univers-palette">
-        ${_he(u.palette ? `
+        ${u.palette ? `
           <div class="univers-swatch"
-               style="background:${u.palette.fond)}"
+               style="background:${_he(u.palette.fond)}"
                title="Fond"></div>
           <div class="univers-swatch"
                style="background:${_he(u.palette.accent1)}"
@@ -206,10 +209,10 @@ const UniversDigital = {
         </div>
       ` : ''}
 
-      ${_he(u.promesse ? `
+      ${u.promesse ? `
         <p style="font-size:18px;font-weight:500;color:var(--text);
                   margin-bottom:32px;font-family:Georgia,serif;">
-          ${u.promesse)}
+          ${_he(u.promesse)}
         </p>
       ` : ''}
 
@@ -258,7 +261,7 @@ const UniversDigital = {
   notifyLauralie(u) {
     // Webhook n8n → notif WhatsApp Lauralie avec l'univers généré
     try {
-      fetch('https://[TON-N8N]/webhook/univers-genere', {
+      fetch((window.PinappConfig && window.PinappConfig._isRealUrl(window.PinappConfig.webhooks.notifWhatsapp)) ? window.PinappConfig.webhooks.notifWhatsapp : 'https://[TON-N8N]/webhook/univers-genere', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

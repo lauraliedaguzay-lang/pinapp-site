@@ -406,8 +406,29 @@
         var qfin = document.getElementById('qfin');
         if (qfin) qfin.classList.add('active');
 
-        /* CONFIGURATION MAKE/TALLY : POST JSON vers webhook */
-        console.log('Réponses onboarding:', answers);
+        /* Envoi Netlify Forms + webhook n8n si configuré */
+        var onboardingPayload = {
+          'form-name': 'onboarding-parcours',
+          secteur:     answers[1] || '',
+          budget:      answers[2] || '',
+          urgence:     answers[3] || '',
+          budget2:     answers[4] || '',
+          timestamp:   new Date().toISOString(),
+          page:        location.href,
+        };
+        /* Netlify Forms (toujours) */
+        var fd = new FormData();
+        Object.keys(onboardingPayload).forEach(function(k){ fd.append(k, onboardingPayload[k]); });
+        fetch('/', { method: 'POST', headers: { 'Accept': 'application/json' }, body: fd }).catch(function(){});
+        /* Webhook n8n si branché */
+        var cfg = window.PinappConfig;
+        if (cfg && cfg.features.onboardingWebhook && cfg._isRealUrl(cfg.webhooks.onboarding)) {
+          fetch(cfg.webhooks.onboarding, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(onboardingPayload),
+          }).catch(function(){});
+        }
       }
     });
   });
@@ -435,8 +456,29 @@
         if (leadEmail) leadEmail.focus();
         return;
       }
-      /* CONFIGURATION : Make / Tally */
-      console.log('Lead guide offert:', email);
+      /* Lead Netlify Forms + webhook n8n si configuré */
+      var lfPayload = {
+        'form-name': 'lead-guide-gratuit',
+        email:       email,
+        timestamp:   new Date().toISOString(),
+        page:        location.href,
+      };
+      var lfd = new FormData();
+      Object.keys(lfPayload).forEach(function(k){ lfd.append(k, lfPayload[k]); });
+      fetch('/', { method: 'POST', headers: { 'Accept': 'application/json' }, body: lfd }).catch(function(){});
+      var lcfg = window.PinappConfig;
+      if (lcfg && lcfg.features.leadWebhook && lcfg._isRealUrl(lcfg.webhooks.leadMagnet)) {
+        fetch(lcfg.webhooks.leadMagnet, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(lfPayload),
+        }).catch(function(){});
+      }
+      /* Feedback visuel */
+      leadBtn.textContent = 'Guide envoyé ✓';
+      leadBtn.disabled = true;
+      if (leadEmail) leadEmail.value = '';
+      setTimeout(function(){ leadBtn.textContent = 'Recevoir le guide →'; leadBtn.disabled = false; }, 4000);
     });
   }
 

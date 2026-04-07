@@ -97,17 +97,165 @@
   <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
     <section class="section" style="padding-top:var(--space-8);">
       <div class="container" style="max-width:75rem;">
-        <h1 style="font-size:32px;margin-bottom:var(--space-5);">Bonjour Lauralie</h1>
-        <div class="grid grid-4" style="margin-bottom:var(--space-4);">
-          <div class="card"><p class="label">CA CE MOIS</p><p style="font-size:32px;font-weight:600;">0€</p><div class="progress-bar" style="height:3px;margin-top:var(--space-2);width:0%;"></div></div>
-          <div class="card"><p class="label">DIAGNOSTICS</p><p style="font-size:32px;font-weight:600;">0</p></div>
-          <div class="card"><p class="label">MISSIONS</p><p style="font-size:32px;font-weight:600;">0</p></div>
-          <div class="card"><p class="label">CHARGE</p><p style="font-size:32px;font-weight:600;">0h</p><div class="progress-bar" style="height:3px;margin-top:var(--space-2);width:0%;"></div></div>
+        <h1 style="font-size:32px;margin-bottom:4px;">Bonjour Lauralie <span id="dash-emoji">✦</span></h1>
+        <p id="dash-date" style="font-size:14px;opacity:0.5;margin-bottom:var(--space-5);"></p>
+
+        <!-- KPIs Intelligence locale -->
+        <div class="grid grid-4" style="margin-bottom:var(--space-4);" id="dash-kpis">
+          <div class="card">
+            <p class="label">VISITES CE MOIS</p>
+            <p style="font-size:32px;font-weight:600;" id="kpi-visites">—</p>
+            <p style="font-size:12px;opacity:0.4;margin-top:4px;">depuis localStorage Pinapp Intel</p>
+          </div>
+          <div class="card">
+            <p class="label">AURORA UTILISÉE</p>
+            <p style="font-size:32px;font-weight:600;" id="kpi-aurora">—</p>
+            <p style="font-size:12px;opacity:0.4;margin-top:4px;">analyses IA lancées</p>
+          </div>
+          <div class="card">
+            <p class="label">UNIVERS GÉNÉRÉS</p>
+            <p style="font-size:32px;font-weight:600;" id="kpi-univers">—</p>
+            <p style="font-size:12px;opacity:0.4;margin-top:4px;">questionnaires complétés</p>
+          </div>
+          <div class="card">
+            <p class="label">CALCULATEUR</p>
+            <p style="font-size:32px;font-weight:600;" id="kpi-calc">—</p>
+            <p style="font-size:12px;opacity:0.4;margin-top:4px;">utilisations devis</p>
+          </div>
         </div>
-        <div class="card"><h2 style="font-size:18px;">En attente</h2><p style="opacity:0.5;font-size:14px;">Aucune action (Make à brancher).</p></div>
+
+        <!-- Dernier univers généré -->
+        <div class="card" id="dash-univers-card" style="margin-bottom:var(--space-4);display:none;">
+          <h2 style="font-size:16px;margin-bottom:var(--space-3);">Dernier univers généré par Aurora</h2>
+          <div id="dash-univers-content"></div>
+        </div>
+
+        <!-- Secteur détecté + profil visiteur -->
+        <div class="grid" style="grid-template-columns:1fr 1fr;gap:var(--space-3);margin-bottom:var(--space-4);">
+          <div class="card">
+            <h2 style="font-size:16px;margin-bottom:var(--space-3);">Profil visiteur détecté</h2>
+            <div id="dash-profil" style="font-size:14px;line-height:1.8;opacity:0.8;">Aucune donnée (l'intelligence collecte au fil des visites)</div>
+          </div>
+          <div class="card">
+            <h2 style="font-size:16px;margin-bottom:var(--space-3);">Modules actifs</h2>
+            <div id="dash-modules" style="font-size:14px;line-height:2;"></div>
+          </div>
+        </div>
+
+        <!-- Configuration n8n -->
+        <div class="card" style="border:1px solid rgba(0,229,204,0.2);margin-bottom:var(--space-4);">
+          <h2 style="font-size:16px;margin-bottom:var(--space-2);">⚙️ Configuration automation</h2>
+          <p style="font-size:13px;opacity:0.6;margin-bottom:var(--space-3);">
+            Éditez <code style="background:rgba(0,229,204,0.1);padding:2px 6px;border-radius:4px;font-family:monospace;">assets/js/config.js</code> pour brancher vos webhooks n8n et activer l'IA réelle.
+          </p>
+          <div id="dash-config-status" style="font-size:13px;line-height:2;"></div>
+          <div style="margin-top:var(--space-3);display:flex;gap:var(--space-2);flex-wrap:wrap;">
+            <a href="../assets/js/config.js" target="_blank" class="btn btn-secondary" style="font-size:12px;padding:8px 16px;">Voir config.js</a>
+            <a href="https://n8n.io" target="_blank" rel="noopener" class="btn btn-secondary" style="font-size:12px;padding:8px 16px;">Créer compte n8n →</a>
+          </div>
+        </div>
+
+        <!-- Actions rapides -->
+        <div class="card">
+          <h2 style="font-size:16px;margin-bottom:var(--space-3);">Actions rapides</h2>
+          <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;">
+            <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Voir le diagnostic →</a>
+            <a href="../offres/index.html" class="btn btn-secondary" style="font-size:13px;padding:10px 20px;">Offres</a>
+            <a href="../realisations/index.html" class="btn btn-secondary" style="font-size:13px;padding:10px 20px;">Réalisations</a>
+            <button class="btn btn-secondary" style="font-size:13px;padding:10px 20px;" onclick="if(confirm('Effacer les données Intelligence locale ?')){localStorage.removeItem('pinapp-intel');localStorage.removeItem('pinapp-univers');location.reload();}">Réinitialiser les données</button>
+          </div>
+        </div>
       </div>
     </section>
   </main>
+
+  <script>
+  /* Dashboard — lecture des données Intelligence locale */
+  (function() {
+    /* Date */
+    var d = new Date();
+    document.getElementById('dash-date').textContent =
+      d.toLocaleDateString('fr-FR', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+
+    /* Pinapp Intel */
+    var intel = null;
+    try { intel = JSON.parse(localStorage.getItem('pinapp-intel') || 'null'); } catch(e) {}
+
+    if (intel) {
+      document.getElementById('kpi-visites').textContent = intel.visits || 0;
+      document.getElementById('kpi-aurora').textContent  = intel.usedAurora ? '✓' : '0';
+      document.getElementById('kpi-univers').textContent = intel.universGenere ? '✓' : '0';
+      document.getElementById('kpi-calc').textContent    = intel.usedCalculateur ? '✓' : '0';
+
+      var profil = '';
+      if (intel.secteur)   profil += '<div>🏢 Secteur : <strong>' + intel.secteur + '</strong></div>';
+      if (intel.budget)    profil += '<div>💰 Budget détecté : <strong>' + intel.budget + '</strong></div>';
+      if (intel.firstVisit) profil += '<div>📅 Première visite : <strong>' + new Date(intel.firstVisit).toLocaleDateString('fr-FR') + '</strong></div>';
+      if (intel.lastVisit) profil += '<div>🕐 Dernière visite : <strong>' + new Date(intel.lastVisit).toLocaleDateString('fr-FR') + '</strong></div>';
+      if (profil) document.getElementById('dash-profil').innerHTML = profil;
+    } else {
+      document.getElementById('kpi-visites').textContent = '—';
+    }
+
+    /* Dernier univers */
+    var univ = null;
+    try { univ = JSON.parse(localStorage.getItem('pinapp-univers') || 'null'); } catch(e) {}
+    if (univ && univ.nom) {
+      var card = document.getElementById('dash-univers-card');
+      card.style.display = 'block';
+      var html = '<strong style="font-size:18px;">' + univ.nom + '</strong>';
+      if (univ.atmosphere) html += '<p style="opacity:0.7;margin-top:8px;">"' + univ.atmosphere + '"</p>';
+      if (univ.palette) {
+        html += '<div style="display:flex;gap:8px;margin-top:12px;">';
+        ['fond','accent1','accent2'].forEach(function(k){
+          if (univ.palette[k]) html += '<div style="width:32px;height:32px;border-radius:50%;background:' + univ.palette[k] + ';border:1px solid rgba(255,255,255,0.2);" title="' + k + '"></div>';
+        });
+        html += '</div>';
+      }
+      document.getElementById('dash-univers-content').innerHTML = html;
+    }
+
+    /* Modules actifs */
+    var cfg = window.PinappConfig || {};
+    var feats = cfg.features || {};
+    var modules = [
+      { name: 'Aurora Analyse IA', key: 'auroraAnalyseIA', desc: '(réponses locales actives)' },
+      { name: 'Aurora Univers IA', key: 'auroraUniversIA', desc: '(fallback local actif)' },
+      { name: 'Onboarding → n8n',  key: 'onboardingWebhook', desc: '(Netlify Forms actif)' },
+      { name: 'Lead magnet → n8n', key: 'leadWebhook', desc: '(Netlify Forms actif)' },
+    ];
+    var mHtml = '';
+    modules.forEach(function(m) {
+      var on = feats[m.key];
+      mHtml += '<div style="display:flex;align-items:center;gap:8px;">'
+        + '<span style="color:' + (on ? 'var(--accent-teal)' : 'rgba(255,255,255,0.3)') + ';font-size:16px;">' + (on ? '✓' : '○') + '</span>'
+        + '<span>' + m.name + (on ? '' : ' <span style="opacity:0.4;font-size:11px;">' + m.desc + '</span>') + '</span>'
+        + '</div>';
+    });
+    document.getElementById('dash-modules').innerHTML = mHtml;
+
+    /* Config status */
+    var webhooks = cfg.webhooks || {};
+    var isReal = cfg._isRealUrl || function(){ return false; };
+    var wHtml = '';
+    var wMap = {
+      'Aurora Analyse':  webhooks.auroraAnalyse,
+      'Aurora Univers':  webhooks.auroraUnivers,
+      'Onboarding lead': webhooks.onboarding,
+      'Lead magnet':     webhooks.leadMagnet,
+      'Notif WhatsApp':  webhooks.notifWhatsapp,
+    };
+    Object.keys(wMap).forEach(function(label) {
+      var url = wMap[label];
+      var ok = isReal(url);
+      wHtml += '<div style="display:flex;align-items:center;gap:8px;">'
+        + '<span style="color:' + (ok ? '#39E075' : 'rgba(255,200,0,0.6)') + ';">' + (ok ? '✓' : '⚠') + '</span>'
+        + '<span>' + label + ' : <code style="font-family:monospace;font-size:11px;opacity:' + (ok ? '0.8' : '0.4') + ';">' + (ok ? url : '[TON-N8N] — à configurer]') + '</code></span>'
+        + '</div>';
+    });
+    document.getElementById('dash-config-status').innerHTML = wHtml;
+  })();
+  </script>
   <footer style="border-top:1px solid var(--separator);padding:var(--space-5) 0;">
     <div class="container" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:var(--space-3);opacity:0.6;font-size:13px;">
       <span>Pinapp © 2026</span>
@@ -134,6 +282,7 @@
       </div>
     </div>
   </div>
+  <script src="../assets/js/config.js"></script>
   <script src="../assets/js/main.js" defer></script>
 <script src="../assets/js/pandora-night.js" defer></script><script src="../assets/js/particles.js" defer></script><script src="../assets/js/mode-toggle.js" defer></script><script src="../assets/js/cursor.js" defer></script><script src="../assets/js/intelligence.js" defer></script><script src="../assets/js/scroll-cinema.js" defer></script>
   <script src="../assets/js/bio-particles.js" defer></script>

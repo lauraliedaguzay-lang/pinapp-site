@@ -140,11 +140,82 @@
           </div>
         </div>
 
+        <!-- Démo live pipeline -->
+        <h2 style="font-size:1.25rem;margin-bottom:var(--space-4);">Voyez-le tourner en direct</h2>
+        <div class="card" style="padding:var(--space-5);margin-bottom:var(--space-3);">
+          <p style="font-size:13px;opacity:0.5;margin-bottom:var(--space-3);">SIMULATION — Un prospect vous contacte à 23h42…</p>
+          <div id="auto-demo-log" style="font-family:monospace;font-size:13px;line-height:2;color:var(--text-2);min-height:220px;">
+            <span style="opacity:0.3;">Appuyez sur « Lancer la simulation » pour voir</span>
+          </div>
+          <div style="margin-top:var(--space-4);display:flex;gap:var(--space-2);flex-wrap:wrap;">
+            <button type="button" id="auto-demo-btn" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">▶ Lancer la simulation</button>
+            <button type="button" id="auto-demo-reset" class="btn btn-secondary" style="font-size:13px;padding:10px 20px;display:none;">Recommencer</button>
+          </div>
+        </div>
+        <p style="font-size:12px;opacity:0.4;margin-bottom:var(--space-6);">Cette simulation représente ce qui se passe réellement dans vos outils (Notion, Gmail, WhatsApp…)</p>
+
         <!-- Ce que vous approuvez -->
         <div class="card" style="padding:var(--space-5);margin-bottom:var(--space-6);">
           <p style="font-size:1rem;font-weight:600;margin-bottom:var(--space-3);">Vous restez maître de tout</p>
           <p style="font-size:14px;opacity:0.75;line-height:1.7;">Vous validez les textes des emails avant qu'ils soient activés. Vous pouvez modifier ou stopper à tout moment. Rien ne tourne sans votre accord initial.</p>
         </div>
+
+        <script>
+        (function() {
+          var steps = [
+            { delay: 0,    icon: '📨', text: '23:42 — Thomas B. remplit votre formulaire de contact', color: 'var(--text)' },
+            { delay: 800,  icon: '⚡', text: '23:42:03 — Aurora analyse la demande (type : devis peinture)', color: 'var(--accent-teal)' },
+            { delay: 1600, icon: '📋', text: '23:42:05 — Fiche prospect créée dans Notion automatiquement', color: 'var(--text-2)' },
+            { delay: 2400, icon: '📧', text: '23:42:06 — Email de confirmation envoyé à Thomas', color: 'var(--accent-teal)' },
+            { delay: 3200, icon: '📱', text: '23:42:06 — Notification WhatsApp → vous', color: 'var(--accent-teal)' },
+            { delay: 4800, icon: '⏳', text: 'J+2 11:00 — Thomas n\'a pas répondu…', color: 'rgba(255,200,0,0.7)' },
+            { delay: 5600, icon: '📧', text: 'J+2 11:00 — Relance automatique envoyée (ton amical)', color: 'var(--accent-teal)' },
+            { delay: 6400, icon: '✅', text: 'J+2 14:23 — Thomas ouvre l\'email et accepte le devis', color: '#39E075' },
+            { delay: 7200, icon: '📄', text: 'J+2 14:24 — Contrat envoyé avec lien de signature électronique', color: '#39E075' },
+            { delay: 8000, icon: '💰', text: 'J+2 14:31 — Paiement reçu · Notion mis à jour · Mission active', color: '#39E075' },
+            { delay: 9000, icon: '✨', text: 'Vous n\'avez tapé aucun de ces messages. Vous avez juste travaillé.', color: 'var(--accent-teal)', bold: true },
+          ];
+          var btn = document.getElementById('auto-demo-btn');
+          var reset = document.getElementById('auto-demo-reset');
+          var log = document.getElementById('auto-demo-log');
+          var running = false;
+          var timers = [];
+
+          function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+
+          btn.addEventListener('click', function() {
+            if (running) return;
+            running = true;
+            log.innerHTML = '';
+            btn.disabled = true;
+            btn.textContent = '▶ En cours…';
+            steps.forEach(function(s) {
+              var t = setTimeout(function() {
+                var line = document.createElement('div');
+                line.style.cssText = 'display:flex;gap:8px;align-items:flex-start;animation:fadeIn 300ms ease;color:' + s.color + ';' + (s.bold ? 'font-weight:600;margin-top:8px;' : '');
+                line.innerHTML = '<span>' + s.icon + '</span><span>' + s.text + '</span>';
+                log.appendChild(line);
+                log.scrollTop = log.scrollHeight;
+                if (s === steps[steps.length - 1]) {
+                  btn.style.display = 'none';
+                  reset.style.display = 'inline-flex';
+                }
+              }, s.delay);
+              timers.push(t);
+            });
+          });
+
+          reset.addEventListener('click', function() {
+            clearTimers();
+            running = false;
+            btn.disabled = false;
+            btn.textContent = '▶ Lancer la simulation';
+            btn.style.display = 'inline-flex';
+            reset.style.display = 'none';
+            log.innerHTML = '<span style="opacity:0.3;">Appuyez sur « Lancer la simulation » pour voir</span>';
+          });
+        })();
+        </script>
 
         <!-- CTA -->
         <div class="card" style="padding:var(--space-6);text-align:center;border-color:var(--accent-teal);">
@@ -192,6 +263,7 @@
       </div>
     </div>
   </div>
+  <script src="../../assets/js/config.js"></script>
   <script src="../../assets/js/main.js" defer></script>
   <script src="../../assets/js/particles.js" defer></script>
   <script src="../../assets/js/aurora.js" defer></script>

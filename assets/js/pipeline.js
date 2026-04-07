@@ -1,4 +1,4 @@
-/* =====================================================
+﻿/* =====================================================
    PIPELINE SIMULATION — Ce qui se passe sans vous
    Pinapp Studio · Avril 2026
    ===================================================== */
@@ -21,7 +21,7 @@ const Pipeline = {
   _running:      false,
 
   init() {
-    const track = document.getElementById('pipeline');
+    const track = document.getElementById('pipeline-track');
     if (!track) return;
 
     // Générer les nœuds
