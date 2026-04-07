@@ -1,0 +1,688 @@
+/* ════════════════════════════════════════════════════════════════════
+   APPLE FINISH — couche de finition premium v1
+   Tous les codes graphiques Apple appliqués sur la base Pandora.
+   Chargé en dernier — prend le dessus sur tout le reste.
+   Inspiré : apple.com · SF Design System · HIG 2024
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────────────────
+   1. FONDATIONS — rendu typographique Apple
+   ───────────────────────────────────────────────────────────────────── */
+
+html {
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-kerning: normal;
+  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+  text-rendering: optimizeLegibility;
+}
+
+/* Sélection de texte — teal Pandora */
+::selection {
+  background: rgba(0, 229, 204, 0.22);
+  color: inherit;
+}
+html[data-theme="light"] ::selection,
+body.mode-jour ::selection {
+  background: rgba(91, 63, 216, 0.18);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   2. SCROLLBAR — minimaliste, Apple thin
+   ───────────────────────────────────────────────────────────────────── */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 229, 204, 0.18) transparent;
+}
+*::-webkit-scrollbar         { width: 3px; height: 3px; }
+*::-webkit-scrollbar-track   { background: transparent; }
+*::-webkit-scrollbar-thumb   {
+  background: rgba(0, 229, 204, 0.20);
+  border-radius: 2px;
+}
+html[data-theme="light"] *::-webkit-scrollbar-thumb {
+  background: rgba(91, 63, 216, 0.18);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   3. FOCUS RINGS — accessibilité Apple précise
+   Uniquement sur :focus-visible (pas au clic souris)
+   ───────────────────────────────────────────────────────────────────── */
+
+:focus { outline: none; }
+
+:focus-visible {
+  outline: 2px solid var(--accent-teal);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+html[data-theme="light"] :focus-visible {
+  outline-color: var(--accent-violet, #5B3FD8);
+}
+
+/* Inputs : focus glow Pandora, pas d'outline par défaut */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none;
+  border-color: var(--accent-teal) !important;
+  box-shadow:
+    0 0 0 3px rgba(0, 229, 204, 0.14),
+    0 0 16px rgba(0, 229, 204, 0.08);
+}
+html[data-theme="light"] input:focus-visible,
+html[data-theme="light"] textarea:focus-visible {
+  border-color: var(--accent-violet, #5B3FD8) !important;
+  box-shadow:
+    0 0 0 3px rgba(91, 63, 216, 0.12),
+    0 0 16px rgba(91, 63, 216, 0.06);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   4. TYPOGRAPHIE — hiérarchie précise Apple
+   ───────────────────────────────────────────────────────────────────── */
+
+h1, h2, h3, h4, h5, h6 {
+  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+  text-rendering: optimizeLegibility;
+  hanging-punctuation: first last;
+}
+
+/* Titres display — tracking ultra-serré (Apple wwdc style) */
+h1 {
+  letter-spacing: clamp(-0.04em, -0.03em, -0.02em);
+  line-height: 1.08;
+}
+h2 {
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+}
+h3 {
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+}
+
+/* Corps — légèrement lâche pour la lisibilité */
+p, li {
+  line-height: 1.68;
+}
+
+/* Prix — chiffres tabulaires parfaitement alignés */
+[class*="prix"],
+[class*="price"],
+[class*="tarif"],
+.hero-prix {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+  font-kerning: none;
+  letter-spacing: -0.04em;
+}
+
+/* Gradient text sur les mots d'accent — hero (night mode) */
+.hero-word.accent {
+  background: linear-gradient(
+    135deg,
+    #EEF8FF 0%,
+    rgba(0, 229, 204, 0.95) 60%,
+    rgba(0, 180, 216, 0.88) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  /* Override l'animation text-shadow (incompatible avec gradient text) */
+  animation: none;
+  text-shadow: none !important;
+}
+body.mode-jour .hero-word.accent,
+html[data-theme="light"] .hero-word.accent {
+  background: linear-gradient(
+    135deg,
+    #0a0a1a 0%,
+    rgba(91, 63, 216, 0.92) 55%,
+    rgba(255, 160, 50, 0.88) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none !important;
+  animation: none;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   5. NAV — frosted glass Apple signature
+   Separator 0.5px, backdrop saturate(180%) blur(24px)
+   ───────────────────────────────────────────────────────────────────── */
+
+nav,
+.bottom-bar {
+  backdrop-filter: saturate(180%) blur(24px) !important;
+  -webkit-backdrop-filter: saturate(180%) blur(24px) !important;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
+}
+body.mode-jour nav,
+html[data-theme="light"] nav,
+body.mode-jour .bottom-bar,
+html[data-theme="light"] .bottom-bar {
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.06);
+}
+
+/* Logo — SF-quality rendering */
+.nav-logo {
+  font-feature-settings: 'kern' 1;
+  letter-spacing: -0.02em;
+}
+
+/* Liens nav — transition opacity Apple */
+nav a,
+.bottom-bar a,
+.nav-link {
+  transition:
+    opacity 160ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    color 160ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+@media (hover: hover) {
+  nav a:not(.btn):hover,
+  .bottom-bar a:not(.btn):hover {
+    opacity: 0.72;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   6. CARDS — verre Apple ultra-précis
+   Border 0.5px, highlight interne, shadow précise
+   ───────────────────────────────────────────────────────────────────── */
+
+.card,
+.offre-card,
+[class*="-card"],
+.block {
+  /* Border ultra-fine — Apple signature */
+  border-width: 0.5px !important;
+  /* Highlight interne bord haut — reflet lumière Apple */
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.10) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.12) inset,
+    0 4px 16px rgba(0, 0, 0, 0.20),
+    0 1px 4px rgba(0, 0, 0, 0.12),
+    0 0 0 0.5px rgba(255, 255, 255, 0.04) inset;
+  /* Rendu sub-pixel */
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (hover: hover) {
+  .card:hover,
+  .offre-card:hover {
+    border-color: rgba(0, 229, 204, 0.28) !important;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.14) inset,
+      0 -1px 0 rgba(0, 0, 0, 0.10) inset,
+      0 8px 32px rgba(0, 0, 0, 0.24),
+      0 2px 8px rgba(0, 0, 0, 0.16),
+      0 0 28px rgba(0, 229, 204, 0.08) !important;
+    transform: translateY(-2px) scale(1.002) !important;
+    transition:
+      transform 420ms cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 300ms ease,
+      border-color 200ms ease;
+  }
+}
+
+.card:active,
+.offre-card:active {
+  transform: scale(0.985) !important;
+  transition: transform 100ms cubic-bezier(0.25, 0.1, 0.25, 1) !important;
+}
+
+/* Mode jour — cards légèrement différentes */
+html[data-theme="light"] .card,
+body.mode-jour .card {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.70) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.06) inset,
+    0 2px 12px rgba(0, 0, 0, 0.06),
+    0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   7. BOUTONS — spring physics Apple + press state précis
+   ───────────────────────────────────────────────────────────────────── */
+
+.btn {
+  /* Tracking très serré — Apple ne dilate pas les boutons */
+  letter-spacing: -0.005em !important;
+  /* Rendu SF-quality */
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'kern' 1;
+  /* Curseur précis */
+  cursor: pointer;
+  /* Pas de sélection de texte sur les boutons */
+  user-select: none;
+  -webkit-user-select: none;
+  /* Tap sans highlight orange iOS */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Press state — Apple spring */
+.btn:active {
+  transform: scale(0.96) !important;
+  transition: transform 80ms cubic-bezier(0.25, 0.1, 0.25, 1) !important;
+  opacity: 0.92 !important;
+}
+
+/* Primary button — gradient raffiné */
+.btn-primary {
+  background: linear-gradient(
+    160deg,
+    rgba(140, 90, 255, 1) 0%,
+    rgba(100, 55, 220, 1) 50%,
+    rgba(80, 40, 200, 1) 100%
+  ) !important;
+  /* Ombre précise — pas de bloom excessif */
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.22) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.18) inset,
+    0 4px 16px rgba(100, 55, 220, 0.40),
+    0 1px 4px rgba(0, 0, 0, 0.28) !important;
+  border: none !important;
+  position: relative;
+}
+
+/* Grain de lumière subtil sur btn-primary */
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .btn-primary:hover {
+    transform: translateY(-1px) scale(1.010) !important;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.26) inset,
+      0 -1px 0 rgba(0, 0, 0, 0.14) inset,
+      0 8px 28px rgba(100, 55, 220, 0.52),
+      0 2px 8px rgba(0, 0, 0, 0.22) !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Mode jour — violet plus chaud */
+body.mode-jour .btn-primary,
+html[data-theme="light"] .btn-primary {
+  background: linear-gradient(
+    160deg,
+    rgba(110, 80, 230, 1) 0%,
+    rgba(80, 50, 200, 1) 60%,
+    rgba(65, 38, 180, 1) 100%
+  ) !important;
+}
+
+/* Secondary button — verre précis */
+.btn-secondary {
+  border-width: 0.5px !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.08) inset,
+    0 1px 4px rgba(0, 0, 0, 0.12) !important;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   8. INPUTS — champs Apple text field
+   ───────────────────────────────────────────────────────────────────── */
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="search"],
+textarea,
+select {
+  /* Border ultra-fine — Apple text field */
+  border: 0.5px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 12px !important;
+  background: rgba(0, 0, 0, 0.28) !important;
+  /* Transition fluide */
+  transition:
+    border-color 200ms ease,
+    box-shadow 200ms ease,
+    background 200ms ease;
+  /* Tracking */
+  font-feature-settings: 'kern' 1;
+  letter-spacing: -0.005em;
+}
+
+body.mode-jour input[type="text"],
+body.mode-jour input[type="email"],
+body.mode-jour input[type="tel"],
+body.mode-jour textarea,
+html[data-theme="light"] input[type="text"],
+html[data-theme="light"] input[type="email"],
+html[data-theme="light"] textarea {
+  border: 0.5px solid rgba(0, 0, 0, 0.14) !important;
+  background: rgba(255, 255, 255, 0.68) !important;
+}
+
+/* Placeholder — discret */
+::placeholder {
+  opacity: 0.38;
+  font-style: normal;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   9. SEPARATEURS — hairline Apple 0.5px
+   ───────────────────────────────────────────────────────────────────── */
+
+hr {
+  border: none;
+  height: 0.5px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0;
+}
+body.mode-jour hr,
+html[data-theme="light"] hr {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+/* Séparateurs dans les listes d'items */
+.offre-card li + li,
+.card li + li {
+  border-top: 0.5px solid rgba(255, 255, 255, 0.06);
+  padding-top: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   10. LABELS / BADGES — chip Apple
+   ───────────────────────────────────────────────────────────────────── */
+
+.label {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 100px;
+  background: rgba(0, 229, 204, 0.08);
+  border: 0.5px solid rgba(0, 229, 204, 0.20);
+  letter-spacing: 0.12em;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--accent-teal);
+  /* Override animation label-breathe — trop agité pour un badge Apple */
+  animation: label-breathe-apple 5s ease-in-out infinite !important;
+}
+
+@keyframes label-breathe-apple {
+  0%, 100% { opacity: 0.75; }
+  50%       { opacity: 1.00; }
+}
+
+body.mode-jour .label,
+html[data-theme="light"] .label {
+  background: rgba(91, 63, 216, 0.07);
+  border-color: rgba(91, 63, 216, 0.18);
+  color: var(--accent-violet, #5B3FD8);
+}
+
+/* Badge "populaire" / highlight */
+[class*="badge"],
+[class*="tag"],
+.dossier-badge,
+.univers-tag {
+  border-radius: 100px !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.10em !important;
+  text-transform: uppercase !important;
+  padding: 3px 10px !important;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   11. IMAGES — rendu Apple propre
+   ───────────────────────────────────────────────────────────────────── */
+
+img {
+  border-radius: 12px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Avatar / photo de profil */
+img[alt*="Lauralie"],
+img[alt*="lauralie"],
+.avatar-img,
+img[class*="photo"],
+img[class*="profile"] {
+  border-radius: 50% !important;
+  border: 0.5px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.24),
+    0 0 0 3px rgba(0, 229, 204, 0.08);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   12. LIENS CORPS DE PAGE — Apple text link
+   ───────────────────────────────────────────────────────────────────── */
+
+main a:not(.btn):not([class*="nav"]):not([class*="logo"]) {
+  color: var(--accent-teal);
+  text-decoration: none;
+  transition: opacity 160ms ease;
+  border-bottom: 0.5px solid rgba(0, 229, 204, 0.30);
+  padding-bottom: 0.05em;
+}
+@media (hover: hover) {
+  main a:not(.btn):not([class*="nav"]):not([class*="logo"]):hover {
+    opacity: 0.78;
+  }
+}
+body.mode-jour main a:not(.btn):not([class*="nav"]):not([class*="logo"]),
+html[data-theme="light"] main a:not(.btn):not([class*="nav"]):not([class*="logo"]) {
+  color: var(--accent-violet, #5B3FD8);
+  border-bottom-color: rgba(91, 63, 216, 0.25);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   13. PILLS / FILTRES — Apple segment control
+   ───────────────────────────────────────────────────────────────────── */
+
+.pill-btn,
+.univers-pill,
+.filter-btn {
+  border-width: 0.5px !important;
+  letter-spacing: -0.005em;
+  font-feature-settings: 'kern' 1;
+  transition:
+    background 200ms ease,
+    border-color 200ms ease,
+    transform 80ms ease,
+    box-shadow 200ms ease !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pill-btn:active,
+.univers-pill:active,
+.filter-btn:active {
+  transform: scale(0.95) !important;
+  transition: transform 80ms cubic-bezier(0.25, 0.1, 0.25, 1) !important;
+}
+
+/* État actif — Apple selected */
+.pill-btn.active,
+.univers-pill.selected,
+.filter-btn.active {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.14) inset,
+    0 2px 8px rgba(0, 229, 204, 0.22) !important;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   14. LISTE D'ITEMS avec ✓ — Apple feature list
+   ───────────────────────────────────────────────────────────────────── */
+
+/* Items avec ✓ dans les listes d'offres */
+li {
+  list-style: none;
+}
+
+/* Espacement interne des listes */
+ul, ol {
+  padding: 0;
+  margin: 0;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   15. MODAL / OVERLAY — Apple sheet
+   ───────────────────────────────────────────────────────────────────── */
+
+[class*="modal"],
+[class*="overlay"],
+[class*="drawer"] {
+  backdrop-filter: saturate(160%) blur(28px);
+  -webkit-backdrop-filter: saturate(160%) blur(28px);
+}
+
+.mobile-drawer-panel {
+  border-top: 0.5px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 20px 20px 0 0;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   16. FOOTER — finition Apple sobre
+   ───────────────────────────────────────────────────────────────────── */
+
+.site-footer {
+  border-top: 0.5px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+.footer-signature {
+  letter-spacing: -0.01em;
+  font-style: italic;
+}
+
+.footer-links a {
+  transition: opacity 160ms ease;
+  opacity: 0.55;
+}
+@media (hover: hover) {
+  .footer-links a:hover {
+    opacity: 0.85;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   17. TRANSITIONS PAGE — Apple instant-feel
+   ───────────────────────────────────────────────────────────────────── */
+
+/* View transition root — smooth mais rapide */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 220ms;
+  animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   18. CURSEUR — none custom remplacé par défaut propre
+   ───────────────────────────────────────────────────────────────────── */
+
+button, [role="button"], .btn,
+.pill-btn, .univers-pill, .filter-btn,
+label[for], summary, [tabindex] {
+  cursor: pointer;
+}
+
+/* Éléments non-interactifs : curseur default propre */
+p, h1, h2, h3, h4, span, div {
+  cursor: default;
+}
+/* Overrider pour le texte sélectionnable */
+p, li, h1, h2, h3 {
+  cursor: text;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   19. LOADER — Apple-style splash (fade propre)
+   ───────────────────────────────────────────────────────────────────── */
+
+#pandora-loader {
+  /* Transition plus rapide et plus nette */
+  transition: opacity 280ms cubic-bezier(0.25, 0.1, 0.25, 1) !important;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   20. MICRO-FINITIONS — détails que Apple soigne toujours
+   ───────────────────────────────────────────────────────────────────── */
+
+/* Pas de tap highlight iOS sur tous les éléments interactifs */
+a, button, input, select, textarea, [role="button"] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* SVG icons — rendering précis */
+svg {
+  shape-rendering: geometricPrecision;
+}
+
+/* Tout texte tronqué : ellipsis propre */
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* No sélection sur les éléments UI */
+nav, .bottom-bar, .site-footer .label {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Touch feedback — plus précis */
+@media (pointer: coarse) {
+  .btn, .pill-btn, .univers-pill, .filter-btn, .card {
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn:active       { transform: scale(0.95) !important; }
+  .card:active      { transform: scale(0.98) !important; }
+  .pill-btn:active  { transform: scale(0.94) !important; }
+}
+
+/* Reduced motion — désactiver toutes les transitions */
+@media (prefers-reduced-motion: reduce) {
+  .btn, .card, .pill-btn, .univers-pill, .filter-btn,
+  nav a, .footer-links a {
+    transition: none !important;
+    animation: none !important;
+  }
+  .hero-word.accent {
+    animation: none !important;
+  }
+}
