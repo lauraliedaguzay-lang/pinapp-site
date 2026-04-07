@@ -1,6 +1,33 @@
-/* PINAPP — pandora-ux.css — Expérience utilisateur Pandora
-   Chaque interaction doit rappeler la forêt bioluminescente d'Avatar.
-   Organique · Respirant · Vivant · Jamais mécanique. */
+/* PINAPP — pandora-ux.css */
+
+/* ═══════════════════════════════════════════════════════════════
+   DÉSACTIVATIONS — éléments visuels qui nuisent à la lisibilité
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Holo-grid : charge cognitive, supprimé */
+.holo-grid { display: none !important; }
+
+/* Noise-overlay : grain permanent, supprimé */
+.noise-overlay { display: none !important; }
+
+/* Section::after orbs : 6 orbes invisibles par section, supprimés */
+section::after { display: none !important; }
+
+/* Blur d'entrée : donne l'impression que la page bug */
+.section-enter { filter: none !important; }
+.section-enter.visible { filter: none !important; }
+
+/* Particles JS (Woodsprites) : désactivés via CSS en mobile */
+@media (max-width: 1023px) {
+  .bio-particle { display: none !important; }
+}
+
+/* Curseur magnétique : désactivé globalement (gimmick confus) */
+.pcursor-dot, .pcursor-ring { display: none !important; }
+body { cursor: auto !important; }
+
+/* ═══════════════════════════════════════════════════════════════
+   PINAPP — pandora-ux.css — Expérience utilisateur Pandora */
 
 /* ═══════════════════════════════════════════════════════════════
    1. EMERGENCE DE LA BRUME — Section reveal Pandora
@@ -298,14 +325,14 @@ body.mode-jour .card p {
   color: var(--text-secondary, rgba(10,31,18,0.68));
 }
 
-/* Cartes : glassmorphism blanc laiteux, ombre verte légère */
+/* Cartes mode clair : quasi-opaques pour garantir la lisibilité du texte */
 html[data-theme="light"] .card,
 body.mode-jour .card {
-  background: var(--glass-card, rgba(240,255,248,0.58));
+  background: var(--glass-card, rgba(242,255,249,0.93));
   border-color: var(--border-card, rgba(15,191,142,0.28));
   box-shadow: var(--shadow-md, 0 8px 24px rgba(0,60,30,0.14));
-  backdrop-filter: blur(20px) saturate(1.8);
-  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  backdrop-filter: blur(8px) saturate(1.3);
+  -webkit-backdrop-filter: blur(8px) saturate(1.3);
 }
 
 /* Nav : fond blanc laiteux jade en mode jour */

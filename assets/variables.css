@@ -74,11 +74,11 @@ html[data-theme="light"] {
   --accent-green:  #29A855;   /* vert forêt jade */
   --accent-blue:   #E0825A;   /* pêche corail — flore chaude / aurore Pandora */
 
-  /* Glassmorphism — verre clair lumineux, photo visible à travers */
-  --glass-nav:   rgba(240,255,248,0.76);   /* verre blanc teinté jade très léger */
-  --glass-card:  rgba(240,255,248,0.58);
-  --glass-tag:   rgba(225,248,240,0.45);
-  --glass-modal: rgba(230,252,243,0.94);
+  /* Glassmorphism — cartes opaques pour garantir la lisibilité du texte */
+  --glass-nav:   rgba(240,255,248,0.90);
+  --glass-card:  rgba(242,255,249,0.93);   /* quasi-opaque — texte toujours lisible */
+  --glass-tag:   rgba(235,252,242,0.88);
+  --glass-modal: rgba(238,253,245,0.97);
 
   /* Bordures — jade délicat sur fond clair */
   --border-card:   rgba(15,191,142,0.28);
@@ -93,10 +93,10 @@ html[data-theme="light"] {
   --glow-violet: 0 0 24px rgba(224,130,90,0.35), 0 0 48px rgba(196,120,32,0.18); /* pêche → ambre */
 
   /* Backgrounds */
-  --bg-primary:     rgba(235,252,244,0.85);
-  --bg-card:        rgba(240,255,248,0.58);
-  --bg-overlay:     rgba(230,252,243,0.94);
-  --bg-deep:        rgba(210,245,228,0.70);
+  --bg-primary:     rgba(238,252,245,0.95);
+  --bg-card:        rgba(242,255,249,0.93);
+  --bg-overlay:     rgba(238,253,245,0.97);
+  --bg-deep:        rgba(230,248,238,0.92);
 
   /* Textes — sombre sur fond clair, lisibles sur verre blanc */
   --text-primary:   #0A1F12;
@@ -120,10 +120,10 @@ html[data-theme="light"] {
     --accent-violet: #C47820;
     --accent-green:  #29A855;
     --accent-blue:   #E0825A;
-    --glass-nav:   rgba(240,255,248,0.76);
-    --glass-card:  rgba(240,255,248,0.58);
-    --glass-tag:   rgba(225,248,240,0.45);
-    --glass-modal: rgba(230,252,243,0.94);
+    --glass-nav:   rgba(240,255,248,0.90);
+    --glass-card:  rgba(242,255,249,0.93);
+    --glass-tag:   rgba(235,252,242,0.88);
+    --glass-modal: rgba(238,253,245,0.97);
     --border-card:   rgba(15,191,142,0.28);
     --border-subtle: rgba(15,191,142,0.14);
     --shadow-sm:   0 2px 8px rgba(0,60,30,0.10);
@@ -132,10 +132,10 @@ html[data-theme="light"] {
     --shadow-xl:   0 40px 80px rgba(0,60,30,0.22), 0 0 0 1px rgba(15,191,142,0.14);
     --glow-teal:   0 0 24px rgba(15,191,142,0.35), 0 0 48px rgba(15,191,142,0.18);
     --glow-violet: 0 0 24px rgba(224,130,90,0.35), 0 0 48px rgba(196,120,32,0.18);
-    --bg-primary:     rgba(235,252,244,0.85);
-    --bg-card:        rgba(240,255,248,0.58);
-    --bg-overlay:     rgba(230,252,243,0.94);
-    --bg-deep:        rgba(210,245,228,0.70);
+    --bg-primary:     rgba(238,252,245,0.95);
+    --bg-card:        rgba(242,255,249,0.93);
+    --bg-overlay:     rgba(238,253,245,0.97);
+    --bg-deep:        rgba(230,248,238,0.92);
     --text-primary:   #0A1F12;
     --text-secondary: rgba(10,31,18,0.68);
     --text-tertiary:  rgba(10,31,18,0.44);
@@ -183,13 +183,13 @@ html[data-theme="light"] body::before {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  /* Voile Pandora jour lumineux — très léger, laisse la photo bg-clair.png respirer
-     Juste une chauffe jade très subtile pour unifier les tons sans assombrir */
+  /* Voile Pandora jour — assez opaque pour que les cartes glass soient lisibles.
+     La photo devient une texture d'ambiance, pas le fond principal. */
   background: linear-gradient(
     180deg,
-    rgba(220, 248, 232, 0.18) 0%,   /* légère lumière de canopée */
-    rgba(200, 238, 215, 0.14) 50%,  /* forêt mi-hauteur, quasi transparent */
-    rgba(180, 228, 200, 0.22) 100%  /* sol — légèrement plus saturé */
+    rgba(228, 245, 235, 0.58) 0%,
+    rgba(218, 238, 226, 0.62) 50%,
+    rgba(208, 232, 218, 0.66) 100%
   );
 }
 
@@ -227,9 +227,9 @@ html[data-theme="light"] body::before {
     pointer-events: none;
     background: linear-gradient(
       180deg,
-      rgba(220, 248, 232, 0.18) 0%,
-      rgba(200, 238, 215, 0.14) 50%,
-      rgba(180, 228, 200, 0.22) 100%
+      rgba(228, 245, 235, 0.58) 0%,
+      rgba(218, 238, 226, 0.62) 50%,
+      rgba(208, 232, 218, 0.66) 100%
     );
   }
 }
