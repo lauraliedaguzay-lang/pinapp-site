@@ -731,7 +731,50 @@ body::after {
 
 @media (prefers-reduced-motion: no-preference) {
   body::after {
-    animation: ambient-field 8s ease-in-out infinite;
+    /* Nuit : respiration plus longue (plus “cinéma”, moins nerveux) */
+    animation: ambient-field 18s ease-in-out infinite;
+  }
+}
+
+/* ═══ Scintillements (nuit) — micro-étoiles blanches très subtiles ═══
+   iOS : layer séparé via html::after (body::before/after déjà utilisés ailleurs).
+   Objectif : vivant mais imperceptible (pas de paillettes visibles). */
+@keyframes night-sparkle {
+  0%   { opacity: 0.00; filter: blur(0.2px); }
+  18%  { opacity: 0.16; filter: blur(0.25px); }
+  52%  { opacity: 0.10; filter: blur(0.15px); }
+  100% { opacity: 0.00; filter: blur(0.2px); }
+}
+
+html::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html[data-theme="dark"]::after,
+  body:not(.mode-jour)::after,
+  @media (prefers-color-scheme: dark) {
+    html:not([data-theme])::after {
+      /* placeholder */
+    }
+  }
+    /* Dots “stars” en plusieurs calques — pas de pattern évident */
+    background:
+      radial-gradient(1px 1px at 12% 22%, rgba(255,255,255,0.55) 0%, transparent 60%),
+      radial-gradient(1px 1px at 28% 64%, rgba(255,255,255,0.40) 0%, transparent 60%),
+      radial-gradient(1px 1px at 44% 18%, rgba(255,255,255,0.35) 0%, transparent 60%),
+      radial-gradient(1px 1px at 58% 38%, rgba(255,255,255,0.50) 0%, transparent 60%),
+      radial-gradient(1px 1px at 71% 72%, rgba(255,255,255,0.36) 0%, transparent 60%),
+      radial-gradient(1px 1px at 86% 28%, rgba(255,255,255,0.46) 0%, transparent 60%),
+      radial-gradient(1px 1px at 91% 61%, rgba(255,255,255,0.30) 0%, transparent 60%),
+      radial-gradient(1px 1px at 8% 82%, rgba(255,255,255,0.34) 0%, transparent 60%);
+    mix-blend-mode: screen;
+    animation: night-sparkle 9.5s ease-in-out infinite;
   }
 }
 
@@ -800,6 +843,7 @@ body.mode-jour::after {
   .pinapp-breathe, .aurora-bg, .noise-overlay,
   .live-dot, .scroll-chevron { animation: none !important; }
   body::after { opacity: 0.55 !important; }
+  html::after { display: none !important; }
   .hero-word.accent.visible { animation: none !important; filter: none !important; }
   #loader::before { animation: none !important; }
   /* Évite loader bloqué si l’animation failsafe est écrasée ailleurs */
@@ -820,7 +864,7 @@ body.mode-jour::after {
 
 @media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
   body::after {
-    animation: ambient-field-mobile 8s ease-in-out infinite;
+    animation: ambient-field-mobile 18s ease-in-out infinite;
   }
   html[data-theme="light"] body::after,
   body.mode-jour::after {
