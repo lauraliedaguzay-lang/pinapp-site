@@ -184,8 +184,15 @@ class Carousel3D {
     this.filterTier = tier;
     this.allCards.forEach((card) => {
       const t = card.dataset.tier || 'classic';
-      const hide =
-        tier !== 'all' && t !== tier;
+      const line = (card.dataset.carouselLine || '').trim();
+      let hide = false;
+      if (tier === 'beaute') {
+        hide = line !== 'beaute';
+      } else if (tier === 'all') {
+        hide = false;
+      } else {
+        hide = t !== tier;
+      }
       card.classList.toggle('carousel-filter-hidden', hide);
     });
     document.querySelectorAll('.carousel-filter-btn').forEach((btn) => {
@@ -251,6 +258,10 @@ class Carousel3D {
         const tier = btn.getAttribute('data-carousel-filter') || 'all';
         this.stopAuto();
         this.applyFilter(tier);
+        const gridAll = document.querySelector('.filter-btn[data-filter="all"]');
+        const gridBeaute = document.querySelector('.filter-btn[data-filter="beaute"]');
+        if (tier === 'beaute' && gridBeaute) gridBeaute.click();
+        else if (tier === 'all' && gridAll) gridAll.click();
       });
     });
 
@@ -364,5 +375,13 @@ class Carousel3D {
 
 document.addEventListener('DOMContentLoaded', () => {
   const el = document.querySelector('.carousel-3d');
-  if (el) new Carousel3D(el);
+  if (!el) return;
+  const carousel = new Carousel3D(el);
+  window.__pinappCarousel3D = carousel;
+  try {
+    const filtre = new URLSearchParams(window.location.search).get('filtre');
+    if (filtre === 'beaute') {
+      document.querySelector('.filter-btn[data-filter="beaute"]')?.click();
+    }
+  } catch (e) { /* noop */ }
 });

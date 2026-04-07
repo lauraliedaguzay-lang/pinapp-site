@@ -1,5 +1,18 @@
 // assets/js/offres.js — Pinapp offres restructurées
 
+function applySecteurFromQuery() {
+  try {
+    const s = new URLSearchParams(window.location.search).get('secteur');
+    if (!s) return;
+    const pill = document.querySelector('.secteur-pill[data-secteur="' + s + '"]');
+    if (pill) pill.click();
+    if (s === 'beaute') {
+      const pipe = document.querySelector('.pipeline-pill[data-pipeline="beaute"]');
+      if (pipe) pipe.click();
+    }
+  } catch (e) { /* noop */ }
+}
+
 // SÉLECTEUR SECTEUR → filtre les offres
 document.querySelectorAll('.secteur-pill').forEach(pill => {
   pill.addEventListener('click', () => {
@@ -15,6 +28,8 @@ document.querySelectorAll('.secteur-pill').forEach(pill => {
     });
   });
 });
+
+document.addEventListener('DOMContentLoaded', applySecteurFromQuery);
 
 // PIPELINE SECTEUR
 document.querySelectorAll('.pipeline-pill').forEach(pill => {

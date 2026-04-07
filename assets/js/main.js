@@ -294,9 +294,18 @@
       btn.classList.add('active');
       realisationCards.forEach(function (card) {
         var cat = card.getAttribute('data-category') || '';
-        var show = f === 'all' || cat === f;
+        var line = card.getAttribute('data-line') || '';
+        var show =
+          f === 'all' ||
+          (f === 'beaute' && line === 'beaute') ||
+          (f !== 'all' && f !== 'beaute' && cat === f);
         card.style.display = show ? '' : 'none';
       });
+      var car = window.__pinappCarousel3D;
+      if (car && typeof car.applyFilter === 'function') {
+        if (f === 'beaute') car.applyFilter('beaute');
+        else car.applyFilter('all');
+      }
     });
   });
 
