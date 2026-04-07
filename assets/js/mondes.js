@@ -45,9 +45,20 @@ const Mondes = {
     const preview = document.createElement('div');
     preview.className = 'monde-preview';
     preview.style.background = monde.fond;
-    const canvas = document.createElement('canvas');
-    preview.appendChild(canvas);
-    this.drawPreview(canvas, monde);
+
+    if (monde.preview_img) {
+      /* Image générée — overlay canvas par-dessus pour le pulse */
+      const img = document.createElement('img');
+      img.src = monde.preview_img;
+      img.alt = '';
+      img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.75;';
+      preview.style.position = 'relative';
+      preview.appendChild(img);
+    } else {
+      const canvas = document.createElement('canvas');
+      preview.appendChild(canvas);
+      this.drawPreview(canvas, monde);
+    }
 
     const isDark = this.isDark(monde.fond);
     const body = document.createElement('div');
