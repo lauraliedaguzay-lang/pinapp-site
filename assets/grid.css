@@ -1,4 +1,4 @@
-/* PINAPP — grid.css v4.5 — modernité Apple : tracking, radius, spacing, spring */
+﻿/* PINAPP — grid.css v4.5 — modernité Apple : tracking, radius, spacing, spring */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1220,3 +1220,89 @@ button:focus-visible,
   nav.scrolled { background: rgba(4, 8, 18, 0.96); }
   .mobile-drawer-panel { background: rgba(4, 8, 18, 0.97); }
 }
+
+/* =====================================================
+   FOOTER v5 — Pinapp Studio
+   ===================================================== */
+
+.site-footer {
+  position: relative;
+  padding: var(--space-9, 120px) 0 var(--space-6, 48px);
+  overflow: hidden;
+  border-top: 1px solid var(--separator, rgba(0,180,216,0.06));
+}
+.site-footer .container {
+  position: relative;
+  text-align: center;
+}
+
+/* Signature — accord final */
+.footer-signature {
+  font-size: 1.0625rem;
+  font-style: italic;
+  font-family: Georgia, serif;
+  opacity: 0.55;
+  margin-bottom: var(--space-4);
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+/* Liens footer */
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  font-size: 13px;
+  opacity: 0.65;
+}
+.footer-links a {
+  color: var(--text);
+  text-decoration: none;
+  transition: opacity var(--t-hover, 200ms);
+}
+.footer-links a:hover { opacity: 1; }
+
+/* Copyright */
+.footer-copy {
+  font-size: 11px;
+  opacity: 0.35;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Watermark SVG */
+.footer-watermark {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+/* =====================================================
+   BLOCS SÉMANTIQUES v5 — couleurs Pandora par section
+   ===================================================== */
+
+.block-cyan   { border-color: rgba(0,229,204,0.18); }
+.block-violet { border-color: rgba(123,79,232,0.22); }
+.block-vert   { border-color: rgba(0,210,120,0.18); }
+.block-ambre  { border-color: rgba(255,180,60,0.18); }
+.block-rose   { border-color: rgba(255,90,120,0.18); }
+
+.block-cyan::before   { content:''; position:absolute;inset:0;border-radius:inherit;
+  background:radial-gradient(ellipse at 50% 0%, rgba(0,229,204,0.06) 0%, transparent 70%); pointer-events:none; }
+.block-violet::before { content:''; position:absolute;inset:0;border-radius:inherit;
+  background:radial-gradient(ellipse at 50% 0%, rgba(123,79,232,0.08) 0%, transparent 70%); pointer-events:none; }
+.block-vert::before   { content:''; position:absolute;inset:0;border-radius:inherit;
+  background:radial-gradient(ellipse at 50% 0%, rgba(0,210,120,0.07) 0%, transparent 70%); pointer-events:none; }
+.block-ambre::before  { content:''; position:absolute;inset:0;border-radius:inherit;
+  background:radial-gradient(ellipse at 50% 0%, rgba(255,180,60,0.07) 0%, transparent 70%); pointer-events:none; }
+.block-rose::before   { content:''; position:absolute;inset:0;border-radius:inherit;
+  background:radial-gradient(ellipse at 50% 0%, rgba(255,90,120,0.07) 0%, transparent 70%); pointer-events:none; }
+
+/* Jour — blocs légèrement plus foncés */
+body.mode-jour .block-cyan   { border-color: rgba(0,140,140,0.20); }
+body.mode-jour .block-violet { border-color: rgba(91,63,216,0.22); }
+body.mode-jour .block-vert   { border-color: rgba(0,150,100,0.20); }
+body.mode-jour .block-ambre  { border-color: rgba(190,130,0,0.20); }
+body.mode-jour .block-rose   { border-color: rgba(200,40,80,0.20); }
