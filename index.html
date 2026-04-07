@@ -3,8 +3,8 @@
 <head>
 <script>
 (function(){var s=localStorage.getItem('pinapp-theme');var d=window.matchMedia('(prefers-color-scheme:dark)').matches;var m=s||(d?'nuit':'jour');document.documentElement.setAttribute('data-mode',m);document.documentElement.setAttribute('data-theme',m==='jour'?'light':'dark');if(document.body)document.body.classList.add('mode-'+m);document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('mode-'+m);});}());</script>
-  <link rel="preload" as="image" href="assets/images/bg-dark-pandora-apple.png" fetchpriority="high">
-  <link rel="preload" as="image" href="assets/images/bg-light-pandora-apple.png">
+  <link rel="preload" as="image" href="assets/images/bg-pandora-nuit.png" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/images/bg-pandora-jour.png">
   <meta charset="UTF-8">
   <meta name="theme-color" id="pinapp-theme-color" content="#020810">
   <script src="assets/js/theme-init.js" defer></script>
@@ -27,6 +27,8 @@
   <link rel="preconnect" href="https://fonts.bunny.net">
   <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap">
   <link rel="stylesheet" href="assets/variables.css">
+  <link rel="stylesheet" href="assets/css/pandora-world.css">
+  <link rel="stylesheet" href="assets/css/pandora-details.css">
   <link rel="stylesheet" href="assets/grid.css">
   <link rel="stylesheet" href="assets/animations.css">
   <link rel="stylesheet" href="assets/css/aurora-mobile.css"><link rel="stylesheet" href="assets/css/pandora-jour.css"><link rel="stylesheet" href="assets/css/univers.css">
@@ -112,6 +114,22 @@
   }
   </script></head>
 <body class="page-with-bottom-nav">
+  <div id="pandora-world" aria-hidden="true">
+    <div class="pandora-orbs">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+      <div class="orb orb-4"></div>
+    </div>
+    <div class="pandora-spores" id="spores-container"></div>
+    <div class="pandora-stars" id="stars-container"></div>
+    <div class="pandora-clouds" id="clouds-container">
+      <div class="cloud cloud-1"></div>
+      <div class="cloud cloud-2"></div>
+      <div class="cloud cloud-3"></div>
+    </div>
+    <div class="holo-grid"></div>
+  </div>
 <div id="pandora-loader" aria-hidden="true">
   <svg width="32" height="38" viewBox="0 0 32 38" fill="none"><defs><linearGradient id="pg-l" x1="16" y1="36" x2="16" y2="2" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7B4FE8"/><stop offset="100%" stop-color="#00E5CC"/></linearGradient></defs><path d="M16 2 C13 5 10 6 11 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M16 2 L16 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round"/><path d="M16 2 C19 5 22 6 21 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none"/><ellipse cx="16" cy="24" rx="9" ry="12" fill="url(#pg-l)"/><path d="M7 20 L16 15 L25 20 L16 25 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none"/><path d="M7 26 L16 21 L25 26 L16 31 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none"/></svg>
 </div>
@@ -187,6 +205,7 @@
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
     </div>
   </section>
+  <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
 
   <!-- 2. POUR QUI -->
   <section class="section section-enter">
@@ -212,6 +231,7 @@
       </div>
     </div>
   </section>
+  <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
 
   <!-- 3. COMMENT ÇA MARCHE -->
   <section class="section section-enter">
@@ -282,6 +302,7 @@
       </div>
     </div>
   </section>
+  <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
 
   <!-- 4. OFFRES RÉSUMÉES -->
   <section class="section section-enter">
@@ -325,6 +346,7 @@
       <p style="text-align:center;margin-top:var(--space-4);font-size:13px;opacity:0.55;">Pas sûr de ce qu'il vous faut ? Le diagnostic est là pour ça.</p>
     </div>
   </section>
+  <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
 
   <!-- 5. RÉALISATIONS APERÇU -->
   <section class="section section-enter">
@@ -354,6 +376,7 @@
     </div>
       <div style="text-align:center;margin-top:var(--space-4);"><a href="realisations/index.html" class="btn btn-secondary">Voir toutes les réalisations →</a></div>
   </section>
+  <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
 
   <!-- 3 ENGAGEMENTS ANIMÉS -->
   <section class="section section-enter" style="padding-top:0;">
@@ -376,6 +399,7 @@
       <p style="text-align:center;font-size:11px;opacity:0.3;margin-top:var(--space-4);">Estimations basées sur les activités types accompagnées</p>
     </div>
   </section>
+  <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
 
   <!-- PIPELINE SIMULATION — Ce qui se passe sans vous -->
   <section class="section section-enter pipeline-section" id="pipeline">
@@ -390,6 +414,7 @@
       <em>Vous n'avez rien fait.</em>
     </p>
   </section>
+  <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
 
   <!-- AURORA ANALYSE — L'IA comprend votre activité -->
   <section class="section section-enter aurora-section" id="aurora">
@@ -414,6 +439,7 @@
       </div>
     </div>
   </section>
+  <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
 
   <!-- UNIVERS DIGITAL — Aurora directrice artistique -->
   <section class="section-enter univers-section" id="univers">
@@ -479,6 +505,7 @@
 
     </div>
   </section>
+  <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
 
   <!-- CALCULATEUR LIVE -->
   <section class="section section-enter calculateur-section" id="calculateur">
@@ -527,6 +554,7 @@
       </div>
     </div>
   </section>
+  <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
 
   <!-- GRAPHIQUES — Données animées au scroll -->
   <section class="section section-enter graphiques-section" id="graphiques">
@@ -563,6 +591,7 @@
       </div>
     </div>
   </section>
+  <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
 
   <!-- 6. CONFIANCE + LAURALIE -->
   <section class="section section-enter">
@@ -614,6 +643,7 @@
       </div>
     </div>
   </section>
+  <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
 
   <!-- 7. FAQ COURTE -->
   <section class="section section-enter">
@@ -636,6 +666,7 @@
       <p style="text-align:center;margin-top:var(--space-4);font-size:13px;opacity:0.55;"><a href="faq/index.html" style="color:var(--accent-teal);">Toutes les questions →</a></p>
     </div>
   </section>
+  <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
 
   <!-- 8. CTA FINAL -->
   <section class="section section-enter" style="text-align:center;padding-bottom:var(--space-6);">
@@ -696,5 +727,7 @@
   </script>
 <script src="assets/js/pandora-night.js" defer></script><script src="assets/js/mode-toggle.js" defer></script>
   <script src="assets/js/bio-particles.js" defer></script>
+  <script src="assets/js/pandora-world.js"></script>
+  <script src="assets/js/pandora-interactions.js"></script>
 </body>
 </html>

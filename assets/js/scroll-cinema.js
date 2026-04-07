@@ -56,13 +56,19 @@ const countObs = new IntersectionObserver(entries => {
     const el     = e.target;
     const target = parseInt(el.dataset.count, 10);
     if (isNaN(target)) return;
+    el.classList.add('counting');
     const start = Date.now();
     const dur   = 1400;
     const tick  = () => {
       const p    = Math.min((Date.now() - start) / dur, 1);
       const ease = 1 - Math.pow(1 - p, 3);
       el.textContent = Math.round(target * ease);
-      if (p < 1) requestAnimationFrame(tick);
+      if (p < 1) {
+        requestAnimationFrame(tick);
+      } else {
+        el.classList.remove('counting');
+        el.classList.add('done');
+      }
     };
     tick();
     countObs.unobserve(el);

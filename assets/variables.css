@@ -152,12 +152,12 @@
    MODE NUIT — défaut — Parc Avatar Disney
    ===================================================== */
 
+/* =====================================================
+   FOND PANDORA — Photo floue + couches vivantes
+   ===================================================== */
+
 body {
   background-color: var(--fond-nuit);
-  background-image: url('../assets/images/bg-dark-pandora-apple.png');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
   color: var(--text);
   font-family: var(--font-body);
   font-size: var(--text-body);
@@ -165,40 +165,72 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   max-width: 100vw;
+  min-height: 100svh;
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
-/* iOS Safari : background-attachment:fixed cassé → scroll normal */
-@media (max-width: 767px) {
-  body {
-    background-attachment: scroll;
-  }
 
-  /* Espacement mobile encore plus compact */
+/* Couche 1 — Photo Pandora floue en position fixe */
+body::before {
+  content: '';
+  position: fixed;
+  inset: -10%;
+  z-index: 0;
+  pointer-events: none;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: scale(1.08);
+  transition: filter 800ms ease;
+  will-change: transform;
+}
+
+/* MODE NUIT — Forêt Pandora */
+body:not(.mode-jour)::before {
+  background-image: url('../assets/images/bg-pandora-nuit.png');
+  filter: blur(20px) saturate(220%) brightness(0.80);
+}
+
+/* Couche 2 — Overlay lisibilité */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  transition: background 600ms ease;
+}
+body:not(.mode-jour)::after {
+  background: rgba(2,8,16,0.42);
+}
+body.mode-jour::after {
+  background: rgba(248,240,255,0.12);
+}
+
+/* Fallback si PNG absent */
+@supports not (background-image: url('x.png')) {
+  body:not(.mode-jour)::before { background: var(--fond-nuit); }
+  body.mode-jour::before        { background: var(--fond-jour); }
+}
+
+/* Espacement mobile encore plus compact */
+@media (max-width: 767px) {
   :root {
     --space-6:  32px;
     --space-7:  40px;
     --space-8:  52px;
     --space-9:  64px;
     --space-10: 80px;
-    /* Hero responsive — évite 44px fixe sur petits écrans */
     --text-hero: clamp(28px, 8.5vw, 44px);
   }
-}
-
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  /* Overlay réduit pour laisser respirer bg-dark-pandora-apple.png */
-  background: linear-gradient(
-    180deg,
-    rgba(2,8,16,0.48) 0%,
-    rgba(2,8,16,0.28) 50%,
-    rgba(2,8,16,0.45) 100%
-  );
+  /* Photo fond — ajustement mobile */
+  body:not(.mode-jour)::before {
+    filter: blur(30px) saturate(200%) brightness(0.82);
+    transform: scale(1.12);
+  }
+  body.mode-jour::before {
+    filter: blur(30px) saturate(150%) brightness(1.05);
+    transform: scale(1.12);
+  }
 }
 
 /* =====================================================
@@ -208,19 +240,14 @@ body::before {
 body.mode-jour,
 html[data-theme="light"] body {
   background-color: var(--fond-jour);
-  background-image: url('../assets/images/bg-light-pandora-apple.png');
   color-scheme: light;
 }
 
-/* Overridé par pandora-jour.css avec le gradient riche + animation */
+/* MODE JOUR — Ciel Ikran (dos d'Ikran, Dylan Cole Avatar 3) */
 body.mode-jour::before,
 html[data-theme="light"] body::before {
-  background: linear-gradient(
-    180deg,
-    rgba(248,240,255,0.22) 0%,
-    rgba(248,235,250,0.15) 50%,
-    rgba(245,230,245,0.22) 100%
-  );
+  background-image: url('../assets/images/bg-pandora-jour.png');
+  filter: blur(20px) saturate(160%) brightness(1.08);
 }
 
 /* Tokens jour */
@@ -245,13 +272,10 @@ html[data-theme="light"] body {
   --glow-violet:   0 0 24px rgba(91,63,216,0.30), 0 0 48px rgba(91,63,216,0.15);
 }
 
-/* iOS fixed background fix */
+/* iOS Safari — position fixed marche mais scale doit rester */
 @supports (-webkit-touch-callout: none) {
-  body,
-  body.mode-jour,
-  html[data-theme="light"] body,
-  html[data-theme="dark"] body {
-    background-attachment: scroll;
+  body::before {
+    transform: scale(1.12);
   }
 }
 

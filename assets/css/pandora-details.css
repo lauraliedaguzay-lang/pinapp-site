@@ -1,0 +1,313 @@
+/* pandora-details.css — Pinapp · Micro-détails bioluminescents
+   ================================================================ */
+
+/* ══════════════════════════════════════════
+   HOVER CARDS — lumière qui suit le curseur
+══════════════════════════════════════════ */
+@media (hover: hover) {
+  .block, .card, [class*="card"] {
+    background-image: radial-gradient(
+      circle 140px at var(--cursor-x, 50%) var(--cursor-y, 50%),
+      rgba(0,229,204,0.07), transparent 70%);
+  }
+  body.mode-jour .block,
+  body.mode-jour .card,
+  body.mode-jour [class*="card"] {
+    background-image: radial-gradient(
+      circle 140px at var(--cursor-x, 50%) var(--cursor-y, 50%),
+      rgba(91,63,216,0.05), transparent 70%);
+  }
+}
+
+/* ══════════════════════════════════════════
+   INPUTS AU FOCUS — halo bioluminescent
+══════════════════════════════════════════ */
+input:focus, textarea:focus {
+  border-color: rgba(0,229,204,0.55) !important;
+  box-shadow:
+    0 0 0 3px rgba(0,229,204,0.12),
+    0 0 16px rgba(0,229,204,0.08) !important;
+  outline: none;
+}
+body.mode-jour input:focus,
+body.mode-jour textarea:focus {
+  border-color: rgba(0,150,130,0.50) !important;
+  box-shadow: 0 0 0 3px rgba(0,150,130,0.10) !important;
+}
+
+/* ══════════════════════════════════════════
+   SÉPARATEURS VIVANTS
+══════════════════════════════════════════ */
+.section-separator {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 80px auto;
+  max-width: 200px;
+}
+.section-separator::before,
+.section-separator::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right,
+    transparent, rgba(0,180,216,0.25), transparent);
+}
+.section-separator-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(0,229,204,0.60);
+  box-shadow:
+    0 0 6px rgba(0,229,204,0.6),
+    0 0 12px rgba(0,229,204,0.3),
+    0 0 24px rgba(0,229,204,0.15);
+  animation: dot-pulse 3.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes dot-pulse {
+  0%,100% { transform: scale(1); opacity: 0.6; }
+  50%     { transform: scale(1.5); opacity: 1; }
+}
+body.mode-jour .section-separator::before,
+body.mode-jour .section-separator::after {
+  background: linear-gradient(to right,
+    transparent, rgba(26,10,46,0.20), transparent);
+}
+body.mode-jour .section-separator-dot {
+  background: rgba(90,10,150,0.50);
+  box-shadow:
+    0 0 6px rgba(90,10,150,0.5),
+    0 0 12px rgba(90,10,150,0.25);
+}
+
+/* ══════════════════════════════════════════
+   SCROLL INDICATOR
+══════════════════════════════════════════ */
+.scroll-indicator {
+  position: absolute;
+  bottom: 32px; left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 2;
+}
+.scroll-chevron {
+  color: rgba(238,248,255,0.45);
+  font-size: 18px;
+  animation: scroll-bounce 3.5s ease-in-out infinite;
+}
+body.mode-jour .scroll-chevron {
+  color: rgba(26,10,46,0.40);
+}
+.scroll-stars { display: flex; gap: 8px; }
+.scroll-star {
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 4px var(--teal), 0 0 8px var(--teal);
+}
+.scroll-star:nth-child(1) {
+  animation: star-twinkle 3.5s ease-in-out infinite 0s;
+}
+.scroll-star:nth-child(2) {
+  animation: star-twinkle 3.5s ease-in-out infinite -1.2s;
+}
+.scroll-star:nth-child(3) {
+  animation: star-twinkle 3.5s ease-in-out infinite -2.4s;
+}
+@keyframes scroll-bounce {
+  0%,100% { transform: translateY(0); opacity: 0.45; }
+  50%     { transform: translateY(8px); opacity: 0.75; }
+}
+
+/* ══════════════════════════════════════════
+   COMPTEURS — glow pendant animation
+══════════════════════════════════════════ */
+[data-count].counting {
+  color: var(--teal);
+  text-shadow:
+    0 0 20px rgba(0,229,204,0.6),
+    0 0 40px rgba(0,229,204,0.3);
+}
+[data-count].done {
+  color: var(--text);
+  text-shadow: none;
+  transition: all 400ms ease;
+}
+
+/* ══════════════════════════════════════════
+   NOTIFICATIONS MOCKUP
+══════════════════════════════════════════ */
+.notif-item {
+  padding: 10px 16px;
+  background: rgba(0,15,30,0.70);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.10);
+  font-size: 13px;
+  color: var(--text);
+  transform: translateX(120%);
+  opacity: 0;
+  animation: notif-arrive 400ms cubic-bezier(0.45,0.05,0.55,0.95) forwards;
+}
+.notif-sign {
+  border-color: rgba(57,224,117,0.30);
+  box-shadow: 0 0 12px rgba(57,224,117,0.15);
+}
+.notif-site {
+  border-color: rgba(0,229,204,0.30);
+  box-shadow: 0 0 12px rgba(0,229,204,0.15);
+}
+.notif-pay {
+  border-color: rgba(255,180,40,0.30);
+  box-shadow: 0 0 12px rgba(255,180,40,0.15);
+}
+@keyframes notif-arrive {
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* ══════════════════════════════════════════
+   PIPELINE NŒUDS
+══════════════════════════════════════════ */
+.step-circle.active {
+  background: rgba(0,160,210,0.20) !important;
+  border-color: rgba(0,229,204,0.55) !important;
+  animation: node-pulse 3.5s ease-in-out infinite !important;
+}
+@keyframes node-pulse {
+  0%,100% {
+    box-shadow:
+      0 0 12px rgba(0,229,204,0.30),
+      0 0 24px rgba(0,229,204,0.15);
+  }
+  50% {
+    box-shadow:
+      0 0 20px rgba(0,229,204,0.50),
+      0 0 40px rgba(0,229,204,0.25);
+  }
+}
+
+/* ══════════════════════════════════════════
+   DOSSIERS FORMATIONS
+══════════════════════════════════════════ */
+.folder-pack1:hover .folder-body {
+  box-shadow:
+    6px 6px 0 rgba(0,0,0,0.20),
+    0 0 30px rgba(0,229,204,0.25),
+    0 0 60px rgba(0,229,204,0.12),
+    12px 24px 40px rgba(0,0,0,0.40);
+}
+.folder-pack2:hover .folder-body {
+  box-shadow:
+    6px 6px 0 rgba(0,0,0,0.20),
+    0 0 30px rgba(123,79,232,0.25),
+    0 0 60px rgba(123,79,232,0.12),
+    12px 24px 40px rgba(0,0,0,0.40);
+}
+.folder-pack3:hover .folder-body {
+  box-shadow:
+    6px 6px 0 rgba(0,0,0,0.20),
+    0 0 30px rgba(0,229,204,0.20),
+    0 0 60px rgba(123,79,232,0.15),
+    12px 24px 40px rgba(0,0,0,0.40);
+}
+.module-folder.completed .folder-body {
+  box-shadow:
+    4px 4px 0 rgba(0,0,0,0.15),
+    0 0 16px rgba(57,224,117,0.30),
+    0 0 32px rgba(57,224,117,0.15);
+}
+body:not(.mode-jour) .module-folder.locked {
+  filter: blur(1px) grayscale(0.8) opacity(0.45);
+}
+body.mode-jour .module-folder.locked {
+  filter: blur(1px) brightness(1.2) opacity(0.45);
+}
+
+/* ══════════════════════════════════════════
+   MODULE FORMATION
+══════════════════════════════════════════ */
+.module-interface {
+  background: #060A14;
+  min-height: 100svh;
+}
+.module-quiz-zone {
+  background:
+    linear-gradient(135deg,
+      rgba(90,10,150,0.12) 0%,
+      rgba(0,229,204,0.06) 100%),
+    rgba(0,5,15,0.60);
+  border: 1px solid rgba(123,79,232,0.20);
+  border-radius: 20px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.module-quiz-zone::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--teal), var(--violet));
+  animation: quiz-border-pulse 3.5s ease-in-out infinite;
+}
+@keyframes quiz-border-pulse {
+  0%,100% { opacity: 0.5; }
+  50%     { opacity: 1; }
+}
+.claude-cursor {
+  display: inline-block;
+  width: 2px; height: 1.1em;
+  background: var(--teal);
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  box-shadow: 0 0 6px var(--teal);
+  animation: cursor-blink 0.8s steps(2) infinite;
+}
+@keyframes cursor-blink {
+  0%,100% { opacity: 1; }
+  50%     { opacity: 0; }
+}
+.module-progress-bar {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 2px; z-index: 200;
+  background: rgba(255,255,255,0.06);
+}
+.module-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--teal), var(--violet));
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 8px rgba(0,229,204,0.50);
+  transition: width 500ms cubic-bezier(0.45,0.05,0.55,0.95);
+}
+
+/* ══════════════════════════════════════════
+   CURSEUR TRAÎNÉE
+══════════════════════════════════════════ */
+.cursor-trail-dot {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%,-50%);
+  background: rgba(0,229,204,0.5);
+  box-shadow: 0 0 6px rgba(0,229,204,0.5);
+}
+body.mode-jour .cursor-trail-dot {
+  background: rgba(91,63,216,0.4);
+  box-shadow: 0 0 6px rgba(91,63,216,0.4);
+}
+
+/* ══════════════════════════════════════════
+   REDUCED MOTION
+══════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .cursor-trail-dot,
+  .section-separator-dot,
+  .scroll-chevron,
+  .scroll-star {
+    animation: none !important;
+  }
+}
