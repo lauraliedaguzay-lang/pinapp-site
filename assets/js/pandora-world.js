@@ -22,9 +22,10 @@ const PandoraWorld = {
   ],
 
   get isMobile() { return window.innerWidth < 768; },
-  get SPORES_NUIT() { return this.isMobile ? 8  : 20; },
-  get SPORES_JOUR()  { return this.isMobile ? 6  : 15; },
-  get ETOILES()      { return this.isMobile ? 50 : 120; },
+  /* Anti-lag : moins de nœuds DOM + moins de box-shadow sur petit écran */
+  get SPORES_NUIT() { return this.isMobile ? 5  : 14; },
+  get SPORES_JOUR() { return this.isMobile ? 4  : 12; },
+  get ETOILES()     { return this.isMobile ? 18 : 72; },
 
   init() {
     this.sporesEl = document.getElementById('spores-container');
@@ -47,6 +48,7 @@ const PandoraWorld = {
 
   createSpores() {
     if (!this.sporesEl) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const count  = this.isJour ? this.SPORES_JOUR : this.SPORES_NUIT;
     const colors = this.isJour ? this.COLORS_JOUR  : this.COLORS_NUIT;
 
@@ -83,6 +85,7 @@ const PandoraWorld = {
 
   createStars() {
     if (!this.starsEl || this.isJour) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const starColors = [
       [238,248,255],
       [0,229,204],

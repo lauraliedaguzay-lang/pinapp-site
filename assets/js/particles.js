@@ -9,10 +9,14 @@ const Particles = {
 
   init() {
     if (this.active) return;
-    this.active = true;
 
     const isJour = document.body.classList.contains('mode-jour');
-    const count = 6;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const mobile = window.innerWidth < 768;
+    /* Anti-lag : 0 si reduced motion, 3 mobile, 6 desktop */
+    const count = reduced ? 0 : mobile ? 3 : 6;
+    if (count === 0) return;
+    this.active = true;
     const colorsNuit = [
       'rgba(0,180,216,',
       'rgba(0,229,204,',
@@ -46,7 +50,7 @@ const Particles = {
         z-index:1;
         left:${10 + Math.random() * 80}%;
         top:${20 + Math.random() * 70}%;
-        filter:blur(1px);
+        filter:${mobile ? 'none' : 'blur(1px)'};
         box-shadow:
           0 0 6px ${color}0.8),
           0 0 12px ${color}0.4),
@@ -54,7 +58,7 @@ const Particles = {
         animation:particle-ascend ${dur}s ease-in-out infinite;
         animation-delay:-${Math.random() * dur}s;
         --dx:${dx}px;
-        will-change:transform,opacity;
+        will-change:auto;
       `;
       fragment.appendChild(p);
     }
@@ -97,11 +101,5 @@ const Particles = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Mobile : 3 particules maximum (performances)
-  if (window.innerWidth < 768) {
-    const orig = Particles.init.toString();
-    const count = 3;
-    Particles._countOverride = count;
-  }
   Particles.init();
 });

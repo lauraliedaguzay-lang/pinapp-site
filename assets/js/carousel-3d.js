@@ -13,6 +13,12 @@ class Carousel3D {
     this.dragging = false;
     this.startX   = 0;
     this.auto     = null;
+    this.isMobile =
+      window.matchMedia('(max-width: 767px)').matches;
+    this.prefersReduced =
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    /* Blur 3D coûteux sur GPU mobile */
+    this.lowFx = this.isMobile || this.prefersReduced;
     if (this.total > 0) this.init();
   }
 
@@ -35,6 +41,7 @@ class Carousel3D {
   render() {
     this.items.forEach((item, i) => {
       const p = this.pos(i - this.current);
+      const b = this.lowFx ? 0 : p.b;
       item.style.cssText = `
         position: absolute;
         left: 50%; top: 50%;
@@ -45,13 +52,13 @@ class Carousel3D {
           rotateY(${p.ry}deg)
           scale(${p.s});
         opacity: ${p.o};
-        filter: blur(${p.b}px);
+        filter: blur(${b}px);
         z-index: ${p.zi};
         transition:
           transform 420ms cubic-bezier(0.45,0.05,0.55,0.95),
           opacity 350ms ease,
           filter 350ms ease;
-        will-change: transform, opacity, filter;
+        will-change: ${this.lowFx ? 'transform, opacity' : 'transform, opacity, filter'};
         cursor: ${i === this.current ? 'pointer' : 'default'};
         pointer-events: ${p.o > 0.3 ? 'auto' : 'none'};`;
     });
@@ -95,7 +102,8 @@ class Carousel3D {
 
   startAuto() {
     this.stopAuto();
-    this.auto = setInterval(() => this.next(), 5000);
+    const ms = this.isMobile ? 8000 : 5000;
+    this.auto = setInterval(() => this.next(), ms);
   }
   stopAuto() { clearInterval(this.auto); this.auto = null; }
 
@@ -165,11 +173,18 @@ class Carousel3D {
       if (Math.abs(delta) > 50) delta < 0 ? this.next() : this.prev();
     }, { passive: true });
 
-    // Pause au survol
-    this.el.addEventListener('mouseenter', () => this.stopAuto());
-    this.el.addEventListener('mouseleave', () => this.startAuto());
-
-    this.startAuto();
+    /* Auto-play : desktop seulement (battery + lag mobile) ; pause onglet caché */
+    const canAuto =
+      !this.isMobile && !this.prefersReduced;
+    if (canAuto) {
+      this.el.addEventListener('mouseenter', () => this.stopAuto());
+      this.el.addEventListener('mouseleave', () => this.startAuto());
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) this.stopAuto();
+        else this.startAuto();
+      });
+      this.startAuto();
+    }
   }
 }
 

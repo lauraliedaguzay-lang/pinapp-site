@@ -12,7 +12,7 @@
 
   const NUIT_TYPES  = ['spore', 'violet', 'wood', 'spore', 'violet'];
   const JOUR_TYPES  = ['ambre', 'ambre', 'wood', 'ambre', 'wood'];
-  const COUNT       = 20;
+  const COUNT       = 12;
   let   particles   = [];
 
   /* Détermine si on est en mode jour */
