@@ -15,10 +15,10 @@ const Aurora = {
 
   getColors() {
     return this.isJour()
-      /* Pandora jour lumineux : jade · ambre · pêche corail */
-      ? ['#0FBF8E', '#C47820', '#E0825A']
-      /* Pandora nuit : teal électrique, violet profond, vert bioluminescent */
-      : ['#00E5CC', '#7B4FE8', '#39E075'];
+      ? /* Pandora jour lumineux : jade · ambre · pêche corail */
+        ['#0FBF8E', '#C47820', '#E0825A']
+      : /* Pandora nuit : teal électrique, violet profond, vert bioluminescent */
+        ['#00E5CC', '#7B4FE8', '#39E075'];
   },
 
   getOpacity() {
@@ -47,11 +47,11 @@ const Aurora = {
     this.orbs = [
       { cx: 0.25, cy: 0.35, rx: 0.48, ry: 0.38, vx: 0.00022, vy: 0.00016 },
       { cx: 0.75, cy: 0.65, rx: 0.42, ry: 0.32, vx: -0.00018, vy: 0.00022 },
-      { cx: 0.50, cy: 0.82, rx: 0.36, ry: 0.26, vx: 0.00016, vy: -0.00020 },
+      { cx: 0.5, cy: 0.82, rx: 0.36, ry: 0.26, vx: 0.00016, vy: -0.0002 },
     ];
 
     const resize = () => {
-      this.canvas.width  = window.innerWidth;
+      this.canvas.width = window.innerWidth;
       this.canvas.height = window.innerHeight;
     };
     window.addEventListener('resize', resize, { passive: true });
@@ -77,9 +77,9 @@ const Aurora = {
   },
 
   draw() {
-    const ctx    = this.ctx;
-    const W      = this.canvas.width;
-    const H      = this.canvas.height;
+    const ctx = this.ctx;
+    const W = this.canvas.width;
+    const H = this.canvas.height;
     const colors = this.getColors();
 
     ctx.clearRect(0, 0, W, H);
@@ -89,16 +89,16 @@ const Aurora = {
       const x = W * (o.cx + Math.sin(this.t * o.vx * 1000) * 0.16);
       const y = H * (o.cy + Math.cos(this.t * o.vy * 1000) * 0.13);
       const g = ctx.createRadialGradient(x, y, 0, x, y, W * o.rx);
-      g.addColorStop(0,   colors[i] + '55');
+      g.addColorStop(0, colors[i] + '55');
       g.addColorStop(0.5, colors[i] + '22');
-      g.addColorStop(1,   'transparent');
+      g.addColorStop(1, 'transparent');
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, W, H);
     });
 
     this.t++;
     this.raf = requestAnimationFrame(() => this.draw());
-  }
+  },
 };
 
 if (document.readyState === 'loading') {

@@ -5,8 +5,10 @@
    ================================================================= */
 
 .aurora-mobile {
-  position: fixed; inset: 0;
-  z-index: 0; pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
   overflow: hidden;
 }
 
@@ -17,45 +19,59 @@
 }
 
 /* =====================================================
+   MODE "FOND STATIQUE" — désactive les halos animés
+   (évite l'effet "ça bouge partout" / fatigue visuelle)
+   ===================================================== */
+
+.aurora-orb {
+  animation: none !important;
+  transform: none !important;
+}
+
+/* =====================================================
    NUIT — 4 orbes bioluminescents
    (fallback CSS si canvas désactivé ou slow device)
    ===================================================== */
 
 body:not(.mode-jour) .aurora-orb-1,
-html:not([data-theme="light"]) body .aurora-orb-1 {
+html:not([data-theme='light']) body .aurora-orb-1 {
   width: clamp(280px, 50vw, 480px);
   height: clamp(280px, 50vw, 480px);
-  background: rgba(0,160,210,0.22);
+  background: rgba(0, 160, 210, 0.22);
   filter: blur(clamp(60px, 10vw, 100px));
-  top: -15%; left: -10%;
-  animation: aurora-float-a 9s ease-in-out infinite;
+  top: -15%;
+  left: -10%;
+  animation: none !important;
 }
 body:not(.mode-jour) .aurora-orb-2,
-html:not([data-theme="light"]) body .aurora-orb-2 {
+html:not([data-theme='light']) body .aurora-orb-2 {
   width: clamp(240px, 45vw, 400px);
   height: clamp(240px, 45vw, 400px);
-  background: rgba(90,10,150,0.18);
+  background: rgba(90, 10, 150, 0.18);
   filter: blur(clamp(50px, 9vw, 90px));
-  bottom: 8%; right: -8%;
-  animation: aurora-float-b 11s ease-in-out infinite;
+  bottom: 8%;
+  right: -8%;
+  animation: none !important;
 }
 body:not(.mode-jour) .aurora-orb-3,
-html:not([data-theme="light"]) body .aurora-orb-3 {
+html:not([data-theme='light']) body .aurora-orb-3 {
   width: clamp(200px, 40vw, 360px);
   height: clamp(200px, 40vw, 360px);
-  background: rgba(0,210,170,0.16);
+  background: rgba(0, 210, 170, 0.16);
   filter: blur(clamp(50px, 8vw, 80px));
-  top: 40%; left: 15%;
-  animation: aurora-float-c 7s ease-in-out infinite;
+  top: 40%;
+  left: 15%;
+  animation: none !important;
 }
 body:not(.mode-jour) .aurora-orb-4,
-html:not([data-theme="light"]) body .aurora-orb-4 {
+html:not([data-theme='light']) body .aurora-orb-4 {
   width: clamp(180px, 35vw, 300px);
   height: clamp(180px, 35vw, 300px);
-  background: rgba(180,20,140,0.09);
+  background: rgba(180, 20, 140, 0.09);
   filter: blur(clamp(60px, 10vw, 100px));
-  top: 62%; right: -5%;
-  animation: aurora-float-a 13s ease-in-out infinite reverse;
+  top: 62%;
+  right: -5%;
+  animation: none !important;
 }
 
 /* =====================================================
@@ -63,34 +79,37 @@ html:not([data-theme="light"]) body .aurora-orb-4 {
    ===================================================== */
 
 body.mode-jour .aurora-orb-1,
-html[data-theme="light"] body .aurora-orb-1 {
+html[data-theme='light'] body .aurora-orb-1 {
   width: clamp(280px, 50vw, 480px);
   height: clamp(280px, 50vw, 480px);
-  background: rgba(255,190,60,0.20);
+  background: rgba(255, 190, 60, 0.2);
   filter: blur(clamp(60px, 10vw, 100px));
-  top: -15%; left: -10%;
-  animation: aurora-float-a 9s ease-in-out infinite;
+  top: -15%;
+  left: -10%;
+  animation: none !important;
 }
 body.mode-jour .aurora-orb-2,
-html[data-theme="light"] body .aurora-orb-2 {
+html[data-theme='light'] body .aurora-orb-2 {
   width: clamp(240px, 45vw, 400px);
   height: clamp(240px, 45vw, 400px);
-  background: rgba(255,140,100,0.16);
+  background: rgba(255, 140, 100, 0.16);
   filter: blur(clamp(50px, 9vw, 90px));
-  bottom: 8%; right: -8%;
-  animation: aurora-float-b 11s ease-in-out infinite;
+  bottom: 8%;
+  right: -8%;
+  animation: none !important;
 }
 body.mode-jour .aurora-orb-3,
-html[data-theme="light"] body .aurora-orb-3 {
+html[data-theme='light'] body .aurora-orb-3 {
   width: clamp(200px, 40vw, 360px);
   height: clamp(200px, 40vw, 360px);
-  background: rgba(80,200,160,0.14);
+  background: rgba(80, 200, 160, 0.14);
   filter: blur(clamp(50px, 8vw, 80px));
-  top: 40%; left: 15%;
-  animation: aurora-float-c 7s ease-in-out infinite;
+  top: 40%;
+  left: 15%;
+  animation: none !important;
 }
 body.mode-jour .aurora-orb-4,
-html[data-theme="light"] body .aurora-orb-4 {
+html[data-theme='light'] body .aurora-orb-4 {
   display: block;
   width: clamp(160px, 32vw, 280px);
   height: clamp(160px, 32vw, 280px);
@@ -98,7 +117,7 @@ html[data-theme="light"] body .aurora-orb-4 {
   filter: blur(clamp(44px, 8vw, 76px));
   top: 58%;
   right: 2%;
-  animation: aurora-float-a 11s ease-in-out infinite reverse;
+  animation: none !important;
 }
 
 /* =====================================================
@@ -106,16 +125,31 @@ html[data-theme="light"] body .aurora-orb-4 {
    ===================================================== */
 
 @keyframes aurora-float-a {
-  0%, 100% { transform: translate(0,0) scale(1); }
-  50%       { transform: translate(28px,-35px) scale(1.07); }
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(28px, -35px) scale(1.07);
+  }
 }
 @keyframes aurora-float-b {
-  0%, 100% { transform: translate(0,0) scale(1); }
-  50%       { transform: translate(-22px,30px) scale(0.93); }
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-22px, 30px) scale(0.93);
+  }
 }
 @keyframes aurora-float-c {
-  0%, 100% { transform: translate(0,0) scale(1); }
-  50%       { transform: translate(18px,-18px) scale(1.05); }
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(18px, -18px) scale(1.05);
+  }
 }
 
 /* =====================================================
@@ -133,5 +167,7 @@ html[data-theme="light"] body .aurora-orb-4 {
    ===================================================== */
 
 @media (prefers-reduced-motion: reduce) {
-  .aurora-orb { animation: none !important; }
+  .aurora-orb {
+    animation: none !important;
+  }
 }

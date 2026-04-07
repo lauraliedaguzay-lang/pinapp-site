@@ -34,7 +34,7 @@
       '--demo-accent-dark': S.accentDark || S.accent,
       '--demo-texte': S.texte,
       '--demo-fond': S.fond,
-      '--demo-accent-hero': S.accent
+      '--demo-accent-hero': S.accent,
     };
 
     if (style === 'light-minimal') {
@@ -49,7 +49,7 @@
         '--demo-border-card': 'rgba(13, 27, 62, 0.1)',
         '--demo-fond-preuve': 'rgba(245, 245, 247, 0.95)',
         '--demo-fond-booking': 'rgba(255, 255, 255, 0.88)',
-        '--demo-fond-footer': 'rgba(255, 255, 255, 0.92)'
+        '--demo-fond-footer': 'rgba(255, 255, 255, 0.92)',
       });
     } else if (style === 'dark-luxury') {
       Object.assign(base, {
@@ -63,7 +63,7 @@
         '--demo-border-card': 'rgba(255, 255, 255, 0.1)',
         '--demo-fond-preuve': 'rgba(255, 255, 255, 0.03)',
         '--demo-fond-booking': 'rgba(255, 255, 255, 0.05)',
-        '--demo-fond-footer': 'rgba(5, 5, 8, 0.88)'
+        '--demo-fond-footer': 'rgba(5, 5, 8, 0.88)',
       });
     } else {
       /* bold-tech */
@@ -78,7 +78,7 @@
         '--demo-border-card': 'rgba(255, 255, 255, 0.12)',
         '--demo-fond-preuve': 'rgba(255, 255, 255, 0.03)',
         '--demo-fond-booking': 'rgba(255, 255, 255, 0.05)',
-        '--demo-fond-footer': 'rgba(5, 5, 8, 0.9)'
+        '--demo-fond-footer': 'rgba(5, 5, 8, 0.9)',
       });
     }
 
@@ -100,7 +100,7 @@
         }
         hero.style.backgroundImage =
           "url('" +
-          String(heroUrl).replace(/'/g, '\\\'') +
+          String(heroUrl).replace(/'/g, "\\'") +
           "'), linear-gradient(135deg, " +
           (S.accentDark || S.accent) +
           ', ' +
@@ -184,7 +184,8 @@
 
     if (S.galerie && S.galerie.length) {
       var gal = document.createElement('section');
-      gal.className = 'demo-galerie-section' + (S.galerie.length >= 10 ? ' demo-galerie-section--dense' : '');
+      gal.className =
+        'demo-galerie-section' + (S.galerie.length >= 10 ? ' demo-galerie-section--dense' : '');
       gal.setAttribute('aria-label', 'Galerie photos');
       var h2g = document.createElement('h2');
       h2g.className = 'demo-galerie-title';
@@ -280,27 +281,28 @@
       var form = document.createElement('form');
       form.className = 'demo-rich-form';
       form.setAttribute('novalidate', '');
-      [['Prénom', 'text', 'demo-fn'], ['Email', 'email', 'demo-em'], ['Mobile (optionnel)', 'tel', 'demo-tel']].forEach(
-        function (row) {
-          var lab = document.createElement('label');
-          lab.className = 'demo-rich-label';
-          lab.textContent = row[0];
-          var inp = document.createElement('input');
-          inp.type = row[1];
-          inp.className = 'demo-rich-input';
-          inp.name = row[2];
-          if (row[1] === 'email') {
-            inp.autocomplete = 'email';
-          } else if (row[1] === 'tel') {
-            inp.autocomplete = 'tel';
-            inp.inputMode = 'tel';
-            inp.placeholder = '06…';
-          }
-          else inp.autocomplete = 'given-name';
-          lab.appendChild(inp);
-          form.appendChild(lab);
-        }
-      );
+      [
+        ['Prénom', 'text', 'demo-fn'],
+        ['Email', 'email', 'demo-em'],
+        ['Mobile (optionnel)', 'tel', 'demo-tel'],
+      ].forEach(function (row) {
+        var lab = document.createElement('label');
+        lab.className = 'demo-rich-label';
+        lab.textContent = row[0];
+        var inp = document.createElement('input');
+        inp.type = row[1];
+        inp.className = 'demo-rich-input';
+        inp.name = row[2];
+        if (row[1] === 'email') {
+          inp.autocomplete = 'email';
+        } else if (row[1] === 'tel') {
+          inp.autocomplete = 'tel';
+          inp.inputMode = 'tel';
+          inp.placeholder = '06…';
+        } else inp.autocomplete = 'given-name';
+        lab.appendChild(inp);
+        form.appendChild(lab);
+      });
       var telHint = document.createElement('p');
       telHint.className = 'demo-rich-hint';
       telHint.style.marginTop = '-10px';
@@ -327,7 +329,8 @@
       form.appendChild(hint);
       form.addEventListener('submit', function (e) {
         e.preventDefault();
-        if (window.console && console.log) console.log('[DÉMO Pinapp] Formulaire riche (non envoyé)');
+        if (window.console && console.log)
+          console.log('[DÉMO Pinapp] Formulaire riche (non envoyé)');
         btn.textContent = 'Bien reçu (simulation)';
         btn.disabled = true;
       });
@@ -355,7 +358,8 @@
         '" alt="" loading="lazy" decoding="async" width="400" height="200">'
       : iconSvg;
     item.innerHTML =
-      topMedia + '<p class="service-name"></p><p class="service-desc"></p><p class="service-prix"></p>';
+      topMedia +
+      '<p class="service-name"></p><p class="service-desc"></p><p class="service-prix"></p>';
     item.querySelector('.service-name').textContent = service.nom;
     item.querySelector('.service-desc').textContent = service.description;
     item.querySelector('.service-prix').textContent = service.prix;
@@ -391,7 +395,7 @@
     function (e) {
       touchStartX = e.touches[0].clientX;
     },
-    { passive: true }
+    { passive: true },
   );
   swipeContainer.addEventListener(
     'touchend',
@@ -399,14 +403,11 @@
       var diff = touchStartX - e.changedTouches[0].clientX;
       if (Math.abs(diff) > 50) {
         var n = S.services.length;
-        var next =
-          diff > 0
-            ? (currentService + 1) % n
-            : (currentService - 1 + n) % n;
+        var next = diff > 0 ? (currentService + 1) % n : (currentService - 1 + n) % n;
         showService(next);
       }
     },
-    { passive: true }
+    { passive: true },
   );
 
   /* Badges */
@@ -485,7 +486,7 @@
         isScrolling = false;
       }, scrollCooldown);
     },
-    { passive: true }
+    { passive: true },
   );
 
   var touchStartY = 0;
@@ -494,7 +495,7 @@
     function (e) {
       touchStartY = e.touches[0].clientY;
     },
-    { passive: true }
+    { passive: true },
   );
   window.addEventListener(
     'touchend',
@@ -513,7 +514,7 @@
         isScrolling = false;
       }, scrollCooldown);
     },
-    { passive: true }
+    { passive: true },
   );
 
   /* Sections visibles au chargement (règle zéro-scroll Pinapp — pas de révélation au défilement) */

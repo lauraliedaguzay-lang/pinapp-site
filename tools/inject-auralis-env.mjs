@@ -23,8 +23,7 @@ export function injectAuralisAppUrl(filePath) {
 }
 
 const self = fileURLToPath(import.meta.url);
-const ranAsMain =
-  process.argv[1] && path.resolve(process.argv[1]) === path.resolve(self);
+const ranAsMain = process.argv[1] && path.resolve(process.argv[1]) === path.resolve(self);
 if (ranAsMain && process.argv[2]) {
   injectAuralisAppUrl(path.resolve(process.cwd(), process.argv[2]));
 }
