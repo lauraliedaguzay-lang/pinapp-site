@@ -28,20 +28,21 @@
   --text-3:         rgba(238,248,255,0.55);  /* secondaire â€” seuil raisonnable */
   --text-4:         rgba(238,248,255,0.45);  /* tertiaire â€” â‰¥3:1 large text */
 
-  /* FONDS — nuit : sol forestier + biolume menthe (pas bleu marine froid) */
-  --fond-nuit: #061a18;
+  /* FONDS — nuit : OLED + jungle (noir profond, pas gris bleuté) */
+  --fond-nuit: #020807;
+  --bg-deep: #010605;
   --fond-jour: #FBF5E8;  /* ivoire chaud â€” lumiÃ¨re de serre Pandora */
 
   /* GLASS NUIT — verre teinté jade / eau turquoise */
-  --glass:          rgba(6, 32, 34, 0.46);
-  --glass-nav:      rgba(8, 36, 38, 0.68);
-  --glass-card:     rgba(6, 32, 34, 0.48);
-  --glass-tag:      rgba(4, 28, 30, 0.38);
-  --glass-modal:    rgba(4, 22, 24, 0.82);
+  --glass:          rgba(4, 22, 24, 0.52);
+  --glass-nav:      rgba(3, 16, 18, 0.78);
+  --glass-card:     rgba(4, 22, 24, 0.54);
+  --glass-tag:      rgba(3, 18, 20, 0.42);
+  --glass-modal:    rgba(2, 14, 16, 0.88);
   --glass-blur:     blur(24px) saturate(140%);          /* Apple : sans brightness() */
   --glass-blur-nav: blur(20px) saturate(140%);
-  --bg-card:        rgba(6, 34, 36, 0.52);
-  --bg-overlay:     rgba(2, 18, 20, 0.58);
+  --bg-card:        rgba(3, 20, 22, 0.58);
+  --bg-overlay:     rgba(1, 10, 12, 0.62);
   --bg-primary:     var(--fond-nuit);
 
   /* BORDERS NUIT — turquoise menthe (moins cyan « UI ») */
@@ -145,7 +146,7 @@
   --space-10:128px;
 
   /* NAV */
-  --nav-bg: rgba(8, 36, 38, 0.70);
+  --nav-bg: rgba(2, 12, 14, 0.82);
 }
 
 /* =====================================================
@@ -202,11 +203,12 @@ body::after {
 }
 /* Aligné sur data-theme (défini dans le <head>) pour éviter un flash avant .mode-jour / .mode-nuit sur <body> */
 html[data-theme="dark"] body::after {
-  /* Nuit : sol bioluminescent + voile ciel (violet très doux) */
+  /* Nuit : OLED + biolume (halos teal/violet lisibles, vignette profonde) */
   background:
-    radial-gradient(95% 55% at 50% -5%, rgba(105, 55, 165, 0.09) 0%, transparent 44%),
-    radial-gradient(130% 85% at 50% 100%, rgba(0, 210, 188, 0.16) 0%, transparent 52%),
-    linear-gradient(180deg, rgba(6, 28, 30, 0.18) 0%, rgba(4, 36, 38, 0.36) 100%);
+    radial-gradient(95% 50% at 50% -8%, rgba(123, 79, 232, 0.12) 0%, rgba(2, 8, 7, 0.2) 48%, rgba(1, 4, 4, 0.85) 100%),
+    radial-gradient(120% 70% at 50% 102%, rgba(0, 229, 204, 0.14) 0%, rgba(0, 180, 160, 0.06) 42%, rgba(1, 6, 6, 0.65) 100%),
+    radial-gradient(130% 85% at 50% 100%, rgba(0, 210, 188, 0.22) 0%, rgba(2, 14, 14, 0.35) 50%, rgba(0, 0, 0, 0.25) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.28) 0%, rgba(4, 22, 22, 0.12) 45%, rgba(0, 0, 0, 0.5) 100%);
 }
 html[data-theme="light"] body::after {
   /* Jour : retour de la lumière — halo d’aube + lavande + jade résiduel */
@@ -282,6 +284,7 @@ html[data-theme="light"] body {
   --accent-green:  #2EAF6B;
   --glow-violet:   0 0 24px rgba(91,63,216,0.30), 0 0 48px rgba(91,63,216,0.15);
   --nav-bg:        rgba(255,248,238,0.94);
+  --bg-deep:       #E4EFE9;
 }
 
 /* iOS Safari â€” position fixed marche mais scale doit rester */

@@ -1,0 +1,35 @@
+---
+description: Pandora OLED, bioluminescence, icônes — pas de traits entièrement transparents
+globs: "**/*.{css,html,svg,tsx,jsx,vue}"
+alwaysApply: false
+---
+
+# Pandora · OLED · biolume · contours visibles
+
+## Fond & atmosphère (mode nuit)
+
+- Privilégier des **noirs verts** (`#020807`, `#010605`) plutôt que gris-bleu ; le contraste vient des **halos teal / violet**, pas d’un fond plus clair.
+- Renforcer la bioluminescence avec **plusieurs couches** de `box-shadow` / `drop-shadow` (teal + violet), pas une seule ombre grise.
+
+## Icônes & traits (SVG, UI)
+
+- **Ne jamais** utiliser `stroke="transparent"`, `stroke-opacity="0"`, `rgba(…, 0)` ou équivalent sur un trait d’icône ou de contour interactif : le trait disparaît sur OLED et casse la hiérarchie.
+- Si un effet « léger » est voulu : **alpha minimal** (ex. `rgba(0, 229, 204, 0.12)` à `0.22` sur fond sombre), ou `currentColor` avec une couleur de texte déjà lisible.
+- Pour les **dégradés de ligne** (nav, bottom bar, séparateurs) : éviter `transparent` aux extrémités ; utiliser la **même teinte avec alpha faible** (ex. `rgba(62, 235, 214, 0.06)` → pic au centre).
+
+## CSS
+
+- Icônes nav / contrôles : un **`drop-shadow`** teal (et éventuellement violet) léger sur `svg` en `data-theme="dark"` améliore la présence sans alourdir le SVG inline.
+
+```css
+/* ❌ trait invisible */
+stroke: transparent;
+stroke-opacity: 0;
+
+/* ✅ fantôme lisible */
+stroke: rgba(0, 229, 204, 0.18);
+```
+
+## Exceptions
+
+- **Tap highlight** `transparent`, **masques** et **fadings** d’arrière-plan large (orbes, photos) : hors périmètre « trait d’icône ».
