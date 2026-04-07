@@ -1,7 +1,7 @@
-/* deploy-harmonise.css — Pinapp · Harmonisation globale pré-déploiement */
+﻿/* deploy-harmonise.css â€” Pinapp Â· Harmonisation globale prÃ©-dÃ©ploiement */
 
 /* =====================================================
-   ÉTAPE 0D — Labels : teal, gauche sauf hero
+   Ã‰TAPE 0D â€” Labels : teal, gauche sauf hero
    ===================================================== */
 .label,
 [class*="label-"] {
@@ -27,7 +27,7 @@ section:first-of-type > .label,
 }
 
 /* =====================================================
-   ÉTAPE 0E — Border-radius : système unique
+   Ã‰TAPE 0E â€” Border-radius : systÃ¨me unique
    ===================================================== */
 .btn-primary,
 .btn-secondary,
@@ -67,8 +67,8 @@ img, picture > img {
 }
 
 /* =====================================================
-   ÉTAPE 0F — Espacements sections (ciblé, pas global)
-   Règle globale supprimée pour éviter les overrides
+   Ã‰TAPE 0F â€” Espacements sections (ciblÃ©, pas global)
+   RÃ¨gle globale supprimÃ©e pour Ã©viter les overrides
    ===================================================== */
 footer {
   padding-top: 80px;
@@ -76,7 +76,7 @@ footer {
 }
 
 /* =====================================================
-   BLOC-OR — classe manquante (Système Complet)
+   BLOC-OR â€” classe manquante (SystÃ¨me Complet)
    ===================================================== */
 .block-or {
   background:
@@ -105,8 +105,8 @@ html[data-theme="light"] .block-or {
 }
 
 /* =====================================================
-   FIX MOBILE — backdrop-filter override trop agressif
-   (variables.css écrasait les couleurs block-* sur mobile)
+   FIX MOBILE â€” backdrop-filter override trop agressif
+   (variables.css Ã©crasait les couleurs block-* sur mobile)
    ===================================================== */
 @media (max-width: 768px) {
   .block-cyan:not(:nth-child(-n+3)) { background:
@@ -130,8 +130,51 @@ html[data-theme="light"] .block-or {
   .block-neutre:not(:nth-child(-n+3)) { background: rgba(255,255,255,0.06) !important; }
 }
 
+/* ===================================
+   MODE JOUR - cartes mobiles claires
+   =================================== */
+@media (max-width: 768px) {
+  body.mode-jour .block-cyan:not(:nth-child(-n+3)),
+  html[data-theme="light"] .block-cyan:not(:nth-child(-n+3)) {
+    background: linear-gradient(135deg,rgba(0,160,210,0.12) 0%,rgba(0,229,204,0.06) 40%,transparent 70%), rgba(240,252,255,0.88) !important;
+  }
+  body.mode-jour .block-violet:not(:nth-child(-n+3)),
+  html[data-theme="light"] .block-violet:not(:nth-child(-n+3)) {
+    background: linear-gradient(135deg,rgba(90,10,150,0.10) 0%,rgba(123,79,232,0.06) 40%,transparent 70%), rgba(248,240,255,0.88) !important;
+  }
+  body.mode-jour .block-vert:not(:nth-child(-n+3)),
+  html[data-theme="light"] .block-vert:not(:nth-child(-n+3)) {
+    background: linear-gradient(135deg,rgba(0,180,100,0.10) 0%,rgba(57,224,117,0.05) 40%,transparent 70%), rgba(240,255,248,0.88) !important;
+  }
+  body.mode-jour .block-ambre:not(:nth-child(-n+3)),
+  html[data-theme="light"] .block-ambre:not(:nth-child(-n+3)) {
+    background: linear-gradient(135deg,rgba(200,120,8,0.12) 0%,rgba(255,200,80,0.06) 40%,transparent 70%), rgba(255,252,240,0.88) !important;
+  }
+  body.mode-jour .block-or:not(:nth-child(-n+3)),
+  html[data-theme="light"] .block-or:not(:nth-child(-n+3)) {
+    background: linear-gradient(135deg,rgba(180,120,0,0.12) 0%,rgba(255,210,80,0.06) 40%,transparent 70%), rgba(255,252,235,0.88) !important;
+  }
+  body.mode-jour .block-rose:not(:nth-child(-n+3)),
+  html[data-theme="light"] .block-rose:not(:nth-child(-n+3)) {
+    background: linear-gradient(135deg,rgba(200,50,80,0.10) 0%,rgba(220,60,90,0.05) 40%,transparent 70%), rgba(255,240,245,0.88) !important;
+  }
+  body.mode-jour .block-neutre:not(:nth-child(-n+3)),
+  html[data-theme="light"] .block-neutre:not(:nth-child(-n+3)) {
+    background: rgba(255,255,255,0.85) !important;
+  }
+  /* Cartes génériques mode-jour mobile */
+  body.mode-jour .block:not(:nth-child(-n+3)),
+  body.mode-jour .card:not(:nth-child(-n+3)),
+  html[data-theme="light"] .block:not(:nth-child(-n+3)),
+  html[data-theme="light"] .card:not(:nth-child(-n+3)) {
+    background: rgba(255,255,255,0.85) !important;
+    border-color: rgba(0,0,0,0.10) !important;
+    color: #1A0A2E !important;
+  }
+}
+
 /* =====================================================
-   FIX RANGE INPUT — iOS Safari (calc slider)
+   FIX RANGE INPUT â€” iOS Safari (calc slider)
    ===================================================== */
 input[type="range"] {
   -webkit-appearance: none;
@@ -189,7 +232,7 @@ html[data-theme="light"] input[type="range"]::-webkit-slider-thumb {
 }
 
 /* =====================================================
-   FIX SEPARATOR — rendre visible
+   FIX SEPARATOR â€” rendre visible
    ===================================================== */
 .offre-footer {
   border-top-color: rgba(255,255,255,0.12) !important;
@@ -199,7 +242,7 @@ body.mode-jour .offre-footer {
 }
 
 /* =====================================================
-   FIX OFFRE-FOOTER — mobile responsive
+   FIX OFFRE-FOOTER â€” mobile responsive
    ===================================================== */
 @media (max-width: 480px) {
   .offre-footer {
@@ -221,7 +264,7 @@ body.mode-jour .offre-footer {
 }
 
 /* =====================================================
-   ÉTAPE 1 — Bouton effacer données footer
+   Ã‰TAPE 1 â€” Bouton effacer donnÃ©es footer
    ===================================================== */
 .footer-clear-data {
   font-size: 10px;
@@ -238,7 +281,7 @@ body.mode-jour .offre-footer {
 .footer-clear-data:hover { opacity: 1; }
 
 /* =====================================================
-   DIAGNOSTIC — Intro Lauralie + créneau
+   DIAGNOSTIC â€” Intro Lauralie + crÃ©neau
    ===================================================== */
 .diagnostic-intro {
   max-width: 680px;
@@ -343,7 +386,7 @@ body.mode-jour .offre-footer {
   position: relative;
 }
 .diagnostic-pas-liste li::before {
-  content: '×';
+  content: 'Ã—';
   position: absolute; left: 0;
   color: rgba(220,38,38,0.5);
   font-weight: 700;
@@ -356,7 +399,7 @@ body.mode-jour .offre-footer {
 }
 
 /* =====================================================
-   A-PROPOS — Photo section
+   A-PROPOS â€” Photo section
    ===================================================== */
 .apropos-photo-section {
   display: grid;

@@ -1,6 +1,6 @@
-/* PINAPP — variables.css — Design System v5 — Pandora · Avatar · Cameron
-   Colorimétrie : Parc Avatar Disney (nuit) + Dylan Cole Avatar 3 (jour)
-   Tempo musical : "The Light Always Returns" — Simon Franglen — 3.5s
+﻿/* PINAPP â€” variables.css â€” Design System v5 â€” Pandora Â· Avatar Â· Cameron
+   ColorimÃ©trie : Parc Avatar Disney (nuit) + Dylan Cole Avatar 3 (jour)
+   Tempo musical : "The Light Always Returns" â€” Simon Franglen â€” 3.5s
    ================================================================= */
 
 :root {
@@ -14,23 +14,23 @@
   --ambre:          #FFB830;
   --or:             #FFD080;
 
-  /* Aliases rétrocompatibilité */
+  /* Aliases rÃ©trocompatibilitÃ© */
   --accent-teal:    #00E5CC;
   --accent-violet:  #7B4FE8;
   --accent-green:   #39E075;
   --accent-blue:    #00B4D8;
   --accent-rose:    #C41E8C;
 
-  /* TEXTE — nuit */
+  /* TEXTE â€” nuit */
   --text:           #EEF8FF;
   --text-primary:   #EEF8FF;
-  --text-2:         rgba(238,248,255,0.78);  /* ≥4.5:1 WCAG AA */
-  --text-3:         rgba(238,248,255,0.55);  /* secondaire — seuil raisonnable */
-  --text-4:         rgba(238,248,255,0.45);  /* tertiaire — ≥3:1 large text */
+  --text-2:         rgba(238,248,255,0.78);  /* â‰¥4.5:1 WCAG AA */
+  --text-3:         rgba(238,248,255,0.55);  /* secondaire â€” seuil raisonnable */
+  --text-4:         rgba(238,248,255,0.45);  /* tertiaire â€” â‰¥3:1 large text */
 
   /* FONDS */
-  --fond-nuit: #010D12;  /* teal teinté — forêt Pandora nuit */
-  --fond-jour: #FBF5E8;  /* ivoire chaud — lumière de serre Pandora */
+  --fond-nuit: #010D12;  /* teal teintÃ© â€” forÃªt Pandora nuit */
+  --fond-jour: #FBF5E8;  /* ivoire chaud â€” lumiÃ¨re de serre Pandora */
 
   /* GLASS NUIT */
   --glass:          rgba(0,15,30,0.50);
@@ -44,7 +44,7 @@
   --bg-overlay:     rgba(0,0,0,0.65);
   --bg-primary:     var(--fond-nuit);
 
-  /* BORDERS NUIT — cyan Avatar */
+  /* BORDERS NUIT â€” cyan Avatar */
   --border-card:    rgba(0,180,216,0.14);
   --border-subtle:  rgba(0,180,216,0.08);
   --border-input:   rgba(0,180,216,0.22);
@@ -97,14 +97,14 @@
   --text-legal:   11px;
   --font-body:    Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-display: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --text-body:    1.0625rem;   /* 17px — aligné apple.com */
+  --text-body:    1.0625rem;   /* 17px â€” alignÃ© apple.com */
   --text-label:   0.6875rem;   /* 11px */
   --text-cta:     0.9375rem;   /* 15px */
   --radius-pill:  100px;
   --radius-modal: 20px;
   --r-lg:         16px;
 
-  /* TIMING MUSICAL — The Light Always Returns */
+  /* TIMING MUSICAL â€” The Light Always Returns */
   --t-pandora:  3.5s ease-in-out infinite;
   --t-ascend:   12s ease-in-out infinite;
   --t-micro:    100ms cubic-bezier(0.25,0.1,0.25,1);  /* Apple min perceptible */
@@ -128,11 +128,11 @@
   --z-nav:     100;
   --z-cursor:  9999;
 
-  /* BARRES — vert Pandora */
+  /* BARRES â€” vert Pandora */
   --bar:      linear-gradient(90deg,#39E075,#00E5CC);
   --bar-glow: rgba(57,224,117,0.28);
 
-  /* ESPACEMENT — échelle compacte "pas trop de scroll" */
+  /* ESPACEMENT â€” Ã©chelle compacte "pas trop de scroll" */
   --space-1:  4px;
   --space-2:  8px;
   --space-3:  16px;
@@ -149,11 +149,11 @@
 }
 
 /* =====================================================
-   MODE NUIT — défaut — Parc Avatar Disney
+   MODE NUIT â€” dÃ©faut â€” Parc Avatar Disney
    ===================================================== */
 
 /* =====================================================
-   FOND PANDORA — Photo floue + couches vivantes
+   FOND PANDORA â€” Photo floue + couches vivantes
    ===================================================== */
 
 body {
@@ -170,7 +170,7 @@ body {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-/* Couche 1 — Photo Pandora floue en position fixe */
+/* Couche 1 â€” Photo Pandora floue en position fixe */
 body::before {
   content: '';
   position: fixed;
@@ -185,13 +185,13 @@ body::before {
   will-change: transform;
 }
 
-/* MODE NUIT — Forêt Pandora */
+/* MODE NUIT â€” ForÃªt Pandora */
 body:not(.mode-jour)::before {
   background-image: url('../assets/images/bg-pandora-nuit.png');
   filter: blur(20px) saturate(220%) brightness(0.80);
 }
 
-/* Couche 2 — Overlay lisibilité */
+/* Couche 2 â€” Overlay lisibilitÃ© */
 body::after {
   content: '';
   position: fixed; inset: 0;
@@ -203,7 +203,7 @@ body:not(.mode-jour)::after {
   background: rgba(2,8,16,0.42);
 }
 body.mode-jour::after {
-  background: rgba(248,240,255,0.12);
+  background: transparent;
 }
 
 /* Fallback si PNG absent */
@@ -222,7 +222,7 @@ body.mode-jour::after {
     --space-10: 80px;
     --text-hero: clamp(28px, 8.5vw, 44px);
   }
-  /* Photo fond — ajustement mobile */
+  /* Photo fond â€” ajustement mobile */
   body:not(.mode-jour)::before {
     filter: blur(30px) saturate(200%) brightness(0.82);
     transform: scale(1.12);
@@ -234,7 +234,7 @@ body.mode-jour::after {
 }
 
 /* =====================================================
-   MODE JOUR — Dylan Cole Avatar 3 — coucher de soleil
+   MODE JOUR â€” Dylan Cole Avatar 3 â€” coucher de soleil
    ===================================================== */
 
 body.mode-jour,
@@ -243,7 +243,7 @@ html[data-theme="light"] body {
   color-scheme: light;
 }
 
-/* MODE JOUR — Ciel Ikran (dos d'Ikran, Dylan Cole Avatar 3) */
+/* MODE JOUR â€” Ciel Ikran (dos d'Ikran, Dylan Cole Avatar 3) */
 body.mode-jour::before,
 html[data-theme="light"] body::before {
   background-image: url('../assets/images/bg-pandora-jour.png');
@@ -258,10 +258,10 @@ html[data-theme="light"] body {
   --text-2:        rgba(26,10,46,0.70);
   --text-3:        rgba(26,10,46,0.45);
   --text-4:        rgba(26,10,46,0.25);
-  --glass:         rgba(255,255,255,0.65);
+  --glass:         rgba(255,255,255,0.78);
   --glass-nav:     rgba(255,248,240,0.85);
-  --glass-card:    rgba(255,255,255,0.65);
-  --border-card:   rgba(255,255,255,0.75);
+  --glass-card:    rgba(255,255,255,0.78);
+  --border-card:   rgba(0,0,0,0.12);
   --border-subtle: rgba(26,10,46,0.08);
   --teal:          #009B8C;
   --accent-teal:   #009B8C;
@@ -272,7 +272,7 @@ html[data-theme="light"] body {
   --glow-violet:   0 0 24px rgba(91,63,216,0.30), 0 0 48px rgba(91,63,216,0.15);
 }
 
-/* iOS Safari — position fixed marche mais scale doit rester */
+/* iOS Safari â€” position fixed marche mais scale doit rester */
 @supports (-webkit-touch-callout: none) {
   body::before {
     transform: scale(1.12);
@@ -280,7 +280,7 @@ html[data-theme="light"] body {
 }
 
 /* =====================================================
-   GLASSMORPHISM — cards + blocs
+   GLASSMORPHISM â€” cards + blocs
    ===================================================== */
 
 .block, .card, [class*="card"],
@@ -300,7 +300,7 @@ html[data-theme="light"] body {
     var(--shadow-lg);
 }
 
-/* Reflet supérieur — verre */
+/* Reflet supÃ©rieur â€” verre */
 .block::after, .card::after {
   content: '';
   position: absolute;
@@ -312,7 +312,7 @@ html[data-theme="light"] body {
   z-index: 0;
 }
 
-/* Hover doux — musical */
+/* Hover doux â€” musical */
 .block:hover, .card:hover {
   transform: translateY(-3px) scale(1.005) translateZ(0);
   transition: all var(--t-hover);
@@ -323,7 +323,7 @@ html[data-theme="light"] body {
 }
 
 /* =====================================================
-   BLOCS SÉMANTIQUES — dégradés Avatar
+   BLOCS SÃ‰MANTIQUES â€” dÃ©gradÃ©s Avatar
    ===================================================== */
 
 .block-cyan {
@@ -373,7 +373,7 @@ html[data-theme="light"] body {
   border-color: rgba(255,255,255,0.08);
 }
 
-/* Hover sémantique */
+/* Hover sÃ©mantique */
 .block-cyan:hover {
   box-shadow: inset 0 1px 0 rgba(0,229,204,0.25),
     0 0 30px rgba(0,180,216,0.18), var(--shadow-xl);
@@ -387,7 +387,7 @@ html[data-theme="light"] body {
     0 0 30px rgba(57,224,117,0.18), var(--shadow-xl);
 }
 
-/* Mode jour — blocs opalescents */
+/* Mode jour â€” blocs opalescents */
 body.mode-jour .block-cyan,
 html[data-theme="light"] .block-cyan {
   background:
@@ -409,7 +409,7 @@ html[data-theme="light"] .block-violet {
 }
 
 /* =====================================================
-   LABELS — toujours teal
+   LABELS â€” toujours teal
    ===================================================== */
 
 .label {
@@ -444,10 +444,10 @@ html[data-theme="light"] .block-violet {
   text-align: center;
   transition: transform var(--t-hover), box-shadow var(--t-hover), opacity var(--t-hover);
   transform: translateZ(0);
-  /* L'animation ambiante est réservée au CTA hero unique via .pinapp-breathe */
+  /* L'animation ambiante est rÃ©servÃ©e au CTA hero unique via .pinapp-breathe */
 }
 
-/* Animation ambiante — uniquement sur le CTA principal hero */
+/* Animation ambiante â€” uniquement sur le CTA principal hero */
 .pinapp-breathe {
   animation: kiri-soar 3.5s ease-in-out infinite;
 }
@@ -504,7 +504,7 @@ input, textarea, select {
   border-radius: var(--r-input);
   padding: 14px 18px;
   font-family: Inter,sans-serif;
-  font-size: 16px; /* jamais moins — Safari zoom */
+  font-size: 16px; /* jamais moins â€” Safari zoom */
   color: var(--text);
   transition: all var(--t-hover);
   transform: translateZ(0);
@@ -537,7 +537,7 @@ html[data-theme="light"] textarea {
 }
 
 /* =====================================================
-   NAV — glassmorphism Avatar
+   NAV â€” glassmorphism Avatar
    ===================================================== */
 
 nav, .nav {
@@ -580,7 +580,7 @@ html[data-theme="light"] nav.scrolled {
 }
 
 /* =====================================================
-   MOBILE — backdrop-filter limité
+   MOBILE â€” backdrop-filter limitÃ©
    ===================================================== */
 
 @media (max-width: 768px) {
@@ -606,7 +606,7 @@ html[data-theme="light"] nav.scrolled {
 }
 
 /* =====================================================
-   TOUCH — pas de hover fantôme
+   TOUCH â€” pas de hover fantÃ´me
    ===================================================== */
 
 @media (hover: none) {
@@ -639,7 +639,7 @@ html[data-theme="light"] nav.scrolled {
   body.mode-jour .card { background: rgba(255,255,255,0.96) !important; }
 }
 
-/* View transitions définis dans animations.css */
+/* View transitions dÃ©finis dans animations.css */
 
 /* =====================================================
    TABLETTE

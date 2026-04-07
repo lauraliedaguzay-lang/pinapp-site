@@ -1,5 +1,6 @@
 /* pandora-world.css — Pinapp · Monde Pandora Complet
-   Nuit : Forêt bioluminescente · Jour : Dos d'Ikran
+   Nuit : Forêt bioluminescente UNIQUEMENT
+   Jour : géré exclusivement par pandora-jour.css
    ================================================================ */
 
 #pandora-world {
@@ -10,15 +11,35 @@
 }
 
 /* ══════════════════════════════════════════
-   ORBES BIOLUMINESCENTES
+   MODE JOUR — masquage ciblé
+   .pandora-shapes reste visible (géré par pandora-jour.css)
+   Orbes, étoiles, nuages = night-only
+══════════════════════════════════════════ */
+body.mode-jour .pandora-orbs,
+html[data-theme="light"] .pandora-orbs,
+body.mode-jour .pandora-stars,
+html[data-theme="light"] .pandora-stars,
+body.mode-jour .pandora-clouds,
+html[data-theme="light"] .pandora-clouds {
+  display: none;
+}
+
+/* La grille holographique en mode-jour : couleur adaptée charte */
+body.mode-jour .holo-grid,
+html[data-theme="light"] .holo-grid {
+  background-image:
+    linear-gradient(rgba(0,140,120,0.030) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200,130,0,0.022) 1px, transparent 1px);
+  opacity: 0.6;
+}
+
+/* ══════════════════════════════════════════
+   ORBES BIOLUMINESCENTES (NUIT SEULEMENT)
 ══════════════════════════════════════════ */
 
 .pandora-orbs {
   position: absolute; inset: 0;
   mix-blend-mode: screen;
-}
-body.mode-jour .pandora-orbs {
-  mix-blend-mode: multiply;
 }
 
 .orb {
@@ -61,39 +82,7 @@ body:not(.mode-jour) .orb-4 {
   animation: orb-1 13s ease-in-out infinite -7s reverse;
 }
 
-/* — JOUR — */
-body.mode-jour .orb-1 {
-  width: 70vw; height: 60vh;
-  background: radial-gradient(ellipse,
-    rgba(255,190,80,0.20) 0%, transparent 70%);
-  bottom: -10%; right: -5%;
-  filter: blur(80px);
-  animation: orb-1 12s ease-in-out infinite;
-}
-body.mode-jour .orb-2 {
-  width: 60vw; height: 55vh;
-  background: radial-gradient(ellipse,
-    rgba(255,160,180,0.18) 0%, transparent 70%);
-  top: -5%; left: -10%;
-  filter: blur(80px);
-  animation: orb-2 15s ease-in-out infinite -4s;
-}
-body.mode-jour .orb-3 {
-  width: 50vw; height: 45vh;
-  background: radial-gradient(ellipse,
-    rgba(120,200,180,0.15) 0%, transparent 70%);
-  top: 40%; right: 20%;
-  filter: blur(80px);
-  animation: orb-3 10s ease-in-out infinite -6s;
-}
-body.mode-jour .orb-4 {
-  width: 40vw; height: 40vh;
-  background: radial-gradient(ellipse,
-    rgba(180,140,255,0.12) 0%, transparent 70%);
-  bottom: 10%; left: 15%;
-  filter: blur(90px);
-  animation: orb-2 18s ease-in-out infinite -9s;
-}
+/* Jour : orbes désactivées — pandora-jour.css gère les effets jour */
 
 @keyframes orb-1 {
   0%,100% { transform: translate(0,0) scale(1); }
