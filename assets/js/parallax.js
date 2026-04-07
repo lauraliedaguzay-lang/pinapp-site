@@ -1,34 +1,5 @@
-/* PINAPP — parallax.js — Parallaxe 3 couches + flash aurora (desktop ≥1024px) */
-
-/* ── Parallaxe scroll ── */
-if (window.innerWidth >= 1024 &&
-    !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-
-  let ticking = false;
-
-  window.addEventListener('scroll', () => {
-    if (ticking) return;
-    requestAnimationFrame(() => {
-      const y = window.scrollY;
-
-      /* Couche 1 — canvas aurora : bouge doucement */
-      const canvas = document.querySelector('canvas');
-      if (canvas) canvas.style.transform = `translateY(${y * 0.08}px)`;
-
-      /* Couche 2 — particules bioluminescentes : remontent légèrement */
-      document.querySelectorAll('.pinapp-particle').forEach(p => {
-        p.style.transform = `translateY(${y * -0.04}px)`;
-      });
-
-      /* Couche 3 — grille holographique : glisse très lentement */
-      const grid = document.querySelector('.holo-grid');
-      if (grid) grid.style.transform = `translateY(${y * 0.02}px)`;
-
-      ticking = false;
-    });
-    ticking = true;
-  }, { passive: true });
-}
+/* PINAPP — parallax.js
+   Conformité zero-scroll Pinapp : pas de parallaxe liée au scroll. */
 
 /* ── Flash aurora au changement de page (desktop) ── */
 document.querySelectorAll('a[href]').forEach(link => {

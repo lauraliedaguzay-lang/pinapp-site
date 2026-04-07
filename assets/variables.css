@@ -164,6 +164,11 @@ body {
   font-size: var(--text-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Fond source-of-truth (robuste iOS + sous-dossiers) */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
   overflow-x: hidden;
   max-width: 100vw;
   min-height: 100svh;
@@ -172,7 +177,8 @@ body {
 }
 
 /* Couche 1 â€” Photo Pandora floue en position fixe */
-body::before {
+body::before,
+html::before {
   content: '';
   position: fixed;
   inset: -10%;
@@ -187,15 +193,59 @@ body::before {
 }
 
 /* MODE NUIT — Univers Pandora (photo Lauralie · forêt + biolume) */
-body:not(.mode-jour)::before {
-  background-image: url('../assets/images/bg-dark-pandora-apple.png');
+body:not(.mode-jour) {
+  background-image: url('./images/bg-dark-pandora-apple.png');
   background-image: image-set(
-    url('../assets/images/bg-dark-pandora-apple.webp') type('image/webp'),
-    url('../assets/images/bg-dark-pandora-apple.png') type('image/png')
+    url('./images/bg-dark-pandora-apple.webp') type('image/webp'),
+    url('./images/bg-dark-pandora-apple.png') type('image/png')
+  );
+}
+body:not(.mode-jour)::before {
+  background-image: url('./images/bg-dark-pandora-apple.png');
+  background-image: image-set(
+    url('./images/bg-dark-pandora-apple.webp') type('image/webp'),
+    url('./images/bg-dark-pandora-apple.png') type('image/png')
   );
   /* Photo lisible en texture, flou modéré — halos teal/violet viennent des layers */
   filter: blur(18px) saturate(118%) brightness(0.88) hue-rotate(-5deg);
   animation: pandora-nuit-photo-breathe 22s ease-in-out infinite alternate;
+}
+
+/* Même rendu si la classe body n'est pas encore posée (thème piloté par <html>) */
+html[data-theme="dark"] body {
+  background-image: url('./images/bg-dark-pandora-apple.png');
+  background-image: image-set(
+    url('./images/bg-dark-pandora-apple.webp') type('image/webp'),
+    url('./images/bg-dark-pandora-apple.png') type('image/png')
+  );
+}
+html[data-theme="dark"]::before {
+  background-image: url('./images/bg-dark-pandora-apple.png');
+  background-image: image-set(
+    url('./images/bg-dark-pandora-apple.webp') type('image/webp'),
+    url('./images/bg-dark-pandora-apple.png') type('image/png')
+  );
+  filter: blur(18px) saturate(118%) brightness(0.88) hue-rotate(-5deg);
+  animation: pandora-nuit-photo-breathe 22s ease-in-out infinite alternate;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) body {
+    background-image: url('./images/bg-dark-pandora-apple.png');
+    background-image: image-set(
+      url('./images/bg-dark-pandora-apple.webp') type('image/webp'),
+      url('./images/bg-dark-pandora-apple.png') type('image/png')
+    );
+  }
+  html:not([data-theme])::before {
+    background-image: url('./images/bg-dark-pandora-apple.png');
+    background-image: image-set(
+      url('./images/bg-dark-pandora-apple.webp') type('image/webp'),
+      url('./images/bg-dark-pandora-apple.png') type('image/png')
+    );
+    filter: blur(18px) saturate(118%) brightness(0.88) hue-rotate(-5deg);
+    animation: pandora-nuit-photo-breathe 22s ease-in-out infinite alternate;
+  }
 }
 
 @keyframes pandora-nuit-photo-breathe {
@@ -275,24 +325,63 @@ html[data-theme="light"] body {
 }
 
 /* MODE JOUR — Univers aube (photo Lauralie · lumière chaude + jade résiduel) */
+body.mode-jour,
+html[data-theme="light"] body {
+  background-image: url('./images/bg-light-pandora-apple.png');
+  background-image: image-set(
+    url('./images/bg-light-pandora-apple.webp') type('image/webp'),
+    url('./images/bg-light-pandora-apple.png') type('image/png')
+  );
+}
 body.mode-jour::before,
 html[data-theme="light"] body::before {
-  background-image: url('../assets/images/bg-light-pandora-apple.png');
+  background-image: url('./images/bg-light-pandora-apple.png');
   background-image: image-set(
-    url('../assets/images/bg-light-pandora-apple.webp') type('image/webp'),
-    url('../assets/images/bg-light-pandora-apple.png') type('image/png')
+    url('./images/bg-light-pandora-apple.webp') type('image/webp'),
+    url('./images/bg-light-pandora-apple.png') type('image/png')
   );
-  filter: blur(16px) saturate(132%) brightness(1.06) hue-rotate(4deg);
+  /* Jour : plus ivoire-lavande (évite le jaune/orange) */
+  filter: blur(16px) saturate(118%) brightness(1.03) hue-rotate(-6deg);
   animation: pandora-jour-photo-drift 32s ease-in-out infinite alternate;
+}
+
+html[data-theme="light"]::before {
+  background-image: url('./images/bg-light-pandora-apple.png');
+  background-image: image-set(
+    url('./images/bg-light-pandora-apple.webp') type('image/webp'),
+    url('./images/bg-light-pandora-apple.png') type('image/png')
+  );
+  /* Jour : plus ivoire-lavande (évite le jaune/orange) */
+  filter: blur(16px) saturate(118%) brightness(1.03) hue-rotate(-6deg);
+  animation: pandora-jour-photo-drift 32s ease-in-out infinite alternate;
+}
+
+@media (prefers-color-scheme: light) {
+  html:not([data-theme]) body {
+    background-image: url('./images/bg-light-pandora-apple.png');
+    background-image: image-set(
+      url('./images/bg-light-pandora-apple.webp') type('image/webp'),
+      url('./images/bg-light-pandora-apple.png') type('image/png')
+    );
+  }
+  html:not([data-theme])::before {
+    background-image: url('./images/bg-light-pandora-apple.png');
+    background-image: image-set(
+      url('./images/bg-light-pandora-apple.webp') type('image/webp'),
+      url('./images/bg-light-pandora-apple.png') type('image/png')
+    );
+    filter: blur(16px) saturate(118%) brightness(1.03) hue-rotate(-6deg);
+    animation: pandora-jour-photo-drift 32s ease-in-out infinite alternate;
+  }
 }
 
 @keyframes pandora-jour-photo-drift {
   0% {
-    filter: blur(15px) saturate(126%) brightness(1.02) hue-rotate(2deg);
+    filter: blur(15px) saturate(114%) brightness(1.01) hue-rotate(-8deg);
     transform: scale(1.08);
   }
   100% {
-    filter: blur(18px) saturate(140%) brightness(1.10) hue-rotate(8deg);
+    filter: blur(18px) saturate(122%) brightness(1.05) hue-rotate(-2deg);
     transform: scale(1.09);
   }
 }
@@ -305,11 +394,12 @@ html[data-theme="light"] body {
   --text-2:        rgba(26,10,46,0.70);
   --text-3:        rgba(26,10,46,0.45);
   --text-4:        rgba(26,10,46,0.25);
-  --glass:         rgba(255,255,255,0.78);
-  --glass-nav:     rgba(255,248,240,0.85);
-  --glass-card:    rgba(255,255,255,0.78);
-  --border-card:   rgba(0,0,0,0.12);
-  --border-subtle: rgba(26,10,46,0.08);
+  /* Verre jour : ivoire-lavande (moins “jaune”, plus premium) */
+  --glass:         rgba(252, 252, 255, 0.74);
+  --glass-nav:     rgba(250, 250, 255, 0.84);
+  --glass-card:    rgba(252, 252, 255, 0.74);
+  --border-card:   rgba(26,10,46,0.14);
+  --border-subtle: rgba(26,10,46,0.10);
   --teal:          #009B8C;
   --accent-teal:   #009B8C;
   --violet:        #5B3FD8;
@@ -317,15 +407,17 @@ html[data-theme="light"] body {
   --green:         #2EAF6B;
   --accent-green:  #2EAF6B;
   --glow-violet:   0 0 24px rgba(91,63,216,0.30), 0 0 48px rgba(91,63,216,0.15);
-  --nav-bg:        rgba(255,248,238,0.94);
-  --bg-deep:       #E4EFE9;
+  --nav-bg:        rgba(250, 250, 255, 0.90);
+  --bg-deep:       #EEF0FF;
 }
 
 /* iOS Safari â€” position fixed marche mais scale doit rester */
 @supports (-webkit-touch-callout: none) {
-  body::before {
-    transform: scale(1.12);
-  }
+  /* iOS/Safari: éviter background-attachment: fixed */
+  body { background-attachment: scroll; }
+  /* iOS/Safari: html::before est plus fiable que body::before */
+  body::before { content: none !important; }
+  html::before { transform: scale(1.12); }
 }
 
 /* =====================================================
@@ -620,6 +712,70 @@ body.mode-jour nav.scrolled,
 html[data-theme="light"] nav.scrolled {
   background: rgba(255,248,240,0.85);
   border-bottom: 1px solid rgba(26,10,46,0.08);
+}
+
+/* =====================================================
+   WIDGETS EN VERRE — GLOBAL (toutes pages)
+   Assure le rendu glass même sans ios-glass.css
+   ===================================================== */
+
+/* Bottom bar mobile */
+.bottom-bar {
+  background: var(--glass-nav);
+  -webkit-backdrop-filter: var(--glass-blur-nav);
+  backdrop-filter: var(--glass-blur-nav);
+  border-top: 1px solid var(--border-subtle);
+  transform: translateZ(0);
+}
+
+/* Cookies RGPD */
+#cookie-banner {
+  background: var(--glass-nav);
+  -webkit-backdrop-filter: var(--glass-blur-nav);
+  backdrop-filter: var(--glass-blur-nav);
+  border-top: 1px solid var(--border-subtle);
+  transform: translateZ(0);
+}
+
+/* Drawer mobile (menu) */
+.mobile-drawer-panel {
+  background: var(--glass-modal);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid var(--border-card);
+  transform: translateZ(0);
+}
+
+/* Dialogs / modales (fallback global) */
+.modal,
+[role="dialog"]:not(#cookie-banner) {
+  background: var(--glass-modal);
+  -webkit-backdrop-filter: blur(44px) saturate(180%);
+  backdrop-filter: blur(44px) saturate(180%);
+  border: 1px solid var(--border-card);
+  transform: translateZ(0);
+}
+
+/* iPhone mockup (accueil) */
+.iphone-mockup {
+  background: var(--glass);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-card);
+  transform: translateZ(0);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  nav.scrolled, .nav.scrolled,
+  .bottom-bar,
+  #cookie-banner,
+  .mobile-drawer-panel,
+  .modal,
+  [role="dialog"]:not(#cookie-banner),
+  .iphone-mockup {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
 }
 
 /* =====================================================
