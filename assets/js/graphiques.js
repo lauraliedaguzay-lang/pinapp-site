@@ -10,7 +10,9 @@ class BarChart {
     this.data = data;
     this.done = false;
     this.render();
-    this.observe();
+    // Conformité Pinapp "zéro scroll" : pas d’IntersectionObserver pour déclencher au scroll.
+    // On anime au chargement (ou état final si prefers-reduced-motion).
+    this.animate();
   }
 
   render() {
@@ -109,9 +111,7 @@ class BarChart {
   }
 
   observe() {
-    new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) this.animate();
-    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }).observe(this.el);
+    // Deprecated: IO au scroll interdit (pinapp-zero-scroll.mdc)
   }
 }
 BarChart.prototype._id = 'main';
@@ -123,7 +123,9 @@ class LineChart {
     this.datasets = datasets;
     this.done     = false;
     this.render();
-    this.observe();
+    // Conformité Pinapp "zéro scroll" : pas d’IntersectionObserver au scroll.
+    // Animation au chargement (ou état final si prefers-reduced-motion).
+    this.animate();
   }
 
   pts(vals, W, H) {
@@ -171,9 +173,7 @@ class LineChart {
   }
 
   observe() {
-    new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) this.animate();
-    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }).observe(this.el);
+    // Deprecated: IO au scroll interdit (pinapp-zero-scroll.mdc)
   }
 }
 
@@ -184,7 +184,9 @@ class DonutChart {
     this.segs = segs;
     this.done = false;
     this.render();
-    this.observe();
+    // Conformité Pinapp "zéro scroll" : pas d’IntersectionObserver au scroll.
+    // Animation au chargement (ou état final si prefers-reduced-motion).
+    this.animate();
   }
 
   render() {
@@ -233,9 +235,7 @@ class DonutChart {
   }
 
   observe() {
-    new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) this.animate();
-    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }).observe(this.el);
+    // Deprecated: IO au scroll interdit (pinapp-zero-scroll.mdc)
   }
 }
 

@@ -68,6 +68,7 @@
         flex-direction: column;
         position: relative;
         overflow: visible;
+        isolation: isolate;
         background: linear-gradient(152deg, #3f3f42 0%, #232325 38%, #1a1a1c 55%, #2e2e31 100%);
         border: 1px solid rgba(255, 255, 255, 0.14);
         box-shadow:
@@ -77,6 +78,53 @@
           0 12px 28px rgba(0, 0, 0, 0.35);
         backdrop-filter: blur(28px) saturate(160%);
         -webkit-backdrop-filter: blur(28px) saturate(160%);
+      }
+
+      /* Reflets verre (Apple) — animation au chargement uniquement */
+      .iphone-glass-highlight {
+        position: absolute;
+        inset: 8px;
+        border-radius: 46px;
+        pointer-events: none;
+        z-index: 2;
+        opacity: 0.9;
+        background:
+          radial-gradient(120px 80px at 18% 12%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.06) 35%, transparent 70%),
+          linear-gradient(145deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.06) 26%, transparent 58%),
+          radial-gradient(140px 220px at 85% 30%, rgba(0, 229, 204, 0.08) 0%, transparent 70%);
+        mix-blend-mode: screen;
+        filter: blur(0.2px);
+        transform: translateZ(0);
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        @keyframes iphone-glass-sweep {
+          0% {
+            opacity: 0.15;
+            transform: translate3d(-6px, -6px, 0) rotate(-1deg);
+            filter: blur(0.6px);
+          }
+          35% {
+            opacity: 0.95;
+            transform: translate3d(0px, 0px, 0) rotate(0deg);
+            filter: blur(0.25px);
+          }
+          100% {
+            opacity: 0.75;
+            transform: translate3d(2px, 2px, 0) rotate(0.3deg);
+            filter: blur(0.2px);
+          }
+        }
+        .iphone-glass-highlight {
+          animation: iphone-glass-sweep 900ms cubic-bezier(0.16, 1, 0.3, 1) 1;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .iphone-glass-highlight {
+          animation: none !important;
+          opacity: 0.75;
+        }
       }
       .iphone-mockup::before,
       .iphone-mockup::after {
@@ -1098,6 +1146,7 @@
                 aria-label="Aperçu sur un écran d’iPhone : tableau de bord avec rendez-vous, devis et relances automatiques"
                 role="img"
                 style="flex-shrink: 0">
+                <div class="iphone-glass-highlight" aria-hidden="true"></div>
                 <div class="iphone-device-screen">
                   <div class="iphone-dynamic-island" aria-hidden="true"></div>
                   <div class="iphone-screen iphone-pme">

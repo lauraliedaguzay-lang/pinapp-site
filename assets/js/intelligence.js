@@ -80,21 +80,19 @@ const PinappIntel = {
   },
 
   trackDemos() {
-    // Observer les éléments avec data-filter (cartes réalisations)
-    document.querySelectorAll('[data-filter]').forEach(el => {
-      const obs = new IntersectionObserver(entries => {
-        if (entries[0].isIntersecting) {
-          const secteur = el.dataset.filter;
-          if (secteur && secteur !== 'all') {
-            if (!this.data.demosSeen.includes(secteur)) {
-              this.data.demosSeen.push(secteur);
-            }
-            this.detectSecteur();
-          }
-        }
-      }, { threshold: 0.5 });
-      obs.observe(el);
-    });
+    // Conformité "zéro scroll": pas de reveal/observer au défilement.
+    // On capte l’intention à l’action (clic sur filtres / cartes) uniquement.
+    const onClick = (e) => {
+      const t = e.target && e.target.closest ? e.target.closest('[data-filter],[data-category],[data-secteur]') : null;
+      if (!t) return;
+      const secteur = t.dataset.filter || t.dataset.secteur || t.dataset.category || '';
+      if (!secteur || secteur === 'all') return;
+      if (!this.data.demosSeen.includes(secteur)) {
+        this.data.demosSeen.push(secteur);
+      }
+      this.detectSecteur();
+    };
+    document.addEventListener('click', onClick);
   },
 
   detectSecteur() {
