@@ -270,6 +270,10 @@ html[data-theme='dark'] body::after {
 html[data-theme='light'] body::after {
   /* Jour : serre lumineuse — ambre haut, jade bas, poussière violette au loin */
   background:
+    /* Ikrans (silhouettes) — très subtil, très lent (fond dynamique mode clair) */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='120' viewBox='0 0 240 120'%3E%3Cpath fill='rgba(26,10,46,0.18)' d='M18 74c24-22 45-28 64-20 9 4 18 5 30 1 12-4 26-13 40-27 6-6 18-6 24 0 6 6 6 18 0 24-18 18-36 30-52 36-17 6-32 7-46 2-10-3-21 2-35 14-7 7-18 7-25 0-7-7-7-18 0-25z'/%3E%3Cpath fill='rgba(26,10,46,0.14)' d='M214 78c-18-14-33-20-46-18-8 1-15-1-21-6-6-5-12-14-18-28-3-7 0-15 7-18 7-3 15 0 18 7 4 9 8 14 11 17 3 3 6 3 11 2 17-3 37 5 61 24 6 5 7 14 2 20-5 6-14 7-20 0z'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='110' viewBox='0 0 220 110'%3E%3Cpath fill='rgba(0,155,140,0.14)' d='M20 70c20-18 39-24 56-18 8 3 16 4 26 1 10-3 22-11 34-23 5-5 15-5 20 0 5 5 5 15 0 20-16 16-31 27-45 32-14 5-27 6-39 2-9-3-18 2-30 12-6 6-15 6-21 0-6-6-6-15 0-21z'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='130' viewBox='0 0 260 130'%3E%3Cpath fill='rgba(91,63,216,0.10)' d='M26 82c26-24 50-31 72-22 10 4 21 5 34 1 13-4 29-15 45-31 7-7 20-7 27 0 7 7 7 20 0 27-20 20-41 34-59 41-19 7-36 8-51 3-12-4-24 2-40 16-8 8-20 8-28 0-8-8-8-20 0-28z'/%3E%3C/svg%3E"),
     radial-gradient(
       ellipse 130% 70% at 50% -15%,
       rgba(255, 218, 150, 0.22) 0%,
@@ -284,6 +288,48 @@ html[data-theme='light'] body::after {
       rgba(235, 248, 255, 0.08) 45%,
       rgba(255, 236, 210, 0.1) 100%
     );
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+  background-size:
+    220px auto,
+    180px auto,
+    240px auto,
+    auto,
+    auto,
+    auto,
+    auto;
+  /* Départs: hors-cadre (on anime la traversée) */
+  background-position:
+    -30% 18%,
+    120% 36%,
+    -40% 62%,
+    center,
+    center,
+    center,
+    center;
+  animation: pinapp-ikrann-drift 48s linear infinite;
+}
+
+@keyframes pinapp-ikrann-drift {
+  0% {
+    background-position:
+      -30% 18%,
+      120% 36%,
+      -40% 62%,
+      center,
+      center,
+      center,
+      center;
+  }
+  100% {
+    background-position:
+      140% 22%,
+      -40% 40%,
+      160% 58%,
+      center,
+      center,
+      center,
+      center;
+  }
 }
 
 /* Fallback si PNG absent */
