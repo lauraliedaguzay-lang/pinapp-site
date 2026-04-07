@@ -98,6 +98,24 @@ html {
   max-height: 100%;
 }
 
+/* Mobile : sections en hauteur libre — le contenu n'est plus coupé */
+@media (max-width: 767px) {
+  .demo-sector-page section:not(.hero) {
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+    padding: clamp(40px, 10vh, 72px) 20px;
+  }
+  .demo-sector-page section:not(.hero) > * {
+    max-height: none;
+  }
+  /* Hero garde la hauteur écran complète */
+  .demo-sector-page .hero {
+    height: 100svh;
+    overflow: hidden;
+  }
+}
+
 .hero {
   background-size: cover;
   background-position: center;
@@ -288,9 +306,9 @@ html {
 }
 
 .demo-label {
-  font-size: 9px;
-  opacity: 0.4;
-  letter-spacing: 0.1em;
+  font-size: 11px;
+  opacity: 0.45;
+  letter-spacing: 0.08em;
   color: var(--demo-texte);
 }
 
@@ -482,10 +500,10 @@ html {
 }
 
 .footer-demo {
-  font-size: 9px;
-  letter-spacing: 0.1em;
+  font-size: 11px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(62, 235, 214, 0.55);
+  color: rgba(62, 235, 214, 0.60);
 }
 
 @media (max-width: 767px) {
@@ -1107,4 +1125,25 @@ button, .pill, .df-cta, .df-pill { cursor: pointer; user-select: none; }
   }
   .hero::after { animation: none; }
   .progress-fill { animation: none; }
+}
+
+/* Mobile : désactiver les effets GPU-coûteux */
+@media (max-width: 767px) {
+  /* Glow hero : blur 100px trop lourd sur mobile → simplifié */
+  .hero::after {
+    filter: blur(40px);
+    width: 80vw;
+    height: 25vw;
+    opacity: 0.08;
+    animation: none;
+  }
+  /* Shimmer progress : désactivé sur mobile */
+  .progress-fill {
+    animation: none;
+    background: var(--demo-accent, #C41E3A) !important;
+  }
+  /* Swipe cards : no hover transform sur touch */
+  .swipe-item.active:hover {
+    transform: none;
+  }
 }

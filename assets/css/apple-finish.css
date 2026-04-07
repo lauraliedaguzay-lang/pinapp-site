@@ -97,7 +97,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Titres display — tracking ultra-serré (Apple wwdc style) */
 h1 {
-  letter-spacing: clamp(-0.04em, -0.03em, -0.02em);
+  letter-spacing: -0.03em;
   line-height: 1.08;
 }
 h2 {
@@ -165,13 +165,23 @@ nav,
 .bottom-bar {
   backdrop-filter: saturate(180%) blur(24px) !important;
   -webkit-backdrop-filter: saturate(180%) blur(24px) !important;
+}
+/* Nav : séparateur bas */
+nav {
   border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
 }
 body.mode-jour nav,
-html[data-theme="light"] nav,
+html[data-theme="light"] nav {
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.06);
+}
+/* Bottom-bar : séparateur haut (elle est collée en bas) */
+.bottom-bar {
+  border-top: 0.5px solid rgba(255, 255, 255, 0.08);
+  border-bottom: none !important;
+}
 body.mode-jour .bottom-bar,
 html[data-theme="light"] .bottom-bar {
-  border-bottom: 0.5px solid rgba(0, 0, 0, 0.06);
+  border-top: 0.5px solid rgba(0, 0, 0, 0.06);
 }
 
 /* Logo — SF-quality rendering */
