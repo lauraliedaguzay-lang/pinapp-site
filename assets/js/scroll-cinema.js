@@ -21,10 +21,16 @@ const sectionObs = new IntersectionObserver(entries => {
       sectionObs.unobserve(e.target);
     }
   });
-}, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+}, { threshold: 0.05, rootMargin: '0px 0px 0px 0px' });
 
 document.querySelectorAll('.section-enter')
   .forEach(el => sectionObs.observe(el));
+
+/* Fallback sécurité : toute section non visible après 1.8s → force visible */
+setTimeout(function() {
+  document.querySelectorAll('.section-enter:not(.visible)')
+    .forEach(el => el.classList.add('visible'));
+}, 1800);
 
 /* =====================================================
    IMAGES REVEAL

@@ -136,6 +136,12 @@ body {
   padding-top: env(safe-area-inset-top,0px);
   padding-bottom: env(safe-area-inset-bottom,0px);
 }
+/* iOS Safari : background-attachment:fixed cassé → scroll normal */
+@media (max-width: 767px) {
+  body {
+    background-attachment: scroll;
+  }
+}
 
 body::before {
   content: '';
