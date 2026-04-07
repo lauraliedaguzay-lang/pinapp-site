@@ -1,73 +1,26 @@
 /* ═══════════════════════════════════════════════════════════════
-   PANDORA JOUR OVERRIDE — Couche maître mode clair
-   Chargée EN DERNIER — gagne sur toutes les autres feuilles.
+  PANDORA JOUR OVERRIDE — Couche maître mode clair
+  Chargée EN DERNIER — gagne sur toutes les autres feuilles.
 
-   PALETTE DYLAN COLE / AVATAR 3 — Aube sur Pandora
-   ─────────────────────────────────────────────────
-   #FBF5E8  Ivoire chaud (fond canopée)
-   #C87A08  Ambre Pandora (accent principal jour)
-   #1E9E80  Jade bioluminescent résiduel
-   #5B3FD8  Violet (CTA, liens actifs)
-   #1A0A2E  Encre sombre (texte principal)
-   rgba(255,252,245,0.88)  Verre chaud (cartes)
-   rgba(255,248,238,0.90)  Verre ivoire (nav)
-   ═══════════════════════════════════════════════════════════════ */
+  OBJECTIF (2026) : MODE JOUR PREMIUM “VERRE + PROFONDEUR”
+  - Palette harmonisée avec `assets/variables.css` (ivoire / lavande / jade)
+  - Accents UI : teal + violet (pas d’ambre dominant)
+  - Plus de profondeur : ombrage, reflets, contraste doux (sans fond blanc opaque)
+  ═══════════════════════════════════════════════════════════════ */
 
 /* ──────────────────────────────────────────────────────────────
    0. TOKENS MAÎTRES (via html[data-theme] pour atteindre les vars héritées)
    ────────────────────────────────────────────────────────────── */
 html[data-theme='light'],
 html[data-mode='jour'] {
-  /* Fixes la cascade des variables avant body */
-  --bg-primary: #fbf5e8;
-  --fond-actif: #fbf5e8;
   color-scheme: light;
 }
 
 body.mode-jour,
 html[data-theme='light'] body {
-  /* Fond */
-  --fond-jour: #fbf5e8;
-  --bg-primary: #fbf5e8;
-  background-color: #fbf5e8 !important;
+  /* Le socle “jour” est défini dans assets/variables.css :
+     ici on ne réécrit pas les tokens, on renforce la profondeur visuelle. */
   color-scheme: light;
-
-  /* Texte */
-  --text: #1a0a2e;
-  --text-primary: #1a0a2e;
-  --text-2: rgba(26, 10, 46, 0.72);
-  --text-3: rgba(26, 10, 46, 0.5);
-  --text-4: rgba(26, 10, 46, 0.28);
-  color: #1a0a2e;
-
-  /* Accents */
-  --teal: #1e9e80;
-  --accent-teal: #1e9e80;
-  --ambre: #c87a08;
-  --accent-ambre: #c87a08;
-  --violet: #5b3fd8;
-  --accent-violet: #5b3fd8;
-  --green: #2a9a5c;
-
-  /* Verre */
-  --glass: rgba(255, 252, 245, 0.82);
-  --glass-nav: rgba(255, 248, 238, 0.9);
-  --glass-card: rgba(255, 252, 245, 0.88);
-
-  /* Bordures */
-  --border-card: rgba(0, 0, 0, 0.1);
-  --border-subtle: rgba(26, 10, 46, 0.07);
-  --c-divider: rgba(90, 60, 20, 0.15);
-
-  /* Ombres */
-  --shadow-md: 0 4px 20px rgba(26, 10, 46, 0.08), 0 1px 4px rgba(26, 10, 46, 0.05);
-  --shadow-lg: 0 12px 40px rgba(26, 10, 46, 0.1), 0 2px 8px rgba(26, 10, 46, 0.06);
-  --shadow-xl: 0 24px 64px rgba(26, 10, 46, 0.12), 0 4px 16px rgba(26, 10, 46, 0.07);
-
-  /* Glows */
-  --glow-teal: 0 0 20px rgba(30, 158, 128, 0.25), 0 0 40px rgba(30, 158, 128, 0.1);
-  --glow-violet: 0 0 20px rgba(91, 63, 216, 0.25), 0 0 40px rgba(91, 63, 216, 0.1);
-  --glow-ambre: 0 0 16px rgba(200, 122, 8, 0.3), 0 0 36px rgba(200, 122, 8, 0.12);
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -75,11 +28,11 @@ html[data-theme='light'] body {
    ────────────────────────────────────────────────────────────── */
 body.mode-jour nav.nav,
 html[data-theme='light'] nav.nav {
-  background: rgba(255, 248, 238, 0.9) !important;
-  border-bottom: 1px solid rgba(200, 122, 8, 0.1) !important;
+  background: var(--glass-nav) !important;
+  border-bottom: 1px solid var(--border-subtle) !important;
   box-shadow:
-    0 1px 0 rgba(255, 248, 238, 0.8),
-    var(--glass-shadow-sm, 0 2px 12px rgba(26, 10, 46, 0.06)) !important;
+    0 1px 0 rgba(255, 255, 255, 0.55) inset,
+    0 10px 30px rgba(26, 10, 46, 0.08) !important;
 }
 
 body.mode-jour .nav-logo,
@@ -93,7 +46,7 @@ body.mode-jour .nav-links a:hover,
 html[data-theme='light'] .nav-links a:hover,
 body.mode-jour nav a.active,
 html[data-theme='light'] nav a.active {
-  color: var(--ambre, #c87a08) !important;
+  color: var(--accent-teal) !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -103,7 +56,7 @@ body.mode-jour .label,
 html[data-theme='light'] .label,
 body.mode-jour [class*='label-'],
 html[data-theme='light'] [class*='label-'] {
-  color: var(--ambre, #c87a08) !important;
+  color: var(--accent-teal) !important;
 }
 
 body.mode-jour .tag,
@@ -112,15 +65,15 @@ body.mode-jour .badge,
 html[data-theme='light'] .badge,
 body.mode-jour [class*='-tag']:not(.offre-tag),
 html[data-theme='light'] [class*='-tag']:not(.offre-tag) {
-  background: rgba(200, 122, 8, 0.1) !important;
-  color: #a06000 !important;
-  border-color: rgba(200, 122, 8, 0.2) !important;
+  background: rgba(0, 155, 140, 0.09) !important;
+  color: rgba(26, 10, 46, 0.78) !important;
+  border-color: rgba(26, 10, 46, 0.12) !important;
 }
 
 body.mode-jour .offre-secteur-tag,
 html[data-theme='light'] .offre-secteur-tag {
-  background: rgba(200, 122, 8, 0.1) !important;
-  color: #9a5a00 !important;
+  background: rgba(0, 155, 140, 0.09) !important;
+  color: rgba(26, 10, 46, 0.78) !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -140,13 +93,14 @@ body.mode-jour .tech-card,
 html[data-theme='light'] .tech-card,
 body.mode-jour .form-card,
 html[data-theme='light'] .form-card {
-  background: rgba(255, 252, 245, 0.88) !important;
-  border-color: rgba(200, 122, 8, 0.12) !important;
+  background: var(--glass-card) !important;
+  border-color: var(--border-card) !important;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    0 8px 32px rgba(26, 10, 46, 0.08),
-    0 1px 4px rgba(26, 10, 46, 0.04) !important;
-  color: #1a0a2e !important;
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    inset 0 -1px 0 rgba(26, 10, 46, 0.06),
+    0 18px 54px rgba(26, 10, 46, 0.1),
+    0 1px 8px rgba(26, 10, 46, 0.06) !important;
+  color: var(--text-primary) !important;
 }
 
 body.mode-jour .block:hover,
@@ -154,9 +108,9 @@ html[data-theme='light'] .block:hover,
 body.mode-jour .card:hover,
 html[data-theme='light'] .card:hover {
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 16px 48px rgba(26, 10, 46, 0.1),
-    0 0 0 1px rgba(200, 122, 8, 0.16) !important;
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    0 26px 70px rgba(26, 10, 46, 0.12),
+    0 0 0 1px rgba(0, 155, 140, 0.12) !important;
 }
 
 /* Blocs colorés — variantes Pandora jour */
@@ -181,14 +135,14 @@ html[data-theme='light'] .block-vert {
 body.mode-jour .block-ambre,
 html[data-theme='light'] .block-ambre {
   background:
-    linear-gradient(135deg, rgba(200, 122, 8, 0.12) 0%, transparent 60%), rgba(255, 248, 230, 0.88) !important;
-  border-color: rgba(200, 122, 8, 0.2) !important;
+    linear-gradient(135deg, rgba(91, 63, 216, 0.1) 0%, transparent 62%), rgba(252, 250, 255, 0.78) !important;
+  border-color: rgba(91, 63, 216, 0.18) !important;
 }
 body.mode-jour .block-or,
 html[data-theme='light'] .block-or {
   background:
-    linear-gradient(135deg, rgba(168, 106, 16, 0.12) 0%, transparent 60%), rgba(255, 252, 235, 0.88) !important;
-  border-color: rgba(168, 106, 16, 0.18) !important;
+    linear-gradient(135deg, rgba(0, 155, 140, 0.1) 0%, transparent 62%), rgba(252, 255, 253, 0.78) !important;
+  border-color: rgba(0, 155, 140, 0.18) !important;
 }
 body.mode-jour .block-rose,
 html[data-theme='light'] .block-rose {
