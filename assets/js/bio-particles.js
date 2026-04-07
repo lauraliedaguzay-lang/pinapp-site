@@ -29,7 +29,7 @@
     p.className = 'bio-particle';
     p.setAttribute('data-type', type);
 
-    const dur   = 10 + Math.random() * 14;     /* 10s à 24s */
+    const dur   = 16 + Math.random() * 22;     /* plus lent — biolume calme */
     const delay = -(Math.random() * dur);       /* départ échelonné */
     const dx    = (Math.random() * 100 - 50);  /* -50px à +50px */
 

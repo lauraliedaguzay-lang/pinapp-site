@@ -28,36 +28,36 @@
   --text-3:         rgba(238,248,255,0.55);  /* secondaire â€” seuil raisonnable */
   --text-4:         rgba(238,248,255,0.45);  /* tertiaire â€” â‰¥3:1 large text */
 
-  /* FONDS */
-  --fond-nuit: #010D12;  /* teal teintÃ© â€” forÃªt Pandora nuit */
+  /* FONDS — nuit : sol forestier + biolume menthe (pas bleu marine froid) */
+  --fond-nuit: #061a18;
   --fond-jour: #FBF5E8;  /* ivoire chaud â€” lumiÃ¨re de serre Pandora */
 
-  /* GLASS NUIT */
-  --glass:          rgba(0,15,30,0.50);
-  --glass-nav:      rgba(2,8,16,0.72);
-  --glass-card:     rgba(0,15,30,0.50);
-  --glass-tag:      rgba(0,10,20,0.40);
-  --glass-modal:    rgba(0,8,20,0.85);
+  /* GLASS NUIT — verre teinté jade / eau turquoise */
+  --glass:          rgba(6, 32, 34, 0.46);
+  --glass-nav:      rgba(8, 36, 38, 0.68);
+  --glass-card:     rgba(6, 32, 34, 0.48);
+  --glass-tag:      rgba(4, 28, 30, 0.38);
+  --glass-modal:    rgba(4, 22, 24, 0.82);
   --glass-blur:     blur(24px) saturate(140%);          /* Apple : sans brightness() */
   --glass-blur-nav: blur(20px) saturate(140%);
-  --bg-card:        rgba(0,15,30,0.55);
-  --bg-overlay:     rgba(0,0,0,0.65);
+  --bg-card:        rgba(6, 34, 36, 0.52);
+  --bg-overlay:     rgba(2, 18, 20, 0.58);
   --bg-primary:     var(--fond-nuit);
 
-  /* BORDERS NUIT â€” cyan Avatar */
-  --border-card:    rgba(0,180,216,0.14);
-  --border-subtle:  rgba(0,180,216,0.08);
-  --border-input:   rgba(0,180,216,0.22);
-  --separator:      rgba(0,180,216,0.06);
+  /* BORDERS NUIT — turquoise menthe (moins cyan « UI ») */
+  --border-card:    rgba(72, 210, 195, 0.16);
+  --border-subtle:  rgba(72, 210, 195, 0.09);
+  --border-input:   rgba(90, 220, 200, 0.24);
+  --separator:      rgba(72, 210, 195, 0.07);
 
   /* OMBRES */
   --shadow-sm: 0 2px 8px rgba(0,0,0,0.20);
-  --shadow-md: 0 8px 24px rgba(0,0,0,0.28),
-               0 0 0 0.5px rgba(0,180,216,0.10);
-  --shadow-lg: 0 24px 48px rgba(0,0,0,0.35),
-               0 0 0 0.5px rgba(0,180,216,0.12);
-  --shadow-xl: 0 40px 80px rgba(0,0,0,0.45),
-               0 0 0 0.5px rgba(0,180,216,0.14);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.22),
+               0 0 0 0.5px rgba(64, 200, 185, 0.11);
+  --shadow-lg: 0 24px 48px rgba(0,0,0,0.30),
+               0 0 0 0.5px rgba(64, 200, 185, 0.13);
+  --shadow-xl: 0 40px 80px rgba(0,0,0,0.38),
+               0 0 0 0.5px rgba(64, 200, 185, 0.15);
   --glow-teal:
     0 0 16px rgba(0,229,204,0.55),
     0 0 48px rgba(0,229,204,0.28),
@@ -70,7 +70,7 @@
     0 0 24px rgba(0,229,204,0.58),
     0 0 72px rgba(0,229,204,0.32),
     0 0 140px rgba(0,229,204,0.14),
-    0 0 220px rgba(0,180,216,0.06);
+    0 0 220px rgba(64,200,185,0.08);
   --glow-green:
     0 0 16px rgba(57,224,117,0.50),
     0 0 48px rgba(57,224,117,0.24),
@@ -104,9 +104,9 @@
   --radius-modal: 20px;
   --r-lg:         16px;
 
-  /* TIMING MUSICAL â€” The Light Always Returns */
-  --t-pandora:  3.5s ease-in-out infinite;
-  --t-ascend:   12s ease-in-out infinite;
+  /* TIMING — arrière-plans plus lents (respiration Pandora) */
+  --t-pandora:  5.5s ease-in-out infinite;
+  --t-ascend:   20s ease-in-out infinite;
   --t-micro:    100ms cubic-bezier(0.25,0.1,0.25,1);  /* Apple min perceptible */
   --t-hover:    250ms cubic-bezier(0.25,0.1,0.25,1);  /* Apple sweet spot */
   --t-press:    100ms cubic-bezier(0.25,0.1,0.25,1);
@@ -116,8 +116,8 @@
   --t-spring:   500ms cubic-bezier(0.16,1,0.3,1);     /* Spring Apple */
   --t-standard: 300ms cubic-bezier(0.25,0.1,0.25,1);
   --t-enter:    500ms cubic-bezier(0.16,1,0.3,1);
-  --t-breathe:  4s ease-in-out infinite;
-  --t-aurora:   16s ease-in-out infinite;
+  --t-breathe:  6.5s ease-in-out infinite;
+  --t-aurora:   28s ease-in-out infinite;
 
   /* Z-INDEX */
   --z-fond:    0;
@@ -145,7 +145,7 @@
   --space-10:128px;
 
   /* NAV */
-  --nav-bg: rgba(2,8,16,0.72);
+  --nav-bg: rgba(8, 36, 38, 0.70);
 }
 
 /* =====================================================
@@ -188,7 +188,8 @@ body::before {
 /* MODE NUIT â€” ForÃªt Pandora */
 body:not(.mode-jour)::before {
   background-image: url('../assets/images/bg-pandora-nuit.png');
-  filter: blur(20px) saturate(155%) brightness(0.78);
+  /* Plus de lumière, moins de dérive bleue — tonalité sol bioluminescent */
+  filter: blur(20px) saturate(128%) brightness(0.92) hue-rotate(-6deg);
 }
 
 /* Couche 2 â€” Overlay lisibilitÃ© */
@@ -200,7 +201,10 @@ body::after {
   transition: background 600ms ease;
 }
 body:not(.mode-jour)::after {
-  background: rgba(2,8,16,0.42);
+  /* Halo bas : pas sur le sol qui s’illumine (turquoise / menthe) */
+  background:
+    radial-gradient(130% 85% at 50% 100%, rgba(0, 210, 188, 0.16) 0%, transparent 52%),
+    linear-gradient(180deg, rgba(6, 28, 30, 0.18) 0%, rgba(4, 36, 38, 0.36) 100%);
 }
 body.mode-jour::after {
   background: transparent;
@@ -224,7 +228,7 @@ body.mode-jour::after {
   }
   /* Photo fond â€” ajustement mobile */
   body:not(.mode-jour)::before {
-    filter: blur(30px) saturate(145%) brightness(0.80);
+    filter: blur(30px) saturate(120%) brightness(0.90) hue-rotate(-6deg);
     transform: scale(1.12);
   }
   body.mode-jour::before {
@@ -330,13 +334,13 @@ html[data-theme="light"] body {
 .block-cyan {
   background:
     linear-gradient(135deg,
-      rgba(0,160,210,0.16) 0%,
+      rgba(0, 200, 180, 0.15) 0%,
       rgba(0,229,204,0.08) 40%,
       transparent 70%),
-    rgba(0,15,30,0.48);
-  border-color: rgba(0,180,216,0.20);
+    rgba(6, 30, 32, 0.46);
+  border-color: rgba(72, 210, 195, 0.20);
   box-shadow: inset 0 1px 0 rgba(0,229,204,0.20),
-    0 0 0 0.5px rgba(0,180,216,0.12), var(--shadow-lg);
+    0 0 0 0.5px rgba(72, 210, 195, 0.12), var(--shadow-lg);
 }
 .block-violet {
   background:
@@ -377,7 +381,7 @@ html[data-theme="light"] body {
 /* Hover sÃ©mantique */
 .block-cyan:hover {
   box-shadow: inset 0 1px 0 rgba(0,229,204,0.25),
-    0 0 30px rgba(0,180,216,0.18), var(--shadow-xl);
+    0 0 30px rgba(64, 200, 185, 0.20), var(--shadow-xl);
 }
 .block-violet:hover {
   box-shadow: inset 0 1px 0 rgba(123,79,232,0.25),
@@ -450,18 +454,22 @@ html[data-theme="light"] .block-violet {
 
 /* Animation ambiante â€” uniquement sur le CTA principal hero */
 .pinapp-breathe {
-  animation: kiri-soar 3.5s ease-in-out infinite;
+  animation: kiri-soar 5.5s ease-in-out infinite;
 }
 
 @keyframes kiri-soar {
   0%,100% {
     transform: scale(1) translateY(0) translateZ(0);
-    box-shadow: 0 0 24px rgba(123,79,232,0.40);
+    box-shadow:
+      0 0 24px rgba(123,79,232,0.38),
+      0 0 40px rgba(0, 200, 185, 0.10);
   }
   50% {
     transform: scale(1.012) translateY(-2px) translateZ(0);
-    box-shadow: 0 0 40px rgba(123,79,232,0.65),
-                0 8px 32px rgba(123,79,232,0.30);
+    box-shadow:
+      0 0 40px rgba(123,79,232,0.58),
+      0 8px 32px rgba(123,79,232,0.26),
+      0 0 56px rgba(0, 210, 188, 0.14);
   }
 }
 
@@ -549,10 +557,10 @@ nav, .nav {
   transition: all 300ms cubic-bezier(0.25,0.1,0.25,1);
 }
 nav.scrolled, .nav.scrolled {
-  background: rgba(2,8,16,0.72);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  border-bottom: 1px solid rgba(0,180,216,0.10);
+  background: rgba(8, 36, 38, 0.74);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border-bottom: 1px solid rgba(72, 210, 195, 0.12);
 }
 body.mode-jour nav.scrolled,
 html[data-theme="light"] nav.scrolled {
@@ -576,7 +584,7 @@ html[data-theme="light"] nav.scrolled {
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: rgba(0,180,216,0.30);
+  background: rgba(64, 200, 185, 0.32);
   border-radius: 100px;
 }
 
@@ -589,7 +597,7 @@ html[data-theme="light"] nav.scrolled {
   .card:not(:nth-child(-n+3)) {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
-    background: rgba(2,8,20,0.88) !important;
+    background: rgba(6, 28, 32, 0.88) !important;
   }
   body.mode-jour .block:not(:nth-child(-n+3)),
   body.mode-jour .card:not(:nth-child(-n+3)),
@@ -634,8 +642,8 @@ html[data-theme="light"] nav.scrolled {
    ===================================================== */
 
 @supports not (backdrop-filter: blur(1px)) {
-  .block, .card { background: rgba(2,8,20,0.92) !important; }
-  nav.scrolled, .nav.scrolled { background: rgba(2,8,16,0.96); }
+  .block, .card { background: rgba(6, 28, 32, 0.92) !important; }
+  nav.scrolled, .nav.scrolled { background: rgba(8, 36, 38, 0.96); }
   body.mode-jour .block,
   body.mode-jour .card { background: rgba(255,255,255,0.96) !important; }
 }

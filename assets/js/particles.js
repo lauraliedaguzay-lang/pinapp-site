@@ -18,7 +18,7 @@ const Particles = {
     if (count === 0) return;
     this.active = true;
     const colorsNuit = [
-      'rgba(0,180,216,',
+      'rgba(0,200,188,',
       'rgba(0,229,204,',
       'rgba(123,79,232,',
       'rgba(196,30,168,',
@@ -35,7 +35,7 @@ const Particles = {
     for (let i = 0; i < count; i++) {
       const p = document.createElement('div');
       const size    = 2 + Math.random() * 2.5;
-      const dur     = 12 + Math.random() * 8;
+      const dur     = 20 + Math.random() * 16;
       const color   = colors[i % colors.length];
       const opacity = 0.15 + Math.random() * 0.22;
       const dx      = (Math.random() - 0.5) * 20;

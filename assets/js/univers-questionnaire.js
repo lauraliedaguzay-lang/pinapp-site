@@ -95,7 +95,7 @@ const UniversQ = {
     const prn = this.state.prenom;
     resultat.innerHTML = `
       <p style="color:var(--accent-teal);font-size:14px;
-                animation:kiri-soar 3.5s ease-in-out infinite;
+                animation:kiri-soar 5.5s ease-in-out infinite;
                 text-align:center;padding:24px 0;">
         ${prn ? `Aurora compose votre univers, ${prn}...` : 'Aurora compose votre univers...'}
       </p>`;
@@ -193,7 +193,7 @@ const UniversQ = {
                   color:#fff;border-radius:100px;text-decoration:none;
                   font-size:14px;font-weight:500;
                   box-shadow:var(--glow-violet);
-                  animation:kiri-soar 3.5s ease-in-out infinite;">
+                  animation:kiri-soar 5.5s ease-in-out infinite;">
           Construire mon univers →
         </a>
         <button onclick="UniversQ.reset()"

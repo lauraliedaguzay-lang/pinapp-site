@@ -55,7 +55,7 @@ const PandoraWorld = {
     for (let i = 0; i < count; i++) {
       const c       = colors[Math.floor(Math.random() * colors.length)];
       const size    = 1 + Math.random() * 2.5;
-      const dur     = 10 + Math.random() * 12;
+      const dur     = 16 + Math.random() * 18;
       const delay   = -(Math.random() * dur);
       const opacity = 0.15 + Math.random() * 0.35;
       const dx      = (Math.random() - 0.5) * 40;
@@ -87,11 +87,11 @@ const PandoraWorld = {
     if (!this.starsEl || this.isJour) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const starColors = [
-      [238,248,255],
-      [0,229,204],
-      [160,200,255],
-      [200,160,255],
-      [255,220,180],
+      [230, 252, 248],
+      [0, 229, 204],
+      [150, 228, 210],
+      [180, 210, 200],
+      [255, 230, 200],
     ];
 
     for (let i = 0; i < this.ETOILES; i++) {
@@ -100,7 +100,7 @@ const PandoraWorld = {
       const opMin  = 0.08 + Math.random() * 0.15;
       const opMax  = opMin + 0.15 + Math.random() * 0.20;
       const twinkle = Math.random() < 0.35;
-      const dur    = 2.5 + Math.random() * 4;
+      const dur    = 4.5 + Math.random() * 6;
       const delay  = -(Math.random() * dur);
 
       const star = document.createElement('div');
