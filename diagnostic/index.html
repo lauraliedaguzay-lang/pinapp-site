@@ -10,8 +10,8 @@
   <meta name="theme-color" id="pinapp-theme-color" content="#020810">
   <script src="../assets/js/theme-init.js" defer></script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Démarrer ma demande — Pinapp Studio</title>
-  <meta name="description" content="Décrivez votre activité en 2 minutes. Je vous réponds sous 24 h avec des pistes concrètes — sans appel.">
+  <title>Diagnostic offert 30 min — Pinapp Studio</title>
+  <meta name="description" content="30 minutes pour définir ensemble ce qui disparaît cette semaine. Pas de pitch. Pas d'engagement. Juste une conversation.">
   <meta property="og:title" content="Démarrer ma demande — Pinapp Studio">
   <meta property="og:description" content="Décrivez votre activité en 2 minutes. Je vous réponds sous 24 h avec des pistes concrètes — sans appel.">
   <meta property="og:image" content="https://pinapp.fr/assets/images/og-home.png">
@@ -32,6 +32,7 @@
   <link rel="stylesheet" href="../assets/css/ios-glass.css">
   <link rel="stylesheet" href="../assets/css/apple-finish.css">
   <link rel="stylesheet" href="../assets/css/pinapp-premium.css">
+  <link rel="stylesheet" href="../assets/css/deploy-harmonise.css">
 </head>
 <body class="page-with-bottom-nav">
 <div id="pandora-loader" aria-hidden="true">
@@ -80,6 +81,71 @@
     <a href="../offres/index.html">Offres</a>
     <a href="../diagnostic/index.html" class="bottom-bar-cta" style="background:var(--accent-teal);color:#020810;padding:6px 14px;border-radius:6px;font-weight:600;font-size:12px;">D&eacute;marrer &rarr;</a>
   </div>
+    <!-- ÉTAPE 3 — Intro Lauralie + Ce qui se passe -->
+  <section class="diagnostic-intro section-enter">
+    <div class="diagnostic-lauralie">
+      <picture class="diagnostic-photo-wrapper">
+        <img
+          src="../assets/images/lauralie.jpg"
+          alt="Lauralie Daguzay"
+          width="72" height="72"
+          class="diagnostic-photo"
+          loading="eager"
+          decoding="async"
+          onerror="this.closest('picture').style.display='none'">
+      </picture>
+      <div class="diagnostic-lauralie-text">
+        <strong>Lauralie Daguzay</strong>
+        <span>Fondatrice Pinapp Studio</span>
+        <span class="diagnostic-dispo" id="diag-dispo">&#x25CF; Disponible &mdash; r&eacute;pond le jour m&ecirc;me</span>
+      </div>
+    </div>
+
+    <h1 class="diagnostic-titre">
+      30 minutes.<br>
+      On d&eacute;finit ensemble<br>
+      ce qui dispara&icirc;t cette semaine.
+    </h1>
+
+    <div class="diagnostic-bloc block block-cyan">
+      <p class="label">CE QUI SE PASSE PENDANT CE CALL</p>
+      <div class="diagnostic-steps">
+        <div class="diag-step">
+          <span class="diag-num">1</span>
+          <div>
+            <strong>Vous d&eacute;crivez votre situation</strong>
+            <p>La t&acirc;che qui vous &eacute;puise le plus. Votre secteur. Votre volume.</p>
+          </div>
+        </div>
+        <div class="diag-step">
+          <span class="diag-num">2</span>
+          <div>
+            <strong>On identifie ce qui peut dispara&icirc;tre</strong>
+            <p>Je vous dis exactement quoi automatiser en premier et pourquoi.</p>
+          </div>
+        </div>
+        <div class="diag-step">
+          <span class="diag-num">3</span>
+          <div>
+            <strong>Je vous donne un prix et un d&eacute;lai</strong>
+            <p>Pr&eacute;cis. Sans surprise. Sans engagement.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="diagnostic-bloc block block-neutre">
+      <p class="label">CE QU&rsquo;ON NE FAIT PAS</p>
+      <ul class="diagnostic-pas-liste">
+        <li>Pas de PowerPoint</li>
+        <li>Pas de pr&eacute;sentation de 45 minutes</li>
+        <li>Pas de pression pour signer</li>
+        <li>Pas de t&eacute;l&eacute;phone &mdash; Google Meet uniquement</li>
+      </ul>
+    </div>
+
+    <p class="diagnostic-creneau" id="prochain-creneau">Chargement des cr&eacute;neaux&hellip;</p>
+  </section>
   <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
     <section class="section section-enter">
       <div class="container" style="max-width:620px;text-align:center;">
@@ -349,5 +415,48 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
   <script src="../assets/js/bio-particles.js" defer></script>
-</body>
+  <script>
+  // Prochain créneau dynamique
+  (function() {
+    var el = document.getElementById('prochain-creneau');
+    if (!el) return;
+    var now = new Date();
+    var hour = now.getHours();
+    var day = now.getDay();
+    var next = new Date(now);
+    if (day === 0 || day === 6 || hour >= 17) {
+      var d = day === 0 ? 1 : day === 6 ? 2 : 1;
+      next.setDate(next.getDate() + d);
+      next.setHours(9, 0, 0, 0);
+    } else if (hour < 9) {
+      next.setHours(9, 0, 0, 0);
+    } else {
+      next.setHours(hour + 2, 0, 0, 0);
+      if (next.getHours() >= 17) {
+        next.setDate(next.getDate() + 1);
+        next.setHours(9, 0, 0, 0);
+        if (next.getDay() === 6) next.setDate(next.getDate() + 2);
+        if (next.getDay() === 0) next.setDate(next.getDate() + 1);
+      }
+    }
+    var jours = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+    var mois = ['janvier','f\u00e9vrier','mars','avril','mai','juin','juillet','ao\u00fbt','septembre','octobre','novembre','d\u00e9cembre'];
+    var isToday = next.toDateString() === now.toDateString();
+    var label = isToday ? "Aujourd\u2019hui" : jours[next.getDay()] + ' ' + next.getDate() + ' ' + mois[next.getMonth()];
+    el.textContent = 'Prochain cr\u00e9neau disponible\u00a0: ' + label + ' \u00e0 ' + next.getHours() + 'h';
+  })();
+  // Prefill offre depuis localStorage
+  (function() {
+    try {
+      var PinS = window.PinappStorage;
+      var offre = PinS ? PinS.get(PinS.KEYS.OFFRE) : localStorage.getItem('pinapp-offre');
+      if (offre) {
+        var map = {'lundi-matin':'Automatisation RDV','devis-express':'Automatisation devis','facturation':'Automatisation facturation','inbox':'Automatisation messages','site':'Site vitrine','systeme-complet':'Syst\u00e8me complet'};
+        var label = map[offre] || offre;
+        var h = document.getElementById('h-besoin');
+        if (h) h.value = label;
+      }
+    } catch(e) {}
+  })();
+  </script></body>
 </html>

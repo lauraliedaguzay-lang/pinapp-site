@@ -44,28 +44,43 @@ const AuroraAnalyse = {
     if (window.PinappIntel) PinappIntel.markAurora();
 
     const cfg = window.PinappConfig;
-    const useIA = cfg && cfg.features.auroraAnalyseIA && cfg._isRealUrl(cfg.webhooks.auroraAnalyse);
+    const useN8n = cfg && cfg.features.auroraAnalyseIA && cfg._isRealUrl(cfg.webhooks.auroraAnalyse);
 
     let text = '';
 
-    if (useIA) {
-      try {
-        const resp = await fetch(cfg.webhooks.auroraAnalyse, {
-          method:  'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ activite }),
-        });
-        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-        const data = await resp.json();
-        text = data.text || data.content || data.response || '';
-        if (!text) throw new Error('Réponse vide');
-      } catch {
+    try {
+      // Étape 2 — Netlify Function (clé API sécurisée, jamais en front)
+      const netlifyResp = await fetch('/.netlify/functions/aurora', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ activite }),
+      });
+      if (!netlifyResp.ok) throw new Error(`netlify ${netlifyResp.status}`);
+      const netlifyData = await netlifyResp.json();
+      text = netlifyData.result || '';
+      if (!text) throw new Error('Réponse vide');
+    } catch {
+      // Fallback n8n webhook
+      if (useN8n) {
+        try {
+          const resp = await fetch(cfg.webhooks.auroraAnalyse, {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ activite }),
+          });
+          if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+          const data = await resp.json();
+          text = data.text || data.content || data.response || '';
+          if (!text) throw new Error('Réponse vide');
+        } catch {
+          await new Promise(r => setTimeout(r, 600));
+          text = this._localResponse(activite);
+        }
+      } else {
+        /* Mode démo local — toujours actif sans API */
+        await new Promise(r => setTimeout(r, 1200));
         text = this._localResponse(activite);
       }
-    } else {
-      /* Mode démo local — toujours actif sans n8n */
-      await new Promise(r => setTimeout(r, 1200)); /* simulation latence */
-      text = this._localResponse(activite);
     }
 
     /* Affichage lettre par lettre */

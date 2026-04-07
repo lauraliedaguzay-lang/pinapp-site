@@ -1,0 +1,275 @@
+/* deploy-harmonise.css — Pinapp · Harmonisation globale pré-déploiement */
+
+/* =====================================================
+   ÉTAPE 0D — Labels : teal, gauche sauf hero
+   ===================================================== */
+.label,
+[class*="label-"] {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal, #00E5CC);
+  display: block;
+  margin-bottom: 12px;
+  text-align: left;
+}
+.offres-hero .label,
+.hero-section .label,
+[class*="-hero"] .label,
+section:first-of-type > .label,
+.secteur-section .label,
+.pipeline-offres .label,
+.calculateur-temps .label,
+.garantie-section .label,
+.cta-final .label {
+  text-align: center;
+}
+
+/* =====================================================
+   ÉTAPE 0E — Border-radius : système unique
+   ===================================================== */
+.btn-primary,
+.btn-secondary,
+.btn,
+.filtre-pill,
+.secteur-pill,
+.pipeline-pill,
+.univers-pill,
+.offre-secteur-tag,
+.tag,
+.badge,
+[class*="-pill"],
+[class*="-tag"]:not(.offre-tag) {
+  border-radius: 100px !important;
+}
+
+.block,
+.card,
+[class*="card"],
+.offre-card,
+.monde-card {
+  border-radius: 24px !important;
+}
+
+input, textarea, select {
+  border-radius: 14px !important;
+}
+
+img, picture > img {
+  border-radius: 20px;
+}
+.nav-logo img,
+.logo img,
+[class*="icon"] img,
+.favicon {
+  border-radius: 0 !important;
+}
+
+/* =====================================================
+   ÉTAPE 0F — Espacements sections
+   ===================================================== */
+section {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+@media (max-width: 768px) {
+  section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+}
+.offres-hero,
+.hero-section,
+[class*="-hero"],
+section:first-of-type {
+  padding-top: 140px;
+}
+footer {
+  padding-top: 80px;
+  padding-bottom: 48px;
+}
+
+/* =====================================================
+   ÉTAPE 1 — Bouton effacer données footer
+   ===================================================== */
+.footer-clear-data {
+  font-size: 10px;
+  color: var(--text-4, rgba(238,248,255,0.3));
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  opacity: 0.5;
+  transition: opacity 200ms ease;
+  padding: 0;
+}
+.footer-clear-data:hover { opacity: 1; }
+
+/* =====================================================
+   DIAGNOSTIC — Intro Lauralie + créneau
+   ===================================================== */
+.diagnostic-intro {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 120px 24px 40px;
+}
+.diagnostic-lauralie {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.diagnostic-photo-wrapper {
+  display: block;
+  border-radius: 50% !important;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 2px rgba(0,180,216,0.25);
+}
+.diagnostic-photo {
+  width: 72px; height: 72px;
+  object-fit: cover;
+  display: block;
+  border-radius: 50% !important;
+}
+.diagnostic-lauralie-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.diagnostic-lauralie-text strong {
+  font-size: 15px;
+  color: var(--text);
+}
+.diagnostic-lauralie-text span {
+  font-size: 12px;
+  color: var(--text-3);
+}
+.diagnostic-dispo {
+  color: var(--green, #39E075) !important;
+  font-size: 11px !important;
+}
+.diagnostic-titre {
+  font-family: Georgia, serif;
+  font-size: clamp(28px,4vw,48px);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 40px;
+  color: var(--text);
+}
+.diagnostic-bloc {
+  padding: 28px;
+  margin-bottom: 20px;
+}
+.diagnostic-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 16px;
+}
+.diag-step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.diag-num {
+  width: 28px; height: 28px;
+  border-radius: 50% !important;
+  background: rgba(0,180,216,0.15);
+  border: 1px solid rgba(0,180,216,0.30);
+  display: flex; align-items: center;
+  justify-content: center;
+  font-size: 13px; font-weight: 600;
+  color: var(--teal);
+  flex-shrink: 0;
+}
+.diag-step strong {
+  display: block;
+  font-size: 14px;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.diag-step p {
+  font-size: 13px;
+  color: var(--text-3);
+  line-height: 1.6;
+  margin: 0;
+}
+.diagnostic-pas-liste {
+  list-style: none;
+  padding: 0; margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+.diagnostic-pas-liste li {
+  font-size: 14px;
+  color: var(--text-2);
+  padding-left: 20px;
+  position: relative;
+}
+.diagnostic-pas-liste li::before {
+  content: '×';
+  position: absolute; left: 0;
+  color: rgba(220,38,38,0.5);
+  font-weight: 700;
+}
+.diagnostic-creneau {
+  font-size: 13px;
+  color: var(--teal);
+  margin: 24px 0;
+  text-align: center;
+}
+
+/* =====================================================
+   A-PROPOS — Photo section
+   ===================================================== */
+.apropos-photo-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  padding: 140px 24px 80px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+@media (max-width: 768px) {
+  .apropos-photo-section {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 100px 24px 60px;
+  }
+}
+.apropos-photo-wrapper {
+  display: block;
+  border-radius: 24px !important;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(0,180,216,0.12),
+    0 40px 80px rgba(0,0,0,0.35);
+}
+.apropos-photo {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 0 !important;
+}
+.apropos-bio {
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--text-2);
+  margin-bottom: 24px;
+  white-space: pre-line;
+}
+.apropos-univers-line {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--teal);
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
