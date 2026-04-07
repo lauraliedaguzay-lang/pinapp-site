@@ -65,6 +65,7 @@ Lauralie supprime les blocs confidentiels avant envoi si le brouillon est struct
 
 ---
 
-## 6. Prochaine étape technique
+## 6. Implémentation technique (livré dans le dépôt)
 
-Implémenter `apps-script/pinapp-gmail-claude.js` (projet Google lié à `lauralie.daguzay@pinapp.fr` ou compte Gmail utilisé pour Pinapp), avec `CONFIG` + clé API en **Propriétés du script** (pas dans le dépôt Git).
+1. **Gmail + Claude en continu :** `apps-script/pinapp-gmail-claude.gs` + guide `docs/claude-consultation/10-APPS-SCRIPT-H24-SETUP.md` — déclencheur toutes les 5 min, brouillons uniquement, clé API en **Propriétés du script** (pas dans Git).
+2. **Lead diagnostic → orchestrateur (optionnel) :** `assets/js/config.js` — `diagnosticClaudePrep` + flag `diagnosticClaudePrep` pour envoyer le payload à n8n/Make (premier passage Claude / notification interne), **sans** envoi auto au prospect si vous respectez la règle §1.

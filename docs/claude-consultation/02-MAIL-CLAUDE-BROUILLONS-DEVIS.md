@@ -43,6 +43,8 @@ Lauralie retire toute partie **confidentielle** du corps avant envoi si elle est
 - Souhait : **devis HTML** dans la charte (teal, sombre/clair selon `variables.css`), généré en brouillon ou pièce jointe — **à trancher** (HTML dans mail vs PDF).
 - Grille tarifaire : à maintenir **hors prompt fouillis** (ex. bloc versionné ou JSON) pour limiter **hallucinations** sur les montants.
 
-## Implémentation prévue
+## Implémentation
 
-Fichier Apps Script à créer dans le dépôt : `apps-script/pinapp-gmail-claude.js` (non versionner les clés).
+- **Code :** `apps-script/pinapp-gmail-claude.gs` (copier-coller dans un projet Google Apps Script).
+- **Installation :** `docs/claude-consultation/10-APPS-SCRIPT-H24-SETUP.md`
+- **Clés :** uniquement dans les propriétés du script Google — jamais dans Git.

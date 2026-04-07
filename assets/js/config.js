@@ -36,6 +36,9 @@ window.PinappConfig = {
 
     /* Satisfaction / avis */
     demandeAvis:     'https://[TON-N8N]/webhook/demande-avis',       // ⑨ Demande avis fin mission
+
+    /* Premier passage Claude (n8n / Make) — notification interne ou brouillon, jamais envoi client auto */
+    diagnosticClaudePrep: 'https://[TON-N8N]/webhook/diagnostic-claude-prep',
   },
 
   /* ─── FEATURE FLAGS ────────────────────────────────── */
@@ -51,6 +54,9 @@ window.PinappConfig = {
 
     /* Notifications */
     whatsappNotifs:      false,  // ⑦ Activer quand WhatsApp Business API configurée
+
+    /* Claude prep : même payload que diagnostic + intent (orchestrateur n8n) */
+    diagnosticClaudePrep: false,
   },
 
   /* ─── CONTACT ──────────────────────────────────────── */
@@ -79,6 +85,27 @@ window.PinappConfig.sendDiagnosticLead = function(payload) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(Object.assign({ source: 'diagnostic', timestamp: new Date().toISOString() }, payload)),
+    }).catch(function(){});
+  }
+};
+
+/** Webhook optionnel : premier passage Claude / plan (n8n). Règle métier : pas d’email client automatique depuis ce flux. */
+window.PinappConfig.sendDiagnosticClaudePrep = function(payload) {
+  var cfg = window.PinappConfig;
+  if (cfg.features.diagnosticClaudePrep && cfg._isRealUrl(cfg.webhooks.diagnosticClaudePrep)) {
+    fetch(cfg.webhooks.diagnosticClaudePrep, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(
+        Object.assign(
+          {
+            source: 'diagnostic',
+            intent: 'diagnostic-claude-prep',
+            timestamp: new Date().toISOString(),
+          },
+          payload
+        )
+      ),
     }).catch(function(){});
   }
 };

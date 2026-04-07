@@ -18,6 +18,7 @@ Tout le dossier est lisible et à jour sur **GitHub** (branche `main`) :
 | 06 — Veille / RH / admin | [06-VEILLE-RH-ADMIN.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/06-VEILLE-RH-ADMIN.md) |
 | 07 — Synthèse règles | [07-SYNTHESE-REGLES-PROJET.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/07-SYNTHESE-REGLES-PROJET.md) |
 | 08 — Modèles e-mail | [08-ANNEXE-MODELES-EMAIL.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/08-ANNEXE-MODELES-EMAIL.md) |
+| 10 — Apps Script H24 (Gmail × Claude) | [10-APPS-SCRIPT-H24-SETUP.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/10-APPS-SCRIPT-H24-SETUP.md) |
 
 **Dépôt :** [github.com/lauraliedaguzay-lang/pinapp-site](https://github.com/lauraliedaguzay-lang/pinapp-site)
 

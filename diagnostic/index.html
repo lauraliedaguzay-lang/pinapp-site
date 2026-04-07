@@ -388,14 +388,18 @@
           if (resp.ok) {
             /* Webhook n8n si configuré */
             if (window.PinappConfig && typeof window.PinappConfig.sendDiagnosticLead === 'function') {
-              window.PinappConfig.sendDiagnosticLead({
+              var leadPayload = {
                 nom: prenom, email,
                 secteur:   answers.q1 || '',
                 besoin:    answers.q2 || '',
                 situation: answers.q3 || '',
                 budget:    answers.q4 || '',
                 message,
-              });
+              };
+              window.PinappConfig.sendDiagnosticLead(leadPayload);
+              if (typeof window.PinappConfig.sendDiagnosticClaudePrep === 'function') {
+                window.PinappConfig.sendDiagnosticClaudePrep(leadPayload);
+              }
             }
             const mailtoNote = document.getElementById('qfin-mailto-note');
             if (mailtoNote) mailtoNote.style.display = 'none';
@@ -404,7 +408,23 @@
             throw new Error('Serveur: ' + resp.status);
           }
         } catch(err) {
-          // Fallback mailto si Netlify Forms non disponible (env local)
+          // Fallback mailto si Netlify Forms non disponible (ex. GitHub Pages) — webhooks n8n / Claude prep quand même
+          const leadPayloadFallback = {
+            nom: prenom, email,
+            secteur:   answers.q1 || '',
+            besoin:    answers.q2 || '',
+            situation: answers.q3 || '',
+            budget:    answers.q4 || '',
+            message,
+          };
+          if (window.PinappConfig) {
+            if (typeof window.PinappConfig.sendDiagnosticLead === 'function') {
+              window.PinappConfig.sendDiagnosticLead(leadPayloadFallback);
+            }
+            if (typeof window.PinappConfig.sendDiagnosticClaudePrep === 'function') {
+              window.PinappConfig.sendDiagnosticClaudePrep(leadPayloadFallback);
+            }
+          }
           const mailtoNote = document.getElementById('qfin-mailto-note');
           if (mailtoNote) mailtoNote.style.display = '';
           const body = encodeURIComponent(

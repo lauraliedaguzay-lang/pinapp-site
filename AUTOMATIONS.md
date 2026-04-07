@@ -9,6 +9,12 @@
 Lead soumet diagnostic → n8n → WhatsApp (Lauralie) → Clic sur lien → Décision enregistrée → Email auto au lead
 ```
 
+### Guidage Claude « H24 » (brouillons Gmail, pas d’envoi auto client)
+
+- **Code :** `apps-script/pinapp-gmail-claude.gs` — déclencheur **toutes les 5 minutes**, étiquettes `Pinapp-À-traiter` / `Pinapp-Traité-Claude`, appel API Anthropic, **`GmailApp.createDraft` uniquement**.
+- **Guide :** `docs/claude-consultation/10-APPS-SCRIPT-H24-SETUP.md`
+- **Option site :** dans `assets/js/config.js`, activer `diagnosticClaudePrep` + URL `diagnostic-claude-prep` pour qu’un workflow n8n reçoive chaque lead en parallèle (Slack, Notion, ou autre — **sans** email prospect automatique si vous respectez la charte Pinapp).
+
 ---
 
 ## Setup en 4 étapes
