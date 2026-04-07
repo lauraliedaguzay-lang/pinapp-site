@@ -1,0 +1,439 @@
+/* assets/css/offres.css — Pinapp offres restructurées */
+
+/* HERO */
+.offres-hero {
+  text-align: center;
+  padding: 140px 24px 80px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.offres-hero h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(32px,5vw,60px);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 20px;
+  color: var(--text);
+}
+.offres-hero-sub {
+  font-size: 18px;
+  color: var(--text-3);
+  font-style: italic;
+  margin-bottom: 48px;
+}
+
+/* STATS */
+.offres-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.stat-item { text-align: center; }
+.stat-num {
+  font-family: Georgia, serif;
+  font-size: 48px;
+  font-weight: 300;
+  color: var(--teal);
+  letter-spacing: -0.02em;
+}
+.stat-unit { font-size: 24px; color: var(--teal); }
+.stat-label {
+  display: block;
+  font-size: 12px;
+  color: var(--text-4);
+  margin-top: 4px;
+  max-width: 120px;
+}
+.stat-sep {
+  width: 1px; height: 48px;
+  background: var(--separator);
+}
+@media (max-width:600px) { .stat-sep { display:none; } }
+
+/* SÉLECTEUR SECTEUR */
+.secteur-section {
+  text-align: center;
+  padding: 0 24px 64px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.secteur-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+.secteur-pill {
+  padding: 10px 22px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(0,180,216,0.14);
+  border-radius: 100px;
+  font-size: 14px;
+  color: var(--text-3);
+  cursor: pointer;
+  transition: all 200ms cubic-bezier(0.25,0.1,0.25,1);
+  font-family: inherit;
+}
+.secteur-pill:hover {
+  border-color: rgba(0,229,204,0.35);
+  color: var(--text-2);
+}
+.secteur-pill.active {
+  background: rgba(0,160,210,0.12);
+  border-color: rgba(0,229,204,0.45);
+  color: var(--teal);
+}
+
+/* GRID OFFRES */
+.offres-grid-section {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 20px;
+  padding: 0 24px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+@media (max-width:1024px) {
+  .offres-grid-section { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width:640px) {
+  .offres-grid-section { grid-template-columns: 1fr; }
+}
+
+/* CARDS */
+.offre-card {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  transition: transform 300ms cubic-bezier(0.45,0.05,0.55,0.95);
+}
+.offre-card:hover { transform: translateY(-4px); }
+.offre-card[style*="display:none"] { display:none !important; }
+
+/* Tags */
+.offre-tag {
+  position: absolute;
+  top: -12px; left: 24px;
+  padding: 4px 16px;
+  background: var(--teal);
+  color: #020810;
+  border-radius: 100px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.offre-tag-gold {
+  background: var(--or, #FFD080);
+  color: #1A0A00;
+}
+
+/* Titres */
+.offre-titre {
+  font-family: Georgia, serif;
+  font-size: clamp(18px,2.5vw,24px);
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+.offre-description {
+  font-size: 14px;
+  color: var(--text-3);
+  line-height: 1.7;
+}
+
+/* Avant/Après */
+.offre-avant-label, .offre-apres-label {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-4);
+  margin-bottom: 10px;
+}
+.offre-liste-avant, .offre-liste-inclus {
+  list-style: none;
+  padding: 0; margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.offre-liste-avant li {
+  font-size: 13px;
+  color: var(--text-3);
+  padding-left: 16px;
+  position: relative;
+}
+.offre-liste-avant li::before {
+  content: '×';
+  position: absolute; left: 0;
+  color: rgba(220,38,38,0.6);
+  font-weight: 700;
+}
+.offre-liste-inclus li {
+  font-size: 13px;
+  color: var(--text-2);
+}
+.offre-apres-text {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+/* Secteurs */
+.offre-secteurs { display:flex; flex-wrap:wrap; gap:6px; }
+.offre-secteur-tag {
+  padding: 4px 12px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 100px;
+  font-size: 11px;
+  color: var(--text-4);
+}
+
+/* Résultat */
+.offre-resultat {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 12px 16px;
+  background: rgba(0,229,204,0.06);
+  border-left: 2px solid var(--teal);
+  border-radius: 0 8px 8px 0;
+}
+.offre-resultat-num {
+  font-family: Georgia, serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--teal);
+}
+.offre-resultat-label { font-size: 12px; color: var(--text-3); }
+
+/* Footer card */
+.offre-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--separator);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.prix-montant {
+  font-family: Georgia, serif;
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.prix-note {
+  display: block;
+  font-size: 11px;
+  color: var(--text-4);
+  margin-top: 2px;
+}
+
+/* PIPELINE SECTEURS */
+.pipeline-offres {
+  padding: 80px 24px;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+.pipeline-secteur-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 48px;
+}
+.pipeline-pill {
+  padding: 10px 22px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(0,180,216,0.14);
+  border-radius: 100px;
+  font-size: 14px;
+  color: var(--text-3);
+  cursor: pointer;
+  transition: all 200ms ease;
+  font-family: inherit;
+}
+.pipeline-pill.active {
+  background: rgba(0,160,210,0.12);
+  border-color: rgba(0,229,204,0.45);
+  color: var(--teal);
+}
+.pipeline-scenario { display: none; }
+.pipeline-scenario.active { display: block; }
+.pipeline-scenario-titre {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--text-2);
+  margin-bottom: 32px;
+}
+.pipeline-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+.pipeline-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  max-width: 120px;
+}
+.step-circle {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: rgba(0,160,210,0.12);
+  border: 1px solid rgba(0,180,216,0.20);
+  display: flex; align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  transition: all 300ms ease;
+  cursor: default;
+}
+.pipeline-step:hover .step-circle {
+  background: rgba(0,160,210,0.22);
+  box-shadow: 0 0 16px rgba(0,180,216,0.20);
+  transform: scale(1.08);
+}
+.step-content { text-align: center; }
+.step-content strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.step-content span { font-size: 11px; color: var(--text-4); }
+.pipeline-arrow {
+  font-size: 18px;
+  color: var(--teal);
+  opacity: 0.40;
+  margin: 0 4px;
+}
+@media (max-width:640px) {
+  .pipeline-arrow { display: none; }
+  .pipeline-steps { flex-direction: column; gap: 16px; }
+  .pipeline-step { flex-direction: row; max-width: 100%; text-align: left; }
+  .step-content { text-align: left; }
+}
+.pipeline-conclusion {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--teal);
+  opacity: 0.80;
+}
+
+/* CALCULATEUR TEMPS */
+.calculateur-temps {
+  max-width: 720px;
+  margin: 0 auto 80px;
+  padding: 40px;
+}
+.calc-questions {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+.calc-item label {
+  display: block;
+  font-size: 14px;
+  color: var(--text-2);
+  margin-bottom: 10px;
+}
+.calc-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.calc-slider {
+  flex: 1;
+  height: 4px;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.10);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  accent-color: var(--teal);
+  padding: 0;
+}
+.calc-val {
+  font-family: Georgia, serif;
+  font-size: 20px;
+  color: var(--teal);
+  min-width: 32px;
+  text-align: right;
+}
+.calc-result { padding: 28px; text-align: center; }
+.calc-result-num {
+  font-family: Georgia, serif;
+  font-size: clamp(48px,8vw,80px);
+  font-weight: 300;
+  color: var(--text);
+  line-height: 1;
+  margin: 12px 0;
+}
+.calc-unit { font-size: 24px; color: var(--text-3); }
+.calc-result-sub {
+  font-size: 15px;
+  color: var(--text-3);
+  margin-bottom: 8px;
+}
+.calc-result-valeur {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--teal);
+}
+
+/* GARANTIE + CTA FINAL */
+.garantie-section, .cta-final {
+  text-align: center;
+  padding: 80px 24px;
+}
+.cta-final h2 {
+  font-family: Georgia, serif;
+  font-size: clamp(24px,4vw,44px);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+/* MODE JOUR — adaptations */
+body.mode-jour .secteur-pill {
+  background: rgba(0,0,0,0.04);
+  border-color: rgba(0,160,210,0.20);
+  color: rgba(26,10,46,0.65);
+}
+body.mode-jour .secteur-pill.active {
+  background: rgba(0,160,210,0.10);
+  color: var(--teal);
+}
+body.mode-jour .offre-secteur-tag {
+  background: rgba(0,0,0,0.04);
+  border-color: rgba(0,0,0,0.08);
+  color: rgba(26,10,46,0.50);
+}
+body.mode-jour .offre-resultat {
+  background: rgba(0,155,140,0.08);
+}
+body.mode-jour .step-circle {
+  background: rgba(0,160,210,0.08);
+}
