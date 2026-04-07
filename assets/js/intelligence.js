@@ -139,7 +139,7 @@ const PinappIntel = {
       if (prêt) {
         const cta = document.querySelector('.sticky-cta');
         if (cta) {
-          cta.textContent = 'Vous avez vu ce qu\'il vous faut. 30 min →';
+          cta.textContent = 'Un échange pour cadrer ? 30 min →';
           cta.classList.add('visible');
         }
         clearInterval(check);
@@ -162,7 +162,7 @@ const PinappIntel = {
       'transition:opacity 1s ease',
       'font-style:italic',
     ].join(';');
-    msg.textContent = 'Vous êtes revenu. Bonne décision.';
+    msg.textContent = 'Content de vous revoir.';
 
     hero.parentElement.insertBefore(msg, hero.nextSibling);
     requestAnimationFrame(() => {

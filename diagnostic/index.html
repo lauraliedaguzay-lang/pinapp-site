@@ -9,7 +9,7 @@
   <script src="../assets/js/theme-init.js" defer></script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Diagnostic offert 30 min — Pinapp Studio</title>
-  <meta name="description" content="30 minutes pour définir ensemble ce qui disparaît cette semaine. Pas de pitch. Pas d'engagement. Juste une conversation.">
+  <meta name="description" content="30 minutes pour d&eacute;finir ensemble ce qui peut all&eacute;ger votre charge dans les prochaines semaines. Pas de pitch. Pas d&rsquo;engagement.">
   <meta property="og:title" content="Démarrer ma demande — Pinapp Studio">
   <meta property="og:description" content="Décrivez votre activité en 2 minutes. Je vous réponds sous 24 h avec des pistes concrètes — sans appel.">
   <meta property="og:image" content="https://pinapp.fr/assets/images/og-home.png">
@@ -116,14 +116,14 @@
       <div class="diagnostic-lauralie-text">
         <strong>Lauralie Daguzay</strong>
         <span>Fondatrice Pinapp Studio</span>
-        <span class="diagnostic-dispo" id="diag-dispo">&#x25CF; Disponible &mdash; r&eacute;pond le jour m&ecirc;me</span>
+        <span class="diagnostic-dispo" id="diag-dispo">&#x25CF; R&eacute;ponse vis&eacute;e sous 24 h (jours ouvr&eacute;s)</span>
       </div>
     </div>
 
     <h1 class="diagnostic-titre">
       30 minutes.<br>
       On d&eacute;finit ensemble<br>
-      ce qui dispara&icirc;t cette semaine.
+      ce qui peut all&eacute;ger les prochaines semaines.
     </h1>
 
     <div class="diagnostic-bloc block block-cyan">
@@ -171,7 +171,7 @@
         <div id="univers-context" style="display:none;margin-bottom:var(--space-5);"></div>
 
         <p class="label" style="margin-bottom:var(--space-2);">GRATUIT · SANS APPEL OBLIGATOIRE · RÉPONSE SOUS 24 H</p>
-        <h1 style="font-size:var(--text-h1);letter-spacing:-0.02em;margin-bottom:var(--space-3);">Décrivez votre besoin.<br>Je vous réponds.</h1>
+        <h2 style="font-size:var(--text-h1);letter-spacing:-0.02em;margin-bottom:var(--space-3);">D&eacute;crivez votre besoin.<br>Je vous r&eacute;ponds.</h2>
 
         <!-- Bloc humain Lauralie -->
         <div style="display:flex;align-items:center;gap:var(--space-3);background:var(--glass);border:1px solid var(--border-card);border-radius:16px;padding:var(--space-4);margin-bottom:var(--space-5);text-align:left;">
@@ -255,7 +255,7 @@
                 style="font-size:max(1rem,16px);padding:0.875rem 1rem;border-radius:var(--radius-input);border:1px solid var(--border-card);background:var(--glass-card);color:var(--text-primary);width:100%;box-sizing:border-box;">
               <textarea id="contactMessage" name="message" placeholder="Un mot sur votre situation (facultatif)" rows="3"
                 style="font-size:max(1rem,16px);padding:0.875rem 1rem;border-radius:var(--radius-input);border:1px solid var(--border-card);background:var(--glass-card);color:var(--text-primary);width:100%;box-sizing:border-box;resize:vertical;font-family:inherit;"></textarea>
-              <p id="form-error" role="alert" style="color:var(--accent-violet);font-size:13px;display:none;margin:0;">Veuillez renseigner votre prénom et un email valide.</p>
+              <p id="form-error" role="alert" style="color:var(--accent-violet);font-size:13px;display:none;margin:0;">Merci d&rsquo;indiquer votre pr&eacute;nom et une adresse e-mail valide (avec un @).</p>
               <button type="submit" id="submitContact" class="btn btn-primary" style="margin-top:var(--space-1);min-height:3rem;font-size:1rem;">
                 Envoyer ma demande →
               </button>
@@ -273,6 +273,7 @@
             </div>
             <h2 style="font-size:1.5rem;margin-bottom:var(--space-3);">Demande reçue.</h2>
             <p style="font-size:1rem;opacity:0.75;line-height:1.7;margin-bottom:var(--space-4);">Je vous réponds sous 24 h avec des pistes concrètes adaptées à votre activité.<br>Vous n'avez rien d'autre à faire.</p>
+            <p id="qfin-mailto-note" style="display:none;font-size:14px;opacity:0.75;line-height:1.7;margin-bottom:var(--space-4);">Votre messagerie s&rsquo;est ouverte avec un message d&eacute;j&agrave; r&eacute;dig&eacute; : envoyez-le pour que je le re&ccedil;oive. Ce n&rsquo;est pas un envoi automatique depuis le site.</p>
             <p style="font-size:13px;opacity:0.5;">lauralie.daguzay@pinapp.fr</p>
           </div>
 
@@ -389,12 +390,16 @@
                 message,
               });
             }
+            const mailtoNote = document.getElementById('qfin-mailto-note');
+            if (mailtoNote) mailtoNote.style.display = 'none';
             show('qfin');
           } else {
             throw new Error('Serveur: ' + resp.status);
           }
         } catch(err) {
           // Fallback mailto si Netlify Forms non disponible (env local)
+          const mailtoNote = document.getElementById('qfin-mailto-note');
+          if (mailtoNote) mailtoNote.style.display = '';
           const body = encodeURIComponent(
             'Prénom : ' + prenom + '\nEmail : ' + email + '\n\nActivité : ' + (answers.q1||'—') +
             '\nBesoin : ' + (answers.q2||'—') + '\nSituation : ' + (answers.q3||'—') + '\nBudget : ' + (answers.q4||'—') +
