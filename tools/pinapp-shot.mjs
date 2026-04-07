@@ -7,6 +7,10 @@ fs.mkdirSync(outDir, { recursive: true });
 const pages = [
   ['home', '/index.html'],
   ['offres', '/offres/index.html'],
+  ['offre-auto', '/offres/automatisation/index.html'],
+  ['offre-sites', '/offres/sites/index.html'],
+  ['offre-systeme', '/offres/systeme-complet/index.html'],
+  ['diagnostic', '/diagnostic/index.html'],
   ['realisations', '/realisations/index.html'],
   ['auralis', '/auralis/index.html'],
 ];
