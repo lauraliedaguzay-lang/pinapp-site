@@ -292,45 +292,11 @@ html[data-theme="light"] .btn-primary::before {
    Sur .hero-word.accent : chaque lettre clignote en décalé
    ───────────────────────────────────────────────────────────────── */
 
+/* Hero accent : pas de scintillement néon (HIG Apple — calme, lisible) */
 .hero-word.accent {
   display: inline-block;
-  animation: hero-shimmer 4s ease-in-out infinite;
-  will-change: text-shadow, opacity;
-}
-
-@keyframes hero-shimmer {
-  0%,100% {
-    text-shadow:
-      0 0  8px rgba(0,229,204,0.0),
-      0 0 24px rgba(0,229,204,0.0);
-  }
-  45% {
-    text-shadow:
-      0 0  8px rgba(0,229,204,0.55),
-      0 0 24px rgba(0,229,204,0.25),
-      0 0 48px rgba(0,180,216,0.12);
-  }
-}
-body.mode-jour .hero-word.accent,
-html[data-theme="light"] .hero-word.accent {
-  animation: hero-shimmer-jour 4s ease-in-out infinite;
-}
-@keyframes hero-shimmer-jour {
-  0%,100% {
-    text-shadow:
-      0 0  8px rgba(91,63,216,0.0),
-      0 0 24px rgba(91,63,216,0.0);
-  }
-  45% {
-    text-shadow:
-      0 0  8px rgba(91,63,216,0.50),
-      0 0 24px rgba(255,195,75,0.30),
-      0 0 48px rgba(255,195,75,0.12);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-word.accent { animation: none; }
+  animation: none !important;
+  will-change: auto;
 }
 
 

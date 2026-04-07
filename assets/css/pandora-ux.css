@@ -111,45 +111,12 @@ body.mode-jour .card::after {
 
 
 /* ═══════════════════════════════════════════════════════════════
-   4. GLOW BIOLUMINESCENT SUR LES TITRES ACCENTUÉS
-   Les mots accent ne brillent pas — ils respirent.
+   4. Accent hero — glow désactivé (gradient apple-finish + HIG lisibilité)
    ═══════════════════════════════════════════════════════════════ */
 
-@media (prefers-reduced-motion: no-preference) {
-  .hero-word.accent {
-    animation: accent-breathe 5s ease-in-out infinite;
-  }
-}
-
-@keyframes accent-breathe {
-  0%, 100% {
-    filter:
-      drop-shadow(0 0 8px rgba(29, 232, 176, 0.25))
-      drop-shadow(0 0 24px rgba(29, 232, 176, 0.10));
-  }
-  50% {
-    filter:
-      drop-shadow(0 0 16px rgba(29, 232, 176, 0.55))
-      drop-shadow(0 0 48px rgba(29, 232, 176, 0.22))
-      drop-shadow(0 0 80px rgba(107, 158, 255, 0.12));
-  }
-}
-
-/* Mode jour — jade actif sur fond clair */
-html[data-theme="light"] .hero-word.accent,
-body.mode-jour .hero-word.accent {
-  animation: accent-breathe-jour 5s ease-in-out infinite;
-}
-
-@keyframes accent-breathe-jour {
-  0%, 100% {
-    filter: drop-shadow(0 0 6px rgba(15,191,142,0.38));
-  }
-  50% {
-    filter:
-      drop-shadow(0 0 12px rgba(15,191,142,0.65))
-      drop-shadow(0 0 28px rgba(224,130,90,0.35));  /* pêche Pandora */
-  }
+.hero-word.accent {
+  animation: none !important;
+  filter: none !important;
 }
 
 

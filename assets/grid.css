@@ -54,10 +54,44 @@ main.home-landing > .pinapp-hero-viewport,
   .hero-fullscreen { min-height: 100vh; }
 }
 
+/* Voile lecture : contraste texte / fond (WCAG — Apple HIG) */
+.pinapp-hero-viewport::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 95% 75% at 50% 42%,
+    rgba(4, 10, 18, 0.08) 0%,
+    rgba(4, 10, 18, 0.45) 55%,
+    rgba(2, 6, 14, 0.62) 100%
+  );
+}
+html[data-theme="light"] .pinapp-hero-viewport::before,
+body.mode-jour .pinapp-hero-viewport::before {
+  background: radial-gradient(
+    ellipse 95% 75% at 50% 42%,
+    rgba(251, 245, 232, 0.15) 0%,
+    rgba(251, 245, 232, 0.35) 55%,
+    rgba(244, 236, 220, 0.55) 100%
+  );
+}
+
+.pinapp-hero-viewport > .container {
+  position: relative;
+  z-index: 2;
+}
+
 .pinapp-hero-viewport .scroll-chevron {
   position: absolute;
   bottom: max(2rem, calc(env(safe-area-inset-bottom, 0px) + 1.25rem));
   opacity: 0.5;
+}
+
+/* Indicateur scroll hero (souvent en dehors du .container) */
+.pinapp-hero-viewport .scroll-indicator {
+  z-index: 3;
 }
 
 /* Accueil — règle zéro scroll (cf. .cursor/rules/pinapp-zero-scroll.mdc) */
