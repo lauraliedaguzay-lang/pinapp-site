@@ -769,3 +769,342 @@ html {
   .df-hb-res-grid { gap:10px; }
   .df-hb-val { font-size:22px; }
 }
+
+/* ════════════════════════════════════════════════════════════════════
+   PREMIUM FINISH — DEMOS 3000 EUR
+   Animations cinematiques, glass Apple, spring physics, glows accent
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ─── 1. TYPOGRAPHIE — rendu Apple precis ──────────────────────────── */
+.demo-sector-page {
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: rgba(0,229,204,0.22); color: inherit; }
+
+/* ─── 2. HERO — entree cinematique (stagger 4 actes) ──────────────── */
+.hero-label,
+.hero-title,
+.hero-sub,
+.btn-hero {
+  opacity: 0;
+  transform: translateY(22px);
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hero-label { animation: hero-enter 0.80s 0.25s forwards cubic-bezier(0.16,1,0.3,1); }
+.hero-title { animation: hero-enter 0.90s 0.45s forwards cubic-bezier(0.16,1,0.3,1); }
+.hero-sub   { animation: hero-enter 0.85s 0.65s forwards cubic-bezier(0.16,1,0.3,1); }
+.btn-hero   { animation: hero-enter 0.80s 0.82s forwards cubic-bezier(0.16,1,0.3,1), demo-breathe 4s 1.6s ease-in-out infinite; }
+
+@keyframes hero-enter {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero title — gradient text teal-accent (effet Apple WWDC) */
+.hero-title {
+  background: linear-gradient(
+    140deg,
+    var(--demo-texte-hero, #f4f0ec) 30%,
+    var(--demo-accent-hero, #C41E3A) 90%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+}
+
+/* Hero label — sub-pixel tracking */
+.hero-label {
+  letter-spacing: 0.16em;
+  font-weight: 600;
+}
+
+/* Hero — ambient glow en bas (couleur accent) */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 55vw;
+  height: 35vw;
+  border-radius: 50%;
+  background: var(--demo-accent, #C41E3A);
+  filter: blur(100px);
+  opacity: 0.10;
+  pointer-events: none;
+  z-index: 1;
+  animation: hero-ambient 7s ease-in-out infinite;
+}
+@keyframes hero-ambient {
+  0%, 100% { opacity: 0.08; transform: translateX(-50%) scale(1.00); }
+  50%       { opacity: 0.14; transform: translateX(-50%) scale(1.12); }
+}
+
+/* ─── 3. CTA BUTTON — gradient, grain, spring physics ─────────────── */
+.btn-hero {
+  background: linear-gradient(
+    155deg,
+    var(--demo-accent, #C41E3A) 0%,
+    var(--demo-accent-dark, #A01028) 100%
+  ) !important;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.22) inset,
+    0 -1px 0 rgba(0,0,0,0.18) inset,
+    0 4px 20px rgba(0,0,0,0.35),
+    0 0 0 0 var(--demo-accent, #C41E3A) !important;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 500ms cubic-bezier(0.16,1,0.3,1),
+    box-shadow 300ms ease;
+  letter-spacing: -0.01em;
+}
+
+/* Grain de lumiere interne */
+.btn-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(155deg, rgba(255,255,255,0.18) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .btn-hero:hover {
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.26) inset,
+      0 -1px 0 rgba(0,0,0,0.14) inset,
+      0 10px 32px rgba(0,0,0,0.42),
+      0 0 28px rgba(0,0,0,0.18) !important;
+    animation: demo-breathe 4s ease-in-out infinite !important;
+  }
+}
+.btn-hero:active {
+  transform: scale(0.95) !important;
+  transition: transform 80ms cubic-bezier(0.25,0.1,0.25,1) !important;
+}
+
+/* ─── 4. SECTIONS — entree fluide (emerge de l'ombre) ─────────────── */
+.demo-sector-page section:not(.hero) {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity  600ms cubic-bezier(0.22,1,0.36,1),
+    transform 600ms cubic-bezier(0.22,1,0.36,1);
+}
+.demo-sector-page section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Toujours visible si JS desactive */
+.no-js .demo-sector-page section { opacity: 1 !important; transform: none !important; }
+
+/* ─── 5. SERVICE CARDS — glass Apple, hover spring ────────────────── */
+.swipe-item {
+  border-width: 0.5px !important;
+  backdrop-filter: blur(32px) saturate(160%);
+  -webkit-backdrop-filter: blur(32px) saturate(160%);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.12) inset,
+    0 -1px 0 rgba(0,0,0,0.10) inset,
+    0 8px 32px rgba(0,0,0,0.28),
+    0 1px 4px rgba(0,0,0,0.14) !important;
+  transition:
+    transform 420ms cubic-bezier(0.34,1.56,0.64,1),
+    box-shadow 300ms ease !important;
+}
+
+.swipe-item.active:hover {
+  transform: translateY(-3px) scale(1.012);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.16) inset,
+    0 -1px 0 rgba(0,0,0,0.08) inset,
+    0 14px 40px rgba(0,0,0,0.32),
+    0 0 24px rgba(255,255,255,0.04) !important;
+}
+
+/* Icone accentuee */
+.service-icon {
+  filter: drop-shadow(0 0 8px var(--demo-accent, #C41E3A));
+  transition: filter 300ms ease;
+}
+
+/* Prix — shimmer accent */
+.service-prix {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-shadow: 0 0 16px var(--demo-accent, #C41E3A);
+}
+
+/* Dot de swipe — accent */
+.swipe-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  transition: opacity 200ms ease, width 200ms cubic-bezier(0.16,1,0.3,1), background 200ms ease;
+}
+.swipe-dot.active {
+  opacity: 1;
+  width: 20px;
+  border-radius: 3px;
+}
+
+/* ─── 6. TESTIMONIAL — quote decorative, gradient text ────────────── */
+.preuve-avis {
+  position: relative;
+  letter-spacing: -0.01em;
+  line-height: 1.65;
+}
+.preuve-avis::before {
+  content: '\201C';
+  position: absolute;
+  top: -0.6em;
+  left: -0.3em;
+  font-size: 4em;
+  line-height: 1;
+  opacity: 0.12;
+  color: var(--demo-accent, #C41E3A);
+  font-family: Georgia, serif;
+  pointer-events: none;
+}
+
+/* Badges confiance */
+.badge {
+  border-width: 0.5px !important;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(12px);
+  transition: opacity 200ms ease;
+}
+@media (hover: hover) {
+  .badge:hover { opacity: 1; }
+}
+
+/* ─── 7. BOOKING — pills accent, progress shimmer ─────────────────── */
+.progress-fill {
+  background: linear-gradient(
+    90deg,
+    var(--demo-accent, #C41E3A) 0%,
+    rgba(255,255,255,0.6) 50%,
+    var(--demo-accent, #C41E3A) 100%
+  );
+  background-size: 200% 100%;
+  animation: progress-shimmer 2.5s linear infinite;
+  transition: width 400ms cubic-bezier(0.16,1,0.3,1) !important;
+}
+@keyframes progress-shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: 0%   center; }
+}
+
+/* Pills booking — spring press, active glow */
+.pill {
+  border-width: 0.5px !important;
+  transition:
+    background 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease,
+    transform 80ms cubic-bezier(0.25,0.1,0.25,1),
+    box-shadow 200ms ease !important;
+  -webkit-tap-highlight-color: transparent;
+}
+.pill:active {
+  transform: scale(0.92) !important;
+  transition: transform 80ms cubic-bezier(0.25,0.1,0.25,1) !important;
+}
+.pill.selected {
+  box-shadow:
+    0 0 14px var(--demo-accent, #C41E3A),
+    0 0 0 1px var(--demo-accent, #C41E3A) inset !important;
+  border-color: var(--demo-accent, #C41E3A) !important;
+}
+
+/* ─── 8. CONFIRMATION — check circle spring ───────────────────────── */
+@keyframes check-appear {
+  0%   { transform: scale(0.4) rotate(-20deg); opacity: 0; }
+  55%  { transform: scale(1.15) rotate(3deg);  opacity: 1; }
+  75%  { transform: scale(0.96) rotate(-1deg); opacity: 1; }
+  100% { transform: scale(1.00) rotate(0deg);  opacity: 1; }
+}
+.check-circle.animate {
+  animation: check-appear 600ms cubic-bezier(0.34,1.56,0.64,1) forwards !important;
+}
+.confirm-text {
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+}
+
+/* ─── 9. df-card — glass premium ──────────────────────────────────── */
+.df-card {
+  border-width: 0.5px !important;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.10) inset,
+    0 -1px 0 rgba(0,0,0,0.08) inset,
+    0 8px 32px rgba(0,0,0,0.24),
+    0 1px 4px rgba(0,0,0,0.12) !important;
+  backdrop-filter: blur(32px) saturate(160%);
+  -webkit-backdrop-filter: blur(32px) saturate(160%);
+}
+
+.df-cta {
+  background: linear-gradient(
+    155deg,
+    var(--demo-accent, #C41E3A) 0%,
+    var(--demo-accent-dark, #A01028) 100%
+  ) !important;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.20) inset,
+    0 4px 16px rgba(0,0,0,0.32) !important;
+  transition: transform 500ms cubic-bezier(0.16,1,0.3,1), opacity 200ms ease !important;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+.df-cta:active {
+  transform: scale(0.95) !important;
+  transition: transform 80ms cubic-bezier(0.25,0.1,0.25,1) !important;
+}
+
+.df-pill {
+  border-width: 0.5px !important;
+  transition: background 200ms ease, border-color 200ms ease, transform 80ms ease !important;
+}
+.df-pill:active { transform: scale(0.92) !important; }
+.df-pill.active {
+  box-shadow: 0 0 12px var(--demo-accent, #C41E3A) !important;
+  border-color: var(--demo-accent, #C41E3A) !important;
+}
+
+/* ─── 10. FOOTER — frosted glass Apple 0.5px ─────────────────────── */
+.site-footer {
+  backdrop-filter: saturate(180%) blur(24px) !important;
+  -webkit-backdrop-filter: saturate(180%) blur(24px) !important;
+  border-top-width: 0.5px !important;
+}
+
+/* ─── 11. SCROLLBAR — minimaliste ─────────────────────────────────── */
+* { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.12) transparent; }
+*::-webkit-scrollbar { width: 3px; }
+*::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.14); border-radius: 2px; }
+
+/* ─── 12. FOCUS & TOUCH ────────────────────────────────────────────── */
+:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--demo-accent, #C41E3A); outline-offset: 3px; border-radius: 4px; }
+a, button, input, .pill, .df-pill, .swipe-dot { -webkit-tap-highlight-color: transparent; }
+button, .pill, .df-cta, .df-pill { cursor: pointer; user-select: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-label, .hero-title, .hero-sub, .btn-hero,
+  .demo-sector-page section:not(.hero) {
+    animation: none !important; opacity: 1 !important; transform: none !important;
+  }
+  .hero::after { animation: none; }
+  .progress-fill { animation: none; }
+}

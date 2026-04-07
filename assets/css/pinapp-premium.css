@@ -1,0 +1,317 @@
+/* ════════════════════════════════════════════════════════════════════
+   PINAPP PREMIUM — couche de finition 3000€ sur le site principal
+   Animations cinématiques, accents lumineux, micro-interactions Apple
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────────────────
+   1. HERO — CTA invite pulsante (ring bioluminescent)
+   ───────────────────────────────────────────────────────────────────── */
+
+/* Ring animé autour du bouton principal dans le hero */
+.pinapp-hero-viewport .btn-primary {
+  position: relative;
+}
+.pinapp-hero-viewport .btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  border: 1.5px solid rgba(123, 79, 232, 0.0);
+  animation: cta-invite 3.5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes cta-invite {
+  0%,100% { inset: -6px;  border-color: rgba(123,79,232,0.00); opacity: 0; }
+  40%      { inset: -10px; border-color: rgba(123,79,232,0.40); opacity: 1; }
+  80%      { inset: -16px; border-color: rgba(123,79,232,0.00); opacity: 0; }
+}
+
+/* Hero prix — discret, aligné Apple */
+.hero-prix {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+  font-size: 12px !important;
+}
+
+/* Hero signature — serif élégante */
+.hero-signature {
+  opacity: 0;
+  animation: word-ascend 600ms cubic-bezier(0.45,0.05,0.55,0.95) 2100ms forwards;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   2. TITRES DE SECTION — underline animé (Apple product page style)
+   ───────────────────────────────────────────────────────────────────── */
+
+.section-enter.is-visible h2::after {
+  content: '';
+  display: block;
+  height: 1.5px;
+  width: 0;
+  margin: 10px auto 0;
+  background: linear-gradient(90deg, transparent, var(--accent-teal), transparent);
+  border-radius: 1px;
+  animation: h2-underline 900ms cubic-bezier(0.16,1,0.3,1) 200ms forwards;
+}
+@keyframes h2-underline {
+  from { width: 0; opacity: 0; }
+  to   { width: clamp(40px, 12%, 80px); opacity: 1; }
+}
+
+body.mode-jour .section-enter.is-visible h2::after,
+html[data-theme="light"] .section-enter.is-visible h2::after {
+  background: linear-gradient(90deg, transparent, var(--accent-violet, #5B3FD8), transparent);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   3. CARDS "POUR QUI" — SVG icon glow reveal
+   ───────────────────────────────────────────────────────────────────── */
+
+.section-enter.is-visible .card svg {
+  animation: svg-glow-in 700ms cubic-bezier(0.16,1,0.3,1) forwards;
+}
+.section-enter.is-visible .card:nth-child(2) svg { animation-delay: 120ms; }
+.section-enter.is-visible .card:nth-child(3) svg { animation-delay: 240ms; }
+
+@keyframes svg-glow-in {
+  from { filter: drop-shadow(0 0 0px rgba(0,229,204,0)); }
+  to   { filter: drop-shadow(0 0 10px rgba(0,229,204,0.55)); }
+}
+
+body.mode-jour .section-enter.is-visible .card svg,
+html[data-theme="light"] .section-enter.is-visible .card svg {
+  animation: svg-glow-in-jour 700ms cubic-bezier(0.16,1,0.3,1) forwards;
+}
+@keyframes svg-glow-in-jour {
+  from { filter: drop-shadow(0 0 0px rgba(91,63,216,0)); }
+  to   { filter: drop-shadow(0 0 10px rgba(91,63,216,0.45)); }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   4. iPhoneNotif mockup — glass ultra-premium
+   ───────────────────────────────────────────────────────────────────── */
+
+.iphone-notif,
+[class*="iphone"] {
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 0.5px solid rgba(255,255,255,0.14);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.12) inset,
+    0 20px 60px rgba(0,0,0,0.40),
+    0 4px 16px rgba(0,0,0,0.24);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   5. OFFRES / PRICING — card recommandée avec glow ring actif
+   ───────────────────────────────────────────────────────────────────── */
+
+/* La card avec badge "MEILLEUR RSI" ou "POPULAIRE" */
+.offre-card:has([class*="badge"]),
+.offre-card:has(.meilleur),
+.card:has(.badge-recommend) {
+  border-color: rgba(0,229,204,0.30) !important;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.12) inset,
+    0 0 0 1px rgba(0,229,204,0.08),
+    0 0 40px rgba(0,229,204,0.10),
+    0 8px 32px rgba(0,0,0,0.28) !important;
+}
+
+/* Version jour */
+body.mode-jour .offre-card:has([class*="badge"]),
+html[data-theme="light"] .offre-card:has([class*="badge"]) {
+  border-color: rgba(91,63,216,0.28) !important;
+  box-shadow:
+    0 0 0 1px rgba(91,63,216,0.06),
+    0 0 32px rgba(91,63,216,0.08),
+    0 4px 20px rgba(0,0,0,0.10) !important;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   6. AURORA ANALYSE INPUT — effet scan IA au focus
+   ───────────────────────────────────────────────────────────────────── */
+
+#aurora-activite:focus,
+textarea[id*="aurora"]:focus,
+input[id*="aurora"]:focus {
+  border-color: var(--accent-teal) !important;
+  box-shadow:
+    0 0 0 3px rgba(0,229,204,0.12),
+    0 0 24px rgba(0,229,204,0.08),
+    0 0 0 1px rgba(0,229,204,0.25) !important;
+  animation: aurora-scan 2s linear infinite;
+}
+@keyframes aurora-scan {
+  0%,100% { box-shadow: 0 0 0 3px rgba(0,229,204,0.12), 0 0 24px rgba(0,229,204,0.08), 0 0 0 1px rgba(0,229,204,0.25); }
+  50%      { box-shadow: 0 0 0 3px rgba(0,229,204,0.20), 0 0 36px rgba(0,229,204,0.14), 0 0 0 1px rgba(0,229,204,0.40); }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   7. PIPELINE SIMULATION — barre de progression accent
+   ───────────────────────────────────────────────────────────────────── */
+
+#pipeline-track [class*="step-fill"],
+.pipeline-progress,
+[id*="pipeline"] progress,
+[id*="pipeline"] .progress {
+  background: linear-gradient(90deg, var(--accent-teal), var(--accent-violet)) !important;
+  box-shadow: 0 0 12px rgba(0,229,204,0.35);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   8. SECTION CTA FINALE — ambient glow de fond
+   ───────────────────────────────────────────────────────────────────── */
+
+.section-enter:last-of-type,
+[data-chapter="cta"],
+section:last-of-type {
+  position: relative;
+}
+.section-enter:last-of-type::before,
+[data-chapter="cta"]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 50%,
+    rgba(123,79,232,0.06) 0%,
+    transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  animation: cta-ambient 7s ease-in-out infinite;
+}
+@keyframes cta-ambient {
+  0%,100% { opacity: 0.6; }
+  50%      { opacity: 1.0; }
+}
+
+body.mode-jour .section-enter:last-of-type::before,
+html[data-theme="light"] [data-chapter="cta"]::before {
+  background: radial-gradient(ellipse 60% 50% at 50% 50%,
+    rgba(91,63,216,0.05) 0%,
+    rgba(255,195,75,0.03) 50%,
+    transparent 70%);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   9. LABEL CHIP — version condensée Apple pour les sections
+   ───────────────────────────────────────────────────────────────────── */
+
+.section .label[style*="margin-bottom"] {
+  display: inline-block !important;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   10. ROI / CHIFFRES CLÉS — animation de comptage visuel
+   ───────────────────────────────────────────────────────────────────── */
+
+/* Les spans contenant des €/% dans les cartes ROI */
+.section-enter.is-visible [style*="font-size:2rem"],
+.section-enter.is-visible [style*="font-size: 2rem"] {
+  animation: number-reveal 600ms cubic-bezier(0.16,1,0.3,1) forwards;
+}
+@keyframes number-reveal {
+  from { opacity: 0; transform: scale(0.85) translateY(8px); }
+  to   { opacity: 1; transform: scale(1.00) translateY(0); }
+}
+
+/* Accent sur les chiffres teal */
+[style*="color:var(--accent-teal)"][style*="font-size:2rem"],
+[style*="color: var(--accent-teal)"][style*="font-size: 2rem"] {
+  text-shadow: 0 0 24px rgba(0,229,204,0.30);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   11. NAV LOGO — glow discret sur hover
+   ───────────────────────────────────────────────────────────────────── */
+
+@media (hover: hover) {
+  .nav-logo:hover svg,
+  .nav-logo:hover img {
+    filter: drop-shadow(0 0 8px rgba(0,229,204,0.40));
+    transition: filter 250ms ease;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   12. RÉALISATIONS — cards avec reveal cascade
+   ───────────────────────────────────────────────────────────────────── */
+
+.section-enter.is-visible .realisation-card:nth-child(1) { transition-delay: 0ms; }
+.section-enter.is-visible .realisation-card:nth-child(2) { transition-delay: 80ms; }
+.section-enter.is-visible .realisation-card:nth-child(3) { transition-delay: 160ms; }
+.section-enter.is-visible .realisation-card:nth-child(4) { transition-delay: 240ms; }
+
+/* Metric highlight */
+.realisation-metric,
+[class*="metric"],
+[class*="kpi"] {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   13. BOTTOM BAR — badge CTA couleur accent
+   ───────────────────────────────────────────────────────────────────── */
+
+.bottom-bar-cta {
+  background: linear-gradient(
+    135deg,
+    var(--accent-teal) 0%,
+    rgba(0,180,216,0.9) 100%
+  ) !important;
+  box-shadow: 0 2px 12px rgba(0,229,204,0.35) !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+  transition: transform 300ms cubic-bezier(0.16,1,0.3,1) !important;
+}
+@media (hover: hover) {
+  .bottom-bar-cta:hover {
+    transform: scale(1.04) !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   14. UNIVERS QUESTIONNAIRE — étapes avec numéros premium
+   ───────────────────────────────────────────────────────────────────── */
+
+/* Steps numérotés dans "comment ça marche" */
+[style*="font-size:1.5rem"][style*="color:var(--accent-teal)"],
+[style*="font-size: 1.5rem"][style*="color: var(--accent-teal)"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0,229,204,0.35);
+  box-shadow: 0 0 12px rgba(0,229,204,0.20);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   15. PREFERS-REDUCED-MOTION — désactiver les additions
+   ───────────────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .pinapp-hero-viewport .btn-primary::before,
+  .section-enter.is-visible h2::after,
+  .section-enter:last-of-type::before,
+  #aurora-activite:focus {
+    animation: none !important;
+  }
+}
