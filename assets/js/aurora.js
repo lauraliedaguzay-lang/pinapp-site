@@ -15,7 +15,9 @@ const Aurora = {
 
   getColors() {
     return this.isJour()
-      ? ['#FFB6C1', '#C8A0DC', '#FFD580']
+      /* Pandora jour : jade bioluminescent, ambre canopée, vert forêt */
+      ? ['#1DE8B0', '#E8A030', '#3AD46E']
+      /* Pandora nuit : teal électrique, violet profond, vert bioluminescent */
       : ['#00E5CC', '#7B4FE8', '#39E075'];
   },
 

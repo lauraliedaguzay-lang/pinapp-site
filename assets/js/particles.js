@@ -11,9 +11,10 @@ const Particles = {
   },
 
   getColor() {
+    /* Jour : ambre chaud Pandora / Nuit : teal bioluminescent */
     return this.isJour()
-      ? () => `rgba(123,79,232,${(0.15 + Math.random() * 0.2).toFixed(2)})`
-      : () => `rgba(0,229,204,${(0.15 + Math.random() * 0.2).toFixed(2)})`;
+      ? () => `rgba(232,160,48,${(0.18 + Math.random() * 0.22).toFixed(2)})`
+      : () => `rgba(0,229,204,${(0.15 + Math.random() * 0.20).toFixed(2)})`;
   },
 
   createCSS() {
@@ -75,9 +76,11 @@ const Particles = {
     document.body.addEventListener('modeChange', () => {
       const jour = this.isJour();
       document.querySelectorAll('.pinapp-particle').forEach(p => {
-        const alpha = (0.15 + Math.random() * 0.2).toFixed(2);
+        const alpha = jour
+          ? (0.18 + Math.random() * 0.22).toFixed(2)
+          : (0.15 + Math.random() * 0.20).toFixed(2);
         p.style.background = jour
-          ? `rgba(123,79,232,${alpha})`
+          ? `rgba(232,160,48,${alpha})`
           : `rgba(0,229,204,${alpha})`;
       });
     });

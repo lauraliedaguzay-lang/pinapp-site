@@ -13,9 +13,10 @@ const Cursor = {
   },
 
   getColor() {
+    /* Jour : jade bioluminescent forêt / Nuit : teal électrique */
     return this.isJour()
-      ? { main: '#7B4FE8', glow: 'rgba(123,79,232,', blend: 'multiply' }
-      : { main: '#00E5CC', glow: 'rgba(0,229,204,',  blend: 'screen'   };
+      ? { main: '#1DE8B0', glow: 'rgba(29,232,176,', blend: 'screen' }
+      : { main: '#00E5CC', glow: 'rgba(0,229,204,',  blend: 'screen' };
   },
 
   init() {

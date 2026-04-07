@@ -61,46 +61,78 @@ html[data-theme="dark"] {
   }
 }
 
-/* ----- Tokens mode clair — overlay sombre v3 → texte #FFF toujours lisible ----- */
+/* ----- Tokens mode clair — Pandora jour : forêt jade, ambre canopée, bioluminescence chaude ----- */
 html[data-theme="light"] {
   color-scheme: dark;
-  --bg-primary:     #050A14;
-  --bg-card:        rgba(255, 255, 255, 0.05);
-  --bg-overlay:     rgba(4, 8, 18, 0.82);
-  --bg-deep:        #07101A;
+
+  /* Accents — palette Pandora jour */
+  --accent-teal:   #1DE8B0;   /* jade bioluminescent — végétation illuminée */
+  --accent-violet: #E8A030;   /* ambre canopée — lumière de Polyphemus */
+  --accent-green:  #3AD46E;   /* vert forêt jade */
+  --accent-blue:   #4ECFB8;   /* teal eau Pandora */
+
+  /* Glassmorphism — teinte forêt profonde (jade sombre, pas blanc) */
+  --glass-nav:   rgba(3,14,9,0.62);
+  --glass-card:  rgba(5,20,12,0.44);
+  --glass-tag:   rgba(5,20,12,0.28);
+  --glass-modal: rgba(2,10,6,0.90);
+
+  /* Bordures — filament jade translucide */
+  --border-card:   rgba(29,232,176,0.16);
+  --border-subtle: rgba(29,232,176,0.08);
+
+  /* Ombres — profondeur forêt */
+  --shadow-sm:   0 2px 8px rgba(0,0,0,0.22);
+  --shadow-md:   0 8px 24px rgba(0,0,0,0.28), 0 0 0 1px rgba(29,232,176,0.08);
+  --shadow-lg:   0 24px 48px rgba(0,0,0,0.34), 0 0 0 1px rgba(29,232,176,0.10);
+  --shadow-xl:   0 40px 80px rgba(0,0,0,0.40), 0 0 0 1px rgba(29,232,176,0.12);
+  --glow-teal:   0 0 24px rgba(29,232,176,0.30), 0 0 48px rgba(29,232,176,0.15);
+  --glow-violet: 0 0 24px rgba(232,160,48,0.35), 0 0 48px rgba(232,160,48,0.18);
+
+  /* Backgrounds */
+  --bg-primary:     #030E06;
+  --bg-card:        rgba(5,20,12,0.44);
+  --bg-overlay:     rgba(3,14,9,0.90);
+  --bg-deep:        #020A04;
+
+  /* Textes — blanc pur lisible sur forêt sombre */
   --text-primary:   #FFFFFF;
-  --text-secondary: rgba(255, 255, 255, 0.72);
-  --text-tertiary:  rgba(255, 255, 255, 0.50);
-  --accent-teal:    #00E5CC;
-  --accent-violet:  #7B4FE8;
-  --accent-green:   #39E075;
-  --accent-blue:    #5FD4F0;
-  --glow-teal:      rgba(0, 229, 204, 0.10);
-  --glow-teal-lg:   rgba(0, 229, 204, 0.05);
-  --separator:      rgba(255, 255, 255, 0.08);
-  --border-card:    rgba(255, 255, 255, 0.10);
-  --nav-bg:         rgba(4, 8, 18, 0.55);
+  --text-secondary: rgba(255,255,255,0.75);
+  --text-tertiary:  rgba(255,255,255,0.50);
+
+  /* Séparateurs */
+  --separator:  rgba(29,232,176,0.12);
+  --nav-bg:     rgba(3,14,9,0.62);
 }
 
 @media (prefers-color-scheme: light) {
   html:not([data-theme]) {
     color-scheme: dark;
-    --bg-primary:     #050A14;
-    --bg-card:        rgba(255, 255, 255, 0.05);
-    --bg-overlay:     rgba(4, 8, 18, 0.82);
-    --bg-deep:        #07101A;
+    --accent-teal:   #1DE8B0;
+    --accent-violet: #E8A030;
+    --accent-green:  #3AD46E;
+    --accent-blue:   #4ECFB8;
+    --glass-nav:   rgba(3,14,9,0.62);
+    --glass-card:  rgba(5,20,12,0.44);
+    --glass-tag:   rgba(5,20,12,0.28);
+    --glass-modal: rgba(2,10,6,0.90);
+    --border-card:   rgba(29,232,176,0.16);
+    --border-subtle: rgba(29,232,176,0.08);
+    --shadow-sm:   0 2px 8px rgba(0,0,0,0.22);
+    --shadow-md:   0 8px 24px rgba(0,0,0,0.28), 0 0 0 1px rgba(29,232,176,0.08);
+    --shadow-lg:   0 24px 48px rgba(0,0,0,0.34), 0 0 0 1px rgba(29,232,176,0.10);
+    --shadow-xl:   0 40px 80px rgba(0,0,0,0.40), 0 0 0 1px rgba(29,232,176,0.12);
+    --glow-teal:   0 0 24px rgba(29,232,176,0.30), 0 0 48px rgba(29,232,176,0.15);
+    --glow-violet: 0 0 24px rgba(232,160,48,0.35), 0 0 48px rgba(232,160,48,0.18);
+    --bg-primary:     #030E06;
+    --bg-card:        rgba(5,20,12,0.44);
+    --bg-overlay:     rgba(3,14,9,0.90);
+    --bg-deep:        #020A04;
     --text-primary:   #FFFFFF;
-    --text-secondary: rgba(255, 255, 255, 0.72);
-    --text-tertiary:  rgba(255, 255, 255, 0.50);
-    --accent-teal:    #00E5CC;
-    --accent-violet:  #7B4FE8;
-    --accent-green:   #39E075;
-    --accent-blue:    #5FD4F0;
-    --glow-teal:      rgba(0, 229, 204, 0.10);
-    --glow-teal-lg:   rgba(0, 229, 204, 0.05);
-    --separator:      rgba(255, 255, 255, 0.08);
-    --border-card:    rgba(255, 255, 255, 0.10);
-    --nav-bg:         rgba(4, 8, 18, 0.55);
+    --text-secondary: rgba(255,255,255,0.75);
+    --text-tertiary:  rgba(255,255,255,0.50);
+    --separator:  rgba(29,232,176,0.12);
+    --nav-bg:     rgba(3,14,9,0.62);
   }
 }
 
@@ -143,8 +175,14 @@ html[data-theme="light"] body::before {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  /* Voile jour — règle v3 : rgba(4,8,18,0.58) — texte #FFF lisible sur bg-clair */
-  background: rgba(4, 8, 18, 0.58);
+  /* Voile Pandora jour — forêt jade profonde qui laisse respirer bg-clair.png
+     Gradient : fond forêt sombre en bas, légère chauffe ambrée en haut (canopée) */
+  background: linear-gradient(
+    180deg,
+    rgba(8, 24, 12, 0.44) 0%,      /* canopée — légèrement plus clair en haut */
+    rgba(3, 14, 8, 0.52) 50%,      /* forêt mi-hauteur */
+    rgba(2, 10, 5, 0.60) 100%      /* sol de la forêt — plus profond */
+  );
 }
 
 @media (prefers-color-scheme: dark) {
@@ -179,7 +217,12 @@ html[data-theme="light"] body::before {
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    background: rgba(4, 8, 18, 0.58);
+    background: linear-gradient(
+      180deg,
+      rgba(8, 24, 12, 0.44) 0%,
+      rgba(3, 14, 8, 0.52) 50%,
+      rgba(2, 10, 5, 0.60) 100%
+    );
   }
 }
 
