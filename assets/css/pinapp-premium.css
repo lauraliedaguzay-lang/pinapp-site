@@ -1,4 +1,4 @@
-/* ════════════════════════════════════════════════════════════════════
+﻿/* ════════════════════════════════════════════════════════════════════
    PINAPP PREMIUM — couche de finition 3000€ sur le site principal
    Animations cinématiques, accents lumineux, micro-interactions Apple
    ════════════════════════════════════════════════════════════════════ */
@@ -44,7 +44,7 @@
    2. TITRES DE SECTION — underline animé (Apple product page style)
    ───────────────────────────────────────────────────────────────────── */
 
-.section-enter.is-visible h2::after {
+.section-enter.visible h2::after {
   content: '';
   display: block;
   height: 1.5px;
@@ -59,8 +59,8 @@
   to   { width: clamp(40px, 12%, 80px); opacity: 1; }
 }
 
-body.mode-jour .section-enter.is-visible h2::after,
-html[data-theme="light"] .section-enter.is-visible h2::after {
+body.mode-jour .section-enter.visible h2::after,
+html[data-theme="light"] .section-enter.visible h2::after {
   background: linear-gradient(90deg, transparent, var(--accent-violet, #5B3FD8), transparent);
 }
 
@@ -69,19 +69,19 @@ html[data-theme="light"] .section-enter.is-visible h2::after {
    3. CARDS "POUR QUI" — SVG icon glow reveal
    ───────────────────────────────────────────────────────────────────── */
 
-.section-enter.is-visible .card svg {
+.section-enter.visible .card svg {
   animation: svg-glow-in 700ms cubic-bezier(0.16,1,0.3,1) forwards;
 }
-.section-enter.is-visible .card:nth-child(2) svg { animation-delay: 120ms; }
-.section-enter.is-visible .card:nth-child(3) svg { animation-delay: 240ms; }
+.section-enter.visible .card:nth-child(2) svg { animation-delay: 120ms; }
+.section-enter.visible .card:nth-child(3) svg { animation-delay: 240ms; }
 
 @keyframes svg-glow-in {
   from { filter: drop-shadow(0 0 0px rgba(0,229,204,0)); }
   to   { filter: drop-shadow(0 0 10px rgba(0,229,204,0.55)); }
 }
 
-body.mode-jour .section-enter.is-visible .card svg,
-html[data-theme="light"] .section-enter.is-visible .card svg {
+body.mode-jour .section-enter.visible .card svg,
+html[data-theme="light"] .section-enter.visible .card svg {
   animation: svg-glow-in-jour 700ms cubic-bezier(0.16,1,0.3,1) forwards;
 }
 @keyframes svg-glow-in-jour {
@@ -215,8 +215,8 @@ html[data-theme="light"] [data-chapter="cta"]::before {
    ───────────────────────────────────────────────────────────────────── */
 
 /* Les spans contenant des €/% dans les cartes ROI */
-.section-enter.is-visible [style*="font-size:2rem"],
-.section-enter.is-visible [style*="font-size: 2rem"] {
+.section-enter.visible [style*="font-size:2rem"],
+.section-enter.visible [style*="font-size: 2rem"] {
   animation: number-reveal 600ms cubic-bezier(0.16,1,0.3,1) forwards;
 }
 @keyframes number-reveal {
@@ -248,10 +248,10 @@ html[data-theme="light"] [data-chapter="cta"]::before {
    12. RÉALISATIONS — cards avec reveal cascade
    ───────────────────────────────────────────────────────────────────── */
 
-.section-enter.is-visible .realisation-card:nth-child(1) { transition-delay: 0ms; }
-.section-enter.is-visible .realisation-card:nth-child(2) { transition-delay: 80ms; }
-.section-enter.is-visible .realisation-card:nth-child(3) { transition-delay: 160ms; }
-.section-enter.is-visible .realisation-card:nth-child(4) { transition-delay: 240ms; }
+.section-enter.visible .realisation-card:nth-child(1) { transition-delay: 0ms; }
+.section-enter.visible .realisation-card:nth-child(2) { transition-delay: 80ms; }
+.section-enter.visible .realisation-card:nth-child(3) { transition-delay: 160ms; }
+.section-enter.visible .realisation-card:nth-child(4) { transition-delay: 240ms; }
 
 /* Metric highlight */
 .realisation-metric,
@@ -309,7 +309,7 @@ html[data-theme="light"] [data-chapter="cta"]::before {
 
 @media (prefers-reduced-motion: reduce) {
   .pinapp-hero-viewport .btn-primary::before,
-  .section-enter.is-visible h2::after,
+  .section-enter.visible h2::after,
   .section-enter:last-of-type::before,
   #aurora-activite:focus {
     animation: none !important;
