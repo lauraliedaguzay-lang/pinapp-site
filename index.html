@@ -1,6 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
+<script>
+(function(){var s=localStorage.getItem('pinapp-mode');var d=window.matchMedia('(prefers-color-scheme:dark)').matches;var m=s||(d?'nuit':'jour');document.documentElement.setAttribute('data-mode',m);if(document.body)document.body.classList.add('mode-'+m);document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('mode-'+m);});}());
+</script>
   <meta charset="UTF-8">
   <meta name="theme-color" id="pinapp-theme-color" content="#050A14">
   <script src="assets/js/theme-init.js"></script>
@@ -108,10 +111,20 @@
   <div class="holo-grid" aria-hidden="true"></div>
   <nav class="nav" id="mainNav" role="navigation">
     <div class="container nav-inner">
-            <a href="index.html" class="pinapp-breathe nav-logo" aria-label="Pinapp Studio — accueil">
-        <img src="assets/images/pinapp-logo.png" alt="Pinapp" width="200" height="60" decoding="async" class="nav-logo-img">
+            <a href="index.html" class="nav-logo" aria-label="Pinapp Studio — accueil" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+        <svg width="30" height="36" viewBox="0 0 32 38" fill="none" aria-hidden="true" style="flex-shrink:0;">
+          <g stroke="#00E5CC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 2 C13 5 10 6 11 9"/>
+            <path d="M16 2 L16 9"/>
+            <path d="M16 2 C19 5 22 6 21 9"/>
+            <ellipse cx="16" cy="24" rx="9" ry="12"/>
+            <path d="M7 20 L16 15 L25 20 L16 25 Z"/>
+            <path d="M7 26 L16 21 L25 26 L16 31 Z"/>
+          </g>
+        </svg>
+        <span style="font-size:16px;font-weight:600;letter-spacing:-0.02em;color:var(--text);">Pinapp</span>
       </a>
-      <div class="nav-links">
+        <div class="nav-links">
         <a href="offres/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
         <a href="realisations/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
         <a href="a-propos/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
@@ -133,33 +146,50 @@
     <div class="mobile-drawer-panel">
       <button type="button" id="drawerClose" aria-label="Fermer le menu">×</button>
       <a href="offres/index.html">Offres</a>
-      <a href="realisations/index.html">Réalisations</a>
-      <a href="a-propos/index.html">À propos</a>
-      <a href="faq/index.html">FAQ</a>
-      <a href="diagnostic/index.html">Démarrer ma demande</a>
-    </div>
+      <div class="nav-links">
+        <a href="offres/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
+        <a href="realisations/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
+        <a href="a-propos/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
+        <a href="faq/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
+        <a href="diagnostic/index.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Démarrer ma demande</a>
+      </div>
   </div>
   <div class="bottom-bar" role="navigation" aria-label="Navigation mobile">
     <a href="index.html">Accueil</a>
     <a href="offres/index.html">Offres</a>
-    <a href="realisations/index.html">Réalisations</a>
-    <a href="faq/index.html">FAQ</a>
-    <a href="diagnostic/index.html">Diagnostic</a>
-  </div>
+    <div class="nav-links">
+        <a href="offres/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
+        <a href="realisations/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
+        <a href="a-propos/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
+        <a href="faq/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
+        <a href="diagnostic/index.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Démarrer ma demande</a>
+      </div>
     <main id="contenu-principal" class="stack-above-bg home-landing" tabindex="-1">
 
   <!-- 1. HERO -->
   <section class="pinapp-hero-viewport" data-chapter="invitation">
     <div class="aurora-bg" style="position:absolute;inset:0;z-index:0;"></div>
     <div class="container" style="position:relative;z-index:2;max-width:50rem;">
-      <p class="label hero-el stagger-0" style="margin-bottom:var(--space-3);">Pour les artisans, indépendants et TPE qui n'ont pas le temps de gérer leur digital.</p>
-      <h1 style="font-size:var(--text-hero);letter-spacing:-0.03em;margin-bottom:var(--space-3);">Votre site, vos relances, vos devis &mdash;<br><span class="hero-word accent">je prépare tout.</span> Vous validez en 1 clic.</h1>
-      <p class="hero-el stagger-1" style="font-size:1.25rem;opacity:0.85;margin-bottom:var(--space-5);">Site web professionnel · Relances automatiques · Devis envoyés sans y penser.<br>À partir de 297 € &mdash; livraison en 48 h.</p>
-      <div class="hero-cta" style="display:flex;gap:var(--space-3);flex-wrap:wrap;justify-content:center;margin-bottom:var(--space-4);">
-        <a href="diagnostic/index.html" class="btn btn-primary pinapp-breathe">Démarrer ma demande &mdash; 30 min, zéro engagement</a>
-        <a href="realisations/index.html" class="btn btn-secondary">Voir les réalisations <span class="arrow">→</span></a>
+      <p class="label" style="text-align:center;margin-bottom:var(--space-4);">Pour les artisans, indépendants et TPE</p>
+      <h1 aria-label="Votre site, vos relances, vos devis. Je prépare tout. Vous validez. C'est réglé."
+          style="font-size:var(--text-hero);letter-spacing:-0.03em;margin-bottom:var(--space-4);text-align:center;line-height:1.05;">
+        <span class="hero-word" style="--delay:0ms">Votre</span>&#32;<span class="hero-word" style="--delay:180ms">site,</span>&#32;<span class="hero-word" style="--delay:360ms">vos</span>&#32;<span class="hero-word" style="--delay:540ms">relances,</span><br>
+        <span class="hero-word" style="--delay:720ms">vos</span>&#32;<span class="hero-word" style="--delay:900ms">devis</span>&#32;<span class="hero-word" style="--delay:1080ms">&mdash;</span><br>
+        <span class="hero-word accent" style="--delay:1380ms">je</span>&#32;<span class="hero-word accent" style="--delay:1560ms">prépare</span>&#32;<span class="hero-word accent" style="--delay:1740ms">tout.</span>
+      </h1>
+      <p class="hero-subtitle" style="text-align:center;">Vous repoussez ce qui s&rsquo;accumule. Pinapp s&rsquo;en charge. Vous validez. C&rsquo;est réglé.</p>
+      <p style="text-align:center;font-size:1rem;color:var(--text-3);margin-bottom:var(--space-6);">Site web professionnel &middot; Relances automatiques &middot; Devis sans y penser.</p>
+      <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;justify-content:center;margin-bottom:var(--space-4);">
+        <a href="diagnostic/index.html" class="btn btn-primary">Démarrer ma demande — gratuit</a>
+        <div class="nav-links">
+        <a href="offres/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
+        <a href="realisations/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
+        <a href="a-propos/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
+        <a href="faq/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
+        <a href="diagnostic/index.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Démarrer ma demande</a>
       </div>
-      <p class="hero-el stagger-3 label" style="opacity:0.55;">Lauralie Daguzay &mdash; Fondatrice Pinapp Studio</p>
+      <p class="hero-prix">À partir de 297 € · Une seule fois · Pas d&rsquo;abonnement</p>
+      <p class="hero-signature">Lauralie Daguzay &mdash; Pinapp Studio</p>
     </div>
     <div class="scroll-indicator" id="heroScrollIndicator" aria-hidden="true">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
@@ -315,16 +345,12 @@
           <h3 style="font-size:1rem;margin:0 0 var(--space-2);">Artisan plombier</h3>
           <p style="font-size:13px;opacity:0.7;">Site vitrine + devis automatisés. 3 nouveaux clients en 2 semaines.</p>
         </a>
-        <a href="realisations/index.html" class="card" style="text-decoration:none;color:inherit;padding:var(--space-5);">
-          <p style="font-size:1.75rem;margin-bottom:var(--space-2);">🍽️</p>
-          <h3 style="font-size:1rem;margin:0 0 var(--space-2);">Restaurant local</h3>
-          <p style="font-size:13px;opacity:0.7;">Réservations en ligne + relances automatiques. Taux de remplissage +40 %.</p>
-        </a>
-        <a href="realisations/index.html" class="card" style="text-decoration:none;color:inherit;padding:var(--space-5);">
-          <p style="font-size:1.75rem;margin-bottom:var(--space-2);">💼</p>
-          <h3 style="font-size:1rem;margin:0 0 var(--space-2);">Coach indépendante</h3>
-          <p style="font-size:13px;opacity:0.7;">Site + prise de RDV automatique. 0 appel administratif par semaine.</p>
-        </a>
+        <div class="nav-links">
+        <a href="offres/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
+        <a href="realisations/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
+        <a href="a-propos/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
+        <a href="faq/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
+        <a href="diagnostic/index.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Démarrer ma demande</a>
       </div>
       <a href="realisations/index.html" class="btn btn-secondary">Voir toutes les réalisations →</a>
     </div>

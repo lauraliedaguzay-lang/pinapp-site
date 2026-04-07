@@ -1,4 +1,55 @@
-/* PINAPP — animations.css v4.6 — modernité Apple : spring, entrées fluides, glow épuré */
+/* PINAPP — animations.css v5 — Avatar · Pandora · The Light Always Returns */
+
+/* ═══════════════════════════════════════════════════════════════
+   RÉVÉLATION MOT PAR MOT — Hero — tempo musical 3.5s
+   ═══════════════════════════════════════════════════════════════ */
+.hero-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: word-ascend 400ms cubic-bezier(0.45,0.05,0.55,0.95) forwards;
+  animation-delay: var(--delay, 0ms);
+  will-change: opacity, transform;
+}
+@keyframes word-ascend {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Accent — blanc absolu, jamais teal */
+.hero-word.accent { color: inherit; }
+
+/* Sous-titre poétique — murmure */
+.hero-subtitle {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--text-2);
+  letter-spacing: 0.02em;
+  margin-bottom: var(--space-5);
+  opacity: 0;
+  animation: word-ascend 600ms cubic-bezier(0.45,0.05,0.55,0.95) 1800ms forwards;
+}
+
+/* Prix — murmure */
+.hero-prix {
+  color: var(--text-4);
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+  margin-top: 32px;
+}
+
+/* Signature fondatrice */
+.hero-signature {
+  color: var(--text-4);
+  font-style: italic;
+  font-family: Georgia, serif;
+  font-size: 11px;
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* kiri-soar déjà dans variables.css */
 
 /* ① Respiration signature — logo + CTA (Apple : amplitude minimale, rythme lent) */
 @keyframes breathe {
