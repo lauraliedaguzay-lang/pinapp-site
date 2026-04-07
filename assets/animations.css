@@ -1004,26 +1004,26 @@ body::after {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  body::after {
-    /* Nuit : respiration plus longue (plus “cinéma”, moins nerveux) */
-    animation: ambient-field 18s ease-in-out infinite;
+  /* Mode nuit : pas de “lumière ambiante” animée en fond (on privilégie les scintillements) */
+  html[data-theme='dark'] body::after,
+  body:not(.mode-jour)::after {
+    animation: none !important;
   }
 }
 
-/* ═══ Scintillements (nuit) — micro-étoiles blanches très subtiles ═══
-   iOS : layer séparé via html::after (body::before/after déjà utilisés ailleurs).
-   Objectif : vivant mais imperceptible (pas de paillettes visibles). */
+/* ═══ Scintillements (nuit) — micro-étoiles + bioluminescence Pandora ═══
+   Layer séparé via html::after (évite de toucher body::after qui porte le “voile”). */
 @keyframes night-sparkle {
   0% {
     opacity: 0;
     filter: blur(0.2px);
   }
   18% {
-    opacity: 0.16;
+    opacity: 0.18;
     filter: blur(0.25px);
   }
   52% {
-    opacity: 0.1;
+    opacity: 0.11;
     filter: blur(0.15px);
   }
   100% {
@@ -1042,10 +1042,10 @@ html::after {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  html[data-theme='dark']::after,
-  body:not(.mode-jour)::after {
-    /* Dots “stars” en plusieurs calques — pas de pattern évident */
+  html[data-theme='dark']::after {
+    /* Micro-étoiles blanches + points bioluminescents (violet/bleu/vert/teal) */
     background:
+      /* Blanc — étoiles */
       radial-gradient(1px 1px at 12% 22%, rgba(255, 255, 255, 0.55) 0%, transparent 60%),
       radial-gradient(1px 1px at 28% 64%, rgba(255, 255, 255, 0.4) 0%, transparent 60%),
       radial-gradient(1px 1px at 44% 18%, rgba(255, 255, 255, 0.35) 0%, transparent 60%),
@@ -1053,7 +1053,16 @@ html::after {
       radial-gradient(1px 1px at 71% 72%, rgba(255, 255, 255, 0.36) 0%, transparent 60%),
       radial-gradient(1px 1px at 86% 28%, rgba(255, 255, 255, 0.46) 0%, transparent 60%),
       radial-gradient(1px 1px at 91% 61%, rgba(255, 255, 255, 0.3) 0%, transparent 60%),
-      radial-gradient(1px 1px at 8% 82%, rgba(255, 255, 255, 0.34) 0%, transparent 60%);
+      radial-gradient(1px 1px at 8% 82%, rgba(255, 255, 255, 0.34) 0%, transparent 60%),
+      /* Biolume — points légèrement plus “soft” */
+        radial-gradient(1px 1px at 18% 46%, rgba(123, 79, 232, 0.42) 0%, transparent 62%),
+      radial-gradient(1px 1px at 36% 76%, rgba(107, 158, 255, 0.38) 0%, transparent 62%),
+      radial-gradient(1px 1px at 63% 22%, rgba(57, 224, 117, 0.26) 0%, transparent 62%),
+      radial-gradient(1px 1px at 77% 54%, rgba(0, 229, 204, 0.28) 0%, transparent 62%),
+      radial-gradient(1px 1px at 54% 58%, rgba(123, 79, 232, 0.24) 0%, transparent 62%),
+      radial-gradient(1px 1px at 24% 12%, rgba(107, 158, 255, 0.22) 0%, transparent 62%),
+      radial-gradient(1px 1px at 92% 86%, rgba(0, 229, 204, 0.18) 0%, transparent 62%),
+      radial-gradient(1px 1px at 6% 66%, rgba(57, 224, 117, 0.16) 0%, transparent 62%);
     mix-blend-mode: screen;
     animation: night-sparkle 9.5s ease-in-out infinite;
   }
@@ -1069,7 +1078,15 @@ html::after {
       radial-gradient(1px 1px at 71% 72%, rgba(255, 255, 255, 0.36) 0%, transparent 60%),
       radial-gradient(1px 1px at 86% 28%, rgba(255, 255, 255, 0.46) 0%, transparent 60%),
       radial-gradient(1px 1px at 91% 61%, rgba(255, 255, 255, 0.3) 0%, transparent 60%),
-      radial-gradient(1px 1px at 8% 82%, rgba(255, 255, 255, 0.34) 0%, transparent 60%);
+      radial-gradient(1px 1px at 8% 82%, rgba(255, 255, 255, 0.34) 0%, transparent 60%),
+      radial-gradient(1px 1px at 18% 46%, rgba(123, 79, 232, 0.42) 0%, transparent 62%),
+      radial-gradient(1px 1px at 36% 76%, rgba(107, 158, 255, 0.38) 0%, transparent 62%),
+      radial-gradient(1px 1px at 63% 22%, rgba(57, 224, 117, 0.26) 0%, transparent 62%),
+      radial-gradient(1px 1px at 77% 54%, rgba(0, 229, 204, 0.28) 0%, transparent 62%),
+      radial-gradient(1px 1px at 54% 58%, rgba(123, 79, 232, 0.24) 0%, transparent 62%),
+      radial-gradient(1px 1px at 24% 12%, rgba(107, 158, 255, 0.22) 0%, transparent 62%),
+      radial-gradient(1px 1px at 92% 86%, rgba(0, 229, 204, 0.18) 0%, transparent 62%),
+      radial-gradient(1px 1px at 6% 66%, rgba(57, 224, 117, 0.16) 0%, transparent 62%);
     mix-blend-mode: screen;
     animation: night-sparkle 9.5s ease-in-out infinite;
   }
