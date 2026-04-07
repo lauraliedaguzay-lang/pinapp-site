@@ -280,7 +280,7 @@
       var form = document.createElement('form');
       form.className = 'demo-rich-form';
       form.setAttribute('novalidate', '');
-      [['Prénom', 'text', 'demo-fn'], ['Email', 'email', 'demo-em'], ['Téléphone (optionnel)', 'tel', 'demo-tel']].forEach(
+      [['Prénom', 'text', 'demo-fn'], ['Email', 'email', 'demo-em'], ['Mobile (optionnel)', 'tel', 'demo-tel']].forEach(
         function (row) {
           var lab = document.createElement('label');
           lab.className = 'demo-rich-label';
@@ -289,13 +289,24 @@
           inp.type = row[1];
           inp.className = 'demo-rich-input';
           inp.name = row[2];
-          if (row[1] === 'email') inp.autocomplete = 'email';
-          else if (row[1] === 'tel') inp.autocomplete = 'tel';
+          if (row[1] === 'email') {
+            inp.autocomplete = 'email';
+          } else if (row[1] === 'tel') {
+            inp.autocomplete = 'tel';
+            inp.inputMode = 'tel';
+            inp.placeholder = '06…';
+          }
           else inp.autocomplete = 'given-name';
           lab.appendChild(inp);
           form.appendChild(lab);
         }
       );
+      var telHint = document.createElement('p');
+      telHint.className = 'demo-rich-hint';
+      telHint.style.marginTop = '-10px';
+      telHint.style.opacity = '0.55';
+      telHint.textContent = 'Optionnel — utile pour un SMS / WhatsApp si vous préférez.';
+      form.appendChild(telHint);
       var lbm = document.createElement('label');
       lbm.className = 'demo-rich-label';
       lbm.textContent = 'Votre message';
