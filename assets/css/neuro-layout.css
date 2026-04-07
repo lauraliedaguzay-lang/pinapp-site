@@ -106,3 +106,90 @@
     letter-spacing: 0.03em;
   }
 }
+
+/* Barre du bas — 6 zones (ajout Formations) */
+.bottom-bar.bottom-bar--site.bottom-bar--six a {
+  font-size: 8px;
+  letter-spacing: 0.04em;
+}
+
+@media (min-width: 380px) {
+  .bottom-bar.bottom-bar--site.bottom-bar--six a {
+    font-size: 9px;
+    letter-spacing: 0.05em;
+  }
+}
+
+.bottom-bar.bottom-bar--site.bottom-bar--six .bottom-bar-cta {
+  max-width: 28vw;
+}
+
+/* Hub formations : mini-nav ancres sous la nav principale */
+body.formation-hub .formation-toc {
+  position: sticky;
+  top: calc(4.75rem + env(safe-area-inset-top, 0px));
+  z-index: calc(var(--z-nav, 100) - 1);
+  margin: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(2, 8, 20, 0.82);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  backdrop-filter: blur(16px) saturate(160%);
+}
+
+html[data-theme="light"] body.formation-hub .formation-toc,
+body.mode-jour.formation-hub .formation-toc {
+  background: rgba(255, 248, 238, 0.92);
+  border-bottom-color: rgba(26, 10, 46, 0.08);
+}
+
+body.formation-hub .formation-toc-inner {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 6px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 8px 0 10px;
+  align-items: center;
+}
+
+body.formation-hub .formation-toc-inner::-webkit-scrollbar {
+  display: none;
+}
+
+body.formation-hub .formation-toc-inner a {
+  flex: 0 0 auto;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  opacity: 0.72;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  white-space: nowrap;
+  transition: opacity 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+body.formation-hub .formation-toc-inner a:hover {
+  opacity: 1;
+  border-color: rgba(0, 229, 204, 0.35);
+}
+
+html[data-theme="light"] body.formation-hub .formation-toc-inner a,
+body.mode-jour.formation-hub .formation-toc-inner a {
+  border-color: rgba(26, 10, 46, 0.1);
+  background: rgba(255, 255, 255, 0.65);
+}
+
+body.formation-hub main .section[id] {
+  scroll-margin-top: calc(6.75rem + env(safe-area-inset-top, 0px));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.formation-hub .formation-toc-inner a {
+    transition: none;
+  }
+}
