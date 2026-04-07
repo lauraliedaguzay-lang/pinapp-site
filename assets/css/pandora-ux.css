@@ -80,13 +80,13 @@
   .card:hover::after { opacity: 1; }
 }
 
-/* Mode jour — ripple ambre */
+/* Mode jour — ripple jade sur fond clair : plus visible */
 html[data-theme="light"] .card::after,
 body.mode-jour .card::after {
   background: radial-gradient(
     circle at var(--ripple-x, 50%) var(--ripple-y, 50%),
-    rgba(232, 160, 48, 0.14) 0%,
-    rgba(58, 212, 110, 0.06) 45%,
+    rgba(15, 191, 142, 0.22) 0%,
+    rgba(196, 120, 32, 0.10) 45%,
     transparent 70%
   );
 }
@@ -117,7 +117,7 @@ body.mode-jour .card::after {
   }
 }
 
-/* Mode jour — ambre */
+/* Mode jour — jade actif sur fond clair */
 html[data-theme="light"] .hero-word.accent,
 body.mode-jour .hero-word.accent {
   animation: accent-breathe-jour 5s ease-in-out infinite;
@@ -125,12 +125,12 @@ body.mode-jour .hero-word.accent {
 
 @keyframes accent-breathe-jour {
   0%, 100% {
-    filter: drop-shadow(0 0 8px rgba(29,232,176,0.30));
+    filter: drop-shadow(0 0 6px rgba(15,191,142,0.40));
   }
   50% {
     filter:
-      drop-shadow(0 0 16px rgba(29,232,176,0.60))
-      drop-shadow(0 0 40px rgba(232,160,48,0.20));
+      drop-shadow(0 0 14px rgba(15,191,142,0.70))
+      drop-shadow(0 0 32px rgba(196,120,32,0.30));
   }
 }
 
@@ -219,15 +219,15 @@ nav.scrolled::after {
   50%       { opacity: 1;   transform: scaleX(1); }
 }
 
-/* Mode jour — teinte jade forêt */
+/* Mode jour — jade actif + ambre, plus opaque pour rester visible sur fond clair */
 html[data-theme="light"] nav.scrolled::after,
 body.mode-jour nav.scrolled::after {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(29, 232, 176, 0.50) 25%,
-    rgba(232, 160, 48, 0.55) 50%,
-    rgba(29, 232, 176, 0.50) 75%,
+    rgba(15, 191, 142, 0.65) 25%,
+    rgba(196, 120, 32, 0.70) 50%,
+    rgba(15, 191, 142, 0.65) 75%,
     transparent
   );
 }
@@ -266,6 +266,68 @@ body.mode-jour .scroll-indicator {
 
 @media (prefers-reduced-motion: reduce) {
   .img-reveal { filter: none; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   9b. MODE CLAIR — Textes + cartes sur fond lumineux Pandora
+   S'assure que le texte reste lisible sur le verre blanc.
+   ═══════════════════════════════════════════════════════════════ */
+
+html[data-theme="light"] body,
+html[data-theme="light"] p,
+html[data-theme="light"] li,
+html[data-theme="light"] h1,
+html[data-theme="light"] h2,
+html[data-theme="light"] h3,
+html[data-theme="light"] h4,
+html[data-theme="light"] blockquote,
+body.mode-jour p,
+body.mode-jour li,
+body.mode-jour h1,
+body.mode-jour h2,
+body.mode-jour h3 {
+  color: var(--text-primary, #0A1F12);
+}
+
+html[data-theme="light"] .text-secondary,
+html[data-theme="light"] .card p,
+html[data-theme="light"] .section p,
+body.mode-jour .card p {
+  color: var(--text-secondary, rgba(10,31,18,0.68));
+}
+
+/* Cartes : glassmorphism blanc laiteux, ombre verte légère */
+html[data-theme="light"] .card,
+body.mode-jour .card {
+  background: var(--glass-card, rgba(240,255,248,0.58));
+  border-color: var(--border-card, rgba(15,191,142,0.28));
+  box-shadow: var(--shadow-md, 0 8px 24px rgba(0,60,30,0.14));
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+}
+
+/* Nav : fond blanc laiteux jade en mode jour */
+html[data-theme="light"] nav,
+body.mode-jour nav {
+  background: var(--nav-bg, rgba(240,255,248,0.80)) !important;
+  backdrop-filter: blur(24px) saturate(2);
+  -webkit-backdrop-filter: blur(24px) saturate(2);
+}
+
+/* Séparateurs visibles sur fond clair */
+html[data-theme="light"] hr,
+html[data-theme="light"] .separator,
+body.mode-jour hr {
+  border-color: var(--separator, rgba(15,191,142,0.22));
+  opacity: 1;
+}
+
+/* Labels : couleur accent jade actif sur fond clair */
+html[data-theme="light"] .label,
+body.mode-jour .label {
+  color: var(--accent-teal, #0FBF8E);
+  opacity: 0.9;
 }
 
 

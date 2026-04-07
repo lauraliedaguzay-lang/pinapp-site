@@ -15,14 +15,19 @@ const Aurora = {
 
   getColors() {
     return this.isJour()
-      /* Pandora jour : jade bioluminescent, ambre canopée, vert forêt */
-      ? ['#1DE8B0', '#E8A030', '#3AD46E']
+      /* Pandora jour lumineux : accents actifs sur fond clair */
+      ? ['#0FBF8E', '#C47820', '#29A855']
       /* Pandora nuit : teal électrique, violet profond, vert bioluminescent */
       : ['#00E5CC', '#7B4FE8', '#39E075'];
   },
 
   getOpacity() {
-    return this.isJour() ? 0.32 : 0.22;
+    /* Jour : plus visible sur fond clair + mix-blend-mode multiply */
+    return this.isJour() ? 0.55 : 0.22;
+  },
+
+  getBlendMode() {
+    return this.isJour() ? 'multiply' : 'screen';
   },
 
   init() {
@@ -33,7 +38,7 @@ const Aurora = {
     this.canvas.setAttribute('aria-hidden', 'true');
     this.canvas.style.cssText =
       'position:fixed;inset:0;pointer-events:none;' +
-      'z-index:0;mix-blend-mode:screen;' +
+      `z-index:0;mix-blend-mode:${this.getBlendMode()};` +
       'will-change:opacity;';
     document.body.prepend(this.canvas);
     this.ctx = this.canvas.getContext('2d');
@@ -52,7 +57,10 @@ const Aurora = {
     resize();
 
     document.body.addEventListener('modeChange', () => {
-      if (this.canvas) this.canvas.style.opacity = this.getOpacity();
+      if (this.canvas) {
+        this.canvas.style.opacity = this.getOpacity();
+        this.canvas.style.mixBlendMode = this.getBlendMode();
+      }
     });
 
     /* Pause quand onglet invisible (économie CPU) */
