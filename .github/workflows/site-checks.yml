@@ -1,4 +1,4 @@
-# Vérifie que le site statique reste cohérent à chaque push / PR
+# Vérifie le site à chaque push / PR (aligné sur le job de build Pages)
 name: Site — vérifications
 
 on:
@@ -17,17 +17,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Fichiers critiques présents
-        run: |
-          set -e
-          test -f index.html
-          test -f robots.txt
-          test -f sitemap.xml
-          test -f .htaccess
-          test -f SECURITY.md
-          test -f .well-known/security.txt
+      - name: Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
 
-      - name: Secrets locaux non versionnés (fichiers interdits à la racine)
-        run: |
-          if [ -f .env ]; then echo "::error::.env ne doit pas être commité"; exit 1; fi
-          if [ -f .htpasswd ]; then echo "::error::.htpasswd ne doit pas être commité"; exit 1; fi
+      - name: Dépendances
+        run: npm install
+
+      - name: Prettier + garde-fous
+        run: npm run ci

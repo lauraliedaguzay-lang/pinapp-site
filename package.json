@@ -2,9 +2,12 @@
   "name": "pinapp-site",
   "private": true,
   "type": "module",
-  "description": "Site vitrine Pinapp — HTML/CSS/JS ; outillage Vite (dev) + Prettier",
+  "description": "Site vitrine Pinapp — HTML/CSS/JS ; Vite (dev), Prettier, build _site (npm run build), CI GitHub Actions",
   "scripts": {
     "dev": "vite --host",
+    "build": "node tools/build-site.mjs",
+    "verify": "node tools/verify-site.mjs",
+    "ci": "npm run format:check && npm run verify",
     "format": "prettier --write \"**/*.{html,css,js,mjs,json,md,yml}\"",
     "format:check": "prettier --check \"**/*.{html,css,js,mjs,json,md,yml}\""
   },
