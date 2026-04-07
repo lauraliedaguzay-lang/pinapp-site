@@ -232,9 +232,22 @@ html[data-theme="light"] .mobile-drawer-panel .nav-link:active {
   /* Exceptions : pills en ligne - pas full width */
   .filtre-pill,
   .secteur-pill,
+  .pill-choice,
+  .pill-btn,
+  .quiz-opt,
   [class*="-pill"] {
     width: auto !important;
     flex-shrink: 0;
+  }
+
+  /* Calculateur & config : pills hors grille « -pill » dans le nom de classe */
+  .pill-choice,
+  .pill-btn {
+    min-height: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 12px 18px !important;
   }
 
   /* Padding tactile généreux */
@@ -349,6 +362,17 @@ html[data-theme="light"] .mobile-drawer-panel .nav-link:active {
     border-color: rgba(0,0,0,0.10);
     color: #1A0A2E;
   }
+
+  /* Thème clair/sombre : zone tactile ≥ 44px (HIG) */
+  .nav .mode-toggle {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -369,10 +393,9 @@ html[data-theme="light"] .mobile-drawer-panel .nav-link:active {
     min-height: 85svh !important;
   }
 
-  /* Compenser la bottom-bar */
-  main:last-child,
-  main > *:last-child {
-    padding-bottom: calc(3.5rem + env(safe-area-inset-bottom, 0px) + 16px) !important;
+  /* Espace respiratoire avant le footer — la bottom-bar est déjà compensée sur body.page-with-bottom-nav (grid.css) */
+  body.page-with-bottom-nav main > *:last-child {
+    padding-bottom: max(24px, env(safe-area-inset-bottom, 0px)) !important;
   }
 
   /* Grilles : 1 colonne sur mobile sauf exception */

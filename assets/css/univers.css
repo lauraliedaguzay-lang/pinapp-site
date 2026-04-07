@@ -266,7 +266,15 @@ body.mode-jour #input-reference {
 @media (max-width: 768px) {
   .univers-interface { padding: 24px; }
   .univers-pills { gap: 8px; }
-  .univers-pill { padding: 10px 16px; font-size: 13px; }
+  .univers-pill {
+    padding: 12px 16px;
+    font-size: 13px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
   .univers-nom { font-size: clamp(22px, 6vw, 32px); }
   .univers-cta { padding: 12px 22px; font-size: 13px; }
 }
@@ -516,8 +524,19 @@ body.mode-jour .pill-choice.active {
 /* Mobile */
 @media (max-width: 768px) {
   .calculateur-layout { flex-direction: column; }
-  .calculateur-result { position: static; min-width: 100%; }
-  .result-prix { font-size: 48px; }
+  .calculateur-config {
+    min-width: 0;
+    width: 100%;
+  }
+  .calculateur-result { position: static; min-width: 0; width: 100%; max-width: 100%; }
+  .result-prix { font-size: clamp(36px, 12vw, 48px); }
+  .calculateur-section {
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .pills-group {
+    gap: 8px;
+  }
 }
 /* =====================================================
    GRAPHIQUES — SVG animés au scroll
@@ -542,6 +561,22 @@ body.mode-jour .pill-choice.active {
   min-width: 240px;
   padding: 24px;
   text-align: left;
+}
+
+@media (max-width: 767px) {
+  .graphiques-grid {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .graphique-card {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+  .graphiques-section {
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
 }
 
 .graphique-title {
