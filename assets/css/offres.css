@@ -372,7 +372,39 @@
   outline: none;
   cursor: pointer;
   accent-color: var(--teal);
+  -webkit-appearance: none;
+  appearance: none;
   padding: 0;
+  min-height: 0;
+}
+.calc-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--teal, #00E5CC);
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,229,204,0.35);
+  border: none;
+}
+.calc-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--teal, #00E5CC);
+  cursor: pointer;
+  border: none;
+}
+.calc-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.10);
+}
+.calc-slider::-moz-range-track {
+  height: 4px;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.10);
 }
 .calc-val {
   font-family: Georgia, serif;
@@ -436,4 +468,69 @@ body.mode-jour .offre-resultat {
 }
 body.mode-jour .step-circle {
   background: rgba(0,160,210,0.08);
+}
+
+/* =====================================================
+   MOBILE POLISH — offres.css
+   ===================================================== */
+@media (max-width: 640px) {
+  .offres-hero {
+    padding: 100px 20px 56px;
+  }
+  .offres-hero h1 {
+    font-size: clamp(26px, 7.5vw, 40px);
+    letter-spacing: -0.025em;
+  }
+  .offres-hero-sub {
+    font-size: 16px;
+    margin-bottom: 36px;
+  }
+  .offres-stats {
+    gap: 24px;
+  }
+  .stat-num { font-size: 36px; }
+  .stat-unit { font-size: 18px; }
+  .secteur-section {
+    padding: 0 16px 48px;
+  }
+  .secteur-pill, .pipeline-pill {
+    padding: 9px 18px;
+    font-size: 13px;
+  }
+  .offres-grid-section {
+    padding: 0 16px 60px;
+    gap: 16px;
+  }
+  .offre-card {
+    padding: 22px 20px;
+    gap: 16px;
+  }
+  .prix-montant { font-size: 24px; }
+  .calculateur-temps {
+    padding: 24px 18px;
+    margin: 0 16px 60px;
+  }
+  .calc-result { padding: 20px; }
+  .calc-result-num {
+    font-size: clamp(40px, 10vw, 64px);
+  }
+  .garantie-section, .cta-final {
+    padding: 56px 16px;
+  }
+  .pipeline-offres {
+    padding: 56px 16px;
+  }
+  .pipeline-secteur-pills {
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+  /* Calc slider : touch target élargi iOS */
+  .calc-slider {
+    height: 6px;
+    margin: 8px 0;
+  }
+  /* offre-before/after : liste compacte mobile */
+  .offre-avant li, .offre-apres li {
+    font-size: 13px;
+  }
 }

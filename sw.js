@@ -1,4 +1,4 @@
-// sw.js — Pinapp Studio Service Worker
+﻿// sw.js — Pinapp Studio Service Worker
 // Cache stratégie : Network first, fallback cache, fallback offline
 
 const CACHE = 'pinapp-v2';
@@ -12,7 +12,7 @@ const PRECACHE = [
   '/diagnostic/',
   '/a-propos/',
   '/assets/css/deploy-harmonise.css',
-  '/assets/images/favicon.svg',
+  '/favicon.svg',
   OFFLINE_URL,
 ];
 
