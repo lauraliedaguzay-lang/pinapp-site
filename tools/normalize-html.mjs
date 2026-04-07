@@ -26,6 +26,17 @@ function normalizeHtml(s) {
   out = out.replace(/\/assets\/images\/pinapp-logo\.png/g, '/assets/images/pinapp-logo.svg');
   out = out.replace(/(\bsrc=["'][^"']*?)pinapp-logo\.png(["'])/g, '$1pinapp-logo.svg$2');
 
+  // Remove external font provider (visual inconsistency + CSP risk).
+  // Pinapp relies on system stacks if local font isn't shipped.
+  out = out.replace(
+    /\s*<link\s+rel=["']preconnect["']\s+href=["']https:\/\/fonts\.bunny\.net["']\s*\/?>\s*/gi,
+    '',
+  );
+  out = out.replace(
+    /\s*<link\s+rel=["']stylesheet["']\s+href=["']https:\/\/fonts\.bunny\.net\/css\?family=inter:[^"']+["']\s*\/?>\s*/gi,
+    '',
+  );
+
   // Remove preload to missing local font file.
   // (Some pages still include it; build step also removes it, but keep sources clean.)
   out = out.replace(
