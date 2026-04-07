@@ -7,13 +7,8 @@
  */
 (function (g) {
   'use strict';
-  var q = '?auto=format&fit=crop&w=1600&q=82';
-  var qM = '?auto=format&fit=crop&w=1000&q=82';
-  var qS = '?auto=format&fit=crop&w=640&q=80';
-  var U = 'https://images.unsplash.com/photo-';
-
-  function img(id, tail) {
-    return U + id + (tail || q);
+  function pack(secteur, file) {
+    return '../../assets/images/demo-pack/' + secteur + '/' + file;
   }
 
   g.PINAPP_DEMO_PHOTO_PACKS = {
@@ -21,61 +16,53 @@
       photoHero: 'demo-artisan-hero.webp',
       galerieTitle: 'Chantiers & savoir-faire',
       galerie: [
-        { src: img('1503389152951-9f343605f61e', qM), alt: 'Rénovation', caption: 'Pièce à vivre' },
-        {
-          src: img('1621905252507-b35492cc74b4', qM),
-          alt: 'Plomberie',
-          caption: 'Installation propre',
-        },
-        {
-          src: img('1581578731548-c64695cc6952', qM),
-          alt: 'Électricité',
-          caption: 'Mise aux normes',
-        },
-        { src: img('1600585154340-be6161a56a0c', qM), alt: 'Façade', caption: 'Isolation' },
-        { src: img('1600607687939-ce8a6c25118c', qM), alt: 'Cuisine', caption: 'Finitions' },
-        { src: img('1600566753190-17f0baa2a6c3', qM), alt: 'Outils', caption: 'Matériel pro' },
+        { src: pack('artisan', 'gal-1.webp'), alt: 'Rénovation', caption: 'Pièce à vivre' },
+        { src: pack('artisan', 'gal-2.webp'), alt: 'Plomberie', caption: 'Installation propre' },
+        { src: pack('artisan', 'gal-3.webp'), alt: 'Électricité', caption: 'Mise aux normes' },
+        { src: pack('artisan', 'gal-4.webp'), alt: 'Façade', caption: 'Isolation' },
+        { src: pack('artisan', 'gal-5.webp'), alt: 'Cuisine', caption: 'Finitions' },
+        { src: pack('artisan', 'gal-6.webp'), alt: 'Outils', caption: 'Matériel pro' },
       ],
       serviceImages: [
-        img('1621905251189-3b9a990a93fd', qS),
-        img('1600585154526-990dced4db0d', qS),
-        img('1581092160562-40aa08f66857', qS),
+        pack('artisan', 'gal-1.webp'),
+        pack('artisan', 'gal-2.webp'),
+        pack('artisan', 'gal-3.webp'),
       ],
       apropos: {
         titre: 'Une équipe sur le terrain',
         texte:
           'Artisans RGE, devis clairs, chantiers tenus dans les temps. Nous intervenons en Île-de-France avec la même exigence sur la finition que sur la sécurité.',
-        photo: img('1504307651254-35680f356dfd', qM),
+        photo: pack('artisan', 'hero-desktop.webp'),
       },
       servicesTitle: 'Interventions',
       servicesSubtitle:
         'Parcours et textes calibrés pour ce métier — vitrine sur mesure Pinapp, pas un thème générique revendu à la chaîne.',
       bookingSub: 'Trois réponses pour cadrer l’urgence et la zone (démo : rien n’est transmis).',
       confirmSub: 'Exemple : premier retour par message sous 2 h ouvrées.',
-      preuvePhoto: img('1573496359142-b8d87734a5a2', qS),
+      preuvePhoto: pack('artisan', 'proof.webp'),
     },
 
     restaurant: {
       photoHero: 'demo-restaurant-hero.webp',
       galerieTitle: 'Ambiance & assiettes',
       galerie: [
-        { src: img('1555396273-367ea4eb4db5', qM), alt: 'Salle', caption: 'Accueil' },
-        { src: img('1551218808-94e220e217d5', qM), alt: 'Cuisine', caption: 'Au feu' },
-        { src: img('1540189549336-e6e99c3679fe', qM), alt: 'Plat', caption: 'Saison' },
-        { src: img('1466978913421-dad2ebd01d17', qM), alt: 'Bar', caption: 'Cocktails' },
-        { src: img('1517248135467-4c7edcad34c4', qM), alt: 'Table', caption: 'Dressage' },
-        { src: img('1559339352-11d035aa65de', qM), alt: 'Dessert', caption: 'Maison' },
+        { src: pack('restaurant', 'gal-1.webp'), alt: 'Salle', caption: 'Accueil' },
+        { src: pack('restaurant', 'gal-2.webp'), alt: 'Cuisine', caption: 'Au feu' },
+        { src: pack('restaurant', 'gal-3.webp'), alt: 'Plat', caption: 'Saison' },
+        { src: pack('restaurant', 'gal-4.webp'), alt: 'Bar', caption: 'Cocktails' },
+        { src: pack('restaurant', 'gal-5.webp'), alt: 'Table', caption: 'Dressage' },
+        { src: pack('restaurant', 'gal-6.webp'), alt: 'Dessert', caption: 'Maison' },
       ],
       serviceImages: [
-        img('1559339352-11d035aa65de', qS),
-        img('1544025162-d76694265947', qS),
-        img('1424847657312-8e1b5de75a2a', qS),
+        pack('restaurant', 'gal-1.webp'),
+        pack('restaurant', 'gal-2.webp'),
+        pack('restaurant', 'gal-3.webp'),
       ],
       apropos: {
         titre: 'Notre maison, votre table',
         texte:
           'Cuisine japonaise contemporaine, produits sourcés, équipe soudée. Réservations en ligne et accueil personnalisé.',
-        photo: img('1552566626-52a8f8283a9e', qM),
+        photo: pack('restaurant', 'hero-desktop.webp'),
       },
       servicesTitle: 'Carte & expériences',
       servicesSubtitle:
@@ -83,37 +70,37 @@
       bookingSub: 'Quatre choix pour préparer votre table (démo).',
       confirmSub:
         'Exemple : confirmation affichée ici ; en réel, lien vers votre logiciel ou votre boîte mail.',
-      preuvePhoto: img('1438761681033-6461ffad8d80', qS),
+      preuvePhoto: pack('restaurant', 'proof.webp'),
     },
 
     coach: {
       photoHero: 'demo-coach-hero.webp',
       galerieTitle: 'Accompagnement & transformation',
       galerie: [
-        { src: img('1571019613454-1cb2f99b2d8b', qM), alt: 'Séance', caption: 'Coaching' },
-        { src: img('1506126613408-eca07ce68773', qM), alt: 'Focus', caption: 'Objectifs' },
-        { src: img('1522202176988-66273c2fd55f', qM), alt: 'Groupe', caption: 'Atelier' },
-        { src: img('1522071820081-009f0129c71c', qM), alt: 'Équipe', caption: 'Entreprise' },
-        { src: img('1493836512294-502baa1986fc', qM), alt: 'Nature', caption: 'Ressourcement' },
-        { src: img('1516321318421-f621f2f503d4', qM), alt: 'Carnet', caption: 'Méthode' },
+        { src: pack('coach', 'gal-1.webp'), alt: 'Séance', caption: 'Coaching' },
+        { src: pack('coach', 'gal-2.webp'), alt: 'Focus', caption: 'Objectifs' },
+        { src: pack('coach', 'gal-3.webp'), alt: 'Groupe', caption: 'Atelier' },
+        { src: pack('coach', 'gal-4.webp'), alt: 'Équipe', caption: 'Entreprise' },
+        { src: pack('coach', 'gal-5.webp'), alt: 'Nature', caption: 'Ressourcement' },
+        { src: pack('coach', 'gal-6.webp'), alt: 'Carnet', caption: 'Méthode' },
       ],
       serviceImages: [
-        img('1571019613454-1cb2f99b2d8b', qS),
-        img('1506126613408-eca07ce68773', qS),
-        img('1522202176988-66273c2fd55f', qS),
+        pack('coach', 'gal-1.webp'),
+        pack('coach', 'gal-2.webp'),
+        pack('coach', 'gal-3.webp'),
       ],
       apropos: {
         titre: 'Certifiée, à votre écoute',
         texte:
           'ICF, bilans CPF, séances sur mesure. Un cadre bienveillant pour dépasser vos blocages et structurer votre projet.',
-        photo: img('1552664730-d307ca884978', qM),
+        photo: pack('coach', 'hero-desktop.webp'),
       },
       servicesTitle: 'Accompagnements',
       servicesSubtitle:
         'Offres et ton adaptés au coaching — page conçue comme un vrai site pro, pas un gabarit « coach » figé.',
       bookingSub: 'Premier cadrage par écrit, sans appel imposé (démo).',
       confirmSub: 'Exemple : réponse personnalisée sous 24 h sur un site livré.',
-      preuvePhoto: img('1494790108377-be9c29b29330', qS),
+      preuvePhoto: pack('coach', 'proof.webp'),
     },
 
     trainer: {
