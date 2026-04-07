@@ -41,10 +41,21 @@ const Pipeline = {
       track.appendChild(node);
     });
 
-    // Lancer au scroll
-    new IntersectionObserver(([e]) => {
-      if (e.isIntersecting && !this._running) this.animate();
-    }, { threshold: 0.25 }).observe(track);
+    // Conformité Pinapp : pas d’animation déclenchée au scroll.
+    // On lance au chargement (une fois) si la section existe.
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) {
+      // État final direct (sans boucle)
+      setTimeout(() => {
+        document.querySelectorAll('.pipeline-circle').forEach((c) => c.classList.add('active'));
+        document.querySelectorAll('.pipeline-line').forEach((l) => l.classList.add('active'));
+        this._running = true;
+      }, 0);
+      return;
+    }
+    setTimeout(() => {
+      if (!this._running) this.animate();
+    }, 0);
   },
 
   animate() {
@@ -62,14 +73,8 @@ const Pipeline = {
       }, i * 1400);
     });
 
-    // Boucle infinie après completion
-    const total = this.nodes.length * 1400 + 2500;
-    setTimeout(() => {
-      circles.forEach(c => c.classList.remove('active'));
-      lines.forEach(l   => l.classList.remove('active'));
-      this._running = false;
-      setTimeout(() => this.animate(), 800);
-    }, total);
+    // Conformité Pinapp : pas de boucle infinie “effet qui tourne”.
+    // On laisse le dernier état.
   }
 };
 

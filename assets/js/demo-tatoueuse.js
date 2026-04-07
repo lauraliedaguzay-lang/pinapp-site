@@ -68,25 +68,16 @@
     });
   });
 
-  /* Scroll reveal */
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (en) {
-          if (en.isIntersecting) {
-            en.target.classList.add('tat-in');
-            io.unobserve(en.target);
-          }
-        });
-      },
-      { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
-    );
-    document.querySelectorAll('.tat-reveal').forEach(function (el) {
-      io.observe(el);
-    });
-  } else {
+  /* ZÉRO-SCROLL : pas de reveal au défilement.
+     État final appliqué au chargement. */
+  function applyFinalReveal() {
     document.querySelectorAll('.tat-reveal').forEach(function (el) {
       el.classList.add('tat-in');
     });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyFinalReveal);
+  } else {
+    applyFinalReveal();
   }
 })();
