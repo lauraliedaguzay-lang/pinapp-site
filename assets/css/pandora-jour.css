@@ -1,4 +1,4 @@
-/* PINAPP — pandora-jour.css — v6
+﻿/* PINAPP — pandora-jour.css — v6
    Fond Pandora JOUR — Dylan Cole Avatar 3 — aube sur Pandora
    Colorimétrie : ambre solaire, jade bioluminescent résiduel, lavande douce
    Tempo : The Light Always Returns — 3.5s
@@ -249,4 +249,22 @@ html[data-theme="light"] #pandora-loader {
 }
 #pandora-loader svg {
   animation: kiri-soar 3.5s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE PERFORMANCE — pandora-jour
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  /* body::before — désactiver l'animation filter plein-écran (GPU) */
+  body.mode-jour::before,
+  html[data-theme="light"] body::before {
+    animation: none;
+    filter: none; /* appliquer directement le rendu statique */
+  }
+
+  /* Holo-grid — désactiver animation sur mobile */
+  .holo-grid { animation: none; }
+
+  /* pandora-shapes — seulement 2 formes (3 et 4 déjà masquées) */
+  .pandora-shape { animation-duration: 0s; opacity: 0.6; }
 }

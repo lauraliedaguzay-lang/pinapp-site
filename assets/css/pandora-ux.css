@@ -712,3 +712,35 @@ html[data-theme="light"] .bio-particle[data-type="spore"] { display: none; }
   0%, 100% { border-color: rgba(57,224,117,0.14); box-shadow: none; }
   50% { border-color: rgba(57,224,117,0.40); box-shadow: 0 0 24px rgba(57,224,117,0.15); }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE — touch targets, perf, layout
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Touch targets universels pour tous les éléments pill/button sur mobile */
+@media (max-width: 767px) {
+  /* Aurora orbs — moins d'animations en parallèle */
+  .aurora-orb { animation-play-state: running; }
+  .aurora-orb-3, .aurora-orb-4 { display: none; } /* garder 2 orbs seulement */
+
+  /* Blocs sémantiques — animations pulsating désactivées (GPU) */
+  .block-cyan, .block-violet, .block-vert {
+    animation: none;
+  }
+
+  /* Label breathe — simplifié */
+  .label { animation: none; opacity: 0.6; }
+
+  /* Prix — taille réduite sur très petit écran */
+  .prix-display { font-size: clamp(1.75rem, 8vw, 2.5rem); }
+
+  /* Sections hero — padding réduit inline */
+  [style*="padding-top:var(--space-10)"],
+  [style*="padding-top: var(--space-10)"] {
+    padding-top: var(--space-7) !important;
+  }
+  [style*="padding-top:var(--space-8)"],
+  [style*="padding-top: var(--space-8)"] {
+    padding-top: var(--space-6) !important;
+  }
+}

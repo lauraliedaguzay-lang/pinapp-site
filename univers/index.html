@@ -35,18 +35,20 @@
   /* Hero */
   .univers-hero {
     text-align: center;
-    padding: 140px 24px 80px;
+    padding: clamp(80px, 14vw, 140px) 24px clamp(40px, 8vw, 80px);
     max-width: 800px;
     margin: 0 auto;
   }
   .univers-hero-titre {
     font-family: Georgia, serif;
-    font-size: clamp(36px, 6vw, 72px);
+    font-size: clamp(28px, 6vw, 72px); /* min 28px (était 36px trop grand sur mobile) */
     font-weight: 300;
     letter-spacing: -0.02em;
     line-height: 1.15;
     color: var(--text);
     margin-bottom: 24px;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   .univers-hero-accent { color: var(--accent-teal); }
   .univers-hero-sub {
@@ -140,7 +142,10 @@
     padding: 0 24px 48px;
   }
   .filtre-pill {
-    padding: 8px 20px;
+    padding: 10px 20px;
+    min-height: 44px; /* touch target iOS */
+    display: inline-flex;
+    align-items: center;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(0, 229, 204, 0.14);
     border-radius: 100px;
@@ -298,6 +303,9 @@
   .univers-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
   .univers-pill {
     padding: 11px 18px;
+    min-height: 44px; /* touch target iOS */
+    display: inline-flex;
+    align-items: center;
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
@@ -335,6 +343,29 @@
     color: var(--text);
     letter-spacing: -0.02em;
     margin-bottom: 24px;
+  }
+
+  /* ── MOBILE UNIVERS ── */
+  @media (max-width: 767px) {
+    .univers-hero { padding: 80px 16px 40px; }
+    .univers-hero-sub { font-size: 14px; max-width: 100%; margin-bottom: 32px; }
+
+    .apercus-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      padding: 0 16px 32px;
+    }
+    .apercu-card { height: 120px; }
+
+    .mondes-filtres { padding: 0 16px 32px; gap: 8px; }
+    .mondes-grid { padding: 0 16px 60px; gap: 12px; }
+
+    .univers-interface { padding: 20px 16px; }
+    .univers-pills { gap: 8px; }
+    .univers-pill { font-size: 12px; padding: 10px 14px; }
+
+    /* Masquer le monde-btn inline si trop petit — garder accessible */
+    .monde-btn { min-height: 44px; padding: 10px 20px; }
   }
   </style>
 </head>

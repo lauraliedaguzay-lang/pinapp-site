@@ -136,9 +136,9 @@
 
 .sticky-cta {
   position: fixed;
-  bottom: 88px; /* au-dessus de la bottom-bar mobile */
+  bottom: calc(72px + env(safe-area-inset-bottom, 0px)); /* au-dessus de la bottom-bar */
   right: 20px;
-  z-index: var(--z-sticky, 10);
+  z-index: 2850; /* entre bottom-bar(2800) et drawer(3500) */
   padding: 14px 28px;
   background: var(--violet, #7B4FE8);
   color: #FFFFFF;
@@ -480,8 +480,8 @@ nav { view-transition-name: pinapp-nav; }
   .btn-secondary:hover .arrow { transform: translateX(4px); }
 }
 
-/* ⑬ CTA principal — breathe uniquement */
-.btn-primary { animation: breathe var(--t-breathe); }
+/* ⑬ CTA hero uniquement — breathe sur .pinapp-breathe seulement (pas tous les btn-primary) */
+.pinapp-breathe { animation: breathe var(--t-breathe); }
 
 /* ⑭ Switcher démo */
 .demo-tab { transition: background var(--t-hover), color var(--t-hover); }
@@ -749,4 +749,24 @@ body.mode-jour::after {
   #loader:not(.hidden) {
     animation: pinapp-loader-failsafe 0.02s linear forwards !important;
   }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE PERFORMANCE — GPU relief < 768px
+   Désactive les animations coûteuses (filter, hue-rotate plein écran)
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  /* body::after ambiance statique sur mobile — pas de hue-rotate 8s */
+  body::after { animation: none; }
+
+  /* Sticky CTA — bottom-bar remplace sur mobile */
+  .sticky-cta { display: none; }
+
+  /* Noise overlay allégé */
+  .noise-overlay { opacity: 0.3; }
+}
+
+/* Orientation paysage petits écrans */
+@media (max-height: 500px) and (orientation: landscape) {
+  .pinapp-hero-viewport { min-height: 100dvh; padding-top: var(--space-5) !important; }
 }

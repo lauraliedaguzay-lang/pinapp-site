@@ -880,6 +880,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-moon {
 /* Filtres réalisations */
 .filter-btn {
   padding: 0.5rem 1.25rem;
+  min-height: 44px; /* touch target iOS */
   border-radius: var(--radius-pill);
   font-size: 0.8125rem;
   border: 1px solid var(--border-card);
@@ -908,6 +909,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-moon {
 /* Onboarding pills */
 .pill-btn {
   padding: 0.625rem 1.25rem;
+  min-height: 44px; /* touch target iOS */
   border-radius: var(--radius-pill);
   border: 1px solid var(--border-card);
   font-size: 0.875rem;
@@ -1100,8 +1102,10 @@ button:focus-visible,
 /* ─── Mobile (<768px) ─── */
 @media (max-width: 767px) {
 
-  /* Sections — espacement réduit */
-  section { padding: var(--space-7) var(--space-3); }
+  /* Sections — espacement réduit (64px → 40px : -37% de scroll vertical) */
+  section { padding: var(--space-5) var(--space-3); }
+  /* sauf sections hero qui gardent leur padding propre */
+  .pinapp-hero-viewport { padding-left: var(--space-3); padding-right: var(--space-3); }
 
   /* Grilles — 1 colonne */
   .grid-2,
@@ -1130,15 +1134,33 @@ button:focus-visible,
     justify-content: center;
   }
 
-  /* Hero typographie — fluid */
+  /* Hero typographie — fluid (s'applique à TOUT h1 sur mobile) */
+  h1,
   .hero-title, h1.hero-title {
-    font-size: clamp(2rem, 9vw, 3rem);
-    letter-spacing: -0.04em;
-    line-height: 1.08;
+    font-size: clamp(1.875rem, 8.5vw, 3rem);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* h2 sur mobile */
+  h2 {
+    font-size: clamp(1.5rem, 6vw, 2.25rem);
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
 
   /* Taglines / sous-titres hero */
   .hero-lead { font-size: clamp(0.9375rem, 4vw, 1.125rem); }
+
+  /* Pills — flex-wrap pour éviter overflow horizontal */
+  .formation-grid,
+  [class*="pills"],
+  [class*="pill-row"],
+  [class*="filter-row"] {
+    flex-wrap: wrap;
+  }
 
   /* Navigation sur mobile */
   nav.scrolled {
@@ -1202,7 +1224,7 @@ button:focus-visible,
 
 /* ─── Très petits écrans (<400px) ─── */
 @media (max-width: 399px) {
-  section { padding: var(--space-6) var(--space-2); }
+  section { padding: var(--space-4) var(--space-2); } /* 24px sides, 16px gutter */
 
   .hero-title, h1.hero-title {
     font-size: clamp(1.75rem, 8vw, 2.5rem);
@@ -1219,8 +1241,8 @@ button:focus-visible,
 
 /* ─── Orientation paysage sur petits écrans ─── */
 @media (max-height: 500px) and (orientation: landscape) {
-  nav { height: 40px; }
-  section { padding-top: var(--space-5); padding-bottom: var(--space-5); }
+  nav { height: 44px; } /* 40px risque de couper le contenu nav (min 44px) */
+  section { padding-top: var(--space-4); padding-bottom: var(--space-4); }
 }
 
 /* ─── Reduced motion — désactiver les animations lourdes ─── */
