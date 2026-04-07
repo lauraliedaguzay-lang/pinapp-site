@@ -715,6 +715,70 @@ html[data-theme="light"] nav.scrolled {
 }
 
 /* =====================================================
+   WIDGETS EN VERRE — GLOBAL (toutes pages)
+   Assure le rendu glass même sans ios-glass.css
+   ===================================================== */
+
+/* Bottom bar mobile */
+.bottom-bar {
+  background: var(--glass-nav);
+  -webkit-backdrop-filter: var(--glass-blur-nav);
+  backdrop-filter: var(--glass-blur-nav);
+  border-top: 1px solid var(--border-subtle);
+  transform: translateZ(0);
+}
+
+/* Cookies RGPD */
+#cookie-banner {
+  background: var(--glass-nav);
+  -webkit-backdrop-filter: var(--glass-blur-nav);
+  backdrop-filter: var(--glass-blur-nav);
+  border-top: 1px solid var(--border-subtle);
+  transform: translateZ(0);
+}
+
+/* Drawer mobile (menu) */
+.mobile-drawer-panel {
+  background: var(--glass-modal);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid var(--border-card);
+  transform: translateZ(0);
+}
+
+/* Dialogs / modales (fallback global) */
+.modal,
+[role="dialog"]:not(#cookie-banner) {
+  background: var(--glass-modal);
+  -webkit-backdrop-filter: blur(44px) saturate(180%);
+  backdrop-filter: blur(44px) saturate(180%);
+  border: 1px solid var(--border-card);
+  transform: translateZ(0);
+}
+
+/* iPhone mockup (accueil) */
+.iphone-mockup {
+  background: var(--glass);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-card);
+  transform: translateZ(0);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  nav.scrolled, .nav.scrolled,
+  .bottom-bar,
+  #cookie-banner,
+  .mobile-drawer-panel,
+  .modal,
+  [role="dialog"]:not(#cookie-banner),
+  .iphone-mockup {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+}
+
+/* =====================================================
    FOCUS + SELECTION
    ===================================================== */
 
