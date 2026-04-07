@@ -1,0 +1,272 @@
+/* =====================================================
+   UNIVERS DIGITAL — Aurora directrice artistique
+   Pinapp Studio · Avril 2026
+   ===================================================== */
+
+.univers-section {
+  padding: var(--space-10, 120px) 24px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.univers-intro {
+  font-size: 16px;
+  color: var(--text-3, rgba(238,248,255,0.50));
+  margin-bottom: 48px;
+  max-width: 480px;
+}
+
+.univers-interface {
+  padding: 40px;
+  position: relative;
+}
+
+/* Questions */
+.univers-question {
+  font-family: Georgia, serif;
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 24px;
+  line-height: 1.3;
+}
+
+/* Steps */
+.univers-step {
+  transition:
+    opacity 400ms cubic-bezier(0.45,0.05,0.55,0.95),
+    transform 400ms cubic-bezier(0.45,0.05,0.55,0.95);
+}
+.univers-step.hidden {
+  opacity: 0;
+  pointer-events: none;
+  height: 0;
+  overflow: hidden;
+  transform: translateY(16px);
+}
+.univers-step.entering {
+  animation: step-enter 400ms cubic-bezier(0.45,0.05,0.55,0.95) forwards;
+}
+@keyframes step-enter {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Pills */
+.univers-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.univers-pill {
+  padding: 12px 20px;
+  background: rgba(255,255,255,0.05);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0,180,216,0.14);
+  border-radius: 100px;
+  color: var(--text-2, rgba(238,248,255,0.70));
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 200ms cubic-bezier(0.25,0.1,0.25,1);
+  transform: translateZ(0);
+  white-space: nowrap;
+}
+.univers-pill:hover {
+  border-color: rgba(0,229,204,0.40);
+  color: var(--text);
+  transform: translateY(-2px) translateZ(0);
+}
+.univers-pill.selected {
+  background: rgba(0,160,210,0.15);
+  border-color: rgba(0,229,204,0.55);
+  color: var(--teal, #00E5CC);
+  box-shadow: 0 0 12px rgba(0,229,204,0.20);
+}
+.univers-pill:active {
+  transform: scale(0.96) translateZ(0);
+}
+
+/* Mode jour */
+body.mode-jour .univers-pill {
+  background: rgba(255,255,255,0.55);
+  border-color: rgba(0,160,210,0.20);
+  color: var(--text-2);
+}
+body.mode-jour .univers-pill.selected {
+  background: rgba(0,160,210,0.10);
+  border-color: rgba(0,150,180,0.45);
+  color: var(--teal);
+}
+
+/* Input référence */
+#input-reference {
+  width: 100%;
+  margin-bottom: 24px;
+  font-size: 16px;
+  padding: 14px 18px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(0,180,216,0.20);
+  border-radius: 12px;
+  color: var(--text);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  outline: none;
+  transition: border-color 200ms ease;
+  box-sizing: border-box;
+}
+#input-reference:focus {
+  border-color: rgba(0,229,204,0.50);
+  box-shadow: 0 0 0 3px rgba(0,229,204,0.08);
+}
+#input-reference::placeholder {
+  color: var(--text-3, rgba(238,248,255,0.35));
+}
+body.mode-jour #input-reference {
+  background: rgba(255,255,255,0.70);
+  border-color: rgba(0,160,210,0.25);
+  color: var(--text);
+}
+
+/* Barre de progression */
+.univers-progress {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 0 0 24px 24px;
+  overflow: hidden;
+}
+.univers-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #39E075, #00E5CC);
+  border-radius: 100px;
+  transition: width 400ms cubic-bezier(0.45,0.05,0.55,0.95);
+  box-shadow: 0 0 8px rgba(0,229,204,0.40);
+}
+
+/* Résultat */
+.univers-resultat {
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(0,180,216,0.12);
+}
+.univers-resultat.hidden {
+  display: none;
+}
+
+/* Nom de l'univers */
+.univers-nom {
+  font-family: Georgia, serif;
+  font-size: clamp(24px, 4vw, 42px);
+  font-weight: 300;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 32px;
+}
+.univers-nom .univers-spark {
+  color: var(--teal, #00E5CC);
+}
+
+/* Swatches palette */
+.univers-palette {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  align-items: center;
+}
+.univers-swatch {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.12),
+    0 4px 12px rgba(0,0,0,0.25);
+  transition: transform 300ms ease;
+}
+.univers-swatch:hover {
+  transform: scale(1.15);
+}
+.univers-palette-label {
+  font-size: 12px;
+  color: var(--text-3, rgba(238,248,255,0.50));
+  margin-left: 4px;
+}
+
+/* Description atmosphère */
+.univers-description {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--text-2, rgba(238,248,255,0.70));
+  margin-bottom: 24px;
+  font-style: italic;
+  font-family: Georgia, serif;
+}
+
+/* Signature visuelle */
+.univers-signature {
+  font-size: 14px;
+  color: var(--text);
+  font-weight: 500;
+  margin-bottom: 32px;
+  padding: 16px 20px;
+  background: rgba(0,160,210,0.08);
+  border-left: 2px solid var(--teal, #00E5CC);
+  border-radius: 0 12px 12px 0;
+}
+
+/* CTA résultat */
+.univers-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: var(--violet, #7B4FE8);
+  color: #FFFFFF;
+  border-radius: 100px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 0 24px rgba(123,79,232,0.35);
+  animation: kiri-soar 3.5s ease-in-out infinite;
+  margin-right: 12px;
+  transition: opacity 200ms ease;
+}
+.univers-cta:hover { opacity: 0.88; }
+
+.univers-recommencer {
+  font-size: 13px;
+  color: var(--text-3, rgba(238,248,255,0.50));
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 200ms ease;
+}
+.univers-recommencer:hover {
+  color: var(--text-2, rgba(238,248,255,0.70));
+}
+
+/* Teinte dynamique du bloc selon l'univers généré */
+.univers-interface.tinted {
+  transition: background 1s ease, border-color 1s ease;
+}
+
+/* Loader Aurora */
+.univers-loader {
+  color: var(--teal, #00E5CC);
+  font-size: 14px;
+  font-style: italic;
+  animation: kiri-soar 3.5s ease-in-out infinite;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .univers-interface { padding: 24px; }
+  .univers-pills { gap: 8px; }
+  .univers-pill { padding: 10px 16px; font-size: 13px; }
+  .univers-nom { font-size: clamp(22px, 6vw, 32px); }
+  .univers-cta { padding: 12px 22px; font-size: 13px; }
+}
