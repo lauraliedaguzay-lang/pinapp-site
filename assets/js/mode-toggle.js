@@ -22,9 +22,14 @@ const ModeToggle = {
           e.matches ? this.setNuit(false) : this.setJour(false);
       });
 
-    // Bind tous les boutons .mode-toggle
-    document.querySelectorAll('.mode-toggle')
-      .forEach(b => b.addEventListener('click', () => this.toggle()));
+    // Bind uniquement si main.js n'est PAS chargé (main.js gère déjà le clic)
+    // main.js appelle classList.toggle('mode-jour') + dispatch modeChange
+    // Si les deux handlers tournent, ils s'annulent mutuellement
+    const hasMain = !!document.querySelector('script[src*="main.js"]');
+    if (!hasMain) {
+      document.querySelectorAll('.mode-toggle')
+        .forEach(b => b.addEventListener('click', () => this.toggle()));
+    }
 
     // Pulse discret 2s après le premier chargement
     setTimeout(() => {
