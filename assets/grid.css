@@ -408,7 +408,17 @@ body.mode-jour .section:nth-of-type(3n)::after {
 
 @media (max-width: 767px) {
   .section::after {
-    display: none;
+    display: block;
+    width: min(72vw, 280px);
+    height: min(56vw, 220px);
+    opacity: 0.18;
+    filter: blur(64px);
+    animation-duration: 16s;
+  }
+  html[data-theme='light'] .section::after,
+  body.mode-jour .section::after {
+    opacity: 0.14;
+    filter: blur(72px);
   }
 }
 
