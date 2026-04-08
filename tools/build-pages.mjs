@@ -301,26 +301,57 @@ const pages = [
   {
     file: 'a-propos/index.html',
     title: 'À propos — Pinapp Studio',
-    desc: 'Pinapp, Lauralie Daguzay : systèmes sur-mesure, IA et automatisation pour les PME.',
+    desc: 'Pinapp, Lauralie Daguzay : une façon simple de faire avancer votre digital, sans pression et avec validation.',
     og: '/a-propos/',
     body: `    <section class="section">
       <div class="container prose" style="max-width:700px;">
         <p class="label">À PROPOS</p>
-        <h1 style="font-size:var(--text-h1);letter-spacing:-0.02em;margin-bottom:var(--space-3);">Qui est Pinapp ?</h1>
-        <p style="font-size:18px;line-height:1.8;margin-bottom:var(--space-4);">Pinapp, c'est Lauralie Daguzay — fondatrice, conceptrice et exécutante.</p>
-        <p style="opacity:0.7;line-height:1.8;margin-bottom:var(--space-4);">J'ai construit Pinapp parce que je voyais des PME et des indépendants débordés par des tâches répétitives, avec des sites qui ne convertissaient pas, sans accès aux outils que les grandes entreprises utilisent.</p>
-        <p style="opacity:0.7;line-height:1.8;margin-bottom:var(--space-4);">Ma réponse : des systèmes intelligents sur-mesure, accessibles sans avoir à comprendre la technique. Vous décrivez votre problème. Je construis la solution.</p>
-        <p style="opacity:0.7;line-height:1.8;margin-bottom:var(--space-5);">La preuve que ça fonctionne : Auralis RH — le premier outil IA conçu pour les professionnels RH eux-mêmes.</p>
-        <h2 style="font-size:24px;margin-bottom:var(--space-3);">Ce en quoi Pinapp croit</h2>
-        <ul style="opacity:0.7;line-height:2;">
-          <li>La technologie doit servir l'humain — pas l'inverse.</li>
-          <li>Un client informé est un client satisfait.</li>
-          <li>Vous décidez. Toujours.</li>
-          <li>La simplicité est le luxe ultime.</li>
-          <li>Mieux vaut un système imparfait qui tourne qu'un système parfait qui n'existe pas.</li>
+        <h1 style="font-size:var(--text-h1);letter-spacing:-0.02em;margin-bottom:var(--space-3);">Lauralie, Pinapp.</h1>
+
+        <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-5);">
+          <div class="card" aria-hidden="true" style="width:70px;height:70px;display:flex;align-items:center;justify-content:center;border-radius:999px;padding:0;">
+            <span style="font-size:18px;letter-spacing:-0.02em;opacity:0.9;">LD</span>
+          </div>
+          <div style="min-width:0;">
+            <p style="margin:0;opacity:0.85;line-height:1.5;">Je conçois et je construis les systèmes Pinapp.</p>
+            <p style="margin:6px 0 0;opacity:0.6;font-size:14px;line-height:1.5;">Tout par écrit. Google Meet si vous le demandez. Vous décidez aux étapes clés.</p>
+          </div>
+        </div>
+
+        <p style="font-size:18px;line-height:1.8;margin-bottom:var(--space-4);">
+          Pinapp existe pour un problème très simple : quand tout repose sur vous, le digital finit par s’accumuler.
+        </p>
+        <p style="opacity:0.72;line-height:1.85;margin-bottom:var(--space-4);">
+          Mon rôle, c’est de transformer ce “bruit” en un système clair : une présence en ligne premium, des automatismes propres, et des décisions faciles à valider.
+        </p>
+        <p style="opacity:0.72;line-height:1.85;margin-bottom:var(--space-5);">
+          Je ne cherche pas à vous impressionner avec des mots. Je préfère vous donner quelque chose qui tourne, que vous comprenez, et que vous contrôlez.
+        </p>
+
+        <h2 style="font-size:24px;margin-bottom:var(--space-3);">Ce que vous pouvez attendre de moi</h2>
+        <ul style="opacity:0.75;line-height:2;">
+          <li>Une proposition courte, lisible, avec un ordre clair.</li>
+          <li>Des livrables testés, avec des validations simples.</li>
+          <li>Une communication directe : pas de pression, pas de flou.</li>
         </ul>
-        <div style="margin-top:var(--space-6);text-align:center;">
-          <a href="/diagnostic/" class="btn btn-primary pinapp-breathe">Travaillons ensemble</a>
+
+        <h2 style="font-size:24px;margin:var(--space-6) 0 var(--space-3);">Ce que je ne fais pas</h2>
+        <ul style="opacity:0.75;line-height:2;">
+          <li>Vous vendre du “magique”.</li>
+          <li>Lancer des automatisations qui partent sans votre accord.</li>
+          <li>Vous noyer sous la technique.</li>
+        </ul>
+
+        <div class="card" style="margin-top:var(--space-6);padding:var(--space-4);">
+          <p class="label" style="margin-bottom:var(--space-2);">PRINCIPE</p>
+          <p style="margin:0;opacity:0.78;line-height:1.8;">
+            Pinapp prépare. Vous décidez. Ça tourne.
+          </p>
+        </div>
+
+        <div style="margin-top:var(--space-6);text-align:center;display:flex;flex-wrap:wrap;gap:var(--space-3);justify-content:center;">
+          <a href="/diagnostic/" class="btn btn-primary pinapp-breathe">Démarrer ma demande</a>
+          <a href="/realisations/" class="btn btn-secondary">Voir le niveau de finition →</a>
         </div>
       </div>
     </section>`,
