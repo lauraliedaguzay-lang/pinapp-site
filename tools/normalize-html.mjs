@@ -21,6 +21,13 @@ function walk(dir, cb) {
 function normalizeHtml(s) {
   let out = s;
 
+  // Drawer "Formations" should point to the paid formation page, not the free lead-magnet.
+  // Keep both pages: /offres/formation/ (menu) vs /formation-gratuite/ (lead magnet elsewhere).
+  out = out.replace(
+    /href=(["'])([^"']*?)formation-gratuite\/index\.html\1(\s*>\s*Formations\s*<)/gi,
+    'href=$1$2offres/formation/index.html$1$3',
+  );
+
   // Ensure canonical on public pages.
   // Use og:url when present (single source of truth), otherwise derive from file path later.
   if (!/\s<link\s+rel=["']canonical["']/i.test(out)) {
