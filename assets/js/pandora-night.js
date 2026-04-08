@@ -153,6 +153,9 @@ const PandoraNight = {
   },
 
   init() {
+    /* Désactivé : l'utilisateur ne veut plus voir de halo/cercle lumineux mouvant en mode nuit.
+       On conserve la texture (photo Pandora) + spores/étoiles DOM (pandora-world.js/css). */
+    return;
     if (this.canvas) return;
     const isMobile = window.innerWidth < 768;
     this._scale = isMobile ? 0.5 : 1;

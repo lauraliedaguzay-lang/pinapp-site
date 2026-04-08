@@ -507,6 +507,18 @@ select {
   will-change: transform, opacity;
 }
 
+/* IMPORTANT (mode nuit) — suppression définitive du “halo/cercle” mouvant.
+   L'utilisateur ne veut plus voir de grandes nappes lumineuses flottantes.
+   On conserve : photo Pandora + étoiles/spores + micro-détails. */
+body:not(.mode-jour) .aurora-orb,
+html[data-theme='dark'] .aurora-orb,
+html:not([data-theme='light']) body .aurora-orb {
+  display: none !important;
+  animation: none !important;
+  transform: none !important;
+  opacity: 0 !important;
+}
+
 .aurora-orb-1 {
   width: clamp(300px, 42vw, 640px);
   height: clamp(300px, 42vw, 640px);

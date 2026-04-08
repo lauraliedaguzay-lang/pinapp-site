@@ -1,4 +1,4 @@
-/* PINAPP — aurora.js — Canvas aurora desktop (≥768px) */
+/* PINAPP — aurora.js — Canvas aurora (désactivé : halos mouvants) */
 const Aurora = {
   canvas: null,
   ctx: null,
@@ -32,6 +32,9 @@ const Aurora = {
   },
 
   init() {
+    /* Désactivé : l'utilisateur ne veut plus voir de halo lumineux mouvant en mode nuit.
+       On conserve les autres couches (photo Pandora, étoiles/spores DOM) ailleurs. */
+    return;
     /* Canvas léger sur tout écran ≥390px (mobile inclus) — désactivé si réduit mouvement */
     if (window.innerWidth < 390) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
