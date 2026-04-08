@@ -37,6 +37,13 @@ function normalizeHtml(s) {
 
   const canInjectPandoraWorld = Boolean(pwPrefix);
 
+  // Demo pages shipped with preloads for Pandora backgrounds: ensure they point to existing assets.
+  // Repo currently ships bg-*-pandora-apple.svg (not .png/.webp).
+  if (/\/demo\//i.test(out) || /PINAPP_DEMO_SITE/.test(out)) {
+    out = out.replace(/bg-dark-pandora-apple\.(png|webp)/gi, 'bg-dark-pandora-apple.svg');
+    out = out.replace(/bg-light-pandora-apple\.(png|webp)/gi, 'bg-light-pandora-apple.svg');
+  }
+
   if (canInjectPandoraWorld && !/assets\/css\/pandora-world\.css/.test(out)) {
     const pwLink = `<link rel="stylesheet" href="${pwPrefix}assets/css/pandora-world.css" />`;
     if (/assets\/variables\.css/.test(out)) {
