@@ -1,236 +1,599 @@
 <!doctype html>
 <html lang="fr">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Studio Élise — Institut beauté — Démo Pinapp Studio</title>
+    <meta name="description" content="Démonstration Pinapp Studio : Studio Élise — Institut beauté. Contenu fictif illustratif." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://pinapp.fr/demo/estheticienne/" />
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+
+    <!-- Mode (anti-flash) -->
     <script>
       (function () {
-        var s = localStorage.getItem('pinapp-theme');
-        var d = window.matchMedia('(prefers-color-scheme:dark)').matches;
-        var m = s || (d ? 'nuit' : 'jour');
-        var t = m === 'nuit' ? 'dark' : 'light';
+        var s = localStorage.getItem('pinapp-theme') || localStorage.getItem('pinapp-mode');
+        var d = window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches;
+        var m = s === 'light' || s === 'jour' ? 'jour' : s === 'dark' || s === 'nuit' ? 'nuit' : d ? 'nuit' : 'jour';
         document.documentElement.setAttribute('data-mode', m);
-        document.documentElement.setAttribute('data-theme', t);
-        if (document.body) {
-          document.body.classList.add('mode-' + m);
-        }
+        document.documentElement.setAttribute('data-theme', m === 'jour' ? 'light' : 'dark');
         document.addEventListener('DOMContentLoaded', function () {
-          document.body.classList.add('mode-' + m);
+          document.body.classList.toggle('mode-jour', m === 'jour');
         });
       })();
     </script>
-    <link rel="preload" as="image" href="../../assets/images/bg-dark-pandora-apple.svg" fetchpriority="high" />
-    <link rel="preload" as="image" href="../../assets/images/bg-light-pandora-apple.svg" />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Studio Élise — Institut de beauté — Exemple Pinapp Studio</title>
-    <meta name="description" content="Exemple site beauté — Démonstration Pinapp Studio" />
-    <link rel="canonical" href="https://pinapp.fr/demo/estheticienne/" />
-    <meta name="robots" content="index, follow" />
-    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
-    <link rel="stylesheet" href="../../assets/css/demo-sector.css" />
-    <link rel="stylesheet" href="../../assets/css/pandora-world.css" />
-    <script src="../../assets/js/demo-photo-packs.js"></script>
-    <script>
-      window.PINAPP_DEMO_SITE = {
-        feature: 'diagnostic-peau',
-        nom: 'Studio Élise',
-        slogan: 'Prenez soin de vous.',
-        sousSlogan: 'Vous le méritez.',
-        zone: 'Paris 15e',
-        secteur: 'Institut de beauté',
-        accent: '#C9748F',
-        accentDark: '#A0566F',
-        fond: '#FDF8F9',
-        texte: '#1A1A2E',
-        typo: 'Georgia',
-        style: 'light-minimal',
-        cta: 'Réserver un soin',
-        services: [
-          { nom: 'Soins visage', prix: 'À partir de 55€', description: 'Nettoyage profond, hydratation, anti-âge.' },
-          { nom: 'Épilation', prix: 'À partir de 12€', description: 'Cire tiède ou froide. Résultat impeccable.' },
-          { nom: 'Soins corps', prix: 'À partir de 65€', description: 'Enveloppements, gommages, drainages.' },
-        ],
-        confiance: ['Produits naturels certifiés', 'Hygiène irréprochable', 'RDV en 24h'],
-        avis: 'Une vraie parenthèse de douceur. Je repars ressourcée à chaque fois.',
-        avisAuteur: 'Sophie M. [DÉMO]',
-        q1: { label: 'Quel soin vous intéresse ?', options: ['Visage', 'Corps', 'Épilation'] },
-        q2: { label: 'Première visite ?', options: ['Oui, première fois', 'Non, cliente régulière'] },
-        q3: { label: 'Disponibilité ?', options: ['Cette semaine', 'Ce mois', 'Je planifie'] },
-        confirmation: 'Votre RDV est confirmé. À très vite !',
-        metaTitle: 'Studio Élise — Institut de beauté',
-        metaDesc: 'Exemple site beauté — Démonstration Pinapp Studio',
-        h1Hidden: 'Institut beauté Paris — Soins visage corps épilation',
-        bookingTitle: 'Réserver',
-      };
-      Object.assign(window.PINAPP_DEMO_SITE, window.PINAPP_DEMO_PHOTO_PACKS.estheticienne);
-    </script>
-    <script src="../../assets/js/demo-sector.js" defer></script>
-    <script src="../../assets/js/demo-features.js" defer></script>
-    <link rel="stylesheet" href="../../assets/css/pandora-dance.css" />
-    <link rel="stylesheet" href="../../assets/css/ios-glass.css" />
-    <link rel="stylesheet" href="../../assets/css/apple-finish.css" />
-    <link rel="stylesheet" href="../../assets/css/pinapp-modern-biolume.css" />
-  </head>
-  <body class="demo-sector-page">
-    <div id="pandora-world" aria-hidden="true">
-      <div class="pandora-orbs">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-        <div class="orb orb-4"></div>
-      </div>
-      <div class="pandora-spores" id="spores-container"></div>
-      <div class="pandora-stars" id="stars-container"></div>
-      <div class="pandora-clouds" id="clouds-container">
-        <div class="cloud cloud-1"></div>
-        <div class="cloud cloud-2"></div>
-        <div class="cloud cloud-3"></div>
-      </div>
-      <div class="holo-grid"></div>
-    </div>
-    <div id="pandora-loader" aria-hidden="true">
-      <svg width="32" height="38" viewBox="0 0 32 38" fill="none">
-        <defs>
-          <linearGradient id="pg-l" x1="16" y1="36" x2="16" y2="2" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#7B4FE8" />
-            <stop offset="100%" stop-color="#00E5CC" />
-          </linearGradient>
-        </defs>
-        <path d="M16 2 C13 5 10 6 11 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
-        <path d="M16 2 L16 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" />
-        <path d="M16 2 C19 5 22 6 21 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
-        <ellipse cx="16" cy="24" rx="9" ry="12" fill="url(#pg-l)" />
-        <path d="M7 20 L16 15 L25 20 L16 25 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
-        <path d="M7 26 L16 21 L25 26 L16 31 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
-      </svg>
-    </div>
-    <script>
-      (function () {
-        function hideLoader() {
-          var l = document.getElementById('pandora-loader');
-          if (l && l.parentNode) {
-            l.style.opacity = '0';
-            setTimeout(function () {
-              if (l.parentNode) l.remove();
-            }, 400);
-          }
+
+    <!-- 1 seule image hero (lightweight) -->
+    <link rel="preload" as="image" href="../../assets/images/demo-pack/estheticienne/hero-mobile.webp" fetchpriority="high" />
+
+    <style>
+      :root {
+        --bg: #070912;
+        --text: #ffffff;
+        --text2: rgba(255, 255, 255, 0.72);
+        --text3: rgba(255, 255, 255, 0.5);
+        --teal: #00e5cc;
+        --violet: #7b4fe8;
+        --green: #39e075;
+        --glass: rgba(255, 255, 255, 0.06);
+        --glass2: rgba(255, 255, 255, 0.035);
+        --border: rgba(255, 255, 255, 0.12);
+        --shadow: 0 24px 60px rgba(0, 0, 0, 0.42);
+        --r: 18px;
+        --pill: 999px;
+        --s1: 8px;
+        --s2: 16px;
+        --s3: 24px;
+        --s4: 32px;
+        --s5: 48px;
+      }
+
+      html {
+        scroll-behavior: auto;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        color: var(--text);
+        background: var(--bg);
+        min-height: 100svh;
+        overflow-x: hidden;
+      }
+
+      /* Fond “Pandora” sans images lourdes : orbes + étoiles (no halo mouvant) */
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        background:
+          radial-gradient(ellipse 70% 55% at 10% 20%, rgba(123, 79, 232, 0.12), transparent 60%),
+          radial-gradient(ellipse 70% 55% at 85% 15%, rgba(0, 229, 204, 0.1), transparent 62%),
+          radial-gradient(ellipse 80% 60% at 70% 95%, rgba(57, 224, 117, 0.07), transparent 60%),
+          radial-gradient(ellipse 120% 85% at 50% 110%, rgba(0, 229, 204, 0.08), transparent 70%),
+          linear-gradient(180deg, rgba(3, 6, 14, 0.92), rgba(2, 6, 12, 0.96));
+      }
+
+      .demo-banner {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        height: calc(36px + env(safe-area-inset-top, 0px));
+        padding: env(safe-area-inset-top, 0px) var(--s2) 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.7);
+        background: rgba(4, 8, 18, 0.82);
+        backdrop-filter: blur(16px) saturate(160%);
+        -webkit-backdrop-filter: blur(16px) saturate(160%);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .live-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(0, 229, 204, 0.9);
+        animation: live 2s linear infinite;
+      }
+      @keyframes live {
+        0%,
+        100% {
+          opacity: 1;
         }
-        window.addEventListener('load', hideLoader);
-        setTimeout(hideLoader, 2000);
-      })();
-    </script>
-    <div class="aurora-mobile" aria-hidden="true">
-      <div class="aurora-orb aurora-orb-1"></div>
-      <div class="aurora-orb aurora-orb-2"></div>
-      <div class="aurora-orb aurora-orb-3"></div>
-      <div class="aurora-orb aurora-orb-4"></div>
-    </div>
-    <div class="pandora-shapes" aria-hidden="true">
-      <div class="pandora-shape pandora-shape-1"></div>
-      <div class="pandora-shape pandora-shape-2"></div>
-      <div class="pandora-shape pandora-shape-3"></div>
-      <div class="pandora-shape pandora-shape-4"></div>
-    </div>
-    <div class="holo-grid" aria-hidden="true"></div>
-    <div class="noise" aria-hidden="true"></div>
-    <div class="jour-spores" aria-hidden="true">
-      <span class="jour-spore" style="left: 12%; top: 75%; --dur: 22s; --delay: -4s; --dx: 18px; --dy: -90px"></span
-      ><span class="jour-spore" style="left: 28%; top: 60%; --dur: 28s; --delay: -11s; --dx: -12px; --dy: -75px"></span
-      ><span class="jour-spore" style="left: 45%; top: 82%; --dur: 19s; --delay: -7s; --dx: 25px; --dy: -60px"></span
-      ><span class="jour-spore" style="left: 62%; top: 70%; --dur: 32s; --delay: -2s; --dx: -20px; --dy: -85px"></span
-      ><span class="jour-spore" style="left: 78%; top: 65%; --dur: 24s; --delay: -15s; --dx: 14px; --dy: -70px"></span
-      ><span
-        class="jour-spore jour-spore-teal"
-        style="left: 20%; top: 85%; --dur: 26s; --delay: -18s; --dx: 10px; --dy: -65px"></span
-      ><span
-        class="jour-spore jour-spore-teal"
-        style="left: 55%; top: 88%; --dur: 30s; --delay: -5s; --dx: -15px; --dy: -95px"></span>
-    </div>
-    <a href="#main-demo" class="demo-skip">Aller au contenu</a>
-    <div class="demo-live-banner" role="banner">
+        50% {
+          opacity: 0.3;
+        }
+      }
+
+      main {
+        position: relative;
+        z-index: 1;
+        padding-top: calc(36px + env(safe-area-inset-top, 0px));
+      }
+      .container {
+        width: min(1040px, 100%);
+        margin: 0 auto;
+        padding: 0 var(--s2);
+      }
+
+      .card {
+        position: relative;
+        background: var(--glass);
+        border: 1px solid var(--border);
+        border-radius: var(--r);
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08) inset, var(--shadow);
+        backdrop-filter: blur(24px) saturate(160%);
+        -webkit-backdrop-filter: blur(24px) saturate(160%);
+        transform: translateZ(0);
+        overflow: hidden;
+      }
+      .card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: radial-gradient(600px 260px at 20% 0%, rgba(255, 255, 255, 0.08), transparent 60%);
+        opacity: 0.8;
+      }
+
+      .hero {
+        padding: var(--s5) 0 var(--s4);
+      }
+      .hero-grid {
+        display: grid;
+        gap: var(--s3);
+        grid-template-columns: 1fr;
+        align-items: center;
+      }
+      @media (min-width: 920px) {
+        .hero-grid {
+          grid-template-columns: 1.1fr 0.9fr;
+          gap: var(--s4);
+        }
+      }
+      .kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.72);
+        margin-bottom: var(--s2);
+      }
+      .tag {
+        padding: 6px 12px;
+        border-radius: var(--pill);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.04);
+      }
+      h1 {
+        margin: 0 0 var(--s2);
+        font-weight: 550;
+        letter-spacing: -0.04em;
+        line-height: 1.05;
+        font-size: clamp(34px, 6vw, 64px);
+      }
+      .lead {
+        margin: 0 0 var(--s3);
+        color: var(--text2);
+        font-size: 16px;
+        line-height: 1.6;
+      }
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 12px 18px;
+        border-radius: var(--pill);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 550;
+        letter-spacing: 0.02em;
+        background: rgba(255, 255, 255, 0.06);
+        transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1), opacity 250ms;
+      }
+      .btn:active {
+        transform: scale(0.98);
+      }
+      .btn-primary {
+        border-color: rgba(123, 79, 232, 0.28);
+        background: linear-gradient(180deg, rgba(123, 79, 232, 0.92), rgba(123, 79, 232, 0.76));
+        box-shadow: 0 0 24px rgba(123, 79, 232, 0.32);
+      }
+      .btn-secondary {
+        border-color: rgba(0, 229, 204, 0.18);
+        color: rgba(0, 229, 204, 0.92);
+      }
+
+      .hero-photo {
+        aspect-ratio: 4/3;
+        border-radius: calc(var(--r) + 6px);
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.04);
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35) inset, var(--shadow);
+      }
+      .hero-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        opacity: 0.95;
+        filter: saturate(1.05) contrast(1.05);
+      }
+
+      .section {
+        padding: var(--s4) 0;
+      }
+      .grid {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: 1fr;
+      }
+      @media (min-width: 920px) {
+        .grid-3 {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      .svc h3 {
+        margin: 0 0 6px;
+        font-size: 16px;
+        letter-spacing: -0.02em;
+        font-weight: 600;
+      }
+      .svc p {
+        margin: 0;
+        color: var(--text2);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+      .price {
+        margin-top: 10px;
+        font-weight: 650;
+        color: rgba(0, 229, 204, 0.92);
+      }
+
+      .feature {
+        padding: var(--s3);
+      }
+      .feature-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+      }
+      .feature-title {
+        margin: 0;
+        font-size: 18px;
+        letter-spacing: -0.02em;
+        font-weight: 650;
+      }
+      .feature-meta {
+        font-size: 12px;
+        color: var(--text3);
+      }
+      .slider-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+        align-items: center;
+        margin: 12px 0;
+      }
+      input[type='range'] {
+        width: 100%;
+      }
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      .pill {
+        min-height: 40px;
+        padding: 8px 12px;
+        border-radius: var(--pill);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text);
+        font-weight: 600;
+        font-size: 13px;
+      }
+      .pill[aria-pressed='true'] {
+        border-color: rgba(0, 229, 204, 0.35);
+        box-shadow: 0 0 22px rgba(0, 229, 204, 0.18);
+      }
+      .result {
+        margin-top: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 16px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.045);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .result strong {
+        font-size: 20px;
+        letter-spacing: -0.03em;
+      }
+      .note {
+        margin: 10px 0 0;
+        font-size: 12px;
+        color: var(--text3);
+        line-height: 1.5;
+      }
+
+      .form {
+        padding: var(--s3);
+      }
+      .form .row {
+        display: grid;
+        gap: 10px;
+      }
+      @media (min-width: 920px) {
+        .form .row {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      label {
+        display: block;
+        font-size: 12px;
+        color: var(--text3);
+        margin-bottom: 6px;
+      }
+      input,
+      textarea {
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 12px;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text);
+        outline: none;
+      }
+      textarea {
+        min-height: 96px;
+        resize: vertical;
+      }
+      .form-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 12px;
+        align-items: center;
+      }
+      .ok {
+        display: none;
+        margin-top: 12px;
+        padding: 12px 14px;
+        border-radius: 14px;
+        border: 1px solid rgba(57, 224, 117, 0.3);
+        background: rgba(57, 224, 117, 0.08);
+        color: rgba(255, 255, 255, 0.88);
+        font-size: 13px;
+      }
+
+      footer {
+        padding: var(--s4) 0 var(--s5);
+        color: var(--text3);
+        font-size: 12px;
+      }
+      .footer-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .back {
+        color: rgba(0, 229, 204, 0.9);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(0, 229, 204, 0.25);
+        padding-bottom: 2px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo-banner" role="note" aria-label="Démonstration Pinapp">
       <span class="live-dot" aria-hidden="true"></span>
-      DÉMO PINAPP — Exemple de site conçu pour une activité réelle · contenu fictif · pas un thème clé en main
+      Démonstration Pinapp — contenu fictif illustratif
     </div>
 
-    <main id="main-demo">
-      <section class="hero" aria-label="Accroche">
-        <div class="hero-content">
-          <p class="hero-label"><span id="heroSecteur"></span> · <span id="heroZone"></span></p>
-          <h1 class="hero-title" id="heroSlogan"></h1>
-          <p class="hero-sub" id="heroSous"></p>
-          <button type="button" class="btn-hero" id="btnBooking"></button>
-        </div>
-      </section>
-
-      <section class="services-section" aria-label="Prestations">
-        <p class="services-title">Nos prestations</p>
-        <p class="services-subtitle">Faites défiler ou swipez</p>
-        <div class="swipe-container" id="servicesSwipe"></div>
-        <div class="swipe-dots" id="servicesDots"></div>
-      </section>
-
-      <section class="section" aria-label="Feature interactive">
-        <div id="demo-feature" class="demo-feature-section"></div>
-      </section>
-      <section class="preuve-section" aria-label="Témoignage">
-        <div style="max-width: 560px">
-          <p class="preuve-avis" id="preuveAvis"></p>
-          <p class="preuve-auteur" id="preuveAuteur"></p>
-          <p class="demo-label">Témoignage illustratif — DÉMO</p>
-          <div class="badges"></div>
-        </div>
-      </section>
-
-      <section class="booking-section" id="booking" aria-label="Réservation">
-        <p class="booking-title" id="bookingTitle">Réserver</p>
-        <p class="booking-sub">Quelques secondes suffisent.</p>
-        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-        <div class="questions-wrapper">
-          <div class="question active" id="q1">
-            <p class="question-label" id="l1"></p>
-            <div class="pills" id="pills1"></div>
-          </div>
-          <div class="question" id="q2">
-            <p class="question-label" id="l2"></p>
-            <div class="pills" id="pills2"></div>
-          </div>
-          <div class="question" id="q3">
-            <p class="question-label" id="l3"></p>
-            <div class="pills" id="pills3"></div>
-          </div>
-          <div class="question" id="qfin">
-            <div class="confirmation">
-              <svg class="check-circle" id="checkCircle" viewBox="0 0 56 56" fill="none" aria-hidden="true">
-                <circle cx="28" cy="28" r="26" stroke="#39E075" stroke-width="2" />
-                <polyline
-                  points="16,28 24,36 40,20"
-                  stroke="#39E075"
-                  stroke-width="2.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round" />
-              </svg>
-              <p class="confirm-text" id="confirmText"></p>
-              <p class="confirm-sub">Vous serez contacté(e) sous 24h.</p>
-              <p class="demo-label" style="margin-top: 8px">Démonstration — Aucune donnée transmise</p>
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <div class="kicker">
+              <span class="tag">Artisan / BTP</span>
+              <span class="tag">Île-de-France</span>
             </div>
+            <h1>Une présence, premium.
+Un agenda, net.</h1>
+            <p class="lead">Exemple de site institut : soins, preuves, et RDV simples.
+Tout est fictif — juste pour se projeter.</p>
+            <div class="cta-row">
+              <a class="btn btn-primary" href="#devis">Prendre rendez-vous →</a>
+              <a class="btn btn-secondary" href="https://pinapp.fr/realisations/" rel="noopener noreferrer">Voir d’autres démos</a>
+            </div>
+            <p class="note">Démo: aucune demande n’est transmise. En situation réelle, le formulaire est connecté.</p>
+          </div>
+          <div class="hero-photo" aria-label="Photo illustrative de chantier" role="img">
+            <img src="../../assets/images/demo-pack/estheticienne/hero-mobile.webp" alt="" loading="eager" decoding="async" />
           </div>
         </div>
       </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="grid grid-3">
+            <article class="card svc" style="padding: 18px">
+              <h3>Urgences</h3>
+              <p>Plomberie, électricité, serrurerie. Réponse rapide par message.</p>
+              <div class="price">Intervention sous 2h</div>
+            </article>
+            <article class="card svc" style="padding: 18px">
+              <h3>Rénovation</h3>
+              <p>Salle de bain, cuisine, pièce complète. Devis structuré.</p>
+              <div class="price">Devis offert</div>
+            </article>
+            <article class="card svc" style="padding: 18px">
+              <h3>Entretien</h3>
+              <p>Interventions planifiées. Contrats annuels.</p>
+              <div class="price">À partir de 80€</div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="card feature">
+            <div class="feature-head">
+              <p class="feature-title">Estimation indicative</p>
+              <p class="feature-meta">Vous validez avant tout engagement</p>
+            </div>
+            <div class="slider-row">
+              <input id="surface" type="range" min="10" max="200" value="60" aria-label="Surface en m²" />
+              <div><strong><span id="surfaceVal">60</span> m²</strong></div>
+            </div>
+            <div class="pill-row" role="group" aria-label="Niveau de prestation">
+              <button class="pill" type="button" data-mult="45" aria-pressed="true">Standard</button>
+              <button class="pill" type="button" data-mult="75" aria-pressed="false">Premium</button>
+              <button class="pill" type="button" data-mult="95" aria-pressed="false">Urgent</button>
+            </div>
+            <div class="result" aria-live="polite">
+              <span style="color: var(--text2)">Estimation</span>
+              <strong><span id="prix">2 700</span> €</strong>
+            </div>
+            <p class="note">Estimation indicative, pour illustrer. En réel: devis précis envoyé par écrit sous 24h.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="devis">
+        <div class="container">
+          <div class="card form">
+            <h2 style="margin: 0 0 8px; font-size: 20px; letter-spacing: -0.03em">Demande de devis</h2>
+            <p style="margin: 0 0 14px; color: var(--text2); font-size: 14px">
+              Démo: ce formulaire ne transmet rien. En situation réelle, il envoie une demande structurée.
+            </p>
+            <form id="form">
+              <div class="row">
+                <div>
+                  <label for="name">Nom</label>
+                  <input id="name" name="name" autocomplete="name" />
+                </div>
+                <div>
+                  <label for="email">Email</label>
+                  <input id="email" name="email" type="email" autocomplete="email" required />
+                </div>
+              </div>
+              <div style="margin-top: 10px">
+                <label for="msg">Votre besoin</label>
+                <textarea id="msg" name="message" placeholder="Ex: Salle de bain à refaire, 12 m²…"></textarea>
+              </div>
+              <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Envoyer →</button>
+                <a class="btn btn-secondary" href="https://pinapp.fr/" rel="noopener noreferrer">Retour Pinapp Studio</a>
+              </div>
+              <div class="ok" id="ok">Reçu. (Démo) En réel, vous recevez une réponse sous 24h.</div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div class="container footer-row">
+          <span>Renov & Co — Démo fictive</span>
+          <a class="back" href="https://pinapp.fr/" rel="noopener noreferrer">Retour Pinapp Studio</a>
+        </div>
+      </footer>
     </main>
 
-    <footer class="site-footer">
-      <span><span id="footNom"></span> · <span id="footZone"></span></span>
-      <span style="display: flex; align-items: center; gap: 12px">
-        <a class="pinapp-back" href="https://pinapp.fr/">Pinapp Studio</a>
-        <span class="footer-demo">Démo</span>
-      </span>
-    </footer>
+    <script>
+      (function () {
+        var surface = document.getElementById('surface');
+        var surfaceVal = document.getElementById('surfaceVal');
+        var prix = document.getElementById('prix');
+        var mult = 45;
 
-    <script src="../../assets/js/pandora-night.js" defer></script>
-    <script src="../../assets/js/particles.js" defer></script>
-    <script src="../../assets/js/cursor.js" defer></script>
-    <script src="../../assets/js/intelligence.js" defer></script>
-    <script src="../../assets/js/scroll-cinema.js" defer></script>
-    <script src="../../assets/js/bio-particles.js" defer></script>
-      <script src="../../assets/js/pandora-world.js" defer></script>
+        function fmt(n) {
+          return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        }
+
+        function animate(from, to, ms) {
+          var t0 = performance.now();
+          function tick(t) {
+            var p = Math.min((t - t0) / ms, 1);
+            var e = 1 - Math.pow(1 - p, 3);
+            var v = Math.round(from + (to - from) * e);
+            prix.textContent = fmt(v);
+            if (p < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+        }
+
+        function calc() {
+          var s = parseInt(surface.value, 10);
+          surfaceVal.textContent = s;
+          var target = s * mult;
+          var current = parseInt(prix.textContent.replace(/\s/g, ''), 10) || target;
+          animate(current, target, 260);
+        }
+
+        surface.addEventListener('input', calc, { passive: true });
+        document.querySelectorAll('.pill').forEach(function (b) {
+          b.addEventListener('click', function () {
+            document.querySelectorAll('.pill').forEach(function (x) {
+              x.setAttribute('aria-pressed', 'false');
+            });
+            b.setAttribute('aria-pressed', 'true');
+            mult = parseInt(b.getAttribute('data-mult'), 10);
+            calc();
+          });
+        });
+        calc();
+
+        var form = document.getElementById('form');
+        var ok = document.getElementById('ok');
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          ok.style.display = 'block';
+          ok.scrollIntoView({ behavior: 'auto', block: 'nearest' });
+        });
+      })();
+    </script>
   </body>
 </html>
+
