@@ -9,6 +9,7 @@ class BarChart {
     this.el = el;
     this.data = data;
     this.done = false;
+    this._id = 'main';
     this.render();
     // Conformité Pinapp "zéro scroll" : pas d’IntersectionObserver pour déclencher au scroll.
     // On anime au chargement (ou état final si prefers-reduced-motion).
@@ -16,6 +17,15 @@ class BarChart {
   }
 
   render() {
+    const cssVar = (name, fallback) => {
+      try {
+        const v = getComputedStyle(document.documentElement).getPropertyValue(name);
+        const s = (v || '').trim();
+        return s || fallback;
+      } catch (e) {
+        return fallback;
+      }
+    };
     const max = Math.max(...this.data.map((d) => d.v));
     const W = 300,
       H = 180,
@@ -40,14 +50,14 @@ class BarChart {
             data-y="${y}" data-h="${h}"/>
           <text x="${x + w / 2}" y="${H - pad + 14}"
             text-anchor="middle"
-            fill="rgba(238,248,255,0.45)"
+            fill="${cssVar('--text-3', 'rgba(238,248,255,0.55)')}"
             font-size="8" font-family="Inter,sans-serif">
             ${d.l}
           </text>
           <text class="bar-val"
             x="${x + w / 2}" y="${y - 4}"
             text-anchor="middle"
-            fill="#00E5CC" font-size="9"
+            fill="${cssVar('--chart-a', '#00E5CC')}" font-size="9"
             font-family="Inter,sans-serif" opacity="0">
             ${d.v}h
           </text>
@@ -55,12 +65,15 @@ class BarChart {
       })
       .join('');
 
+    const chartA = cssVar('--chart-a', '#39E075');
+    const chartB = cssVar('--chart-b', '#00E5CC');
+
     this.el.innerHTML = `
       <svg viewBox="0 0 ${W} ${H}" style="width:100%;overflow:visible">
         <defs>
           <linearGradient id="bar-grad-${this._id}" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%"   stop-color="#39E075"/>
-            <stop offset="100%" stop-color="#00E5CC"/>
+            <stop offset="0%"   stop-color="${chartA}"/>
+            <stop offset="100%" stop-color="${chartB}"/>
           </linearGradient>
         </defs>
         ${bars}
@@ -142,6 +155,15 @@ class LineChart {
   }
 
   render() {
+    const cssVar = (name, fallback) => {
+      try {
+        const v = getComputedStyle(document.documentElement).getPropertyValue(name);
+        const s = (v || '').trim();
+        return s || fallback;
+      } catch (e) {
+        return fallback;
+      }
+    };
     const W = 300,
       H = 150;
     const paths = this.datasets
@@ -159,16 +181,17 @@ class LineChart {
       .join('');
 
     // Légende
+    const legendText = cssVar('--text-2', 'rgba(238,248,255,0.72)');
     const legend = this.datasets
       .map(
         (ds) =>
-          `<tspan fill="${ds.color}" font-size="8" font-family="Inter,sans-serif">■ ${ds.label}  </tspan>`,
+          `<tspan fill="${_he(ds.color)}" font-size="8" font-family="Inter,sans-serif">■ ${_he(ds.label)}  </tspan>`,
       )
       .join('');
 
     this.el.innerHTML = `
       <svg viewBox="0 0 ${W} ${H + 16}" style="width:100%">
-        <text x="20" y="${H + 12}">${legend}</text>
+        <text x="20" y="${H + 12}" fill="${legendText}">${legend}</text>
         ${paths}
       </svg>`;
   }
@@ -201,6 +224,15 @@ class DonutChart {
   }
 
   render() {
+    const cssVar = (name, fallback) => {
+      try {
+        const v = getComputedStyle(document.documentElement).getPropertyValue(name);
+        const s = (v || '').trim();
+        return s || fallback;
+      } catch (e) {
+        return fallback;
+      }
+    };
     const R = 55,
       cx = 80,
       cy = 80,
@@ -222,13 +254,14 @@ class DonutChart {
       })
       .join('');
 
+    const legendFill = cssVar('--text-2', 'rgba(238,248,255,0.72)');
     const legend = this.segs
       .map(
         (s, i) =>
           `<text x="170" y="${14 + i * 18}"
          font-size="9" font-family="Inter,sans-serif"
-         fill="rgba(238,248,255,0.65)">
-        <tspan fill="${s.c}">■</tspan> ${s.label || s.v + '%'}
+         fill="${legendFill}">
+        <tspan fill="${_he(s.c)}">■</tspan> ${_he(s.label || s.v + '%')}
        </text>`,
       )
       .join('');

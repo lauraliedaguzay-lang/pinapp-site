@@ -36,6 +36,24 @@ const AuroraAnalyse = {
     return `① Formulaires, confirmations et relances peuvent être enchaînés pour limiter la saisie répétitive.\n② Les devis peuvent intégrer un lien de paiement ou de signature — selon votre façon de travailler.\n③ Vous gardez la validation aux étapes sensibles.\n\nDiagnostic gratuit et sans engagement : on affine ensemble ce qui a du sens pour vous.`;
   },
 
+  _escapeHtml(s) {
+    return s == null
+      ? ''
+      : String(s)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#x27;');
+  },
+
+  _renderSafe(text) {
+    const safe = this._escapeHtml(text)
+      .replace(/\n/g, '<br>')
+      .replace(/[①②③④⑤]/g, (m) => `<span class="aurora-num">${m}</span>`);
+    return safe;
+  },
+
   async run() {
     const input = document.getElementById('aurora-input');
     const result = document.getElementById('aurora-result');
@@ -97,10 +115,7 @@ const AuroraAnalyse = {
     let i = 0;
     const type = setInterval(() => {
       if (i < text.length) {
-        result.innerHTML = text
-          .slice(0, i + 1)
-          .replace(/\n/g, '<br>')
-          .replace(/[①②③④⑤]/g, (m) => `<span class="aurora-num">${m}</span>`);
+        result.innerHTML = this._renderSafe(text.slice(0, i + 1));
         i++;
       } else {
         clearInterval(type);

@@ -227,11 +227,21 @@
           const el = document.getElementById('merci-univers');
           if (!u || !el) return;
           el.style.display = 'block';
+          const _he = function (s) {
+            return s == null
+              ? ''
+              : String(s)
+                  .replace(/&/g, '&amp;')
+                  .replace(/</g, '&lt;')
+                  .replace(/>/g, '&gt;')
+                  .replace(/"/g, '&quot;')
+                  .replace(/'/g, '&#x27;');
+          };
           el.innerHTML =
             '<div style="padding:24px;border-radius:20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;">' +
             '<p style="font-size:12px;letter-spacing:0.10em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;">VOTRE UNIVERS G\u00C9N\u00C9R\u00C9</p>' +
             '<p style="font-family:Georgia,serif;font-size:22px;color:var(--text);margin-bottom:16px;">\u2736 ' +
-            (u.nom || '') +
+            _he(u.nom || '') +
             '</p>' +
             '<div style="display:flex;gap:8px;justify-content:center;margin-bottom:16px;">' +
             [u.palette?.fond, u.palette?.accent1, u.palette?.accent2]
@@ -239,14 +249,14 @@
               .map(function (c) {
                 return (
                   '<div style="width:32px;height:32px;border-radius:50%;background:' +
-                  c +
+                  _he(c) +
                   ';box-shadow:0 2px 8px rgba(0,0,0,0.25);"></div>'
                 );
               })
               .join('') +
             '</div>' +
             '<p style="font-size:13px;color:var(--text-3);font-style:italic;">\u201C' +
-            (u.promesse || '') +
+            _he(u.promesse || '') +
             '\u201D</p>' +
             '</div>';
         } catch (e) {}
