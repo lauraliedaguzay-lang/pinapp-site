@@ -16,7 +16,10 @@ html {
 
 body {
   font-kerning: normal;
-  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+  font-feature-settings:
+    'kern' 1,
+    'liga' 1,
+    'calt' 1;
   text-rendering: optimizeLegibility;
 }
 
@@ -25,11 +28,10 @@ body {
   background: rgba(0, 229, 204, 0.22);
   color: inherit;
 }
-html[data-theme="light"] ::selection,
+html[data-theme='light'] ::selection,
 body.mode-jour ::selection {
   background: rgba(91, 63, 216, 0.18);
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────
    2. SCROLLBAR — minimaliste, Apple thin
@@ -39,31 +41,37 @@ body.mode-jour ::selection {
   scrollbar-width: thin;
   scrollbar-color: rgba(0, 229, 204, 0.18) transparent;
 }
-*::-webkit-scrollbar         { width: 3px; height: 3px; }
-*::-webkit-scrollbar-track   { background: transparent; }
-*::-webkit-scrollbar-thumb   {
-  background: rgba(0, 229, 204, 0.20);
+*::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(0, 229, 204, 0.2);
   border-radius: 2px;
 }
-html[data-theme="light"] *::-webkit-scrollbar-thumb {
+html[data-theme='light'] *::-webkit-scrollbar-thumb {
   background: rgba(91, 63, 216, 0.18);
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────
    3. FOCUS RINGS — accessibilité Apple précise
    Uniquement sur :focus-visible (pas au clic souris)
    ───────────────────────────────────────────────────────────────────── */
 
-:focus { outline: none; }
+:focus {
+  outline: none;
+}
 
 :focus-visible {
   outline: 2px solid var(--accent-teal);
   outline-offset: 3px;
   border-radius: 4px;
 }
-html[data-theme="light"] :focus-visible {
-  outline-color: var(--accent-violet, #5B3FD8);
+html[data-theme='light'] :focus-visible {
+  outline-color: var(--accent-violet, #5b3fd8);
 }
 
 /* Inputs : focus glow Pandora, pas d'outline par défaut */
@@ -76,21 +84,28 @@ select:focus-visible {
     0 0 0 3px rgba(0, 229, 204, 0.14),
     0 0 16px rgba(0, 229, 204, 0.08);
 }
-html[data-theme="light"] input:focus-visible,
-html[data-theme="light"] textarea:focus-visible {
-  border-color: var(--accent-violet, #5B3FD8) !important;
+html[data-theme='light'] input:focus-visible,
+html[data-theme='light'] textarea:focus-visible {
+  border-color: var(--accent-violet, #5b3fd8) !important;
   box-shadow:
     0 0 0 3px rgba(91, 63, 216, 0.12),
     0 0 16px rgba(91, 63, 216, 0.06);
 }
 
-
 /* ─────────────────────────────────────────────────────────────────────
    4. TYPOGRAPHIE — hiérarchie précise Apple
    ───────────────────────────────────────────────────────────────────── */
 
-h1, h2, h3, h4, h5, h6 {
-  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-feature-settings:
+    'kern' 1,
+    'liga' 1,
+    'calt' 1;
   text-rendering: optimizeLegibility;
   hanging-punctuation: first last;
 }
@@ -110,14 +125,15 @@ h3 {
 }
 
 /* Corps — légèrement lâche pour la lisibilité */
-p, li {
+p,
+li {
   line-height: 1.68;
 }
 
 /* Prix — chiffres tabulaires parfaitement alignés */
-[class*="prix"],
-[class*="price"],
-[class*="tarif"],
+[class*='prix'],
+[class*='price'],
+[class*='tarif'],
 .hero-prix {
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum' 1;
@@ -128,12 +144,7 @@ p, li {
 /* Accent hero — premium sobre (HIG Apple : pas de néon, lisibilité d'abord) */
 .hero-word.accent {
   /* Nuit : lumière biolume menthe / turquoise (pas gris-bleu froid) */
-  background: linear-gradient(
-    180deg,
-    #F2FBF8 0%,
-    #7AD4C4 42%,
-    #3DB8A8 100%
-  );
+  background: linear-gradient(180deg, #f2fbf8 0%, #7ad4c4 42%, #3db8a8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -142,13 +153,8 @@ p, li {
   filter: none !important;
 }
 body.mode-jour .hero-word.accent,
-html[data-theme="light"] .hero-word.accent {
-  background: linear-gradient(
-    180deg,
-    #1A1528 0%,
-    #4A3D72 55%,
-    #5B4A8C 100%
-  );
+html[data-theme='light'] .hero-word.accent {
+  background: linear-gradient(180deg, #1a1528 0%, #4a3d72 55%, #5b4a8c 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -156,7 +162,6 @@ html[data-theme="light"] .hero-word.accent {
   animation: none !important;
   filter: none !important;
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────
    5. NAV — frosted glass Apple signature
@@ -173,7 +178,7 @@ nav {
   border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
 }
 body.mode-jour nav,
-html[data-theme="light"] nav {
+html[data-theme='light'] nav {
   border-bottom: 0.5px solid rgba(0, 0, 0, 0.06);
 }
 /* Bottom-bar : séparateur haut (elle est collée en bas) */
@@ -182,7 +187,7 @@ html[data-theme="light"] nav {
   border-bottom: none !important;
 }
 body.mode-jour .bottom-bar,
-html[data-theme="light"] .bottom-bar {
+html[data-theme='light'] .bottom-bar {
   border-top: 0.5px solid rgba(0, 0, 0, 0.06);
 }
 
@@ -207,7 +212,6 @@ nav a,
   }
 }
 
-
 /* ─────────────────────────────────────────────────────────────────────
    6. CARDS — verre Apple ultra-précis
    Border 0.5px, highlight interne, shadow précise
@@ -215,15 +219,15 @@ nav a,
 
 .card,
 .offre-card,
-[class*="-card"],
+[class*='-card'],
 .block {
   /* Border ultra-fine — Apple signature */
   border-width: 0.5px !important;
   /* Highlight interne bord haut — reflet lumière Apple */
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.10) inset,
+    0 1px 0 rgba(255, 255, 255, 0.1) inset,
     0 -1px 0 rgba(0, 0, 0, 0.12) inset,
-    0 4px 16px rgba(0, 0, 0, 0.20),
+    0 4px 16px rgba(0, 0, 0, 0.2),
     0 1px 4px rgba(0, 0, 0, 0.12),
     0 0 0 0.5px rgba(255, 255, 255, 0.04) inset;
   /* Rendu sub-pixel */
@@ -236,7 +240,7 @@ nav a,
     border-color: rgba(0, 229, 204, 0.28) !important;
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.14) inset,
-      0 -1px 0 rgba(0, 0, 0, 0.10) inset,
+      0 -1px 0 rgba(0, 0, 0, 0.1) inset,
       0 8px 32px rgba(0, 0, 0, 0.24),
       0 2px 8px rgba(0, 0, 0, 0.16),
       0 0 28px rgba(0, 229, 204, 0.08) !important;
@@ -255,15 +259,14 @@ nav a,
 }
 
 /* Mode jour — cards légèrement différentes */
-html[data-theme="light"] .card,
+html[data-theme='light'] .card,
 body.mode-jour .card {
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.70) inset,
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
     0 -1px 0 rgba(0, 0, 0, 0.06) inset,
     0 2px 12px rgba(0, 0, 0, 0.06),
     0 1px 3px rgba(0, 0, 0, 0.04);
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────
    7. BOUTONS — spring physics Apple + press state précis
@@ -303,7 +306,7 @@ body.mode-jour .card {
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.22) inset,
     0 -1px 0 rgba(0, 0, 0, 0.18) inset,
-    0 4px 16px rgba(100, 55, 220, 0.40),
+    0 4px 16px rgba(100, 55, 220, 0.4),
     0 1px 4px rgba(0, 0, 0, 0.28) !important;
   border: none !important;
   position: relative;
@@ -315,17 +318,13 @@ body.mode-jour .card {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(
-    160deg,
-    rgba(255, 255, 255, 0.12) 0%,
-    transparent 50%
-  );
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.12) 0%, transparent 50%);
   pointer-events: none;
 }
 
 @media (hover: hover) {
   .btn-primary:hover {
-    transform: translateY(-1px) scale(1.010) !important;
+    transform: translateY(-1px) scale(1.01) !important;
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.26) inset,
       0 -1px 0 rgba(0, 0, 0, 0.14) inset,
@@ -337,7 +336,7 @@ body.mode-jour .card {
 
 /* Mode jour — violet plus chaud */
 body.mode-jour .btn-primary,
-html[data-theme="light"] .btn-primary {
+html[data-theme='light'] .btn-primary {
   background: linear-gradient(
     160deg,
     rgba(110, 80, 230, 1) 0%,
@@ -354,15 +353,14 @@ html[data-theme="light"] .btn-primary {
     0 1px 4px rgba(0, 0, 0, 0.12) !important;
 }
 
-
 /* ─────────────────────────────────────────────────────────────────────
    8. INPUTS — champs Apple text field
    ───────────────────────────────────────────────────────────────────── */
 
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="search"],
+input[type='text'],
+input[type='email'],
+input[type='tel'],
+input[type='search'],
 textarea,
 select {
   /* Border ultra-fine — Apple text field */
@@ -379,13 +377,13 @@ select {
   letter-spacing: -0.005em;
 }
 
-body.mode-jour input[type="text"],
-body.mode-jour input[type="email"],
-body.mode-jour input[type="tel"],
+body.mode-jour input[type='text'],
+body.mode-jour input[type='email'],
+body.mode-jour input[type='tel'],
 body.mode-jour textarea,
-html[data-theme="light"] input[type="text"],
-html[data-theme="light"] input[type="email"],
-html[data-theme="light"] textarea {
+html[data-theme='light'] input[type='text'],
+html[data-theme='light'] input[type='email'],
+html[data-theme='light'] textarea {
   border: 0.5px solid rgba(0, 0, 0, 0.14) !important;
   background: rgba(255, 255, 255, 0.68) !important;
 }
@@ -395,7 +393,6 @@ html[data-theme="light"] textarea {
   opacity: 0.38;
   font-style: normal;
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────
    9. SEPARATEURS — hairline Apple 0.5px
@@ -408,7 +405,7 @@ hr {
   margin: 0;
 }
 body.mode-jour hr,
-html[data-theme="light"] hr {
+html[data-theme='light'] hr {
   background: rgba(0, 0, 0, 0.08);
 }
 
@@ -420,7 +417,6 @@ html[data-theme="light"] hr {
   margin-top: var(--space-2);
 }
 
-
 /* ─────────────────────────────────────────────────────────────────────
    10. LABELS / BADGES — chip Apple
    ───────────────────────────────────────────────────────────────────── */
@@ -430,7 +426,7 @@ html[data-theme="light"] hr {
   padding: 3px 10px;
   border-radius: 100px;
   background: rgba(0, 229, 204, 0.08);
-  border: 0.5px solid rgba(0, 229, 204, 0.20);
+  border: 0.5px solid rgba(0, 229, 204, 0.2);
   letter-spacing: 0.12em;
   font-size: 10px;
   font-weight: 600;
@@ -441,25 +437,24 @@ html[data-theme="light"] hr {
 }
 
 body.mode-jour .label,
-html[data-theme="light"] .label {
+html[data-theme='light'] .label {
   background: rgba(91, 63, 216, 0.07);
   border-color: rgba(91, 63, 216, 0.18);
-  color: var(--accent-violet, #5B3FD8);
+  color: var(--accent-violet, #5b3fd8);
 }
 
 /* Badge "populaire" / highlight */
-[class*="badge"],
-[class*="tag"],
+[class*='badge'],
+[class*='tag'],
 .dossier-badge,
 .univers-tag {
   border-radius: 100px !important;
   font-size: 10px !important;
   font-weight: 600 !important;
-  letter-spacing: 0.10em !important;
+  letter-spacing: 0.1em !important;
   text-transform: uppercase !important;
   padding: 3px 10px !important;
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────
    11. IMAGES — rendu Apple propre
@@ -475,11 +470,11 @@ img {
 }
 
 /* Avatar / photo de profil */
-img[alt*="Lauralie"],
-img[alt*="lauralie"],
+img[alt*='Lauralie'],
+img[alt*='lauralie'],
 .avatar-img,
-img[class*="photo"],
-img[class*="profile"] {
+img[class*='photo'],
+img[class*='profile'] {
   border-radius: 50% !important;
   border: 0.5px solid rgba(255, 255, 255, 0.18);
   box-shadow:
@@ -487,29 +482,27 @@ img[class*="profile"] {
     0 0 0 3px rgba(0, 229, 204, 0.08);
 }
 
-
 /* ─────────────────────────────────────────────────────────────────────
    12. LIENS CORPS DE PAGE — Apple text link
    ───────────────────────────────────────────────────────────────────── */
 
-main a:not(.btn):not([class*="nav"]):not([class*="logo"]) {
+main a:not(.btn):not([class*='nav']):not([class*='logo']) {
   color: var(--accent-teal);
   text-decoration: none;
   transition: opacity 160ms ease;
-  border-bottom: 0.5px solid rgba(0, 229, 204, 0.30);
+  border-bottom: 0.5px solid rgba(0, 229, 204, 0.3);
   padding-bottom: 0.05em;
 }
 @media (hover: hover) {
-  main a:not(.btn):not([class*="nav"]):not([class*="logo"]):hover {
+  main a:not(.btn):not([class*='nav']):not([class*='logo']):hover {
     opacity: 0.78;
   }
 }
-body.mode-jour main a:not(.btn):not([class*="nav"]):not([class*="logo"]),
-html[data-theme="light"] main a:not(.btn):not([class*="nav"]):not([class*="logo"]) {
-  color: var(--accent-violet, #5B3FD8);
+body.mode-jour main a:not(.btn):not([class*='nav']):not([class*='logo']),
+html[data-theme='light'] main a:not(.btn):not([class*='nav']):not([class*='logo']) {
+  color: var(--accent-violet, #5b3fd8);
   border-bottom-color: rgba(91, 63, 216, 0.25);
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────
    13. PILLS / FILTRES — Apple segment control
@@ -545,7 +538,6 @@ html[data-theme="light"] main a:not(.btn):not([class*="nav"]):not([class*="logo"
     0 2px 8px rgba(0, 229, 204, 0.22) !important;
 }
 
-
 /* ─────────────────────────────────────────────────────────────────────
    14. LISTE D'ITEMS avec ✓ — Apple feature list
    ───────────────────────────────────────────────────────────────────── */
@@ -556,19 +548,19 @@ li {
 }
 
 /* Espacement interne des listes */
-ul, ol {
+ul,
+ol {
   padding: 0;
   margin: 0;
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────
    15. MODAL / OVERLAY — Apple sheet
    ───────────────────────────────────────────────────────────────────── */
 
-[class*="modal"],
-[class*="overlay"],
-[class*="drawer"] {
+[class*='modal'],
+[class*='overlay'],
+[class*='drawer'] {
   backdrop-filter: saturate(160%) blur(28px);
   -webkit-backdrop-filter: saturate(160%) blur(28px);
 }
@@ -577,7 +569,6 @@ ul, ol {
   border-top: 0.5px solid rgba(255, 255, 255, 0.08) !important;
   border-radius: 20px 20px 0 0;
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────
    16. FOOTER — finition Apple sobre
@@ -602,7 +593,6 @@ ul, ol {
   }
 }
 
-
 /* ─────────────────────────────────────────────────────────────────────
    17. TRANSITIONS PAGE — Apple instant-feel
    ───────────────────────────────────────────────────────────────────── */
@@ -614,26 +604,40 @@ ul, ol {
   animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-
 /* ─────────────────────────────────────────────────────────────────────
    18. CURSEUR — none custom remplacé par défaut propre
    ───────────────────────────────────────────────────────────────────── */
 
-button, [role="button"], .btn,
-.pill-btn, .univers-pill, .filter-btn,
-label[for], summary, [tabindex] {
+button,
+[role='button'],
+.btn,
+.pill-btn,
+.univers-pill,
+.filter-btn,
+label[for],
+summary,
+[tabindex] {
   cursor: pointer;
 }
 
 /* Éléments non-interactifs : curseur default propre */
-p, h1, h2, h3, h4, span, div {
+p,
+h1,
+h2,
+h3,
+h4,
+span,
+div {
   cursor: default;
 }
 /* Overrider pour le texte sélectionnable */
-p, li, h1, h2, h3 {
+p,
+li,
+h1,
+h2,
+h3 {
   cursor: text;
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────
    19. LOADER — Apple-style splash (fade propre)
@@ -644,13 +648,17 @@ p, li, h1, h2, h3 {
   transition: opacity 280ms cubic-bezier(0.25, 0.1, 0.25, 1) !important;
 }
 
-
 /* ─────────────────────────────────────────────────────────────────────
    20. MICRO-FINITIONS — détails que Apple soigne toujours
    ───────────────────────────────────────────────────────────────────── */
 
 /* Pas de tap highlight iOS sur tous les éléments interactifs */
-a, button, input, select, textarea, [role="button"] {
+a,
+button,
+input,
+select,
+textarea,
+[role='button'] {
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -667,25 +675,42 @@ svg {
 }
 
 /* No sélection sur les éléments UI */
-nav, .bottom-bar, .site-footer .label {
+nav,
+.bottom-bar,
+.site-footer .label {
   user-select: none;
   -webkit-user-select: none;
 }
 
 /* Touch feedback — plus précis */
 @media (pointer: coarse) {
-  .btn, .pill-btn, .univers-pill, .filter-btn, .card {
+  .btn,
+  .pill-btn,
+  .univers-pill,
+  .filter-btn,
+  .card {
     -webkit-tap-highlight-color: transparent;
   }
-  .btn:active       { transform: scale(0.95) !important; }
-  .card:active      { transform: scale(0.98) !important; }
-  .pill-btn:active  { transform: scale(0.94) !important; }
+  .btn:active {
+    transform: scale(0.95) !important;
+  }
+  .card:active {
+    transform: scale(0.98) !important;
+  }
+  .pill-btn:active {
+    transform: scale(0.94) !important;
+  }
 }
 
 /* Reduced motion — désactiver toutes les transitions */
 @media (prefers-reduced-motion: reduce) {
-  .btn, .card, .pill-btn, .univers-pill, .filter-btn,
-  nav a, .footer-links a {
+  .btn,
+  .card,
+  .pill-btn,
+  .univers-pill,
+  .filter-btn,
+  nav a,
+  .footer-links a {
     transition: none !important;
     animation: none !important;
   }

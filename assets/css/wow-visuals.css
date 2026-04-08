@@ -1,0 +1,297 @@
+/* WOW VISUALS — composants visuels premium (Pinapp)
+   Objectif: plus de "preuve" par le visuel, sans scroll-animations.
+   Compatible jour/nuit (data-theme) et mobile/desktop. */
+
+:root {
+  --wow-glass-blur: 28px;
+  --wow-glass-sat: 170%;
+  --wow-stroke: rgba(255, 255, 255, 0.12);
+  --wow-stroke-soft: rgba(255, 255, 255, 0.08);
+  --wow-fill: rgba(255, 255, 255, 0.045);
+  --wow-fill-2: rgba(255, 255, 255, 0.03);
+}
+
+html[data-theme='light'],
+body.mode-jour {
+  --wow-stroke: rgba(0, 0, 0, 0.08);
+  --wow-stroke-soft: rgba(0, 0, 0, 0.06);
+  /* Mode jour: vrai “verre” (plus transparent) */
+  --wow-fill: rgba(252, 250, 255, 0.44);
+  --wow-fill-2: rgba(252, 250, 255, 0.28);
+}
+
+.wow-surface {
+  position: relative;
+  background: var(--wow-fill);
+  border: 0.5px solid var(--wow-stroke);
+  border-radius: var(--radius-card, 16px);
+  backdrop-filter: blur(var(--wow-glass-blur)) saturate(var(--wow-glass-sat));
+  -webkit-backdrop-filter: blur(var(--wow-glass-blur)) saturate(var(--wow-glass-sat));
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.1) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.12) inset,
+    0 12px 40px rgba(0, 0, 0, 0.22);
+  transform: translateZ(0);
+}
+
+body.mode-jour .wow-surface,
+html[data-theme='light'] .wow-surface {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.75) inset,
+    0 -1px 0 rgba(26, 10, 46, 0.06) inset,
+    0 14px 36px rgba(26, 10, 46, 0.12);
+}
+
+.wow-surface::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+}
+
+body.mode-jour .wow-surface::after,
+html[data-theme='light'] .wow-surface::after {
+  border-top-color: rgba(255, 255, 255, 0.55);
+}
+
+.wow-kpi-row {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: 1fr;
+  margin-bottom: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .wow-kpi-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.wow-kpi {
+  padding: var(--space-4);
+}
+
+.wow-kpi .wow-kpi-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: 10px;
+}
+
+.wow-kpi .wow-kpi-title {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+body.mode-jour .wow-kpi .wow-kpi-title,
+html[data-theme='light'] .wow-kpi .wow-kpi-title {
+  opacity: 0.9;
+  color: rgba(26, 10, 46, 0.85);
+}
+
+.wow-kpi .wow-kpi-badge {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 0.5px solid var(--wow-stroke-soft);
+  background: var(--wow-fill-2);
+  opacity: 0.9;
+  white-space: nowrap;
+}
+
+body.mode-jour .wow-kpi .wow-kpi-badge,
+html[data-theme='light'] .wow-kpi .wow-kpi-badge {
+  opacity: 1;
+  color: rgba(26, 10, 46, 0.78);
+  border-color: rgba(26, 10, 46, 0.12);
+}
+
+.wow-kpi .wow-kpi-value {
+  font-size: clamp(28px, 5vw, 38px);
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin-bottom: 6px;
+}
+
+body.mode-jour .wow-kpi .wow-kpi-value,
+html[data-theme='light'] .wow-kpi .wow-kpi-value {
+  color: rgba(26, 10, 46, 0.92);
+}
+
+.wow-kpi .wow-kpi-sub {
+  font-size: 13px;
+  opacity: 0.68;
+  line-height: 1.55;
+}
+
+body.mode-jour .wow-kpi .wow-kpi-sub,
+html[data-theme='light'] .wow-kpi .wow-kpi-sub {
+  opacity: 0.75;
+  color: rgba(26, 10, 46, 0.68);
+}
+
+.wow-mini-widgets {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: 1fr;
+  margin-top: var(--space-4);
+}
+
+@media (min-width: 1024px) {
+  .wow-mini-widgets {
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: start;
+  }
+}
+
+.wow-widget {
+  padding: var(--space-4);
+  overflow: hidden;
+}
+
+.wow-widget .wow-widget-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.wow-widget .wow-widget-title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.wow-widget .wow-widget-meta {
+  font-size: 12px;
+  opacity: 0.62;
+  white-space: nowrap;
+}
+
+.wow-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.wow-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 0.5px solid var(--wow-stroke-soft);
+  background: var(--wow-fill-2);
+}
+
+.wow-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 99px;
+  margin-top: 5px;
+  flex-shrink: 0;
+  background: var(--accent-teal);
+  box-shadow: 0 0 0 3px rgba(0, 229, 204, 0.12);
+}
+
+body.mode-jour .wow-dot,
+html[data-theme='light'] .wow-dot {
+  box-shadow: 0 0 0 2px var(--chart-a-soft, rgba(0, 155, 140, 0.18));
+  background: var(--chart-a, rgba(0, 155, 140, 0.95));
+}
+
+.wow-item .wow-item-title {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.wow-item .wow-item-sub {
+  font-size: 12px;
+  opacity: 0.66;
+  line-height: 1.45;
+}
+
+.wow-notif-stack {
+  display: grid;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.wow-notif {
+  padding: 10px 12px;
+  border-radius: 16px;
+  border: 0.5px solid var(--wow-stroke-soft);
+  background:
+    radial-gradient(140px 80px at 12% 20%, rgba(255, 255, 255, 0.16) 0%, transparent 70%),
+    var(--wow-fill-2);
+}
+
+body.mode-jour .wow-notif,
+html[data-theme='light'] .wow-notif {
+  background: var(--wow-fill-2);
+  border-color: rgba(26, 10, 46, 0.12);
+}
+
+.wow-notif .wow-notif-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.wow-notif .wow-notif-app {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+body.mode-jour .wow-notif .wow-notif-app,
+html[data-theme='light'] .wow-notif .wow-notif-app {
+  opacity: 0.85;
+  color: rgba(26, 10, 46, 0.78);
+}
+
+.wow-notif .wow-notif-time {
+  font-size: 11px;
+  opacity: 0.55;
+}
+
+body.mode-jour .wow-notif .wow-notif-time,
+html[data-theme='light'] .wow-notif .wow-notif-time {
+  opacity: 0.6;
+  color: rgba(26, 10, 46, 0.6);
+}
+
+.wow-notif .wow-notif-body {
+  font-size: 12.5px;
+  opacity: 0.78;
+  line-height: 1.45;
+}
+
+body.mode-jour .wow-notif .wow-notif-body,
+html[data-theme='light'] .wow-notif .wow-notif-body {
+  opacity: 0.78;
+  color: rgba(26, 10, 46, 0.78);
+}
+
+/* Cohérence mobile: ne pas dépendre du hover pour exister */
+@media (hover: hover) {
+  .wow-surface:hover {
+    border-color: rgba(0, 229, 204, 0.22);
+  }
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .wow-surface {
+    background: var(--bg-overlay, rgba(5, 10, 20, 0.92));
+  }
+}

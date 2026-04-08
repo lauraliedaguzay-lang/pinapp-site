@@ -33,12 +33,12 @@
 
 1. **Paramètres du projet** (engrenage) → **Propriétés du script** → **Ajouter une propriété** :
 
-| Propriété | Valeur |
-|-----------|--------|
-| `ANTHROPIC_API_KEY` | Votre clé API |
-| `CLAUDE_MODEL` | (optionnel) ex. `claude-sonnet-4-20250514` ou `claude-3-5-haiku-20241022` pour réduire le coût |
-| `MAX_THREADS` | (optionnel) ex. `3` ou `8` |
-| `LABEL_IN` / `LABEL_OUT` | (optionnel) si vous renommez les étiquettes |
+| Propriété                | Valeur                                                                                         |
+| ------------------------ | ---------------------------------------------------------------------------------------------- |
+| `ANTHROPIC_API_KEY`      | Votre clé API                                                                                  |
+| `CLAUDE_MODEL`           | (optionnel) ex. `claude-sonnet-4-20250514` ou `claude-3-5-haiku-20241022` pour réduire le coût |
+| `MAX_THREADS`            | (optionnel) ex. `3` ou `8`                                                                     |
+| `LABEL_IN` / `LABEL_OUT` | (optionnel) si vous renommez les étiquettes                                                    |
 
 ### 3. Autorisations
 

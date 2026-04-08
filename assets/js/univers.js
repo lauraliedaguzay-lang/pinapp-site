@@ -1,5 +1,14 @@
 ﻿/* XSS protection: escape HTML in user-provided/localStorage data */
-var _he = function(s){return s==null?'':String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#x27;');};
+var _he = function (s) {
+  return s == null
+    ? ''
+    : String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#x27;');
+};
 /* =====================================================
    UNIVERS DIGITAL — Aurora directrice artistique
    Pinapp Studio · Avril 2026
@@ -11,9 +20,10 @@ var _he = function(s){return s==null?'':String(s).replace(/&/g,'&amp;').replace(
    ===================================================== */
 
 /* endpoint résolu depuis config.js si disponible */
-const AURORA_ENDPOINT = (window.PinappConfig && window.PinappConfig._isRealUrl(window.PinappConfig.webhooks.auroraUnivers))
-  ? window.PinappConfig.webhooks.auroraUnivers
-  : 'https://[TON-N8N]/webhook/aurora-univers';
+const AURORA_ENDPOINT =
+  window.PinappConfig && window.PinappConfig._isRealUrl(window.PinappConfig.webhooks.auroraUnivers)
+    ? window.PinappConfig.webhooks.auroraUnivers
+    : 'https://[TON-N8N]/webhook/aurora-univers';
 
 const UniversDigital = {
   state: {
@@ -26,42 +36,40 @@ const UniversDigital = {
 
   init() {
     // Pills lieu
-    document.querySelectorAll('#pills-lieu .univers-pill')
-      .forEach(pill => {
-        pill.addEventListener('click', () => {
-          document.querySelectorAll('#pills-lieu .univers-pill')
-            .forEach(p => p.classList.remove('selected'));
-          pill.classList.add('selected');
-          this.state.lieu = pill.dataset.val;
+    document.querySelectorAll('#pills-lieu .univers-pill').forEach((pill) => {
+      pill.addEventListener('click', () => {
+        document
+          .querySelectorAll('#pills-lieu .univers-pill')
+          .forEach((p) => p.classList.remove('selected'));
+        pill.classList.add('selected');
+        this.state.lieu = pill.dataset.val;
 
-          if (navigator.vibrate) navigator.vibrate(10);
-          setTimeout(() => this.goToStep(2), 300);
-        });
+        if (navigator.vibrate) navigator.vibrate(10);
+        setTimeout(() => this.goToStep(2), 300);
       });
+    });
 
     // Pills émotion
-    document.querySelectorAll('#pills-emotion .univers-pill')
-      .forEach(pill => {
-        pill.addEventListener('click', () => {
-          document.querySelectorAll('#pills-emotion .univers-pill')
-            .forEach(p => p.classList.remove('selected'));
-          pill.classList.add('selected');
-          this.state.emotion = pill.dataset.val;
+    document.querySelectorAll('#pills-emotion .univers-pill').forEach((pill) => {
+      pill.addEventListener('click', () => {
+        document
+          .querySelectorAll('#pills-emotion .univers-pill')
+          .forEach((p) => p.classList.remove('selected'));
+        pill.classList.add('selected');
+        this.state.emotion = pill.dataset.val;
 
-          if (navigator.vibrate) navigator.vibrate(10);
-          setTimeout(() => this.goToStep(3), 300);
-        });
+        if (navigator.vibrate) navigator.vibrate(10);
+        setTimeout(() => this.goToStep(3), 300);
       });
+    });
 
     // Bouton générer
-    document.getElementById('btn-generer')
-      ?.addEventListener('click', () => this.generer());
+    document.getElementById('btn-generer')?.addEventListener('click', () => this.generer());
 
     // Entrée clavier sur le champ référence
-    document.getElementById('input-reference')
-      ?.addEventListener('keydown', e => {
-        if (e.key === 'Enter') this.generer();
-      });
+    document.getElementById('input-reference')?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') this.generer();
+    });
   },
 
   goToStep(n) {
@@ -136,11 +144,11 @@ const UniversDigital = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          lieu:      this.state.lieu,
-          emotion:   this.state.emotion,
+          lieu: this.state.lieu,
+          emotion: this.state.emotion,
           reference: this.state.reference,
           brief_orient_claude: brief,
-        })
+        }),
       });
 
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
@@ -149,7 +157,6 @@ const UniversDigital = {
 
       this.afficherResultat(univers);
       this.notifyLauralie(univers);
-
     } catch (e) {
       resultat.innerHTML = `
         <p style="color:var(--text-2)">
@@ -189,7 +196,9 @@ const UniversDigital = {
       </div>
 
       <div class="univers-palette">
-        ${u.palette ? `
+        ${
+          u.palette
+            ? `
           <div class="univers-swatch"
                style="background:${_he(u.palette.fond)}"
                title="Fond"></div>
@@ -200,25 +209,35 @@ const UniversDigital = {
                style="background:${_he(u.palette.accent2)}"
                title="Accent secondaire"></div>
           <span class="univers-palette-label">Votre palette</span>
-        ` : ''}
+        `
+            : ''
+        }
       </div>
 
       <p class="univers-description">
         &ldquo;${_he(u.atmosphere || '')}&rdquo;
       </p>
 
-      ${u.signature ? `
+      ${
+        u.signature
+          ? `
         <div class="univers-signature">
-          ◈ Signature visuelle : ${u.signature}
+          ◈ Signature visuelle : ${_he(u.signature)}
         </div>
-      ` : ''}
+      `
+          : ''
+      }
 
-      ${u.promesse ? `
+      ${
+        u.promesse
+          ? `
         <p style="font-size:18px;font-weight:500;color:var(--text);
                   margin-bottom:32px;font-family:Georgia,serif;">
           ${_he(u.promesse)}
         </p>
-      ` : ''}
+      `
+          : ''
+      }
 
       <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:8px;">
         <a href="/diagnostic/?univers=${encodeURIComponent(u.nom || '')}"
@@ -258,37 +277,46 @@ const UniversDigital = {
 
     // Sauvegarder dans localStorage pour /diagnostic/
     try {
-      localStorage.setItem('pinapp-univers', JSON.stringify({
-        ...u,
-        brief_orient_claude: this.state.briefOrientClaude || undefined,
-      }));
+      localStorage.setItem(
+        'pinapp-univers',
+        JSON.stringify({
+          ...u,
+          brief_orient_claude: this.state.briefOrientClaude || undefined,
+        }),
+      );
     } catch (e) {}
   },
 
   notifyLauralie(u) {
     // Webhook n8n → notif WhatsApp Lauralie avec l'univers généré
     try {
-      fetch((window.PinappConfig && window.PinappConfig._isRealUrl(window.PinappConfig.webhooks.notifWhatsapp)) ? window.PinappConfig.webhooks.notifWhatsapp : 'https://[TON-N8N]/webhook/univers-genere', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          lieu:      this.state.lieu,
-          emotion:   this.state.emotion,
-          reference: this.state.reference,
-          brief_orient_claude: this.state.briefOrientClaude || '',
-          univers:   u.nom,
-          palette:   u.palette,
-          timestamp: new Date().toISOString(),
-          page:      location.href,
-        })
-      }).catch(() => {});
+      fetch(
+        window.PinappConfig &&
+          window.PinappConfig._isRealUrl(window.PinappConfig.webhooks.notifWhatsapp)
+          ? window.PinappConfig.webhooks.notifWhatsapp
+          : 'https://[TON-N8N]/webhook/univers-genere',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            lieu: this.state.lieu,
+            emotion: this.state.emotion,
+            reference: this.state.reference,
+            brief_orient_claude: this.state.briefOrientClaude || '',
+            univers: u.nom,
+            palette: u.palette,
+            timestamp: new Date().toISOString(),
+            page: location.href,
+          }),
+        },
+      ).catch(() => {});
     } catch (e) {}
   },
 
   reset() {
     this.state = { lieu: null, emotion: null, reference: '', briefOrientClaude: '', step: 1 };
 
-    ['step-2', 'step-3'].forEach(id => {
+    ['step-2', 'step-3'].forEach((id) => {
       const el = document.getElementById(id);
       if (el) el.classList.add('hidden');
     });
@@ -296,12 +324,11 @@ const UniversDigital = {
     const step1 = document.getElementById('step-1');
     if (step1) {
       step1.classList.remove('hidden');
-      step1.style.opacity  = '1';
+      step1.style.opacity = '1';
       step1.style.transform = 'translateY(0)';
     }
 
-    document.querySelectorAll('.univers-pill')
-      .forEach(p => p.classList.remove('selected'));
+    document.querySelectorAll('.univers-pill').forEach((p) => p.classList.remove('selected'));
 
     const resultat = document.getElementById('univers-resultat');
     if (resultat) {
@@ -314,7 +341,7 @@ const UniversDigital = {
 
     const iface = document.querySelector('.univers-interface');
     if (iface) {
-      iface.style.background  = '';
+      iface.style.background = '';
       iface.style.borderColor = '';
       iface.classList.remove('tinted');
     }
@@ -323,7 +350,7 @@ const UniversDigital = {
     if (input) input.value = '';
     const briefEl = document.getElementById('input-brief-claude');
     if (briefEl) briefEl.value = '';
-  }
+  },
 };
 
 document.addEventListener('DOMContentLoaded', () => UniversDigital.init());

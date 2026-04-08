@@ -1,179 +1,277 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-<script>(function(){var t=localStorage.getItem('pinapp-theme')||localStorage.getItem('pinapp-mode');var d=window.matchMedia('(prefers-color-scheme:dark)').matches;var m=(t==='light'||t==='jour')?'jour':(t==='dark'||t==='nuit')?'nuit':(d?'nuit':'jour');document.documentElement.setAttribute('data-mode',m);document.documentElement.setAttribute('data-theme',m==='jour'?'light':'dark');if(document.body){document.body.classList.add('mode-'+m);}document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('mode-'+m);});}());</script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Merci — Pinapp Studio</title>
-  <meta name="robots" content="noindex, nofollow">
-  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-  <link rel="stylesheet" href="../assets/variables.css">
-  <link rel="stylesheet" href="../assets/grid.css">
-  <link rel="stylesheet" href="../assets/animations.css">
-  <link rel="stylesheet" href="../assets/css/pandora-jour.css">
-  <link rel="stylesheet" href="../assets/css/pandora-ux.css">
-  <link rel="stylesheet" href="../assets/css/pinapp-premium.css">
-  <style>
-    .merci-icon {
-      width: 64px; height: 64px;
-      border-radius: 50%;
-      background: rgba(57,224,117,0.15);
-      border: 1px solid rgba(57,224,117,0.35);
-      display: flex; align-items: center;
-      justify-content: center;
-      font-size: 28px; color: var(--green, #39E075);
-      margin: 0 auto;
-      box-shadow: 0 0 24px rgba(57,224,117,0.20);
-      animation: kiri-soar 5.5s ease-in-out infinite;
-    }
-    @keyframes kiri-soar {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
-    }
-    .merci-links {
-      display: flex; flex-direction: column;
-      gap: 12px; text-align: left;
-      margin-top: 24px;
-    }
-    .merci-link {
-      display: flex; align-items: center;
-      gap: 16px; padding: 20px 24px;
-      text-decoration: none;
-      transition: transform 200ms ease;
-      border-radius: 20px;
-    }
-    .merci-link:hover { transform: translateY(-3px); }
-    .merci-link-emoji { font-size: 24px; flex-shrink: 0; }
-    .merci-link strong {
-      display: block; font-size: 15px;
-      color: var(--text); margin-bottom: 2px;
-    }
-    .merci-link span { font-size: 12px; color: var(--text-3); }
-  </style>
-  <link rel="stylesheet" href="../assets/css/deploy-harmonise.css">
-  <link rel="stylesheet" href="../assets/css/pandora-jour-override.css">
-  <link rel="stylesheet" href="../assets/css/pinapp-modern-biolume.css">
-  <link rel="stylesheet" href="../assets/css/mobile-premium.css">
-  <link rel="stylesheet" href="../assets/css/neuro-layout.css">
-  
-  <link rel="stylesheet" href="../assets/css/pandora-world.css">
-  <link rel="stylesheet" href="../assets/css/pandora-details.css">
-</head>
-<body>
-  <div id="pandora-world" aria-hidden="true">
-    <div class="pandora-orbs">
-      <div class="orb orb-1"></div>
-      <div class="orb orb-2"></div>
-      <div class="orb orb-3"></div>
-      <div class="orb orb-4"></div>
+  <head>
+    <script>
+      (function () {
+        var t = localStorage.getItem('pinapp-theme') || localStorage.getItem('pinapp-mode');
+        var d = window.matchMedia('(prefers-color-scheme:dark)').matches;
+        var m = t === 'light' || t === 'jour' ? 'jour' : t === 'dark' || t === 'nuit' ? 'nuit' : d ? 'nuit' : 'jour';
+        document.documentElement.setAttribute('data-mode', m);
+        document.documentElement.setAttribute('data-theme', m === 'jour' ? 'light' : 'dark');
+        if (document.body) {
+          document.body.classList.add('mode-' + m);
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+          document.body.classList.add('mode-' + m);
+        });
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Merci — Pinapp Studio</title>
+    <link rel="canonical" href="https://pinapp.fr/merci/" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="stylesheet" href="../assets/variables.css" />
+    <link rel="stylesheet" href="../assets/grid.css" />
+    <link rel="stylesheet" href="../assets/animations.css" />
+    <link rel="stylesheet" href="../assets/css/ios-glass.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-jour.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-ux.css" />
+    <link rel="stylesheet" href="../assets/css/pinapp-premium.css" />
+    <style>
+      .merci-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: rgba(57, 224, 117, 0.15);
+        border: 1px solid rgba(57, 224, 117, 0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        color: var(--green, #39e075);
+        margin: 0 auto;
+        box-shadow: 0 0 24px rgba(57, 224, 117, 0.2);
+        animation: kiri-soar 5.5s ease-in-out infinite;
+      }
+      @keyframes kiri-soar {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-6px);
+        }
+      }
+      .merci-links {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        text-align: left;
+        margin-top: 24px;
+      }
+      .merci-link {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 20px 24px;
+        text-decoration: none;
+        transition: transform 200ms ease;
+        border-radius: 20px;
+      }
+      .merci-link:hover {
+        transform: translateY(-3px);
+      }
+      .merci-link-emoji {
+        font-size: 24px;
+        flex-shrink: 0;
+      }
+      .merci-link strong {
+        display: block;
+        font-size: 15px;
+        color: var(--text);
+        margin-bottom: 2px;
+      }
+      .merci-link span {
+        font-size: 12px;
+        color: var(--text-3);
+      }
+    </style>
+    <link rel="stylesheet" href="../assets/css/deploy-harmonise.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-jour-override.css" />
+    <link rel="stylesheet" href="../assets/css/pinapp-modern-biolume.css" />
+    <link rel="stylesheet" href="../assets/css/mobile-premium.css" />
+    <link rel="stylesheet" href="../assets/css/neuro-layout.css" />
+
+    <link rel="stylesheet" href="../assets/css/pandora-world.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-details.css" />
+  </head>
+  <body>
+    <div id="pandora-world" aria-hidden="true">
+      <div class="pandora-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+      </div>
+      <div class="pandora-spores" id="spores-container"></div>
+      <div class="pandora-stars" id="stars-container"></div>
+      <div class="pandora-clouds" id="clouds-container">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+      </div>
+      <div class="holo-grid"></div>
     </div>
-    <div class="pandora-spores" id="spores-container"></div>
-    <div class="pandora-stars" id="stars-container"></div>
-    <div class="pandora-clouds" id="clouds-container">
-      <div class="cloud cloud-1"></div>
-      <div class="cloud cloud-2"></div>
-      <div class="cloud cloud-3"></div>
+    <div id="pandora-loader" aria-hidden="true">
+      <svg width="32" height="38" viewBox="0 0 32 38" fill="none">
+        <defs>
+          <linearGradient id="pg-l" x1="16" y1="36" x2="16" y2="2" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#7B4FE8" />
+            <stop offset="100%" stop-color="#00E5CC" />
+          </linearGradient>
+        </defs>
+        <path d="M16 2 C13 5 10 6 11 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
+        <path d="M16 2 L16 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" />
+        <path d="M16 2 C19 5 22 6 21 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
+        <ellipse cx="16" cy="24" rx="9" ry="12" fill="url(#pg-l)" />
+        <path d="M7 20 L16 15 L25 20 L16 25 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
+        <path d="M7 26 L16 21 L25 26 L16 31 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
+      </svg>
     </div>
-    <div class="holo-grid"></div>
-  </div>
-<div id="pandora-loader" aria-hidden="true">
-  <svg width="32" height="38" viewBox="0 0 32 38" fill="none"><defs><linearGradient id="pg-l" x1="16" y1="36" x2="16" y2="2" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7B4FE8"/><stop offset="100%" stop-color="#00E5CC"/></linearGradient></defs><path d="M16 2 C13 5 10 6 11 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M16 2 L16 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round"/><path d="M16 2 C19 5 22 6 21 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none"/><ellipse cx="16" cy="24" rx="9" ry="12" fill="url(#pg-l)"/><path d="M7 20 L16 15 L25 20 L16 25 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none"/><path d="M7 26 L16 21 L25 26 L16 31 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none"/></svg>
-</div>
-<script>(function(){function h(){var l=document.getElementById('pandora-loader');if(l&&l.parentNode){l.style.opacity='0';setTimeout(function(){if(l.parentNode)l.remove();},400);}}window.addEventListener('load',h);setTimeout(h,2000);})();</script>
+    <script>
+      (function () {
+        function h() {
+          var l = document.getElementById('pandora-loader');
+          if (l && l.parentNode) {
+            l.style.opacity = '0';
+            setTimeout(function () {
+              if (l.parentNode) l.remove();
+            }, 400);
+          }
+        }
+        window.addEventListener('load', h);
+        setTimeout(h, 2000);
+      })();
+    </script>
 
-  <nav class="nav" id="mainNav" aria-label="Navigation principale">
-    <div class="container nav-inner">
-      <a href="../index.html" class="nav-logo" aria-label="Pinapp Studio — accueil" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
-        <img class="nav-logo-img" src="../assets/images/pinapp-logo.png" alt="" width="132" height="36" decoding="async" />
-      </a>
-    </div>
-  </nav>
-
-  <main style="min-height:100svh;display:flex;align-items:center;justify-content:center;padding:24px;">
-    <div class="section-enter" style="text-align:center;max-width:560px;width:100%;">
-
-      <div class="merci-icon" aria-hidden="true">&#x2713;</div>
-
-      <h1 style="font-family:Georgia,serif;font-size:clamp(32px,5vw,52px);font-weight:300;letter-spacing:-0.02em;margin:24px 0 16px;color:var(--text);">
-        Re&ccedil;u.
-      </h1>
-
-      <p style="font-size:18px;color:var(--text-2);margin-bottom:8px;">
-        Je reviens vers vous sous 24h.
-      </p>
-
-      <p style="font-size:14px;color:var(--text-3);margin-bottom:48px;font-style:italic;">
-        &mdash; Lauralie
-      </p>
-
-      <p style="font-size:15px;color:var(--text-3);margin-bottom:24px;">
-        En attendant &mdash; voici ce que vous pouvez explorer&nbsp;:
-      </p>
-
-      <div class="merci-links">
-        <a href="../univers/index.html" class="merci-link block block-cyan">
-          <span class="merci-link-emoji">&#x1F30D;</span>
-          <div>
-            <strong>15 univers disponibles</strong>
-            <span>Lequel vous ressemble&nbsp;?</span>
-          </div>
-        </a>
-        <a href="../realisations/index.html" class="merci-link block block-violet">
-          <span class="merci-link-emoji">&#x2736;</span>
-          <div>
-            <strong>Exemples de r&eacute;alisations</strong>
-            <span>Ce que Pinapp construit</span>
-          </div>
-        </a>
-        <a href="../offres/index.html" class="merci-link block block-vert">
-          <span class="merci-link-emoji">&#x26A1;</span>
-          <div>
-            <strong>Les offres</strong>
-            <span>Ce qui peut dispara&icirc;tre cette semaine</span>
-          </div>
+    <nav class="nav" id="mainNav" aria-label="Navigation principale">
+      <div class="container nav-inner">
+        <a
+          href="../index.html"
+          class="nav-logo"
+          aria-label="Pinapp Studio — accueil"
+          style="display: flex; align-items: center; gap: 10px; text-decoration: none">
+          <img
+            class="nav-logo-img"
+            src="../assets/images/pinapp-logo.svg"
+            alt=""
+            width="132"
+            height="36"
+            decoding="async" />
         </a>
       </div>
+    </nav>
 
-      <!-- Univers généré si disponible -->
-      <div id="merci-univers" style="margin-top:40px;display:none;"></div>
+    <main style="min-height: 100svh; display: flex; align-items: center; justify-content: center; padding: 24px">
+      <div class="section-enter" style="text-align: center; max-width: 560px; width: 100%">
+        <div class="merci-icon" aria-hidden="true">&#x2713;</div>
 
+        <h1
+          style="
+            font-family: Georgia, serif;
+            font-size: clamp(32px, 5vw, 52px);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            margin: 24px 0 16px;
+            color: var(--text);
+          ">
+          Re&ccedil;u.
+        </h1>
+
+        <p style="font-size: 18px; color: var(--text-2); margin-bottom: 8px">Je reviens vers vous sous 24h.</p>
+
+        <p style="font-size: 14px; color: var(--text-3); margin-bottom: 48px; font-style: italic">&mdash; Lauralie</p>
+
+        <p style="font-size: 15px; color: var(--text-3); margin-bottom: 24px">
+          En attendant &mdash; voici ce que vous pouvez explorer&nbsp;:
+        </p>
+
+        <div class="merci-links">
+          <a href="../univers/index.html" class="merci-link block block-cyan">
+            <span class="merci-link-emoji">&#x1F30D;</span>
+            <div>
+              <strong>15 univers disponibles</strong>
+              <span>Lequel vous ressemble&nbsp;?</span>
+            </div>
+          </a>
+          <a href="../realisations/index.html" class="merci-link block block-violet">
+            <span class="merci-link-emoji">&#x2736;</span>
+            <div>
+              <strong>Exemples de r&eacute;alisations</strong>
+              <span>Ce que Pinapp construit</span>
+            </div>
+          </a>
+          <a href="../offres/index.html" class="merci-link block block-vert">
+            <span class="merci-link-emoji">&#x26A1;</span>
+            <div>
+              <strong>Les offres</strong>
+              <span>Ce qui peut dispara&icirc;tre cette semaine</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Univers généré si disponible -->
+        <div id="merci-univers" style="margin-top: 40px; display: none"></div>
+      </div>
+    </main>
+
+    <script src="../assets/js/storage.js"></script>
+    <script src="../assets/js/mode-toggle.js" defer></script>
+    <script>
+      (function () {
+        try {
+          const PinS = window.PinappStorage;
+          const u = PinS ? PinS.getUnivers() : JSON.parse(localStorage.getItem('pinapp-univers') || 'null');
+          const el = document.getElementById('merci-univers');
+          if (!u || !el) return;
+          el.style.display = 'block';
+          const _he = function (s) {
+            return s == null
+              ? ''
+              : String(s)
+                  .replace(/&/g, '&amp;')
+                  .replace(/</g, '&lt;')
+                  .replace(/>/g, '&gt;')
+                  .replace(/"/g, '&quot;')
+                  .replace(/'/g, '&#x27;');
+          };
+          el.innerHTML =
+            '<div style="padding:24px;border-radius:20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;">' +
+            '<p style="font-size:12px;letter-spacing:0.10em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;">VOTRE UNIVERS G\u00C9N\u00C9R\u00C9</p>' +
+            '<p style="font-family:Georgia,serif;font-size:22px;color:var(--text);margin-bottom:16px;">\u2736 ' +
+            _he(u.nom || '') +
+            '</p>' +
+            '<div style="display:flex;gap:8px;justify-content:center;margin-bottom:16px;">' +
+            [u.palette?.fond, u.palette?.accent1, u.palette?.accent2]
+              .filter(Boolean)
+              .map(function (c) {
+                return (
+                  '<div style="width:32px;height:32px;border-radius:50%;background:' +
+                  _he(c) +
+                  ';box-shadow:0 2px 8px rgba(0,0,0,0.25);"></div>'
+                );
+              })
+              .join('') +
+            '</div>' +
+            '<p style="font-size:13px;color:var(--text-3);font-style:italic;">\u201C' +
+            _he(u.promesse || '') +
+            '\u201D</p>' +
+            '</div>';
+        } catch (e) {}
+      })();
+    </script>
+
+    <div class="bottom-bar bottom-bar--site bottom-bar--six" aria-label="Navigation du site">
+      <a href="../index.html">Accueil</a>
+      <a href="../offres/index.html">Offres</a>
+      <a href="../diagnostic/index.html" class="bottom-bar-cta">D&eacute;marrer</a>
+      <a href="../univers/index.html">Univers</a>
+      <a href="../formation-gratuite/index.html">Form.</a>
+      <a href="../realisations/index.html">R&eacute;alis.</a>
     </div>
-  </main>
-
-  <script src="../assets/js/storage.js"></script>
-  <script src="../assets/js/mode-toggle.js" defer></script>
-  <script>
-  (function() {
-    try {
-      const PinS = window.PinappStorage;
-      const u = PinS ? PinS.getUnivers() : JSON.parse(localStorage.getItem('pinapp-univers') || 'null');
-      const el = document.getElementById('merci-univers');
-      if (!u || !el) return;
-      el.style.display = 'block';
-      el.innerHTML =
-        '<div style="padding:24px;border-radius:20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;">' +
-        '<p style="font-size:12px;letter-spacing:0.10em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;">VOTRE UNIVERS G\u00C9N\u00C9R\u00C9</p>' +
-        '<p style="font-family:Georgia,serif;font-size:22px;color:var(--text);margin-bottom:16px;">\u2736 ' + (u.nom || '') + '</p>' +
-        '<div style="display:flex;gap:8px;justify-content:center;margin-bottom:16px;">' +
-        [u.palette?.fond, u.palette?.accent1, u.palette?.accent2].filter(Boolean).map(function(c) {
-          return '<div style="width:32px;height:32px;border-radius:50%;background:' + c + ';box-shadow:0 2px 8px rgba(0,0,0,0.25);"></div>';
-        }).join('') +
-        '</div>' +
-        '<p style="font-size:13px;color:var(--text-3);font-style:italic;">\u201C' + (u.promesse || '') + '\u201D</p>' +
-        '</div>';
-    } catch(e) {}
-  })();
-  </script>
-
-        <div class="bottom-bar bottom-bar--site bottom-bar--six" aria-label="Navigation du site">
-    <a href="../index.html">Accueil</a>
-    <a href="../offres/index.html">Offres</a>
-    <a href="../diagnostic/index.html" class="bottom-bar-cta">D&eacute;marrer</a>
-    <a href="../univers/index.html">Univers</a>
-    <a href="../formation-gratuite/index.html">Form.</a>
-    <a href="../realisations/index.html">R&eacute;alis.</a>
-  </div>
-<script src="../assets/js/pandora-world.js"></script>
-  <script src="../assets/js/pandora-interactions.js"></script>
-</body>
+    <script src="../assets/js/pandora-world.js"></script>
+    <script src="../assets/js/pandora-interactions.js"></script>
+  </body>
 </html>

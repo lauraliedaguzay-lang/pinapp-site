@@ -1,0 +1,80 @@
+name: Bug report
+description: Signaler un bug sur pinapp-site
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Merci. Ce dépôt vise un rendu identique **mobile + desktop**.
+        Merci de préciser le mode (clair/sombre) et l'appareil/navigateur.
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Gravité
+      options:
+        - Bloquant (fonctionnalité cassée / page inutilisable)
+        - Majeur (UX dégradée / incohérence visible)
+        - Mineur (cosmétique)
+    validations:
+      required: true
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Mode
+      options:
+        - Mode sombre
+        - Mode clair
+        - Les deux
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: URL concernée
+      placeholder: "Ex: https://pinapp.fr/offres/ ou /offres/index.html"
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Appareil + OS
+      placeholder: "Ex: iPhone 14 iOS 17.4 / Pixel 8 Android 15 / MacOS 14"
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Navigateur
+      placeholder: "Ex: Safari 17 / Chrome 124"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Étapes pour reproduire
+      description: Ce que vous faites exactement, étape par étape.
+      placeholder: |
+        1) …
+        2) …
+        3) …
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Résultat attendu
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Résultat observé
+    validations:
+      required: true
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Captures (optionnel)
+      description: Glisser-déposer des captures si possible.
+
