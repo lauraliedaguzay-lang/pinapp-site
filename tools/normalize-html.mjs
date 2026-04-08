@@ -21,6 +21,13 @@ function walk(dir, cb) {
 function normalizeHtml(s) {
   let out = s;
 
+  // Ensure Plausible is not hard-loaded in HTML.
+  // It is loaded after cookie consent via assets/js/main.js.
+  out = out.replace(
+    /\s*<script\s+defer\s+data-domain=["']pinapp\.fr["']\s+src=["']https:\/\/plausible\.io\/js\/script\.js["']\s*><\/script>\s*/gi,
+    '\n',
+  );
+
   // Drawer should include an "Accueil" link at the very top.
   // We derive the correct relative href from the existing "Offres" href in the drawer.
   // Important: check within the drawer panel only (bottom-bar also contains "Accueil").
@@ -43,6 +50,64 @@ function normalizeHtml(s) {
     /href=(["'])([^"']*?)formation-gratuite\/index\.html\1(\s*>\s*Formations\s*<)/gi,
     'href=$1$2offres/formation/index.html$1$3',
   );
+
+  // Bottom bar "Form." should point to the paid formation page (keep lead magnet linked elsewhere).
+  out = out.replace(
+    /href=(["'])([^"']*?)formation-gratuite\/index\.html\1(\s*>\s*Form\.\s*<)/gi,
+    'href=$1$2offres/formation/index.html$1$3',
+  );
+
+  // Footer secondary: "Formation IA" should not point to the lead magnet unless explicitly intended.
+  out = out.replace(
+    /href=(["'])([^"']*?)formation-gratuite\/index\.html\1(\s*>\s*Formation IA\s*<)/gi,
+    'href=$1$2offres/formation/index.html$1$3',
+  );
+
+  // Add aria-current="page" to nav/drawer/bottom-bar links when they match the current page.
+  // We derive the current page absolute path from og:url (single source of truth) when present.
+  // Works for both root (/) and directory pages (/offres/formation/).
+  const ogUrl = out.match(/<meta\s+property=["']og:url["']\s+content=["']([^"']+)["']\s*\/?>/i);
+  const absUrl = ogUrl?.[1] || '';
+  const absPath = (() => {
+    try {
+      if (!absUrl) return '';
+      const u = new URL(absUrl);
+      return u.pathname || '';
+    } catch (e) {
+      return '';
+    }
+  })();
+  if (absPath) {
+    const relFromAbs = absPath === '/' ? 'index.html' : absPath.replace(/\/$/, '') + '/index.html';
+    const toAbs = (href) => {
+      if (!href) return '';
+      // Skip anchors/external.
+      if (/^(https?:|mailto:|tel:|#)/i.test(href)) return '';
+      // Normalize ./ and absolute-root.
+      const h = href.replace(/^\.\//, '');
+      if (h === 'index.html') return '/';
+      if (h.endsWith('/index.html')) return '/' + h.replace(/\/index\.html$/, '') + '/';
+      if (h.endsWith('.html')) return '/' + h.replace(/\.html$/, '/');
+      if (h.endsWith('/')) return '/' + h;
+      return '/' + h;
+    };
+
+    out = out.replace(
+      /<a\s+([^>]*?)href=(["'])([^"']+)\2([^>]*)>/gi,
+      function (m, pre, q, href, post) {
+        // If already has aria-current, keep.
+        if (/\baria-current\s*=/.test(m)) return m;
+        const abs = toAbs(href);
+        if (!abs) return m;
+        // Consider both with and without trailing slash.
+        const norm = (p) => (p.endsWith('/') ? p : p + '/');
+        if (norm(abs) === norm(absPath) || href === relFromAbs) {
+          return `<a ${pre}href=${q}${href}${q}${post} aria-current="page">`;
+        }
+        return m;
+      },
+    );
+  }
 
   // Ensure canonical on public pages.
   // Use og:url when present (single source of truth), otherwise derive from file path later.

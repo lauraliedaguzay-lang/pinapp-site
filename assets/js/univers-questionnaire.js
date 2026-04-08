@@ -110,7 +110,7 @@ const UniversQ = {
     const resultat = document.getElementById('univers-resultat');
     if (!resultat) return;
     resultat.classList.remove('hidden');
-    const prn = this.state.prenom;
+    const prn = _he(this.state.prenom);
     resultat.innerHTML = `
       <p style="color:var(--accent-teal);font-size:14px;
                 animation:kiri-soar 5.5s ease-in-out infinite;

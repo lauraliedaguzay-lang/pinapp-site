@@ -521,10 +521,27 @@
   }
   var accept = document.getElementById('cookieAccept');
   var refuse = document.getElementById('cookieRefuse');
+  var PLAUSIBLE_SRC = 'https://plausible.io/js/script.js';
+  function loadPlausibleOnce() {
+    try {
+      if (document.querySelector('script[src="' + PLAUSIBLE_SRC + '"]')) return;
+      var s = document.createElement('script');
+      s.defer = true;
+      s.dataset.domain = 'pinapp.fr';
+      s.src = PLAUSIBLE_SRC;
+      document.head.appendChild(s);
+    } catch (e) {}
+  }
+  (function maybeLoadPlausibleFromStoredConsent() {
+    try {
+      if (localStorage.getItem('cookie-consent') === 'accepted') loadPlausibleOnce();
+    } catch (e) {}
+  })();
   if (accept) {
     accept.addEventListener('click', function () {
       localStorage.setItem('cookie-consent', 'accepted');
       if (cookieBanner) cookieBanner.style.display = 'none';
+      loadPlausibleOnce();
     });
   }
   if (refuse) {
@@ -533,6 +550,62 @@
       if (cookieBanner) cookieBanner.style.display = 'none';
     });
   }
+
+  /* A11y: aria-current="page" sur nav/drawer/bottom-bar */
+  (function applyAriaCurrent() {
+    try {
+      var cur = location.pathname || '/';
+      // Normalize: allow /path/ and /path/index.html to match
+      var curDir = cur.endsWith('/index.html') ? cur.slice(0, -'index.html'.length) : cur;
+      if (!curDir.endsWith('/')) {
+        // /foo.html => directory not applicable; keep both variants
+      } else {
+        // curDir is already a dir path
+      }
+      function isCurrentHref(href) {
+        if (!href) return false;
+        if (href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:'))
+          return false;
+        var u;
+        try {
+          u = new URL(href, location.href);
+        } catch (e) {
+          return false;
+        }
+        var p = u.pathname || '';
+        if (!p) return false;
+        if (p === cur) return true;
+        if (cur.endsWith('/') && p === cur + 'index.html') return true;
+        if (p.endsWith('/index.html') && p.slice(0, -'index.html'.length) === cur) return true;
+        if (cur.endsWith('/index.html') && cur.slice(0, -'index.html'.length) === p) return true;
+        // Also accept directory normalization
+        if (curDir.endsWith('/') && (p === curDir || p === curDir + 'index.html')) return true;
+        if (
+          p.endsWith('/index.html') &&
+          curDir.endsWith('/') &&
+          p.slice(0, -'index.html'.length) === curDir
+        )
+          return true;
+        return false;
+      }
+
+      var scopes = [document.querySelector('.nav-links'), document.getElementById('mobileDrawer')];
+      // Bottom-bar variants
+      document.querySelectorAll('.bottom-bar').forEach(function (bb) {
+        scopes.push(bb);
+      });
+      scopes.forEach(function (scope) {
+        if (!scope) return;
+        scope.querySelectorAll('a[href]').forEach(function (a) {
+          if (isCurrentHref(a.getAttribute('href'))) {
+            a.setAttribute('aria-current', 'page');
+          } else if (a.hasAttribute('aria-current')) {
+            a.removeAttribute('aria-current');
+          }
+        });
+      });
+    } catch (e) {}
+  })();
 
   /* Parallaxe aurora : désactivée (règle Pinapp « zéro scroll » — pas de décor lié au scroll) */
 
