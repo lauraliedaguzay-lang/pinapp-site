@@ -22,6 +22,16 @@
   function fmt(n) {
     return n.toLocaleString('fr-FR') + ' €';
   }
+
+  function cssVar(name, fallback) {
+    try {
+      var v = getComputedStyle(document.documentElement).getPropertyValue(name);
+      var s = (v || '').trim();
+      return s || fallback;
+    } catch (e) {
+      return fallback;
+    }
+  }
   function anim(el, from, to, dur, cb) {
     var t0 = Date.now();
     var tick = function () {
@@ -108,7 +118,7 @@
     var svgCircles = tables
       .map(function (t) {
         var fill = t.libre ? 'rgba(0,180,100,0.18)' : 'rgba(200,30,30,0.18)';
-        var stroke = t.libre ? '#39E075' : '#dc2626';
+        var stroke = t.libre ? cssVar('--chart-a', '#2eaf6b') : 'rgba(220, 38, 38, 0.92)';
         return (
           '<g class="df-table" data-id="' +
           t.id +
@@ -154,8 +164,8 @@
             ${svgCircles}
           </svg>
           <div class="df-salle-legend">
-            <span class="df-leg-dot" style="background:#39E075"></span> Disponible
-            <span class="df-leg-dot" style="background:#dc2626;margin-left:12px"></span> Réservée
+            <span class="df-leg-dot" style="background:${cssVar('--chart-a', '#2eaf6b')}"></span> Disponible
+            <span class="df-leg-dot" style="background:rgba(220,38,38,0.92);margin-left:12px"></span> Réservée
           </div>
         </div>
         <div id="df-table-info" class="df-table-info" style="display:none">
@@ -1009,20 +1019,42 @@
       var prot = Math.round((tdee * 0.3) / 4),
         carbs = Math.round((tdee * 0.45) / 4),
         lip = Math.round((tdee * 0.25) / 9);
+      var a = cssVar('--chart-a', '#00E5CC');
+      var b = cssVar('--chart-b', '#7B4FE8');
+      var c = cssVar('--chart-c', '#FFB830');
+      var tcol = cssVar('--text-2', 'rgba(238,248,255,0.72)');
       svg.innerHTML =
-        '<rect x="0" y="20" width="90" height="20" rx="4" fill="#00E5CC"/>' +
-        '<rect x="95" y="20" width="110" height="20" rx="4" fill="#7B4FE8"/>' +
-        '<rect x="210" y="20" width="90" height="20" rx="4" fill="#FFB830"/>' +
-        '<text x="45" y="14" text-anchor="middle" font-size="9" fill="#00E5CC">Protéines</text>' +
-        '<text x="150" y="14" text-anchor="middle" font-size="9" fill="#7B4FE8">Glucides</text>' +
-        '<text x="255" y="14" text-anchor="middle" font-size="9" fill="#FFB830">Lipides</text>' +
-        '<text x="45" y="52" text-anchor="middle" font-size="9" fill="rgba(238,248,255,0.6)">' +
+        '<rect x="0" y="20" width="90" height="20" rx="4" fill="' +
+        a +
+        '"/>' +
+        '<rect x="95" y="20" width="110" height="20" rx="4" fill="' +
+        b +
+        '"/>' +
+        '<rect x="210" y="20" width="90" height="20" rx="4" fill="' +
+        c +
+        '"/>' +
+        '<text x="45" y="14" text-anchor="middle" font-size="9" fill="' +
+        a +
+        '">Protéines</text>' +
+        '<text x="150" y="14" text-anchor="middle" font-size="9" fill="' +
+        b +
+        '">Glucides</text>' +
+        '<text x="255" y="14" text-anchor="middle" font-size="9" fill="' +
+        c +
+        '">Lipides</text>' +
+        '<text x="45" y="52" text-anchor="middle" font-size="9" fill="' +
+        tcol +
+        '">' +
         prot +
         'g</text>' +
-        '<text x="150" y="52" text-anchor="middle" font-size="9" fill="rgba(238,248,255,0.6)">' +
+        '<text x="150" y="52" text-anchor="middle" font-size="9" fill="' +
+        tcol +
+        '">' +
         carbs +
         'g</text>' +
-        '<text x="255" y="52" text-anchor="middle" font-size="9" fill="rgba(238,248,255,0.6)">' +
+        '<text x="255" y="52" text-anchor="middle" font-size="9" fill="' +
+        tcol +
+        '">' +
         lip +
         'g</text>';
     });
