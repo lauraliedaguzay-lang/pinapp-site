@@ -31,10 +31,10 @@ git push -u origin main
 
 Le site reste **HTML + CSS + JS vanilla** en production (pas de React/Vue). La chaîne npm sert au **confort local** :
 
-| Outil | Rôle |
-|--------|------|
-| **[Vite](https://vitejs.dev/)** | Serveur de dev multi-pages (`appType: 'mpa'`), rechargement rapide, chemins comme en HTTP réel. |
-| **[Prettier](https://prettier.io/)** | Formatage optionnel HTML/CSS/JS/JSON/YAML. |
+| Outil                                | Rôle                                                                                            |
+| ------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| **[Vite](https://vitejs.dev/)**      | Serveur de dev multi-pages (`appType: 'mpa'`), rechargement rapide, chemins comme en HTTP réel. |
+| **[Prettier](https://prettier.io/)** | Formatage optionnel HTML/CSS/JS/JSON/YAML.                                                      |
 
 **Prérequis :** [Node.js 20+](https://nodejs.org/)
 
@@ -44,8 +44,8 @@ npm install
 npm run dev
 ```
 
-- La fenêtre du terminal doit **rester ouverte** : sinon le navigateur affiche **ERR_CONNECTION_REFUSED**.  
-- URL : **`http://127.0.0.1:5173/`** ou `http://localhost:5173/` (le serveur écoute sur toutes les interfaces).  
+- La fenêtre du terminal doit **rester ouverte** : sinon le navigateur affiche **ERR_CONNECTION_REFUSED**.
+- URL : **`http://127.0.0.1:5173/`** ou `http://localhost:5173/` (le serveur écoute sur toutes les interfaces).
 - **Windows** : `powershell -ExecutionPolicy Bypass -File tools\dev-vite.ps1` (vérifie Node, lance `npm install` si besoin, puis Vite).
 
 Les pages profondes fonctionnent en MPA (`/offres/index.html`, etc.).
@@ -61,8 +61,8 @@ Après chaque push sur **`main`**, le workflow **Déployer GitHub Pages** publie
 
 1. Sur GitHub : **Settings → Pages** → **Build and deployment** : source **GitHub Actions** (pas « Deploy from a branch »).
 2. Au premier déploiement, autorisez l’environnement **`github-pages`** si GitHub le demande.
-3. URL du site : **[https://lauraliedaguzay-lang.github.io/pinapp-site/](https://lauraliedaguzay-lang.github.io/pinapp-site/)**  
-   - Ouvrir **exactement** ce lien (avec **`/pinapp-site/`**).  
+3. URL du site : **[https://lauraliedaguzay-lang.github.io/pinapp-site/](https://lauraliedaguzay-lang.github.io/pinapp-site/)**
+   - Ouvrir **exactement** ce lien (avec **`/pinapp-site/`**).
    - **`https://lauraliedaguzay-lang.github.io/`** seul → **404** (normal : ce n’est pas un site « utilisateur » à la racine).
 
 ### Si vous voyez encore une 404

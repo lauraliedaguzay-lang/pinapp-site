@@ -78,7 +78,6 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true, root
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/svg+xml" href="${a('/favicon.svg')}">
-  <link rel="preload" href="${a('/assets/fonts/inter-var.woff2')}" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="${a('/assets/variables.css')}">
   <link rel="stylesheet" href="${a('/assets/grid.css')}">
   <link rel="stylesheet" href="${a('/assets/animations.css')}">
@@ -87,10 +86,20 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true, root
   <link rel="stylesheet" href="${a('/assets/css/cursor.css')}">
   <link rel="stylesheet" href="${a('/assets/css/pandora-ux.css')}">
   <link rel="stylesheet" href="${a('/assets/css/apple-finish.css')}">
+  <link rel="stylesheet" href="${a('/assets/css/ios-glass.css')}">
   <link rel="stylesheet" href="${a('/assets/css/pinapp-modern-biolume.css')}">
-  ${includeLdJson ? `<script type="application/ld+json">
+  <link rel="stylesheet" href="${a('/assets/css/pinapp-premium.css')}">
+  <link rel="stylesheet" href="${a('/assets/css/deploy-harmonise.css')}">
+  <link rel="stylesheet" href="${a('/assets/css/mobile-premium.css')}">
+  <link rel="stylesheet" href="${a('/assets/css/wow-visuals.css')}">
+  <link rel="stylesheet" href="${a('/assets/css/wow-senior.css')}">
+  ${
+    includeLdJson
+      ? `<script type="application/ld+json">
   {"@context":"https://schema.org","@type":"ProfessionalService","name":"Pinapp Studio","founder":{"@type":"Person","name":"Lauralie Daguzay"},"email":"lauralie.daguzay@pinapp.fr","url":"https://pinapp.fr","sameAs":"https://www.linkedin.com/in/lauralie-daguzay-4a4542197/"}
-  </script>` : ''}
+  </script>`
+      : ''
+  }
 </head>
 <body class="page-with-bottom-nav">
   <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
@@ -115,11 +124,11 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true, root
   <nav class="nav" id="mainNav" role="navigation">
     <div class="container nav-inner">
       <a href="${u('/')}" class="pinapp-breathe nav-logo" aria-label="Pinapp Studio — accueil">
-        <img src="${a('/assets/images/pinapp-logo.png')}" alt="Pinapp" width="200" height="60" decoding="async" class="nav-logo-img">
+        <img src="${a('/assets/images/pinapp-logo.svg')}" alt="Pinapp" width="200" height="60" decoding="async" class="nav-logo-img">
       </a>
       <div class="nav-links">
         <a href="${u('/offres/')}" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
-        <a href="${u('/formation-gratuite/')}" class="nav-link" style="font-size:14px;opacity:0.8;">Formations</a>
+        <a href="${u('/offres/formation/')}" class="nav-link" style="font-size:14px;opacity:0.8;">Formations</a>
         <a href="${u('/realisations/')}" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
         <a href="${u('/a-propos/')}" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
         <a href="${u('/faq/')}" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
@@ -142,7 +151,7 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true, root
     <div class="mobile-drawer-panel">
       <button type="button" id="drawerClose" aria-label="Fermer le menu">×</button>
       <a href="${u('/offres/')}">Offres</a>
-      <a href="${u('/formation-gratuite/')}">Formations</a>
+      <a href="${u('/offres/formation/')}">Formations</a>
       <a href="${u('/realisations/')}">Réalisations</a>
       <a href="${u('/a-propos/')}">À propos</a>
       <a href="${u('/faq/')}">FAQ</a>
@@ -160,7 +169,7 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true, root
     <a href="${u('/offres/')}">Offres</a>
     <a href="${u('/diagnostic/')}" class="bottom-bar-cta">Démarrer</a>
     <a href="${u('/univers/')}">Univers</a>
-    <a href="${u('/formation-gratuite/')}">Form.</a>
+    <a href="${u('/offres/formation/')}">Form.</a>
     <a href="${u('/realisations/')}">Réalis.</a>
   </div>
   <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
@@ -170,7 +179,7 @@ ${mainInner}
     <div class="container" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:var(--space-3);opacity:0.6;font-size:13px;">
       <span>Pinapp © 2026</span>
       <div style="display:flex;gap:var(--space-3);">
-        <a href="https://www.linkedin.com/in/lauralie-daguzay-4a4542197/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.linkedin.com/in/lauralie-daguzay-4a4542197/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
       </div>
       <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;">
@@ -197,6 +206,7 @@ ${mainInner}
   <script src="${a('/assets/js/parallax.js')}" defer></script>
   <script src="${a('/assets/js/scroll-cinema.js')}" defer></script>
   <script src="${a('/assets/js/cursor.js')}" defer></script>
+  <script src="${a('/assets/js/wow-senior.js')}" defer></script>
   <script src="${a('/assets/js/bio-particles.js')}" defer></script>
 </body>
 </html>`;
@@ -743,7 +753,7 @@ for (const p of pages) {
   fs.writeFileSync(
     path.join(root, p.file),
     shell(p.title, p.desc, p.og, body, true, rootPrefix),
-    'utf8'
+    'utf8',
   );
   console.log('Wrote', p.file);
 }
