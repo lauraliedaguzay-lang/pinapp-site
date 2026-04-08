@@ -21,44 +21,59 @@ function walk(dir, cb) {
 function normalizeHtml(s) {
   let out = s;
 
-  // Ensure Pandora world layer is loaded on all pages using the Pinapp shell.
-  // (Relative prefix is derived from the variables.css href.)
-  if (!/assets\/css\/pandora-world\.css/.test(out)) {
-    const vars = out.match(
+  // Pandora world (background scene):
+  // - Pages "shell" Pinapp: derive prefix from assets/variables.css
+  // - Demo pages (demo/*): derive prefix from any existing ../../assets/... link (e.g. demo-sector.css)
+  // If we cannot derive a safe prefix, do NOT inject the markup.
+  const prefixFromVars =
+    out.match(
       /<link\s+rel=["']stylesheet["']\s+href=["']([^"']*?)assets\/variables\.css["']\s*\/?>/i,
-    );
-    if (vars) {
-      const prefix = vars[1] || '';
-      const pwLink = `<link rel="stylesheet" href="${prefix}assets/css/pandora-world.css" />`;
+    )?.[1] || '';
+  const prefixFromAnyAssets =
+    out.match(/<link\s+rel=["']stylesheet["']\s+href=["']([^"']*?)assets\//i)?.[1] ||
+    out.match(/<script\s+src=["']([^"']*?)assets\//i)?.[1] ||
+    '';
+  const pwPrefix = prefixFromVars || prefixFromAnyAssets || '';
+
+  const canInjectPandoraWorld = Boolean(pwPrefix);
+
+  if (canInjectPandoraWorld && !/assets\/css\/pandora-world\.css/.test(out)) {
+    const pwLink = `<link rel="stylesheet" href="${pwPrefix}assets/css/pandora-world.css" />`;
+    if (/assets\/variables\.css/.test(out)) {
       out = out.replace(
         /(<link\s+rel=["']stylesheet["']\s+href=["'][^"']*assets\/variables\.css["']\s*\/?>)/i,
         `$1\n    ${pwLink}`,
       );
+    } else if (/assets\/css\/demo-sector\.css/.test(out)) {
+      out = out.replace(
+        /(<link\s+rel=["']stylesheet["']\s+href=["'][^"']*assets\/css\/demo-sector\.css["']\s*\/?>)/i,
+        `$1\n    ${pwLink}`,
+      );
+    } else if (/assets\/css\/ios-glass\.css/.test(out)) {
+      out = out.replace(
+        /(<link\s+rel=["']stylesheet["']\s+href=["'][^"']*assets\/css\/ios-glass\.css["']\s*\/?>)/i,
+        `$1\n    ${pwLink}`,
+      );
+    } else if (/<\/head>/i.test(out)) {
+      out = out.replace(/<\/head>/i, `    ${pwLink}\n  </head>`);
     }
   }
 
-  // Ensure Pandora world JS is loaded (prefer after main.js when present).
-  if (!/assets\/js\/pandora-world\.js/.test(out)) {
-    const vars = out.match(
-      /<link\s+rel=["']stylesheet["']\s+href=["']([^"']*?)assets\/variables\.css["']\s*\/?>/i,
-    );
-    if (vars) {
-      const prefix = vars[1] || '';
-      const pwScript = `<script src="${prefix}assets/js/pandora-world.js" defer></script>`;
-      if (/assets\/js\/main\.js/.test(out)) {
-        out = out.replace(
-          /(<script\s+src=["'][^"']*assets\/js\/main\.js["']\s+defer><\/script>)/i,
-          `$1\n    ${pwScript}`,
-        );
-      } else if (/<\/body>/i.test(out)) {
-        out = out.replace(/<\/body>/i, `    ${pwScript}\n  </body>`);
-      }
+  if (canInjectPandoraWorld && !/assets\/js\/pandora-world\.js/.test(out)) {
+    const pwScript = `<script src="${pwPrefix}assets/js/pandora-world.js" defer></script>`;
+    if (/assets\/js\/main\.js/.test(out)) {
+      out = out.replace(
+        /(<script\s+src=["'][^"']*assets\/js\/main\.js["']\s+defer><\/script>)/i,
+        `$1\n    ${pwScript}`,
+      );
+    } else if (/<\/body>/i.test(out)) {
+      out = out.replace(/<\/body>/i, `    ${pwScript}\n  </body>`);
     }
   }
 
   // Ensure Pandora world markup exists (insert right after <body ...>).
   // Keep IDs consistent with assets/js/pandora-world.js (#spores-container, #stars-container).
-  if (!/id=["']pandora-world["']/.test(out)) {
+  if (canInjectPandoraWorld && !/id=["']pandora-world["']/.test(out)) {
     const bodyOpen = out.match(/<body\b[^>]*>/i)?.[0] || '';
     if (bodyOpen) {
       out = out.replace(
