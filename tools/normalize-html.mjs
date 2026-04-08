@@ -21,6 +21,21 @@ function walk(dir, cb) {
 function normalizeHtml(s) {
   let out = s;
 
+  // Drawer should include an "Accueil" link at the very top.
+  // We derive the correct relative href from the existing "Offres" href in the drawer.
+  // Important: check within the drawer panel only (bottom-bar also contains "Accueil").
+  const drawerBlock = out.match(/<div class=["']mobile-drawer-panel["'][\s\S]*?<\/div>\s*<\/div>/i)?.[0] || '';
+  if (drawerBlock && !/>\s*Accueil\s*</i.test(drawerBlock)) {
+    out = out.replace(
+      /(<div class=["']mobile-drawer-panel["']>\s*<button[^>]*id=["']drawerClose["'][\s\S]*?<\/button>)([\s\S]*?<a\s+href=(["'])([^"']*?)offres\/index\.html\3>\s*Offres\s*<\/a>)/i,
+      function (m, closeBtn, after, q, offresHrefPrefix) {
+        // offresHrefPrefix is the part before "offres/index.html" (e.g. "../" or "../../")
+        const homeHref = `${offresHrefPrefix}index.html`;
+        return `${closeBtn}\n        <a href="${homeHref}">Accueil</a>${after}`;
+      },
+    );
+  }
+
   // Drawer "Formations" should point to the paid formation page, not the free lead-magnet.
   // Keep both pages: /offres/formation/ (menu) vs /formation-gratuite/ (lead magnet elsewhere).
   out = out.replace(
