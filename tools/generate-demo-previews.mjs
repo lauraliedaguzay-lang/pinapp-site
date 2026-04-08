@@ -178,9 +178,21 @@ async function generateOne(browser, baseUrl, slug) {
 async function main() {
   await mkdir(outDir, { recursive: true });
 
-  const port = 4173;
+  // Port resilient: if 4173 is already used (dev server / tmux), fall back to an ephemeral port.
+  const preferredPort = 4173;
+  let server;
+  try {
+    server = await serveStatic(rootDir, preferredPort);
+  } catch (e) {
+    if (String(e && e.code) === 'EADDRINUSE') {
+      server = await serveStatic(rootDir, 0);
+    } else {
+      throw e;
+    }
+  }
+  const addr = server.address();
+  const port = typeof addr === 'object' && addr ? addr.port : preferredPort;
   const baseUrl = `http://127.0.0.1:${port}`;
-  const server = await serveStatic(rootDir, port);
 
   const slugs = await listDemoSlugs();
   if (slugs.length === 0) {

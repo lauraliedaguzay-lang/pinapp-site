@@ -12,6 +12,189 @@
     return;
   }
 
+  /* Tarifs (démos) — si non fournis par la page, on génère une grille par défaut
+     basée sur le métier (secteur) et la feature interactive. */
+  function defaultPricing(site) {
+    var f = String(site.feature || '').toLowerCase();
+    var sec = String(site.secteur || '').toLowerCase();
+
+    function pack(name, price, note, items, highlight, badge) {
+      return {
+        name: name,
+        price: price,
+        note: note,
+        items: items || [],
+        highlight: !!highlight,
+        badge: badge || '',
+        cta: 'Demander un devis',
+      };
+    }
+
+    // Métiers beauté
+    if (
+      sec.includes('institut') ||
+      sec.includes('cils') ||
+      sec.includes('nail') ||
+      f.includes('cils') ||
+      f.includes('ongles')
+    ) {
+      return [
+        pack(
+          'Essentiel',
+          'À partir de 900€',
+          'Présence premium + prise de rendez-vous claire.',
+          ['Page accueil + services', 'Galerie + avis', 'Contact (1 min)', 'SEO de base'],
+          false,
+          '',
+        ),
+        pack(
+          'Conversion',
+          'À partir de 1200€',
+          'Pensé pour remplir l’agenda sans “promo”.',
+          ['Copy optimisée', 'Preuves & FAQ', 'Parcours mobile calibré', 'Suivi (Plausible)'],
+          true,
+          'RECOMMANDÉ',
+        ),
+        pack(
+          'Automatisation',
+          'À partir de 1500€',
+          'Relances & confirmations pour réduire les no-shows.',
+          ['Rappels RDV', 'Relance avis', 'Mini-formulaire devis', 'Handover simple'],
+          false,
+          '',
+        ),
+      ];
+    }
+
+    // Restaurant / commerce
+    if (
+      sec.includes('restaurant') ||
+      sec.includes('boulangerie') ||
+      f.includes('plan-salle') ||
+      f.includes('panier')
+    ) {
+      return [
+        pack(
+          'Essentiel',
+          'À partir de 900€',
+          'Carte claire, horaires, accès — tout de suite.',
+          ['Page accueil', 'Menu / carte', 'CTA réservation', 'Google-friendly (SEO base)'],
+          false,
+          '',
+        ),
+        pack(
+          'Conversion',
+          'À partir de 1300€',
+          'Optimisé pour réserver / commander sans friction.',
+          ['Sections preuve', 'UX mobile serrée', 'Tracking simple', 'Optimisation vitesse'],
+          true,
+          'RECOMMANDÉ',
+        ),
+        pack(
+          'Automatisation',
+          'À partir de 1600€',
+          'Confirmation + relances (réservation / click & collect).',
+          ['Relances', 'Confirmations', 'Notifications internes', 'Scénarios sur-mesure'],
+          false,
+          '',
+        ),
+      ];
+    }
+
+    // Avocat / services premium
+    if (sec.includes('avocat') || sec.includes('cabinet') || f.includes('jurid')) {
+      return [
+        pack(
+          'Essentiel',
+          'À partir de 1200€',
+          'Crédibilité + prise de contact claire.',
+          ['Positionnement', 'Prestations', 'FAQ', 'Contact', 'SEO de base'],
+          false,
+          '',
+        ),
+        pack(
+          'Conversion',
+          'À partir de 1600€',
+          'Parcours “confiance” (sobre, premium).',
+          ['Pages dédiées', 'Preuves / méthode', 'Copy calibrée', 'UX mobile'],
+          true,
+          'RECOMMANDÉ',
+        ),
+        pack(
+          'Automatisation',
+          'À partir de 2000€',
+          'Pré-qualification avant rendez-vous.',
+          ['Questionnaire', 'Tri des demandes', 'Emails préparation', 'Suivi simple'],
+          false,
+          '',
+        ),
+      ];
+    }
+
+    // Coach / trainer
+    if (
+      sec.includes('coach') ||
+      sec.includes('trainer') ||
+      f.includes('quiz') ||
+      f.includes('harris')
+    ) {
+      return [
+        pack(
+          'Essentiel',
+          'À partir de 900€',
+          'Clair, humain, orienté prise de rendez-vous.',
+          ['Page offre', 'Preuves', 'CTA calendrier', 'Contact'],
+          false,
+          '',
+        ),
+        pack(
+          'Conversion',
+          'À partir de 1400€',
+          'Positionnement + parcours complet (sans blabla).',
+          ['Copy optimisée', 'FAQ', 'Lead magnet optionnel', 'Tracking simple'],
+          true,
+          'RECOMMANDÉ',
+        ),
+        pack(
+          'Automatisation',
+          'À partir de 1700€',
+          'Suivi & relances pour convertir sans pression.',
+          ['Relances', 'Email onboarding', 'Mini-CRM', 'Templates'],
+          false,
+          '',
+        ),
+      ];
+    }
+
+    // Artisan / BTP (ou défaut)
+    return [
+      pack(
+        'Essentiel',
+        'À partir de 900€',
+        'Présence premium + demande de devis claire.',
+        ['Page accueil', 'Prestations', 'Avis', 'Contact rapide'],
+        false,
+        '',
+      ),
+      pack(
+        'Conversion',
+        'À partir de 1500€',
+        'Conçu pour transformer une demande en client.',
+        ['Pages dédiées', 'Preuves + FAQ', 'Parcours mobile', 'SEO de base'],
+        true,
+        'RECOMMANDÉ',
+      ),
+      pack(
+        'Automatisation',
+        'À partir de 1800€',
+        'Pré-qualification + relances (devis / suivi).',
+        ['Questionnaire', 'Relances', 'Notifications', 'Process sur-mesure'],
+        false,
+        '',
+      ),
+    ];
+  }
+
   function escAttr(val) {
     return String(val == null ? '' : val)
       .replace(/&/g, '&amp;')
@@ -167,6 +350,16 @@
 
   fillCopy();
 
+  // Tarifs: injecter un défaut si absent (la grille s’affichera ensuite via injectRichSections()).
+  if (!S.pricing || !S.pricing.length) {
+    S.pricing = defaultPricing(S);
+    if (!S.pricingTitle) S.pricingTitle = 'Offres & tarifs';
+    if (!S.pricingLead) {
+      S.pricingLead =
+        'Exemples de formules et de budgets. La version finale est ajustée à votre activité et validée avant production.';
+    }
+  }
+
   if (S.serviceImages && S.serviceImages.length) {
     S.services.forEach(function (svc, i) {
       if (S.serviceImages[i]) svc.image = S.serviceImages[i];
@@ -181,6 +374,83 @@
       else node.parentNode.appendChild(el);
     }
     var anchor = servicesSection;
+
+    if (S.pricing && S.pricing.length) {
+      var pr = document.createElement('section');
+      pr.className = 'demo-pricing-section';
+      pr.setAttribute('aria-label', 'Offres et tarifs');
+
+      var h2p = document.createElement('h2');
+      h2p.className = 'demo-pricing-title';
+      h2p.textContent = S.pricingTitle || 'Offres & tarifs';
+      pr.appendChild(h2p);
+
+      var lead = document.createElement('p');
+      lead.className = 'demo-pricing-lead';
+      lead.textContent =
+        S.pricingLead || 'Exemples de formules. La version finale s’ajuste à votre besoin réel.';
+      pr.appendChild(lead);
+
+      var grid = document.createElement('div');
+      grid.className = 'demo-pricing-grid';
+
+      S.pricing.forEach(function (it) {
+        var card = document.createElement('article');
+        card.className = 'demo-pricing-card';
+        if (it.badge) card.setAttribute('data-badge', String(it.badge));
+        if (it.highlight) card.classList.add('demo-pricing-card--highlight');
+
+        var top = document.createElement('div');
+        top.className = 'demo-pricing-top';
+
+        var name = document.createElement('h3');
+        name.className = 'demo-pricing-name';
+        name.textContent = it.name || '';
+        top.appendChild(name);
+
+        var price = document.createElement('div');
+        price.className = 'demo-pricing-price';
+        price.textContent = it.price || '';
+        top.appendChild(price);
+
+        card.appendChild(top);
+
+        if (it.note) {
+          var note = document.createElement('p');
+          note.className = 'demo-pricing-note';
+          note.textContent = it.note;
+          card.appendChild(note);
+        }
+
+        if (it.items && it.items.length) {
+          var ul = document.createElement('ul');
+          ul.className = 'demo-pricing-list';
+          it.items.forEach(function (x) {
+            var li = document.createElement('li');
+            li.textContent = x;
+            ul.appendChild(li);
+          });
+          card.appendChild(ul);
+        }
+
+        if (it.cta) {
+          var a = document.createElement('button');
+          a.type = 'button';
+          a.className = 'demo-pricing-cta';
+          a.textContent = it.cta;
+          a.addEventListener('click', function () {
+            window.scrollToBooking();
+          });
+          card.appendChild(a);
+        }
+
+        grid.appendChild(card);
+      });
+
+      pr.appendChild(grid);
+      insertAfter(anchor, pr);
+      anchor = pr;
+    }
 
     if (S.galerie && S.galerie.length) {
       var gal = document.createElement('section');
