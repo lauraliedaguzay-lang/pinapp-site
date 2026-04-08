@@ -89,6 +89,64 @@ function normalizeHtml(s) {
     }
   }
 
+  // Ensure WOW senior layer is loaded (micro-interactions + speculars).
+  if (!/assets\/css\/wow-senior\.css/.test(out)) {
+    const vars = out.match(
+      /<link\s+rel=["']stylesheet["']\s+href=["']([^"']*?)assets\/variables\.css["']\s*\/?>/i,
+    );
+    if (vars) {
+      const prefix = vars[1] || '';
+      const wowSeniorLink = `<link rel="stylesheet" href="${prefix}assets/css/wow-senior.css" />`;
+
+      // Prefer inserting after wow-visuals.css if present, else after ios-glass.css, else after apple-finish.css.
+      if (/assets\/css\/wow-visuals\.css/.test(out)) {
+        out = out.replace(
+          /(<link\s+rel=["']stylesheet["']\s+href=["'][^"']*assets\/css\/wow-visuals\.css["']\s*\/?>)/i,
+          `$1\n    ${wowSeniorLink}`,
+        );
+      } else if (/assets\/css\/ios-glass\.css/.test(out)) {
+        out = out.replace(
+          /(<link\s+rel=["']stylesheet["']\s+href=["'][^"']*assets\/css\/ios-glass\.css["']\s*\/?>)/i,
+          `$1\n    ${wowSeniorLink}`,
+        );
+      } else if (/assets\/css\/apple-finish\.css/.test(out)) {
+        out = out.replace(
+          /(<link\s+rel=["']stylesheet["']\s+href=["'][^"']*assets\/css\/apple-finish\.css["']\s*\/?>)/i,
+          `$1\n    ${wowSeniorLink}`,
+        );
+      } else if (/assets\/animations\.css/.test(out)) {
+        out = out.replace(
+          /(<link\s+rel=["']stylesheet["']\s+href=["'][^"']*assets\/animations\.css["']\s*\/?>)/i,
+          `$1\n    ${wowSeniorLink}`,
+        );
+      } else {
+        out = out.replace(
+          /(<link\s+rel=["']stylesheet["']\s+href=["'][^"']*assets\/variables\.css["']\s*\/?>)/i,
+          `$1\n    ${wowSeniorLink}`,
+        );
+      }
+    }
+  }
+
+  // Ensure WOW senior JS is loaded (tilt/shine on desktop pointer-fine only).
+  if (!/assets\/js\/wow-senior\.js/.test(out)) {
+    const vars = out.match(
+      /<link\s+rel=["']stylesheet["']\s+href=["']([^"']*?)assets\/variables\.css["']\s*\/?>/i,
+    );
+    if (vars) {
+      const prefix = vars[1] || '';
+      const wowSeniorScript = `<script src="${prefix}assets/js/wow-senior.js" defer></script>`;
+      if (/assets\/js\/cursor\.js/.test(out)) {
+        out = out.replace(
+          /(<script\s+src=["'][^"']*assets\/js\/cursor\.js["']\s+defer><\/script>)/i,
+          `$1\n    ${wowSeniorScript}`,
+        );
+      } else if (/<\/body>/i.test(out)) {
+        out = out.replace(/<\/body>/i, `    ${wowSeniorScript}\n  </body>`);
+      }
+    }
+  }
+
   return out;
 }
 

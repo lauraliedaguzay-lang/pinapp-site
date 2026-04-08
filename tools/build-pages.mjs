@@ -86,11 +86,13 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true, root
   <link rel="stylesheet" href="${a('/assets/css/cursor.css')}">
   <link rel="stylesheet" href="${a('/assets/css/pandora-ux.css')}">
   <link rel="stylesheet" href="${a('/assets/css/apple-finish.css')}">
+  <link rel="stylesheet" href="${a('/assets/css/ios-glass.css')}">
   <link rel="stylesheet" href="${a('/assets/css/pinapp-modern-biolume.css')}">
   <link rel="stylesheet" href="${a('/assets/css/pinapp-premium.css')}">
   <link rel="stylesheet" href="${a('/assets/css/deploy-harmonise.css')}">
   <link rel="stylesheet" href="${a('/assets/css/mobile-premium.css')}">
   <link rel="stylesheet" href="${a('/assets/css/wow-visuals.css')}">
+  <link rel="stylesheet" href="${a('/assets/css/wow-senior.css')}">
   ${
     includeLdJson
       ? `<script type="application/ld+json">
@@ -204,6 +206,7 @@ ${mainInner}
   <script src="${a('/assets/js/parallax.js')}" defer></script>
   <script src="${a('/assets/js/scroll-cinema.js')}" defer></script>
   <script src="${a('/assets/js/cursor.js')}" defer></script>
+  <script src="${a('/assets/js/wow-senior.js')}" defer></script>
   <script src="${a('/assets/js/bio-particles.js')}" defer></script>
 </body>
 </html>`;

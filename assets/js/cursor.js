@@ -1,4 +1,4 @@
-/* PINAPP — cursor.js — v5
+/* PINAPP — cursor.js — v6
    Curseur personnalisé — teal en nuit · violet en jour
    Magnétisme sur .btn-primary
    Desktop uniquement (>= 1024px, pas de touch)
@@ -11,12 +11,20 @@ const Cursor = {
   ty: 0,
   x: 0,
   y: 0,
+  raf: 0,
+  lastMove: 0,
+  idleMs: 1800,
+  active: false,
 
   getStyle() {
     const jour = document.body.classList.contains('mode-jour');
+    /* Couleurs: on lit les tokens pour rester cohérent (fallbacks sûrs) */
+    const rs = getComputedStyle(document.documentElement);
+    const teal = (rs.getPropertyValue('--accent-teal') || '#00E5CC').trim();
+    const violet = (rs.getPropertyValue('--accent-violet') || '#5B3FD8').trim();
     return jour
-      ? { color: '#5B3FD8', glow: 'rgba(91,63,216,', blend: 'multiply' }
-      : { color: '#00E5CC', glow: 'rgba(0,229,204,', blend: 'screen' };
+      ? { color: violet, glow: 'rgba(91,63,216,', blend: 'multiply' }
+      : { color: teal, glow: 'rgba(0,229,204,', blend: 'screen' };
   },
 
   init() {
@@ -37,6 +45,11 @@ const Cursor = {
     document.addEventListener('mousemove', (e) => {
       this.tx = e.clientX;
       this.ty = e.clientY;
+      this.lastMove = Date.now();
+      if (!this.active) {
+        this.active = true;
+        this.animate();
+      }
     });
 
     // Hover sur liens, boutons, cards
@@ -66,16 +79,16 @@ const Cursor = {
       });
     });
 
-    this.animate();
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) this.stop();
+    });
   },
 
   applyStyle() {
     const s = this.getStyle();
     if (this.el) {
       this.el.style.background = s.color;
-      this.el.style.boxShadow = `0 0 8px ${s.glow}0.9),
-         0 0 20px ${s.glow}0.6),
-         0 0 40px ${s.glow}0.3)`;
+      this.el.style.boxShadow = `0 0 8px ${s.glow}0.9), 0 0 20px ${s.glow}0.6), 0 0 40px ${s.glow}0.3)`;
       this.el.style.mixBlendMode = s.blend;
     }
     if (this.trail) {
@@ -84,7 +97,22 @@ const Cursor = {
     }
   },
 
+  stop() {
+    if (this.raf) cancelAnimationFrame(this.raf);
+    this.raf = 0;
+    this.active = false;
+  },
+
   animate() {
+    if (!this.active) return;
+    if (document.hidden) {
+      this.stop();
+      return;
+    }
+    if (Date.now() - this.lastMove > this.idleMs) {
+      this.stop();
+      return;
+    }
     const dx = this.tx - this.x;
     const dy = this.ty - this.y;
     this.x += dx * 0.15;
@@ -98,7 +126,7 @@ const Cursor = {
       this.trail.style.left = this.x + 'px';
       this.trail.style.top = this.y + 'px';
     }
-    requestAnimationFrame(() => this.animate());
+    this.raf = requestAnimationFrame(() => this.animate());
   },
 };
 
