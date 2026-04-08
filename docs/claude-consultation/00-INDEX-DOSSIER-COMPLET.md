@@ -18,6 +18,7 @@ Tout le dossier est lisible et à jour sur **GitHub** (branche `main`) :
 | 06 — Veille / RH / admin              | [06-VEILLE-RH-ADMIN.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/06-VEILLE-RH-ADMIN.md)                           |
 | 07 — Synthèse règles                  | [07-SYNTHESE-REGLES-PROJET.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/07-SYNTHESE-REGLES-PROJET.md)             |
 | 08 — Modèles e-mail                   | [08-ANNEXE-MODELES-EMAIL.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/08-ANNEXE-MODELES-EMAIL.md)                 |
+| 09 — Modèles e-mail (voix Lauralie)   | [09-MODELES-EMAIL-VOIX-LAURALIE.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/09-MODELES-EMAIL-VOIX-LAURALIE.md)   |
 | 10 — Apps Script H24 (Gmail × Claude) | [10-APPS-SCRIPT-H24-SETUP.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/10-APPS-SCRIPT-H24-SETUP.md)               |
 
 **Dépôt :** [github.com/lauraliedaguzay-lang/pinapp-site](https://github.com/lauraliedaguzay-lang/pinapp-site)
@@ -41,6 +42,7 @@ Fournir **tout le contexte nécessaire** pour une **analyse critique** (architec
 | 6   | `06-VEILLE-RH-ADMIN.md`              | Veille tech par mail, RH/admin assistés, limites                      |
 | 7   | `07-SYNTHESE-REGLES-PROJET.md`       | Synthèse des règles internes Cursor / produit (peut diverger du code) |
 | 8   | `08-ANNEXE-MODELES-EMAIL.md`         | Modèles de corps d’e-mail (veille, sécurité, RH/admin)                |
+| 9   | `09-MODELES-EMAIL-VOIX-LAURALIE.md`  | Modèles d’e-mails “voix Lauralie” (clients : cadrage, relance, suivi) |
 
 ## Consigne à coller pour Claude (copier tout le bloc)
 
