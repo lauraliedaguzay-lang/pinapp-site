@@ -1,236 +1,647 @@
 <!doctype html>
 <html lang="fr">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Ōkami — Restaurant japonais Paris 6e — Démo Pinapp Studio</title>
+    <meta name="description" content="Démonstration Pinapp Studio : site premium pour restaurant, contenu fictif illustratif." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://pinapp.fr/demo/restaurant/" />
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+
     <script>
       (function () {
-        var s = localStorage.getItem('pinapp-theme');
-        var d = window.matchMedia('(prefers-color-scheme:dark)').matches;
-        var m = s || (d ? 'nuit' : 'jour');
-        var t = m === 'nuit' ? 'dark' : 'light';
+        var s = localStorage.getItem('pinapp-theme') || localStorage.getItem('pinapp-mode');
+        var d = window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches;
+        var m = s === 'light' || s === 'jour' ? 'jour' : s === 'dark' || s === 'nuit' ? 'nuit' : d ? 'nuit' : 'jour';
         document.documentElement.setAttribute('data-mode', m);
-        document.documentElement.setAttribute('data-theme', t);
-        if (document.body) {
-          document.body.classList.add('mode-' + m);
-        }
+        document.documentElement.setAttribute('data-theme', m === 'jour' ? 'light' : 'dark');
         document.addEventListener('DOMContentLoaded', function () {
-          document.body.classList.add('mode-' + m);
+          document.body.classList.toggle('mode-jour', m === 'jour');
         });
       })();
     </script>
-    <link rel="preload" as="image" href="../../assets/images/bg-dark-pandora-apple.svg" fetchpriority="high" />
-    <link rel="preload" as="image" href="../../assets/images/bg-light-pandora-apple.svg" />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Ōkami — Restaurant japonais Paris 6e — Exemple Pinapp Studio</title>
-    <meta name="description" content="Exemple site restaurant — Démonstration Pinapp Studio" />
-    <link rel="canonical" href="https://pinapp.fr/demo/restaurant/" />
-    <meta name="robots" content="index, follow" />
-    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
-    <link rel="stylesheet" href="../../assets/css/demo-sector.css" />
-    <link rel="stylesheet" href="../../assets/css/pandora-world.css" />
-    <script src="../../assets/js/demo-photo-packs.js"></script>
-    <script>
-      window.PINAPP_DEMO_SITE = {
-        feature: 'plan-salle',
-        nom: 'Ōkami',
-        slogan: 'Une table. Un moment.',
-        sousSlogan: 'Cuisine japonaise contemporaine · Paris 6e',
-        zone: 'Paris 6e',
-        secteur: 'Restaurant',
-        accent: '#C41E3A',
-        accentDark: '#A01028',
-        fond: '#080808',
-        texte: '#F4F0EC',
-        typo: 'Georgia',
-        style: 'dark-luxury',
-        cta: 'Réserver ce soir',
-        services: [
-          { nom: 'Menu déjeuner', prix: '35€', description: 'Entrée + plat + dessert. Midi en semaine.' },
-          { nom: 'Menu dégustation', prix: '75€', description: '7 temps. Accords mets et sakés.' },
-          { nom: 'Carte', prix: 'À la carte', description: 'Sélection de pièces signatures.' },
-        ],
-        confiance: ['Réservation confirmée immédiatement', 'Menu végétarien disponible', 'Privatisation possible'],
-        avis: 'Une expérience gastronomique rare. Service impeccable.',
-        avisAuteur: 'Jean-Marc V. [DÉMO]',
-        q1: { label: 'Nombre de personnes ?', options: ['1-2', '3-4', '5 et plus'] },
-        q2: { label: 'Date souhaitée ?', options: ['Ce soir', 'Cette semaine', 'Ce mois'] },
-        q3: { label: 'Service ?', options: ['Déjeuner 12h', 'Dîner 19h30', 'Dîner 21h'] },
-        confirmation: 'Table confirmée. À très vite chez Ōkami.',
-        metaTitle: 'Ōkami — Restaurant japonais Paris 6e',
-        metaDesc: 'Exemple site restaurant — Démonstration Pinapp Studio',
-        h1Hidden: 'Restaurant japonais Paris 6e — Réservation en ligne',
-        bookingTitle: 'Réserver',
-      };
-      Object.assign(window.PINAPP_DEMO_SITE, window.PINAPP_DEMO_PHOTO_PACKS.restaurant);
-    </script>
-    <script src="../../assets/js/demo-sector.js" defer></script>
-    <script src="../../assets/js/demo-features.js" defer></script>
-    <link rel="stylesheet" href="../../assets/css/pandora-dance.css" />
-    <link rel="stylesheet" href="../../assets/css/ios-glass.css" />
-    <link rel="stylesheet" href="../../assets/css/apple-finish.css" />
-    <link rel="stylesheet" href="../../assets/css/pinapp-modern-biolume.css" />
+
+    <link rel="preload" as="image" href="../../assets/images/demo-pack/restaurant/hero-mobile.webp" fetchpriority="high" />
+
+    <style>
+      :root {
+        --bg: #070912;
+        --text: #ffffff;
+        --text2: rgba(255, 255, 255, 0.72);
+        --text3: rgba(255, 255, 255, 0.5);
+        --teal: #00e5cc;
+        --violet: #7b4fe8;
+        --green: #39e075;
+        --glass: rgba(255, 255, 255, 0.06);
+        --glass2: rgba(255, 255, 255, 0.035);
+        --border: rgba(255, 255, 255, 0.12);
+        --shadow: 0 24px 60px rgba(0, 0, 0, 0.42);
+        --r: 18px;
+        --pill: 999px;
+        --s1: 8px;
+        --s2: 16px;
+        --s3: 24px;
+        --s4: 32px;
+        --s5: 48px;
+      }
+
+      html {
+        scroll-behavior: auto;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        color: var(--text);
+        background: var(--bg);
+        min-height: 100svh;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        background:
+          radial-gradient(ellipse 70% 55% at 10% 20%, rgba(123, 79, 232, 0.12), transparent 60%),
+          radial-gradient(ellipse 70% 55% at 85% 15%, rgba(0, 229, 204, 0.1), transparent 62%),
+          radial-gradient(ellipse 80% 60% at 70% 95%, rgba(57, 224, 117, 0.07), transparent 60%),
+          radial-gradient(ellipse 120% 85% at 50% 110%, rgba(0, 229, 204, 0.08), transparent 70%),
+          linear-gradient(180deg, rgba(3, 6, 14, 0.92), rgba(2, 6, 12, 0.96));
+      }
+
+      body.mode-jour {
+        --bg: #fbf6ea;
+        --text: #1a0a2e;
+        --text2: rgba(26, 10, 46, 0.72);
+        --text3: rgba(26, 10, 46, 0.48);
+        --glass: rgba(255, 255, 255, 0.72);
+        --glass2: rgba(255, 255, 255, 0.56);
+        --border: rgba(26, 10, 46, 0.14);
+        --shadow: 0 24px 60px rgba(26, 10, 46, 0.12);
+      }
+      body.mode-jour::before {
+        background:
+          radial-gradient(ellipse 70% 55% at 15% 15%, rgba(255, 218, 150, 0.22), transparent 60%),
+          radial-gradient(ellipse 80% 60% at 80% 20%, rgba(91, 63, 216, 0.12), transparent 62%),
+          radial-gradient(ellipse 70% 55% at 35% 85%, rgba(0, 155, 140, 0.11), transparent 60%),
+          linear-gradient(180deg, rgba(251, 246, 234, 0.92), rgba(247, 244, 236, 0.96));
+      }
+
+      .wrap {
+        position: relative;
+        z-index: 1;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 64px 20px 80px;
+      }
+
+      .banner {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        z-index: 10;
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.72);
+        background: rgba(4, 8, 18, 0.72);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(18px) saturate(160%);
+        -webkit-backdrop-filter: blur(18px) saturate(160%);
+      }
+      body.mode-jour .banner {
+        color: rgba(26, 10, 46, 0.6);
+        background: rgba(255, 255, 255, 0.7);
+        border-bottom-color: rgba(26, 10, 46, 0.08);
+      }
+      .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 99px;
+        background: var(--teal);
+        opacity: 0.9;
+      }
+
+      .hero {
+        padding-top: 36px;
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 28px;
+        align-items: center;
+      }
+      @media (max-width: 900px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .chips {
+        display: inline-flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+      }
+      .chip {
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 7px 10px;
+        border-radius: var(--pill);
+        border: 1px solid var(--border);
+        background: var(--glass2);
+        backdrop-filter: blur(18px) saturate(160%);
+        -webkit-backdrop-filter: blur(18px) saturate(160%);
+      }
+
+      h1 {
+        font-family: Georgia, 'Times New Roman', serif;
+        font-weight: 400;
+        letter-spacing: -0.04em;
+        line-height: 1.04;
+        margin: 0 0 12px;
+        font-size: clamp(40px, 6vw, 70px);
+      }
+
+      .lead {
+        margin: 0 0 16px;
+        color: var(--text2);
+        font-size: 14px;
+        line-height: 1.7;
+        max-width: 54ch;
+      }
+
+      .actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 14px;
+      }
+      .btn {
+        appearance: none;
+        border: none;
+        border-radius: var(--pill);
+        padding: 12px 16px;
+        min-height: 44px;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      .btn-primary {
+        background: var(--violet);
+        color: #fff;
+        box-shadow: 0 0 26px rgba(123, 79, 232, 0.32);
+      }
+      .btn-ghost {
+        background: var(--glass);
+        border: 1px solid var(--border);
+        color: var(--text);
+        backdrop-filter: blur(20px) saturate(160%);
+        -webkit-backdrop-filter: blur(20px) saturate(160%);
+      }
+
+      .hero-card {
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        background: var(--glass);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        backdrop-filter: blur(26px) saturate(170%);
+        -webkit-backdrop-filter: blur(26px) saturate(170%);
+      }
+      .hero-img {
+        width: 100%;
+        height: 240px;
+        object-fit: cover;
+        display: block;
+        filter: saturate(1.05) contrast(1.05);
+      }
+      .hero-card .meta {
+        padding: 14px 16px;
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        font-size: 12px;
+        color: var(--text2);
+      }
+
+      .grid3 {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 18px;
+      }
+      @media (max-width: 900px) {
+        .grid3 {
+          grid-template-columns: 1fr;
+        }
+      }
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        background: var(--glass);
+        box-shadow: var(--shadow);
+        padding: 14px 14px 12px;
+        backdrop-filter: blur(26px) saturate(170%);
+        -webkit-backdrop-filter: blur(26px) saturate(170%);
+      }
+      .card h3 {
+        margin: 0 0 6px;
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .card p {
+        margin: 0;
+        font-size: 12px;
+        line-height: 1.6;
+        color: var(--text2);
+      }
+      .card .k {
+        margin-top: 8px;
+        font-size: 12px;
+        color: var(--teal);
+        font-weight: 700;
+      }
+
+      .feature {
+        margin-top: 16px;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        background: var(--glass);
+        box-shadow: var(--shadow);
+        padding: 16px;
+        backdrop-filter: blur(28px) saturate(170%);
+        -webkit-backdrop-filter: blur(28px) saturate(170%);
+      }
+      .feature-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: baseline;
+        flex-wrap: wrap;
+      }
+      .feature h2 {
+        margin: 0;
+        font-size: 14px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--teal);
+      }
+      .feature .sub {
+        margin-top: 8px;
+        color: var(--text2);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .plan {
+        margin-top: 14px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      @media (max-width: 900px) {
+        .plan {
+          grid-template-columns: 1fr;
+        }
+      }
+      .svgwrap {
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        padding: 10px;
+      }
+      body.mode-jour .svgwrap {
+        background: rgba(26, 10, 46, 0.04);
+      }
+      .hint {
+        font-size: 12px;
+        color: var(--text3);
+        margin-top: 10px;
+      }
+      .toast {
+        display: none;
+        margin-top: 10px;
+        padding: 10px 12px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: var(--glass2);
+        color: var(--text2);
+        font-size: 12px;
+      }
+      .toast.show {
+        display: block;
+      }
+
+      .form {
+        margin-top: 18px;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        background: var(--glass);
+        box-shadow: var(--shadow);
+        padding: 16px;
+        backdrop-filter: blur(28px) saturate(170%);
+        -webkit-backdrop-filter: blur(28px) saturate(170%);
+      }
+      .form h2 {
+        margin: 0 0 8px;
+        font-size: 14px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--teal);
+      }
+      label {
+        display: block;
+        font-size: 12px;
+        color: var(--text2);
+        margin: 10px 0 6px;
+      }
+      input,
+      textarea {
+        width: 100%;
+        font-size: 16px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text);
+        padding: 12px 12px;
+        outline: none;
+      }
+      body.mode-jour input,
+      body.mode-jour textarea {
+        background: rgba(255, 255, 255, 0.75);
+        color: #1a0a2e;
+      }
+      textarea {
+        min-height: 88px;
+        resize: vertical;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      @media (max-width: 900px) {
+        .row {
+          grid-template-columns: 1fr;
+        }
+      }
+      .fine {
+        font-size: 11px;
+        color: var(--text3);
+        margin-top: 10px;
+        line-height: 1.6;
+      }
+
+      footer {
+        margin-top: 22px;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        color: var(--text3);
+        font-size: 12px;
+      }
+      footer a {
+        color: var(--teal);
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          scroll-behavior: auto !important;
+          transition: none !important;
+          animation: none !important;
+        }
+      }
+    </style>
   </head>
-  <body class="demo-sector-page">
-    <div id="pandora-world" aria-hidden="true">
-      <div class="pandora-orbs">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-        <div class="orb orb-4"></div>
-      </div>
-      <div class="pandora-spores" id="spores-container"></div>
-      <div class="pandora-stars" id="stars-container"></div>
-      <div class="pandora-clouds" id="clouds-container">
-        <div class="cloud cloud-1"></div>
-        <div class="cloud cloud-2"></div>
-        <div class="cloud cloud-3"></div>
-      </div>
-      <div class="holo-grid"></div>
+  <body>
+    <div class="banner" role="note" aria-label="Bandeau de démonstration">
+      <span class="dot" aria-hidden="true"></span>
+      DÉMONSTRATION PINAPP — CONTENU FICTIF ILLUSTRATIF
     </div>
-    <div id="pandora-loader" aria-hidden="true">
-      <svg width="32" height="38" viewBox="0 0 32 38" fill="none">
-        <defs>
-          <linearGradient id="pg-l" x1="16" y1="36" x2="16" y2="2" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#7B4FE8" />
-            <stop offset="100%" stop-color="#00E5CC" />
-          </linearGradient>
-        </defs>
-        <path d="M16 2 C13 5 10 6 11 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
-        <path d="M16 2 L16 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" />
-        <path d="M16 2 C19 5 22 6 21 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
-        <ellipse cx="16" cy="24" rx="9" ry="12" fill="url(#pg-l)" />
-        <path d="M7 20 L16 15 L25 20 L16 25 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
-        <path d="M7 26 L16 21 L25 26 L16 31 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
-      </svg>
+
+    <div class="wrap">
+      <section class="hero" aria-label="Présentation">
+        <div>
+          <div class="chips" aria-label="Contexte">
+            <span class="chip">Restaurant</span>
+            <span class="chip">Paris 6e</span>
+          </div>
+          <h1>Une table.<br />Un moment.</h1>
+          <p class="lead">
+            Exemple de site pensé pour un restaurant : réservation claire, preuves, et une expérience mobile qui donne envie.
+            Tout est fictif — juste pour se projeter.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#contact">Réserver ce soir →</a>
+            <a class="btn btn-ghost" href="/realisations/index.html">Voir d’autres démos</a>
+          </div>
+          <p class="fine">Démo : aucune demande n’est transmise. En situation réelle, le formulaire est connecté.</p>
+        </div>
+
+        <div class="hero-card" aria-label="Aperçu">
+          <img
+            class="hero-img"
+            src="../../assets/images/demo-pack/restaurant/hero-mobile.webp"
+            alt="Aperçu visuel de la démonstration restaurant"
+            loading="eager"
+            decoding="async" />
+          <div class="meta">
+            <span>Ōkami — restaurant japonais</span>
+            <span style="color: var(--teal)">Réservation</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid3" aria-label="Offre">
+        <article class="card">
+          <h3>Menu déjeuner</h3>
+          <p>Entrée + plat + dessert. Midi en semaine.</p>
+          <div class="k">35€</div>
+        </article>
+        <article class="card">
+          <h3>Menu dégustation</h3>
+          <p>7 temps. Accords mets & sakés.</p>
+          <div class="k">75€</div>
+        </article>
+        <article class="card">
+          <h3>Privatisation</h3>
+          <p>Événements, entreprises, anniversaires.</p>
+          <div class="k">Sur devis</div>
+        </article>
+      </section>
+
+      <section class="feature" aria-label="Feature interactive">
+        <div class="feature-top">
+          <h2>Plan de salle</h2>
+          <div class="hint">Cliquez une table pour simuler une réservation.</div>
+        </div>
+        <p class="sub">
+          Ici, la réservation se fait sans friction. Dans la vraie vie : confirmation automatique, rappel, et
+          notifications utiles.
+        </p>
+
+        <div class="plan">
+          <div class="svgwrap" aria-label="Plan de salle interactif">
+            <svg
+              viewBox="0 0 320 220"
+              width="100%"
+              height="220"
+              role="img"
+              aria-label="Plan de salle : tables libres et occupées"
+              style="display: block; border-radius: 14px">
+              <defs>
+                <radialGradient id="g1" cx="30%" cy="30%" r="70%">
+                  <stop offset="0%" stop-color="rgba(0,229,204,0.22)" />
+                  <stop offset="100%" stop-color="rgba(0,229,204,0.06)" />
+                </radialGradient>
+                <radialGradient id="g2" cx="30%" cy="30%" r="70%">
+                  <stop offset="0%" stop-color="rgba(123,79,232,0.22)" />
+                  <stop offset="100%" stop-color="rgba(123,79,232,0.06)" />
+                </radialGradient>
+              </defs>
+              <rect x="8" y="8" width="304" height="204" rx="18" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" />
+              <g id="tables"></g>
+              <text x="20" y="34" fill="rgba(255,255,255,0.45)" font-size="11" letter-spacing="2">SALLE</text>
+            </svg>
+          </div>
+          <div>
+            <div class="toast" id="toast" role="status" aria-live="polite"></div>
+            <p class="fine">
+              Démo : on simule l’état “libre / occupée”. En production, vous paramétrez le vrai système (créneaux,
+              capacité, relances no‑show).
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="form" id="contact" aria-label="Réservation (démo)">
+        <h2>Réserver</h2>
+        <p class="lead" style="margin: 0 0 10px; font-size: 13px">Démo : ce formulaire ne transmet rien.</p>
+        <div class="row">
+          <div>
+            <label for="nom">Nom</label>
+            <input id="nom" name="nom" autocomplete="name" />
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" />
+          </div>
+        </div>
+        <label for="message">Demande</label>
+        <textarea id="message" name="message" placeholder="Ex : 2 personnes, ce soir 19h30…"></textarea>
+        <div class="actions" style="margin-top: 12px">
+          <button class="btn btn-primary" type="button" id="sendBtn">Envoyer →</button>
+          <a class="btn btn-ghost" href="https://pinapp.fr/">Retour Pinapp Studio</a>
+        </div>
+        <p class="fine">En situation réelle : confirmation automatique + rappel + suivi avis après la visite.</p>
+      </section>
+
+      <footer aria-label="Footer démo">
+        <span>Ōkami — Démo fictive</span>
+        <a href="https://pinapp.fr/">Pinapp Studio</a>
+      </footer>
     </div>
+
     <script>
       (function () {
-        function hideLoader() {
-          var l = document.getElementById('pandora-loader');
-          if (l && l.parentNode) {
-            l.style.opacity = '0';
-            setTimeout(function () {
-              if (l.parentNode) l.remove();
-            }, 400);
-          }
+        var tables = [
+          { id: 't1', x: 54, y: 68, r: 18, cap: 2, libre: true, g: 'g1' },
+          { id: 't2', x: 112, y: 68, r: 18, cap: 2, libre: false, g: 'g2' },
+          { id: 't3', x: 170, y: 68, r: 22, cap: 4, libre: true, g: 'g1' },
+          { id: 't4', x: 236, y: 68, r: 22, cap: 4, libre: true, g: 'g1' },
+          { id: 't5', x: 78, y: 132, r: 24, cap: 6, libre: true, g: 'g1' },
+          { id: 't6', x: 160, y: 132, r: 24, cap: 6, libre: false, g: 'g2' },
+          { id: 't7', x: 242, y: 132, r: 24, cap: 6, libre: true, g: 'g1' },
+          { id: 't8', x: 74, y: 182, r: 18, cap: 2, libre: true, g: 'g1' },
+          { id: 't9', x: 132, y: 182, r: 18, cap: 2, libre: false, g: 'g2' },
+          { id: 't10', x: 216, y: 182, r: 26, cap: 8, libre: true, g: 'g1' },
+        ];
+
+        function el(name) {
+          return document.createElementNS('http://www.w3.org/2000/svg', name);
         }
-        window.addEventListener('load', hideLoader);
-        setTimeout(hideLoader, 2000);
+
+        var g = document.getElementById('tables');
+        if (!g) return;
+
+        function render() {
+          g.innerHTML = '';
+          tables.forEach(function (t) {
+            var c = el('circle');
+            c.setAttribute('cx', t.x);
+            c.setAttribute('cy', t.y);
+            c.setAttribute('r', t.r);
+            c.setAttribute('fill', 'url(#' + (t.libre ? 'g1' : 'g2') + ')');
+            c.setAttribute('stroke', t.libre ? 'rgba(0,229,204,0.55)' : 'rgba(123,79,232,0.55)');
+            c.setAttribute('stroke-width', '1.2');
+            c.style.cursor = 'pointer';
+
+            var txt = el('text');
+            txt.setAttribute('x', t.x);
+            txt.setAttribute('y', t.y + 4);
+            txt.setAttribute('text-anchor', 'middle');
+            txt.setAttribute('font-size', '10');
+            txt.setAttribute('fill', 'rgba(255,255,255,0.85)');
+            txt.textContent = t.cap;
+
+            c.addEventListener('click', function () {
+              var toast = document.getElementById('toast');
+              if (!toast) return;
+              if (!t.libre) {
+                toast.textContent = 'Table déjà occupée — choisissez une autre table.';
+              } else {
+                t.libre = false;
+                toast.textContent = 'Table réservée (démo). Confirmation envoyée automatiquement.';
+              }
+              toast.classList.add('show');
+              render();
+              setTimeout(function () {
+                toast.classList.remove('show');
+              }, 2200);
+            });
+
+            g.appendChild(c);
+            g.appendChild(txt);
+          });
+        }
+
+        render();
+
+        var sendBtn = document.getElementById('sendBtn');
+        sendBtn &&
+          sendBtn.addEventListener('click', function () {
+            var toast = document.getElementById('toast');
+            if (!toast) return;
+            toast.textContent = 'Démo : message simulé. En production, la demande est envoyée et suivie.';
+            toast.classList.add('show');
+            setTimeout(function () {
+              toast.classList.remove('show');
+            }, 2200);
+          });
       })();
     </script>
-    <div class="aurora-mobile" aria-hidden="true">
-      <div class="aurora-orb aurora-orb-1"></div>
-      <div class="aurora-orb aurora-orb-2"></div>
-      <div class="aurora-orb aurora-orb-3"></div>
-      <div class="aurora-orb aurora-orb-4"></div>
-    </div>
-    <div class="pandora-shapes" aria-hidden="true">
-      <div class="pandora-shape pandora-shape-1"></div>
-      <div class="pandora-shape pandora-shape-2"></div>
-      <div class="pandora-shape pandora-shape-3"></div>
-      <div class="pandora-shape pandora-shape-4"></div>
-    </div>
-    <div class="holo-grid" aria-hidden="true"></div>
-    <div class="noise" aria-hidden="true"></div>
-    <div class="jour-spores" aria-hidden="true">
-      <span class="jour-spore" style="left: 12%; top: 75%; --dur: 22s; --delay: -4s; --dx: 18px; --dy: -90px"></span
-      ><span class="jour-spore" style="left: 28%; top: 60%; --dur: 28s; --delay: -11s; --dx: -12px; --dy: -75px"></span
-      ><span class="jour-spore" style="left: 45%; top: 82%; --dur: 19s; --delay: -7s; --dx: 25px; --dy: -60px"></span
-      ><span class="jour-spore" style="left: 62%; top: 70%; --dur: 32s; --delay: -2s; --dx: -20px; --dy: -85px"></span
-      ><span class="jour-spore" style="left: 78%; top: 65%; --dur: 24s; --delay: -15s; --dx: 14px; --dy: -70px"></span
-      ><span
-        class="jour-spore jour-spore-teal"
-        style="left: 20%; top: 85%; --dur: 26s; --delay: -18s; --dx: 10px; --dy: -65px"></span
-      ><span
-        class="jour-spore jour-spore-teal"
-        style="left: 55%; top: 88%; --dur: 30s; --delay: -5s; --dx: -15px; --dy: -95px"></span>
-    </div>
-    <a href="#main-demo" class="demo-skip">Aller au contenu</a>
-    <div class="demo-live-banner" role="banner">
-      <span class="live-dot" aria-hidden="true"></span>
-      DÉMO PINAPP — Exemple de site conçu pour une activité réelle · contenu fictif · pas un thème clé en main
-    </div>
-
-    <main id="main-demo">
-      <section class="hero" aria-label="Accroche">
-        <div class="hero-content">
-          <p class="hero-label"><span id="heroSecteur"></span> · <span id="heroZone"></span></p>
-          <h1 class="hero-title" id="heroSlogan"></h1>
-          <p class="hero-sub" id="heroSous"></p>
-          <button type="button" class="btn-hero" id="btnBooking"></button>
-        </div>
-      </section>
-
-      <section class="services-section" aria-label="Prestations">
-        <p class="services-title">Nos prestations</p>
-        <p class="services-subtitle">Faites défiler ou swipez</p>
-        <div class="swipe-container" id="servicesSwipe"></div>
-        <div class="swipe-dots" id="servicesDots"></div>
-      </section>
-
-      <section class="section" aria-label="Feature interactive">
-        <div id="demo-feature" class="demo-feature-section"></div>
-      </section>
-      <section class="preuve-section" aria-label="Témoignage">
-        <div style="max-width: 560px">
-          <p class="preuve-avis" id="preuveAvis"></p>
-          <p class="preuve-auteur" id="preuveAuteur"></p>
-          <p class="demo-label">Témoignage illustratif — DÉMO</p>
-          <div class="badges"></div>
-        </div>
-      </section>
-
-      <section class="booking-section" id="booking" aria-label="Réservation">
-        <p class="booking-title" id="bookingTitle">Réserver</p>
-        <p class="booking-sub">Quelques secondes suffisent.</p>
-        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-        <div class="questions-wrapper">
-          <div class="question active" id="q1">
-            <p class="question-label" id="l1"></p>
-            <div class="pills" id="pills1"></div>
-          </div>
-          <div class="question" id="q2">
-            <p class="question-label" id="l2"></p>
-            <div class="pills" id="pills2"></div>
-          </div>
-          <div class="question" id="q3">
-            <p class="question-label" id="l3"></p>
-            <div class="pills" id="pills3"></div>
-          </div>
-          <div class="question" id="qfin">
-            <div class="confirmation">
-              <svg class="check-circle" id="checkCircle" viewBox="0 0 56 56" fill="none" aria-hidden="true">
-                <circle cx="28" cy="28" r="26" stroke="#39E075" stroke-width="2" />
-                <polyline
-                  points="16,28 24,36 40,20"
-                  stroke="#39E075"
-                  stroke-width="2.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round" />
-              </svg>
-              <p class="confirm-text" id="confirmText"></p>
-              <p class="confirm-sub">Vous serez contacté(e) sous 24h.</p>
-              <p class="demo-label" style="margin-top: 8px">Démonstration — Aucune donnée transmise</p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <span><span id="footNom"></span> · <span id="footZone"></span></span>
-      <span style="display: flex; align-items: center; gap: 12px">
-        <a class="pinapp-back" href="https://pinapp.fr/">Pinapp Studio</a>
-        <span class="footer-demo">Démo</span>
-      </span>
-    </footer>
-
-    <script src="../../assets/js/pandora-night.js" defer></script>
-    <script src="../../assets/js/particles.js" defer></script>
-    <script src="../../assets/js/cursor.js" defer></script>
-    <script src="../../assets/js/intelligence.js" defer></script>
-    <script src="../../assets/js/scroll-cinema.js" defer></script>
-    <script src="../../assets/js/bio-particles.js" defer></script>
-      <script src="../../assets/js/pandora-world.js" defer></script>
   </body>
 </html>
+
