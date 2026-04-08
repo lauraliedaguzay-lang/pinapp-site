@@ -13,6 +13,15 @@
   --wow-shine-opacity-light: 0.18;
 }
 
+/* Pendant un switch de thème, on coupe temporairement les transitions/animations
+   pour éviter un "lag" (recalcul massif de styles + blur). */
+html.is-theme-switching *,
+html.is-theme-switching *::before,
+html.is-theme-switching *::after {
+  transition: none !important;
+  animation: none !important;
+}
+
 /* Base: éléments interactifs, ressenti "Apple" */
 .btn,
 .pill,

@@ -299,16 +299,30 @@
 
   function setThemePreference(mode) {
     if (mode !== 'light' && mode !== 'dark') return;
-    document.documentElement.setAttribute('data-theme', mode);
-    /* Sync body classes pour les scripts JS (aurora, cursor, particles) */
-    document.body.classList.toggle('mode-jour', mode === 'light');
-    document.body.classList.toggle('mode-nuit', mode === 'dark');
+    /* Anti-lag: pendant le switch, couper transitions/animations + canvas
+       (évite les gros recalculs de style/backdrop-filter et le “freeze” perceptible). */
+    var root = document.documentElement;
     try {
-      localStorage.setItem('pinapp-theme', mode);
+      root.classList.add('is-theme-switching');
+      if (window.__pinappThemeSwitchT) window.clearTimeout(window.__pinappThemeSwitchT);
+      window.__pinappThemeSwitchT = window.setTimeout(function () {
+        root.classList.remove('is-theme-switching');
+      }, 420);
     } catch (e) {}
-    syncThemeColorMeta();
-    /* Dispatch pour aurora.js, cursor.js, particles.js */
-    document.body.dispatchEvent(new CustomEvent('modeChange', { bubbles: true }));
+
+    /* Appliquer le thème sur la prochaine frame (limite les thrash layout). */
+    window.requestAnimationFrame(function () {
+      document.documentElement.setAttribute('data-theme', mode);
+      /* Sync body classes pour les scripts JS (aurora, cursor, particles) */
+      document.body.classList.toggle('mode-jour', mode === 'light');
+      document.body.classList.toggle('mode-nuit', mode === 'dark');
+      try {
+        localStorage.setItem('pinapp-theme', mode);
+      } catch (e) {}
+      syncThemeColorMeta();
+      /* Dispatch pour aurora.js, cursor.js, particles.js */
+      document.body.dispatchEvent(new CustomEvent('modeChange', { bubbles: true }));
+    });
   }
 
   /* Sync initiale au chargement */
