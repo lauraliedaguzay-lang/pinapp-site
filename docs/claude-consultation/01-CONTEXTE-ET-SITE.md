@@ -5,15 +5,15 @@
 ## Marque & offre
 
 - **Pinapp Studio** — IA, automatisation, design premium pour PME et indépendants.
-- **Promesse éditoriale** : « Pinapp prépare, vous validez » ; diagnostic offert 30 min ; produit de référence **Auralis RH** ; **Concours Lépine 2026**.
+- **Promesse éditoriale** : « Pinapp prépare, vous validez » ; diagnostic offert 30 min ; produit de référence **Auralis RH**.
 
 ## URLs & dépôt
 
-| Usage | URL |
-|--------|-----|
-| Production | `https://pinapp.fr/` |
+| Usage                 | URL                                                   |
+| --------------------- | ----------------------------------------------------- |
+| Production            | `https://pinapp.fr/`                                  |
 | GitHub Pages (miroir) | `https://lauraliedaguzay-lang.github.io/pinapp-site/` |
-| Dépôt | `pinapp-site` — HTML/CSS/JS statique |
+| Dépôt                 | `pinapp-site` — HTML/CSS/JS statique                  |
 
 Déploiement principal : **GitHub Actions** → **GitHub Pages**. Possibilité **Hostinger** / **ZIP Netlify** selon doc interne du dépôt.
 

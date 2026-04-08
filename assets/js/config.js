@@ -11,57 +11,62 @@
    ===================================================== */
 
 window.PinappConfig = {
-
   /* ─── WEBHOOKS N8N ─────────────────────────────────── */
   webhooks: {
     /* Leads & Diagnostic */
-    diagnosticLead:  'https://[TON-N8N]/webhook/diagnostic-lead',   // ① Lead entrant
-    formApproval:    'https://[TON-N8N]/webhook/lead-decision',      // ② Décision approve/decline
+    diagnosticLead: 'https://[TON-N8N]/webhook/diagnostic-lead', // ① Lead entrant
+    formApproval: 'https://[TON-N8N]/webhook/lead-decision', // ② Décision approve/decline
 
     /* Onboarding questionnaire index.html */
-    onboarding:      'https://[TON-N8N]/webhook/onboarding-lead',    // ③ Parcours onboarding
+    onboarding: 'https://[TON-N8N]/webhook/onboarding-lead', // ③ Parcours onboarding
 
     /* Lead magnet / guide offert */
-    leadMagnet:      'https://[TON-N8N]/webhook/lead-guide',         // ④ Guide gratuit demandé
+    leadMagnet: 'https://[TON-N8N]/webhook/lead-guide', // ④ Guide gratuit demandé
 
     /* Aurora IA */
-    auroraAnalyse:   'https://[TON-N8N]/webhook/aurora-analyse',     // ⑤ Analyse site IA
-    auroraUnivers:   'https://[TON-N8N]/webhook/aurora-univers',     // ⑥ Univers généré IA
+    auroraAnalyse: 'https://[TON-N8N]/webhook/aurora-analyse', // ⑤ Analyse site IA
+    auroraUnivers: 'https://[TON-N8N]/webhook/aurora-univers', // ⑥ Univers généré IA
 
     /* Notifications internes */
-    notifWhatsapp:   'https://[TON-N8N]/webhook/notif-lauralie',     // ⑦ Notif WhatsApp Lauralie
+    notifWhatsapp: 'https://[TON-N8N]/webhook/notif-lauralie', // ⑦ Notif WhatsApp Lauralie
 
     /* Projet signé */
-    projetSigne:     'https://[TON-N8N]/webhook/projet-signe',       // ⑧ Nouveau client signé
+    projetSigne: 'https://[TON-N8N]/webhook/projet-signe', // ⑧ Nouveau client signé
 
     /* Satisfaction / avis */
-    demandeAvis:     'https://[TON-N8N]/webhook/demande-avis',       // ⑨ Demande avis fin mission
+    demandeAvis: 'https://[TON-N8N]/webhook/demande-avis', // ⑨ Demande avis fin mission
 
     /* Premier passage Claude (n8n / Make) — notification interne ou brouillon, jamais envoi client auto */
     diagnosticClaudePrep: 'https://[TON-N8N]/webhook/diagnostic-claude-prep',
+
+    /* Dépôt client (liens fichiers + brief structuré) */
+    clientDepot: 'https://[TON-N8N]/webhook/client-depot',
   },
 
   /* ─── FEATURE FLAGS ────────────────────────────────── */
   features: {
     /* Automation leads */
-    diagnosticWebhook:   false,  // ① Activer quand n8n workflow "diagnostic-lead" est prêt
-    onboardingWebhook:   false,  // ③ Activer quand n8n workflow "onboarding" est prêt
-    leadWebhook:         false,  // ④ Activer quand n8n workflow "lead-guide" est prêt
+    diagnosticWebhook: false, // ① Activer quand n8n workflow "diagnostic-lead" est prêt
+    onboardingWebhook: false, // ③ Activer quand n8n workflow "onboarding" est prêt
+    leadWebhook: false, // ④ Activer quand n8n workflow "lead-guide" est prêt
 
     /* Aurora IA */
-    auroraAnalyseIA:     false,  // ⑤ Activer quand Claude branché via n8n
-    auroraUniversIA:     false,  // ⑥ Activer quand Claude branché via n8n
+    auroraAnalyseIA: false, // ⑤ Activer quand Claude branché via n8n
+    auroraUniversIA: false, // ⑥ Activer quand Claude branché via n8n
 
     /* Notifications */
-    whatsappNotifs:      false,  // ⑦ Activer quand WhatsApp Business API configurée
+    whatsappNotifs: false, // ⑦ Activer quand WhatsApp Business API configurée
 
     /* Claude prep : même payload que diagnostic + intent (orchestrateur n8n) */
     diagnosticClaudePrep: false,
+
+    /* Dépôt client : webhook optionnel (Make/n8n) */
+    clientDepotWebhook: false,
   },
 
   /* ─── CONTACT ──────────────────────────────────────── */
-  email:    'lauralie.daguzay@pinapp.fr',
-  whatsapp: 'https://wa.me/33XXXXXXXXX',   // ← remplacer par le vrai numéro
+  email: 'lauralie.daguzay@pinapp.fr',
+  whatsapp: 'https://wa.me/33XXXXXXXXX', // ← remplacer par le vrai numéro
 
   /* ─── BRANDING ─────────────────────────────────────── */
   siteUrl: 'https://pinapp.fr',
@@ -73,24 +78,26 @@ window.PinappConfig = {
 };
 
 /* Détection : webhook est-il une vraie URL ? */
-window.PinappConfig._isRealUrl = function(url) {
+window.PinappConfig._isRealUrl = function (url) {
   return url && !url.includes('[TON-N8N]') && url.startsWith('https://');
 };
 
 /* Helper : déclencher le webhook diagnostic si activé */
-window.PinappConfig.sendDiagnosticLead = function(payload) {
+window.PinappConfig.sendDiagnosticLead = function (payload) {
   var cfg = window.PinappConfig;
   if (cfg.features.diagnosticWebhook && cfg._isRealUrl(cfg.webhooks.diagnosticLead)) {
     fetch(cfg.webhooks.diagnosticLead, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(Object.assign({ source: 'diagnostic', timestamp: new Date().toISOString() }, payload)),
-    }).catch(function(){});
+      body: JSON.stringify(
+        Object.assign({ source: 'diagnostic', timestamp: new Date().toISOString() }, payload),
+      ),
+    }).catch(function () {});
   }
 };
 
 /** Webhook optionnel : premier passage Claude / plan (n8n). Règle métier : pas d’email client automatique depuis ce flux. */
-window.PinappConfig.sendDiagnosticClaudePrep = function(payload) {
+window.PinappConfig.sendDiagnosticClaudePrep = function (payload) {
   var cfg = window.PinappConfig;
   if (cfg.features.diagnosticClaudePrep && cfg._isRealUrl(cfg.webhooks.diagnosticClaudePrep)) {
     fetch(cfg.webhooks.diagnosticClaudePrep, {
@@ -103,9 +110,30 @@ window.PinappConfig.sendDiagnosticClaudePrep = function(payload) {
             intent: 'diagnostic-claude-prep',
             timestamp: new Date().toISOString(),
           },
-          payload
-        )
+          payload,
+        ),
       ),
-    }).catch(function(){});
+    }).catch(function () {});
+  }
+};
+
+/** Webhook optionnel : dépôt client (liens fichiers + brief). */
+window.PinappConfig.sendClientDepot = function (payload) {
+  var cfg = window.PinappConfig;
+  if (cfg.features.clientDepotWebhook && cfg._isRealUrl(cfg.webhooks.clientDepot)) {
+    fetch(cfg.webhooks.clientDepot, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(
+        Object.assign(
+          {
+            source: 'depot-client',
+            intent: 'client-depot',
+            timestamp: new Date().toISOString(),
+          },
+          payload,
+        ),
+      ),
+    }).catch(function () {});
   }
 };
