@@ -23,6 +23,17 @@
  * - CORS permissif “site-only” (Origin pinapp.fr + GitHub Pages preview)
  */
 exports.handler = async (event) => {
+  // CORS (préflight)
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 204,
+      headers: {
+        ...corsHeaders_(event),
+        'Cache-Control': 'no-store',
+      },
+      body: '',
+    };
+  }
   if (event.httpMethod !== 'POST') {
     return json(405, { ok: false, error: 'Method not allowed' });
   }
@@ -79,24 +90,33 @@ function json(statusCode, body) {
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
       'Cache-Control': 'no-store',
-      ...corsHeaders_(body && body.ok),
+      ...corsHeaders_(),
     },
     body: JSON.stringify(body, null, 2),
-  };
-}
-
-function corsHeaders_() {
-  // Allow same-site and GitHub Pages preview usage; keep it simple.
-  return {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
   };
 }
 
 function inferOrigin_(event) {
   const hdr = event.headers || {};
   return hdr.origin || hdr.Origin || '';
+}
+
+function corsHeaders_(event) {
+  // Keep this endpoint usable for production + GitHub Pages previews only.
+  // Do NOT allow wildcard (*) to avoid leaking signed approval links to arbitrary origins.
+  const origin = inferOrigin_(event);
+  const allow = [
+    /^https:\/\/pinapp\.fr$/i,
+    /^https:\/\/www\.pinapp\.fr$/i,
+    /^https:\/\/lauraliedaguzay-lang\.github\.io$/i,
+  ];
+  const ok = origin && allow.some((re) => re.test(origin));
+  return {
+    'Access-Control-Allow-Origin': ok ? origin : 'https://pinapp.fr',
+    Vary: 'Origin',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  };
 }
 
 async function signTokenV2_({ id, action, ctx, expMs }, secret) {

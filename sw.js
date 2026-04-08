@@ -2,7 +2,7 @@
 // Stratégie : network-first, fallback cache, fallback offline.
 // Objectif : éviter les 404 et permettre une dégradation propre.
 
-const CACHE = 'pinapp-v2';
+const CACHE = 'pinapp-v3';
 const OFFLINE_URL = '/offline.html';
 
 const PRECACHE = [
@@ -41,11 +41,25 @@ self.addEventListener('fetch', (e) => {
   if (e.request.url.includes('/.netlify/')) return;
   if (e.request.url.includes('plausible.io')) return;
   if (e.request.url.includes('fonts.bunny.net')) return;
+  // Ne jamais mettre en cache les espaces sensibles (tokens, pages internes)
+  try {
+    const u = new URL(e.request.url);
+    const p = u.pathname || '';
+    if (p.startsWith('/dashboard/') || p.startsWith('/client/')) return;
+  } catch (err) {}
 
   e.respondWith(
     fetch(e.request)
       .then((resp) => {
-        if (resp && resp.status === 200) {
+        // Ne mettre en cache que les ressources de même origine (évite de “geler” du tiers)
+        const sameOrigin = (() => {
+          try {
+            return new URL(e.request.url).origin === self.location.origin;
+          } catch (err) {
+            return false;
+          }
+        })();
+        if (sameOrigin && resp && resp.status === 200) {
           const clone = resp.clone();
           caches.open(CACHE).then((cache) => cache.put(e.request, clone));
         }
