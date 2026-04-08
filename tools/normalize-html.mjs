@@ -21,6 +21,52 @@ function walk(dir, cb) {
 function normalizeHtml(s) {
   let out = s;
 
+  // Ensure guide tour CSS is loaded on all pages using the Pinapp shell.
+  if (!/assets\/css\/guide-tour\.css/.test(out)) {
+    const vars = out.match(
+      /<link\s+rel=["']stylesheet["']\s+href=["']([^"']*?)assets\/variables\.css["']\s*\/?>/i,
+    );
+    if (vars) {
+      const prefix = vars[1] || '';
+      const guideCss = `<link rel="stylesheet" href="${prefix}assets/css/guide-tour.css" />`;
+      if (/assets\/css\/wow-senior\.css/.test(out)) {
+        out = out.replace(
+          /(<link\s+rel=["']stylesheet["']\s+href=["'][^"']*assets\/css\/wow-senior\.css["']\s*\/?>)/i,
+          `$1\n    ${guideCss}`,
+        );
+      } else if (/assets\/css\/ios-glass\.css/.test(out)) {
+        out = out.replace(
+          /(<link\s+rel=["']stylesheet["']\s+href=["'][^"']*assets\/css\/ios-glass\.css["']\s*\/?>)/i,
+          `$1\n    ${guideCss}`,
+        );
+      } else {
+        out = out.replace(
+          /(<link\s+rel=["']stylesheet["']\s+href=["'][^"']*assets\/variables\.css["']\s*\/?>)/i,
+          `$1\n    ${guideCss}`,
+        );
+      }
+    }
+  }
+
+  // Ensure guide tour JS is loaded (after main.js when present).
+  if (!/assets\/js\/guide-tour\.js/.test(out)) {
+    const vars = out.match(
+      /<link\s+rel=["']stylesheet["']\s+href=["']([^"']*?)assets\/variables\.css["']\s*\/?>/i,
+    );
+    if (vars) {
+      const prefix = vars[1] || '';
+      const guideScript = `<script src="${prefix}assets/js/guide-tour.js" defer></script>`;
+      if (/assets\/js\/main\.js/.test(out)) {
+        out = out.replace(
+          /(<script\s+src=["'][^"']*assets\/js\/main\.js["']\s+defer><\/script>)/i,
+          `$1\n    ${guideScript}`,
+        );
+      } else if (/<\/body>/i.test(out)) {
+        out = out.replace(/<\/body>/i, `    ${guideScript}\n  </body>`);
+      }
+    }
+  }
+
   // Ensure Plausible is not hard-loaded in HTML.
   // It is loaded after cookie consent via assets/js/main.js.
   out = out.replace(

@@ -1,0 +1,177 @@
+/* PINAPP — guide-tour.css
+   Guidage pas-à-pas (coachmarks) : discret, accessible, opt-in.
+   Respecte prefers-reduced-motion, pas de scroll animé. */
+
+.pinapp-guide-fab {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right, 0px) + 12px);
+  bottom: max(18px, env(safe-area-inset-bottom, 0px) + 74px);
+  z-index: 10050;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 100px;
+  border: var(--glass-border-d);
+  background: var(--glass-thin-bg);
+  backdrop-filter: var(--glass-thin-blur);
+  -webkit-backdrop-filter: var(--glass-thin-blur);
+  box-shadow: var(--glass-shadow-sm);
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  touch-action: manipulation;
+}
+
+html[data-theme='light'] .pinapp-guide-fab,
+body.mode-jour .pinapp-guide-fab {
+  border: var(--glass-border-l);
+  background: var(--glass-thin-bg-l);
+  box-shadow: var(--glass-shadow-sm);
+}
+
+.pinapp-guide-fab svg {
+  opacity: 0.9;
+}
+
+.pinapp-guide-fab:focus-visible {
+  outline: 2px solid var(--accent-teal);
+  outline-offset: 3px;
+}
+
+.pinapp-guide-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10060;
+  background: rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+html[data-theme='light'] .pinapp-guide-overlay,
+body.mode-jour .pinapp-guide-overlay {
+  background: rgba(6, 10, 16, 0.52);
+}
+
+.pinapp-guide-modal {
+  position: fixed;
+  left: 50%;
+  bottom: max(18px, env(safe-area-inset-bottom, 0px) + 18px);
+  transform: translateX(-50%);
+  width: min(720px, calc(100vw - 24px));
+  z-index: 10070;
+  border-radius: 24px;
+  border: var(--glass-border-d);
+  background: var(--glass-thick-bg);
+  backdrop-filter: var(--glass-thick-blur);
+  -webkit-backdrop-filter: var(--glass-thick-blur);
+  box-shadow: var(--glass-shadow-lg);
+  overflow: hidden;
+}
+
+html[data-theme='light'] .pinapp-guide-modal,
+body.mode-jour .pinapp-guide-modal {
+  border: var(--glass-border-l);
+  background: var(--glass-thick-bg-l);
+}
+
+.pinapp-guide-modal-inner {
+  padding: 18px 18px 14px;
+}
+
+.pinapp-guide-kicker {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-teal);
+  opacity: 0.9;
+  margin-bottom: 6px;
+}
+
+.pinapp-guide-title {
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+
+.pinapp-guide-text {
+  font-size: 13px;
+  opacity: 0.78;
+  line-height: 1.65;
+}
+
+.pinapp-guide-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px 16px;
+  border-top: 1px solid var(--separator);
+}
+
+.pinapp-guide-actions .pinapp-guide-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pinapp-guide-step {
+  font-size: 11px;
+  opacity: 0.6;
+}
+
+.pinapp-guide-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 100px;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  border: var(--glass-border-d);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-primary);
+  touch-action: manipulation;
+}
+
+.pinapp-guide-btn:focus-visible {
+  outline: 2px solid var(--accent-teal);
+  outline-offset: 3px;
+}
+
+.pinapp-guide-btn-primary {
+  border-color: rgba(123, 79, 232, 0.42);
+  background: rgba(123, 79, 232, 0.22);
+}
+
+.pinapp-guide-btn-ghost {
+  background: transparent;
+  opacity: 0.8;
+}
+
+.pinapp-guide-highlight {
+  position: relative;
+  z-index: 10080;
+  border-radius: 18px;
+  box-shadow:
+    0 0 0 2px rgba(123, 79, 232, 0.35),
+    0 0 0 6px rgba(123, 79, 232, 0.12),
+    0 18px 60px rgba(0, 0, 0, 0.35);
+}
+
+html[data-theme='light'] .pinapp-guide-highlight,
+body.mode-jour .pinapp-guide-highlight {
+  box-shadow:
+    0 0 0 2px rgba(91, 63, 216, 0.34),
+    0 0 0 6px rgba(91, 63, 216, 0.12),
+    0 18px 60px rgba(0, 0, 0, 0.22);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pinapp-guide-overlay {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
