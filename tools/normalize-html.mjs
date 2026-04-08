@@ -21,6 +21,69 @@ function walk(dir, cb) {
 function normalizeHtml(s) {
   let out = s;
 
+  // Ensure Pandora world layer is loaded on all pages using the Pinapp shell.
+  // (Relative prefix is derived from the variables.css href.)
+  if (!/assets\/css\/pandora-world\.css/.test(out)) {
+    const vars = out.match(
+      /<link\s+rel=["']stylesheet["']\s+href=["']([^"']*?)assets\/variables\.css["']\s*\/?>/i,
+    );
+    if (vars) {
+      const prefix = vars[1] || '';
+      const pwLink = `<link rel="stylesheet" href="${prefix}assets/css/pandora-world.css" />`;
+      out = out.replace(
+        /(<link\s+rel=["']stylesheet["']\s+href=["'][^"']*assets\/variables\.css["']\s*\/?>)/i,
+        `$1\n    ${pwLink}`,
+      );
+    }
+  }
+
+  // Ensure Pandora world JS is loaded (prefer after main.js when present).
+  if (!/assets\/js\/pandora-world\.js/.test(out)) {
+    const vars = out.match(
+      /<link\s+rel=["']stylesheet["']\s+href=["']([^"']*?)assets\/variables\.css["']\s*\/?>/i,
+    );
+    if (vars) {
+      const prefix = vars[1] || '';
+      const pwScript = `<script src="${prefix}assets/js/pandora-world.js" defer></script>`;
+      if (/assets\/js\/main\.js/.test(out)) {
+        out = out.replace(
+          /(<script\s+src=["'][^"']*assets\/js\/main\.js["']\s+defer><\/script>)/i,
+          `$1\n    ${pwScript}`,
+        );
+      } else if (/<\/body>/i.test(out)) {
+        out = out.replace(/<\/body>/i, `    ${pwScript}\n  </body>`);
+      }
+    }
+  }
+
+  // Ensure Pandora world markup exists (insert right after <body ...>).
+  // Keep IDs consistent with assets/js/pandora-world.js (#spores-container, #stars-container).
+  if (!/id=["']pandora-world["']/.test(out)) {
+    const bodyOpen = out.match(/<body\b[^>]*>/i)?.[0] || '';
+    if (bodyOpen) {
+      out = out.replace(
+        /<body\b[^>]*>/i,
+        (m) => `${m}
+    <div id="pandora-world" aria-hidden="true">
+      <div class="pandora-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+      </div>
+      <div class="pandora-spores" id="spores-container"></div>
+      <div class="pandora-stars" id="stars-container"></div>
+      <div class="pandora-clouds" id="clouds-container">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+      </div>
+      <div class="holo-grid"></div>
+    </div>`,
+      );
+    }
+  }
+
   // Ensure guide tour CSS is loaded on all pages using the Pinapp shell.
   if (!/assets\/css\/guide-tour\.css/.test(out)) {
     const vars = out.match(
