@@ -61,7 +61,7 @@ Payload envoyé (extrait) :
 
 4. **Telegram Bot → Send a message** (optionnel)
    - Condition : champ `telegram` non vide
-   - Message 1 : “Bien reçu. Prochaine étape : …”
+   - Message 1 : “Bien reçu. Prochaine étape : …” (ou notification Lauralie seulement)
 
 5. **Telegram Bot → Send a message** (suite)
    - Envoie une checklist courte en 5–7 étapes, ex :
@@ -72,6 +72,18 @@ Payload envoyé (extrait) :
      - 5. Confirmer délai / budget
      - 6. Confirmer outils et accès
      - 7. “On lance : je reviens avec un plan + validations”
+
+6. **Option “main dans la main” (1 clic = valider)**
+   - Utiliser `/.netlify/functions/handhold` pour générer 2 liens signés :
+     - `approveUrl` (j’exécute / je continue)
+     - `declineUrl` (je n’exécute pas / je passe)
+   - Poster ces liens dans Telegram (message à Lauralie) et router vers un webhook Make/n8n via `/.netlify/functions/approve`.
+   - Exemple de contexte d’étape (`ctx`) :
+     - `depot:check-links`
+     - `depot:request-missing`
+     - `offer:send-quote-draft`
+     - `prod:publish`
+   - L’expiration (`exp`) limite la fenêtre de clic (ex: 7 jours).
 
 ---
 

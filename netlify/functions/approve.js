@@ -17,7 +17,7 @@
  */
 
 exports.handler = async (event) => {
-  const { id, token, action } = event.queryStringParameters || {};
+  const { id, token, action, ctx, exp } = event.queryStringParameters || {};
 
   /* Validation des paramètres */
   if (!id || !token || !['approve', 'decline'].includes(action)) {
@@ -30,8 +30,15 @@ exports.handler = async (event) => {
     return htmlResponse(500, pageError('Configuration manquante — contactez le dev.'));
   }
 
-  const expectedToken = await signToken(id, secret);
-  if (token !== expectedToken) {
+  // V2: token lié au contexte (ctx) + expiration (exp). Back-compat V1: token sur id seul.
+  const now = Date.now();
+  const expMs = parseExpMs_(exp);
+  if (expMs && now > expMs) {
+    return htmlResponse(403, pageError('Lien expiré. Demandez une nouvelle validation.'));
+  }
+  const expectedV2 = await signTokenV2_({ id, action, ctx, expMs }, secret);
+  const expectedV1 = await signToken(id, secret);
+  if (token !== expectedV2 && token !== expectedV1) {
     return htmlResponse(403, pageError('Token invalide ou expiré. Ce lien est à usage unique.'));
   }
 
@@ -46,7 +53,9 @@ exports.handler = async (event) => {
           leadId: id,
           action: action,
           decidedAt: new Date().toISOString(),
-          source: 'whatsapp-approval',
+          source: 'pinapp-approval',
+          ctx: ctx || '',
+          exp: expMs ? new Date(expMs).toISOString() : '',
         }),
       });
     } catch (e) {
@@ -65,6 +74,40 @@ async function signToken(id, secret) {
   const encoder = new TextEncoder();
   const keyData = encoder.encode(secret);
   const msgData = encoder.encode(id);
+
+  const cryptoKey = await crypto.subtle.importKey(
+    'raw',
+    keyData,
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign'],
+  );
+  const sig = await crypto.subtle.sign('HMAC', cryptoKey, msgData);
+  return Array.from(new Uint8Array(sig))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
+}
+
+function parseExpMs_(exp) {
+  if (!exp) return 0;
+  // Accept exp as epoch ms or epoch seconds, or ISO date.
+  const raw = String(exp).trim();
+  if (!raw) return 0;
+  if (/^\d{10,13}$/.test(raw)) {
+    const n = Number(raw);
+    if (!Number.isFinite(n)) return 0;
+    return raw.length === 10 ? n * 1000 : n;
+  }
+  const t = Date.parse(raw);
+  return Number.isFinite(t) ? t : 0;
+}
+
+async function signTokenV2_({ id, action, ctx, expMs }, secret) {
+  const encoder = new TextEncoder();
+  const keyData = encoder.encode(secret);
+  const expPart = expMs ? String(expMs) : '';
+  const ctxPart = ctx ? String(ctx) : '';
+  const msgData = encoder.encode([String(id), String(action), ctxPart, expPart].join('|'));
 
   const cryptoKey = await crypto.subtle.importKey(
     'raw',
