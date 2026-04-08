@@ -377,6 +377,48 @@
   var drawer = document.getElementById('mobileDrawer');
   var drawerClose = document.getElementById('drawerClose');
   var lastFocus = null;
+  var drawerTrapBound = false;
+  function getFocusable(container) {
+    if (!container || !container.querySelectorAll) return [];
+    return Array.prototype.slice
+      .call(
+        container.querySelectorAll(
+          'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])',
+        ),
+      )
+      .filter(function (el) {
+        return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+      });
+  }
+
+  function trapFocusWithin(container, e) {
+    if (!container) return;
+    if (e.key !== 'Tab') return;
+    if (!container.contains(document.activeElement)) {
+      var f0 = getFocusable(container)[0];
+      if (f0) {
+        e.preventDefault();
+        f0.focus();
+      }
+      return;
+    }
+    var f = getFocusable(container);
+    if (!f.length) return;
+    var first = f[0];
+    var last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
+
+  function trapDrawerFocus(e) {
+    if (!drawer || !drawer.classList.contains('open')) return;
+    trapFocusWithin(drawer, e);
+  }
 
   function setCookieBannerSuppressed(suppressed) {
     if (!cookieBanner) return;
@@ -404,6 +446,14 @@
     document.body.style.overflow = open ? 'hidden' : '';
     document.body.classList.toggle('drawer-open', open);
     setCookieBannerSuppressed(open);
+    // A11y: trap focus inside drawer when open (capture to run before other handlers)
+    if (open && !drawerTrapBound) {
+      document.addEventListener('keydown', trapDrawerFocus, true);
+      drawerTrapBound = true;
+    } else if (!open && drawerTrapBound) {
+      document.removeEventListener('keydown', trapDrawerFocus, true);
+      drawerTrapBound = false;
+    }
     if (open) {
       lastFocus = document.activeElement;
       window.setTimeout(function () {
@@ -479,6 +529,12 @@
   var demoViewportLabel = document.getElementById('demoViewportLabel');
   var currentDemoUrl = '';
   var currentViewport = 'desktop';
+  var demoLastOpener = null;
+  var demoTrapBound = false;
+  function trapDemoFocus(e) {
+    if (!demoModal || !demoModal.classList.contains('open')) return;
+    trapFocusWithin(demoModal, e);
+  }
 
   function setDemoViewport(viewport) {
     currentViewport = viewport === 'mobile' ? 'mobile' : 'desktop';
@@ -525,6 +581,7 @@
 
   function openDemo(url) {
     if (!demoModal || !demoIframe) return;
+    demoLastOpener = document.activeElement;
     demoModal.classList.add('open');
     demoModal.setAttribute('aria-hidden', 'false');
     currentDemoUrl = url || '';
@@ -535,6 +592,14 @@
     setDemoViewport('desktop');
     demoIframe.src = currentDemoUrl;
     document.body.style.overflow = 'hidden';
+    if (!demoTrapBound) {
+      document.addEventListener('keydown', trapDemoFocus, true);
+      demoTrapBound = true;
+    }
+    window.setTimeout(function () {
+      var f = getFocusable(demoModal);
+      if (f && f[0]) f[0].focus();
+    }, 0);
   }
 
   function closeDemo() {
@@ -546,6 +611,15 @@
     if (demoViewportFrame) demoViewportFrame.style.display = 'none';
     if (demoSkeleton) demoSkeleton.style.display = 'flex';
     document.body.style.overflow = '';
+    if (demoTrapBound) {
+      document.removeEventListener('keydown', trapDemoFocus, true);
+      demoTrapBound = false;
+    }
+    if (demoLastOpener && typeof demoLastOpener.focus === 'function') {
+      window.setTimeout(function () {
+        demoLastOpener.focus();
+      }, 0);
+    }
   }
 
   if (demoIframe) {
