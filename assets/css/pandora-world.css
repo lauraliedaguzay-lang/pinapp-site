@@ -369,3 +369,14 @@ body.mode-jour .holo-grid {
     transition: none !important;
   }
 }
+
+/* Scroll perf guard (main.js) — pendant un scroll rapide, on fige les animations décoratives
+   pour garder un rendu parfaitement cohérent avec la vitesse de scroll (zéro inertie). */
+html.is-scrolling #pandora-world,
+html.is-scrolling .orb,
+html.is-scrolling .cloud,
+html.is-scrolling .spore,
+html.is-scrolling .star,
+html.is-scrolling .holo-grid {
+  animation-play-state: paused !important;
+}

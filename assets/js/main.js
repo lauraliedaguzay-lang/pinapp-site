@@ -6,6 +6,29 @@
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* Scroll perf guard — gèle les animations décoratives pendant un scroll rapide.
+     But: éviter toute impression d'inertie / “rattrapage” quand on scrolle vite (prod, mobile/desktop).
+     Implémentation: ajoute .is-scrolling sur <html> pendant ~120ms après le dernier event scroll. */
+  (function wireScrollPerfGuard() {
+    try {
+      if (prefersReducedMotion) return;
+      var root = document.documentElement;
+      var t = null;
+      var clear = function () {
+        root.classList.remove('is-scrolling');
+      };
+      window.addEventListener(
+        'scroll',
+        function () {
+          root.classList.add('is-scrolling');
+          if (t) window.clearTimeout(t);
+          t = window.setTimeout(clear, 120);
+        },
+        { passive: true },
+      );
+    } catch (e) {}
+  })();
+
   /* Spotlight curseur → variables --spot-x / --spot-y (lumière ambiante body::after) */
   if (!prefersReducedMotion && window.matchMedia('(min-width: 1024px)').matches) {
     var rootStyle = document.documentElement.style;

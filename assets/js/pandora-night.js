@@ -11,6 +11,7 @@ const PandoraNight = {
   raf: null,
   active: false,
   _scale: 1,
+  paused: false,
 
   /* ── 6 grandes nappes bioluminescentes ─────────────────── */
   layers: [
@@ -195,8 +196,24 @@ const PandoraNight = {
     this.draw();
   },
 
+  isScrolling() {
+    try {
+      return document.documentElement.classList.contains('is-scrolling');
+    } catch (e) {
+      return false;
+    }
+  },
+
   draw() {
     if (!this.canvas || !this.active) return;
+    // Pendant un scroll rapide, on évite de redessiner le canvas (cohérence avec la vitesse de scroll)
+    // et on supprime l'effet “rattrapage” visuel.
+    if (this.isScrolling()) {
+      this.paused = true;
+      this.raf = requestAnimationFrame(() => this.draw());
+      return;
+    }
+    this.paused = false;
     const W = this.canvas.width;
     const H = this.canvas.height;
     const ctx = this.ctx;

@@ -4,6 +4,7 @@ const Aurora = {
   ctx: null,
   t: 0,
   raf: null,
+  paused: false,
 
   isJour() {
     /* Priorité data-theme (main.js), fallback mode-jour (classe body) */
@@ -76,7 +77,24 @@ const Aurora = {
     this.draw();
   },
 
+  isScrolling() {
+    try {
+      return document.documentElement.classList.contains('is-scrolling');
+    } catch (e) {
+      return false;
+    }
+  },
+
   draw() {
+    // Pendant un scroll rapide, on évite tout redraw “décor” pour rester parfaitement
+    // cohérent avec la vitesse de scroll (pas d’inertie visuelle / rattrapage).
+    if (this.isScrolling()) {
+      this.paused = true;
+      this.raf = requestAnimationFrame(() => this.draw());
+      return;
+    }
+    this.paused = false;
+
     const ctx = this.ctx;
     const W = this.canvas.width;
     const H = this.canvas.height;
