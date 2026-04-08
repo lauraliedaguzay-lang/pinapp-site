@@ -21,6 +21,11 @@ function walk(dir, cb) {
 function normalizeHtml(s) {
   let out = s;
 
+  // Fix wrong Pandora background preloads (some pages still referenced .png files that do not exist).
+  // Keep it simple: ensure preloads point to the existing .svg.
+  out = out.replace(/bg-dark-pandora-apple\.png/gi, 'bg-dark-pandora-apple.svg');
+  out = out.replace(/bg-light-pandora-apple\.png/gi, 'bg-light-pandora-apple.svg');
+
   // Pandora world (background scene):
   // - Pages "shell" Pinapp: derive prefix from assets/variables.css
   // - Demo pages (demo/*): derive prefix from any existing ../../assets/... link (e.g. demo-sector.css)
