@@ -90,8 +90,7 @@ html {
 }
 
 .demo-sector-page section {
-  height: 100vh;
-  height: 100dvh;
+  height: 100svh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -1247,15 +1246,12 @@ html {
 
 /* ─── 4. SECTIONS — entree fluide (emerge de l'ombre) ─────────────── */
 .demo-sector-page section:not(.hero) {
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity 600ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 1;
+  transform: none;
 }
 .demo-sector-page section.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 /* Toujours visible si JS desactive */
@@ -1353,23 +1349,8 @@ html {
 
 /* ─── 7. BOOKING — pills accent, progress shimmer ─────────────────── */
 .progress-fill {
-  background: linear-gradient(
-    90deg,
-    var(--demo-accent, #c41e3a) 0%,
-    rgba(255, 255, 255, 0.6) 50%,
-    var(--demo-accent, #c41e3a) 100%
-  );
-  background-size: 200% 100%;
-  animation: progress-shimmer 2.5s linear infinite;
+  background: var(--demo-accent, #c41e3a);
   transition: width 400ms cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-@keyframes progress-shimmer {
-  0% {
-    background-position: 200% center;
-  }
-  100% {
-    background-position: 0% center;
-  }
 }
 
 /* Pills booking — spring press, active glow */

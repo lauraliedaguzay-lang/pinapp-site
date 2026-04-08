@@ -79,7 +79,8 @@ function extractFromJs(text) {
     const v = m[1];
     // JS often stores just filenames (joined later at runtime). We only check path-like refs.
     // Accept: /..., ./..., ../..., or anything containing a slash.
-    if (!(v.startsWith('/') || v.startsWith('./') || v.startsWith('../') || v.includes('/'))) continue;
+    if (!(v.startsWith('/') || v.startsWith('./') || v.startsWith('../') || v.includes('/')))
+      continue;
     refs.push(v);
   }
   return refs;

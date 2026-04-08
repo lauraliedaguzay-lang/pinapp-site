@@ -466,56 +466,8 @@
   }
 
   /* Sections plein écran — molette / tactile, sans smooth */
-  var sections = document.querySelectorAll('.demo-sector-page main section');
-  var currentSection = 0;
-  var isScrolling = false;
-  var scrollCooldown = 480;
-
-  window.addEventListener(
-    'wheel',
-    function (e) {
-      if (isScrolling) return;
-      var next = currentSection;
-      if (e.deltaY > 0 && currentSection < sections.length - 1) next++;
-      else if (e.deltaY < 0 && currentSection > 0) next--;
-      if (next === currentSection) return;
-      isScrolling = true;
-      currentSection = next;
-      scrollToSection(sections[currentSection]);
-      window.setTimeout(function () {
-        isScrolling = false;
-      }, scrollCooldown);
-    },
-    { passive: true },
-  );
-
-  var touchStartY = 0;
-  window.addEventListener(
-    'touchstart',
-    function (e) {
-      touchStartY = e.touches[0].clientY;
-    },
-    { passive: true },
-  );
-  window.addEventListener(
-    'touchend',
-    function (e) {
-      if (isScrolling) return;
-      var diff = touchStartY - e.changedTouches[0].clientY;
-      if (Math.abs(diff) < 50) return;
-      var next = currentSection;
-      if (diff > 0 && currentSection < sections.length - 1) next++;
-      else if (diff < 0 && currentSection > 0) next--;
-      if (next === currentSection) return;
-      isScrolling = true;
-      currentSection = next;
-      scrollToSection(sections[currentSection]);
-      window.setTimeout(function () {
-        isScrolling = false;
-      }, scrollCooldown);
-    },
-    { passive: true },
-  );
+  // NOTE: on évite le “scroll hijacking” (snap par molette / swipe) : ça casse la perception premium
+  // et c’est fragile sur trackpads/iOS. Le site reste en scroll naturel.
 
   /* Sections visibles au chargement (règle zéro-scroll Pinapp — pas de révélation au défilement) */
   document.querySelectorAll('.demo-sector-page section').forEach(function (sec) {
