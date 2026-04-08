@@ -93,20 +93,20 @@ function normalizeHtml(s) {
   // Drawer "Formations" should point to the paid formation page, not the free lead-magnet.
   // Keep both pages: /offres/formation/ (menu) vs /formation-gratuite/ (lead magnet elsewhere).
   out = out.replace(
-    /href=(["'])([^"']*?)formation-gratuite\/index\.html\1(\s*>\s*Formations\s*<)/gi,
-    'href=$1$2offres/formation/index.html$1$3',
+    /(<a\b[^>]*?\bhref=)(["'])([^"']*?)formation-gratuite\/index\.html\2([^>]*>\s*Formations\s*<)/gi,
+    '$1$2$3offres/formation/index.html$2$4',
   );
 
   // Bottom bar "Form." should point to the paid formation page (keep lead magnet linked elsewhere).
   out = out.replace(
-    /href=(["'])([^"']*?)formation-gratuite\/index\.html\1(\s*>\s*Form\.\s*<)/gi,
-    'href=$1$2offres/formation/index.html$1$3',
+    /(<a\b[^>]*?\bhref=)(["'])([^"']*?)formation-gratuite\/index\.html\2([^>]*>\s*Form\.\s*<)/gi,
+    '$1$2$3offres/formation/index.html$2$4',
   );
 
   // Footer secondary: "Formation IA" should not point to the lead magnet unless explicitly intended.
   out = out.replace(
-    /href=(["'])([^"']*?)formation-gratuite\/index\.html\1(\s*>\s*Formation IA\s*<)/gi,
-    'href=$1$2offres/formation/index.html$1$3',
+    /(<a\b[^>]*?\bhref=)(["'])([^"']*?)formation-gratuite\/index\.html\2([^>]*>\s*Formation IA\s*<)/gi,
+    '$1$2$3offres/formation/index.html$2$4',
   );
 
   // Add aria-current="page" to nav/drawer/bottom-bar links when they match the current page.

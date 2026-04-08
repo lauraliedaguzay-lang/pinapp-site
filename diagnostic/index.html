@@ -8,11 +8,11 @@
     <title>Diagnostic offert — tout par écrit — Pinapp Studio</title>
     <meta
       name="description"
-      content="Décrivez votre besoin par écrit. Réponse sous 24 h. Google Meet en option — zéro téléphone imposé." />
+      content="Décrivez votre besoin par écrit. Réponse sous 24 h. Google Meet en option — sans appel." />
     <meta property="og:title" content="Diagnostic offert — tout par écrit — Pinapp Studio" />
     <meta
       property="og:description"
-      content="Décrivez votre besoin par écrit. Réponse sous 24 h. Google Meet en option — zéro téléphone imposé." />
+      content="Décrivez votre besoin par écrit. Réponse sous 24 h. Google Meet en option — sans appel." />
     <meta property="og:image" content="https://pinapp.fr/og-image.webp" />
     <meta property="og:url" content="https://pinapp.fr/diagnostic/" />
     <link rel="canonical" href="https://pinapp.fr/diagnostic/" />
@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="../assets/css/apple-finish.css" />
     <link rel="stylesheet" href="../assets/css/ios-glass.css" />
     <link rel="stylesheet" href="../assets/css/wow-senior.css" />
+    <link rel="stylesheet" href="../assets/css/guide-tour.css" />
     <link rel="stylesheet" href="../assets/css/pinapp-modern-biolume.css" />
     <script type="application/ld+json">
       {
@@ -89,9 +90,7 @@
         </a>
         <div class="nav-links">
           <a href="../offres/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Offres</a>
-          <a href="../formation-gratuite/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8"
-            >Formations</a
-          >
+          <a href="../offres/formation/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Formations</a>
           <a href="../realisations/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Réalisations</a>
           <a href="../a-propos/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">À propos</a>
           <a href="../faq/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">FAQ</a>
@@ -221,20 +220,86 @@
               padding: var(--space-5);
               margin-bottom: var(--space-4);
             ">
-            <p style="opacity: 0.78; font-size: 15px; line-height: 1.65">
-              Écrivez votre contexte par email (ou formulaire quand il sera branché). Si un
-              <strong>Google Meet</strong> vous aide après le premier échange écrit, on le planifie ensemble — fil
-              traçable, jamais d’appel téléphonique imposé.
-            </p>
-            <p style="opacity: 0.55; font-size: 13px; margin-top: var(--space-3)">
-              Widget Calendly (option Meet) : à brancher ici une fois votre lien prêt.
-            </p>
-            <a
-              href="mailto:lauralie.daguzay@pinapp.fr?subject=Demande%20de%20diagnostic%20Pinapp"
-              class="btn btn-primary"
-              style="margin-top: var(--space-3)"
-              >Écrire à Pinapp</a
-            >
+            <div class="diagnostic-form" id="diagnosticForm" aria-label="Demande de diagnostic">
+              <div class="form-step active" id="step1">
+                <p class="form-question">Quel est votre besoin principal ?</p>
+                <div class="form-pills" role="list">
+                  <button type="button" class="pill" role="listitem" onclick="selectPill(this, 'step1')">
+                    Un site professionnel
+                  </button>
+                  <button type="button" class="pill" role="listitem" onclick="selectPill(this, 'step1')">
+                    Automatiser mes relances
+                  </button>
+                  <button type="button" class="pill" role="listitem" onclick="selectPill(this, 'step1')">
+                    Intégrer l’IA
+                  </button>
+                  <button type="button" class="pill" role="listitem" onclick="selectPill(this, 'step1')">
+                    Tout le système
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-step" id="step2">
+                <p class="form-question">Votre activité ?</p>
+                <div class="form-pills" role="list">
+                  <button type="button" class="pill" role="listitem" onclick="selectPill(this, 'step2')">
+                    Artisan / BTP
+                  </button>
+                  <button type="button" class="pill" role="listitem" onclick="selectPill(this, 'step2')">
+                    Restaurant / Commerce
+                  </button>
+                  <button type="button" class="pill" role="listitem" onclick="selectPill(this, 'step2')">
+                    Coach / Consultant
+                  </button>
+                  <button type="button" class="pill" role="listitem" onclick="selectPill(this, 'step2')">
+                    Professionnel libéral
+                  </button>
+                  <button type="button" class="pill" role="listitem" onclick="selectPill(this, 'step2')">
+                    Beauté / Bien-être
+                  </button>
+                  <button type="button" class="pill" role="listitem" onclick="selectPill(this, 'step2')">
+                    Sport / Fitness
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-step" id="step3">
+                <p class="form-question">On vous recontacte comment ?</p>
+                <div class="form-fields">
+                  <div class="field-group">
+                    <label for="prenom">Votre prénom</label>
+                    <input type="text" id="prenom" placeholder="Prénom" autocomplete="given-name" />
+                  </div>
+                  <div class="field-group">
+                    <label for="email">Votre email</label>
+                    <input
+                      type="email"
+                      id="email"
+                      placeholder="votre@email.fr"
+                      autocomplete="email"
+                      inputmode="email" />
+                  </div>
+                  <div class="field-group">
+                    <label for="message">Une phrase sur votre situation (optionnel)</label>
+                    <textarea
+                      id="message"
+                      rows="3"
+                      placeholder="Ex : je perds du temps sur les devis et les relances, je veux un système simple."></textarea>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-primary pinapp-breathe" onclick="submitDiagnostic()">
+                  Recevoir mon diagnostic →
+                </button>
+                <p class="form-legal">Réponse sous 24 h · Aucun engagement</p>
+              </div>
+
+              <div class="form-step" id="step-success" aria-live="polite">
+                <div class="success-icon" aria-hidden="true">✓</div>
+                <h3>Reçu.</h3>
+                <p>Je lis votre message et je reviens vers vous par email.</p>
+                <p class="success-sign">— Lauralie</p>
+              </div>
+            </div>
           </div>
           <div
             style="
@@ -321,6 +386,7 @@
       </div>
     </div>
     <script src="../assets/js/main.js" defer></script>
+    <script src="../assets/js/guide-tour.js" defer></script>
     <script src="../assets/js/particles.js" defer></script>
     <script src="../assets/js/aurora.js" defer></script>
     <script src="../assets/js/parallax.js" defer></script>
@@ -328,5 +394,59 @@
     <script src="../assets/js/cursor.js" defer></script>
     <script src="../assets/js/wow-senior.js" defer></script>
     <script src="../assets/js/bio-particles.js" defer></script>
+    <script>
+      let step1Choice = '';
+      let step2Choice = '';
+
+      function selectPill(el, step) {
+        try {
+          const wrap = el.closest('.form-pills');
+          if (wrap) wrap.querySelectorAll('.pill').forEach((p) => p.classList.remove('selected'));
+          el.classList.add('selected');
+        } catch (e) {}
+
+        if (step === 'step1') step1Choice = (el.textContent || '').trim();
+        if (step === 'step2') step2Choice = (el.textContent || '').trim();
+        setTimeout(() => nextStep(step), 260);
+      }
+
+      function nextStep(current) {
+        const steps = { step1: 'step2', step2: 'step3' };
+        const next = steps[current];
+        if (!next) return;
+        document.getElementById(current)?.classList.remove('active');
+        document.getElementById(next)?.classList.add('active');
+      }
+
+      function submitDiagnostic() {
+        const prenom = (document.getElementById('prenom')?.value || '').trim();
+        const email = (document.getElementById('email')?.value || '').trim();
+        const message = (document.getElementById('message')?.value || '').trim();
+
+        if (!email) {
+          document.getElementById('email')?.focus();
+          return;
+        }
+
+        try {
+          fetch('https://[VOTRE-N8N]/webhook/diagnostic', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              prenom,
+              email,
+              besoin: step1Choice,
+              activite: step2Choice,
+              message,
+              source: 'diagnostic-page',
+              timestamp: new Date().toISOString(),
+            }),
+          }).catch(() => {});
+        } catch (e) {}
+
+        document.getElementById('step3')?.classList.remove('active');
+        document.getElementById('step-success')?.classList.add('active');
+      }
+    </script>
   </body>
 </html>
