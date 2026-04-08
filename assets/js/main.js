@@ -768,6 +768,7 @@
   var currentViewport = 'desktop';
   var demoLastOpener = null;
   var demoTrapBound = false;
+  var demoOpenRequestedViewport = null;
   function trapDemoFocus(e) {
     if (!demoModal || !demoModal.classList.contains('open')) return;
     trapFocusWithin(demoModal, e);
@@ -787,10 +788,15 @@
     }
     if (demoDeviceShell) {
       if (currentViewport === 'mobile') {
-        demoDeviceShell.style.width = 'min(420px, 100%)';
-        demoDeviceShell.style.height = 'min(860px, 100%)';
-        demoDeviceShell.style.borderRadius = '28px';
+        demoDeviceShell.classList.add('is-iphone');
+        demoDeviceShell.classList.remove('is-browser');
+        // Inline styles exist in HTML; set explicit sizing for iPhone view.
+        demoDeviceShell.style.width = 'min(430px, 100%)';
+        demoDeviceShell.style.height = 'min(880px, 100%)';
+        demoDeviceShell.style.borderRadius = '34px';
       } else {
+        demoDeviceShell.classList.add('is-browser');
+        demoDeviceShell.classList.remove('is-iphone');
         demoDeviceShell.style.width = 'min(1200px, 100%)';
         demoDeviceShell.style.height = '100%';
         demoDeviceShell.style.borderRadius = '22px';
@@ -799,13 +805,15 @@
 
     if (demoIframe) {
       if (currentViewport === 'mobile') {
+        demoIframe.setAttribute('data-demo-viewport', 'mobile');
         demoIframe.style.width = '390px';
         demoIframe.style.height = '844px';
         demoIframe.style.maxWidth = '100%';
         demoIframe.style.maxHeight = '100%';
-        demoIframe.style.borderRadius = '22px';
+        demoIframe.style.borderRadius = '26px';
         demoIframe.style.background = 'transparent';
       } else {
+        demoIframe.setAttribute('data-demo-viewport', 'desktop');
         demoIframe.style.width = '100%';
         demoIframe.style.height = '100%';
         demoIframe.style.maxWidth = '100%';
@@ -816,17 +824,17 @@
     }
   }
 
-  function openDemo(url) {
+  function openDemo(url, viewport) {
     if (!demoModal || !demoIframe) return;
     demoLastOpener = document.activeElement;
     demoModal.classList.add('open');
     demoModal.setAttribute('aria-hidden', 'false');
     currentDemoUrl = url || '';
+    demoOpenRequestedViewport = viewport === 'mobile' ? 'mobile' : 'desktop';
     if (demoViewportFrame) demoViewportFrame.style.display = 'none';
     demoIframe.style.display = 'none';
     if (demoSkeleton) demoSkeleton.style.display = 'flex';
-    // Reset to desktop view on open for consistency.
-    setDemoViewport('desktop');
+    setDemoViewport(demoOpenRequestedViewport || 'desktop');
     demoIframe.src = currentDemoUrl;
     document.body.style.overflow = 'hidden';
     if (!demoTrapBound) {
@@ -864,6 +872,10 @@
       if (demoSkeleton) demoSkeleton.style.display = 'none';
       if (demoViewportFrame) demoViewportFrame.style.display = 'flex';
       demoIframe.style.display = 'block';
+      // Some demos include internal anchor navigation; ensure they render at top.
+      try {
+        demoIframe.contentWindow && demoIframe.contentWindow.scrollTo(0, 0);
+      } catch (e) {}
     });
   }
 
@@ -877,17 +889,30 @@
   document.querySelectorAll('.realisation-card[data-demo]').forEach(function (card) {
     card.addEventListener('click', function () {
       var url = card.getAttribute('data-demo');
-      if (url) openDemo(url);
+      if (url) openDemo(url, 'desktop');
     });
     card.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         var url = card.getAttribute('data-demo');
-        if (url) openDemo(url);
+        if (url) openDemo(url, 'desktop');
       }
     });
     card.setAttribute('tabindex', '0');
     card.setAttribute('role', 'button');
+  });
+
+  // Buttons "Web / Mobile" inside cards
+  document.querySelectorAll('.realisation-card [data-open-demo-viewport]').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var viewport = btn.getAttribute('data-open-demo-viewport') || 'desktop';
+      var card = btn.closest('.realisation-card');
+      if (!card) return;
+      var url = card.getAttribute('data-demo');
+      if (url) openDemo(url, viewport);
+    });
   });
 
   if (demoClose) {
