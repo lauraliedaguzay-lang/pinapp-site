@@ -228,7 +228,7 @@ const pages = [
           <div>
             <h2 style="font-size:24px;margin-bottom:var(--space-1);">Vous écrivez — diagnostic offert</h2>
             <p style="opacity:0.7;line-height:1.8;margin-bottom:var(--space-2);">Par formulaire puis email : votre quotidien, vos outils, ce qui vous prend du temps. Je cartographie et je vous renvoie des opportunités concrètes.</p>
-            <p style="opacity:0.7;line-height:1.8;">Tout commence par l’écrit ; un Google Meet reste possible si vous le souhaitez — jamais d’appel téléphonique imposé. Même si vous ne travaillez pas avec moi ensuite, vous gardez des pistes actionnables. C’est offert. Zéro engagement.</p>
+            <p style="opacity:0.7;line-height:1.8;">Tout commence par l’écrit ; un Google Meet reste possible si vous le souhaitez. Même si vous ne travaillez pas avec moi ensuite, vous gardez des pistes actionnables. C’est offert. Zéro engagement.</p>
             <a href="/diagnostic/" class="btn btn-primary" style="display:inline-flex;margin-top:var(--space-3);">Démarrer ma demande par écrit</a>
           </div>
         </div>
@@ -265,7 +265,7 @@ const pages = [
   {
     file: 'diagnostic/index.html',
     title: 'Diagnostic offert — tout par écrit — Pinapp Studio',
-    desc: 'Décrivez votre besoin par écrit. Réponse sous 24 h. Google Meet en option — jamais d’appel téléphonique imposé.',
+    desc: 'Décrivez votre besoin par écrit. Réponse sous 24 h. Google Meet en option si vous en avez besoin.',
     og: '/diagnostic/',
     body: `    <section class="section">
       <div class="container" style="max-width:700px;text-align:center;">
@@ -283,11 +283,11 @@ const pages = [
           </div>
           <div>
             <h3 style="font-size:16px;color:var(--accent-teal);margin-bottom:var(--space-1);">Comment ça se passe</h3>
-            <p style="font-size:14px;opacity:0.7;">Écrit d’abord (formulaire ou email) ; réponse sous 24 h. Google Meet en option si vous voulez cadrer à l’oral — jamais d’appel téléphonique imposé.</p>
+            <p style="font-size:14px;opacity:0.7;">Écrit d’abord (formulaire ou email) ; réponse sous 24 h. Google Meet en option si vous voulez cadrer à l’oral.</p>
           </div>
         </div>
         <div style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-card-lg);padding:var(--space-5);margin-bottom:var(--space-4);">
-          <p style="opacity:0.78;font-size:15px;line-height:1.65;">Écrivez votre contexte par email (ou formulaire quand il sera branché). Si un <strong>Google Meet</strong> vous aide après le premier échange écrit, on le planifie ensemble — fil traçable, jamais d’appel téléphonique imposé.</p>
+          <p style="opacity:0.78;font-size:15px;line-height:1.65;">Écrivez votre contexte par email (ou formulaire quand il sera branché). Si un <strong>Google Meet</strong> vous aide après le premier échange écrit, on le planifie ensemble.</p>
           <p style="opacity:0.55;font-size:13px;margin-top:var(--space-3);">Widget Calendly (option Meet) : à brancher ici une fois votre lien prêt.</p>
           <a href="mailto:lauralie.daguzay@pinapp.fr?subject=Demande%20de%20diagnostic%20Pinapp" class="btn btn-primary" style="margin-top:var(--space-3);">Écrire à Pinapp</a>
         </div>
