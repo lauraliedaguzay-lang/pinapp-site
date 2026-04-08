@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="theme-color" id="pinapp-theme-color" content="#050A14" />
+    <script src="../assets/js/theme-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Accompagnement — audit & QA — Pinapp Studio</title>
+    <meta
+      name="description"
+      content="Un formulaire guidé pour auditer un site livré, une automatisation ou une intégration. Vous obtenez un brief clair, une estimation, et un prompt Claude prêt à coller." />
+    <meta property="og:title" content="Accompagnement — audit & QA — Pinapp Studio" />
+    <meta
+      property="og:description"
+      content="Un formulaire guidé pour auditer un site livré, une automatisation ou une intégration. Brief clair, estimation, prompt Claude prêt à coller." />
+    <meta property="og:image" content="https://pinapp.fr/og-image.webp" />
+    <meta property="og:url" content="https://pinapp.fr/accompagnement/" />
+    <link rel="canonical" href="https://pinapp.fr/accompagnement/" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="stylesheet" href="../assets/variables.css" />
+    <link rel="stylesheet" href="../assets/grid.css" />
+    <link rel="stylesheet" href="../assets/animations.css" />
+    <link rel="stylesheet" href="../assets/css/aurora-mobile.css" />
+    <link rel="stylesheet" href="../assets/css/avatar-pandora-biolume.css" />
+    <link rel="stylesheet" href="../assets/css/cursor.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-ux.css" />
+    <link rel="stylesheet" href="../assets/css/apple-finish.css" />
+    <link rel="stylesheet" href="../assets/css/ios-glass.css" />
+    <link rel="stylesheet" href="../assets/css/wow-senior.css" />
+    <link rel="stylesheet" href="../assets/css/pinapp-modern-biolume.css" />
+    <link rel="stylesheet" href="../assets/css/accompagnement.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Pinapp Studio",
+        "founder": { "@type": "Person", "name": "Lauralie Daguzay" },
+        "email": "lauralie.daguzay@pinapp.fr",
+        "url": "https://pinapp.fr",
+        "sameAs": "https://www.linkedin.com/in/lauralie-daguzay-4a4542197/"
+      }
+    </script>
+  </head>
+  <body class="page-with-bottom-nav">
+    <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <div id="loader" role="status" aria-label="Chargement">
+      <svg
+        viewBox="0 0 40 48"
+        width="48"
+        height="58"
+        fill="none"
+        stroke="var(--accent-teal)"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true">
+        <path d="M20 2 C16 6 12 8 14 12" />
+        <path d="M20 2 C20 7 20 9 20 12" />
+        <path d="M20 2 C24 6 28 8 26 12" />
+        <ellipse cx="20" cy="30" rx="12" ry="16" />
+        <path d="M8 24 L20 18 L32 24 L20 30 Z" />
+        <path d="M8 30 L20 24 L32 30 L20 36 Z" />
+        <path d="M8 36 L20 30 L32 36 L20 42 Z" />
+      </svg>
+      <p class="visually-hidden" aria-hidden="true">Chargement</p>
+    </div>
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <div class="aurora-mobile" aria-hidden="true">
+      <div class="aurora-orb aurora-orb-1"></div>
+      <div class="aurora-orb aurora-orb-2"></div>
+      <div class="aurora-orb aurora-orb-3"></div>
+      <div class="aurora-orb aurora-orb-4"></div>
+    </div>
+    <div class="pandora-biolume-layer" aria-hidden="true"></div>
+    <div class="holo-grid" aria-hidden="true"></div>
+
+    <nav class="nav" id="mainNav" role="navigation">
+      <div class="container nav-inner">
+        <a href="../index.html" class="pinapp-breathe nav-logo" aria-label="Pinapp Studio — accueil">
+          <img
+            src="../assets/images/pinapp-logo.svg"
+            alt="Pinapp"
+            width="200"
+            height="60"
+            decoding="async"
+            class="nav-logo-img" />
+        </a>
+        <div class="nav-links">
+          <a href="../offres/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Offres</a>
+          <a href="../formation-gratuite/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8"
+            >Formations</a
+          >
+          <a href="../realisations/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Réalisations</a>
+          <a href="../a-propos/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">À propos</a>
+          <a href="../faq/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">FAQ</a>
+          <a href="../auralis/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Auralis</a>
+          <a href="../univers/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Univers</a>
+          <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px"
+            >Démarrer ma demande</a
+          >
+        </div>
+        <div class="nav-trailing">
+          <button type="button" class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
+            <svg
+              class="theme-icon-sun"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              aria-hidden="true">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+            </svg>
+            <svg
+              class="theme-icon-moon"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="burger"
+            id="burger"
+            aria-label="Ouvrir le menu"
+            aria-expanded="false"
+            aria-controls="mobileDrawer">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              aria-hidden="true">
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" role="dialog" aria-label="Menu" aria-modal="true">
+      <div class="mobile-drawer-panel">
+        <button type="button" id="drawerClose" aria-label="Fermer le menu">×</button>
+        <a href="../index.html">Accueil</a>
+        <a href="../offres/index.html">Offres</a>
+        <a href="../offres/formation/index.html">Formations</a>
+        <a href="../realisations/index.html">Réalisations</a>
+        <a href="../a-propos/index.html">À propos</a>
+        <a href="../faq/index.html">FAQ</a>
+        <a href="../auralis/index.html">Auralis</a>
+        <a href="../univers/index.html">Univers</a>
+        <a href="../confiance/index.html">Confiance</a>
+        <a href="../votre-projet/index.html">Votre projet</a>
+        <a href="../accompagnement/index.html" aria-current="page">Accompagnement</a>
+        <a href="../pourquoi-pinapp/index.html">Pourquoi Pinapp</a>
+        <a href="../comment-ca-marche/index.html">Comment ça marche</a>
+        <a href="../diagnostic/index.html">Démarrer ma demande</a>
+      </div>
+    </div>
+
+    <div class="bottom-bar" role="navigation" aria-label="Navigation mobile">
+      <a href="../index.html">Accueil</a>
+      <a href="../offres/index.html">Offres</a>
+      <a href="../diagnostic/index.html" class="bottom-bar-cta">Démarrer</a>
+      <a href="../univers/index.html">Univers</a>
+      <a href="../offres/formation/index.html">Form.</a>
+      <a href="../realisations/index.html">Réalis.</a>
+    </div>
+
+    <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
+      <section class="section" id="accompagnement">
+        <div class="container" style="max-width: 72rem">
+          <div class="accompagnement-hero card">
+            <p class="label">ACCOMPAGNEMENT</p>
+            <h1 style="font-size: var(--text-h1); letter-spacing: -0.02em; margin: 10px 0 0">
+              Vous remplissez. Claude vous décortique.
+            </h1>
+            <p class="lead" style="margin-top: 10px">
+              Le but : recevoir un <strong>brief net</strong>, une <strong>estimation</strong>, et un
+              <strong>prompt prêt</strong> pour analyser un message client, vérifier un site livré, ou auditer une
+              automatisation.
+            </p>
+            <div class="accompagnement-hero__actions">
+              <a class="btn btn-primary" href="#form">Remplir le formulaire</a>
+              <a class="btn btn-secondary" href="../votre-projet/index.html">Demande simple</a>
+            </div>
+          </div>
+
+          <div class="grid accompagnement-grid" style="margin-top: var(--space-5)">
+            <section class="card" id="form" aria-label="Formulaire d’accompagnement">
+              <form class="accompagnement-form" id="accompagnementForm" novalidate>
+                <div class="fieldset">
+                  <h2 class="accompagnement-title">1) Qu’est-ce qu’on doit vérifier ?</h2>
+                  <p class="accompagnement-muted">Choisis le type, et je te pose les bonnes questions.</p>
+                  <div class="accompagnement-chips" role="group" aria-label="Type de mission">
+                    <button type="button" class="chip" data-chip="type" data-value="qa-site">
+                      Vérifier un site livré
+                    </button>
+                    <button type="button" class="chip" data-chip="type" data-value="qa-automation">
+                      Vérifier une automatisation
+                    </button>
+                    <button type="button" class="chip" data-chip="type" data-value="analyse-message">
+                      Analyser un message client
+                    </button>
+                    <button type="button" class="chip" data-chip="type" data-value="audit-global">
+                      Audit global (site + parcours)
+                    </button>
+                  </div>
+                </div>
+
+                <div class="fieldset">
+                  <h2 class="accompagnement-title">2) Contexte (en 30 secondes)</h2>
+                  <div class="grid grid-2">
+                    <label class="field">
+                      <span class="field-label">Nom du projet</span>
+                      <input
+                        id="projectName"
+                        name="projectName"
+                        type="text"
+                        autocomplete="organization"
+                        placeholder="Ex. Renov & Co" />
+                    </label>
+                    <label class="field">
+                      <span class="field-label">URL du site (si existant)</span>
+                      <input
+                        id="projectUrl"
+                        name="projectUrl"
+                        type="url"
+                        inputmode="url"
+                        autocomplete="url"
+                        placeholder="https://…" />
+                    </label>
+                  </div>
+                  <label class="field">
+                    <span class="field-label">Ce qui est “ok” aujourd’hui</span>
+                    <textarea
+                      id="whatWorks"
+                      name="whatWorks"
+                      rows="3"
+                      placeholder="Ex. Le site est en ligne, les pages s’ouvrent, le formulaire envoie…"></textarea>
+                  </label>
+                  <label class="field">
+                    <span class="field-label">Ce qui pose problème / ce que tu veux améliorer</span>
+                    <textarea
+                      id="whatHurts"
+                      name="whatHurts"
+                      rows="4"
+                      placeholder="Ex. Sur iPhone: menu qui dépasse, performance lente, formulaire qui ne renvoie rien…"></textarea>
+                  </label>
+                </div>
+
+                <div class="fieldset" id="inputsSite">
+                  <h2 class="accompagnement-title">3) Site livré — ce que j’ai besoin de voir</h2>
+                  <div class="grid grid-2">
+                    <label class="field">
+                      <span class="field-label">Accès admin / hébergement (si applicable)</span>
+                      <input
+                        id="hosting"
+                        name="hosting"
+                        type="text"
+                        placeholder="Ex. GitHub Pages / Hostinger / Netlify / FTP…" />
+                    </label>
+                    <label class="field">
+                      <span class="field-label">Technos (si tu sais)</span>
+                      <input
+                        id="techStack"
+                        name="techStack"
+                        type="text"
+                        placeholder="Ex. HTML/CSS/JS / WordPress / Webflow…" />
+                    </label>
+                  </div>
+                  <label class="field">
+                    <span class="field-label">Pages à vérifier en priorité</span>
+                    <textarea
+                      id="pagesToCheck"
+                      name="pagesToCheck"
+                      rows="3"
+                      placeholder="Ex. Accueil, offres, contact, paiement, espace client…"></textarea>
+                  </label>
+                  <div class="grid grid-2">
+                    <label class="field">
+                      <span class="field-label">Cible</span>
+                      <input id="audience" name="audience" type="text" placeholder="Ex. artisans / B2B / familles…" />
+                    </label>
+                    <label class="field">
+                      <span class="field-label">Priorité</span>
+                      <select id="priority" name="priority">
+                        <option value="">Choisir</option>
+                        <option value="bloquant">Bloquant (ça casse)</option>
+                        <option value="conversion">Conversion</option>
+                        <option value="mobile">Mobile</option>
+                        <option value="seo">SEO</option>
+                        <option value="accessibilite">Accessibilité</option>
+                        <option value="perf">Performance</option>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="fieldset" id="inputsAutomation">
+                  <h2 class="accompagnement-title">3) Automatisation — ce que j’ai besoin de voir</h2>
+                  <div class="grid grid-2">
+                    <label class="field">
+                      <span class="field-label">Outil</span>
+                      <select id="automationTool" name="automationTool">
+                        <option value="">Choisir</option>
+                        <option value="make">Make</option>
+                        <option value="n8n">n8n</option>
+                        <option value="zapier">Zapier</option>
+                        <option value="apps-script">Google Apps Script</option>
+                        <option value="autre">Autre</option>
+                      </select>
+                    </label>
+                    <label class="field">
+                      <span class="field-label">Déclencheur</span>
+                      <input
+                        id="trigger"
+                        name="trigger"
+                        type="text"
+                        placeholder="Ex. nouveau formulaire / email / paiement / calendrier…" />
+                    </label>
+                  </div>
+                  <label class="field">
+                    <span class="field-label">Étapes (copier/coller si tu as une description)</span>
+                    <textarea
+                      id="steps"
+                      name="steps"
+                      rows="4"
+                      placeholder="Ex. Tally → Make → Notion → Slack → Email…"></textarea>
+                  </label>
+                  <label class="field">
+                    <span class="field-label">Comptes / accès nécessaires (sans mots de passe)</span>
+                    <textarea
+                      id="accounts"
+                      name="accounts"
+                      rows="3"
+                      placeholder="Ex. Gmail, Notion, Stripe, Google Sheet… (donne juste la liste)"></textarea>
+                  </label>
+                  <div class="grid grid-2">
+                    <label class="field">
+                      <span class="field-label">Sensibilité des données</span>
+                      <select id="dataSensitivity" name="dataSensitivity">
+                        <option value="">Choisir</option>
+                        <option value="faible">Faible</option>
+                        <option value="standard">Standard</option>
+                        <option value="elevee">Élevée (données perso / RH / santé)</option>
+                      </select>
+                    </label>
+                    <label class="field">
+                      <span class="field-label">Risque</span>
+                      <select id="risk" name="risk">
+                        <option value="">Choisir</option>
+                        <option value="financier">Financier (paiement / facturation)</option>
+                        <option value="reputation">Réputation (messages clients)</option>
+                        <option value="legal">Légal / RGPD</option>
+                        <option value="ops">Opérations (ça bloque l’équipe)</option>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="fieldset" id="inputsMessage">
+                  <h2 class="accompagnement-title">3) Message à analyser</h2>
+                  <label class="field">
+                    <span class="field-label">Copie-colle le message (ou résume)</span>
+                    <textarea
+                      id="clientMessage"
+                      name="clientMessage"
+                      rows="6"
+                      placeholder="Colle le message ici."></textarea>
+                  </label>
+                  <div class="grid grid-2">
+                    <label class="field">
+                      <span class="field-label">But de ta réponse</span>
+                      <select id="messageGoal" name="messageGoal">
+                        <option value="">Choisir</option>
+                        <option value="clarifier">Clarifier sans s’engager</option>
+                        <option value="proposer">Proposer une option / un plan</option>
+                        <option value="cadre">Recadrer (scope / limites)</option>
+                        <option value="rassurer">Rassurer</option>
+                      </select>
+                    </label>
+                    <label class="field">
+                      <span class="field-label">Ton</span>
+                      <select id="messageTone" name="messageTone">
+                        <option value="">Choisir</option>
+                        <option value="calme">Calme & premium</option>
+                        <option value="direct">Direct & simple</option>
+                        <option value="tech">Tech (si client technique)</option>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="fieldset">
+                  <h2 class="accompagnement-title">4) Pièces & code à vérifier</h2>
+                  <p class="accompagnement-muted">
+                    Tu peux coller du code, ou coller les fichiers dans un message séparé. Ici, on prépare un brief
+                    propre pour Claude.
+                  </p>
+                  <label class="field">
+                    <span class="field-label">Zone “projet” (notes / specs / extraits de code)</span>
+                    <textarea
+                      id="projectPayload"
+                      name="projectPayload"
+                      rows="8"
+                      placeholder="Colle ici: extrait HTML/CSS/JS, logs, règles, checklist, spec client, etc."></textarea>
+                  </label>
+                </div>
+
+                <div class="fieldset">
+                  <h2 class="accompagnement-title">5) Résultat attendu</h2>
+                  <div class="accompagnement-chips" role="group" aria-label="Sortie attendue">
+                    <button type="button" class="chip" data-chip="output" data-value="plan-actions">
+                      Plan d’actions clair
+                    </button>
+                    <button type="button" class="chip" data-chip="output" data-value="checklist-qa">
+                      Checklist QA
+                    </button>
+                    <button type="button" class="chip" data-chip="output" data-value="rapport">
+                      Rapport client (propre)
+                    </button>
+                    <button type="button" class="chip" data-chip="output" data-value="correctifs">
+                      Correctifs code proposés
+                    </button>
+                  </div>
+                  <label class="field">
+                    <span class="field-label">Contraintes (si tu en as)</span>
+                    <textarea
+                      id="constraints"
+                      name="constraints"
+                      rows="3"
+                      placeholder="Ex. pas de refonte, pas de backend, deadline, etc."></textarea>
+                  </label>
+                </div>
+
+                <div class="fieldset">
+                  <h2 class="accompagnement-title">6) Estimation</h2>
+                  <p class="accompagnement-muted">
+                    On reste simple : une fourchette basée sur le type + la complexité que tu coches.
+                  </p>
+                  <div class="grid grid-2">
+                    <label class="field">
+                      <span class="field-label">Complexité</span>
+                      <select id="complexity" name="complexity">
+                        <option value="">Choisir</option>
+                        <option value="leger">Léger (1–2 points)</option>
+                        <option value="moyen">Moyen (quelques points)</option>
+                        <option value="lourd">Lourd (beaucoup de points)</option>
+                      </select>
+                    </label>
+                    <label class="field">
+                      <span class="field-label">Délai souhaité</span>
+                      <select id="speed" name="speed">
+                        <option value="">Choisir</option>
+                        <option value="standard">Standard</option>
+                        <option value="rapide">Rapide</option>
+                        <option value="urgent">Urgent</option>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="accompagnement-submit">
+                  <button type="button" class="btn btn-primary" id="generateBrief">Générer brief + prompt</button>
+                  <button type="button" class="btn btn-secondary" id="copyPrompt">Copier le prompt</button>
+                  <a class="btn btn-secondary" id="emailBrief" href="#" aria-disabled="true">Envoyer par email</a>
+                </div>
+
+                <p class="accompagnement-foot">
+                  <span class="label" style="opacity: 0.75">Note</span>
+                  Rien n’est envoyé automatiquement. Tout reste sur ton téléphone tant que tu n’appuies pas sur “Envoyer
+                  par email”.
+                </p>
+              </form>
+            </section>
+
+            <aside class="card" aria-label="Synthèse générée">
+              <div class="accompagnement-output">
+                <div class="accompagnement-output__header">
+                  <p class="label">SORTIE</p>
+                  <div class="accompagnement-output__pill" id="estimatePill" aria-live="polite">
+                    <span class="accompagnement-output__pillLabel">Estimation</span>
+                    <span class="accompagnement-output__pillValue" id="estimateValue">—</span>
+                  </div>
+                </div>
+
+                <h2 class="accompagnement-title" style="margin-top: 12px">Brief structuré</h2>
+                <textarea
+                  id="briefOut"
+                  class="out"
+                  rows="12"
+                  readonly
+                  placeholder="Tu génères, et le brief apparaît ici."></textarea>
+
+                <h2 class="accompagnement-title" style="margin-top: 18px">Prompt Claude (copier-coller)</h2>
+                <textarea
+                  id="promptOut"
+                  class="out"
+                  rows="16"
+                  readonly
+                  placeholder="Le prompt Claude (avec le format attendu) apparaît ici."></textarea>
+
+                <div class="accompagnement-miniActions">
+                  <button type="button" class="btn btn-secondary" id="copyBrief">Copier le brief</button>
+                  <button type="button" class="btn btn-secondary" id="copyAll">Copier brief + prompt</button>
+                </div>
+              </div>
+            </aside>
+          </div>
+
+          <div class="accompagnement-faq card" style="margin-top: var(--space-5)">
+            <h2 class="accompagnement-title">Ce que Claude doit te rendre (format simple)</h2>
+            <ul class="accompagnement-list">
+              <li><strong>1) Ce que je fais maintenant</strong> : 5 actions max, dans l’ordre.</li>
+              <li><strong>2) Les risques</strong> : ce qui peut casser / engager / coûter.</li>
+              <li><strong>3) Ce que je demande au client</strong> : questions indispensables, sans jargon.</li>
+              <li><strong>4) Vérifs QA</strong> : mobile, perf, accessibilité, SEO, formulaires.</li>
+              <li><strong>5) Correctifs</strong> : si code fourni, patchs ciblés.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer style="border-top: 1px solid var(--separator); padding: var(--space-5) 0">
+      <div
+        class="container"
+        style="
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          align-items: center;
+          gap: var(--space-3);
+          opacity: 0.6;
+          font-size: 13px;
+        ">
+        <span>Pinapp © 2026</span>
+        <div style="display: flex; gap: var(--space-3)">
+          <a href="https://www.linkedin.com/in/lauralie-daguzay-4a4542197/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
+        </div>
+        <div style="display: flex; gap: var(--space-3); flex-wrap: wrap">
+          <a href="../legal/mentions.html">Mentions légales</a>
+          <a href="../legal/cgv.html">CGV</a>
+          <a href="../legal/confidentialite.html">Confidentialité</a>
+          <a href="../legal/accessibilite.html">Accessibilité</a>
+          <a href="../legal/ethique.html">Éthique</a>
+        </div>
+      </div>
+    </footer>
+
+    <div
+      id="cookie-banner"
+      role="dialog"
+      aria-label="Gestion des cookies"
+      style="
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: var(--space-3);
+        background: var(--bg-card);
+        border-top: 1px solid var(--border-card);
+        backdrop-filter: blur(20px) saturate(150%);
+        -webkit-backdrop-filter: blur(20px) saturate(150%);
+        z-index: 9000;
+        display: none;
+      ">
+      <div
+        class="container"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: var(--space-3);
+          flex-wrap: wrap;
+        ">
+        <p style="font-size: 13px; opacity: 0.8; max-width: 600px">
+          Ce site utilise des cookies de mesure d'audience anonymes (Plausible Analytics — sans tracking personnel).
+        </p>
+        <div style="display: flex; gap: var(--space-2)">
+          <button id="cookieAccept" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px">
+            Accepter
+          </button>
+          <button id="cookieRefuse" class="btn btn-secondary" style="font-size: 13px; padding: 10px 20px">
+            Refuser
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/accompagnement-form.js"></script>
+    <script src="../assets/js/wow-senior.js" defer></script>
+  </body>
+</html>

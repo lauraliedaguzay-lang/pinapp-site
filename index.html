@@ -1,1173 +1,2174 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="fr">
-<head>
-<script>(function(){var t=localStorage.getItem('pinapp-theme')||localStorage.getItem('pinapp-mode');var d=window.matchMedia('(prefers-color-scheme:dark)').matches;var m=(t==='light'||t==='jour')?'jour':(t==='dark'||t==='nuit')?'nuit':(d?'nuit':'jour');document.documentElement.setAttribute('data-mode',m);document.documentElement.setAttribute('data-theme',m==='jour'?'light':'dark');if(document.body){document.body.classList.add('mode-'+m);}document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('mode-'+m);});}());</script>
-  <link rel="preload" as="image" href="assets/images/bg-dark-pandora-apple.webp" fetchpriority="high">
-  <link rel="preload" as="image" href="assets/images/bg-light-pandora-apple.webp">
-  <link rel="preload" as="image" href="assets/images/pinapp-logo.png" fetchpriority="high">
-  <meta charset="UTF-8">
-  <meta name="theme-color" id="pinapp-theme-color" content="#020810">
-  <script src="assets/js/theme-init.js" defer></script>
-  <meta name="view-transition" content="same-origin">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Votre site, vos relances, vos devis — Pinapp prépare. Vous validez.</title>
-  <meta name="description" content="M&ecirc;me finition que ce site pour le v&ocirc;tre. Site web, t&acirc;ches r&eacute;p&eacute;titives automatis&eacute;es et outil d&rsquo;aide &agrave; la d&eacute;cision : analyse et plan clair par &eacute;crit, devis d&eacute;taill&eacute; si besoin. Diagnostic offert.">
-  <meta property="og:title" content="Votre site, vos relances, vos devis — Pinapp prépare. Vous validez.">
-  <meta property="og:description" content="Ce site est la d&eacute;mo : m&ecirc;me finition pour votre projet. Sites et flux automatis&eacute;s : pr&eacute;paration c&ocirc;t&eacute; Pinapp, vous confirmez &mdash; tout par &eacute;crit. Diagnostic offert.">
-  <meta property="og:image" content="https://pinapp.fr/assets/images/og-home.png">
-  <meta property="og:url" content="https://pinapp.fr/">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="fr_FR">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://pinapp.fr/assets/images/og-home.png">
-  <meta name="twitter:title" content="Votre site, vos relances, vos devis — Pinapp prépare. Vous validez.">
-  <meta name="twitter:description" content="Du Starter (349 €) au système complet (1 990 €) : présence en ligne premium, flux automatisés, IA cadrée. Un investissement unique, pensé pour durer.">
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="preconnect" href="https://fonts.bunny.net">
-  <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap">
-  <link rel="stylesheet" href="assets/variables.css">
-  <link rel="stylesheet" href="assets/css/pandora-world.css">
-  <link rel="stylesheet" href="assets/css/pandora-details.css">
-  <link rel="stylesheet" href="assets/grid.css">
-  <link rel="stylesheet" href="assets/animations.css">
-  <link rel="stylesheet" href="assets/css/aurora-mobile.css"><link rel="stylesheet" href="assets/css/avatar-pandora-biolume.css"><link rel="stylesheet" href="assets/css/pandora-jour.css"><link rel="stylesheet" href="assets/css/univers.css">
-  <link rel="stylesheet" href="assets/css/cursor.css">
-  <link rel="stylesheet" href="assets/css/pandora-ux.css">
-  <style>
-    /* iPhone — châssis type Apple (Dynamic Island, safe area, home indicator) */
-    .iphone-mockup {
-      width: 234px;
-      height: 478px;
-      border-radius: 52px;
-      padding: 11px;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      overflow: visible;
-      background: linear-gradient(152deg, #3f3f42 0%, #232325 38%, #1a1a1c 55%, #2e2e31 100%);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      box-shadow:
-        0 0 0 1px rgba(0, 0, 0, 0.65) inset,
-        0 1px 0 rgba(255, 255, 255, 0.1) inset,
-        0 36px 72px rgba(0, 0, 0, 0.5),
-        0 12px 28px rgba(0, 0, 0, 0.35);
-      backdrop-filter: blur(28px) saturate(160%);
-      -webkit-backdrop-filter: blur(28px) saturate(160%);
-    }
-    .iphone-mockup::before,
-    .iphone-mockup::after {
-      content: '';
-      position: absolute;
-      width: 3px;
-      border-radius: 2px;
-      background: linear-gradient(180deg, #4a4a4e, #2a2a2d);
-      z-index: 0;
-      pointer-events: none;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
-    }
-    .iphone-mockup::before {
-      left: -2px;
-      top: 112px;
-      height: 72px;
-    }
-    .iphone-mockup::after {
-      right: -2px;
-      top: 156px;
-      height: 96px;
-    }
-    .iphone-device-screen {
-      position: relative;
-      flex: 1;
-      min-height: 0;
-      border-radius: 42px;
-      overflow: hidden;
-      background: #000;
-      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
-    }
-    .iphone-dynamic-island {
-      position: absolute;
-      top: 11px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(38%, 100px);
-      height: 28px;
-      border-radius: 20px;
-      background: #0a0a0a;
-      z-index: 4;
-      box-shadow:
-        0 2px 10px rgba(0, 0, 0, 0.65),
-        inset 0 1px 0 rgba(255, 255, 255, 0.06);
-    }
-    .iphone-screen {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      min-height: 0;
-      padding: 46px 12px 10px;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif;
-      background: linear-gradient(180deg, #0c0c0e 0%, #050508 45%, #08080b 100%);
-    }
-    .iphone-ios-status {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 0 2px 10px;
-      min-height: 18px;
-    }
-    .iphone-ios-icons {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      opacity: 0.92;
-      color: rgba(255, 255, 255, 0.92);
-    }
-    .iphone-ios-icons svg {
-      display: block;
-      flex-shrink: 0;
-    }
-    .iphone-pme-body {
-      flex: 1;
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
-    }
-    .iphone-home-bar {
-      flex-shrink: 0;
-      width: 34%;
-      max-width: 120px;
-      height: 4px;
-      margin: 6px auto 0;
-      border-radius: 100px;
-      background: rgba(255, 255, 255, 0.22);
-    }
-    /* Aperçu « appli pro PME » — lecture type iOS */
-    .iphone-ios-status .iphone-pme-time {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: -0.03em;
-      opacity: 0.95;
-      color: rgba(255, 255, 255, 0.95);
-    }
-    .iphone-pme-greeting {
-      font-size: 10px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: rgba(255, 255, 255, 0.42);
-      margin: 0 0 2px;
-    }
-    .iphone-pme-title {
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      margin: 0 0 2px;
-      line-height: 1.15;
-      color: rgba(255, 255, 255, 0.98);
-    }
-    .iphone-pme-date {
-      font-size: 11px;
-      font-weight: 500;
-      color: rgba(255, 255, 255, 0.48);
-      margin: 0 0 12px;
-    }
-    .iphone-pme-kpis {
-      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 12px;
-    }
-    .iphone-pme-kpi {
-      text-align: center; padding: 8px 4px; border-radius: 14px;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.10);
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-    }
-    .iphone-pme-kpi-val {
-      display: block; font-size: 14px; font-weight: 700; letter-spacing: -0.03em;
-      color: var(--accent-teal); line-height: 1.15;
-    }
-    .iphone-pme-kpi-lbl {
-      display: block; font-size: 8px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 0.08em; opacity: 0.5; margin-top: 2px;
-    }
-    .iphone-pme-section {
-      font-size: 9px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 0.12em; opacity: 0.45; margin: 0 0 6px;
-    }
-    .iphone-pme-list {
-      list-style: none; margin: 0; padding: 0;
-      display: flex; flex-direction: column; gap: 6px; flex: 1; min-height: 0;
-    }
-    /* Animation type « notifications » — entrée / pause / sortie, décalée par ligne */
-    @keyframes iphone-pme-row {
-      0%   { opacity: 0; transform: translateX(22px); }
-      7%   { opacity: 1; transform: translateX(0); }
-      54%  { opacity: 1; transform: translateX(0); }
-      62%  { opacity: 0; transform: translateX(-10px); }
-      100% { opacity: 0; transform: translateX(22px); }
-    }
-    .iphone-pme-list li {
-      display: flex; gap: 8px; align-items: flex-start;
-      font-size: 11px; line-height: 1.35; font-weight: 500;
-      padding: 8px 10px; border-radius: 12px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-      opacity: 0;
-      animation: iphone-pme-row 14s ease-in-out infinite;
-    }
-    .iphone-pme-list li:nth-child(1) { animation-delay: 0s; }
-    .iphone-pme-list li:nth-child(2) { animation-delay: 2.1s; }
-    .iphone-pme-list li:nth-child(3) { animation-delay: 4.2s; }
-    .iphone-mockup:hover .iphone-pme-list li { animation-play-state: paused; }
-    .iphone-pme-tag {
-      flex-shrink: 0; font-size: 7px; font-weight: 700;
-      padding: 3px 5px; border-radius: 5px; letter-spacing: 0.04em;
-      line-height: 1; margin-top: 1px;
-    }
-    .iphone-pme-tag--rdv { background: rgba(0,229,204,0.18); color: var(--accent-teal); }
-    .iphone-pme-tag--dev { background: rgba(123,79,232,0.22); color: #c4b5fd; }
-    .iphone-pme-tag--auto { background: rgba(57,224,117,0.18); color: var(--accent-green, #39E075); }
-    .iphone-pme-li-main { opacity: 0.92; }
-    .iphone-pme-li-sub { display: block; font-size: 9px; font-weight: 500; opacity: 0.5; margin-top: 2px; }
-    /* ─── Mode jour — mockup & cartes aussi travaillés que la nuit (ivoire · ambre · jade) ─── */
-    body.mode-jour .iphone-mockup,
-    html[data-theme="light"] .iphone-mockup {
-      border: 1px solid rgba(26, 10, 46, 0.1);
-      background: linear-gradient(152deg, #f0f0f2 0%, #e2e2e6 42%, #f4f4f6 100%);
-      box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.95) inset,
-        0 2px 0 rgba(200, 122, 8, 0.06) inset,
-        0 28px 56px rgba(91, 63, 216, 0.08),
-        0 0 0 1px rgba(26, 10, 46, 0.05),
-        0 0 40px rgba(30, 158, 128, 0.06);
-    }
-    body.mode-jour .iphone-screen,
-    html[data-theme="light"] .iphone-screen {
-      background: linear-gradient(180deg, #f7f7f9 0%, #ececf1 55%, #f2f2f7 100%);
-    }
-    body.mode-jour .iphone-mockup::before,
-    html[data-theme="light"] .iphone-mockup::before,
-    body.mode-jour .iphone-mockup::after,
-    html[data-theme="light"] .iphone-mockup::after {
-      background: linear-gradient(180deg, #c4c4c8, #a8a8ae);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
-      opacity: 1;
-    }
-    body.mode-jour .iphone-dynamic-island,
-    html[data-theme="light"] .iphone-dynamic-island {
-      background: #1a1a1c;
-      box-shadow:
-        0 2px 10px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    }
-    body.mode-jour .iphone-ios-status .iphone-pme-time,
-    html[data-theme="light"] .iphone-ios-status .iphone-pme-time {
-      color: rgba(26, 10, 46, 0.88);
-      opacity: 1;
-    }
-    body.mode-jour .iphone-ios-icons,
-    html[data-theme="light"] .iphone-ios-icons {
-      color: rgba(26, 10, 46, 0.75);
-    }
-    body.mode-jour .iphone-home-bar,
-    html[data-theme="light"] .iphone-home-bar {
-      background: rgba(26, 10, 46, 0.22);
-    }
-    body.mode-jour .iphone-pme-greeting,
-    html[data-theme="light"] .iphone-pme-greeting {
-      color: rgba(26, 10, 46, 0.45);
-      opacity: 1;
-    }
-    body.mode-jour .iphone-pme-date,
-    html[data-theme="light"] .iphone-pme-date {
-      color: rgba(26, 10, 46, 0.45);
-      opacity: 1;
-    }
-    body.mode-jour .iphone-pme-title,
-    html[data-theme="light"] .iphone-pme-title {
-      color: #1a0a2e;
-      opacity: 1;
-    }
-    body.mode-jour .iphone-pme-kpi,
-    html[data-theme="light"] .iphone-pme-kpi {
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(
-        145deg,
-        rgba(255, 255, 255, 0.98) 0%,
-        rgba(255, 250, 242, 0.92) 55%,
-        rgba(255, 252, 248, 0.96) 100%
-      );
-      border: 1px solid rgba(200, 122, 8, 0.16);
-      box-shadow:
-        0 1px 0 rgba(255, 255, 255, 1) inset,
-        0 5px 14px rgba(26, 10, 46, 0.05),
-        0 0 24px rgba(30, 158, 128, 0.07);
-    }
-    body.mode-jour .iphone-pme-kpi::after,
-    html[data-theme="light"] .iphone-pme-kpi::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 42%;
-      background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.75) 0%,
-        transparent 100%
-      );
-      pointer-events: none;
-      border-radius: 11px 11px 0 0;
-    }
-    body.mode-jour .iphone-pme-kpi-val,
-    html[data-theme="light"] .iphone-pme-kpi-val {
-      position: relative;
-      z-index: 1;
-      color: var(--accent-teal, #1e9e80);
-      text-shadow: 0 0 20px rgba(30, 158, 128, 0.18);
-    }
-    body.mode-jour .iphone-pme-kpi:nth-child(3) .iphone-pme-kpi-val,
-    html[data-theme="light"] .iphone-pme-kpi:nth-child(3) .iphone-pme-kpi-val {
-      color: var(--ambre, #c87a08);
-      text-shadow: 0 0 18px rgba(200, 122, 8, 0.2);
-    }
-    body.mode-jour .iphone-pme-kpi-lbl,
-    html[data-theme="light"] .iphone-pme-kpi-lbl {
-      position: relative;
-      z-index: 1;
-      color: rgba(26, 10, 46, 0.45);
-      opacity: 1;
-    }
-    body.mode-jour .iphone-pme-section,
-    html[data-theme="light"] .iphone-pme-section {
-      opacity: 1;
-      color: rgba(26, 10, 46, 0.5);
-      display: inline-block;
-      padding: 5px 10px 4px;
-      margin-bottom: 8px;
-      border-radius: 8px;
-      background: linear-gradient(
-        90deg,
-        rgba(30, 158, 128, 0.1) 0%,
-        rgba(200, 122, 8, 0.08) 50%,
-        rgba(91, 63, 216, 0.08) 100%
-      );
-      border: 1px solid rgba(26, 10, 46, 0.06);
-      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
-    }
-    body.mode-jour .iphone-pme-list li,
-    html[data-theme="light"] .iphone-pme-list li {
-      background: linear-gradient(
-        125deg,
-        rgba(255, 255, 255, 0.97) 0%,
-        rgba(255, 253, 248, 0.9) 100%
-      );
-      border: 1px solid rgba(91, 63, 216, 0.12);
-      box-shadow:
-        0 1px 0 rgba(255, 255, 255, 1) inset,
-        0 4px 14px rgba(26, 10, 46, 0.04),
-        0 0 20px rgba(30, 158, 128, 0.05);
-    }
-    body.mode-jour .iphone-pme-li-main,
-    html[data-theme="light"] .iphone-pme-li-main {
-      color: rgba(26, 10, 46, 0.88);
-      opacity: 1;
-    }
-    body.mode-jour .iphone-pme-li-sub,
-    html[data-theme="light"] .iphone-pme-li-sub {
-      color: rgba(26, 10, 46, 0.48);
-      opacity: 1;
-    }
-    body.mode-jour .iphone-pme-tag--rdv,
-    html[data-theme="light"] .iphone-pme-tag--rdv {
-      color: #0f6b58;
-      background: linear-gradient(
-        135deg,
-        rgba(30, 158, 128, 0.22) 0%,
-        rgba(30, 158, 128, 0.1) 100%
-      );
-      border: 1px solid rgba(30, 158, 128, 0.25);
-      box-shadow: 0 0 12px rgba(30, 158, 128, 0.15);
-    }
-    body.mode-jour .iphone-pme-tag--dev,
-    html[data-theme="light"] .iphone-pme-tag--dev {
-      color: #4a32b8;
-      background: linear-gradient(
-        135deg,
-        rgba(91, 63, 216, 0.18) 0%,
-        rgba(91, 63, 216, 0.08) 100%
-      );
-      border: 1px solid rgba(91, 63, 216, 0.22);
-      box-shadow: 0 0 12px rgba(91, 63, 216, 0.12);
-    }
-    body.mode-jour .iphone-pme-tag--auto,
-    html[data-theme="light"] .iphone-pme-tag--auto {
-      color: #2a7a45;
-      background: linear-gradient(
-        135deg,
-        rgba(42, 154, 92, 0.2) 0%,
-        rgba(200, 122, 8, 0.1) 100%
-      );
-      border: 1px solid rgba(42, 154, 92, 0.22);
-      box-shadow: 0 0 10px rgba(42, 154, 92, 0.12);
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .iphone-pme-list li {
-        opacity: 1 !important;
-        transform: none;
-        animation: none !important;
-      }
-    }
-    @media (max-width: 600px) {
+  <head>
+    <script>
+      (function () {
+        var t = localStorage.getItem('pinapp-theme') || localStorage.getItem('pinapp-mode');
+        var d = window.matchMedia('(prefers-color-scheme:dark)').matches;
+        var m = t === 'light' || t === 'jour' ? 'jour' : t === 'dark' || t === 'nuit' ? 'nuit' : d ? 'nuit' : 'jour';
+        document.documentElement.setAttribute('data-mode', m);
+        document.documentElement.setAttribute('data-theme', m === 'jour' ? 'light' : 'dark');
+        if (document.body) {
+          document.body.classList.add('mode-' + m);
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+          document.body.classList.add('mode-' + m);
+        });
+      })();
+    </script>
+    <link rel="preload" as="image" href="assets/images/bg-dark-pandora-apple.svg" fetchpriority="high" />
+    <link rel="preload" as="image" href="assets/images/bg-light-pandora-apple.svg" />
+    <link rel="preload" as="image" href="assets/images/pinapp-logo.svg" fetchpriority="high" />
+    <meta charset="UTF-8" />
+    <meta name="theme-color" id="pinapp-theme-color" content="#020810" />
+    <script src="assets/js/theme-init.js" defer></script>
+    <meta name="view-transition" content="same-origin" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Site web & automatisations — je vous aide à alléger ce qui s’accumule | Pinapp Studio</title>
+    <meta
+      name="description"
+      content="M&ecirc;me finition que ce site pour le v&ocirc;tre. Site web, t&acirc;ches r&eacute;p&eacute;titives automatis&eacute;es et outil d&rsquo;aide &agrave; la d&eacute;cision : analyse et plan clair par &eacute;crit, devis d&eacute;taill&eacute; si besoin. Diagnostic offert." />
+    <meta property="og:title" content="Site web & automatisations — je vous aide à alléger ce qui s’accumule" />
+    <meta
+      property="og:description"
+      content="Ce site est la d&eacute;mo : m&ecirc;me finition pour votre projet. Sites et flux automatis&eacute;s : pr&eacute;paration c&ocirc;t&eacute; Pinapp, vous confirmez &mdash; tout par &eacute;crit. Diagnostic offert." />
+    <meta property="og:image" content="https://pinapp.fr/og-image.webp" />
+    <meta property="og:url" content="https://pinapp.fr/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://pinapp.fr/og-image.webp" />
+    <meta name="twitter:title" content="Site web & automatisations — je vous aide à alléger ce qui s’accumule" />
+    <meta
+      name="twitter:description"
+      content="Du Starter (349 €) au système complet (1 990 €) : présence en ligne premium, flux automatisés, IA cadrée. Un investissement unique, pensé pour durer." />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="assets/variables.css" />
+    <link rel="stylesheet" href="assets/css/pandora-world.css" />
+    <link rel="stylesheet" href="assets/css/pandora-details.css" />
+    <link rel="stylesheet" href="assets/grid.css" />
+    <link rel="stylesheet" href="assets/animations.css" />
+    <link rel="stylesheet" href="assets/css/aurora-mobile.css" />
+    <link rel="stylesheet" href="assets/css/avatar-pandora-biolume.css" />
+    <link rel="stylesheet" href="assets/css/pandora-jour.css" />
+    <link rel="stylesheet" href="assets/css/univers.css" />
+    <link rel="stylesheet" href="assets/css/cursor.css" />
+    <link rel="stylesheet" href="assets/css/pandora-ux.css" />
+    <style>
+      /* iPhone — châssis type Apple (Dynamic Island, safe area, home indicator) */
       .iphone-mockup {
-        width: 192px;
-        height: 392px;
-        border-radius: 44px;
-        padding: 9px;
+        width: 238px;
+        height: 486px;
+        border-radius: 58px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: visible;
+        isolation: isolate;
+        background:
+          radial-gradient(160px 140px at 18% 10%, rgba(255, 255, 255, 0.18) 0%, transparent 68%),
+          radial-gradient(260px 220px at 88% 46%, rgba(0, 229, 204, 0.06) 0%, transparent 72%),
+          linear-gradient(165deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.06) 36%, rgba(0, 0, 0, 0.12) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow:
+          0 0 0 1px rgba(0, 0, 0, 0.62) inset,
+          0 1px 0 rgba(255, 255, 255, 0.14) inset,
+          0 46px 92px rgba(0, 0, 0, 0.52),
+          0 16px 34px rgba(0, 0, 0, 0.35);
+      }
+
+      /* Mode nuit — iPhone plus clair (verre + reflets lisibles) */
+      html[data-theme='dark'] .iphone-mockup,
+      body:not(.mode-jour) .iphone-mockup {
+        background:
+          radial-gradient(170px 150px at 18% 10%, rgba(255, 255, 255, 0.2) 0%, transparent 72%),
+          radial-gradient(260px 210px at 86% 46%, rgba(123, 79, 232, 0.06) 0%, transparent 74%),
+          radial-gradient(300px 260px at 64% 82%, rgba(0, 229, 204, 0.06) 0%, transparent 74%),
+          linear-gradient(165deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.06) 40%, rgba(0, 0, 0, 0.14) 100%);
+        border-color: rgba(255, 255, 255, 0.22);
+        box-shadow:
+          0 0 0 1px rgba(0, 0, 0, 0.52) inset,
+          0 1px 0 rgba(255, 255, 255, 0.16) inset,
+          0 46px 92px rgba(0, 0, 0, 0.46),
+          0 16px 34px rgba(0, 0, 0, 0.28);
+      }
+
+      /* Reflets verre (Apple) — statique + sweep au chargement */
+      .iphone-glass-highlight {
+        position: absolute;
+        inset: 7px;
+        border-radius: 52px;
+        pointer-events: none;
+        z-index: 2;
+        opacity: 0.86;
+        background:
+          radial-gradient(
+            160px 110px at 18% 10%,
+            rgba(255, 255, 255, 0.2) 0%,
+            rgba(255, 255, 255, 0.06) 36%,
+            transparent 70%
+          ),
+          linear-gradient(145deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.06) 28%, transparent 60%),
+          radial-gradient(180px 260px at 86% 26%, rgba(0, 229, 204, 0.08) 0%, transparent 70%);
+        mix-blend-mode: screen;
+        filter: blur(0.25px);
+        transform: translateZ(0);
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        @keyframes iphone-glass-sweep {
+          0% {
+            opacity: 0.15;
+            transform: translate3d(-6px, -6px, 0) rotate(-1deg);
+            filter: blur(0.6px);
+          }
+          35% {
+            opacity: 0.95;
+            transform: translate3d(0px, 0px, 0) rotate(0deg);
+            filter: blur(0.25px);
+          }
+          100% {
+            opacity: 0.75;
+            transform: translate3d(2px, 2px, 0) rotate(0.3deg);
+            filter: blur(0.2px);
+          }
+        }
+        .iphone-glass-highlight {
+          animation: iphone-glass-sweep 900ms cubic-bezier(0.16, 1, 0.3, 1) 1;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .iphone-glass-highlight {
+          animation: none !important;
+          opacity: 0.75;
+        }
+      }
+      .iphone-mockup::before,
+      .iphone-mockup::after {
+        content: '';
+        position: absolute;
+        width: 3px;
+        border-radius: 3px;
+        background: linear-gradient(180deg, rgba(230, 230, 234, 0.55), rgba(34, 34, 38, 0.75));
+        z-index: 0;
+        pointer-events: none;
+        box-shadow:
+          0 0 0 1px rgba(0, 0, 0, 0.22) inset,
+          inset 0 1px 0 rgba(255, 255, 255, 0.18);
       }
       .iphone-mockup::before {
-        top: 96px;
-        height: 60px;
+        left: -2px;
+        top: 122px;
+        height: 78px;
       }
       .iphone-mockup::after {
-        top: 132px;
-        height: 82px;
+        right: -2px;
+        top: 170px;
+        height: 104px;
       }
       .iphone-device-screen {
-        border-radius: 36px;
+        position: relative;
+        flex: 1;
+        min-height: 0;
+        border-radius: 48px;
+        overflow: hidden;
+        background: linear-gradient(
+          180deg,
+          rgba(16, 18, 26, 0.88) 0%,
+          rgba(10, 12, 18, 0.88) 55%,
+          rgba(14, 16, 24, 0.88) 100%
+        );
+        box-shadow:
+          0 0 0 1px rgba(255, 255, 255, 0.07) inset,
+          0 0 0 7px rgba(0, 0, 0, 0.22) inset;
       }
       .iphone-dynamic-island {
-        height: 24px;
-        top: 9px;
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(40%, 108px);
+        height: 30px;
+        border-radius: 22px;
+        background: radial-gradient(60px 22px at 30% 28%, rgba(255, 255, 255, 0.08) 0%, transparent 55%), #060607;
+        z-index: 4;
+        box-shadow:
+          0 2px 10px rgba(0, 0, 0, 0.65),
+          inset 0 1px 0 rgba(255, 255, 255, 0.08);
       }
       .iphone-screen {
-        padding: 40px 10px 8px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        min-height: 0;
+        padding: 46px 12px 10px;
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', system-ui, sans-serif;
+        background:
+          radial-gradient(160px 120px at 22% 18%, rgba(0, 229, 204, 0.1) 0%, transparent 72%),
+          radial-gradient(200px 160px at 78% 42%, rgba(123, 79, 232, 0.1) 0%, transparent 74%),
+          linear-gradient(180deg, rgba(12, 14, 20, 0.92) 0%, rgba(6, 8, 14, 0.92) 55%, rgba(10, 12, 18, 0.92) 100%);
+      }
+      .iphone-ios-status {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 2px 10px;
+        min-height: 18px;
+      }
+      .iphone-ios-icons {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        opacity: 0.92;
+        color: rgba(255, 255, 255, 0.92);
+      }
+      .iphone-ios-icons svg {
+        display: block;
+        flex-shrink: 0;
+      }
+      .iphone-pme-body {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      .iphone-home-bar {
+        flex-shrink: 0;
+        width: 34%;
+        max-width: 120px;
+        height: 4px;
+        margin: 6px auto 0;
+        border-radius: 100px;
+        background: rgba(255, 255, 255, 0.22);
+      }
+      /* Aperçu « appli pro PME » — lecture type iOS */
+      .iphone-ios-status .iphone-pme-time {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+        opacity: 0.95;
+        color: rgba(255, 255, 255, 0.95);
+      }
+      .iphone-pme-greeting {
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.42);
+        margin: 0 0 2px;
       }
       .iphone-pme-title {
-        font-size: 17px;
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        margin: 0 0 2px;
+        line-height: 1.15;
+        color: rgba(255, 255, 255, 0.98);
+      }
+      .iphone-pme-date {
+        font-size: 11px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.48);
+        margin: 0 0 12px;
+      }
+      .iphone-pme-kpis {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 6px;
+        margin-bottom: 12px;
+      }
+      .iphone-pme-kpi {
+        text-align: center;
+        padding: 8px 4px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
       }
       .iphone-pme-kpi-val {
-        font-size: 12px;
+        display: block;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        color: var(--accent-teal);
+        line-height: 1.15;
+      }
+      .iphone-pme-kpi-lbl {
+        display: block;
+        font-size: 8px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        opacity: 0.5;
+        margin-top: 2px;
+      }
+      .iphone-pme-section {
+        font-size: 9px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        opacity: 0.45;
+        margin: 0 0 6px;
+      }
+      .iphone-pme-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        flex: 1;
+        min-height: 0;
+      }
+      /* Animation type « notifications » — entrée / pause / sortie, décalée par ligne */
+      @keyframes iphone-pme-row {
+        0% {
+          opacity: 0;
+          transform: translateX(22px);
+        }
+        7% {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        54% {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        62% {
+          opacity: 0;
+          transform: translateX(-10px);
+        }
+        100% {
+          opacity: 0;
+          transform: translateX(22px);
+        }
       }
       .iphone-pme-list li {
-        font-size: 10px;
-        padding: 7px 8px;
+        display: flex;
+        gap: 8px;
+        align-items: flex-start;
+        font-size: 11px;
+        line-height: 1.35;
+        font-weight: 500;
+        padding: 8px 10px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        opacity: 0;
+        animation: iphone-pme-row 14s ease-in-out infinite;
       }
-    }
-  </style>
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"ProfessionalService","name":"Pinapp Studio","description":"Sites web, automatisation et outils d'aide à la décision pour TPE et indépendants. Préparation côté Pinapp ; vous confirmez aux étapes clés, par écrit. Le site pinapp.fr illustre le niveau de finition livré.","priceRange":"349 € - 1 990 €","areaServed":"FR","address":{"@type":"PostalAddress","addressCountry":"FR"},"founder":{"@type":"Person","name":"Lauralie Daguzay"},"email":"lauralie.daguzay@pinapp.fr","url":"https://pinapp.fr","sameAs":"https://www.linkedin.com/in/lauralie-daguzay-4a4542197/"}
-  </script>
-  <link rel="canonical" href="https://pinapp.fr/">
-  <script defer data-domain="pinapp.fr" src="https://plausible.io/js/script.js"></script>
-<script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)};document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('.btn-primary').forEach(function(b){b.addEventListener('click',function(){plausible('CTA Click',{props:{page:location.pathname,text:b.textContent.trim()}});});});});</script><style>
-.univers-link-hero{display:inline-block;font-size:12px;color:var(--accent-teal);text-decoration:none;letter-spacing:0.08em;margin-bottom:28px;opacity:0.75;transition:opacity 200ms ease;border-bottom:1px solid rgba(0,229,204,0.25);padding-bottom:2px;}
-.univers-link-hero:hover{opacity:1;}
-</style>  <link rel="stylesheet" href="assets/css/pandora-dance.css">
-  <link rel="stylesheet" href="assets/css/ios-glass.css">
-  <link rel="stylesheet" href="assets/css/apple-finish.css">
-  <link rel="stylesheet" href="assets/css/pinapp-modern-biolume.css">
-  <link rel="stylesheet" href="assets/css/pinapp-premium.css">
-  <link rel="stylesheet" href="./assets/css/deploy-harmonise.css">
-  <link rel="stylesheet" href="./assets/css/pandora-jour-override.css">
-  <link rel="stylesheet" href="./assets/css/mobile-premium.css">
-  <link rel="stylesheet" href="assets/css/neuro-layout.css">
-  
-  <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('/sw.js').catch(function(){});
-    });
-  }
-  </script></head>
-<body class="page-with-bottom-nav">
-  <div id="pandora-world" aria-hidden="true">
-    <div class="pandora-orbs">
-      <div class="orb orb-1"></div>
-      <div class="orb orb-2"></div>
-      <div class="orb orb-3"></div>
-      <div class="orb orb-4"></div>
-    </div>
-    <div class="pandora-spores" id="spores-container"></div>
-    <div class="pandora-stars" id="stars-container"></div>
-    <div class="pandora-clouds" id="clouds-container">
-      <div class="cloud cloud-1"></div>
-      <div class="cloud cloud-2"></div>
-      <div class="cloud cloud-3"></div>
-    </div>
-    <div class="holo-grid"></div>
-  </div>
-<div id="pandora-loader" aria-hidden="true">
-  <svg width="32" height="38" viewBox="0 0 32 38" fill="none"><defs><linearGradient id="pg-l" x1="16" y1="36" x2="16" y2="2" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7B4FE8"/><stop offset="100%" stop-color="#00E5CC"/></linearGradient></defs><path d="M16 2 C13 5 10 6 11 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M16 2 L16 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round"/><path d="M16 2 C19 5 22 6 21 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none"/><ellipse cx="16" cy="24" rx="9" ry="12" fill="url(#pg-l)"/><path d="M7 20 L16 15 L25 20 L16 25 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none"/><path d="M7 26 L16 21 L25 26 L16 31 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none"/></svg>
-</div>
-<script>(function(){function hideLoader(){var l=document.getElementById('pandora-loader');if(l&&l.parentNode){l.style.opacity='0';setTimeout(function(){if(l.parentNode)l.remove();},400);}}window.addEventListener('load',hideLoader);setTimeout(hideLoader,2000);})();</script><div class="aurora-mobile" aria-hidden="true"><div class="aurora-orb aurora-orb-1"></div><div class="aurora-orb aurora-orb-2"></div><div class="aurora-orb aurora-orb-3"></div><div class="aurora-orb aurora-orb-4"></div></div><div class="pandora-biolume-layer" aria-hidden="true"></div><div class="pandora-shapes" aria-hidden="true"><div class="pandora-shape pandora-shape-1"></div><div class="pandora-shape pandora-shape-2"></div><div class="pandora-shape pandora-shape-3"></div><div class="pandora-shape pandora-shape-4"></div></div><div class="holo-grid" aria-hidden="true"></div><div class="noise" aria-hidden="true"></div><div class="jour-spores" aria-hidden="true"><span class="jour-spore" style="left:12%;top:75%;--dur:22s;--delay:-4s;--dx:18px;--dy:-90px;"></span><span class="jour-spore" style="left:28%;top:60%;--dur:28s;--delay:-11s;--dx:-12px;--dy:-75px;"></span><span class="jour-spore" style="left:45%;top:82%;--dur:19s;--delay:-7s;--dx:25px;--dy:-60px;"></span><span class="jour-spore" style="left:62%;top:70%;--dur:32s;--delay:-2s;--dx:-20px;--dy:-85px;"></span><span class="jour-spore" style="left:78%;top:65%;--dur:24s;--delay:-15s;--dx:14px;--dy:-70px;"></span><span class="jour-spore" style="left:90%;top:78%;--dur:21s;--delay:-9s;--dx:-8px;--dy:-80px;"></span><span class="jour-spore jour-spore-teal" style="left:20%;top:85%;--dur:26s;--delay:-18s;--dx:10px;--dy:-65px;"></span><span class="jour-spore jour-spore-teal" style="left:55%;top:88%;--dur:30s;--delay:-5s;--dx:-15px;--dy:-95px;"></span><span class="jour-spore" style="left:38%;top:50%;--dur:17s;--delay:-13s;--dx:22px;--dy:-55px;"></span><span class="jour-spore jour-spore-teal" style="left:72%;top:55%;--dur:23s;--delay:-1s;--dx:-18px;--dy:-70px;"></span></div>
-  <noscript>
-    <style>#loader{display:none!important;visibility:hidden!important;pointer-events:none!important}</style>
-  </noscript>
-  <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
-  <div class="scroll-progress" id="scrollProgress"></div>
+      .iphone-pme-list li:nth-child(1) {
+        animation-delay: 0s;
+      }
+      .iphone-pme-list li:nth-child(2) {
+        animation-delay: 2.1s;
+      }
+      .iphone-pme-list li:nth-child(3) {
+        animation-delay: 4.2s;
+      }
+      .iphone-mockup:hover .iphone-pme-list li {
+        animation-play-state: paused;
+      }
+      .iphone-pme-tag {
+        flex-shrink: 0;
+        font-size: 7px;
+        font-weight: 700;
+        padding: 3px 5px;
+        border-radius: 5px;
+        letter-spacing: 0.04em;
+        line-height: 1;
+        margin-top: 1px;
+      }
+      .iphone-pme-tag--rdv {
+        background: rgba(0, 229, 204, 0.18);
+        color: var(--accent-teal);
+      }
+      .iphone-pme-tag--dev {
+        background: rgba(123, 79, 232, 0.22);
+        color: #c4b5fd;
+      }
+      .iphone-pme-tag--auto {
+        background: rgba(57, 224, 117, 0.18);
+        color: var(--accent-green, #39e075);
+      }
+      .iphone-pme-li-main {
+        opacity: 0.92;
+      }
+      .iphone-pme-li-sub {
+        display: block;
+        font-size: 9px;
+        font-weight: 500;
+        opacity: 0.5;
+        margin-top: 2px;
+      }
+      /* ─── Mode jour — mockup & cartes aussi travaillés que la nuit (ivoire · ambre · jade) ─── */
+      body.mode-jour .iphone-mockup,
+      html[data-theme='light'] .iphone-mockup {
+        border: 1px solid rgba(26, 10, 46, 0.14);
+        background:
+          radial-gradient(
+            140px 120px at 18% 12%,
+            rgba(255, 255, 255, 0.7) 0%,
+            rgba(255, 255, 255, 0.12) 62%,
+            transparent 100%
+          ),
+          linear-gradient(
+            155deg,
+            rgba(255, 255, 255, 0.62) 0%,
+            rgba(255, 255, 255, 0.28) 46%,
+            rgba(255, 255, 255, 0.44) 100%
+          );
+        box-shadow:
+          0 0 0 1px rgba(255, 255, 255, 0.95) inset,
+          0 2px 0 rgba(200, 122, 8, 0.06) inset,
+          0 28px 56px rgba(91, 63, 216, 0.08),
+          0 0 0 1px rgba(26, 10, 46, 0.05),
+          0 0 40px rgba(30, 158, 128, 0.06);
+      }
+      body.mode-jour .iphone-screen,
+      html[data-theme='light'] .iphone-screen {
+        background:
+          radial-gradient(180px 140px at 24% 22%, rgba(0, 155, 140, 0.1) 0%, transparent 72%),
+          radial-gradient(220px 160px at 86% 44%, rgba(91, 63, 216, 0.1) 0%, transparent 74%),
+          linear-gradient(
+            180deg,
+            rgba(247, 247, 249, 0.92) 0%,
+            rgba(236, 236, 241, 0.92) 55%,
+            rgba(242, 242, 247, 0.92) 100%
+          );
+      }
+      body.mode-jour .iphone-mockup::before,
+      html[data-theme='light'] .iphone-mockup::before,
+      body.mode-jour .iphone-mockup::after,
+      html[data-theme='light'] .iphone-mockup::after {
+        background: linear-gradient(180deg, #c4c4c8, #a8a8ae);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        opacity: 1;
+      }
+      body.mode-jour .iphone-dynamic-island,
+      html[data-theme='light'] .iphone-dynamic-island {
+        background: #1a1a1c;
+        box-shadow:
+          0 2px 10px rgba(0, 0, 0, 0.2),
+          inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      }
+      body.mode-jour .iphone-ios-status .iphone-pme-time,
+      html[data-theme='light'] .iphone-ios-status .iphone-pme-time {
+        color: rgba(26, 10, 46, 0.88);
+        opacity: 1;
+      }
+      body.mode-jour .iphone-ios-icons,
+      html[data-theme='light'] .iphone-ios-icons {
+        color: rgba(26, 10, 46, 0.75);
+      }
+      body.mode-jour .iphone-home-bar,
+      html[data-theme='light'] .iphone-home-bar {
+        background: rgba(26, 10, 46, 0.22);
+      }
+      body.mode-jour .iphone-pme-greeting,
+      html[data-theme='light'] .iphone-pme-greeting {
+        color: rgba(26, 10, 46, 0.45);
+        opacity: 1;
+      }
+      body.mode-jour .iphone-pme-date,
+      html[data-theme='light'] .iphone-pme-date {
+        color: rgba(26, 10, 46, 0.45);
+        opacity: 1;
+      }
+      body.mode-jour .iphone-pme-title,
+      html[data-theme='light'] .iphone-pme-title {
+        color: #1a0a2e;
+        opacity: 1;
+      }
+      body.mode-jour .iphone-pme-kpi,
+      html[data-theme='light'] .iphone-pme-kpi {
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.98) 0%,
+          rgba(255, 250, 242, 0.92) 55%,
+          rgba(255, 252, 248, 0.96) 100%
+        );
+        border: 1px solid rgba(200, 122, 8, 0.16);
+        box-shadow:
+          0 1px 0 rgba(255, 255, 255, 1) inset,
+          0 5px 14px rgba(26, 10, 46, 0.05),
+          0 0 24px rgba(30, 158, 128, 0.07);
+      }
+      body.mode-jour .iphone-pme-kpi::after,
+      html[data-theme='light'] .iphone-pme-kpi::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 42%;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.75) 0%, transparent 100%);
+        pointer-events: none;
+        border-radius: 11px 11px 0 0;
+      }
+      body.mode-jour .iphone-pme-kpi-val,
+      html[data-theme='light'] .iphone-pme-kpi-val {
+        position: relative;
+        z-index: 1;
+        color: rgba(15, 107, 88, 0.92);
+        text-shadow: none;
+      }
+      body.mode-jour .iphone-pme-kpi:nth-child(3) .iphone-pme-kpi-val,
+      html[data-theme='light'] .iphone-pme-kpi:nth-child(3) .iphone-pme-kpi-val {
+        color: rgba(138, 80, 0, 0.92);
+        text-shadow: none;
+      }
+      body.mode-jour .iphone-pme-kpi-lbl,
+      html[data-theme='light'] .iphone-pme-kpi-lbl {
+        position: relative;
+        z-index: 1;
+        color: rgba(26, 10, 46, 0.45);
+        opacity: 1;
+      }
+      body.mode-jour .iphone-pme-section,
+      html[data-theme='light'] .iphone-pme-section {
+        opacity: 1;
+        color: rgba(26, 10, 46, 0.5);
+        display: inline-block;
+        padding: 5px 10px 4px;
+        margin-bottom: 8px;
+        border-radius: 8px;
+        background: linear-gradient(
+          90deg,
+          rgba(30, 158, 128, 0.1) 0%,
+          rgba(200, 122, 8, 0.08) 50%,
+          rgba(91, 63, 216, 0.08) 100%
+        );
+        border: 1px solid rgba(26, 10, 46, 0.06);
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+      }
+      body.mode-jour .iphone-pme-list li,
+      html[data-theme='light'] .iphone-pme-list li {
+        background: linear-gradient(125deg, rgba(255, 255, 255, 0.97) 0%, rgba(255, 253, 248, 0.9) 100%);
+        border: 1px solid rgba(91, 63, 216, 0.12);
+        box-shadow:
+          0 1px 0 rgba(255, 255, 255, 1) inset,
+          0 4px 14px rgba(26, 10, 46, 0.04),
+          0 0 20px rgba(30, 158, 128, 0.05);
+      }
+      body.mode-jour .iphone-pme-li-main,
+      html[data-theme='light'] .iphone-pme-li-main {
+        color: rgba(26, 10, 46, 0.88);
+        opacity: 1;
+      }
+      body.mode-jour .iphone-pme-li-sub,
+      html[data-theme='light'] .iphone-pme-li-sub {
+        color: rgba(26, 10, 46, 0.48);
+        opacity: 1;
+      }
+      body.mode-jour .iphone-pme-tag--rdv,
+      html[data-theme='light'] .iphone-pme-tag--rdv {
+        color: #0f6b58;
+        background: linear-gradient(135deg, rgba(30, 158, 128, 0.22) 0%, rgba(30, 158, 128, 0.1) 100%);
+        border: 1px solid rgba(30, 158, 128, 0.25);
+        box-shadow: 0 0 12px rgba(30, 158, 128, 0.15);
+      }
+      body.mode-jour .iphone-pme-tag--dev,
+      html[data-theme='light'] .iphone-pme-tag--dev {
+        color: #4a32b8;
+        background: linear-gradient(135deg, rgba(91, 63, 216, 0.18) 0%, rgba(91, 63, 216, 0.08) 100%);
+        border: 1px solid rgba(91, 63, 216, 0.22);
+        box-shadow: 0 0 12px rgba(91, 63, 216, 0.12);
+      }
+      body.mode-jour .iphone-pme-tag--auto,
+      html[data-theme='light'] .iphone-pme-tag--auto {
+        color: #2a7a45;
+        background: linear-gradient(135deg, rgba(42, 154, 92, 0.2) 0%, rgba(200, 122, 8, 0.1) 100%);
+        border: 1px solid rgba(42, 154, 92, 0.22);
+        box-shadow: 0 0 10px rgba(42, 154, 92, 0.12);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .iphone-pme-list li {
+          opacity: 1 !important;
+          transform: none;
+          animation: none !important;
+        }
+      }
+      @media (max-width: 600px) {
+        .iphone-mockup {
+          width: 198px;
+          height: 404px;
+          border-radius: 48px;
+          padding: 9px;
+        }
+        .iphone-mockup::before {
+          top: 100px;
+          height: 64px;
+        }
+        .iphone-mockup::after {
+          top: 140px;
+          height: 90px;
+        }
+        .iphone-device-screen {
+          border-radius: 40px;
+        }
+        .iphone-dynamic-island {
+          height: 26px;
+          top: 9px;
+        }
+        .iphone-screen {
+          padding: 40px 10px 8px;
+        }
+        .iphone-pme-title {
+          font-size: 17px;
+        }
+        .iphone-pme-kpi-val {
+          font-size: 12px;
+        }
+        .iphone-pme-list li {
+          font-size: 10px;
+          padding: 7px 8px;
+        }
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Pinapp Studio",
+        "description": "Sites web, automatisation et outils d'aide à la décision pour TPE et indépendants. Préparation côté Pinapp ; vous confirmez aux étapes clés, par écrit. Le site pinapp.fr illustre le niveau de finition livré.",
+        "priceRange": "349 € - 1 990 €",
+        "areaServed": "FR",
+        "address": { "@type": "PostalAddress", "addressCountry": "FR" },
+        "founder": { "@type": "Person", "name": "Lauralie Daguzay" },
+        "email": "lauralie.daguzay@pinapp.fr",
+        "url": "https://pinapp.fr",
+        "sameAs": "https://www.linkedin.com/in/lauralie-daguzay-4a4542197/"
+      }
+    </script>
+    <link rel="canonical" href="https://pinapp.fr/" />
+    <script>
+      window.plausible =
+        window.plausible ||
+        function () {
+          (window.plausible.q = window.plausible.q || []).push(arguments);
+        };
+      document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.btn-primary').forEach(function (b) {
+          b.addEventListener('click', function () {
+            plausible('CTA Click', { props: { page: location.pathname, text: b.textContent.trim() } });
+          });
+        });
+      });
+    </script>
+    <style>
+      .univers-link-hero {
+        display: inline-block;
+        font-size: 12px;
+        color: var(--accent-teal);
+        text-decoration: none;
+        letter-spacing: 0.08em;
+        margin-bottom: 28px;
+        opacity: 0.75;
+        transition: opacity 200ms ease;
+        border-bottom: 1px solid rgba(0, 229, 204, 0.25);
+        padding-bottom: 2px;
+      }
+      .univers-link-hero:hover {
+        opacity: 1;
+      }
+    </style>
+    <link rel="stylesheet" href="assets/css/pandora-dance.css" />
+    <link rel="stylesheet" href="assets/css/ios-glass.css" />
+    <link rel="stylesheet" href="assets/css/apple-finish.css" />
+    <link rel="stylesheet" href="assets/css/pinapp-modern-biolume.css" />
+    <link rel="stylesheet" href="assets/css/pinapp-premium.css" />
+    <link rel="stylesheet" href="assets/css/wow-visuals.css" />
+    <link rel="stylesheet" href="assets/css/wow-senior.css" />
+    <link rel="stylesheet" href="assets/css/guide-tour.css" />
+    <link rel="stylesheet" href="./assets/css/deploy-harmonise.css" />
+    <link rel="stylesheet" href="./assets/css/pandora-jour-override.css" />
+    <link rel="stylesheet" href="./assets/css/mobile-premium.css" />
+    <link rel="stylesheet" href="assets/css/neuro-layout.css" />
 
-  <nav class="nav" id="mainNav" aria-label="Navigation principale">
-    <div class="container nav-inner">
-            <a href="index.html" class="nav-logo" aria-label="Pinapp Studio — accueil" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
-        <img class="nav-logo-img" src="assets/images/pinapp-logo.png" alt="" width="132" height="36" decoding="async" fetchpriority="high" />
-      </a>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('/sw.js').catch(function () {});
+        });
+      }
+    </script>
+  </head>
+  <body class="page-with-bottom-nav">
+    <div id="pandora-world" aria-hidden="true">
+      <div class="pandora-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+      </div>
+      <div class="pandora-spores" id="spores-container"></div>
+      <div class="pandora-stars" id="stars-container"></div>
+      <div class="pandora-clouds" id="clouds-container">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+      </div>
+      <div class="holo-grid"></div>
+    </div>
+    <div id="pandora-loader" aria-hidden="true">
+      <svg width="32" height="38" viewBox="0 0 32 38" fill="none">
+        <defs>
+          <linearGradient id="pg-l" x1="16" y1="36" x2="16" y2="2" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#7B4FE8" />
+            <stop offset="100%" stop-color="#00E5CC" />
+          </linearGradient>
+        </defs>
+        <path d="M16 2 C13 5 10 6 11 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
+        <path d="M16 2 L16 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" />
+        <path d="M16 2 C19 5 22 6 21 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
+        <ellipse cx="16" cy="24" rx="9" ry="12" fill="url(#pg-l)" />
+        <path d="M7 20 L16 15 L25 20 L16 25 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
+        <path d="M7 26 L16 21 L25 26 L16 31 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
+      </svg>
+    </div>
+    <script>
+      (function () {
+        function hideLoader() {
+          var l = document.getElementById('pandora-loader');
+          if (l && l.parentNode) {
+            l.style.opacity = '0';
+            setTimeout(function () {
+              if (l.parentNode) l.remove();
+            }, 400);
+          }
+        }
+        window.addEventListener('load', hideLoader);
+        setTimeout(hideLoader, 2000);
+      })();
+    </script>
+    <div class="aurora-mobile" aria-hidden="true">
+      <div class="aurora-orb aurora-orb-1"></div>
+      <div class="aurora-orb aurora-orb-2"></div>
+      <div class="aurora-orb aurora-orb-3"></div>
+      <div class="aurora-orb aurora-orb-4"></div>
+    </div>
+    <div class="pandora-biolume-layer" aria-hidden="true"></div>
+    <div class="pandora-shapes" aria-hidden="true">
+      <div class="pandora-shape pandora-shape-1"></div>
+      <div class="pandora-shape pandora-shape-2"></div>
+      <div class="pandora-shape pandora-shape-3"></div>
+      <div class="pandora-shape pandora-shape-4"></div>
+    </div>
+    <div class="holo-grid" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="jour-spores" aria-hidden="true">
+      <span class="jour-spore" style="left: 12%; top: 75%; --dur: 22s; --delay: -4s; --dx: 18px; --dy: -90px"></span
+      ><span class="jour-spore" style="left: 28%; top: 60%; --dur: 28s; --delay: -11s; --dx: -12px; --dy: -75px"></span
+      ><span class="jour-spore" style="left: 45%; top: 82%; --dur: 19s; --delay: -7s; --dx: 25px; --dy: -60px"></span
+      ><span class="jour-spore" style="left: 62%; top: 70%; --dur: 32s; --delay: -2s; --dx: -20px; --dy: -85px"></span
+      ><span class="jour-spore" style="left: 78%; top: 65%; --dur: 24s; --delay: -15s; --dx: 14px; --dy: -70px"></span
+      ><span class="jour-spore" style="left: 90%; top: 78%; --dur: 21s; --delay: -9s; --dx: -8px; --dy: -80px"></span
+      ><span
+        class="jour-spore jour-spore-teal"
+        style="left: 20%; top: 85%; --dur: 26s; --delay: -18s; --dx: 10px; --dy: -65px"></span
+      ><span
+        class="jour-spore jour-spore-teal"
+        style="left: 55%; top: 88%; --dur: 30s; --delay: -5s; --dx: -15px; --dy: -95px"></span
+      ><span class="jour-spore" style="left: 38%; top: 50%; --dur: 17s; --delay: -13s; --dx: 22px; --dy: -55px"></span
+      ><span
+        class="jour-spore jour-spore-teal"
+        style="left: 72%; top: 55%; --dur: 23s; --delay: -1s; --dx: -18px; --dy: -70px"></span>
+    </div>
+    <noscript>
+      <style>
+        #loader {
+          display: none !important;
+          visibility: hidden !important;
+          pointer-events: none !important;
+        }
+      </style>
+    </noscript>
+    <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <nav class="nav" id="mainNav" aria-label="Navigation principale">
+      <div class="container nav-inner">
+        <a
+          href="index.html"
+          class="nav-logo"
+          aria-label="Pinapp Studio — accueil"
+          style="display: flex; align-items: center; gap: 10px; text-decoration: none"
+          aria-current="page">
+          <img
+            class="nav-logo-img"
+            src="assets/images/pinapp-logo.svg"
+            alt=""
+            width="132"
+            height="36"
+            decoding="async"
+            fetchpriority="high" />
+        </a>
         <div class="nav-links">
-        <a href="offres/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
-        <a href="formation-gratuite/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Formations</a>
-        <a href="realisations/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
-        <a href="a-propos/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
-        <a href="faq/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
-        <a href="auralis/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Auralis</a>
-        <a href="univers/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Univers</a>
-        <a href="diagnostic/index.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Démarrer ma demande</a>
+          <a href="offres/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Offres</a>
+          <a href="offres/formation/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Formations</a>
+          <a href="realisations/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Réalisations</a>
+          <a href="a-propos/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">À propos</a>
+          <a href="faq/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">FAQ</a>
+          <a href="auralis/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Auralis</a>
+          <a href="univers/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Univers</a>
+          <a href="diagnostic/index.html" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px"
+            >Démarrer ma demande</a
+          >
+        </div>
+        <div class="nav-trailing">
+          <button type="button" class="mode-toggle" id="themeToggle" aria-label="Passer en mode jour">
+            <svg class="icon-lune" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path
+                d="M15.5 10.5A6.5 6.5 0 0 1 7.5 2.5a6.5 6.5 0 1 0 8 8z"
+                stroke="#00E5CC"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                fill="none" /></svg
+            ><svg class="icon-soleil" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <circle cx="9" cy="9" r="3.5" stroke="#009B8C" stroke-width="1.5" />
+              <line x1="9" y1="1" x2="9" y2="3" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="9" y1="15" x2="9" y2="17" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="1" y1="9" x2="3" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="15" y1="9" x2="17" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="burger"
+            id="burger"
+            aria-label="Ouvrir le menu"
+            aria-expanded="false"
+            aria-controls="mobileDrawer">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              aria-hidden="true">
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
       </div>
-      <div class="nav-trailing">
-        <button type="button" class="mode-toggle" id="themeToggle" aria-label="Passer en mode jour"><svg class="icon-lune" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M15.5 10.5A6.5 6.5 0 0 1 7.5 2.5a6.5 6.5 0 1 0 8 8z" stroke="#00E5CC" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg><svg class="icon-soleil" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="3.5" stroke="#009B8C" stroke-width="1.5"/><line x1="9" y1="1" x2="9" y2="3" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="15" x2="9" y2="17" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="9" x2="3" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/><line x1="15" y1="9" x2="17" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/></svg></button>
-        <button type="button" class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileDrawer">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </nav>
+    <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" role="dialog" aria-label="Menu" aria-modal="true">
+      <div class="mobile-drawer-panel">
+        <button type="button" id="drawerClose" aria-label="Fermer le menu">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
         </button>
+        <a href="index.html" aria-current="page">Accueil</a>
+        <div class="nav-links">
+          <a href="offres/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Offres</a>
+          <a href="offres/formation/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Formations</a>
+          <a href="realisations/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Réalisations</a>
+          <a href="a-propos/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">À propos</a>
+          <a href="faq/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">FAQ</a>
+          <a href="auralis/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Auralis</a>
+          <a href="univers/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Univers</a>
+          <a href="diagnostic/index.html" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px"
+            >Démarrer ma demande</a
+          >
+        </div>
       </div>
     </div>
-  </nav>
-  <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" role="dialog" aria-label="Menu" aria-modal="true">
-    <div class="mobile-drawer-panel">
-      <button type="button" id="drawerClose" aria-label="Fermer le menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
-      <div class="nav-links">
-        <a href="offres/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
-        <a href="formation-gratuite/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Formations</a>
-        <a href="realisations/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
-        <a href="a-propos/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
-        <a href="faq/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
-        <a href="auralis/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Auralis</a>
-        <a href="univers/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Univers</a>
-        <a href="diagnostic/index.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Démarrer ma demande</a>
-      </div>
-  </div>
-  </div>
-    <div class="bottom-bar bottom-bar--site bottom-bar--six" aria-label="Navigation du site">
-    <a href="index.html">Accueil</a>
-    <a href="offres/index.html">Offres</a>
-    <a href="diagnostic/index.html" class="bottom-bar-cta">D&eacute;marrer</a>
-    <a href="univers/index.html">Univers</a>
-    <a href="formation-gratuite/index.html">Form.</a>
-    <a href="realisations/index.html">R&eacute;alis.</a>
-  </div>
-<main id="contenu-principal" class="stack-above-bg home-landing" tabindex="-1">
+    <div class="bottom-bar bottom-bar--site" aria-label="Navigation du site">
+      <a href="index.html" aria-current="page">Accueil</a>
+      <a href="offres/index.html">Offres</a>
+      <a href="diagnostic/index.html" class="bottom-bar-cta">D&eacute;marrer</a>
+      <a href="realisations/index.html">R&eacute;alis.</a>
+    </div>
+    <main id="contenu-principal" class="stack-above-bg home-landing" tabindex="-1">
+      <!-- 1. HERO -->
+      <section class="pinapp-hero-viewport" data-chapter="invitation">
+        <div class="aurora-bg" style="position: absolute; inset: 0; z-index: 0"></div>
+        <div class="container" style="position: relative; z-index: 2; max-width: 50rem">
+          <p class="label" style="text-align: center; margin-bottom: var(--space-4)">
+            Cr&eacute;ation web &amp; automatisation &middot; Artisans, ind&eacute;pendants &amp; petites &eacute;quipes
+          </p>
+          <h1
+            aria-label="Votre site, vos relances, vos devis : je prépare l'essentiel. Vous validez aux étapes clés."
+            style="
+              font-size: var(--text-hero);
+              letter-spacing: -0.03em;
+              margin-bottom: var(--space-4);
+              text-align: center;
+              line-height: 1.05;
+            ">
+            <span class="hero-word" style="--delay: 0ms">Votre</span>&#32;<span class="hero-word" style="--delay: 180ms"
+              >site,</span
+            >&#32;<span class="hero-word" style="--delay: 360ms">vos</span>&#32;<span
+              class="hero-word"
+              style="--delay: 540ms"
+              >relances,</span
+            ><br />
+            <span class="hero-word" style="--delay: 720ms">vos</span>&#32;<span class="hero-word" style="--delay: 900ms"
+              >devis</span
+            >&#32;<span class="hero-word" style="--delay: 1080ms">&mdash;</span><br />
+            <span class="hero-word accent" style="--delay: 1380ms">je</span>&#32;<span
+              class="hero-word accent"
+              style="--delay: 1560ms"
+              >prépare</span
+            >&#32;<span class="hero-word accent" style="--delay: 1740ms">tout.</span>
+          </h1>
+          <p class="hero-subtitle" style="text-align: center">
+            Site + automatisations pr&ecirc;tes. Vous gardez le contr&ocirc;le. Tout est pr&eacute;par&eacute;. Rien ne
+            part sans votre accord.
+          </p>
+          <p class="hero-meta">R&eacute;ponse sous 24 h &middot; Tout par &eacute;crit &middot; Sans engagement</p>
+          <div
+            style="
+              display: flex;
+              gap: var(--space-3);
+              flex-wrap: wrap;
+              justify-content: center;
+              margin-bottom: var(--space-3);
+              align-items: center;
+            ">
+            <a href="diagnostic/index.html" class="btn btn-primary"
+              >D&eacute;crire mon projet &mdash; diagnostic par &eacute;crit</a
+            >
+            <a href="realisations/index.html" class="btn btn-secondary">Voir des exemples</a>
+          </div>
+          <p class="hero-signature">Lauralie Daguzay &mdash; Pinapp Studio</p>
+        </div>
+      </section>
+      <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
 
-  <!-- 1. HERO -->
-  <section class="pinapp-hero-viewport" data-chapter="invitation">
-    <div class="aurora-bg" style="position:absolute;inset:0;z-index:0;"></div>
-    <canvas id="particles" style="position:absolute;inset:0;z-index:1;pointer-events:none;" width="400" height="800" aria-hidden="true"></canvas>
-    <div class="container" style="position:relative;z-index:2;max-width:50rem;">
-      <p class="label" style="text-align:center;margin-bottom:var(--space-4);">Cr&eacute;ation web &amp; automatisation &middot; Artisans, ind&eacute;pendants &amp; TPE exigeantes</p>
-      <h1 aria-label="Votre site, vos relances, vos devis : tout est préparé et automatisé côté exécution. Vous confirmez aux étapes clés. C'est réglé."
-          style="font-size:var(--text-hero);letter-spacing:-0.03em;margin-bottom:var(--space-4);text-align:center;line-height:1.05;">
-        <span class="hero-word" style="--delay:0ms">Votre</span>&#32;<span class="hero-word" style="--delay:180ms">site,</span>&#32;<span class="hero-word" style="--delay:360ms">vos</span>&#32;<span class="hero-word" style="--delay:540ms">relances,</span><br>
-        <span class="hero-word" style="--delay:720ms">vos</span>&#32;<span class="hero-word" style="--delay:900ms">devis</span>&#32;<span class="hero-word" style="--delay:1080ms">&mdash;</span><br>
-        <span class="hero-word accent" style="--delay:1380ms">je</span>&#32;<span class="hero-word accent" style="--delay:1560ms">prépare</span>&#32;<span class="hero-word accent" style="--delay:1740ms">tout.</span>
-      </h1>
-      <p class="hero-subtitle" style="text-align:center;">Quand le num&eacute;rique sature votre agenda, Pinapp pr&eacute;pare pour vous : textes du site, branchements entre outils, relances &mdash; r&eacute;gl&eacute;s pour avancer sans vous solliciter &agrave; chaque d&eacute;tail. Vous confirmez aux jalons ; rien ne part sans votre feu vert.</p>
-      <p class="hero-meta">Finition soign&eacute;e &middot; Automatisations sur mesure &middot; Tout par &eacute;crit &mdash; vous validez ce qui compte</p>
-      <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;justify-content:center;margin-bottom:var(--space-3);align-items:center;">
-        <a href="diagnostic/index.html" class="btn btn-primary">D&eacute;crire mon projet &mdash; diagnostic par &eacute;crit</a>
-        <a href="offres/index.html" class="btn btn-secondary">Voir les offres &amp; tarifs</a>
-      </div>
-      <p style="text-align:center;font-size:13px;opacity:0.55;margin-bottom:var(--space-4);max-width:26rem;margin-left:auto;margin-right:auto;line-height:1.5;">Vous naviguez d&eacute;j&agrave; dans un site livr&eacute; par Pinapp : m&ecirc;me exigence pour le v&ocirc;tre.</p>
-      <p class="hero-signature">Lauralie Daguzay &mdash; Pinapp Studio</p>
-    </div>
-    <div class="scroll-indicator" id="heroScrollIndicator" aria-hidden="true">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
-    </div>
-  </section>
-  <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
-
-  <!-- 2–3. POUR QUI + PARCOURS : une bande (2 colonnes desktop, empilé mobile — moins de scroll) -->
-  <section class="section section-enter neuro-home-band" aria-labelledby="neuro-pour-qui-title">
-    <div class="container neuro-home-band__wrap">
-      <div class="neuro-home-band__audience">
-      <h2 id="neuro-pour-qui-title" style="font-size:var(--text-h1);text-align:center;letter-spacing:-0.02em;margin-bottom:var(--space-2);">C'est fait pour vous si&hellip;</h2>
-      <p style="text-align:center;opacity:0.65;font-size:1.0625rem;margin-bottom:var(--space-6);">Vous portez un m&eacute;tier exigeant &mdash; pas un poste &laquo; digital &raquo;. Le syst&egrave;me doit travailler pour vous, pas l&rsquo;inverse.</p>
-      <div class="grid grid-3" style="max-width:900px;margin:0 auto;">
-        <div class="card" style="padding:var(--space-5);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-teal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block;margin-bottom:var(--space-3)"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-          <h3 style="font-size:1.125rem;margin:0 0 var(--space-2);">Vous êtes artisan</h3>
-          <p style="font-size:14px;opacity:0.75;line-height:1.6;">Plombier, électricien, maçon — vous avez des chantiers, pas le temps de faire vos devis et relances clients à la main.</p>
-        </div>
-        <div class="card" style="padding:var(--space-5);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-teal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block;margin-bottom:var(--space-3)"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>
-          <h3 style="font-size:1.125rem;margin:0 0 var(--space-2);">Vous êtes restaurateur</h3>
-          <p style="font-size:14px;opacity:0.75;line-height:1.6;">Votre site n'est pas à jour, les r&eacute;servations passent encore par messages &eacute;parpill&eacute;s, et vous n'avez pas de liste client. Tout &ccedil;a peut changer.</p>
-        </div>
-        <div class="card" style="padding:var(--space-5);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-teal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block;margin-bottom:var(--space-3)"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-          <h3 style="font-size:1.125rem;margin:0 0 var(--space-2);">Vous êtes indépendant</h3>
-          <p style="font-size:14px;opacity:0.75;line-height:1.6;">Coach, thérapeute, consultant — vous perdez du temps en administration là où vous devriez être avec vos clients.</p>
-        </div>
-      </div>
-      </div>
-      <div class="neuro-home-band__process">
-      <div style="display:flex;flex-wrap:wrap;gap:var(--space-7);align-items:center;justify-content:center;">
-        <!-- Texte + étapes -->
-        <div style="flex:1;min-width:260px;max-width:480px;">
-          <p class="label" style="margin-bottom:var(--space-3);">&Eacute;TAPES</p>
-          <h2 style="font-size:clamp(2rem,5vw,2.75rem);letter-spacing:-0.03em;line-height:1.1;margin-bottom:var(--space-5);">Sur mesure.<br>Clair.<br><span class="hero-word accent">Sous votre contr&ocirc;le.</span></h2>
-          <div style="display:flex;flex-direction:column;gap:var(--space-4);">
-            <div style="display:flex;gap:var(--space-3);align-items:flex-start;">
-              <span style="font-size:1.5rem;font-weight:700;color:var(--accent-teal);min-width:2rem;line-height:1.2;">1</span>
-              <div>
-                <p style="font-weight:600;margin-bottom:4px;">Cadrage &mdash; synth&egrave;se &eacute;crite (incluse)</p>
-                <p style="font-size:14px;opacity:0.7;">Activit&eacute;, clients, points de friction : on isole ce qui doit &ecirc;tre automatis&eacute; &mdash; en langage clair, sans jargon inutile.</p>
+      <!-- 2–3. POUR QUI + PARCOURS : une bande (2 colonnes desktop, empilé mobile — moins de scroll) -->
+      <section class="section section-enter neuro-home-band" aria-labelledby="neuro-pour-qui-title">
+        <div class="container neuro-home-band__wrap">
+          <div class="neuro-home-band__audience">
+            <h2
+              id="neuro-pour-qui-title"
+              style="
+                font-size: var(--text-h1);
+                text-align: center;
+                letter-spacing: -0.02em;
+                margin-bottom: var(--space-2);
+              ">
+              C'est fait pour vous si&hellip;
+            </h2>
+            <p style="text-align: center; opacity: 0.65; font-size: 1.0625rem; margin-bottom: var(--space-6)">
+              Vous portez un m&eacute;tier exigeant &mdash; pas un poste &laquo; digital &raquo;. Le syst&egrave;me doit
+              travailler pour vous, pas l&rsquo;inverse.
+            </p>
+            <div class="grid grid-3" style="max-width: 900px; margin: 0 auto">
+              <div class="card" style="padding: var(--space-5)">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--accent-teal)"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  style="display: block; margin-bottom: var(--space-3)">
+                  <path
+                    d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                </svg>
+                <h3 style="font-size: 1.125rem; margin: 0 0 var(--space-2)">Vous êtes artisan</h3>
+                <p style="font-size: 14px; opacity: 0.75; line-height: 1.6">
+                  Plombier, électricien, maçon — vous avez des chantiers, pas le temps de faire vos devis et relances
+                  clients à la main.
+                </p>
               </div>
-            </div>
-            <div style="display:flex;gap:var(--space-3);align-items:flex-start;">
-              <span style="font-size:1.5rem;font-weight:700;color:var(--accent-teal);min-width:2rem;line-height:1.2;">2</span>
-              <div>
-                <p style="font-weight:600;margin-bottom:4px;">Ing&eacute;nierie &amp; int&eacute;gration</p>
-                <p style="font-size:14px;opacity:0.7;">Site, relances, devis : assemblage et essais &mdash; vous validez avant la mise en ligne. Rien n&rsquo;est impos&eacute;.</p>
+              <div class="card" style="padding: var(--space-5)">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--accent-teal)"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  style="display: block; margin-bottom: var(--space-3)">
+                  <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
+                  <path d="M7 2v20" />
+                  <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7" />
+                </svg>
+                <h3 style="font-size: 1.125rem; margin: 0 0 var(--space-2)">Vous êtes restaurateur</h3>
+                <p style="font-size: 14px; opacity: 0.75; line-height: 1.6">
+                  Votre site n'est pas à jour, les r&eacute;servations passent encore par messages
+                  &eacute;parpill&eacute;s, et vous n'avez pas de liste client. Tout &ccedil;a peut changer.
+                </p>
               </div>
-            </div>
-            <div style="display:flex;gap:var(--space-3);align-items:flex-start;">
-              <span style="font-size:1.5rem;font-weight:700;color:var(--accent-teal);min-width:2rem;line-height:1.2;">3</span>
-              <div>
-                <p style="font-weight:600;margin-bottom:4px;">Mise en service &amp; autonomie</p>
-                <p style="font-size:14px;opacity:0.7;">Les automatismes tournent en r&eacute;el ; vos clients re&ccedil;oivent devis et relances au bon rythme. Vous restez sur le m&eacute;tier.</p>
+              <div class="card" style="padding: var(--space-5)">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--accent-teal)"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  style="display: block; margin-bottom: var(--space-3)">
+                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                </svg>
+                <h3 style="font-size: 1.125rem; margin: 0 0 var(--space-2)">Vous êtes indépendant</h3>
+                <p style="font-size: 14px; opacity: 0.75; line-height: 1.6">
+                  Coach, thérapeute, consultant — vous perdez du temps en administration là où vous devriez être avec
+                  vos clients.
+                </p>
               </div>
             </div>
           </div>
-          <div style="margin-top:var(--space-5);display:flex;gap:var(--space-4);flex-wrap:wrap;">
-            <div style="text-align:center;">
-              <p style="font-size:clamp(1.75rem,4vw,2.25rem);font-weight:600;letter-spacing:-0.04em;color:var(--accent-teal);line-height:1;"><span>48</span><span style="font-size:1rem;font-weight:400;opacity:0.7;">h</span></p>
-              <p class="label" style="margin-top:4px;opacity:0.55;">délai Starter</p>
-            </div>
-            <div style="text-align:center;">
-              <p style="font-size:clamp(1.75rem,4vw,2.25rem);font-weight:600;letter-spacing:-0.04em;color:var(--accent-teal);line-height:1;"><span>100</span><span style="font-size:1rem;font-weight:400;opacity:0.7;">%</span></p>
-              <p class="label" style="margin-top:4px;opacity:0.55;">contrôle client</p>
-            </div>
-            <div style="text-align:center;">
-              <p style="font-size:clamp(1.75rem,4vw,2.25rem);font-weight:600;letter-spacing:-0.04em;color:var(--accent-teal);line-height:1;"><span>0</span><span style="font-size:1rem;font-weight:400;opacity:0.7;">€</span></p>
-              <p class="label" style="margin-top:4px;opacity:0.55;">CGV si besoin</p>
-            </div>
-          </div>
-        </div>
-        <!-- iPhone — aperçu type iOS (Dynamic Island, statut, pilotage TPE) -->
-        <div class="iphone-mockup" aria-label="Aperçu sur un écran d’iPhone : tableau de bord avec rendez-vous, devis et relances automatiques" role="img" style="flex-shrink:0;">
-          <div class="iphone-device-screen">
-            <div class="iphone-dynamic-island" aria-hidden="true"></div>
-            <div class="iphone-screen iphone-pme">
-              <div class="iphone-ios-status">
-                <span class="iphone-pme-time">09:41</span>
-                <span class="iphone-ios-icons" aria-hidden="true">
-                  <svg width="17" height="11" viewBox="0 0 17 11" fill="none" aria-hidden="true"><path d="M1 7h2.5v3H1V7Zm4-2h2.5v5H5V5Zm4-2h2.5v7H9V3Zm4-2H16v9h-2.5V1Z" fill="currentColor"/></svg>
-                  <svg width="15" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 1.2a4.9 4.9 0 0 1 4.8 3.8H13a6.5 6.5 0 1 0-11 0h.7a4.9 4.9 0 0 1 4.8-3.8Zm0 1.5a3.35 3.35 0 0 0-3.2 2.3h6.4a3.35 3.35 0 0 0-3.2-2.3Zm-5.9 4.3c0-.4.3-.7.7-.7h10.4c.4 0 .7.3.7.7 0 2.4-2.4 4.3-5.5 4.3s-5.5-1.9-5.5-4.3Z" fill="currentColor"/></svg>
-                  <svg width="25" height="12" viewBox="0 0 25 12" fill="none" aria-hidden="true"><rect x="1" y="2" width="19" height="8" rx="2.2" stroke="currentColor" stroke-width="1.15" opacity="0.9"/><path d="M21.5 4.5v3a1.6 1.6 0 0 0 1.6 1.6h.1A1.3 1.3 0 0 0 24.5 8V5a1.3 1.3 0 0 0-1.3-1.3h-.1A1.6 1.6 0 0 0 21.5 4.5Z" fill="currentColor" opacity="0.9"/><rect x="2.5" y="3.5" width="14" height="5" rx="1" fill="currentColor"/></svg>
-                </span>
-              </div>
-              <div class="iphone-pme-body">
-                <p class="iphone-pme-greeting">Pinapp</p>
-                <p class="iphone-pme-title">Bonjour</p>
-                <p class="iphone-pme-date">Mardi 7 avril · Journée chargée</p>
-                <div class="iphone-pme-kpis">
-                  <div class="iphone-pme-kpi">
-                    <span class="iphone-pme-kpi-val">4</span>
-                    <span class="iphone-pme-kpi-lbl">rdv</span>
+          <div class="neuro-home-band__process">
+            <div
+              style="display: flex; flex-wrap: wrap; gap: var(--space-7); align-items: center; justify-content: center">
+              <!-- Texte + étapes -->
+              <div style="flex: 1; min-width: 260px; max-width: 480px">
+                <p class="label" style="margin-bottom: var(--space-3)">&Eacute;TAPES</p>
+                <h2
+                  style="
+                    font-size: clamp(2rem, 5vw, 2.75rem);
+                    letter-spacing: -0.03em;
+                    line-height: 1.1;
+                    margin-bottom: var(--space-5);
+                  ">
+                  Sur mesure.<br />Clair.<br /><span class="hero-word accent">Sous votre contr&ocirc;le.</span>
+                </h2>
+                <div style="display: flex; flex-direction: column; gap: var(--space-4)">
+                  <div style="display: flex; gap: var(--space-3); align-items: flex-start">
+                    <span
+                      style="
+                        font-size: 1.5rem;
+                        font-weight: 700;
+                        color: var(--accent-teal);
+                        min-width: 2rem;
+                        line-height: 1.2;
+                      "
+                      >1</span
+                    >
+                    <div>
+                      <p style="font-weight: 600; margin-bottom: 4px">
+                        Cadrage &mdash; synth&egrave;se &eacute;crite (incluse)
+                      </p>
+                      <p style="font-size: 14px; opacity: 0.7">
+                        Activit&eacute;, clients, points de friction : on isole ce qui doit &ecirc;tre automatis&eacute;
+                        &mdash; en langage clair, sans jargon inutile.
+                      </p>
+                    </div>
                   </div>
-                  <div class="iphone-pme-kpi">
-                    <span class="iphone-pme-kpi-val">2</span>
-                    <span class="iphone-pme-kpi-lbl">devis</span>
+                  <div style="display: flex; gap: var(--space-3); align-items: flex-start">
+                    <span
+                      style="
+                        font-size: 1.5rem;
+                        font-weight: 700;
+                        color: var(--accent-teal);
+                        min-width: 2rem;
+                        line-height: 1.2;
+                      "
+                      >2</span
+                    >
+                    <div>
+                      <p style="font-weight: 600; margin-bottom: 4px">Ing&eacute;nierie &amp; int&eacute;gration</p>
+                      <p style="font-size: 14px; opacity: 0.7">
+                        Site, relances, devis : assemblage et essais &mdash; vous validez avant la mise en ligne. Rien
+                        n&rsquo;est impos&eacute;.
+                      </p>
+                    </div>
                   </div>
-                  <div class="iphone-pme-kpi">
-                    <span class="iphone-pme-kpi-val">420&nbsp;€</span>
-                    <span class="iphone-pme-kpi-lbl">encaissé</span>
+                  <div style="display: flex; gap: var(--space-3); align-items: flex-start">
+                    <span
+                      style="
+                        font-size: 1.5rem;
+                        font-weight: 700;
+                        color: var(--accent-teal);
+                        min-width: 2rem;
+                        line-height: 1.2;
+                      "
+                      >3</span
+                    >
+                    <div>
+                      <p style="font-weight: 600; margin-bottom: 4px">Mise en service &amp; autonomie</p>
+                      <p style="font-size: 14px; opacity: 0.7">
+                        Les automatismes tournent en r&eacute;el ; vos clients re&ccedil;oivent devis et relances au bon
+                        rythme. Vous restez sur le m&eacute;tier.
+                      </p>
+                    </div>
                   </div>
                 </div>
-                <p class="iphone-pme-section">À faire</p>
-                <ul class="iphone-pme-list">
-                  <li>
-                    <span class="iphone-pme-tag iphone-pme-tag--rdv">RDV</span>
-                    <span class="iphone-pme-li-main">
-                      14:30 · relance &eacute;crite
-                      <span class="iphone-pme-li-sub">M. Dupont — devis isolation thermique</span>
-                    </span>
-                  </li>
-                  <li>
-                    <span class="iphone-pme-tag iphone-pme-tag--dev">SIG</span>
-                    <span class="iphone-pme-li-main">
-                      Devis à valider
-                      <span class="iphone-pme-li-sub">Plomberie Martin · 1&nbsp;240&nbsp;€ TTC</span>
-                    </span>
-                  </li>
-                  <li>
-                    <span class="iphone-pme-tag iphone-pme-tag--auto">AUTO</span>
-                    <span class="iphone-pme-li-main">
-                      Relances J+1
-                      <span class="iphone-pme-li-sub">3 devis sans réponse · ce soir 18&nbsp;h</span>
-                    </span>
-                  </li>
-                </ul>
+                <div style="margin-top: var(--space-5); display: flex; gap: var(--space-4); flex-wrap: wrap">
+                  <div style="text-align: center">
+                    <p
+                      style="
+                        font-size: clamp(1.75rem, 4vw, 2.25rem);
+                        font-weight: 600;
+                        letter-spacing: -0.04em;
+                        color: var(--accent-teal);
+                        line-height: 1;
+                      ">
+                      <span>48</span><span style="font-size: 1rem; font-weight: 400; opacity: 0.7">h</span>
+                    </p>
+                    <p class="label" style="margin-top: 4px; opacity: 0.55">délai Starter</p>
+                  </div>
+                  <div style="text-align: center">
+                    <p
+                      style="
+                        font-size: clamp(1.75rem, 4vw, 2.25rem);
+                        font-weight: 600;
+                        letter-spacing: -0.04em;
+                        color: var(--accent-teal);
+                        line-height: 1;
+                      ">
+                      <span>100</span><span style="font-size: 1rem; font-weight: 400; opacity: 0.7">%</span>
+                    </p>
+                    <p class="label" style="margin-top: 4px; opacity: 0.55">contrôle client</p>
+                  </div>
+                  <div style="text-align: center">
+                    <p
+                      style="
+                        font-size: clamp(1.75rem, 4vw, 2.25rem);
+                        font-weight: 600;
+                        letter-spacing: -0.04em;
+                        color: var(--accent-teal);
+                        line-height: 1;
+                      ">
+                      <span>0</span><span style="font-size: 1rem; font-weight: 400; opacity: 0.7">€</span>
+                    </p>
+                    <p class="label" style="margin-top: 4px; opacity: 0.55">0 abonnement</p>
+                  </div>
+                </div>
               </div>
-              <div class="iphone-home-bar" aria-hidden="true"></div>
+              <!-- iPhone — aperçu type iOS (Dynamic Island, statut, pilotage TPE) -->
+              <div
+                class="iphone-mockup"
+                aria-label="Aperçu sur un écran d’iPhone : tableau de bord avec rendez-vous, devis et relances automatiques"
+                role="img"
+                style="flex-shrink: 0">
+                <div class="iphone-glass-highlight" aria-hidden="true"></div>
+                <div class="iphone-device-screen">
+                  <div class="iphone-dynamic-island" aria-hidden="true"></div>
+                  <div class="iphone-screen iphone-pme">
+                    <div class="iphone-ios-status">
+                      <span class="iphone-pme-time">09:41</span>
+                      <span class="iphone-ios-icons" aria-hidden="true">
+                        <svg width="17" height="11" viewBox="0 0 17 11" fill="none" aria-hidden="true">
+                          <path
+                            d="M1 7h2.5v3H1V7Zm4-2h2.5v5H5V5Zm4-2h2.5v7H9V3Zm4-2H16v9h-2.5V1Z"
+                            fill="currentColor" />
+                        </svg>
+                        <svg width="15" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true">
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M7.5 1.2a4.9 4.9 0 0 1 4.8 3.8H13a6.5 6.5 0 1 0-11 0h.7a4.9 4.9 0 0 1 4.8-3.8Zm0 1.5a3.35 3.35 0 0 0-3.2 2.3h6.4a3.35 3.35 0 0 0-3.2-2.3Zm-5.9 4.3c0-.4.3-.7.7-.7h10.4c.4 0 .7.3.7.7 0 2.4-2.4 4.3-5.5 4.3s-5.5-1.9-5.5-4.3Z"
+                            fill="currentColor" />
+                        </svg>
+                        <svg width="25" height="12" viewBox="0 0 25 12" fill="none" aria-hidden="true">
+                          <rect
+                            x="1"
+                            y="2"
+                            width="19"
+                            height="8"
+                            rx="2.2"
+                            stroke="currentColor"
+                            stroke-width="1.15"
+                            opacity="0.9" />
+                          <path
+                            d="M21.5 4.5v3a1.6 1.6 0 0 0 1.6 1.6h.1A1.3 1.3 0 0 0 24.5 8V5a1.3 1.3 0 0 0-1.3-1.3h-.1A1.6 1.6 0 0 0 21.5 4.5Z"
+                            fill="currentColor"
+                            opacity="0.9" />
+                          <rect x="2.5" y="3.5" width="14" height="5" rx="1" fill="currentColor" />
+                        </svg>
+                      </span>
+                    </div>
+                    <div class="iphone-pme-body">
+                      <p class="iphone-pme-greeting">Pinapp</p>
+                      <p class="iphone-pme-title">Bonjour</p>
+                      <p class="iphone-pme-date">Mardi 7 avril · Journée chargée</p>
+                      <div class="iphone-pme-kpis">
+                        <div class="iphone-pme-kpi">
+                          <span class="iphone-pme-kpi-val">4</span>
+                          <span class="iphone-pme-kpi-lbl">rdv</span>
+                        </div>
+                        <div class="iphone-pme-kpi">
+                          <span class="iphone-pme-kpi-val">2</span>
+                          <span class="iphone-pme-kpi-lbl">devis</span>
+                        </div>
+                        <div class="iphone-pme-kpi">
+                          <span class="iphone-pme-kpi-val">420&nbsp;€</span>
+                          <span class="iphone-pme-kpi-lbl">encaissé</span>
+                        </div>
+                      </div>
+                      <p class="iphone-pme-section">À faire</p>
+                      <ul class="iphone-pme-list">
+                        <li>
+                          <span class="iphone-pme-tag iphone-pme-tag--rdv">RDV</span>
+                          <span class="iphone-pme-li-main">
+                            14:30 · relance &eacute;crite
+                            <span class="iphone-pme-li-sub">M. Dupont — devis isolation thermique</span>
+                          </span>
+                        </li>
+                        <li>
+                          <span class="iphone-pme-tag iphone-pme-tag--dev">SIG</span>
+                          <span class="iphone-pme-li-main">
+                            Devis à valider
+                            <span class="iphone-pme-li-sub">Plomberie Martin · 1&nbsp;240&nbsp;€ TTC</span>
+                          </span>
+                        </li>
+                        <li>
+                          <span class="iphone-pme-tag iphone-pme-tag--auto">AUTO</span>
+                          <span class="iphone-pme-li-main">
+                            Relances J+1
+                            <span class="iphone-pme-li-sub">3 devis sans réponse · ce soir 18&nbsp;h</span>
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="iphone-home-bar" aria-hidden="true"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      </div>
-    </div>
-  </section>
-  <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
+      </section>
+      <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
 
-  <!-- 4. OFFRES RÉSUMÉES -->
-  <section class="section section-enter">
-    <div class="container">
-      <h2 style="font-size:var(--text-h1);text-align:center;letter-spacing:-0.02em;margin-bottom:var(--space-2);">Composez votre projet.</h2>
-      <p style="text-align:center;opacity:0.65;font-size:1.0625rem;margin-bottom:var(--space-2);max-width:40rem;margin-left:auto;margin-right:auto;">Tarifs 2026 : la m&ecirc;me exigence que sur pinapp.fr &mdash; prestations pr&ecirc;tes &agrave; l&rsquo;emploi, outils reli&eacute;s entre eux et accompagnement &agrave; la hauteur. Un investissement unique, souvent rentabilis&eacute; en quelques semaines.</p>
-      <p style="text-align:center;opacity:0.55;font-size:0.9375rem;margin-bottom:var(--space-3);max-width:34rem;margin-left:auto;margin-right:auto;line-height:1.55;"><strong style="font-weight:600;">Indicatif :</strong> &agrave; partir de 349 &euro; (Starter) jusqu&rsquo;au pack tout-en-un &mdash; paiement &agrave; la livraison convenue, pas d&rsquo;abonnement obligatoire sur ce qui est fix&eacute; ensemble.</p>
-      <p style="text-align:center;opacity:0.55;font-size:0.9375rem;margin-bottom:var(--space-6);">D&eacute;lais sur chaque fiche &middot; conditions dans les <a href="legal/cgv.html" style="color:var(--accent-teal);">CGV</a></p>
-      <div class="grid grid-2" style="max-width:860px;margin:0 auto;gap:var(--space-4);">
-        <a href="offres/starter/index.html" class="card" style="text-decoration:none;color:inherit;display:block;padding:var(--space-5);">
-          <p class="label" style="margin-bottom:var(--space-2);">STARTER</p>
-          <p style="font-size:2rem;font-weight:700;color:var(--accent-teal);letter-spacing:-0.04em;margin-bottom:var(--space-1);">349 €</p>
-          <p style="font-size:13px;opacity:0.6;margin-bottom:var(--space-3);">Mise en ligne rapide (48 h ouvr&eacute;es vis&eacute;es)</p>
-          <h3 style="font-size:1.125rem;margin:0 0 var(--space-2);">Une page vitrine rapide</h3>
-          <p style="font-size:14px;opacity:0.7;">Présentation, contact, réservation — pour démarrer ou tester rapidement.</p>
-          <p style="margin-top:var(--space-3);font-size:13px;color:var(--accent-teal);font-weight:500;">Voir le détail →</p>
-        </a>
-        <a href="offres/sites/index.html" class="card" style="text-decoration:none;color:inherit;display:block;padding:var(--space-5);">
-          <p class="label" style="margin-bottom:var(--space-2);">SITE &mdash; NIVEAU SIGNATURE</p>
-          <p style="font-size:2rem;font-weight:700;color:var(--accent-teal);letter-spacing:-0.04em;margin-bottom:var(--space-1);">1 190 €</p>
-          <p style="font-size:13px;opacity:0.6;margin-bottom:var(--space-3);">Livraison en 7 jours (indicatif)</p>
-          <h3 style="font-size:1.125rem;margin:0 0 var(--space-2);">Vitrine multi-pages sur mesure</h3>
-          <p style="font-size:14px;opacity:0.7;">Design premium, performance mobile, SEO, formulaires, m&eacute;dias &mdash; pr&ecirc;t &agrave; &eacute;voluer avec vous.</p>
-          <p style="margin-top:var(--space-3);font-size:13px;color:var(--accent-teal);font-weight:500;">Voir le détail →</p>
-        </a>
-        <a href="offres/automatisation/index.html" class="card" style="text-decoration:none;color:inherit;display:block;padding:var(--space-5);">
-          <p class="label" style="margin-bottom:var(--space-2);">FLUX INTELLIGENTS</p>
-          <p style="font-size:2rem;font-weight:700;color:var(--accent-teal);letter-spacing:-0.04em;margin-bottom:var(--space-1);">990 €</p>
-          <p style="font-size:13px;opacity:0.6;margin-bottom:var(--space-3);">Livraison en 5 jours (indicatif)</p>
-          <h3 style="font-size:1.125rem;margin:0 0 var(--space-2);">Relances &amp; devis encha&icirc;n&eacute;s</h3>
-          <p style="font-size:14px;opacity:0.7;">Parcours clients reli&eacute;s : relances, propositions, envois &mdash; vous validez ce qui doit l&rsquo;&ecirc;tre.</p>
-          <p style="margin-top:var(--space-3);font-size:13px;color:var(--accent-teal);font-weight:500;">Voir le détail →</p>
-        </a>
-        <a href="offres/systeme-complet/index.html" class="card" style="text-decoration:none;color:inherit;display:block;padding:var(--space-5);border-color:var(--accent-teal);">
-          <p class="label" style="margin-bottom:var(--space-2);color:var(--accent-teal);">&Eacute;COSYST&Egrave;ME COMPLET</p>
-          <p style="font-size:2rem;font-weight:700;color:var(--accent-teal);letter-spacing:-0.04em;margin-bottom:var(--space-1);">1 990 €</p>
-          <p style="font-size:13px;opacity:0.6;margin-bottom:var(--space-3);">Livraison en 10 jours (indicatif)</p>
-          <h3 style="font-size:1.125rem;margin:0 0 var(--space-2);">Site + automatisations : tout li&eacute; ensemble</h3>
-          <p style="font-size:14px;opacity:0.7;">Le choix le plus coh&eacute;rent si vous visez une pr&eacute;sence premium et des flux d&eacute;j&agrave; branch&eacute;s &mdash; tarif avantageux par rapport au cumul des modules phares.</p>
-          <p style="margin-top:var(--space-3);font-size:13px;color:var(--accent-teal);font-weight:500;">Voir le détail →</p>
-        </a>
-      </div>
-      <p style="text-align:center;margin-top:var(--space-4);font-size:13px;opacity:0.55;">Pas sûr de ce qu'il vous faut ? Le diagnostic est là pour ça.</p>
-    </div>
-  </section>
-  <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
+      <!-- 4. POURQUOI PINAPP — arguments visuels (compact, sans jargon) -->
+      <section class="section section-enter" aria-labelledby="pourquoi-pinapp-title">
+        <div class="container" style="max-width: 62rem">
+          <p class="label" style="text-align: center; margin-bottom: var(--space-2)">POURQUOI PINAPP</p>
+          <h2
+            id="pourquoi-pinapp-title"
+            style="
+              font-size: var(--text-h1);
+              text-align: center;
+              letter-spacing: -0.02em;
+              margin-bottom: var(--space-2);
+            ">
+            Ce que vous gagnez.
+          </h2>
+          <p
+            style="
+              text-align: center;
+              opacity: 0.65;
+              font-size: 1.0625rem;
+              margin-bottom: var(--space-6);
+              max-width: 40rem;
+              margin-left: auto;
+              margin-right: auto;
+              line-height: 1.55;
+            ">
+            Moins &agrave; penser. Plus clair. Et toujours sous votre contr&ocirc;le.
+          </p>
 
-  <!-- 5. RÉALISATIONS APERÇU -->
-  <section class="section section-enter">
-    <div class="container" style="text-align:center;">
-      <h2 style="font-size:var(--text-h1);letter-spacing:-0.02em;margin-bottom:var(--space-2);">Voici ce que ça donne.</h2>
-      <p style="opacity:0.65;font-size:1.0625rem;margin-bottom:var(--space-6);">Ce ne sont pas des thèmes à acheter : chaque projet client est conçu et développé pour une activité précise. Ici, des <strong>démos interactives</strong> pour vous projeter.</p>
-      <div class="grid grid-3" style="max-width:900px;margin:0 auto var(--space-6);">
-        <a href="demo/artisan/index.html" class="card" style="text-decoration:none;color:inherit;padding:var(--space-5);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-teal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block;margin-bottom:var(--space-3)"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-          <h3 style="font-size:1rem;margin:0 0 var(--space-2);">Artisan plombier</h3>
-          <p style="font-size:13px;opacity:0.7;">Site vitrine + devis automatisés. Des demandes entrantes sans démarchage.</p>
-          <p style="font-size:11px;opacity:0.5;margin-top:4px;font-weight:500;color:var(--accent-teal);">Voir la démo →</p>
-        </a>
-        <a href="demo/restaurant/index.html" class="card" style="text-decoration:none;color:inherit;padding:var(--space-5);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-teal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block;margin-bottom:var(--space-3)"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>
-          <h3 style="font-size:1rem;margin:0 0 var(--space-2);">Restaurant japonais</h3>
-          <p style="font-size:13px;opacity:0.7;">Réservations en ligne + menu dynamique. Moins de no-shows, plus de couverts.</p>
-          <p style="font-size:11px;opacity:0.5;margin-top:4px;font-weight:500;color:var(--accent-teal);">Voir la démo →</p>
-        </a>
-        <a href="demo/coach/index.html" class="card" style="text-decoration:none;color:inherit;padding:var(--space-5);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-teal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block;margin-bottom:var(--space-3)"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-          <h3 style="font-size:1rem;margin:0 0 var(--space-2);">Coach indépendant</h3>
-          <p style="font-size:13px;opacity:0.7;">Site + relances clients. Des heures récupérées sur l'administratif chaque semaine.</p>
-          <p style="font-size:11px;opacity:0.5;margin-top:4px;font-weight:500;color:var(--accent-teal);">Voir la démo →</p>
-        </a>
-        <a href="demo/sur-mesure/index.html" class="card" style="text-decoration:none;color:inherit;padding:var(--space-5);border-color:rgba(196,167,125,0.35);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-teal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block;margin-bottom:var(--space-3)"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-          <h3 style="font-size:1rem;margin:0 0 var(--space-2);">Vitrine « complète »</h3>
-          <p style="font-size:13px;opacity:0.7;">Galerie dense, à propos, témoignage avec photo, formulaire — démo type haut de gamme sur-mesure.</p>
-          <p style="font-size:11px;opacity:0.5;margin-top:4px;font-weight:500;color:var(--accent-teal);">Voir Luminance &amp; Lieu →</p>
-        </a>
-  
-    </div>
-      <div style="text-align:center;margin-top:var(--space-4);"><a href="realisations/index.html" class="btn btn-secondary">Voir toutes les réalisations →</a></div>
-      <p style="text-align:center;margin-top:var(--space-3);font-size:13px;opacity:0.55;"><a href="realisations/index.html?filtre=beaute" style="color:var(--accent-teal);font-weight:500;text-decoration:none;">Institut, coiffure, ongles, cils… Voir les d&eacute;mos beaut&eacute; &rarr;</a></p>
-  </section>
-  <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
+          <div class="grid grid-2" style="gap: var(--space-4)">
+            <article class="card" style="padding: var(--space-5)">
+              <svg
+                width="26"
+                height="26"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="var(--accent-teal)"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                style="display: block; margin-bottom: var(--space-3)">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a7.7 7.7 0 0 0 0-6"></path>
+                <path d="M4.6 9a7.7 7.7 0 0 0 0 6"></path>
+                <path d="M7.9 16.7 9.2 15.4"></path>
+                <path d="M14.8 8.6 16.1 7.3"></path>
+              </svg>
+              <h3 style="font-size: 1.125rem; margin: 0 0 var(--space-2)">Contr&ocirc;le simple</h3>
+              <p style="font-size: 14px; opacity: 0.75; line-height: 1.6; margin: 0">
+                Le syst&egrave;me pr&eacute;pare. Vous d&eacute;cidez. Rien ne part sans accord.
+              </p>
+            </article>
 
-  <!-- 3 ENGAGEMENTS ANIMÉS -->
-  <section class="section section-enter" style="padding-top:0;">
-    <div class="container">
-      <p class="label" style="text-align:center;margin-bottom:var(--space-5);">INDICATEURS &mdash; CAS TYPIQUES</p>
-      <div style="display:flex;flex-wrap:wrap;gap:var(--space-6);justify-content:center;max-width:780px;margin:0 auto;">
-        <div style="text-align:center;flex:1;min-width:160px;">
-          <p style="font-size:clamp(3rem,8vw,5rem);font-weight:700;letter-spacing:-0.04em;line-height:1;background:linear-gradient(135deg,#39E075,#00E5CC);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;"><span data-count="48">0</span>h</p>
-          <p style="font-size:14px;opacity:0.6;margin-top:10px;line-height:1.4;">récupérées<br>par mois</p>
+            <article class="card" style="padding: var(--space-5)">
+              <svg
+                width="26"
+                height="26"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="var(--accent-teal)"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                style="display: block; margin-bottom: var(--space-3)">
+                <path d="M21 10c0 7-9 12-9 12S3 17 3 10a9 9 0 0 1 18 0Z"></path>
+                <path d="M12 10.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"></path>
+              </svg>
+              <h3 style="font-size: 1.125rem; margin: 0 0 var(--space-2)">Clart&eacute; imm&eacute;diate</h3>
+              <p style="font-size: 14px; opacity: 0.75; line-height: 1.6; margin: 0">
+                On va au point. Une d&eacute;cision &agrave; la fois, et vous savez o&ugrave; vous en &ecirc;tes.
+              </p>
+            </article>
+
+            <article class="card" style="padding: var(--space-5)">
+              <svg
+                width="26"
+                height="26"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="var(--accent-teal)"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                style="display: block; margin-bottom: var(--space-3)">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <path d="M9 12l2 2 4-4"></path>
+              </svg>
+              <h3 style="font-size: 1.125rem; margin: 0 0 var(--space-2)">Toujours r&eacute;versible</h3>
+              <p style="font-size: 14px; opacity: 0.75; line-height: 1.6; margin: 0">
+                Les actions sont valid&eacute;es, tra&ccedil;ables et ajustables. Pas de pi&egrave;ge.
+              </p>
+            </article>
+
+            <article class="card" style="padding: var(--space-5)">
+              <svg
+                width="26"
+                height="26"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="var(--accent-teal)"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                style="display: block; margin-bottom: var(--space-3)">
+                <path d="M20 7h-9"></path>
+                <path d="M14 17H5"></path>
+                <circle cx="17" cy="17" r="3"></circle>
+                <circle cx="7" cy="7" r="3"></circle>
+              </svg>
+              <h3 style="font-size: 1.125rem; margin: 0 0 var(--space-2)">Charge mentale r&eacute;duite</h3>
+              <p style="font-size: 14px; opacity: 0.75; line-height: 1.6; margin: 0">
+                Les t&acirc;ches r&eacute;p&eacute;titives sont pr&eacute;par&eacute;es. Vous gardez
+                l&rsquo;&eacute;nergie pour le m&eacute;tier.
+              </p>
+            </article>
+          </div>
+
+          <div style="text-align: center; margin-top: var(--space-6)">
+            <a href="realisations/index.html" class="btn btn-secondary">Voir les r&eacute;alisations &rarr;</a>
+          </div>
         </div>
-        <div style="text-align:center;flex:1;min-width:160px;">
-          <p style="font-size:clamp(3rem,8vw,5rem);font-weight:700;letter-spacing:-0.04em;line-height:1;background:linear-gradient(135deg,#39E075,#00E5CC);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;"><span data-count="94">0</span>%</p>
-          <p style="font-size:14px;opacity:0.6;margin-top:10px;line-height:1.4;">souvent sans<br>action manuelle</p>
+      </section>
+      <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
+
+      <!-- 4. OFFRES RÉSUMÉES -->
+      <section class="section section-enter">
+        <div class="container">
+          <h2
+            style="
+              font-size: var(--text-h1);
+              text-align: center;
+              letter-spacing: -0.02em;
+              margin-bottom: var(--space-2);
+            ">
+            Composez votre projet.
+          </h2>
+          <p
+            style="
+              text-align: center;
+              opacity: 0.65;
+              font-size: 1.0625rem;
+              margin-bottom: var(--space-2);
+              max-width: 40rem;
+              margin-left: auto;
+              margin-right: auto;
+            ">
+            Tarifs 2026 : la m&ecirc;me exigence que sur pinapp.fr &mdash; prestations pr&ecirc;tes &agrave;
+            l&rsquo;emploi, outils reli&eacute;s entre eux et accompagnement &agrave; la hauteur. Un investissement
+            unique, pens&eacute; pour durer. Le r&eacute;sultat d&eacute;pend de votre activit&eacute;.
+          </p>
+          <p
+            style="
+              text-align: center;
+              opacity: 0.55;
+              font-size: 0.9375rem;
+              margin-bottom: var(--space-3);
+              max-width: 34rem;
+              margin-left: auto;
+              margin-right: auto;
+              line-height: 1.55;
+            ">
+            <strong style="font-weight: 600">Indicatif :</strong> &agrave; partir de 349 &euro; (Starter) jusqu&rsquo;au
+            pack tout-en-un &mdash; paiement &agrave; la livraison convenue, pas d&rsquo;abonnement obligatoire sur ce
+            qui est fix&eacute; ensemble.
+          </p>
+          <p style="text-align: center; opacity: 0.55; font-size: 0.9375rem; margin-bottom: var(--space-6)">
+            D&eacute;lais sur chaque fiche &middot; conditions dans les
+            <a href="legal/cgv.html" style="color: var(--accent-teal)">CGV</a>
+          </p>
+          <div class="grid grid-2" style="max-width: 860px; margin: 0 auto; gap: var(--space-4)">
+            <a
+              href="offres/starter/index.html"
+              class="card"
+              style="text-decoration: none; color: inherit; display: block; padding: var(--space-5)">
+              <p class="label" style="margin-bottom: var(--space-2)">STARTER</p>
+              <p
+                style="
+                  font-size: 2rem;
+                  font-weight: 700;
+                  color: var(--accent-teal);
+                  letter-spacing: -0.04em;
+                  margin-bottom: var(--space-1);
+                ">
+                349 €
+              </p>
+              <p style="font-size: 13px; opacity: 0.6; margin-bottom: var(--space-3)">
+                Mise en ligne rapide (48 h ouvr&eacute;es vis&eacute;es)
+              </p>
+              <h3 style="font-size: 1.125rem; margin: 0 0 var(--space-2)">Une page vitrine rapide</h3>
+              <p style="font-size: 14px; opacity: 0.7">
+                Présentation, contact, réservation — pour démarrer ou tester rapidement.
+              </p>
+              <p style="margin-top: var(--space-3); font-size: 13px; color: var(--accent-teal); font-weight: 500">
+                Voir le détail →
+              </p>
+            </a>
+            <a
+              href="offres/sites/index.html"
+              class="card"
+              style="text-decoration: none; color: inherit; display: block; padding: var(--space-5)">
+              <p class="label" style="margin-bottom: var(--space-2)">SITE &mdash; NIVEAU SIGNATURE</p>
+              <p
+                style="
+                  font-size: 2rem;
+                  font-weight: 700;
+                  color: var(--accent-teal);
+                  letter-spacing: -0.04em;
+                  margin-bottom: var(--space-1);
+                ">
+                À partir de 1 190 €
+              </p>
+              <p style="font-size: 13px; opacity: 0.6; margin-bottom: var(--space-3)">
+                Livraison en 5–7 jours (indicatif)
+              </p>
+              <h3 style="font-size: 1.125rem; margin: 0 0 var(--space-2)">Vitrine multi-pages sur mesure</h3>
+              <p style="font-size: 14px; opacity: 0.7">
+                Design premium, performance mobile, SEO, formulaires, m&eacute;dias &mdash; pr&ecirc;t &agrave;
+                &eacute;voluer avec vous.
+              </p>
+              <p style="margin-top: var(--space-3); font-size: 13px; color: var(--accent-teal); font-weight: 500">
+                Voir le détail →
+              </p>
+            </a>
+            <a
+              href="offres/automatisation/index.html"
+              class="card"
+              style="text-decoration: none; color: inherit; display: block; padding: var(--space-5)">
+              <p class="label" style="margin-bottom: var(--space-2)">FLUX INTELLIGENTS</p>
+              <p
+                style="
+                  font-size: 2rem;
+                  font-weight: 700;
+                  color: var(--accent-teal);
+                  letter-spacing: -0.04em;
+                  margin-bottom: var(--space-1);
+                ">
+                À partir de 990 €
+              </p>
+              <p style="font-size: 13px; opacity: 0.6; margin-bottom: var(--space-3)">
+                Livraison en 3–5 jours (indicatif)
+              </p>
+              <h3 style="font-size: 1.125rem; margin: 0 0 var(--space-2)">
+                Relances &amp; devis encha&icirc;n&eacute;s
+              </h3>
+              <p style="font-size: 14px; opacity: 0.7">
+                Parcours clients reli&eacute;s : relances, propositions, envois &mdash; vous validez ce qui doit
+                l&rsquo;&ecirc;tre.
+              </p>
+              <p style="margin-top: var(--space-3); font-size: 13px; color: var(--accent-teal); font-weight: 500">
+                Voir le détail →
+              </p>
+            </a>
+            <a
+              href="offres/systeme-complet/index.html"
+              class="card"
+              style="
+                text-decoration: none;
+                color: inherit;
+                display: block;
+                padding: var(--space-5);
+                border-color: var(--accent-teal);
+              ">
+              <p class="label" style="margin-bottom: var(--space-2); color: var(--accent-teal)">
+                &Eacute;COSYST&Egrave;ME COMPLET
+              </p>
+              <p
+                style="
+                  font-size: 2rem;
+                  font-weight: 700;
+                  color: var(--accent-teal);
+                  letter-spacing: -0.04em;
+                  margin-bottom: var(--space-1);
+                ">
+                À partir de 1 990 €
+              </p>
+              <p style="font-size: 13px; opacity: 0.6; margin-bottom: var(--space-3)">
+                Livraison en 10–15 jours (indicatif)
+              </p>
+              <h3 style="font-size: 1.125rem; margin: 0 0 var(--space-2)">
+                Site + automatisations : tout li&eacute; ensemble
+              </h3>
+              <p style="font-size: 14px; opacity: 0.7">
+                Le choix le plus coh&eacute;rent si vous visez une pr&eacute;sence premium et des flux
+                d&eacute;j&agrave; branch&eacute;s &mdash; tarif avantageux par rapport au cumul des modules phares.
+              </p>
+              <p style="margin-top: var(--space-3); font-size: 13px; color: var(--accent-teal); font-weight: 500">
+                Voir le détail →
+              </p>
+            </a>
+          </div>
+          <p style="text-align: center; margin-top: var(--space-4); font-size: 13px; opacity: 0.55">
+            Pas sûr de ce qu'il vous faut ? Le diagnostic est là pour ça.
+          </p>
         </div>
-        <div style="text-align:center;flex:1;min-width:160px;">
-          <p style="font-size:clamp(3rem,8vw,5rem);font-weight:700;letter-spacing:-0.04em;line-height:1;background:linear-gradient(135deg,#39E075,#00E5CC);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;"><span data-count="15">0</span>min</p>
-          <p style="font-size:14px;opacity:0.6;margin-top:10px;line-height:1.4;">prospect<br>→ proposition</p>
+      </section>
+      <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
+
+      <!-- 5. RÉALISATIONS APERÇU -->
+      <section class="section section-enter">
+        <div class="container" style="text-align: center">
+          <h2 style="font-size: var(--text-h1); letter-spacing: -0.02em; margin-bottom: var(--space-2)">
+            Voici ce que ça donne.
+          </h2>
+          <p style="opacity: 0.65; font-size: 1.0625rem; margin-bottom: var(--space-6)">
+            Ce ne sont pas des thèmes à acheter : chaque projet client est conçu et développé pour une activité précise.
+            Ici, des <strong>démos interactives</strong> pour vous projeter.
+          </p>
+          <div class="grid grid-3" style="max-width: 900px; margin: 0 auto var(--space-6)">
+            <a
+              href="demo/artisan/index.html"
+              class="card"
+              style="text-decoration: none; color: inherit; padding: var(--space-5)">
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="var(--accent-teal)"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                style="display: block; margin-bottom: var(--space-3)">
+                <path
+                  d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+              </svg>
+              <h3 style="font-size: 1rem; margin: 0 0 var(--space-2)">Artisan plombier</h3>
+              <p style="font-size: 13px; opacity: 0.7">
+                Site vitrine + devis automatisés. Des demandes entrantes sans démarchage.
+              </p>
+              <p style="font-size: 11px; opacity: 0.5; margin-top: 4px; font-weight: 500; color: var(--accent-teal)">
+                Voir la démo →
+              </p>
+            </a>
+            <a
+              href="demo/restaurant/index.html"
+              class="card"
+              style="text-decoration: none; color: inherit; padding: var(--space-5)">
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="var(--accent-teal)"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                style="display: block; margin-bottom: var(--space-3)">
+                <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
+                <path d="M7 2v20" />
+                <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7" />
+              </svg>
+              <h3 style="font-size: 1rem; margin: 0 0 var(--space-2)">Restaurant japonais</h3>
+              <p style="font-size: 13px; opacity: 0.7">
+                Réservations en ligne + menu dynamique. Moins de no-shows, plus de couverts.
+              </p>
+              <p style="font-size: 11px; opacity: 0.5; margin-top: 4px; font-weight: 500; color: var(--accent-teal)">
+                Voir la démo →
+              </p>
+            </a>
+            <a
+              href="demo/coach/index.html"
+              class="card"
+              style="text-decoration: none; color: inherit; padding: var(--space-5)">
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="var(--accent-teal)"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                style="display: block; margin-bottom: var(--space-3)">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+              </svg>
+              <h3 style="font-size: 1rem; margin: 0 0 var(--space-2)">Coach indépendant</h3>
+              <p style="font-size: 13px; opacity: 0.7">
+                Site + relances clients. Des heures récupérées sur l'administratif chaque semaine.
+              </p>
+              <p style="font-size: 11px; opacity: 0.5; margin-top: 4px; font-weight: 500; color: var(--accent-teal)">
+                Voir la démo →
+              </p>
+            </a>
+            <a
+              href="demo/sur-mesure/index.html"
+              class="card"
+              style="
+                text-decoration: none;
+                color: inherit;
+                padding: var(--space-5);
+                border-color: rgba(196, 167, 125, 0.35);
+              ">
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="var(--accent-teal)"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                style="display: block; margin-bottom: var(--space-3)">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <path d="M21 15l-5-5L5 21" />
+              </svg>
+              <h3 style="font-size: 1rem; margin: 0 0 var(--space-2)">Vitrine « complète »</h3>
+              <p style="font-size: 13px; opacity: 0.7">
+                Galerie dense, à propos, témoignage avec photo, formulaire — démo type haut de gamme sur-mesure.
+              </p>
+              <p style="font-size: 11px; opacity: 0.5; margin-top: 4px; font-weight: 500; color: var(--accent-teal)">
+                Voir Luminance &amp; Lieu →
+              </p>
+            </a>
+          </div>
+          <div style="text-align: center; margin-top: var(--space-4)">
+            <a href="realisations/index.html" class="btn btn-secondary">Voir toutes les réalisations →</a>
+          </div>
+          <p style="text-align: center; margin-top: var(--space-3); font-size: 13px; opacity: 0.55">
+            <a
+              href="realisations/index.html?filtre=beaute"
+              style="color: var(--accent-teal); font-weight: 500; text-decoration: none"
+              >Institut, coiffure, ongles, cils… Voir les d&eacute;mos beaut&eacute; &rarr;</a
+            >
+          </p>
         </div>
-      </div>
-      <p style="text-align:center;font-size:11px;opacity:0.3;margin-top:var(--space-4);">Estimations basées sur les activités types accompagnées</p>
-    </div>
-  </section>
-  <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
+      </section>
+      <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
 
-  <!-- PIPELINE SIMULATION — Ce qui se passe sans vous -->
-  <section class="section section-enter pipeline-section" id="pipeline">
-    <div class="container">
-      <p class="label" style="margin-bottom:var(--space-2);">CE QUI TOURNE POUR VOUS</p>
-      <h2 style="font-size:var(--text-h2);letter-spacing:-0.02em;margin-bottom:var(--space-2);">Ce qui tourne pendant que vous &ecirc;tes sur le terrain.</h2>
-      <p style="font-size:1rem;opacity:0.6;max-width:460px;margin:0 auto var(--space-2);">Les &eacute;tapes s&rsquo;encha&icirc;nent selon le sc&eacute;nario convenu avec vous &mdash; vous intervenez surtout sur les d&eacute;cisions importantes.</p>
-    </div>
-    <div class="pipeline-track" id="pipeline-track" role="list" aria-label="Étapes du système automatisé"></div>
-    <p class="pipeline-tagline">
-      Les &eacute;tapes se sont encha&icirc;n&eacute;es pendant que vous faisiez autre chose.<br>
-      <em>Vous gardez la main sur les d&eacute;cisions.</em>
-    </p>
-  </section>
-  <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
+      <!-- PREUVES VISUELLES — Avant Pinapp / Après Pinapp (graphiques + widgets verre) -->
+      <section class="section section-enter" aria-labelledby="preuves-title" style="padding-top: 0">
+        <div class="container" style="max-width: 62rem">
+          <p class="label" style="text-align: center; margin-bottom: var(--space-2)">AVANT / APRÈS</p>
+          <h2
+            id="preuves-title"
+            style="
+              font-size: var(--text-h2);
+              text-align: center;
+              letter-spacing: -0.02em;
+              margin-bottom: var(--space-2);
+            ">
+            Avant Pinapp, ça dépend de vous.<br />Après Pinapp, c’est prêt.
+          </h2>
+          <p
+            style="
+              text-align: center;
+              opacity: 0.68;
+              margin-bottom: var(--space-5);
+              max-width: 46rem;
+              margin-left: auto;
+              margin-right: auto;
+            ">
+            Une preuve visuelle : moins de re-saisie, une cadence tenue, et des validations simples. Vous voyez le
+            système
+            <em>travailler</em> — sans vous inonder.
+          </p>
 
-  <!-- AURORA ANALYSE — L'IA comprend votre activité -->
-  <section class="section section-enter aurora-section" id="aurora" hidden>
-    <div class="container">
-      <p class="label" style="margin-bottom:var(--space-2);">CO-PILOTE IA &mdash; AURORA</p>
-      <h2 style="font-size:var(--text-h2);letter-spacing:-0.02em;line-height:1.2;margin-bottom:var(--space-2);">D&eacute;crivez votre activit&eacute;.<br>Aurora propose des pistes adapt&eacute;es &agrave; votre m&eacute;tier.</h2>
-      <p style="font-size:1rem;opacity:0.6;max-width:460px;margin:0 auto;">En quelques secondes &mdash; trois pistes d&rsquo;automatisation concr&egrave;tes, adapt&eacute;es &agrave; votre m&eacute;tier.</p>
+          <!-- KPIs (visuels, pas "promesses") -->
+          <div class="wow-kpi-row">
+            <div class="wow-surface wow-kpi">
+              <div class="wow-kpi-top">
+                <div class="wow-kpi-title">Relances</div>
+                <div class="wow-kpi-badge">Cadence prête</div>
+              </div>
+              <div class="wow-kpi-value">+ régulier</div>
+              <div class="wow-kpi-sub">Avant : “j’y pense quand j’ai le temps”. Après : prêt à valider.</div>
+            </div>
+            <div class="wow-surface wow-kpi">
+              <div class="wow-kpi-top">
+                <div class="wow-kpi-title">Devis</div>
+                <div class="wow-kpi-badge">Structuré</div>
+              </div>
+              <div class="wow-kpi-value">+ clair</div>
+              <div class="wow-kpi-sub">
+                Avant : re-saisie et oubli. Après : document propre, envoyé quand vous décidez.
+              </div>
+            </div>
+            <div class="wow-surface wow-kpi">
+              <div class="wow-kpi-top">
+                <div class="wow-kpi-title">Charge</div>
+                <div class="wow-kpi-badge">Rythme stable</div>
+              </div>
+              <div class="wow-kpi-value">+ lisible</div>
+              <div class="wow-kpi-sub">Avant : pics et urgence. Après : une routine et des validations courtes.</div>
+            </div>
+          </div>
 
-      <div class="aurora-interface block block-rose">
-        <textarea
-          id="aurora-input"
-          placeholder="Je suis esthéticienne à Lyon et je gère mes RDV à la main…"
-          rows="3"
-          maxlength="300"
-          aria-label="Décrivez votre activité"></textarea>
+          <div class="wow-mini-widgets">
+            <!-- Graphiques (existants) -->
+            <div class="wow-surface wow-widget">
+              <div class="wow-widget-head">
+                <div class="wow-widget-title">Avant / Avec Pinapp — un aperçu</div>
+                <div class="wow-widget-meta">visuel</div>
+              </div>
+              <div class="wow-list" style="gap: var(--space-3)">
+                <div class="wow-surface" style="padding: var(--space-4)">
+                  <p class="label" style="margin-bottom: 10px">Heures récupérées</p>
+                  <div id="chart-bar" aria-label="Graphique : heures récupérées par type de tâche"></div>
+                </div>
+                <div class="wow-surface" style="padding: var(--space-4)">
+                  <p class="label" style="margin-bottom: 10px">Interventions</p>
+                  <div id="chart-line" aria-label="Graphique : interventions avant et avec Pinapp"></div>
+                </div>
+                <div class="wow-surface" style="padding: var(--space-4)">
+                  <p class="label" style="margin-bottom: 10px">Temps gagné</p>
+                  <div id="chart-donut" aria-label="Graphique : répartition du temps gagné"></div>
+                </div>
+              </div>
+            </div>
 
-        <button type="button" class="btn-primary aurora-submit" onclick="AuroraAnalyse.run()">
-          Analyser mon activité &rarr;
-        </button>
+            <!-- Widgets verre (détails qui poussent à l’achat) -->
+            <div class="wow-surface wow-widget">
+              <div class="wow-widget-head">
+                <div class="wow-widget-title">Ce que vous voyez, concrètement</div>
+                <div class="wow-widget-meta">exemples</div>
+              </div>
 
-        <div id="aurora-result" class="aurora-result" aria-live="polite" hidden></div>
-      </div>
-    </div>
-  </section>
-  <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
+              <div class="wow-list">
+                <div class="wow-item">
+                  <span class="wow-dot" aria-hidden="true"></span>
+                  <div>
+                    <div class="wow-item-title">Messages prêts</div>
+                    <div class="wow-item-sub">Relance, confirmation, suivi : préparé, vous validez, c’est parti.</div>
+                  </div>
+                </div>
+                <div class="wow-item">
+                  <span class="wow-dot" aria-hidden="true"></span>
+                  <div>
+                    <div class="wow-item-title">Devis propre</div>
+                    <div class="wow-item-sub">Texte clair, champs cohérents, envoi uniquement après votre accord.</div>
+                  </div>
+                </div>
+                <div class="wow-item">
+                  <span class="wow-dot" aria-hidden="true"></span>
+                  <div>
+                    <div class="wow-item-title">Notifications utiles</div>
+                    <div class="wow-item-sub">Pas de bruit. Juste ce qui demande une décision.</div>
+                  </div>
+                </div>
+              </div>
 
-  <!-- UNIVERS DIGITAL — Aurora directrice artistique -->
-  <section class="section-enter univers-section" id="univers" hidden>
-    <div style="text-align:center;margin-bottom:48px;">
-      <p class="label" style="margin-bottom:var(--space-2);">UNIVERS DIGITAL</p>
-      <h2 style="font-size:var(--text-h2);letter-spacing:-0.02em;line-height:1.15;margin-bottom:var(--space-3);">Questions + texte libre.<br>Un brief qui guide l&rsquo;outil d&rsquo;aide &agrave; la cr&eacute;ation.</h2>
-      <p class="univers-intro" style="margin:0 auto;">
-        M&ecirc;me logique que sur la page <a href="univers/index.html" style="color:var(--accent-teal);text-decoration:underline;text-underline-offset:3px;">Univers</a> : r&eacute;ponses guid&eacute;es + zone de texte pour pr&eacute;ciser ton, public et interdits. Les <strong>15 univers</strong> pr&ecirc;ts restent l&rsquo;autre option.
-      </p>
-    </div>
+              <div class="wow-notif-stack" aria-label="Exemples de notifications">
+                <div class="wow-notif">
+                  <div class="wow-notif-top">
+                    <div class="wow-notif-app">Pinapp</div>
+                    <div class="wow-notif-time">Maintenant</div>
+                  </div>
+                  <div class="wow-notif-body">2 relances prêtes. Un clic pour valider (ou modifier).</div>
+                </div>
+                <div class="wow-notif">
+                  <div class="wow-notif-top">
+                    <div class="wow-notif-app">Pinapp</div>
+                    <div class="wow-notif-time">Aujourd’hui</div>
+                  </div>
+                  <div class="wow-notif-body">Devis structuré prêt à envoyer. Vous gardez le dernier mot.</div>
+                </div>
+              </div>
 
-    <div class="univers-interface block block-rose">
-
-      <!-- Étape 1 — Lieu -->
-      <div class="univers-step" id="step-1">
-        <p class="univers-question">Un lieu qui vous ressemble&nbsp;?</p>
-        <div class="univers-pills" id="pills-lieu">
-          <button class="univers-pill" data-val="Forêt au lever du soleil">· Forêt au lever du soleil</button>
-          <button class="univers-pill" data-val="Loft industriel la nuit">· Loft industriel la nuit</button>
-          <button class="univers-pill" data-val="Café parisien le matin">· Café parisien le matin</button>
-          <button class="univers-pill" data-val="Plage au coucher de soleil">· Plage au coucher de soleil</button>
-          <button class="univers-pill" data-val="Bibliothèque ancienne">· Bibliothèque ancienne</button>
-          <button class="univers-pill" data-val="Studio épuré minimaliste">◻ Studio épuré minimaliste</button>
+              <div style="margin-top: var(--space-4); display: flex; flex-wrap: wrap; gap: var(--space-2)">
+                <a href="realisations/index.html" class="btn btn-secondary">Voir des exemples concrets →</a>
+                <a href="diagnostic/index.html" class="btn btn-primary">Démarrer ma demande</a>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
+      <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
 
-      <!-- Étape 2 — Émotion -->
-      <div class="univers-step hidden" id="step-2">
-        <p class="univers-question">Une émotion que vous voulez transmettre&nbsp;?</p>
-        <div class="univers-pills" id="pills-emotion">
-          <button class="univers-pill" data-val="Confiance et solidité">✦ Confiance et solidité</button>
-          <button class="univers-pill" data-val="Douceur et bienveillance">◦ Douceur et bienveillance</button>
-          <button class="univers-pill" data-val="Énergie et dynamisme">→ Énergie et dynamisme</button>
-          <button class="univers-pill" data-val="Mystère et profondeur">● Mystère et profondeur</button>
-          <button class="univers-pill" data-val="Élégance et raffinement">✦ Élégance et raffinement</button>
-          <button class="univers-pill" data-val="Chaleur et authenticité">◈ Chaleur et authenticité</button>
+      <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
+
+      <!-- 6. CONFIANCE + LAURALIE -->
+      <section class="section section-enter">
+        <div class="container">
+          <div
+            style="display: flex; flex-wrap: wrap; gap: var(--space-7); align-items: center; justify-content: center">
+            <div style="flex: 1; min-width: 260px; max-width: 480px">
+              <p class="label" style="margin-bottom: var(--space-3)">VOUS DÉCIDEZ TOUJOURS</p>
+              <h2
+                style="
+                  font-size: clamp(1.75rem, 4vw, 2.5rem);
+                  letter-spacing: -0.03em;
+                  line-height: 1.1;
+                  margin-bottom: var(--space-5);
+                ">
+                Vous validez avant<br />de vous engager financi&egrave;rement.
+              </h2>
+              <div style="display: flex; flex-direction: column; gap: var(--space-4)">
+                <div style="display: flex; gap: var(--space-3); align-items: flex-start">
+                  <span style="color: var(--accent-teal); font-size: 1.25rem; min-width: 1.5rem">✓</span>
+                  <div>
+                    <p style="font-weight: 600; margin-bottom: 4px">Validation à chaque étape</p>
+                    <p style="font-size: 14px; opacity: 0.7">
+                      Rien n'est mis en ligne sans votre accord. Vous gardez la main sur tout.
+                    </p>
+                  </div>
+                </div>
+                <div style="display: flex; gap: var(--space-3); align-items: flex-start">
+                  <span style="color: var(--accent-teal); font-size: 1.25rem; min-width: 1.5rem">✓</span>
+                  <div>
+                    <p style="font-weight: 600; margin-bottom: 4px">Satisfaction et remboursement</p>
+                    <p style="font-size: 14px; opacity: 0.7">
+                      Si la livraison ne correspond pas au brief valid&eacute;, on ajuste. Les d&eacute;tails financiers
+                      et les cas limites sont &eacute;crits clairement dans les
+                      <a href="legal/cgv.html" style="color: var(--accent-teal)">CGV</a>.
+                    </p>
+                  </div>
+                </div>
+                <div style="display: flex; gap: var(--space-3); align-items: flex-start">
+                  <span style="color: var(--accent-teal); font-size: 1.25rem; min-width: 1.5rem">✓</span>
+                  <div>
+                    <p style="font-weight: 600; margin-bottom: 4px">Zéro engagement long terme</p>
+                    <p style="font-size: 14px; opacity: 0.7">
+                      Pas d'abonnement, pas de contrat. Vous payez une fois, c'est à vous.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="flex: 1; min-width: 260px; max-width: 340px; text-align: center">
+              <div
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 120px;
+                  height: 120px;
+                  margin: 0 auto var(--space-4);
+                  border-radius: 24px;
+                  background: linear-gradient(145deg, rgba(123, 79, 232, 0.22), rgba(0, 229, 204, 0.18));
+                  border: 1px solid rgba(0, 229, 204, 0.28);
+                  box-shadow:
+                    0 0 0 6px rgba(0, 229, 204, 0.06),
+                    0 20px 50px rgba(0, 0, 0, 0.25);
+                  font-family: Georgia, serif;
+                  font-size: clamp(2.25rem, 6vw, 2.75rem);
+                  font-weight: 600;
+                  letter-spacing: -0.04em;
+                  color: var(--text-primary);
+                "
+                aria-hidden="true">
+                LD
+              </div>
+              <h3 style="font-size: 1.1rem; margin-bottom: 4px">Lauralie Daguzay</h3>
+              <p
+                style="
+                  font-size: 12px;
+                  color: var(--accent-teal);
+                  letter-spacing: 0.06em;
+                  text-transform: uppercase;
+                  margin-bottom: var(--space-3);
+                ">
+                Fondatrice — Pinapp Studio
+              </p>
+              <p
+                style="
+                  font-size: 14px;
+                  opacity: 0.7;
+                  line-height: 1.7;
+                  margin-bottom: var(--space-4);
+                  max-width: 300px;
+                  margin-left: auto;
+                  margin-right: auto;
+                ">
+                Pas d&rsquo;agence, pas de sous-traitants : vous savez &agrave; qui vous parlez.
+                <strong style="font-weight: 600; opacity: 0.95">Ce site, je l&rsquo;assume comme vitrine</strong>
+                &mdash; c&rsquo;est le niveau que je vise pour vous.
+              </p>
+              <a
+                href="a-propos/index.html"
+                style="
+                  font-size: 13px;
+                  color: var(--accent-teal);
+                  font-weight: 500;
+                  text-decoration: none;
+                  border-bottom: 1px solid rgba(0, 229, 204, 0.25);
+                  padding-bottom: 2px;
+                "
+                >En savoir plus →</a
+              >
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
+      <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
 
-      <!-- Étape 3 — Référence courte + brief texte libre (Claude) -->
-      <div class="univers-step hidden" id="step-3">
-        <p class="univers-question">R&eacute;f&eacute;rence courte + votre brief</p>
-        <p style="font-size:13px;color:var(--text-3);margin:-12px 0 16px;line-height:1.55;max-width:36rem;">
-          Une ligne (film, marque, lieu), puis l&rsquo;encadr&eacute; : ton, public, interdits &mdash; ce qui guide la cr&eacute;ation de votre univers.
+      <!-- 7. FAQ COURTE -->
+      <section class="section section-enter">
+        <div class="container" style="max-width: 700px">
+          <h2
+            style="
+              font-size: var(--text-h1);
+              text-align: center;
+              letter-spacing: -0.02em;
+              margin-bottom: var(--space-6);
+            ">
+            Questions fréquentes.
+          </h2>
+          <div style="display: flex; flex-direction: column; gap: var(--space-4)">
+            <div class="card" style="padding: var(--space-4) var(--space-5)">
+              <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: var(--space-2)">
+                Est-ce que je dois être à l'aise avec la technologie ?
+              </h3>
+              <p style="font-size: 14px; opacity: 0.75; line-height: 1.6">
+                Non. Vous n'avez rien à installer ni à comprendre techniquement. Vous validez, je fais le reste.
+              </p>
+            </div>
+            <div class="card" style="padding: var(--space-4) var(--space-5)">
+              <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: var(--space-2)">
+                Combien de temps ça prend de mon côté ?
+              </h3>
+              <p style="font-size: 14px; opacity: 0.75; line-height: 1.6">
+                Quelques minutes pour la demande initiale par &eacute;crit, puis quelques minutes par &eacute;tape pour
+                valider. En tout, moins de 2 heures de votre temps sur toute la mission.
+              </p>
+            </div>
+            <div class="card" style="padding: var(--space-4) var(--space-5)">
+              <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: var(--space-2)">
+                Et si ça ne me convient pas ?
+              </h3>
+              <p style="font-size: 14px; opacity: 0.75; line-height: 1.6">
+                On ajuste ou on s&rsquo;arr&ecirc;te selon ce qui est pr&eacute;vu au contrat. Les conditions
+                financi&egrave;res sont dans les <a href="legal/cgv.html" style="color: var(--accent-teal)">CGV</a>. Le
+                diagnostic par &eacute;crit reste gratuit et sans engagement.
+              </p>
+            </div>
+          </div>
+          <p style="text-align: center; margin-top: var(--space-4); font-size: 13px; opacity: 0.55">
+            <a href="faq/index.html" style="color: var(--accent-teal)">Toutes les questions →</a>
+          </p>
+        </div>
+      </section>
+      <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
+
+      <!-- 8. CTA FINAL -->
+      <section class="section section-enter" style="text-align: center; padding-bottom: var(--space-6)">
+        <div class="container" style="max-width: 600px">
+          <p class="label" style="margin-bottom: var(--space-3)">&Eacute;TAPE SUIVANTE</p>
+          <h2 style="font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -0.03em; margin-bottom: var(--space-3)">
+            Le niveau vous convient&nbsp;? Passons au v&ocirc;tre par &eacute;crit.
+          </h2>
+          <p style="font-size: 1.125rem; opacity: 0.7; margin-bottom: var(--space-5)">
+            Sans jargon : d&eacute;crivez votre contexte par message &mdash; je vous renvoie un plan concret pour votre
+            activit&eacute;.
+          </p>
+          <div
+            style="
+              display: flex;
+              flex-wrap: wrap;
+              gap: var(--space-3);
+              justify-content: center;
+              margin-bottom: var(--space-4);
+            ">
+            <a
+              href="diagnostic/index.html"
+              class="btn btn-primary pinapp-breathe"
+              style="font-size: 1.0625rem; padding: 18px 32px"
+              >D&eacute;marrer ma demande par &eacute;crit &mdash; gratuit</a
+            >
+            <a href="offres/index.html" class="btn btn-secondary" style="font-size: 1.0625rem; padding: 18px 32px"
+              >Relire les offres</a
+            >
+          </div>
+          <p style="margin-top: 0; font-size: 13px; opacity: 0.6">
+            Z&eacute;ro engagement &middot; Z&eacute;ro frais &middot; R&eacute;ponse sous 24 h
+          </p>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden; pointer-events: none">
+        <svg
+          viewBox="0 0 120 140"
+          width="380"
+          height="440"
+          style="position: absolute; bottom: -60px; right: -40px; opacity: 0.03"
+          aria-hidden="true"
+          fill="currentColor">
+          <ellipse cx="60" cy="80" rx="38" ry="48" />
+          <path d="M60 32 C54 38 50 42 52 48" />
+          <path d="M60 32 C60 38 60 42 60 48" />
+          <path d="M60 32 C66 38 70 42 68 48" />
+          <rect x="22" y="60" width="76" height="4" rx="2" />
+          <rect x="22" y="72" width="76" height="4" rx="2" />
+          <rect x="22" y="84" width="76" height="4" rx="2" />
+        </svg>
+      </div>
+      <div class="container" style="position: relative; text-align: center; padding: var(--space-7) 0 var(--space-5)">
+        <p
+          style="
+            font-size: 1.0625rem;
+            opacity: 0.55;
+            margin-bottom: var(--space-4);
+            font-style: italic;
+            letter-spacing: -0.01em;
+          ">
+          Pinapp pr&eacute;pare. Vous validez. Toujours.
         </p>
-        <input
-          type="text"
-          id="input-reference"
-          placeholder="Ex. Apple, Toscane, Blade Runner…"
-          maxlength="100"
-          autocomplete="off"
-          aria-label="Référence courte">
-        <label for="input-brief-claude" class="univers-brief-label">Votre texte libre (ambiance, contraintes, &agrave; &eacute;viter&hellip;)</label>
-        <textarea id="input-brief-claude" rows="4" maxlength="2500"
-          placeholder="Ambiance, contraintes, ce qu'il faut éviter, mots-clés marque…"
-          aria-label="Texte libre pour décrire votre univers"></textarea>
-        <button type="button" class="btn-primary" id="btn-generer">
-          G&eacute;n&eacute;rer mon univers &rarr;
-        </button>
-      </div>
-
-      <!-- Résultat -->
-      <div class="univers-resultat hidden" id="univers-resultat" aria-live="polite"></div>
-
-      <!-- Barre de progression -->
-      <div class="univers-progress">
-        <div class="univers-progress-fill" id="univers-progress-fill" style="width:0%"></div>
-      </div>
-
-    </div>
-  </section>
-  <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
-
-  <!-- CALCULATEUR LIVE -->
-  <section class="section section-enter calculateur-section" id="calculateur">
-    <div class="container">
-      <p class="label" style="margin-bottom:var(--space-2);">VOTRE PROJET</p>
-      <h2 style="font-size:var(--text-h2);letter-spacing:-0.02em;margin-bottom:var(--space-2);">Configurez. Le prix s'affiche.</h2>
-      <p style="font-size:1rem;opacity:0.6;max-width:480px;margin:0 auto;">Estimation indicative pour les combinaisons courantes. D&egrave;s que le besoin sort du cadre, vous recevez un <strong>plan d&rsquo;action clair</strong> puis un <strong>devis d&eacute;taill&eacute; par email</strong> (premier tri aid&eacute; par un outil d&rsquo;IA, toujours relu c&ocirc;t&eacute; studio) &mdash; comme ailleurs sur le site, tout par &eacute;crit.</p>
-
-      <div class="calculateur-layout">
-        <!-- Configuration — gauche -->
-        <div class="calculateur-config">
-          <p class="config-question">Vous avez besoin de :</p>
-          <div class="pills-group" id="config-besoins">
-            <button class="pill-choice" data-val="site" data-prix="1190">· Site vitrine (multi-pages)</button>
-            <button class="pill-choice" data-val="auto" data-prix="990">→ Automatisation</button>
-            <button class="pill-choice" data-val="ia"      data-prix="590">✦ Fonctions intelligentes (IA)</button>
-            <button class="pill-choice" data-val="systeme" data-prix="1990">◈ Tout le système</button>
-          </div>
-          <p style="font-size:12px;opacity:0.45;margin-top:8px;line-height:1.5;">Besoin d'une seule page ? Le <a href="offres/index.html" style="color:var(--teal);border-bottom:0.5px solid currentColor;">Starter 1 page</a> est à <strong>349 €</strong>, mise en ligne visée en 48 h ouvr&eacute;es.</p>
-
-          <p class="config-question">Votre délai :</p>
-          <div class="pills-group" id="config-delai">
-            <button class="pill-choice active" data-val="serein" data-delai="14">◦ Serein (2 semaines)</button>
-            <button class="pill-choice"        data-val="urgent" data-delai="7">→ Prioritaire (1 semaine)</button>
-          </div>
-        </div>
-
-        <!-- Résultat — droite (sticky) -->
-        <div class="calculateur-result block block-vert">
-          <p class="label" style="margin-bottom:4px;">ESTIMATION</p>
-          <div class="result-prix">
-            <span id="result-montant">—</span>&nbsp;€
-          </div>
-          <p class="result-delai-line">
-            Livraison estimée&nbsp;: <strong id="result-delai">14</strong>&nbsp;jours
-          </p>
-          <div id="result-urgence">Option prioritaire : délai divisé par deux (+20 % sur le prix)</div>
-          <ul class="result-includes" id="result-includes">
-            <li style="opacity:0.5">Choisissez vos besoins ci-contre</li>
-          </ul>
-          <a href="diagnostic/index.html" class="btn-primary" style="display:block;text-align:center;">
-            Faire valider cette estimation &mdash; diagnostic offert &rarr;
-          </a>
-          <p class="result-note">R&eacute;ponse sous 24 h par &eacute;crit &middot; Google Meet en option &middot; Jamais d&rsquo;appel t&eacute;l&eacute;phonique impos&eacute; &middot; M&ecirc;me exigence que ce site &mdash; vous confirmez la suite quand vous &ecirc;tes pr&ecirc;t(e).</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
-
-  <!-- GRAPHIQUES — Données animées au scroll -->
-  <section class="section section-enter graphiques-section" id="graphiques">
-    <div class="container">
-      <p class="label" style="margin-bottom:var(--space-2);">LES DONNÉES PARLENT</p>
-      <h2 style="font-size:var(--text-h2);letter-spacing:-0.02em;margin-bottom:var(--space-2);">Ce que ça change, en chiffres.</h2>
-      <p style="font-size:1rem;opacity:0.6;max-width:440px;margin:0 auto;">Heures récupérées. Interventions évitées. Temps redistribué.</p>
-
-      <div class="graphiques-grid">
-        <!-- Bar chart — heures récupérées -->
-        <div class="card graphique-card section-enter">
-          <p class="graphique-title">Heures récupérées / mois</p>
-          <div id="chart-bar"></div>
-          <p style="font-size:12px;opacity:0.50;margin-top:12px;line-height:1.6;">
-            Chaque tâche représente des heures passées à la main chaque mois.
-          </p>
-        </div>
-
-        <!-- Line chart — interventions avant/après -->
-        <div class="card graphique-card section-enter stagger-1">
-          <p class="graphique-title">Interventions manuelles</p>
-          <div id="chart-line"></div>
-          <p style="font-size:12px;opacity:0.50;margin-top:12px;line-height:1.6;">
-            <span style="color:rgba(220,38,38,0.7)">■</span> Avant &nbsp;
-            <span style="color:#00E5CC">■</span> Avec Pinapp
-          </p>
-        </div>
-
-        <!-- Donut chart — répartition -->
-        <div class="card graphique-card section-enter stagger-2">
-          <p class="graphique-title">Où part votre temps ?</p>
-          <div id="chart-donut"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
-
-  <!-- 6. CONFIANCE + LAURALIE -->
-  <section class="section section-enter">
-    <div class="container">
-      <div style="display:flex;flex-wrap:wrap;gap:var(--space-7);align-items:center;justify-content:center;">
-        <div style="flex:1;min-width:260px;max-width:480px;">
-          <p class="label" style="margin-bottom:var(--space-3);">VOUS DÉCIDEZ TOUJOURS</p>
-          <h2 style="font-size:clamp(1.75rem,4vw,2.5rem);letter-spacing:-0.03em;line-height:1.1;margin-bottom:var(--space-5);">Vous validez avant<br>de vous engager financi&egrave;rement.</h2>
-          <div style="display:flex;flex-direction:column;gap:var(--space-4);">
-            <div style="display:flex;gap:var(--space-3);align-items:flex-start;">
-              <span style="color:var(--accent-teal);font-size:1.25rem;min-width:1.5rem;">✓</span>
-              <div>
-                <p style="font-weight:600;margin-bottom:4px;">Validation à chaque étape</p>
-                <p style="font-size:14px;opacity:0.7;">Rien n'est mis en ligne sans votre accord. Vous gardez la main sur tout.</p>
-              </div>
-            </div>
-            <div style="display:flex;gap:var(--space-3);align-items:flex-start;">
-              <span style="color:var(--accent-teal);font-size:1.25rem;min-width:1.5rem;">✓</span>
-              <div>
-                <p style="font-weight:600;margin-bottom:4px;">Satisfaction et remboursement</p>
-                <p style="font-size:14px;opacity:0.7;">Si la livraison ne correspond pas au brief valid&eacute;, on ajuste. Les d&eacute;tails financiers et les cas limites sont &eacute;crits clairement dans les <a href="legal/cgv.html" style="color:var(--accent-teal);">CGV</a>.</p>
-              </div>
-            </div>
-            <div style="display:flex;gap:var(--space-3);align-items:flex-start;">
-              <span style="color:var(--accent-teal);font-size:1.25rem;min-width:1.5rem;">✓</span>
-              <div>
-                <p style="font-weight:600;margin-bottom:4px;">Zéro engagement long terme</p>
-                <p style="font-size:14px;opacity:0.7;">Pas d'abonnement, pas de contrat. Vous payez une fois, c'est à vous.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div style="flex:1;min-width:260px;max-width:340px;text-align:center;">
-          <div style="display:inline-flex;align-items:center;justify-content:center;width:120px;height:120px;margin:0 auto var(--space-4);border-radius:24px;
-                      background:linear-gradient(145deg,rgba(123,79,232,0.22),rgba(0,229,204,0.18));
-                      border:1px solid rgba(0,229,204,0.28);
-                      box-shadow:0 0 0 6px rgba(0,229,204,0.06),0 20px 50px rgba(0,0,0,0.25);
-                      font-family:Georgia,serif;font-size:clamp(2.25rem,6vw,2.75rem);font-weight:600;letter-spacing:-0.04em;color:var(--text-primary);" aria-hidden="true">LD</div>
-          <h3 style="font-size:1.1rem;margin-bottom:4px;">Lauralie Daguzay</h3>
-          <p style="font-size:12px;color:var(--accent-teal);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:var(--space-3);">Fondatrice — Pinapp Studio</p>
-          <p style="font-size:14px;opacity:0.70;line-height:1.7;margin-bottom:var(--space-4);max-width:300px;margin-left:auto;margin-right:auto;">Pas d&rsquo;agence, pas de sous-traitants : vous savez &agrave; qui vous parlez. <strong style="font-weight:600;opacity:0.95;">Ce site, je l&rsquo;assume comme vitrine</strong> &mdash; c&rsquo;est le niveau que je vise pour vous.</p>
-          <a href="a-propos/index.html" style="font-size:13px;color:var(--accent-teal);font-weight:500;text-decoration:none;border-bottom:1px solid rgba(0,229,204,0.25);padding-bottom:2px;">En savoir plus →</a>
-        </div>
-      </div>
-    </div>
-  </section>
-  <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
-
-  <!-- 7. FAQ COURTE -->
-  <section class="section section-enter">
-    <div class="container" style="max-width:700px;">
-      <h2 style="font-size:var(--text-h1);text-align:center;letter-spacing:-0.02em;margin-bottom:var(--space-6);">Questions fréquentes.</h2>
-      <div style="display:flex;flex-direction:column;gap:var(--space-4);">
-        <div class="card" style="padding:var(--space-4) var(--space-5);">
-          <h3 style="font-size:1rem;font-weight:600;margin-bottom:var(--space-2);">Est-ce que je dois être à l'aise avec la technologie ?</h3>
-          <p style="font-size:14px;opacity:0.75;line-height:1.6;">Non. Vous n'avez rien à installer ni à comprendre techniquement. Vous validez, je fais le reste.</p>
-        </div>
-        <div class="card" style="padding:var(--space-4) var(--space-5);">
-          <h3 style="font-size:1rem;font-weight:600;margin-bottom:var(--space-2);">Combien de temps ça prend de mon côté ?</h3>
-          <p style="font-size:14px;opacity:0.75;line-height:1.6;">Quelques minutes pour la demande initiale par &eacute;crit, puis quelques minutes par &eacute;tape pour valider. En tout, moins de 2 heures de votre temps sur toute la mission.</p>
-        </div>
-        <div class="card" style="padding:var(--space-4) var(--space-5);">
-          <h3 style="font-size:1rem;font-weight:600;margin-bottom:var(--space-2);">Et si ça ne me convient pas ?</h3>
-          <p style="font-size:14px;opacity:0.75;line-height:1.6;">On ajuste ou on s&rsquo;arr&ecirc;te selon ce qui est pr&eacute;vu au contrat. Les conditions financi&egrave;res sont dans les <a href="legal/cgv.html" style="color:var(--accent-teal);">CGV</a>. Le diagnostic par &eacute;crit reste gratuit et sans engagement.</p>
-        </div>
-      </div>
-      <p style="text-align:center;margin-top:var(--space-4);font-size:13px;opacity:0.55;"><a href="faq/index.html" style="color:var(--accent-teal);">Toutes les questions →</a></p>
-    </div>
-  </section>
-  <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
-
-  <!-- 8. CTA FINAL -->
-  <section class="section section-enter" style="text-align:center;padding-bottom:var(--space-6);">
-    <div class="container" style="max-width:600px;">
-      <p class="label" style="margin-bottom:var(--space-3);">&Eacute;TAPE SUIVANTE</p>
-      <h2 style="font-size:clamp(2rem,5vw,3rem);letter-spacing:-0.03em;margin-bottom:var(--space-3);">Le niveau vous convient&nbsp;? Passons au v&ocirc;tre par &eacute;crit.</h2>
-      <p style="font-size:1.125rem;opacity:0.7;margin-bottom:var(--space-5);">Sans jargon : d&eacute;crivez votre contexte par message &mdash; je vous renvoie un plan concret pour votre activit&eacute;.</p>
-      <div style="display:flex;flex-wrap:wrap;gap:var(--space-3);justify-content:center;margin-bottom:var(--space-4);">
-        <a href="diagnostic/index.html" class="btn btn-primary pinapp-breathe" style="font-size:1.0625rem;padding:18px 32px;">D&eacute;marrer ma demande par &eacute;crit &mdash; gratuit</a>
-        <a href="offres/index.html" class="btn btn-secondary" style="font-size:1.0625rem;padding:18px 32px;">Relire les offres</a>
-      </div>
-      <p style="margin-top:0;font-size:13px;opacity:0.60;">Z&eacute;ro engagement &middot; Z&eacute;ro frais &middot; R&eacute;ponse sous 24 h</p>
-    </div>
-  </section>
-
-  </main>
-  <footer class="site-footer">
-    <div aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none;">
-      <svg viewBox="0 0 120 140" width="380" height="440" style="position:absolute;bottom:-60px;right:-40px;opacity:0.03;" aria-hidden="true" fill="currentColor"><ellipse cx="60" cy="80" rx="38" ry="48"/><path d="M60 32 C54 38 50 42 52 48"/><path d="M60 32 C60 38 60 42 60 48"/><path d="M60 32 C66 38 70 42 68 48"/><rect x="22" y="60" width="76" height="4" rx="2"/><rect x="22" y="72" width="76" height="4" rx="2"/><rect x="22" y="84" width="76" height="4" rx="2"/></svg>
-    </div>
-    <div class="container" style="position:relative;text-align:center;padding:var(--space-7) 0 var(--space-5);">
-      <p style="font-size:1.0625rem;opacity:0.55;margin-bottom:var(--space-4);font-style:italic;letter-spacing:-0.01em;">Pinapp pr&eacute;pare. Vous validez. Toujours.</p>
-      <nav style="display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-3);margin-bottom:var(--space-4);font-size:13px;opacity:0.65;" aria-label="Liens footer">
-        <a href="https://linkedin.com/in/lauralie-daguzay-4a4542197/" rel="noopener noreferrer" target="_blank">LinkedIn</a>
-        <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
-        <a href="legal/mentions.html">Mentions légales</a>
-        <a href="legal/cgv.html">CGV</a>
-        <a href="legal/confidentialite.html">Confidentialité</a>
-      </nav>
-        <nav style="display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-3);margin-bottom:var(--space-3);font-size:12px;opacity:0.4;" aria-label="Liens secondaires">
+        <nav
+          style="
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+            font-size: 13px;
+            opacity: 0.65;
+          "
+          aria-label="Liens footer">
+          <a href="https://linkedin.com/in/lauralie-daguzay-4a4542197/" rel="noopener noreferrer" target="_blank"
+            >LinkedIn</a
+          >
+          <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
+          <a href="legal/mentions.html">Mentions légales</a>
+          <a href="legal/cgv.html">CGV</a>
+          <a href="legal/confidentialite.html">Confidentialité</a>
+        </nav>
+        <nav
+          style="
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-3);
+            font-size: 12px;
+            opacity: 0.4;
+          "
+          aria-label="Liens secondaires">
           <a href="expertise-ia/index.html">IA &amp; systèmes</a>
           <a href="auralis/index.html">Auralis RH</a>
-          <a href="formation-gratuite/index.html">Formation IA</a>
+          <a href="offres/formation/index.html">Formation IA</a>
         </nav>
-      <p style="font-size:12px;opacity:0.35;letter-spacing:0.04em;">Pinapp Studio © 2026</p>
+        <p style="font-size: 12px; opacity: 0.35; letter-spacing: 0.04em">Pinapp Studio © 2026</p>
+      </div>
+    </footer>
+    <div
+      id="cookie-banner"
+      role="dialog"
+      aria-label="Cookies"
+      style="
+        position: fixed;
+        bottom: calc(56px + env(safe-area-inset-bottom, 0px));
+        right: 16px;
+        left: auto;
+        max-width: 300px;
+        padding: 12px 16px;
+        background: rgba(2, 8, 20, 0.92);
+        border: 0.5px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        backdrop-filter: blur(28px) saturate(160%);
+        z-index: 8900;
+        display: none;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.42);
+      ">
+      <p style="font-size: 12px; opacity: 0.7; margin-bottom: 10px; line-height: 1.5">
+        Mesure d&rsquo;audience anonyme &mdash; sans tracking.
+      </p>
+      <div style="display: flex; gap: 8px">
+        <button
+          type="button"
+          id="cookieAccept"
+          style="
+            flex: 1;
+            background: var(--violet, #7b4fe8);
+            color: #fff;
+            border: none;
+            border-radius: 100px;
+            padding: 10px 0;
+            min-height: 44px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+          ">
+          OK
+        </button>
+        <button
+          type="button"
+          id="cookieRefuse"
+          style="
+            flex: 1;
+            background: rgba(255, 255, 255, 0.06);
+            color: inherit;
+            border: 0.5px solid rgba(255, 255, 255, 0.12);
+            border-radius: 100px;
+            padding: 10px 0;
+            min-height: 44px;
+            font-size: 13px;
+            cursor: pointer;
+            opacity: 0.7;
+          ">
+          Non merci
+        </button>
+      </div>
     </div>
-  </footer>
-  <div id="cookie-banner" role="dialog" aria-label="Cookies" style="position:fixed;bottom:calc(56px + env(safe-area-inset-bottom,0px));right:16px;left:auto;max-width:300px;padding:12px 16px;background:rgba(2,8,20,0.92);border:0.5px solid rgba(255,255,255,0.10);border-radius:16px;backdrop-filter:blur(28px) saturate(160%);z-index:8900;display:none;box-shadow:0 8px 32px rgba(0,0,0,0.42);">
-        <p style="font-size:12px;opacity:0.70;margin-bottom:10px;line-height:1.5;">Mesure d&rsquo;audience anonyme &mdash; sans tracking.</p>
-    <div style="display:flex;gap:8px;">
-      <button type="button" id="cookieAccept" style="flex:1;background:var(--violet,#7B4FE8);color:#fff;border:none;border-radius:100px;padding:10px 0;min-height:44px;font-size:13px;font-weight:500;cursor:pointer;">OK</button>
-      <button type="button" id="cookieRefuse" style="flex:1;background:rgba(255,255,255,0.06);color:inherit;border:0.5px solid rgba(255,255,255,0.12);border-radius:100px;padding:10px 0;min-height:44px;font-size:13px;cursor:pointer;opacity:0.70;">Non merci</button>
-    </div>
-  </div>
-  <script src="assets/js/security.js" defer></script>
-  <script src="assets/js/config.js"></script>
-  <script src="assets/js/main.js" defer></script>
-  <script src="assets/js/particles.js" defer></script>
-  <script src="assets/js/aurora.js" defer></script>
-  <script src="assets/js/parallax.js" defer></script>
-  <script src="assets/js/intelligence.js" defer></script><script src="assets/js/scroll-cinema.js" defer></script><script src="assets/js/graphiques.js" defer></script><script src="assets/js/pipeline.js" defer></script><script src="assets/js/calculateur.js" defer></script><script src="assets/js/aurora-analyse.js" defer></script>  <script src="assets/js/univers.js" defer></script>
-  <script>
-    (function () {
-      var c = window.PinappConfig;
-      if (!c || !c.features) return;
-      if (c.features.auroraAnalyseIA && c._isRealUrl(c.webhooks.auroraAnalyse)) {
-        var a = document.getElementById('aurora');
-        if (a) a.removeAttribute('hidden');
-      }
-      if (c.features.auroraUniversIA && c._isRealUrl(c.webhooks.auroraUnivers)) {
-        var u = document.getElementById('univers');
-        if (u) u.removeAttribute('hidden');
-      }
-    })();
-  </script>
-  <script src="assets/js/cursor.js" defer></script>
-  <script>
-    (function(){
-      var ind = document.getElementById('heroScrollIndicator');
-      if (!ind) return;
-      window.addEventListener('scroll', function(){
-        ind.style.transition = 'opacity 400ms ease';
-        ind.style.opacity = '0';
-      }, { once: true, passive: true });
-    })();
-  </script>
-<script src="assets/js/pandora-night.js" defer></script><script src="assets/js/mode-toggle.js" defer></script>
-  <script src="assets/js/bio-particles.js" defer></script>
-  <script src="assets/js/pandora-world.js"></script>
-  <script src="assets/js/pandora-interactions.js"></script>
-</body>
+    <script src="assets/js/security.js" defer></script>
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/main.js" defer></script>
+    <script src="assets/js/guide-tour.js" defer></script>
+    <script src="assets/js/aurora.js" defer></script>
+    <script src="assets/js/parallax.js" defer></script>
+    <script src="assets/js/intelligence.js" defer></script>
+    <script src="assets/js/scroll-cinema.js" defer></script>
+    <script src="assets/js/cursor.js" defer></script>
+    <script src="assets/js/wow-senior.js" defer></script>
+    <script src="assets/js/pandora-night.js" defer></script>
+    <script src="assets/js/mode-toggle.js" defer></script>
+    <script src="assets/js/bio-particles.js" defer></script>
+    <script src="assets/js/pandora-world.js"></script>
+    <script src="assets/js/pandora-interactions.js"></script>
+  </body>
 </html>

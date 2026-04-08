@@ -9,11 +9,11 @@
 
 ## URLs & dépôt
 
-| Usage | URL |
-|--------|-----|
-| Production | `https://pinapp.fr/` |
+| Usage                 | URL                                                   |
+| --------------------- | ----------------------------------------------------- |
+| Production            | `https://pinapp.fr/`                                  |
 | GitHub Pages (miroir) | `https://lauraliedaguzay-lang.github.io/pinapp-site/` |
-| Dépôt | `pinapp-site` — HTML/CSS/JS statique |
+| Dépôt                 | `pinapp-site` — HTML/CSS/JS statique                  |
 
 Déploiement principal : **GitHub Actions** → **GitHub Pages**. Possibilité **Hostinger** / **ZIP Netlify** selon doc interne du dépôt.
 

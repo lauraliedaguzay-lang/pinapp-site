@@ -1,312 +1,805 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="fr">
-<head>
-<script>(function(){var t=localStorage.getItem('pinapp-theme')||localStorage.getItem('pinapp-mode');var d=window.matchMedia('(prefers-color-scheme:dark)').matches;var m=(t==='light'||t==='jour')?'jour':(t==='dark'||t==='nuit')?'nuit':(d?'nuit':'jour');document.documentElement.setAttribute('data-mode',m);document.documentElement.setAttribute('data-theme',m==='jour'?'light':'dark');if(document.body){document.body.classList.add('mode-'+m);}document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('mode-'+m);});}());</script>
-  <link rel="preload" as="image" href="../assets/images/bg-dark-pandora-apple.webp" fetchpriority="high">
-  <link rel="preload" as="image" href="../assets/images/bg-light-pandora-apple.webp">
-  <meta charset="UTF-8">
-  <meta name="theme-color" id="pinapp-theme-color" content="#020810">
-  <script src="../assets/js/theme-init.js" defer></script>
-  <meta name="view-transition" content="same-origin">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Auralis RH — équipes &amp; charge · Pinapp Studio</title>
-  <meta name="description" content="Auralis accompagne les &eacute;quipes RH : signaux t&ocirc;t, charge lisible, actions sous votre contr&ocirc;le. Aurora pr&eacute;pare. Vous d&eacute;cidez. Toujours.">
-  <meta property="og:title" content="Auralis RH — équipes &amp; charge · Pinapp Studio">
-  <meta property="og:description" content="Auralis RH : charge lisible et d&eacute;cisions sous contr&ocirc;le pour les &eacute;quipes RH. B&ecirc;ta Pinapp &mdash; liste d&rsquo;attente.">
-  <meta property="og:image" content="https://pinapp.fr/assets/images/og-home.png">
-  <meta property="og:url" content="https://pinapp.fr/auralis/">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="fr_FR">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-  <link rel="stylesheet" href="../assets/variables.css">
-  <link rel="stylesheet" href="../assets/grid.css">
-  <link rel="stylesheet" href="../assets/animations.css">
-  <link rel="stylesheet" href="../assets/css/aurora-mobile.css"><link rel="stylesheet" href="../assets/css/avatar-pandora-biolume.css"><link rel="stylesheet" href="../assets/css/pandora-jour.css">
-  <link rel="stylesheet" href="../assets/css/cursor.css">
-  <link rel="stylesheet" href="../assets/css/pandora-ux.css">
-  <link rel="canonical" href="https://pinapp.fr/auralis/">
-  <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"ProfessionalService","name":"Pinapp Studio","founder":{"@type":"Person","name":"Lauralie Daguzay"},"email":"lauralie.daguzay@pinapp.fr","url":"https://pinapp.fr","areaServed":"FR","priceRange":"\u20ac\u20ac","serviceType":["Site web","Automatisation","IA"]}
-</script>  <script defer data-domain="pinapp.fr" src="https://plausible.io/js/script.js"></script>
-<script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)};document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('.btn-primary').forEach(function(b){b.addEventListener('click',function(){plausible('CTA Click',{props:{page:location.pathname,text:b.textContent.trim()}});});});});</script>  <link rel="preconnect" href="https://fonts.bunny.net">
-  <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap">
-  <link rel="stylesheet" href="../assets/css/pandora-dance.css">
-  <link rel="stylesheet" href="../assets/css/ios-glass.css">
-  <link rel="stylesheet" href="../assets/css/apple-finish.css">
-  <link rel="stylesheet" href="../assets/css/pinapp-modern-biolume.css">
-  <link rel="stylesheet" href="../assets/css/pinapp-premium.css">
-  <link rel="stylesheet" href="../assets/css/deploy-harmonise.css">
-  <link rel="stylesheet" href="../assets/css/pandora-world.css">
-  <link rel="stylesheet" href="../assets/css/pandora-details.css">
-  <link rel="stylesheet" href="../assets/css/neuro-layout.css">
-</head>
-<body class="page-with-bottom-nav">
-  <div id="pandora-world" aria-hidden="true">
-    <div class="pandora-orbs">
-      <div class="orb orb-1"></div>
-      <div class="orb orb-2"></div>
-      <div class="orb orb-3"></div>
-      <div class="orb orb-4"></div>
+  <head>
+    <script>
+      (function () {
+        var t = localStorage.getItem('pinapp-theme') || localStorage.getItem('pinapp-mode');
+        var d = window.matchMedia('(prefers-color-scheme:dark)').matches;
+        var m = t === 'light' || t === 'jour' ? 'jour' : t === 'dark' || t === 'nuit' ? 'nuit' : d ? 'nuit' : 'jour';
+        document.documentElement.setAttribute('data-mode', m);
+        document.documentElement.setAttribute('data-theme', m === 'jour' ? 'light' : 'dark');
+        if (document.body) {
+          document.body.classList.add('mode-' + m);
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+          document.body.classList.add('mode-' + m);
+        });
+      })();
+    </script>
+    <link rel="preload" as="image" href="../assets/images/bg-dark-pandora-apple.webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="../assets/images/bg-light-pandora-apple.webp" />
+    <meta charset="UTF-8" />
+    <meta name="theme-color" id="pinapp-theme-color" content="#020810" />
+    <script src="../assets/js/theme-init.js" defer></script>
+    <meta name="view-transition" content="same-origin" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Auralis RH — équipes &amp; charge · Pinapp Studio</title>
+    <meta
+      name="description"
+      content="Auralis accompagne les &eacute;quipes RH : signaux t&ocirc;t, charge lisible, actions sous votre contr&ocirc;le. Aurora pr&eacute;pare. Vous d&eacute;cidez. Toujours." />
+    <meta property="og:title" content="Auralis RH — équipes &amp; charge · Pinapp Studio" />
+    <meta
+      property="og:description"
+      content="Auralis RH : charge lisible et d&eacute;cisions sous contr&ocirc;le pour les &eacute;quipes RH. B&ecirc;ta Pinapp &mdash; liste d&rsquo;attente." />
+    <meta property="og:image" content="https://pinapp.fr/og-image.webp" />
+    <meta property="og:url" content="https://pinapp.fr/auralis/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="stylesheet" href="../assets/variables.css" />
+    <link rel="stylesheet" href="../assets/grid.css" />
+    <link rel="stylesheet" href="../assets/animations.css" />
+    <link rel="stylesheet" href="../assets/css/aurora-mobile.css" />
+    <link rel="stylesheet" href="../assets/css/avatar-pandora-biolume.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-jour.css" />
+    <link rel="stylesheet" href="../assets/css/cursor.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-ux.css" />
+    <link rel="canonical" href="https://pinapp.fr/auralis/" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Pinapp Studio",
+        "founder": { "@type": "Person", "name": "Lauralie Daguzay" },
+        "email": "lauralie.daguzay@pinapp.fr",
+        "url": "https://pinapp.fr",
+        "areaServed": "FR",
+        "priceRange": "\u20ac\u20ac",
+        "serviceType": ["Site web", "Automatisation", "IA"]
+      }
+    </script>
+    <script>
+      window.plausible =
+        window.plausible ||
+        function () {
+          (window.plausible.q = window.plausible.q || []).push(arguments);
+        };
+      document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.btn-primary').forEach(function (b) {
+          b.addEventListener('click', function () {
+            plausible('CTA Click', { props: { page: location.pathname, text: b.textContent.trim() } });
+          });
+        });
+      });
+    </script>
+    <link rel="stylesheet" href="../assets/css/pandora-dance.css" />
+    <link rel="stylesheet" href="../assets/css/ios-glass.css" />
+    <link rel="stylesheet" href="../assets/css/apple-finish.css" />
+    <link rel="stylesheet" href="../assets/css/wow-visuals.css" />
+    <link rel="stylesheet" href="../assets/css/wow-senior.css" />
+    <link rel="stylesheet" href="../assets/css/pinapp-modern-biolume.css" />
+    <link rel="stylesheet" href="../assets/css/pinapp-premium.css" />
+    <link rel="stylesheet" href="../assets/css/deploy-harmonise.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-world.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-details.css" />
+    <link rel="stylesheet" href="../assets/css/neuro-layout.css" />
+  </head>
+  <body class="page-with-bottom-nav">
+    <div id="pandora-world" aria-hidden="true">
+      <div class="pandora-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+      </div>
+      <div class="pandora-spores" id="spores-container"></div>
+      <div class="pandora-stars" id="stars-container"></div>
+      <div class="pandora-clouds" id="clouds-container">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+      </div>
+      <div class="holo-grid"></div>
     </div>
-    <div class="pandora-spores" id="spores-container"></div>
-    <div class="pandora-stars" id="stars-container"></div>
-    <div class="pandora-clouds" id="clouds-container">
-      <div class="cloud cloud-1"></div>
-      <div class="cloud cloud-2"></div>
-      <div class="cloud cloud-3"></div>
+    <div id="pandora-loader" aria-hidden="true">
+      <svg width="32" height="38" viewBox="0 0 32 38" fill="none">
+        <defs>
+          <linearGradient id="pg-l" x1="16" y1="36" x2="16" y2="2" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#7B4FE8" />
+            <stop offset="100%" stop-color="#00E5CC" />
+          </linearGradient>
+        </defs>
+        <path d="M16 2 C13 5 10 6 11 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
+        <path d="M16 2 L16 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" />
+        <path d="M16 2 C19 5 22 6 21 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
+        <ellipse cx="16" cy="24" rx="9" ry="12" fill="url(#pg-l)" />
+        <path d="M7 20 L16 15 L25 20 L16 25 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
+        <path d="M7 26 L16 21 L25 26 L16 31 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
+      </svg>
     </div>
-    <div class="holo-grid"></div>
-  </div>
-<div id="pandora-loader" aria-hidden="true">
-  <svg width="32" height="38" viewBox="0 0 32 38" fill="none"><defs><linearGradient id="pg-l" x1="16" y1="36" x2="16" y2="2" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7B4FE8"/><stop offset="100%" stop-color="#00E5CC"/></linearGradient></defs><path d="M16 2 C13 5 10 6 11 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M16 2 L16 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round"/><path d="M16 2 C19 5 22 6 21 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none"/><ellipse cx="16" cy="24" rx="9" ry="12" fill="url(#pg-l)"/><path d="M7 20 L16 15 L25 20 L16 25 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none"/><path d="M7 26 L16 21 L25 26 L16 31 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none"/></svg>
-</div>
-<script>(function(){function hideLoader(){var l=document.getElementById('pandora-loader');if(l&&l.parentNode){l.style.opacity='0';setTimeout(function(){if(l.parentNode)l.remove();},400);}}window.addEventListener('load',hideLoader);setTimeout(hideLoader,2000);})();</script><div class="aurora-mobile" aria-hidden="true"><div class="aurora-orb aurora-orb-1"></div><div class="aurora-orb aurora-orb-2"></div><div class="aurora-orb aurora-orb-3"></div><div class="aurora-orb aurora-orb-4"></div></div><div class="pandora-biolume-layer" aria-hidden="true"></div><div class="pandora-shapes" aria-hidden="true"><div class="pandora-shape pandora-shape-1"></div><div class="pandora-shape pandora-shape-2"></div><div class="pandora-shape pandora-shape-3"></div><div class="pandora-shape pandora-shape-4"></div></div><div class="holo-grid" aria-hidden="true"></div><div class="noise" aria-hidden="true"></div><div class="jour-spores" aria-hidden="true"><span class="jour-spore" style="left:12%;top:75%;--dur:22s;--delay:-4s;--dx:18px;--dy:-90px;"></span><span class="jour-spore" style="left:28%;top:60%;--dur:28s;--delay:-11s;--dx:-12px;--dy:-75px;"></span><span class="jour-spore" style="left:45%;top:82%;--dur:19s;--delay:-7s;--dx:25px;--dy:-60px;"></span><span class="jour-spore" style="left:62%;top:70%;--dur:32s;--delay:-2s;--dx:-20px;--dy:-85px;"></span><span class="jour-spore" style="left:78%;top:65%;--dur:24s;--delay:-15s;--dx:14px;--dy:-70px;"></span><span class="jour-spore jour-spore-teal" style="left:20%;top:85%;--dur:26s;--delay:-18s;--dx:10px;--dy:-65px;"></span><span class="jour-spore jour-spore-teal" style="left:55%;top:88%;--dur:30s;--delay:-5s;--dx:-15px;--dy:-95px;"></span></div>
-  <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
-  <div class="scroll-progress" id="scrollProgress"></div>
-<div class="noise-overlay" aria-hidden="true"></div>
-  <nav class="nav" id="mainNav" aria-label="Navigation principale">
-    <div class="container nav-inner">
-            <a href="../index.html" class="nav-logo" aria-label="Pinapp Studio — accueil" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
-        <img class="nav-logo-img" src="../assets/images/pinapp-logo.png" alt="" width="132" height="36" decoding="async" />
-      </a>
+    <script>
+      (function () {
+        function hideLoader() {
+          var l = document.getElementById('pandora-loader');
+          if (l && l.parentNode) {
+            l.style.opacity = '0';
+            setTimeout(function () {
+              if (l.parentNode) l.remove();
+            }, 400);
+          }
+        }
+        window.addEventListener('load', hideLoader);
+        setTimeout(hideLoader, 2000);
+      })();
+    </script>
+    <div class="aurora-mobile" aria-hidden="true">
+      <div class="aurora-orb aurora-orb-1"></div>
+      <div class="aurora-orb aurora-orb-2"></div>
+      <div class="aurora-orb aurora-orb-3"></div>
+      <div class="aurora-orb aurora-orb-4"></div>
+    </div>
+    <div class="pandora-biolume-layer" aria-hidden="true"></div>
+    <div class="pandora-shapes" aria-hidden="true">
+      <div class="pandora-shape pandora-shape-1"></div>
+      <div class="pandora-shape pandora-shape-2"></div>
+      <div class="pandora-shape pandora-shape-3"></div>
+      <div class="pandora-shape pandora-shape-4"></div>
+    </div>
+    <div class="holo-grid" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="jour-spores" aria-hidden="true">
+      <span class="jour-spore" style="left: 12%; top: 75%; --dur: 22s; --delay: -4s; --dx: 18px; --dy: -90px"></span
+      ><span class="jour-spore" style="left: 28%; top: 60%; --dur: 28s; --delay: -11s; --dx: -12px; --dy: -75px"></span
+      ><span class="jour-spore" style="left: 45%; top: 82%; --dur: 19s; --delay: -7s; --dx: 25px; --dy: -60px"></span
+      ><span class="jour-spore" style="left: 62%; top: 70%; --dur: 32s; --delay: -2s; --dx: -20px; --dy: -85px"></span
+      ><span class="jour-spore" style="left: 78%; top: 65%; --dur: 24s; --delay: -15s; --dx: 14px; --dy: -70px"></span
+      ><span
+        class="jour-spore jour-spore-teal"
+        style="left: 20%; top: 85%; --dur: 26s; --delay: -18s; --dx: 10px; --dy: -65px"></span
+      ><span
+        class="jour-spore jour-spore-teal"
+        style="left: 55%; top: 88%; --dur: 30s; --delay: -5s; --dx: -15px; --dy: -95px"></span>
+    </div>
+    <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <nav class="nav" id="mainNav" aria-label="Navigation principale">
+      <div class="container nav-inner">
+        <a
+          href="../index.html"
+          class="nav-logo"
+          aria-label="Pinapp Studio — accueil"
+          style="display: flex; align-items: center; gap: 10px; text-decoration: none">
+          <img
+            class="nav-logo-img"
+            src="../assets/images/pinapp-logo.svg"
+            alt=""
+            width="132"
+            height="36"
+            decoding="async" />
+        </a>
         <div class="nav-links">
-        <a href="../offres/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
-        <a href="../formation-gratuite/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Formations</a>
-        <a href="../realisations/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
-        <a href="../a-propos/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
-        <a href="../faq/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
-        <a href="../auralis/index.html" class="nav-link" style="font-size:14px;opacity:0.8;" aria-current="page">Auralis</a>
-        <a href="../univers/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Univers</a>
-        <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Démarrer ma demande</a>
+          <a href="../offres/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Offres</a>
+          <a href="../formation-gratuite/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8"
+            >Formations</a
+          >
+          <a href="../realisations/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Réalisations</a>
+          <a href="../a-propos/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">À propos</a>
+          <a href="../faq/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">FAQ</a>
+          <a href="../auralis/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8" aria-current="page"
+            >Auralis</a
+          >
+          <a href="../univers/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Univers</a>
+          <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px"
+            >Démarrer ma demande</a
+          >
+        </div>
+        <div class="nav-trailing">
+          <button type="button" class="mode-toggle" id="themeToggle" aria-label="Passer en mode jour">
+            <svg class="icon-lune" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path
+                d="M15.5 10.5A6.5 6.5 0 0 1 7.5 2.5a6.5 6.5 0 1 0 8 8z"
+                stroke="#00E5CC"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                fill="none" /></svg
+            ><svg class="icon-soleil" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <circle cx="9" cy="9" r="3.5" stroke="#009B8C" stroke-width="1.5" />
+              <line x1="9" y1="1" x2="9" y2="3" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="9" y1="15" x2="9" y2="17" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="1" y1="9" x2="3" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="15" y1="9" x2="17" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="burger"
+            id="burger"
+            aria-label="Ouvrir le menu"
+            aria-expanded="false"
+            aria-controls="mobileDrawer">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              aria-hidden="true">
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
       </div>
-      <div class="nav-trailing">
-        <button type="button" class="mode-toggle" id="themeToggle" aria-label="Passer en mode jour"><svg class="icon-lune" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M15.5 10.5A6.5 6.5 0 0 1 7.5 2.5a6.5 6.5 0 1 0 8 8z" stroke="#00E5CC" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg><svg class="icon-soleil" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="3.5" stroke="#009B8C" stroke-width="1.5"/><line x1="9" y1="1" x2="9" y2="3" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="15" x2="9" y2="17" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="9" x2="3" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/><line x1="15" y1="9" x2="17" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/></svg></button>
-        <button type="button" class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileDrawer">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
+    </nav>
+    <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" role="dialog" aria-label="Menu" aria-modal="true">
+      <div class="mobile-drawer-panel">
+        <button type="button" id="drawerClose" aria-label="Fermer le menu">×</button>
+        <a href="../index.html">Accueil</a>
+        <div class="nav-links">
+          <a href="../offres/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Offres</a>
+          <a href="../formation-gratuite/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8"
+            >Formations</a
+          >
+          <a href="../realisations/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Réalisations</a>
+          <a href="../a-propos/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">À propos</a>
+          <a href="../faq/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">FAQ</a>
+          <a href="../auralis/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8" aria-current="page"
+            >Auralis</a
+          >
+          <a href="../univers/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Univers</a>
+          <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px"
+            >Démarrer ma demande</a
+          >
+        </div>
       </div>
     </div>
-  </nav>
-  <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" role="dialog" aria-label="Menu" aria-modal="true">
-    <div class="mobile-drawer-panel">
-      <button type="button" id="drawerClose" aria-label="Fermer le menu">×</button>
-      <div class="nav-links">
-        <a href="../offres/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
-        <a href="../formation-gratuite/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Formations</a>
-        <a href="../realisations/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
-        <a href="../a-propos/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
-        <a href="../faq/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
-        <a href="../auralis/index.html" class="nav-link" style="font-size:14px;opacity:0.8;" aria-current="page">Auralis</a>
-        <a href="../univers/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Univers</a>
-        <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Démarrer ma demande</a>
-      </div>
-  </div>
-  </div>        <div class="bottom-bar bottom-bar--site bottom-bar--six" aria-label="Navigation du site">
-    <a href="../index.html">Accueil</a>
-    <a href="../offres/index.html">Offres</a>
-    <a href="../diagnostic/index.html" class="bottom-bar-cta">D&eacute;marrer</a>
-    <a href="../univers/index.html">Univers</a>
-    <a href="../formation-gratuite/index.html">Form.</a>
-    <a href="../realisations/index.html">R&eacute;alis.</a>
-  </div>
-<main id="contenu-principal" class="stack-above-bg" tabindex="-1">
-    <section class="section" style="background:var(--bg-deep);" data-chapter="auralis">
-      <div class="container">
-        <div class="auralis-split">
-          <div>
-            <p class="label" style="margin-bottom:var(--space-2);">PRODUIT PINAPP &middot; B&Ecirc;TA</p>
-            <h1 style="font-size:var(--text-h1);letter-spacing:-0.02em;margin-bottom:var(--space-3);line-height:1.1;">Une charge invisible<br>pour les &eacute;quipes RH.<br>Personne ne g&egrave;re la leur.</h1>
-            <p style="font-size:1.0625rem;opacity:0.75;margin-bottom:var(--space-5);line-height:1.7;font-style:italic;font-family:Georgia,serif;">Aurora pr&eacute;pare. Vous d&eacute;cidez. Toujours.</p>
-            <div style="margin-top:var(--space-5);max-width:420px;">
-  <span id="auralis-status-badge" style="background:rgba(57,224,117,0.15);color:#39E075;border:1px solid rgba(57,224,117,0.35);font-size:11px;font-weight:700;padding:5px 14px;border-radius:100px;letter-spacing:0.06em;display:inline-block;margin-bottom:16px;">LANCEMENT &mdash; &Eacute;T&Eacute; 2026 &middot; 99&euro;/mois</span>
-  <div id="auralis-prelau">
-  <p id="auralis-prelau-title" style="font-size:14px;font-weight:600;margin-bottom:10px;">Soyez prévenu(e) en premier</p>
-  <form id="auralis-waitlist" style="display:flex;gap:10px;flex-wrap:wrap;" onsubmit="event.preventDefault();document.getElementById('auralis-confirm').style.display='';this.style.display='none';">
-    <input type="email" placeholder="votre@email.fr" required style="flex:1;min-width:200px;padding:12px 16px;background:rgba(255,255,255,0.06);border:1px solid rgba(0,180,216,0.25);border-radius:100px;color:var(--text);font-size:14px;outline:none;">
-    <button type="submit" class="btn-primary" style="padding:12px 20px;font-size:14px;white-space:nowrap;">Me pr&eacute;venir &rarr;</button>
-  </form>
-  <p id="auralis-confirm" style="display:none;color:#39E075;font-size:14px;padding:12px 0;">&#10003; Not&eacute;. Vous serez contact&eacute;(e) en premier.</p>
-  </div>
-  <div id="auralis-live" class="auralis-live-cta" hidden style="display:none;">
-    <p style="font-size:14px;font-weight:600;margin-bottom:10px;">L&rsquo;application est disponible</p>
-    <p style="font-size:14px;opacity:0.75;margin-bottom:var(--space-3);line-height:1.6;">Espace s&eacute;curis&eacute; pour les &eacute;quipes RH &mdash; connexion avec le compte fourni &agrave; l&rsquo;inscription.</p>
-    <a href="#" id="auralis-app-link" class="btn-primary" style="display:inline-flex;padding:12px 22px;font-size:14px;text-decoration:none;border-radius:100px;align-items:center;" target="_blank" rel="noopener noreferrer">Ouvrir Auralis &rarr;</a>
-    <p style="font-size:13px;opacity:0.6;margin-top:var(--space-3);">Besoin d&rsquo;aide ? <a href="../diagnostic/index.html?projet=auralis" style="color:var(--accent-teal);">Contact Pinapp</a></p>
-  </div>
-</div><div style="display:flex;gap:var(--space-2);align-items:center;flex-wrap:wrap;">
-              <span id="auralis-soon-pill" style="background:var(--accent-green);color:#020810;font-size:11px;font-weight:600;padding:4px 12px;border-radius:100px;">BIENTÔT</span>
-              <a href="../diagnostic/index.html?projet=auralis" style="font-size:14px;color:var(--accent-teal);">&Eacute;crire sur mon projet &rarr;</a>
+    <div class="bottom-bar bottom-bar--site bottom-bar--six" aria-label="Navigation du site">
+      <a href="../index.html">Accueil</a>
+      <a href="../offres/index.html">Offres</a>
+      <a href="../diagnostic/index.html" class="bottom-bar-cta">D&eacute;marrer</a>
+      <a href="../univers/index.html">Univers</a>
+      <a href="../offres/formation/index.html">Form.</a>
+      <a href="../realisations/index.html">R&eacute;alis.</a>
+    </div>
+    <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
+      <section class="section" style="background: var(--bg-deep)" data-chapter="auralis">
+        <div class="container">
+          <div class="auralis-split">
+            <div>
+              <p class="label" style="margin-bottom: var(--space-2)">PRODUIT PINAPP &middot; B&Ecirc;TA</p>
+              <h1
+                style="
+                  font-size: var(--text-h1);
+                  letter-spacing: -0.02em;
+                  margin-bottom: var(--space-3);
+                  line-height: 1.1;
+                ">
+                Une charge invisible<br />pour les &eacute;quipes RH.<br />Personne ne g&egrave;re la leur.
+              </h1>
+              <p
+                style="
+                  font-size: 1.0625rem;
+                  opacity: 0.75;
+                  margin-bottom: var(--space-5);
+                  line-height: 1.7;
+                  font-style: italic;
+                  font-family: Georgia, serif;
+                ">
+                Aurora pr&eacute;pare. Vous d&eacute;cidez. Toujours.
+              </p>
+              <div style="margin-top: var(--space-5); max-width: 420px">
+                <span
+                  id="auralis-status-badge"
+                  style="
+                    background: rgba(57, 224, 117, 0.15);
+                    color: #39e075;
+                    border: 1px solid rgba(57, 224, 117, 0.35);
+                    font-size: 11px;
+                    font-weight: 700;
+                    padding: 5px 14px;
+                    border-radius: 100px;
+                    letter-spacing: 0.06em;
+                    display: inline-block;
+                    margin-bottom: 16px;
+                  "
+                  >LANCEMENT &mdash; &Eacute;T&Eacute; 2026 &middot; 99&euro;/mois</span
+                >
+                <div id="auralis-prelau">
+                  <p id="auralis-prelau-title" style="font-size: 14px; font-weight: 600; margin-bottom: 10px">
+                    Soyez prévenu(e) en premier
+                  </p>
+                  <form
+                    id="auralis-waitlist"
+                    style="display: flex; gap: 10px; flex-wrap: wrap"
+                    onsubmit="
+                      event.preventDefault();
+                      document.getElementById('auralis-confirm').style.display = '';
+                      this.style.display = 'none';
+                    ">
+                    <input
+                      type="email"
+                      placeholder="votre@email.fr"
+                      required
+                      style="
+                        flex: 1;
+                        min-width: 200px;
+                        padding: 12px 16px;
+                        background: rgba(255, 255, 255, 0.06);
+                        border: 1px solid rgba(0, 180, 216, 0.25);
+                        border-radius: 100px;
+                        color: var(--text);
+                        font-size: 14px;
+                        outline: none;
+                      " />
+                    <button
+                      type="submit"
+                      class="btn-primary"
+                      style="padding: 12px 20px; font-size: 14px; white-space: nowrap">
+                      Me pr&eacute;venir &rarr;
+                    </button>
+                  </form>
+                  <p id="auralis-confirm" style="display: none; color: #39e075; font-size: 14px; padding: 12px 0">
+                    &#10003; Not&eacute;. Vous serez contact&eacute;(e) en premier.
+                  </p>
+                </div>
+                <div id="auralis-live" class="auralis-live-cta" hidden style="display: none">
+                  <p style="font-size: 14px; font-weight: 600; margin-bottom: 10px">
+                    L&rsquo;application est disponible
+                  </p>
+                  <p style="font-size: 14px; opacity: 0.75; margin-bottom: var(--space-3); line-height: 1.6">
+                    Espace s&eacute;curis&eacute; pour les &eacute;quipes RH &mdash; connexion avec le compte fourni
+                    &agrave; l&rsquo;inscription.
+                  </p>
+                  <a
+                    href="#"
+                    id="auralis-app-link"
+                    class="btn-primary"
+                    style="
+                      display: inline-flex;
+                      padding: 12px 22px;
+                      font-size: 14px;
+                      text-decoration: none;
+                      border-radius: 100px;
+                      align-items: center;
+                    "
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Ouvrir Auralis &rarr;</a
+                  >
+                  <p style="font-size: 13px; opacity: 0.6; margin-top: var(--space-3)">
+                    Besoin d&rsquo;aide ?
+                    <a href="../diagnostic/index.html?projet=auralis" style="color: var(--accent-teal)"
+                      >Contact Pinapp</a
+                    >
+                  </p>
+                </div>
+              </div>
+              <div style="display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap">
+                <span
+                  id="auralis-soon-pill"
+                  style="
+                    background: var(--accent-green);
+                    color: #020810;
+                    font-size: 11px;
+                    font-weight: 600;
+                    padding: 4px 12px;
+                    border-radius: 100px;
+                  "
+                  >BIENTÔT</span
+                >
+                <a href="../diagnostic/index.html?projet=auralis" style="font-size: 14px; color: var(--accent-teal)"
+                  >&Eacute;crire sur mon projet &rarr;</a
+                >
+              </div>
+            </div>
+            <div style="display: flex; justify-content: center">
+              <div
+                class="auralis-phone-mock"
+                style="
+                  width: 240px;
+                  height: 480px;
+                  background: var(--bg-card);
+                  border-radius: 32px;
+                  border: 2px solid rgba(62, 235, 214, 0.22);
+                  box-shadow:
+                    0 0 40px rgba(62, 235, 214, 0.1),
+                    0 0 80px rgba(62, 235, 214, 0.05);
+                  backdrop-filter: blur(24px) saturate(160%);
+                  -webkit-backdrop-filter: blur(24px) saturate(160%);
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: flex-start;
+                  padding: var(--space-4);
+                  gap: var(--space-3);
+                ">
+                <div
+                  style="
+                    width: 48px;
+                    height: 48px;
+                    border-radius: 14px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: 1px solid rgba(62, 235, 214, 0.28);
+                    background: rgba(62, 235, 214, 0.08);
+                    flex-shrink: 0;
+                  "
+                  aria-hidden="true">
+                  <svg
+                    width="28"
+                    height="28"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="var(--accent-teal)"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    <path d="M9 12l2 2 4-4" />
+                  </svg>
+                </div>
+                <p style="font-size: 14px; color: var(--accent-teal); letter-spacing: 0.1em">AURALIS RH</p>
+                <svg width="100" height="100" viewBox="0 0 100 100" aria-hidden="true">
+                  <circle cx="50" cy="50" r="36" fill="none" stroke="rgba(62,235,214,0.18)" stroke-width="3" />
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="36"
+                    fill="none"
+                    stroke="#3EEBD6"
+                    stroke-width="3"
+                    stroke-dasharray="226"
+                    stroke-dashoffset="226"
+                    stroke-linecap="round"
+                    transform="rotate(-90 50 50)"
+                    data-auralis-ring-fill="true" />
+                </svg>
+                <p
+                  style="
+                    font-size: 15px;
+                    font-weight: 600;
+                    color: var(--text-primary);
+                    letter-spacing: -0.02em;
+                    text-align: center;
+                    line-height: 1.25;
+                  ">
+                  &Eacute;quilibre &mdash; <span style="color: var(--accent-teal)">confortable</span>
+                </p>
+                <div style="width: 100%">
+                  <p
+                    style="
+                      font-size: 10px;
+                      opacity: 0.5;
+                      margin-bottom: 6px;
+                      font-family: Jost, sans-serif;
+                      letter-spacing: 0.1em;
+                    ">
+                    &Eacute;QUIT&Eacute;
+                  </p>
+                  <div style="height: 3px; background: rgba(62, 235, 214, 0.18); border-radius: 100px">
+                    <div class="auralis-bar" style="height: 3px; width: 0%"></div>
+                  </div>
+                </div>
+                <div
+                  style="
+                    background: rgba(62, 235, 214, 0.06);
+                    border: 1px solid rgba(62, 235, 214, 0.12);
+                    border-radius: 12px;
+                    padding: 10px;
+                    width: 100%;
+                  ">
+                  <p style="font-size: 11px; opacity: 0.7; font-family: Jost, sans-serif; line-height: 1.5">
+                    Votre semaine semble charg&eacute;e. Une pause courte est possible.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-          <div style="display:flex;justify-content:center;">
-            <div class="auralis-phone-mock" style="width:240px;height:480px;background:var(--bg-card);border-radius:32px;border:2px solid rgba(62,235,214,0.22);box-shadow:0 0 40px rgba(62,235,214,0.1),0 0 80px rgba(62,235,214,0.05);backdrop-filter:blur(24px) saturate(160%);-webkit-backdrop-filter:blur(24px) saturate(160%);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:var(--space-4);gap:var(--space-3);">
-              <div style="width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(62,235,214,0.28);background:rgba(62,235,214,0.08);flex-shrink:0;" aria-hidden="true">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-teal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-              </div>
-              <p style="font-size:14px;color:var(--accent-teal);letter-spacing:0.1em;">AURALIS RH</p>
-              <svg width="100" height="100" viewBox="0 0 100 100" aria-hidden="true">
-                <circle cx="50" cy="50" r="36" fill="none" stroke="rgba(62,235,214,0.18)" stroke-width="3"/>
-                <circle cx="50" cy="50" r="36" fill="none" stroke="#3EEBD6" stroke-width="3" stroke-dasharray="226" stroke-dashoffset="226" stroke-linecap="round" transform="rotate(-90 50 50)" data-auralis-ring-fill="true"/>
-              </svg>
-              <p style="font-size:15px;font-weight:600;color:var(--text-primary);letter-spacing:-0.02em;text-align:center;line-height:1.25;">&Eacute;quilibre &mdash; <span style="color:var(--accent-teal);">confortable</span></p>
-              <div style="width:100%;">
-                <p style="font-size:10px;opacity:0.5;margin-bottom:6px;font-family:Jost,sans-serif;letter-spacing:0.1em;">&Eacute;QUIT&Eacute;</p>
-                <div style="height:3px;background:rgba(62,235,214,0.18);border-radius:100px;"><div class="auralis-bar" style="height:3px;width:0%;"></div></div>
-              </div>
-              <div style="background:rgba(62,235,214,0.06);border:1px solid rgba(62,235,214,0.12);border-radius:12px;padding:10px;width:100%;">
-                <p style="font-size:11px;opacity:0.7;font-family:Jost,sans-serif;line-height:1.5;">Votre semaine semble charg&eacute;e. Une pause courte est possible.</p>
-              </div>
+        </div>
+      </section>
+      <section class="section" style="background: var(--bg-deep)" aria-labelledby="auralis-probleme-title">
+        <div class="container" style="max-width: 720px">
+          <p class="label" style="margin-bottom: var(--space-2)">LE PROBL&Egrave;ME</p>
+          <h2
+            id="auralis-probleme-title"
+            style="
+              font-size: clamp(1.5rem, 3.5vw, 2rem);
+              letter-spacing: -0.02em;
+              margin-bottom: var(--space-3);
+              line-height: 1.15;
+            ">
+            La charge monte avant qu&rsquo;on ait le temps de la nommer.
+          </h2>
+          <p style="opacity: 0.75; line-height: 1.75; font-size: 1.0625rem">
+            Entretiens, urgences, tableaux de suivi : tout est prioritaire en m&ecirc;me temps. Les &eacute;quipes RH
+            devinent la marge de man&oelig;uvre au lieu de la voir clairement.
+          </p>
+        </div>
+      </section>
+      <section class="section" aria-labelledby="auralis-comment-title">
+        <div class="container">
+          <p class="label" style="text-align: center; margin-bottom: var(--space-2)">COMMENT &Ccedil;A MARCHE</p>
+          <h2
+            id="auralis-comment-title"
+            style="
+              font-size: var(--text-h2);
+              text-align: center;
+              letter-spacing: -0.02em;
+              margin-bottom: var(--space-6);
+            ">
+            Trois mouvements. Toujours sous votre validation.
+          </h2>
+          <div class="grid grid-3" style="gap: var(--space-4)">
+            <div class="card" style="text-align: left">
+              <p class="label" style="margin-bottom: var(--space-2)">&Eacute;TAPE 1</p>
+              <h3 style="font-size: 1.125rem; margin-bottom: var(--space-2); letter-spacing: -0.02em">
+                Lecture de la charge
+              </h3>
+              <p style="font-size: 14px; opacity: 0.72; line-height: 1.65">
+                Auralis relie les signaux utiles (rythme, tensions, fen&ecirc;tres possibles) pour que la situation soit
+                lisible, sans vous noyer dans les donn&eacute;es.
+              </p>
+            </div>
+            <div class="card" style="text-align: left">
+              <p class="label" style="margin-bottom: var(--space-2)">&Eacute;TAPE 2</p>
+              <h3 style="font-size: 1.125rem; margin-bottom: var(--space-2); letter-spacing: -0.02em">
+                Propositions cadr&eacute;es
+              </h3>
+              <p style="font-size: 14px; opacity: 0.72; line-height: 1.65">
+                Des options concr&egrave;tes &mdash; pas des ordres. Vous choisissez ce qui est acceptable pour votre
+                culture et votre calendrier.
+              </p>
+            </div>
+            <div class="card" style="text-align: left">
+              <p class="label" style="margin-bottom: var(--space-2)">&Eacute;TAPE 3</p>
+              <h3 style="font-size: 1.125rem; margin-bottom: var(--space-2); letter-spacing: -0.02em">Suivi discret</h3>
+              <p style="font-size: 14px; opacity: 0.72; line-height: 1.65">
+                Le produit reste un appui : rappels doux, pas de d&eacute;cisions &agrave; votre place. Aurora
+                pr&eacute;pare ; vous tranchez.
+              </p>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-    <section class="section" style="background:var(--bg-deep);" aria-labelledby="auralis-probleme-title">
-      <div class="container" style="max-width:720px;">
-        <p class="label" style="margin-bottom:var(--space-2);">LE PROBL&Egrave;ME</p>
-        <h2 id="auralis-probleme-title" style="font-size:clamp(1.5rem,3.5vw,2rem);letter-spacing:-0.02em;margin-bottom:var(--space-3);line-height:1.15;">La charge monte avant qu&rsquo;on ait le temps de la nommer.</h2>
-        <p style="opacity:0.75;line-height:1.75;font-size:1.0625rem;">Entretiens, urgences, tableaux de suivi : tout est prioritaire en m&ecirc;me temps. Les &eacute;quipes RH devinent la marge de man&oelig;uvre au lieu de la voir clairement.</p>
-      </div>
-    </section>
-    <section class="section" aria-labelledby="auralis-comment-title">
-      <div class="container">
-        <p class="label" style="text-align:center;margin-bottom:var(--space-2);">COMMENT &Ccedil;A MARCHE</p>
-        <h2 id="auralis-comment-title" style="font-size:var(--text-h2);text-align:center;letter-spacing:-0.02em;margin-bottom:var(--space-6);">Trois mouvements. Toujours sous votre validation.</h2>
-        <div class="grid grid-3" style="gap:var(--space-4);">
-          <div class="card" style="text-align:left;">
-            <p class="label" style="margin-bottom:var(--space-2);">&Eacute;TAPE 1</p>
-            <h3 style="font-size:1.125rem;margin-bottom:var(--space-2);letter-spacing:-0.02em;">Lecture de la charge</h3>
-            <p style="font-size:14px;opacity:0.72;line-height:1.65;">Auralis relie les signaux utiles (rythme, tensions, fen&ecirc;tres possibles) pour que la situation soit lisible, sans vous noyer dans les donn&eacute;es.</p>
-          </div>
-          <div class="card" style="text-align:left;">
-            <p class="label" style="margin-bottom:var(--space-2);">&Eacute;TAPE 2</p>
-            <h3 style="font-size:1.125rem;margin-bottom:var(--space-2);letter-spacing:-0.02em;">Propositions cadr&eacute;es</h3>
-            <p style="font-size:14px;opacity:0.72;line-height:1.65;">Des options concr&egrave;tes &mdash; pas des ordres. Vous choisissez ce qui est acceptable pour votre culture et votre calendrier.</p>
-          </div>
-          <div class="card" style="text-align:left;">
-            <p class="label" style="margin-bottom:var(--space-2);">&Eacute;TAPE 3</p>
-            <h3 style="font-size:1.125rem;margin-bottom:var(--space-2);letter-spacing:-0.02em;">Suivi discret</h3>
-            <p style="font-size:14px;opacity:0.72;line-height:1.65;">Le produit reste un appui : rappels doux, pas de d&eacute;cisions &agrave; votre place. Aurora pr&eacute;pare ; vous tranchez.</p>
+      </section>
+      <section class="section" style="background: var(--bg-deep)" aria-labelledby="auralis-cta-title">
+        <div class="container" style="max-width: 560px; text-align: center">
+          <p class="label" style="margin-bottom: var(--space-2)">LISTE D&rsquo;ATTENTE</p>
+          <h2
+            id="auralis-cta-title"
+            style="font-size: clamp(1.5rem, 4vw, 2.25rem); letter-spacing: -0.02em; margin-bottom: var(--space-3)">
+            Rejoindre la phase b&ecirc;ta ou en parler avec Pinapp
+          </h2>
+          <p style="opacity: 0.72; line-height: 1.7; margin-bottom: var(--space-5); font-size: 1.0625rem">
+            Laissez votre e-mail pour &ecirc;tre pr&eacute;venu(e), ou &eacute;crivez-nous pour un &eacute;change sur
+            Google Meet si vous le souhaitez.
+          </p>
+          <div style="display: flex; flex-wrap: wrap; gap: var(--space-3); justify-content: center">
+            <a
+              href="#auralis-prelau"
+              class="btn-primary"
+              style="
+                display: inline-flex;
+                padding: 12px 22px;
+                font-size: 14px;
+                text-decoration: none;
+                border-radius: 100px;
+                align-items: center;
+              "
+              >S&rsquo;inscrire &agrave; la liste &rarr;</a
+            >
+            <a
+              href="../diagnostic/index.html?projet=auralis"
+              class="btn btn-secondary"
+              style="
+                display: inline-flex;
+                padding: 12px 22px;
+                font-size: 14px;
+                border-radius: 100px;
+                align-items: center;
+                text-decoration: none;
+              "
+              >&Eacute;changer sur Google Meet &rarr;</a
+            >
           </div>
         </div>
-      </div>
-    </section>
-    <section class="section" style="background:var(--bg-deep);" aria-labelledby="auralis-cta-title">
-      <div class="container" style="max-width:560px;text-align:center;">
-        <p class="label" style="margin-bottom:var(--space-2);">LISTE D&rsquo;ATTENTE</p>
-        <h2 id="auralis-cta-title" style="font-size:clamp(1.5rem,4vw,2.25rem);letter-spacing:-0.02em;margin-bottom:var(--space-3);">Rejoindre la phase b&ecirc;ta ou en parler avec Pinapp</h2>
-        <p style="opacity:0.72;line-height:1.7;margin-bottom:var(--space-5);font-size:1.0625rem;">Laissez votre e-mail pour &ecirc;tre pr&eacute;venu(e), ou &eacute;crivez-nous pour un &eacute;change sur Google Meet si vous le souhaitez.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:var(--space-3);justify-content:center;">
-          <a href="#auralis-prelau" class="btn-primary" style="display:inline-flex;padding:12px 22px;font-size:14px;text-decoration:none;border-radius:100px;align-items:center;">S&rsquo;inscrire &agrave; la liste &rarr;</a>
-          <a href="../diagnostic/index.html?projet=auralis" class="btn btn-secondary" style="display:inline-flex;padding:12px 22px;font-size:14px;border-radius:100px;align-items:center;text-decoration:none;">&Eacute;changer sur Google Meet &rarr;</a>
-        </div>
-      </div>
-    </section>
-  </main>
+      </section>
+    </main>
     <footer class="site-footer">
-    <div aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none;">
-      <svg viewBox="0 0 120 140" width="380" height="440" style="position:absolute;bottom:-60px;right:-40px;opacity:0.03;" aria-hidden="true" fill="currentColor"><ellipse cx="60" cy="80" rx="38" ry="48"/><path d="M60 32 C54 38 50 42 52 48"/><path d="M60 32 C60 38 60 42 60 48"/><path d="M60 32 C66 38 70 42 68 48"/><rect x="22" y="60" width="76" height="4" rx="2"/><rect x="22" y="72" width="76" height="4" rx="2"/><rect x="22" y="84" width="76" height="4" rx="2"/></svg>
-    </div>
-    <div class="container" style="position:relative;text-align:center;padding:var(--space-7) 0 var(--space-5);">
-      <p style="font-size:1.0625rem;opacity:0.55;margin-bottom:var(--space-4);font-style:italic;letter-spacing:-0.01em;">Pinapp pr&eacute;pare. Vous validez. Toujours.</p>
-      <nav style="display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-3);margin-bottom:var(--space-4);font-size:13px;opacity:0.65;" aria-label="Liens footer">
-        <a href="https://linkedin.com/in/lauralie-daguzay-4a4542197/" rel="noopener noreferrer" target="_blank">LinkedIn</a>
-        <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
-        <a href="../legal/mentions.html">Mentions légales</a>
-        <a href="../legal/cgv.html">CGV</a>
-        <a href="../legal/confidentialite.html">Confidentialité</a>
-      </nav>
-        <nav style="display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-3);margin-bottom:var(--space-3);font-size:12px;opacity:0.4;" aria-label="Liens secondaires">
+      <div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden; pointer-events: none">
+        <svg
+          viewBox="0 0 120 140"
+          width="380"
+          height="440"
+          style="position: absolute; bottom: -60px; right: -40px; opacity: 0.03"
+          aria-hidden="true"
+          fill="currentColor">
+          <ellipse cx="60" cy="80" rx="38" ry="48" />
+          <path d="M60 32 C54 38 50 42 52 48" />
+          <path d="M60 32 C60 38 60 42 60 48" />
+          <path d="M60 32 C66 38 70 42 68 48" />
+          <rect x="22" y="60" width="76" height="4" rx="2" />
+          <rect x="22" y="72" width="76" height="4" rx="2" />
+          <rect x="22" y="84" width="76" height="4" rx="2" />
+        </svg>
+      </div>
+      <div class="container" style="position: relative; text-align: center; padding: var(--space-7) 0 var(--space-5)">
+        <p
+          style="
+            font-size: 1.0625rem;
+            opacity: 0.55;
+            margin-bottom: var(--space-4);
+            font-style: italic;
+            letter-spacing: -0.01em;
+          ">
+          Pinapp pr&eacute;pare. Vous validez. Toujours.
+        </p>
+        <nav
+          style="
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+            font-size: 13px;
+            opacity: 0.65;
+          "
+          aria-label="Liens footer">
+          <a href="https://linkedin.com/in/lauralie-daguzay-4a4542197/" rel="noopener noreferrer" target="_blank"
+            >LinkedIn</a
+          >
+          <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
+          <a href="../legal/mentions.html">Mentions légales</a>
+          <a href="../legal/cgv.html">CGV</a>
+          <a href="../legal/confidentialite.html">Confidentialité</a>
+        </nav>
+        <nav
+          style="
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-3);
+            font-size: 12px;
+            opacity: 0.4;
+          "
+          aria-label="Liens secondaires">
           <a href="../expertise-ia/index.html">IA &amp; systèmes</a>
           <a href="../auralis/index.html">Auralis RH</a>
-          <a href="../formation-gratuite/index.html">Formation IA</a>
+          <a href="../offres/formation/index.html">Formation IA</a>
         </nav>
-      <p style="font-size:12px;opacity:0.35;letter-spacing:0.04em;">Pinapp Studio © 2026</p>
-    </div>
-  </footer>
-  <div id="cookie-banner" role="dialog" aria-label="Cookies" style="position:fixed;bottom:0;left:0;right:0;padding:var(--space-3);background:var(--bg-card);border-top:1px solid var(--border-card);backdrop-filter:blur(20px);z-index:9000;display:none;">
-    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap;">
-      <p style="font-size:13px;opacity:0.8;max-width:600px;">Ce site utilise des cookies de mesure d’audience anonymes (Plausible Analytics — sans tracking personnel).</p>
-      <div style="display:flex;gap:var(--space-2);">
-        <button type="button" id="cookieAccept" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Accepter</button>
-        <button type="button" id="cookieRefuse" class="btn btn-secondary" style="font-size:13px;padding:10px 20px;">Refuser</button>
+        <p style="font-size: 12px; opacity: 0.35; letter-spacing: 0.04em">Pinapp Studio © 2026</p>
+      </div>
+    </footer>
+    <div
+      id="cookie-banner"
+      role="dialog"
+      aria-label="Cookies"
+      style="
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: var(--space-3);
+        background: var(--bg-card);
+        border-top: 1px solid var(--border-card);
+        backdrop-filter: blur(20px);
+        z-index: 9000;
+        display: none;
+      ">
+      <div
+        class="container"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: var(--space-3);
+          flex-wrap: wrap;
+        ">
+        <p style="font-size: 13px; opacity: 0.8; max-width: 600px">
+          Ce site utilise des cookies de mesure d’audience anonymes (Plausible Analytics — sans tracking personnel).
+        </p>
+        <div style="display: flex; gap: var(--space-2)">
+          <button type="button" id="cookieAccept" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px">
+            Accepter
+          </button>
+          <button type="button" id="cookieRefuse" class="btn btn-secondary" style="font-size: 13px; padding: 10px 20px">
+            Refuser
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <script src="../assets/js/auralis-config.js"></script>
-  <script src="../assets/js/config.js"></script>
-  <script src="../assets/js/security.js" defer></script>
-  <script src="../assets/js/main.js" defer></script>
-  <script src="../assets/js/particles.js" defer></script>
-  <script src="../assets/js/aurora.js" defer></script>
-  <script src="../assets/js/parallax.js" defer></script>
-  <script src="../assets/js/intelligence.js" defer></script><script src="../assets/js/scroll-cinema.js" defer></script>
-  <script src="../assets/js/cursor.js" defer></script>
-<script src="../assets/js/pandora-night.js" defer></script><script src="../assets/js/mode-toggle.js" defer></script><script>
-/* Auralis — bascule app en ligne (PINAPP_AURALIS.APP_URL dans auralis-config.js) */
-document.addEventListener('DOMContentLoaded', function() {
-  var cfg = window.PINAPP_AURALIS || {};
-  var appUrl = String(cfg.APP_URL || '').trim();
-  var pre = document.getElementById('auralis-prelau');
-  var live = document.getElementById('auralis-live');
-  var badge = document.getElementById('auralis-status-badge');
-  var pill = document.getElementById('auralis-soon-pill');
-  var link = document.getElementById('auralis-app-link');
-  if (appUrl && pre && live && link) {
-    link.setAttribute('href', appUrl);
-    pre.setAttribute('hidden', '');
-    pre.style.display = 'none';
-    live.removeAttribute('hidden');
-    live.style.display = '';
-    if (badge) {
-      badge.textContent = 'APPLICATION EN LIGNE';
-      badge.style.background = 'rgba(62,235,214,0.12)';
-      badge.style.color = 'var(--accent-teal, #3EEBD6)';
-      badge.style.borderColor = 'rgba(62,235,214,0.35)';
-    }
-    if (pill) {
-      pill.textContent = 'ACCÈS CLIENT';
-      pill.style.background = 'rgba(62,235,214,0.2)';
-      pill.style.color = 'var(--accent-teal, #3EEBD6)';
-    }
-  }
-});
-/* Auralis — anneau qualitatif (sans chiffre) + barre équité au scroll */
-document.addEventListener('DOMContentLoaded', function() {
-  var ring = document.querySelector('circle[data-auralis-ring-fill]');
-  var bar = document.querySelector('.auralis-phone-mock .auralis-bar');
-  var mock = document.querySelector('.auralis-phone-mock');
-  if (!mock || (!ring && !bar)) return;
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function play() {
-    if (ring) {
-      if (reduced) { ring.style.strokeDashoffset = '68'; }
-      else {
-        ring.style.transition = 'stroke-dashoffset 1s cubic-bezier(0.45,0.05,0.55,0.95) 0.2s';
-        requestAnimationFrame(function() { ring.style.strokeDashoffset = '68'; });
-      }
-    }
-    if (bar) {
-      if (reduced) { bar.style.width = '68%'; }
-      else {
-        bar.style.transition = 'width 0.85s cubic-bezier(0.45,0.05,0.55,0.95) 0.35s';
-        requestAnimationFrame(function() { bar.style.width = '68%'; });
-      }
-    }
-  }
-  if (reduced) { play(); return; }
-  var obs = new IntersectionObserver(function(entries) {
-    if (!entries[0].isIntersecting) return;
-    obs.disconnect();
-    play();
-  }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
-  obs.observe(mock);
-});
-</script>
-  <script src="../assets/js/bio-particles.js" defer></script>
-  <script src="../assets/js/pandora-world.js"></script>
-  <script src="../assets/js/pandora-interactions.js"></script>
-</body>
+    <script src="../assets/js/auralis-config.js"></script>
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/security.js" defer></script>
+    <script src="../assets/js/main.js" defer></script>
+    <script src="../assets/js/particles.js" defer></script>
+    <script src="../assets/js/aurora.js" defer></script>
+    <script src="../assets/js/parallax.js" defer></script>
+    <script src="../assets/js/intelligence.js" defer></script>
+    <script src="../assets/js/scroll-cinema.js" defer></script>
+    <script src="../assets/js/cursor.js" defer></script>
+    <script src="../assets/js/wow-senior.js" defer></script>
+    <script src="../assets/js/pandora-night.js" defer></script>
+    <script src="../assets/js/mode-toggle.js" defer></script>
+    <script>
+      /* Auralis — bascule app en ligne (PINAPP_AURALIS.APP_URL dans auralis-config.js) */
+      document.addEventListener('DOMContentLoaded', function () {
+        var cfg = window.PINAPP_AURALIS || {};
+        var appUrl = String(cfg.APP_URL || '').trim();
+        var pre = document.getElementById('auralis-prelau');
+        var live = document.getElementById('auralis-live');
+        var badge = document.getElementById('auralis-status-badge');
+        var pill = document.getElementById('auralis-soon-pill');
+        var link = document.getElementById('auralis-app-link');
+        if (appUrl && pre && live && link) {
+          link.setAttribute('href', appUrl);
+          pre.setAttribute('hidden', '');
+          pre.style.display = 'none';
+          live.removeAttribute('hidden');
+          live.style.display = '';
+          if (badge) {
+            badge.textContent = 'APPLICATION EN LIGNE';
+            badge.style.background = 'rgba(62,235,214,0.12)';
+            badge.style.color = 'var(--accent-teal, #3EEBD6)';
+            badge.style.borderColor = 'rgba(62,235,214,0.35)';
+          }
+          if (pill) {
+            pill.textContent = 'ACCÈS CLIENT';
+            pill.style.background = 'rgba(62,235,214,0.2)';
+            pill.style.color = 'var(--accent-teal, #3EEBD6)';
+          }
+        }
+      });
+      /* Auralis — anneau qualitatif (sans chiffre) + barre équité au scroll */
+      document.addEventListener('DOMContentLoaded', function () {
+        var ring = document.querySelector('circle[data-auralis-ring-fill]');
+        var bar = document.querySelector('.auralis-phone-mock .auralis-bar');
+        var mock = document.querySelector('.auralis-phone-mock');
+        if (!mock || (!ring && !bar)) return;
+        var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        function play() {
+          if (ring) {
+            if (reduced) {
+              ring.style.strokeDashoffset = '68';
+            } else {
+              ring.style.transition = 'stroke-dashoffset 1s cubic-bezier(0.45,0.05,0.55,0.95) 0.2s';
+              requestAnimationFrame(function () {
+                ring.style.strokeDashoffset = '68';
+              });
+            }
+          }
+          if (bar) {
+            if (reduced) {
+              bar.style.width = '68%';
+            } else {
+              bar.style.transition = 'width 0.85s cubic-bezier(0.45,0.05,0.55,0.95) 0.35s';
+              requestAnimationFrame(function () {
+                bar.style.width = '68%';
+              });
+            }
+          }
+        }
+        if (reduced) {
+          play();
+          return;
+        }
+        var obs = new IntersectionObserver(
+          function (entries) {
+            if (!entries[0].isIntersecting) return;
+            obs.disconnect();
+            play();
+          },
+          { threshold: 0.15, rootMargin: '0px 0px -8% 0px' },
+        );
+        obs.observe(mock);
+      });
+    </script>
+    <script src="../assets/js/bio-particles.js" defer></script>
+    <script src="../assets/js/pandora-world.js"></script>
+    <script src="../assets/js/pandora-interactions.js"></script>
+  </body>
 </html>

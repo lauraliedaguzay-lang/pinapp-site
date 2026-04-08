@@ -1,9 +1,10 @@
-/* PINAPP — aurora.js — Canvas aurora desktop (≥768px) */
+/* PINAPP — aurora.js — Canvas aurora (désactivé : halos mouvants) */
 const Aurora = {
   canvas: null,
   ctx: null,
   t: 0,
   raf: null,
+  paused: false,
 
   isJour() {
     /* Priorité data-theme (main.js), fallback mode-jour (classe body) */
@@ -15,10 +16,10 @@ const Aurora = {
 
   getColors() {
     return this.isJour()
-      /* Pandora jour lumineux : jade · ambre · pêche corail */
-      ? ['#0FBF8E', '#C47820', '#E0825A']
-      /* Pandora nuit : teal électrique, violet profond, vert bioluminescent */
-      : ['#00E5CC', '#7B4FE8', '#39E075'];
+      ? /* Pandora jour lumineux : jade · ambre · pêche corail */
+        ['#0FBF8E', '#C47820', '#E0825A']
+      : /* Pandora nuit : teal électrique, violet profond, vert bioluminescent */
+        ['#00E5CC', '#7B4FE8', '#39E075'];
   },
 
   getOpacity() {
@@ -31,6 +32,9 @@ const Aurora = {
   },
 
   init() {
+    /* Désactivé : l'utilisateur ne veut plus voir de halo lumineux mouvant en mode nuit.
+       On conserve les autres couches (photo Pandora, étoiles/spores DOM) ailleurs. */
+    return;
     /* Canvas léger sur tout écran ≥390px (mobile inclus) — désactivé si réduit mouvement */
     if (window.innerWidth < 390) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -47,11 +51,11 @@ const Aurora = {
     this.orbs = [
       { cx: 0.25, cy: 0.35, rx: 0.48, ry: 0.38, vx: 0.00022, vy: 0.00016 },
       { cx: 0.75, cy: 0.65, rx: 0.42, ry: 0.32, vx: -0.00018, vy: 0.00022 },
-      { cx: 0.50, cy: 0.82, rx: 0.36, ry: 0.26, vx: 0.00016, vy: -0.00020 },
+      { cx: 0.5, cy: 0.82, rx: 0.36, ry: 0.26, vx: 0.00016, vy: -0.0002 },
     ];
 
     const resize = () => {
-      this.canvas.width  = window.innerWidth;
+      this.canvas.width = window.innerWidth;
       this.canvas.height = window.innerHeight;
     };
     window.addEventListener('resize', resize, { passive: true });
@@ -76,10 +80,27 @@ const Aurora = {
     this.draw();
   },
 
+  isScrolling() {
+    try {
+      return document.documentElement.classList.contains('is-scrolling');
+    } catch (e) {
+      return false;
+    }
+  },
+
   draw() {
-    const ctx    = this.ctx;
-    const W      = this.canvas.width;
-    const H      = this.canvas.height;
+    // Pendant un scroll rapide, on évite tout redraw “décor” pour rester parfaitement
+    // cohérent avec la vitesse de scroll (pas d’inertie visuelle / rattrapage).
+    if (this.isScrolling()) {
+      this.paused = true;
+      this.raf = requestAnimationFrame(() => this.draw());
+      return;
+    }
+    this.paused = false;
+
+    const ctx = this.ctx;
+    const W = this.canvas.width;
+    const H = this.canvas.height;
     const colors = this.getColors();
 
     ctx.clearRect(0, 0, W, H);
@@ -89,16 +110,16 @@ const Aurora = {
       const x = W * (o.cx + Math.sin(this.t * o.vx * 1000) * 0.16);
       const y = H * (o.cy + Math.cos(this.t * o.vy * 1000) * 0.13);
       const g = ctx.createRadialGradient(x, y, 0, x, y, W * o.rx);
-      g.addColorStop(0,   colors[i] + '55');
+      g.addColorStop(0, colors[i] + '55');
       g.addColorStop(0.5, colors[i] + '22');
-      g.addColorStop(1,   'transparent');
+      g.addColorStop(1, 'transparent');
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, W, H);
     });
 
     this.t++;
     this.raf = requestAnimationFrame(() => this.draw());
-  }
+  },
 };
 
 if (document.readyState === 'loading') {
