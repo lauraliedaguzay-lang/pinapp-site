@@ -428,23 +428,52 @@ const pages = [
     body: `    <section class="section">
       <div class="container prose" style="max-width:800px;">
         <p class="label">OFFRE AUTOMATISATION</p>
-        <h1>Vos tâches répétitives. Automatisées.</h1>
-        <p class="lead">Relances, confirmations, devis, rapports. Tout ce qui vous prend du temps sans vous apporter de valeur.</p>
-        <h2>Exemples d'automatisations</h2>
+        <h1>Ça avance sans vous courir après.</h1>
+        <p class="lead">On retire les frictions, on fiabilise la suite. Vous validez aux étapes clés — et le reste s’enchaîne.</p>
+
+        <div class="grid grid-3" style="margin:var(--space-5) 0;align-items:stretch;">
+          <div class="card">
+            <p class="label" style="margin-bottom:var(--space-2);">AVANT</p>
+            <ul style="opacity:0.75;line-height:1.9;">
+              <li>Devis envoyés… puis oubliés</li>
+              <li>Rappels manuels, au hasard</li>
+              <li>Infos client dispersées</li>
+            </ul>
+          </div>
+          <div class="card">
+            <p class="label" style="margin-bottom:var(--space-2);">APRÈS</p>
+            <ul style="opacity:0.75;line-height:1.9;">
+              <li>Relances préparées au bon moment</li>
+              <li>Confirmations et suivis propres</li>
+              <li>Un fil clair, sans “trous”</li>
+            </ul>
+          </div>
+          <div class="card">
+            <p class="label" style="margin-bottom:var(--space-2);">VOUS</p>
+            <ul style="opacity:0.75;line-height:1.9;">
+              <li>Vous gardez la main</li>
+              <li>Vous validez ce qui part</li>
+              <li>Vous respirez</li>
+            </ul>
+          </div>
+        </div>
+
+        <h2>Ce qu’on peut automatiser (exemples concrets)</h2>
         <ul>
-          <li>Relance devis automatique (J+2, J+7)</li>
-          <li>Confirmation RDV + rappel J-1</li>
-          <li>Email de bienvenue client après signature</li>
-          <li>Rapport mensuel automatique</li>
-          <li>Notification lead entrant</li>
-          <li>Synchronisation CRM automatique</li>
+          <li>Relance devis (J+2 / J+7) avec message prêt</li>
+          <li>Confirmation de rendez-vous + rappel la veille</li>
+          <li>Message de bienvenue après signature</li>
+          <li>Récap hebdomadaire “où on en est”</li>
+          <li>Alerte instantanée quand un lead arrive</li>
+          <li>Classement et suivi des demandes (sans double saisie)</li>
         </ul>
+
         <h2>Ce qui est inclus</h2>
         <ul>
-          <li>Audit de vos process actuels</li>
-          <li>Configuration des pipelines</li>
-          <li>Tests complets</li>
-          <li>Formation (1h)</li>
+          <li>Cartographie simple de vos étapes (qui fait quoi, quand)</li>
+          <li>Un flux “propre” de bout en bout (avec validation si nécessaire)</li>
+          <li>Tests complets + garde-fous (pour éviter les surprises)</li>
+          <li>Une prise en main (1h)</li>
           <li>1 mois de support</li>
         </ul>
         <div style="background:var(--bg-card);border-radius:var(--radius-card);padding:var(--space-4);border:1px solid var(--border-card);margin:var(--space-4) 0;">
