@@ -150,6 +150,154 @@
     });
   }
 
+  /* Dépôt client — brief + liens fichiers.
+     Envoi:
+     - Netlify Forms (si dispo) via POST '/' x-www-form-urlencoded (géré par <form> natif)
+     - Webhook optionnel (Make/n8n) via PinappConfig.sendClientDepot(payload)
+     - Fallback mailto enrichi */
+  function wireClientDepotForm() {
+    var form = document.getElementById('clientDepotForm');
+    if (!form) return;
+
+    var submittedAt = document.getElementById('clientDepotSubmittedAt');
+    if (submittedAt) submittedAt.value = new Date().toISOString();
+
+    var linksUi = document.getElementById('depotLinks');
+    var linksHidden = document.getElementById('clientDepotLinksHidden');
+    var mailto = document.getElementById('clientDepotMailto');
+    var status = document.getElementById('clientDepotStatus');
+
+    function syncLinks() {
+      if (!linksUi || !linksHidden) return '';
+      var v = (linksUi.value || '').trim();
+      linksHidden.value = v;
+      return v;
+    }
+
+    function safeVal(id) {
+      var el = document.getElementById(id);
+      if (!el) return '';
+      return String(el.value || '').trim();
+    }
+
+    function buildPayload() {
+      var ts = (submittedAt && submittedAt.value) || new Date().toISOString();
+      return {
+        submittedAt: ts,
+        page: location.href,
+        nom: safeVal('clientName'),
+        email: safeVal('clientEmail'),
+        activite: safeVal('clientBusiness'),
+        offre: safeVal('clientOffer'),
+        depot_links: syncLinks(),
+        objectif: safeVal('clientGoal'),
+        pages: safeVal('clientPages'),
+        references: safeVal('clientRefs'),
+        delai: safeVal('clientDeadline'),
+        budget: safeVal('clientBudget'),
+        outils: safeVal('clientTools'),
+        notes: safeVal('clientNotes'),
+        telegram: safeVal('clientTelegram'),
+      };
+    }
+
+    function refreshMailto() {
+      if (!mailto || mailto.tagName !== 'A') return;
+      var p = buildPayload();
+      var lines = [];
+      lines.push('Dépôt client — brief');
+      lines.push('Date: ' + (p.submittedAt || ''));
+      lines.push('Page: ' + (p.page || ''));
+      lines.push('');
+      lines.push('Nom: ' + (p.nom || ''));
+      lines.push('Email: ' + (p.email || ''));
+      lines.push('Activité: ' + (p.activite || ''));
+      lines.push('Offre visée: ' + (p.offre || ''));
+      lines.push('Telegram: ' + (p.telegram || ''));
+      lines.push('');
+      lines.push('Liens de dépôt:');
+      lines.push(p.depot_links || '');
+      lines.push('');
+      lines.push('Objectif:');
+      lines.push(p.objectif || '');
+      lines.push('');
+      lines.push('Pages indispensables:');
+      lines.push(p.pages || '');
+      lines.push('');
+      lines.push('Références:');
+      lines.push(p.references || '');
+      lines.push('');
+      lines.push('Délai: ' + (p.delai || ''));
+      lines.push('Budget: ' + (p.budget || ''));
+      lines.push('');
+      lines.push('Outils existants:');
+      lines.push(p.outils || '');
+      lines.push('');
+      lines.push('Notes / contraintes:');
+      lines.push(p.notes || '');
+
+      var body = encodeURIComponent(lines.join('\n'));
+      mailto.href =
+        'mailto:lauralie.daguzay@pinapp.fr?subject=' +
+        encodeURIComponent('Dépôt client — Pinapp') +
+        '&body=' +
+        body;
+    }
+
+    if (linksUi) {
+      linksUi.addEventListener(
+        'input',
+        function () {
+          syncLinks();
+          refreshMailto();
+        },
+        { passive: true },
+      );
+    }
+    [
+      'clientName',
+      'clientEmail',
+      'clientBusiness',
+      'clientOffer',
+      'clientGoal',
+      'clientPages',
+      'clientRefs',
+      'clientDeadline',
+      'clientBudget',
+      'clientTools',
+      'clientNotes',
+      'clientTelegram',
+    ].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener(
+        'input',
+        function () {
+          refreshMailto();
+        },
+        { passive: true },
+      );
+      el.addEventListener(
+        'change',
+        function () {
+          refreshMailto();
+        },
+        { passive: true },
+      );
+    });
+    refreshMailto();
+
+    form.addEventListener('submit', function () {
+      try {
+        var payload = buildPayload();
+        if (window.PinappConfig && typeof window.PinappConfig.sendClientDepot === 'function') {
+          window.PinappConfig.sendClientDepot(payload);
+        }
+        if (status) status.textContent = 'Envoi en cours…';
+      } catch (e) {}
+    });
+  }
+
   /* Ancre dans l’URL (#contenu-principal) : le loader fixe masque la cible au 1er paint ;
      après retrait du loader, on rescroll pour file:// et HTTPS. */
   function applyHashScroll() {
@@ -212,8 +360,10 @@
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', wireVotreProjetOnboarding);
+    document.addEventListener('DOMContentLoaded', wireClientDepotForm);
   } else {
     wireVotreProjetOnboarding();
+    wireClientDepotForm();
   }
 
   /* Nav scroll-aware : masquage au scroll uniquement sur petit écran (évite « nav morte » sur bureau) */

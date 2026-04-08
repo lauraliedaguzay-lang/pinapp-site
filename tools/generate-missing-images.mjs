@@ -147,11 +147,15 @@ im.save(${JSON.stringify(outPath)}, "WEBP", quality=82, method=6)
 function pickPalette(relPath) {
   const p = relPath.toLowerCase();
   // Teal/violet par défaut, variantes selon mots clés
-  if (p.includes('jour') || p.includes('light')) return { a: '#E8A044', b: '#00E5CC', label: 'Pinapp — Jour' };
-  if (p.includes('nuit') || p.includes('dark')) return { a: '#00E5CC', b: '#7B4FE8', label: 'Pinapp — Nuit' };
+  if (p.includes('jour') || p.includes('light'))
+    return { a: '#E8A044', b: '#00E5CC', label: 'Pinapp — Jour' };
+  if (p.includes('nuit') || p.includes('dark'))
+    return { a: '#00E5CC', b: '#7B4FE8', label: 'Pinapp — Nuit' };
   if (p.includes('avocat')) return { a: '#C9A96E', b: '#00E5CC', label: 'Démo — Avocat' };
-  if (p.includes('restaurant') || p.includes('boulangerie')) return { a: '#C4622D', b: '#00E5CC', label: 'Démo — Commerce' };
-  if (p.includes('coach') || p.includes('trainer')) return { a: '#7B4FE8', b: '#00E5CC', label: 'Démo — Services' };
+  if (p.includes('restaurant') || p.includes('boulangerie'))
+    return { a: '#C4622D', b: '#00E5CC', label: 'Démo — Commerce' };
+  if (p.includes('coach') || p.includes('trainer'))
+    return { a: '#7B4FE8', b: '#00E5CC', label: 'Démo — Services' };
   return { a: '#00E5CC', b: '#7B4FE8', label: 'Pinapp' };
 }
 
@@ -222,4 +226,3 @@ else:
 }
 
 main();
-

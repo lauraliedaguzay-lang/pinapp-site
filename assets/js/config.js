@@ -38,6 +38,9 @@ window.PinappConfig = {
 
     /* Premier passage Claude (n8n / Make) — notification interne ou brouillon, jamais envoi client auto */
     diagnosticClaudePrep: 'https://[TON-N8N]/webhook/diagnostic-claude-prep',
+
+    /* Dépôt client (liens fichiers + brief structuré) */
+    clientDepot: 'https://[TON-N8N]/webhook/client-depot',
   },
 
   /* ─── FEATURE FLAGS ────────────────────────────────── */
@@ -56,6 +59,9 @@ window.PinappConfig = {
 
     /* Claude prep : même payload que diagnostic + intent (orchestrateur n8n) */
     diagnosticClaudePrep: false,
+
+    /* Dépôt client : webhook optionnel (Make/n8n) */
+    clientDepotWebhook: false,
   },
 
   /* ─── CONTACT ──────────────────────────────────────── */
@@ -102,6 +108,27 @@ window.PinappConfig.sendDiagnosticClaudePrep = function (payload) {
           {
             source: 'diagnostic',
             intent: 'diagnostic-claude-prep',
+            timestamp: new Date().toISOString(),
+          },
+          payload,
+        ),
+      ),
+    }).catch(function () {});
+  }
+};
+
+/** Webhook optionnel : dépôt client (liens fichiers + brief). */
+window.PinappConfig.sendClientDepot = function (payload) {
+  var cfg = window.PinappConfig;
+  if (cfg.features.clientDepotWebhook && cfg._isRealUrl(cfg.webhooks.clientDepot)) {
+    fetch(cfg.webhooks.clientDepot, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(
+        Object.assign(
+          {
+            source: 'depot-client',
+            intent: 'client-depot',
             timestamp: new Date().toISOString(),
           },
           payload,
