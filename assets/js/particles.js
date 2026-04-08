@@ -23,22 +23,18 @@ const Particles = {
       'rgba(123,79,232,',
       'rgba(196,30,168,',
     ];
-    const colorsJour = [
-      'rgba(123,79,232,',
-      'rgba(200,160,240,',
-      'rgba(255,190,80,',
-    ];
+    const colorsJour = ['rgba(123,79,232,', 'rgba(200,160,240,', 'rgba(255,190,80,'];
     const colors = isJour ? colorsJour : colorsNuit;
 
     const fragment = document.createDocumentFragment();
 
     for (let i = 0; i < count; i++) {
       const p = document.createElement('div');
-      const size    = 2 + Math.random() * 2.5;
-      const dur     = 20 + Math.random() * 16;
-      const color   = colors[i % colors.length];
+      const size = 2 + Math.random() * 2.5;
+      const dur = 20 + Math.random() * 16;
+      const color = colors[i % colors.length];
       const opacity = 0.15 + Math.random() * 0.22;
-      const dx      = (Math.random() - 0.5) * 20;
+      const dx = (Math.random() - 0.5) * 20;
 
       p.style.cssText = `
         position:fixed;
@@ -92,12 +88,11 @@ const Particles = {
     // Mettre à jour les couleurs au changement de mode
     document.body.addEventListener('modeChange', () => {
       // Supprimer et recréer les particules
-      document.querySelectorAll('[style*="particle-ascend"]')
-        .forEach(el => el.remove());
+      document.querySelectorAll('[style*="particle-ascend"]').forEach((el) => el.remove());
       this.active = false;
       this.init();
     });
-  }
+  },
 };
 
 document.addEventListener('DOMContentLoaded', () => {

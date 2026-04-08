@@ -1,0 +1,183 @@
+/* PINAPP — accompagnement.css */
+
+.assist-form {
+  text-align: left;
+}
+
+.assist-form .assist-grid {
+  display: grid;
+  gap: var(--space-3);
+}
+
+@media (min-width: 900px) {
+  .assist-form .assist-grid {
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: start;
+  }
+}
+
+.assist-form .assist-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-card-lg);
+  padding: var(--space-4);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+    var(--shadow-lg);
+  transform: translateZ(0);
+}
+
+.assist-form .assist-panel h2 {
+  font-size: var(--text-h3);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-2);
+}
+
+.assist-form .assist-field {
+  display: grid;
+  gap: 8px;
+  margin-bottom: var(--space-3);
+}
+
+.assist-form label {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.assist-form .hint {
+  font-size: 12px;
+  opacity: 0.55;
+  line-height: 1.5;
+}
+
+.assist-form input[type='text'],
+.assist-form input[type='email'],
+.assist-form input[type='url'],
+.assist-form input[type='number'],
+.assist-form select,
+.assist-form textarea {
+  width: 100%;
+}
+
+.assist-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.assist-form .pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.assist-form .pill {
+  border: 1px solid var(--border-card);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-primary);
+  padding: 10px 14px;
+  border-radius: 100px;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    transform var(--t-press),
+    background var(--t-hover),
+    border-color var(--t-hover);
+  touch-action: manipulation;
+}
+
+.assist-form .pill[aria-pressed='true'] {
+  background: rgba(0, 229, 204, 0.08);
+  border-color: rgba(0, 229, 204, 0.22);
+}
+
+.assist-form .pill:active {
+  transform: scale(0.98);
+}
+
+.assist-form .inline {
+  display: grid;
+  gap: 12px;
+}
+
+@media (min-width: 520px) {
+  .assist-form .inline {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.assist-form .uploads {
+  display: grid;
+  gap: 10px;
+}
+
+.assist-form .uploads .drop {
+  border: 1px dashed var(--border-card);
+  border-radius: var(--radius-card);
+  padding: var(--space-3);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.assist-form .uploads .drop input[type='file'] {
+  width: 100%;
+}
+
+.assist-form .result {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.assist-form .result textarea {
+  min-height: 220px;
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
+.assist-form .result-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.assist-form .result-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.assist-form .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border-card);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.assist-form .estimate {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+  opacity: 0.86;
+}
+
+.assist-form .estimate strong {
+  font-size: 20px;
+  letter-spacing: -0.02em;
+}
+
+.assist-form .copy-toast {
+  font-size: 12px;
+  opacity: 0.6;
+}
