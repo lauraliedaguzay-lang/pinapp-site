@@ -19,7 +19,9 @@
   }
 
   /* ── Utilitaires ─────────────────────────────────── */
-  function fmt(n) { return n.toLocaleString('fr-FR') + ' €'; }
+  function fmt(n) {
+    return n.toLocaleString('fr-FR') + ' €';
+  }
   function anim(el, from, to, dur, cb) {
     var t0 = Date.now();
     var tick = function () {
@@ -55,29 +57,30 @@
           <span id="df-prix">2 700</span>
         </div>
         <p class="df-note">Estimation indicative — devis précis sous 24h</p>
-        <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">
+        <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
           Demander un devis gratuit →
         </button>
       </div>`);
 
     var slider = document.getElementById('df-surface');
-    var valEl  = document.getElementById('df-surface-val');
+    var valEl = document.getElementById('df-surface-val');
     var prixEl = document.getElementById('df-prix');
-    var mult   = 45;
+    var mult = 45;
 
     function calc() {
       var s = parseInt(slider.value);
       valEl.textContent = s;
       var target = s * mult;
-      anim(prixEl, parseInt(prixEl.textContent.replace(/\s/g,'')) || target, target, 300);
+      anim(prixEl, parseInt(prixEl.textContent.replace(/\s/g, '')) || target, target, 300);
     }
 
     slider.addEventListener('input', calc);
 
-    document.querySelectorAll('#df-type-pills .df-pill').forEach(function(p) {
-      p.addEventListener('click', function() {
-        document.querySelectorAll('#df-type-pills .df-pill')
-          .forEach(function(x) { x.classList.remove('active'); });
+    document.querySelectorAll('#df-type-pills .df-pill').forEach(function (p) {
+      p.addEventListener('click', function () {
+        document.querySelectorAll('#df-type-pills .df-pill').forEach(function (x) {
+          x.classList.remove('active');
+        });
         p.classList.add('active');
         mult = parseInt(p.dataset.mult);
         calc();
@@ -90,28 +93,53 @@
      ============================================== */
   function featurePlanSalle() {
     var tables = [
-      {id:'t1',x:40, y:40, r:22, cap:2, libre:true},
-      {id:'t2',x:110,y:40, r:22, cap:2, libre:false},
-      {id:'t3',x:180,y:40, r:22, cap:4, libre:true},
-      {id:'t4',x:250,y:40, r:22, cap:4, libre:true},
-      {id:'t5',x:40, y:110,r:28, cap:6, libre:true},
-      {id:'t6',x:130,y:110,r:28, cap:6, libre:false},
-      {id:'t7',x:220,y:110,r:28, cap:6, libre:true},
-      {id:'t8',x:40, y:185,r:22, cap:2, libre:true},
-      {id:'t9',x:110,y:185,r:22, cap:2, libre:false},
-      {id:'t10',x:185,y:185,r:34, cap:8, libre:true},
+      { id: 't1', x: 40, y: 40, r: 22, cap: 2, libre: true },
+      { id: 't2', x: 110, y: 40, r: 22, cap: 2, libre: false },
+      { id: 't3', x: 180, y: 40, r: 22, cap: 4, libre: true },
+      { id: 't4', x: 250, y: 40, r: 22, cap: 4, libre: true },
+      { id: 't5', x: 40, y: 110, r: 28, cap: 6, libre: true },
+      { id: 't6', x: 130, y: 110, r: 28, cap: 6, libre: false },
+      { id: 't7', x: 220, y: 110, r: 28, cap: 6, libre: true },
+      { id: 't8', x: 40, y: 185, r: 22, cap: 2, libre: true },
+      { id: 't9', x: 110, y: 185, r: 22, cap: 2, libre: false },
+      { id: 't10', x: 185, y: 185, r: 34, cap: 8, libre: true },
     ];
 
-    var svgCircles = tables.map(function(t) {
-      var fill = t.libre ? 'rgba(0,180,100,0.18)' : 'rgba(200,30,30,0.18)';
-      var stroke = t.libre ? '#39E075' : '#dc2626';
-      return '<g class="df-table" data-id="' + t.id + '" style="cursor:' + (t.libre?'pointer':'default') + '">' +
-        '<circle cx="' + t.x + '" cy="' + t.y + '" r="' + t.r + '"' +
-          ' fill="' + fill + '" stroke="' + stroke + '" stroke-width="1.5"/>' +
-        '<text x="' + t.x + '" y="' + (t.y+4) + '"' +
-          ' text-anchor="middle" font-size="10" fill="' + stroke + '">' +
-          t.cap + 'p</text></g>';
-    }).join('');
+    var svgCircles = tables
+      .map(function (t) {
+        var fill = t.libre ? 'rgba(0,180,100,0.18)' : 'rgba(200,30,30,0.18)';
+        var stroke = t.libre ? '#39E075' : '#dc2626';
+        return (
+          '<g class="df-table" data-id="' +
+          t.id +
+          '" style="cursor:' +
+          (t.libre ? 'pointer' : 'default') +
+          '">' +
+          '<circle cx="' +
+          t.x +
+          '" cy="' +
+          t.y +
+          '" r="' +
+          t.r +
+          '"' +
+          ' fill="' +
+          fill +
+          '" stroke="' +
+          stroke +
+          '" stroke-width="1.5"/>' +
+          '<text x="' +
+          t.x +
+          '" y="' +
+          (t.y + 4) +
+          '"' +
+          ' text-anchor="middle" font-size="10" fill="' +
+          stroke +
+          '">' +
+          t.cap +
+          'p</text></g>'
+        );
+      })
+      .join('');
 
     inject(`
       <div class="df-card">
@@ -132,23 +160,26 @@
         </div>
         <div id="df-table-info" class="df-table-info" style="display:none">
           <p id="df-table-msg"></p>
-          <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">
+          <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
             Réserver cette table →
           </button>
         </div>
         <p class="df-note">Cliquez sur une table disponible</p>
       </div>`);
 
-    document.querySelectorAll('.df-table').forEach(function(g) {
+    document.querySelectorAll('.df-table').forEach(function (g) {
       var id = g.dataset.id;
-      var t  = tables.find(function(x) { return x.id === id; });
+      var t = tables.find(function (x) {
+        return x.id === id;
+      });
       if (!t || !t.libre) return;
-      g.addEventListener('click', function() {
-        document.querySelectorAll('.df-table circle')
-          .forEach(function(c) { c.setAttribute('stroke-width','1.5'); });
-        g.querySelector('circle').setAttribute('stroke-width','3');
+      g.addEventListener('click', function () {
+        document.querySelectorAll('.df-table circle').forEach(function (c) {
+          c.setAttribute('stroke-width', '1.5');
+        });
+        g.querySelector('circle').setAttribute('stroke-width', '3');
         var info = document.getElementById('df-table-info');
-        var msg  = document.getElementById('df-table-msg');
+        var msg = document.getElementById('df-table-msg');
         info.style.display = '';
         msg.textContent = 'Table ' + t.cap + ' personnes sélectionnée ✓';
       });
@@ -163,11 +194,12 @@
       { q: 'Vous avez une décision importante à prendre ?', oui: 20, non: 0 },
       { q: 'Vous vous sentez bloqué(e) depuis plus de 3 mois ?', oui: 20, non: 0 },
       { q: 'Vous avez déjà essayé seul(e) sans succès ?', oui: 20, non: 5 },
-      { q: 'Vous êtes prêt(e) à passer à l\'action dès maintenant ?', oui: 30, non: 0 },
+      { q: "Vous êtes prêt(e) à passer à l'action dès maintenant ?", oui: 30, non: 0 },
       { q: 'Un accompagnement extérieur vous semble utile ?', oui: 10, non: 0 },
     ];
 
-    var current = 0, score = 0;
+    var current = 0,
+      score = 0;
 
     inject(`
       <div class="df-card">
@@ -195,7 +227,7 @@
             <p class="df-compat-pct" id="df-pct">0%</p>
           </div>
           <p class="df-compat-msg" id="df-compat-msg"></p>
-          <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">
+          <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
             Réserver une séance découverte →
           </button>
         </div>
@@ -204,8 +236,8 @@
     function showQ() {
       if (current >= qs.length) return showResult();
       document.getElementById('df-quiz-q').textContent = qs[current].q;
-      document.getElementById('df-qcount').textContent = (current+1) + ' / ' + qs.length;
-      document.getElementById('df-qprog').style.width = ((current / qs.length) * 100) + '%';
+      document.getElementById('df-qcount').textContent = current + 1 + ' / ' + qs.length;
+      document.getElementById('df-qprog').style.width = (current / qs.length) * 100 + '%';
     }
     function answer(oui) {
       score += oui ? qs[current].oui : qs[current].non;
@@ -219,19 +251,23 @@
       var pct = Math.min(score, 100);
       document.getElementById('df-pct').textContent = pct + '%';
       var ring = document.getElementById('df-ring');
-      setTimeout(function() {
-        ring.style.strokeDashoffset = 264 - (264 * pct / 100);
+      setTimeout(function () {
+        ring.style.strokeDashoffset = 264 - (264 * pct) / 100;
       }, 100);
       var msgs = {
-        high: 'Nous sommes très compatibles. Passons à l\'action.',
-        mid:  'De bonnes bases. Une séance pour confirmer.',
-        low:  'Un premier échange pour voir si c\'est le bon moment.',
+        high: "Nous sommes très compatibles. Passons à l'action.",
+        mid: 'De bonnes bases. Une séance pour confirmer.',
+        low: "Un premier échange pour voir si c'est le bon moment.",
       };
       document.getElementById('df-compat-msg').textContent =
         pct >= 70 ? msgs.high : pct >= 40 ? msgs.mid : msgs.low;
     }
-    document.getElementById('df-oui').addEventListener('click', function() { answer(true); });
-    document.getElementById('df-non').addEventListener('click', function() { answer(false); });
+    document.getElementById('df-oui').addEventListener('click', function () {
+      answer(true);
+    });
+    document.getElementById('df-non').addEventListener('click', function () {
+      answer(false);
+    });
     showQ();
   }
 
@@ -242,31 +278,67 @@
     var tree = {
       q: 'Quel est votre besoin principal ?',
       opts: [
-        { label: 'Contrat / Accord', next: {
-          q: 'Quel type de contrat ?',
-          opts: [
-            { label: 'Commercial', answer: 'Rédaction ou révision de contrat commercial. Consultation sous 48h.' },
-            { label: 'Bail / Location', answer: 'Bail commercial ou résidentiel — vérification des clauses.' },
-            { label: 'Partenariat', answer: 'Convention de partenariat — protégez vos intérêts dès le départ.' },
-          ]
-        }},
-        { label: 'Litige / Conflit', next: {
-          q: 'Avec qui ?',
-          opts: [
-            { label: 'Un client', answer: 'Mise en demeure, recouvrement, procédure. On établit la stratégie.' },
-            { label: 'Un fournisseur', answer: 'Rupture de contrat, inexécution — vos recours en 3 étapes.' },
-            { label: 'Un associé', answer: 'Conflit interne — médiation ou procédure. On vous guide.' },
-          ]
-        }},
-        { label: 'Création / Société', next: {
-          q: 'Quelle structure ?',
-          opts: [
-            { label: 'SAS / SARL', answer: 'Statuts sur mesure, pacte d\'associés, immatriculation sécurisée.' },
-            { label: 'Auto-entrepreneur', answer: 'Contrats-types, protection intellectuelle, conformité URSSAF.' },
-            { label: 'Reprise d\'entreprise', answer: 'Due diligence juridique complète avant toute acquisition.' },
-          ]
-        }},
-      ]
+        {
+          label: 'Contrat / Accord',
+          next: {
+            q: 'Quel type de contrat ?',
+            opts: [
+              {
+                label: 'Commercial',
+                answer: 'Rédaction ou révision de contrat commercial. Consultation sous 48h.',
+              },
+              {
+                label: 'Bail / Location',
+                answer: 'Bail commercial ou résidentiel — vérification des clauses.',
+              },
+              {
+                label: 'Partenariat',
+                answer: 'Convention de partenariat — protégez vos intérêts dès le départ.',
+              },
+            ],
+          },
+        },
+        {
+          label: 'Litige / Conflit',
+          next: {
+            q: 'Avec qui ?',
+            opts: [
+              {
+                label: 'Un client',
+                answer: 'Mise en demeure, recouvrement, procédure. On établit la stratégie.',
+              },
+              {
+                label: 'Un fournisseur',
+                answer: 'Rupture de contrat, inexécution — vos recours en 3 étapes.',
+              },
+              {
+                label: 'Un associé',
+                answer: 'Conflit interne — médiation ou procédure. On vous guide.',
+              },
+            ],
+          },
+        },
+        {
+          label: 'Création / Société',
+          next: {
+            q: 'Quelle structure ?',
+            opts: [
+              {
+                label: 'SAS / SARL',
+                answer: "Statuts sur mesure, pacte d'associés, immatriculation sécurisée.",
+              },
+              {
+                label: 'Auto-entrepreneur',
+                answer: 'Contrats-types, protection intellectuelle, conformité URSSAF.',
+              },
+              {
+                label: "Reprise d'entreprise",
+                answer: 'Due diligence juridique complète avant toute acquisition.',
+              },
+            ],
+          },
+        },
+      ],
     };
 
     inject(`
@@ -275,7 +347,7 @@
         <h3 class="df-title">Quel est votre situation ?</h3>
         <div id="df-tree"></div>
         <button class="df-cta" id="df-tree-cta" style="display:none"
-          onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">
+          onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
           Parler à Maître Renaud →
         </button>
       </div>`);
@@ -289,7 +361,7 @@
         var back = document.createElement('button');
         back.className = 'df-pill df-back';
         back.textContent = '← Retour';
-        back.addEventListener('click', function() {
+        back.addEventListener('click', function () {
           history.pop();
           render(history.length ? history[history.length - 1].next : tree);
         });
@@ -301,11 +373,11 @@
       treeEl.appendChild(qEl);
 
       if (node.opts) {
-        node.opts.forEach(function(opt) {
+        node.opts.forEach(function (opt) {
           var btn = document.createElement('button');
           btn.className = 'df-pill';
           btn.textContent = opt.label;
-          btn.addEventListener('click', function() {
+          btn.addEventListener('click', function () {
             if (opt.answer) {
               treeEl.innerHTML = '<p class="df-answer">' + opt.answer + '</p>';
               document.getElementById('df-tree-cta').style.display = '';
@@ -326,19 +398,33 @@
      ============================================== */
   function featureDiagnosticPeau() {
     var qs = [
-      { q: 'Votre peau en milieu de journée :', opts: ['Tiraillements', 'Brillances T-zone', 'Mixte / Normal', 'Brillances totales'] },
-      { q: 'Votre principale préoccupation :', opts: ['Rides / Fermeté', 'Éclat / Teint', 'Hydratation', 'Pores / Imperfections'] },
-      { q: 'Votre routine actuelle :', opts: ['Aucune routine', 'Basique (nettoyage)', 'Complète', 'Je ne sais pas'] },
+      {
+        q: 'Votre peau en milieu de journée :',
+        opts: ['Tiraillements', 'Brillances T-zone', 'Mixte / Normal', 'Brillances totales'],
+      },
+      {
+        q: 'Votre principale préoccupation :',
+        opts: ['Rides / Fermeté', 'Éclat / Teint', 'Hydratation', 'Pores / Imperfections'],
+      },
+      {
+        q: 'Votre routine actuelle :',
+        opts: ['Aucune routine', 'Basique (nettoyage)', 'Complète', 'Je ne sais pas'],
+      },
     ];
 
     var recos = [
-      { type: 'Soin hydratation intense', desc: 'Masque régénérant + sérum acide hyaluronique.', prix: '75€' },
+      {
+        type: 'Soin hydratation intense',
+        desc: 'Masque régénérant + sérum acide hyaluronique.',
+        prix: '75€',
+      },
       { type: 'Soin éclat signature', desc: 'Peeling doux + luminothérapie LED.', prix: '90€' },
       { type: 'Soin anti-âge prestige', desc: 'Microneedling + collagène + UV', prix: '120€' },
       { type: 'Soin purifiant complet', desc: 'Extraction + masque argile + zinc.', prix: '65€' },
     ];
 
-    var current = 0, answers = [];
+    var current = 0,
+      answers = [];
 
     inject(`
       <div class="df-card">
@@ -356,7 +442,7 @@
             <p class="df-reco-desc" id="df-reco-desc"></p>
             <p class="df-reco-prix" id="df-reco-prix"></p>
           </div>
-          <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">
+          <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
             Réserver ce soin →
           </button>
         </div>
@@ -365,14 +451,14 @@
     function showQ() {
       var q = qs[current];
       document.getElementById('df-diag-q').textContent = q.q;
-      document.getElementById('df-dprog').style.width = ((current / qs.length) * 100) + '%';
+      document.getElementById('df-dprog').style.width = (current / qs.length) * 100 + '%';
       var pills = document.getElementById('df-diag-pills');
       pills.innerHTML = '';
-      q.opts.forEach(function(o, i) {
+      q.opts.forEach(function (o, i) {
         var b = document.createElement('button');
         b.className = 'df-pill';
         b.textContent = o;
-        b.addEventListener('click', function() {
+        b.addEventListener('click', function () {
           answers.push(i);
           current++;
           if (current < qs.length) showQ();
@@ -399,9 +485,9 @@
      ============================================== */
   function featureConfigCils() {
     var longueurs = ['10mm', '12mm', '14mm', '16mm'];
-    var courbes   = ['J', 'B', 'C', 'D'];
-    var volumes   = ['Naturel', 'Classique', 'Volume russe'];
-    var prix      = { '10mm': 45, '12mm': 55, '14mm': 65, '16mm': 75 };
+    var courbes = ['J', 'B', 'C', 'D'];
+    var volumes = ['Naturel', 'Classique', 'Volume russe'];
+    var prix = { '10mm': 45, '12mm': 55, '14mm': 65, '16mm': 75 };
 
     inject(`
       <div class="df-card">
@@ -431,7 +517,7 @@
           <span class="df-currency">€</span>
           <span id="df-cils-prix">55</span>
         </div>
-        <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">
+        <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
           Réserver cette pose →
         </button>
       </div>`);
@@ -439,12 +525,14 @@
     var state = { long: '12mm', courbe: 'C', vol: 'Classique' };
 
     function makepills(el, items, key) {
-      items.forEach(function(v) {
+      items.forEach(function (v) {
         var b = document.createElement('button');
         b.className = 'df-pill' + (state[key] === v ? ' active' : '');
         b.textContent = v;
-        b.addEventListener('click', function() {
-          el.querySelectorAll('.df-pill').forEach(function(x){x.classList.remove('active');});
+        b.addEventListener('click', function () {
+          el.querySelectorAll('.df-pill').forEach(function (x) {
+            x.classList.remove('active');
+          });
           b.classList.add('active');
           state[key] = v;
           updateCils();
@@ -453,9 +541,9 @@
       });
     }
 
-    makepills(document.getElementById('df-long'),   longueurs, 'long');
-    makepills(document.getElementById('df-courbe'), courbes,   'courbe');
-    makepills(document.getElementById('df-vol'),    volumes,   'vol');
+    makepills(document.getElementById('df-long'), longueurs, 'long');
+    makepills(document.getElementById('df-courbe'), courbes, 'courbe');
+    makepills(document.getElementById('df-vol'), volumes, 'vol');
 
     function updateCils() {
       var p = prix[state.long] || 55;
@@ -463,15 +551,22 @@
       document.getElementById('df-cils-prix').textContent = p;
       // SVG simplifié des cils
       var g = document.getElementById('df-cils-svg');
-      var angles = { 'J':10, 'B':20, 'C':35, 'D':50 };
+      var angles = { J: 10, B: 20, C: 35, D: 50 };
       var angle = angles[state.courbe] || 35;
       var n = state.vol === 'Volume russe' ? 11 : state.vol === 'Classique' ? 9 : 7;
       var paths = '';
       for (var i = 0; i < n; i++) {
         var x = 30 + i * (140 / (n - 1));
-        var len = 20 + Math.sin((i / (n-1)) * Math.PI) * 14;
-        var rad = (angle + (i - n/2) * 2) * Math.PI / 180;
-        paths += '<line x1="' + x + '" y1="55" x2="' + (x + Math.sin(rad) * len) + '" y2="' + (55 - Math.cos(rad) * len) + '"/>';
+        var len = 20 + Math.sin((i / (n - 1)) * Math.PI) * 14;
+        var rad = ((angle + (i - n / 2) * 2) * Math.PI) / 180;
+        paths +=
+          '<line x1="' +
+          x +
+          '" y1="55" x2="' +
+          (x + Math.sin(rad) * len) +
+          '" y2="' +
+          (55 - Math.cos(rad) * len) +
+          '"/>';
       }
       g.innerHTML = paths;
     }
@@ -483,12 +578,21 @@
      ============================================== */
   function featureSwatchesOngles() {
     var palette = [
-      '#E8B4B8','#C9748F','#A84B6E','#7B2D4A',
-      '#D4A574','#C07A40','#8B4513','#5C2A0A',
-      '#9B7FF8','#6B4FC8','#3B2088','#1B0848',
+      '#E8B4B8',
+      '#C9748F',
+      '#A84B6E',
+      '#7B2D4A',
+      '#D4A574',
+      '#C07A40',
+      '#8B4513',
+      '#5C2A0A',
+      '#9B7FF8',
+      '#6B4FC8',
+      '#3B2088',
+      '#1B0848',
     ];
     var selected = palette[0];
-    var prix = ['25€ Vernis','35€ Semi-permanent','55€ Gel UV','75€ Capsules'];
+    var prix = ['25€ Vernis', '35€ Semi-permanent', '55€ Gel UV', '75€ Capsules'];
 
     inject(`
       <div class="df-card">
@@ -504,21 +608,23 @@
         <div class="df-result-flip">
           <span id="df-nails-prix">25€ Vernis</span>
         </div>
-        <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">
+        <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
           Réserver cette manucure →
         </button>
       </div>`);
 
     // Swatches
     var sw = document.getElementById('df-swatches');
-    palette.forEach(function(c) {
+    palette.forEach(function (c) {
       var b = document.createElement('button');
       b.className = 'df-swatch';
       b.style.background = c;
       b.setAttribute('aria-label', 'Couleur ' + c);
-      b.addEventListener('click', function() {
+      b.addEventListener('click', function () {
         selected = c;
-        document.querySelectorAll('.df-swatch').forEach(function(x){x.classList.remove('active');});
+        document.querySelectorAll('.df-swatch').forEach(function (x) {
+          x.classList.remove('active');
+        });
         b.classList.add('active');
         renderNails();
       });
@@ -528,12 +634,14 @@
 
     // Poses
     var pp = document.getElementById('df-pose-pills');
-    prix.forEach(function(p, i) {
+    prix.forEach(function (p, i) {
       var b = document.createElement('button');
-      b.className = 'df-pill' + (i===0?' active':'');
+      b.className = 'df-pill' + (i === 0 ? ' active' : '');
       b.textContent = p.split(' ')[1];
-      b.addEventListener('click', function() {
-        document.querySelectorAll('#df-pose-pills .df-pill').forEach(function(x){x.classList.remove('active');});
+      b.addEventListener('click', function () {
+        document.querySelectorAll('#df-pose-pills .df-pill').forEach(function (x) {
+          x.classList.remove('active');
+        });
         b.classList.add('active');
         document.getElementById('df-nails-prix').textContent = p;
       });
@@ -542,21 +650,45 @@
 
     // SVG main (5 doigts stylisés)
     var nailPositions = [
-      {x:30, y:90, w:20, h:28, rx:10},
-      {x:60, y:70, w:22, h:40, rx:11},
-      {x:90, y:60, w:22, h:50, rx:11},
-      {x:120,y:68, w:22, h:42, rx:11},
-      {x:152,y:82, w:18, h:32, rx:9},
+      { x: 30, y: 90, w: 20, h: 28, rx: 10 },
+      { x: 60, y: 70, w: 22, h: 40, rx: 11 },
+      { x: 90, y: 60, w: 22, h: 50, rx: 11 },
+      { x: 120, y: 68, w: 22, h: 42, rx: 11 },
+      { x: 152, y: 82, w: 18, h: 32, rx: 9 },
     ];
 
     function renderNails() {
       var g = document.getElementById('df-nails-svg');
-      var shapes = nailPositions.map(function(n) {
-        return '<rect x="' + n.x + '" y="' + n.y + '" width="' + n.w + '" height="' + n.h + '"' +
-          ' rx="' + n.rx + '" fill="rgba(255,220,180,0.25)" stroke="rgba(255,200,150,0.4)" stroke-width="1"/>' +
-          '<rect x="' + n.x + '" y="' + n.y + '" width="' + n.w + '" height="14"' +
-          ' rx="' + n.rx + '" fill="' + selected + '" opacity="0.90"/>';
-      }).join('');
+      var shapes = nailPositions
+        .map(function (n) {
+          return (
+            '<rect x="' +
+            n.x +
+            '" y="' +
+            n.y +
+            '" width="' +
+            n.w +
+            '" height="' +
+            n.h +
+            '"' +
+            ' rx="' +
+            n.rx +
+            '" fill="rgba(255,220,180,0.25)" stroke="rgba(255,200,150,0.4)" stroke-width="1"/>' +
+            '<rect x="' +
+            n.x +
+            '" y="' +
+            n.y +
+            '" width="' +
+            n.w +
+            '" height="14"' +
+            ' rx="' +
+            n.rx +
+            '" fill="' +
+            selected +
+            '" opacity="0.90"/>'
+          );
+        })
+        .join('');
       g.innerHTML = shapes;
     }
     renderNails();
@@ -585,17 +717,19 @@
           <span id="df-hair-prix">35</span>
           <span class="df-currency">€</span>
         </div>
-        <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">
+        <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
           Réserver ma coupe →
         </button>
       </div>`);
 
-    document.querySelectorAll('.df-hair-btn').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.df-hair-btn').forEach(function(b){b.classList.remove('active');});
+    document.querySelectorAll('.df-hair-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.df-hair-btn').forEach(function (b) {
+          b.classList.remove('active');
+        });
         btn.classList.add('active');
         var prixEl = document.getElementById('df-hair-prix');
-        anim(prixEl, parseInt(prixEl.textContent)||35, parseInt(btn.dataset.prix), 300);
+        anim(prixEl, parseInt(prixEl.textContent) || 35, parseInt(btn.dataset.prix), 300);
         document.getElementById('df-hair-details').textContent = btn.dataset.details;
       });
     });
@@ -611,7 +745,7 @@
       { nom: 'Coupe + Barbe', dur: '1h', prix: '50€' },
       { nom: 'Rasage complet', dur: '45min', prix: '40€' },
     ];
-    var creneaux = ['09:00','10:00','11:00','14:00','15:00','16:00','17:00'];
+    var creneaux = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00', '17:00'];
     var selected = { service: null, creneau: null };
 
     inject(`
@@ -632,12 +766,14 @@
       </div>`);
 
     var sp = document.getElementById('df-srv-pills');
-    services.forEach(function(s) {
+    services.forEach(function (s) {
       var b = document.createElement('button');
       b.className = 'df-pill df-srv';
       b.innerHTML = '<strong>' + s.nom + '</strong> — ' + s.dur + ' · ' + s.prix;
-      b.addEventListener('click', function() {
-        document.querySelectorAll('.df-srv').forEach(function(x){x.classList.remove('active');});
+      b.addEventListener('click', function () {
+        document.querySelectorAll('.df-srv').forEach(function (x) {
+          x.classList.remove('active');
+        });
         b.classList.add('active');
         selected.service = s;
         tryConfirm();
@@ -646,12 +782,14 @@
     });
 
     var tp = document.getElementById('df-time-pills');
-    creneaux.forEach(function(c) {
+    creneaux.forEach(function (c) {
       var b = document.createElement('button');
       b.className = 'df-pill';
       b.textContent = c;
-      b.addEventListener('click', function() {
-        document.querySelectorAll('#df-time-pills .df-pill').forEach(function(x){x.classList.remove('active');});
+      b.addEventListener('click', function () {
+        document.querySelectorAll('#df-time-pills .df-pill').forEach(function (x) {
+          x.classList.remove('active');
+        });
         b.classList.add('active');
         selected.creneau = c;
         tryConfirm();
@@ -669,11 +807,16 @@
       clearInterval(countdownInterval);
       var secs = 300;
       var el = document.getElementById('df-countdown');
-      countdownInterval = setInterval(function() {
+      countdownInterval = setInterval(function () {
         secs--;
-        if (secs <= 0) { clearInterval(countdownInterval); el.textContent = 'Expiré'; return; }
-        var m = Math.floor(secs/60), s = secs%60;
-        el.textContent = (m<10?'0':'') + m + ':' + (s<10?'0':'') + s;
+        if (secs <= 0) {
+          clearInterval(countdownInterval);
+          el.textContent = 'Expiré';
+          return;
+        }
+        var m = Math.floor(secs / 60),
+          s = secs % 60;
+        el.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
       }, 1000);
     }
   }
@@ -683,11 +826,11 @@
      ============================================== */
   function featurePanierBoulangerie() {
     var produits = [
-      { nom: 'Croissant pur beurre', prix: 1.80, emoji: '🥐' },
-      { nom: 'Pain de campagne 400g', prix: 3.20, emoji: '🍞' },
-      { nom: 'Tarte aux fraises', prix: 6.50, emoji: '🍓' },
-      { nom: 'Chausson aux pommes', prix: 2.40, emoji: '🥧' },
-      { nom: 'Éclair chocolat', prix: 3.90, emoji: '⚡' },
+      { nom: 'Croissant pur beurre', prix: 1.8, sku: 'V-001' },
+      { nom: 'Pain de campagne 400g', prix: 3.2, sku: 'P-214' },
+      { nom: 'Tarte aux fraises', prix: 6.5, sku: 'T-112' },
+      { nom: 'Chausson aux pommes', prix: 2.4, sku: 'V-014' },
+      { nom: 'Éclair chocolat', prix: 3.9, sku: 'P-088' },
     ];
     var panier = {};
 
@@ -701,51 +844,63 @@
           <span id="df-total">0,00 €</span>
         </div>
         <button class="df-cta" id="df-panier-cta" disabled
-          onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">
+          onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
           Valider ma commande →
         </button>
         <p class="df-note">Parcours type · aucune commande réelle depuis cette page</p>
       </div>`);
 
     var wrap = document.getElementById('df-produits');
-    produits.forEach(function(p, i) {
+    produits.forEach(function (p, i) {
       var row = document.createElement('div');
       row.className = 'df-panier-row';
       row.innerHTML =
-        '<span class="df-panier-emoji">' + p.emoji + '</span>' +
-        '<span class="df-panier-nom">' + p.nom + '</span>' +
-        '<span class="df-panier-prix">' + p.prix.toFixed(2).replace('.',',') + '€</span>' +
+        '<span class="df-panier-sku">' +
+        p.sku +
+        '</span>' +
+        '<span class="df-panier-nom">' +
+        p.nom +
+        '</span>' +
+        '<span class="df-panier-prix">' +
+        p.prix.toFixed(2).replace('.', ',') +
+        '€</span>' +
         '<div class="df-qte-ctrl">' +
-          '<button class="df-qte-btn df-minus" data-i="' + i + '">−</button>' +
-          '<span class="df-qte" id="df-q' + i + '">0</span>' +
-          '<button class="df-qte-btn df-plus" data-i="' + i + '">+</button>' +
+        '<button class="df-qte-btn df-minus" data-i="' +
+        i +
+        '">−</button>' +
+        '<span class="df-qte" id="df-q' +
+        i +
+        '">0</span>' +
+        '<button class="df-qte-btn df-plus" data-i="' +
+        i +
+        '">+</button>' +
         '</div>';
       wrap.appendChild(row);
     });
 
     function updateTotal() {
       var total = 0;
-      Object.keys(panier).forEach(function(k) {
+      Object.keys(panier).forEach(function (k) {
         total += produits[k].prix * panier[k];
       });
-      document.getElementById('df-total').textContent = total.toFixed(2).replace('.',',') + ' €';
+      document.getElementById('df-total').textContent = total.toFixed(2).replace('.', ',') + ' €';
       document.getElementById('df-panier-cta').disabled = total === 0;
     }
 
-    document.querySelectorAll('.df-plus').forEach(function(b) {
-      b.addEventListener('click', function() {
+    document.querySelectorAll('.df-plus').forEach(function (b) {
+      b.addEventListener('click', function () {
         var i = parseInt(b.dataset.i);
         panier[i] = (panier[i] || 0) + 1;
-        document.getElementById('df-q'+i).textContent = panier[i];
+        document.getElementById('df-q' + i).textContent = panier[i];
         updateTotal();
       });
     });
-    document.querySelectorAll('.df-minus').forEach(function(b) {
-      b.addEventListener('click', function() {
+    document.querySelectorAll('.df-minus').forEach(function (b) {
+      b.addEventListener('click', function () {
         var i = parseInt(b.dataset.i);
         if ((panier[i] || 0) > 0) {
           panier[i]--;
-          document.getElementById('df-q'+i).textContent = panier[i];
+          document.getElementById('df-q' + i).textContent = panier[i];
           updateTotal();
         }
       });
@@ -798,48 +953,62 @@
           </div>
           <svg id="df-hb-bar" viewBox="0 0 300 60" width="100%" style="margin-top:12px"></svg>
           <p class="df-hb-msg" id="df-hb-msg"></p>
-          <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">
+          <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
             Démarrer mon programme →
           </button>
         </div>
       </div>`);
 
-    var sexe = 'H', fact = 1.55;
+    var sexe = 'H',
+      fact = 1.55;
 
-    document.querySelectorAll('[data-sexe]').forEach(function(b) {
-      b.addEventListener('click', function() {
-        document.querySelectorAll('[data-sexe]').forEach(function(x){x.classList.remove('active');});
-        b.classList.add('active'); sexe = b.dataset.sexe;
+    document.querySelectorAll('[data-sexe]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.querySelectorAll('[data-sexe]').forEach(function (x) {
+          x.classList.remove('active');
+        });
+        b.classList.add('active');
+        sexe = b.dataset.sexe;
       });
     });
-    document.querySelectorAll('[data-fact]').forEach(function(b) {
-      b.addEventListener('click', function() {
-        document.querySelectorAll('[data-fact]').forEach(function(x){x.classList.remove('active');});
-        b.classList.add('active'); fact = parseFloat(b.dataset.fact);
+    document.querySelectorAll('[data-fact]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.querySelectorAll('[data-fact]').forEach(function (x) {
+          x.classList.remove('active');
+        });
+        b.classList.add('active');
+        fact = parseFloat(b.dataset.fact);
       });
     });
 
-    document.getElementById('df-hb-calc').addEventListener('click', function() {
-      var age    = parseInt(document.getElementById('df-age').value) || 30;
-      var poids  = parseInt(document.getElementById('df-poids').value) || 75;
+    document.getElementById('df-hb-calc').addEventListener('click', function () {
+      var age = parseInt(document.getElementById('df-age').value) || 30;
+      var poids = parseInt(document.getElementById('df-poids').value) || 75;
       var taille = parseInt(document.getElementById('df-taille').value) || 175;
-      var bmr = sexe === 'H'
-        ? 88.362 + 13.397*poids + 4.799*taille - 5.677*age
-        : 447.593 + 9.247*poids + 3.098*taille - 4.330*age;
+      var bmr =
+        sexe === 'H'
+          ? 88.362 + 13.397 * poids + 4.799 * taille - 5.677 * age
+          : 447.593 + 9.247 * poids + 3.098 * taille - 4.33 * age;
       var tdee = Math.round(bmr * fact);
-      var imc  = (poids / ((taille/100) * (taille/100))).toFixed(1);
-      var msg  = imc < 18.5 ? 'Sous le poids idéal — programme prise de masse.' :
-                 imc < 25   ? 'IMC idéal — programme performance.' :
-                 imc < 30   ? 'Légère surcharge — programme perte de gras.' :
-                              'Programme intensif recommandé.';
-      document.getElementById('df-bmr').textContent  = Math.round(bmr);
+      var imc = (poids / ((taille / 100) * (taille / 100))).toFixed(1);
+      var msg =
+        imc < 18.5
+          ? 'Sous le poids idéal — programme prise de masse.'
+          : imc < 25
+            ? 'IMC idéal — programme performance.'
+            : imc < 30
+              ? 'Légère surcharge — programme perte de gras.'
+              : 'Programme intensif recommandé.';
+      document.getElementById('df-bmr').textContent = Math.round(bmr);
       document.getElementById('df-tdee').textContent = tdee;
-      document.getElementById('df-imc').textContent  = imc;
+      document.getElementById('df-imc').textContent = imc;
       document.getElementById('df-hb-msg').textContent = msg;
       document.getElementById('df-hb-result').style.display = '';
       // Barre macro SVG
       var svg = document.getElementById('df-hb-bar');
-      var prot = Math.round(tdee * 0.30 / 4), carbs = Math.round(tdee * 0.45 / 4), lip = Math.round(tdee * 0.25 / 9);
+      var prot = Math.round((tdee * 0.3) / 4),
+        carbs = Math.round((tdee * 0.45) / 4),
+        lip = Math.round((tdee * 0.25) / 9);
       svg.innerHTML =
         '<rect x="0" y="20" width="90" height="20" rx="4" fill="#00E5CC"/>' +
         '<rect x="95" y="20" width="110" height="20" rx="4" fill="#7B4FE8"/>' +
@@ -847,30 +1016,803 @@
         '<text x="45" y="14" text-anchor="middle" font-size="9" fill="#00E5CC">Protéines</text>' +
         '<text x="150" y="14" text-anchor="middle" font-size="9" fill="#7B4FE8">Glucides</text>' +
         '<text x="255" y="14" text-anchor="middle" font-size="9" fill="#FFB830">Lipides</text>' +
-        '<text x="45" y="52" text-anchor="middle" font-size="9" fill="rgba(238,248,255,0.6)">' + prot + 'g</text>' +
-        '<text x="150" y="52" text-anchor="middle" font-size="9" fill="rgba(238,248,255,0.6)">' + carbs + 'g</text>' +
-        '<text x="255" y="52" text-anchor="middle" font-size="9" fill="rgba(238,248,255,0.6)">' + lip + 'g</text>';
+        '<text x="45" y="52" text-anchor="middle" font-size="9" fill="rgba(238,248,255,0.6)">' +
+        prot +
+        'g</text>' +
+        '<text x="150" y="52" text-anchor="middle" font-size="9" fill="rgba(238,248,255,0.6)">' +
+        carbs +
+        'g</text>' +
+        '<text x="255" y="52" text-anchor="middle" font-size="9" fill="rgba(238,248,255,0.6)">' +
+        lip +
+        'g</text>';
     });
+  }
+
+  /* ================================================
+     12. DENTISTE — Pré-triage RDV (douleur / urgence)
+     ============================================== */
+  function featureDentisteTriage() {
+    inject(`
+      <div class="df-card">
+        <p class="df-label">PRISE DE RENDEZ-VOUS</p>
+        <h3 class="df-title">Quel est votre besoin ?</h3>
+        <p class="df-note">Démo : aucun rendez-vous réel — exemple de parcours patient.</p>
+        <div class="df-pills-col" id="df-den-besoin"></div>
+        <div class="df-result-box" id="df-den-res" style="display:none;margin-top:16px"></div>
+        <button class="df-cta" id="df-den-cta" style="display:none"
+          onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
+          Continuer →
+        </button>
+      </div>`);
+
+    var besoins = [
+      {
+        label: 'Douleur / urgence',
+        msg: 'Priorité : on vous rappelle rapidement pour trouver un créneau.',
+      },
+      { label: 'Contrôle annuel', msg: 'RDV classique : choisissez votre créneau préféré.' },
+      {
+        label: 'Détartrage',
+        msg: 'Soin 30 min : préparation simple, rappel automatique la veille.',
+      },
+      {
+        label: 'Devis implant / esthétique',
+        msg: 'Premier échange + radio : on prépare le dossier avant votre venue.',
+      },
+    ];
+
+    var wrap = document.getElementById('df-den-besoin');
+    var res = document.getElementById('df-den-res');
+    var cta = document.getElementById('df-den-cta');
+    besoins.forEach(function (b) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'df-pill';
+      btn.textContent = b.label;
+      btn.addEventListener('click', function () {
+        wrap.querySelectorAll('.df-pill').forEach(function (x) {
+          x.classList.remove('active');
+        });
+        btn.classList.add('active');
+        res.style.display = '';
+        res.textContent = b.msg;
+        cta.style.display = '';
+      });
+      wrap.appendChild(btn);
+    });
+  }
+
+  /* ================================================
+     13. IMMOBILIER — Estimation express (m² + quartier)
+     ============================================== */
+  function featureEstimationImmo() {
+    inject(`
+      <div class="df-card">
+        <p class="df-label">ESTIMATION EXPRESS</p>
+        <h3 class="df-title">Votre bien en 30 secondes</h3>
+        <div class="df-slider-wrap">
+          <input type="range" id="df-immo-m2" min="15" max="220" value="55"
+            class="df-slider" aria-label="Surface en mètres carrés">
+          <p class="df-val"><span id="df-immo-m2v">55</span> m²</p>
+        </div>
+        <div class="df-pills-row" id="df-immo-zone"></div>
+        <div class="df-result-flip" style="margin-top:16px">
+          <span class="df-currency">€</span>
+          <span id="df-immo-prix">0</span>
+        </div>
+        <p class="df-note">Fourchette indicative (démo) — estimation précise sur visite.</p>
+        <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
+          Être rappelé(e) →
+        </button>
+      </div>`);
+
+    var slider = document.getElementById('df-immo-m2');
+    var m2v = document.getElementById('df-immo-m2v');
+    var prixEl = document.getElementById('df-immo-prix');
+
+    var zones = [
+      { label: 'Centre', ppm2: 6800 },
+      { label: 'Résidentiel', ppm2: 5200 },
+      { label: 'Périphérie', ppm2: 4100 },
+    ];
+    var ppm2 = zones[0].ppm2;
+
+    var zoneWrap = document.getElementById('df-immo-zone');
+    zones.forEach(function (z, idx) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'df-pill' + (idx === 0 ? ' active' : '');
+      b.textContent = z.label;
+      b.addEventListener('click', function () {
+        zoneWrap.querySelectorAll('.df-pill').forEach(function (x) {
+          x.classList.remove('active');
+        });
+        b.classList.add('active');
+        ppm2 = z.ppm2;
+        calc();
+      });
+      zoneWrap.appendChild(b);
+    });
+
+    function calc() {
+      var m2 = parseInt(slider.value, 10) || 55;
+      m2v.textContent = m2;
+      var base = m2 * ppm2;
+      var min = Math.round(base * 0.92);
+      var max = Math.round(base * 1.07);
+      prixEl.textContent = min.toLocaleString('fr-FR') + ' – ' + max.toLocaleString('fr-FR');
+    }
+    slider.addEventListener('input', calc, { passive: true });
+    calc();
+  }
+
+  /* ================================================
+     14. COMPTABLE — Checklist conformité (score)
+     ============================================== */
+  function featureChecklistCompta() {
+    var items = [
+      { k: 'Facturation', d: 'Mentions, numérotation, délais de paiement' },
+      { k: 'Banque', d: 'Rapprochements et pièces justificatives' },
+      { k: 'Charges', d: 'Catégorisation + justificatifs' },
+      { k: 'TVA', d: 'Déclarations (si applicable)' },
+      { k: 'Déclarations', d: 'URSSAF / sociales / fiscales' },
+    ];
+    inject(`
+      <div class="df-card">
+        <p class="df-label">TABLEAU DE BORD</p>
+        <h3 class="df-title">Votre mois est-il “propre” ?</h3>
+        <p class="df-note">Démo : un score lisible pour décider quoi faire ensuite.</p>
+        <div id="df-comp-list" style="display:grid;gap:10px;margin-top:14px"></div>
+        <div class="df-result-flip" style="margin-top:18px">
+          <span class="df-currency">Score</span>
+          <span id="df-comp-score">0</span>
+          <span class="df-currency">/ 100</span>
+        </div>
+        <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
+          Demander un audit →
+        </button>
+      </div>`);
+
+    var wrap = document.getElementById('df-comp-list');
+    var scoreEl = document.getElementById('df-comp-score');
+    var state = {};
+
+    function recalc() {
+      var done = Object.keys(state).filter(function (k) {
+        return state[k];
+      }).length;
+      var pct = Math.round((done / items.length) * 100);
+      scoreEl.textContent = String(pct);
+    }
+
+    items.forEach(function (it, idx) {
+      var row = document.createElement('button');
+      row.type = 'button';
+      row.className = 'df-pill';
+      row.style.display = 'flex';
+      row.style.justifyContent = 'space-between';
+      row.style.alignItems = 'center';
+      row.style.gap = '12px';
+      row.innerHTML =
+        '<span><strong>' +
+        it.k +
+        '</strong><br><span style="opacity:.7;font-size:12px">' +
+        it.d +
+        '</span></span>' +
+        '<span aria-hidden="true" style="opacity:.7">○</span>';
+      row.addEventListener('click', function () {
+        state[idx] = !state[idx];
+        row.classList.toggle('active', !!state[idx]);
+        row.lastChild.textContent = state[idx] ? '✓' : '○';
+        recalc();
+      });
+      wrap.appendChild(row);
+    });
+    recalc();
+  }
+
+  /* ================================================
+     15. ARCHITECTE — Moodboard (matière + budget)
+     ============================================== */
+  function featureMoodboardArchi() {
+    var mats = [
+      { label: 'Bois', hint: 'Chaleur, rythme, naturel' },
+      { label: 'Minéral', hint: 'Calme, lignes, intemporalité' },
+      { label: 'Métal', hint: 'Contraste, précision, lumière' },
+      { label: 'Mix', hint: 'Équilibre, texture, signature' },
+    ];
+    inject(`
+      <div class="df-card">
+        <p class="df-label">AVANT-PROJET</p>
+        <h3 class="df-title">Ambiance & direction</h3>
+        <div class="df-pills-row" id="df-archi-mat" style="margin-top:12px"></div>
+        <div class="df-slider-wrap" style="margin-top:14px">
+          <input type="range" id="df-archi-budget" min="15" max="250" value="80"
+            class="df-slider" aria-label="Budget en milliers d'euros">
+          <p class="df-val"><span id="df-archi-bv">80</span>k €</p>
+        </div>
+        <div class="df-result-box" id="df-archi-res" style="margin-top:14px"></div>
+        <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
+          Lancer l’étude →
+        </button>
+      </div>`);
+
+    var matWrap = document.getElementById('df-archi-mat');
+    var budget = document.getElementById('df-archi-budget');
+    var bv = document.getElementById('df-archi-bv');
+    var res = document.getElementById('df-archi-res');
+
+    var selected = mats[0];
+    mats.forEach(function (m, idx) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'df-pill' + (idx === 0 ? ' active' : '');
+      b.textContent = m.label;
+      b.addEventListener('click', function () {
+        matWrap.querySelectorAll('.df-pill').forEach(function (x) {
+          x.classList.remove('active');
+        });
+        b.classList.add('active');
+        selected = m;
+        render();
+      });
+      matWrap.appendChild(b);
+    });
+
+    function render() {
+      var k = parseInt(budget.value, 10) || 80;
+      bv.textContent = String(k);
+      var msg = selected.hint + ' · Budget cadré : ' + k + 'k € (démo)';
+      res.textContent = msg;
+    }
+    budget.addEventListener('input', render, { passive: true });
+    render();
+  }
+
+  /* ================================================
+     16. PHOTOGRAPHE — Choix pack (preview + prix)
+     ============================================== */
+  function featurePhotographePacks() {
+    var packs = [
+      { n: 'Essentiel', p: 190, d: '45 min · 20 photos retouchées · livraison 72h' },
+      { n: 'Signature', p: 420, d: '2h · 60 photos retouchées · conseils + mood' },
+      { n: 'Marque', p: 980, d: 'Journée · contenu complet · déclinaisons réseaux' },
+    ];
+    inject(`
+      <div class="df-card">
+        <p class="df-label">RÉSERVER UNE SÉANCE</p>
+        <h3 class="df-title">Choisissez votre pack</h3>
+        <div class="df-pills-col" id="df-photo-packs" style="margin-top:12px"></div>
+        <div class="df-result-flip" style="margin-top:16px">
+          <span class="df-currency">€</span>
+          <span id="df-photo-prix">420</span>
+        </div>
+        <p class="df-note" id="df-photo-desc"></p>
+        <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
+          Choisir un créneau →
+        </button>
+      </div>`);
+
+    var wrap = document.getElementById('df-photo-packs');
+    var prixEl = document.getElementById('df-photo-prix');
+    var descEl = document.getElementById('df-photo-desc');
+    var selected = packs[1];
+
+    function sync() {
+      prixEl.textContent = String(selected.p);
+      descEl.textContent = selected.d + ' (démo)';
+    }
+
+    packs.forEach(function (pk) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'df-pill' + (pk.n === selected.n ? ' active' : '');
+      b.innerHTML = '<strong>' + pk.n + '</strong><span style="opacity:.7"> — ' + pk.d + '</span>';
+      b.addEventListener('click', function () {
+        wrap.querySelectorAll('.df-pill').forEach(function (x) {
+          x.classList.remove('active');
+        });
+        b.classList.add('active');
+        selected = pk;
+        sync();
+      });
+      wrap.appendChild(b);
+    });
+    sync();
+  }
+
+  /* ================================================
+     17. FLEURISTE — Composition bouquet (3 choix)
+     ============================================== */
+  function featureBouquetFleuriste() {
+    var fleurs = ['Blanc', 'Pastel', 'Contraste', 'Saison'];
+    var tailles = ['Petit', 'Moyen', 'Généreux'];
+    var occas = ['Merci', 'Anniversaire', 'Événement', 'Sans occasion'];
+    var state = { f: fleurs[0], t: tailles[1], o: occas[0] };
+    inject(`
+      <div class="df-card">
+        <p class="df-label">COMPOSER UN BOUQUET</p>
+        <h3 class="df-title">Votre intention en 3 choix</h3>
+        <p class="df-sub-label">Palette</p>
+        <div class="df-pills-row" id="df-fl-palette"></div>
+        <p class="df-sub-label" style="margin-top:12px">Taille</p>
+        <div class="df-pills-row" id="df-fl-taille"></div>
+        <p class="df-sub-label" style="margin-top:12px">Occasion</p>
+        <div class="df-pills-row" id="df-fl-ocas"></div>
+        <div class="df-result-box" id="df-fl-res" style="margin-top:14px"></div>
+        <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
+          Commander →
+        </button>
+      </div>`);
+
+    function pills(id, arr, key, def) {
+      var w = document.getElementById(id);
+      arr.forEach(function (v, idx) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'df-pill' + (idx === def ? ' active' : '');
+        b.textContent = v;
+        b.addEventListener('click', function () {
+          w.querySelectorAll('.df-pill').forEach(function (x) {
+            x.classList.remove('active');
+          });
+          b.classList.add('active');
+          state[key] = v;
+          render();
+        });
+        w.appendChild(b);
+      });
+    }
+
+    function render() {
+      var msg =
+        'Palette ' +
+        state.f +
+        ' · ' +
+        state.t +
+        ' · ' +
+        state.o +
+        ' — préparation en boutique (démo).';
+      document.getElementById('df-fl-res').textContent = msg;
+    }
+    pills('df-fl-palette', fleurs, 'f', 0);
+    pills('df-fl-taille', tailles, 't', 1);
+    pills('df-fl-ocas', occas, 'o', 0);
+    render();
+  }
+
+  /* ================================================
+     18. GARAGE AUTO — Devis entretien (km + type)
+     ============================================== */
+  function featureGarageEntretien() {
+    inject(`
+      <div class="df-card">
+        <p class="df-label">ENTRETIEN</p>
+        <h3 class="df-title">Estimation rapide</h3>
+        <div class="df-slider-wrap">
+          <input type="range" id="df-g-km" min="5000" max="250000" step="5000" value="60000"
+            class="df-slider" aria-label="Kilométrage du véhicule">
+          <p class="df-val"><span id="df-g-kmv">60 000</span> km</p>
+        </div>
+        <div class="df-pills-row" id="df-g-type" style="margin-top:10px"></div>
+        <div class="df-result-flip" style="margin-top:16px">
+          <span class="df-currency">€</span>
+          <span id="df-g-prix">0</span>
+        </div>
+        <p class="df-note">Démo : ordre de grandeur · devis réel après contrôle.</p>
+        <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
+          Prendre RDV atelier →
+        </button>
+      </div>`);
+
+    var slider = document.getElementById('df-g-km');
+    var kmv = document.getElementById('df-g-kmv');
+    var prixEl = document.getElementById('df-g-prix');
+    var types = [
+      { label: 'Vidange', base: 120 },
+      { label: 'Révision', base: 240 },
+      { label: 'Freins', base: 320 },
+    ];
+    var base = types[0].base;
+
+    var w = document.getElementById('df-g-type');
+    types.forEach(function (t, idx) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'df-pill' + (idx === 0 ? ' active' : '');
+      b.textContent = t.label;
+      b.addEventListener('click', function () {
+        w.querySelectorAll('.df-pill').forEach(function (x) {
+          x.classList.remove('active');
+        });
+        b.classList.add('active');
+        base = t.base;
+        calc();
+      });
+      w.appendChild(b);
+    });
+
+    function fmtKm(n) {
+      return n.toLocaleString('fr-FR');
+    }
+    function calc() {
+      var km = parseInt(slider.value, 10) || 60000;
+      kmv.textContent = fmtKm(km);
+      var factor = km < 50000 ? 0.9 : km < 120000 ? 1.0 : 1.15;
+      var p = Math.round(base * factor);
+      prixEl.textContent = String(p);
+    }
+    slider.addEventListener('input', calc, { passive: true });
+    calc();
+  }
+
+  /* ================================================
+     19. YOGA — Planning cours (semaine)
+     ============================================== */
+  function featurePlanningYoga() {
+    var cours = [
+      { j: 'Lun', h: '18:30', t: 'Vinyasa' },
+      { j: 'Mer', h: '07:30', t: 'Flow doux' },
+      { j: 'Jeu', h: '19:00', t: 'Hatha' },
+      { j: 'Sam', h: '10:00', t: 'Respiration' },
+    ];
+    inject(`
+      <div class="df-card">
+        <p class="df-label">S’INSCRIRE</p>
+        <h3 class="df-title">Cours cette semaine</h3>
+        <div id="df-yoga-list" style="display:grid;gap:10px;margin-top:14px"></div>
+        <div class="df-result-box" id="df-yoga-res" style="display:none;margin-top:14px"></div>
+        <button class="df-cta" id="df-yoga-cta" style="display:none"
+          onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
+          Réserver →
+        </button>
+      </div>`);
+
+    var list = document.getElementById('df-yoga-list');
+    var res = document.getElementById('df-yoga-res');
+    var cta = document.getElementById('df-yoga-cta');
+
+    cours.forEach(function (c) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'df-pill';
+      b.style.display = 'flex';
+      b.style.justifyContent = 'space-between';
+      b.style.alignItems = 'center';
+      b.textContent = c.j + ' · ' + c.h + ' · ' + c.t;
+      b.addEventListener('click', function () {
+        list.querySelectorAll('.df-pill').forEach(function (x) {
+          x.classList.remove('active');
+        });
+        b.classList.add('active');
+        res.style.display = '';
+        res.textContent = 'Cours sélectionné : ' + c.t + ' — ' + c.j + ' ' + c.h + ' (démo).';
+        cta.style.display = '';
+      });
+      list.appendChild(b);
+    });
+  }
+
+  /* ================================================
+     20. PSYCHOLOGUE — Score d’anxiété (démo) + conseils
+     ============================================== */
+  function featureScorePsychologue() {
+    var qs = [
+      {
+        q: 'Ces 7 derniers jours, votre sommeil a été :',
+        opts: ['Stable', 'Irrégulier', 'Très perturbé'],
+        w: [5, 15, 25],
+      },
+      {
+        q: 'Votre charge mentale au quotidien :',
+        opts: ['Gérable', 'Lourde', 'Épuisante'],
+        w: [5, 15, 25],
+      },
+      {
+        q: 'Votre capacité à vous concentrer :',
+        opts: ['Bonne', 'Fluctuante', 'Difficile'],
+        w: [5, 15, 25],
+      },
+      { q: 'Votre niveau d’irritabilité :', opts: ['Faible', 'Moyen', 'Élevé'], w: [5, 15, 25] },
+    ];
+    var i = 0;
+    var score = 0;
+
+    inject(`
+      <div class="df-card">
+        <p class="df-label">BILAN EXPRESS</p>
+        <h3 class="df-title">Score de tension (démo)</h3>
+        <p class="df-note">Aucun diagnostic médical. Objectif : préparer le premier échange.</p>
+        <div class="df-progress-bar"><div class="df-progress-fill" id="df-psy-prog" style="width:0%"></div></div>
+        <div id="df-psy-wrap">
+          <p class="df-quiz-q" id="df-psy-q"></p>
+          <div class="df-pills-col" id="df-psy-pills"></div>
+        </div>
+        <div id="df-psy-result" style="display:none">
+          <div class="df-reco-card">
+            <p class="df-label">RÉSULTAT</p>
+            <p class="df-reco-name" id="df-psy-score"></p>
+            <p class="df-reco-desc" id="df-psy-msg"></p>
+          </div>
+          <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
+            Préparer une première séance →
+          </button>
+        </div>
+      </div>`);
+
+    function render() {
+      document.getElementById('df-psy-q').textContent = qs[i].q;
+      document.getElementById('df-psy-prog').style.width = (i / qs.length) * 100 + '%';
+      var pills = document.getElementById('df-psy-pills');
+      pills.innerHTML = '';
+      qs[i].opts.forEach(function (o, idx) {
+        var b = document.createElement('button');
+        b.className = 'df-pill';
+        b.textContent = o;
+        b.addEventListener('click', function () {
+          score += qs[i].w[idx] || 0;
+          i += 1;
+          if (i < qs.length) render();
+          else showResult();
+        });
+        pills.appendChild(b);
+      });
+    }
+
+    function showResult() {
+      document.getElementById('df-psy-wrap').style.display = 'none';
+      document.getElementById('df-psy-result').style.display = '';
+      document.getElementById('df-psy-prog').style.width = '100%';
+      var s = Math.min(100, score);
+      var band = s < 40 ? 'Faible' : s < 70 ? 'Modéré' : 'Élevé';
+      var msg =
+        s < 40
+          ? 'On peut travailler sur la prévention et l’optimisation (habitudes, limites, récupération).'
+          : s < 70
+            ? 'On cadre les déclencheurs et on construit une stratégie concrète semaine par semaine.'
+            : 'Priorité au soulagement et à la stabilisation. On avance avec douceur, sans pression.';
+      document.getElementById('df-psy-score').textContent =
+        'Niveau : ' + band + ' · Score ' + s + '/100';
+      document.getElementById('df-psy-msg').textContent = msg;
+    }
+
+    render();
+  }
+
+  /* ================================================
+     21. KINÉ — Auto-test mobilité (démo)
+     ============================================== */
+  function featureKineMobilite() {
+    var items = [
+      {
+        k: 'Épaule',
+        d: 'Levez le bras au-dessus de la tête sans compensation.',
+        s: ['Facile', 'Inconfort', 'Douloureux'],
+      },
+      {
+        k: 'Hanche',
+        d: 'Accroupissement contrôlé (descente lente).',
+        s: ['Stable', 'Raide', 'Impossible'],
+      },
+      {
+        k: 'Dos',
+        d: 'Inclinaison avant : toucher les tibias sans douleur.',
+        s: ['OK', 'Tire', 'Douloureux'],
+      },
+    ];
+    var score = 0;
+    inject(`
+      <div class="df-card">
+        <p class="df-label">MOBILITÉ</p>
+        <h3 class="df-title">Auto-test (démo)</h3>
+        <p class="df-note">Ne remplace pas une consultation. C’est un repère pour votre prise en charge.</p>
+        <div id="df-kine"></div>
+        <button class="df-cta" id="df-kine-cta" style="display:none" onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
+          Demander un créneau →
+        </button>
+      </div>`);
+    var wrap = document.getElementById('df-kine');
+    items.forEach(function (it, idx) {
+      var block = document.createElement('div');
+      block.className = 'df-reco-card';
+      block.innerHTML =
+        '<p class="df-label">' +
+        it.k.toUpperCase() +
+        '</p>' +
+        '<p class="df-reco-desc">' +
+        it.d +
+        '</p>' +
+        '<div class="df-pills-row" id="df-kine-row-' +
+        idx +
+        '"></div>';
+      wrap.appendChild(block);
+      var row = document.getElementById('df-kine-row-' + idx);
+      it.s.forEach(function (label, j) {
+        var b = document.createElement('button');
+        b.className = 'df-pill';
+        b.textContent = label;
+        b.addEventListener('click', function () {
+          row.querySelectorAll('.df-pill').forEach(function (x) {
+            x.classList.remove('active');
+            x.disabled = true;
+          });
+          b.classList.add('active');
+          b.disabled = false;
+          score += j === 0 ? 0 : j === 1 ? 10 : 20;
+          if (idx === items.length - 1) {
+            document.getElementById('df-kine-cta').style.display = '';
+          }
+        });
+        row.appendChild(b);
+      });
+    });
+  }
+
+  /* ================================================
+     22. NUTRITION — Assiette macro (démo)
+     ============================================== */
+  function featureAssietteNutrition() {
+    var states = {
+      objectif: 'Énergie',
+      rythme: 'Bureau',
+      preference: 'Omnivore',
+    };
+    var recos = {
+      'Énergie|Bureau|Omnivore': {
+        p: 30,
+        g: 45,
+        l: 25,
+        txt: 'Stabilité + concentration : protéines régulières, glucides lents, bons lipides.',
+      },
+      'Énergie|Bureau|Végétarien': {
+        p: 28,
+        g: 47,
+        l: 25,
+        txt: 'Légumineuses + céréales complètes : combo protéines végétales + fibres.',
+      },
+      'Perte de poids|Bureau|Omnivore': {
+        p: 35,
+        g: 35,
+        l: 30,
+        txt: 'Satiété : protéines + légumes, glucides ciblés, lipides de qualité.',
+      },
+      'Performance|Sport|Omnivore': {
+        p: 30,
+        g: 50,
+        l: 20,
+        txt: 'Carburant : glucides autour des séances, protéines constantes.',
+      },
+    };
+    inject(`
+      <div class="df-card">
+        <p class="df-label">VOTRE ASSIETTE</p>
+        <h3 class="df-title">Répartition simple (démo)</h3>
+        <div class="df-cils-grid">
+          <div><p class="df-sub-label">Objectif</p><div class="df-pills-row" id="df-n-obj"></div></div>
+          <div><p class="df-sub-label">Rythme</p><div class="df-pills-row" id="df-n-ry"></div></div>
+          <div><p class="df-sub-label">Préférence</p><div class="df-pills-row" id="df-n-pr"></div></div>
+        </div>
+        <svg id="df-n-pie" viewBox="0 0 120 120" width="160" style="display:block;margin:18px auto 0"></svg>
+        <p class="df-note" id="df-n-txt"></p>
+        <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
+          Demander une stratégie personnalisée →
+        </button>
+      </div>`);
+
+    function pillRow(id, items, key) {
+      var row = document.getElementById(id);
+      items.forEach(function (v, idx) {
+        var b = document.createElement('button');
+        b.className = 'df-pill' + (states[key] === v ? ' active' : '');
+        b.textContent = v;
+        b.addEventListener('click', function () {
+          row.querySelectorAll('.df-pill').forEach(function (x) {
+            x.classList.remove('active');
+          });
+          b.classList.add('active');
+          states[key] = v;
+          render();
+        });
+        row.appendChild(b);
+      });
+    }
+
+    pillRow('df-n-obj', ['Énergie', 'Perte de poids', 'Performance'], 'objectif');
+    pillRow('df-n-ry', ['Bureau', 'Sport', 'Mixte'], 'rythme');
+    pillRow('df-n-pr', ['Omnivore', 'Végétarien'], 'preference');
+
+    function render() {
+      var k = states.objectif + '|' + states.rythme + '|' + states.preference;
+      var d = recos[k] || {
+        p: 30,
+        g: 45,
+        l: 25,
+        txt: 'Base équilibrée : protéines, fibres, glucides lents et hydratation.',
+      };
+      var svg = document.getElementById('df-n-pie');
+      var cx = 60,
+        cy = 60,
+        r = 44;
+      function arc(start, end, color) {
+        var large = end - start > Math.PI ? 1 : 0;
+        var x1 = cx + r * Math.cos(start),
+          y1 = cy + r * Math.sin(start);
+        var x2 = cx + r * Math.cos(end),
+          y2 = cy + r * Math.sin(end);
+        return (
+          '<path d="M ' +
+          cx +
+          ' ' +
+          cy +
+          ' L ' +
+          x1 +
+          ' ' +
+          y1 +
+          ' A ' +
+          r +
+          ' ' +
+          r +
+          ' 0 ' +
+          large +
+          ' 1 ' +
+          x2 +
+          ' ' +
+          y2 +
+          ' Z" fill="' +
+          color +
+          '" opacity="0.9"/>'
+        );
+      }
+      var a0 = -Math.PI / 2;
+      var ap = (d.p / 100) * Math.PI * 2;
+      var ag = (d.g / 100) * Math.PI * 2;
+      var al = (d.l / 100) * Math.PI * 2;
+      svg.innerHTML =
+        arc(a0, a0 + ap, accent) +
+        arc(a0 + ap, a0 + ap + ag, 'rgba(123,79,232,0.9)') +
+        arc(a0 + ap + ag, a0 + ap + ag + al, 'rgba(255,185,60,0.9)') +
+        '<circle cx="60" cy="60" r="18" fill="rgba(0,0,0,0.18)"/>' +
+        '<text x="60" y="56" text-anchor="middle" font-size="10" fill="rgba(245,250,252,0.85)">P ' +
+        d.p +
+        '%</text>' +
+        '<text x="60" y="70" text-anchor="middle" font-size="10" fill="rgba(245,250,252,0.75)">G ' +
+        d.g +
+        '% · L ' +
+        d.l +
+        '%</text>';
+      document.getElementById('df-n-txt').textContent = d.txt;
+    }
+    render();
   }
 
   /* ── Dispatch selon S.feature ────────────────────── */
   var features = {
-    'calculateur-artisan':  featureCalculateurArtisan,
-    'plan-salle':           featurePlanSalle,
-    'quiz-coach':           featureQuizCoach,
-    'arbre-juridique':      featureArbreJuridique,
-    'diagnostic-peau':      featureDiagnosticPeau,
-    'config-cils':          featureConfigCils,
-    'swatches-ongles':      featureSwatchesOngles,
-    'slider-coiffeur':      featureSliderCoiffeur,
-    'booking-barbier':      featureBookingBarbier,
-    'panier-boulangerie':   featurePanierBoulangerie,
-    'harris-benedict':      featureHarrisBenedict,
+    'calculateur-artisan': featureCalculateurArtisan,
+    'plan-salle': featurePlanSalle,
+    'quiz-coach': featureQuizCoach,
+    'arbre-juridique': featureArbreJuridique,
+    'diagnostic-peau': featureDiagnosticPeau,
+    'config-cils': featureConfigCils,
+    'swatches-ongles': featureSwatchesOngles,
+    'slider-coiffeur': featureSliderCoiffeur,
+    'booking-barbier': featureBookingBarbier,
+    'panier-boulangerie': featurePanierBoulangerie,
+    'harris-benedict': featureHarrisBenedict,
+    'triage-dentiste': featureDentisteTriage,
+    'estimation-immo': featureEstimationImmo,
+    'checklist-compta': featureChecklistCompta,
+    'moodboard-archi': featureMoodboardArchi,
+    'packs-photo': featurePhotographePacks,
+    'bouquet-fleuriste': featureBouquetFleuriste,
+    'entretien-garage': featureGarageEntretien,
+    'planning-yoga': featurePlanningYoga,
+    'score-psy': featureScorePsychologue,
+    'mobilite-kine': featureKineMobilite,
+    'assiette-nutrition': featureAssietteNutrition,
   };
 
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     var fn = features[S.feature];
     if (fn) fn();
   });
-
 })();
