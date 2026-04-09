@@ -197,12 +197,9 @@ ${mainInner}
     </div>
   </div>
   <script src="${a('/assets/js/main.js')}" defer></script>
-  <script src="${a('/assets/js/particles.js')}" defer></script>
   <script src="${a('/assets/js/aurora.js')}" defer></script>
   <script src="${a('/assets/js/parallax.js')}" defer></script>
-  <script src="${a('/assets/js/scroll-cinema.js')}" defer></script>
-  <script src="${a('/assets/js/cursor.js')}" defer></script>
-  <script src="${a('/assets/js/bio-particles.js')}" defer></script>
+  <script src="${a('/assets/js/effects-loader.js')}" defer></script>
 </body>
 </html>`;
 }

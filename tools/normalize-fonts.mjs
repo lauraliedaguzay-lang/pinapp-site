@@ -38,7 +38,7 @@ function stripBunnyFonts(html) {
   html = html.replace(/\s*<link[^>]+href="https:\/\/fonts\.bunny\.net"[^>]*>\s*\n?/gi, '');
   html = html.replace(
     /\s*<link[^>]+href="https:\/\/fonts\.bunny\.net\/css\?family=inter:[^"]+"[^>]*>\s*\n?/gi,
-    ''
+    '',
   );
   return html;
 }
@@ -68,4 +68,3 @@ function main() {
 }
 
 main();
-

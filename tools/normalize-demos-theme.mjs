@@ -24,13 +24,13 @@ function normalizeOne(html) {
   // Supprime le script inline en tête de <head> qui force data-mode/data-theme.
   out = out.replace(
     /\s*<script>\s*\(function\s*\(\)\s*\{[\s\S]*?localStorage\.getItem\('pinapp-theme'\)[\s\S]*?\}\)\(\);\s*<\/script>\s*/i,
-    '\n'
+    '\n',
   );
 
   // 2) Démos: ne pas précharger les backgrounds Pandora Pinapp (spécifiques vitrine).
   out = out.replace(
     /\s*<link\s+rel="preload"\s+as="image"\s+href="..\/..\/assets\/images\/bg-(?:dark|light)-pandora-apple\.(?:png|webp)"[^>]*>\s*/gi,
-    '\n'
+    '\n',
   );
 
   // 3) Démos sectorielles: elles doivent charger uniquement demo-sector.css (+ scripts demo).
@@ -42,7 +42,13 @@ function normalizeOne(html) {
     '../../assets/css/pinapp-modern-biolume.css',
   ];
   for (const href of demoCssRemove) {
-    out = out.replace(new RegExp(`\\s*<link[^>]+href="${href.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"[^>]*>\\s*`, 'g'), '\n');
+    out = out.replace(
+      new RegExp(
+        `\\s*<link[^>]+href="${href.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"[^>]*>\\s*`,
+        'g',
+      ),
+      '\n',
+    );
   }
 
   // 4) Retire les scripts Pinapp décoratifs importés à tort dans les démos sectorielles.
@@ -55,7 +61,13 @@ function normalizeOne(html) {
     '../../assets/js/bio-particles.js',
   ];
   for (const src of demoJsRemove) {
-    out = out.replace(new RegExp(`\\s*<script[^>]+src="${src.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"[^>]*>\\s*<\\/script>\\s*`, 'g'), '\n');
+    out = out.replace(
+      new RegExp(
+        `\\s*<script[^>]+src="${src.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"[^>]*>\\s*<\\/script>\\s*`,
+        'g',
+      ),
+      '\n',
+    );
   }
 
   // 5) Nettoyage: évite les lignes collées (observé sur demo/tatoueuse après normalisation).
@@ -83,4 +95,3 @@ function main() {
 }
 
 main();
-

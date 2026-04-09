@@ -29,7 +29,11 @@ const Cursor = {
     this.trail.id = 'pcursor-trail';
     document.body.appendChild(this.el);
     document.body.appendChild(this.trail);
-    document.body.style.cursor = 'none';
+    // Ne jamais masquer le curseur natif (précision, a11y, perception premium)
+    // Le curseur custom reste un halo complémentaire.
+    try {
+      document.body.style.cursor = '';
+    } catch (e) {}
 
     this.applyStyle();
     document.body.addEventListener('modeChange', () => this.applyStyle());
@@ -41,7 +45,7 @@ const Cursor = {
 
     // Hover sur liens, boutons, cards
     document.querySelectorAll('a,button,[role=button],.block,.card').forEach((el) => {
-      el.style.cursor = 'none';
+      // ne pas forcer le cursor : conserver le comportement natif
       el.addEventListener('mouseenter', () => this.el.classList.add('hover'));
       el.addEventListener('mouseleave', () => this.el.classList.remove('hover'));
     });
@@ -102,4 +106,15 @@ const Cursor = {
   },
 };
 
-document.addEventListener('DOMContentLoaded', () => Cursor.init());
+function initCursorOnce() {
+  try {
+    Cursor.init();
+  } catch (e) {}
+}
+
+// Si le script est injecté après DOMContentLoaded (loader), l’event ne se déclenche plus.
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initCursorOnce);
+} else {
+  initCursorOnce();
+}
