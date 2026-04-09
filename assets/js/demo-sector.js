@@ -12,6 +12,26 @@
     return;
   }
 
+  function isHttpUrl(u) {
+    return /^https?:\/\//i.test(String(u || ''));
+  }
+
+  function withFallback(src) {
+    if (!src) return src;
+    if (isHttpUrl(src)) return src;
+    // For local demo packs, keep a fallback to Unsplash (some legacy ids may 404).
+    var fb = window.PINAPP_DEMO_PHOTO_FALLBACKS && window.PINAPP_DEMO_PHOTO_FALLBACKS[String(src)];
+    if (fb) return { local: src, remote: fb };
+    return src;
+  }
+
+  function resolveToUrl(v) {
+    if (!v) return v;
+    if (typeof v === 'string') return v;
+    if (v && typeof v === 'object' && v.local) return v.local;
+    return '';
+  }
+
   function escAttr(val) {
     return String(val == null ? '' : val)
       .replace(/&/g, '&amp;')
@@ -94,9 +114,10 @@
             imgBase = new URL('../images/', sc.src).href;
           }
         } catch (e) {}
-        var heroUrl = S.photoHero;
+        var heroValue = withFallback(S.photoHero);
+        var heroUrl = resolveToUrl(heroValue);
         if (!/^https?:\/\//i.test(heroUrl) && heroUrl.indexOf('//') !== 0) {
-          heroUrl = imgBase + S.photoHero;
+          heroUrl = imgBase + heroUrl;
         }
         hero.style.backgroundImage =
           "url('" +
@@ -106,6 +127,20 @@
           ', ' +
           S.accent +
           ')';
+        if (heroValue && typeof heroValue === 'object' && heroValue.remote) {
+          var preload = new Image();
+          preload.onerror = function () {
+            hero.style.backgroundImage =
+              "url('" +
+              String(heroValue.remote).replace(/'/g, '\\\'') +
+              "'), linear-gradient(135deg, " +
+              (S.accentDark || S.accent) +
+              ', ' +
+              S.accent +
+              ')';
+          };
+          preload.src = heroUrl;
+        }
       } else {
         hero.style.backgroundImage =
           'linear-gradient(135deg,' + (S.accentDark || S.accent) + ',' + S.accent + ')';
@@ -169,7 +204,7 @@
 
   if (S.serviceImages && S.serviceImages.length) {
     S.services.forEach(function (svc, i) {
-      if (S.serviceImages[i]) svc.image = S.serviceImages[i];
+      if (S.serviceImages[i]) svc.image = withFallback(S.serviceImages[i]);
     });
   }
 
@@ -196,7 +231,13 @@
         var fig = document.createElement('figure');
         fig.className = 'demo-galerie-item';
         var im = document.createElement('img');
-        im.src = item.src;
+        var srcV = withFallback(item.src);
+        im.src = resolveToUrl(srcV);
+        if (srcV && typeof srcV === 'object' && srcV.remote) {
+          im.onerror = function () {
+            im.src = srcV.remote;
+          };
+        }
         im.alt = item.alt || '';
         im.loading = 'lazy';
         im.decoding = 'async';
@@ -223,7 +264,13 @@
         var ph = document.createElement('div');
         ph.className = 'demo-apropos-photo';
         var pi = document.createElement('img');
-        pi.src = S.apropos.photo;
+        var apV = withFallback(S.apropos.photo);
+        pi.src = resolveToUrl(apV);
+        if (apV && typeof apV === 'object' && apV.remote) {
+          pi.onerror = function () {
+            pi.src = apV.remote;
+          };
+        }
         pi.alt = '';
         pi.loading = 'lazy';
         ph.appendChild(pi);
@@ -252,7 +299,13 @@
         var pw = document.createElement('div');
         pw.className = 'preuve-photo-wrap';
         var pim = document.createElement('img');
-        pim.src = S.preuvePhoto;
+        var pv = withFallback(S.preuvePhoto);
+        pim.src = resolveToUrl(pv);
+        if (pv && typeof pv === 'object' && pv.remote) {
+          pim.onerror = function () {
+            pim.src = pv.remote;
+          };
+        }
         pim.alt = '';
         pim.className = 'preuve-photo';
         pim.loading = 'lazy';
@@ -338,9 +391,10 @@
   S.services.forEach(function (service, i) {
     var item = document.createElement('div');
     item.className = 'swipe-item' + (i === 0 ? ' active' : '');
-    var topMedia = service.image
+    var imgSrc = resolveToUrl(service.image);
+    var topMedia = imgSrc
       ? '<img class="service-thumb" src="' +
-        escAttr(service.image) +
+        escAttr(imgSrc) +
         '" alt="" loading="lazy" decoding="async" width="400" height="200">'
       : iconSvg;
     item.innerHTML =
