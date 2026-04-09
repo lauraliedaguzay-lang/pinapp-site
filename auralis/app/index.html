@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <script>(function(){var t=localStorage.getItem('pinapp-theme')||localStorage.getItem('pinapp-mode');var d=window.matchMedia('(prefers-color-scheme:dark)').matches;var m=(t==='light'||t==='jour')?'jour':(t==='dark'||t==='nuit')?'nuit':(d?'nuit':'jour');document.documentElement.setAttribute('data-mode',m);document.documentElement.setAttribute('data-theme',m==='jour'?'light':'dark');if(document.body){document.body.classList.add('mode-'+m);}document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('mode-'+m);});}());</script>
+  <meta charset="UTF-8">
+  <meta name="theme-color" id="pinapp-theme-color" content="#020810">
+  <script src="../../assets/js/theme-init.js" defer></script>
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Auralis — App (démo) · Pinapp Studio</title>
+  <meta name="description" content="Espace Auralis (démo) : tableau de bord et validations.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+  <link rel="stylesheet" href="../../assets/variables.css">
+  <link rel="stylesheet" href="../../assets/grid.css">
+  <link rel="stylesheet" href="../../assets/animations.css">
+  <link rel="stylesheet" href="../../assets/css/aurora-mobile.css">
+  <link rel="stylesheet" href="../../assets/css/pandora-jour.css">
+  <link rel="stylesheet" href="../../assets/css/cursor.css">
+  <link rel="stylesheet" href="../../assets/css/pandora-ux.css">
+  <link rel="stylesheet" href="../../assets/css/pandora-dance.css">
+  <link rel="stylesheet" href="../../assets/css/ios-glass.css">
+  <link rel="stylesheet" href="../../assets/css/apple-finish.css">
+  <link rel="stylesheet" href="../../assets/css/pinapp-modern-biolume.css">
+  <link rel="stylesheet" href="../../assets/css/pinapp-premium.css">
+  <link rel="stylesheet" href="../../assets/css/deploy-harmonise.css">
+  <link rel="stylesheet" href="../../assets/css/pandora-world.css">
+  <link rel="stylesheet" href="../../assets/css/pandora-details.css">
+  <link rel="stylesheet" href="../../assets/css/neuro-layout.css">
+  <style>
+    .app-shell {
+      padding-top: calc(72px + env(safe-area-inset-top, 0px));
+      padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+    }
+    .app-topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 3200;
+      background: var(--nav-bg);
+      backdrop-filter: blur(28px) saturate(165%);
+      -webkit-backdrop-filter: blur(28px) saturate(165%);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .app-topbar-inner {
+      height: 3.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2);
+    }
+    .app-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border-card);
+      background: rgba(255,255,255,0.06);
+      font-size: 12px;
+      opacity: 0.9;
+      white-space: nowrap;
+    }
+    .app-kpi {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-3);
+    }
+    @media (max-width: 767px) {
+      .app-kpi { grid-template-columns: 1fr; }
+    }
+    .kbd {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 8px;
+      border: 1px solid var(--border-card);
+      background: rgba(255,255,255,0.06);
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body class="page-with-bottom-nav">
+  <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
+
+  <div class="scroll-progress" id="scrollProgress"></div>
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <header class="app-topbar" role="banner">
+    <div class="container app-topbar-inner">
+      <a href="../../auralis/" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+        <img src="../../assets/images/pinapp-logo.png" alt="" width="132" height="36" decoding="async" style="height:2.5rem;width:auto;">
+      </a>
+      <div style="display:flex;align-items:center;gap:var(--space-2);">
+        <span class="app-pill" id="appEnvPill"><span class="live-dot" aria-hidden="true"></span>Démo</span>
+        <button type="button" class="mode-toggle" id="themeToggle" aria-label="Basculer le thème"
+          style="width:44px;height:44px;border-radius:var(--radius-input);border:1px solid var(--border-card);background:rgba(255,255,255,0.05);backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);">
+          <svg class="icon-lune" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M15.5 10.5A6.5 6.5 0 0 1 7.5 2.5a6.5 6.5 0 1 0 8 8z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+          <svg class="icon-soleil" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="3.5" stroke="currentColor" stroke-width="1.5"/><line x1="9" y1="1" x2="9" y2="3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="15" x2="9" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="9" x2="3" y2="9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="15" y1="9" x2="17" y2="9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="contenu-principal" class="stack-above-bg app-shell" tabindex="-1">
+    <section class="section" style="padding-top:0;">
+      <div class="container" style="max-width:980px;">
+        <div class="card" style="padding:var(--space-5);margin-bottom:var(--space-4);">
+          <p class="label" style="margin-bottom:var(--space-2);">AURALIS — APP</p>
+          <h1 style="font-size:clamp(1.75rem,4vw,2.5rem);margin-bottom:var(--space-2);">Tableau de bord RH (démo)</h1>
+          <p style="opacity:0.7;max-width:55ch;">
+            Cette page simule l’interface SaaS. Elle est volontairement statique (pas de backend) et non indexée.
+            Pour “se connecter”, un token de démo est stocké localement.
+          </p>
+          <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-top:var(--space-3);align-items:center;">
+            <span class="app-pill">Token requis <span class="kbd">AURALIS-DEMO</span></span>
+            <button type="button" class="btn btn-secondary" id="logoutBtn">Se déconnecter</button>
+          </div>
+        </div>
+
+        <div class="card" id="authCard" style="padding:var(--space-5);margin-bottom:var(--space-4);display:none;">
+          <h2 style="font-size:1.25rem;margin-bottom:var(--space-2);">Connexion</h2>
+          <p style="opacity:0.7;margin-bottom:var(--space-3);max-width:58ch;">
+            Entrez un token de démo. En production, ce flux serait remplacé par une authentification sécurisée.
+          </p>
+          <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;align-items:center;">
+            <input id="tokenInput" type="text" inputmode="text" autocomplete="off" placeholder="Token (ex. AURALIS-DEMO)" style="flex:1;min-width:240px;">
+            <button type="button" class="btn btn-primary" id="loginBtn">Connexion</button>
+          </div>
+          <p id="authMsg" style="margin-top:var(--space-2);font-size:13px;opacity:0.65;" aria-live="polite"></p>
+        </div>
+
+        <div id="appContent" style="display:none;">
+          <div class="app-kpi" style="margin-bottom:var(--space-4);">
+            <div class="card" style="padding:var(--space-4);">
+              <p class="label" style="margin-bottom:6px;">ALERTE</p>
+              <p style="font-size:32px;font-weight:600;letter-spacing:-0.04em;margin-bottom:6px;">2</p>
+              <p style="opacity:0.65;font-size:13px;">signaux à valider</p>
+            </div>
+            <div class="card" style="padding:var(--space-4);">
+              <p class="label" style="margin-bottom:6px;">ÉQUIPE</p>
+              <p style="font-size:32px;font-weight:600;letter-spacing:-0.04em;margin-bottom:6px;">18</p>
+              <p style="opacity:0.65;font-size:13px;">collaborateurs suivis</p>
+            </div>
+            <div class="card" style="padding:var(--space-4);">
+              <p class="label" style="margin-bottom:6px;">CHARGE</p>
+              <p style="font-size:32px;font-weight:600;letter-spacing:-0.04em;margin-bottom:6px;">82</p>
+              <p style="opacity:0.65;font-size:13px;">score global (démo)</p>
+            </div>
+          </div>
+
+          <div class="grid grid-2" style="gap:var(--space-4);align-items:start;">
+            <div class="card" style="padding:var(--space-5);">
+              <h2 style="font-size:1.25rem;margin-bottom:var(--space-2);">À valider</h2>
+              <p style="opacity:0.7;margin-bottom:var(--space-3);">Auralis prépare. Vous décidez. Toujours.</p>
+              <div style="display:flex;flex-direction:column;gap:var(--space-2);">
+                <div style="padding:12px 14px;border-radius:16px;border:1px solid var(--border-card);background:rgba(255,255,255,0.05);">
+                  <p style="font-weight:600;margin-bottom:4px;">Proposer une pause</p>
+                  <p style="opacity:0.7;font-size:13px;line-height:1.5;">Équipe Support — charge élevée détectée (démo). Action préparée, en attente de validation.</p>
+                  <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
+                    <button type="button" class="btn btn-primary" data-action="approve">Valider</button>
+                    <button type="button" class="btn btn-secondary" data-action="reject">Refuser</button>
+                  </div>
+                </div>
+                <div style="padding:12px 14px;border-radius:16px;border:1px solid var(--border-card);background:rgba(255,255,255,0.05);">
+                  <p style="font-weight:600;margin-bottom:4px;">Déclencher un check-in</p>
+                  <p style="opacity:0.7;font-size:13px;line-height:1.5;">Nouveau signal (démo). Message préparé, aucune action sans accord.</p>
+                  <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
+                    <button type="button" class="btn btn-primary" data-action="approve">Valider</button>
+                    <button type="button" class="btn btn-secondary" data-action="reject">Refuser</button>
+                  </div>
+                </div>
+              </div>
+              <p id="toast" style="margin-top:var(--space-3);font-size:13px;opacity:0.7;" aria-live="polite"></p>
+            </div>
+
+            <div class="card" style="padding:var(--space-5);">
+              <h2 style="font-size:1.25rem;margin-bottom:var(--space-2);">État du système</h2>
+              <p style="opacity:0.7;margin-bottom:var(--space-3);">Vue produit. Pas de données réelles.</p>
+              <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
+                <li style="display:flex;align-items:center;gap:10px;">
+                  <span class="live-dot" aria-hidden="true"></span>
+                  <span style="opacity:0.85;">Préparation</span>
+                  <span style="margin-left:auto;opacity:0.65;font-size:13px;">OK</span>
+                </li>
+                <li style="display:flex;align-items:center;gap:10px;">
+                  <span class="live-dot" aria-hidden="true" style="background:var(--accent-green);"></span>
+                  <span style="opacity:0.85;">Validation</span>
+                  <span style="margin-left:auto;opacity:0.65;font-size:13px;">OK</span>
+                </li>
+                <li style="display:flex;align-items:center;gap:10px;">
+                  <span class="live-dot" aria-hidden="true" style="background:var(--accent-violet);"></span>
+                  <span style="opacity:0.85;">Historique</span>
+                  <span style="margin-left:auto;opacity:0.65;font-size:13px;">Démo</span>
+                </li>
+              </ul>
+              <div style="margin-top:var(--space-4);">
+                <a class="btn btn-secondary" href="../../auralis/">Retour landing Auralis →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <script src="../../assets/js/config.js"></script>
+  <script src="../../assets/js/security.js" defer></script>
+  <script src="../../assets/js/main.js" defer></script>
+  <script>
+    (function () {
+      var TOKEN_KEY = 'auralis-token';
+      var VALID = 'AURALIS-DEMO';
+      var authCard = document.getElementById('authCard');
+      var appContent = document.getElementById('appContent');
+      var tokenInput = document.getElementById('tokenInput');
+      var authMsg = document.getElementById('authMsg');
+      var loginBtn = document.getElementById('loginBtn');
+      var logoutBtn = document.getElementById('logoutBtn');
+      var toast = document.getElementById('toast');
+
+      function isAuthed() {
+        try { return (localStorage.getItem(TOKEN_KEY) || '') === VALID; } catch (e) { return false; }
+      }
+
+      function setAuthed(v) {
+        try {
+          if (v) localStorage.setItem(TOKEN_KEY, VALID);
+          else localStorage.removeItem(TOKEN_KEY);
+        } catch (e) {}
+      }
+
+      function render() {
+        var ok = isAuthed();
+        if (authCard) authCard.style.display = ok ? 'none' : '';
+        if (appContent) appContent.style.display = ok ? '' : 'none';
+      }
+
+      if (loginBtn) loginBtn.addEventListener('click', function () {
+        var val = (tokenInput && tokenInput.value || '').trim();
+        if (!val) {
+          if (authMsg) authMsg.textContent = 'Entrez un token.';
+          tokenInput && tokenInput.focus();
+          return;
+        }
+        if (val !== VALID) {
+          if (authMsg) authMsg.textContent = 'Token invalide.';
+          return;
+        }
+        setAuthed(true);
+        if (authMsg) authMsg.textContent = '';
+        render();
+      });
+
+      if (logoutBtn) logoutBtn.addEventListener('click', function () {
+        setAuthed(false);
+        render();
+      });
+
+      document.querySelectorAll('[data-action]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var action = btn.getAttribute('data-action');
+          if (toast) toast.textContent = action === 'approve' ? 'Action validée (démo).' : 'Action refusée (démo).';
+        });
+      });
+
+      render();
+    })();
+  </script>
+</body>
+</html>
+
