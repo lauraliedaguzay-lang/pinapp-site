@@ -3,6 +3,10 @@
    4 graphiques · zéro librairie · Pinapp Studio 2026
    ===================================================== */
 
+/* pinapp-zero-scroll.mdc
+   Pas d’IntersectionObserver pour déclencher au défilement.
+   Les graphiques se rendent directement (et restent accessibles). */
+
 /* ── BAR CHART — Temps récupéré par tâche ─────────── */
 class BarChart {
   constructor(el, data) {
@@ -10,7 +14,7 @@ class BarChart {
     this.data = data;
     this.done = false;
     this.render();
-    this.observe();
+    this.animate();
   }
 
   render() {
@@ -109,9 +113,7 @@ class BarChart {
   }
 
   observe() {
-    new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) this.animate();
-    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }).observe(this.el);
+    /* noop — déclenchement au scroll interdit */
   }
 }
 BarChart.prototype._id = 'main';
@@ -123,7 +125,7 @@ class LineChart {
     this.datasets = datasets;
     this.done     = false;
     this.render();
-    this.observe();
+    this.animate();
   }
 
   pts(vals, W, H) {
@@ -171,9 +173,7 @@ class LineChart {
   }
 
   observe() {
-    new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) this.animate();
-    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }).observe(this.el);
+    /* noop — déclenchement au scroll interdit */
   }
 }
 
@@ -184,7 +184,7 @@ class DonutChart {
     this.segs = segs;
     this.done = false;
     this.render();
-    this.observe();
+    this.animate();
   }
 
   render() {
@@ -233,9 +233,7 @@ class DonutChart {
   }
 
   observe() {
-    new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) this.animate();
-    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }).observe(this.el);
+    /* noop — déclenchement au scroll interdit */
   }
 }
 

@@ -24,7 +24,7 @@ const Apercus = {
         this.tintSite(fond, c1, c2);
         setTimeout(() => this.resetSite(), 2000);
         const target = document.querySelector(`[data-id="${monde}"]`);
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (target) target.scrollIntoView({ behavior: 'auto', block: 'center' });
       });
     });
   },

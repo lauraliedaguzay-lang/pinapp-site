@@ -47,47 +47,26 @@ if (prefersReducedMotion) {
     el.classList.add('done');
   });
 } else {
-  /* IMAGES REVEAL */
-  const imgObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        imgObs.unobserve(e.target);
+  /* Pas de reveal/trigger au scroll (pinapp-zero-scroll.mdc) */
+  document.querySelectorAll('.img-reveal').forEach(img => img.classList.add('visible'));
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const target = parseInt(el.dataset.count, 10);
+    if (isNaN(target)) return;
+    el.classList.add('counting');
+    const start = Date.now();
+    const dur = 900;
+    const tick = () => {
+      const p = Math.min((Date.now() - start) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = String(Math.round(target * ease));
+      if (p < 1) requestAnimationFrame(tick);
+      else {
+        el.classList.remove('counting');
+        el.classList.add('done');
       }
-    });
-  }, { threshold: 0.10 });
-
-  document.querySelectorAll('.img-reveal')
-    .forEach(img => imgObs.observe(img));
-
-  /* COMPTEURS — data-count */
-  const countObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      const el     = e.target;
-      const target = parseInt(el.dataset.count, 10);
-      if (isNaN(target)) return;
-      el.classList.add('counting');
-      const start = Date.now();
-      const dur   = 1400;
-      const tick  = () => {
-        const p    = Math.min((Date.now() - start) / dur, 1);
-        const ease = 1 - Math.pow(1 - p, 3);
-        el.textContent = Math.round(target * ease);
-        if (p < 1) {
-          requestAnimationFrame(tick);
-        } else {
-          el.classList.remove('counting');
-          el.classList.add('done');
-        }
-      };
-      tick();
-      countObs.unobserve(el);
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-
-  document.querySelectorAll('[data-count]')
-    .forEach(el => countObs.observe(el));
+    };
+    tick();
+  });
 }
 
 /* =====================================================
@@ -127,27 +106,7 @@ if (!path.includes('diagnostic') && !path.includes('votre-projet')) {
    PARALLAXE 3 COUCHES — desktop + prefers-reduced-motion
    ===================================================== */
 
-if (window.innerWidth >= 1024 && !prefersReducedMotion) {
-  const canvas    = document.querySelector('#pandora-canvas');
-  const orbs      = document.querySelectorAll('.aurora-orb');
-  const shapes    = document.querySelectorAll('.pandora-shape');
-  let   ticking   = false;
-
-  window.addEventListener('scroll', () => {
-    if (ticking) return;
-    requestAnimationFrame(() => {
-      const y = window.scrollY;
-      if (canvas)
-        canvas.style.transform = `translateY(${y * 0.06}px)`;
-      orbs.forEach(o =>
-        o.style.transform = `translateY(${y * -0.03}px)`);
-      shapes.forEach(s =>
-        s.style.transform = `translateY(${y * -0.05}px) rotate(${y * 0.01}deg)`);
-      ticking = false;
-    });
-    ticking = true;
-  }, { passive: true });
-}
+// Parallaxe décorative interdite (pinapp-zero-scroll.mdc) : rien au scroll.
 
 /* =====================================================
    FLASH AURORA — transition entre pages
