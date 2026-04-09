@@ -1,5 +1,5 @@
 /* PINAPP — mode-toggle.js — v5
-   Système mode nuit/jour — The Light Always Returns
+   Système mode sombre/clair (compat: valeurs internes 'nuit' | 'jour')
    Stockage : pinapp-mode ('nuit' | 'jour')
    Dispatch : modeChange sur document.body
    ================================================================= */
@@ -57,7 +57,7 @@ const ModeToggle = {
     localStorage.setItem('pinapp-mode', 'nuit');
     document
       .querySelectorAll('.mode-toggle')
-      .forEach((b) => b.setAttribute('aria-label', 'Passer en mode jour'));
+      .forEach((b) => b.setAttribute('aria-label', 'Activer le mode clair'));
     // Mettre à jour theme-color meta
     const meta = document.getElementById('pinapp-theme-color');
     if (meta) meta.setAttribute('content', '#020810');
@@ -79,7 +79,7 @@ const ModeToggle = {
     localStorage.setItem('pinapp-mode', 'jour');
     document
       .querySelectorAll('.mode-toggle')
-      .forEach((b) => b.setAttribute('aria-label', 'Passer en mode nuit'));
+      .forEach((b) => b.setAttribute('aria-label', 'Activer le mode sombre'));
     // Mettre à jour theme-color meta
     const meta = document.getElementById('pinapp-theme-color');
     if (meta) meta.setAttribute('content', '#F8F0FF');

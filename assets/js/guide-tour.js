@@ -429,18 +429,8 @@
     document.body.appendChild(overlay);
     document.body.appendChild(pop);
 
-    // Auto-open once per page unless completed (small delay to avoid competing with loader)
-    var auto = !state.completed[key];
-    if (auto) {
-      window.setTimeout(
-        function () {
-          try {
-            if (!document.hidden) setOpen(true);
-          } catch (e) {}
-        },
-        prefersReducedMotion ? 50 : 900,
-      );
-    }
+    // Ne jamais auto-ouvrir : ça bloque l'UI (ex. toggle mode clair/sombre) et surprend.
+    // Le guide reste disponible via le bouton flottant.
   }
 
   if (document.readyState === 'loading') {

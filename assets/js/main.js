@@ -508,7 +508,12 @@
     });
     btn.addEventListener('click', function () {
       setThemePreference(effectiveTheme() === 'light' ? 'dark' : 'light');
-      syncLabel();
+      // setThemePreference applique le thème sur la prochaine frame.
+      // On resynchronise ensuite le libellé pour refléter le thème effectif.
+      window.requestAnimationFrame(function () {
+        syncLabel();
+        syncThemeColorMeta();
+      });
     });
   }
 

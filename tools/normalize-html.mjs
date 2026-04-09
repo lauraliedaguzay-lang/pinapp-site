@@ -21,6 +21,14 @@ function walk(dir, cb) {
 function normalizeHtml(s) {
   let out = s;
 
+  // Terminologie officielle (accessibilité) : "mode clair" / "mode sombre" uniquement.
+  // Certaines pages ont un aria-label legacy "Passer en mode jour/nuit" sur le bouton de thème.
+  out = out.replace(/aria-label=(["'])Passer en mode jour\1/gi, 'aria-label=$1Activer le mode clair$1');
+  out = out.replace(/aria-label=(["'])Passer en mode nuit\1/gi, 'aria-label=$1Activer le mode sombre$1');
+  // Réparer une éventuelle corruption (double guillemets) issue d’anciens remplacements.
+  out = out.replace(/aria-label=""+/gi, 'aria-label="');
+  out = out.replace(/""\s*>/g, '">');
+
   // Fix wrong Pandora background preloads (some pages still referenced .png files that do not exist).
   // Keep it simple: ensure preloads point to the existing .svg.
   out = out.replace(/bg-dark-pandora-apple\.png/gi, 'bg-dark-pandora-apple.svg');
