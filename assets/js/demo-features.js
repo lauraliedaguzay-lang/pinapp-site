@@ -55,7 +55,7 @@
           <span id="df-prix">2 700</span>
         </div>
         <p class="df-note">Estimation indicative — devis précis sous 24h</p>
-        <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">
+        <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
           Demander un devis gratuit →
         </button>
       </div>`);
@@ -132,7 +132,7 @@
         </div>
         <div id="df-table-info" class="df-table-info" style="display:none">
           <p id="df-table-msg"></p>
-          <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">
+          <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
             Réserver cette table →
           </button>
         </div>
@@ -195,7 +195,7 @@
             <p class="df-compat-pct" id="df-pct">0%</p>
           </div>
           <p class="df-compat-msg" id="df-compat-msg"></p>
-          <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">
+          <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
             Réserver une séance découverte →
           </button>
         </div>
@@ -275,7 +275,7 @@
         <h3 class="df-title">Quel est votre situation ?</h3>
         <div id="df-tree"></div>
         <button class="df-cta" id="df-tree-cta" style="display:none"
-          onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">
+          onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
           Parler à Maître Renaud →
         </button>
       </div>`);
@@ -356,7 +356,7 @@
             <p class="df-reco-desc" id="df-reco-desc"></p>
             <p class="df-reco-prix" id="df-reco-prix"></p>
           </div>
-          <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">
+          <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
             Réserver ce soin →
           </button>
         </div>
@@ -431,7 +431,7 @@
           <span class="df-currency">€</span>
           <span id="df-cils-prix">55</span>
         </div>
-        <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">
+        <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
           Réserver cette pose →
         </button>
       </div>`);
@@ -504,7 +504,7 @@
         <div class="df-result-flip">
           <span id="df-nails-prix">25€ Vernis</span>
         </div>
-        <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">
+        <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
           Réserver cette manucure →
         </button>
       </div>`);
@@ -585,7 +585,7 @@
           <span id="df-hair-prix">35</span>
           <span class="df-currency">€</span>
         </div>
-        <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">
+        <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
           Réserver ma coupe →
         </button>
       </div>`);
@@ -701,7 +701,7 @@
           <span id="df-total">0,00 €</span>
         </div>
         <button class="df-cta" id="df-panier-cta" disabled
-          onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">
+          onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
           Valider ma commande →
         </button>
         <p class="df-note">Retrait en boutique · DÉMO</p>
@@ -798,7 +798,7 @@
           </div>
           <svg id="df-hb-bar" viewBox="0 0 300 60" width="100%" style="margin-top:12px"></svg>
           <p class="df-hb-msg" id="df-hb-msg"></p>
-          <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">
+          <button class="df-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'auto'})">
             Démarrer mon programme →
           </button>
         </div>

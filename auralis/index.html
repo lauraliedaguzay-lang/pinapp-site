@@ -225,14 +225,14 @@
           <a href="../auralis/index.html">Auralis RH</a>
           <a href="../formation-gratuite/index.html">Formation IA</a>
         </nav>
-      <p style="font-size:12px;opacity:0.35;letter-spacing:0.04em;">Pinapp Studio © 2026</p>
+      <p style="font-size:12px;opacity:0.35;letter-spacing:0.04em;">Pinapp Studio © 2026 · SIRET : en cours d’immatriculation</p>
     </div>
   </footer>
   <div id="cookie-banner" role="dialog" aria-label="Cookies" style="position:fixed;bottom:0;left:0;right:0;padding:var(--space-3);background:var(--bg-card);border-top:1px solid var(--border-card);backdrop-filter:blur(20px);z-index:9000;display:none;">
     <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap;">
       <p style="font-size:13px;opacity:0.8;max-width:600px;">Ce site utilise des cookies de mesure d’audience anonymes (Plausible Analytics — sans tracking personnel).</p>
       <div style="display:flex;gap:var(--space-2);">
-        <button type="button" id="cookieAccept" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Accepter</button>
+        <button type="button" id="cookieAccept" class="btn btn-secondary" style="font-size:13px;padding:10px 20px;">Accepter</button>
         <button type="button" id="cookieRefuse" class="btn btn-secondary" style="font-size:13px;padding:10px 20px;">Refuser</button>
       </div>
     </div>
@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 });
-/* Auralis — anneau qualitatif (sans chiffre) + barre équité au scroll */
+/* Auralis — anneau qualitatif (sans chiffre) + barre équité (au chargement) */
 document.addEventListener('DOMContentLoaded', function() {
   var ring = document.querySelector('circle[data-auralis-ring-fill]');
   var bar = document.querySelector('.auralis-phone-mock .auralis-bar');
@@ -298,13 +298,8 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
   }
-  if (reduced) { play(); return; }
-  var obs = new IntersectionObserver(function(entries) {
-    if (!entries[0].isIntersecting) return;
-    obs.disconnect();
-    play();
-  }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
-  obs.observe(mock);
+  // Conformité pinapp-zero-scroll.mdc : pas d’IntersectionObserver pour "révéler" au scroll.
+  play();
 });
 </script>
   <script src="../assets/js/bio-particles.js" defer></script>

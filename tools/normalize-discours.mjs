@@ -32,6 +32,19 @@ function normalize(html) {
   // Copy : éviter "Pinapp enchaîne" → "Pinapp prépare" (promesse officielle).
   out = out.replace(/Pinapp\s+encha[iî]ne/gi, 'Pinapp prépare');
 
+  // Cahier des charges : un seul CTA primaire par page.
+  // Le bandeau cookies ne doit pas utiliser .btn-primary (sinon il "compte" comme CTA primaire).
+  // Supporte les deux ordres d'attributs (id avant class ou l'inverse).
+  out = out.replace(/(<button\b[^>]*\bid=(["'])cookieAccept\2[^>]*?)\bclass=(["'])btn\s+btn-primary\3/gi, '$1class=$3btn btn-secondary$3');
+  out = out.replace(/(<button\b[^>]*\bclass=(["'])btn\s+btn-primary\2[^>]*?)\bid=(["'])cookieAccept\3/gi, (m) => m.replace(/class=(["'])btn\s+btn-primary\1/i, 'class=$1btn btn-secondary$1'));
+
+  // Pré-déploiement (règle admin) : SIRET visible en footer sur chaque page.
+  // Sans numéro tant qu’il n’existe pas : afficher la mention "en cours".
+  out = out.replace(
+    /(Pinapp(?:\s+Studio)?\s+©\s+2026)(<\/p>|<\/span>)/gi,
+    'Pinapp Studio © 2026 · SIRET : en cours d’immatriculation$2'
+  );
+
   return out;
 }
 

@@ -5,16 +5,16 @@
 
 const Pipeline = {
   nodes: [
-    { icon: '👤', label: 'Prospect',       tip: 'Un artisan remplit le formulaire à 23h' },
-    { icon: '🤖', label: 'Aurora analyse', tip: 'Type · score · résumé en 2 secondes'   },
-    { icon: '📋', label: 'Notion',         tip: 'Fiche prospect créée automatiquement'   },
-    { icon: '📧', label: 'Email',          tip: 'Confirmation envoyée immédiatement'     },
-    { icon: '💬', label: 'WhatsApp',       tip: 'Notification Lauralie'                  },
-    { icon: '📄', label: 'Devis auto',     tip: 'Généré et envoyé avec lien Stripe'      },
-    { icon: '✅', label: 'Signature',      tip: 'Le client signe en ligne'               },
-    { icon: '💰', label: 'Paiement',       tip: 'Stripe reçoit · Notion mis à jour'      },
-    { icon: '🌐', label: 'Site généré',    tip: 'Cursor construit · Netlify déploie'     },
-    { icon: '🎉', label: 'Livraison',      tip: 'Email client + rapport Lauralie'        },
+    { icon: '•', label: 'Prospect',       tip: 'Un artisan remplit le formulaire à 23h' },
+    { icon: '•', label: 'Aurora analyse', tip: 'Type · score · résumé en 2 secondes'   },
+    { icon: '•', label: 'Notion',         tip: 'Fiche prospect créée automatiquement'   },
+    { icon: '•', label: 'Email',          tip: 'Confirmation envoyée immédiatement'     },
+    { icon: '•', label: 'WhatsApp',       tip: 'Notification Lauralie'                  },
+    { icon: '•', label: 'Devis auto',     tip: 'Généré et envoyé avec lien Stripe'      },
+    { icon: '•', label: 'Signature',      tip: 'Le client signe en ligne'               },
+    { icon: '•', label: 'Paiement',       tip: 'Stripe reçoit · Notion mis à jour'      },
+    { icon: '•', label: 'Site généré',    tip: 'Cursor construit · Netlify déploie'     },
+    { icon: '•', label: 'Livraison',      tip: 'Email client + rapport Lauralie'        },
   ],
 
   _animInterval: null,
@@ -41,10 +41,9 @@ const Pipeline = {
       track.appendChild(node);
     });
 
-    // Lancer au scroll
-    new IntersectionObserver(([e]) => {
-      if (e.isIntersecting && !this._running) this.animate();
-    }, { threshold: 0.25 }).observe(track);
+    // Pas d'IntersectionObserver (pinapp-zero-scroll.mdc) : animation au chargement
+    // (et respect prefers-reduced-motion via CSS / styles).
+    this.animate();
   },
 
   animate() {
