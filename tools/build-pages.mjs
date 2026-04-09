@@ -227,7 +227,7 @@ const pages = [
           <div style="width:64px;height:64px;border-radius:50%;border:2px solid var(--accent-violet);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:24px;color:var(--accent-violet);">1</span></div>
           <div>
             <h2 style="font-size:24px;margin-bottom:var(--space-1);">Vous écrivez — diagnostic offert</h2>
-            <p style="opacity:0.7;line-height:1.8;margin-bottom:var(--space-2);">Par formulaire puis email : votre quotidien, vos outils, ce qui vous prend du temps. Je cartographie et je vous renvoie des opportunités concrètes.</p>
+            <p style="opacity:0.7;line-height:1.8;margin-bottom:var(--space-2);">Par formulaire puis email : votre quotidien, vos outils, ce qui vous prend du temps. Je cartographie et je vous renvoie des idées concrètes.</p>
             <p style="opacity:0.7;line-height:1.8;">Tout commence par l’écrit ; un Google Meet reste possible si vous le souhaitez. Même si vous ne travaillez pas avec moi ensuite, vous gardez des pistes actionnables. C’est offert. Zéro engagement.</p>
             <a href="/diagnostic/" class="btn btn-primary" style="display:inline-flex;margin-top:var(--space-3);">Démarrer ma demande par écrit</a>
           </div>
@@ -275,7 +275,7 @@ const pages = [
         <div class="grid grid-3" style="margin-bottom:var(--space-6);text-align:left;">
           <div>
             <h3 style="font-size:16px;color:var(--accent-teal);margin-bottom:var(--space-1);">Ce qu'on fait</h3>
-            <p style="font-size:14px;opacity:0.7;">Je cartographie vos tâches répétitives et identifie vos opportunités digitales.</p>
+            <p style="font-size:14px;opacity:0.7;">Je cartographie vos tâches répétitives et identifie vos idées concrètes et actionnables.</p>
           </div>
           <div>
             <h3 style="font-size:16px;color:var(--accent-teal);margin-bottom:var(--space-1);">Ce que vous gagnez</h3>
