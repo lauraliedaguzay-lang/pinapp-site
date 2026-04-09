@@ -43,10 +43,10 @@ exports.handler = async (event) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          leadId:    id,
-          action:    action,
+          leadId: id,
+          action: action,
           decidedAt: new Date().toISOString(),
-          source:    'whatsapp-approval',
+          source: 'whatsapp-approval',
         }),
       });
     } catch (e) {
@@ -67,10 +67,16 @@ async function signToken(id, secret) {
   const msgData = encoder.encode(id);
 
   const cryptoKey = await crypto.subtle.importKey(
-    'raw', keyData, { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']
+    'raw',
+    keyData,
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign'],
   );
   const sig = await crypto.subtle.sign('HMAC', cryptoKey, msgData);
-  return Array.from(new Uint8Array(sig)).map(b => b.toString(16).padStart(2, '0')).join('');
+  return Array.from(new Uint8Array(sig))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
 }
 
 function htmlResponse(status, html) {

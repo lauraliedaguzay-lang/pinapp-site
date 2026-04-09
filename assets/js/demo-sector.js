@@ -12,6 +12,36 @@
     return;
   }
 
+  function getSectorSlug() {
+    return String(S.slug || S.id || S.secteurSlug || S.secteur || '')
+      .toLowerCase()
+      .trim()
+      .replace(/&/g, 'and')
+      .replace(/['’"]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+
+  function resolveLocalDemoImage(kind, index) {
+    var slug = getSectorSlug();
+    if (!slug) return null;
+
+    var file = '';
+    if (kind === 'hero') file = 'demo-' + slug + '-hero.webp';
+    else if (kind === 'service') file = 'demo-' + slug + '-service-' + String(index + 1) + '.webp';
+    else if (kind === 'galerie') file = 'demo-' + slug + '-galerie-' + String(index + 1) + '.webp';
+    else if (kind === 'apropos') file = 'demo-' + slug + '-apropos.webp';
+    else if (kind === 'preuve') file = 'demo-' + slug + '-preuve.webp';
+    else return null;
+
+    try {
+      var sc = document.querySelector('script[src*="demo-sector.js"]');
+      if (sc && sc.src) return new URL('../images/' + file, sc.src).href;
+    } catch (e) {}
+
+    return '/assets/images/' + file;
+  }
+
   function escAttr(val) {
     return String(val == null ? '' : val)
       .replace(/&/g, '&amp;')
@@ -34,7 +64,7 @@
       '--demo-accent-dark': S.accentDark || S.accent,
       '--demo-texte': S.texte,
       '--demo-fond': S.fond,
-      '--demo-accent-hero': S.accent
+      '--demo-accent-hero': S.accent,
     };
 
     if (style === 'light-minimal') {
@@ -49,7 +79,7 @@
         '--demo-border-card': 'rgba(13, 27, 62, 0.1)',
         '--demo-fond-preuve': 'rgba(245, 245, 247, 0.95)',
         '--demo-fond-booking': 'rgba(255, 255, 255, 0.88)',
-        '--demo-fond-footer': 'rgba(255, 255, 255, 0.92)'
+        '--demo-fond-footer': 'rgba(255, 255, 255, 0.92)',
       });
     } else if (style === 'dark-luxury') {
       Object.assign(base, {
@@ -63,7 +93,7 @@
         '--demo-border-card': 'rgba(255, 255, 255, 0.1)',
         '--demo-fond-preuve': 'rgba(255, 255, 255, 0.03)',
         '--demo-fond-booking': 'rgba(255, 255, 255, 0.05)',
-        '--demo-fond-footer': 'rgba(5, 5, 8, 0.88)'
+        '--demo-fond-footer': 'rgba(5, 5, 8, 0.88)',
       });
     } else {
       /* bold-tech */
@@ -78,7 +108,7 @@
         '--demo-border-card': 'rgba(255, 255, 255, 0.12)',
         '--demo-fond-preuve': 'rgba(255, 255, 255, 0.03)',
         '--demo-fond-booking': 'rgba(255, 255, 255, 0.05)',
-        '--demo-fond-footer': 'rgba(5, 5, 8, 0.9)'
+        '--demo-fond-footer': 'rgba(5, 5, 8, 0.9)',
       });
     }
 
@@ -86,21 +116,11 @@
 
     var hero = document.querySelector('.hero');
     if (hero) {
-      if (S.photoHero) {
-        var imgBase = '/assets/images/';
-        try {
-          var sc = document.querySelector('script[src*="demo-sector.js"]');
-          if (sc && sc.src) {
-            imgBase = new URL('../images/', sc.src).href;
-          }
-        } catch (e) {}
-        var heroUrl = S.photoHero;
-        if (!/^https?:\/\//i.test(heroUrl) && heroUrl.indexOf('//') !== 0) {
-          heroUrl = imgBase + S.photoHero;
-        }
+      var heroUrl = resolveLocalDemoImage('hero', 0) || S.photoHero || '';
+      if (heroUrl) {
         hero.style.backgroundImage =
           "url('" +
-          String(heroUrl).replace(/'/g, '\\\'') +
+          String(heroUrl).replace(/'/g, "\\'") +
           "'), linear-gradient(135deg, " +
           (S.accentDark || S.accent) +
           ', ' +
@@ -167,11 +187,11 @@
 
   fillCopy();
 
-  if (S.serviceImages && S.serviceImages.length) {
-    S.services.forEach(function (svc, i) {
-      if (S.serviceImages[i]) svc.image = S.serviceImages[i];
-    });
-  }
+  S.services.forEach(function (svc, i) {
+    if (S.serviceImages && S.serviceImages[i]) svc.image = S.serviceImages[i];
+    var local = resolveLocalDemoImage('service', i);
+    if (local) svc.image = local;
+  });
 
   function injectRichSections() {
     var servicesSection = document.querySelector('.services-section');
@@ -184,7 +204,8 @@
 
     if (S.galerie && S.galerie.length) {
       var gal = document.createElement('section');
-      gal.className = 'demo-galerie-section' + (S.galerie.length >= 10 ? ' demo-galerie-section--dense' : '');
+      gal.className =
+        'demo-galerie-section' + (S.galerie.length >= 10 ? ' demo-galerie-section--dense' : '');
       gal.setAttribute('aria-label', 'Galerie photos');
       var h2g = document.createElement('h2');
       h2g.className = 'demo-galerie-title';
@@ -192,11 +213,11 @@
       gal.appendChild(h2g);
       var grid = document.createElement('div');
       grid.className = 'demo-galerie-grid';
-      S.galerie.forEach(function (item) {
+      S.galerie.forEach(function (item, i) {
         var fig = document.createElement('figure');
         fig.className = 'demo-galerie-item';
         var im = document.createElement('img');
-        im.src = item.src;
+        im.src = resolveLocalDemoImage('galerie', i) || item.src;
         im.alt = item.alt || '';
         im.loading = 'lazy';
         im.decoding = 'async';
@@ -219,11 +240,12 @@
       ap.setAttribute('aria-label', 'À propos');
       var inner = document.createElement('div');
       inner.className = 'demo-apropos-inner';
-      if (S.apropos.photo) {
+      var apPhoto = resolveLocalDemoImage('apropos', 0) || (S.apropos && S.apropos.photo);
+      if (apPhoto) {
         var ph = document.createElement('div');
         ph.className = 'demo-apropos-photo';
         var pi = document.createElement('img');
-        pi.src = S.apropos.photo;
+        pi.src = apPhoto;
         pi.alt = '';
         pi.loading = 'lazy';
         ph.appendChild(pi);
@@ -245,14 +267,15 @@
       anchor = ap;
     }
 
-    if (S.preuvePhoto) {
+    var preuveUrl = resolveLocalDemoImage('preuve', 0) || S.preuvePhoto;
+    if (preuveUrl) {
       var preuve = document.querySelector('.preuve-section');
       var wrap = preuve ? preuve.querySelector('div') : null;
       if (wrap) {
         var pw = document.createElement('div');
         pw.className = 'preuve-photo-wrap';
         var pim = document.createElement('img');
-        pim.src = S.preuvePhoto;
+        pim.src = preuveUrl;
         pim.alt = '';
         pim.className = 'preuve-photo';
         pim.loading = 'lazy';
@@ -280,22 +303,24 @@
       var form = document.createElement('form');
       form.className = 'demo-rich-form';
       form.setAttribute('novalidate', '');
-      [['Prénom', 'text', 'demo-fn'], ['Email', 'email', 'demo-em'], ['Téléphone', 'tel', 'demo-tel']].forEach(
-        function (row) {
-          var lab = document.createElement('label');
-          lab.className = 'demo-rich-label';
-          lab.textContent = row[0];
-          var inp = document.createElement('input');
-          inp.type = row[1];
-          inp.className = 'demo-rich-input';
-          inp.name = row[2];
-          if (row[1] === 'email') inp.autocomplete = 'email';
-          else if (row[1] === 'tel') inp.autocomplete = 'tel';
-          else inp.autocomplete = 'given-name';
-          lab.appendChild(inp);
-          form.appendChild(lab);
-        }
-      );
+      [
+        ['Prénom', 'text', 'demo-fn'],
+        ['Email', 'email', 'demo-em'],
+        ['Téléphone', 'tel', 'demo-tel'],
+      ].forEach(function (row) {
+        var lab = document.createElement('label');
+        lab.className = 'demo-rich-label';
+        lab.textContent = row[0];
+        var inp = document.createElement('input');
+        inp.type = row[1];
+        inp.className = 'demo-rich-input';
+        inp.name = row[2];
+        if (row[1] === 'email') inp.autocomplete = 'email';
+        else if (row[1] === 'tel') inp.autocomplete = 'tel';
+        else inp.autocomplete = 'given-name';
+        lab.appendChild(inp);
+        form.appendChild(lab);
+      });
       var lbm = document.createElement('label');
       lbm.className = 'demo-rich-label';
       lbm.textContent = 'Votre message';
@@ -344,7 +369,8 @@
         '" alt="" loading="lazy" decoding="async" width="400" height="200">'
       : iconSvg;
     item.innerHTML =
-      topMedia + '<p class="service-name"></p><p class="service-desc"></p><p class="service-prix"></p>';
+      topMedia +
+      '<p class="service-name"></p><p class="service-desc"></p><p class="service-prix"></p>';
     item.querySelector('.service-name').textContent = service.nom;
     item.querySelector('.service-desc').textContent = service.description;
     item.querySelector('.service-prix').textContent = service.prix;
@@ -380,7 +406,7 @@
     function (e) {
       touchStartX = e.touches[0].clientX;
     },
-    { passive: true }
+    { passive: true },
   );
   swipeContainer.addEventListener(
     'touchend',
@@ -388,14 +414,11 @@
       var diff = touchStartX - e.changedTouches[0].clientX;
       if (Math.abs(diff) > 50) {
         var n = S.services.length;
-        var next =
-          diff > 0
-            ? (currentService + 1) % n
-            : (currentService - 1 + n) % n;
+        var next = diff > 0 ? (currentService + 1) % n : (currentService - 1 + n) % n;
         showService(next);
       }
     },
-    { passive: true }
+    { passive: true },
   );
 
   /* Badges */
@@ -448,7 +471,8 @@
         window.setTimeout(function () {
           circle.classList.add('animate');
         }, 100);
-        if (window.console && console.log) console.log('[Pinapp vitrine] Réponses questionnaire :', answers);
+        if (window.console && console.log)
+          console.log('[Pinapp vitrine] Réponses questionnaire :', answers);
       }
     }, 400);
   }
@@ -474,7 +498,7 @@
         isScrolling = false;
       }, scrollCooldown);
     },
-    { passive: true }
+    { passive: true },
   );
 
   var touchStartY = 0;
@@ -483,7 +507,7 @@
     function (e) {
       touchStartY = e.touches[0].clientY;
     },
-    { passive: true }
+    { passive: true },
   );
   window.addEventListener(
     'touchend',
@@ -502,33 +526,13 @@
         isScrolling = false;
       }, scrollCooldown);
     },
-    { passive: true }
+    { passive: true },
   );
 
-  /* ── Section reveal au scroll (IntersectionObserver) ── */
-  if ('IntersectionObserver' in window) {
-    var sectionObserver = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-    document.querySelectorAll('.demo-sector-page section:not(.hero)').forEach(function (sec) {
-      sectionObserver.observe(sec);
-    });
-    /* Hero : toujours visible */
-    var heroEl = document.querySelector('.hero');
-    if (heroEl) heroEl.classList.add('visible');
-  } else {
-    /* Fallback */
-    document.querySelectorAll('.demo-sector-page section').forEach(function (sec) {
-      sec.classList.add('visible');
-      sec.style.opacity = '1';
-      sec.style.transform = 'none';
-    });
-  }
+  /* ── Pinapp : zéro reveal au scroll — sections visibles au chargement ── */
+  document.querySelectorAll('.demo-sector-page section').forEach(function (sec) {
+    sec.classList.add('visible');
+    sec.style.opacity = '1';
+    sec.style.transform = 'none';
+  });
 })();
