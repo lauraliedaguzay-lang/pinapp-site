@@ -145,6 +145,7 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true, root
       <a href="${u('/formation-gratuite/')}">Formations</a>
       <a href="${u('/realisations/')}">Réalisations</a>
       <a href="${u('/a-propos/')}">À propos</a>
+      <a href="${u('/qui-suis-je/')}">Qui suis-je ?</a>
       <a href="${u('/faq/')}">FAQ</a>
       <a href="${u('/auralis/')}">Auralis</a>
       <a href="${u('/univers/')}">Univers</a>
@@ -410,6 +411,59 @@ const pages = [
         </ul>
         <div style="margin-top:var(--space-6);text-align:center;">
           <a href="/diagnostic/" class="btn btn-primary pinapp-breathe">Travaillons ensemble</a>
+        </div>
+      </div>
+    </section>`,
+  },
+  {
+    file: 'qui-suis-je/index.html',
+    title: 'Qui suis-je ? — Pinapp Studio',
+    desc: 'Qui est derrière Pinapp : pourquoi, méthode, et ce que vous pouvez attendre — sans blabla.',
+    og: '/qui-suis-je/',
+    body: `    <section class="section">
+      <div class="container prose" style="max-width:760px;">
+        <p class="label">STORYTELLING</p>
+        <h1 style="font-size:var(--text-h1);letter-spacing:-0.02em;margin-bottom:var(--space-3);">Qui suis-je ?</h1>
+        <p style="font-size:18px;line-height:1.85;opacity:0.78;margin-bottom:var(--space-5);max-width:44rem;">
+          Je suis Lauralie Daguzay, fondatrice de Pinapp Studio. Je construis des systèmes (site + automatisations + fonctions intelligentes) qui vous font avancer sans vous aspirer.
+        </p>
+
+        <div class="grid grid-2" style="gap:var(--space-4);margin-bottom:var(--space-6);">
+          <div class="card">
+            <p class="label" style="margin-bottom:var(--space-2);">LE POINT DE DÉPART</p>
+            <p style="opacity:0.78;line-height:1.85;">
+              J’ai vu trop d’activités où tout repose sur une seule personne : messages, devis, relances, organisation, “petits trucs” à faire.
+              Ce n’est pas que vous n’êtes pas organisé. C’est que le système n’existe pas.
+            </p>
+          </div>
+          <div class="card">
+            <p class="label" style="margin-bottom:var(--space-2);">LA PROMESSE PINAPP</p>
+            <p style="opacity:0.78;line-height:1.85;">
+              Je prépare. Vous validez. C’est réglé.
+              Concrètement : on met vos décisions au bon endroit, on automatise ce qui se répète, et on garde un contrôle clair sur ce qui engage.
+            </p>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:var(--space-5);">
+          <p class="label" style="margin-bottom:var(--space-2);">COMMENT JE TRAVAILLE</p>
+          <ul style="opacity:0.78;line-height:1.9;margin-left:1.1rem;">
+            <li>Vous décrivez votre situation par écrit (diagnostic offert).</li>
+            <li>Je vous renvoie une synthèse claire + une proposition si ça vaut le coup.</li>
+            <li>Je construis en étapes : vous validez les jalons, pas chaque micro-détail.</li>
+          </ul>
+        </div>
+
+        <div class="card" style="border-color:rgba(62,235,214,0.22);">
+          <p class="label" style="margin-bottom:var(--space-2);">CE QUE VOUS POUVEZ ATTENDRE</p>
+          <p style="opacity:0.78;line-height:1.85;margin-bottom:var(--space-3);">
+            Une présence en ligne qui reflète votre niveau. Des flux propres. Et une méthode qui réduit la charge, sans opacité.
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:var(--space-2);align-items:center;">
+            <a href="/diagnostic/" class="btn btn-primary pinapp-breathe">Démarrer par écrit</a>
+            <a href="/offres/" class="btn btn-secondary">Voir les offres</a>
+            <a href="/confiance/" class="btn btn-secondary">Le cadre “vous décidez”</a>
+          </div>
         </div>
       </div>
     </section>`,
