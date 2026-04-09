@@ -12,6 +12,36 @@
     return;
   }
 
+  function getSectorSlug() {
+    return String(S.slug || S.id || S.secteurSlug || S.secteur || '')
+      .toLowerCase()
+      .trim()
+      .replace(/&/g, 'and')
+      .replace(/['’"]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+
+  function resolveLocalDemoImage(kind, index) {
+    var slug = getSectorSlug();
+    if (!slug) return null;
+
+    var file = '';
+    if (kind === 'hero') file = 'demo-' + slug + '-hero.webp';
+    else if (kind === 'service') file = 'demo-' + slug + '-service-' + String(index + 1) + '.webp';
+    else if (kind === 'galerie') file = 'demo-' + slug + '-galerie-' + String(index + 1) + '.webp';
+    else if (kind === 'apropos') file = 'demo-' + slug + '-apropos.webp';
+    else if (kind === 'preuve') file = 'demo-' + slug + '-preuve.webp';
+    else return null;
+
+    try {
+      var sc = document.querySelector('script[src*="demo-sector.js"]');
+      if (sc && sc.src) return new URL('../images/' + file, sc.src).href;
+    } catch (e) {}
+
+    return '/assets/images/' + file;
+  }
+
   function escAttr(val) {
     return String(val == null ? '' : val)
       .replace(/&/g, '&amp;')
@@ -86,18 +116,8 @@
 
     var hero = document.querySelector('.hero');
     if (hero) {
-      if (S.photoHero) {
-        var imgBase = '/assets/images/';
-        try {
-          var sc = document.querySelector('script[src*="demo-sector.js"]');
-          if (sc && sc.src) {
-            imgBase = new URL('../images/', sc.src).href;
-          }
-        } catch (e) {}
-        var heroUrl = S.photoHero;
-        if (!/^https?:\/\//i.test(heroUrl) && heroUrl.indexOf('//') !== 0) {
-          heroUrl = imgBase + S.photoHero;
-        }
+      var heroUrl = resolveLocalDemoImage('hero', 0) || S.photoHero || '';
+      if (heroUrl) {
         hero.style.backgroundImage =
           "url('" +
           String(heroUrl).replace(/'/g, "\\'") +
@@ -167,11 +187,11 @@
 
   fillCopy();
 
-  if (S.serviceImages && S.serviceImages.length) {
-    S.services.forEach(function (svc, i) {
-      if (S.serviceImages[i]) svc.image = S.serviceImages[i];
-    });
-  }
+  S.services.forEach(function (svc, i) {
+    if (S.serviceImages && S.serviceImages[i]) svc.image = S.serviceImages[i];
+    var local = resolveLocalDemoImage('service', i);
+    if (local) svc.image = local;
+  });
 
   function injectRichSections() {
     var servicesSection = document.querySelector('.services-section');
@@ -193,11 +213,11 @@
       gal.appendChild(h2g);
       var grid = document.createElement('div');
       grid.className = 'demo-galerie-grid';
-      S.galerie.forEach(function (item) {
+      S.galerie.forEach(function (item, i) {
         var fig = document.createElement('figure');
         fig.className = 'demo-galerie-item';
         var im = document.createElement('img');
-        im.src = item.src;
+        im.src = resolveLocalDemoImage('galerie', i) || item.src;
         im.alt = item.alt || '';
         im.loading = 'lazy';
         im.decoding = 'async';
@@ -220,11 +240,12 @@
       ap.setAttribute('aria-label', 'À propos');
       var inner = document.createElement('div');
       inner.className = 'demo-apropos-inner';
-      if (S.apropos.photo) {
+      var apPhoto = resolveLocalDemoImage('apropos', 0) || (S.apropos && S.apropos.photo);
+      if (apPhoto) {
         var ph = document.createElement('div');
         ph.className = 'demo-apropos-photo';
         var pi = document.createElement('img');
-        pi.src = S.apropos.photo;
+        pi.src = apPhoto;
         pi.alt = '';
         pi.loading = 'lazy';
         ph.appendChild(pi);
@@ -246,14 +267,15 @@
       anchor = ap;
     }
 
-    if (S.preuvePhoto) {
+    var preuveUrl = resolveLocalDemoImage('preuve', 0) || S.preuvePhoto;
+    if (preuveUrl) {
       var preuve = document.querySelector('.preuve-section');
       var wrap = preuve ? preuve.querySelector('div') : null;
       if (wrap) {
         var pw = document.createElement('div');
         pw.className = 'preuve-photo-wrap';
         var pim = document.createElement('img');
-        pim.src = S.preuvePhoto;
+        pim.src = preuveUrl;
         pim.alt = '';
         pim.className = 'preuve-photo';
         pim.loading = 'lazy';

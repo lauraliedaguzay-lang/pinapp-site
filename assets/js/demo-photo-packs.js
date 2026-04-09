@@ -1,5 +1,5 @@
 /**
- * PINAPP — visuels démo (Unsplash, format cohérent)
+ * PINAPP — visuels démo (assets/images, local)
  * Fusion : Object.assign(PINAPP_DEMO_SITE, PINAPP_DEMO_PHOTO_PACKS.xxx)
  *
  * Chaque pack peut inclure servicesTitle, servicesSubtitle, bookingSub, confirmSub
@@ -7,75 +7,72 @@
  */
 (function (g) {
   'use strict';
-  var q = '?auto=format&fit=crop&w=1600&q=82';
-  var qM = '?auto=format&fit=crop&w=1000&q=82';
-  var qS = '?auto=format&fit=crop&w=640&q=80';
-  var U = 'https://images.unsplash.com/photo-';
-
-  function img(id, tail) {
-    return U + id + (tail || q);
+  /**
+   * Convention de fichiers (à déposer dans assets/images/)
+   * - demo-<slug>-hero.webp
+   * - demo-<slug>-01.webp .. demo-<slug>-06.webp (galerie)
+   * - demo-<slug>-svc-01.webp .. demo-<slug>-svc-03.webp (services)
+   * - demo-<slug>-apropos.webp
+   * - demo-<slug>-preuve.webp
+   *
+   * Tant que ces fichiers ne sont pas présents, `demo-sector.js` applique un fallback local.
+   */
+  function demo(slug, name) {
+    return 'demo-' + slug + '-' + name + '.webp';
   }
 
   g.PINAPP_DEMO_PHOTO_PACKS = {
     artisan: {
-      photoHero: img('1581094794329-c8112a89af12'),
+      photoHero: demo('artisan', 'hero'),
       galerieTitle: 'Chantiers & savoir-faire',
       galerie: [
-        { src: img('1503389152951-9f343605f61e', qM), alt: 'Rénovation', caption: 'Pièce à vivre' },
-        {
-          src: img('1621905252507-b35492cc74b4', qM),
-          alt: 'Plomberie',
-          caption: 'Installation propre',
-        },
-        {
-          src: img('1581578731548-c64695cc6952', qM),
-          alt: 'Électricité',
-          caption: 'Mise aux normes',
-        },
-        { src: img('1600585154340-be6161a56a0c', qM), alt: 'Façade', caption: 'Isolation' },
-        { src: img('1600607687939-ce8a6c25118c', qM), alt: 'Cuisine', caption: 'Finitions' },
-        { src: img('1600566753190-17f0baa2a6c3', qM), alt: 'Outils', caption: 'Matériel pro' },
+        { src: demo('artisan', '01'), alt: 'Rénovation', caption: 'Pièce à vivre' },
+        { src: demo('artisan', '02'), alt: 'Plomberie', caption: 'Installation propre' },
+        { src: demo('artisan', '03'), alt: 'Électricité', caption: 'Mise aux normes' },
+        { src: demo('artisan', '04'), alt: 'Façade', caption: 'Isolation' },
+        { src: demo('artisan', '05'), alt: 'Cuisine', caption: 'Finitions' },
+        { src: demo('artisan', '06'), alt: 'Outils', caption: 'Matériel pro' },
       ],
       serviceImages: [
-        img('1621905251189-3b9a990a93fd', qS),
-        img('1600585154526-990dced4db0d', qS),
-        img('1581092160562-40aa08f66857', qS),
+        demo('artisan', 'svc-01'),
+        demo('artisan', 'svc-02'),
+        demo('artisan', 'svc-03'),
       ],
       apropos: {
         titre: 'Une équipe sur le terrain',
         texte:
           'Artisans RGE, devis clairs, chantiers tenus dans les temps. Nous intervenons en Île-de-France avec la même exigence sur la finition que sur la sécurité.',
-        photo: img('1504307651254-35680f356dfd', qM),
+        photo: demo('artisan', 'apropos'),
       },
       servicesTitle: 'Interventions',
       servicesSubtitle:
         'Parcours et textes calibrés pour ce métier — vitrine sur mesure Pinapp, pas un thème générique revendu à la chaîne.',
       bookingSub: 'Trois réponses pour cadrer l’urgence et la zone (démo : rien n’est transmis).',
       confirmSub: 'Exemple : premier retour par message sous 2 h ouvrées.',
-      preuvePhoto: img('1573496359142-b8d87734a5a2', qS),
+      preuvePhoto: demo('artisan', 'preuve'),
     },
 
     restaurant: {
-      photoHero: img('1414235077428-338989a2e8c0'),
+      photoHero: demo('restaurant', 'hero'),
       galerieTitle: 'Ambiance & assiettes',
       galerie: [
-        { src: img('1555396273-367ea4eb4db5', qM), alt: 'Salle', caption: 'Accueil' },
-        { src: img('1551218808-94e220e217d5', qM), alt: 'Cuisine', caption: 'Au feu' },
-        { src: img('1540189549336-e6e99c3679fe', qM), alt: 'Plat', caption: 'Saison' },
-        { src: img('1466978913421-dad2ebd01d17', qM), alt: 'Bar', caption: 'Cocktails' },
-        { src: img('1517248135467-4c7edcad34c4', qM), alt: 'Table', caption: 'Dressage' },
-        { src: img('1559339352-11d035aa65de', qM), alt: 'Dessert', caption: 'Maison' },
+        { src: demo('restaurant', '01'), alt: 'Salle', caption: 'Accueil' },
+        { src: demo('restaurant', '02'), alt: 'Cuisine', caption: 'Au feu' },
+        { src: demo('restaurant', '03'), alt: 'Plat', caption: 'Saison' },
+        { src: demo('restaurant', '04'), alt: 'Bar', caption: 'Cocktails' },
+        { src: demo('restaurant', '05'), alt: 'Table', caption: 'Dressage' },
+        { src: demo('restaurant', '06'), alt: 'Dessert', caption: 'Maison' },
       ],
       serviceImages: [
-        img('1559339352-11d035aa65de', qS),
-        img('1544025162-d76694265947', qS),
-        img('1424847657312-8e1b5de75a2a', qS),
+        demo('restaurant', 'svc-01'),
+        demo('restaurant', 'svc-02'),
+        demo('restaurant', 'svc-03'),
       ],
       apropos: {
         titre: 'Notre maison, votre table',
         texte:
           'Cuisine japonaise contemporaine, produits sourcés, équipe soudée. Réservations en ligne et accueil personnalisé.',
-        photo: img('1552566626-52a8f8283a9e', qM),
+        photo: demo('restaurant', 'apropos'),
       },
       servicesTitle: 'Carte & expériences',
       servicesSubtitle:
@@ -83,157 +80,149 @@
       bookingSub: 'Quatre choix pour préparer votre table (démo).',
       confirmSub:
         'Exemple : confirmation affichée ici ; en réel, lien vers votre logiciel ou votre boîte mail.',
-      preuvePhoto: img('1438761681033-6461ffad8d80', qS),
+      preuvePhoto: demo('restaurant', 'preuve'),
     },
 
     coach: {
-      photoHero: img('1544367567-0f2fcb009e0b'),
+      photoHero: demo('coach', 'hero'),
       galerieTitle: 'Accompagnement & transformation',
       galerie: [
-        { src: img('1571019613454-1cb2f99b2d8b', qM), alt: 'Séance', caption: 'Coaching' },
-        { src: img('1506126613408-eca07ce68773', qM), alt: 'Focus', caption: 'Objectifs' },
-        { src: img('1522202176988-66273c2fd55f', qM), alt: 'Groupe', caption: 'Atelier' },
-        { src: img('1522071820081-009f0129c71c', qM), alt: 'Équipe', caption: 'Entreprise' },
-        { src: img('1493836512294-502baa1986fc', qM), alt: 'Nature', caption: 'Ressourcement' },
-        { src: img('1516321318421-f621f2f503d4', qM), alt: 'Carnet', caption: 'Méthode' },
+        { src: demo('coach', '01'), alt: 'Séance', caption: 'Coaching' },
+        { src: demo('coach', '02'), alt: 'Focus', caption: 'Objectifs' },
+        { src: demo('coach', '03'), alt: 'Groupe', caption: 'Atelier' },
+        { src: demo('coach', '04'), alt: 'Équipe', caption: 'Entreprise' },
+        { src: demo('coach', '05'), alt: 'Nature', caption: 'Ressourcement' },
+        { src: demo('coach', '06'), alt: 'Carnet', caption: 'Méthode' },
       ],
-      serviceImages: [
-        img('1571019613454-1cb2f99b2d8b', qS),
-        img('1506126613408-eca07ce68773', qS),
-        img('1522202176988-66273c2fd55f', qS),
-      ],
+      serviceImages: [demo('coach', 'svc-01'), demo('coach', 'svc-02'), demo('coach', 'svc-03')],
       apropos: {
         titre: 'Certifiée, à votre écoute',
         texte:
           'ICF, bilans CPF, séances sur mesure. Un cadre bienveillant pour dépasser vos blocages et structurer votre projet.',
-        photo: img('1552664730-d307ca884978', qM),
+        photo: demo('coach', 'apropos'),
       },
       servicesTitle: 'Accompagnements',
       servicesSubtitle:
         'Offres et ton adaptés au coaching — page conçue comme un vrai site pro, pas un gabarit « coach » figé.',
       bookingSub: 'Premier cadrage par écrit, sans appel imposé (démo).',
       confirmSub: 'Exemple : réponse personnalisée sous 24 h sur un site livré.',
-      preuvePhoto: img('1494790108377-be9c29b29330', qS),
+      preuvePhoto: demo('coach', 'preuve'),
     },
 
     trainer: {
-      photoHero: img('1534438327276-14e5300c3a48'),
+      photoHero: demo('trainer', 'hero'),
       galerieTitle: 'Performance & récupération',
       galerie: [
-        { src: img('1571019614242-c3450a2ad572', qM), alt: 'Musculation', caption: 'Force' },
-        { src: img('1517836357463-d25dfeac3c3e', qM), alt: 'Cardio', caption: 'Endurance' },
-        { src: img('1593079836568-3241c29412c9', qM), alt: 'Étirements', caption: 'Mobilité' },
-        { src: img('1518611012118-696072aa345a', qM), alt: 'Coach', caption: 'Suivi' },
-        { src: img('1540497074882-28dc02a8c7e5', qM), alt: 'Nutrition', caption: 'Plateau repas' },
-        { src: img('1583454110551-21f2fa2afe61', qM), alt: 'Haltères', caption: 'Salle' },
+        { src: demo('trainer', '01'), alt: 'Musculation', caption: 'Force' },
+        { src: demo('trainer', '02'), alt: 'Cardio', caption: 'Endurance' },
+        { src: demo('trainer', '03'), alt: 'Étirements', caption: 'Mobilité' },
+        { src: demo('trainer', '04'), alt: 'Coach', caption: 'Suivi' },
+        { src: demo('trainer', '05'), alt: 'Nutrition', caption: 'Plateau repas' },
+        { src: demo('trainer', '06'), alt: 'Haltères', caption: 'Salle' },
       ],
       serviceImages: [
-        img('1571019614242-c3450a2ad572', qS),
-        img('1517836357463-d25dfeac3c3e', qS),
-        img('1593079836568-3241c29412c9', qS),
+        demo('trainer', 'svc-01'),
+        demo('trainer', 'svc-02'),
+        demo('trainer', 'svc-03'),
       ],
       apropos: {
         titre: 'Votre corps, votre plan',
         texte:
           'Prépa physique, perte de poids, remise en forme durable. Séances en salle et suivi WhatsApp entre les cours.',
-        photo: img('1581009148645-bfd3e74556ec', qM),
+        photo: demo('trainer', 'apropos'),
       },
       servicesTitle: 'Programmes & suivi',
       servicesSubtitle:
         'Structure et preuves sociales calibrées sport — identité visuelle et parcours uniques à chaque commande Pinapp.',
       bookingSub: 'Objectifs et créneaux en quelques clics (démo).',
       confirmSub: 'Exemple : rappel ou message selon votre stack sur le site final.',
-      preuvePhoto: img('1568602471126-139295fcc3ee', qS),
+      preuvePhoto: demo('trainer', 'preuve'),
     },
 
     tatoueuse: {
-      photoHero: img('1611501279641-e541992fc7e4'),
+      photoHero: demo('tatoueuse', 'hero'),
       galerieTitle: 'Flash & projets sur mesure',
       galerie: [
-        { src: img('1590246814883-57b34b9d0b40', qM), alt: 'Ligne', caption: 'Dessin' },
-        { src: img('1565053396441-9d40e534e09e', qM), alt: 'Machine', caption: 'Hygiène' },
-        { src: img('1611501279641-e541992fc7e4', qM), alt: 'Studio', caption: 'Ambiance' },
-        { src: img('1457975460783-eacfce701117', qM), alt: 'Encre', caption: 'Palette' },
-        { src: img('1507003211169-0a1dd7228f2d', qM), alt: 'Portrait', caption: 'Artiste' },
-        { src: img('1513364776144-60967b0f800f', qM), alt: 'Détail', caption: 'Finition' },
+        { src: demo('tatoueuse', '01'), alt: 'Ligne', caption: 'Dessin' },
+        { src: demo('tatoueuse', '02'), alt: 'Machine', caption: 'Hygiène' },
+        { src: demo('tatoueuse', '03'), alt: 'Studio', caption: 'Ambiance' },
+        { src: demo('tatoueuse', '04'), alt: 'Encre', caption: 'Palette' },
+        { src: demo('tatoueuse', '05'), alt: 'Portrait', caption: 'Artiste' },
+        { src: demo('tatoueuse', '06'), alt: 'Détail', caption: 'Finition' },
       ],
       serviceImages: [
-        img('1590246814883-57b34b9d0b40', qS),
-        img('1565053396441-9d40e534e09e', qS),
-        img('1611501279641-e541992fc7e4', qS),
+        demo('tatoueuse', 'svc-01'),
+        demo('tatoueuse', 'svc-02'),
+        demo('tatoueuse', 'svc-03'),
       ],
       apropos: {
         titre: 'L’art dans la peau',
         texte:
           'Hygiène irréprochable, projet personnalisé, consentement et repos. Paris — premiers échanges par message.',
-        photo: img('1507003211169-0a1dd7228f2d', qM),
+        photo: demo('tatoueuse', 'apropos'),
       },
       servicesTitle: 'Création & soin de la peau',
       servicesSubtitle:
         'Galerie et parcours pensés pour un studio réel — pas une landing tatouage copiée-collée.',
       bookingSub: 'Projet, zone, disponibilités : cadrage rapide (démo).',
       confirmSub: 'Exemple : prise de contact par message sécurisé sur site livré.',
-      preuvePhoto: img('1438761681033-6461ffad8d80', qS),
+      preuvePhoto: demo('tatoueuse', 'preuve'),
     },
 
     ongles: {
-      photoHero: img('1522337360788-8b13dee7a37e'),
+      photoHero: demo('ongles', 'hero'),
       galerieTitle: 'Nail art & soins',
       galerie: [
-        { src: img('1604654894610-df63bc536371', qM), alt: 'Manucure', caption: 'Pose gel' },
-        { src: img('1516975080914-ae6841e37f29', qM), alt: 'Couleurs', caption: 'Nuancier' },
-        { src: img('1522337360788-8b13dee7a37e', qM), alt: 'Salon', caption: 'Espace' },
-        { src: img('1616394587893-d4b4c237d8d0', qM), alt: 'Détail', caption: 'Décoration' },
-        { src: img('1519415943484-f9b3d5d702bf', qM), alt: 'Soin', caption: 'Repos' },
-        { src: img('1596462502278-27bfdc403348', qM), alt: 'Outils', caption: 'Stérilisation' },
+        { src: demo('ongles', '01'), alt: 'Manucure', caption: 'Pose gel' },
+        { src: demo('ongles', '02'), alt: 'Couleurs', caption: 'Nuancier' },
+        { src: demo('ongles', '03'), alt: 'Salon', caption: 'Espace' },
+        { src: demo('ongles', '04'), alt: 'Détail', caption: 'Décoration' },
+        { src: demo('ongles', '05'), alt: 'Soin', caption: 'Repos' },
+        { src: demo('ongles', '06'), alt: 'Outils', caption: 'Stérilisation' },
       ],
-      serviceImages: [
-        img('1604654894610-df63bc536371', qS),
-        img('1516975080914-ae6841e37f29', qS),
-        img('1616394587893-d4b4c237d8d0', qS),
-      ],
+      serviceImages: [demo('ongles', 'svc-01'), demo('ongles', 'svc-02'), demo('ongles', 'svc-03')],
       apropos: {
         titre: 'Des mains soignées',
         texte:
           'Pose américaine, nail art, réparation. Cabine lumineuse, produits sélectionnés, réservation en ligne.',
-        photo: img('1560066984-138d3534f6d9', qM),
+        photo: demo('ongles', 'apropos'),
       },
       servicesTitle: 'Prestations mains',
       servicesSubtitle:
         'Cartes et images alignées sur votre salon — chaque client Pinapp a sa propre hiérarchie et ses propres mots.',
       bookingSub: 'Type de pose et créneau en trois étapes (démo).',
       confirmSub: 'Exemple : confirmation de créneau côté outil que vous choisissez.',
-      preuvePhoto: img('1544005313-94ddf0286df2', qS),
+      preuvePhoto: demo('ongles', 'preuve'),
     },
 
     estheticienne: {
-      photoHero: img('1570172618684-dfd03ed5d881'),
+      photoHero: demo('estheticienne', 'hero'),
       galerieTitle: 'Soins & détente',
       galerie: [
-        { src: img('1515377902960-4688d4d4c5c4', qM), alt: 'Massage', caption: 'Relaxation' },
-        { src: img('1570172618684-dfd03ed5d881', qM), alt: 'Soin visage', caption: 'Éclat' },
-        { src: img('1522335780753-8ca7b8c0c34c', qM), alt: 'Cabine', caption: 'Calme' },
-        { src: img('1540555700475-27d9b8f5a1b8', qM), alt: 'Produits', caption: 'Bio' },
-        { src: img('1519823551272-7098fc693ce3', qM), alt: 'Epilation', caption: 'Douceur' },
-        { src: img('1507652313519-d4d9174bcddc', qM), alt: 'Ambiance', caption: 'Lumière tamisée' },
+        { src: demo('estheticienne', '01'), alt: 'Massage', caption: 'Relaxation' },
+        { src: demo('estheticienne', '02'), alt: 'Soin visage', caption: 'Éclat' },
+        { src: demo('estheticienne', '03'), alt: 'Cabine', caption: 'Calme' },
+        { src: demo('estheticienne', '04'), alt: 'Produits', caption: 'Bio' },
+        { src: demo('estheticienne', '05'), alt: 'Epilation', caption: 'Douceur' },
+        { src: demo('estheticienne', '06'), alt: 'Ambiance', caption: 'Lumière tamisée' },
       ],
       serviceImages: [
-        img('1515377902960-4688d4d4c5c4', qS),
-        img('1570172618684-dfd03ed5d881', qS),
-        img('1522335780753-8ca7b8c0c34c', qS),
+        demo('estheticienne', 'svc-01'),
+        demo('estheticienne', 'svc-02'),
+        demo('estheticienne', 'svc-03'),
       ],
       apropos: {
         titre: 'Votre peau, notre métier',
         texte:
           'Soins sur mesure, protocoles doux, confidentialité. Un moment rien que pour vous entre deux journées chargées.',
-        photo: img('1522335780753-8ca7b8c0c34c', qM),
+        photo: demo('estheticienne', 'apropos'),
       },
       servicesTitle: 'Rituels & soins',
       servicesSubtitle:
         'Ambiance spa et parcours réservation cohérents avec votre cabine — site sur mesure, zero catalogue de thème.',
       bookingSub: 'Besoin et disponibilité sans friction (démo).',
       confirmSub: 'Exemple : rappel ou SMS selon votre automatisation.',
-      preuvePhoto: img('1534528741775-53994a69daeb', qS),
+      preuvePhoto: demo('estheticienne', 'preuve'),
     },
 
     coiffeur: {
