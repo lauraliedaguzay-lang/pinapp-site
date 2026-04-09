@@ -1,0 +1,184 @@
+/* WOW SENIOR — micro-interactions premium (Pinapp)
+   Objectif: effet "dev senior" partout, sans scroll-gadgets.
+   - Zéro animation liée au scroll
+   - Respect prefers-reduced-motion
+   - Tilt/shine uniquement sur pointer fine (desktop)
+*/
+
+:root {
+  --wow-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --wow-tilt: 6deg;
+  --wow-lift: 5px;
+  --wow-shine-opacity: 0.22;
+  --wow-shine-opacity-light: 0.18;
+}
+
+/* Pendant un switch de thème, on coupe temporairement les transitions/animations
+   pour éviter un "lag" (recalcul massif de styles + blur). */
+html.is-theme-switching *,
+html.is-theme-switching *::before,
+html.is-theme-switching *::after {
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Base: éléments interactifs, ressenti "Apple" */
+.btn,
+.pill,
+.df-pill,
+.card,
+.wow-surface,
+nav.nav,
+.mobile-drawer-panel,
+.modal-content {
+  transform: translateZ(0);
+}
+
+/* Press feedback (tactile + souris) — autorisé (transform) */
+.btn,
+.pill,
+.df-pill,
+.card,
+.wow-surface {
+  transition:
+    transform 420ms var(--wow-spring),
+    filter 420ms var(--wow-spring),
+    opacity 420ms var(--wow-spring);
+  will-change: transform;
+  touch-action: manipulation;
+}
+
+.btn:active,
+.pill:active,
+.df-pill:active {
+  transform: translateZ(0) scale(0.985);
+  transition-duration: 120ms;
+}
+
+/* “Material lift” : léger, cohérent, pas flashy */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover,
+  .wow-surface:hover {
+    transform: translateY(calc(-1 * var(--wow-lift))) translateZ(0);
+  }
+}
+
+/* Specular highlight (verre) : une seule couche par surface */
+.card,
+.wow-surface,
+nav.nav,
+.mobile-drawer-panel,
+.modal-content {
+  position: relative;
+  overflow: hidden;
+}
+
+/* IMPORTANT:
+   - ios-glass.css utilise déjà .card::before (ligne de lumière).
+   - On réserve donc ::after pour le "shine" dynamique, pour éviter les conflits. */
+.card::after,
+.wow-surface::after,
+nav.nav::after,
+.mobile-drawer-panel::after,
+.modal-content::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(-18%) translateY(-12%) rotate(12deg);
+  background:
+    radial-gradient(
+      240px 160px at var(--shine-x, 20%) var(--shine-y, 12%),
+      rgba(255, 255, 255, 0.16) 0%,
+      transparent 60%
+    ),
+    linear-gradient(
+      115deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.1) 34%,
+      rgba(255, 255, 255, 0.22) 46%,
+      rgba(255, 255, 255, 0.1) 58%,
+      transparent 100%
+    );
+  filter: blur(0px);
+  transition:
+    opacity 320ms var(--wow-spring),
+    transform 520ms var(--wow-spring);
+}
+
+html[data-theme='light'] .card::after,
+html[data-theme='light'] .wow-surface::after,
+html[data-theme='light'] nav.nav::after,
+html[data-theme='light'] .mobile-drawer-panel::after,
+html[data-theme='light'] .modal-content::after,
+body.mode-jour .card::after,
+body.mode-jour .wow-surface::after,
+body.mode-jour nav.nav::after,
+body.mode-jour .mobile-drawer-panel::after,
+body.mode-jour .modal-content::after {
+  background:
+    radial-gradient(
+      240px 160px at var(--shine-x, 18%) var(--shine-y, 10%),
+      rgba(255, 255, 255, 0.2) 0%,
+      transparent 62%
+    ),
+    linear-gradient(
+      115deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.08) 34%,
+      rgba(255, 255, 255, 0.18) 46%,
+      rgba(255, 255, 255, 0.08) 58%,
+      transparent 100%
+    );
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover::after,
+  .wow-surface:hover::after,
+  nav.nav:hover::after {
+    opacity: var(--wow-shine-opacity);
+    transform: translateX(6%) translateY(-6%) rotate(12deg);
+  }
+  html[data-theme='light'] .card:hover::after,
+  html[data-theme='light'] .wow-surface:hover::after,
+  html[data-theme='light'] nav.nav:hover::after,
+  body.mode-jour .card:hover::after,
+  body.mode-jour .wow-surface:hover::after,
+  body.mode-jour nav.nav:hover::after {
+    opacity: var(--wow-shine-opacity-light);
+  }
+}
+
+/* Tilt (JS) : transform piloté via variables — desktop seulement */
+@media (hover: hover) and (pointer: fine) {
+  .wow-tilt {
+    transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg))
+      translateZ(0);
+  }
+  .wow-tilt:hover {
+    filter: brightness(1.03);
+  }
+}
+
+/* Reduced motion: figer tout ce qui bouge */
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .pill,
+  .df-pill,
+  .card,
+  .wow-surface {
+    transition: none !important;
+  }
+  .card::after,
+  .wow-surface::after,
+  nav.nav::after,
+  .mobile-drawer-panel::after,
+  .modal-content::after {
+    display: none !important;
+  }
+  .wow-tilt {
+    transform: translateZ(0) !important;
+    filter: none !important;
+  }
+}

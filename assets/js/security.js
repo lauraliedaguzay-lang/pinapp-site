@@ -2,7 +2,7 @@
  * Pinapp Security Utilities
  * Sanitize user input before DOM injection to prevent XSS.
  */
-(function(w) {
+(function (w) {
   'use strict';
 
   /**
@@ -30,7 +30,7 @@
       var obj = JSON.parse(raw);
       // Deep escape all string values
       return deepEscape(obj);
-    } catch(e) {
+    } catch (e) {
       return null;
     }
   }
@@ -40,7 +40,9 @@
     if (Array.isArray(obj)) return obj.map(deepEscape);
     if (obj && typeof obj === 'object') {
       var out = {};
-      Object.keys(obj).forEach(function(k) { out[k] = deepEscape(obj[k]); });
+      Object.keys(obj).forEach(function (k) {
+        out[k] = deepEscape(obj[k]);
+      });
       return out;
     }
     return obj;

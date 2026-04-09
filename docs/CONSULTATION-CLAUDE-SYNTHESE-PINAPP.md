@@ -14,7 +14,7 @@
 - **Site public** : `https://pinapp.fr/` (domaine) ; miroir GitHub Pages : `https://lauraliedaguzay-lang.github.io/pinapp-site/`.
 - **Dépôt** : `pinapp-site` (HTML/CSS/JS statique, déploiement via GitHub Actions → GitHub Pages ; possibilité ZIP Netlify / Hostinger selon doc interne).
 - **Contact affiché** : `lauralie.daguzay@pinapp.fr`.
-- **Positionnement éditorial** : « Pinapp prépare, vous validez », diagnostic 30 min, Auralis RH, Concours Lépine 2026.
+- **Positionnement éditorial** : « Pinapp prépare, vous validez », diagnostic 30 min, Auralis RH.
 
 ---
 
@@ -77,4 +77,4 @@
 
 ---
 
-*Document généré pour consultation externe — périmètre strict **Pinapp**.*
+_Document généré pour consultation externe — périmètre strict **Pinapp**._

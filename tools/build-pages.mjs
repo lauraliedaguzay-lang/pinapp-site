@@ -78,7 +78,6 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true, root
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/svg+xml" href="${a('/favicon.svg')}">
-  <link rel="preload" href="${a('/assets/fonts/inter-var.woff2')}" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="${a('/assets/variables.css')}">
   <link rel="stylesheet" href="${a('/assets/grid.css')}">
   <link rel="stylesheet" href="${a('/assets/animations.css')}">
@@ -87,10 +86,20 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true, root
   <link rel="stylesheet" href="${a('/assets/css/cursor.css')}">
   <link rel="stylesheet" href="${a('/assets/css/pandora-ux.css')}">
   <link rel="stylesheet" href="${a('/assets/css/apple-finish.css')}">
+  <link rel="stylesheet" href="${a('/assets/css/ios-glass.css')}">
   <link rel="stylesheet" href="${a('/assets/css/pinapp-modern-biolume.css')}">
-  ${includeLdJson ? `<script type="application/ld+json">
+  <link rel="stylesheet" href="${a('/assets/css/pinapp-premium.css')}">
+  <link rel="stylesheet" href="${a('/assets/css/deploy-harmonise.css')}">
+  <link rel="stylesheet" href="${a('/assets/css/mobile-premium.css')}">
+  <link rel="stylesheet" href="${a('/assets/css/wow-visuals.css')}">
+  <link rel="stylesheet" href="${a('/assets/css/wow-senior.css')}">
+  ${
+    includeLdJson
+      ? `<script type="application/ld+json">
   {"@context":"https://schema.org","@type":"ProfessionalService","name":"Pinapp Studio","founder":{"@type":"Person","name":"Lauralie Daguzay"},"email":"lauralie.daguzay@pinapp.fr","url":"https://pinapp.fr","sameAs":"https://www.linkedin.com/in/lauralie-daguzay-4a4542197/"}
-  </script>` : ''}
+  </script>`
+      : ''
+  }
 </head>
 <body class="page-with-bottom-nav">
   <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
@@ -115,11 +124,11 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true, root
   <nav class="nav" id="mainNav" role="navigation">
     <div class="container nav-inner">
       <a href="${u('/')}" class="pinapp-breathe nav-logo" aria-label="Pinapp Studio — accueil">
-        <img src="${a('/assets/images/pinapp-logo.png')}" alt="Pinapp" width="200" height="60" decoding="async" class="nav-logo-img">
+        <img src="${a('/assets/images/pinapp-logo.svg')}" alt="Pinapp" width="200" height="60" decoding="async" class="nav-logo-img">
       </a>
       <div class="nav-links">
         <a href="${u('/offres/')}" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
-        <a href="${u('/formation-gratuite/')}" class="nav-link" style="font-size:14px;opacity:0.8;">Formations</a>
+        <a href="${u('/offres/formation/')}" class="nav-link" style="font-size:14px;opacity:0.8;">Formations</a>
         <a href="${u('/realisations/')}" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
         <a href="${u('/a-propos/')}" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
         <a href="${u('/faq/')}" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
@@ -142,7 +151,7 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true, root
     <div class="mobile-drawer-panel">
       <button type="button" id="drawerClose" aria-label="Fermer le menu">×</button>
       <a href="${u('/offres/')}">Offres</a>
-      <a href="${u('/formation-gratuite/')}">Formations</a>
+      <a href="${u('/offres/formation/')}">Formations</a>
       <a href="${u('/realisations/')}">Réalisations</a>
       <a href="${u('/a-propos/')}">À propos</a>
       <a href="${u('/faq/')}">FAQ</a>
@@ -160,7 +169,7 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true, root
     <a href="${u('/offres/')}">Offres</a>
     <a href="${u('/diagnostic/')}" class="bottom-bar-cta">Démarrer</a>
     <a href="${u('/univers/')}">Univers</a>
-    <a href="${u('/formation-gratuite/')}">Form.</a>
+    <a href="${u('/offres/formation/')}">Form.</a>
     <a href="${u('/realisations/')}">Réalis.</a>
   </div>
   <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
@@ -170,7 +179,7 @@ ${mainInner}
     <div class="container" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:var(--space-3);opacity:0.6;font-size:13px;">
       <span>Pinapp © 2026</span>
       <div style="display:flex;gap:var(--space-3);">
-        <a href="https://www.linkedin.com/in/lauralie-daguzay-4a4542197/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.linkedin.com/in/lauralie-daguzay-4a4542197/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
       </div>
       <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;">
@@ -197,6 +206,7 @@ ${mainInner}
   <script src="${a('/assets/js/parallax.js')}" defer></script>
   <script src="${a('/assets/js/scroll-cinema.js')}" defer></script>
   <script src="${a('/assets/js/cursor.js')}" defer></script>
+  <script src="${a('/assets/js/wow-senior.js')}" defer></script>
   <script src="${a('/assets/js/bio-particles.js')}" defer></script>
 </body>
 </html>`;
@@ -217,8 +227,8 @@ const pages = [
           <div style="width:64px;height:64px;border-radius:50%;border:2px solid var(--accent-violet);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:24px;color:var(--accent-violet);">1</span></div>
           <div>
             <h2 style="font-size:24px;margin-bottom:var(--space-1);">Vous écrivez — diagnostic offert</h2>
-            <p style="opacity:0.7;line-height:1.8;margin-bottom:var(--space-2);">Par formulaire puis email : votre quotidien, vos outils, ce qui vous prend du temps. Je cartographie et je vous renvoie des opportunités concrètes.</p>
-            <p style="opacity:0.7;line-height:1.8;">Tout commence par l’écrit ; un Google Meet reste possible si vous le souhaitez — jamais d’appel téléphonique imposé. Même si vous ne travaillez pas avec moi ensuite, vous gardez des pistes actionnables. C’est offert. Zéro engagement.</p>
+            <p style="opacity:0.7;line-height:1.8;margin-bottom:var(--space-2);">Par formulaire puis email : votre quotidien, vos outils, ce qui vous prend du temps. Je cartographie et je vous renvoie des idées concrètes.</p>
+            <p style="opacity:0.7;line-height:1.8;">Tout commence par l’écrit ; un Google Meet reste possible si vous le souhaitez. Même si vous ne travaillez pas avec moi ensuite, vous gardez des pistes actionnables. C’est offert. Zéro engagement.</p>
             <a href="/diagnostic/" class="btn btn-primary" style="display:inline-flex;margin-top:var(--space-3);">Démarrer ma demande par écrit</a>
           </div>
         </div>
@@ -255,7 +265,7 @@ const pages = [
   {
     file: 'diagnostic/index.html',
     title: 'Diagnostic offert — tout par écrit — Pinapp Studio',
-    desc: 'Décrivez votre besoin par écrit. Réponse sous 24 h. Google Meet en option — jamais d’appel téléphonique imposé.',
+    desc: 'Décrivez votre besoin par écrit. Réponse sous 24 h. Google Meet en option si vous en avez besoin.',
     og: '/diagnostic/',
     body: `    <section class="section">
       <div class="container" style="max-width:700px;text-align:center;">
@@ -265,7 +275,7 @@ const pages = [
         <div class="grid grid-3" style="margin-bottom:var(--space-6);text-align:left;">
           <div>
             <h3 style="font-size:16px;color:var(--accent-teal);margin-bottom:var(--space-1);">Ce qu'on fait</h3>
-            <p style="font-size:14px;opacity:0.7;">Je cartographie vos tâches répétitives et identifie vos opportunités digitales.</p>
+            <p style="font-size:14px;opacity:0.7;">Je cartographie vos tâches répétitives et identifie vos idées concrètes et actionnables.</p>
           </div>
           <div>
             <h3 style="font-size:16px;color:var(--accent-teal);margin-bottom:var(--space-1);">Ce que vous gagnez</h3>
@@ -273,11 +283,11 @@ const pages = [
           </div>
           <div>
             <h3 style="font-size:16px;color:var(--accent-teal);margin-bottom:var(--space-1);">Comment ça se passe</h3>
-            <p style="font-size:14px;opacity:0.7;">Écrit d’abord (formulaire ou email) ; réponse sous 24 h. Google Meet en option si vous voulez cadrer à l’oral — jamais d’appel téléphonique imposé.</p>
+            <p style="font-size:14px;opacity:0.7;">Écrit d’abord (formulaire ou email) ; réponse sous 24 h. Google Meet en option si vous voulez cadrer à l’oral.</p>
           </div>
         </div>
         <div style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-card-lg);padding:var(--space-5);margin-bottom:var(--space-4);">
-          <p style="opacity:0.78;font-size:15px;line-height:1.65;">Écrivez votre contexte par email (ou formulaire quand il sera branché). Si un <strong>Google Meet</strong> vous aide après le premier échange écrit, on le planifie ensemble — fil traçable, jamais d’appel téléphonique imposé.</p>
+          <p style="opacity:0.78;font-size:15px;line-height:1.65;">Écrivez votre contexte par email (ou formulaire quand il sera branché). Si un <strong>Google Meet</strong> vous aide après le premier échange écrit, on le planifie ensemble.</p>
           <p style="opacity:0.55;font-size:13px;margin-top:var(--space-3);">Widget Calendly (option Meet) : à brancher ici une fois votre lien prêt.</p>
           <a href="mailto:lauralie.daguzay@pinapp.fr?subject=Demande%20de%20diagnostic%20Pinapp" class="btn btn-primary" style="margin-top:var(--space-3);">Écrire à Pinapp</a>
         </div>
@@ -291,26 +301,57 @@ const pages = [
   {
     file: 'a-propos/index.html',
     title: 'À propos — Pinapp Studio',
-    desc: 'Pinapp, Lauralie Daguzay : systèmes sur-mesure, IA et automatisation pour les PME.',
+    desc: 'Pinapp, Lauralie Daguzay : une façon simple de faire avancer votre digital, sans pression et avec validation.',
     og: '/a-propos/',
     body: `    <section class="section">
       <div class="container prose" style="max-width:700px;">
         <p class="label">À PROPOS</p>
-        <h1 style="font-size:var(--text-h1);letter-spacing:-0.02em;margin-bottom:var(--space-3);">Qui est Pinapp ?</h1>
-        <p style="font-size:18px;line-height:1.8;margin-bottom:var(--space-4);">Pinapp, c'est Lauralie Daguzay — fondatrice, conceptrice et exécutante.</p>
-        <p style="opacity:0.7;line-height:1.8;margin-bottom:var(--space-4);">J'ai construit Pinapp parce que je voyais des PME et des indépendants débordés par des tâches répétitives, avec des sites qui ne convertissaient pas, sans accès aux outils que les grandes entreprises utilisent.</p>
-        <p style="opacity:0.7;line-height:1.8;margin-bottom:var(--space-4);">Ma réponse : des systèmes intelligents sur-mesure, accessibles sans avoir à comprendre la technique. Vous décrivez votre problème. Je construis la solution.</p>
-        <p style="opacity:0.7;line-height:1.8;margin-bottom:var(--space-5);">La preuve que ça fonctionne : Auralis RH — le premier outil IA conçu pour les professionnels RH eux-mêmes.</p>
-        <h2 style="font-size:24px;margin-bottom:var(--space-3);">Ce en quoi Pinapp croit</h2>
-        <ul style="opacity:0.7;line-height:2;">
-          <li>La technologie doit servir l'humain — pas l'inverse.</li>
-          <li>Un client informé est un client satisfait.</li>
-          <li>Vous décidez. Toujours.</li>
-          <li>La simplicité est le luxe ultime.</li>
-          <li>Mieux vaut un système imparfait qui tourne qu'un système parfait qui n'existe pas.</li>
+        <h1 style="font-size:var(--text-h1);letter-spacing:-0.02em;margin-bottom:var(--space-3);">Lauralie, Pinapp.</h1>
+
+        <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-5);">
+          <div class="card" aria-hidden="true" style="width:70px;height:70px;display:flex;align-items:center;justify-content:center;border-radius:999px;padding:0;">
+            <span style="font-size:18px;letter-spacing:-0.02em;opacity:0.9;">LD</span>
+          </div>
+          <div style="min-width:0;">
+            <p style="margin:0;opacity:0.85;line-height:1.5;">Je conçois et je construis les systèmes Pinapp.</p>
+            <p style="margin:6px 0 0;opacity:0.6;font-size:14px;line-height:1.5;">Tout par écrit. Google Meet si vous le demandez. Vous décidez aux étapes clés.</p>
+          </div>
+        </div>
+
+        <p style="font-size:18px;line-height:1.8;margin-bottom:var(--space-4);">
+          Pinapp existe pour un problème très simple : quand tout repose sur vous, le digital finit par s’accumuler.
+        </p>
+        <p style="opacity:0.72;line-height:1.85;margin-bottom:var(--space-4);">
+          Mon rôle, c’est de transformer ce “bruit” en un système clair : une présence en ligne premium, des automatismes propres, et des décisions faciles à valider.
+        </p>
+        <p style="opacity:0.72;line-height:1.85;margin-bottom:var(--space-5);">
+          Je ne cherche pas à vous impressionner avec des mots. Je préfère vous donner quelque chose qui tourne, que vous comprenez, et que vous contrôlez.
+        </p>
+
+        <h2 style="font-size:24px;margin-bottom:var(--space-3);">Ce que vous pouvez attendre de moi</h2>
+        <ul style="opacity:0.75;line-height:2;">
+          <li>Une proposition courte, lisible, avec un ordre clair.</li>
+          <li>Des livrables testés, avec des validations simples.</li>
+          <li>Une communication directe : pas de pression, pas de flou.</li>
         </ul>
-        <div style="margin-top:var(--space-6);text-align:center;">
-          <a href="/diagnostic/" class="btn btn-primary pinapp-breathe">Travaillons ensemble</a>
+
+        <h2 style="font-size:24px;margin:var(--space-6) 0 var(--space-3);">Ce que je ne fais pas</h2>
+        <ul style="opacity:0.75;line-height:2;">
+          <li>Vous vendre du “magique”.</li>
+          <li>Lancer des automatisations qui partent sans votre accord.</li>
+          <li>Vous noyer sous la technique.</li>
+        </ul>
+
+        <div class="card" style="margin-top:var(--space-6);padding:var(--space-4);">
+          <p class="label" style="margin-bottom:var(--space-2);">PRINCIPE</p>
+          <p style="margin:0;opacity:0.78;line-height:1.8;">
+            Pinapp prépare. Vous décidez. Ça tourne.
+          </p>
+        </div>
+
+        <div style="margin-top:var(--space-6);text-align:center;display:flex;flex-wrap:wrap;gap:var(--space-3);justify-content:center;">
+          <a href="/diagnostic/" class="btn btn-primary pinapp-breathe">Démarrer ma demande</a>
+          <a href="/realisations/" class="btn btn-secondary">Voir le niveau de finition →</a>
         </div>
       </div>
     </section>`,
@@ -418,23 +459,52 @@ const pages = [
     body: `    <section class="section">
       <div class="container prose" style="max-width:800px;">
         <p class="label">OFFRE AUTOMATISATION</p>
-        <h1>Vos tâches répétitives. Automatisées.</h1>
-        <p class="lead">Relances, confirmations, devis, rapports. Tout ce qui vous prend du temps sans vous apporter de valeur.</p>
-        <h2>Exemples d'automatisations</h2>
+        <h1>Ça avance sans vous courir après.</h1>
+        <p class="lead">On retire les frictions, on fiabilise la suite. Vous validez aux étapes clés — et le reste s’enchaîne.</p>
+
+        <div class="grid grid-3" style="margin:var(--space-5) 0;align-items:stretch;">
+          <div class="card">
+            <p class="label" style="margin-bottom:var(--space-2);">AVANT</p>
+            <ul style="opacity:0.75;line-height:1.9;">
+              <li>Devis envoyés… puis oubliés</li>
+              <li>Rappels manuels, au hasard</li>
+              <li>Infos client dispersées</li>
+            </ul>
+          </div>
+          <div class="card">
+            <p class="label" style="margin-bottom:var(--space-2);">APRÈS</p>
+            <ul style="opacity:0.75;line-height:1.9;">
+              <li>Relances préparées au bon moment</li>
+              <li>Confirmations et suivis propres</li>
+              <li>Un fil clair, sans “trous”</li>
+            </ul>
+          </div>
+          <div class="card">
+            <p class="label" style="margin-bottom:var(--space-2);">VOUS</p>
+            <ul style="opacity:0.75;line-height:1.9;">
+              <li>Vous gardez la main</li>
+              <li>Vous validez ce qui part</li>
+              <li>Vous respirez</li>
+            </ul>
+          </div>
+        </div>
+
+        <h2>Ce qu’on peut automatiser (exemples concrets)</h2>
         <ul>
-          <li>Relance devis automatique (J+2, J+7)</li>
-          <li>Confirmation RDV + rappel J-1</li>
-          <li>Email de bienvenue client après signature</li>
-          <li>Rapport mensuel automatique</li>
-          <li>Notification lead entrant</li>
-          <li>Synchronisation CRM automatique</li>
+          <li>Relance devis (J+2 / J+7) avec message prêt</li>
+          <li>Confirmation de rendez-vous + rappel la veille</li>
+          <li>Message de bienvenue après signature</li>
+          <li>Récap hebdomadaire “où on en est”</li>
+          <li>Alerte instantanée quand un lead arrive</li>
+          <li>Classement et suivi des demandes (sans double saisie)</li>
         </ul>
+
         <h2>Ce qui est inclus</h2>
         <ul>
-          <li>Audit de vos process actuels</li>
-          <li>Configuration des pipelines</li>
-          <li>Tests complets</li>
-          <li>Formation (1h)</li>
+          <li>Cartographie simple de vos étapes (qui fait quoi, quand)</li>
+          <li>Un flux “propre” de bout en bout (avec validation si nécessaire)</li>
+          <li>Tests complets + garde-fous (pour éviter les surprises)</li>
+          <li>Une prise en main (1h)</li>
           <li>1 mois de support</li>
         </ul>
         <div style="background:var(--bg-card);border-radius:var(--radius-card);padding:var(--space-4);border:1px solid var(--border-card);margin:var(--space-4) 0;">
@@ -743,7 +813,7 @@ for (const p of pages) {
   fs.writeFileSync(
     path.join(root, p.file),
     shell(p.title, p.desc, p.og, body, true, rootPrefix),
-    'utf8'
+    'utf8',
   );
   console.log('Wrote', p.file);
 }
