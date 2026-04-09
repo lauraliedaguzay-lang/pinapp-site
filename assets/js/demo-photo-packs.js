@@ -11,9 +11,25 @@
   var qM = '?auto=format&fit=crop&w=1000&q=82';
   var qS = '?auto=format&fit=crop&w=640&q=80';
   var U = 'https://images.unsplash.com/photo-';
+  var L = '/assets/images/demo-packs/';
+
+  function sizeLabelFromTail(tail) {
+    if (!tail || tail === q) return 'w1600';
+    if (tail === qM) return 'w1000';
+    return 'w640';
+  }
+
+  function localPath(id, tail) {
+    return L + id + '-' + sizeLabelFromTail(tail) + '.webp';
+  }
 
   function img(id, tail) {
-    return U + id + (tail || q);
+    // Prefer local pack; keep Unsplash fallback map for missing/404 images.
+    var remote = U + id + (tail || q);
+    var local = localPath(id, tail || q);
+    g.PINAPP_DEMO_PHOTO_FALLBACKS = g.PINAPP_DEMO_PHOTO_FALLBACKS || {};
+    g.PINAPP_DEMO_PHOTO_FALLBACKS[local] = remote;
+    return local;
   }
 
   g.PINAPP_DEMO_PHOTO_PACKS = {
