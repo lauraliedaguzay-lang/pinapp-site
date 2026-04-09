@@ -4,461 +4,359 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Clara Fontaine — Coach ICF Paris — Démo Pinapp Studio</title>
-    <meta name="description" content="Démonstration Pinapp Studio : site premium pour coach certifiée, contenu fictif illustratif." />
-    <meta name="robots" content="index, follow" />
+    <meta name="description" content="Démonstration Pinapp Studio : site premium pour coach, contenu fictif illustratif." />
+    <meta name="robots" content="noindex, nofollow" />
     <link rel="canonical" href="https://pinapp.fr/demo/coach/" />
     <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
-
-    <script>
-      (function () {
-        var s = localStorage.getItem('pinapp-theme') || localStorage.getItem('pinapp-mode');
-        var d = window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches;
-        var m = s === 'light' || s === 'jour' ? 'jour' : s === 'dark' || s === 'nuit' ? 'nuit' : d ? 'nuit' : 'jour';
-        document.documentElement.setAttribute('data-mode', m);
-        document.documentElement.setAttribute('data-theme', m === 'jour' ? 'light' : 'dark');
-        document.addEventListener('DOMContentLoaded', function () {
-          document.body.classList.toggle('mode-jour', m === 'jour');
-        });
-      })();
-    </script>
-
-    <link rel="preload" as="image" href="../../assets/images/demo-pack/coach/hero-mobile.webp" fetchpriority="high" />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=75&w=640&fm=webp" fetchpriority="high" />
 
     <style>
-      :root {
-        --bg: #070912;
-        --text: #ffffff;
-        --text2: rgba(255, 255, 255, 0.72);
-        --text3: rgba(255, 255, 255, 0.5);
-        --teal: #00e5cc;
-        --violet: #7b4fe8;
-        --glass: rgba(255, 255, 255, 0.06);
-        --glass2: rgba(255, 255, 255, 0.035);
-        --border: rgba(255, 255, 255, 0.12);
-        --shadow: 0 24px 60px rgba(0, 0, 0, 0.42);
-        --r: 18px;
-        --pill: 999px;
-        --s1: 8px;
-        --s2: 16px;
-        --s3: 24px;
-        --s4: 32px;
-        --s5: 48px;
+      :root{
+        --bg:#070912;
+        --text:#ffffff;
+        --text2:rgba(255,255,255,0.72);
+        --text3:rgba(255,255,255,0.50);
+        --teal:#00E5CC;
+        --violet:#7B4FE8;
+        --glass:rgba(255,255,255,0.06);
+        --glass2:rgba(255,255,255,0.035);
+        --border:rgba(255,255,255,0.12);
+        --shadow:0 24px 60px rgba(0,0,0,0.42);
+        --r:18px;
+        --pill:999px;
+        --s1:8px;--s2:16px;--s3:24px;--s4:32px;--s5:48px;--s6:64px;
+        --accent:rgba(0,229,204,0.92);
       }
-
-      html {
-        scroll-behavior: auto;
+      html{scroll-behavior:auto;}
+      *{box-sizing:border-box;}
+      body{
+        margin:0;
+        font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+        color:var(--text);
+        background:var(--bg);
+        min-height:100svh;
+        overflow-x:hidden;
       }
-      * {
-        box-sizing: border-box;
-      }
-      body {
-        margin: 0;
-        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-        color: var(--text);
-        background: var(--bg);
-        min-height: 100svh;
-        overflow-x: hidden;
-      }
-
-      body::before {
-        content: '';
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        z-index: 0;
+      body::before{
+        content:'';
+        position:fixed;inset:0;z-index:0;pointer-events:none;
         background:
-          radial-gradient(ellipse 70% 55% at 12% 18%, rgba(0, 229, 204, 0.1), transparent 60%),
-          radial-gradient(ellipse 70% 55% at 86% 12%, rgba(123, 79, 232, 0.12), transparent 62%),
-          radial-gradient(ellipse 120% 85% at 50% 110%, rgba(0, 229, 204, 0.07), transparent 70%),
-          linear-gradient(180deg, rgba(3, 6, 14, 0.92), rgba(2, 6, 12, 0.96));
+          radial-gradient(ellipse 70% 55% at 10% 20%, rgba(123,79,232,0.12), transparent 60%),
+          radial-gradient(ellipse 70% 55% at 85% 15%, rgba(0,229,204,0.10), transparent 62%),
+          radial-gradient(ellipse 80% 60% at 70% 95%, rgba(57,224,117,0.07), transparent 60%),
+          radial-gradient(ellipse 120% 85% at 50% 110%, rgba(0,229,204,0.08), transparent 70%),
+          linear-gradient(180deg, rgba(3,6,14,0.92), rgba(2,6,12,0.96));
       }
+      .demo-banner{
+        position:fixed;top:0;left:0;right:0;z-index:50;
+        height:calc(36px + env(safe-area-inset-top, 0px));
+        padding:env(safe-area-inset-top, 0px) var(--s2) 0;
+        display:flex;align-items:center;justify-content:center;gap:10px;
+        font-size:11px;letter-spacing:0.1em;text-transform:uppercase;
+        color:rgba(255,255,255,0.70);
+        background:rgba(4,8,18,0.82);
+        backdrop-filter:blur(16px) saturate(160%);
+        -webkit-backdrop-filter:blur(16px) saturate(160%);
+        border-bottom:1px solid rgba(255,255,255,0.08);
+      }
+      .live-dot{width:6px;height:6px;border-radius:50%;background:rgba(0,229,204,0.9);animation:live 2s linear infinite;}
+      @keyframes live{0%,100%{opacity:1}50%{opacity:0.3}}
+      main{position:relative;z-index:1;padding-top:calc(36px + env(safe-area-inset-top, 0px));}
+      .container{width:min(1040px,100%);margin:0 auto;padding:0 var(--s2);}
+      .toolbar{
+        position:sticky;top:calc(36px + env(safe-area-inset-top, 0px));
+        z-index:40; padding:10px 0 0;
+      }
+      .toolbar-inner{
+        display:flex;align-items:center;justify-content:space-between;gap:12px;
+        background:rgba(255,255,255,0.04);
+        border:1px solid rgba(255,255,255,0.10);
+        border-radius:999px;
+        padding:8px 10px;
+        backdrop-filter:blur(18px) saturate(160%);
+        -webkit-backdrop-filter:blur(18px) saturate(160%);
+      }
+      .seg{display:inline-flex;gap:6px;align-items:center;}
+      .seg button{
+        border:1px solid rgba(255,255,255,0.12);
+        background:rgba(0,0,0,0.18);
+        color:var(--text);
+        font-size:12px;
+        padding:7px 10px;
+        border-radius:999px;
+        cursor:pointer;
+        touch-action:manipulation;
+      }
+      .seg button[aria-pressed="true"]{
+        border-color:rgba(0,229,204,0.35);
+        background:rgba(0,229,204,0.12);
+      }
+      .brand a{color:var(--teal);text-decoration:none;font-weight:700;font-size:12px;letter-spacing:0.06em;}
+      .viewport{
+        margin-top:12px;
+        border-radius:22px;
+        border:1px solid rgba(255,255,255,0.10);
+        background:rgba(255,255,255,0.03);
+        backdrop-filter:blur(24px) saturate(160%);
+        -webkit-backdrop-filter:blur(24px) saturate(160%);
+        box-shadow:0 24px 90px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.06) inset;
+        overflow:hidden;
+      }
+      .viewport.is-mobile{
+        max-width:430px;
+        margin-left:auto;margin-right:auto;
+        border-radius:34px;
+      }
+      .content{padding:0;}
 
-      body.mode-jour {
-        --bg: #fbf5e8;
-        --text: #1a0a2e;
-        --text2: rgba(26, 10, 46, 0.72);
-        --text3: rgba(26, 10, 46, 0.5);
-        --glass: rgba(255, 255, 255, 0.72);
-        --glass2: rgba(255, 255, 255, 0.5);
-        --border: rgba(26, 10, 46, 0.14);
-        --shadow: 0 24px 60px rgba(26, 10, 46, 0.16);
+      .hero{padding:var(--s5) 0 var(--s4);}
+      .hero-grid{display:grid;gap:18px;grid-template-columns:1fr;}
+      @media (min-width: 900px){.hero-grid{grid-template-columns:1.05fr 0.95fr;align-items:center;}}
+      .kicker{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+      .pill{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:6px 12px;
+        font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.78);
+        border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);
+        backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);
       }
-      body.mode-jour::before {
-        background:
-          radial-gradient(ellipse 70% 55% at 12% 18%, rgba(0, 155, 140, 0.12), transparent 60%),
-          radial-gradient(ellipse 70% 55% at 86% 12%, rgba(91, 63, 216, 0.12), transparent 62%),
-          radial-gradient(ellipse 120% 85% at 50% 110%, rgba(255, 185, 60, 0.14), transparent 70%),
-          linear-gradient(180deg, rgba(253, 240, 243, 0.72), rgba(251, 245, 232, 0.92));
+      h1{margin:0 0 10px;font-weight:500;letter-spacing:-0.03em;line-height:1.05;font-size:clamp(34px,6vw,54px);}
+      .lead{margin:0 0 16px;color:var(--text2);line-height:1.7;font-size:15px;}
+      .cta-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px;}
+      .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;
+        padding:10px 14px;border-radius:999px;font-size:13px;letter-spacing:0.02em;
+        border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);color:var(--text);
+        backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);
       }
+      .btn-primary{border-color:rgba(123,79,232,0.42);background:rgba(123,79,232,0.22);}
+      .btn-secondary{opacity:0.9}
+      .note{margin:12px 0 0;color:var(--text3);font-size:12px;line-height:1.6;}
 
-      .top-demo {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 9999;
-        height: calc(36px + env(safe-area-inset-top, 0px));
-        padding: env(safe-area-inset-top, 0px) 16px 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        font-size: 11px;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.72);
-        background: rgba(4, 8, 18, 0.88);
-        backdrop-filter: blur(18px) saturate(160%);
-        -webkit-backdrop-filter: blur(18px) saturate(160%);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      }
-      body.mode-jour .top-demo {
-        color: rgba(26, 10, 46, 0.62);
-        background: rgba(255, 255, 255, 0.75);
-        border-bottom-color: rgba(26, 10, 46, 0.08);
-      }
-      .dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--teal);
-        opacity: 0.9;
-      }
+      .hero-photo{position:relative;border-radius:var(--r);overflow:hidden;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.03);}
+      .hero-photo img{display:block;width:100%;height:320px;object-fit:cover;}
+      @media (min-width: 900px){.hero-photo img{height:420px;}}
+      .hero-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.42) 100%);pointer-events:none;}
 
-      .wrap {
-        position: relative;
-        z-index: 1;
-        padding: calc(36px + env(safe-area-inset-top, 0px) + var(--s4)) 20px var(--s5);
-        max-width: 1100px;
-        margin: 0 auto;
-      }
+      .section{padding:var(--s4) 0;}
+      .grid{display:grid;gap:12px;grid-template-columns:1fr;}
+      @media (min-width: 900px){.grid{grid-template-columns:repeat(3,1fr);}}
+      .grid-2{display:grid;gap:12px;grid-template-columns:1fr;}
+      @media (min-width: 900px){.grid-2{grid-template-columns:repeat(2,1fr);}}
 
-      .glass {
-        background: linear-gradient(180deg, var(--glass), var(--glass2));
-        border: 1px solid var(--border);
-        border-radius: var(--r);
-        box-shadow: var(--shadow);
-        backdrop-filter: blur(28px) saturate(170%);
-        -webkit-backdrop-filter: blur(28px) saturate(170%);
+      .card{position:relative;background:var(--glass);border:1px solid var(--border);border-radius:var(--r);
+        box-shadow:0 1px 0 rgba(255,255,255,0.08) inset, var(--shadow);
+        backdrop-filter:blur(24px) saturate(160%);-webkit-backdrop-filter:blur(24px) saturate(160%);
+        transform:translateZ(0);overflow:hidden;padding:18px;
       }
+      .card h3{margin:0 0 8px;font-size:16px;letter-spacing:-0.02em;font-weight:600;}
+      .card p{margin:0;color:var(--text2);font-size:13px;line-height:1.65;}
+      .kpi{margin-top:12px;color:rgba(0,229,204,0.88);font-weight:700;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;}
+      .feature-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+      .feature-title{margin:0;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(0,229,204,0.88);}
+      .feature-meta{margin:0;color:var(--text3);font-size:12px;}
+      .subcard{border:1px solid rgba(255,255,255,0.10);border-radius:16px;padding:14px;background:rgba(255,255,255,0.03);}
 
-      .hero {
-        display: grid;
-        gap: var(--s4);
-        grid-template-columns: 1.1fr 0.9fr;
-        align-items: center;
+      .form label{display:block;font-size:12px;color:var(--text2);margin:0 0 6px;}
+      .form input,.form textarea{
+        width:100%;font-size:16px; /* iOS */
+        border-radius:14px;border:1px solid rgba(255,255,255,0.12);
+        background:rgba(0,0,0,0.18);color:var(--text);
+        padding:12px 12px;
       }
-      @media (max-width: 880px) {
-        .hero {
-          grid-template-columns: 1fr;
-        }
-      }
-      .kicker {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-        align-items: center;
-        margin-bottom: var(--s2);
-      }
-      .pill {
-        padding: 7px 10px;
-        border-radius: var(--pill);
-        border: 1px solid var(--border);
-        background: rgba(255, 255, 255, 0.03);
-        font-size: 12px;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        opacity: 0.92;
-      }
-      body.mode-jour .pill {
-        background: rgba(26, 10, 46, 0.04);
-      }
-      h1 {
-        font-family: Georgia, 'Times New Roman', serif;
-        font-weight: 400;
-        letter-spacing: -0.04em;
-        line-height: 1.02;
-        font-size: clamp(38px, 5vw, 72px);
-        margin: 0 0 var(--s2);
-      }
-      .lead {
-        margin: 0 0 var(--s3);
-        color: var(--text2);
-        line-height: 1.55;
-        max-width: 46ch;
-      }
+      .form textarea{min-height:110px;resize:vertical;}
+      .form .row{display:grid;gap:12px;grid-template-columns:1fr;}
+      @media (min-width: 700px){.form .row{grid-template-columns:1fr 1fr;}}
+      .ok{display:none;margin-top:12px;padding:12px 14px;border-radius:14px;border:1px solid rgba(57,224,117,0.30);background:rgba(57,224,117,0.08);color:rgba(255,255,255,0.88);font-size:13px;}
+      footer{padding:var(--s4) 0 var(--s5);color:var(--text3);font-size:12px;}
+      .footer-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;}
+      .back{color:rgba(0,229,204,0.9);text-decoration:none;border-bottom:1px solid rgba(0,229,204,0.25);padding-bottom:2px;}
 
-      .cta-row {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-        align-items: center;
-      }
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 44px;
-        padding: 12px 18px;
-        border-radius: var(--pill);
-        border: 1px solid transparent;
-        font-weight: 600;
-        letter-spacing: 0.02em;
-        text-decoration: none;
-        cursor: pointer;
-        user-select: none;
-        -webkit-tap-highlight-color: transparent;
-      }
-      .btn-primary {
-        background: var(--violet);
-        color: #fff;
-        box-shadow: 0 18px 50px rgba(123, 79, 232, 0.25);
-      }
-      .btn-secondary {
-        background: rgba(255, 255, 255, 0.05);
-        color: var(--text);
-        border-color: var(--border);
-      }
-
-      .mock {
-        padding: 10px;
-        border-radius: 22px;
-      }
-      .mock-inner {
-        border-radius: 16px;
-        overflow: hidden;
-        background: rgba(0, 0, 0, 0.4);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-      }
-      .mock img {
-        display: block;
-        width: 100%;
-        height: auto;
-      }
-
-      .grid3 {
-        margin-top: var(--s4);
-        display: grid;
-        gap: 14px;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-      @media (max-width: 880px) {
-        .grid3 {
-          grid-template-columns: 1fr;
-        }
-      }
-      .card {
-        padding: 16px 16px 14px;
-      }
-      .card h3 {
-        margin: 0 0 6px;
-        font-size: 15px;
-        letter-spacing: -0.02em;
-      }
-      .card p {
-        margin: 0;
-        font-size: 13px;
-        color: var(--text2);
-        line-height: 1.55;
-      }
-
-      .quiz {
-        margin-top: var(--s4);
-        padding: 18px;
-      }
-      .quiz h2 {
-        margin: 0 0 10px;
-        font-size: 18px;
-        letter-spacing: -0.02em;
-      }
-      .q {
-        margin-top: 14px;
-      }
-      .q label {
-        display: block;
-        font-size: 13px;
-        opacity: 0.9;
-        margin-bottom: 8px;
-      }
-      .q .opts {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-      .opt {
-        border-radius: var(--pill);
-        border: 1px solid var(--border);
-        padding: 10px 12px;
-        background: rgba(255, 255, 255, 0.04);
-        color: var(--text);
-        cursor: pointer;
-        min-height: 44px;
-        font-size: 13px;
-      }
-      body.mode-jour .opt {
-        background: rgba(26, 10, 46, 0.04);
-      }
-      .opt[aria-pressed='true'] {
-        border-color: rgba(0, 229, 204, 0.5);
-        box-shadow: 0 0 0 3px rgba(0, 229, 204, 0.12);
-      }
-      .quiz .result {
-        margin-top: 14px;
-        padding: 12px 14px;
-        border-radius: 14px;
-        border: 1px solid var(--border);
-        background: rgba(0, 0, 0, 0.2);
-        color: var(--text2);
-        line-height: 1.55;
-        font-size: 13px;
-      }
-      body.mode-jour .quiz .result {
-        background: rgba(255, 255, 255, 0.6);
-      }
-
-      .footer {
-        margin-top: var(--s5);
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
-        font-size: 12px;
-        color: var(--text3);
-      }
-      .footer a {
-        color: var(--teal);
-        text-decoration: none;
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        * {
-          scroll-behavior: auto !important;
-          transition: none !important;
-          animation: none !important;
-        }
+      @media (prefers-reduced-motion: reduce){
+        *{animation:none !important;transition:none !important;}
       }
     </style>
   </head>
-
   <body>
-    <div class="top-demo" role="note" aria-label="Bandeau de démonstration">
-      <span class="dot" aria-hidden="true"></span>
-      Démonstration Pinapp — contenu fictif illustratif
+    <div class="demo-banner" role="note" aria-label="Bandeau de démonstration">
+      <span class="live-dot" aria-hidden="true"></span>
+      DÉMONSTRATION PINAPP — CONTENU FICTIF ILLUSTRATIF
     </div>
-
-    <div class="wrap">
-      <section class="hero" aria-label="Accueil">
-        <div>
-          <div class="kicker" aria-label="Tags">
-            <span class="pill">Coach · ICF</span>
-            <span class="pill">Paris</span>
-            <span class="pill">Premier contact par écrit</span>
+    <main>
+      <div class="container toolbar" aria-label="Modes de vision (démo)">
+        <div class="toolbar-inner">
+          <div class="seg" role="group" aria-label="Choisir un mode de vision">
+            <button type="button" id="viewWeb" aria-pressed="true">Web</button>
+            <button type="button" id="viewMobile" aria-pressed="false">Mobile</button>
           </div>
-
-          <h1>Vous savez où vous voulez aller.<br />Je vous aide à y arriver.</h1>
-          <p class="lead">
-            Démo d’un site pensé pour une coach : crédibilité, prise de contact rapide, et une synthèse claire à valider.
-            Tout est fictif — juste pour se projeter.
-          </p>
-
-          <div class="cta-row">
-            <a class="btn btn-primary" href="#quiz">Demander une synthèse →</a>
-            <a class="btn btn-secondary" href="/realisations/index.html">Voir d’autres démos</a>
-          </div>
+          <div class="brand"><a href="https://pinapp.fr/" rel="noopener noreferrer">Retour Pinapp Studio</a></div>
         </div>
-
-        <div class="glass mock" aria-label="Aperçu visuel">
-          <div class="mock-inner">
-            <img src="../../assets/images/demo-pack/coach/hero-mobile.webp" alt="" loading="eager" decoding="async" />
-          </div>
-        </div>
-      </section>
-
-      <section class="grid3" aria-label="Offres">
-        <article class="glass card">
-          <h3>Coaching individuel</h3>
-          <p>4 séances mensuelles. Un cap clair et un plan d’action réaliste.</p>
-        </article>
-        <article class="glass card">
-          <h3>Bilan de compétences</h3>
-          <p>3 phases structurées. Vous validez chaque étape, par écrit.</p>
-        </article>
-        <article class="glass card">
-          <h3>Ateliers entreprise</h3>
-          <p>Cohésion, leadership, prise de décision. Format sur mesure.</p>
-        </article>
-      </section>
-
-      <section class="glass quiz" id="quiz" aria-label="Quiz décisionnel">
-        <h2>Mini‑quiz (démo)</h2>
-        <div class="q">
-          <label>Votre objectif principal ?</label>
-          <div class="opts" id="q1">
-            <button class="opt" type="button" data-val="decision">Prise de décision</button>
-            <button class="opt" type="button" data-val="evolution">Évolution pro</button>
-            <button class="opt" type="button" data-val="equilibre">Équilibre</button>
-            <button class="opt" type="button" data-val="autre">Autre</button>
-          </div>
-        </div>
-        <div class="q">
-          <label>Format préféré ?</label>
-          <div class="opts" id="q2">
-            <button class="opt" type="button" data-val="ecrit">D’abord par écrit</button>
-            <button class="opt" type="button" data-val="presentiel">Présentiel</button>
-            <button class="opt" type="button" data-val="mixte">Mixte</button>
-          </div>
-        </div>
-        <div class="result" id="result" aria-live="polite">
-          Choisissez 2 options pour voir une synthèse illustrative (démo).
-        </div>
-      </section>
-
-      <div class="footer" aria-label="Footer">
-        <span>Clara Fontaine — Démo fictive</span>
-        <span><a href="https://pinapp.fr/">Retour Pinapp Studio</a></span>
       </div>
-    </div>
+
+      <div class="container">
+        <div class="viewport" id="viewport">
+          <div class="content">
+            <section class="hero" aria-label="Présentation">
+              <div class="container hero-grid">
+                <div>
+                  <div class="kicker"><span class="pill">COACHING</span><span class="pill">PARIS</span></div>
+                  <h1>Clarifier.
+Décider.
+Avancer.</h1>
+                  <p class="lead">Exemple de site pensé pour une coach : offre lisible, preuve, et demande structurée.
+Tout est fictif — juste pour se projeter.</p>
+                  <div class="cta-row">
+                    <a class="btn btn-primary" href="#contact">Demander une synthèse →</a>
+                    <a class="btn btn-secondary" href="https://pinapp.fr/realisations/" rel="noopener noreferrer">Voir d’autres démos</a>
+                  </div>
+                  <p class="note">Démo : aucune demande n’est transmise. En situation réelle, le formulaire est connecté.</p>
+                </div>
+                <div class="hero-photo" role="img" aria-label="Photo illustrative de coaching">
+                  <img
+                    src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=75&w=640&fm=webp"
+                    srcset="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=75&w=640&fm=webp 640w, https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=75&w=1200&fm=webp 1200w"
+                    sizes="(min-width: 900px) 44vw, 92vw"
+                    alt="Photo illustrative de coaching"
+                    loading="eager"
+                    decoding="async" />
+                </div>
+              </div>
+            </section>
+
+            <section class="section" aria-label="Offre">
+              <div class="container">
+                <div class="grid">
+
+        <article class="card">
+          <h3>Coaching individuel</h3>
+          <p>4 séances mensuelles. Cap clair, plan d’action réaliste.</p>
+          <div class="kpi">1 mois</div>
+        </article>
+
+        <article class="card">
+          <h3>Bilan</h3>
+          <p>Phases structurées. Vous validez chaque étape.</p>
+          <div class="kpi">6 semaines</div>
+        </article>
+
+        <article class="card">
+          <h3>Ateliers</h3>
+          <p>Entreprises. Formats sur mesure.</p>
+          <div class="kpi">Sur devis</div>
+        </article>
+                </div>
+              </div>
+            </section>
+
+
+      <section class="section" aria-label="Estimation (démo)">
+        <div class="container">
+          <div class="card feature">
+            <div class="feature-head">
+              <p class="feature-title">Cadrage (démo)</p>
+              <p class="feature-meta">Vous validez avant tout engagement</p>
+            </div>
+            <div class="slider-row" style="margin-top:14px;">
+              <input id="range" type="range" min="1" max="3" value="2" aria-label="Niveau" />
+              <div><strong id="rangeLabel">Standard</strong></div>
+            </div>
+            <div class="result" aria-live="polite" style="margin-top:10px;">
+              <span style="color: var(--text2)">Ordre de grandeur</span>
+              <strong><span id="price">1</span> </strong>
+            </div>
+            <p class="note">Démo : ordre de grandeur illustratif. En réel : devis écrit, clair, et validé.</p>
+          </div>
+        </div>
+      </section>
+      <script>
+        (function(){
+          var r=document.getElementById('range');
+          var out=document.getElementById('price');
+          var lab=document.getElementById('rangeLabel');
+          if(!r||!out||!lab) return;
+          var base=1;
+          var mults=[1,1,1];
+          var names=['Essentiel','Standard','Premium'];
+          function render(){
+            var i=Math.max(1,Math.min(3,parseInt(r.value||'2',10)))-1;
+            lab.textContent=names[i]||'Standard';
+            var v=Math.round(base*Number(mults[i]||1));
+            out.textContent=String(v).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+          }
+          r.addEventListener('input',render,{passive:true});
+          render();
+        })();
+      </script>
+
+            <section class="section" id="contact" aria-label="Contact (démo)">
+              <div class="container">
+                <div class="card form">
+                  <div class="feature-head">
+                    <p class="feature-title">Demande</p>
+                    <p class="feature-meta">Réponse sous 24 h (exemple)</p>
+                  </div>
+                  <p class="note" style="margin-top:10px;">Démo : ce formulaire ne transmet rien.</p>
+                  <form id="form">
+                    <div class="row" style="margin-top:12px;">
+                      <div>
+                        <label for="name">Nom</label>
+                        <input id="name" name="name" autocomplete="name" />
+                      </div>
+                      <div>
+                        <label for="email">Email</label>
+                        <input id="email" name="email" type="email" autocomplete="email" required />
+                      </div>
+                    </div>
+                    <div style="margin-top:12px;">
+                      <label for="msg">Votre besoin</label>
+                      <textarea id="msg" name="message" placeholder="Ex: créneaux, tarifs, objectifs…"></textarea>
+                    </div>
+                    <div class="cta-row" style="margin-top:12px;">
+                      <button class="btn btn-primary" type="submit">Envoyer →</button>
+                      <a class="btn btn-secondary" href="https://pinapp.fr/" rel="noopener noreferrer">Retour Pinapp Studio</a>
+                    </div>
+                    <div class="ok" id="ok">Reçu. (Démo) En réel, vous recevez une réponse sous 24 h.</div>
+                  </form>
+                </div>
+              </div>
+            </section>
+
+            <footer>
+              <div class="container footer-row">
+                <span>Démo fictive</span>
+                <a class="back" href="https://pinapp.fr/" rel="noopener noreferrer">Retour Pinapp Studio</a>
+              </div>
+            </footer>
+          </div>
+        </div>
+      </div>
+    </main>
 
     <script>
-      (function () {
-        var state = { q1: '', q2: '' };
-        function setPressed(group, btn) {
-          group.querySelectorAll('button').forEach(function (b) {
-            b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+      (function(){
+        var viewport=document.getElementById('viewport');
+        var web=document.getElementById('viewWeb');
+        var mob=document.getElementById('viewMobile');
+        function setMode(m){
+          var isMobile = m==='mobile';
+          viewport.classList.toggle('is-mobile', isMobile);
+          web.setAttribute('aria-pressed', isMobile ? 'false' : 'true');
+          mob.setAttribute('aria-pressed', isMobile ? 'true' : 'false');
+          try { history.replaceState(null,'', location.pathname + (isMobile ? '?view=mobile' : '')); } catch(e){}
+        }
+        web && web.addEventListener('click', function(){ setMode('web'); });
+        mob && mob.addEventListener('click', function(){ setMode('mobile'); });
+        try{
+          if (location.search && /view=mobile/.test(location.search)) setMode('mobile');
+        } catch(e){}
+
+        var form=document.getElementById('form');
+        var ok=document.getElementById('ok');
+        if(form){
+          form.addEventListener('submit', function(e){
+            e.preventDefault();
+            if(ok) ok.style.display='block';
           });
         }
-        function render() {
-          var el = document.getElementById('result');
-          if (!state.q1 || !state.q2) return;
-          var map1 = {
-            decision: 'Décision',
-            evolution: 'Évolution',
-            equilibre: 'Équilibre',
-            autre: 'Clarification',
-          };
-          var map2 = { ecrit: 'par écrit', presentiel: 'en présentiel', mixte: 'mixte' };
-          el.textContent =
-            'Synthèse (démo) : objectif « ' +
-            map1[state.q1] +
-            ' », format ' +
-            map2[state.q2] +
-            '. En situation réelle, cette synthèse est préparée puis validée.';
-        }
-        document.querySelectorAll('#q1 .opt').forEach(function (b) {
-          b.addEventListener('click', function () {
-            state.q1 = b.dataset.val;
-            setPressed(document.getElementById('q1'), b);
-            render();
-          });
-        });
-        document.querySelectorAll('#q2 .opt').forEach(function (b) {
-          b.addEventListener('click', function () {
-            state.q2 = b.dataset.val;
-            setPressed(document.getElementById('q2'), b);
-            render();
-          });
-        });
       })();
     </script>
   </body>
 </html>
-

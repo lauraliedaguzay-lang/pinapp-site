@@ -5,643 +5,357 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Ōkami — Restaurant japonais Paris 6e — Démo Pinapp Studio</title>
     <meta name="description" content="Démonstration Pinapp Studio : site premium pour restaurant, contenu fictif illustratif." />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="noindex, nofollow" />
     <link rel="canonical" href="https://pinapp.fr/demo/restaurant/" />
     <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
-
-    <script>
-      (function () {
-        var s = localStorage.getItem('pinapp-theme') || localStorage.getItem('pinapp-mode');
-        var d = window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches;
-        var m = s === 'light' || s === 'jour' ? 'jour' : s === 'dark' || s === 'nuit' ? 'nuit' : d ? 'nuit' : 'jour';
-        document.documentElement.setAttribute('data-mode', m);
-        document.documentElement.setAttribute('data-theme', m === 'jour' ? 'light' : 'dark');
-        document.addEventListener('DOMContentLoaded', function () {
-          document.body.classList.toggle('mode-jour', m === 'jour');
-        });
-      })();
-    </script>
-
-    <link rel="preload" as="image" href="../../assets/images/demo-pack/restaurant/hero-mobile.webp" fetchpriority="high" />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&q=75&w=640&fm=webp" fetchpriority="high" />
 
     <style>
-      :root {
-        --bg: #070912;
-        --text: #ffffff;
-        --text2: rgba(255, 255, 255, 0.72);
-        --text3: rgba(255, 255, 255, 0.5);
-        --teal: #00e5cc;
-        --violet: #7b4fe8;
-        --green: #39e075;
-        --glass: rgba(255, 255, 255, 0.06);
-        --glass2: rgba(255, 255, 255, 0.035);
-        --border: rgba(255, 255, 255, 0.12);
-        --shadow: 0 24px 60px rgba(0, 0, 0, 0.42);
-        --r: 18px;
-        --pill: 999px;
-        --s1: 8px;
-        --s2: 16px;
-        --s3: 24px;
-        --s4: 32px;
-        --s5: 48px;
+      :root{
+        --bg:#070912;
+        --text:#ffffff;
+        --text2:rgba(255,255,255,0.72);
+        --text3:rgba(255,255,255,0.50);
+        --teal:#00E5CC;
+        --violet:#7B4FE8;
+        --glass:rgba(255,255,255,0.06);
+        --glass2:rgba(255,255,255,0.035);
+        --border:rgba(255,255,255,0.12);
+        --shadow:0 24px 60px rgba(0,0,0,0.42);
+        --r:18px;
+        --pill:999px;
+        --s1:8px;--s2:16px;--s3:24px;--s4:32px;--s5:48px;--s6:64px;
+        --accent:rgba(0,229,204,0.92);
       }
-
-      html {
-        scroll-behavior: auto;
+      html{scroll-behavior:auto;}
+      *{box-sizing:border-box;}
+      body{
+        margin:0;
+        font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+        color:var(--text);
+        background:var(--bg);
+        min-height:100svh;
+        overflow-x:hidden;
       }
-      * {
-        box-sizing: border-box;
-      }
-      body {
-        margin: 0;
-        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-        color: var(--text);
-        background: var(--bg);
-        min-height: 100svh;
-        overflow-x: hidden;
-      }
-
-      body::before {
-        content: '';
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        z-index: 0;
+      body::before{
+        content:'';
+        position:fixed;inset:0;z-index:0;pointer-events:none;
         background:
-          radial-gradient(ellipse 70% 55% at 10% 20%, rgba(123, 79, 232, 0.12), transparent 60%),
-          radial-gradient(ellipse 70% 55% at 85% 15%, rgba(0, 229, 204, 0.1), transparent 62%),
-          radial-gradient(ellipse 80% 60% at 70% 95%, rgba(57, 224, 117, 0.07), transparent 60%),
-          radial-gradient(ellipse 120% 85% at 50% 110%, rgba(0, 229, 204, 0.08), transparent 70%),
-          linear-gradient(180deg, rgba(3, 6, 14, 0.92), rgba(2, 6, 12, 0.96));
+          radial-gradient(ellipse 70% 55% at 10% 20%, rgba(123,79,232,0.12), transparent 60%),
+          radial-gradient(ellipse 70% 55% at 85% 15%, rgba(0,229,204,0.10), transparent 62%),
+          radial-gradient(ellipse 80% 60% at 70% 95%, rgba(57,224,117,0.07), transparent 60%),
+          radial-gradient(ellipse 120% 85% at 50% 110%, rgba(0,229,204,0.08), transparent 70%),
+          linear-gradient(180deg, rgba(3,6,14,0.92), rgba(2,6,12,0.96));
       }
+      .demo-banner{
+        position:fixed;top:0;left:0;right:0;z-index:50;
+        height:calc(36px + env(safe-area-inset-top, 0px));
+        padding:env(safe-area-inset-top, 0px) var(--s2) 0;
+        display:flex;align-items:center;justify-content:center;gap:10px;
+        font-size:11px;letter-spacing:0.1em;text-transform:uppercase;
+        color:rgba(255,255,255,0.70);
+        background:rgba(4,8,18,0.82);
+        backdrop-filter:blur(16px) saturate(160%);
+        -webkit-backdrop-filter:blur(16px) saturate(160%);
+        border-bottom:1px solid rgba(255,255,255,0.08);
+      }
+      .live-dot{width:6px;height:6px;border-radius:50%;background:rgba(0,229,204,0.9);animation:live 2s linear infinite;}
+      @keyframes live{0%,100%{opacity:1}50%{opacity:0.3}}
+      main{position:relative;z-index:1;padding-top:calc(36px + env(safe-area-inset-top, 0px));}
+      .container{width:min(1040px,100%);margin:0 auto;padding:0 var(--s2);}
+      .toolbar{
+        position:sticky;top:calc(36px + env(safe-area-inset-top, 0px));
+        z-index:40; padding:10px 0 0;
+      }
+      .toolbar-inner{
+        display:flex;align-items:center;justify-content:space-between;gap:12px;
+        background:rgba(255,255,255,0.04);
+        border:1px solid rgba(255,255,255,0.10);
+        border-radius:999px;
+        padding:8px 10px;
+        backdrop-filter:blur(18px) saturate(160%);
+        -webkit-backdrop-filter:blur(18px) saturate(160%);
+      }
+      .seg{display:inline-flex;gap:6px;align-items:center;}
+      .seg button{
+        border:1px solid rgba(255,255,255,0.12);
+        background:rgba(0,0,0,0.18);
+        color:var(--text);
+        font-size:12px;
+        padding:7px 10px;
+        border-radius:999px;
+        cursor:pointer;
+        touch-action:manipulation;
+      }
+      .seg button[aria-pressed="true"]{
+        border-color:rgba(0,229,204,0.35);
+        background:rgba(0,229,204,0.12);
+      }
+      .brand a{color:var(--teal);text-decoration:none;font-weight:700;font-size:12px;letter-spacing:0.06em;}
+      .viewport{
+        margin-top:12px;
+        border-radius:22px;
+        border:1px solid rgba(255,255,255,0.10);
+        background:rgba(255,255,255,0.03);
+        backdrop-filter:blur(24px) saturate(160%);
+        -webkit-backdrop-filter:blur(24px) saturate(160%);
+        box-shadow:0 24px 90px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.06) inset;
+        overflow:hidden;
+      }
+      .viewport.is-mobile{
+        max-width:430px;
+        margin-left:auto;margin-right:auto;
+        border-radius:34px;
+      }
+      .content{padding:0;}
 
-      body.mode-jour {
-        --bg: #fbf6ea;
-        --text: #1a0a2e;
-        --text2: rgba(26, 10, 46, 0.72);
-        --text3: rgba(26, 10, 46, 0.48);
-        --glass: rgba(255, 255, 255, 0.72);
-        --glass2: rgba(255, 255, 255, 0.56);
-        --border: rgba(26, 10, 46, 0.14);
-        --shadow: 0 24px 60px rgba(26, 10, 46, 0.12);
+      .hero{padding:var(--s5) 0 var(--s4);}
+      .hero-grid{display:grid;gap:18px;grid-template-columns:1fr;}
+      @media (min-width: 900px){.hero-grid{grid-template-columns:1.05fr 0.95fr;align-items:center;}}
+      .kicker{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+      .pill{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:6px 12px;
+        font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.78);
+        border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);
+        backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);
       }
-      body.mode-jour::before {
-        background:
-          radial-gradient(ellipse 70% 55% at 15% 15%, rgba(255, 218, 150, 0.22), transparent 60%),
-          radial-gradient(ellipse 80% 60% at 80% 20%, rgba(91, 63, 216, 0.12), transparent 62%),
-          radial-gradient(ellipse 70% 55% at 35% 85%, rgba(0, 155, 140, 0.11), transparent 60%),
-          linear-gradient(180deg, rgba(251, 246, 234, 0.92), rgba(247, 244, 236, 0.96));
+      h1{margin:0 0 10px;font-weight:500;letter-spacing:-0.03em;line-height:1.05;font-size:clamp(34px,6vw,54px);}
+      .lead{margin:0 0 16px;color:var(--text2);line-height:1.7;font-size:15px;}
+      .cta-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px;}
+      .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;
+        padding:10px 14px;border-radius:999px;font-size:13px;letter-spacing:0.02em;
+        border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);color:var(--text);
+        backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);
       }
+      .btn-primary{border-color:rgba(123,79,232,0.42);background:rgba(123,79,232,0.22);}
+      .btn-secondary{opacity:0.9}
+      .note{margin:12px 0 0;color:var(--text3);font-size:12px;line-height:1.6;}
 
-      .wrap {
-        position: relative;
-        z-index: 1;
-        max-width: 1100px;
-        margin: 0 auto;
-        padding: 64px 20px 80px;
-      }
+      .hero-photo{position:relative;border-radius:var(--r);overflow:hidden;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.03);}
+      .hero-photo img{display:block;width:100%;height:320px;object-fit:cover;}
+      @media (min-width: 900px){.hero-photo img{height:420px;}}
+      .hero-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.42) 100%);pointer-events:none;}
 
-      .banner {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 36px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        z-index: 10;
-        font-size: 11px;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.72);
-        background: rgba(4, 8, 18, 0.72);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(18px) saturate(160%);
-        -webkit-backdrop-filter: blur(18px) saturate(160%);
-      }
-      body.mode-jour .banner {
-        color: rgba(26, 10, 46, 0.6);
-        background: rgba(255, 255, 255, 0.7);
-        border-bottom-color: rgba(26, 10, 46, 0.08);
-      }
-      .dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 99px;
-        background: var(--teal);
-        opacity: 0.9;
-      }
+      .section{padding:var(--s4) 0;}
+      .grid{display:grid;gap:12px;grid-template-columns:1fr;}
+      @media (min-width: 900px){.grid{grid-template-columns:repeat(3,1fr);}}
+      .grid-2{display:grid;gap:12px;grid-template-columns:1fr;}
+      @media (min-width: 900px){.grid-2{grid-template-columns:repeat(2,1fr);}}
 
-      .hero {
-        padding-top: 36px;
-        display: grid;
-        grid-template-columns: 1.2fr 0.8fr;
-        gap: 28px;
-        align-items: center;
+      .card{position:relative;background:var(--glass);border:1px solid var(--border);border-radius:var(--r);
+        box-shadow:0 1px 0 rgba(255,255,255,0.08) inset, var(--shadow);
+        backdrop-filter:blur(24px) saturate(160%);-webkit-backdrop-filter:blur(24px) saturate(160%);
+        transform:translateZ(0);overflow:hidden;padding:18px;
       }
-      @media (max-width: 900px) {
-        .hero {
-          grid-template-columns: 1fr;
-        }
-      }
+      .card h3{margin:0 0 8px;font-size:16px;letter-spacing:-0.02em;font-weight:600;}
+      .card p{margin:0;color:var(--text2);font-size:13px;line-height:1.65;}
+      .kpi{margin-top:12px;color:rgba(0,229,204,0.88);font-weight:700;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;}
+      .feature-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+      .feature-title{margin:0;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(0,229,204,0.88);}
+      .feature-meta{margin:0;color:var(--text3);font-size:12px;}
+      .subcard{border:1px solid rgba(255,255,255,0.10);border-radius:16px;padding:14px;background:rgba(255,255,255,0.03);}
 
-      .chips {
-        display: inline-flex;
-        gap: 8px;
-        flex-wrap: wrap;
-        margin-bottom: 10px;
+      .form label{display:block;font-size:12px;color:var(--text2);margin:0 0 6px;}
+      .form input,.form textarea{
+        width:100%;font-size:16px; /* iOS */
+        border-radius:14px;border:1px solid rgba(255,255,255,0.12);
+        background:rgba(0,0,0,0.18);color:var(--text);
+        padding:12px 12px;
       }
-      .chip {
-        font-size: 11px;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        padding: 7px 10px;
-        border-radius: var(--pill);
-        border: 1px solid var(--border);
-        background: var(--glass2);
-        backdrop-filter: blur(18px) saturate(160%);
-        -webkit-backdrop-filter: blur(18px) saturate(160%);
-      }
+      .form textarea{min-height:110px;resize:vertical;}
+      .form .row{display:grid;gap:12px;grid-template-columns:1fr;}
+      @media (min-width: 700px){.form .row{grid-template-columns:1fr 1fr;}}
+      .ok{display:none;margin-top:12px;padding:12px 14px;border-radius:14px;border:1px solid rgba(57,224,117,0.30);background:rgba(57,224,117,0.08);color:rgba(255,255,255,0.88);font-size:13px;}
+      footer{padding:var(--s4) 0 var(--s5);color:var(--text3);font-size:12px;}
+      .footer-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;}
+      .back{color:rgba(0,229,204,0.9);text-decoration:none;border-bottom:1px solid rgba(0,229,204,0.25);padding-bottom:2px;}
 
-      h1 {
-        font-family: Georgia, 'Times New Roman', serif;
-        font-weight: 400;
-        letter-spacing: -0.04em;
-        line-height: 1.04;
-        margin: 0 0 12px;
-        font-size: clamp(40px, 6vw, 70px);
-      }
-
-      .lead {
-        margin: 0 0 16px;
-        color: var(--text2);
-        font-size: 14px;
-        line-height: 1.7;
-        max-width: 54ch;
-      }
-
-      .actions {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-        margin-top: 14px;
-      }
-      .btn {
-        appearance: none;
-        border: none;
-        border-radius: var(--pill);
-        padding: 12px 16px;
-        min-height: 44px;
-        font-size: 14px;
-        font-weight: 600;
-        letter-spacing: 0.02em;
-        cursor: pointer;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-      }
-      .btn-primary {
-        background: var(--violet);
-        color: #fff;
-        box-shadow: 0 0 26px rgba(123, 79, 232, 0.32);
-      }
-      .btn-ghost {
-        background: var(--glass);
-        border: 1px solid var(--border);
-        color: var(--text);
-        backdrop-filter: blur(20px) saturate(160%);
-        -webkit-backdrop-filter: blur(20px) saturate(160%);
-      }
-
-      .hero-card {
-        border: 1px solid var(--border);
-        border-radius: 20px;
-        background: var(--glass);
-        box-shadow: var(--shadow);
-        overflow: hidden;
-        backdrop-filter: blur(26px) saturate(170%);
-        -webkit-backdrop-filter: blur(26px) saturate(170%);
-      }
-      .hero-img {
-        width: 100%;
-        height: 240px;
-        object-fit: cover;
-        display: block;
-        filter: saturate(1.05) contrast(1.05);
-      }
-      .hero-card .meta {
-        padding: 14px 16px;
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-        font-size: 12px;
-        color: var(--text2);
-      }
-
-      .grid3 {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 12px;
-        margin-top: 18px;
-      }
-      @media (max-width: 900px) {
-        .grid3 {
-          grid-template-columns: 1fr;
-        }
-      }
-      .card {
-        border: 1px solid var(--border);
-        border-radius: 18px;
-        background: var(--glass);
-        box-shadow: var(--shadow);
-        padding: 14px 14px 12px;
-        backdrop-filter: blur(26px) saturate(170%);
-        -webkit-backdrop-filter: blur(26px) saturate(170%);
-      }
-      .card h3 {
-        margin: 0 0 6px;
-        font-size: 13px;
-        font-weight: 700;
-      }
-      .card p {
-        margin: 0;
-        font-size: 12px;
-        line-height: 1.6;
-        color: var(--text2);
-      }
-      .card .k {
-        margin-top: 8px;
-        font-size: 12px;
-        color: var(--teal);
-        font-weight: 700;
-      }
-
-      .feature {
-        margin-top: 16px;
-        border: 1px solid var(--border);
-        border-radius: 20px;
-        background: var(--glass);
-        box-shadow: var(--shadow);
-        padding: 16px;
-        backdrop-filter: blur(28px) saturate(170%);
-        -webkit-backdrop-filter: blur(28px) saturate(170%);
-      }
-      .feature-top {
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
-        align-items: baseline;
-        flex-wrap: wrap;
-      }
-      .feature h2 {
-        margin: 0;
-        font-size: 14px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--teal);
-      }
-      .feature .sub {
-        margin-top: 8px;
-        color: var(--text2);
-        font-size: 13px;
-        line-height: 1.6;
-      }
-
-      .plan {
-        margin-top: 14px;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-      }
-      @media (max-width: 900px) {
-        .plan {
-          grid-template-columns: 1fr;
-        }
-      }
-      .svgwrap {
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        background: rgba(0, 0, 0, 0.2);
-        overflow: hidden;
-        padding: 10px;
-      }
-      body.mode-jour .svgwrap {
-        background: rgba(26, 10, 46, 0.04);
-      }
-      .hint {
-        font-size: 12px;
-        color: var(--text3);
-        margin-top: 10px;
-      }
-      .toast {
-        display: none;
-        margin-top: 10px;
-        padding: 10px 12px;
-        border-radius: 14px;
-        border: 1px solid var(--border);
-        background: var(--glass2);
-        color: var(--text2);
-        font-size: 12px;
-      }
-      .toast.show {
-        display: block;
-      }
-
-      .form {
-        margin-top: 18px;
-        border: 1px solid var(--border);
-        border-radius: 20px;
-        background: var(--glass);
-        box-shadow: var(--shadow);
-        padding: 16px;
-        backdrop-filter: blur(28px) saturate(170%);
-        -webkit-backdrop-filter: blur(28px) saturate(170%);
-      }
-      .form h2 {
-        margin: 0 0 8px;
-        font-size: 14px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--teal);
-      }
-      label {
-        display: block;
-        font-size: 12px;
-        color: var(--text2);
-        margin: 10px 0 6px;
-      }
-      input,
-      textarea {
-        width: 100%;
-        font-size: 16px;
-        border-radius: 14px;
-        border: 1px solid var(--border);
-        background: rgba(255, 255, 255, 0.04);
-        color: var(--text);
-        padding: 12px 12px;
-        outline: none;
-      }
-      body.mode-jour input,
-      body.mode-jour textarea {
-        background: rgba(255, 255, 255, 0.75);
-        color: #1a0a2e;
-      }
-      textarea {
-        min-height: 88px;
-        resize: vertical;
-      }
-      .row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-      }
-      @media (max-width: 900px) {
-        .row {
-          grid-template-columns: 1fr;
-        }
-      }
-      .fine {
-        font-size: 11px;
-        color: var(--text3);
-        margin-top: 10px;
-        line-height: 1.6;
-      }
-
-      footer {
-        margin-top: 22px;
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
-        flex-wrap: wrap;
-        color: var(--text3);
-        font-size: 12px;
-      }
-      footer a {
-        color: var(--teal);
-        text-decoration: none;
-        font-weight: 700;
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        * {
-          scroll-behavior: auto !important;
-          transition: none !important;
-          animation: none !important;
-        }
+      @media (prefers-reduced-motion: reduce){
+        *{animation:none !important;transition:none !important;}
       }
     </style>
   </head>
   <body>
-    <div class="banner" role="note" aria-label="Bandeau de démonstration">
-      <span class="dot" aria-hidden="true"></span>
+    <div class="demo-banner" role="note" aria-label="Bandeau de démonstration">
+      <span class="live-dot" aria-hidden="true"></span>
       DÉMONSTRATION PINAPP — CONTENU FICTIF ILLUSTRATIF
     </div>
-
-    <div class="wrap">
-      <section class="hero" aria-label="Présentation">
-        <div>
-          <div class="chips" aria-label="Contexte">
-            <span class="chip">Restaurant</span>
-            <span class="chip">Paris 6e</span>
+    <main>
+      <div class="container toolbar" aria-label="Modes de vision (démo)">
+        <div class="toolbar-inner">
+          <div class="seg" role="group" aria-label="Choisir un mode de vision">
+            <button type="button" id="viewWeb" aria-pressed="true">Web</button>
+            <button type="button" id="viewMobile" aria-pressed="false">Mobile</button>
           </div>
-          <h1>Une table.<br />Un moment.</h1>
-          <p class="lead">
-            Exemple de site pensé pour un restaurant : réservation claire, preuves, et une expérience mobile qui donne envie.
-            Tout est fictif — juste pour se projeter.
-          </p>
-          <div class="actions">
-            <a class="btn btn-primary" href="#contact">Réserver ce soir →</a>
-            <a class="btn btn-ghost" href="/realisations/index.html">Voir d’autres démos</a>
-          </div>
-          <p class="fine">Démo : aucune demande n’est transmise. En situation réelle, le formulaire est connecté.</p>
+          <div class="brand"><a href="https://pinapp.fr/" rel="noopener noreferrer">Retour Pinapp Studio</a></div>
         </div>
+      </div>
 
-        <div class="hero-card" aria-label="Aperçu">
-          <img
-            class="hero-img"
-            src="../../assets/images/demo-pack/restaurant/hero-mobile.webp"
-            alt="Aperçu visuel de la démonstration restaurant"
-            loading="eager"
-            decoding="async" />
-          <div class="meta">
-            <span>Ōkami — restaurant japonais</span>
-            <span style="color: var(--teal)">Réservation</span>
-          </div>
-        </div>
-      </section>
+      <div class="container">
+        <div class="viewport" id="viewport">
+          <div class="content">
+            <section class="hero" aria-label="Présentation">
+              <div class="container hero-grid">
+                <div>
+                  <div class="kicker"><span class="pill">RESTAURANT</span><span class="pill">PARIS 6E</span></div>
+                  <h1>Une table.
+Un moment.</h1>
+                  <p class="lead">Exemple de site pensé pour un restaurant : réservation claire, preuves, et une expérience mobile qui donne envie.
+Tout est fictif — juste pour se projeter.</p>
+                  <div class="cta-row">
+                    <a class="btn btn-primary" href="#contact">Réserver ce soir →</a>
+                    <a class="btn btn-secondary" href="https://pinapp.fr/realisations/" rel="noopener noreferrer">Voir d’autres démos</a>
+                  </div>
+                  <p class="note">Démo : aucune demande n’est transmise. En situation réelle, le formulaire est connecté.</p>
+                </div>
+                <div class="hero-photo" role="img" aria-label="Photo illustrative de restaurant">
+                  <img
+                    src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&q=75&w=640&fm=webp"
+                    srcset="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&q=75&w=640&fm=webp 640w, https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&q=75&w=1200&fm=webp 1200w"
+                    sizes="(min-width: 900px) 44vw, 92vw"
+                    alt="Photo illustrative de restaurant"
+                    loading="eager"
+                    decoding="async" />
+                </div>
+              </div>
+            </section>
 
-      <section class="grid3" aria-label="Offre">
+            <section class="section" aria-label="Offre">
+              <div class="container">
+                <div class="grid">
+
         <article class="card">
           <h3>Menu déjeuner</h3>
           <p>Entrée + plat + dessert. Midi en semaine.</p>
-          <div class="k">35€</div>
+          <div class="kpi">35€</div>
         </article>
+
         <article class="card">
           <h3>Menu dégustation</h3>
-          <p>7 temps. Accords mets & sakés.</p>
-          <div class="k">75€</div>
+          <p>7 temps. Accords mets &amp; sakés.</p>
+          <div class="kpi">75€</div>
         </article>
+
         <article class="card">
           <h3>Privatisation</h3>
           <p>Événements, entreprises, anniversaires.</p>
-          <div class="k">Sur devis</div>
+          <div class="kpi">Sur devis</div>
         </article>
-      </section>
+                </div>
+              </div>
+            </section>
 
-      <section class="feature" aria-label="Feature interactive">
-        <div class="feature-top">
-          <h2>Plan de salle</h2>
-          <div class="hint">Cliquez une table pour simuler une réservation.</div>
-        </div>
-        <p class="sub">
-          Ici, la réservation se fait sans friction. Dans la vraie vie : confirmation automatique, rappel, et
-          notifications utiles.
-        </p>
 
-        <div class="plan">
-          <div class="svgwrap" aria-label="Plan de salle interactif">
-            <svg
-              viewBox="0 0 320 220"
-              width="100%"
-              height="220"
-              role="img"
-              aria-label="Plan de salle : tables libres et occupées"
-              style="display: block; border-radius: 14px">
-              <defs>
-                <radialGradient id="g1" cx="30%" cy="30%" r="70%">
-                  <stop offset="0%" stop-color="rgba(0,229,204,0.22)" />
-                  <stop offset="100%" stop-color="rgba(0,229,204,0.06)" />
-                </radialGradient>
-                <radialGradient id="g2" cx="30%" cy="30%" r="70%">
-                  <stop offset="0%" stop-color="rgba(123,79,232,0.22)" />
-                  <stop offset="100%" stop-color="rgba(123,79,232,0.06)" />
-                </radialGradient>
-              </defs>
-              <rect x="8" y="8" width="304" height="204" rx="18" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" />
-              <g id="tables"></g>
-              <text x="20" y="34" fill="rgba(255,255,255,0.45)" font-size="11" letter-spacing="2">SALLE</text>
-            </svg>
-          </div>
-          <div>
-            <div class="toast" id="toast" role="status" aria-live="polite"></div>
-            <p class="fine">
-              Démo : on simule l’état “libre / occupée”. En production, vous paramétrez le vrai système (créneaux,
-              capacité, relances no‑show).
-            </p>
+      <section class="section" aria-label="Estimation (démo)">
+        <div class="container">
+          <div class="card feature">
+            <div class="feature-head">
+              <p class="feature-title">Organisation (démo)</p>
+              <p class="feature-meta">Vous validez avant tout engagement</p>
+            </div>
+            <div class="slider-row" style="margin-top:14px;">
+              <input id="range" type="range" min="1" max="3" value="2" aria-label="Niveau" />
+              <div><strong id="rangeLabel">Standard</strong></div>
+            </div>
+            <div class="result" aria-live="polite" style="margin-top:10px;">
+              <span style="color: var(--text2)">Ordre de grandeur</span>
+              <strong><span id="price">1</span> </strong>
+            </div>
+            <p class="note">Démo : ordre de grandeur illustratif. En réel : devis écrit, clair, et validé.</p>
           </div>
         </div>
       </section>
+      <script>
+        (function(){
+          var r=document.getElementById('range');
+          var out=document.getElementById('price');
+          var lab=document.getElementById('rangeLabel');
+          if(!r||!out||!lab) return;
+          var base=1;
+          var mults=[1,1,1];
+          var names=['Essentiel','Standard','Premium'];
+          function render(){
+            var i=Math.max(1,Math.min(3,parseInt(r.value||'2',10)))-1;
+            lab.textContent=names[i]||'Standard';
+            var v=Math.round(base*Number(mults[i]||1));
+            out.textContent=String(v).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+          }
+          r.addEventListener('input',render,{passive:true});
+          render();
+        })();
+      </script>
 
-      <section class="form" id="contact" aria-label="Réservation (démo)">
-        <h2>Réserver</h2>
-        <p class="lead" style="margin: 0 0 10px; font-size: 13px">Démo : ce formulaire ne transmet rien.</p>
-        <div class="row">
-          <div>
-            <label for="nom">Nom</label>
-            <input id="nom" name="nom" autocomplete="name" />
-          </div>
-          <div>
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" autocomplete="email" />
+            <section class="section" id="contact" aria-label="Contact (démo)">
+              <div class="container">
+                <div class="card form">
+                  <div class="feature-head">
+                    <p class="feature-title">Réservation (démo)</p>
+                    <p class="feature-meta">Réponse sous 24 h (exemple)</p>
+                  </div>
+                  <p class="note" style="margin-top:10px;">Démo : ce formulaire ne transmet rien.</p>
+                  <form id="form">
+                    <div class="row" style="margin-top:12px;">
+                      <div>
+                        <label for="name">Nom</label>
+                        <input id="name" name="name" autocomplete="name" />
+                      </div>
+                      <div>
+                        <label for="email">Email</label>
+                        <input id="email" name="email" type="email" autocomplete="email" required />
+                      </div>
+                    </div>
+                    <div style="margin-top:12px;">
+                      <label for="msg">Votre besoin</label>
+                      <textarea id="msg" name="message" placeholder="Ex: 2 personnes, 19h30, allergie…"></textarea>
+                    </div>
+                    <div class="cta-row" style="margin-top:12px;">
+                      <button class="btn btn-primary" type="submit">Envoyer →</button>
+                      <a class="btn btn-secondary" href="https://pinapp.fr/" rel="noopener noreferrer">Retour Pinapp Studio</a>
+                    </div>
+                    <div class="ok" id="ok">Reçu. (Démo) En réel, vous recevez une réponse sous 24 h.</div>
+                  </form>
+                </div>
+              </div>
+            </section>
+
+            <footer>
+              <div class="container footer-row">
+                <span>Démo fictive</span>
+                <a class="back" href="https://pinapp.fr/" rel="noopener noreferrer">Retour Pinapp Studio</a>
+              </div>
+            </footer>
           </div>
         </div>
-        <label for="message">Demande</label>
-        <textarea id="message" name="message" placeholder="Ex : 2 personnes, ce soir 19h30…"></textarea>
-        <div class="actions" style="margin-top: 12px">
-          <button class="btn btn-primary" type="button" id="sendBtn">Envoyer →</button>
-          <a class="btn btn-ghost" href="https://pinapp.fr/">Retour Pinapp Studio</a>
-        </div>
-        <p class="fine">En situation réelle : confirmation automatique + rappel + suivi avis après la visite.</p>
-      </section>
-
-      <footer aria-label="Footer démo">
-        <span>Ōkami — Démo fictive</span>
-        <a href="https://pinapp.fr/">Pinapp Studio</a>
-      </footer>
-    </div>
+      </div>
+    </main>
 
     <script>
-      (function () {
-        var tables = [
-          { id: 't1', x: 54, y: 68, r: 18, cap: 2, libre: true, g: 'g1' },
-          { id: 't2', x: 112, y: 68, r: 18, cap: 2, libre: false, g: 'g2' },
-          { id: 't3', x: 170, y: 68, r: 22, cap: 4, libre: true, g: 'g1' },
-          { id: 't4', x: 236, y: 68, r: 22, cap: 4, libre: true, g: 'g1' },
-          { id: 't5', x: 78, y: 132, r: 24, cap: 6, libre: true, g: 'g1' },
-          { id: 't6', x: 160, y: 132, r: 24, cap: 6, libre: false, g: 'g2' },
-          { id: 't7', x: 242, y: 132, r: 24, cap: 6, libre: true, g: 'g1' },
-          { id: 't8', x: 74, y: 182, r: 18, cap: 2, libre: true, g: 'g1' },
-          { id: 't9', x: 132, y: 182, r: 18, cap: 2, libre: false, g: 'g2' },
-          { id: 't10', x: 216, y: 182, r: 26, cap: 8, libre: true, g: 'g1' },
-        ];
-
-        function el(name) {
-          return document.createElementNS('http://www.w3.org/2000/svg', name);
+      (function(){
+        var viewport=document.getElementById('viewport');
+        var web=document.getElementById('viewWeb');
+        var mob=document.getElementById('viewMobile');
+        function setMode(m){
+          var isMobile = m==='mobile';
+          viewport.classList.toggle('is-mobile', isMobile);
+          web.setAttribute('aria-pressed', isMobile ? 'false' : 'true');
+          mob.setAttribute('aria-pressed', isMobile ? 'true' : 'false');
+          try { history.replaceState(null,'', location.pathname + (isMobile ? '?view=mobile' : '')); } catch(e){}
         }
+        web && web.addEventListener('click', function(){ setMode('web'); });
+        mob && mob.addEventListener('click', function(){ setMode('mobile'); });
+        try{
+          if (location.search && /view=mobile/.test(location.search)) setMode('mobile');
+        } catch(e){}
 
-        var g = document.getElementById('tables');
-        if (!g) return;
-
-        function render() {
-          g.innerHTML = '';
-          tables.forEach(function (t) {
-            var c = el('circle');
-            c.setAttribute('cx', t.x);
-            c.setAttribute('cy', t.y);
-            c.setAttribute('r', t.r);
-            c.setAttribute('fill', 'url(#' + (t.libre ? 'g1' : 'g2') + ')');
-            c.setAttribute('stroke', t.libre ? 'rgba(0,229,204,0.55)' : 'rgba(123,79,232,0.55)');
-            c.setAttribute('stroke-width', '1.2');
-            c.style.cursor = 'pointer';
-
-            var txt = el('text');
-            txt.setAttribute('x', t.x);
-            txt.setAttribute('y', t.y + 4);
-            txt.setAttribute('text-anchor', 'middle');
-            txt.setAttribute('font-size', '10');
-            txt.setAttribute('fill', 'rgba(255,255,255,0.85)');
-            txt.textContent = t.cap;
-
-            c.addEventListener('click', function () {
-              var toast = document.getElementById('toast');
-              if (!toast) return;
-              if (!t.libre) {
-                toast.textContent = 'Table déjà occupée — choisissez une autre table.';
-              } else {
-                t.libre = false;
-                toast.textContent = 'Table réservée (démo). Confirmation envoyée automatiquement.';
-              }
-              toast.classList.add('show');
-              render();
-              setTimeout(function () {
-                toast.classList.remove('show');
-              }, 2200);
-            });
-
-            g.appendChild(c);
-            g.appendChild(txt);
+        var form=document.getElementById('form');
+        var ok=document.getElementById('ok');
+        if(form){
+          form.addEventListener('submit', function(e){
+            e.preventDefault();
+            if(ok) ok.style.display='block';
           });
         }
-
-        render();
-
-        var sendBtn = document.getElementById('sendBtn');
-        sendBtn &&
-          sendBtn.addEventListener('click', function () {
-            var toast = document.getElementById('toast');
-            if (!toast) return;
-            toast.textContent = 'Démo : message simulé. En production, la demande est envoyée et suivie.';
-            toast.classList.add('show');
-            setTimeout(function () {
-              toast.classList.remove('show');
-            }, 2200);
-          });
       })();
     </script>
   </body>
 </html>
-
