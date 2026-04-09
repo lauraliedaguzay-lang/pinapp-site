@@ -31,13 +31,13 @@
   min-height: 100vh;
   background: var(--tat-ink);
   color: var(--tat-text);
-  font-family: "Syne", system-ui, sans-serif;
+  font-family: 'Syne', system-ui, sans-serif;
   overflow-x: hidden;
   position: relative;
 }
 
 .tat-page::before {
-  content: "";
+  content: '';
   position: fixed;
   inset: -20%;
   background:
@@ -50,9 +50,18 @@
 }
 
 @keyframes tat-mesh {
-  0% { transform: translate(0, 0) scale(1); opacity: 1; }
-  50% { transform: translate(-3%, 2%) scale(1.05); opacity: 0.92; }
-  100% { transform: translate(2%, -2%) scale(1.02); opacity: 1; }
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-3%, 2%) scale(1.05);
+    opacity: 0.92;
+  }
+  100% {
+    transform: translate(2%, -2%) scale(1.02);
+    opacity: 1;
+  }
 }
 
 .tat-noise {
@@ -66,11 +75,21 @@
 }
 
 @keyframes tat-noise-shift {
-  0% { transform: translate(0, 0); }
-  25% { transform: translate(-2%, 1%); }
-  50% { transform: translate(1%, -1%); }
-  75% { transform: translate(-1%, 2%); }
-  100% { transform: translate(0, 0); }
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-2%, 1%);
+  }
+  50% {
+    transform: translate(1%, -1%);
+  }
+  75% {
+    transform: translate(-1%, 2%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
 }
 
 .tat-ink-layer {
@@ -96,9 +115,16 @@
 }
 
 @keyframes tat-blob {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  33% { transform: translate(8vw, 5vh) rotate(120deg); }
-  66% { transform: translate(-5vw, 8vh) rotate(240deg); }
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate(8vw, 5vh) rotate(120deg);
+  }
+  66% {
+    transform: translate(-5vw, 8vh) rotate(240deg);
+  }
 }
 
 .tat-spotlight {
@@ -120,11 +146,7 @@
   inset: 0;
   z-index: 3;
   pointer-events: none;
-  background: radial-gradient(
-    ellipse 72% 62% at 50% 42%,
-    transparent 0%,
-    rgba(0, 0, 0, 0.5) 100%
-  );
+  background: radial-gradient(ellipse 72% 62% at 50% 42%, transparent 0%, rgba(0, 0, 0, 0.5) 100%);
 }
 
 .tat-sparks span {
@@ -132,8 +154,10 @@
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.92);
-  box-shadow: 0 0 10px rgba(212, 165, 116, 0.9), 0 0 20px rgba(139, 21, 56, 0.5);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow:
+    0 0 10px rgba(212, 165, 116, 0.9),
+    0 0 20px rgba(139, 21, 56, 0.5);
   animation: tat-spark 5s ease-in-out infinite;
   opacity: 0;
 }
@@ -187,8 +211,15 @@
 }
 
 @keyframes tat-pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.85); }
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.85);
+  }
 }
 
 .tat-main {
@@ -236,7 +267,7 @@
 }
 
 .tat-hero h1 {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(3.2rem, 14vw, 7.5rem);
   line-height: 0.95;
   letter-spacing: 0.02em;
@@ -253,18 +284,30 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: tat-shimmer 5s linear infinite, tat-fade-up 1s ease 0.1s both;
+  animation:
+    tat-shimmer 5s linear infinite,
+    tat-fade-up 1s ease 0.1s both;
   filter: drop-shadow(0 0 40px rgba(139, 21, 56, 0.35));
 }
 
 @keyframes tat-shimmer {
-  0% { background-position: 0% center; }
-  100% { background-position: 200% center; }
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
 }
 
 @keyframes tat-fade-up {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .tat-hero-sub {
@@ -297,7 +340,9 @@
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .tat-btn--primary {
@@ -311,12 +356,23 @@
 }
 
 @keyframes tat-cta-glow {
-  0%, 100% { box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1) inset, 0 4px 24px rgba(139, 21, 56, 0.45), 0 0 60px rgba(107, 33, 168, 0.25); }
-  50% { box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15) inset, 0 6px 32px rgba(139, 21, 56, 0.6), 0 0 80px rgba(13, 148, 136, 0.2); }
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+      0 4px 24px rgba(139, 21, 56, 0.45),
+      0 0 60px rgba(107, 33, 168, 0.25);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.15) inset,
+      0 6px 32px rgba(139, 21, 56, 0.6),
+      0 0 80px rgba(13, 148, 136, 0.2);
+  }
 }
 
 .tat-btn--primary::after {
-  content: "";
+  content: '';
   position: absolute;
   inset: -50%;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
@@ -325,8 +381,13 @@
 }
 
 @keyframes tat-sheen {
-  0%, 100% { transform: translateX(-100%) rotate(25deg); }
-  40% { transform: translateX(200%) rotate(25deg); }
+  0%,
+  100% {
+    transform: translateX(-100%) rotate(25deg);
+  }
+  40% {
+    transform: translateX(200%) rotate(25deg);
+  }
 }
 
 .tat-btn--ghost {
@@ -352,7 +413,7 @@
   gap: 3rem;
   width: max-content;
   animation: tat-marquee 28s linear infinite;
-  font-family: "Bebas Neue", sans-serif;
+  font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(1.5rem, 4vw, 2.25rem);
   letter-spacing: 0.12em;
   color: rgba(244, 237, 232, 0.2);
@@ -360,8 +421,12 @@
 }
 
 @keyframes tat-marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .tat-section {
@@ -371,7 +436,7 @@
 }
 
 .tat-section h2 {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(2rem, 5vw, 3.5rem);
   letter-spacing: 0.06em;
   margin: 0 0 0.5rem;
@@ -399,7 +464,7 @@
 }
 
 .tat-portfolio-zone::after {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   border-radius: 24px;
@@ -414,7 +479,7 @@
 }
 
 .tat-portfolio-zone::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   border-radius: 24px;
@@ -428,8 +493,12 @@
     var(--tat-blood)
   );
   background-size: 300% 300%;
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   animation: tat-border-flow 8s linear infinite;
@@ -437,8 +506,12 @@
 }
 
 @keyframes tat-border-flow {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 300% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 300% 50%;
+  }
 }
 
 .tat-grid {
@@ -462,7 +535,9 @@
   position: relative;
   cursor: default;
   transform-style: preserve-3d;
-  transition: transform 0.2s ease-out, box-shadow 0.25s ease;
+  transition:
+    transform 0.2s ease-out,
+    box-shadow 0.25s ease;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
 }
 
@@ -509,7 +584,9 @@
 .tat-reveal {
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .tat-reveal.tat-in {
@@ -540,7 +617,7 @@
 }
 
 .tat-step::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -551,7 +628,7 @@
 }
 
 .tat-step-num {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: 'Bebas Neue', sans-serif;
   font-size: 2.5rem;
   line-height: 1;
   color: rgba(212, 165, 116, 0.35);

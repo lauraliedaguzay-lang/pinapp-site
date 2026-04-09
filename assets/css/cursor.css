@@ -3,20 +3,19 @@
    Desktop >= 1024px uniquement
    ================================================================= */
 
-@media (min-width: 1024px) {
-  *, *::before, *::after { cursor: none !important; }
-}
+/* Ne jamais masquer le curseur natif : précision, accessibilité, perception premium */
 
 #pcursor {
   position: fixed;
-  width: 12px; height: 12px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
   transition:
-    width  200ms cubic-bezier(0.25,0.1,0.25,1),
-    height 200ms cubic-bezier(0.25,0.1,0.25,1),
+    width 200ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    height 200ms cubic-bezier(0.25, 0.1, 0.25, 1),
     opacity 150ms ease;
   will-change: left, top;
 }
@@ -32,7 +31,8 @@
 
 #pcursor-trail {
   position: fixed;
-  width: 32px; height: 32px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   pointer-events: none;
   z-index: 9998;
@@ -41,8 +41,8 @@
   background: transparent;
   will-change: left, top;
   transition:
-    width  300ms cubic-bezier(0.45,0.05,0.55,0.95),
-    height 300ms cubic-bezier(0.45,0.05,0.55,0.95);
+    width 300ms cubic-bezier(0.45, 0.05, 0.55, 0.95),
+    height 300ms cubic-bezier(0.45, 0.05, 0.55, 0.95);
 }
 #pcursor-trail.hover {
   width: 60px;
@@ -51,8 +51,13 @@
 
 /* Mobile / tablette — curseur natif */
 @media (max-width: 1023px) {
-  #pcursor, #pcursor-trail { display: none; }
-  body { cursor: auto !important; }
+  #pcursor,
+  #pcursor-trail {
+    display: none;
+  }
+  body {
+    cursor: auto !important;
+  }
 }
 
 /* =====================================================
@@ -60,8 +65,11 @@
    ===================================================== */
 
 .mode-toggle {
-  display: flex; align-items: center; justify-content: center;
-  width: 36px; height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
   border-radius: 100px;
   border: 1px solid var(--border-card);
   background: var(--glass);
@@ -69,7 +77,8 @@
   backdrop-filter: var(--glass-blur);
   cursor: pointer;
   transition: all var(--t-hover, 200ms);
-  position: relative; overflow: hidden;
+  position: relative;
+  overflow: hidden;
   transform: translateZ(0);
   flex-shrink: 0;
 }
@@ -81,29 +90,49 @@
   transform: scale(0.94) translateZ(0);
 }
 
-.icon-lune, .icon-soleil {
+.icon-lune,
+.icon-soleil {
   position: absolute;
-  transition: opacity 500ms ease, transform 500ms ease;
+  transition:
+    opacity 500ms ease,
+    transform 500ms ease;
 }
 
 /* Nuit : lune visible, soleil caché */
-body:not(.mode-jour) .icon-lune   { opacity: 1; transform: scale(1) rotate(0deg); }
-body:not(.mode-jour) .icon-soleil { opacity: 0; transform: scale(0.5) rotate(90deg); }
+body:not(.mode-jour) .icon-lune {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+body:not(.mode-jour) .icon-soleil {
+  opacity: 0;
+  transform: scale(0.5) rotate(90deg);
+}
 
 /* Jour : soleil visible, lune cachée */
-body.mode-jour .icon-soleil { opacity: 1; transform: scale(1) rotate(0deg); }
-body.mode-jour .icon-lune   { opacity: 0; transform: scale(0.5) rotate(-90deg); }
+body.mode-jour .icon-soleil {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+body.mode-jour .icon-lune {
+  opacity: 0;
+  transform: scale(0.5) rotate(-90deg);
+}
 
 /* Transition de mode — fondu */
 body.mode-switching {
-  transition: background-color 500ms ease, color 300ms ease;
+  transition:
+    background-color 500ms ease,
+    color 300ms ease;
 }
 
 /* Pulse discret au premier chargement */
 @keyframes toggle-pulse {
-  0%,100% { transform: scale(1) translateZ(0); }
+  0%,
+  100% {
+    transform: scale(1) translateZ(0);
+  }
   50% {
     transform: scale(1.15) translateZ(0);
-    box-shadow: 0 0 12px rgba(0,229,204,0.4);
+    box-shadow: 0 0 12px rgba(0, 229, 204, 0.4);
   }
 }

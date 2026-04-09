@@ -19,10 +19,14 @@ function walkHtml(dir, acc = []) {
   return acc;
 }
 
-const rxStandard = /^(\s*)<a href="((?:\.\.\/)+|)univers\/index\.html" class="nav-link" style="font-size:14px;opacity:0.8;">Univers<\/a>$/gm;
-const rxDrawerPlain = /^(\s*)<a href="((?:\.\.\/)+|)univers\/index\.html" class="nav-link">Univers<\/a>$/gm;
-const rxUniversCurrent = /^(\s*)<a href="index\.html" class="nav-link" style="font-size:14px;color:var\(--accent-teal\);">Univers<\/a>$/gm;
-const rxUniversDrawerTeal = /^(\s*)<a href="index\.html" style="color:var\(--accent-teal\);">Univers<\/a>$/gm;
+const rxStandard =
+  /^(\s*)<a href="((?:\.\.\/)+|)univers\/index\.html" class="nav-link" style="font-size:14px;opacity:0.8;">Univers<\/a>$/gm;
+const rxDrawerPlain =
+  /^(\s*)<a href="((?:\.\.\/)+|)univers\/index\.html" class="nav-link">Univers<\/a>$/gm;
+const rxUniversCurrent =
+  /^(\s*)<a href="index\.html" class="nav-link" style="font-size:14px;color:var\(--accent-teal\);">Univers<\/a>$/gm;
+const rxUniversDrawerTeal =
+  /^(\s*)<a href="index\.html" style="color:var\(--accent-teal\);">Univers<\/a>$/gm;
 
 function patch(content, filePath) {
   let out = content;

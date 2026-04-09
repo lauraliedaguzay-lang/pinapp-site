@@ -5,20 +5,20 @@
 
 const Pipeline = {
   nodes: [
-    { icon: '•', label: 'Prospect',       tip: 'Un artisan remplit le formulaire à 23h' },
-    { icon: '•', label: 'Aurora analyse', tip: 'Type · score · résumé en 2 secondes'   },
-    { icon: '•', label: 'Notion',         tip: 'Fiche prospect créée automatiquement'   },
-    { icon: '•', label: 'Email',          tip: 'Confirmation envoyée immédiatement'     },
-    { icon: '•', label: 'WhatsApp',       tip: 'Notification Lauralie'                  },
-    { icon: '•', label: 'Devis auto',     tip: 'Généré et envoyé avec lien Stripe'      },
-    { icon: '•', label: 'Signature',      tip: 'Le client signe en ligne'               },
-    { icon: '•', label: 'Paiement',       tip: 'Stripe reçoit · Notion mis à jour'      },
-    { icon: '•', label: 'Site généré',    tip: 'Cursor construit · Netlify déploie'     },
-    { icon: '•', label: 'Livraison',      tip: 'Email client + rapport Lauralie'        },
+    { icon: '•', label: 'Prospect', tip: 'Un artisan remplit le formulaire à 23h' },
+    { icon: '•', label: 'Aurora analyse', tip: 'Type · score · résumé en 2 secondes' },
+    { icon: '•', label: 'Notion', tip: 'Fiche prospect créée automatiquement' },
+    { icon: '•', label: 'Email', tip: 'Confirmation envoyée immédiatement' },
+    { icon: '•', label: 'WhatsApp', tip: 'Notification Lauralie' },
+    { icon: '•', label: 'Devis auto', tip: 'Généré et envoyé avec lien Stripe' },
+    { icon: '•', label: 'Signature', tip: 'Le client signe en ligne' },
+    { icon: '•', label: 'Paiement', tip: 'Stripe reçoit · Notion mis à jour' },
+    { icon: '•', label: 'Site généré', tip: 'Cursor construit · Netlify déploie' },
+    { icon: '•', label: 'Livraison', tip: 'Email client + rapport Lauralie' },
   ],
 
   _animInterval: null,
-  _running:      false,
+  _running: false,
 
   init() {
     const track = document.getElementById('pipeline-track');
@@ -27,17 +27,15 @@ const Pipeline = {
     // Générer les nœuds
     this.nodes.forEach((n, i) => {
       const node = document.createElement('div');
-      node.className      = 'pipeline-node';
-      node.dataset.index  = i;
+      node.className = 'pipeline-node';
+      node.dataset.index = i;
       node.innerHTML = `
         <div class="pipeline-circle" role="img" aria-label="${n.label}: ${n.tip}">
           <span class="pipeline-icon" aria-hidden="true">${n.icon}</span>
           <div class="pipeline-tooltip" aria-hidden="true">${n.tip}</div>
         </div>
         <span class="pipeline-label">${n.label}</span>
-        ${i < this.nodes.length - 1
-          ? '<div class="pipeline-line" aria-hidden="true"></div>'
-          : ''}`;
+        ${i < this.nodes.length - 1 ? '<div class="pipeline-line" aria-hidden="true"></div>' : ''}`;
       track.appendChild(node);
     });
 
@@ -51,7 +49,7 @@ const Pipeline = {
     this._running = true;
 
     const circles = document.querySelectorAll('.pipeline-circle');
-    const lines   = document.querySelectorAll('.pipeline-line');
+    const lines = document.querySelectorAll('.pipeline-line');
 
     // Activer nœud par nœud
     circles.forEach((c, i) => {
@@ -64,12 +62,12 @@ const Pipeline = {
     // Boucle infinie après completion
     const total = this.nodes.length * 1400 + 2500;
     setTimeout(() => {
-      circles.forEach(c => c.classList.remove('active'));
-      lines.forEach(l   => l.classList.remove('active'));
+      circles.forEach((c) => c.classList.remove('active'));
+      lines.forEach((l) => l.classList.remove('active'));
       this._running = false;
       setTimeout(() => this.animate(), 800);
     }, total);
-  }
+  },
 };
 
 document.addEventListener('DOMContentLoaded', () => Pipeline.init());

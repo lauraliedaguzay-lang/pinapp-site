@@ -75,4 +75,3 @@ Une tâche = une action simple, sans ambiguïté :
 
 - La brique B ne doit pas “envoyer” au client. Elle sert à **te guider** et à enregistrer tes décisions.
 - Si tu veux un vrai bouton “Approuver” cliquable (lien unique), on peut le brancher sur une endpoint signée (HMAC) côté Netlify Function, mais uniquement pour des actions non sensibles (ex. “marquer comme OK”, “créer une tâche”, “déclencher un brouillon”).
-
