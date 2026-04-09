@@ -196,10 +196,17 @@
   <script src="../assets/js/main.js" defer></script>
   <script src="../assets/js/particles.js" defer></script>
   <script src="../assets/js/aurora.js" defer></script>
-  <script src="../assets/js/parallax.js" defer></script>
-  <script src="../assets/js/intelligence.js" defer></script><script src="../assets/js/scroll-cinema.js" defer></script>
+  <script src="../assets/js/intelligence.js" defer></script>
   <script src="../assets/js/cursor.js" defer></script>
 <script src="../assets/js/pandora-night.js" defer></script><script src="../assets/js/mode-toggle.js" defer></script><script>
+/* Auralis — nav glass au scroll (sans parallaxe / effets décoratifs) */
+document.addEventListener('DOMContentLoaded', function () {
+  var nav = document.querySelector('nav');
+  if (!nav) return;
+  window.addEventListener('scroll', function () {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+});
 /* Auralis — bascule app en ligne (PINAPP_AURALIS.APP_URL dans auralis-config.js) */
 document.addEventListener('DOMContentLoaded', function() {
   var cfg = window.PINAPP_AURALIS || {};
@@ -228,11 +235,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 });
-/* Auralis — animation score ring au scroll */
+/* Auralis — animation score ring au chargement (pas de logique liée au scroll) */
 document.addEventListener('DOMContentLoaded', function() {
-  var ring = document.querySelector('.auralis-ring circle:last-child, [data-auralis-ring]');
   var bar  = document.querySelector('.auralis-bar');
-  var svg  = document.querySelector('.auralis-svg, [data-auralis-svg]');
 
   // Trouver le cercle score dans le SVG iPhone
   var circles = document.querySelectorAll('.auralis-phone-svg circle, .auralis-iphone circle');
@@ -241,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var svgEls = document.querySelectorAll('.auralis-split svg');
     svgEls.forEach(function(s) {
       var cs = s.querySelectorAll('circle[stroke-dasharray]');
-      if (cs.length) { ring = cs[0]; }
+      if (cs.length) { circles = cs; }
     });
   }
 
@@ -251,29 +256,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
   if (!scoreCircle && !wellBar) return;
 
-  var obs = new IntersectionObserver(function(entries) {
-    if (!entries[0].isIntersecting) return;
-    obs.disconnect();
+  // Ring : 226 (vide) → 44 (risque élevé) — 1200ms, delay 500ms
+  if (scoreCircle) {
+    scoreCircle.style.strokeDashoffset = '226';
+    scoreCircle.style.transition =
+      'stroke-dashoffset 1200ms cubic-bezier(0.45,0.05,0.55,0.95) 500ms';
+    setTimeout(function() {
+      scoreCircle.style.strokeDashoffset = '44';
+    }, 50);
+  }
 
-    // Ring : 226 (vide) → 44 (risque élevé) — 1200ms, delay 500ms
-    if (scoreCircle) {
-      scoreCircle.style.strokeDashoffset = '226';
-      scoreCircle.style.transition = 'stroke-dashoffset 1200ms cubic-bezier(0.45,0.05,0.55,0.95) 500ms';
-      setTimeout(function() {
-        scoreCircle.style.strokeDashoffset = '44';
-      }, 50);
-    }
-
-    // Barre bien-être : 0% → 68% — 800ms, delay 700ms
-    if (wellBar) {
-      wellBar.style.width = '0%';
-      wellBar.style.transition = 'width 800ms cubic-bezier(0.45,0.05,0.55,0.95) 700ms';
-      setTimeout(function() { wellBar.style.width = '68%'; }, 50);
-    }
-  }, { threshold: 0.3 });
-
-  var target = scoreCircle || wellBar;
-  if (target) obs.observe(target.closest('section') || target);
+  // Barre bien-être : 0% → 68% — 800ms, delay 700ms
+  if (wellBar) {
+    wellBar.style.width = '0%';
+    wellBar.style.transition = 'width 800ms cubic-bezier(0.45,0.05,0.55,0.95) 700ms';
+    setTimeout(function() { wellBar.style.width = '68%'; }, 50);
+  }
 });
 </script>
   <script src="../assets/js/bio-particles.js" defer></script>
