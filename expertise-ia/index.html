@@ -1,237 +1,553 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-<script>(function(){var t=localStorage.getItem('pinapp-theme')||localStorage.getItem('pinapp-mode');var d=window.matchMedia('(prefers-color-scheme:dark)').matches;var m=(t==='light'||t==='jour')?'jour':(t==='dark'||t==='nuit')?'nuit':(d?'nuit':'jour');document.documentElement.setAttribute('data-mode',m);document.documentElement.setAttribute('data-theme',m==='jour'?'light':'dark');if(document.body){document.body.classList.add('mode-'+m);}document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('mode-'+m);});}());</script>
-  <link rel="preload" as="image" href="../assets/images/bg-dark-pandora-apple.webp" fetchpriority="high">
-  <link rel="preload" as="image" href="../assets/images/bg-light-pandora-apple.webp">
-  <meta charset="UTF-8">
-  <meta name="theme-color" id="pinapp-theme-color" content="#020810">
-  <script src="../assets/js/theme-init.js" defer></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>IA &amp; syst&egrave;mes &mdash; en clair &mdash; Pinapp Studio</title>
-  <meta name="description" content="Ce que Pinapp peut brancher pour vous : aide &agrave; la r&eacute;daction, automatisation, recherche dans vos documents, site web. Assemblage pens&eacute; pour tenir dans le temps &mdash; vous validez.">
-  <meta property="og:title" content="IA &amp; syst&egrave;mes &mdash; Pinapp Studio">
-  <meta property="og:description" content="Vue d&rsquo;ensemble sans jargon inutile : texte, assistants, vos fichiers, outils du quotidien, site et mise en ligne soign&eacute;e.">
-  <meta property="og:image" content="https://pinapp.fr/assets/images/og-home.png">
-  <meta property="og:url" content="https://pinapp.fr/expertise-ia/">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="fr_FR">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-  <link rel="stylesheet" href="../assets/variables.css">
-  <link rel="stylesheet" href="../assets/grid.css">
-  <link rel="stylesheet" href="../assets/animations.css">
-  <link rel="stylesheet" href="../assets/css/aurora-mobile.css"><link rel="stylesheet" href="../assets/css/avatar-pandora-biolume.css"><link rel="stylesheet" href="../assets/css/pandora-jour.css">
-  <link rel="stylesheet" href="../assets/css/cursor.css">
-  <link rel="stylesheet" href="../assets/css/pandora-ux.css">
-  <link rel="stylesheet" href="../assets/expertise-ia.css">
-  <link rel="preconnect" href="https://fonts.bunny.net">
-  <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap">
-  <link rel="stylesheet" href="../assets/css/pandora-dance.css">
-  <link rel="stylesheet" href="../assets/css/ios-glass.css">
-  <link rel="stylesheet" href="../assets/css/apple-finish.css">
-  <link rel="stylesheet" href="../assets/css/pinapp-modern-biolume.css">
-  <link rel="stylesheet" href="../assets/css/pinapp-premium.css">
-  <link rel="stylesheet" href="../assets/css/deploy-harmonise.css">
-  <link rel="stylesheet" href="../assets/css/pandora-jour-override.css">
-  <link rel="stylesheet" href="../assets/css/mobile-premium.css">
-  <link rel="stylesheet" href="../assets/css/neuro-layout.css">
-  
-  <link rel="stylesheet" href="../assets/css/pandora-world.css">
-  <link rel="stylesheet" href="../assets/css/pandora-details.css">
-</head>
-<body class="page-with-bottom-nav">
-  <div id="pandora-world" aria-hidden="true">
-    <div class="pandora-orbs">
-      <div class="orb orb-1"></div>
-      <div class="orb orb-2"></div>
-      <div class="orb orb-3"></div>
-      <div class="orb orb-4"></div>
+  <head>
+    <script>
+      (function () {
+        var t = localStorage.getItem('pinapp-theme') || localStorage.getItem('pinapp-mode');
+        var d = window.matchMedia('(prefers-color-scheme:dark)').matches;
+        var m = t === 'light' || t === 'jour' ? 'jour' : t === 'dark' || t === 'nuit' ? 'nuit' : d ? 'nuit' : 'jour';
+        document.documentElement.setAttribute('data-mode', m);
+        document.documentElement.setAttribute('data-theme', m === 'jour' ? 'light' : 'dark');
+        if (document.body) {
+          document.body.classList.add('mode-' + m);
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+          document.body.classList.add('mode-' + m);
+        });
+      })();
+    </script>
+    <link rel="preload" as="image" href="../assets/images/bg-dark-pandora-apple.webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="../assets/images/bg-light-pandora-apple.webp" />
+    <meta charset="UTF-8" />
+    <meta name="theme-color" id="pinapp-theme-color" content="#020810" />
+    <script src="../assets/js/theme-init.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>IA &amp; syst&egrave;mes &mdash; en clair &mdash; Pinapp Studio</title>
+    <meta
+      name="description"
+      content="Ce que Pinapp peut brancher pour vous : aide &agrave; la r&eacute;daction, automatisation, recherche dans vos documents, site web. Assemblage pens&eacute; pour tenir dans le temps &mdash; vous validez." />
+    <meta property="og:title" content="IA &amp; syst&egrave;mes &mdash; Pinapp Studio" />
+    <meta
+      property="og:description"
+      content="Vue d&rsquo;ensemble sans jargon inutile : texte, assistants, vos fichiers, outils du quotidien, site et mise en ligne soign&eacute;e." />
+    <meta property="og:image" content="https://pinapp.fr/assets/images/og-home.png" />
+    <meta property="og:url" content="https://pinapp.fr/expertise-ia/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="preload" href="../assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="../assets/variables.css" />
+    <link rel="stylesheet" href="../assets/grid.css" />
+    <link rel="stylesheet" href="../assets/animations.css" />
+    <link rel="stylesheet" href="../assets/css/aurora-mobile.css" />
+    <link rel="stylesheet" href="../assets/css/avatar-pandora-biolume.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-jour.css" />
+    <link rel="stylesheet" href="../assets/css/cursor.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-ux.css" />
+    <link rel="stylesheet" href="../assets/expertise-ia.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-dance.css" />
+    <link rel="stylesheet" href="../assets/css/ios-glass.css" />
+    <link rel="stylesheet" href="../assets/css/apple-finish.css" />
+    <link rel="stylesheet" href="../assets/css/pinapp-modern-biolume.css" />
+    <link rel="stylesheet" href="../assets/css/pinapp-premium.css" />
+    <link rel="stylesheet" href="../assets/css/deploy-harmonise.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-jour-override.css" />
+    <link rel="stylesheet" href="../assets/css/mobile-premium.css" />
+    <link rel="stylesheet" href="../assets/css/neuro-layout.css" />
+
+    <link rel="stylesheet" href="../assets/css/pandora-world.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-details.css" />
+  </head>
+  <body class="page-with-bottom-nav">
+    <div id="pandora-world" aria-hidden="true">
+      <div class="pandora-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+      </div>
+      <div class="pandora-spores" id="spores-container"></div>
+      <div class="pandora-stars" id="stars-container"></div>
+      <div class="pandora-clouds" id="clouds-container">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+      </div>
+      <div class="holo-grid"></div>
     </div>
-    <div class="pandora-spores" id="spores-container"></div>
-    <div class="pandora-stars" id="stars-container"></div>
-    <div class="pandora-clouds" id="clouds-container">
-      <div class="cloud cloud-1"></div>
-      <div class="cloud cloud-2"></div>
-      <div class="cloud cloud-3"></div>
+    <div id="pandora-loader" aria-hidden="true">
+      <svg width="32" height="38" viewBox="0 0 32 38" fill="none">
+        <defs>
+          <linearGradient id="pg-l" x1="16" y1="36" x2="16" y2="2" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#7B4FE8" />
+            <stop offset="100%" stop-color="#00E5CC" />
+          </linearGradient>
+        </defs>
+        <path d="M16 2 C13 5 10 6 11 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
+        <path d="M16 2 L16 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" />
+        <path d="M16 2 C19 5 22 6 21 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
+        <ellipse cx="16" cy="24" rx="9" ry="12" fill="url(#pg-l)" />
+        <path d="M7 20 L16 15 L25 20 L16 25 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
+        <path d="M7 26 L16 21 L25 26 L16 31 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
+      </svg>
     </div>
-    <div class="holo-grid"></div>
-  </div>
-<div id="pandora-loader" aria-hidden="true">
-  <svg width="32" height="38" viewBox="0 0 32 38" fill="none"><defs><linearGradient id="pg-l" x1="16" y1="36" x2="16" y2="2" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7B4FE8"/><stop offset="100%" stop-color="#00E5CC"/></linearGradient></defs><path d="M16 2 C13 5 10 6 11 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M16 2 L16 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round"/><path d="M16 2 C19 5 22 6 21 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none"/><ellipse cx="16" cy="24" rx="9" ry="12" fill="url(#pg-l)"/><path d="M7 20 L16 15 L25 20 L16 25 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none"/><path d="M7 26 L16 21 L25 26 L16 31 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none"/></svg>
-</div>
-<script>(function(){function hideLoader(){var l=document.getElementById('pandora-loader');if(l&&l.parentNode){l.style.opacity='0';setTimeout(function(){if(l.parentNode)l.remove();},400);}}window.addEventListener('load',hideLoader);setTimeout(hideLoader,2000);})();</script><div class="aurora-mobile" aria-hidden="true"><div class="aurora-orb aurora-orb-1"></div><div class="aurora-orb aurora-orb-2"></div><div class="aurora-orb aurora-orb-3"></div><div class="aurora-orb aurora-orb-4"></div></div><div class="pandora-biolume-layer" aria-hidden="true"></div><div class="pandora-shapes" aria-hidden="true"><div class="pandora-shape pandora-shape-1"></div><div class="pandora-shape pandora-shape-2"></div><div class="pandora-shape pandora-shape-3"></div><div class="pandora-shape pandora-shape-4"></div></div><div class="holo-grid" aria-hidden="true"></div><div class="noise" aria-hidden="true"></div><div class="jour-spores" aria-hidden="true"><span class="jour-spore" style="left:12%;top:75%;--dur:22s;--delay:-4s;--dx:18px;--dy:-90px;"></span><span class="jour-spore" style="left:28%;top:60%;--dur:28s;--delay:-11s;--dx:-12px;--dy:-75px;"></span><span class="jour-spore" style="left:45%;top:82%;--dur:19s;--delay:-7s;--dx:25px;--dy:-60px;"></span><span class="jour-spore" style="left:62%;top:70%;--dur:32s;--delay:-2s;--dx:-20px;--dy:-85px;"></span><span class="jour-spore" style="left:78%;top:65%;--dur:24s;--delay:-15s;--dx:14px;--dy:-70px;"></span><span class="jour-spore jour-spore-teal" style="left:20%;top:85%;--dur:26s;--delay:-18s;--dx:10px;--dy:-65px;"></span><span class="jour-spore jour-spore-teal" style="left:55%;top:88%;--dur:30s;--delay:-5s;--dx:-15px;--dy:-95px;"></span></div>
-  <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
-  <div class="scroll-progress" id="scrollProgress"></div>
-<div class="noise-overlay" aria-hidden="true"></div>
-  <nav class="nav" id="mainNav" aria-label="Navigation principale">
-    <div class="container nav-inner">
-      <a href="../index.html" class="nav-logo" aria-label="Pinapp Studio — accueil" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
-        <img class="nav-logo-img" src="../assets/images/pinapp-logo.png" alt="" width="132" height="36" decoding="async" />
-      </a>
+    <script>
+      (function () {
+        function hideLoader() {
+          var l = document.getElementById('pandora-loader');
+          if (l && l.parentNode) {
+            l.style.opacity = '0';
+            setTimeout(function () {
+              if (l.parentNode) l.remove();
+            }, 400);
+          }
+        }
+        window.addEventListener('load', hideLoader);
+        setTimeout(hideLoader, 2000);
+      })();
+    </script>
+    <div class="aurora-mobile" aria-hidden="true">
+      <div class="aurora-orb aurora-orb-1"></div>
+      <div class="aurora-orb aurora-orb-2"></div>
+      <div class="aurora-orb aurora-orb-3"></div>
+      <div class="aurora-orb aurora-orb-4"></div>
+    </div>
+    <div class="pandora-biolume-layer" aria-hidden="true"></div>
+    <div class="pandora-shapes" aria-hidden="true">
+      <div class="pandora-shape pandora-shape-1"></div>
+      <div class="pandora-shape pandora-shape-2"></div>
+      <div class="pandora-shape pandora-shape-3"></div>
+      <div class="pandora-shape pandora-shape-4"></div>
+    </div>
+    <div class="holo-grid" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="jour-spores" aria-hidden="true">
+      <span class="jour-spore" style="left: 12%; top: 75%; --dur: 22s; --delay: -4s; --dx: 18px; --dy: -90px"></span
+      ><span class="jour-spore" style="left: 28%; top: 60%; --dur: 28s; --delay: -11s; --dx: -12px; --dy: -75px"></span
+      ><span class="jour-spore" style="left: 45%; top: 82%; --dur: 19s; --delay: -7s; --dx: 25px; --dy: -60px"></span
+      ><span class="jour-spore" style="left: 62%; top: 70%; --dur: 32s; --delay: -2s; --dx: -20px; --dy: -85px"></span
+      ><span class="jour-spore" style="left: 78%; top: 65%; --dur: 24s; --delay: -15s; --dx: 14px; --dy: -70px"></span
+      ><span
+        class="jour-spore jour-spore-teal"
+        style="left: 20%; top: 85%; --dur: 26s; --delay: -18s; --dx: 10px; --dy: -65px"></span
+      ><span
+        class="jour-spore jour-spore-teal"
+        style="left: 55%; top: 88%; --dur: 30s; --delay: -5s; --dx: -15px; --dy: -95px"></span>
+    </div>
+    <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <nav class="nav" id="mainNav" aria-label="Navigation principale">
+      <div class="container nav-inner">
+        <a
+          href="../index.html"
+          class="nav-logo"
+          aria-label="Pinapp Studio — accueil"
+          style="display: flex; align-items: center; gap: 10px; text-decoration: none">
+          <img
+            class="nav-logo-img"
+            src="../assets/images/pinapp-logo.png"
+            alt=""
+            width="132"
+            height="36"
+            decoding="async" />
+        </a>
         <div class="nav-links">
-        <a href="../offres/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
-        <a href="../realisations/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
-        <a href="../a-propos/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
-        <a href="../faq/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
-        <a href="../auralis/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Auralis</a>
-        <a href="../univers/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Univers</a>
-        <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Démarrer ma demande</a>
+          <a href="../offres/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Offres</a>
+          <a href="../realisations/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Réalisations</a>
+          <a href="../a-propos/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">À propos</a>
+          <a href="../faq/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">FAQ</a>
+          <a href="../auralis/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Auralis</a>
+          <a href="../univers/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Univers</a>
+          <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px"
+            >Démarrer ma demande</a
+          >
+        </div>
+        <div class="nav-trailing">
+          <button type="button" class="mode-toggle" id="themeToggle" aria-label="Changer le thème">
+            <svg class="icon-lune" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path
+                d="M15.5 10.5A6.5 6.5 0 0 1 7.5 2.5a6.5 6.5 0 1 0 8 8z"
+                stroke="#00E5CC"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                fill="none" /></svg
+            ><svg class="icon-soleil" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <circle cx="9" cy="9" r="3.5" stroke="#009B8C" stroke-width="1.5" />
+              <line x1="9" y1="1" x2="9" y2="3" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="9" y1="15" x2="9" y2="17" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="1" y1="9" x2="3" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="15" y1="9" x2="17" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="burger"
+            id="burger"
+            aria-label="Ouvrir le menu"
+            aria-expanded="false"
+            aria-controls="mobileDrawer">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              aria-hidden="true">
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
       </div>
-      <div class="nav-trailing">
-        <button type="button" class="mode-toggle" id="themeToggle" aria-label="Passer en mode jour"><svg class="icon-lune" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M15.5 10.5A6.5 6.5 0 0 1 7.5 2.5a6.5 6.5 0 1 0 8 8z" stroke="#00E5CC" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg><svg class="icon-soleil" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="3.5" stroke="#009B8C" stroke-width="1.5"/><line x1="9" y1="1" x2="9" y2="3" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="15" x2="9" y2="17" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="9" x2="3" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/><line x1="15" y1="9" x2="17" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/></svg></button>
-        <button type="button" class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileDrawer">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </nav>
+    <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" role="dialog" aria-label="Menu" aria-modal="true">
+      <div class="mobile-drawer-panel">
+        <button type="button" id="drawerClose" aria-label="Fermer le menu">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
         </button>
+        <div class="nav-links">
+          <a href="../offres/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Offres</a>
+          <a href="../realisations/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Réalisations</a>
+          <a href="../a-propos/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">À propos</a>
+          <a href="../qui-suis-je/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Qui suis-je ?</a>
+          <a href="../faq/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">FAQ</a>
+          <a href="../auralis/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Auralis</a>
+          <a href="../univers/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Univers</a>
+          <a href="../votre-projet/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Votre projet</a>
+          <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px"
+            >Démarrer ma demande</a
+          >
+        </div>
       </div>
     </div>
-  </nav>
-  <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" role="dialog" aria-label="Menu" aria-modal="true">
-    <div class="mobile-drawer-panel">
-      <button type="button" id="drawerClose" aria-label="Fermer le menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
-      <div class="nav-links">
-        <a href="../offres/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
-        <a href="../realisations/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
-        <a href="../a-propos/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
-        <a href="../faq/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
-        <a href="../auralis/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Auralis</a>
-        <a href="../univers/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Univers</a>
-        <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Démarrer ma demande</a>
-      </div>
-  </div>
-  </div>
-        <div class="bottom-bar bottom-bar--site bottom-bar--six" aria-label="Navigation du site">
-    <a href="../index.html">Accueil</a>
-    <a href="../offres/index.html">Offres</a>
-    <a href="../diagnostic/index.html" class="bottom-bar-cta">D&eacute;marrer</a>
-    <a href="../univers/index.html">Univers</a>
-    <a href="../formation-gratuite/index.html">Form.</a>
-    <a href="../realisations/index.html">R&eacute;alis.</a>
-  </div>
-<main id="contenu-principal" class="stack-above-bg" tabindex="-1">
-    <section class="section">
-      <div class="container">
-        <div class="expertise-ia-intro">
-          <p class="label" style="margin-bottom:var(--space-2);">CE QUE NOUS RELIONS POUR VOUS</p>
-          <h1 style="font-size:var(--text-h1);letter-spacing:-0.02em;margin-bottom:var(--space-3);">L&rsquo;IA en coulisse.<br>La valeur en avant-sc&egrave;ne.</h1>
-          <p style="font-size:1.05rem;line-height:1.75;opacity:0.78;margin:0;">Pas un mur de logos : une <strong style="color:var(--accent-teal);">vue d&rsquo;ensemble lisible</strong> des pi&egrave;ces que Pinapp assemble en <strong>syst&egrave;mes que vous pouvez tenir</strong> &mdash; avec <strong>validation humaine</strong> aux moments sensibles et un cadre &eacute;thique sur la page <a href="../confiance/index.html" style="color:var(--accent-teal);text-decoration:underline;">Confiance</a>. Pour le parcours client, un <strong>outil d&rsquo;aide &agrave; la r&eacute;daction</strong> peut acc&eacute;l&eacute;rer la mise au propre d&rsquo;un <strong>plan d&rsquo;action</strong> avant l&rsquo;envoi du <strong>devis par email</strong> ; tout est relu et ajust&eacute; c&ocirc;t&eacute; studio.</p>
+    <div class="bottom-bar bottom-bar--site bottom-bar--six" aria-label="Navigation du site">
+      <a href="../index.html">Accueil</a>
+      <a href="../offres/index.html">Offres</a>
+      <a href="../diagnostic/index.html" class="bottom-bar-cta">D&eacute;marrer</a>
+      <a href="../univers/index.html">Univers</a>
+      <a href="../formation-gratuite/index.html">Form.</a>
+      <a href="../realisations/index.html">R&eacute;alis.</a>
+    </div>
+    <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
+      <section class="section">
+        <div class="container">
+          <div class="expertise-ia-intro">
+            <p class="label" style="margin-bottom: var(--space-2)">CE QUE NOUS RELIONS POUR VOUS</p>
+            <h1 style="font-size: var(--text-h1); letter-spacing: -0.02em; margin-bottom: var(--space-3)">
+              L&rsquo;IA en coulisse.<br />La valeur en avant-sc&egrave;ne.
+            </h1>
+            <p style="font-size: 1.05rem; line-height: 1.75; opacity: 0.78; margin: 0">
+              Pas un mur de logos : une
+              <strong style="color: var(--accent-teal)">vue d&rsquo;ensemble lisible</strong> des pi&egrave;ces que
+              Pinapp assemble en <strong>syst&egrave;mes que vous pouvez tenir</strong> &mdash; avec
+              <strong>validation humaine</strong> aux moments sensibles et un cadre &eacute;thique sur la page
+              <a href="../confiance/index.html" style="color: var(--accent-teal); text-decoration: underline"
+                >Confiance</a
+              >. Pour le parcours client, un <strong>outil d&rsquo;aide &agrave; la r&eacute;daction</strong> peut
+              acc&eacute;l&eacute;rer la mise au propre d&rsquo;un <strong>plan d&rsquo;action</strong> avant
+              l&rsquo;envoi du <strong>devis par email</strong> ; tout est relu et ajust&eacute; c&ocirc;t&eacute;
+              studio.
+            </p>
+          </div>
+
+          <div class="expertise-ia-pillars" role="list">
+            <article class="expertise-ia-pillar block block-rose" role="listitem">
+              <p class="label" style="margin: 0">TEXTE &amp; MOD&Egrave;LES</p>
+              <h2>Dialogue avec l&rsquo;IA, contenu, voix et image</h2>
+              <p>
+                Choix du bon service, consignes claires, r&eacute;ponses exploitables ; lecture vocale ou analyse
+                d&rsquo;images quand votre m&eacute;tier l&rsquo;exige &mdash; sans promesse magique.
+              </p>
+              <ul class="expertise-ia-chips" aria-label="Fournisseurs et pratiques">
+                <li>OpenAI</li>
+                <li>Anthropic</li>
+                <li>Google Gemini</li>
+                <li>Mistral</li>
+                <li>Meta Llama</li>
+                <li>Groq</li>
+                <li>Azure OpenAI</li>
+                <li>consignes m&eacute;tier</li>
+                <li>donn&eacute;es structur&eacute;es</li>
+                <li>liens avec vos outils</li>
+                <li>r&eacute;ponses au fil de l&rsquo;eau</li>
+                <li>garde-fous</li>
+                <li>Whisper</li>
+                <li>voix (texte &harr; oral)</li>
+                <li>analyse d&rsquo;image</li>
+                <li>lecture de documents scann&eacute;s</li>
+                <li>mod&eacute;ration</li>
+              </ul>
+            </article>
+
+            <article class="expertise-ia-pillar block block-rose" role="listitem">
+              <p class="label" style="margin: 0">ASSISTANTS &amp; ENCHA&Icirc;NEMENTS</p>
+              <h2>Encha&icirc;nements d&rsquo;&eacute;tapes, briques logicielles, souvenir du contexte</h2>
+              <p>
+                Des assistants qui pr&eacute;parent et proposent &mdash; pas qui d&eacute;cident seuls sur votre
+                r&eacute;putation ou vos engagements.
+              </p>
+              <ul class="expertise-ia-chips" aria-label="Outils d’enchaînement">
+                <li>LangChain</li>
+                <li>LangGraph</li>
+                <li>Semantic Kernel</li>
+                <li>sc&eacute;narios multi-&eacute;tapes</li>
+                <li>connexion d&rsquo;outils</li>
+                <li>planification</li>
+                <li>m&eacute;moire de contexte</li>
+                <li>recherche dans vos documents</li>
+                <li>validation humaine aux passages sensibles</li>
+                <li>Auralis RH</li>
+                <li>parcours m&eacute;tier</li>
+              </ul>
+            </article>
+
+            <article class="expertise-ia-pillar block block-rose" role="listitem">
+              <p class="label" style="margin: 0">VOS FICHIERS &amp; SOURCES</p>
+              <h2>R&eacute;ponses appuy&eacute;es sur <em>vos</em> documents</h2>
+              <p>
+                PDF, bases, carnets de notes reli&eacute;s &mdash; moins d&rsquo;invention, plus de rep&egrave;res
+                v&eacute;rifiables.
+              </p>
+              <ul class="expertise-ia-chips" aria-label="Sources et recherche documentaire">
+                <li>recherche s&eacute;mantique</li>
+                <li>rep&egrave;res s&eacute;mantiques</li>
+                <li>pgvector</li>
+                <li>Pinecone</li>
+                <li>Weaviate</li>
+                <li>d&eacute;coupage de texte</li>
+                <li>classement des extraits</li>
+                <li>PDF</li>
+                <li>bases SQL</li>
+                <li>Notion</li>
+                <li>Google Drive</li>
+                <li>SharePoint</li>
+              </ul>
+            </article>
+
+            <article class="expertise-ia-pillar block block-rose" role="listitem">
+              <p class="label" style="margin: 0">AUTOMATISATION</p>
+              <h2>Connexions entre vos outils (e-mails, CRM&hellip;)</h2>
+              <p>
+                L&rsquo;IA reli&eacute;e &agrave; ce que vous utilisez d&eacute;j&agrave; : &eacute;changes stables, pas
+                une bo&icirc;te noire d&eacute;connect&eacute;e du quotidien.
+              </p>
+              <ul class="expertise-ia-chips" aria-label="Automatisation">
+                <li>Make</li>
+                <li>n8n</li>
+                <li>Zapier</li>
+                <li>liens automatiques entre syst&egrave;mes</li>
+                <li>HubSpot</li>
+                <li>Salesforce</li>
+                <li>Airtable</li>
+                <li>Google Sheets</li>
+                <li>Slack</li>
+                <li>Microsoft 365</li>
+                <li>Cal.com</li>
+                <li>Calendly</li>
+              </ul>
+            </article>
+
+            <article class="expertise-ia-pillar block block-rose" role="listitem">
+              <p class="label" style="margin: 0">SITE &amp; OUTILS EN LIGNE</p>
+              <h2>Sites, tableaux de bord, paiement en ligne</h2>
+              <p>
+                Du site vitrine soign&eacute; aux outils plus pouss&eacute;s &mdash; coh&eacute;rents avec votre image.
+              </p>
+              <ul class="expertise-ia-chips" aria-label="Développement web">
+                <li>HTML / CSS / JS</li>
+                <li>React</li>
+                <li>Vue</li>
+                <li>Svelte</li>
+                <li>Astro</li>
+                <li>Next.js</li>
+                <li>Vite</li>
+                <li>Node.js</li>
+                <li>Python</li>
+                <li>FastAPI</li>
+                <li>Express</li>
+                <li>REST</li>
+                <li>GraphQL</li>
+                <li>Supabase</li>
+                <li>Firebase</li>
+                <li>Stripe</li>
+                <li>WCAG</li>
+              </ul>
+            </article>
+
+            <article class="expertise-ia-pillar block block-rose" role="listitem">
+              <p class="label" style="margin: 0">QUALIT&Eacute; &amp; MISE EN LIGNE</p>
+              <h2>Mises &agrave; jour, tests, suivi</h2>
+              <p>
+                Ce qui rend un projet <em>tenable</em> : historique des versions, contr&ocirc;les, surveillance
+                technique &mdash; et des r&egrave;gles claires avec vous.
+              </p>
+              <ul class="expertise-ia-chips" aria-label="Mise en production">
+                <li>GitHub Actions</li>
+                <li>GitLab CI</li>
+                <li>environnements isol&eacute;s (Docker)</li>
+                <li>orchestration serveurs (K8s)</li>
+                <li>tests</li>
+                <li>contr&ocirc;le qualit&eacute; des r&eacute;ponses IA</li>
+                <li>journalisation</li>
+                <li>suivi des erreurs</li>
+                <li>Plausible</li>
+                <li>RGPD</li>
+                <li>mots de passe &amp; cl&eacute;s prot&eacute;g&eacute;s</li>
+                <li>s&eacute;curit&eacute; navigateur (CSP)</li>
+                <li>HTTPS</li>
+                <li>charte Pinapp</li>
+              </ul>
+            </article>
+          </div>
+
+          <p class="expertise-ia-footnote">
+            Liste indicative, évolutive selon vos contraintes. Aucun fournisseur n’est imposé : nous choisissons avec
+            vous ce qui tient la route sur le long terme. Pour cadrer un besoin précis, passez par le
+            <a href="../diagnostic/index.html" style="color: var(--accent-teal); text-decoration: underline"
+              >diagnostic offert</a
+            >
+            (écrit d’abord, Meet en option).
+          </p>
+
+          <div style="text-align: center; margin-top: var(--space-5)">
+            <a href="../diagnostic/index.html" class="btn btn-primary pinapp-breathe"
+              >Diagnostic offert — par &eacute;crit</a
+            >
+            <a href="../offres/index.html" class="btn btn-secondary" style="margin-left: var(--space-2)"
+              >Voir les offres</a
+            >
+          </div>
         </div>
-
-        <div class="expertise-ia-pillars" role="list">
-          <article class="expertise-ia-pillar block block-rose" role="listitem">
-            <p class="label" style="margin:0;">TEXTE &amp; MOD&Egrave;LES</p>
-            <h2>Dialogue avec l&rsquo;IA, contenu, voix et image</h2>
-            <p>Choix du bon service, consignes claires, r&eacute;ponses exploitables ; lecture vocale ou analyse d&rsquo;images quand votre m&eacute;tier l&rsquo;exige &mdash; sans promesse magique.</p>
-            <ul class="expertise-ia-chips" aria-label="Fournisseurs et pratiques">
-              <li>OpenAI</li><li>Anthropic</li><li>Google Gemini</li><li>Mistral</li><li>Meta Llama</li><li>Groq</li><li>Azure OpenAI</li>
-              <li>consignes m&eacute;tier</li><li>donn&eacute;es structur&eacute;es</li><li>liens avec vos outils</li><li>r&eacute;ponses au fil de l&rsquo;eau</li><li>garde-fous</li>
-              <li>Whisper</li><li>voix (texte &harr; oral)</li><li>analyse d&rsquo;image</li><li>lecture de documents scann&eacute;s</li><li>mod&eacute;ration</li>
-            </ul>
-          </article>
-
-          <article class="expertise-ia-pillar block block-rose" role="listitem">
-            <p class="label" style="margin:0;">ASSISTANTS &amp; ENCHA&Icirc;NEMENTS</p>
-            <h2>Encha&icirc;nements d&rsquo;&eacute;tapes, briques logicielles, souvenir du contexte</h2>
-            <p>Des assistants qui pr&eacute;parent et proposent &mdash; pas qui d&eacute;cident seuls sur votre r&eacute;putation ou vos engagements.</p>
-            <ul class="expertise-ia-chips" aria-label="Outils d’enchaînement">
-              <li>LangChain</li><li>LangGraph</li><li>Semantic Kernel</li><li>sc&eacute;narios multi-&eacute;tapes</li><li>connexion d&rsquo;outils</li><li>planification</li>
-              <li>m&eacute;moire de contexte</li><li>recherche dans vos documents</li><li>validation humaine aux passages sensibles</li><li>Auralis RH</li><li>parcours m&eacute;tier</li>
-            </ul>
-          </article>
-
-          <article class="expertise-ia-pillar block block-rose" role="listitem">
-            <p class="label" style="margin:0;">VOS FICHIERS &amp; SOURCES</p>
-            <h2>R&eacute;ponses appuy&eacute;es sur <em>vos</em> documents</h2>
-            <p>PDF, bases, carnets de notes reli&eacute;s &mdash; moins d&rsquo;invention, plus de rep&egrave;res v&eacute;rifiables.</p>
-            <ul class="expertise-ia-chips" aria-label="Sources et recherche documentaire">
-              <li>recherche s&eacute;mantique</li><li>rep&egrave;res s&eacute;mantiques</li><li>pgvector</li><li>Pinecone</li><li>Weaviate</li><li>d&eacute;coupage de texte</li>
-              <li>classement des extraits</li><li>PDF</li><li>bases SQL</li><li>Notion</li><li>Google Drive</li><li>SharePoint</li>
-            </ul>
-          </article>
-
-          <article class="expertise-ia-pillar block block-rose" role="listitem">
-            <p class="label" style="margin:0;">AUTOMATISATION</p>
-            <h2>Connexions entre vos outils (e-mails, CRM&hellip;)</h2>
-            <p>L&rsquo;IA reli&eacute;e &agrave; ce que vous utilisez d&eacute;j&agrave; : &eacute;changes stables, pas une bo&icirc;te noire d&eacute;connect&eacute;e du quotidien.</p>
-            <ul class="expertise-ia-chips" aria-label="Automatisation">
-              <li>Make</li><li>n8n</li><li>Zapier</li><li>liens automatiques entre syst&egrave;mes</li><li>HubSpot</li><li>Salesforce</li>
-              <li>Airtable</li><li>Google Sheets</li><li>Slack</li><li>Microsoft 365</li><li>Cal.com</li><li>Calendly</li>
-            </ul>
-          </article>
-
-          <article class="expertise-ia-pillar block block-rose" role="listitem">
-            <p class="label" style="margin:0;">SITE &amp; OUTILS EN LIGNE</p>
-            <h2>Sites, tableaux de bord, paiement en ligne</h2>
-            <p>Du site vitrine soign&eacute; aux outils plus pouss&eacute;s &mdash; coh&eacute;rents avec votre image.</p>
-            <ul class="expertise-ia-chips" aria-label="Développement web">
-              <li>HTML / CSS / JS</li><li>React</li><li>Vue</li><li>Svelte</li><li>Astro</li><li>Next.js</li>
-              <li>Vite</li><li>Node.js</li><li>Python</li><li>FastAPI</li><li>Express</li>
-              <li>REST</li><li>GraphQL</li><li>Supabase</li><li>Firebase</li><li>Stripe</li><li>WCAG</li>
-            </ul>
-          </article>
-
-          <article class="expertise-ia-pillar block block-rose" role="listitem">
-            <p class="label" style="margin:0;">QUALIT&Eacute; &amp; MISE EN LIGNE</p>
-            <h2>Mises &agrave; jour, tests, suivi</h2>
-            <p>Ce qui rend un projet <em>tenable</em> : historique des versions, contr&ocirc;les, surveillance technique &mdash; et des r&egrave;gles claires avec vous.</p>
-            <ul class="expertise-ia-chips" aria-label="Mise en production">
-              <li>GitHub Actions</li><li>GitLab CI</li><li>environnements isol&eacute;s (Docker)</li><li>orchestration serveurs (K8s)</li><li>tests</li>
-              <li>contr&ocirc;le qualit&eacute; des r&eacute;ponses IA</li><li>journalisation</li><li>suivi des erreurs</li><li>Plausible</li><li>RGPD</li>
-              <li>mots de passe &amp; cl&eacute;s prot&eacute;g&eacute;s</li><li>s&eacute;curit&eacute; navigateur (CSP)</li><li>HTTPS</li><li>charte Pinapp</li>
-            </ul>
-          </article>
-        </div>
-
-        <p class="expertise-ia-footnote">Liste indicative, évolutive selon vos contraintes. Aucun fournisseur n’est imposé : nous choisissons avec vous ce qui tient la route sur le long terme. Pour cadrer un besoin précis, passez par le <a href="../diagnostic/index.html" style="color:var(--accent-teal);text-decoration:underline;">diagnostic offert</a> (écrit d’abord, Meet en option).</p>
-
-        <div style="text-align:center;margin-top:var(--space-5);">
-          <a href="../diagnostic/index.html" class="btn btn-primary pinapp-breathe">Diagnostic offert — par &eacute;crit</a>
-          <a href="../offres/index.html" class="btn btn-secondary" style="margin-left:var(--space-2);">Voir les offres</a>
-        </div>
-      </div>
-    </section>
-  </main>
+      </section>
+    </main>
     <footer class="site-footer">
-    <div aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none;">
-      <svg viewBox="0 0 120 140" width="380" height="440" style="position:absolute;bottom:-60px;right:-40px;opacity:0.03;" aria-hidden="true" fill="currentColor"><ellipse cx="60" cy="80" rx="38" ry="48"/><path d="M60 32 C54 38 50 42 52 48"/><path d="M60 32 C60 38 60 42 60 48"/><path d="M60 32 C66 38 70 42 68 48"/><rect x="22" y="60" width="76" height="4" rx="2"/><rect x="22" y="72" width="76" height="4" rx="2"/><rect x="22" y="84" width="76" height="4" rx="2"/></svg>
-    </div>
-    <div class="container" style="position:relative;text-align:center;padding:var(--space-7) 0 var(--space-5);">
-      <p style="font-size:1.0625rem;opacity:0.55;margin-bottom:var(--space-4);font-style:italic;letter-spacing:-0.01em;">Pinapp pr&eacute;pare. Vous validez. Toujours.</p>
-      <nav style="display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-3);margin-bottom:var(--space-4);font-size:13px;opacity:0.65;" aria-label="Liens footer">
-        <a href="https://linkedin.com/in/lauralie-daguzay-4a4542197/" rel="noopener noreferrer" target="_blank">LinkedIn</a>
-        <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
-        <a href="../legal/mentions.html">Mentions légales</a>
-        <a href="../legal/cgv.html">CGV</a>
-        <a href="../legal/confidentialite.html">Confidentialité</a>
-      </nav>
-        <nav style="display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-3);margin-bottom:var(--space-3);font-size:12px;opacity:0.4;" aria-label="Liens secondaires">
+      <div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden; pointer-events: none">
+        <svg
+          viewBox="0 0 120 140"
+          width="380"
+          height="440"
+          style="position: absolute; bottom: -60px; right: -40px; opacity: 0.03"
+          aria-hidden="true"
+          fill="currentColor">
+          <ellipse cx="60" cy="80" rx="38" ry="48" />
+          <path d="M60 32 C54 38 50 42 52 48" />
+          <path d="M60 32 C60 38 60 42 60 48" />
+          <path d="M60 32 C66 38 70 42 68 48" />
+          <rect x="22" y="60" width="76" height="4" rx="2" />
+          <rect x="22" y="72" width="76" height="4" rx="2" />
+          <rect x="22" y="84" width="76" height="4" rx="2" />
+        </svg>
+      </div>
+      <div class="container" style="position: relative; text-align: center; padding: var(--space-7) 0 var(--space-5)">
+        <p
+          style="
+            font-size: 1.0625rem;
+            opacity: 0.55;
+            margin-bottom: var(--space-4);
+            font-style: italic;
+            letter-spacing: -0.01em;
+          ">
+          Pinapp pr&eacute;pare. Vous validez. Toujours.
+        </p>
+        <nav
+          style="
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+            font-size: 13px;
+            opacity: 0.65;
+          "
+          aria-label="Liens footer">
+          <a href="https://linkedin.com/in/lauralie-daguzay-4a4542197/" rel="noopener noreferrer" target="_blank"
+            >LinkedIn</a
+          >
+          <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
+          <a href="../legal/mentions.html">Mentions légales</a>
+          <a href="../legal/cgv.html">CGV</a>
+          <a href="../legal/confidentialite.html">Confidentialité</a>
+        </nav>
+        <nav
+          style="
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-3);
+            font-size: 12px;
+            opacity: 0.4;
+          "
+          aria-label="Liens secondaires">
           <a href="../expertise-ia/index.html">IA &amp; systèmes</a>
           <a href="../auralis/index.html">Auralis RH</a>
           <a href="../formation-gratuite/index.html">Formation IA</a>
         </nav>
-      <p style="font-size:12px;opacity:0.35;letter-spacing:0.04em;">Pinapp Studio © 2026</p>
-    </div>
-  </footer>
-  <div id="cookie-banner" role="dialog" aria-label="Cookies" style="position:fixed;bottom:0;left:0;right:0;padding:var(--space-3);background:var(--bg-card);border-top:1px solid var(--border-card);backdrop-filter:blur(20px);z-index:9000;display:none;">
-    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap;">
-      <p style="font-size:13px;opacity:0.8;max-width:600px;">Ce site utilise des cookies de mesure d’audience anonymes (Plausible Analytics — sans tracking personnel).</p>
-      <div style="display:flex;gap:var(--space-2);">
-        <button type="button" id="cookieAccept" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Accepter</button>
-        <button type="button" id="cookieRefuse" class="btn btn-secondary" style="font-size:13px;padding:10px 20px;">Refuser</button>
+        <p style="font-size: 12px; opacity: 0.35; letter-spacing: 0.04em">
+          Pinapp Studio © 2026 · SIRET : en cours d’immatriculation
+        </p>
+      </div>
+    </footer>
+    <div
+      id="cookie-banner"
+      role="dialog"
+      aria-label="Cookies"
+      style="
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: var(--space-3);
+        background: var(--bg-card);
+        border-top: 1px solid var(--border-card);
+        backdrop-filter: blur(20px);
+        z-index: 9000;
+        display: none;
+      ">
+      <div
+        class="container"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: var(--space-3);
+          flex-wrap: wrap;
+        ">
+        <p style="font-size: 13px; opacity: 0.8; max-width: 600px">
+          Ce site utilise des cookies de mesure d’audience anonymes (Plausible Analytics — sans tracking personnel).
+        </p>
+        <div style="display: flex; gap: var(--space-2)">
+          <button type="button" id="cookieAccept" class="btn btn-secondary" style="font-size: 13px; padding: 10px 20px">
+            Accepter
+          </button>
+          <button type="button" id="cookieRefuse" class="btn btn-secondary" style="font-size: 13px; padding: 10px 20px">
+            Refuser
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <script src="../assets/js/config.js"></script>
-  <script src="../assets/js/security.js" defer></script>
-  <script src="../assets/js/main.js" defer></script>
-  <script src="../assets/js/particles.js" defer></script>
-  <script src="../assets/js/aurora.js" defer></script>
-  <script src="../assets/js/parallax.js" defer></script>
-  <script src="../assets/js/intelligence.js" defer></script><script src="../assets/js/scroll-cinema.js" defer></script>
-  <script src="../assets/js/cursor.js" defer></script>
-<script src="../assets/js/pandora-night.js" defer></script><script src="../assets/js/mode-toggle.js" defer></script>
-  <script src="../assets/js/bio-particles.js" defer></script>
-  <script src="../assets/js/pandora-world.js"></script>
-  <script src="../assets/js/pandora-interactions.js"></script>
-</body>
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/security.js" defer></script>
+    <script src="../assets/js/main.js" defer></script>
+    <script src="../assets/js/effects-loader.js" defer></script>
+    <script src="../assets/js/aurora.js" defer></script>
+    <script src="../assets/js/parallax.js" defer></script>
+    <script src="../assets/js/intelligence.js" defer></script>
+    <script src="../assets/js/pandora-night.js" defer></script>
+    <script src="../assets/js/mode-toggle.js" defer></script>
+    <script src="../assets/js/pandora-world.js"></script>
+    <script src="../assets/js/pandora-interactions.js"></script>
+  </body>
 </html>

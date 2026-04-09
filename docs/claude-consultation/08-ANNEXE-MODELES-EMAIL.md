@@ -2,7 +2,7 @@
 
 > **GitHub :** [ce fichier](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/08-ANNEXE-MODELES-EMAIL.md) · [dossier `claude-consultation`](https://github.com/lauraliedaguzay-lang/pinapp-site/tree/main/docs/claude-consultation)
 
-*Copie intégrée pour dossier autonome — mirror de `docs/automation/DIGESTS-EMAIL-PINAPP.md`.*
+_Copie intégrée pour dossier autonome — mirror de `docs/automation/DIGESTS-EMAIL-PINAPP.md`._
 
 ---
 
@@ -15,11 +15,11 @@ Implémentation typique : **Make** (scénario hebdo) ou **Google Apps Script** +
 
 ## 0. Sujet des e-mails (exemples)
 
-| Type | Objet suggéré |
-|------|----------------|
-| Veille tech hebdo | `Pinapp — Veille tech · semaine du JJ/MM/AAAA` |
-| Alertes sécurité | `Pinapp — Alertes dépendances / sécurité (action)` |
-| RH & admin | `Pinapp — RH & admin · semaine du JJ/MM/AAAA` |
+| Type              | Objet suggéré                                      |
+| ----------------- | -------------------------------------------------- |
+| Veille tech hebdo | `Pinapp — Veille tech · semaine du JJ/MM/AAAA`     |
+| Alertes sécurité  | `Pinapp — Alertes dépendances / sécurité (action)` |
+| RH & admin        | `Pinapp — RH & admin · semaine du JJ/MM/AAAA`      |
 
 ---
 

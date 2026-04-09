@@ -28,6 +28,33 @@ function getProp_(key, fallback) {
   return v != null && String(v).trim() !== '' ? String(v).trim() : fallback;
 }
 
+function pinappGetNotificationEmail_() {
+  // Email interne de notification (déclenche la notif push Gmail sur téléphone).
+  // Par défaut : l’utilisateur actif du script.
+  return getProp_('NOTIFY_EMAIL', Session.getActiveUser().getEmail());
+}
+
+function pinappSendMobileNotif_(type, subject, from) {
+  var to = pinappGetNotificationEmail_();
+  if (!to) return;
+  var safeSubj = subject || '(sans objet)';
+  var safeFrom = from || '(expéditeur inconnu)';
+  var body = [
+    'Brouillon prêt dans Gmail.',
+    '',
+    'Type : ' + type,
+    'De : ' + safeFrom,
+    'Sujet : ' + safeSubj,
+    '',
+    'Ouvrir Gmail → Brouillons du fil pour valider et envoyer.',
+  ].join('\n');
+  MailApp.sendEmail({
+    to: to,
+    subject: '🔔 Pinapp — ' + type,
+    body: body,
+  });
+}
+
 function pinappGetLabels_() {
   var nameIn = getProp_('LABEL_IN', PINAPP_DEFAULTS.labelIn);
   var nameOut = getProp_('LABEL_OUT', PINAPP_DEFAULTS.labelOut);
@@ -130,6 +157,9 @@ function pinappProcessOneThread_(thread, apiKey, model, labels) {
   GmailApp.createDraft(last.getFrom(), replySubject, draftBody, { replyTo: last });
 
   thread.addLabel(labels.outLabel);
+
+  // Notification mobile (push Gmail) — après création du brouillon.
+  pinappSendMobileNotif_('Brouillon prêt', subj, from);
 }
 
 function pinappCallAnthropic_(apiKey, model, system, userText) {

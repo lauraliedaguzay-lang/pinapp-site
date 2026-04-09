@@ -20,13 +20,13 @@ Fichier machine : `https://pinapp.fr/.well-known/security.txt` (déployé depuis
 
 ## Audit interne (état au dernier passage)
 
-| Zone | Mesure |
-|------|--------|
-| Transport | Redirection HTTPS + en-têtes (`X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`) |
-| CSP | Politique dans `.htaccess` (inline script/style assumés pour démos + JSON-LD) |
-| Listing | `Options -Indexes` |
-| Dashboard | Auth Basic sur `/dashboard/` si `.htpasswd` configuré côté serveur |
-| Fuite de secrets | `.gitignore` renforcé + CI vérifie l’absence de `.env` / `.htpasswd` |
-| Dépendances | Dependabot sur les workflows Actions |
+| Zone             | Mesure                                                                                        |
+| ---------------- | --------------------------------------------------------------------------------------------- |
+| Transport        | Redirection HTTPS + en-têtes (`X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`) |
+| CSP              | Politique dans `.htaccess` (inline script/style assumés pour démos + JSON-LD)                 |
+| Listing          | `Options -Indexes`                                                                            |
+| Dashboard        | Auth Basic sur `/dashboard/` si `.htpasswd` configuré côté serveur                            |
+| Fuite de secrets | `.gitignore` renforcé + CI vérifie l’absence de `.env` / `.htpasswd`                          |
+| Dépendances      | Dependabot sur les workflows Actions                                                          |
 
 À faire côté hébergement : chemin **`AuthUserFile`** réel, **HSTS** (décommenter dans `.htaccess` après validation), activer **Plausible** + ajuster `connect-src` / `script-src` si domaine perso.

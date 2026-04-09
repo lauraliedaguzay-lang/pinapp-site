@@ -1,0 +1,69 @@
+name: Déployer Hostinger (FTPS)
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Cible de déploiement"
+        required: true
+        type: choice
+        options:
+          - staging
+          - production
+        default: staging
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hostinger-${{ github.ref }}-${{ inputs.target }}
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Dépendances
+        run: npm install
+
+      - name: Qualité (Prettier + garde-fous)
+        run: npm run ci
+
+      - name: Construire _site/
+        env:
+          CI: true
+          AURALIS_APP_URL: ${{ secrets.AURALIS_APP_URL }}
+        run: npm run build
+
+      - name: Définir le dossier distant
+        id: remote
+        run: |
+          if [ "${{ inputs.target }}" = "production" ]; then
+            echo "dir=/public_html/" >> "$GITHUB_OUTPUT"
+          else
+            echo "dir=/public_html/pinapp-staging/" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Déployer vers Hostinger (FTPS)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.HOSTINGER_FTP_HOST }}
+          username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
+          password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: _site/
+          server-dir: ${{ steps.remote.outputs.dir }}
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.github/**
+            **/node_modules/**
+

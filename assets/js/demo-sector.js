@@ -12,6 +12,42 @@
     return;
   }
 
+  function getParam(name) {
+    try {
+      return new URL(window.location.href).searchParams.get(name);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function setParam(name, value) {
+    try {
+      var u = new URL(window.location.href);
+      if (value == null) u.searchParams.delete(name);
+      else u.searchParams.set(name, value);
+      // Avoid breaking hashes used by skip links.
+      window.location.href = u.toString();
+    } catch (e) {}
+  }
+
+  function setViewportMode(mode) {
+    var meta = document.querySelector('meta[name="viewport"]');
+    if (!meta) return;
+    if (mode === 'web') {
+      meta.setAttribute('content', 'width=1280, initial-scale=1, viewport-fit=cover');
+      document.documentElement.classList.add('demo-view-web');
+      try {
+        sessionStorage.setItem('pinapp-demo-view', 'web');
+      } catch (e) {}
+    } else {
+      meta.setAttribute('content', 'width=device-width, initial-scale=1, viewport-fit=cover');
+      document.documentElement.classList.remove('demo-view-web');
+      try {
+        sessionStorage.setItem('pinapp-demo-view', 'mobile');
+      } catch (e) {}
+    }
+  }
+
   function escAttr(val) {
     return String(val == null ? '' : val)
       .replace(/&/g, '&amp;')
@@ -34,7 +70,7 @@
       '--demo-accent-dark': S.accentDark || S.accent,
       '--demo-texte': S.texte,
       '--demo-fond': S.fond,
-      '--demo-accent-hero': S.accent
+      '--demo-accent-hero': S.accent,
     };
 
     if (style === 'light-minimal') {
@@ -49,7 +85,7 @@
         '--demo-border-card': 'rgba(13, 27, 62, 0.1)',
         '--demo-fond-preuve': 'rgba(245, 245, 247, 0.95)',
         '--demo-fond-booking': 'rgba(255, 255, 255, 0.88)',
-        '--demo-fond-footer': 'rgba(255, 255, 255, 0.92)'
+        '--demo-fond-footer': 'rgba(255, 255, 255, 0.92)',
       });
     } else if (style === 'dark-luxury') {
       Object.assign(base, {
@@ -63,7 +99,7 @@
         '--demo-border-card': 'rgba(255, 255, 255, 0.1)',
         '--demo-fond-preuve': 'rgba(255, 255, 255, 0.03)',
         '--demo-fond-booking': 'rgba(255, 255, 255, 0.05)',
-        '--demo-fond-footer': 'rgba(5, 5, 8, 0.88)'
+        '--demo-fond-footer': 'rgba(5, 5, 8, 0.88)',
       });
     } else {
       /* bold-tech */
@@ -78,7 +114,7 @@
         '--demo-border-card': 'rgba(255, 255, 255, 0.12)',
         '--demo-fond-preuve': 'rgba(255, 255, 255, 0.03)',
         '--demo-fond-booking': 'rgba(255, 255, 255, 0.05)',
-        '--demo-fond-footer': 'rgba(5, 5, 8, 0.9)'
+        '--demo-fond-footer': 'rgba(5, 5, 8, 0.9)',
       });
     }
 
@@ -100,7 +136,7 @@
         }
         hero.style.backgroundImage =
           "url('" +
-          String(heroUrl).replace(/'/g, '\\\'') +
+          String(heroUrl).replace(/'/g, "\\'") +
           "'), linear-gradient(135deg, " +
           (S.accentDark || S.accent) +
           ', ' +
@@ -127,7 +163,60 @@
     scrollToSection(document.getElementById('booking'));
   };
 
+  function mountViewToolbar() {
+    var toolbar = document.createElement('div');
+    toolbar.className = 'demo-toolbar';
+    toolbar.setAttribute('role', 'navigation');
+    toolbar.setAttribute('aria-label', 'Choix de vue');
+    toolbar.innerHTML =
+      '<button type="button" class="demo-toolbar-btn" data-view="mobile">Mobile</button>' +
+      '<button type="button" class="demo-toolbar-btn" data-view="web">Web</button>';
+
+    var target = document.body;
+    var banner = document.querySelector('.demo-live-banner');
+    if (banner && banner.parentNode) target = banner.parentNode;
+    if (banner && banner.parentNode) banner.parentNode.insertBefore(toolbar, banner.nextSibling);
+    else if (target && target.firstChild) target.insertBefore(toolbar, target.firstChild);
+    else if (target) target.appendChild(toolbar);
+
+    function syncButtons(mode) {
+      toolbar.querySelectorAll('.demo-toolbar-btn').forEach(function (b) {
+        var on = b.getAttribute('data-view') === mode;
+        if (on) b.classList.add('active');
+        else b.classList.remove('active');
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    }
+
+    function currentMode() {
+      var p = getParam('view');
+      if (p === 'web' || p === 'mobile') return p;
+      try {
+        var saved = sessionStorage.getItem('pinapp-demo-view');
+        if (saved === 'web' || saved === 'mobile') return saved;
+      } catch (e) {}
+      return 'mobile';
+    }
+
+    var mode = currentMode();
+    setViewportMode(mode);
+    syncButtons(mode);
+
+    toolbar.addEventListener('click', function (e) {
+      var btn = e.target && e.target.closest ? e.target.closest('button[data-view]') : null;
+      if (!btn) return;
+      var next = btn.getAttribute('data-view');
+      if (next !== 'web' && next !== 'mobile') return;
+      // Persist and reload with URL param so it works even on iOS Safari.
+      try {
+        sessionStorage.setItem('pinapp-demo-view', next);
+      } catch (err) {}
+      setParam('view', next);
+    });
+  }
+
   applyTheme();
+  mountViewToolbar();
 
   function fillCopy() {
     function setText(id, text) {
@@ -184,7 +273,8 @@
 
     if (S.galerie && S.galerie.length) {
       var gal = document.createElement('section');
-      gal.className = 'demo-galerie-section' + (S.galerie.length >= 10 ? ' demo-galerie-section--dense' : '');
+      gal.className =
+        'demo-galerie-section' + (S.galerie.length >= 10 ? ' demo-galerie-section--dense' : '');
       gal.setAttribute('aria-label', 'Galerie photos');
       var h2g = document.createElement('h2');
       h2g.className = 'demo-galerie-title';
@@ -280,27 +370,28 @@
       var form = document.createElement('form');
       form.className = 'demo-rich-form';
       form.setAttribute('novalidate', '');
-      [['Prénom', 'text', 'demo-fn'], ['Email', 'email', 'demo-em'], ['Mobile (optionnel)', 'tel', 'demo-tel']].forEach(
-        function (row) {
-          var lab = document.createElement('label');
-          lab.className = 'demo-rich-label';
-          lab.textContent = row[0];
-          var inp = document.createElement('input');
-          inp.type = row[1];
-          inp.className = 'demo-rich-input';
-          inp.name = row[2];
-          if (row[1] === 'email') {
-            inp.autocomplete = 'email';
-          } else if (row[1] === 'tel') {
-            inp.autocomplete = 'tel';
-            inp.inputMode = 'tel';
-            inp.placeholder = '06…';
-          }
-          else inp.autocomplete = 'given-name';
-          lab.appendChild(inp);
-          form.appendChild(lab);
-        }
-      );
+      [
+        ['Prénom', 'text', 'demo-fn'],
+        ['Email', 'email', 'demo-em'],
+        ['Mobile (optionnel)', 'tel', 'demo-tel'],
+      ].forEach(function (row) {
+        var lab = document.createElement('label');
+        lab.className = 'demo-rich-label';
+        lab.textContent = row[0];
+        var inp = document.createElement('input');
+        inp.type = row[1];
+        inp.className = 'demo-rich-input';
+        inp.name = row[2];
+        if (row[1] === 'email') {
+          inp.autocomplete = 'email';
+        } else if (row[1] === 'tel') {
+          inp.autocomplete = 'tel';
+          inp.inputMode = 'tel';
+          inp.placeholder = '06…';
+        } else inp.autocomplete = 'given-name';
+        lab.appendChild(inp);
+        form.appendChild(lab);
+      });
       var telHint = document.createElement('p');
       telHint.className = 'demo-rich-hint';
       telHint.style.marginTop = '-10px';
@@ -327,7 +418,8 @@
       form.appendChild(hint);
       form.addEventListener('submit', function (e) {
         e.preventDefault();
-        if (window.console && console.log) console.log('[DÉMO Pinapp] Formulaire riche (non envoyé)');
+        if (window.console && console.log)
+          console.log('[DÉMO Pinapp] Formulaire riche (non envoyé)');
         btn.textContent = 'Bien reçu (simulation)';
         btn.disabled = true;
       });
@@ -355,7 +447,8 @@
         '" alt="" loading="lazy" decoding="async" width="400" height="200">'
       : iconSvg;
     item.innerHTML =
-      topMedia + '<p class="service-name"></p><p class="service-desc"></p><p class="service-prix"></p>';
+      topMedia +
+      '<p class="service-name"></p><p class="service-desc"></p><p class="service-prix"></p>';
     item.querySelector('.service-name').textContent = service.nom;
     item.querySelector('.service-desc').textContent = service.description;
     item.querySelector('.service-prix').textContent = service.prix;
@@ -391,7 +484,7 @@
     function (e) {
       touchStartX = e.touches[0].clientX;
     },
-    { passive: true }
+    { passive: true },
   );
   swipeContainer.addEventListener(
     'touchend',
@@ -399,14 +492,11 @@
       var diff = touchStartX - e.changedTouches[0].clientX;
       if (Math.abs(diff) > 50) {
         var n = S.services.length;
-        var next =
-          diff > 0
-            ? (currentService + 1) % n
-            : (currentService - 1 + n) % n;
+        var next = diff > 0 ? (currentService + 1) % n : (currentService - 1 + n) % n;
         showService(next);
       }
     },
-    { passive: true }
+    { passive: true },
   );
 
   /* Badges */
@@ -485,7 +575,7 @@
         isScrolling = false;
       }, scrollCooldown);
     },
-    { passive: true }
+    { passive: true },
   );
 
   var touchStartY = 0;
@@ -494,7 +584,7 @@
     function (e) {
       touchStartY = e.touches[0].clientY;
     },
-    { passive: true }
+    { passive: true },
   );
   window.addEventListener(
     'touchend',
@@ -513,7 +603,7 @@
         isScrolling = false;
       }, scrollCooldown);
     },
-    { passive: true }
+    { passive: true },
   );
 
   /* Sections visibles au chargement (règle zéro-scroll Pinapp — pas de révélation au défilement) */

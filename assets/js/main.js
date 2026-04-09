@@ -4,9 +4,154 @@
 (function () {
   'use strict';
 
-  const prefersReducedMotion = window.matchMedia(
-    '(prefers-reduced-motion: reduce)'
-  ).matches;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Champ d’étoiles (Pandora) — calque fixe, pas lié au scroll
+     - Mode sombre : plus présent (étoiles blanches, twinkle discret)
+     - Mode clair  : quasi imperceptible
+     - prefers-reduced-motion : rendu statique (pas de boucle) */
+  function effectiveTheme() {
+    var a = document.documentElement.getAttribute('data-theme');
+    if (a === 'light' || a === 'dark') return a;
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  }
+
+  function initStarfield() {
+    if (document.getElementById('pinapp-stars')) return;
+
+    var canvas = document.createElement('canvas');
+    canvas.id = 'pinapp-stars';
+    canvas.setAttribute('aria-hidden', 'true');
+    canvas.setAttribute('role', 'presentation');
+    document.body.appendChild(canvas);
+
+    var ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
+    if (!ctx) return;
+
+    var stars = [];
+    var w = 0,
+      h = 0,
+      dpr = 1;
+    var running = false;
+    var lastDraw = 0;
+    var seed = 1337;
+
+    function rand() {
+      // LCG deterministic, cheap
+      seed = (seed * 1664525 + 1013904223) >>> 0;
+      return seed / 4294967296;
+    }
+
+    function buildStars() {
+      var theme = effectiveTheme();
+      var count = theme === 'light' ? 42 : 140;
+      stars = new Array(count).fill(0).map(function () {
+        var r = rand();
+        // petit rayon en pixels CSS (sera multiplié par dpr au draw)
+        var size = theme === 'light' ? 0.35 + r * 0.75 : 0.45 + r * 1.15;
+        return {
+          x: rand(),
+          y: rand(),
+          s: size,
+          a: theme === 'light' ? 0.02 + rand() * 0.06 : 0.1 + rand() * 0.35,
+          tw: 0.65 + rand() * 1.35,
+          ph: rand() * Math.PI * 2,
+        };
+      });
+    }
+
+    function resize() {
+      dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      w = Math.max(320, window.innerWidth);
+      h = Math.max(320, window.innerHeight);
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      buildStars();
+      draw(performance.now());
+    }
+
+    function draw(now) {
+      var theme = effectiveTheme();
+      // limiter la fréquence (évite “effet voyant” + charge GPU)
+      if (!prefersReducedMotion && now - lastDraw < 90) return;
+      lastDraw = now;
+
+      ctx.clearRect(0, 0, w, h);
+      ctx.globalCompositeOperation = 'source-over';
+
+      // fond : stars blanches, ultra discrètes (pas de néon)
+      for (var i = 0; i < stars.length; i++) {
+        var st = stars[i];
+        var baseA = st.a;
+        var a = baseA;
+
+        if (!prefersReducedMotion && theme !== 'light') {
+          // twinkle subtil uniquement en sombre
+          var t = now * 0.001;
+          a = baseA * (0.75 + 0.25 * Math.sin(t * st.tw + st.ph));
+        }
+
+        if (a <= 0.003) continue;
+        ctx.fillStyle = 'rgba(255,255,255,' + a.toFixed(4) + ')';
+        var x = st.x * w;
+        var y = st.y * h;
+        var s = st.s;
+        ctx.beginPath();
+        ctx.arc(x, y, s, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function loop(now) {
+      if (!running) return;
+      draw(now);
+      requestAnimationFrame(loop);
+    }
+
+    function start() {
+      if (prefersReducedMotion) {
+        running = false;
+        draw(performance.now());
+        return;
+      }
+      if (running) return;
+      running = true;
+      requestAnimationFrame(loop);
+    }
+
+    function stop() {
+      running = false;
+    }
+
+    // Resize + theme changes
+    window.addEventListener(
+      'resize',
+      function () {
+        // debounced via RAF
+        window.requestAnimationFrame(resize);
+      },
+      { passive: true },
+    );
+
+    document.body.addEventListener('modeChange', function () {
+      buildStars();
+      draw(performance.now());
+      start();
+    });
+
+    // Démarrer
+    resize();
+    start();
+
+    // Si tab background, arrêter la boucle (économie)
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'hidden') stop();
+      else start();
+    });
+  }
 
   /* Spotlight curseur → variables --spot-x / --spot-y (lumière ambiante body::after) */
   if (!prefersReducedMotion && window.matchMedia('(min-width: 1024px)').matches) {
@@ -24,8 +169,14 @@
           rootStyle.setProperty('--spot-y', y + '%');
         });
       },
-      { passive: true }
+      { passive: true },
     );
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initStarfield);
+  } else {
+    initStarfield();
   }
 
   /* Ancre dans l’URL (#contenu-principal) : le loader fixe masque la cible au 1er paint ;
@@ -85,7 +236,7 @@
       var bar = document.getElementById('scrollProgress');
       if (bar) bar.style.transform = 'scaleX(' + Math.min(1, Math.max(0, p)) + ')';
     },
-    { passive: true }
+    { passive: true },
   );
 
   /* Nav scroll-aware : masquage au scroll uniquement sur petit écran (évite « nav morte » sur bureau) */
@@ -118,7 +269,7 @@
       }
       lastScroll = current;
     },
-    { passive: true }
+    { passive: true },
   );
 
   /* Zéro scroll : pas d’IntersectionObserver pour révéler le contenu au fil du défilement */
@@ -156,13 +307,6 @@
     revealHero();
   }
 
-  /* Thème clair / sombre (bouton nav + localStorage ; sinon réglage système) */
-  function effectiveTheme() {
-    var a = document.documentElement.getAttribute('data-theme');
-    if (a === 'light' || a === 'dark') return a;
-    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-  }
-
   function syncThemeColorMeta() {
     var m = document.getElementById('pinapp-theme-color');
     if (!m) return;
@@ -197,7 +341,7 @@
       var eff = effectiveTheme();
       btn.setAttribute(
         'aria-label',
-        eff === 'light' ? 'Activer le mode sombre' : 'Activer le mode clair'
+        eff === 'light' ? 'Activer le mode sombre' : 'Activer le mode clair',
       );
       btn.setAttribute('title', btn.getAttribute('aria-label'));
     }
@@ -405,73 +549,78 @@
   var onboardingStage = document.getElementById('onboardingStage');
   var progressEl = document.getElementById('onboardingProgress');
 
-  if (onboardingStage) document.querySelectorAll('.pill-btn').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var q = parseInt(btn.getAttribute('data-q'), 10);
-      var val = btn.getAttribute('data-val');
-      answers[q] = val;
+  if (onboardingStage)
+    document.querySelectorAll('.pill-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var q = parseInt(btn.getAttribute('data-q'), 10);
+        var val = btn.getAttribute('data-val');
+        answers[q] = val;
 
-      if (progressEl && progressMap[q]) {
-        progressEl.style.width = progressMap[q] + '%';
-      }
-
-      var messages = { 1: 'Bien noté.', 2: 'Parfait.', 3: 'On y est presque.' };
-
-      if (q < 4) {
-        var msg = document.createElement('div');
-        msg.className = 'transition-msg';
-        msg.textContent = messages[q];
-        msg.style.cssText =
-          'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:18px;color:var(--accent-teal);pointer-events:none;';
-        if (onboardingStage) onboardingStage.appendChild(msg);
-
-        var qEl = document.getElementById('q' + q);
-        if (qEl) qEl.classList.remove('active');
-        window.setTimeout(function () {
-          msg.remove();
-          var next = document.getElementById('q' + (q + 1));
-          if (next) next.classList.add('active');
-        }, 700);
-      } else {
-        var q4 = document.getElementById('q4');
-        if (q4) q4.classList.remove('active');
-        if (progressEl) progressEl.style.width = '100%';
-
-        var finMsg = document.getElementById('finMessage');
-        if (finMsg && answers[4] === 'moins-1000') {
-          finMsg.textContent =
-            'Parfait pour notre Starter à 349€. Je reviens vers vous sous 24h.';
+        if (progressEl && progressMap[q]) {
+          progressEl.style.width = progressMap[q] + '%';
         }
 
-        var qfin = document.getElementById('qfin');
-        if (qfin) qfin.classList.add('active');
+        var messages = { 1: 'Bien noté.', 2: 'Parfait.', 3: 'On y est presque.' };
 
-        /* Envoi Netlify Forms + webhook n8n si configuré */
-        var onboardingPayload = {
-          'form-name': 'onboarding-parcours',
-          secteur:     answers[1] || '',
-          budget:      answers[2] || '',
-          urgence:     answers[3] || '',
-          budget2:     answers[4] || '',
-          timestamp:   new Date().toISOString(),
-          page:        location.href,
-        };
-        /* Netlify Forms (toujours) */
-        var fd = new FormData();
-        Object.keys(onboardingPayload).forEach(function(k){ fd.append(k, onboardingPayload[k]); });
-        fetch('/', { method: 'POST', headers: { 'Accept': 'application/json' }, body: fd }).catch(function(){});
-        /* Webhook n8n si branché */
-        var cfg = window.PinappConfig;
-        if (cfg && cfg.features.onboardingWebhook && cfg._isRealUrl(cfg.webhooks.onboarding)) {
-          fetch(cfg.webhooks.onboarding, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(onboardingPayload),
-          }).catch(function(){});
+        if (q < 4) {
+          var msg = document.createElement('div');
+          msg.className = 'transition-msg';
+          msg.textContent = messages[q];
+          msg.style.cssText =
+            'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:18px;color:var(--accent-teal);pointer-events:none;';
+          if (onboardingStage) onboardingStage.appendChild(msg);
+
+          var qEl = document.getElementById('q' + q);
+          if (qEl) qEl.classList.remove('active');
+          window.setTimeout(function () {
+            msg.remove();
+            var next = document.getElementById('q' + (q + 1));
+            if (next) next.classList.add('active');
+          }, 700);
+        } else {
+          var q4 = document.getElementById('q4');
+          if (q4) q4.classList.remove('active');
+          if (progressEl) progressEl.style.width = '100%';
+
+          var finMsg = document.getElementById('finMessage');
+          if (finMsg && answers[4] === 'moins-1000') {
+            finMsg.textContent =
+              'Parfait pour notre Starter à 349€. Je reviens vers vous sous 24h.';
+          }
+
+          var qfin = document.getElementById('qfin');
+          if (qfin) qfin.classList.add('active');
+
+          /* Envoi Netlify Forms + webhook n8n si configuré */
+          var onboardingPayload = {
+            'form-name': 'onboarding-parcours',
+            secteur: answers[1] || '',
+            budget: answers[2] || '',
+            urgence: answers[3] || '',
+            budget2: answers[4] || '',
+            timestamp: new Date().toISOString(),
+            page: location.href,
+          };
+          /* Netlify Forms (toujours) */
+          var fd = new FormData();
+          Object.keys(onboardingPayload).forEach(function (k) {
+            fd.append(k, onboardingPayload[k]);
+          });
+          fetch('/', { method: 'POST', headers: { Accept: 'application/json' }, body: fd }).catch(
+            function () {},
+          );
+          /* Webhook n8n si branché */
+          var cfg = window.PinappConfig;
+          if (cfg && cfg.features.onboardingWebhook && cfg._isRealUrl(cfg.webhooks.onboarding)) {
+            fetch(cfg.webhooks.onboarding, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(onboardingPayload),
+            }).catch(function () {});
+          }
         }
-      }
+      });
     });
-  });
 
   /* FAQ */
   document.querySelectorAll('.faq-trigger').forEach(function (trigger) {
@@ -499,26 +648,33 @@
       /* Lead Netlify Forms + webhook n8n si configuré */
       var lfPayload = {
         'form-name': 'lead-guide-gratuit',
-        email:       email,
-        timestamp:   new Date().toISOString(),
-        page:        location.href,
+        email: email,
+        timestamp: new Date().toISOString(),
+        page: location.href,
       };
       var lfd = new FormData();
-      Object.keys(lfPayload).forEach(function(k){ lfd.append(k, lfPayload[k]); });
-      fetch('/', { method: 'POST', headers: { 'Accept': 'application/json' }, body: lfd }).catch(function(){});
+      Object.keys(lfPayload).forEach(function (k) {
+        lfd.append(k, lfPayload[k]);
+      });
+      fetch('/', { method: 'POST', headers: { Accept: 'application/json' }, body: lfd }).catch(
+        function () {},
+      );
       var lcfg = window.PinappConfig;
       if (lcfg && lcfg.features.leadWebhook && lcfg._isRealUrl(lcfg.webhooks.leadMagnet)) {
         fetch(lcfg.webhooks.leadMagnet, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(lfPayload),
-        }).catch(function(){});
+        }).catch(function () {});
       }
       /* Feedback visuel */
       leadBtn.textContent = 'Guide envoyé ✓';
       leadBtn.disabled = true;
       if (leadEmail) leadEmail.value = '';
-      setTimeout(function(){ leadBtn.textContent = 'Recevoir le guide →'; leadBtn.disabled = false; }, 4000);
+      setTimeout(function () {
+        leadBtn.textContent = 'Recevoir le guide →';
+        leadBtn.disabled = false;
+      }, 4000);
     });
   }
 
@@ -560,9 +716,9 @@
       var w = canvas.offsetWidth;
       var h = canvas.offsetHeight;
       ctx.clearRect(0, 0, w, h);
-      var teal = getComputedStyle(document.documentElement)
-        .getPropertyValue('--accent-teal')
-        .trim() || '#3EEBD6';
+      var teal =
+        getComputedStyle(document.documentElement).getPropertyValue('--accent-teal').trim() ||
+        '#3EEBD6';
 
       particles.forEach(function (p) {
         p.x += p.vx;

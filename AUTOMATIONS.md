@@ -1,4 +1,5 @@
 # Pinapp Studio — Guide Automatisations Stratégiques
+
 ## Système WhatsApp "1 clic = approuver" + 10 workflows n8n
 
 ---
@@ -23,19 +24,21 @@ Lead soumet diagnostic → n8n → WhatsApp (Lauralie) → Clic sur lien → Dé
 
 Dans **Netlify > Site settings > Environment variables**, ajouter :
 
-| Variable | Valeur |
-|---|---|
-| `APPROVE_SECRET` | Générer avec : `openssl rand -hex 32` |
+| Variable          | Valeur                                    |
+| ----------------- | ----------------------------------------- |
+| `APPROVE_SECRET`  | Générer avec : `openssl rand -hex 32`     |
 | `N8N_APPROVE_URL` | `https://[TON-N8N]/webhook/lead-decision` |
 
 ### Étape 2 — WhatsApp Business API
 
 **Option A (recommandée) : Twilio WhatsApp**
+
 1. Créer compte Twilio → activer sandbox WhatsApp
 2. Dans n8n : nœud "HTTP Request" vers `https://api.twilio.com/2010-04-01/Accounts/{SID}/Messages.json`
 3. Coût : ~0,005€/message
 
 **Option B : Meta Cloud API (gratuit jusqu'à 1000 conv/mois)**
+
 1. business.facebook.com → WhatsApp Business
 2. Générer token permanent dans n8n
 
@@ -46,6 +49,7 @@ Copier-coller les JSON ci-dessous dans n8n (Import > Paste JSON).
 ### Étape 4 — Activer les feature flags
 
 Dans `assets/js/config.js` :
+
 ```js
 features: {
   diagnosticWebhook: true,   // après import workflow ①
@@ -61,19 +65,23 @@ features: {
 ### 🔴 CRITIQUE
 
 #### ① Lead Entrant — Diagnostic
+
 **Déclencheur** : Soumission formulaire `diagnostic` (Netlify Forms webhook)
 **Actions** :
+
 1. Créer fiche lead dans Notion/Airtable (nom, email, secteur, besoin, budget)
 2. Scorer le lead (budget > 500€ = score A, < 500€ = score B)
 3. Envoyer message WhatsApp à Lauralie avec bouton "Approuver" et "Décliner"
 4. Envoyer email accusé de réception au prospect
 
 **Webhook Netlify** : Configurer dans Netlify > Forms > Notifications > Outgoing webhook
+
 ```
 URL : https://[TON-N8N]/webhook/diagnostic-lead
 ```
 
 **Lien WhatsApp généré par n8n** :
+
 ```
 https://pinapp.fr/.netlify/functions/approve?id={{leadId}}&token={{hmacToken}}&action=approve
 ```
@@ -81,14 +89,17 @@ https://pinapp.fr/.netlify/functions/approve?id={{leadId}}&token={{hmacToken}}&a
 ---
 
 #### ② Approve/Decline (WhatsApp 1 clic)
+
 **Déclencheur** : GET `https://pinapp.fr/.netlify/functions/approve?...`
 **Actions** :
+
 - **Si approve** : Email auto au prospect ("Bonjour, j'ai bien reçu votre demande...") + statut CRM = Qualifié + tâche Notion "RDV à planifier"
 - **Si decline** : Statut CRM = Archivé, aucun email
 
 ---
 
 #### ④ Relance 24h si aucune décision
+
 **Déclencheur** : Cron toutes les heures (n8n)
 **Logique** : Lire Notion/Airtable, chercher leads avec statut "Nouveau" créés depuis > 24h
 **Action** : WhatsApp de rappel à Lauralie
@@ -98,8 +109,10 @@ https://pinapp.fr/.netlify/functions/approve?id={{leadId}}&token={{hmacToken}}&a
 ### 🟡 IMPORTANT
 
 #### ③ Onboarding Questionnaire
+
 **Déclencheur** : Completion du questionnaire 4 étapes sur index.html
 **Actions** :
+
 1. Créer lead dans CRM (secteur, budget, urgence)
 2. Envoyer email de présentation personnalisée selon secteur
 3. (Si budget < 349 €) Envoyer contenu éducatif au lieu d'offre directe
@@ -107,8 +120,10 @@ https://pinapp.fr/.netlify/functions/approve?id={{leadId}}&token={{hmacToken}}&a
 ---
 
 #### ⑤ Lead Magnet — Guide offert
+
 **Déclencheur** : Soumission formulaire `lead-guide-gratuit`
 **Actions** :
+
 1. Envoyer PDF/lien guide par email immédiatement
 2. Séquence de 3 emails sur 7 jours (J+0, J+2, J+7) :
    - J+0 : Guide + mise en contexte
@@ -118,8 +133,10 @@ https://pinapp.fr/.netlify/functions/approve?id={{leadId}}&token={{hmacToken}}&a
 ---
 
 #### ⑥ Pipeline Projet Signé
+
 **Déclencheur** : Webhook manuel (depuis CRM quand Lauralie marque "Signé") ou paiement Stripe
 **Actions** :
+
 1. Créer dossier Google Drive avec structure type
 2. Créer page Notion client avec checklist projet
 3. Envoyer email de bienvenue au client avec accès dossier
@@ -128,8 +145,10 @@ https://pinapp.fr/.netlify/functions/approve?id={{leadId}}&token={{hmacToken}}&a
 ---
 
 #### ⑦ Rapport hebdomadaire
+
 **Déclencheur** : Cron lundi 9h
 **Actions** :
+
 1. Lire stats Plausible Analytics (visiteurs, pages vues, conversions)
 2. Compter leads de la semaine dans CRM
 3. Envoyer résumé WhatsApp (3 lignes max)
@@ -139,14 +158,17 @@ https://pinapp.fr/.netlify/functions/approve?id={{leadId}}&token={{hmacToken}}&a
 ### 🟢 NICE-TO-HAVE
 
 #### ⑧ Aurora IA (quand activé)
+
 **Déclencheur** : Analyse demandée sur pinapp.fr
 **Actions** : Relay vers Claude API, réponse enrichie, log dans CRM
 
 #### ⑨ Demande d'avis automatique
+
 **Déclencheur** : 48h après livraison projet (webhook manuel)
 **Actions** : Email automatique avec lien Google My Business + Trustpilot
 
 #### ⑩ Surveillance SEO
+
 **Déclencheur** : Cron hebdomadaire
 **Actions** : Vérifier positions sur 5 mots-clés cibles via API (SerpApi), alerte si chute > 5 places
 
@@ -234,11 +256,13 @@ https://pinapp.fr/.netlify/functions/approve?id={{leadId}}&token={{hmacToken}}&a
   "connections": {
     "Webhook Lead": { "main": [[{ "node": "Préparer Lead", "type": "main", "index": 0 }]] },
     "Préparer Lead": {
-      "main": [[
-        { "node": "Créer fiche Notion", "type": "main", "index": 0 },
-        { "node": "Email accusé réception", "type": "main", "index": 0 },
-        { "node": "WhatsApp Lauralie", "type": "main", "index": 0 }
-      ]]
+      "main": [
+        [
+          { "node": "Créer fiche Notion", "type": "main", "index": 0 },
+          { "node": "Email accusé réception", "type": "main", "index": 0 },
+          { "node": "WhatsApp Lauralie", "type": "main", "index": 0 }
+        ]
+      ]
     }
   }
 }
@@ -252,7 +276,7 @@ Dans n8n, ajouter un nœud **Code** avant le nœud WhatsApp :
 
 ```javascript
 const crypto = require('crypto');
-const id     = $input.first().json.leadId;
+const id = $input.first().json.leadId;
 const secret = process.env.APPROVE_SECRET; // variable d'env n8n
 
 const token = crypto.createHmac('sha256', secret).update(id).digest('hex');
