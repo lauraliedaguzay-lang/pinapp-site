@@ -18,13 +18,13 @@
 
 ## « Réunion critique » (un prompt, plusieurs critères)
 
-| Voix | Rôle |
-|------|------|
-| Direction de marque | Cohérence `pinapp.fr`, premium, calme |
-| Copy B2B | Clarté, pas de promesses IA magiques |
-| Crédibilité / éthique | Transparence, RGPD-friendly |
-| Performance réseaux | Accroche, CTA, format |
-| Verdict | Synthèse + corrections avant validation humaine |
+| Voix                  | Rôle                                            |
+| --------------------- | ----------------------------------------------- |
+| Direction de marque   | Cohérence `pinapp.fr`, premium, calme           |
+| Copy B2B              | Clarté, pas de promesses IA magiques            |
+| Crédibilité / éthique | Transparence, RGPD-friendly                     |
+| Performance réseaux   | Accroche, CTA, format                           |
+| Verdict               | Synthèse + corrections avant validation humaine |
 
 ## Charte visuelle des posts
 
@@ -32,10 +32,10 @@
 
 ## Interdits (posts publics)
 
-- Prix / devis détaillés  
-- Données clients sans accord  
-- Ton « hustle » cheap  
-- Promesses légales ou résultats non vérifiables  
+- Prix / devis détaillés
+- Données clients sans accord
+- Ton « hustle » cheap
+- Promesses légales ou résultats non vérifiables
 
 ## Planning
 

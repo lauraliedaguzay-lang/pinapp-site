@@ -3,7 +3,6 @@
    ============================================================ */
 
 const MONDES = [
-
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   // BEAUTÉ & BIEN-ÊTRE
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -13,7 +12,8 @@ const MONDES = [
     nom: 'Soie',
     emoji: '🌸',
     tagline: 'La douceur comme signature.',
-    description: 'Pour les instituts haut de gamme qui veulent que chaque cliente se sente dans un cocon. Pas un spa industriel — un rituel.',
+    description:
+      'Pour les instituts haut de gamme qui veulent que chaque cliente se sente dans un cocon. Pas un spa industriel — un rituel.',
     inspire: 'La Mer · Sisley · Dior Beauté',
     clients: 'Esthéticienne · Institut beauté · Spa visage',
     filtres: ['beaute', 'doux', 'clair'],
@@ -24,12 +24,13 @@ const MONDES = [
     texte: '#2C1810',
     glassmorphism: 'rgba(255,255,255,0.65)',
     border: 'rgba(201,160,160,0.25)',
-    emotion: 'Précieux. Bichonné. Entre les mains de quelqu\'un qui sait.',
+    emotion: "Précieux. Bichonné. Entre les mains de quelqu'un qui sait.",
     effet: 'Texture soie subtile sur les blocs. Au hover : reflet nacré qui glisse en 600ms.',
     prix: '1 990€',
     delai: '7 jours',
     demo_feature: 'Quiz diagnostic peau → soin personnalisé recommandé + réservation',
-    demo_temoignage: '"J\'y vais chaque mois. Je réserve en ligne, sans jouer au ping-pong de messages." — Sophie M.',
+    demo_temoignage:
+      '"J\'y vais chaque mois. Je réserve en ligne, sans jouer au ping-pong de messages." — Sophie M.',
   },
 
   {
@@ -37,7 +38,8 @@ const MONDES = [
     nom: 'Jade',
     emoji: '🍃',
     tagline: 'La nature comme protocole de soin.',
-    description: 'Pour les thérapeutes et praticiens bien-être qui veulent transmettre confiance, calme et expertise naturelle.',
+    description:
+      'Pour les thérapeutes et praticiens bien-être qui veulent transmettre confiance, calme et expertise naturelle.',
     inspire: 'Aesop · Weleda · médecine douce',
     clients: 'Naturopathe · Sophrologue · Réflexologue · Ostéopathe',
     filtres: ['beaute', 'doux', 'clair'],
@@ -60,8 +62,9 @@ const MONDES = [
     id: 'velours-nuit',
     nom: 'Velours Nuit',
     emoji: '💜',
-    tagline: 'L\'art des extensions. La précision comme luxe.',
-    description: 'Pour les lash artists et techniciennes cils qui veulent une image haut de gamme. Rose et violet — les vraies couleurs du métier.',
+    tagline: "L'art des extensions. La précision comme luxe.",
+    description:
+      'Pour les lash artists et techniciennes cils qui veulent une image haut de gamme. Rose et violet — les vraies couleurs du métier.',
     inspire: 'Lash Affair · Borboleta · Divasoria',
     clients: 'Lash artist · Technicienne cils · Extensions cils',
     filtres: ['beaute', 'sombre', 'doux'],
@@ -76,8 +79,10 @@ const MONDES = [
     effet: 'Particules roses et violettes — très petites — qui montent lentement. Glow doux.',
     prix: '1 990€',
     delai: '7 jours',
-    demo_feature: 'Configurateur SVG extensions cils — volume/longueur/courbe → aperçu + réservation',
-    demo_temoignage: '"Ma collègue m\'a demandé si j\'avais changé de mascara. Je lui ai juste souri." — Léa D.',
+    demo_feature:
+      'Configurateur SVG extensions cils — volume/longueur/courbe → aperçu + réservation',
+    demo_temoignage:
+      '"Ma collègue m\'a demandé si j\'avais changé de mascara. Je lui ai juste souri." — Léa D.',
   },
 
   {
@@ -85,7 +90,8 @@ const MONDES = [
     nom: 'Petal',
     emoji: '🤍',
     tagline: 'Des mains dont vous êtes fière.',
-    description: 'Pour les nail techs classiques. Beige nude, blanc cassé, or discret. L\'élégance sans ostentation.',
+    description:
+      "Pour les nail techs classiques. Beige nude, blanc cassé, or discret. L'élégance sans ostentation.",
     inspire: 'OPI Neutral · CND Shellac · Essie minimalist',
     clients: 'Nail tech classique · Manucure semi-permanente · Pédicure',
     filtres: ['beaute', 'clair', 'doux'],
@@ -97,7 +103,8 @@ const MONDES = [
     glassmorphism: 'rgba(251,248,244,0.72)',
     border: 'rgba(196,168,130,0.22)',
     emotion: 'Soignée. Élégante. Enfin fière de ses mains.',
-    effet: 'Texture grain de sable très subtile sur les blocs. Au hover sur les swatches : cercle de lumière douce.',
+    effet:
+      'Texture grain de sable très subtile sur les blocs. Au hover sur les swatches : cercle de lumière douce.',
     prix: '1 990€',
     delai: '7 jours',
     demo_feature: '12 swatches nude/beige → SVG main qui se colore → prix affiché',
@@ -109,7 +116,8 @@ const MONDES = [
     nom: 'Baddie',
     emoji: '💅',
     tagline: 'Tes ongles. Ta règle. Ton monde.',
-    description: 'Pour les nail artists qui font du nail art statement — press-on, stiletto, chrome, 3D. La jeunesse, TikTok, l\'attitude.',
+    description:
+      "Pour les nail artists qui font du nail art statement — press-on, stiletto, chrome, 3D. La jeunesse, TikTok, l'attitude.",
     inspire: 'TikTok NailTok · Kiara Sky · Born Pretty',
     clients: 'Nail artist · Press-on · Clientèle 18-30 ans',
     filtres: ['beaute', 'sombre', 'puissant', 'jeune'],
@@ -120,7 +128,7 @@ const MONDES = [
     texte: '#FFFFFF',
     glassmorphism: 'rgba(10,5,8,0.60)',
     border: 'rgba(255,45,155,0.25)',
-    emotion: 'Vue. Puissante. Exactement telle qu\'elle est.',
+    emotion: "Vue. Puissante. Exactement telle qu'elle est.",
     effet: 'Texte titre avec effet chrome dégradé. Particules multicolores — 6 max.',
     prix: '1 990€',
     delai: '7 jours',
@@ -132,8 +140,9 @@ const MONDES = [
     id: 'aurora-boreale',
     nom: 'Aurora Boréale',
     emoji: '🌌',
-    tagline: 'L\'expérience avant tout.',
-    description: 'Pour les praticiens de l\'invisible — hypnose, méditation, voyage intérieur. Le site EST déjà l\'expérience.',
+    tagline: "L'expérience avant tout.",
+    description:
+      "Pour les praticiens de l'invisible — hypnose, méditation, voyage intérieur. Le site EST déjà l'expérience.",
     inspire: 'Islande · Sigur Rós · James Turrell',
     clients: 'Hypnothérapeute · Praticien méditation · Musicothérapeute',
     filtres: ['beaute', 'sombre', 'doux'],
@@ -144,12 +153,14 @@ const MONDES = [
     texte: '#E8F4FF',
     glassmorphism: 'rgba(6,10,26,0.60)',
     border: 'rgba(136,255,204,0.12)',
-    emotion: 'Apaisé. Suspendu. À l\'intérieur de quelque chose de plus grand.',
-    effet: 'Dégradés lents qui changent comme une vraie aurore — cycle 20s — vert→violet→bleu→vert.',
+    emotion: "Apaisé. Suspendu. À l'intérieur de quelque chose de plus grand.",
+    effet:
+      'Dégradés lents qui changent comme une vraie aurore — cycle 20s — vert→violet→bleu→vert.',
     prix: '1 800€',
     delai: '10 jours',
     demo_feature: 'Score de bien-être animé SVG + message Aurora personnalisé',
-    demo_temoignage: '"J\'ai arrêté les séances après 6 mois. Pas parce que ça ne marchait plus." — Isabelle M.',
+    demo_temoignage:
+      '"J\'ai arrêté les séances après 6 mois. Pas parce que ça ne marchait plus." — Isabelle M.',
   },
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -161,7 +172,8 @@ const MONDES = [
     nom: 'Obsidienne',
     emoji: '⬛',
     tagline: 'Le pouvoir discret des experts.',
-    description: 'Pour les professions qui n\'ont pas besoin de se vendre fort. Leur réputation précède leur site.',
+    description:
+      "Pour les professions qui n'ont pas besoin de se vendre fort. Leur réputation précède leur site.",
     inspire: 'Nolan · Dior Homme · architecture suisse',
     clients: 'Avocat · Expert-comptable · Consultant senior · Notaire',
     filtres: ['services', 'sombre', 'puissant'],
@@ -173,11 +185,13 @@ const MONDES = [
     glassmorphism: 'rgba(10,10,15,0.65)',
     border: 'rgba(201,169,110,0.18)',
     emotion: 'En confiance totale. Entre les meilleures mains.',
-    effet: 'Reflet doré sur les cards au hover. Ligne or de 1px qui apparaît en bas de chaque section.',
+    effet:
+      'Reflet doré sur les cards au hover. Ligne or de 1px qui apparaît en bas de chaque section.',
     prix: '1 800€',
     delai: '10 jours',
     demo_feature: 'Arbre de décision juridique — 3 niveaux → recommandation + formulaire contact',
-    demo_temoignage: '"Formulaire un vendredi à 17 h. Réponse écrite dans l\'heure." — Pierre M., Directeur',
+    demo_temoignage:
+      '"Formulaire un vendredi à 17 h. Réponse écrite dans l\'heure." — Pierre M., Directeur',
   },
 
   {
@@ -185,7 +199,8 @@ const MONDES = [
     nom: 'Forge',
     emoji: '⚙️',
     tagline: 'La précision comme signature.',
-    description: 'Pour les artisans et techniciens qui veulent montrer leur sérieux sans perdre leur identité de terrain.',
+    description:
+      'Pour les artisans et techniciens qui veulent montrer leur sérieux sans perdre leur identité de terrain.',
     inspire: 'Tesla · Leica · horlogerie suisse',
     clients: 'Artisan BTP · Plombier · Électricien · Menuisier',
     filtres: ['services', 'sombre', 'puissant'],
@@ -209,9 +224,10 @@ const MONDES = [
     nom: 'Cristal',
     emoji: '💎',
     tagline: 'La clarté comme argument.',
-    description: 'Pour les experts qui ont des choses complexes à expliquer simplement. La transparence est leur valeur.',
+    description:
+      'Pour les experts qui ont des choses complexes à expliquer simplement. La transparence est leur valeur.',
     inspire: 'Apple Vision Pro · Linear · Notion',
-    clients: 'Architecte · Designer · Coach d\'entreprise · Formateur',
+    clients: "Architecte · Designer · Coach d'entreprise · Formateur",
     filtres: ['services', 'clair', 'futuriste'],
     fond: '#F8FAFF',
     accent1: '#5B8DEF',
@@ -225,7 +241,7 @@ const MONDES = [
     prix: '1 800€',
     delai: '10 jours',
     demo_feature: 'Présentation méthode en steps visuels + quiz compatibilité 5 questions',
-    demo_temoignage: '"C\'est d\'une clarté que je n\'avais jamais vue." — Éric D., DSI',
+    demo_temoignage: "\"C'est d'une clarté que je n'avais jamais vue.\" — Éric D., DSI",
   },
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -237,7 +253,8 @@ const MONDES = [
     nom: 'Terroir',
     emoji: '🌾',
     tagline: 'Le goût de ce qui est fait à la main.',
-    description: 'Pour les artisans du goût qui ont une histoire à raconter. La chaleur des matières. L\'authenticité sans fioriture.',
+    description:
+      "Pour les artisans du goût qui ont une histoire à raconter. La chaleur des matières. L'authenticité sans fioriture.",
     inspire: 'Michel Bras · Du Pain et des Idées · Maison Kayser',
     clients: 'Boulangerie · Fromagerie · Épicerie fine · Traiteur',
     filtres: ['food', 'clair', 'doux'],
@@ -260,7 +277,7 @@ const MONDES = [
     id: 'minuit-tokyo',
     nom: 'Minuit Tokyo',
     emoji: '🗼',
-    tagline: 'Ce soir — quelqu\'un s\'en souviendra.',
+    tagline: "Ce soir — quelqu'un s'en souviendra.",
     description: 'Pour les restaurants qui veulent être mémorables. Pas juste bons — inoubliables.',
     inspire: 'Lost in Translation · Nobu · gastronomique japonais',
     clients: 'Restaurant gastronomique · Sushi bar · Cuisine fusion · Bar à cocktails',
@@ -289,7 +306,8 @@ const MONDES = [
     nom: 'Super Héros',
     emoji: '⚡',
     tagline: 'Dans 12 semaines — tu ne te reconnaîtras pas.',
-    description: 'Pour les coachs sportifs et salles de sport. La puissance sans les couleurs criardes. Marvel sobre.',
+    description:
+      'Pour les coachs sportifs et salles de sport. La puissance sans les couleurs criardes. Marvel sobre.',
     inspire: 'Marvel Studios · Nike · Under Armour',
     clients: 'Coach sportif · Salle de sport · Kiné du sport · Préparateur physique',
     filtres: ['sport', 'sombre', 'puissant'],
@@ -301,7 +319,7 @@ const MONDES = [
     glassmorphism: 'rgba(10,10,20,0.65)',
     border: 'rgba(61,90,254,0.22)',
     emotion: 'Capable. Prêt. Plus fort que la semaine dernière.',
-    effet: 'Lignes d\'énergie diagonales au scroll — fines lignes SVG 45deg — opacity 0.06.',
+    effet: "Lignes d'énergie diagonales au scroll — fines lignes SVG 45deg — opacity 0.06.",
     prix: '1 990€',
     delai: '7 jours',
     demo_feature: 'Calculateur Harris-Benedict — poids/taille/âge → calories + programme',
@@ -313,8 +331,9 @@ const MONDES = [
     id: 'feu',
     nom: 'Feu',
     emoji: '🔥',
-    tagline: 'L\'intensité qui transforme.',
-    description: 'Pour les formateurs, coachs mentaux, speakers. La passion maîtrisée. Le feu intérieur.',
+    tagline: "L'intensité qui transforme.",
+    description:
+      'Pour les formateurs, coachs mentaux, speakers. La passion maîtrisée. Le feu intérieur.',
     inspire: 'TEDx · Tony Robbins sobre · Brené Brown',
     clients: 'Coach mental · Formateur · Speaker · Orateur',
     filtres: ['sport', 'sombre', 'puissant'],
@@ -326,11 +345,12 @@ const MONDES = [
     glassmorphism: 'rgba(13,5,0,0.68)',
     border: 'rgba(255,107,0,0.18)',
     emotion: 'Décidé à agir. Maintenant.',
-    effet: 'Particules orangées qui montent — 6 maximum — comme des braises qui s\'élèvent.',
+    effet: "Particules orangées qui montent — 6 maximum — comme des braises qui s'élèvent.",
     prix: '1 990€',
     delai: '7 jours',
     demo_feature: 'Timeline programme de formation · modules débloqués progressivement',
-    demo_temoignage: '"La première séance m\'a donné plus d\'outils que 10 ans de lectures." — Romain D.',
+    demo_temoignage:
+      '"La première séance m\'a donné plus d\'outils que 10 ans de lectures." — Romain D.',
   },
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -342,9 +362,10 @@ const MONDES = [
     nom: 'Aube',
     emoji: '🌅',
     tagline: 'La beauté dans sa forme la plus pure.',
-    description: 'Pour les artistes et photographes qui veulent que leur site soit aussi beau que leur travail.',
+    description:
+      'Pour les artistes et photographes qui veulent que leur site soit aussi beau que leur travail.',
     inspire: 'Monet · impressionnisme · lumière rasante du matin',
-    clients: 'Photographe · Peintre · Illustrateur · Galerie d\'art',
+    clients: "Photographe · Peintre · Illustrateur · Galerie d'art",
     filtres: ['creatif', 'clair', 'doux'],
     fond: '#FFF8F0',
     accent1: '#E8A87C',
@@ -366,7 +387,8 @@ const MONDES = [
     nom: 'Sakura Kai',
     emoji: '🌸',
     tagline: 'Ton univers. Ta saga.',
-    description: 'Pour les cosplayers, boutiques manga et créateurs de contenu animé qui veulent un site aussi expressif que leur passion. Manga + modernité — jamais cheap.',
+    description:
+      'Pour les cosplayers, boutiques manga et créateurs de contenu animé qui veulent un site aussi expressif que leur passion. Manga + modernité — jamais cheap.',
     inspire: 'Studio Ghibli · Demon Slayer · aesthetic Harajuku',
     clients: 'Cosplayer · Boutique manga · Créateur de contenu animé · Convention artist',
     filtres: ['creatif', 'sombre', 'jeune'],
@@ -377,11 +399,13 @@ const MONDES = [
     texte: '#F0EEFF',
     glassmorphism: 'rgba(8,10,20,0.62)',
     border: 'rgba(255,110,199,0.22)',
-    emotion: 'Dans son monde. Compris. Enfin quelqu\'un qui parle sa langue.',
-    effet: 'Pétales de sakura SVG — 5 maximum — qui tombent lentement. Très petits. Très délicats. Glow rose sur les titres au hover.',
+    emotion: "Dans son monde. Compris. Enfin quelqu'un qui parle sa langue.",
+    effet:
+      'Pétales de sakura SVG — 5 maximum — qui tombent lentement. Très petits. Très délicats. Glow rose sur les titres au hover.',
     prix: '1 990€',
     delai: '7 jours',
-    demo_feature: 'Générateur de personnage : classe × style × univers → fiche perso + lien vers les créations',
+    demo_feature:
+      'Générateur de personnage : classe × style × univers → fiche perso + lien vers les créations',
     demo_temoignage: '"Mes followers pensaient que c\'était une grande agence JP." — @yukicosplay',
     preview_img: '../assets/images/monde-sakura-kai.png',
   },
@@ -391,7 +415,8 @@ const MONDES = [
     nom: 'Pixel Quest',
     emoji: '🎮',
     tagline: 'Level up. Pour de vrai.',
-    description: 'Pour les boutiques jeux vidéo, gaming lounges, streamers et créateurs gaming. Neon vert et bleu électrique — l\'énergie du jeu sans le kitsch des sites années 2000.',
+    description:
+      "Pour les boutiques jeux vidéo, gaming lounges, streamers et créateurs gaming. Neon vert et bleu électrique — l'énergie du jeu sans le kitsch des sites années 2000.",
     inspire: 'Cyberpunk 2077 · Twitch Premium · FNAC Gaming · Linear.app',
     clients: 'Boutique jeux vidéo · Gaming lounge · Streamer · Créateur gaming · Esports',
     filtres: ['creatif', 'sombre', 'jeune', 'futuriste'],
@@ -403,10 +428,12 @@ const MONDES = [
     glassmorphism: 'rgba(5,5,16,0.70)',
     border: 'rgba(0,255,136,0.18)',
     emotion: 'Déjà dans la partie. Prêt à jouer. À son niveau.',
-    effet: 'Scanlines très subtiles — opacity 0.02. Particules pixel carrées qui montent — comme des données qui s\'exécutent. Texte qui glitch 80ms au hover sur les titres.',
+    effet:
+      "Scanlines très subtiles — opacity 0.02. Particules pixel carrées qui montent — comme des données qui s'exécutent. Texte qui glitch 80ms au hover sur les titres.",
     prix: '1 990€',
     delai: '7 jours',
-    demo_feature: 'Configurateur de setup gaming : processeur × GPU × RAM → score performance animé + liste composants recommandés',
+    demo_feature:
+      'Configurateur de setup gaming : processeur × GPU × RAM → score performance animé + liste composants recommandés',
     demo_temoignage: '"Mon taux de conversion a doublé en 3 semaines." — Kevin, boutique gaming',
     preview_img: '../assets/images/monde-pixel-quest.png',
   },
@@ -416,7 +443,8 @@ const MONDES = [
     nom: 'Mercure',
     emoji: '🤖',
     tagline: 'Dans le futur depuis maintenant.',
-    description: 'Pour les créatifs tech, agences, développeurs qui veulent montrer qu\'ils sont un cran au-dessus.',
+    description:
+      "Pour les créatifs tech, agences, développeurs qui veulent montrer qu'ils sont un cran au-dessus.",
     inspire: 'Daft Punk · Linear.app · Vercel · techno minimaliste',
     clients: 'Agence créative · Développeur freelance · DJ · Studio son',
     filtres: ['creatif', 'sombre', 'futuriste'],
@@ -427,12 +455,12 @@ const MONDES = [
     texte: '#F5F5F5',
     glassmorphism: 'rgba(10,10,10,0.75)',
     border: 'rgba(192,192,192,0.12)',
-    emotion: 'Impressionné. Certain d\'avoir affaire à quelqu\'un de sérieux.',
+    emotion: "Impressionné. Certain d'avoir affaire à quelqu'un de sérieux.",
     effet: 'Scanlines très subtiles — opacity 0.025. Texte qui glitch au hover sur H2 — 80ms.',
     prix: '1 800€',
     delai: '10 jours',
     demo_feature: 'Terminal animé qui affiche du texte progressivement',
-    demo_temoignage: '"Mes clients pensent que c\'est une grande agence." — Kevin L., Dev freelance',
+    demo_temoignage:
+      '"Mes clients pensent que c\'est une grande agence." — Kevin L., Dev freelance',
   },
-
 ];

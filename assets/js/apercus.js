@@ -4,14 +4,13 @@
    ============================================================ */
 
 const Apercus = {
-
   init() {
-    document.querySelectorAll('.apercu-card').forEach(card => {
+    document.querySelectorAll('.apercu-card').forEach((card) => {
       const canvas = card.querySelector('.apercu-canvas');
-      const fond   = card.dataset.fond;
-      const c1     = card.dataset.c1;
-      const c2     = card.dataset.c2;
-      const monde  = card.dataset.monde;
+      const fond = card.dataset.fond;
+      const c1 = card.dataset.c1;
+      const c2 = card.dataset.c2;
+      const monde = card.dataset.monde;
 
       if (canvas) this.drawCanvas(canvas, fond, c1, c2);
 
@@ -24,7 +23,7 @@ const Apercus = {
         this.tintSite(fond, c1, c2);
         setTimeout(() => this.resetSite(), 2000);
         const target = document.querySelector(`[data-id="${monde}"]`);
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (target) target.scrollIntoView({ behavior: 'auto', block: 'center' });
       });
     });
   },
@@ -33,7 +32,7 @@ const Apercus = {
     const parent = canvas.parentElement;
     const W = parent.offsetWidth || 280;
     const H = parent.offsetHeight || 200;
-    canvas.width  = W;
+    canvas.width = W;
     canvas.height = H;
     const ctx = canvas.getContext('2d');
     const rgb1 = this.hexRgb(c1);
@@ -45,11 +44,11 @@ const Apercus = {
       ctx.fillStyle = fond;
       ctx.fillRect(0, 0, W, H);
 
-      const pulse  = 0.45 + Math.sin(t * 0.018) * 0.10;
+      const pulse = 0.45 + Math.sin(t * 0.018) * 0.1;
       const pulse2 = 0.35 + Math.cos(t * 0.022) * 0.08;
 
-      const px1 = W * (0.30 + Math.sin(t * 0.008) * 0.06);
-      const py1 = H * (0.40 + Math.cos(t * 0.010) * 0.05);
+      const px1 = W * (0.3 + Math.sin(t * 0.008) * 0.06);
+      const py1 = H * (0.4 + Math.cos(t * 0.01) * 0.05);
       const ga = ctx.createRadialGradient(px1, py1, 0, px1, py1, W * 0.55);
       ga.addColorStop(0, `rgba(${rgb1},${pulse})`);
       ga.addColorStop(1, 'transparent');
@@ -98,8 +97,8 @@ const Apercus = {
 
   hexRgb(hex) {
     if (!hex || !hex.startsWith('#')) return '255,255,255';
-    return `${parseInt(hex.slice(1,3),16)},${parseInt(hex.slice(3,5),16)},${parseInt(hex.slice(5,7),16)}`;
-  }
+    return `${parseInt(hex.slice(1, 3), 16)},${parseInt(hex.slice(3, 5), 16)},${parseInt(hex.slice(5, 7), 16)}`;
+  },
 };
 
 document.addEventListener('DOMContentLoaded', () => Apercus.init());

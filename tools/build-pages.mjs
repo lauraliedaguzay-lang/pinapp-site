@@ -88,9 +88,13 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true, root
   <link rel="stylesheet" href="${a('/assets/css/pandora-ux.css')}">
   <link rel="stylesheet" href="${a('/assets/css/apple-finish.css')}">
   <link rel="stylesheet" href="${a('/assets/css/pinapp-modern-biolume.css')}">
-  ${includeLdJson ? `<script type="application/ld+json">
+  ${
+    includeLdJson
+      ? `<script type="application/ld+json">
   {"@context":"https://schema.org","@type":"ProfessionalService","name":"Pinapp Studio","founder":{"@type":"Person","name":"Lauralie Daguzay"},"email":"lauralie.daguzay@pinapp.fr","url":"https://pinapp.fr","sameAs":"https://www.linkedin.com/in/lauralie-daguzay-4a4542197/"}
-  </script>` : ''}
+  </script>`
+      : ''
+  }
 </head>
 <body class="page-with-bottom-nav">
   <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
@@ -145,6 +149,7 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true, root
       <a href="${u('/formation-gratuite/')}">Formations</a>
       <a href="${u('/realisations/')}">Réalisations</a>
       <a href="${u('/a-propos/')}">À propos</a>
+      <a href="${u('/qui-suis-je/')}">Qui suis-je ?</a>
       <a href="${u('/faq/')}">FAQ</a>
       <a href="${u('/auralis/')}">Auralis</a>
       <a href="${u('/univers/')}">Univers</a>
@@ -217,8 +222,8 @@ const pages = [
           <div style="width:64px;height:64px;border-radius:50%;border:2px solid var(--accent-violet);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:24px;color:var(--accent-violet);">1</span></div>
           <div>
             <h2 style="font-size:24px;margin-bottom:var(--space-1);">Vous écrivez — diagnostic offert</h2>
-            <p style="opacity:0.7;line-height:1.8;margin-bottom:var(--space-2);">Par formulaire puis email : votre quotidien, vos outils, ce qui vous prend du temps. Je cartographie et je vous renvoie des opportunités concrètes.</p>
-            <p style="opacity:0.7;line-height:1.8;">Tout commence par l’écrit ; un Google Meet reste possible si vous le souhaitez — jamais d’appel téléphonique imposé. Même si vous ne travaillez pas avec moi ensuite, vous gardez des pistes actionnables. C’est offert. Zéro engagement.</p>
+            <p style="opacity:0.7;line-height:1.8;margin-bottom:var(--space-2);">Par formulaire puis email : votre quotidien, vos outils, ce qui vous prend du temps. Je cartographie et je vous renvoie des idées concrètes.</p>
+            <p style="opacity:0.7;line-height:1.8;">Tout commence par l’écrit ; un Google Meet reste possible si vous le souhaitez. Même si vous ne travaillez pas avec moi ensuite, vous gardez des pistes actionnables. C’est offert. Zéro engagement.</p>
             <a href="/diagnostic/" class="btn btn-primary" style="display:inline-flex;margin-top:var(--space-3);">Démarrer ma demande par écrit</a>
           </div>
         </div>
@@ -255,7 +260,7 @@ const pages = [
   {
     file: 'diagnostic/index.html',
     title: 'Diagnostic offert — tout par écrit — Pinapp Studio',
-    desc: 'Décrivez votre besoin par écrit. Réponse sous 24 h. Google Meet en option — jamais d’appel téléphonique imposé.',
+    desc: 'Décrivez votre besoin par écrit. Réponse sous 24 h. Google Meet en option si vous le souhaitez.',
     og: '/diagnostic/',
     body: `    <section class="section">
       <div class="container" style="max-width:700px;text-align:center;">
@@ -265,7 +270,7 @@ const pages = [
         <div class="grid grid-3" style="margin-bottom:var(--space-6);text-align:left;">
           <div>
             <h3 style="font-size:16px;color:var(--accent-teal);margin-bottom:var(--space-1);">Ce qu'on fait</h3>
-            <p style="font-size:14px;opacity:0.7;">Je cartographie vos tâches répétitives et identifie vos opportunités digitales.</p>
+            <p style="font-size:14px;opacity:0.7;">Je cartographie vos tâches répétitives et je reviens avec des idées concrètes, priorisées.</p>
           </div>
           <div>
             <h3 style="font-size:16px;color:var(--accent-teal);margin-bottom:var(--space-1);">Ce que vous gagnez</h3>
@@ -273,13 +278,112 @@ const pages = [
           </div>
           <div>
             <h3 style="font-size:16px;color:var(--accent-teal);margin-bottom:var(--space-1);">Comment ça se passe</h3>
-            <p style="font-size:14px;opacity:0.7;">Écrit d’abord (formulaire ou email) ; réponse sous 24 h. Google Meet en option si vous voulez cadrer à l’oral — jamais d’appel téléphonique imposé.</p>
+            <p style="font-size:14px;opacity:0.7;">Écrit d’abord (formulaire ou email) ; réponse sous 24 h. Google Meet en option si vous voulez cadrer à l’oral.</p>
           </div>
         </div>
         <div style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-card-lg);padding:var(--space-5);margin-bottom:var(--space-4);">
-          <p style="opacity:0.78;font-size:15px;line-height:1.65;">Écrivez votre contexte par email (ou formulaire quand il sera branché). Si un <strong>Google Meet</strong> vous aide après le premier échange écrit, on le planifie ensemble — fil traçable, jamais d’appel téléphonique imposé.</p>
-          <p style="opacity:0.55;font-size:13px;margin-top:var(--space-3);">Widget Calendly (option Meet) : à brancher ici une fois votre lien prêt.</p>
-          <a href="mailto:lauralie.daguzay@pinapp.fr?subject=Demande%20de%20diagnostic%20Pinapp" class="btn btn-primary" style="margin-top:var(--space-3);">Écrire à Pinapp</a>
+          <p style="opacity:0.78;font-size:15px;line-height:1.65;margin:0;">Décrivez votre contexte par écrit. Si un <strong>Google Meet</strong> vous aide, vous pouvez réserver un créneau ci-dessous.</p>
+        </div>
+
+        <div class="card" style="text-align:left;padding:var(--space-5);border-radius:var(--radius-card-lg);margin-bottom:var(--space-4);">
+          <p class="label" style="margin-bottom:var(--space-2);">GOOGLE MEET (OPTION)</p>
+          <h2 style="font-size:24px;letter-spacing:-0.02em;margin:0 0 var(--space-2);">Réserver un créneau</h2>
+          <p style="opacity:0.7;font-size:14px;line-height:1.7;margin:0 0 var(--space-4);">
+            Démo de fonctionnement: vous proposez un créneau, Pinapp le confirme par écrit. En automatisation, un scénario Make crée l’événement Google Calendar + lien Meet, puis Claude prépare un brouillon de confirmation (validation humaine).
+          </p>
+
+          <form id="meetForm" style="display:grid;gap:var(--space-3);">
+            <div class="grid grid-2" style="gap:var(--space-3);">
+              <div>
+                <label for="meetName" style="display:block;font-size:13px;opacity:0.75;margin-bottom:8px;">Nom</label>
+                <input id="meetName" name="name" autocomplete="name" required />
+              </div>
+              <div>
+                <label for="meetEmail" style="display:block;font-size:13px;opacity:0.75;margin-bottom:8px;">Email</label>
+                <input id="meetEmail" name="email" type="email" autocomplete="email" required />
+              </div>
+            </div>
+            <div class="grid grid-2" style="gap:var(--space-3);">
+              <div>
+                <label for="meetCompany" style="display:block;font-size:13px;opacity:0.75;margin-bottom:8px;">Entreprise (option)</label>
+                <input id="meetCompany" name="company" autocomplete="organization" />
+              </div>
+              <div>
+                <label for="meetTimezone" style="display:block;font-size:13px;opacity:0.75;margin-bottom:8px;">Fuseau horaire</label>
+                <input id="meetTimezone" name="timezone" readonly />
+              </div>
+            </div>
+            <div>
+              <label for="meetWhen" style="display:block;font-size:13px;opacity:0.75;margin-bottom:8px;">Créneau souhaité</label>
+              <input id="meetWhen" name="when" type="datetime-local" required style="min-height:48px;" />
+              <p style="margin:10px 0 0;opacity:0.55;font-size:12px;line-height:1.6;">Astuce: si ce créneau ne convient pas, Pinapp vous proposera 2 alternatives par écrit.</p>
+            </div>
+            <div>
+              <label for="meetContext" style="display:block;font-size:13px;opacity:0.75;margin-bottom:8px;">Contexte (2–3 lignes)</label>
+              <textarea id="meetContext" name="context" rows="4" placeholder="Ex: institut, RDV en ligne + rappels + acompte. Je veux comprendre ce que vous livrez." style="width:100%;"></textarea>
+            </div>
+
+            <!-- honeypot anti-spam -->
+            <div style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+              <label for="website">Website</label>
+              <input id="website" name="website" autocomplete="off" tabindex="-1" />
+            </div>
+
+            <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;align-items:center;">
+              <button type="submit" class="btn btn-primary">Proposer ce créneau →</button>
+              <a href="mailto:lauralie.daguzay@pinapp.fr?subject=Demande%20de%20diagnostic%20Pinapp" class="btn btn-secondary">Écrire à Pinapp</a>
+            </div>
+            <div id="meetStatus" aria-live="polite" style="display:none;margin-top:6px;font-size:13px;opacity:0.8;"></div>
+            <p style="margin:0;opacity:0.45;font-size:11px;line-height:1.6;">
+              CONFIGURATION MAKE: remplacez <code>[URL_WEBHOOK_MAKE]</code> par votre webhook. Le scénario crée l’événement Google Calendar (Meet), puis génère un brouillon email via Claude.
+            </p>
+          </form>
+        </div>
+
+        <script>
+          (function(){
+            var form = document.getElementById('meetForm');
+            var tz = document.getElementById('meetTimezone');
+            var status = document.getElementById('meetStatus');
+            if (tz) {
+              try { tz.value = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch(e) { tz.value = ''; }
+            }
+            if (!form) return;
+            form.addEventListener('submit', async function(e){
+              e.preventDefault();
+              var hp = form.querySelector('input[name=\"website\"]');
+              if (hp && hp.value) return;
+              if (status) {
+                status.style.display = 'block';
+                status.textContent = 'Envoi…';
+              }
+              var payload = {
+                type: 'meet_booking_request',
+                source: 'pinapp.fr/diagnostic',
+                name: form.querySelector('#meetName')?.value || '',
+                email: form.querySelector('#meetEmail')?.value || '',
+                company: form.querySelector('#meetCompany')?.value || '',
+                timezone: form.querySelector('#meetTimezone')?.value || '',
+                whenLocal: form.querySelector('#meetWhen')?.value || '',
+                context: form.querySelector('#meetContext')?.value || '',
+                pageUrl: location.href,
+                userAgent: navigator.userAgent
+              };
+              try {
+                var res = await fetch('[URL_WEBHOOK_MAKE]', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(payload)
+                });
+                if (!res.ok) throw new Error('HTTP '+res.status);
+                if (status) status.textContent = 'Reçu. Vous recevrez une confirmation (ou une proposition) par écrit.';
+                try { form.reset(); if (tz) tz.value = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch(e){}
+              } catch(err) {
+                if (status) status.textContent = 'Impossible d’envoyer automatiquement. Écrivez-nous par email juste au-dessus.';
+              }
+            });
+          })();
+        </script>
         </div>
         <div style="background:var(--bg-card);border-radius:var(--radius-card);padding:var(--space-3);border:1px solid rgba(57,224,117,0.2);">
           <p style="font-size:14px;opacity:0.7;"><strong style="color:var(--accent-green);">Garantie :</strong> Si ma réponse écrite ne vous apporte rien de concret, je vous offre un template de votre secteur.</p>
@@ -311,6 +415,59 @@ const pages = [
         </ul>
         <div style="margin-top:var(--space-6);text-align:center;">
           <a href="/diagnostic/" class="btn btn-primary pinapp-breathe">Travaillons ensemble</a>
+        </div>
+      </div>
+    </section>`,
+  },
+  {
+    file: 'qui-suis-je/index.html',
+    title: 'Qui suis-je ? — Pinapp Studio',
+    desc: 'Qui est derrière Pinapp : pourquoi, méthode, et ce que vous pouvez attendre — sans blabla.',
+    og: '/qui-suis-je/',
+    body: `    <section class="section">
+      <div class="container prose" style="max-width:760px;">
+        <p class="label">STORYTELLING</p>
+        <h1 style="font-size:var(--text-h1);letter-spacing:-0.02em;margin-bottom:var(--space-3);">Qui suis-je ?</h1>
+        <p style="font-size:18px;line-height:1.85;opacity:0.78;margin-bottom:var(--space-5);max-width:44rem;">
+          Je suis Lauralie Daguzay, fondatrice de Pinapp Studio. Je construis des systèmes (site + automatisations + fonctions intelligentes) qui vous font avancer sans vous aspirer.
+        </p>
+
+        <div class="grid grid-2" style="gap:var(--space-4);margin-bottom:var(--space-6);">
+          <div class="card">
+            <p class="label" style="margin-bottom:var(--space-2);">LE POINT DE DÉPART</p>
+            <p style="opacity:0.78;line-height:1.85;">
+              J’ai vu trop d’activités où tout repose sur une seule personne : messages, devis, relances, organisation, “petits trucs” à faire.
+              Ce n’est pas que vous n’êtes pas organisé. C’est que le système n’existe pas.
+            </p>
+          </div>
+          <div class="card">
+            <p class="label" style="margin-bottom:var(--space-2);">LA PROMESSE PINAPP</p>
+            <p style="opacity:0.78;line-height:1.85;">
+              Je prépare. Vous validez. C’est réglé.
+              Concrètement : on met vos décisions au bon endroit, on automatise ce qui se répète, et on garde un contrôle clair sur ce qui engage.
+            </p>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:var(--space-5);">
+          <p class="label" style="margin-bottom:var(--space-2);">COMMENT JE TRAVAILLE</p>
+          <ul style="opacity:0.78;line-height:1.9;margin-left:1.1rem;">
+            <li>Vous décrivez votre situation par écrit (diagnostic offert).</li>
+            <li>Je vous renvoie une synthèse claire + une proposition si ça vaut le coup.</li>
+            <li>Je construis en étapes : vous validez les jalons, pas chaque micro-détail.</li>
+          </ul>
+        </div>
+
+        <div class="card" style="border-color:rgba(62,235,214,0.22);">
+          <p class="label" style="margin-bottom:var(--space-2);">CE QUE VOUS POUVEZ ATTENDRE</p>
+          <p style="opacity:0.78;line-height:1.85;margin-bottom:var(--space-3);">
+            Une présence en ligne qui reflète votre niveau. Des flux propres. Et une méthode qui réduit la charge, sans opacité.
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:var(--space-2);align-items:center;">
+            <a href="/diagnostic/" class="btn btn-primary pinapp-breathe">Démarrer par écrit</a>
+            <a href="/offres/" class="btn btn-secondary">Voir les offres</a>
+            <a href="/confiance/" class="btn btn-secondary">Le cadre “vous décidez”</a>
+          </div>
         </div>
       </div>
     </section>`,
@@ -743,7 +900,7 @@ for (const p of pages) {
   fs.writeFileSync(
     path.join(root, p.file),
     shell(p.title, p.desc, p.og, body, true, rootPrefix),
-    'utf8'
+    'utf8',
   );
   console.log('Wrote', p.file);
 }

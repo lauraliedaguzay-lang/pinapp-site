@@ -1,7 +1,7 @@
 # Apps Script — Pinapp × Gmail × Claude
 
-| Fichier | Rôle |
-|--------|------|
+| Fichier                  | Rôle                                                                                                                     |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
 | `pinapp-gmail-claude.gs` | Analyse les fils Gmail étiquetés, appelle l’API Anthropic, crée des **brouillons** de réponse (aucun envoi auto client). |
 
 **Ne commitez jamais** de clé API : tout passe par **Propriétés du script** dans Google.
