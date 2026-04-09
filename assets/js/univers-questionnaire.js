@@ -1,22 +1,34 @@
 ﻿/* XSS protection */
-var _he = function(s){return s==null?'':String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#x27;');};
+var _he = function (s) {
+  return s == null
+    ? ''
+    : String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#x27;');
+};
 /* PINAPP — univers-questionnaire.js
    Questions structurantes + texte libre → brief JSON (brief_orient_claude)
    pour orienter Claude via webhook n8n. Fallback local si endpoint absent.
    ============================================================ */
 
 /* endpoint résolu depuis config.js si disponible */
-const AURORA_UNIVERS_ENDPOINT = (window.PinappConfig && window.PinappConfig._isRealUrl(window.PinappConfig.webhooks.auroraUnivers))
-  ? window.PinappConfig.webhooks.auroraUnivers
-  : null; /* null = mode fallback local actif */
+const AURORA_UNIVERS_ENDPOINT =
+  window.PinappConfig && window.PinappConfig._isRealUrl(window.PinappConfig.webhooks.auroraUnivers)
+    ? window.PinappConfig.webhooks.auroraUnivers
+    : null; /* null = mode fallback local actif */
 
 const UniversQ = {
   state: { lieu: null, emotion: null, reference: '', prenom: '', briefOrientClaude: '' },
 
   init() {
-    document.querySelectorAll('#pills-lieu .univers-pill').forEach(p => {
+    document.querySelectorAll('#pills-lieu .univers-pill').forEach((p) => {
       p.addEventListener('click', () => {
-        document.querySelectorAll('#pills-lieu .univers-pill').forEach(x => x.classList.remove('selected'));
+        document
+          .querySelectorAll('#pills-lieu .univers-pill')
+          .forEach((x) => x.classList.remove('selected'));
         p.classList.add('selected');
         this.state.lieu = p.dataset.val;
         if (navigator.vibrate) navigator.vibrate(10);
@@ -24,9 +36,11 @@ const UniversQ = {
       });
     });
 
-    document.querySelectorAll('#pills-emotion .univers-pill').forEach(p => {
+    document.querySelectorAll('#pills-emotion .univers-pill').forEach((p) => {
       p.addEventListener('click', () => {
-        document.querySelectorAll('#pills-emotion .univers-pill').forEach(x => x.classList.remove('selected'));
+        document
+          .querySelectorAll('#pills-emotion .univers-pill')
+          .forEach((x) => x.classList.remove('selected'));
         p.classList.add('selected');
         this.state.emotion = p.dataset.val;
         if (navigator.vibrate) navigator.vibrate(10);
@@ -35,7 +49,7 @@ const UniversQ = {
     });
 
     document.getElementById('btn-generer')?.addEventListener('click', () => this.generer());
-    document.getElementById('input-reference')?.addEventListener('keydown', e => {
+    document.getElementById('input-reference')?.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') this.generer();
     });
   },
@@ -69,9 +83,9 @@ const UniversQ = {
   },
 
   async generer() {
-    const ref    = document.getElementById('input-reference')?.value?.trim();
+    const ref = document.getElementById('input-reference')?.value?.trim();
     const prenom = document.getElementById('input-prenom')?.value?.trim();
-    const brief  = document.getElementById('input-brief-claude')?.value?.trim() || '';
+    const brief = document.getElementById('input-brief-claude')?.value?.trim() || '';
     this.state.reference = ref || 'aucune référence';
     this.state.prenom = prenom || '';
     this.state.briefOrientClaude = brief;
@@ -79,7 +93,9 @@ const UniversQ = {
     if (!this.state.lieu || !this.state.emotion) return;
 
     if (prenom) {
-      try { localStorage.setItem('pinapp-prenom', prenom); } catch(e) {}
+      try {
+        localStorage.setItem('pinapp-prenom', prenom);
+      } catch (e) {}
     }
 
     const step3 = document.getElementById('step-3');
@@ -94,7 +110,7 @@ const UniversQ = {
     const resultat = document.getElementById('univers-resultat');
     if (!resultat) return;
     resultat.classList.remove('hidden');
-    const prn = this.state.prenom;
+    const prn = _he(this.state.prenom);
     resultat.innerHTML = `
       <p style="color:var(--accent-teal);font-size:14px;
                 animation:kiri-soar 5.5s ease-in-out infinite;
@@ -111,8 +127,8 @@ const UniversQ = {
           emotion: this.state.emotion,
           reference: this.state.reference,
           prenom: this.state.prenom,
-          brief_orient_claude: brief
-        })
+          brief_orient_claude: brief,
+        }),
       });
 
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
@@ -120,38 +136,57 @@ const UniversQ = {
       this.afficher(u);
 
       try {
-        localStorage.setItem('pinapp-univers', JSON.stringify({
-          ...u,
-          prenom: this.state.prenom,
-          brief_orient_claude: this.state.briefOrientClaude || undefined
-        }));
-      } catch(e) {}
-
-    } catch(e) {
+        localStorage.setItem(
+          'pinapp-univers',
+          JSON.stringify({
+            ...u,
+            prenom: this.state.prenom,
+            brief_orient_claude: this.state.briefOrientClaude || undefined,
+          }),
+        );
+      } catch (e) {}
+    } catch (e) {
       /* Fallback local si webhook non connecté */
       const univers = this.genererLocal();
       this.afficher(univers);
       try {
-        localStorage.setItem('pinapp-univers', JSON.stringify({
-          ...univers,
-          prenom: this.state.prenom,
-          brief_orient_claude: this.state.briefOrientClaude || undefined
-        }));
+        localStorage.setItem(
+          'pinapp-univers',
+          JSON.stringify({
+            ...univers,
+            prenom: this.state.prenom,
+            brief_orient_claude: this.state.briefOrientClaude || undefined,
+          }),
+        );
       } catch (err) {}
     }
   },
 
   genererLocal() {
-    const noms = ['Lumière Voilée', 'Horizon Intérieur', 'Nuit Dorée', 'Brume de Jade',
-                  'Éclat du Soir', 'Velours d\'Aube', 'Cristal Nordique', 'Ambre Vivant'];
-    const fondsSombres = ['#080C18','#100810','#0A0D0A','#0D0800'];
-    const accs = [['#3EEBD6','#A78BFA'],['#FF6B6B','#FFD93D'],['#00E5CC','#7B4FE8'],
-                  ['#88FFCC','#CC88FF'],['#FF2D9B','#BF5FFF'],['#C9A96E','#F0EDE8']];
+    const noms = [
+      'Lumière Voilée',
+      'Horizon Intérieur',
+      'Nuit Dorée',
+      'Brume de Jade',
+      'Éclat du Soir',
+      "Velours d'Aube",
+      'Cristal Nordique',
+      'Ambre Vivant',
+    ];
+    const fondsSombres = ['#080C18', '#100810', '#0A0D0A', '#0D0800'];
+    const accs = [
+      ['#3EEBD6', '#A78BFA'],
+      ['#FF6B6B', '#FFD93D'],
+      ['#00E5CC', '#7B4FE8'],
+      ['#88FFCC', '#CC88FF'],
+      ['#FF2D9B', '#BF5FFF'],
+      ['#C9A96E', '#F0EDE8'],
+    ];
 
-    const nom    = noms[Math.floor(Math.random() * noms.length)];
-    const fond   = fondsSombres[Math.floor(Math.random() * fondsSombres.length)];
-    const ac     = accs[Math.floor(Math.random() * accs.length)];
-    const brief  = this.state.briefOrientClaude;
+    const nom = noms[Math.floor(Math.random() * noms.length)];
+    const fond = fondsSombres[Math.floor(Math.random() * fondsSombres.length)];
+    const ac = accs[Math.floor(Math.random() * accs.length)];
+    const brief = this.state.briefOrientClaude;
     const baseAtmo = `Un espace qui respire à votre rythme. Chaque visiteur ressent immédiatement que quelqu'un a pensé à lui.`;
     const atmosphere = brief
       ? `${baseAtmo} (aperçu hors ligne : votre texte libre sera intégré au brief Claude en production.)`
@@ -161,7 +196,7 @@ const UniversQ = {
       nom,
       palette: { fond, accent1: ac[0], accent2: ac[1] },
       atmosphere,
-      promesse: 'Vos clients arrivent. Ils restent. Ils reviennent.'
+      promesse: 'Vos clients arrivent. Ils restent. Ils reviennent.',
     };
   },
 
@@ -180,31 +215,48 @@ const UniversQ = {
     }
 
     const prenom = this.state.prenom;
-    const intro = prenom ? `${prenom}, votre univers s'appelle` : 'Votre univers s\'appelle';
+    const intro = prenom ? `${prenom}, votre univers s'appelle` : "Votre univers s'appelle";
 
     resultat.innerHTML = `
       <p style="font-size:13px;color:var(--text-4);margin-bottom:8px;">${intro}</p>
 
-      <div class="univers-nom">✦ ${u.nom || 'Votre Univers'}</div>
+      <div class="univers-nom">✦ ${_he(u.nom || 'Votre Univers')}</div>
 
-      ${u.palette ? `
+      ${
+        u.palette
+          ? `
         <div style="display:flex;gap:10px;align-items:center;margin-bottom:20px;">
-          ${[u.palette.fond, u.palette.accent1, u.palette.accent2].filter(Boolean).map(c => `
+          ${[u.palette.fond, u.palette.accent1, u.palette.accent2]
+            .filter(Boolean)
+            .map(
+              (c) => `
             <div style="width:36px;height:36px;border-radius:50%;background:${c};
                         box-shadow:0 2px 8px rgba(0,0,0,0.25),0 0 0 1px rgba(255,255,255,0.10);
                         transition:transform 200ms ease;"
                  onmouseenter="this.style.transform='scale(1.15)'"
-                 onmouseleave="this.style.transform='scale(1)'"></div>`).join('')}
+                 onmouseleave="this.style.transform='scale(1)'"></div>`,
+            )
+            .join('')}
           <span style="font-size:11px;color:var(--text-4);margin-left:4px;">Votre palette</span>
-        </div>` : ''}
+        </div>`
+          : ''
+      }
 
-      ${u.atmosphere ? `
+      ${
+        u.atmosphere
+          ? `
         <p style="font-family:Georgia,serif;font-style:italic;font-size:15px;line-height:1.8;
-                  color:var(--text-2);margin-bottom:20px;">"${_he(u.atmosphere)}"</p>` : ''}
+                  color:var(--text-2);margin-bottom:20px;">"${_he(u.atmosphere)}"</p>`
+          : ''
+      }
 
-      ${u.promesse ? `
+      ${
+        u.promesse
+          ? `
         <p style="font-size:16px;font-weight:500;color:var(--text);margin-bottom:24px;
-                  font-family:Georgia,serif;">${_he(u.promesse)}</p>` : ''}
+                  font-family:Georgia,serif;">${_he(u.promesse)}</p>`
+          : ''
+      }
 
       <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
         <a href="../diagnostic/index.html?univers=${encodeURIComponent(u.nom || '')}"
@@ -227,26 +279,39 @@ const UniversQ = {
       nom.style.opacity = '0';
       nom.style.transform = 'translateY(12px)';
       nom.style.transition = 'all 600ms cubic-bezier(0.45,0.05,0.55,0.95)';
-      setTimeout(() => { nom.style.opacity = '1'; nom.style.transform = 'translateY(0)'; }, 80);
+      setTimeout(() => {
+        nom.style.opacity = '1';
+        nom.style.transform = 'translateY(0)';
+      }, 80);
     }
   },
 
   reset() {
     this.state = { lieu: null, emotion: null, reference: '', prenom: '', briefOrientClaude: '' };
-    ['step-2', 'step-3'].forEach(id => {
+    ['step-2', 'step-3'].forEach((id) => {
       const el = document.getElementById(id);
       if (el) el.classList.add('hidden');
     });
     const s1 = document.getElementById('step-1');
-    if (s1) { s1.classList.remove('hidden'); s1.style.opacity = '1'; s1.style.transform = 'translateY(0)'; }
-    document.querySelectorAll('.univers-pill').forEach(p => p.classList.remove('selected'));
+    if (s1) {
+      s1.classList.remove('hidden');
+      s1.style.opacity = '1';
+      s1.style.transform = 'translateY(0)';
+    }
+    document.querySelectorAll('.univers-pill').forEach((p) => p.classList.remove('selected'));
     const r = document.getElementById('univers-resultat');
-    if (r) { r.classList.add('hidden'); r.innerHTML = ''; }
+    if (r) {
+      r.classList.add('hidden');
+      r.innerHTML = '';
+    }
     const fill = document.getElementById('univers-progress-fill');
     if (fill) fill.style.width = '0%';
     const iface = document.querySelector('.univers-interface');
-    if (iface) { iface.style.background = ''; iface.style.borderColor = ''; }
-    ['input-reference', 'input-prenom', 'input-brief-claude'].forEach(id => {
+    if (iface) {
+      iface.style.background = '';
+      iface.style.borderColor = '';
+    }
+    ['input-reference', 'input-prenom', 'input-brief-claude'].forEach((id) => {
       const el = document.getElementById(id);
       if (el) el.value = '';
     });
@@ -254,8 +319,8 @@ const UniversQ = {
 
   hexRgb(hex) {
     if (!hex?.startsWith('#')) return '196,30,168';
-    return `${parseInt(hex.slice(1,3),16)},${parseInt(hex.slice(3,5),16)},${parseInt(hex.slice(5,7),16)}`;
-  }
+    return `${parseInt(hex.slice(1, 3), 16)},${parseInt(hex.slice(3, 5), 16)},${parseInt(hex.slice(5, 7), 16)}`;
+  },
 };
 
 document.addEventListener('DOMContentLoaded', () => UniversQ.init());

@@ -11,11 +11,12 @@
   <meta property="og:description" content="Tableau de bord interne Pinapp.">
   <meta property="og:image" content="https://pinapp.fr/og-image.webp">
   <meta property="og:url" content="https://pinapp.fr/dashboard/">
+    <link rel="canonical" href="https://pinapp.fr/dashboard/" />
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-  <link rel="preload" href="../assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/variables.css">
+    <link rel="stylesheet" href="../assets/css/pandora-world.css" />
   <link rel="stylesheet" href="../assets/grid.css">
   <link rel="stylesheet" href="../assets/animations.css">
   <link rel="stylesheet" href="../assets/css/aurora-mobile.css">
@@ -23,12 +24,35 @@
   <link rel="stylesheet" href="../assets/css/cursor.css">
   <link rel="stylesheet" href="../assets/css/pandora-ux.css">
   <link rel="stylesheet" href="../assets/css/apple-finish.css">
+  <link rel="stylesheet" href="../assets/css/ios-glass.css">
   <link rel="stylesheet" href="../assets/css/pinapp-modern-biolume.css">
+  <link rel="stylesheet" href="../assets/css/pinapp-premium.css">
+  <link rel="stylesheet" href="../assets/css/deploy-harmonise.css">
+  <link rel="stylesheet" href="../assets/css/mobile-premium.css">
+  <link rel="stylesheet" href="../assets/css/wow-visuals.css">
+  <link rel="stylesheet" href="../assets/css/wow-senior.css">
+    <link rel="stylesheet" href="../assets/css/guide-tour.css" />
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"ProfessionalService","name":"Pinapp Studio","founder":{"@type":"Person","name":"Lauralie Daguzay"},"email":"lauralie.daguzay@pinapp.fr","url":"https://pinapp.fr","sameAs":"https://www.linkedin.com/in/lauralie-daguzay-4a4542197/"}
   </script>
 </head>
 <body class="page-with-bottom-nav">
+    <div id="pandora-world" aria-hidden="true">
+      <div class="pandora-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+      </div>
+      <div class="pandora-spores" id="spores-container"></div>
+      <div class="pandora-stars" id="stars-container"></div>
+      <div class="pandora-clouds" id="clouds-container">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+      </div>
+      <div class="holo-grid"></div>
+    </div>
   <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
   <div class="scroll-progress" id="scrollProgress"></div>
   <div id="loader" role="status" aria-label="Chargement">
@@ -51,11 +75,11 @@
   <nav class="nav" id="mainNav" role="navigation">
     <div class="container nav-inner">
       <a href="../index.html" class="pinapp-breathe nav-logo" aria-label="Pinapp Studio — accueil">
-        <img src="../assets/images/pinapp-logo.png" alt="Pinapp" width="200" height="60" decoding="async" class="nav-logo-img">
+        <img src="../assets/images/pinapp-logo.svg" alt="Pinapp" width="200" height="60" decoding="async" class="nav-logo-img">
       </a>
       <div class="nav-links">
         <a href="../offres/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
-        <a href="../formation-gratuite/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Formations</a>
+        <a href="../offres/formation/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Formations</a>
         <a href="../realisations/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
         <a href="../a-propos/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
         <a href="../faq/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
@@ -77,8 +101,9 @@
   <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" role="dialog" aria-label="Menu" aria-modal="true">
     <div class="mobile-drawer-panel">
       <button type="button" id="drawerClose" aria-label="Fermer le menu">×</button>
+        <a href="../index.html">Accueil</a>
       <a href="../offres/index.html">Offres</a>
-      <a href="../formation-gratuite/index.html">Formations</a>
+      <a href="../offres/formation/index.html">Formations</a>
       <a href="../realisations/index.html">Réalisations</a>
       <a href="../a-propos/index.html">À propos</a>
       <a href="../faq/index.html">FAQ</a>
@@ -96,7 +121,7 @@
     <a href="../offres/index.html">Offres</a>
     <a href="../diagnostic/index.html" class="bottom-bar-cta">Démarrer</a>
     <a href="../univers/index.html">Univers</a>
-    <a href="../formation-gratuite/index.html">Form.</a>
+    <a href="../offres/formation/index.html">Form.</a>
     <a href="../realisations/index.html">Réalis.</a>
   </div>
   <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
@@ -146,7 +171,7 @@
     <div class="container" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:var(--space-3);opacity:0.6;font-size:13px;">
       <span>Pinapp © 2026</span>
       <div style="display:flex;gap:var(--space-3);">
-        <a href="https://www.linkedin.com/in/lauralie-daguzay-4a4542197/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.linkedin.com/in/lauralie-daguzay-4a4542197/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
       </div>
       <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;">
@@ -168,11 +193,14 @@
     </div>
   </div>
   <script src="../assets/js/main.js" defer></script>
+    <script src="../assets/js/guide-tour.js" defer></script>
+    <script src="../assets/js/pandora-world.js" defer></script>
   <script src="../assets/js/particles.js" defer></script>
   <script src="../assets/js/aurora.js" defer></script>
   <script src="../assets/js/parallax.js" defer></script>
   <script src="../assets/js/scroll-cinema.js" defer></script>
   <script src="../assets/js/cursor.js" defer></script>
+  <script src="../assets/js/wow-senior.js" defer></script>
   <script src="../assets/js/bio-particles.js" defer></script>
 </body>
 </html>

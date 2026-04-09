@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="theme-color" id="pinapp-theme-color" content="#050A14" />
+    <script src="../assets/js/theme-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Dépôt client — photos, vidéos & brief — Pinapp Studio</title>
+    <meta
+      name="description"
+      content="Déposez vos liens (photos/vidéos) + les infos clés pour que Pinapp et Claude puissent cadrer votre projet et vous guider pas à pas." />
+    <meta property="og:title" content="Dépôt client — photos, vidéos & brief — Pinapp Studio" />
+    <meta
+      property="og:description"
+      content="Déposez vos liens (photos/vidéos) + les infos clés. Vous recevez ensuite un guidage pas à pas." />
+    <meta property="og:image" content="https://pinapp.fr/og-image.webp" />
+    <meta property="og:url" content="https://pinapp.fr/depot/" />
+    <link rel="canonical" href="https://pinapp.fr/depot/" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="stylesheet" href="../assets/variables.css" />
+    <link rel="stylesheet" href="../assets/grid.css" />
+    <link rel="stylesheet" href="../assets/animations.css" />
+    <link rel="stylesheet" href="../assets/css/aurora-mobile.css" />
+    <link rel="stylesheet" href="../assets/css/avatar-pandora-biolume.css" />
+    <link rel="stylesheet" href="../assets/css/cursor.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-ux.css" />
+    <link rel="stylesheet" href="../assets/css/apple-finish.css" />
+    <link rel="stylesheet" href="../assets/css/ios-glass.css" />
+    <link rel="stylesheet" href="../assets/css/wow-senior.css" />
+    <link rel="stylesheet" href="../assets/css/guide-tour.css" />
+    <link rel="stylesheet" href="../assets/css/pinapp-modern-biolume.css" />
+    <link rel="stylesheet" href="../assets/css/deploy-harmonise.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-jour-override.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-world.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-details.css" />
+  </head>
+  <body class="page-with-bottom-nav">
+    <div id="pandora-world" aria-hidden="true">
+      <div class="pandora-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+      </div>
+      <div class="pandora-spores" id="spores-container"></div>
+      <div class="pandora-stars" id="stars-container"></div>
+      <div class="pandora-clouds" id="clouds-container">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+      </div>
+      <div class="holo-grid"></div>
+    </div>
+    <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
+
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <div id="loader" role="status" aria-label="Chargement">
+      <svg
+        viewBox="0 0 40 48"
+        width="48"
+        height="58"
+        fill="none"
+        stroke="var(--accent-teal)"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true">
+        <path d="M20 2 C16 6 12 8 14 12" />
+        <path d="M20 2 C20 7 20 9 20 12" />
+        <path d="M20 2 C24 6 28 8 26 12" />
+        <ellipse cx="20" cy="30" rx="12" ry="16" />
+        <path d="M8 24 L20 18 L32 24 L20 30 Z" />
+        <path d="M8 30 L20 24 L32 30 L20 36 Z" />
+        <path d="M8 36 L20 30 L32 36 L20 42 Z" />
+      </svg>
+      <p class="visually-hidden" aria-hidden="true">Chargement</p>
+    </div>
+
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <div class="aurora-mobile" aria-hidden="true">
+      <div class="aurora-orb aurora-orb-1"></div>
+      <div class="aurora-orb aurora-orb-2"></div>
+      <div class="aurora-orb aurora-orb-3"></div>
+      <div class="aurora-orb aurora-orb-4"></div>
+    </div>
+    <div class="pandora-biolume-layer" aria-hidden="true"></div>
+    <div class="holo-grid" aria-hidden="true"></div>
+
+    <nav class="nav" id="mainNav" role="navigation">
+      <div class="container nav-inner">
+        <a href="../index.html" class="pinapp-breathe nav-logo" aria-label="Pinapp Studio — accueil">
+          <img
+            src="../assets/images/pinapp-logo.svg"
+            alt="Pinapp"
+            width="200"
+            height="60"
+            decoding="async"
+            class="nav-logo-img" />
+        </a>
+        <div class="nav-links">
+          <a href="../offres/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Offres</a>
+          <a href="../offres/formation/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Formations</a>
+          <a href="../realisations/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Réalisations</a>
+          <a href="../a-propos/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">À propos</a>
+          <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px"
+            >Démarrer ma demande</a
+          >
+        </div>
+        <div class="nav-trailing">
+          <button type="button" class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
+            <svg
+              class="theme-icon-sun"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              aria-hidden="true">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+            </svg>
+            <svg
+              class="theme-icon-moon"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="burger"
+            id="burger"
+            aria-label="Ouvrir le menu"
+            aria-expanded="false"
+            aria-controls="mobileDrawer">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              aria-hidden="true">
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" role="dialog" aria-label="Menu" aria-modal="true">
+      <div class="mobile-drawer-panel">
+        <button type="button" id="drawerClose" aria-label="Fermer le menu">×</button>
+        <a href="../index.html">Accueil</a>
+        <a href="../offres/index.html">Offres</a>
+        <a href="../offres/formation/index.html">Formations</a>
+        <a href="../realisations/index.html">Réalisations</a>
+        <a href="../a-propos/index.html">À propos</a>
+        <a href="../faq/index.html">FAQ</a>
+        <a href="../auralis/index.html">Auralis</a>
+        <a href="../univers/index.html">Univers</a>
+        <a href="../confiance/index.html">Confiance</a>
+        <a href="../votre-projet/index.html">Votre projet</a>
+        <a href="../pourquoi-pinapp/index.html">Pourquoi Pinapp</a>
+        <a href="../comment-ca-marche/index.html">Comment ça marche</a>
+        <a href="../diagnostic/index.html">Démarrer ma demande</a>
+      </div>
+    </div>
+
+    <div class="bottom-bar" role="navigation" aria-label="Navigation mobile">
+      <a href="../index.html">Accueil</a>
+      <a href="../offres/index.html">Offres</a>
+      <a href="../diagnostic/index.html" class="bottom-bar-cta">Démarrer</a>
+      <a href="../univers/index.html">Univers</a>
+      <a href="../realisations/index.html">Réalis.</a>
+    </div>
+
+    <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
+      <section class="section">
+        <div class="container" style="max-width: 900px">
+          <p class="label" style="text-align: center; margin-bottom: var(--space-2)">DÉPÔT CLIENT</p>
+          <h1
+            style="
+              text-align: center;
+              font-size: var(--text-h1);
+              letter-spacing: -0.02em;
+              margin-bottom: var(--space-3);
+            ">
+            Photos, vidéos et brief — au même endroit.
+          </h1>
+          <p style="text-align: center; font-size: 18px; opacity: 0.7; margin-bottom: var(--space-6)">
+            Objectif : me donner suffisamment de matière pour cadrer votre projet, puis vous guider pas à pas (y compris
+            par notifications si vous le souhaitez).
+          </p>
+
+          <div class="grid grid-2" style="align-items: start; margin-bottom: var(--space-6)">
+            <div class="card wow-surface">
+              <h2 style="font-size: 18px; margin-bottom: var(--space-2)">1) Déposez vos fichiers (photos/vidéos)</h2>
+              <p style="opacity: 0.7; font-size: 14px; margin-bottom: var(--space-3)">
+                Le plus simple : créer un lien de dépôt (Google Drive, WeTransfer, Dropbox…) puis coller le lien
+                ci-dessous. Si vous avez plusieurs dossiers (logos, photos, vidéos), mettez un lien par ligne.
+              </p>
+              <label class="label" for="depotLinks" style="display: block; margin-bottom: 8px">Liens de dépôt</label>
+              <textarea
+                id="depotLinks"
+                name="depot_links"
+                rows="6"
+                placeholder="Collez ici vos liens (Drive / WeTransfer / Dropbox…) — un par ligne"
+                style="width: 100%; min-height: 132px; font-size: 16px"></textarea>
+              <p style="font-size: 12px; opacity: 0.5; margin-top: 10px">
+                Astuce : dans Google Drive, vous pouvez créer un « lien de dépôt » via un formulaire Drive ou un dossier
+                partagé en ajout « contributeur ». Gardez vos fichiers privés, partagez seulement ce qui est utile au
+                projet.
+              </p>
+            </div>
+
+            <div class="card wow-surface">
+              <h2 style="font-size: 18px; margin-bottom: var(--space-2)">2) Remplissez le brief (pour Claude)</h2>
+              <p style="opacity: 0.7; font-size: 14px; margin-bottom: var(--space-3)">
+                Plus c’est précis, plus le guidage est efficace. Si vous ne savez pas, laissez vide : je vous poserai
+                les questions utiles, dans l’ordre.
+              </p>
+              <ul style="opacity: 0.7; line-height: 1.9; padding-left: 18px; font-size: 14px">
+                <li>Votre offre et vos priorités</li>
+                <li>Vos pages / sections indispensables</li>
+                <li>Vos exemples (sites que vous aimez)</li>
+                <li>Vos contraintes (délai, RGPD, outils existants)</li>
+                <li>Vos accès (si refonte)</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card wow-surface" style="margin-bottom: var(--space-5)">
+            <form
+              id="clientDepotForm"
+              name="depot-client"
+              method="POST"
+              data-netlify="true"
+              action="../merci/index.html?from=depot"
+              novalidate>
+              <input type="hidden" name="form-name" value="depot-client" />
+              <input type="hidden" name="submittedAt" id="clientDepotSubmittedAt" value="" />
+              <input type="hidden" name="source" value="/depot/" />
+              <input type="hidden" name="depot_links" id="clientDepotLinksHidden" value="" />
+
+              <div class="grid grid-2">
+                <div>
+                  <label class="label" for="clientName" style="display: block; margin-bottom: 8px">Nom</label>
+                  <input
+                    id="clientName"
+                    name="nom"
+                    type="text"
+                    autocomplete="name"
+                    placeholder="Votre nom"
+                    style="width: 100%; font-size: 16px" />
+                </div>
+                <div>
+                  <label class="label" for="clientEmail" style="display: block; margin-bottom: 8px">Email</label>
+                  <input
+                    id="clientEmail"
+                    name="email"
+                    type="email"
+                    autocomplete="email"
+                    placeholder="votre@email.fr"
+                    required
+                    style="width: 100%; font-size: 16px" />
+                </div>
+              </div>
+
+              <div class="grid grid-2" style="margin-top: var(--space-3)">
+                <div>
+                  <label class="label" for="clientBusiness" style="display: block; margin-bottom: 8px">Activité</label>
+                  <input
+                    id="clientBusiness"
+                    name="activite"
+                    type="text"
+                    placeholder="Ex : artisan / coach / avocat…"
+                    style="width: 100%; font-size: 16px" />
+                </div>
+                <div>
+                  <label class="label" for="clientOffer" style="display: block; margin-bottom: 8px"
+                    >Offre Pinapp visée</label
+                  >
+                  <select id="clientOffer" name="offre" style="width: 100%; font-size: 16px">
+                    <option value=">Je ne sais pas encore</option>
+                    <option value="site">Site web premium</option>
+                    <option value="automatisation">Automatisation</option>
+                    <option value="systeme-complet">Système complet</option>
+                    <option value="starter">Starter</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="margin-top: var(--space-3)">
+                <label class="label" for="clientGoal" style="display: block; margin-bottom: 8px"
+                  >Objectif principal</label
+                >
+                <textarea
+                  id="clientGoal"
+                  name="objectif"
+                  rows="4"
+                  placeholder="Ex : plus de demandes qualifiées, moins de messages, un parcours clair, un devis qui se prépare…"
+                  style="width: 100%; font-size: 16px"></textarea>
+              </div>
+
+              <div class="grid grid-2" style="margin-top: var(--space-3)">
+                <div>
+                  <label class="label" for="clientPages" style="display: block; margin-bottom: 8px"
+                    >Pages indispensables</label
+                  >
+                  <textarea
+                    id="clientPages"
+                    name="pages"
+                    rows="5"
+                    placeholder="Ex : Accueil, Offres, Réalisations, Contact…"
+                    style="width: 100%; font-size: 16px"></textarea>
+                </div>
+                <div>
+                  <label class="label" for="clientRefs" style="display: block; margin-bottom: 8px"
+                    >Références (sites)</label
+                  >
+                  <textarea
+                    id="clientRefs"
+                    name="references"
+                    rows="5"
+                    placeholder="Collez 2–5 liens de sites que vous aimez + ce que vous aimez dedans"
+                    style="width: 100%; font-size: 16px"></textarea>
+                </div>
+              </div>
+
+              <div class="grid grid-2" style="margin-top: var(--space-3)">
+                <div>
+                  <label class="label" for="clientDeadline" style="display: block; margin-bottom: 8px">Délai</label>
+                  <input
+                    id="clientDeadline"
+                    name="delai"
+                    type="text"
+                    placeholder="Ex : idéalement avant le 15/05"
+                    style="width: 100%; font-size: 16px" />
+                </div>
+                <div>
+                  <label class="label" for="clientBudget" style="display: block; margin-bottom: 8px"
+                    >Budget (si vous avez une idée)</label
+                  >
+                  <input
+                    id="clientBudget"
+                    name="budget"
+                    type="text"
+                    placeholder="Ex : 349€ / 1 190€ / 1 990€ / 2 490€ / ou « à définir »"
+                    style="width: 100%; font-size: 16px" />
+                </div>
+              </div>
+
+              <div style="margin-top: var(--space-3)">
+                <label class="label" for="clientTools" style="display: block; margin-bottom: 8px"
+                  >Outils existants</label
+                >
+                <textarea
+                  id="clientTools"
+                  name="outils"
+                  rows="4"
+                  placeholder="Ex : Google Workspace, Notion, Stripe, Calendly, un ancien site, un nom de domaine…"
+                  style="width: 100%; font-size: 16px"></textarea>
+              </div>
+
+              <div style="margin-top: var(--space-3)">
+                <label class="label" for="clientNotes" style="display: block; margin-bottom: 8px"
+                  >Notes / contraintes</label
+                >
+                <textarea
+                  id="clientNotes"
+                  name="notes"
+                  rows="5"
+                  placeholder="Ex : RGPD, style, ton, contenus à éviter, contraintes métier…"
+                  style="width: 100%; font-size: 16px"></textarea>
+              </div>
+
+              <div class="card wow-surface" style="margin-top: var(--space-4); padding: var(--space-3)">
+                <p class="label" style="margin-bottom: 6px">Notifications (option)</p>
+                <p style="font-size: 14px; opacity: 0.7; margin-bottom: var(--space-2)">
+                  Si vous voulez être guidé pas à pas par notifications Telegram, indiquez votre @username Telegram.
+                </p>
+                <label class="label" for="clientTelegram" style="display: block; margin-bottom: 8px"
+                  >Telegram @username</label
+                >
+                <input
+                  id="clientTelegram"
+                  name="telegram"
+                  type="text"
+                  placeholder="@votreusername"
+                  style="width: 100%; font-size: 16px" />
+                <p style="font-size: 12px; opacity: 0.5; margin-top: 10px">
+                  Nous n’envoyons aucun message automatique sans que le scénario soit configuré côté Pinapp. Cet
+                  identifiant sert uniquement à vous notifier sur votre projet.
+                </p>
+              </div>
+
+              <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: var(--space-4)">
+                <button type="submit" class="btn btn-primary pinapp-breathe">Envoyer mon brief</button>
+                <a
+                  id="clientDepotMailto"
+                  class="btn btn-secondary"
+                  href="mailto:lauralie.daguzay@pinapp.fr?subject=Dépôt%20client%20—%20Pinapp&body=Bonjour%20Lauralie%2C%0A%0AJe%20te%20partage%20mon%20brief%20ici.%0A"
+                  >Envoyer par email</a
+                >
+              </div>
+
+              <p style="font-size: 11px; opacity: 0.5; margin-top: var(--space-3)">
+                Vos données servent uniquement à cadrer votre demande et organiser la production. Voir notre
+                <a href="../legal/confidentialite/index.html" style="text-decoration: underline"
+                  >politique de confidentialité</a
+                >.
+              </p>
+
+              <div
+                id="clientDepotStatus"
+                aria-live="polite"
+                style="margin-top: var(--space-2); font-size: 13px; opacity: 0.7"></div>
+            </form>
+          </div>
+
+          <div class="card wow-surface">
+            <h2 style="font-size: 18px; margin-bottom: var(--space-2)">Ce que vous recevez ensuite</h2>
+            <div class="grid grid-3">
+              <div>
+                <p class="label" style="margin-bottom: 8px">Synthèse</p>
+                <p style="opacity: 0.7; font-size: 14px">
+                  Une relecture des infos + les questions manquantes (dans l’ordre).
+                </p>
+              </div>
+              <div>
+                <p class="label" style="margin-bottom: 8px">Plan pas à pas</p>
+                <p style="opacity: 0.7; font-size: 14px">Un plan concret (priorités, étapes, validations).</p>
+              </div>
+              <div>
+                <p class="label" style="margin-bottom: 8px">Guidage</p>
+                <p style="opacity: 0.7; font-size: 14px">
+                  Option notifications Telegram si le scénario est activé côté Pinapp.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer style="border-top: 1px solid var(--separator); padding: var(--space-5) 0">
+      <div
+        class="container"
+        style="
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          align-items: center;
+          gap: var(--space-3);
+          opacity: 0.6;
+          font-size: 13px;
+        ">
+        <span>Pinapp © 2026</span>
+        <div style="display: flex; gap: var(--space-3)">
+          <a href="https://www.linkedin.com/in/lauralie-daguzay-4a4542197/" target="_blank" rel="noopener noreferrer"
+            >LinkedIn</a
+          >
+          <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
+        </div>
+        <div style="display: flex; gap: var(--space-3)">
+          <a href="../legal/mentions/index.html">Mentions légales</a>
+          <a href="../legal/cgv/index.html">CGV</a>
+          <a href="../legal/confidentialite/index.html">Confidentialité</a>
+          <a href="../legal/ethique/index.html">Éthique</a>
+        </div>
+      </div>
+    </footer>
+
+    <div
+      id="cookie-banner"
+      role="dialog"
+      style="
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: var(--space-3);
+        background: var(--bg-card);
+        border-top: 1px solid var(--border-card);
+        backdrop-filter: blur(20px);
+        z-index: 9000;
+        display: none;
+      ">
+      <div
+        class="container"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: var(--space-3);
+          flex-wrap: wrap;
+        ">
+        <p style="font-size: 13px; opacity: 0.8; max-width: 600px">
+          Ce site utilise des cookies de mesure d'audience anonymes (Plausible Analytics — sans tracking personnel).
+        </p>
+        <div style="display: flex; gap: var(--space-2)">
+          <button id="cookieAccept" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px">
+            Accepter
+          </button>
+          <button id="cookieRefuse" class="btn btn-secondary" style="font-size: 13px; padding: 10px 20px">
+            Refuser
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/wow-senior.js"></script>
+    <script src="../assets/js/cursor.js"></script>
+  </body>
+</html>

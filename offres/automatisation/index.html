@@ -11,11 +11,12 @@
   <meta property="og:description" content="Automatisation des tâches répétitives pour PME et indépendants.">
   <meta property="og:image" content="https://pinapp.fr/og-image.webp">
   <meta property="og:url" content="https://pinapp.fr/offres/automatisation/">
+    <link rel="canonical" href="https://pinapp.fr/offres/automatisation/" />
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
-  <link rel="preload" href="../../assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../../assets/variables.css">
+    <link rel="stylesheet" href="../../assets/css/pandora-world.css" />
   <link rel="stylesheet" href="../../assets/grid.css">
   <link rel="stylesheet" href="../../assets/animations.css">
   <link rel="stylesheet" href="../../assets/css/aurora-mobile.css">
@@ -23,12 +24,35 @@
   <link rel="stylesheet" href="../../assets/css/cursor.css">
   <link rel="stylesheet" href="../../assets/css/pandora-ux.css">
   <link rel="stylesheet" href="../../assets/css/apple-finish.css">
+  <link rel="stylesheet" href="../../assets/css/ios-glass.css">
   <link rel="stylesheet" href="../../assets/css/pinapp-modern-biolume.css">
+  <link rel="stylesheet" href="../../assets/css/pinapp-premium.css">
+  <link rel="stylesheet" href="../../assets/css/deploy-harmonise.css">
+  <link rel="stylesheet" href="../../assets/css/mobile-premium.css">
+  <link rel="stylesheet" href="../../assets/css/wow-visuals.css">
+  <link rel="stylesheet" href="../../assets/css/wow-senior.css">
+    <link rel="stylesheet" href="../../assets/css/guide-tour.css" />
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"ProfessionalService","name":"Pinapp Studio","founder":{"@type":"Person","name":"Lauralie Daguzay"},"email":"lauralie.daguzay@pinapp.fr","url":"https://pinapp.fr","sameAs":"https://www.linkedin.com/in/lauralie-daguzay-4a4542197/"}
   </script>
 </head>
 <body class="page-with-bottom-nav">
+    <div id="pandora-world" aria-hidden="true">
+      <div class="pandora-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+      </div>
+      <div class="pandora-spores" id="spores-container"></div>
+      <div class="pandora-stars" id="stars-container"></div>
+      <div class="pandora-clouds" id="clouds-container">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+      </div>
+      <div class="holo-grid"></div>
+    </div>
   <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
   <div class="scroll-progress" id="scrollProgress"></div>
   <div id="loader" role="status" aria-label="Chargement">
@@ -51,11 +75,11 @@
   <nav class="nav" id="mainNav" role="navigation">
     <div class="container nav-inner">
       <a href="../../index.html" class="pinapp-breathe nav-logo" aria-label="Pinapp Studio — accueil">
-        <img src="../../assets/images/pinapp-logo.png" alt="Pinapp" width="200" height="60" decoding="async" class="nav-logo-img">
+        <img src="../../assets/images/pinapp-logo.svg" alt="Pinapp" width="200" height="60" decoding="async" class="nav-logo-img">
       </a>
       <div class="nav-links">
         <a href="../../offres/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
-        <a href="../../formation-gratuite/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Formations</a>
+        <a href="../../offres/formation/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Formations</a>
         <a href="../../realisations/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
         <a href="../../a-propos/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
         <a href="../../faq/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
@@ -77,8 +101,9 @@
   <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" role="dialog" aria-label="Menu" aria-modal="true">
     <div class="mobile-drawer-panel">
       <button type="button" id="drawerClose" aria-label="Fermer le menu">×</button>
+        <a href="../../index.html">Accueil</a>
       <a href="../../offres/index.html">Offres</a>
-      <a href="../../formation-gratuite/index.html">Formations</a>
+      <a href="../../offres/formation/index.html">Formations</a>
       <a href="../../realisations/index.html">Réalisations</a>
       <a href="../../a-propos/index.html">À propos</a>
       <a href="../../faq/index.html">FAQ</a>
@@ -96,30 +121,59 @@
     <a href="../../offres/index.html">Offres</a>
     <a href="../../diagnostic/index.html" class="bottom-bar-cta">Démarrer</a>
     <a href="../../univers/index.html">Univers</a>
-    <a href="../../formation-gratuite/index.html">Form.</a>
+    <a href="../../offres/formation/index.html">Form.</a>
     <a href="../../realisations/index.html">Réalis.</a>
   </div>
   <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
     <section class="section">
       <div class="container prose" style="max-width:800px;">
         <p class="label">OFFRE AUTOMATISATION</p>
-        <h1>Vos tâches répétitives. Automatisées.</h1>
-        <p class="lead">Relances, confirmations, devis, rapports. Tout ce qui vous prend du temps sans vous apporter de valeur.</p>
-        <h2>Exemples d'automatisations</h2>
+        <h1>Ça avance sans vous courir après.</h1>
+        <p class="lead">On retire les frictions, on fiabilise la suite. Vous validez aux étapes clés — et le reste s’enchaîne.</p>
+
+        <div class="grid grid-3" style="margin:var(--space-5) 0;align-items:stretch;">
+          <div class="card">
+            <p class="label" style="margin-bottom:var(--space-2);">AVANT</p>
+            <ul style="opacity:0.75;line-height:1.9;">
+              <li>Devis envoyés… puis oubliés</li>
+              <li>Rappels manuels, au hasard</li>
+              <li>Infos client dispersées</li>
+            </ul>
+          </div>
+          <div class="card">
+            <p class="label" style="margin-bottom:var(--space-2);">APRÈS</p>
+            <ul style="opacity:0.75;line-height:1.9;">
+              <li>Relances préparées au bon moment</li>
+              <li>Confirmations et suivis propres</li>
+              <li>Un fil clair, sans “trous”</li>
+            </ul>
+          </div>
+          <div class="card">
+            <p class="label" style="margin-bottom:var(--space-2);">VOUS</p>
+            <ul style="opacity:0.75;line-height:1.9;">
+              <li>Vous gardez la main</li>
+              <li>Vous validez ce qui part</li>
+              <li>Vous respirez</li>
+            </ul>
+          </div>
+        </div>
+
+        <h2>Ce qu’on peut automatiser (exemples concrets)</h2>
         <ul>
-          <li>Relance devis automatique (J+2, J+7)</li>
-          <li>Confirmation RDV + rappel J-1</li>
-          <li>Email de bienvenue client après signature</li>
-          <li>Rapport mensuel automatique</li>
-          <li>Notification lead entrant</li>
-          <li>Synchronisation CRM automatique</li>
+          <li>Relance devis (J+2 / J+7) avec message prêt</li>
+          <li>Confirmation de rendez-vous + rappel la veille</li>
+          <li>Message de bienvenue après signature</li>
+          <li>Récap hebdomadaire “où on en est”</li>
+          <li>Alerte instantanée quand un lead arrive</li>
+          <li>Classement et suivi des demandes (sans double saisie)</li>
         </ul>
+
         <h2>Ce qui est inclus</h2>
         <ul>
-          <li>Audit de vos process actuels</li>
-          <li>Configuration des pipelines</li>
-          <li>Tests complets</li>
-          <li>Formation (1h)</li>
+          <li>Cartographie simple de vos étapes (qui fait quoi, quand)</li>
+          <li>Un flux “propre” de bout en bout (avec validation si nécessaire)</li>
+          <li>Tests complets + garde-fous (pour éviter les surprises)</li>
+          <li>Une prise en main (1h)</li>
           <li>1 mois de support</li>
         </ul>
         <div style="background:var(--bg-card);border-radius:var(--radius-card);padding:var(--space-4);border:1px solid var(--border-card);margin:var(--space-4) 0;">
@@ -134,7 +188,7 @@
     <div class="container" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:var(--space-3);opacity:0.6;font-size:13px;">
       <span>Pinapp © 2026</span>
       <div style="display:flex;gap:var(--space-3);">
-        <a href="https://www.linkedin.com/in/lauralie-daguzay-4a4542197/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.linkedin.com/in/lauralie-daguzay-4a4542197/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
       </div>
       <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;">
@@ -156,11 +210,14 @@
     </div>
   </div>
   <script src="../../assets/js/main.js" defer></script>
+    <script src="../../assets/js/guide-tour.js" defer></script>
+    <script src="../../assets/js/pandora-world.js" defer></script>
   <script src="../../assets/js/particles.js" defer></script>
   <script src="../../assets/js/aurora.js" defer></script>
   <script src="../../assets/js/parallax.js" defer></script>
   <script src="../../assets/js/scroll-cinema.js" defer></script>
   <script src="../../assets/js/cursor.js" defer></script>
+  <script src="../../assets/js/wow-senior.js" defer></script>
   <script src="../../assets/js/bio-particles.js" defer></script>
 </body>
 </html>
