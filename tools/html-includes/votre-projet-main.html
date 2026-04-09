@@ -1,59 +1,81 @@
-﻿    <section class="section" style="background:var(--bg-deep);" id="formulaire">
-      <div class="container" style="max-width:37.5rem;text-align:center;">
-        <p class="label" style="margin-bottom:var(--space-2);">VOTRE PROJET</p>
-        <h1 style="font-size:var(--text-h1);letter-spacing:-0.02em;margin-bottom:var(--space-2);">Quelques questions. Synth&egrave;se sous 24 h &mdash; vous confirmez la suite.</h1>
-        <p style="opacity:0.6;margin-bottom:var(--space-5);">Pas de formulaire interminable. Par &eacute;crit uniquement &mdash; vous validez quand vous &ecirc;tes pr&ecirc;t.</p>
-        <div style="height:2px;background:var(--border-card);border-radius:100px;margin-bottom:var(--space-5);">
-          <div class="onboarding-bar" id="onboardingProgress" style="height:2px;width:25%;transition:width 300ms ease;"></div>
+﻿<section class="section" style="background: var(--bg-deep)" id="formulaire">
+  <div class="container" style="max-width: 37.5rem; text-align: center">
+    <p class="label" style="margin-bottom: var(--space-2)">VOTRE PROJET</p>
+    <h1 style="font-size: var(--text-h1); letter-spacing: -0.02em; margin-bottom: var(--space-2)">
+      Quelques questions. Synth&egrave;se sous 24 h &mdash; vous confirmez la suite.
+    </h1>
+    <p style="opacity: 0.6; margin-bottom: var(--space-5)">
+      Pas de formulaire interminable. Par &eacute;crit uniquement &mdash; vous validez quand vous &ecirc;tes pr&ecirc;t.
+    </p>
+    <div style="height: 2px; background: var(--border-card); border-radius: 100px; margin-bottom: var(--space-5)">
+      <div
+        class="onboarding-bar"
+        id="onboardingProgress"
+        style="height: 2px; width: 25%; transition: width 300ms ease"></div>
+    </div>
+    <div id="onboardingStage" style="position: relative; min-height: 12.5rem">
+      <div class="question active" id="q1">
+        <p style="font-size: 18px; margin-bottom: var(--space-3)">Vous avez besoin de ?</p>
+        <div style="display: flex; flex-wrap: wrap; gap: var(--space-2); justify-content: center">
+          <button type="button" class="pill-btn" data-q="1" data-val="automatisation">Automatisation</button>
+          <button type="button" class="pill-btn" data-q="1" data-val="site">Site premium</button>
+          <button type="button" class="pill-btn" data-q="1" data-val="ia">Fonctions intelligentes (IA)</button>
+          <button type="button" class="pill-btn" data-q="1" data-val="sais-pas">Je ne sais pas encore</button>
         </div>
-        <div id="onboardingStage" style="position:relative;min-height:12.5rem;">
-          <div class="question active" id="q1">
-            <p style="font-size:18px;margin-bottom:var(--space-3);">Vous avez besoin de ?</p>
-            <div style="display:flex;flex-wrap:wrap;gap:var(--space-2);justify-content:center;">
-              <button type="button" class="pill-btn" data-q="1" data-val="automatisation">Automatisation</button>
-              <button type="button" class="pill-btn" data-q="1" data-val="site">Site premium</button>
-              <button type="button" class="pill-btn" data-q="1" data-val="ia">Fonctions intelligentes (IA)</button>
-              <button type="button" class="pill-btn" data-q="1" data-val="sais-pas">Je ne sais pas encore</button>
-            </div>
-          </div>
-          <div class="question" id="q2">
-            <p style="font-size:18px;margin-bottom:var(--space-3);">Votre structure ?</p>
-            <div style="display:flex;flex-wrap:wrap;gap:var(--space-2);justify-content:center;">
-              <button type="button" class="pill-btn" data-q="2" data-val="independant">Indépendant</button>
-              <button type="button" class="pill-btn" data-q="2" data-val="pme">PME</button>
-              <button type="button" class="pill-btn" data-q="2" data-val="startup">Startup</button>
-              <button type="button" class="pill-btn" data-q="2" data-val="grand-compte">Grand compte</button>
-            </div>
-          </div>
-          <div class="question" id="q3">
-            <p style="font-size:18px;margin-bottom:var(--space-3);">Votre délai idéal ?</p>
-            <div style="display:flex;flex-wrap:wrap;gap:var(--space-2);justify-content:center;">
-              <button type="button" class="pill-btn" data-q="3" data-val="urgent">Urgent — moins de 2 semaines</button>
-              <button type="button" class="pill-btn" data-q="3" data-val="rapide">Rapide (1 mois)</button>
-              <button type="button" class="pill-btn" data-q="3" data-val="serein">Serein (+2 mois)</button>
-            </div>
-          </div>
-          <div class="question" id="q4">
-            <p style="font-size:18px;margin-bottom:var(--space-3);">Une idée du budget ?</p>
-            <div style="display:flex;flex-wrap:wrap;gap:var(--space-2);justify-content:center;">
-              <button type="button" class="pill-btn" data-q="4" data-val="moins-1000">Moins de 1000€</button>
-              <button type="button" class="pill-btn" data-q="4" data-val="1000-3000">1000–3000€</button>
-              <button type="button" class="pill-btn" data-q="4" data-val="plus-3000">3000€+</button>
-              <button type="button" class="pill-btn" data-q="4" data-val="a-definir">À définir ensemble</button>
-            </div>
-          </div>
-          <div class="question" id="qfin">
-            <div class="check-final" style="width:48px;height:48px;margin:0 auto var(--space-3);">
-              <svg viewBox="0 0 48 48" fill="none" stroke="var(--accent-green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="24" cy="24" r="22"/>
-                <polyline class="checkmark" points="14,24 20,30 34,16"/>
-              </svg>
-            </div>
-            <h2 id="finMessage" style="font-size:20px;margin-bottom:var(--space-2);">C&rsquo;est not&eacute;. R&eacute;ponse sous 24 h par &eacute;crit &mdash; vous confirmez ensuite si vous voulez avancer.</h2>
-            <p style="font-size:14px;opacity:0.6;">lauralie.daguzay@pinapp.fr</p>
-          </div>
-        </div>
-        <p style="font-size:var(--text-legal);opacity:0.4;margin-top:var(--space-4);">Vos données sont utilisées uniquement pour répondre à votre demande. Aucun démarchage. Conformément à notre <a href="/legal/confidentialite.html" style="text-decoration:underline;">politique de confidentialité</a>.</p>
-        <p style="margin-top:var(--space-5);"><a href="/diagnostic/" class="btn btn-secondary">Diagnostic complet par &eacute;crit &mdash; gratuit &rarr;</a></p>
       </div>
-    </section>
+      <div class="question" id="q2">
+        <p style="font-size: 18px; margin-bottom: var(--space-3)">Votre structure ?</p>
+        <div style="display: flex; flex-wrap: wrap; gap: var(--space-2); justify-content: center">
+          <button type="button" class="pill-btn" data-q="2" data-val="independant">Indépendant</button>
+          <button type="button" class="pill-btn" data-q="2" data-val="pme">PME</button>
+          <button type="button" class="pill-btn" data-q="2" data-val="startup">Startup</button>
+          <button type="button" class="pill-btn" data-q="2" data-val="grand-compte">Grand compte</button>
+        </div>
+      </div>
+      <div class="question" id="q3">
+        <p style="font-size: 18px; margin-bottom: var(--space-3)">Votre délai idéal ?</p>
+        <div style="display: flex; flex-wrap: wrap; gap: var(--space-2); justify-content: center">
+          <button type="button" class="pill-btn" data-q="3" data-val="urgent">Urgent — moins de 2 semaines</button>
+          <button type="button" class="pill-btn" data-q="3" data-val="rapide">Rapide (1 mois)</button>
+          <button type="button" class="pill-btn" data-q="3" data-val="serein">Serein (+2 mois)</button>
+        </div>
+      </div>
+      <div class="question" id="q4">
+        <p style="font-size: 18px; margin-bottom: var(--space-3)">Une idée du budget ?</p>
+        <div style="display: flex; flex-wrap: wrap; gap: var(--space-2); justify-content: center">
+          <button type="button" class="pill-btn" data-q="4" data-val="moins-1000">Moins de 1000€</button>
+          <button type="button" class="pill-btn" data-q="4" data-val="1000-3000">1000–3000€</button>
+          <button type="button" class="pill-btn" data-q="4" data-val="plus-3000">3000€+</button>
+          <button type="button" class="pill-btn" data-q="4" data-val="a-definir">À définir ensemble</button>
+        </div>
+      </div>
+      <div class="question" id="qfin">
+        <div class="check-final" style="width: 48px; height: 48px; margin: 0 auto var(--space-3)">
+          <svg
+            viewBox="0 0 48 48"
+            fill="none"
+            stroke="var(--accent-green)"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true">
+            <circle cx="24" cy="24" r="22" />
+            <polyline class="checkmark" points="14,24 20,30 34,16" />
+          </svg>
+        </div>
+        <h2 id="finMessage" style="font-size: 20px; margin-bottom: var(--space-2)">
+          C&rsquo;est not&eacute;. R&eacute;ponse sous 24 h par &eacute;crit &mdash; vous confirmez ensuite si vous
+          voulez avancer.
+        </h2>
+        <p style="font-size: 14px; opacity: 0.6">lauralie.daguzay@pinapp.fr</p>
+      </div>
+    </div>
+    <p style="font-size: var(--text-legal); opacity: 0.4; margin-top: var(--space-4)">
+      Vos données sont utilisées uniquement pour répondre à votre demande. Aucun démarchage. Conformément à notre
+      <a href="/legal/confidentialite.html" style="text-decoration: underline">politique de confidentialité</a>.
+    </p>
+    <p style="margin-top: var(--space-5)">
+      <a href="/diagnostic/" class="btn btn-secondary">Diagnostic complet par &eacute;crit &mdash; gratuit &rarr;</a>
+    </p>
+  </div>
+</section>

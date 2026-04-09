@@ -9,52 +9,62 @@
    ===================================================== */
 
 body.mode-jour,
-html[data-theme="light"] body {
-  background-color: #FBF5E8;  /* ivoire chaud — lumière de canopée Pandora */
+html[data-theme='light'] body {
+  /* Le fond “UI” doit suivre les tokens (harmonie globale). */
+  background-color: var(--fond-jour);
 }
 
 body.mode-jour::before,
-html[data-theme="light"] body::before {
+html[data-theme='light'] body::before {
   /* Repli PNG puis WebP via image-set (couche photo en dernier) */
   background-image:
-    radial-gradient(ellipse 55% 45% at 88% 8%,
-      rgba(255,215,100,0.28) 0%,
-      rgba(255,185,60,0.14) 34%,
-      rgba(255,140,60,0.05) 58%,
-      transparent 78%),
-    radial-gradient(ellipse 90% 50% at 60% 0%,
-      rgba(255,230,160,0.16) 0%,
-      rgba(255,200,100,0.07) 48%,
-      transparent 72%),
-    radial-gradient(ellipse 80% 55% at 42% 72%,
-      rgba(255,165,130,0.12) 0%,
-      rgba(235,140,170,0.05) 50%,
-      transparent 74%),
-    radial-gradient(ellipse 65% 50% at 12% 18%,
-      rgba(195,155,245,0.14) 0%,
-      rgba(175,135,225,0.06) 48%,
-      transparent 70%),
-    radial-gradient(ellipse 55% 45% at 8% 82%,
-      rgba(60,210,170,0.18) 0%,
-      rgba(80,200,160,0.08) 40%,
-      transparent 65%),
-    radial-gradient(ellipse 40% 35% at 78% 58%,
-      rgba(100,220,190,0.09) 0%,
-      transparent 55%),
-    radial-gradient(ellipse 45% 38% at 82% 25%,
-      rgba(155,195,240,0.10) 0%,
-      rgba(135,175,225,0.05) 50%,
-      transparent 68%),
+    radial-gradient(
+      ellipse 55% 45% at 88% 8%,
+      rgba(235, 232, 255, 0.22) 0%,
+      rgba(235, 232, 255, 0.1) 34%,
+      rgba(235, 232, 255, 0) 58%,
+      transparent 78%
+    ),
+    radial-gradient(
+      ellipse 90% 50% at 60% 0%,
+      rgba(248, 246, 255, 0.14) 0%,
+      rgba(248, 246, 255, 0.06) 48%,
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 80% 55% at 42% 72%,
+      rgba(222, 242, 236, 0.14) 0%,
+      rgba(222, 242, 236, 0.06) 50%,
+      transparent 74%
+    ),
+    radial-gradient(
+      ellipse 65% 50% at 12% 18%,
+      rgba(220, 205, 255, 0.18) 0%,
+      rgba(220, 205, 255, 0.08) 48%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 55% 45% at 8% 82%,
+      rgba(190, 232, 220, 0.16) 0%,
+      rgba(190, 232, 220, 0.07) 40%,
+      transparent 65%
+    ),
+    radial-gradient(ellipse 40% 35% at 78% 58%, rgba(190, 232, 220, 0.08) 0%, transparent 55%),
+    radial-gradient(
+      ellipse 45% 38% at 82% 25%,
+      rgba(210, 230, 255, 0.11) 0%,
+      rgba(210, 230, 255, 0.05) 50%,
+      transparent 68%
+    ),
     linear-gradient(
       175deg,
-      rgba(255,245,230,0.20) 0%,
-      rgba(248,238,255,0.15) 40%,
-      rgba(235,255,248,0.12) 78%,
-      rgba(255,240,200,0.10) 100%
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(248, 246, 255, 0.14) 40%,
+      rgba(236, 250, 246, 0.12) 78%,
+      rgba(255, 255, 255, 0.1) 100%
     ),
     image-set(
-      url('../assets/images/bg-light-pandora-apple.webp') type('image/webp'),
-      url('../assets/images/bg-light-pandora-apple.png') type('image/png')
+      url('../images/bg-light-pandora-apple.svg') type('image/svg+xml')
     );
   background-size: auto, cover;
   background-position: center, center;
@@ -67,12 +77,14 @@ html[data-theme="light"] body::before {
    ===================================================== */
 
 .pandora-shapes {
-  position: fixed; inset: 0;
-  z-index: 0; pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
   overflow: hidden;
 }
 body:not(.mode-jour) .pandora-shapes,
-html[data-theme="dark"] .pandora-shapes {
+html[data-theme='dark'] .pandora-shapes {
   display: none;
 }
 
@@ -80,92 +92,159 @@ html[data-theme="dark"] .pandora-shapes {
   position: absolute;
   border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
   filter: blur(65px);
-  animation:
-    shape-ascend var(--dur, 20s) ease-in-out infinite var(--delay, 0s),
-    forest-sway calc(var(--dur, 20s) * 0.35) ease-in-out infinite;
+  animation: none;
   will-change: transform, opacity;
 }
 
 /* Végétation qui se balance — pendule Pandora, 5 keyframes pour la fluidité */
 @keyframes forest-sway {
-  0%   { transform: rotate(  0.0deg) translateX(  0px); }
-  18%  { transform: rotate(  2.2deg) translateX(  5px); }
-  36%  { transform: rotate( -1.4deg) translateX( -3px); }
-  55%  { transform: rotate(  1.8deg) translateX(  4px); }
-  73%  { transform: rotate( -0.9deg) translateX( -2px); }
-  100% { transform: rotate(  0.0deg) translateX(  0px); }
+  0% {
+    transform: rotate(0deg) translateX(0px);
+  }
+  18% {
+    transform: rotate(2.2deg) translateX(5px);
+  }
+  36% {
+    transform: rotate(-1.4deg) translateX(-3px);
+  }
+  55% {
+    transform: rotate(1.8deg) translateX(4px);
+  }
+  73% {
+    transform: rotate(-0.9deg) translateX(-2px);
+  }
+  100% {
+    transform: rotate(0deg) translateX(0px);
+  }
 }
 
 /* Shape 1 — jade forêt bioluminescent */
 .pandora-shape-1 {
   width: clamp(260px, 45vw, 500px);
   height: clamp(200px, 35vw, 400px);
-  background: radial-gradient(ellipse,
-    rgba(60,210,170,0.30) 0%,
-    rgba(80,190,160,0.14) 55%,
-    transparent 100%);
+  background: radial-gradient(
+    ellipse,
+    rgba(60, 210, 170, 0.3) 0%,
+    rgba(80, 190, 160, 0.14) 55%,
+    transparent 100%
+  );
   filter: blur(clamp(45px, 8vw, 70px));
-  top: -80px; left: -80px;
-  --dur: 20s; --delay: -2s;
-  --dx: 40px; --dy: -30px; --rot: 8deg;
+  top: -80px;
+  left: -80px;
+  --dur: 20s;
+  --delay: -2s;
+  --dx: 40px;
+  --dy: -30px;
+  --rot: 8deg;
 }
 
 /* Shape 2 — ambre solaire */
 .pandora-shape-2 {
   width: clamp(280px, 55vw, 600px);
   height: clamp(180px, 30vw, 350px);
-  background: radial-gradient(ellipse,
-    rgba(255,175,40,0.38) 0%,
-    rgba(240,140,60,0.16) 52%,
-    transparent 100%);
+  background: radial-gradient(
+    ellipse,
+    rgba(255, 175, 40, 0.38) 0%,
+    rgba(240, 140, 60, 0.16) 52%,
+    transparent 100%
+  );
   filter: blur(clamp(40px, 7vw, 65px));
-  bottom: -60px; right: -60px;
-  --dur: 25s; --delay: -10s;
-  --dx: -35px; --dy: 25px; --rot: -6deg;
+  bottom: -60px;
+  right: -60px;
+  --dur: 25s;
+  --delay: -10s;
+  --dx: -35px;
+  --dy: 25px;
+  --rot: -6deg;
 }
 
 /* Shape 3 — jade eau, perle irisée */
 .pandora-shape-3 {
   width: clamp(180px, 35vw, 400px);
   height: clamp(220px, 40vw, 500px);
-  background: radial-gradient(ellipse,
-    rgba(30,180,160,0.26) 0%,
-    rgba(0,160,140,0.12) 55%,
-    transparent 100%);
+  background: radial-gradient(
+    ellipse,
+    rgba(30, 180, 160, 0.26) 0%,
+    rgba(0, 160, 140, 0.12) 55%,
+    transparent 100%
+  );
   filter: blur(clamp(40px, 7vw, 65px));
-  top: 30%; right: 8%;
-  --dur: 18s; --delay: -6s;
-  --dx: -20px; --dy: -40px; --rot: 12deg;
+  top: 30%;
+  right: 8%;
+  --dur: 18s;
+  --delay: -6s;
+  --dx: -20px;
+  --dy: -40px;
+  --rot: 12deg;
 }
 
 /* Shape 4 — corail Pandora / pêche chaud */
 .pandora-shape-4 {
   width: clamp(160px, 30vw, 350px);
   height: clamp(140px, 25vw, 300px);
-  background: radial-gradient(ellipse,
-    rgba(255,130,80,0.24) 0%,
-    rgba(230,110,60,0.10) 52%,
-    transparent 100%);
+  background: radial-gradient(
+    ellipse,
+    rgba(255, 130, 80, 0.24) 0%,
+    rgba(230, 110, 60, 0.1) 52%,
+    transparent 100%
+  );
   filter: blur(clamp(40px, 7vw, 65px));
-  bottom: 20%; left: 5%;
-  --dur: 22s; --delay: -14s;
-  --dx: 30px; --dy: 20px; --rot: -4deg;
+  bottom: 20%;
+  left: 5%;
+  --dur: 22s;
+  --delay: -14s;
+  --dx: 30px;
+  --dy: 20px;
+  --rot: -4deg;
 }
 
 /* Shape ascend — danse en 6 actes, comme une méduse montant dans l'eau */
 @keyframes shape-ascend {
-  0%   { opacity: 0.00; transform: translate(  0px,    0px) scale(1.00) rotate(0deg); }
-  8%   { opacity: 0.70; }
-  22%  { opacity: 0.90; transform: translate(calc(var(--dx,30px) * 0.4),  calc(var(--dy,-20px) * 0.3)) scale(1.04) rotate(calc(var(--rot,6deg) * 0.3)); }
-  42%  { opacity: 1.00; transform: translate(calc(var(--dx,30px) * 0.9),  calc(var(--dy,-20px) * 0.8)) scale(1.10) rotate(calc(var(--rot,6deg) * 0.8)); }
-  58%  { opacity: 0.95; transform: translate(var(--dx,30px),              var(--dy,-20px))              scale(1.12) rotate(var(--rot,6deg)); }
-  76%  { opacity: 0.85; transform: translate(calc(var(--dx,30px) * 0.6),  calc(var(--dy,-20px) * 0.5)) scale(1.05) rotate(calc(var(--rot,6deg) * 0.4)); }
-  92%  { opacity: 0.10; transform: translate(calc(var(--dx,30px) * 0.1),  calc(var(--dy,-20px) * 0.1)) scale(1.01) rotate(calc(var(--rot,6deg) * 0.1)); }
-  100% { opacity: 0.00; transform: translate(  0px,    0px) scale(1.00) rotate(0deg); }
+  0% {
+    opacity: 0;
+    transform: translate(0px, 0px) scale(1) rotate(0deg);
+  }
+  8% {
+    opacity: 0.7;
+  }
+  22% {
+    opacity: 0.9;
+    transform: translate(calc(var(--dx, 30px) * 0.4), calc(var(--dy, -20px) * 0.3)) scale(1.04)
+      rotate(calc(var(--rot, 6deg) * 0.3));
+  }
+  42% {
+    opacity: 1;
+    transform: translate(calc(var(--dx, 30px) * 0.9), calc(var(--dy, -20px) * 0.8)) scale(1.1)
+      rotate(calc(var(--rot, 6deg) * 0.8));
+  }
+  58% {
+    opacity: 0.95;
+    transform: translate(var(--dx, 30px), var(--dy, -20px)) scale(1.12) rotate(var(--rot, 6deg));
+  }
+  76% {
+    opacity: 0.85;
+    transform: translate(calc(var(--dx, 30px) * 0.6), calc(var(--dy, -20px) * 0.5)) scale(1.05)
+      rotate(calc(var(--rot, 6deg) * 0.4));
+  }
+  92% {
+    opacity: 0.1;
+    transform: translate(calc(var(--dx, 30px) * 0.1), calc(var(--dy, -20px) * 0.1)) scale(1.01)
+      rotate(calc(var(--rot, 6deg) * 0.1));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(0px, 0px) scale(1) rotate(0deg);
+  }
 }
 
 @media (max-width: 767px) {
-  .pandora-shape-3, .pandora-shape-4 { display: none; }
+  .pandora-shape-3,
+  .pandora-shape-4 {
+    /* Parité mobile/desktop : on garde la scène, mais plus douce. */
+    display: block;
+    opacity: 0.55;
+    filter: blur(0.2px);
+  }
 }
 
 /* =====================================================
@@ -183,7 +262,7 @@ html[data-theme="dark"] .pandora-shapes {
 }
 
 body.mode-jour .jour-spores,
-html[data-theme="light"] .jour-spores {
+html[data-theme='light'] .jour-spores {
   display: block;
 }
 
@@ -193,34 +272,70 @@ html[data-theme="light"] .jour-spores {
   width: 3px;
   height: 3px;
   border-radius: 50%;
-  background: rgba(255,200,80,0.55);
-  box-shadow: 0 0 6px rgba(255,200,80,0.4), 0 0 12px rgba(255,180,40,0.2);
+  background: rgba(145, 120, 220, 0.36);
+  box-shadow:
+    0 0 6px rgba(145, 120, 220, 0.22),
+    0 0 12px rgba(190, 232, 220, 0.18);
   animation: spore-jour-float var(--dur, 18s) ease-in-out var(--delay, 0s) infinite;
   will-change: transform, opacity;
 }
 
 /* Trajectoire parabolique avec balancement (comme pollen dans un souffle de vent) */
 @keyframes spore-jour-float {
-  0%   { transform: translate(0, 0) scale(0.7) rotate(0deg); opacity: 0; }
-  6%   { opacity: 0.80; transform: scale(1.0); }
-  20%  { transform: translate(calc(var(--dx,18px) * 0.4),  calc(var(--dy,-35px) * 0.3)) scale(1.1) rotate( 8deg); opacity: 0.75; }
-  40%  { transform: translate(calc(var(--dx,18px) * 0.9),  calc(var(--dy,-35px) * 0.7)) scale(1.2) rotate(-6deg); opacity: 0.65; }
-  60%  { transform: translate(calc(var(--dx,18px) * 1.2),  calc(var(--dy,-35px) * 1.1)) scale(1.1) rotate( 10deg); opacity: 0.55; }
-  80%  { transform: translate(calc(var(--dx,18px) * 0.8),  calc(var(--dy,-35px) * 1.6)) scale(0.9) rotate(-4deg); opacity: 0.30; }
-  94%  { opacity: 0.05; }
-  100% { transform: translate(calc(var(--dx,18px) * 0.3),  calc(var(--dy,-35px) * 2.0)) scale(0.6) rotate(0deg); opacity: 0; }
+  0% {
+    transform: translate(0, 0) scale(0.7) rotate(0deg);
+    opacity: 0;
+  }
+  6% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  20% {
+    transform: translate(calc(var(--dx, 18px) * 0.4), calc(var(--dy, -35px) * 0.3)) scale(1.1)
+      rotate(8deg);
+    opacity: 0.75;
+  }
+  40% {
+    transform: translate(calc(var(--dx, 18px) * 0.9), calc(var(--dy, -35px) * 0.7)) scale(1.2)
+      rotate(-6deg);
+    opacity: 0.65;
+  }
+  60% {
+    transform: translate(calc(var(--dx, 18px) * 1.2), calc(var(--dy, -35px) * 1.1)) scale(1.1)
+      rotate(10deg);
+    opacity: 0.55;
+  }
+  80% {
+    transform: translate(calc(var(--dx, 18px) * 0.8), calc(var(--dy, -35px) * 1.6)) scale(0.9)
+      rotate(-4deg);
+    opacity: 0.3;
+  }
+  94% {
+    opacity: 0.05;
+  }
+  100% {
+    transform: translate(calc(var(--dx, 18px) * 0.3), calc(var(--dy, -35px) * 2)) scale(0.6)
+      rotate(0deg);
+    opacity: 0;
+  }
 }
 
 /* Spore teal — résidu bioluminescent de la nuit */
 .jour-spore-teal {
-  width: 2px; height: 2px;
-  background: rgba(60,210,170,0.50);
-  box-shadow: 0 0 5px rgba(60,210,170,0.35), 0 0 10px rgba(0,180,150,0.18);
+  width: 2px;
+  height: 2px;
+  background: rgba(60, 210, 170, 0.5);
+  box-shadow:
+    0 0 5px rgba(60, 210, 170, 0.35),
+    0 0 10px rgba(0, 180, 150, 0.18);
 }
 
 /* Mobile — spores encore plus légères */
 @media (max-width: 767px) {
-  .jour-spore { width: 2px; height: 2px; }
+  .jour-spore {
+    width: 2px;
+    height: 2px;
+  }
 }
 
 /* =====================================================
@@ -228,10 +343,11 @@ html[data-theme="light"] .jour-spores {
    ===================================================== */
 
 .holo-grid {
-  position: fixed; inset: 0;
+  position: fixed;
+  inset: 0;
   background-image:
-    linear-gradient(rgba(0,180,216,0.044) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,180,216,0.044) 1px, transparent 1px);
+    linear-gradient(rgba(0, 180, 216, 0.044) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 180, 216, 0.044) 1px, transparent 1px);
   background-size: 80px 80px;
   pointer-events: none;
   z-index: 0;
@@ -239,20 +355,29 @@ html[data-theme="light"] .jour-spores {
 }
 
 body.mode-jour .holo-grid,
-html[data-theme="light"] .holo-grid {
+html[data-theme='light'] .holo-grid {
   background-image:
     linear-gradient(rgba(25, 155, 125, 0.038) 1px, transparent 1px),
     linear-gradient(90deg, rgba(195, 125, 35, 0.028) 1px, transparent 1px);
 }
 
 @keyframes grid-breathe {
-  0%, 100% { opacity: 0.50; }
-  50%       { opacity: 1.00; }
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pandora-shape { animation: none !important; }
-  .holo-grid { animation: none !important; }
+  .pandora-shape {
+    animation: none !important;
+  }
+  .holo-grid {
+    animation: none !important;
+  }
 }
 
 /* =====================================================
@@ -260,16 +385,10 @@ html[data-theme="light"] .holo-grid {
    ===================================================== */
 
 body.mode-jour,
-html[data-theme="light"] body {
-  --ambre:         #C87A08;   /* ambre Pandora — contraste WCAG sur fond ivoire */
-  --or:            #A86A10;
-  --accent-ambre:  #C87A08;
-  --glow-teal:
-    0 0 14px rgba(0,140,120,0.42),
-    0 0 40px rgba(0,140,120,0.18);
-  --glow-ambre:
-    0 0 16px rgba(200,122,8,0.45),
-    0 0 40px rgba(200,122,8,0.20);
+html[data-theme='light'] body {
+  /* Mode jour — unifier sur ivoire/lavande : pas d'ambre/or en “couleur UI” */
+  --glow-teal: 0 0 14px rgba(0, 155, 140, 0.26), 0 0 40px rgba(0, 155, 140, 0.12);
+  --glow-violet: 0 0 18px rgba(91, 63, 216, 0.18), 0 0 44px rgba(91, 63, 216, 0.1);
 }
 
 /* =====================================================
@@ -277,16 +396,18 @@ html[data-theme="light"] body {
    ===================================================== */
 
 #pandora-loader {
-  position: fixed; inset: 0;
-  background: #010D12;
-  display: flex; align-items: center;
+  position: fixed;
+  inset: 0;
+  background: #010d12;
+  display: flex;
+  align-items: center;
   justify-content: center;
   z-index: 99999;
   transition: opacity 400ms ease;
 }
 body.mode-jour #pandora-loader,
-html[data-theme="light"] #pandora-loader {
-  background: #FBF5E8;
+html[data-theme='light'] #pandora-loader {
+  background: #fbf5e8;
 }
 #pandora-loader svg {
   animation: kiri-soar 5.5s ease-in-out infinite;
@@ -298,13 +419,15 @@ html[data-theme="light"] #pandora-loader {
 @media (max-width: 767px) {
   /* body::before — désactiver drift GPU-intensif sur mobile */
   body.mode-jour::before,
-  html[data-theme="light"] body::before {
+  html[data-theme='light'] body::before {
     animation: none;
     filter: blur(24px) saturate(140%) brightness(1.06);
   }
 
   /* Holo-grid — désactiver animation sur mobile */
-  .holo-grid { animation: none; }
+  .holo-grid {
+    animation: none;
+  }
 
   /* pandora-shapes — animation très lente (pas de zéro qui cache) */
   .pandora-shape {
@@ -316,7 +439,16 @@ html[data-theme="light"] #pandora-loader {
 
 /* Keyframe mobile simplifié — pas de opacity:0 aux extrêmes */
 @keyframes shape-ascend-mobile {
-  0%   { opacity: 0.45; transform: translate(0,0) scale(1); }
-  50%  { opacity: 0.65; transform: translate(var(--dx,20px), var(--dy,-12px)) scale(1.05); }
-  100% { opacity: 0.45; transform: translate(0,0) scale(1); }
+  0% {
+    opacity: 0.45;
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    opacity: 0.65;
+    transform: translate(var(--dx, 20px), var(--dy, -12px)) scale(1.05);
+  }
+  100% {
+    opacity: 0.45;
+    transform: translate(0, 0) scale(1);
+  }
 }

@@ -6,10 +6,10 @@ Périmètre : **Pinapp uniquement**. Objectif : Lauralie **valide toujours** ; C
 
 ## 1. Principe : passif mais pas automatique vers le client
 
-| Élément | Règle |
-|--------|--------|
-| Analyse | Claude lit le mail / le fil et sort une **liste d’actions** + un **brouillon de réponse**. |
-| Envoi client | **Uniquement** après ouverture du brouillon dans Gmail et clic **Envoyer** par Lauralie (ou édition puis envoi). |
+| Élément            | Règle                                                                                                                      |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| Analyse            | Claude lit le mail / le fil et sort une **liste d’actions** + un **brouillon de réponse**.                                 |
+| Envoi client       | **Uniquement** après ouverture du brouillon dans Gmail et clic **Envoyer** par Lauralie (ou édition puis envoi).           |
 | Script Apps Script | `GmailApp.createDraft(...)` pour les propositions ; **pas** de `sendEmail` vers le client pour le corps généré par Claude. |
 
 Les accusés de réception automatiques éventuels (hors Claude) doivent être **décrits à part** et rester neutres, si tu en ajoutes un jour.

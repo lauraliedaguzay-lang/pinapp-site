@@ -1,0 +1,41 @@
+name: Claude Driver — réponses & prompts (sur accord)
+
+on:
+  issues:
+    types: [opened, edited]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: claude-driver-${{ github.event.issue.number || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  drive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Installer dépendances
+        run: npm install
+
+      - name: Générer actions + réponses + prompts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PINAPP_DRIVER_ANTHROPIC_API_KEY: ${{ secrets.PINAPP_DRIVER_ANTHROPIC_API_KEY }}
+          PINAPP_DRIVER_MODEL: ${{ vars.PINAPP_DRIVER_MODEL }}
+          PINAPP_DRIVER_REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: node tools/claude-driver.mjs
+

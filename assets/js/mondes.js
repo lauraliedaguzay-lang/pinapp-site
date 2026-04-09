@@ -1,10 +1,13 @@
-﻿var _he=function(s){return s==null?'':String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');};
+﻿var _he = function (s) {
+  return s == null
+    ? ''
+    : String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+};
 /* PINAPP — mondes.js — Grid 15 mondes + Modal
    Utilise mondes-data.js (MONDES doit être chargé avant)
    ============================================================ */
 
 const Mondes = {
-
   init() {
     if (typeof MONDES === 'undefined') return;
     this.renderGrid('all');
@@ -17,9 +20,7 @@ const Mondes = {
     if (!grid) return;
     grid.innerHTML = '';
 
-    const data = filtre === 'all'
-      ? MONDES
-      : MONDES.filter(m => m.filtres.includes(filtre));
+    const data = filtre === 'all' ? MONDES : MONDES.filter((m) => m.filtres.includes(filtre));
 
     data.forEach((monde, i) => {
       const card = this.createCard(monde);
@@ -52,7 +53,8 @@ const Mondes = {
       const img = document.createElement('img');
       img.src = monde.preview_img;
       img.alt = '';
-      img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.75;';
+      img.style.cssText =
+        'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.75;';
       preview.style.position = 'relative';
       preview.appendChild(img);
     } else {
@@ -72,7 +74,7 @@ const Mondes = {
       <div class="monde-footer">
         <span class="monde-prix">À partir de ${monde.prix}</span>
         <button class="monde-btn"
-          style="background:${monde.accent1};color:${isDark?'#fff':'#111'}">
+          style="background:${monde.accent1};color:${isDark ? '#fff' : '#111'}">
           Voir →
         </button>
       </div>`;
@@ -87,11 +89,16 @@ const Mondes = {
     const parent = canvas.parentElement;
     const W = parent.offsetWidth || 320;
     const H = 100;
-    canvas.width = W; canvas.height = H;
+    canvas.width = W;
+    canvas.height = H;
     const ctx = canvas.getContext('2d');
 
     const colors = [monde.accent1, monde.accent2, monde.accent3].filter(Boolean);
-    const positions = [{x:0.25,y:0.50},{x:0.75,y:0.45},{x:0.50,y:0.80}];
+    const positions = [
+      { x: 0.25, y: 0.5 },
+      { x: 0.75, y: 0.45 },
+      { x: 0.5, y: 0.8 },
+    ];
 
     let t = 0;
     const draw = () => {
@@ -105,7 +112,7 @@ const Mondes = {
         const px = W * (pos.x + Math.sin(t * 0.012 + i) * 0.06);
         const py = H * (pos.y + Math.cos(t * 0.015 + i) * 0.08);
         const alpha = 0.55 + Math.sin(t * 0.018 + i) * 0.12;
-        const g = ctx.createRadialGradient(px, py, 0, px, py, W * 0.40);
+        const g = ctx.createRadialGradient(px, py, 0, px, py, W * 0.4);
         g.addColorStop(0, `rgba(${rgb},${alpha})`);
         g.addColorStop(1, 'transparent');
         ctx.fillStyle = g;
@@ -118,9 +125,9 @@ const Mondes = {
   },
 
   initFiltres() {
-    document.querySelectorAll('.filtre-pill').forEach(pill => {
+    document.querySelectorAll('.filtre-pill').forEach((pill) => {
       pill.addEventListener('click', () => {
-        document.querySelectorAll('.filtre-pill').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.filtre-pill').forEach((p) => p.classList.remove('active'));
         pill.classList.add('active');
         this.renderGrid(pill.dataset.filtre);
       });
@@ -128,34 +135,40 @@ const Mondes = {
   },
 
   initModal() {
-    document.getElementById('modal-close')
-      ?.addEventListener('click', () => this.closeModal());
+    document.getElementById('modal-close')?.addEventListener('click', () => this.closeModal());
 
-    document.getElementById('monde-modal')
-      ?.addEventListener('click', e => {
-        if (e.target.id === 'monde-modal') this.closeModal();
-      });
+    document.getElementById('monde-modal')?.addEventListener('click', (e) => {
+      if (e.target.id === 'monde-modal') this.closeModal();
+    });
 
-    document.addEventListener('keydown', e => {
+    document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') this.closeModal();
     });
 
     let touchStartY = 0;
     const modal = document.getElementById('monde-modal');
-    modal?.addEventListener('touchstart', e => {
-      touchStartY = e.touches[0].clientY;
-    }, { passive: true });
-    modal?.addEventListener('touchend', e => {
-      if (e.changedTouches[0].clientY - touchStartY > 80) this.closeModal();
-    }, { passive: true });
+    modal?.addEventListener(
+      'touchstart',
+      (e) => {
+        touchStartY = e.touches[0].clientY;
+      },
+      { passive: true },
+    );
+    modal?.addEventListener(
+      'touchend',
+      (e) => {
+        if (e.changedTouches[0].clientY - touchStartY > 80) this.closeModal();
+      },
+      { passive: true },
+    );
   },
 
   openModal(monde) {
-    const modal   = document.getElementById('monde-modal');
+    const modal = document.getElementById('monde-modal');
     const content = document.getElementById('modal-content');
     if (!modal || !content) return;
 
-    const rgb1   = this.hexRgb(monde.accent1);
+    const rgb1 = this.hexRgb(monde.accent1);
     const isDark = this.isDark(monde.fond);
 
     content.style.cssText = `
@@ -168,15 +181,17 @@ const Mondes = {
 
     const palette = [monde.fond, monde.accent1, monde.accent2, monde.accent3]
       .filter(Boolean)
-      .map(c => `<div style="width:44px;height:44px;border-radius:50%;background:${c};
-        box-shadow:0 4px 12px rgba(0,0,0,0.25),0 0 0 1px rgba(255,255,255,0.08);"></div>`)
+      .map(
+        (c) => `<div style="width:44px;height:44px;border-radius:50%;background:${c};
+        box-shadow:0 4px 12px rgba(0,0,0,0.25),0 0 0 1px rgba(255,255,255,0.08);"></div>`,
+      )
       .join('');
 
     content.innerHTML = `
       <div style="text-align:center;margin-bottom:36px;">
         <div style="font-size:48px;margin-bottom:12px;">${monde.emoji}</div>
         <h2 style="font-family:Georgia,serif;font-size:clamp(32px,5vw,56px);font-weight:300;
-                   color:${monde.texte||'var(--text)'};margin:0 0 8px;">${_he(monde.nom)}</h2>
+                   color:${monde.texte || 'var(--text)'};margin:0 0 8px;">${_he(monde.nom)}</h2>
         <p style="font-style:italic;color:${monde.accent1};font-size:16px;">"${_he(monde.tagline)}"</p>
       </div>
 
@@ -222,7 +237,7 @@ const Mondes = {
         </p>
         <a href="../diagnostic/index.html?univers=${encodeURIComponent(monde.nom)}"
            style="display:inline-block;padding:15px 40px;
-                  background:${monde.accent1};color:${isDark?'#fff':'#111'};
+                  background:${monde.accent1};color:${isDark ? '#fff' : '#111'};
                   border-radius:100px;text-decoration:none;
                   font-size:15px;font-weight:500;
                   box-shadow:0 0 28px rgba(${rgb1},0.40);">
@@ -244,20 +259,20 @@ const Mondes = {
 
   hexRgb(hex) {
     if (!hex?.startsWith('#')) return '255,255,255';
-    return `${parseInt(hex.slice(1,3),16)},${parseInt(hex.slice(3,5),16)},${parseInt(hex.slice(5,7),16)}`;
+    return `${parseInt(hex.slice(1, 3), 16)},${parseInt(hex.slice(3, 5), 16)},${parseInt(hex.slice(5, 7), 16)}`;
   },
 
   isDark(hex) {
     if (!hex?.startsWith('#')) return true;
-    const r = parseInt(hex.slice(1,3),16);
-    const g = parseInt(hex.slice(3,5),16);
-    const b = parseInt(hex.slice(5,7),16);
-    return (r * 0.299 + g * 0.587 + b * 0.114) < 128;
-  }
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return r * 0.299 + g * 0.587 + b * 0.114 < 128;
+  },
 };
 
 /* Inject modal info block styles */
-(function() {
+(function () {
   const s = document.createElement('style');
   s.textContent = `
     .modal-info-block{padding:18px;border-radius:14px;
