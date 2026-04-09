@@ -97,23 +97,19 @@ const PinappIntel = {
   },
 
   trackDemos() {
-    // Observer les éléments avec data-filter (cartes réalisations)
+    /* Zéro scroll: pas d'IntersectionObserver pour révéler/observer au défilement.
+       Ici on enregistre uniquement les filtres cliqués (interaction explicite). */
     document.querySelectorAll('[data-filter]').forEach((el) => {
-      const obs = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting) {
-            const secteur = el.dataset.filter;
-            if (secteur && secteur !== 'all') {
-              if (!this.data.demosSeen.includes(secteur)) {
-                this.data.demosSeen.push(secteur);
-              }
-              this.detectSecteur();
-            }
+      el.addEventListener('click', () => {
+        const secteur = el.dataset.filter;
+        if (secteur && secteur !== 'all') {
+          if (!this.data.demosSeen.includes(secteur)) {
+            this.data.demosSeen.push(secteur);
           }
-        },
-        { threshold: 0.5 },
-      );
-      obs.observe(el);
+          this.detectSecteur();
+          this.save();
+        }
+      });
     });
   },
 

@@ -39,13 +39,8 @@ const Pipeline = {
       track.appendChild(node);
     });
 
-    // Lancer au scroll
-    new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting && !this._running) this.animate();
-      },
-      { threshold: 0.25 },
-    ).observe(track);
+    // Pinapp — zéro reveal / déclenchement au scroll : démarrer au chargement
+    this.animate();
   },
 
   animate() {

@@ -86,12 +86,8 @@ class BarChart {
   }
 
   observe() {
-    new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) this.animate();
-      },
-      { threshold: 0.3 },
-    ).observe(this.el);
+    // Pinapp: zéro reveal au scroll (pas d'IntersectionObserver)
+    this.animate();
   }
 }
 BarChart.prototype._id = 'main';
@@ -155,12 +151,8 @@ class LineChart {
   }
 
   observe() {
-    new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) this.animate();
-      },
-      { threshold: 0.3 },
-    ).observe(this.el);
+    // Pinapp: zéro reveal au scroll (pas d'IntersectionObserver)
+    this.animate();
   }
 }
 
@@ -226,12 +218,8 @@ class DonutChart {
   }
 
   observe() {
-    new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) this.animate();
-      },
-      { threshold: 0.3 },
-    ).observe(this.el);
+    // Pinapp: zéro reveal au scroll (pas d'IntersectionObserver)
+    this.animate();
   }
 }
 

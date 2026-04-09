@@ -246,6 +246,28 @@
   var burger = document.getElementById('burger');
   var drawer = document.getElementById('mobileDrawer');
   var drawerClose = document.getElementById('drawerClose');
+  var lastActiveEl = null;
+
+  function getFocusableInDrawer() {
+    if (!drawer) return [];
+    return Array.prototype.slice
+      .call(
+        drawer.querySelectorAll(
+          'a[href], button:not([disabled]), textarea, input, select, [tabindex]',
+        ),
+      )
+      .filter(function (el) {
+        if (!el) return false;
+        if (el.getAttribute('tabindex') === '-1') return false;
+        return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+      });
+  }
+
+  function focusDrawerFirst() {
+    var focusables = getFocusableInDrawer();
+    var target = focusables[0];
+    if (target && typeof target.focus === 'function') target.focus();
+  }
 
   function setDrawer(open) {
     if (!drawer) return;
@@ -256,6 +278,16 @@
       burger.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
     }
     document.body.style.overflow = open ? 'hidden' : '';
+
+    if (open) {
+      lastActiveEl = document.activeElement;
+      window.setTimeout(focusDrawerFirst, 0);
+    } else if (lastActiveEl && typeof lastActiveEl.focus === 'function') {
+      try {
+        lastActiveEl.focus();
+      } catch (e) {}
+      lastActiveEl = null;
+    }
   }
 
   if (burger && drawer) {
@@ -276,6 +308,24 @@
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && drawer && drawer.classList.contains('open')) {
       setDrawer(false);
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (!drawer || !drawer.classList.contains('open')) return;
+    if (e.key !== 'Tab') return;
+    var focusables = getFocusableInDrawer();
+    if (!focusables.length) return;
+    var first = focusables[0];
+    var last = focusables[focusables.length - 1];
+    if (e.shiftKey) {
+      if (document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      }
+    } else if (document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
     }
   });
 

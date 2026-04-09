@@ -1,5 +1,14 @@
 /* PINAPP — parallax.js — Parallaxe 3 couches + flash aurora (desktop ≥1024px) */
 
+/* Pinapp : règle « zéro scroll » — pas de décor lié au scroll.
+   On garde ce fichier pour compat, mais il est neutralisé. */
+/* eslint-disable no-useless-return */
+if (true) {
+  // Désactivé volontairement
+  // (conserver le fichier évite de devoir repatcher toutes les pages immédiatement)
+  return;
+}
+
 /* ── Parallaxe scroll ── */
 if (window.innerWidth >= 1024 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   let ticking = false;
