@@ -136,7 +136,7 @@
   </div>
 </div><div style="display:flex;gap:var(--space-2);align-items:center;flex-wrap:wrap;">
               <span id="auralis-soon-pill" style="background:var(--accent-green);color:#020810;font-size:11px;font-weight:600;padding:4px 12px;border-radius:100px;">BIENTÔT</span>
-              <a href="../auralis/app/index.html" style="font-size:14px;color:var(--accent-teal);">Se connecter &rarr;</a>
+              <a href="../auralis/app/index.html" id="auralis-login-link" style="font-size:14px;color:var(--accent-teal);">Se connecter &rarr;</a>
               <a href="../diagnostic/index.html?projet=auralis" style="font-size:14px;color:var(--accent-teal);">Demander un accès &rarr;</a>
             </div>
           </div>
@@ -218,8 +218,14 @@ document.addEventListener('DOMContentLoaded', function() {
   var badge = document.getElementById('auralis-status-badge');
   var pill = document.getElementById('auralis-soon-pill');
   var link = document.getElementById('auralis-app-link');
+  var login = document.getElementById('auralis-login-link');
   if (appUrl && pre && live && link) {
     link.setAttribute('href', appUrl);
+    if (login) {
+      login.setAttribute('href', appUrl);
+      login.setAttribute('target', '_blank');
+      login.setAttribute('rel', 'noopener noreferrer');
+    }
     pre.setAttribute('hidden', '');
     pre.style.display = 'none';
     live.removeAttribute('hidden');
