@@ -1,287 +1,538 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-<script>(function(){var t=localStorage.getItem('pinapp-theme')||localStorage.getItem('pinapp-mode');var d=window.matchMedia('(prefers-color-scheme:dark)').matches;var m=(t==='light'||t==='jour')?'jour':(t==='dark'||t==='nuit')?'nuit':(d?'nuit':'jour');document.documentElement.setAttribute('data-mode',m);document.documentElement.setAttribute('data-theme',m==='jour'?'light':'dark');if(document.body){document.body.classList.add('mode-'+m);}document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('mode-'+m);});}());</script>
-  <link rel="preload" as="image" href="../assets/images/bg-dark-pandora-apple.png" fetchpriority="high">
-  <link rel="preload" as="image" href="../assets/images/bg-light-pandora-apple.png">
-  <meta charset="UTF-8">
-  <meta name="theme-color" id="pinapp-theme-color" content="#020810">
-  <script src="../assets/js/theme-init.js" defer></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Dashboard — Pinapp</title>
-  <meta name="description" content="Tableau de bord interne Pinapp.">
-  <meta name="robots" content="noindex, nofollow">
-  <meta name="googlebot" content="noindex, nofollow">
-  <meta property="og:title" content="Dashboard — Pinapp">
-  <meta property="og:description" content="Tableau de bord interne Pinapp.">
-  <meta property="og:image" content="https://pinapp.fr/assets/images/og-home.png">
-  <meta property="og:url" content="https://pinapp.fr/dashboard/">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="fr_FR">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-  <link rel="stylesheet" href="../assets/variables.css">
-  <link rel="stylesheet" href="../assets/grid.css">
-  <link rel="stylesheet" href="../assets/animations.css">
-  <link rel="preconnect" href="https://fonts.bunny.net">
-  <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap">
-  <link rel="stylesheet" href="../assets/css/pandora-dance.css">
-  <link rel="stylesheet" href="../assets/css/ios-glass.css">
-  <link rel="stylesheet" href="../assets/css/apple-finish.css">
-  <link rel="stylesheet" href="../assets/css/pinapp-modern-biolume.css">
-  <link rel="stylesheet" href="../assets/css/pinapp-premium.css">
-  <link rel="stylesheet" href="../assets/css/neuro-layout.css">
-</head>
-<body class="page-with-bottom-nav">
-<div id="pandora-loader" aria-hidden="true">
-  <svg width="32" height="38" viewBox="0 0 32 38" fill="none"><defs><linearGradient id="pg-l" x1="16" y1="36" x2="16" y2="2" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7B4FE8"/><stop offset="100%" stop-color="#00E5CC"/></linearGradient></defs><path d="M16 2 C13 5 10 6 11 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M16 2 L16 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round"/><path d="M16 2 C19 5 22 6 21 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none"/><ellipse cx="16" cy="24" rx="9" ry="12" fill="url(#pg-l)"/><path d="M7 20 L16 15 L25 20 L16 25 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none"/><path d="M7 26 L16 21 L25 26 L16 31 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none"/></svg>
-</div>
-<script>(function(){function hideLoader(){var l=document.getElementById('pandora-loader');if(l&&l.parentNode){l.style.opacity='0';setTimeout(function(){if(l.parentNode)l.remove();},400);}}window.addEventListener('load',hideLoader);setTimeout(hideLoader,2000);})();</script><div class="aurora-mobile" aria-hidden="true"><div class="aurora-orb aurora-orb-1"></div><div class="aurora-orb aurora-orb-2"></div><div class="aurora-orb aurora-orb-3"></div><div class="aurora-orb aurora-orb-4"></div></div><div class="pandora-shapes" aria-hidden="true"><div class="pandora-shape pandora-shape-1"></div><div class="pandora-shape pandora-shape-2"></div><div class="pandora-shape pandora-shape-3"></div><div class="pandora-shape pandora-shape-4"></div></div><div class="holo-grid" aria-hidden="true"></div><div class="noise" aria-hidden="true"></div><div class="jour-spores" aria-hidden="true"><span class="jour-spore" style="left:12%;top:75%;--dur:22s;--delay:-4s;--dx:18px;--dy:-90px;"></span><span class="jour-spore" style="left:28%;top:60%;--dur:28s;--delay:-11s;--dx:-12px;--dy:-75px;"></span><span class="jour-spore" style="left:45%;top:82%;--dur:19s;--delay:-7s;--dx:25px;--dy:-60px;"></span><span class="jour-spore" style="left:62%;top:70%;--dur:32s;--delay:-2s;--dx:-20px;--dy:-85px;"></span><span class="jour-spore" style="left:78%;top:65%;--dur:24s;--delay:-15s;--dx:14px;--dy:-70px;"></span><span class="jour-spore jour-spore-teal" style="left:20%;top:85%;--dur:26s;--delay:-18s;--dx:10px;--dy:-65px;"></span><span class="jour-spore jour-spore-teal" style="left:55%;top:88%;--dur:30s;--delay:-5s;--dx:-15px;--dy:-95px;"></span></div>
-  <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
-  <div class="scroll-progress" id="scrollProgress"></div>
-<div class="noise-overlay" aria-hidden="true"></div>
-  <nav class="nav" id="mainNav" aria-label="Navigation principale">
-    <div class="container nav-inner">
-            <a href="../index.html" class="nav-logo" aria-label="Pinapp Studio — accueil" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
-        <img class="nav-logo-img" src="../assets/images/pinapp-logo.png" alt="" width="132" height="36" decoding="async" />
-      </a>
-        <a href="../comment-ca-marche/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Comment ça marche</a>
-        <a href="../auralis/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Auralis</a>
-        <a href="../univers/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Univers</a>
-        <a href="../offres/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
-        <div class="nav-links">
-        <a href="../offres/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
-        <a href="../realisations/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
-        <a href="../a-propos/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
-        <a href="../faq/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
-        <a href="../auralis/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Auralis</a>
-        <a href="../univers/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Univers</a>
-        <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Démarrer ma demande</a>
-      </div>
-      <div class="nav-trailing">
-        <button type="button" class="mode-toggle" id="themeToggle" aria-label="Passer en mode jour"><svg class="icon-lune" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M15.5 10.5A6.5 6.5 0 0 1 7.5 2.5a6.5 6.5 0 1 0 8 8z" stroke="#00E5CC" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg><svg class="icon-soleil" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="3.5" stroke="#009B8C" stroke-width="1.5"/><line x1="9" y1="1" x2="9" y2="3" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="15" x2="9" y2="17" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="9" x2="3" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/><line x1="15" y1="9" x2="17" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/></svg></button>
-        <button type="button" class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileDrawer">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
-      </div>
-    </div>
-  </nav>
-  <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" role="dialog" aria-label="Menu" aria-modal="true">
-    <div class="mobile-drawer-panel">
-      <button type="button" id="drawerClose" aria-label="Fermer le menu">×</button>
-      <a href="../pourquoi-pinapp/index.html">Pourquoi Pinapp</a>
-      <a href="../comment-ca-marche/index.html">Comment ça marche</a>
-      <a href="../offres/index.html">Offres</a>
-      <div class="nav-links">
-        <a href="../offres/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
-        <a href="../realisations/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
-        <a href="../a-propos/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
-        <a href="../faq/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
-        <a href="../auralis/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Auralis</a>
-        <a href="../univers/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Univers</a>
-        <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Démarrer ma demande</a>
-      </div>
-  </div>
-  </div>        <div class="bottom-bar bottom-bar--site bottom-bar--six" aria-label="Navigation du site">
-    <a href="../index.html">Accueil</a>
-    <a href="../offres/index.html">Offres</a>
-    <a href="../diagnostic/index.html" class="bottom-bar-cta">D&eacute;marrer</a>
-    <a href="../univers/index.html">Univers</a>
-    <a href="../formation-gratuite/index.html">Form.</a>
-    <a href="../realisations/index.html">R&eacute;alis.</a>
-  </div>
-<main id="contenu-principal" class="stack-above-bg" tabindex="-1">
-    <section class="section" style="padding-top:var(--space-8);">
-      <div class="container" style="max-width:75rem;">
-        <h1 style="font-size:32px;margin-bottom:4px;">Bonjour Lauralie <span id="dash-emoji">✦</span></h1>
-        <p id="dash-date" style="font-size:14px;opacity:0.5;margin-bottom:var(--space-5);"></p>
-
-        <!-- KPIs Intelligence locale -->
-        <div class="grid grid-4" style="margin-bottom:var(--space-4);" id="dash-kpis">
-          <div class="card">
-            <p class="label">VISITES CE MOIS</p>
-            <p style="font-size:32px;font-weight:600;" id="kpi-visites">—</p>
-            <p style="font-size:12px;opacity:0.4;margin-top:4px;">depuis localStorage Pinapp Intel</p>
-          </div>
-          <div class="card">
-            <p class="label">AURORA UTILISÉE</p>
-            <p style="font-size:32px;font-weight:600;" id="kpi-aurora">—</p>
-            <p style="font-size:12px;opacity:0.4;margin-top:4px;">analyses IA lancées</p>
-          </div>
-          <div class="card">
-            <p class="label">UNIVERS GÉNÉRÉS</p>
-            <p style="font-size:32px;font-weight:600;" id="kpi-univers">—</p>
-            <p style="font-size:12px;opacity:0.4;margin-top:4px;">questionnaires complétés</p>
-          </div>
-          <div class="card">
-            <p class="label">CALCULATEUR</p>
-            <p style="font-size:32px;font-weight:600;" id="kpi-calc">—</p>
-            <p style="font-size:12px;opacity:0.4;margin-top:4px;">utilisations devis</p>
-          </div>
-        </div>
-
-        <!-- Dernier univers généré -->
-        <div class="card" id="dash-univers-card" style="margin-bottom:var(--space-4);display:none;">
-          <h2 style="font-size:16px;margin-bottom:var(--space-3);">Dernier univers généré par Aurora</h2>
-          <div id="dash-univers-content"></div>
-        </div>
-
-        <!-- Secteur détecté + profil visiteur -->
-        <div class="grid" style="grid-template-columns:1fr 1fr;gap:var(--space-3);margin-bottom:var(--space-4);">
-          <div class="card">
-            <h2 style="font-size:16px;margin-bottom:var(--space-3);">Profil visiteur détecté</h2>
-            <div id="dash-profil" style="font-size:14px;line-height:1.8;opacity:0.8;">Aucune donnée (l'intelligence collecte au fil des visites)</div>
-          </div>
-          <div class="card">
-            <h2 style="font-size:16px;margin-bottom:var(--space-3);">Modules actifs</h2>
-            <div id="dash-modules" style="font-size:14px;line-height:2;"></div>
-          </div>
-        </div>
-
-        <!-- Configuration n8n -->
-        <div class="card" style="border:1px solid rgba(0,229,204,0.2);margin-bottom:var(--space-4);">
-          <h2 style="font-size:16px;margin-bottom:var(--space-2);">⚙️ Configuration automation</h2>
-          <p style="font-size:13px;opacity:0.6;margin-bottom:var(--space-3);">
-            Éditez <code style="background:rgba(0,229,204,0.1);padding:2px 6px;border-radius:4px;font-family:monospace;">assets/js/config.js</code> pour brancher vos webhooks n8n et activer l'IA réelle.
-          </p>
-          <div id="dash-config-status" style="font-size:13px;line-height:2;"></div>
-          <div style="margin-top:var(--space-3);display:flex;gap:var(--space-2);flex-wrap:wrap;">
-            <a href="../assets/js/config.js" target="_blank" class="btn btn-secondary" style="font-size:12px;padding:8px 16px;">Voir config.js</a>
-            <a href="https://n8n.io" target="_blank" rel="noopener" class="btn btn-secondary" style="font-size:12px;padding:8px 16px;">Créer compte n8n →</a>
-          </div>
-        </div>
-
-        <!-- Actions rapides -->
-        <div class="card">
-          <h2 style="font-size:16px;margin-bottom:var(--space-3);">Actions rapides</h2>
-          <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;">
-            <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Voir le diagnostic →</a>
-            <a href="../offres/index.html" class="btn btn-secondary" style="font-size:13px;padding:10px 20px;">Offres</a>
-            <a href="../realisations/index.html" class="btn btn-secondary" style="font-size:13px;padding:10px 20px;">Réalisations</a>
-            <button class="btn btn-secondary" style="font-size:13px;padding:10px 20px;" onclick="if(confirm('Effacer les données Intelligence locale ?')){localStorage.removeItem('pinapp-intel');localStorage.removeItem('pinapp-univers');location.reload();}">Réinitialiser les données</button>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <script>
-  /* Dashboard — lecture des données Intelligence locale */
-  (function() {
-    /* Date */
-    var d = new Date();
-    document.getElementById('dash-date').textContent =
-      d.toLocaleDateString('fr-FR', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
-
-    /* Pinapp Intel */
-    var intel = null;
-    try { intel = JSON.parse(localStorage.getItem('pinapp-intel') || 'null'); } catch(e) {}
-
-    if (intel) {
-      document.getElementById('kpi-visites').textContent = intel.visits || 0;
-      document.getElementById('kpi-aurora').textContent  = intel.usedAurora ? '✓' : '0';
-      document.getElementById('kpi-univers').textContent = intel.universGenere ? '✓' : '0';
-      document.getElementById('kpi-calc').textContent    = intel.usedCalculateur ? '✓' : '0';
-
-      var profil = '';
-      if (intel.secteur)   profil += '<div>🏢 Secteur : <strong>' + intel.secteur + '</strong></div>';
-      if (intel.budget)    profil += '<div>◦ Budget détecté : <strong>' + intel.budget + '</strong></div>';
-      if (intel.firstVisit) profil += '<div>📅 Première visite : <strong>' + new Date(intel.firstVisit).toLocaleDateString('fr-FR') + '</strong></div>';
-      if (intel.lastVisit) profil += '<div>🕐 Dernière visite : <strong>' + new Date(intel.lastVisit).toLocaleDateString('fr-FR') + '</strong></div>';
-      if (profil) document.getElementById('dash-profil').innerHTML = profil;
-    } else {
-      document.getElementById('kpi-visites').textContent = '—';
-    }
-
-    /* Dernier univers */
-    var univ = null;
-    try { univ = JSON.parse(localStorage.getItem('pinapp-univers') || 'null'); } catch(e) {}
-    if (univ && univ.nom) {
-      var card = document.getElementById('dash-univers-card');
-      card.style.display = 'block';
-      var html = '<strong style="font-size:18px;">' + univ.nom + '</strong>';
-      if (univ.atmosphere) html += '<p style="opacity:0.7;margin-top:8px;">"' + univ.atmosphere + '"</p>';
-      if (univ.palette) {
-        html += '<div style="display:flex;gap:8px;margin-top:12px;">';
-        ['fond','accent1','accent2'].forEach(function(k){
-          if (univ.palette[k]) html += '<div style="width:32px;height:32px;border-radius:50%;background:' + univ.palette[k] + ';border:1px solid rgba(255,255,255,0.2);" title="' + k + '"></div>';
+  <head>
+    <script>
+      (function () {
+        var t = localStorage.getItem('pinapp-theme') || localStorage.getItem('pinapp-mode');
+        var d = window.matchMedia('(prefers-color-scheme:dark)').matches;
+        var m = t === 'light' || t === 'jour' ? 'jour' : t === 'dark' || t === 'nuit' ? 'nuit' : d ? 'nuit' : 'jour';
+        document.documentElement.setAttribute('data-mode', m);
+        document.documentElement.setAttribute('data-theme', m === 'jour' ? 'light' : 'dark');
+        if (document.body) {
+          document.body.classList.add('mode-' + m);
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+          document.body.classList.add('mode-' + m);
         });
-        html += '</div>';
-      }
-      document.getElementById('dash-univers-content').innerHTML = html;
-    }
-
-    /* Modules actifs */
-    var cfg = window.PinappConfig || {};
-    var feats = cfg.features || {};
-    var modules = [
-      { name: 'Aurora Analyse IA', key: 'auroraAnalyseIA', desc: '(réponses locales actives)' },
-      { name: 'Aurora Univers IA', key: 'auroraUniversIA', desc: '(fallback local actif)' },
-      { name: 'Onboarding → n8n',  key: 'onboardingWebhook', desc: '(Netlify Forms actif)' },
-      { name: 'Lead magnet → n8n', key: 'leadWebhook', desc: '(Netlify Forms actif)' },
-    ];
-    var mHtml = '';
-    modules.forEach(function(m) {
-      var on = feats[m.key];
-      mHtml += '<div style="display:flex;align-items:center;gap:8px;">'
-        + '<span style="color:' + (on ? 'var(--accent-teal)' : 'rgba(255,255,255,0.3)') + ';font-size:16px;">' + (on ? '✓' : '○') + '</span>'
-        + '<span>' + m.name + (on ? '' : ' <span style="opacity:0.4;font-size:11px;">' + m.desc + '</span>') + '</span>'
-        + '</div>';
-    });
-    document.getElementById('dash-modules').innerHTML = mHtml;
-
-    /* Config status */
-    var webhooks = cfg.webhooks || {};
-    var isReal = cfg._isRealUrl || function(){ return false; };
-    var wHtml = '';
-    var wMap = {
-      'Aurora Analyse':  webhooks.auroraAnalyse,
-      'Aurora Univers':  webhooks.auroraUnivers,
-      'Onboarding lead': webhooks.onboarding,
-      'Lead magnet':     webhooks.leadMagnet,
-      'Notif WhatsApp':  webhooks.notifWhatsapp,
-    };
-    Object.keys(wMap).forEach(function(label) {
-      var url = wMap[label];
-      var ok = isReal(url);
-      wHtml += '<div style="display:flex;align-items:center;gap:8px;">'
-        + '<span style="color:' + (ok ? '#39E075' : 'rgba(255,200,0,0.6)') + ';">' + (ok ? '✓' : '⚠') + '</span>'
-        + '<span>' + label + ' : <code style="font-family:monospace;font-size:11px;opacity:' + (ok ? '0.8' : '0.4') + ';">' + (ok ? url : '[TON-N8N] — à configurer]') + '</code></span>'
-        + '</div>';
-    });
-    document.getElementById('dash-config-status').innerHTML = wHtml;
-  })();
-  </script>
-  <footer style="border-top:1px solid var(--separator);padding:var(--space-5) 0;">
-    <div class="container" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:var(--space-3);opacity:0.6;font-size:13px;">
-      <span>Pinapp © 2026</span>
-      <div style="display:flex;gap:var(--space-3);">
-        <a href="https://www.linkedin.com/in/lauralie-daguzay-4a4542197/" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
-      </div>
-      <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;">
-        <a href="../legal/mentions.html">Mentions légales</a>
-        <a href="../legal/cgv.html">CGV</a>
-        <a href="../legal/confidentialite.html">Confidentialité</a>
-        <a href="../legal/accessibilite.html">Accessibilité</a>
-        <a href="../legal/ethique.html">Éthique</a>
-      </div>
-      <span style="width:100%;text-align:center;font-size:var(--text-label);color:var(--accent-teal);opacity:0.6;letter-spacing:0.12em;">PINAPP AU CONCOURS 2026</span>
+      })();
+    </script>
+    <link rel="preload" as="image" href="../assets/images/bg-dark-pandora-apple.png" fetchpriority="high" />
+    <link rel="preload" as="image" href="../assets/images/bg-light-pandora-apple.png" />
+    <meta charset="UTF-8" />
+    <meta name="theme-color" id="pinapp-theme-color" content="#020810" />
+    <script src="../assets/js/theme-init.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Dashboard — Pinapp</title>
+    <meta name="description" content="Tableau de bord interne Pinapp." />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="googlebot" content="noindex, nofollow" />
+    <meta property="og:title" content="Dashboard — Pinapp" />
+    <meta property="og:description" content="Tableau de bord interne Pinapp." />
+    <meta property="og:image" content="https://pinapp.fr/assets/images/og-home.png" />
+    <meta property="og:url" content="https://pinapp.fr/dashboard/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="stylesheet" href="../assets/variables.css" />
+    <link rel="stylesheet" href="../assets/grid.css" />
+    <link rel="stylesheet" href="../assets/animations.css" />
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" />
+    <link rel="stylesheet" href="../assets/css/pandora-dance.css" />
+    <link rel="stylesheet" href="../assets/css/ios-glass.css" />
+    <link rel="stylesheet" href="../assets/css/apple-finish.css" />
+    <link rel="stylesheet" href="../assets/css/pinapp-modern-biolume.css" />
+    <link rel="stylesheet" href="../assets/css/pinapp-premium.css" />
+    <link rel="stylesheet" href="../assets/css/neuro-layout.css" />
+  </head>
+  <body class="page-with-bottom-nav">
+    <div id="pandora-loader" aria-hidden="true">
+      <svg width="32" height="38" viewBox="0 0 32 38" fill="none">
+        <defs>
+          <linearGradient id="pg-l" x1="16" y1="36" x2="16" y2="2" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#7B4FE8" />
+            <stop offset="100%" stop-color="#00E5CC" />
+          </linearGradient>
+        </defs>
+        <path d="M16 2 C13 5 10 6 11 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
+        <path d="M16 2 L16 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" />
+        <path d="M16 2 C19 5 22 6 21 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
+        <ellipse cx="16" cy="24" rx="9" ry="12" fill="url(#pg-l)" />
+        <path d="M7 20 L16 15 L25 20 L16 25 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
+        <path d="M7 26 L16 21 L25 26 L16 31 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
+      </svg>
     </div>
-  </footer>
-  <div id="cookie-banner" role="dialog" aria-label="Cookies" style="position:fixed;bottom:0;left:0;right:0;padding:var(--space-3);background:var(--bg-card);border-top:1px solid var(--border-card);backdrop-filter:blur(20px);z-index:9000;display:none;">
-    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap;">
-      <p style="font-size:13px;opacity:0.8;max-width:600px;">Ce site utilise des cookies de mesure d’audience anonymes (Plausible Analytics — sans tracking personnel).</p>
-      <div style="display:flex;gap:var(--space-2);">
-        <button type="button" id="cookieAccept" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Accepter</button>
-        <button type="button" id="cookieRefuse" class="btn btn-secondary" style="font-size:13px;padding:10px 20px;">Refuser</button>
+    <script>
+      (function () {
+        function hideLoader() {
+          var l = document.getElementById('pandora-loader');
+          if (l && l.parentNode) {
+            l.style.opacity = '0';
+            setTimeout(function () {
+              if (l.parentNode) l.remove();
+            }, 400);
+          }
+        }
+        window.addEventListener('load', hideLoader);
+        setTimeout(hideLoader, 2000);
+      })();
+    </script>
+    <div class="aurora-mobile" aria-hidden="true">
+      <div class="aurora-orb aurora-orb-1"></div>
+      <div class="aurora-orb aurora-orb-2"></div>
+      <div class="aurora-orb aurora-orb-3"></div>
+      <div class="aurora-orb aurora-orb-4"></div>
+    </div>
+    <div class="pandora-shapes" aria-hidden="true">
+      <div class="pandora-shape pandora-shape-1"></div>
+      <div class="pandora-shape pandora-shape-2"></div>
+      <div class="pandora-shape pandora-shape-3"></div>
+      <div class="pandora-shape pandora-shape-4"></div>
+    </div>
+    <div class="holo-grid" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="jour-spores" aria-hidden="true">
+      <span class="jour-spore" style="left: 12%; top: 75%; --dur: 22s; --delay: -4s; --dx: 18px; --dy: -90px"></span
+      ><span class="jour-spore" style="left: 28%; top: 60%; --dur: 28s; --delay: -11s; --dx: -12px; --dy: -75px"></span
+      ><span class="jour-spore" style="left: 45%; top: 82%; --dur: 19s; --delay: -7s; --dx: 25px; --dy: -60px"></span
+      ><span class="jour-spore" style="left: 62%; top: 70%; --dur: 32s; --delay: -2s; --dx: -20px; --dy: -85px"></span
+      ><span class="jour-spore" style="left: 78%; top: 65%; --dur: 24s; --delay: -15s; --dx: 14px; --dy: -70px"></span
+      ><span
+        class="jour-spore jour-spore-teal"
+        style="left: 20%; top: 85%; --dur: 26s; --delay: -18s; --dx: 10px; --dy: -65px"></span
+      ><span
+        class="jour-spore jour-spore-teal"
+        style="left: 55%; top: 88%; --dur: 30s; --delay: -5s; --dx: -15px; --dy: -95px"></span>
+    </div>
+    <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <nav class="nav" id="mainNav" aria-label="Navigation principale">
+      <div class="container nav-inner">
+        <a
+          href="../index.html"
+          class="nav-logo"
+          aria-label="Pinapp Studio — accueil"
+          style="display: flex; align-items: center; gap: 10px; text-decoration: none">
+          <img
+            class="nav-logo-img"
+            src="../assets/images/pinapp-logo.png"
+            alt=""
+            width="132"
+            height="36"
+            decoding="async" />
+        </a>
+        <a href="../comment-ca-marche/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8"
+          >Comment ça marche</a
+        >
+        <a href="../auralis/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Auralis</a>
+        <a href="../univers/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Univers</a>
+        <a href="../offres/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Offres</a>
+        <div class="nav-links">
+          <a href="../offres/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Offres</a>
+          <a href="../realisations/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Réalisations</a>
+          <a href="../a-propos/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">À propos</a>
+          <a href="../faq/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">FAQ</a>
+          <a href="../auralis/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Auralis</a>
+          <a href="../univers/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Univers</a>
+          <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px"
+            >Démarrer ma demande</a
+          >
+        </div>
+        <div class="nav-trailing">
+          <button type="button" class="mode-toggle" id="themeToggle" aria-label="Passer en mode jour">
+            <svg class="icon-lune" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path
+                d="M15.5 10.5A6.5 6.5 0 0 1 7.5 2.5a6.5 6.5 0 1 0 8 8z"
+                stroke="#00E5CC"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                fill="none" /></svg
+            ><svg class="icon-soleil" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <circle cx="9" cy="9" r="3.5" stroke="#009B8C" stroke-width="1.5" />
+              <line x1="9" y1="1" x2="9" y2="3" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="9" y1="15" x2="9" y2="17" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="1" y1="9" x2="3" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="15" y1="9" x2="17" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="burger"
+            id="burger"
+            aria-label="Ouvrir le menu"
+            aria-expanded="false"
+            aria-controls="mobileDrawer">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              aria-hidden="true">
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+    <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" role="dialog" aria-label="Menu" aria-modal="true">
+      <div class="mobile-drawer-panel">
+        <button type="button" id="drawerClose" aria-label="Fermer le menu">×</button>
+        <a href="../pourquoi-pinapp/index.html">Pourquoi Pinapp</a>
+        <a href="../comment-ca-marche/index.html">Comment ça marche</a>
+        <a href="../offres/index.html">Offres</a>
+        <div class="nav-links">
+          <a href="../offres/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Offres</a>
+          <a href="../realisations/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Réalisations</a>
+          <a href="../a-propos/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">À propos</a>
+          <a href="../faq/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">FAQ</a>
+          <a href="../auralis/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Auralis</a>
+          <a href="../univers/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Univers</a>
+          <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px"
+            >Démarrer ma demande</a
+          >
+        </div>
       </div>
     </div>
-  </div>
-  <script src="../assets/js/config.js"></script>
-  <script src="../assets/js/security.js" defer></script>
-  <script src="../assets/js/main.js" defer></script>
-<script src="../assets/js/pandora-night.js" defer></script><script src="../assets/js/particles.js" defer></script><script src="../assets/js/mode-toggle.js" defer></script><script src="../assets/js/cursor.js" defer></script><script src="../assets/js/intelligence.js" defer></script><script src="../assets/js/scroll-cinema.js" defer></script>
-  <script src="../assets/js/bio-particles.js" defer></script>
-</body>
+    <div class="bottom-bar bottom-bar--site bottom-bar--six" aria-label="Navigation du site">
+      <a href="../index.html">Accueil</a>
+      <a href="../offres/index.html">Offres</a>
+      <a href="../diagnostic/index.html" class="bottom-bar-cta">D&eacute;marrer</a>
+      <a href="../univers/index.html">Univers</a>
+      <a href="../formation-gratuite/index.html">Form.</a>
+      <a href="../realisations/index.html">R&eacute;alis.</a>
+    </div>
+    <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
+      <section class="section" style="padding-top: var(--space-8)">
+        <div class="container" style="max-width: 75rem">
+          <h1 style="font-size: 32px; margin-bottom: 4px">Bonjour Lauralie <span id="dash-emoji">✦</span></h1>
+          <p id="dash-date" style="font-size: 14px; opacity: 0.5; margin-bottom: var(--space-5)"></p>
+
+          <!-- KPIs Intelligence locale -->
+          <div class="grid grid-4" style="margin-bottom: var(--space-4)" id="dash-kpis">
+            <div class="card">
+              <p class="label">VISITES CE MOIS</p>
+              <p style="font-size: 32px; font-weight: 600" id="kpi-visites">—</p>
+              <p style="font-size: 12px; opacity: 0.4; margin-top: 4px">depuis localStorage Pinapp Intel</p>
+            </div>
+            <div class="card">
+              <p class="label">AURORA UTILISÉE</p>
+              <p style="font-size: 32px; font-weight: 600" id="kpi-aurora">—</p>
+              <p style="font-size: 12px; opacity: 0.4; margin-top: 4px">analyses IA lancées</p>
+            </div>
+            <div class="card">
+              <p class="label">UNIVERS GÉNÉRÉS</p>
+              <p style="font-size: 32px; font-weight: 600" id="kpi-univers">—</p>
+              <p style="font-size: 12px; opacity: 0.4; margin-top: 4px">questionnaires complétés</p>
+            </div>
+            <div class="card">
+              <p class="label">CALCULATEUR</p>
+              <p style="font-size: 32px; font-weight: 600" id="kpi-calc">—</p>
+              <p style="font-size: 12px; opacity: 0.4; margin-top: 4px">utilisations devis</p>
+            </div>
+          </div>
+
+          <!-- Dernier univers généré -->
+          <div class="card" id="dash-univers-card" style="margin-bottom: var(--space-4); display: none">
+            <h2 style="font-size: 16px; margin-bottom: var(--space-3)">Dernier univers généré par Aurora</h2>
+            <div id="dash-univers-content"></div>
+          </div>
+
+          <!-- Secteur détecté + profil visiteur -->
+          <div class="grid" style="grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-bottom: var(--space-4)">
+            <div class="card">
+              <h2 style="font-size: 16px; margin-bottom: var(--space-3)">Profil visiteur détecté</h2>
+              <div id="dash-profil" style="font-size: 14px; line-height: 1.8; opacity: 0.8">
+                Aucune donnée (l'intelligence collecte au fil des visites)
+              </div>
+            </div>
+            <div class="card">
+              <h2 style="font-size: 16px; margin-bottom: var(--space-3)">Modules actifs</h2>
+              <div id="dash-modules" style="font-size: 14px; line-height: 2"></div>
+            </div>
+          </div>
+
+          <!-- Configuration n8n -->
+          <div class="card" style="border: 1px solid rgba(0, 229, 204, 0.2); margin-bottom: var(--space-4)">
+            <h2 style="font-size: 16px; margin-bottom: var(--space-2)">⚙️ Configuration automation</h2>
+            <p style="font-size: 13px; opacity: 0.6; margin-bottom: var(--space-3)">
+              Éditez
+              <code
+                style="background: rgba(0, 229, 204, 0.1); padding: 2px 6px; border-radius: 4px; font-family: monospace"
+                >assets/js/config.js</code
+              >
+              pour brancher vos webhooks n8n et activer l'IA réelle.
+            </p>
+            <div id="dash-config-status" style="font-size: 13px; line-height: 2"></div>
+            <div style="margin-top: var(--space-3); display: flex; gap: var(--space-2); flex-wrap: wrap">
+              <a
+                href="../assets/js/config.js"
+                target="_blank"
+                class="btn btn-secondary"
+                style="font-size: 12px; padding: 8px 16px"
+                >Voir config.js</a
+              >
+              <a
+                href="https://n8n.io"
+                target="_blank"
+                rel="noopener"
+                class="btn btn-secondary"
+                style="font-size: 12px; padding: 8px 16px"
+                >Créer compte n8n →</a
+              >
+            </div>
+          </div>
+
+          <!-- Actions rapides -->
+          <div class="card">
+            <h2 style="font-size: 16px; margin-bottom: var(--space-3)">Actions rapides</h2>
+            <div style="display: flex; gap: var(--space-2); flex-wrap: wrap">
+              <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px"
+                >Voir le diagnostic →</a
+              >
+              <a href="../offres/index.html" class="btn btn-secondary" style="font-size: 13px; padding: 10px 20px"
+                >Offres</a
+              >
+              <a href="../realisations/index.html" class="btn btn-secondary" style="font-size: 13px; padding: 10px 20px"
+                >Réalisations</a
+              >
+              <button
+                class="btn btn-secondary"
+                style="font-size: 13px; padding: 10px 20px"
+                onclick="
+                  if (confirm('Effacer les données Intelligence locale ?')) {
+                    localStorage.removeItem('pinapp-intel');
+                    localStorage.removeItem('pinapp-univers');
+                    location.reload();
+                  }
+                ">
+                Réinitialiser les données
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      /* Dashboard — lecture des données Intelligence locale */
+      (function () {
+        /* Date */
+        var d = new Date();
+        document.getElementById('dash-date').textContent = d.toLocaleDateString('fr-FR', {
+          weekday: 'long',
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+        });
+
+        /* Pinapp Intel */
+        var intel = null;
+        try {
+          intel = JSON.parse(localStorage.getItem('pinapp-intel') || 'null');
+        } catch (e) {}
+
+        if (intel) {
+          document.getElementById('kpi-visites').textContent = intel.visits || 0;
+          document.getElementById('kpi-aurora').textContent = intel.usedAurora ? '✓' : '0';
+          document.getElementById('kpi-univers').textContent = intel.universGenere ? '✓' : '0';
+          document.getElementById('kpi-calc').textContent = intel.usedCalculateur ? '✓' : '0';
+
+          var profil = '';
+          if (intel.secteur) profil += '<div>🏢 Secteur : <strong>' + intel.secteur + '</strong></div>';
+          if (intel.budget) profil += '<div>◦ Budget détecté : <strong>' + intel.budget + '</strong></div>';
+          if (intel.firstVisit)
+            profil +=
+              '<div>📅 Première visite : <strong>' +
+              new Date(intel.firstVisit).toLocaleDateString('fr-FR') +
+              '</strong></div>';
+          if (intel.lastVisit)
+            profil +=
+              '<div>🕐 Dernière visite : <strong>' +
+              new Date(intel.lastVisit).toLocaleDateString('fr-FR') +
+              '</strong></div>';
+          if (profil) document.getElementById('dash-profil').innerHTML = profil;
+        } else {
+          document.getElementById('kpi-visites').textContent = '—';
+        }
+
+        /* Dernier univers */
+        var univ = null;
+        try {
+          univ = JSON.parse(localStorage.getItem('pinapp-univers') || 'null');
+        } catch (e) {}
+        if (univ && univ.nom) {
+          var card = document.getElementById('dash-univers-card');
+          card.style.display = 'block';
+          var html = '<strong style="font-size:18px;">' + univ.nom + '</strong>';
+          if (univ.atmosphere) html += '<p style="opacity:0.7;margin-top:8px;">"' + univ.atmosphere + '"</p>';
+          if (univ.palette) {
+            html += '<div style="display:flex;gap:8px;margin-top:12px;">';
+            ['fond', 'accent1', 'accent2'].forEach(function (k) {
+              if (univ.palette[k])
+                html +=
+                  '<div style="width:32px;height:32px;border-radius:50%;background:' +
+                  univ.palette[k] +
+                  ';border:1px solid rgba(255,255,255,0.2);" title="' +
+                  k +
+                  '"></div>';
+            });
+            html += '</div>';
+          }
+          document.getElementById('dash-univers-content').innerHTML = html;
+        }
+
+        /* Modules actifs */
+        var cfg = window.PinappConfig || {};
+        var feats = cfg.features || {};
+        var modules = [
+          { name: 'Aurora Analyse IA', key: 'auroraAnalyseIA', desc: '(réponses locales actives)' },
+          { name: 'Aurora Univers IA', key: 'auroraUniversIA', desc: '(fallback local actif)' },
+          { name: 'Onboarding → n8n', key: 'onboardingWebhook', desc: '(Netlify Forms actif)' },
+          { name: 'Lead magnet → n8n', key: 'leadWebhook', desc: '(Netlify Forms actif)' },
+        ];
+        var mHtml = '';
+        modules.forEach(function (m) {
+          var on = feats[m.key];
+          mHtml +=
+            '<div style="display:flex;align-items:center;gap:8px;">' +
+            '<span style="color:' +
+            (on ? 'var(--accent-teal)' : 'rgba(255,255,255,0.3)') +
+            ';font-size:16px;">' +
+            (on ? '✓' : '○') +
+            '</span>' +
+            '<span>' +
+            m.name +
+            (on ? '' : ' <span style="opacity:0.4;font-size:11px;">' + m.desc + '</span>') +
+            '</span>' +
+            '</div>';
+        });
+        document.getElementById('dash-modules').innerHTML = mHtml;
+
+        /* Config status */
+        var webhooks = cfg.webhooks || {};
+        var isReal =
+          cfg._isRealUrl ||
+          function () {
+            return false;
+          };
+        var wHtml = '';
+        var wMap = {
+          'Aurora Analyse': webhooks.auroraAnalyse,
+          'Aurora Univers': webhooks.auroraUnivers,
+          'Onboarding lead': webhooks.onboarding,
+          'Lead magnet': webhooks.leadMagnet,
+          'Notif WhatsApp': webhooks.notifWhatsapp,
+        };
+        Object.keys(wMap).forEach(function (label) {
+          var url = wMap[label];
+          var ok = isReal(url);
+          wHtml +=
+            '<div style="display:flex;align-items:center;gap:8px;">' +
+            '<span style="color:' +
+            (ok ? '#39E075' : 'rgba(255,200,0,0.6)') +
+            ';">' +
+            (ok ? '✓' : '⚠') +
+            '</span>' +
+            '<span>' +
+            label +
+            ' : <code style="font-family:monospace;font-size:11px;opacity:' +
+            (ok ? '0.8' : '0.4') +
+            ';">' +
+            (ok ? url : '[TON-N8N] — à configurer]') +
+            '</code></span>' +
+            '</div>';
+        });
+        document.getElementById('dash-config-status').innerHTML = wHtml;
+      })();
+    </script>
+    <footer style="border-top: 1px solid var(--separator); padding: var(--space-5) 0">
+      <div
+        class="container"
+        style="
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          align-items: center;
+          gap: var(--space-3);
+          opacity: 0.6;
+          font-size: 13px;
+        ">
+        <span>Pinapp © 2026</span>
+        <div style="display: flex; gap: var(--space-3)">
+          <a href="https://www.linkedin.com/in/lauralie-daguzay-4a4542197/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
+        </div>
+        <div style="display: flex; gap: var(--space-3); flex-wrap: wrap">
+          <a href="../legal/mentions.html">Mentions légales</a>
+          <a href="../legal/cgv.html">CGV</a>
+          <a href="../legal/confidentialite.html">Confidentialité</a>
+          <a href="../legal/accessibilite.html">Accessibilité</a>
+          <a href="../legal/ethique.html">Éthique</a>
+        </div>
+        <span
+          style="
+            width: 100%;
+            text-align: center;
+            font-size: var(--text-label);
+            color: var(--accent-teal);
+            opacity: 0.6;
+            letter-spacing: 0.12em;
+          "
+          >PINAPP AU CONCOURS 2026</span
+        >
+      </div>
+    </footer>
+    <div
+      id="cookie-banner"
+      role="dialog"
+      aria-label="Cookies"
+      style="
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: var(--space-3);
+        background: var(--bg-card);
+        border-top: 1px solid var(--border-card);
+        backdrop-filter: blur(20px);
+        z-index: 9000;
+        display: none;
+      ">
+      <div
+        class="container"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: var(--space-3);
+          flex-wrap: wrap;
+        ">
+        <p style="font-size: 13px; opacity: 0.8; max-width: 600px">
+          Ce site utilise des cookies de mesure d’audience anonymes (Plausible Analytics — sans tracking personnel).
+        </p>
+        <div style="display: flex; gap: var(--space-2)">
+          <button type="button" id="cookieAccept" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px">
+            Accepter
+          </button>
+          <button type="button" id="cookieRefuse" class="btn btn-secondary" style="font-size: 13px; padding: 10px 20px">
+            Refuser
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/security.js" defer></script>
+    <script src="../assets/js/main.js" defer></script>
+    <script src="../assets/js/pandora-night.js" defer></script>
+    <script src="../assets/js/particles.js" defer></script>
+    <script src="../assets/js/mode-toggle.js" defer></script>
+    <script src="../assets/js/cursor.js" defer></script>
+    <script src="../assets/js/intelligence.js" defer></script>
+    <script src="../assets/js/scroll-cinema.js" defer></script>
+    <script src="../assets/js/bio-particles.js" defer></script>
+  </body>
 </html>

@@ -20,34 +20,33 @@
    ───────────────────────────────────────────────────────────────────── */
 :root {
   /* Blur levels */
-  --glass-thin-blur:  blur(20px) saturate(180%);
-  --glass-base-blur:  blur(32px) saturate(160%);
+  --glass-thin-blur: blur(20px) saturate(180%);
+  --glass-base-blur: blur(32px) saturate(160%);
   --glass-thick-blur: blur(48px) saturate(180%);
 
   /* Backgrounds nuit */
-  --glass-thin-bg:    rgba(2, 8, 20, 0.58);
-  --glass-base-bg:    rgba(0, 10, 24, 0.52);
-  --glass-thick-bg:   rgba(2, 6, 16, 0.78);
+  --glass-thin-bg: rgba(2, 8, 20, 0.58);
+  --glass-base-bg: rgba(0, 10, 24, 0.52);
+  --glass-thick-bg: rgba(2, 6, 16, 0.78);
 
   /* Backgrounds jour */
-  --glass-thin-bg-l:  rgba(253, 248, 238, 0.72);
-  --glass-base-bg-l:  rgba(255, 252, 245, 0.62);
+  --glass-thin-bg-l: rgba(253, 248, 238, 0.72);
+  --glass-base-bg-l: rgba(255, 252, 245, 0.62);
   --glass-thick-bg-l: rgba(255, 250, 242, 0.86);
 
   /* Hairline borders */
-  --glass-border-d:   0.5px solid rgba(255, 255, 255, 0.10);
-  --glass-border-l:   0.5px solid rgba(0, 0, 0, 0.07);
+  --glass-border-d: 0.5px solid rgba(255, 255, 255, 0.1);
+  --glass-border-l: 0.5px solid rgba(0, 0, 0, 0.07);
 
   /* Top specular highlight (1 pixel reflet de lumière) */
-  --glass-top:        0 0.5px 0 rgba(255, 255, 255, 0.18) inset;
-  --glass-top-l:      0 0.5px 0 rgba(255, 255, 255, 0.80) inset;
+  --glass-top: 0 0.5px 0 rgba(255, 255, 255, 0.18) inset;
+  --glass-top-l: 0 0.5px 0 rgba(255, 255, 255, 0.8) inset;
 
   /* Shadows neutres (pas colorées) */
-  --glass-shadow-sm:  0 2px 12px rgba(0, 0, 0, 0.18);
-  --glass-shadow-md:  0 8px 32px rgba(0, 0, 0, 0.24), 0 2px 8px rgba(0, 0, 0, 0.14);
-  --glass-shadow-lg:  0 16px 48px rgba(0, 0, 0, 0.32), 0 4px 16px rgba(0, 0, 0, 0.18);
+  --glass-shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.18);
+  --glass-shadow-md: 0 8px 32px rgba(0, 0, 0, 0.24), 0 2px 8px rgba(0, 0, 0, 0.14);
+  --glass-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.32), 0 4px 16px rgba(0, 0, 0, 0.18);
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────
    ① THIN GLASS — nav, bottom-bar, pills, badges, labels
@@ -85,8 +84,9 @@ nav.nav {
 .df-pill.active {
   background: rgba(123, 79, 232, 0.18);
   border-color: rgba(123, 79, 232, 0.38) !important;
-  box-shadow: 0 0 0 1px rgba(123, 79, 232, 0.20),
-              0 2px 8px rgba(123, 79, 232, 0.12);
+  box-shadow:
+    0 0 0 1px rgba(123, 79, 232, 0.2),
+    0 2px 8px rgba(123, 79, 232, 0.12);
 }
 
 /* Labels / badges */
@@ -103,7 +103,6 @@ nav.nav {
   border-width: 0.5px !important;
 }
 
-
 /* ─────────────────────────────────────────────────────────────────────
    ② BASE GLASS — cards, section backgrounds, inputs, cookie
    ───────────────────────────────────────────────────────────────────── */
@@ -111,15 +110,13 @@ nav.nav {
 /* Cards principales */
 .card,
 .offre-card,
-[class*="-card"]:not([class*="credit"]):not([class*="swipe"]) {
+[class*='-card']:not([class*='credit']):not([class*='swipe']) {
   backdrop-filter: var(--glass-base-blur) !important;
   -webkit-backdrop-filter: var(--glass-base-blur) !important;
   background: var(--glass-base-bg) !important;
   border: var(--glass-border-d) !important;
   border-width: 0.5px !important;
-  box-shadow:
-    var(--glass-top),
-    var(--glass-shadow-md) !important;
+  box-shadow: var(--glass-top), var(--glass-shadow-md) !important;
 }
 
 /* Ligne de lumière sur le bord haut de la card */
@@ -138,12 +135,12 @@ nav.nav {
 @media (hover: hover) {
   .card:hover,
   .offre-card:hover {
-    background: rgba(0, 14, 30, 0.60) !important;
+    background: rgba(0, 14, 30, 0.6) !important;
     border-color: rgba(255, 255, 255, 0.14) !important;
     box-shadow:
       var(--glass-top),
       0 16px 48px rgba(0, 0, 0, 0.32),
-      0 4px 16px rgba(0, 0, 0, 0.20) !important;
+      0 4px 16px rgba(0, 0, 0, 0.2) !important;
   }
 }
 
@@ -187,10 +184,14 @@ select {
   backdrop-filter: blur(12px) saturate(140%);
   -webkit-backdrop-filter: blur(12px) saturate(140%);
   background: rgba(255, 255, 255, 0.04) !important;
-  border: 0.5px solid rgba(255, 255, 255, 0.10) !important;
+  border: 0.5px solid rgba(255, 255, 255, 0.1) !important;
   border-radius: 12px !important;
-  box-shadow: var(--glass-top), 0 2px 8px rgba(0, 0, 0, 0.12) !important;
-  transition: border-color 200ms ease, box-shadow 250ms ease !important;
+  box-shadow:
+    var(--glass-top),
+    0 2px 8px rgba(0, 0, 0, 0.12) !important;
+  transition:
+    border-color 200ms ease,
+    box-shadow 250ms ease !important;
 }
 input:focus,
 textarea:focus {
@@ -220,7 +221,6 @@ textarea:focus {
   box-shadow: none !important;
 }
 
-
 /* ─────────────────────────────────────────────────────────────────────
    ③ THICK GLASS — modal, drawer, iPhone mockup
    ───────────────────────────────────────────────────────────────────── */
@@ -241,7 +241,7 @@ textarea:focus {
   border: var(--glass-border-d) !important;
   box-shadow:
     var(--glass-top),
-    0 1px 0 rgba(255,255,255,0.06) inset,
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
     var(--glass-shadow-lg) !important;
 }
 
@@ -250,13 +250,13 @@ textarea:focus {
   backdrop-filter: blur(24px) saturate(160%);
   -webkit-backdrop-filter: blur(24px) saturate(160%);
   background: rgba(255, 255, 255, 0.07) !important;
-  border: 0.5px solid rgba(255, 255, 255, 0.10) !important;
+  border: 0.5px solid rgba(255, 255, 255, 0.1) !important;
   box-shadow: var(--glass-top) !important;
 }
 
 /* Modals */
 .modal,
-[role="dialog"]:not(#cookie-banner) {
+[role='dialog']:not(#cookie-banner) {
   backdrop-filter: var(--glass-thick-blur);
   -webkit-backdrop-filter: var(--glass-thick-blur);
   background: var(--glass-thick-bg);
@@ -264,96 +264,98 @@ textarea:focus {
   box-shadow: var(--glass-shadow-lg);
 }
 
-
 /* ─────────────────────────────────────────────────────────────────────
    MODE JOUR — toutes les surfaces claires
    ───────────────────────────────────────────────────────────────────── */
 
 body.mode-jour nav.nav,
-html[data-theme="light"] nav.nav {
+html[data-theme='light'] nav.nav {
   background: var(--glass-thin-bg-l) !important;
   border-bottom: var(--glass-border-l) !important;
 }
 
 body.mode-jour .bottom-bar,
-html[data-theme="light"] .bottom-bar {
+html[data-theme='light'] .bottom-bar {
   background: var(--glass-thin-bg-l) !important;
   border-top: var(--glass-border-l) !important;
 }
 
 body.mode-jour .card,
 body.mode-jour .offre-card,
-body.mode-jour [class*="-card"]:not([class*="credit"]):not([class*="swipe"]),
-html[data-theme="light"] .card,
-html[data-theme="light"] .offre-card {
+body.mode-jour [class*='-card']:not([class*='credit']):not([class*='swipe']),
+html[data-theme='light'] .card,
+html[data-theme='light'] .offre-card {
   background: var(--glass-base-bg-l) !important;
   border: var(--glass-border-l) !important;
-  box-shadow: var(--glass-top-l), 0 4px 20px rgba(0,0,0,0.08) !important;
+  box-shadow:
+    var(--glass-top-l),
+    0 4px 20px rgba(0, 0, 0, 0.08) !important;
 }
 
 body.mode-jour .df-card,
-html[data-theme="light"] .df-card {
+html[data-theme='light'] .df-card {
   background: var(--glass-base-bg-l) !important;
   border: var(--glass-border-l) !important;
 }
 
 body.mode-jour input,
 body.mode-jour textarea,
-html[data-theme="light"] input,
-html[data-theme="light"] textarea {
-  background: rgba(255, 255, 255, 0.70) !important;
+html[data-theme='light'] input,
+html[data-theme='light'] textarea {
+  background: rgba(255, 255, 255, 0.7) !important;
   border: 0.5px solid rgba(0, 0, 0, 0.08) !important;
-  box-shadow: var(--glass-top-l), 0 1px 4px rgba(0,0,0,0.06) !important;
+  box-shadow:
+    var(--glass-top-l),
+    0 1px 4px rgba(0, 0, 0, 0.06) !important;
 }
 
 body.mode-jour input:focus,
 body.mode-jour textarea:focus,
-html[data-theme="light"] input:focus,
-html[data-theme="light"] textarea:focus {
-  border-color: rgba(91, 63, 216, 0.40) !important;
+html[data-theme='light'] input:focus,
+html[data-theme='light'] textarea:focus {
+  border-color: rgba(91, 63, 216, 0.4) !important;
   box-shadow:
     var(--glass-top-l),
-    0 0 0 3px rgba(91, 63, 216, 0.10),
-    0 1px 4px rgba(0,0,0,0.06) !important;
+    0 0 0 3px rgba(91, 63, 216, 0.1),
+    0 1px 4px rgba(0, 0, 0, 0.06) !important;
 }
 
 body.mode-jour .site-footer,
-html[data-theme="light"] .site-footer {
+html[data-theme='light'] .site-footer {
   background: var(--glass-thick-bg-l) !important;
   border-top: var(--glass-border-l) !important;
 }
 
 body.mode-jour .aurora-interface,
 body.mode-jour .block-rose,
-html[data-theme="light"] .aurora-interface,
-html[data-theme="light"] .block-rose {
+html[data-theme='light'] .aurora-interface,
+html[data-theme='light'] .block-rose {
   background: var(--glass-base-bg-l) !important;
   border: var(--glass-border-l) !important;
 }
 
 body.mode-jour #cookie-banner,
-html[data-theme="light"] #cookie-banner {
+html[data-theme='light'] #cookie-banner {
   background: rgba(255, 250, 242, 0.92) !important;
   border: var(--glass-border-l) !important;
 }
 
 body.mode-jour .pill,
-html[data-theme="light"] .pill {
+html[data-theme='light'] .pill {
   background: rgba(0, 0, 0, 0.04);
   border: 0.5px solid rgba(0, 0, 0, 0.08) !important;
 }
 
 body.mode-jour .pill.selected,
-html[data-theme="light"] .pill.selected {
+html[data-theme='light'] .pill.selected {
   background: rgba(91, 63, 216, 0.12);
-  border-color: rgba(91, 63, 216, 0.30) !important;
+  border-color: rgba(91, 63, 216, 0.3) !important;
 }
 
 body.mode-jour .mobile-drawer-panel,
-html[data-theme="light"] .mobile-drawer-panel {
+html[data-theme='light'] .mobile-drawer-panel {
   background: var(--glass-thick-bg-l) !important;
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────
    FALLBACK — navigateurs sans backdrop-filter (Firefox ancien, etc.)
@@ -361,16 +363,28 @@ html[data-theme="light"] .mobile-drawer-panel {
 
 @supports not (backdrop-filter: blur(1px)) {
   nav.nav,
-  .bottom-bar                                { background: rgba(2, 6, 18, 0.95) !important; }
-  .card, .offre-card, .df-card, .swipe-item  { background: rgba(0, 12, 28, 0.90) !important; }
-  .mobile-drawer-panel                       { background: rgba(2, 6, 18, 0.98) !important; }
+  .bottom-bar {
+    background: rgba(2, 6, 18, 0.95) !important;
+  }
+  .card,
+  .offre-card,
+  .df-card,
+  .swipe-item {
+    background: rgba(0, 12, 28, 0.9) !important;
+  }
+  .mobile-drawer-panel {
+    background: rgba(2, 6, 18, 0.98) !important;
+  }
 
   body.mode-jour nav.nav,
-  html[data-theme="light"] nav.nav           { background: rgba(253, 248, 238, 0.98) !important; }
+  html[data-theme='light'] nav.nav {
+    background: rgba(253, 248, 238, 0.98) !important;
+  }
   body.mode-jour .card,
-  html[data-theme="light"] .card             { background: rgba(255, 252, 245, 0.98) !important; }
+  html[data-theme='light'] .card {
+    background: rgba(255, 252, 245, 0.98) !important;
+  }
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────
    PERFORMANCE — mobile : blur réduit pour économiser le GPU
@@ -378,19 +392,18 @@ html[data-theme="light"] .mobile-drawer-panel {
 
 @media (max-width: 767px) {
   :root {
-    --glass-thin-blur:  blur(16px) saturate(160%);
-    --glass-base-blur:  blur(24px) saturate(150%);
+    --glass-thin-blur: blur(16px) saturate(160%);
+    --glass-base-blur: blur(24px) saturate(150%);
     --glass-thick-blur: blur(32px) saturate(160%);
   }
 
   /* Sur mobile : fond légèrement plus opaque pour compenser le blur réduit */
   :root {
-    --glass-thin-bg:   rgba(2, 8, 20, 0.65);
-    --glass-base-bg:   rgba(0, 10, 24, 0.62);
-    --glass-thick-bg:  rgba(2, 6, 16, 0.82);
+    --glass-thin-bg: rgba(2, 8, 20, 0.65);
+    --glass-base-bg: rgba(0, 10, 24, 0.62);
+    --glass-thick-bg: rgba(2, 6, 16, 0.82);
   }
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────
    PREFERS-REDUCED-TRANSPARENCY — accessibilité système macOS/iOS
@@ -399,8 +412,11 @@ html[data-theme="light"] .mobile-drawer-panel {
 @media (prefers-reduced-transparency: reduce) {
   nav.nav,
   .bottom-bar,
-  .card, .offre-card, .df-card,
-  .swipe-item, .iphone-mockup,
+  .card,
+  .offre-card,
+  .df-card,
+  .swipe-item,
+  .iphone-mockup,
   .mobile-drawer-panel,
   #cookie-banner {
     backdrop-filter: none !important;
@@ -408,7 +424,7 @@ html[data-theme="light"] .mobile-drawer-panel {
     background: rgba(2, 6, 18, 0.96) !important;
   }
   body.mode-jour nav.nav,
-  html[data-theme="light"] .card {
+  html[data-theme='light'] .card {
     background: rgba(253, 248, 238, 0.98) !important;
   }
 }

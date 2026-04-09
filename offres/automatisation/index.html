@@ -1,308 +1,683 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-<script>(function(){var t=localStorage.getItem('pinapp-theme')||localStorage.getItem('pinapp-mode');var d=window.matchMedia('(prefers-color-scheme:dark)').matches;var m=(t==='light'||t==='jour')?'jour':(t==='dark'||t==='nuit')?'nuit':(d?'nuit':'jour');document.documentElement.setAttribute('data-mode',m);document.documentElement.setAttribute('data-theme',m==='jour'?'light':'dark');if(document.body){document.body.classList.add('mode-'+m);}document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('mode-'+m);});}());</script>
-  <link rel="preload" as="image" href="../../assets/images/bg-pandora-nuit.png" fetchpriority="high">
-  <link rel="preload" as="image" href="../../assets/images/bg-pandora-jour.png">
-  <meta charset="UTF-8">
-  <meta name="theme-color" id="pinapp-theme-color" content="#020810">
-  <script src="../../assets/js/theme-init.js" defer></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Automatisation site web — relances et devis automatiques — Pinapp Studio</title>
-  <meta name="description" content="Automatisation des tâches répétitives pour artisans et TPE.">
-  <meta property="og:title" content="Automatisation — Pinapp Studio">
-  <meta property="og:description" content="Automatisation des tâches répétitives pour artisans et TPE.">
-  <meta property="og:image" content="https://pinapp.fr/assets/images/og-home.png">
-  <meta property="og:url" content="https://pinapp.fr/offres/automatisation/">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="fr_FR">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
-  <link rel="stylesheet" href="../../assets/variables.css">
-  <link rel="stylesheet" href="../../assets/grid.css">
-  <link rel="stylesheet" href="../../assets/animations.css">
-  <link rel="stylesheet" href="../../assets/css/pandora-ux.css">
-  <link rel="preconnect" href="https://fonts.bunny.net">
-  <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap">
-  <link rel="stylesheet" href="../../assets/css/pandora-dance.css">
-  <link rel="stylesheet" href="../../assets/css/ios-glass.css">
-  <link rel="stylesheet" href="../../assets/css/apple-finish.css">
-  <link rel="stylesheet" href="../../assets/css/pinapp-modern-biolume.css">
-  <link rel="stylesheet" href="../../assets/css/pinapp-premium.css">
-  <link rel="stylesheet" href="../assets/css/deploy-harmonise.css">
-  <link rel="stylesheet" href="../assets/css/pandora-jour-override.css">
-  <link rel="stylesheet" href="../assets/css/mobile-premium.css">
-  <link rel="stylesheet" href="../../assets/css/neuro-layout.css">
-  
-  <link rel="stylesheet" href="../assets/css/pandora-world.css">
-  <link rel="stylesheet" href="../assets/css/pandora-details.css">
-</head>
-<body class="page-with-bottom-nav">
-  <div id="pandora-world" aria-hidden="true">
-    <div class="pandora-orbs">
-      <div class="orb orb-1"></div>
-      <div class="orb orb-2"></div>
-      <div class="orb orb-3"></div>
-      <div class="orb orb-4"></div>
+  <head>
+    <script>
+      (function () {
+        var t = localStorage.getItem('pinapp-theme') || localStorage.getItem('pinapp-mode');
+        var d = window.matchMedia('(prefers-color-scheme:dark)').matches;
+        var m = t === 'light' || t === 'jour' ? 'jour' : t === 'dark' || t === 'nuit' ? 'nuit' : d ? 'nuit' : 'jour';
+        document.documentElement.setAttribute('data-mode', m);
+        document.documentElement.setAttribute('data-theme', m === 'jour' ? 'light' : 'dark');
+        if (document.body) {
+          document.body.classList.add('mode-' + m);
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+          document.body.classList.add('mode-' + m);
+        });
+      })();
+    </script>
+    <link rel="preload" as="image" href="../../assets/images/bg-pandora-nuit.png" fetchpriority="high" />
+    <link rel="preload" as="image" href="../../assets/images/bg-pandora-jour.png" />
+    <meta charset="UTF-8" />
+    <meta name="theme-color" id="pinapp-theme-color" content="#020810" />
+    <script src="../../assets/js/theme-init.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Automatisation site web — relances et devis automatiques — Pinapp Studio</title>
+    <meta name="description" content="Automatisation des tâches répétitives pour artisans et TPE." />
+    <meta property="og:title" content="Automatisation — Pinapp Studio" />
+    <meta property="og:description" content="Automatisation des tâches répétitives pour artisans et TPE." />
+    <meta property="og:image" content="https://pinapp.fr/assets/images/og-home.png" />
+    <meta property="og:url" content="https://pinapp.fr/offres/automatisation/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+    <link rel="stylesheet" href="../../assets/variables.css" />
+    <link rel="stylesheet" href="../../assets/grid.css" />
+    <link rel="stylesheet" href="../../assets/animations.css" />
+    <link rel="stylesheet" href="../../assets/css/pandora-ux.css" />
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" />
+    <link rel="stylesheet" href="../../assets/css/pandora-dance.css" />
+    <link rel="stylesheet" href="../../assets/css/ios-glass.css" />
+    <link rel="stylesheet" href="../../assets/css/apple-finish.css" />
+    <link rel="stylesheet" href="../../assets/css/pinapp-modern-biolume.css" />
+    <link rel="stylesheet" href="../../assets/css/pinapp-premium.css" />
+    <link rel="stylesheet" href="../assets/css/deploy-harmonise.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-jour-override.css" />
+    <link rel="stylesheet" href="../assets/css/mobile-premium.css" />
+    <link rel="stylesheet" href="../../assets/css/neuro-layout.css" />
+
+    <link rel="stylesheet" href="../assets/css/pandora-world.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-details.css" />
+  </head>
+  <body class="page-with-bottom-nav">
+    <div id="pandora-world" aria-hidden="true">
+      <div class="pandora-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+      </div>
+      <div class="pandora-spores" id="spores-container"></div>
+      <div class="pandora-stars" id="stars-container"></div>
+      <div class="pandora-clouds" id="clouds-container">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+      </div>
+      <div class="holo-grid"></div>
     </div>
-    <div class="pandora-spores" id="spores-container"></div>
-    <div class="pandora-stars" id="stars-container"></div>
-    <div class="pandora-clouds" id="clouds-container">
-      <div class="cloud cloud-1"></div>
-      <div class="cloud cloud-2"></div>
-      <div class="cloud cloud-3"></div>
+    <div id="pandora-loader" aria-hidden="true">
+      <svg width="32" height="38" viewBox="0 0 32 38" fill="none">
+        <defs>
+          <linearGradient id="pg-l" x1="16" y1="36" x2="16" y2="2" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#7B4FE8" />
+            <stop offset="100%" stop-color="#00E5CC" />
+          </linearGradient>
+        </defs>
+        <path d="M16 2 C13 5 10 6 11 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
+        <path d="M16 2 L16 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" />
+        <path d="M16 2 C19 5 22 6 21 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
+        <ellipse cx="16" cy="24" rx="9" ry="12" fill="url(#pg-l)" />
+        <path d="M7 20 L16 15 L25 20 L16 25 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
+        <path d="M7 26 L16 21 L25 26 L16 31 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
+      </svg>
     </div>
-    <div class="holo-grid"></div>
-  </div>
-<div id="pandora-loader" aria-hidden="true">
-  <svg width="32" height="38" viewBox="0 0 32 38" fill="none"><defs><linearGradient id="pg-l" x1="16" y1="36" x2="16" y2="2" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7B4FE8"/><stop offset="100%" stop-color="#00E5CC"/></linearGradient></defs><path d="M16 2 C13 5 10 6 11 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M16 2 L16 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round"/><path d="M16 2 C19 5 22 6 21 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none"/><ellipse cx="16" cy="24" rx="9" ry="12" fill="url(#pg-l)"/><path d="M7 20 L16 15 L25 20 L16 25 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none"/><path d="M7 26 L16 21 L25 26 L16 31 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none"/></svg>
-</div>
-<script>(function(){function hideLoader(){var l=document.getElementById('pandora-loader');if(l&&l.parentNode){l.style.opacity='0';setTimeout(function(){if(l.parentNode)l.remove();},400);}}window.addEventListener('load',hideLoader);setTimeout(hideLoader,2000);})();</script><div class="aurora-mobile" aria-hidden="true"><div class="aurora-orb aurora-orb-1"></div><div class="aurora-orb aurora-orb-2"></div><div class="aurora-orb aurora-orb-3"></div><div class="aurora-orb aurora-orb-4"></div></div><div class="pandora-shapes" aria-hidden="true"><div class="pandora-shape pandora-shape-1"></div><div class="pandora-shape pandora-shape-2"></div><div class="pandora-shape pandora-shape-3"></div><div class="pandora-shape pandora-shape-4"></div></div><div class="holo-grid" aria-hidden="true"></div><div class="noise" aria-hidden="true"></div><div class="jour-spores" aria-hidden="true"><span class="jour-spore" style="left:12%;top:75%;--dur:22s;--delay:-4s;--dx:18px;--dy:-90px;"></span><span class="jour-spore" style="left:28%;top:60%;--dur:28s;--delay:-11s;--dx:-12px;--dy:-75px;"></span><span class="jour-spore" style="left:45%;top:82%;--dur:19s;--delay:-7s;--dx:25px;--dy:-60px;"></span><span class="jour-spore" style="left:62%;top:70%;--dur:32s;--delay:-2s;--dx:-20px;--dy:-85px;"></span><span class="jour-spore" style="left:78%;top:65%;--dur:24s;--delay:-15s;--dx:14px;--dy:-70px;"></span><span class="jour-spore jour-spore-teal" style="left:20%;top:85%;--dur:26s;--delay:-18s;--dx:10px;--dy:-65px;"></span><span class="jour-spore jour-spore-teal" style="left:55%;top:88%;--dur:30s;--delay:-5s;--dx:-15px;--dy:-95px;"></span></div>
-  <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
-  <div class="scroll-progress" id="scrollProgress"></div>
-<div class="noise-overlay" aria-hidden="true"></div>
-  <nav class="nav" id="mainNav" aria-label="Navigation principale">
-    <div class="container nav-inner">
-            <a href="../../index.html" class="nav-logo" aria-label="Pinapp Studio — accueil" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
-        <img class="nav-logo-img" src="../../assets/images/pinapp-logo.png" alt="" width="132" height="36" decoding="async" />
-      </a>
+    <script>
+      (function () {
+        function hideLoader() {
+          var l = document.getElementById('pandora-loader');
+          if (l && l.parentNode) {
+            l.style.opacity = '0';
+            setTimeout(function () {
+              if (l.parentNode) l.remove();
+            }, 400);
+          }
+        }
+        window.addEventListener('load', hideLoader);
+        setTimeout(hideLoader, 2000);
+      })();
+    </script>
+    <div class="aurora-mobile" aria-hidden="true">
+      <div class="aurora-orb aurora-orb-1"></div>
+      <div class="aurora-orb aurora-orb-2"></div>
+      <div class="aurora-orb aurora-orb-3"></div>
+      <div class="aurora-orb aurora-orb-4"></div>
+    </div>
+    <div class="pandora-shapes" aria-hidden="true">
+      <div class="pandora-shape pandora-shape-1"></div>
+      <div class="pandora-shape pandora-shape-2"></div>
+      <div class="pandora-shape pandora-shape-3"></div>
+      <div class="pandora-shape pandora-shape-4"></div>
+    </div>
+    <div class="holo-grid" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="jour-spores" aria-hidden="true">
+      <span class="jour-spore" style="left: 12%; top: 75%; --dur: 22s; --delay: -4s; --dx: 18px; --dy: -90px"></span
+      ><span class="jour-spore" style="left: 28%; top: 60%; --dur: 28s; --delay: -11s; --dx: -12px; --dy: -75px"></span
+      ><span class="jour-spore" style="left: 45%; top: 82%; --dur: 19s; --delay: -7s; --dx: 25px; --dy: -60px"></span
+      ><span class="jour-spore" style="left: 62%; top: 70%; --dur: 32s; --delay: -2s; --dx: -20px; --dy: -85px"></span
+      ><span class="jour-spore" style="left: 78%; top: 65%; --dur: 24s; --delay: -15s; --dx: 14px; --dy: -70px"></span
+      ><span
+        class="jour-spore jour-spore-teal"
+        style="left: 20%; top: 85%; --dur: 26s; --delay: -18s; --dx: 10px; --dy: -65px"></span
+      ><span
+        class="jour-spore jour-spore-teal"
+        style="left: 55%; top: 88%; --dur: 30s; --delay: -5s; --dx: -15px; --dy: -95px"></span>
+    </div>
+    <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <nav class="nav" id="mainNav" aria-label="Navigation principale">
+      <div class="container nav-inner">
+        <a
+          href="../../index.html"
+          class="nav-logo"
+          aria-label="Pinapp Studio — accueil"
+          style="display: flex; align-items: center; gap: 10px; text-decoration: none">
+          <img
+            class="nav-logo-img"
+            src="../../assets/images/pinapp-logo.png"
+            alt=""
+            width="132"
+            height="36"
+            decoding="async" />
+        </a>
         <div class="nav-links">
-        <a href="../../offres/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
-        <a href="../../realisations/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
-        <a href="../../a-propos/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
-        <a href="../../faq/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
-        <a href="../../auralis/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Auralis</a>
-        <a href="../../univers/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Univers</a>
-        <a href="../../diagnostic/index.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Démarrer ma demande</a>
+          <a href="../../offres/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Offres</a>
+          <a href="../../realisations/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8"
+            >Réalisations</a
+          >
+          <a href="../../a-propos/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">À propos</a>
+          <a href="../../faq/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">FAQ</a>
+          <a href="../../auralis/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Auralis</a>
+          <a href="../../univers/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Univers</a>
+          <a href="../../diagnostic/index.html" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px"
+            >Démarrer ma demande</a
+          >
+        </div>
+        <div class="nav-trailing">
+          <button type="button" class="mode-toggle" id="themeToggle" aria-label="Passer en mode jour">
+            <svg class="icon-lune" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path
+                d="M15.5 10.5A6.5 6.5 0 0 1 7.5 2.5a6.5 6.5 0 1 0 8 8z"
+                stroke="#00E5CC"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                fill="none" /></svg
+            ><svg class="icon-soleil" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <circle cx="9" cy="9" r="3.5" stroke="#009B8C" stroke-width="1.5" />
+              <line x1="9" y1="1" x2="9" y2="3" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="9" y1="15" x2="9" y2="17" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="1" y1="9" x2="3" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="15" y1="9" x2="17" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="burger"
+            id="burger"
+            aria-label="Ouvrir le menu"
+            aria-expanded="false"
+            aria-controls="mobileDrawer">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              aria-hidden="true">
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
       </div>
-      <div class="nav-trailing">
-        <button type="button" class="mode-toggle" id="themeToggle" aria-label="Passer en mode jour"><svg class="icon-lune" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M15.5 10.5A6.5 6.5 0 0 1 7.5 2.5a6.5 6.5 0 1 0 8 8z" stroke="#00E5CC" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg><svg class="icon-soleil" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="3.5" stroke="#009B8C" stroke-width="1.5"/><line x1="9" y1="1" x2="9" y2="3" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="15" x2="9" y2="17" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="9" x2="3" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/><line x1="15" y1="9" x2="17" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/></svg></button>
-        <button type="button" class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileDrawer">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </nav>
+    <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" role="dialog" aria-label="Menu" aria-modal="true">
+      <div class="mobile-drawer-panel">
+        <button type="button" id="drawerClose" aria-label="Fermer le menu">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
         </button>
+        <div class="nav-links">
+          <a href="../../offres/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Offres</a>
+          <a href="../../realisations/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8"
+            >Réalisations</a
+          >
+          <a href="../../a-propos/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">À propos</a>
+          <a href="../../faq/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">FAQ</a>
+          <a href="../../auralis/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Auralis</a>
+          <a href="../../univers/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Univers</a>
+          <a href="../../diagnostic/index.html" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px"
+            >Démarrer ma demande</a
+          >
+        </div>
       </div>
     </div>
-  </nav>
-  <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" role="dialog" aria-label="Menu" aria-modal="true">
-    <div class="mobile-drawer-panel">
-      <button type="button" id="drawerClose" aria-label="Fermer le menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
-      <div class="nav-links">
-        <a href="../../offres/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
-        <a href="../../realisations/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
-        <a href="../../a-propos/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
-        <a href="../../faq/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
-        <a href="../../auralis/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Auralis</a>
-        <a href="../../univers/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Univers</a>
-        <a href="../../diagnostic/index.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Démarrer ma demande</a>
-      </div>
-  </div>
-  </div>        <div class="bottom-bar bottom-bar--site bottom-bar--six" aria-label="Navigation du site">
-    <a href="../../index.html">Accueil</a>
-    <a href="../../offres/index.html">Offres</a>
-    <a href="../../diagnostic/index.html" class="bottom-bar-cta">D&eacute;marrer</a>
-    <a href="../../univers/index.html">Univers</a>
-    <a href="../../formation-gratuite/index.html">Form.</a>
-    <a href="../../realisations/index.html">R&eacute;alis.</a>
-  </div>
-<main id="contenu-principal" class="stack-above-bg" tabindex="-1">
-    <section class="section">
-      <div class="container" style="max-width:700px;">
+    <div class="bottom-bar bottom-bar--site bottom-bar--six" aria-label="Navigation du site">
+      <a href="../../index.html">Accueil</a>
+      <a href="../../offres/index.html">Offres</a>
+      <a href="../../diagnostic/index.html" class="bottom-bar-cta">D&eacute;marrer</a>
+      <a href="../../univers/index.html">Univers</a>
+      <a href="../../formation-gratuite/index.html">Form.</a>
+      <a href="../../realisations/index.html">R&eacute;alis.</a>
+    </div>
+    <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
+      <section class="section">
+        <div class="container" style="max-width: 700px">
+          <p class="label" style="margin-bottom: var(--space-2)">990 € · LIVRAISON 5 JOURS · ZÉRO RELANCE MANUELLE</p>
+          <h1 style="font-size: var(--text-h1); letter-spacing: -0.02em; margin-bottom: var(--space-3)">
+            Vos clients relancés automatiquement.<br />Vos devis envoyés sans y penser.
+          </h1>
+          <p style="font-size: 1.0625rem; opacity: 0.75; line-height: 1.7; margin-bottom: var(--space-7)">
+            Vous avez un client qui n'a pas répondu à votre devis. Vous l'oubliez. Il part ailleurs. Avec
+            l'automatisation, le rappel part tout seul — au bon moment, avec votre nom. Vous n'avez rien à faire.
+          </p>
 
-        <p class="label" style="margin-bottom:var(--space-2);">990 € · LIVRAISON 5 JOURS · ZÉRO RELANCE MANUELLE</p>
-        <h1 style="font-size:var(--text-h1);letter-spacing:-0.02em;margin-bottom:var(--space-3);">Vos clients relancés automatiquement.<br>Vos devis envoyés sans y penser.</h1>
-        <p style="font-size:1.0625rem;opacity:0.75;line-height:1.7;margin-bottom:var(--space-7);">Vous avez un client qui n'a pas répondu à votre devis. Vous l'oubliez. Il part ailleurs. Avec l'automatisation, le rappel part tout seul — au bon moment, avec votre nom. Vous n'avez rien à faire.</p>
-
-        <!-- Exemple concret -->
-        <h2 style="font-size:1.25rem;margin-bottom:var(--space-4);">Ce que ça change concrètement</h2>
-        <div class="card" style="padding:var(--space-5);margin-bottom:var(--space-6);">
-          <div style="display:flex;flex-direction:column;gap:var(--space-4);">
-            <div>
-              <p style="font-size:12px;opacity:0.5;margin-bottom:var(--space-1);">AVANT PINAPP</p>
-              <p style="font-size:14px;opacity:0.75;line-height:1.7;">Un client vous contacte. Vous répondez quand vous pouvez. Vous oubliez de relancer. Il signe chez un concurrent.</p>
-            </div>
-            <div style="height:1px;background:var(--border-card);"></div>
-            <div>
-              <p style="font-size:12px;color:var(--accent-teal);margin-bottom:var(--space-1);">AVEC PINAPP</p>
-              <p style="font-size:14px;opacity:0.75;line-height:1.7;">Un client vous contacte. Il reçoit un email de confirmation immédiat. J+2 : relance automatique. J+7 : second rappel si toujours pas de réponse. Vous êtes notifié à chaque réaction. Vous n'avez rien tapé.</p>
+          <!-- Exemple concret -->
+          <h2 style="font-size: 1.25rem; margin-bottom: var(--space-4)">Ce que ça change concrètement</h2>
+          <div class="card" style="padding: var(--space-5); margin-bottom: var(--space-6)">
+            <div style="display: flex; flex-direction: column; gap: var(--space-4)">
+              <div>
+                <p style="font-size: 12px; opacity: 0.5; margin-bottom: var(--space-1)">AVANT PINAPP</p>
+                <p style="font-size: 14px; opacity: 0.75; line-height: 1.7">
+                  Un client vous contacte. Vous répondez quand vous pouvez. Vous oubliez de relancer. Il signe chez un
+                  concurrent.
+                </p>
+              </div>
+              <div style="height: 1px; background: var(--border-card)"></div>
+              <div>
+                <p style="font-size: 12px; color: var(--accent-teal); margin-bottom: var(--space-1)">AVEC PINAPP</p>
+                <p style="font-size: 14px; opacity: 0.75; line-height: 1.7">
+                  Un client vous contacte. Il reçoit un email de confirmation immédiat. J+2 : relance automatique. J+7 :
+                  second rappel si toujours pas de réponse. Vous êtes notifié à chaque réaction. Vous n'avez rien tapé.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- Ce qui est automatisé -->
-        <h2 style="font-size:1.25rem;margin-bottom:var(--space-4);">Ce qui tourne automatiquement</h2>
-        <div style="display:flex;flex-direction:column;gap:var(--space-4);margin-bottom:var(--space-6);">
-          <div style="display:flex;gap:var(--space-3);align-items:flex-start;">
-            <span style="color:var(--accent-teal);font-size:1.125rem;min-width:1.5rem;">✓</span>
-            <div><p style="font-weight:600;margin-bottom:4px;">Relance de devis (J+2, J+7)</p><p style="font-size:14px;opacity:0.7;">Le devis part avec votre nom. La relance aussi. Le message reprend votre ton et votre mise en forme — comme si vous l'aviez envoyé vous-même.</p></div>
-          </div>
-          <div style="display:flex;gap:var(--space-3);align-items:flex-start;">
-            <span style="color:var(--accent-teal);font-size:1.125rem;min-width:1.5rem;">✓</span>
-            <div><p style="font-weight:600;margin-bottom:4px;">Confirmation de RDV + rappel J-1</p><p style="font-size:14px;opacity:0.7;">Votre client reçoit sa confirmation dès qu'il réserve. La veille, il reçoit un rappel. Moins d'absences.</p></div>
-          </div>
-          <div style="display:flex;gap:var(--space-3);align-items:flex-start;">
-            <span style="color:var(--accent-teal);font-size:1.125rem;min-width:1.5rem;">✓</span>
-            <div><p style="font-weight:600;margin-bottom:4px;">Email de bienvenue nouveau client</p><p style="font-size:14px;opacity:0.7;">Dès qu'un nouveau contact entre, il reçoit un email personnalisé avec vos informations et la suite du parcours.</p></div>
-          </div>
-          <div style="display:flex;gap:var(--space-3);align-items:flex-start;">
-            <span style="color:var(--accent-teal);font-size:1.125rem;min-width:1.5rem;">✓</span>
-            <div><p style="font-weight:600;margin-bottom:4px;">Vous recevez une notification à chaque action</p><p style="font-size:14px;opacity:0.7;">Un devis sign&eacute;, un RDV pris, un client qui r&eacute;pond &mdash; vous &ecirc;tes inform&eacute; en temps r&eacute;el (email ou appli, selon la config).</p></div>
-          </div>
-        </div>
-
-        <!-- Démo live pipeline -->
-        <h2 style="font-size:1.25rem;margin-bottom:var(--space-4);">Voyez-le tourner en direct</h2>
-        <div class="card" style="padding:var(--space-5);margin-bottom:var(--space-3);">
-          <p style="font-size:13px;opacity:0.5;margin-bottom:var(--space-3);">SIMULATION — Un prospect vous contacte à 23h42…</p>
-          <div id="auto-demo-log" style="font-family:monospace;font-size:13px;line-height:2;color:var(--text-2);min-height:220px;">
-            <span style="opacity:0.3;">Appuyez sur « Lancer la simulation » pour voir</span>
-          </div>
-          <div style="margin-top:var(--space-4);display:flex;gap:var(--space-2);flex-wrap:wrap;">
-            <button type="button" id="auto-demo-btn" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">▶ Lancer la simulation</button>
-            <button type="button" id="auto-demo-reset" class="btn btn-secondary" style="font-size:13px;padding:10px 20px;display:none;">Recommencer</button>
-          </div>
-        </div>
-        <p style="font-size:12px;opacity:0.4;margin-bottom:var(--space-6);">Cette simulation représente ce qui se passe réellement dans vos outils (Notion, Gmail, WhatsApp…)</p>
-
-        <!-- Ce que vous approuvez -->
-        <div class="card" style="padding:var(--space-5);margin-bottom:var(--space-6);">
-          <p style="font-size:1rem;font-weight:600;margin-bottom:var(--space-3);">Vous restez maître de tout</p>
-          <p style="font-size:14px;opacity:0.75;line-height:1.7;">Vous validez les textes des emails avant qu'ils soient activés. Vous pouvez modifier ou stopper à tout moment. Rien ne tourne sans votre accord initial.</p>
-        </div>
-
-        <script>
-        (function() {
-          var steps = [
-            { delay: 0,    icon: '📨', text: '23:42 — Thomas B. remplit votre formulaire de contact', color: 'var(--text)' },
-            { delay: 800,  icon: '→', text: '23:42:03 — Aurora analyse la demande (type : devis peinture)', color: 'var(--accent-teal)' },
-            { delay: 1600, icon: '📋', text: '23:42:05 — Fiche prospect créée dans Notion automatiquement', color: 'var(--text-2)' },
-            { delay: 2400, icon: '📧', text: '23:42:06 — Email de confirmation envoyé à Thomas', color: 'var(--accent-teal)' },
-            { delay: 3200, icon: '◦', text: '23:42:06 — Notification WhatsApp → vous', color: 'var(--accent-teal)' },
-            { delay: 4800, icon: '⏳', text: 'J+2 11:00 — Thomas n\'a pas répondu…', color: 'rgba(255,200,0,0.7)' },
-            { delay: 5600, icon: '📧', text: 'J+2 11:00 — Relance automatique envoyée (ton amical)', color: 'var(--accent-teal)' },
-            { delay: 6400, icon: '✓', text: 'J+2 14:23 — Thomas ouvre l\'email et accepte le devis', color: '#39E075' },
-            { delay: 7200, icon: '📄', text: 'J+2 14:24 — Contrat envoyé avec lien de signature électronique', color: '#39E075' },
-            { delay: 8000, icon: '✦', text: 'J+2 14:31 — Paiement reçu · Notion mis à jour · Mission active', color: '#39E075' },
-            { delay: 9000, icon: '✨', text: 'Vous n\'avez tapé aucun de ces messages. Vous avez juste travaillé.', color: 'var(--accent-teal)', bold: true },
-          ];
-          var btn = document.getElementById('auto-demo-btn');
-          var reset = document.getElementById('auto-demo-reset');
-          var log = document.getElementById('auto-demo-log');
-          var running = false;
-          var timers = [];
-
-          function clearTimers() { timers.forEach(clearTimeout); timers = []; }
-
-          btn.addEventListener('click', function() {
-            if (running) return;
-            running = true;
-            log.innerHTML = '';
-            btn.disabled = true;
-            btn.textContent = '▶ En cours…';
-            steps.forEach(function(s) {
-              var t = setTimeout(function() {
-                var line = document.createElement('div');
-                line.style.cssText = 'display:flex;gap:8px;align-items:flex-start;animation:fadeIn 300ms ease;color:' + s.color + ';' + (s.bold ? 'font-weight:600;margin-top:8px;' : '');
-                line.innerHTML = '<span>' + s.icon + '</span><span>' + s.text + '</span>';
-                log.appendChild(line);
-                log.scrollTop = log.scrollHeight;
-                if (s === steps[steps.length - 1]) {
-                  btn.style.display = 'none';
-                  reset.style.display = 'inline-flex';
-                }
-              }, s.delay);
-              timers.push(t);
-            });
-          });
-
-          reset.addEventListener('click', function() {
-            clearTimers();
-            running = false;
-            btn.disabled = false;
-            btn.textContent = '▶ Lancer la simulation';
-            btn.style.display = 'inline-flex';
-            reset.style.display = 'none';
-            log.innerHTML = '<span style="opacity:0.3;">Appuyez sur « Lancer la simulation » pour voir</span>';
-          });
-        })();
-        </script>
-
-        <!-- ROI -->
-        <div class="card" style="padding:var(--space-5);margin-bottom:var(--space-6);border-color:rgba(57,224,117,0.25);">
-          <p class="label" style="margin-bottom:var(--space-3);color:#39E075;">CE QUE VOUS RÉCUPÉREZ EN CHIFFRES</p>
-          <p style="font-size:14px;opacity:0.8;line-height:1.7;margin-bottom:var(--space-4);">Chaque devis sans relance vous coûte en moyenne <strong style="color:rgba(255,100,100,0.8);">1 200 € de CA perdu</strong>. Avec les relances automatiques à J+2 et J+7, vous récupérez statistiquement 1 à 2 devis supplémentaires par mois — sans rien taper.</p>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--space-3);">
-            <div style="background:rgba(255,100,100,0.08);border:1px solid rgba(255,100,100,0.2);border-radius:10px;padding:var(--space-3);text-align:center;">
-              <p style="font-size:11px;opacity:0.5;margin-bottom:4px;">PERTE TYPIQUE/MOIS</p>
-              <p style="font-size:1.5rem;font-weight:700;color:rgba(255,100,100,0.8);">1 200 €</p>
+          <!-- Ce qui est automatisé -->
+          <h2 style="font-size: 1.25rem; margin-bottom: var(--space-4)">Ce qui tourne automatiquement</h2>
+          <div style="display: flex; flex-direction: column; gap: var(--space-4); margin-bottom: var(--space-6)">
+            <div style="display: flex; gap: var(--space-3); align-items: flex-start">
+              <span style="color: var(--accent-teal); font-size: 1.125rem; min-width: 1.5rem">✓</span>
+              <div>
+                <p style="font-weight: 600; margin-bottom: 4px">Relance de devis (J+2, J+7)</p>
+                <p style="font-size: 14px; opacity: 0.7">
+                  Le devis part avec votre nom. La relance aussi. Le message reprend votre ton et votre mise en forme —
+                  comme si vous l'aviez envoyé vous-même.
+                </p>
+              </div>
             </div>
-            <div style="background:rgba(0,229,204,0.06);border:1px solid rgba(0,229,204,0.15);border-radius:10px;padding:var(--space-3);text-align:center;">
-              <p style="font-size:11px;opacity:0.5;margin-bottom:4px;">INVESTISSEMENT</p>
-              <p style="font-size:1.5rem;font-weight:700;color:var(--accent-teal);">990 €</p>
+            <div style="display: flex; gap: var(--space-3); align-items: flex-start">
+              <span style="color: var(--accent-teal); font-size: 1.125rem; min-width: 1.5rem">✓</span>
+              <div>
+                <p style="font-weight: 600; margin-bottom: 4px">Confirmation de RDV + rappel J-1</p>
+                <p style="font-size: 14px; opacity: 0.7">
+                  Votre client reçoit sa confirmation dès qu'il réserve. La veille, il reçoit un rappel. Moins
+                  d'absences.
+                </p>
+              </div>
             </div>
-            <div style="background:rgba(57,224,117,0.08);border:1px solid rgba(57,224,117,0.2);border-radius:10px;padding:var(--space-3);text-align:center;">
-              <p style="font-size:11px;opacity:0.5;margin-bottom:4px;">RENTABILISÉ EN</p>
-              <p style="font-size:1.5rem;font-weight:700;color:#39E075;">&lt; 1 mois</p>
+            <div style="display: flex; gap: var(--space-3); align-items: flex-start">
+              <span style="color: var(--accent-teal); font-size: 1.125rem; min-width: 1.5rem">✓</span>
+              <div>
+                <p style="font-weight: 600; margin-bottom: 4px">Email de bienvenue nouveau client</p>
+                <p style="font-size: 14px; opacity: 0.7">
+                  Dès qu'un nouveau contact entre, il reçoit un email personnalisé avec vos informations et la suite du
+                  parcours.
+                </p>
+              </div>
+            </div>
+            <div style="display: flex; gap: var(--space-3); align-items: flex-start">
+              <span style="color: var(--accent-teal); font-size: 1.125rem; min-width: 1.5rem">✓</span>
+              <div>
+                <p style="font-weight: 600; margin-bottom: 4px">Vous recevez une notification à chaque action</p>
+                <p style="font-size: 14px; opacity: 0.7">
+                  Un devis sign&eacute;, un RDV pris, un client qui r&eacute;pond &mdash; vous &ecirc;tes inform&eacute;
+                  en temps r&eacute;el (email ou appli, selon la config).
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- CTA -->
-        <div class="card" style="padding:var(--space-6);text-align:center;border-color:var(--accent-teal);">
-          <p style="font-size:3rem;font-weight:700;color:var(--accent-teal);letter-spacing:-0.05em;line-height:1;margin-bottom:var(--space-1);">990 €</p>
-          <p style="font-size:13px;opacity:0.55;margin-bottom:var(--space-4);">50 % à la commande · 50 % à la livraison · TVA non applicable (art. 293B CGI)</p>
-          <a href="../../diagnostic/index.html" class="btn btn-primary pinapp-breathe" style="font-size:1.0625rem;padding:18px 32px;margin-bottom:var(--space-4);">Démarrer ma demande — gratuit</a>
-          <div style="display:flex;justify-content:center;gap:var(--space-5);flex-wrap:wrap;">
-            <p style="font-size:13px;opacity:0.6;display:flex;gap:6px;"><span style="color:var(--accent-teal);">✓</span> Réponse sous 24 h</p>
-            <p style="font-size:13px;opacity:0.6;display:flex;gap:6px;"><span style="color:var(--accent-teal);">✓</span> 0 € si non satisfait</p>
-            <p style="font-size:13px;opacity:0.6;display:flex;gap:6px;"><span style="color:var(--accent-teal);">✓</span> Zéro engagement</p>
+          <!-- Démo live pipeline -->
+          <h2 style="font-size: 1.25rem; margin-bottom: var(--space-4)">Voyez-le tourner en direct</h2>
+          <div class="card" style="padding: var(--space-5); margin-bottom: var(--space-3)">
+            <p style="font-size: 13px; opacity: 0.5; margin-bottom: var(--space-3)">
+              SIMULATION — Un prospect vous contacte à 23h42…
+            </p>
+            <div
+              id="auto-demo-log"
+              style="font-family: monospace; font-size: 13px; line-height: 2; color: var(--text-2); min-height: 220px">
+              <span style="opacity: 0.3">Appuyez sur « Lancer la simulation » pour voir</span>
+            </div>
+            <div style="margin-top: var(--space-4); display: flex; gap: var(--space-2); flex-wrap: wrap">
+              <button
+                type="button"
+                id="auto-demo-btn"
+                class="btn btn-primary"
+                style="font-size: 13px; padding: 10px 20px">
+                ▶ Lancer la simulation
+              </button>
+              <button
+                type="button"
+                id="auto-demo-reset"
+                class="btn btn-secondary"
+                style="font-size: 13px; padding: 10px 20px; display: none">
+                Recommencer
+              </button>
+            </div>
           </div>
-        </div>
+          <p style="font-size: 12px; opacity: 0.4; margin-bottom: var(--space-6)">
+            Cette simulation représente ce qui se passe réellement dans vos outils (Notion, Gmail, WhatsApp…)
+          </p>
 
-        <p style="text-align:center;margin-top:var(--space-5);font-size:14px;opacity:0.6;">Besoin d'un site en plus ? <a href="../../offres/systeme-complet/index.html" style="color:var(--accent-teal);">Voir le système complet à 1 990 €</a></p>
-      </div>
-    </section>
-  </main>
+          <!-- Ce que vous approuvez -->
+          <div class="card" style="padding: var(--space-5); margin-bottom: var(--space-6)">
+            <p style="font-size: 1rem; font-weight: 600; margin-bottom: var(--space-3)">Vous restez maître de tout</p>
+            <p style="font-size: 14px; opacity: 0.75; line-height: 1.7">
+              Vous validez les textes des emails avant qu'ils soient activés. Vous pouvez modifier ou stopper à tout
+              moment. Rien ne tourne sans votre accord initial.
+            </p>
+          </div>
+
+          <script>
+            (function () {
+              var steps = [
+                {
+                  delay: 0,
+                  icon: '📨',
+                  text: '23:42 — Thomas B. remplit votre formulaire de contact',
+                  color: 'var(--text)',
+                },
+                {
+                  delay: 800,
+                  icon: '→',
+                  text: '23:42:03 — Aurora analyse la demande (type : devis peinture)',
+                  color: 'var(--accent-teal)',
+                },
+                {
+                  delay: 1600,
+                  icon: '📋',
+                  text: '23:42:05 — Fiche prospect créée dans Notion automatiquement',
+                  color: 'var(--text-2)',
+                },
+                {
+                  delay: 2400,
+                  icon: '📧',
+                  text: '23:42:06 — Email de confirmation envoyé à Thomas',
+                  color: 'var(--accent-teal)',
+                },
+                {
+                  delay: 3200,
+                  icon: '◦',
+                  text: '23:42:06 — Notification WhatsApp → vous',
+                  color: 'var(--accent-teal)',
+                },
+                { delay: 4800, icon: '⏳', text: "J+2 11:00 — Thomas n'a pas répondu…", color: 'rgba(255,200,0,0.7)' },
+                {
+                  delay: 5600,
+                  icon: '📧',
+                  text: 'J+2 11:00 — Relance automatique envoyée (ton amical)',
+                  color: 'var(--accent-teal)',
+                },
+                {
+                  delay: 6400,
+                  icon: '✓',
+                  text: "J+2 14:23 — Thomas ouvre l'email et accepte le devis",
+                  color: '#39E075',
+                },
+                {
+                  delay: 7200,
+                  icon: '📄',
+                  text: 'J+2 14:24 — Contrat envoyé avec lien de signature électronique',
+                  color: '#39E075',
+                },
+                {
+                  delay: 8000,
+                  icon: '✦',
+                  text: 'J+2 14:31 — Paiement reçu · Notion mis à jour · Mission active',
+                  color: '#39E075',
+                },
+                {
+                  delay: 9000,
+                  icon: '✨',
+                  text: "Vous n'avez tapé aucun de ces messages. Vous avez juste travaillé.",
+                  color: 'var(--accent-teal)',
+                  bold: true,
+                },
+              ];
+              var btn = document.getElementById('auto-demo-btn');
+              var reset = document.getElementById('auto-demo-reset');
+              var log = document.getElementById('auto-demo-log');
+              var running = false;
+              var timers = [];
+
+              function clearTimers() {
+                timers.forEach(clearTimeout);
+                timers = [];
+              }
+
+              btn.addEventListener('click', function () {
+                if (running) return;
+                running = true;
+                log.innerHTML = '';
+                btn.disabled = true;
+                btn.textContent = '▶ En cours…';
+                steps.forEach(function (s) {
+                  var t = setTimeout(function () {
+                    var line = document.createElement('div');
+                    line.style.cssText =
+                      'display:flex;gap:8px;align-items:flex-start;animation:fadeIn 300ms ease;color:' +
+                      s.color +
+                      ';' +
+                      (s.bold ? 'font-weight:600;margin-top:8px;' : '');
+                    line.innerHTML = '<span>' + s.icon + '</span><span>' + s.text + '</span>';
+                    log.appendChild(line);
+                    log.scrollTop = log.scrollHeight;
+                    if (s === steps[steps.length - 1]) {
+                      btn.style.display = 'none';
+                      reset.style.display = 'inline-flex';
+                    }
+                  }, s.delay);
+                  timers.push(t);
+                });
+              });
+
+              reset.addEventListener('click', function () {
+                clearTimers();
+                running = false;
+                btn.disabled = false;
+                btn.textContent = '▶ Lancer la simulation';
+                btn.style.display = 'inline-flex';
+                reset.style.display = 'none';
+                log.innerHTML = '<span style="opacity:0.3;">Appuyez sur « Lancer la simulation » pour voir</span>';
+              });
+            })();
+          </script>
+
+          <!-- ROI -->
+          <div
+            class="card"
+            style="padding: var(--space-5); margin-bottom: var(--space-6); border-color: rgba(57, 224, 117, 0.25)">
+            <p class="label" style="margin-bottom: var(--space-3); color: #39e075">CE QUE VOUS RÉCUPÉREZ EN CHIFFRES</p>
+            <p style="font-size: 14px; opacity: 0.8; line-height: 1.7; margin-bottom: var(--space-4)">
+              Chaque devis sans relance vous coûte en moyenne
+              <strong style="color: rgba(255, 100, 100, 0.8)">1 200 € de CA perdu</strong>. Avec les relances
+              automatiques à J+2 et J+7, vous récupérez statistiquement 1 à 2 devis supplémentaires par mois — sans rien
+              taper.
+            </p>
+            <div
+              style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space-3)">
+              <div
+                style="
+                  background: rgba(255, 100, 100, 0.08);
+                  border: 1px solid rgba(255, 100, 100, 0.2);
+                  border-radius: 10px;
+                  padding: var(--space-3);
+                  text-align: center;
+                ">
+                <p style="font-size: 11px; opacity: 0.5; margin-bottom: 4px">PERTE TYPIQUE/MOIS</p>
+                <p style="font-size: 1.5rem; font-weight: 700; color: rgba(255, 100, 100, 0.8)">1 200 €</p>
+              </div>
+              <div
+                style="
+                  background: rgba(0, 229, 204, 0.06);
+                  border: 1px solid rgba(0, 229, 204, 0.15);
+                  border-radius: 10px;
+                  padding: var(--space-3);
+                  text-align: center;
+                ">
+                <p style="font-size: 11px; opacity: 0.5; margin-bottom: 4px">INVESTISSEMENT</p>
+                <p style="font-size: 1.5rem; font-weight: 700; color: var(--accent-teal)">990 €</p>
+              </div>
+              <div
+                style="
+                  background: rgba(57, 224, 117, 0.08);
+                  border: 1px solid rgba(57, 224, 117, 0.2);
+                  border-radius: 10px;
+                  padding: var(--space-3);
+                  text-align: center;
+                ">
+                <p style="font-size: 11px; opacity: 0.5; margin-bottom: 4px">RENTABILISÉ EN</p>
+                <p style="font-size: 1.5rem; font-weight: 700; color: #39e075">&lt; 1 mois</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <div class="card" style="padding: var(--space-6); text-align: center; border-color: var(--accent-teal)">
+            <p
+              style="
+                font-size: 3rem;
+                font-weight: 700;
+                color: var(--accent-teal);
+                letter-spacing: -0.05em;
+                line-height: 1;
+                margin-bottom: var(--space-1);
+              ">
+              990 €
+            </p>
+            <p style="font-size: 13px; opacity: 0.55; margin-bottom: var(--space-4)">
+              50 % à la commande · 50 % à la livraison · TVA non applicable (art. 293B CGI)
+            </p>
+            <a
+              href="../../diagnostic/index.html"
+              class="btn btn-primary pinapp-breathe"
+              style="font-size: 1.0625rem; padding: 18px 32px; margin-bottom: var(--space-4)"
+              >Démarrer ma demande — gratuit</a
+            >
+            <div style="display: flex; justify-content: center; gap: var(--space-5); flex-wrap: wrap">
+              <p style="font-size: 13px; opacity: 0.6; display: flex; gap: 6px">
+                <span style="color: var(--accent-teal)">✓</span> Réponse sous 24 h
+              </p>
+              <p style="font-size: 13px; opacity: 0.6; display: flex; gap: 6px">
+                <span style="color: var(--accent-teal)">✓</span> 0 € si non satisfait
+              </p>
+              <p style="font-size: 13px; opacity: 0.6; display: flex; gap: 6px">
+                <span style="color: var(--accent-teal)">✓</span> Zéro engagement
+              </p>
+            </div>
+          </div>
+
+          <p style="text-align: center; margin-top: var(--space-5); font-size: 14px; opacity: 0.6">
+            Besoin d'un site en plus ?
+            <a href="../../offres/systeme-complet/index.html" style="color: var(--accent-teal)"
+              >Voir le système complet à 1 990 €</a
+            >
+          </p>
+        </div>
+      </section>
+    </main>
     <footer class="site-footer">
-    <div aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none;">
-      <svg viewBox="0 0 120 140" width="380" height="440" style="position:absolute;bottom:-60px;right:-40px;opacity:0.03;" aria-hidden="true" fill="currentColor"><ellipse cx="60" cy="80" rx="38" ry="48"/><path d="M60 32 C54 38 50 42 52 48"/><path d="M60 32 C60 38 60 42 60 48"/><path d="M60 32 C66 38 70 42 68 48"/><rect x="22" y="60" width="76" height="4" rx="2"/><rect x="22" y="72" width="76" height="4" rx="2"/><rect x="22" y="84" width="76" height="4" rx="2"/></svg>
-    </div>
-    <div class="container" style="position:relative;text-align:center;padding:var(--space-7) 0 var(--space-5);">
-      <p style="font-size:1.0625rem;opacity:0.55;margin-bottom:var(--space-4);font-style:italic;letter-spacing:-0.01em;">Pinapp orchestre. Vous validez. Toujours.</p>
-      <nav style="display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-3);margin-bottom:var(--space-4);font-size:13px;opacity:0.65;" aria-label="Liens footer">
-        <a href="https://linkedin.com/in/lauralie-daguzay-4a4542197/" rel="noopener noreferrer" target="_blank">LinkedIn</a>
-        <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
-        <a href="../../legal/mentions.html">Mentions légales</a>
-        <a href="../../legal/cgv.html">CGV</a>
-        <a href="../../legal/confidentialite.html">Confidentialité</a>
-      </nav>
-        <nav style="display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-3);margin-bottom:var(--space-3);font-size:12px;opacity:0.4;" aria-label="Liens secondaires">
+      <div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden; pointer-events: none">
+        <svg
+          viewBox="0 0 120 140"
+          width="380"
+          height="440"
+          style="position: absolute; bottom: -60px; right: -40px; opacity: 0.03"
+          aria-hidden="true"
+          fill="currentColor">
+          <ellipse cx="60" cy="80" rx="38" ry="48" />
+          <path d="M60 32 C54 38 50 42 52 48" />
+          <path d="M60 32 C60 38 60 42 60 48" />
+          <path d="M60 32 C66 38 70 42 68 48" />
+          <rect x="22" y="60" width="76" height="4" rx="2" />
+          <rect x="22" y="72" width="76" height="4" rx="2" />
+          <rect x="22" y="84" width="76" height="4" rx="2" />
+        </svg>
+      </div>
+      <div class="container" style="position: relative; text-align: center; padding: var(--space-7) 0 var(--space-5)">
+        <p
+          style="
+            font-size: 1.0625rem;
+            opacity: 0.55;
+            margin-bottom: var(--space-4);
+            font-style: italic;
+            letter-spacing: -0.01em;
+          ">
+          Pinapp orchestre. Vous validez. Toujours.
+        </p>
+        <nav
+          style="
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+            font-size: 13px;
+            opacity: 0.65;
+          "
+          aria-label="Liens footer">
+          <a href="https://linkedin.com/in/lauralie-daguzay-4a4542197/" rel="noopener noreferrer" target="_blank"
+            >LinkedIn</a
+          >
+          <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
+          <a href="../../legal/mentions.html">Mentions légales</a>
+          <a href="../../legal/cgv.html">CGV</a>
+          <a href="../../legal/confidentialite.html">Confidentialité</a>
+        </nav>
+        <nav
+          style="
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-3);
+            font-size: 12px;
+            opacity: 0.4;
+          "
+          aria-label="Liens secondaires">
           <a href="../../expertise-ia/index.html">IA &amp; systèmes</a>
           <a href="../../auralis/index.html">Auralis RH</a>
           <a href="../../formation-gratuite/index.html">Formation IA</a>
         </nav>
-      <p style="font-size:12px;opacity:0.35;letter-spacing:0.04em;">Pinapp Studio © 2026</p>
-    </div>
-  </footer>
-  <div id="cookie-banner" role="dialog" aria-label="Cookies" style="position:fixed;bottom:0;left:0;right:0;padding:var(--space-3);background:var(--bg-card);border-top:1px solid var(--border-card);backdrop-filter:blur(20px);z-index:9000;display:none;">
-    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap;">
-      <p style="font-size:13px;opacity:0.8;max-width:600px;">Ce site utilise des cookies de mesure d’audience anonymes (Plausible Analytics — sans tracking personnel).</p>
-      <div style="display:flex;gap:var(--space-2);">
-        <button type="button" id="cookieAccept" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Accepter</button>
-        <button type="button" id="cookieRefuse" class="btn btn-secondary" style="font-size:13px;padding:10px 20px;">Refuser</button>
+        <p style="font-size: 12px; opacity: 0.35; letter-spacing: 0.04em">Pinapp Studio © 2026</p>
+      </div>
+    </footer>
+    <div
+      id="cookie-banner"
+      role="dialog"
+      aria-label="Cookies"
+      style="
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: var(--space-3);
+        background: var(--bg-card);
+        border-top: 1px solid var(--border-card);
+        backdrop-filter: blur(20px);
+        z-index: 9000;
+        display: none;
+      ">
+      <div
+        class="container"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: var(--space-3);
+          flex-wrap: wrap;
+        ">
+        <p style="font-size: 13px; opacity: 0.8; max-width: 600px">
+          Ce site utilise des cookies de mesure d’audience anonymes (Plausible Analytics — sans tracking personnel).
+        </p>
+        <div style="display: flex; gap: var(--space-2)">
+          <button type="button" id="cookieAccept" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px">
+            Accepter
+          </button>
+          <button type="button" id="cookieRefuse" class="btn btn-secondary" style="font-size: 13px; padding: 10px 20px">
+            Refuser
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <script src="../../assets/js/config.js"></script>
-  <script src="../../assets/js/security.js" defer></script>
-  <script src="../../assets/js/main.js" defer></script>
-  <script src="../../assets/js/particles.js" defer></script>
-  <script src="../../assets/js/aurora.js" defer></script>
-  <script src="../../assets/js/parallax.js" defer></script>
-  <script src="../../assets/js/intelligence.js" defer></script><script src="../../assets/js/scroll-cinema.js" defer></script>
-  <script src="../../assets/js/cursor.js" defer></script>
-<script src="../../assets/js/pandora-night.js" defer></script><script src="../../assets/js/mode-toggle.js" defer></script>
-  <script src="../../assets/js/bio-particles.js" defer></script>
-  <script src="../assets/js/pandora-world.js"></script>
-  <script src="../assets/js/pandora-interactions.js"></script>
-</body>
+    <script src="../../assets/js/config.js"></script>
+    <script src="../../assets/js/security.js" defer></script>
+    <script src="../../assets/js/main.js" defer></script>
+    <script src="../../assets/js/particles.js" defer></script>
+    <script src="../../assets/js/aurora.js" defer></script>
+    <script src="../../assets/js/parallax.js" defer></script>
+    <script src="../../assets/js/intelligence.js" defer></script>
+    <script src="../../assets/js/scroll-cinema.js" defer></script>
+    <script src="../../assets/js/cursor.js" defer></script>
+    <script src="../../assets/js/pandora-night.js" defer></script>
+    <script src="../../assets/js/mode-toggle.js" defer></script>
+    <script src="../../assets/js/bio-particles.js" defer></script>
+    <script src="../assets/js/pandora-world.js"></script>
+    <script src="../assets/js/pandora-interactions.js"></script>
+  </body>
 </html>

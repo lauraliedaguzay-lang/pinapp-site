@@ -1,268 +1,627 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="fr">
-<head>
-<script>(function(){var t=localStorage.getItem('pinapp-theme')||localStorage.getItem('pinapp-mode');var d=window.matchMedia('(prefers-color-scheme:dark)').matches;var m=(t==='light'||t==='jour')?'jour':(t==='dark'||t==='nuit')?'nuit':(d?'nuit':'jour');document.documentElement.setAttribute('data-mode',m);document.documentElement.setAttribute('data-theme',m==='jour'?'light':'dark');if(document.body){document.body.classList.add('mode-'+m);}document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('mode-'+m);});}());</script>
-  <link rel="preload" as="image" href="../assets/images/bg-pandora-nuit.png" fetchpriority="high">
-  <link rel="preload" as="image" href="../assets/images/bg-pandora-jour.png">
-  <meta charset="UTF-8">
-  <meta name="theme-color" id="pinapp-theme-color" content="#020810">
-  <script src="../assets/js/theme-init.js" defer></script>
-  <meta name="view-transition" content="same-origin">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Lauralie Daguzay — Fondatrice · Pinapp Studio</title>
-  <meta name="description" content="Je construis des syst&egrave;mes digitaux pour les TPE et ind&eacute;pendants. Pas de sous-traitants &mdash; un interlocuteur unique et des outils adapt&eacute;s &agrave; chaque mission.">
-  <meta property="og:title" content="À propos — Lauralie Daguzay — Pinapp Studio">
-  <meta property="og:description" content="Pinapp Studio, fondé par Lauralie Daguzay. IA, automatisation et sites web pour indépendants et TPE.">
-  <meta property="og:image" content="https://pinapp.fr/assets/images/og-home.png">
-  <meta property="og:url" content="https://pinapp.fr/a-propos/">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="fr_FR">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://pinapp.fr/assets/images/og-home.png">
-  <meta name="twitter:title" content="Lauralie Daguzay — Pinapp Studio, freelance web &amp; IA">
-  <meta name="twitter:description" content="Sites web et automatisation sur mesure pour artisans et TPE.">
-  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-  <link rel="stylesheet" href="../assets/variables.css">
-  <link rel="stylesheet" href="../assets/grid.css">
-  <link rel="stylesheet" href="../assets/animations.css">
-  <link rel="stylesheet" href="../assets/css/aurora-mobile.css"><link rel="stylesheet" href="../assets/css/pandora-jour.css">
-  <link rel="stylesheet" href="../assets/css/cursor.css">
-  <link rel="stylesheet" href="../assets/css/pandora-ux.css">
-  <link rel="canonical" href="https://pinapp.fr/a-propos/">
-  <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"ProfessionalService","name":"Pinapp Studio","founder":{"@type":"Person","name":"Lauralie Daguzay"},"email":"lauralie.daguzay@pinapp.fr","url":"https://pinapp.fr","areaServed":"FR","priceRange":"\u20ac\u20ac","serviceType":["Site web","Automatisation","IA"]}
-</script>  <script defer data-domain="pinapp.fr" src="https://plausible.io/js/script.js"></script>
-<script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)};document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('.btn-primary').forEach(function(b){b.addEventListener('click',function(){plausible('CTA Click',{props:{page:location.pathname,text:b.textContent.trim()}});});});});</script>  <link rel="preconnect" href="https://fonts.bunny.net">
-  <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap">
-  <link rel="stylesheet" href="../assets/css/pandora-dance.css">
-  <link rel="stylesheet" href="../assets/css/ios-glass.css">
-  <link rel="stylesheet" href="../assets/css/apple-finish.css">
-  <link rel="stylesheet" href="../assets/css/pinapp-modern-biolume.css">
-  <link rel="stylesheet" href="../assets/css/pinapp-premium.css">
-  <link rel="stylesheet" href="../assets/css/deploy-harmonise.css">
-  <link rel="stylesheet" href="../assets/css/pandora-jour-override.css">
-  <link rel="stylesheet" href="../assets/css/mobile-premium.css">
-  <link rel="stylesheet" href="../assets/css/neuro-layout.css">
-  
-  <link rel="stylesheet" href="../assets/css/pandora-world.css">
-  <link rel="stylesheet" href="../assets/css/pandora-details.css">
-</head>
-<body class="page-with-bottom-nav">
-  <div id="pandora-world" aria-hidden="true">
-    <div class="pandora-orbs">
-      <div class="orb orb-1"></div>
-      <div class="orb orb-2"></div>
-      <div class="orb orb-3"></div>
-      <div class="orb orb-4"></div>
+  <head>
+    <script>
+      (function () {
+        var t = localStorage.getItem('pinapp-theme') || localStorage.getItem('pinapp-mode');
+        var d = window.matchMedia('(prefers-color-scheme:dark)').matches;
+        var m = t === 'light' || t === 'jour' ? 'jour' : t === 'dark' || t === 'nuit' ? 'nuit' : d ? 'nuit' : 'jour';
+        document.documentElement.setAttribute('data-mode', m);
+        document.documentElement.setAttribute('data-theme', m === 'jour' ? 'light' : 'dark');
+        if (document.body) {
+          document.body.classList.add('mode-' + m);
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+          document.body.classList.add('mode-' + m);
+        });
+      })();
+    </script>
+    <link rel="preload" as="image" href="../assets/images/bg-pandora-nuit.png" fetchpriority="high" />
+    <link rel="preload" as="image" href="../assets/images/bg-pandora-jour.png" />
+    <meta charset="UTF-8" />
+    <meta name="theme-color" id="pinapp-theme-color" content="#020810" />
+    <script src="../assets/js/theme-init.js" defer></script>
+    <meta name="view-transition" content="same-origin" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Lauralie Daguzay — Fondatrice · Pinapp Studio</title>
+    <meta
+      name="description"
+      content="Je construis des syst&egrave;mes digitaux pour les TPE et ind&eacute;pendants. Pas de sous-traitants &mdash; un interlocuteur unique et des outils adapt&eacute;s &agrave; chaque mission." />
+    <meta property="og:title" content="À propos — Lauralie Daguzay — Pinapp Studio" />
+    <meta
+      property="og:description"
+      content="Pinapp Studio, fondé par Lauralie Daguzay. IA, automatisation et sites web pour indépendants et TPE." />
+    <meta property="og:image" content="https://pinapp.fr/assets/images/og-home.png" />
+    <meta property="og:url" content="https://pinapp.fr/a-propos/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://pinapp.fr/assets/images/og-home.png" />
+    <meta name="twitter:title" content="Lauralie Daguzay — Pinapp Studio, freelance web &amp; IA" />
+    <meta name="twitter:description" content="Sites web et automatisation sur mesure pour artisans et TPE." />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="stylesheet" href="../assets/variables.css" />
+    <link rel="stylesheet" href="../assets/grid.css" />
+    <link rel="stylesheet" href="../assets/animations.css" />
+    <link rel="stylesheet" href="../assets/css/aurora-mobile.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-jour.css" />
+    <link rel="stylesheet" href="../assets/css/cursor.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-ux.css" />
+    <link rel="canonical" href="https://pinapp.fr/a-propos/" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Pinapp Studio",
+        "founder": { "@type": "Person", "name": "Lauralie Daguzay" },
+        "email": "lauralie.daguzay@pinapp.fr",
+        "url": "https://pinapp.fr",
+        "areaServed": "FR",
+        "priceRange": "\u20ac\u20ac",
+        "serviceType": ["Site web", "Automatisation", "IA"]
+      }
+    </script>
+    <script defer data-domain="pinapp.fr" src="https://plausible.io/js/script.js"></script>
+    <script>
+      window.plausible =
+        window.plausible ||
+        function () {
+          (window.plausible.q = window.plausible.q || []).push(arguments);
+        };
+      document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.btn-primary').forEach(function (b) {
+          b.addEventListener('click', function () {
+            plausible('CTA Click', { props: { page: location.pathname, text: b.textContent.trim() } });
+          });
+        });
+      });
+    </script>
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" />
+    <link rel="stylesheet" href="../assets/css/pandora-dance.css" />
+    <link rel="stylesheet" href="../assets/css/ios-glass.css" />
+    <link rel="stylesheet" href="../assets/css/apple-finish.css" />
+    <link rel="stylesheet" href="../assets/css/pinapp-modern-biolume.css" />
+    <link rel="stylesheet" href="../assets/css/pinapp-premium.css" />
+    <link rel="stylesheet" href="../assets/css/deploy-harmonise.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-jour-override.css" />
+    <link rel="stylesheet" href="../assets/css/mobile-premium.css" />
+    <link rel="stylesheet" href="../assets/css/neuro-layout.css" />
+
+    <link rel="stylesheet" href="../assets/css/pandora-world.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-details.css" />
+  </head>
+  <body class="page-with-bottom-nav">
+    <div id="pandora-world" aria-hidden="true">
+      <div class="pandora-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+      </div>
+      <div class="pandora-spores" id="spores-container"></div>
+      <div class="pandora-stars" id="stars-container"></div>
+      <div class="pandora-clouds" id="clouds-container">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+      </div>
+      <div class="holo-grid"></div>
     </div>
-    <div class="pandora-spores" id="spores-container"></div>
-    <div class="pandora-stars" id="stars-container"></div>
-    <div class="pandora-clouds" id="clouds-container">
-      <div class="cloud cloud-1"></div>
-      <div class="cloud cloud-2"></div>
-      <div class="cloud cloud-3"></div>
+    <div id="pandora-loader" aria-hidden="true">
+      <svg width="32" height="38" viewBox="0 0 32 38" fill="none">
+        <defs>
+          <linearGradient id="pg-l" x1="16" y1="36" x2="16" y2="2" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#7B4FE8" />
+            <stop offset="100%" stop-color="#00E5CC" />
+          </linearGradient>
+        </defs>
+        <path d="M16 2 C13 5 10 6 11 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
+        <path d="M16 2 L16 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" />
+        <path d="M16 2 C19 5 22 6 21 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
+        <ellipse cx="16" cy="24" rx="9" ry="12" fill="url(#pg-l)" />
+        <path d="M7 20 L16 15 L25 20 L16 25 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
+        <path d="M7 26 L16 21 L25 26 L16 31 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
+      </svg>
     </div>
-    <div class="holo-grid"></div>
-  </div>
-<div id="pandora-loader" aria-hidden="true">
-  <svg width="32" height="38" viewBox="0 0 32 38" fill="none"><defs><linearGradient id="pg-l" x1="16" y1="36" x2="16" y2="2" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7B4FE8"/><stop offset="100%" stop-color="#00E5CC"/></linearGradient></defs><path d="M16 2 C13 5 10 6 11 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M16 2 L16 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round"/><path d="M16 2 C19 5 22 6 21 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none"/><ellipse cx="16" cy="24" rx="9" ry="12" fill="url(#pg-l)"/><path d="M7 20 L16 15 L25 20 L16 25 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none"/><path d="M7 26 L16 21 L25 26 L16 31 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none"/></svg>
-</div>
-<script>(function(){function hideLoader(){var l=document.getElementById('pandora-loader');if(l&&l.parentNode){l.style.opacity='0';setTimeout(function(){if(l.parentNode)l.remove();},400);}}window.addEventListener('load',hideLoader);setTimeout(hideLoader,2000);})();</script><div class="aurora-mobile" aria-hidden="true"><div class="aurora-orb aurora-orb-1"></div><div class="aurora-orb aurora-orb-2"></div><div class="aurora-orb aurora-orb-3"></div><div class="aurora-orb aurora-orb-4"></div></div><div class="pandora-shapes" aria-hidden="true"><div class="pandora-shape pandora-shape-1"></div><div class="pandora-shape pandora-shape-2"></div><div class="pandora-shape pandora-shape-3"></div><div class="pandora-shape pandora-shape-4"></div></div><div class="holo-grid" aria-hidden="true"></div><div class="noise" aria-hidden="true"></div><div class="jour-spores" aria-hidden="true"><span class="jour-spore" style="left:12%;top:75%;--dur:22s;--delay:-4s;--dx:18px;--dy:-90px;"></span><span class="jour-spore" style="left:28%;top:60%;--dur:28s;--delay:-11s;--dx:-12px;--dy:-75px;"></span><span class="jour-spore" style="left:45%;top:82%;--dur:19s;--delay:-7s;--dx:25px;--dy:-60px;"></span><span class="jour-spore" style="left:62%;top:70%;--dur:32s;--delay:-2s;--dx:-20px;--dy:-85px;"></span><span class="jour-spore" style="left:78%;top:65%;--dur:24s;--delay:-15s;--dx:14px;--dy:-70px;"></span><span class="jour-spore jour-spore-teal" style="left:20%;top:85%;--dur:26s;--delay:-18s;--dx:10px;--dy:-65px;"></span><span class="jour-spore jour-spore-teal" style="left:55%;top:88%;--dur:30s;--delay:-5s;--dx:-15px;--dy:-95px;"></span></div>
-  <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
-  <div class="scroll-progress" id="scrollProgress"></div>
-<div class="noise-overlay" aria-hidden="true"></div>
-  <nav class="nav" id="mainNav" aria-label="Navigation principale">
-    <div class="container nav-inner">
-            <a href="../index.html" class="nav-logo" aria-label="Pinapp Studio — accueil" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
-        <img class="nav-logo-img" src="../assets/images/pinapp-logo.png" alt="" width="132" height="36" decoding="async" />
-      </a>
+    <script>
+      (function () {
+        function hideLoader() {
+          var l = document.getElementById('pandora-loader');
+          if (l && l.parentNode) {
+            l.style.opacity = '0';
+            setTimeout(function () {
+              if (l.parentNode) l.remove();
+            }, 400);
+          }
+        }
+        window.addEventListener('load', hideLoader);
+        setTimeout(hideLoader, 2000);
+      })();
+    </script>
+    <div class="aurora-mobile" aria-hidden="true">
+      <div class="aurora-orb aurora-orb-1"></div>
+      <div class="aurora-orb aurora-orb-2"></div>
+      <div class="aurora-orb aurora-orb-3"></div>
+      <div class="aurora-orb aurora-orb-4"></div>
+    </div>
+    <div class="pandora-shapes" aria-hidden="true">
+      <div class="pandora-shape pandora-shape-1"></div>
+      <div class="pandora-shape pandora-shape-2"></div>
+      <div class="pandora-shape pandora-shape-3"></div>
+      <div class="pandora-shape pandora-shape-4"></div>
+    </div>
+    <div class="holo-grid" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="jour-spores" aria-hidden="true">
+      <span class="jour-spore" style="left: 12%; top: 75%; --dur: 22s; --delay: -4s; --dx: 18px; --dy: -90px"></span
+      ><span class="jour-spore" style="left: 28%; top: 60%; --dur: 28s; --delay: -11s; --dx: -12px; --dy: -75px"></span
+      ><span class="jour-spore" style="left: 45%; top: 82%; --dur: 19s; --delay: -7s; --dx: 25px; --dy: -60px"></span
+      ><span class="jour-spore" style="left: 62%; top: 70%; --dur: 32s; --delay: -2s; --dx: -20px; --dy: -85px"></span
+      ><span class="jour-spore" style="left: 78%; top: 65%; --dur: 24s; --delay: -15s; --dx: 14px; --dy: -70px"></span
+      ><span
+        class="jour-spore jour-spore-teal"
+        style="left: 20%; top: 85%; --dur: 26s; --delay: -18s; --dx: 10px; --dy: -65px"></span
+      ><span
+        class="jour-spore jour-spore-teal"
+        style="left: 55%; top: 88%; --dur: 30s; --delay: -5s; --dx: -15px; --dy: -95px"></span>
+    </div>
+    <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <nav class="nav" id="mainNav" aria-label="Navigation principale">
+      <div class="container nav-inner">
+        <a
+          href="../index.html"
+          class="nav-logo"
+          aria-label="Pinapp Studio — accueil"
+          style="display: flex; align-items: center; gap: 10px; text-decoration: none">
+          <img
+            class="nav-logo-img"
+            src="../assets/images/pinapp-logo.png"
+            alt=""
+            width="132"
+            height="36"
+            decoding="async" />
+        </a>
         <div class="nav-links">
-        <a href="../offres/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
-        <a href="../realisations/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
-        <a href="../a-propos/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
-        <a href="../faq/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
-        <a href="../auralis/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Auralis</a>
-        <a href="../univers/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Univers</a>
-        <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Démarrer ma demande</a>
+          <a href="../offres/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Offres</a>
+          <a href="../realisations/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Réalisations</a>
+          <a href="../a-propos/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">À propos</a>
+          <a href="../faq/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">FAQ</a>
+          <a href="../auralis/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Auralis</a>
+          <a href="../univers/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Univers</a>
+          <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px"
+            >Démarrer ma demande</a
+          >
+        </div>
+        <div class="nav-trailing">
+          <button type="button" class="mode-toggle" id="themeToggle" aria-label="Passer en mode jour">
+            <svg class="icon-lune" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path
+                d="M15.5 10.5A6.5 6.5 0 0 1 7.5 2.5a6.5 6.5 0 1 0 8 8z"
+                stroke="#00E5CC"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                fill="none" /></svg
+            ><svg class="icon-soleil" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <circle cx="9" cy="9" r="3.5" stroke="#009B8C" stroke-width="1.5" />
+              <line x1="9" y1="1" x2="9" y2="3" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="9" y1="15" x2="9" y2="17" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="1" y1="9" x2="3" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="15" y1="9" x2="17" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="burger"
+            id="burger"
+            aria-label="Ouvrir le menu"
+            aria-expanded="false"
+            aria-controls="mobileDrawer">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              aria-hidden="true">
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
       </div>
-      <div class="nav-trailing">
-        <button type="button" class="mode-toggle" id="themeToggle" aria-label="Passer en mode jour"><svg class="icon-lune" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M15.5 10.5A6.5 6.5 0 0 1 7.5 2.5a6.5 6.5 0 1 0 8 8z" stroke="#00E5CC" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg><svg class="icon-soleil" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="3.5" stroke="#009B8C" stroke-width="1.5"/><line x1="9" y1="1" x2="9" y2="3" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="15" x2="9" y2="17" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="9" x2="3" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/><line x1="15" y1="9" x2="17" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/></svg></button>
-        <button type="button" class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileDrawer">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </nav>
+    <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" role="dialog" aria-label="Menu" aria-modal="true">
+      <div class="mobile-drawer-panel">
+        <button type="button" id="drawerClose" aria-label="Fermer le menu">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
         </button>
+        <div class="nav-links">
+          <a href="../offres/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Offres</a>
+          <a href="../realisations/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Réalisations</a>
+          <a href="../a-propos/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">À propos</a>
+          <a href="../faq/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">FAQ</a>
+          <a href="../auralis/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Auralis</a>
+          <a href="../univers/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Univers</a>
+          <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px"
+            >Démarrer ma demande</a
+          >
+        </div>
       </div>
     </div>
-  </nav>
-  <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" role="dialog" aria-label="Menu" aria-modal="true">
-    <div class="mobile-drawer-panel">
-      <button type="button" id="drawerClose" aria-label="Fermer le menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
-      <div class="nav-links">
-        <a href="../offres/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
-        <a href="../realisations/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
-        <a href="../a-propos/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
-        <a href="../faq/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
-        <a href="../auralis/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Auralis</a>
-        <a href="../univers/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Univers</a>
-        <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Démarrer ma demande</a>
-      </div>
-  </div>
-  </div>        <div class="bottom-bar bottom-bar--site bottom-bar--six" aria-label="Navigation du site">
-    <a href="../index.html">Accueil</a>
-    <a href="../offres/index.html">Offres</a>
-    <a href="../diagnostic/index.html" class="bottom-bar-cta">D&eacute;marrer</a>
-    <a href="../univers/index.html">Univers</a>
-    <a href="../formation-gratuite/index.html">Form.</a>
-    <a href="../realisations/index.html">R&eacute;alis.</a>
-  </div>
-<main id="contenu-principal" class="stack-above-bg" tabindex="-1">
-    <section class="section section-enter">
-      <div class="container" style="max-width:700px;">
+    <div class="bottom-bar bottom-bar--site bottom-bar--six" aria-label="Navigation du site">
+      <a href="../index.html">Accueil</a>
+      <a href="../offres/index.html">Offres</a>
+      <a href="../diagnostic/index.html" class="bottom-bar-cta">D&eacute;marrer</a>
+      <a href="../univers/index.html">Univers</a>
+      <a href="../formation-gratuite/index.html">Form.</a>
+      <a href="../realisations/index.html">R&eacute;alis.</a>
+    </div>
+    <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
+      <section class="section section-enter">
+        <div class="container" style="max-width: 700px">
+          <!-- Intro Lauralie -->
+          <p class="label" style="margin-bottom: var(--space-2)">QUI EST DERRIÈRE PINAPP</p>
+          <h1 style="font-size: var(--text-h1); letter-spacing: -0.02em; margin-bottom: var(--space-5)">
+            Pinapp, c'est moi — Lauralie Daguzay, créatrice de sites web et systèmes automatisés.
+          </h1>
 
-        <!-- Intro Lauralie -->
-        <p class="label" style="margin-bottom:var(--space-2);">QUI EST DERRIÈRE PINAPP</p>
-        <h1 style="font-size:var(--text-h1);letter-spacing:-0.02em;margin-bottom:var(--space-5);">Pinapp, c'est moi — Lauralie Daguzay, créatrice de sites web et systèmes automatisés.</h1>
-
-        <div style="display:flex;flex-wrap:wrap;gap:var(--space-6);align-items:flex-start;margin-bottom:var(--space-7);">
-          <div style="flex:1;min-width:240px;max-width:320px;">
-            <div style="position:relative;margin-bottom:var(--space-4);">
-              <img src="../assets/images/lauralie.png" alt="Lauralie Daguzay — fondatrice Pinapp Studio"
-                   style="width:100%;max-width:280px;border-radius:20px;
-                          box-shadow:0 20px 60px rgba(0,0,0,0.35),0 0 0 1px rgba(0,229,204,0.12);
-                          display:block;object-fit:cover;aspect-ratio:3/4;object-position:top;">
-              <div style="position:absolute;bottom:14px;left:14px;
-                          background:rgba(2,8,16,0.72);backdrop-filter:blur(12px);
-                          border:1px solid rgba(0,229,204,0.22);border-radius:12px;
-                          padding:8px 14px;">
-                <p style="font-size:13px;font-weight:600;margin:0;color:var(--text);">Lauralie Daguzay</p>
-                <p style="font-size:11px;opacity:0.6;margin:2px 0 0;color:var(--accent-teal);">Fondatrice — Pinapp Studio</p>
+          <div
+            style="
+              display: flex;
+              flex-wrap: wrap;
+              gap: var(--space-6);
+              align-items: flex-start;
+              margin-bottom: var(--space-7);
+            ">
+            <div style="flex: 1; min-width: 240px; max-width: 320px">
+              <div style="position: relative; margin-bottom: var(--space-4)">
+                <img
+                  src="../assets/images/lauralie.png"
+                  alt="Lauralie Daguzay — fondatrice Pinapp Studio"
+                  style="
+                    width: 100%;
+                    max-width: 280px;
+                    border-radius: 20px;
+                    box-shadow:
+                      0 20px 60px rgba(0, 0, 0, 0.35),
+                      0 0 0 1px rgba(0, 229, 204, 0.12);
+                    display: block;
+                    object-fit: cover;
+                    aspect-ratio: 3/4;
+                    object-position: top;
+                  " />
+                <div
+                  style="
+                    position: absolute;
+                    bottom: 14px;
+                    left: 14px;
+                    background: rgba(2, 8, 16, 0.72);
+                    backdrop-filter: blur(12px);
+                    border: 1px solid rgba(0, 229, 204, 0.22);
+                    border-radius: 12px;
+                    padding: 8px 14px;
+                  ">
+                  <p style="font-size: 13px; font-weight: 600; margin: 0; color: var(--text)">Lauralie Daguzay</p>
+                  <p style="font-size: 11px; opacity: 0.6; margin: 2px 0 0; color: var(--accent-teal)">
+                    Fondatrice — Pinapp Studio
+                  </p>
+                </div>
               </div>
+              <a
+                href="https://linkedin.com/in/lauralie-daguzay-4a4542197/"
+                rel="noopener noreferrer"
+                target="_blank"
+                class="btn btn-secondary"
+                style="font-size: 13px"
+                >LinkedIn →</a
+              >
             </div>
-            <a href="https://linkedin.com/in/lauralie-daguzay-4a4542197/" rel="noopener noreferrer" target="_blank" class="btn btn-secondary" style="font-size:13px;">LinkedIn →</a>
-          </div>
-          <div style="flex:2;min-width:260px;">
-            <p style="font-size:1.0625rem;line-height:1.8;margin-bottom:var(--space-4);">Je construis des sites web et des automatisations pour les artisans, restaurateurs et indépendants qui n'ont pas le temps de gérer leur digital — et qui ne veulent pas s'y perdre.</p>
-            <p style="opacity:0.75;line-height:1.8;margin-bottom:var(--space-4);">Pas d'agence derrière. Pas de sous-traitants. Je travaille seule, avec les meilleurs outils du moment. Vous savez à qui vous parlez du premier au dernier jour.</p>
-            <p style="opacity:0.75;line-height:1.8;">J'ai conçu et développé Auralis RH de A à Z — un assistant IA de bien-être pour les équipes RH. C'est ma preuve concrète que je sais construire des systèmes qui tiennent.</p>
-            <div style="background:rgba(0,229,204,0.06);border:1px solid rgba(0,229,204,0.2);border-radius:12px;padding:var(--space-3);margin-top:var(--space-3);">
-              <p style="font-size:13px;opacity:0.5;margin-bottom:4px;">RÉALISATION CONCRÈTE</p>
-              <p style="font-size:14px;line-height:1.6;">Auralis RH — assistant IA complet (questionnaires, scoring, tableaux de bord) conçu et livré pour des équipes RH. Architecture full-stack, IA intégrée, interface no-code accessible. <a href="../auralis/index.html" style="color:var(--accent-teal);">Voir le projet →</a></p>
+            <div style="flex: 2; min-width: 260px">
+              <p style="font-size: 1.0625rem; line-height: 1.8; margin-bottom: var(--space-4)">
+                Je construis des sites web et des automatisations pour les artisans, restaurateurs et indépendants qui
+                n'ont pas le temps de gérer leur digital — et qui ne veulent pas s'y perdre.
+              </p>
+              <p style="opacity: 0.75; line-height: 1.8; margin-bottom: var(--space-4)">
+                Pas d'agence derrière. Pas de sous-traitants. Je travaille seule, avec les meilleurs outils du moment.
+                Vous savez à qui vous parlez du premier au dernier jour.
+              </p>
+              <p style="opacity: 0.75; line-height: 1.8">
+                J'ai conçu et développé Auralis RH de A à Z — un assistant IA de bien-être pour les équipes RH. C'est ma
+                preuve concrète que je sais construire des systèmes qui tiennent.
+              </p>
+              <div
+                style="
+                  background: rgba(0, 229, 204, 0.06);
+                  border: 1px solid rgba(0, 229, 204, 0.2);
+                  border-radius: 12px;
+                  padding: var(--space-3);
+                  margin-top: var(--space-3);
+                ">
+                <p style="font-size: 13px; opacity: 0.5; margin-bottom: 4px">RÉALISATION CONCRÈTE</p>
+                <p style="font-size: 14px; line-height: 1.6">
+                  Auralis RH — assistant IA complet (questionnaires, scoring, tableaux de bord) conçu et livré pour des
+                  équipes RH. Architecture full-stack, IA intégrée, interface no-code accessible.
+                  <a href="../auralis/index.html" style="color: var(--accent-teal)">Voir le projet →</a>
+                </p>
+              </div>
+              <p
+                style="
+                  font-family: Georgia, serif;
+                  font-style: italic;
+                  font-size: 18px;
+                  color: var(--accent-teal);
+                  margin-top: 28px;
+                  opacity: 0.85;
+                  line-height: 1.5;
+                ">
+                Je construis des univers.<br />Jamais deux fois le même.
+              </p>
             </div>
-            <p style="font-family:Georgia,serif;font-style:italic;font-size:18px;color:var(--accent-teal);margin-top:28px;opacity:0.85;line-height:1.5;">Je construis des univers.<br>Jamais deux fois le même.</p>
+          </div>
+
+          <!-- Ce en quoi je crois -->
+          <h2 style="font-size: 1.375rem; margin-bottom: var(--space-4)">Ce en quoi je crois</h2>
+          <div style="display: flex; flex-direction: column; gap: var(--space-3); margin-bottom: var(--space-7)">
+            <div style="display: flex; gap: var(--space-3); align-items: flex-start">
+              <span style="color: var(--accent-teal); font-size: 1.25rem; min-width: 1.5rem">✓</span>
+              <p style="line-height: 1.7; opacity: 0.85">
+                La tech doit servir l'humain — pas l'inverse. Un site ou une automatisation qui vous stresse, c'est un
+                échec.
+              </p>
+            </div>
+            <div style="display: flex; gap: var(--space-3); align-items: flex-start">
+              <span style="color: var(--accent-teal); font-size: 1.25rem; min-width: 1.5rem">✓</span>
+              <p style="line-height: 1.7; opacity: 0.85">
+                Un client informé est un client satisfait. Je vous explique chaque décision, en français, sans jargon.
+              </p>
+            </div>
+            <div style="display: flex; gap: var(--space-3); align-items: flex-start">
+              <span style="color: var(--accent-teal); font-size: 1.25rem; min-width: 1.5rem">✓</span>
+              <p style="line-height: 1.7; opacity: 0.85">
+                Vous confirmez. Toujours. La pr&eacute;paration est encha&icirc;n&eacute;e c&ocirc;t&eacute; studio ;
+                rien n&rsquo;est mis en ligne sans votre accord explicite, &agrave; chaque &eacute;tape.
+              </p>
+            </div>
+          </div>
+
+          <!-- Légitimité entreprise -->
+          <div
+            style="
+              background: var(--glass);
+              border: 1px solid var(--border-card);
+              border-radius: 14px;
+              padding: var(--space-4);
+              margin-bottom: var(--space-6);
+              display: flex;
+              flex-wrap: wrap;
+              gap: var(--space-4);
+            ">
+            <div style="flex: 1; min-width: 140px">
+              <p style="font-size: 11px; opacity: 0.45; margin-bottom: 4px">STRUCTURE</p>
+              <p style="font-size: 14px; font-weight: 600">Entreprise individuelle</p>
+              <p style="font-size: 12px; opacity: 0.5">Enregistrée en France</p>
+            </div>
+            <div style="flex: 1; min-width: 140px">
+              <p style="font-size: 11px; opacity: 0.45; margin-bottom: 4px">SPÉCIALITÉ</p>
+              <p style="font-size: 14px; font-weight: 600">Web & Automatisation IA</p>
+              <p style="font-size: 12px; opacity: 0.5">Sites, workflows, systèmes</p>
+            </div>
+            <div style="flex: 1; min-width: 140px">
+              <p style="font-size: 11px; opacity: 0.45; margin-bottom: 4px">LOCALISATION</p>
+              <p style="font-size: 14px; font-weight: 600">France entière</p>
+              <p style="font-size: 12px; opacity: 0.5">100 % à distance</p>
+            </div>
+            <div style="flex: 1; min-width: 140px">
+              <p style="font-size: 11px; opacity: 0.45; margin-bottom: 4px">TVA</p>
+              <p style="font-size: 14px; font-weight: 600">Non applicable</p>
+              <p style="font-size: 12px; opacity: 0.5">Art. 293B CGI</p>
+            </div>
+          </div>
+
+          <!-- Garanties -->
+          <h2 style="font-size: 1.375rem; margin-bottom: var(--space-4)">Mes engagements</h2>
+          <div class="grid grid-3" style="margin-bottom: var(--space-4)">
+            <div class="card" style="padding: var(--space-4); text-align: center">
+              <p
+                style="
+                  font-size: 2rem;
+                  font-weight: 700;
+                  color: var(--accent-teal);
+                  letter-spacing: -0.04em;
+                  line-height: 1;
+                  margin-bottom: var(--space-2);
+                ">
+                0 €
+              </p>
+              <p style="font-size: 13px; opacity: 0.7">si non satisfait à la livraison</p>
+            </div>
+            <div class="card" style="padding: var(--space-4); text-align: center">
+              <p
+                style="
+                  font-size: 2rem;
+                  font-weight: 700;
+                  color: var(--accent-teal);
+                  letter-spacing: -0.04em;
+                  line-height: 1;
+                  margin-bottom: var(--space-2);
+                ">
+                24 h
+              </p>
+              <p style="font-size: 13px; opacity: 0.7">délai de réponse à votre demande</p>
+            </div>
+            <div class="card" style="padding: var(--space-4); text-align: center">
+              <p
+                style="
+                  font-size: 2rem;
+                  font-weight: 700;
+                  color: var(--accent-teal);
+                  letter-spacing: -0.04em;
+                  line-height: 1;
+                  margin-bottom: var(--space-2);
+                ">
+                100 %
+              </p>
+              <p style="font-size: 13px; opacity: 0.7">contrôle client à chaque étape</p>
+            </div>
+          </div>
+          <p style="font-size: 12px; opacity: 0.45; text-align: center; margin-bottom: var(--space-7)">
+            Garantie 0 € = pas de solde dû si le résultat final ne vous convient pas. Conditions complètes dans les
+            <a href="../legal/cgv.html" style="color: var(--accent-teal); opacity: 1">CGV</a>.
+          </p>
+
+          <!-- CTA -->
+          <div
+            style="
+              text-align: center;
+              padding: var(--space-6);
+              border: 1px solid var(--border-card);
+              border-radius: var(--radius-card-lg);
+              background: var(--glass-card);
+            ">
+            <h3 style="font-size: 1.25rem; margin-bottom: var(--space-3)">Une question ? Un projet ?</h3>
+            <p style="font-size: 0.9375rem; opacity: 0.7; margin-bottom: var(--space-5)">
+              D&eacute;crivez votre besoin : r&eacute;ponse structur&eacute;e sous 24 h par &eacute;crit. Vous confirmez
+              la suite seulement si &ccedil;a vous convient.
+            </p>
+            <a href="../diagnostic/index.html" class="btn btn-primary pinapp-breathe">Démarrer ma demande — gratuit</a>
+            <p style="margin-top: var(--space-3); font-size: 12px; opacity: 0.45">
+              Z&eacute;ro engagement &middot; 100 % par &eacute;crit
+            </p>
           </div>
         </div>
-
-        <!-- Ce en quoi je crois -->
-        <h2 style="font-size:1.375rem;margin-bottom:var(--space-4);">Ce en quoi je crois</h2>
-        <div style="display:flex;flex-direction:column;gap:var(--space-3);margin-bottom:var(--space-7);">
-          <div style="display:flex;gap:var(--space-3);align-items:flex-start;">
-            <span style="color:var(--accent-teal);font-size:1.25rem;min-width:1.5rem;">✓</span>
-            <p style="line-height:1.7;opacity:0.85;">La tech doit servir l'humain — pas l'inverse. Un site ou une automatisation qui vous stresse, c'est un échec.</p>
-          </div>
-          <div style="display:flex;gap:var(--space-3);align-items:flex-start;">
-            <span style="color:var(--accent-teal);font-size:1.25rem;min-width:1.5rem;">✓</span>
-            <p style="line-height:1.7;opacity:0.85;">Un client informé est un client satisfait. Je vous explique chaque décision, en français, sans jargon.</p>
-          </div>
-          <div style="display:flex;gap:var(--space-3);align-items:flex-start;">
-            <span style="color:var(--accent-teal);font-size:1.25rem;min-width:1.5rem;">✓</span>
-            <p style="line-height:1.7;opacity:0.85;">Vous confirmez. Toujours. La pr&eacute;paration est encha&icirc;n&eacute;e c&ocirc;t&eacute; studio ; rien n&rsquo;est mis en ligne sans votre accord explicite, &agrave; chaque &eacute;tape.</p>
-          </div>
-        </div>
-
-        <!-- Légitimité entreprise -->
-        <div style="background:var(--glass);border:1px solid var(--border-card);border-radius:14px;padding:var(--space-4);margin-bottom:var(--space-6);display:flex;flex-wrap:wrap;gap:var(--space-4);">
-          <div style="flex:1;min-width:140px;">
-            <p style="font-size:11px;opacity:0.45;margin-bottom:4px;">STRUCTURE</p>
-            <p style="font-size:14px;font-weight:600;">Entreprise individuelle</p>
-            <p style="font-size:12px;opacity:0.5;">Enregistrée en France</p>
-          </div>
-          <div style="flex:1;min-width:140px;">
-            <p style="font-size:11px;opacity:0.45;margin-bottom:4px;">SPÉCIALITÉ</p>
-            <p style="font-size:14px;font-weight:600;">Web & Automatisation IA</p>
-            <p style="font-size:12px;opacity:0.5;">Sites, workflows, systèmes</p>
-          </div>
-          <div style="flex:1;min-width:140px;">
-            <p style="font-size:11px;opacity:0.45;margin-bottom:4px;">LOCALISATION</p>
-            <p style="font-size:14px;font-weight:600;">France entière</p>
-            <p style="font-size:12px;opacity:0.5;">100 % à distance</p>
-          </div>
-          <div style="flex:1;min-width:140px;">
-            <p style="font-size:11px;opacity:0.45;margin-bottom:4px;">TVA</p>
-            <p style="font-size:14px;font-weight:600;">Non applicable</p>
-            <p style="font-size:12px;opacity:0.5;">Art. 293B CGI</p>
-          </div>
-        </div>
-
-        <!-- Garanties -->
-        <h2 style="font-size:1.375rem;margin-bottom:var(--space-4);">Mes engagements</h2>
-        <div class="grid grid-3" style="margin-bottom:var(--space-4);">
-          <div class="card" style="padding:var(--space-4);text-align:center;">
-            <p style="font-size:2rem;font-weight:700;color:var(--accent-teal);letter-spacing:-0.04em;line-height:1;margin-bottom:var(--space-2);">0 €</p>
-            <p style="font-size:13px;opacity:0.7;">si non satisfait à la livraison</p>
-          </div>
-          <div class="card" style="padding:var(--space-4);text-align:center;">
-            <p style="font-size:2rem;font-weight:700;color:var(--accent-teal);letter-spacing:-0.04em;line-height:1;margin-bottom:var(--space-2);">24 h</p>
-            <p style="font-size:13px;opacity:0.7;">délai de réponse à votre demande</p>
-          </div>
-          <div class="card" style="padding:var(--space-4);text-align:center;">
-            <p style="font-size:2rem;font-weight:700;color:var(--accent-teal);letter-spacing:-0.04em;line-height:1;margin-bottom:var(--space-2);">100 %</p>
-            <p style="font-size:13px;opacity:0.7;">contrôle client à chaque étape</p>
-          </div>
-        </div>
-        <p style="font-size:12px;opacity:0.45;text-align:center;margin-bottom:var(--space-7);">Garantie 0 € = pas de solde dû si le résultat final ne vous convient pas. Conditions complètes dans les <a href="../legal/cgv.html" style="color:var(--accent-teal);opacity:1;">CGV</a>.</p>
-
-        <!-- CTA -->
-        <div style="text-align:center;padding:var(--space-6);border:1px solid var(--border-card);border-radius:var(--radius-card-lg);background:var(--glass-card);">
-          <h3 style="font-size:1.25rem;margin-bottom:var(--space-3);">Une question ? Un projet ?</h3>
-          <p style="font-size:0.9375rem;opacity:0.7;margin-bottom:var(--space-5);">D&eacute;crivez votre besoin : r&eacute;ponse structur&eacute;e sous 24 h par &eacute;crit. Vous confirmez la suite seulement si &ccedil;a vous convient.</p>
-          <a href="../diagnostic/index.html" class="btn btn-primary pinapp-breathe">Démarrer ma demande — gratuit</a>
-          <p style="margin-top:var(--space-3);font-size:12px;opacity:0.45;">Z&eacute;ro engagement &middot; 100 % par &eacute;crit</p>
-        </div>
-
-      </div>
-    </section>
-  </main>
+      </section>
+    </main>
     <footer class="site-footer">
-    <div aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none;">
-      <svg viewBox="0 0 120 140" width="380" height="440" style="position:absolute;bottom:-60px;right:-40px;opacity:0.03;" aria-hidden="true" fill="currentColor"><ellipse cx="60" cy="80" rx="38" ry="48"/><path d="M60 32 C54 38 50 42 52 48"/><path d="M60 32 C60 38 60 42 60 48"/><path d="M60 32 C66 38 70 42 68 48"/><rect x="22" y="60" width="76" height="4" rx="2"/><rect x="22" y="72" width="76" height="4" rx="2"/><rect x="22" y="84" width="76" height="4" rx="2"/></svg>
-    </div>
-    <div class="container" style="position:relative;text-align:center;padding:var(--space-7) 0 var(--space-5);">
-      <p style="font-size:1.0625rem;opacity:0.55;margin-bottom:var(--space-4);font-style:italic;letter-spacing:-0.01em;">Pinapp orchestre. Vous validez. Toujours.</p>
-      <nav style="display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-3);margin-bottom:var(--space-4);font-size:13px;opacity:0.65;" aria-label="Liens footer">
-        <a href="https://linkedin.com/in/lauralie-daguzay-4a4542197/" rel="noopener noreferrer" target="_blank">LinkedIn</a>
-        <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
-        <a href="../legal/mentions.html">Mentions légales</a>
-        <a href="../legal/cgv.html">CGV</a>
-        <a href="../legal/confidentialite.html">Confidentialité</a>
-      </nav>
-        <nav style="display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-3);margin-bottom:var(--space-3);font-size:12px;opacity:0.4;" aria-label="Liens secondaires">
+      <div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden; pointer-events: none">
+        <svg
+          viewBox="0 0 120 140"
+          width="380"
+          height="440"
+          style="position: absolute; bottom: -60px; right: -40px; opacity: 0.03"
+          aria-hidden="true"
+          fill="currentColor">
+          <ellipse cx="60" cy="80" rx="38" ry="48" />
+          <path d="M60 32 C54 38 50 42 52 48" />
+          <path d="M60 32 C60 38 60 42 60 48" />
+          <path d="M60 32 C66 38 70 42 68 48" />
+          <rect x="22" y="60" width="76" height="4" rx="2" />
+          <rect x="22" y="72" width="76" height="4" rx="2" />
+          <rect x="22" y="84" width="76" height="4" rx="2" />
+        </svg>
+      </div>
+      <div class="container" style="position: relative; text-align: center; padding: var(--space-7) 0 var(--space-5)">
+        <p
+          style="
+            font-size: 1.0625rem;
+            opacity: 0.55;
+            margin-bottom: var(--space-4);
+            font-style: italic;
+            letter-spacing: -0.01em;
+          ">
+          Pinapp orchestre. Vous validez. Toujours.
+        </p>
+        <nav
+          style="
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+            font-size: 13px;
+            opacity: 0.65;
+          "
+          aria-label="Liens footer">
+          <a href="https://linkedin.com/in/lauralie-daguzay-4a4542197/" rel="noopener noreferrer" target="_blank"
+            >LinkedIn</a
+          >
+          <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
+          <a href="../legal/mentions.html">Mentions légales</a>
+          <a href="../legal/cgv.html">CGV</a>
+          <a href="../legal/confidentialite.html">Confidentialité</a>
+        </nav>
+        <nav
+          style="
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-3);
+            font-size: 12px;
+            opacity: 0.4;
+          "
+          aria-label="Liens secondaires">
           <a href="../expertise-ia/index.html">IA &amp; systèmes</a>
           <a href="../auralis/index.html">Auralis RH</a>
           <a href="../formation-gratuite/index.html">Formation IA</a>
         </nav>
-      <p style="font-size:12px;opacity:0.35;letter-spacing:0.04em;">Pinapp Studio © 2026</p>
-    </div>
-  </footer>
-  <div id="cookie-banner" role="dialog" aria-label="Cookies" style="position:fixed;bottom:0;left:0;right:0;padding:var(--space-3);background:var(--bg-card);border-top:1px solid var(--border-card);backdrop-filter:blur(20px);z-index:9000;display:none;">
-    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap;">
-      <p style="font-size:13px;opacity:0.8;max-width:600px;">Ce site utilise des cookies de mesure d’audience anonymes (Plausible Analytics — sans tracking personnel).</p>
-      <div style="display:flex;gap:var(--space-2);">
-        <button type="button" id="cookieAccept" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Accepter</button>
-        <button type="button" id="cookieRefuse" class="btn btn-secondary" style="font-size:13px;padding:10px 20px;">Refuser</button>
+        <p style="font-size: 12px; opacity: 0.35; letter-spacing: 0.04em">Pinapp Studio © 2026</p>
+      </div>
+    </footer>
+    <div
+      id="cookie-banner"
+      role="dialog"
+      aria-label="Cookies"
+      style="
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: var(--space-3);
+        background: var(--bg-card);
+        border-top: 1px solid var(--border-card);
+        backdrop-filter: blur(20px);
+        z-index: 9000;
+        display: none;
+      ">
+      <div
+        class="container"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: var(--space-3);
+          flex-wrap: wrap;
+        ">
+        <p style="font-size: 13px; opacity: 0.8; max-width: 600px">
+          Ce site utilise des cookies de mesure d’audience anonymes (Plausible Analytics — sans tracking personnel).
+        </p>
+        <div style="display: flex; gap: var(--space-2)">
+          <button type="button" id="cookieAccept" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px">
+            Accepter
+          </button>
+          <button type="button" id="cookieRefuse" class="btn btn-secondary" style="font-size: 13px; padding: 10px 20px">
+            Refuser
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <script src="../assets/js/config.js"></script>
-  <script src="../assets/js/security.js" defer></script>
-  <script src="../assets/js/main.js" defer></script>
-  <script src="../assets/js/particles.js" defer></script>
-  <script src="../assets/js/aurora.js" defer></script>
-  <script src="../assets/js/parallax.js" defer></script>
-  <script src="../assets/js/intelligence.js" defer></script><script src="../assets/js/scroll-cinema.js" defer></script>
-  <script src="../assets/js/cursor.js" defer></script>
-<script src="../assets/js/pandora-night.js" defer></script><script src="../assets/js/mode-toggle.js" defer></script>
-  <script src="../assets/js/bio-particles.js" defer></script>
-  <script src="../assets/js/pandora-world.js"></script>
-  <script src="../assets/js/pandora-interactions.js"></script>
-</body>
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/security.js" defer></script>
+    <script src="../assets/js/main.js" defer></script>
+    <script src="../assets/js/particles.js" defer></script>
+    <script src="../assets/js/aurora.js" defer></script>
+    <script src="../assets/js/parallax.js" defer></script>
+    <script src="../assets/js/intelligence.js" defer></script>
+    <script src="../assets/js/scroll-cinema.js" defer></script>
+    <script src="../assets/js/cursor.js" defer></script>
+    <script src="../assets/js/pandora-night.js" defer></script>
+    <script src="../assets/js/mode-toggle.js" defer></script>
+    <script src="../assets/js/bio-particles.js" defer></script>
+    <script src="../assets/js/pandora-world.js"></script>
+    <script src="../assets/js/pandora-interactions.js"></script>
+  </body>
 </html>

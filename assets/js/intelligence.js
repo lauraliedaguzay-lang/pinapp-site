@@ -1,5 +1,20 @@
 ﻿// Mark current page in nav
-(function(){var path=window.location.pathname;document.querySelectorAll('.nav a,.nav-links a').forEach(function(a){if(a.getAttribute('href')&&path.endsWith(a.getAttribute('href').replace(/^\.+\//,'').replace(/index\.html$/,''))){a.setAttribute('aria-current','page');}});})();
+(function () {
+  var path = window.location.pathname;
+  document.querySelectorAll('.nav a,.nav-links a').forEach(function (a) {
+    if (
+      a.getAttribute('href') &&
+      path.endsWith(
+        a
+          .getAttribute('href')
+          .replace(/^\.+\//, '')
+          .replace(/index\.html$/, ''),
+      )
+    ) {
+      a.setAttribute('aria-current', 'page');
+    }
+  });
+})();
 /* =====================================================
    PINAPP INTELLIGENCE — Le site observe · comprend · s'adapte
    Zéro cookie tiers — tout en localStorage
@@ -8,16 +23,16 @@
 
 const PinappIntel = {
   data: {
-    secteur:          null,
-    demosSeen:        [],
-    timeOnPage:       0,
-    scrollDepth:      0,
-    usedAurora:       false,
-    usedCalculateur:  false,
-    usedUnivers:      false,
-    visits:           0,
-    lastVisit:        null,
-    pagesVisited:     [],
+    secteur: null,
+    demosSeen: [],
+    timeOnPage: 0,
+    scrollDepth: 0,
+    usedAurora: false,
+    usedCalculateur: false,
+    usedUnivers: false,
+    visits: 0,
+    lastVisit: null,
+    pagesVisited: [],
   },
 
   _startTime: Date.now(),
@@ -45,9 +60,7 @@ const PinappIntel = {
 
     // Sauvegarde avant départ
     window.addEventListener('beforeunload', () => {
-      this.data.timeOnPage += Math.round(
-        (Date.now() - this._startTime) / 1000
-      );
+      this.data.timeOnPage += Math.round((Date.now() - this._startTime) / 1000);
       this.save();
     });
   },
@@ -66,12 +79,16 @@ const PinappIntel = {
   },
 
   trackScroll() {
-    window.addEventListener('scroll', () => {
-      const bodyH  = document.body.scrollHeight - window.innerHeight;
-      if (bodyH <= 0) return;
-      const depth = Math.round((window.scrollY / bodyH) * 100);
-      this.data.scrollDepth = Math.max(this.data.scrollDepth, depth);
-    }, { passive: true });
+    window.addEventListener(
+      'scroll',
+      () => {
+        const bodyH = document.body.scrollHeight - window.innerHeight;
+        if (bodyH <= 0) return;
+        const depth = Math.round((window.scrollY / bodyH) * 100);
+        this.data.scrollDepth = Math.max(this.data.scrollDepth, depth);
+      },
+      { passive: true },
+    );
   },
 
   trackTime() {
@@ -81,18 +98,21 @@ const PinappIntel = {
 
   trackDemos() {
     // Observer les éléments avec data-filter (cartes réalisations)
-    document.querySelectorAll('[data-filter]').forEach(el => {
-      const obs = new IntersectionObserver(entries => {
-        if (entries[0].isIntersecting) {
-          const secteur = el.dataset.filter;
-          if (secteur && secteur !== 'all') {
-            if (!this.data.demosSeen.includes(secteur)) {
-              this.data.demosSeen.push(secteur);
+    document.querySelectorAll('[data-filter]').forEach((el) => {
+      const obs = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting) {
+            const secteur = el.dataset.filter;
+            if (secteur && secteur !== 'all') {
+              if (!this.data.demosSeen.includes(secteur)) {
+                this.data.demosSeen.push(secteur);
+              }
+              this.detectSecteur();
             }
-            this.detectSecteur();
           }
-        }
-      }, { threshold: 0.5 });
+        },
+        { threshold: 0.5 },
+      );
       obs.observe(el);
     });
   },
@@ -102,7 +122,7 @@ const PinappIntel = {
 
     // Secteur le plus vu
     const counts = {};
-    this.data.demosSeen.forEach(s => {
+    this.data.demosSeen.forEach((s) => {
       counts[s] = (counts[s] || 0) + 1;
     });
     const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
@@ -113,16 +133,15 @@ const PinappIntel = {
       const auroraInput = document.querySelector('#aurora-input');
       if (auroraInput && !auroraInput.value) {
         const hints = {
-          services:  'esthéticienne',
-          commerce:  'restaurateur',
-          beaute:    'esthéticienne',
-          artisan:   'artisan plombier',
-          coach:     'coach certifié',
-          sante:     'cabinet médical',
+          services: 'esthéticienne',
+          commerce: 'restaurateur',
+          beaute: 'esthéticienne',
+          artisan: 'artisan plombier',
+          coach: 'coach certifié',
+          sante: 'cabinet médical',
         };
         const metier = hints[this.data.secteur] || 'indépendant';
-        auroraInput.placeholder =
-          `Je suis ${metier} et je cherche à automatiser...`;
+        auroraInput.placeholder = `Je suis ${metier} et je cherche à automatiser...`;
       }
     }
   },
@@ -132,9 +151,7 @@ const PinappIntel = {
     const check = setInterval(() => {
       const prêt =
         this.data.scrollDepth > 60 &&
-        (this.data.usedAurora ||
-         this.data.usedCalculateur ||
-         this.data.usedUnivers);
+        (this.data.usedAurora || this.data.usedCalculateur || this.data.usedUnivers);
 
       if (prêt) {
         const cta = document.querySelector('.sticky-cta');
@@ -166,16 +183,31 @@ const PinappIntel = {
 
     hero.parentElement.insertBefore(msg, hero.nextSibling);
     requestAnimationFrame(() => {
-      setTimeout(() => { msg.style.opacity = '1'; }, 100);
-      setTimeout(() => { msg.style.opacity = '0'; }, 5000);
-      setTimeout(() => { msg.remove(); }, 6200);
+      setTimeout(() => {
+        msg.style.opacity = '1';
+      }, 100);
+      setTimeout(() => {
+        msg.style.opacity = '0';
+      }, 5000);
+      setTimeout(() => {
+        msg.remove();
+      }, 6200);
     });
   },
 
   /* Méthodes appelables depuis d'autres scripts */
-  markAurora()      { this.data.usedAurora      = true; this.save(); },
-  markCalculateur() { this.data.usedCalculateur = true; this.save(); },
-  markUnivers()     { this.data.usedUnivers     = true; this.save(); },
+  markAurora() {
+    this.data.usedAurora = true;
+    this.save();
+  },
+  markCalculateur() {
+    this.data.usedCalculateur = true;
+    this.save();
+  },
+  markUnivers() {
+    this.data.usedUnivers = true;
+    this.save();
+  },
 };
 
 document.addEventListener('DOMContentLoaded', () => PinappIntel.init());

@@ -10,10 +10,10 @@
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (window.innerWidth < 1024) return;
 
-  const NUIT_TYPES  = ['spore', 'violet', 'wood', 'spore', 'violet'];
-  const JOUR_TYPES  = ['ambre', 'ambre', 'wood', 'ambre', 'wood'];
-  const COUNT       = 12;
-  let   particles   = [];
+  const NUIT_TYPES = ['spore', 'violet', 'wood', 'spore', 'violet'];
+  const JOUR_TYPES = ['ambre', 'ambre', 'wood', 'ambre', 'wood'];
+  const COUNT = 12;
+  let particles = [];
 
   /* Détermine si on est en mode jour */
   function isJour() {
@@ -29,14 +29,14 @@
     p.className = 'bio-particle';
     p.setAttribute('data-type', type);
 
-    const dur   = 16 + Math.random() * 22;     /* plus lent — biolume calme */
-    const delay = -(Math.random() * dur);       /* départ échelonné */
-    const dx    = (Math.random() * 100 - 50);  /* -50px à +50px */
+    const dur = 16 + Math.random() * 22; /* plus lent — biolume calme */
+    const delay = -(Math.random() * dur); /* départ échelonné */
+    const dx = Math.random() * 100 - 50; /* -50px à +50px */
 
-    p.style.setProperty('--sp-dur',   dur + 's');
+    p.style.setProperty('--sp-dur', dur + 's');
     p.style.setProperty('--sp-delay', delay + 's');
-    p.style.setProperty('--sp-dx',    dx + 'px');
-    p.style.left   = Math.random() * 100 + 'vw';
+    p.style.setProperty('--sp-dx', dx + 'px');
+    p.style.left = Math.random() * 100 + 'vw';
     p.style.bottom = Math.random() * 20 + 'vh';
 
     return p;
@@ -44,7 +44,7 @@
 
   /* Retire toutes les particules existantes */
   function clearParticles() {
-    particles.forEach(p => p.parentNode && p.parentNode.removeChild(p));
+    particles.forEach((p) => p.parentNode && p.parentNode.removeChild(p));
     particles = [];
   }
 
@@ -85,5 +85,4 @@
 
   observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
   observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-
 })();

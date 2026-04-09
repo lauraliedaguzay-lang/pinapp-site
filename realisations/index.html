@@ -1,669 +1,1603 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="fr">
-<head>
-<script>(function(){var t=localStorage.getItem('pinapp-theme')||localStorage.getItem('pinapp-mode');var d=window.matchMedia('(prefers-color-scheme:dark)').matches;var m=(t==='light'||t==='jour')?'jour':(t==='dark'||t==='nuit')?'nuit':(d?'nuit':'jour');document.documentElement.setAttribute('data-mode',m);document.documentElement.setAttribute('data-theme',m==='jour'?'light':'dark');if(document.body){document.body.classList.add('mode-'+m);}document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('mode-'+m);});}());</script>
-  <link rel="preload" as="image" href="../assets/images/bg-pandora-nuit.png" fetchpriority="high">
-  <link rel="preload" as="image" href="../assets/images/bg-pandora-jour.png">
-  <meta charset="UTF-8">
-  <meta name="theme-color" id="pinapp-theme-color" content="#020810">
-  <script src="../assets/js/theme-init.js" defer></script>
-  <meta name="view-transition" content="same-origin">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Réalisations — Exemples de sites · Pinapp Studio</title>
-  <meta name="description" content="Carrousel 3D : démos métiers interactives et aperçus d’univers créatifs (super-héros, cosplay, fantasy). Restaurant, artisan, coach — chaque démo tourne sur le site.">
-  <meta property="og:title" content="Réalisations — Pinapp Studio">
-  <meta property="og:description" content="Exemples de sites et systèmes IA créés par Pinapp pour artisans, coachs, restaurateurs.">
-  <meta property="og:image" content="https://pinapp.fr/assets/images/og-home.png">
-  <meta property="og:url" content="https://pinapp.fr/realisations/">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="fr_FR">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-  <link rel="preconnect" href="https://fonts.bunny.net">
-  <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap">
-  <link rel="stylesheet" href="../assets/variables.css">
-  <link rel="stylesheet" href="../assets/grid.css">
-  <link rel="stylesheet" href="../assets/animations.css">
-  <link rel="stylesheet" href="../assets/css/aurora-mobile.css"><link rel="stylesheet" href="../assets/css/pandora-jour.css"><link rel="stylesheet" href="../assets/css/univers.css">
-  <link rel="stylesheet" href="../assets/css/cursor.css">
-  <link rel="stylesheet" href="../assets/css/pandora-ux.css">
-  <link rel="canonical" href="https://pinapp.fr/realisations/">
-  <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"ProfessionalService","name":"Pinapp Studio","founder":{"@type":"Person","name":"Lauralie Daguzay"},"email":"lauralie.daguzay@pinapp.fr","url":"https://pinapp.fr","areaServed":"FR","priceRange":"\u20ac\u20ac","serviceType":["Site web","Automatisation","IA"]}
-</script>  <script defer data-domain="pinapp.fr" src="https://plausible.io/js/script.js"></script>
-<script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)};document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('.btn-primary').forEach(function(b){b.addEventListener('click',function(){plausible('CTA Click',{props:{page:location.pathname,text:b.textContent.trim()}});});});});</script>  <link rel="stylesheet" href="../assets/css/pandora-dance.css">
-  <link rel="stylesheet" href="../assets/css/ios-glass.css">
-  <link rel="stylesheet" href="../assets/css/apple-finish.css">
-  <link rel="stylesheet" href="../assets/css/pinapp-modern-biolume.css">
-  <link rel="stylesheet" href="../assets/css/pinapp-premium.css">
-  <link rel="stylesheet" href="../assets/css/deploy-harmonise.css">
-  <link rel="stylesheet" href="../assets/css/pandora-jour-override.css">
-  <link rel="stylesheet" href="../assets/css/mobile-premium.css">
-  <link rel="stylesheet" href="../assets/css/neuro-layout.css">
-  
-  <link rel="stylesheet" href="../assets/css/pandora-world.css">
-  <link rel="stylesheet" href="../assets/css/pandora-details.css">
-</head>
-<body class="page-with-bottom-nav">
-  <div id="pandora-world" aria-hidden="true">
-    <div class="pandora-orbs">
-      <div class="orb orb-1"></div>
-      <div class="orb orb-2"></div>
-      <div class="orb orb-3"></div>
-      <div class="orb orb-4"></div>
+  <head>
+    <script>
+      (function () {
+        var t = localStorage.getItem('pinapp-theme') || localStorage.getItem('pinapp-mode');
+        var d = window.matchMedia('(prefers-color-scheme:dark)').matches;
+        var m = t === 'light' || t === 'jour' ? 'jour' : t === 'dark' || t === 'nuit' ? 'nuit' : d ? 'nuit' : 'jour';
+        document.documentElement.setAttribute('data-mode', m);
+        document.documentElement.setAttribute('data-theme', m === 'jour' ? 'light' : 'dark');
+        if (document.body) {
+          document.body.classList.add('mode-' + m);
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+          document.body.classList.add('mode-' + m);
+        });
+      })();
+    </script>
+    <link rel="preload" as="image" href="../assets/images/bg-pandora-nuit.png" fetchpriority="high" />
+    <link rel="preload" as="image" href="../assets/images/bg-pandora-jour.png" />
+    <meta charset="UTF-8" />
+    <meta name="theme-color" id="pinapp-theme-color" content="#020810" />
+    <script src="../assets/js/theme-init.js" defer></script>
+    <meta name="view-transition" content="same-origin" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Réalisations — Exemples de sites · Pinapp Studio</title>
+    <meta
+      name="description"
+      content="Carrousel 3D : démos métiers interactives et aperçus d’univers créatifs (super-héros, cosplay, fantasy). Restaurant, artisan, coach — chaque démo tourne sur le site." />
+    <meta property="og:title" content="Réalisations — Pinapp Studio" />
+    <meta
+      property="og:description"
+      content="Exemples de sites et systèmes IA créés par Pinapp pour artisans, coachs, restaurateurs." />
+    <meta property="og:image" content="https://pinapp.fr/assets/images/og-home.png" />
+    <meta property="og:url" content="https://pinapp.fr/realisations/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" />
+    <link rel="stylesheet" href="../assets/variables.css" />
+    <link rel="stylesheet" href="../assets/grid.css" />
+    <link rel="stylesheet" href="../assets/animations.css" />
+    <link rel="stylesheet" href="../assets/css/aurora-mobile.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-jour.css" />
+    <link rel="stylesheet" href="../assets/css/univers.css" />
+    <link rel="stylesheet" href="../assets/css/cursor.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-ux.css" />
+    <link rel="canonical" href="https://pinapp.fr/realisations/" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Pinapp Studio",
+        "founder": { "@type": "Person", "name": "Lauralie Daguzay" },
+        "email": "lauralie.daguzay@pinapp.fr",
+        "url": "https://pinapp.fr",
+        "areaServed": "FR",
+        "priceRange": "\u20ac\u20ac",
+        "serviceType": ["Site web", "Automatisation", "IA"]
+      }
+    </script>
+    <script defer data-domain="pinapp.fr" src="https://plausible.io/js/script.js"></script>
+    <script>
+      window.plausible =
+        window.plausible ||
+        function () {
+          (window.plausible.q = window.plausible.q || []).push(arguments);
+        };
+      document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.btn-primary').forEach(function (b) {
+          b.addEventListener('click', function () {
+            plausible('CTA Click', { props: { page: location.pathname, text: b.textContent.trim() } });
+          });
+        });
+      });
+    </script>
+    <link rel="stylesheet" href="../assets/css/pandora-dance.css" />
+    <link rel="stylesheet" href="../assets/css/ios-glass.css" />
+    <link rel="stylesheet" href="../assets/css/apple-finish.css" />
+    <link rel="stylesheet" href="../assets/css/pinapp-modern-biolume.css" />
+    <link rel="stylesheet" href="../assets/css/pinapp-premium.css" />
+    <link rel="stylesheet" href="../assets/css/deploy-harmonise.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-jour-override.css" />
+    <link rel="stylesheet" href="../assets/css/mobile-premium.css" />
+    <link rel="stylesheet" href="../assets/css/neuro-layout.css" />
+
+    <link rel="stylesheet" href="../assets/css/pandora-world.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-details.css" />
+  </head>
+  <body class="page-with-bottom-nav">
+    <div id="pandora-world" aria-hidden="true">
+      <div class="pandora-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+      </div>
+      <div class="pandora-spores" id="spores-container"></div>
+      <div class="pandora-stars" id="stars-container"></div>
+      <div class="pandora-clouds" id="clouds-container">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+      </div>
+      <div class="holo-grid"></div>
     </div>
-    <div class="pandora-spores" id="spores-container"></div>
-    <div class="pandora-stars" id="stars-container"></div>
-    <div class="pandora-clouds" id="clouds-container">
-      <div class="cloud cloud-1"></div>
-      <div class="cloud cloud-2"></div>
-      <div class="cloud cloud-3"></div>
+    <div id="pandora-loader" aria-hidden="true">
+      <svg width="32" height="38" viewBox="0 0 32 38" fill="none">
+        <defs>
+          <linearGradient id="pg-l" x1="16" y1="36" x2="16" y2="2" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#7B4FE8" />
+            <stop offset="100%" stop-color="#00E5CC" />
+          </linearGradient>
+        </defs>
+        <path d="M16 2 C13 5 10 6 11 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
+        <path d="M16 2 L16 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" />
+        <path d="M16 2 C19 5 22 6 21 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
+        <ellipse cx="16" cy="24" rx="9" ry="12" fill="url(#pg-l)" />
+        <path d="M7 20 L16 15 L25 20 L16 25 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
+        <path d="M7 26 L16 21 L25 26 L16 31 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
+      </svg>
     </div>
-    <div class="holo-grid"></div>
-  </div>
-<div id="pandora-loader" aria-hidden="true">
-  <svg width="32" height="38" viewBox="0 0 32 38" fill="none"><defs><linearGradient id="pg-l" x1="16" y1="36" x2="16" y2="2" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7B4FE8"/><stop offset="100%" stop-color="#00E5CC"/></linearGradient></defs><path d="M16 2 C13 5 10 6 11 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M16 2 L16 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round"/><path d="M16 2 C19 5 22 6 21 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none"/><ellipse cx="16" cy="24" rx="9" ry="12" fill="url(#pg-l)"/><path d="M7 20 L16 15 L25 20 L16 25 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none"/><path d="M7 26 L16 21 L25 26 L16 31 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none"/></svg>
-</div>
-<script>(function(){function hideLoader(){var l=document.getElementById('pandora-loader');if(l&&l.parentNode){l.style.opacity='0';setTimeout(function(){if(l.parentNode)l.remove();},400);}}window.addEventListener('load',hideLoader);setTimeout(hideLoader,2000);})();</script><div class="aurora-mobile" aria-hidden="true"><div class="aurora-orb aurora-orb-1"></div><div class="aurora-orb aurora-orb-2"></div><div class="aurora-orb aurora-orb-3"></div><div class="aurora-orb aurora-orb-4"></div></div><div class="pandora-shapes" aria-hidden="true"><div class="pandora-shape pandora-shape-1"></div><div class="pandora-shape pandora-shape-2"></div><div class="pandora-shape pandora-shape-3"></div><div class="pandora-shape pandora-shape-4"></div></div><div class="holo-grid" aria-hidden="true"></div><div class="noise" aria-hidden="true"></div><div class="jour-spores" aria-hidden="true"><span class="jour-spore" style="left:12%;top:75%;--dur:22s;--delay:-4s;--dx:18px;--dy:-90px;"></span><span class="jour-spore" style="left:28%;top:60%;--dur:28s;--delay:-11s;--dx:-12px;--dy:-75px;"></span><span class="jour-spore" style="left:45%;top:82%;--dur:19s;--delay:-7s;--dx:25px;--dy:-60px;"></span><span class="jour-spore" style="left:62%;top:70%;--dur:32s;--delay:-2s;--dx:-20px;--dy:-85px;"></span><span class="jour-spore" style="left:78%;top:65%;--dur:24s;--delay:-15s;--dx:14px;--dy:-70px;"></span><span class="jour-spore jour-spore-teal" style="left:20%;top:85%;--dur:26s;--delay:-18s;--dx:10px;--dy:-65px;"></span><span class="jour-spore jour-spore-teal" style="left:55%;top:88%;--dur:30s;--delay:-5s;--dx:-15px;--dy:-95px;"></span></div>
-  <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
-  <div class="scroll-progress" id="scrollProgress"></div>
-<div class="noise-overlay" aria-hidden="true"></div>
-  <nav class="nav" id="mainNav" aria-label="Navigation principale">
-    <div class="container nav-inner">
-            <a href="../index.html" class="nav-logo" aria-label="Pinapp Studio — accueil" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
-        <img class="nav-logo-img" src="../assets/images/pinapp-logo.png" alt="" width="132" height="36" decoding="async" />
-      </a>
-        <div class="nav-links">
-        <a href="../offres/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
-        <a href="../realisations/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
-        <a href="../a-propos/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
-        <a href="../faq/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
-        <a href="../auralis/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Auralis</a>
-        <a href="../univers/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Univers</a>
-        <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Démarrer ma demande</a>
-      </div>
-      <div class="nav-trailing">
-        <button type="button" class="mode-toggle" id="themeToggle" aria-label="Passer en mode jour"><svg class="icon-lune" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M15.5 10.5A6.5 6.5 0 0 1 7.5 2.5a6.5 6.5 0 1 0 8 8z" stroke="#00E5CC" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg><svg class="icon-soleil" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="3.5" stroke="#009B8C" stroke-width="1.5"/><line x1="9" y1="1" x2="9" y2="3" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="15" x2="9" y2="17" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="9" x2="3" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/><line x1="15" y1="9" x2="17" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round"/></svg></button>
-        <button type="button" class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileDrawer">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
-      </div>
+    <script>
+      (function () {
+        function hideLoader() {
+          var l = document.getElementById('pandora-loader');
+          if (l && l.parentNode) {
+            l.style.opacity = '0';
+            setTimeout(function () {
+              if (l.parentNode) l.remove();
+            }, 400);
+          }
+        }
+        window.addEventListener('load', hideLoader);
+        setTimeout(hideLoader, 2000);
+      })();
+    </script>
+    <div class="aurora-mobile" aria-hidden="true">
+      <div class="aurora-orb aurora-orb-1"></div>
+      <div class="aurora-orb aurora-orb-2"></div>
+      <div class="aurora-orb aurora-orb-3"></div>
+      <div class="aurora-orb aurora-orb-4"></div>
     </div>
-  </nav>
-  <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" role="dialog" aria-label="Menu" aria-modal="true">
-    <div class="mobile-drawer-panel">
-      <button type="button" id="drawerClose" aria-label="Fermer le menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
-      <div class="nav-links">
-        <a href="../offres/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Offres</a>
-        <a href="../realisations/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Réalisations</a>
-        <a href="../a-propos/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">À propos</a>
-        <a href="../faq/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">FAQ</a>
-        <a href="../auralis/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Auralis</a>
-        <a href="../univers/index.html" class="nav-link" style="font-size:14px;opacity:0.8;">Univers</a>
-        <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Démarrer ma demande</a>
-      </div>
-  </div>
-  </div>        <div class="bottom-bar bottom-bar--site bottom-bar--six" aria-label="Navigation du site">
-    <a href="../index.html">Accueil</a>
-    <a href="../offres/index.html">Offres</a>
-    <a href="../diagnostic/index.html" class="bottom-bar-cta">D&eacute;marrer</a>
-    <a href="../univers/index.html">Univers</a>
-    <a href="../formation-gratuite/index.html">Form.</a>
-    <a href="../realisations/index.html">R&eacute;alis.</a>
-  </div>
-<main id="contenu-principal" class="stack-above-bg" tabindex="-1">
-
-    <!-- CAROUSEL 3D — Démos en perspective -->
-    <section class="section carousel-section section-enter">
-      <div class="container" style="text-align:center;">
-        <p class="label" style="margin-bottom:var(--space-2);">VITRINES &amp; AMBIANCES</p>
-        <h1 style="font-size:var(--text-h1);letter-spacing:-0.02em;margin-bottom:var(--space-2);">Le même niveau d&apos;exigence que Mémoire &amp; Présence.</h1>
-  <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(0,229,204,0.08);border:1px solid rgba(0,229,204,0.20);border-radius:100px;padding:6px 16px;margin:0 auto var(--space-5);font-size:12px;opacity:0.85;letter-spacing:0.02em;max-width:min(520px,92vw);text-align:left;line-height:1.45;">
-    <span style="color:var(--accent-teal);flex-shrink:0;">ℹ</span>
-    Chaque vitrine est conçue et développée par Pinapp Studio avec la même finition qu&apos;un projet signature. Les enseignes et citations affichées sont des <strong>scénarios de présentation</strong> — pas des références clients nommées.
-  </div>
-        <p style="opacity:0.6;font-size:1rem;max-width:420px;margin:0 auto var(--space-3);">Cliquez sur une carte au centre pour ouvrir la démo ou la page — ou faites défiler pour tourner le carrousel 3D.</p>
-        <div class="carousel-filters" role="tablist" aria-label="Filtrer les exemples de sites">
-          <button type="button" class="carousel-filter-btn active" data-carousel-filter="all" role="tab" aria-selected="true">Tous</button>
-          <button type="button" class="carousel-filter-btn" data-carousel-filter="beaute" role="tab" aria-selected="false">Beauté</button>
-          <button type="button" class="carousel-filter-btn" data-carousel-filter="classic" role="tab" aria-selected="false">Métiers &amp; démos</button>
-          <button type="button" class="carousel-filter-btn" data-carousel-filter="perso" role="tab" aria-selected="false">Créations perso</button>
-          <button type="button" class="carousel-filter-btn" data-carousel-filter="creative" role="tab" aria-selected="false">Univers poussés</button>
-        </div>
-        <p class="carousel-scroll-hint">Molette, trackpad horizontal ou glisser : faites défiler les sites comme un coverflow 3D.</p>
-      </div>
-
-      <!-- Scène 3D -->
-      <div class="carousel-3d" role="region" aria-label="Carousel des démos en trois dimensions" aria-roledescription="carousel">
-
-        <div class="demo-card-3d" data-tier="classic"
-             data-name="Renov &amp; Co"
-             data-style="Graphique &amp; Impactant"
-             data-tag="ARTISAN / BTP"
-             data-link="../demo/artisan/index.html">
-          <div class="demo-card-preview">
-            <div class="demo-card-preview-bg" style="background:linear-gradient(135deg,#7a3c0a,#E8760A 60%,#c45a00);"></div>
-            <div class="demo-card-overlay"></div>
-            <div class="demo-card-meta">
-              <p class="demo-card-secteur">Artisan / BTP</p>
-              <p class="demo-card-style">Graphique &amp; Impactant</p>
-            </div>
-          </div>
-          <div class="demo-card-footer">
-            <p class="demo-card-name">Renov &amp; Co</p>
-            <span class="demo-card-tag" style="background:#E8760A;">BTP</span>
-          </div>
-        </div>
-
-        <div class="demo-card-3d" data-tier="classic"
-             data-name="Ōkami"
-             data-style="Élégant &amp; Sombre"
-             data-tag="RESTAURANT"
-             data-link="../demo/restaurant/index.html">
-          <div class="demo-card-preview">
-            <div class="demo-card-preview-bg" style="background:linear-gradient(135deg,#1a0a0a,#C41E3A 70%,#8b0018);"></div>
-            <div class="demo-card-overlay"></div>
-            <div class="demo-card-meta">
-              <p class="demo-card-secteur">Restaurant</p>
-              <p class="demo-card-style">Élégant &amp; Sombre</p>
-            </div>
-          </div>
-          <div class="demo-card-footer">
-            <p class="demo-card-name">Ōkami</p>
-            <span class="demo-card-tag" style="background:#C41E3A;">RESTO</span>
-          </div>
-        </div>
-
-        <div class="demo-card-3d" data-tier="classic"
-             data-name="Clara Fontaine"
-             data-style="Clair &amp; Épuré"
-             data-tag="COACH"
-             data-link="../demo/coach/index.html">
-          <div class="demo-card-preview">
-            <div class="demo-card-preview-bg" style="background:linear-gradient(135deg,#0d3320,#2D6A4F 60%,#1a4d38);"></div>
-            <div class="demo-card-overlay"></div>
-            <div class="demo-card-meta">
-              <p class="demo-card-secteur">Coach / Consultant</p>
-              <p class="demo-card-style">Clair &amp; Épuré</p>
-            </div>
-          </div>
-          <div class="demo-card-footer">
-            <p class="demo-card-name">Clara Fontaine</p>
-            <span class="demo-card-tag" style="background:#2D6A4F;">COACH</span>
-          </div>
-        </div>
-
-        <div class="demo-card-3d" data-tier="classic"
-             data-name="Cabinet Renaud"
-             data-style="Élégant &amp; Sombre"
-             data-tag="AVOCAT"
-             data-link="../demo/avocat/index.html">
-          <div class="demo-card-preview">
-            <div class="demo-card-preview-bg" style="background:linear-gradient(135deg,#1a1408,#C9A96E 60%,#a07840);"></div>
-            <div class="demo-card-overlay"></div>
-            <div class="demo-card-meta">
-              <p class="demo-card-secteur">Avocat / Notaire</p>
-              <p class="demo-card-style">Élégant &amp; Sombre</p>
-            </div>
-          </div>
-          <div class="demo-card-footer">
-            <p class="demo-card-name">Cabinet Renaud</p>
-            <span class="demo-card-tag" style="background:#C9A96E;color:#1a1408;">DROIT</span>
-          </div>
-        </div>
-
-        <div class="demo-card-3d" data-tier="classic" data-carousel-line="beaute"
-             data-name="Studio Élise"
-             data-style="Clair &amp; Épuré"
-             data-tag="ESTHÉTIQUE"
-             data-link="../demo/estheticienne/index.html">
-          <div class="demo-card-preview">
-            <div class="demo-card-preview-bg" style="background:linear-gradient(135deg,#3d1830,#C9748F 60%,#a04570);"></div>
-            <div class="demo-card-overlay"></div>
-            <div class="demo-card-meta">
-              <p class="demo-card-secteur">Esthéticienne / Spa</p>
-              <p class="demo-card-style">Clair &amp; Épuré</p>
-            </div>
-          </div>
-          <div class="demo-card-footer">
-            <p class="demo-card-name">Studio Élise</p>
-            <span class="demo-card-tag" style="background:#C9748F;">SPA</span>
-          </div>
-        </div>
-
-        <div class="demo-card-3d" data-tier="classic" data-carousel-line="beaute"
-             data-name="Lash Studio Camille"
-             data-style="Élégant &amp; Sombre"
-             data-tag="CILS"
-             data-link="../demo/cils/index.html">
-          <div class="demo-card-preview">
-            <div class="demo-card-preview-bg" style="background:linear-gradient(135deg,#2a1a5a,#9B7FF8 60%,#6b4fc8);"></div>
-            <div class="demo-card-overlay"></div>
-            <div class="demo-card-meta">
-              <p class="demo-card-secteur">Cils / Lash</p>
-              <p class="demo-card-style">Élégant &amp; Sombre</p>
-            </div>
-          </div>
-          <div class="demo-card-footer">
-            <p class="demo-card-name">Lash Studio Camille</p>
-            <span class="demo-card-tag" style="background:#9B7FF8;">LASH</span>
-          </div>
-        </div>
-
-        <div class="demo-card-3d" data-tier="classic" data-carousel-line="beaute"
-             data-name="Nail Studio Nina"
-             data-style="Clair &amp; Épuré"
-             data-tag="NAIL ART"
-             data-link="../demo/ongles/index.html">
-          <div class="demo-card-preview">
-            <div class="demo-card-preview-bg" style="background:linear-gradient(135deg,#4a2a10,#D4A574 60%,#a07040);"></div>
-            <div class="demo-card-overlay"></div>
-            <div class="demo-card-meta">
-              <p class="demo-card-secteur">Nail Art</p>
-              <p class="demo-card-style">Clair &amp; Épuré</p>
-            </div>
-          </div>
-          <div class="demo-card-footer">
-            <p class="demo-card-name">Nail Studio Nina</p>
-            <span class="demo-card-tag" style="background:#D4A574;color:#1a0a00;">NAILS</span>
-          </div>
-        </div>
-
-        <div class="demo-card-3d" data-tier="classic" data-carousel-line="beaute"
-             data-name="Salon Obsidian"
-             data-style="Élégant &amp; Sombre"
-             data-tag="COIFFURE"
-             data-link="../demo/coiffeur/index.html">
-          <div class="demo-card-preview">
-            <div class="demo-card-preview-bg" style="background:linear-gradient(135deg,#1a1510,#C0A882 60%,#8a7852);"></div>
-            <div class="demo-card-overlay"></div>
-            <div class="demo-card-meta">
-              <p class="demo-card-secteur">Coiffure</p>
-              <p class="demo-card-style">Élégant &amp; Sombre</p>
-            </div>
-          </div>
-          <div class="demo-card-footer">
-            <p class="demo-card-name">Salon Obsidian</p>
-            <span class="demo-card-tag" style="background:#C0A882;color:#1a1510;">HAIR</span>
-          </div>
-        </div>
-
-        <div class="demo-card-3d" data-tier="classic" data-carousel-line="beaute"
-             data-name="Barber &amp; Co"
-             data-style="Élégant &amp; Sombre"
-             data-tag="BARBIER"
-             data-link="../demo/barbier/index.html">
-          <div class="demo-card-preview">
-            <div class="demo-card-preview-bg" style="background:linear-gradient(135deg,#1a1408,#8B7355 60%,#5a4830);"></div>
-            <div class="demo-card-overlay"></div>
-            <div class="demo-card-meta">
-              <p class="demo-card-secteur">Barbier</p>
-              <p class="demo-card-style">Élégant &amp; Sombre</p>
-            </div>
-          </div>
-          <div class="demo-card-footer">
-            <p class="demo-card-name">Barber &amp; Co</p>
-            <span class="demo-card-tag" style="background:#8B7355;color:#fff;">BARBER</span>
-          </div>
-        </div>
-
-        <div class="demo-card-3d" data-tier="classic"
-             data-name="Maison Brioche"
-             data-style="Clair &amp; Épuré"
-             data-tag="BOULANGERIE"
-             data-link="../demo/boulangerie/index.html">
-          <div class="demo-card-preview">
-            <div class="demo-card-preview-bg" style="background:linear-gradient(135deg,#5a200a,#C4622D 60%,#8a3a10);"></div>
-            <div class="demo-card-overlay"></div>
-            <div class="demo-card-meta">
-              <p class="demo-card-secteur">Boulangerie</p>
-              <p class="demo-card-style">Clair &amp; Épuré</p>
-            </div>
-          </div>
-          <div class="demo-card-footer">
-            <p class="demo-card-name">Maison Brioche</p>
-            <span class="demo-card-tag" style="background:#C4622D;">BOULANG.</span>
-          </div>
-        </div>
-
-        <div class="demo-card-3d" data-tier="classic"
-             data-name="Forge Athletics"
-             data-style="Graphique &amp; Impactant"
-             data-tag="SPORT / FITNESS"
-             data-link="../demo/trainer/index.html">
-          <div class="demo-card-preview">
-            <div class="demo-card-preview-bg" style="background:linear-gradient(135deg,#1a0000,#DC2626 60%,#8b0000);"></div>
-            <div class="demo-card-overlay"></div>
-            <div class="demo-card-meta">
-              <p class="demo-card-secteur">Sport / Fitness</p>
-              <p class="demo-card-style">Graphique &amp; Impactant</p>
-            </div>
-          </div>
-          <div class="demo-card-footer">
-            <p class="demo-card-name">Forge Athletics</p>
-            <span class="demo-card-tag" style="background:#DC2626;">FITNESS</span>
-          </div>
-        </div>
-
-        <div class="demo-card-3d" data-tier="perso"
-             data-name="Nocturna Ink"
-             data-style="Néons · encre · sur mesure"
-             data-tag="TATOUAGE · CRÉATION"
-             data-link="../demo/tatoueuse/index.html">
-          <div class="demo-card-preview">
-            <div class="demo-card-preview-bg" style="background:linear-gradient(145deg,#1a0508 0%,#8b1538 32%,#6b21a8 58%,#0d9488);"></div>
-            <div class="demo-card-overlay"></div>
-            <div class="demo-card-meta">
-              <p class="demo-card-secteur">Tatoueuse · vitrine sur mesure</p>
-              <p class="demo-card-style">Effets visuels · immersion</p>
-            </div>
-          </div>
-          <div class="demo-card-footer">
-            <p class="demo-card-name">Nocturna Ink</p>
-            <span class="demo-card-tag" style="background:linear-gradient(90deg,#8b1538,#6b21a8);color:#fff;">INK</span>
-          </div>
-        </div>
-
-        <div class="demo-card-3d" data-tier="premium"
-             data-name="Luminance &amp; Lieu"
-             data-style="Galerie 15 photos · formulaire · éditorial"
-             data-tag="SITE COMPLET SUR-MESURE"
-             data-link="../demo/sur-mesure/index.html">
-          <div class="demo-card-preview">
-            <div class="demo-card-preview-bg" style="background:linear-gradient(160deg,#1a1510 0%,#6B5A45 40%,#C4A77D 85%);"></div>
-            <div class="demo-card-overlay"></div>
-            <div class="demo-card-meta">
-              <p class="demo-card-secteur">Même exigence que Mémoire &amp; Présence</p>
-              <p class="demo-card-style">Vitrine riche · photos · contact</p>
-            </div>
-          </div>
-          <div class="demo-card-footer">
-            <p class="demo-card-name">Luminance &amp; Lieu</p>
-            <span class="demo-card-tag" style="background:#C4A77D;color:#1a1510;">COMPLET</span>
-          </div>
-        </div>
-
-        <div class="demo-card-3d" data-tier="creative"
-             data-name="Nexus Heroes"
-             data-style="Blockbuster · lumière cinéma · héroïque"
-             data-tag="UNIVERS SUPER-HÉROS"
-             data-link="../univers/index.html">
-          <div class="demo-card-preview">
-            <div class="demo-card-preview-bg" style="background:linear-gradient(145deg,#0a1628 0%,#1e3a8a 35%,#38bdf8 55%,#f0f9ff 100%);"></div>
-            <div class="demo-card-overlay"></div>
-            <div class="demo-card-meta">
-              <p class="demo-card-secteur">Univers créatif</p>
-              <p class="demo-card-style">Cosplay héroïque · affiches IA</p>
-            </div>
-          </div>
-          <div class="demo-card-footer">
-            <p class="demo-card-name">Nexus Heroes</p>
-            <span class="demo-card-tag" style="background:linear-gradient(90deg,#38bdf8,#7B4FE8);color:#fff;">HÉROS</span>
-          </div>
-        </div>
-
-        <div class="demo-card-3d" data-tier="creative"
-             data-name="Atelier Kai"
-             data-style="Convention · pop culture · néons"
-             data-tag="COSPLAY &amp; POP CULTURE"
-             data-link="../univers/index.html">
-          <div class="demo-card-preview">
-            <div class="demo-card-preview-bg" style="background:linear-gradient(135deg,#1a0a28,#5B21B6 45%,#EC4899 78%,#fae8ff);"></div>
-            <div class="demo-card-overlay"></div>
-            <div class="demo-card-meta">
-              <p class="demo-card-secteur">Univers créatif</p>
-              <p class="demo-card-style">Salon, studio photo, boutique cosplay</p>
-            </div>
-          </div>
-          <div class="demo-card-footer">
-            <p class="demo-card-name">Atelier Kai</p>
-            <span class="demo-card-tag" style="background:#EC4899;color:#fff;">COSPLAY</span>
-          </div>
-        </div>
-
-        <div class="demo-card-3d" data-tier="creative"
-             data-name="Oracle &amp; Cie"
-             data-style="Fantasy premium · mythologie · dorures"
-             data-tag="FANTASY &amp; SAGA"
-             data-link="../univers/index.html">
-          <div class="demo-card-preview">
-            <div class="demo-card-preview-bg" style="background:linear-gradient(160deg,#0f0518 0%,#4c1d95 40%,#C9A227 70%,#fef3c7);"></div>
-            <div class="demo-card-overlay"></div>
-            <div class="demo-card-meta">
-              <p class="demo-card-secteur">Univers créatif</p>
-              <p class="demo-card-style">RPG, éditeur, univers immersif</p>
-            </div>
-          </div>
-          <div class="demo-card-footer">
-            <p class="demo-card-name">Oracle &amp; Cie</p>
-            <span class="demo-card-tag" style="background:#C9A227;color:#1a0a12;">FANTASY</span>
-          </div>
-        </div>
-
-        <!-- Contrôles -->
-        <button type="button" class="carousel-prev" aria-label="Démo précédente">&#8592;</button>
-        <button type="button" class="carousel-next" aria-label="Démo suivante">&#8594;</button>
-        <div class="carousel-dots" role="tablist" aria-label="Navigation carousel"></div>
-      </div>
-
-      <!-- Info dynamique -->
-      <div class="carousel-info" aria-live="polite" style="text-align:center;">
-        <span class="info-tag">ARTISAN / BTP</span>
-        <p class="info-name">Renov &amp; Co</p>
-        <p class="info-style">Graphique &amp; Impactant</p>
-        <a class="info-cta" href="../demo/artisan/index.html" target="_blank" rel="noopener">
-          Ouvrir la vitrine &rarr;
+    <div class="pandora-shapes" aria-hidden="true">
+      <div class="pandora-shape pandora-shape-1"></div>
+      <div class="pandora-shape pandora-shape-2"></div>
+      <div class="pandora-shape pandora-shape-3"></div>
+      <div class="pandora-shape pandora-shape-4"></div>
+    </div>
+    <div class="holo-grid" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="jour-spores" aria-hidden="true">
+      <span class="jour-spore" style="left: 12%; top: 75%; --dur: 22s; --delay: -4s; --dx: 18px; --dy: -90px"></span
+      ><span class="jour-spore" style="left: 28%; top: 60%; --dur: 28s; --delay: -11s; --dx: -12px; --dy: -75px"></span
+      ><span class="jour-spore" style="left: 45%; top: 82%; --dur: 19s; --delay: -7s; --dx: 25px; --dy: -60px"></span
+      ><span class="jour-spore" style="left: 62%; top: 70%; --dur: 32s; --delay: -2s; --dx: -20px; --dy: -85px"></span
+      ><span class="jour-spore" style="left: 78%; top: 65%; --dur: 24s; --delay: -15s; --dx: 14px; --dy: -70px"></span
+      ><span
+        class="jour-spore jour-spore-teal"
+        style="left: 20%; top: 85%; --dur: 26s; --delay: -18s; --dx: 10px; --dy: -65px"></span
+      ><span
+        class="jour-spore jour-spore-teal"
+        style="left: 55%; top: 88%; --dur: 30s; --delay: -5s; --dx: -15px; --dy: -95px"></span>
+    </div>
+    <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <nav class="nav" id="mainNav" aria-label="Navigation principale">
+      <div class="container nav-inner">
+        <a
+          href="../index.html"
+          class="nav-logo"
+          aria-label="Pinapp Studio — accueil"
+          style="display: flex; align-items: center; gap: 10px; text-decoration: none">
+          <img
+            class="nav-logo-img"
+            src="../assets/images/pinapp-logo.png"
+            alt=""
+            width="132"
+            height="36"
+            decoding="async" />
         </a>
-      </div>
-
-      <p class="carousel-honesty">
-        Ingénierie, éditorial et détail visuel : même ligne que Mémoire &amp; Présence.<br>
-        Marques et témoignages : scénarios pour vous montrer le rendu — pas une liste de mandats.
-      </p>
-    </section>
-
-    <!-- GRILLE COMPLÈTE -->
-    <section class="section" section-enter id="realisations">
-      <div class="container">
-        <p class="label" style="text-align:center;margin-bottom:var(--space-2);">PORTEFEUILLE D&apos;AMBIANCES</p>
-        <h3 style="font-size:var(--text-h1);text-align:center;letter-spacing:-0.02em;margin-bottom:var(--space-2);">Des sites qui portent votre métier avec la même exigence.</h3>
-        <p style="text-align:center;opacity:0.6;margin-bottom:var(--space-6);font-size:14px;">Cliquez pour ouvrir une vitrine interactive — conçue comme un livrable, pas comme un thème.</p>
-        <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;justify-content:center;margin-bottom:var(--space-5);">
-          <button type="button" class="filter-btn active" data-filter="all">Tous</button>
-          <button type="button" class="filter-btn" data-filter="beaute">Beauté</button>
-          <button type="button" class="filter-btn" data-filter="services">Services</button>
-          <button type="button" class="filter-btn" data-filter="commerce">Commerce</button>
-          <button type="button" class="filter-btn" data-filter="sante">Santé &amp; beauté</button>
-          <button type="button" class="filter-btn" data-filter="perso">Créations perso</button>
+        <div class="nav-links">
+          <a href="../offres/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Offres</a>
+          <a href="../realisations/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Réalisations</a>
+          <a href="../a-propos/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">À propos</a>
+          <a href="../faq/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">FAQ</a>
+          <a href="../auralis/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Auralis</a>
+          <a href="../univers/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Univers</a>
+          <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px"
+            >Démarrer ma demande</a
+          >
         </div>
-        <div class="grid grid-3" id="realisationsGrid">
-          <div class="realisation-card" data-secteur="artisan" data-category="services" data-demo="/demo/artisan/" style="cursor:pointer;overflow:hidden;border-radius:var(--radius-card);position:relative;border:1px solid var(--border-card);">
-            <img src="../assets/images/demo-artisan.webp" alt="Exemple site web artisan professionnel — Pinapp Studio" loading="lazy" style="width:100%;height:220px;object-fit:cover;">
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,10,20,0.9) 0%,transparent 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:var(--space-3);">
-              <span class="label" style="margin-bottom:4px;">ARTISAN / BTP</span>
-              <h2 style="font-size:18px;">Renov &amp; Co</h2>
-              <span style="font-size:12px;opacity:0.6;">Graphique &amp; Impactant</span>
-            </div>
-            <span style="position:absolute;top:12px;left:12px;background:var(--accent-teal);color:#020810;font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px;">SERVICES</span>
+        <div class="nav-trailing">
+          <button type="button" class="mode-toggle" id="themeToggle" aria-label="Passer en mode jour">
+            <svg class="icon-lune" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path
+                d="M15.5 10.5A6.5 6.5 0 0 1 7.5 2.5a6.5 6.5 0 1 0 8 8z"
+                stroke="#00E5CC"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                fill="none" /></svg
+            ><svg class="icon-soleil" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <circle cx="9" cy="9" r="3.5" stroke="#009B8C" stroke-width="1.5" />
+              <line x1="9" y1="1" x2="9" y2="3" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="9" y1="15" x2="9" y2="17" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="1" y1="9" x2="3" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="15" y1="9" x2="17" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="burger"
+            id="burger"
+            aria-label="Ouvrir le menu"
+            aria-expanded="false"
+            aria-controls="mobileDrawer">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              aria-hidden="true">
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+    <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" role="dialog" aria-label="Menu" aria-modal="true">
+      <div class="mobile-drawer-panel">
+        <button type="button" id="drawerClose" aria-label="Fermer le menu">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
+        <div class="nav-links">
+          <a href="../offres/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Offres</a>
+          <a href="../realisations/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Réalisations</a>
+          <a href="../a-propos/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">À propos</a>
+          <a href="../faq/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">FAQ</a>
+          <a href="../auralis/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Auralis</a>
+          <a href="../univers/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Univers</a>
+          <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px"
+            >Démarrer ma demande</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="bottom-bar bottom-bar--site bottom-bar--six" aria-label="Navigation du site">
+      <a href="../index.html">Accueil</a>
+      <a href="../offres/index.html">Offres</a>
+      <a href="../diagnostic/index.html" class="bottom-bar-cta">D&eacute;marrer</a>
+      <a href="../univers/index.html">Univers</a>
+      <a href="../formation-gratuite/index.html">Form.</a>
+      <a href="../realisations/index.html">R&eacute;alis.</a>
+    </div>
+    <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
+      <!-- CAROUSEL 3D — Démos en perspective -->
+      <section class="section carousel-section section-enter">
+        <div class="container" style="text-align: center">
+          <p class="label" style="margin-bottom: var(--space-2)">VITRINES &amp; AMBIANCES</p>
+          <h1 style="font-size: var(--text-h1); letter-spacing: -0.02em; margin-bottom: var(--space-2)">
+            Le même niveau d&apos;exigence que Mémoire &amp; Présence.
+          </h1>
+          <div
+            style="
+              display: inline-flex;
+              align-items: center;
+              gap: 8px;
+              background: rgba(0, 229, 204, 0.08);
+              border: 1px solid rgba(0, 229, 204, 0.2);
+              border-radius: 100px;
+              padding: 6px 16px;
+              margin: 0 auto var(--space-5);
+              font-size: 12px;
+              opacity: 0.85;
+              letter-spacing: 0.02em;
+              max-width: min(520px, 92vw);
+              text-align: left;
+              line-height: 1.45;
+            ">
+            <span style="color: var(--accent-teal); flex-shrink: 0">ℹ</span>
+            Chaque vitrine est conçue et développée par Pinapp Studio avec la même finition qu&apos;un projet signature.
+            Les enseignes et citations affichées sont des <strong>scénarios de présentation</strong> — pas des
+            références clients nommées.
           </div>
-          <div class="realisation-card" data-secteur="restaurant" data-category="commerce" data-demo="/demo/restaurant/" style="cursor:pointer;overflow:hidden;border-radius:var(--radius-card);position:relative;border:1px solid var(--border-card);">
-            <img src="../assets/images/demo-restaurant.webp" alt="Exemple site web restaurant — Pinapp Studio" loading="lazy" style="width:100%;height:220px;object-fit:cover;">
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,10,20,0.9) 0%,transparent 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:var(--space-3);">
-              <span class="label" style="margin-bottom:4px;">RESTAURANT</span>
-              <h2 style="font-size:18px;">Ōkami</h2>
-              <span style="font-size:12px;opacity:0.6;">Élégant &amp; Sombre</span>
-            </div>
-            <span style="position:absolute;top:12px;left:12px;background:var(--accent-teal);color:#020810;font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px;">COMMERCE</span>
+          <p style="opacity: 0.6; font-size: 1rem; max-width: 420px; margin: 0 auto var(--space-3)">
+            Cliquez sur une carte au centre pour ouvrir la démo ou la page — ou faites défiler pour tourner le carrousel
+            3D.
+          </p>
+          <div class="carousel-filters" role="tablist" aria-label="Filtrer les exemples de sites">
+            <button
+              type="button"
+              class="carousel-filter-btn active"
+              data-carousel-filter="all"
+              role="tab"
+              aria-selected="true">
+              Tous
+            </button>
+            <button
+              type="button"
+              class="carousel-filter-btn"
+              data-carousel-filter="beaute"
+              role="tab"
+              aria-selected="false">
+              Beauté
+            </button>
+            <button
+              type="button"
+              class="carousel-filter-btn"
+              data-carousel-filter="classic"
+              role="tab"
+              aria-selected="false">
+              Métiers &amp; démos
+            </button>
+            <button
+              type="button"
+              class="carousel-filter-btn"
+              data-carousel-filter="perso"
+              role="tab"
+              aria-selected="false">
+              Créations perso
+            </button>
+            <button
+              type="button"
+              class="carousel-filter-btn"
+              data-carousel-filter="creative"
+              role="tab"
+              aria-selected="false">
+              Univers poussés
+            </button>
           </div>
-          <div class="realisation-card" data-secteur="coach" data-category="services" data-demo="/demo/coach/" style="cursor:pointer;overflow:hidden;border-radius:var(--radius-card);position:relative;border:1px solid var(--border-card);">
-            <img src="../assets/images/demo-coach.webp" alt="Exemple site web coach certifiée — Pinapp Studio" loading="lazy" style="width:100%;height:220px;object-fit:cover;">
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,10,20,0.9) 0%,transparent 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:var(--space-3);">
-              <span class="label" style="margin-bottom:4px;">COACH / CONSULTANT</span>
-              <h2 style="font-size:18px;">Clara Fontaine</h2>
-              <span style="font-size:12px;opacity:0.6;">Clair &amp; Épuré</span>
+          <p class="carousel-scroll-hint">
+            Molette, trackpad horizontal ou glisser : faites défiler les sites comme un coverflow 3D.
+          </p>
+        </div>
+
+        <!-- Scène 3D -->
+        <div
+          class="carousel-3d"
+          role="region"
+          aria-label="Carousel des démos en trois dimensions"
+          aria-roledescription="carousel">
+          <div
+            class="demo-card-3d"
+            data-tier="classic"
+            data-name="Renov &amp; Co"
+            data-style="Graphique &amp; Impactant"
+            data-tag="ARTISAN / BTP"
+            data-link="../demo/artisan/index.html">
+            <div class="demo-card-preview">
+              <div
+                class="demo-card-preview-bg"
+                style="background: linear-gradient(135deg, #7a3c0a, #e8760a 60%, #c45a00)"></div>
+              <div class="demo-card-overlay"></div>
+              <div class="demo-card-meta">
+                <p class="demo-card-secteur">Artisan / BTP</p>
+                <p class="demo-card-style">Graphique &amp; Impactant</p>
+              </div>
             </div>
-            <span style="position:absolute;top:12px;left:12px;background:var(--accent-teal);color:#020810;font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px;">SERVICES</span>
-          </div>
-          <div class="realisation-card" data-secteur="avocat" data-category="services" data-demo="/demo/avocat/" style="cursor:pointer;overflow:hidden;border-radius:var(--radius-card);position:relative;border:1px solid var(--border-card);">
-            <img src="../assets/images/demo-avocat.webp" alt="Exemple site web cabinet avocat — Pinapp Studio" loading="lazy" style="width:100%;height:220px;object-fit:cover;">
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,10,20,0.9) 0%,transparent 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:var(--space-3);">
-              <span class="label" style="margin-bottom:4px;">AVOCAT / NOTAIRE</span>
-              <h2 style="font-size:18px;">Cabinet Renaud</h2>
-              <span style="font-size:12px;opacity:0.6;">Élégant &amp; Sombre</span>
+            <div class="demo-card-footer">
+              <p class="demo-card-name">Renov &amp; Co</p>
+              <span class="demo-card-tag" style="background: #e8760a">BTP</span>
             </div>
-            <span style="position:absolute;top:12px;left:12px;background:var(--accent-teal);color:#020810;font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px;">SERVICES</span>
           </div>
-          <div class="realisation-card" data-secteur="estheticienne" data-line="beaute" data-category="sante" data-demo="/demo/estheticienne/" style="cursor:pointer;overflow:hidden;border-radius:var(--radius-card);position:relative;border:1px solid var(--border-card);">
-            <img src="../assets/images/demo-estheticienne.webp" alt="Exemple site web institut beauté — Pinapp Studio" loading="lazy" style="width:100%;height:220px;object-fit:cover;">
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,10,20,0.9) 0%,transparent 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:var(--space-3);">
-              <span class="label" style="margin-bottom:4px;">ESTHÉTICIENNE / SPA</span>
-              <h2 style="font-size:18px;">Studio Élise</h2>
-              <span style="font-size:12px;opacity:0.6;">Clair &amp; Épuré</span>
+
+          <div
+            class="demo-card-3d"
+            data-tier="classic"
+            data-name="Ōkami"
+            data-style="Élégant &amp; Sombre"
+            data-tag="RESTAURANT"
+            data-link="../demo/restaurant/index.html">
+            <div class="demo-card-preview">
+              <div
+                class="demo-card-preview-bg"
+                style="background: linear-gradient(135deg, #1a0a0a, #c41e3a 70%, #8b0018)"></div>
+              <div class="demo-card-overlay"></div>
+              <div class="demo-card-meta">
+                <p class="demo-card-secteur">Restaurant</p>
+                <p class="demo-card-style">Élégant &amp; Sombre</p>
+              </div>
             </div>
-            <span style="position:absolute;top:12px;left:12px;background:var(--accent-teal);color:#020810;font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px;">SANTÉ &amp; BEAUTÉ</span>
-          </div>
-          <div class="realisation-card" data-secteur="cils" data-line="beaute" data-category="sante" data-demo="/demo/cils/" style="cursor:pointer;overflow:hidden;border-radius:var(--radius-card);position:relative;border:1px solid var(--border-card);">
-            <div style="width:100%;height:220px;background:linear-gradient(135deg,#5a3d9a,#9B7FF8);" aria-hidden="true"></div>
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,10,20,0.9) 0%,transparent 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:var(--space-3);">
-              <span class="label" style="margin-bottom:4px;">CILS / LASH</span>
-              <h2 style="font-size:18px;">Lash Studio Camille</h2>
-              <span style="font-size:12px;opacity:0.6;">Élégant &amp; Sombre</span>
+            <div class="demo-card-footer">
+              <p class="demo-card-name">Ōkami</p>
+              <span class="demo-card-tag" style="background: #c41e3a">RESTO</span>
             </div>
-            <span style="position:absolute;top:12px;left:12px;background:var(--accent-teal);color:#020810;font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px;">SANTÉ &amp; BEAUTÉ</span>
           </div>
-          <div class="realisation-card" data-secteur="ongles" data-line="beaute" data-category="sante" data-demo="/demo/ongles/" style="cursor:pointer;overflow:hidden;border-radius:var(--radius-card);position:relative;border:1px solid var(--border-card);">
-            <div style="width:100%;height:220px;background:linear-gradient(135deg,#8a6540,#D4A574);" aria-hidden="true"></div>
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,10,20,0.9) 0%,transparent 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:var(--space-3);">
-              <span class="label" style="margin-bottom:4px;">NAIL ART</span>
-              <h2 style="font-size:18px;">Nail Studio Nina</h2>
-              <span style="font-size:12px;opacity:0.6;">Clair &amp; Épuré</span>
+
+          <div
+            class="demo-card-3d"
+            data-tier="classic"
+            data-name="Clara Fontaine"
+            data-style="Clair &amp; Épuré"
+            data-tag="COACH"
+            data-link="../demo/coach/index.html">
+            <div class="demo-card-preview">
+              <div
+                class="demo-card-preview-bg"
+                style="background: linear-gradient(135deg, #0d3320, #2d6a4f 60%, #1a4d38)"></div>
+              <div class="demo-card-overlay"></div>
+              <div class="demo-card-meta">
+                <p class="demo-card-secteur">Coach / Consultant</p>
+                <p class="demo-card-style">Clair &amp; Épuré</p>
+              </div>
             </div>
-            <span style="position:absolute;top:12px;left:12px;background:var(--accent-teal);color:#020810;font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px;">SANTÉ &amp; BEAUTÉ</span>
-          </div>
-          <div class="realisation-card" data-secteur="coiffeur" data-line="beaute" data-category="sante" data-demo="/demo/coiffeur/" style="cursor:pointer;overflow:hidden;border-radius:var(--radius-card);position:relative;border:1px solid var(--border-card);">
-            <div style="width:100%;height:220px;background:linear-gradient(135deg,#4a3d28,#C0A882);" aria-hidden="true"></div>
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,10,20,0.9) 0%,transparent 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:var(--space-3);">
-              <span class="label" style="margin-bottom:4px;">COIFFURE</span>
-              <h2 style="font-size:18px;">Salon Obsidian</h2>
-              <span style="font-size:12px;opacity:0.6;">Élégant &amp; Sombre</span>
+            <div class="demo-card-footer">
+              <p class="demo-card-name">Clara Fontaine</p>
+              <span class="demo-card-tag" style="background: #2d6a4f">COACH</span>
             </div>
-            <span style="position:absolute;top:12px;left:12px;background:var(--accent-teal);color:#020810;font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px;">SANTÉ &amp; BEAUTÉ</span>
           </div>
-          <div class="realisation-card" data-secteur="barbier" data-line="beaute" data-category="services" data-demo="/demo/barbier/" style="cursor:pointer;overflow:hidden;border-radius:var(--radius-card);position:relative;border:1px solid var(--border-card);">
-            <div style="width:100%;height:220px;background:linear-gradient(135deg,#5c4a2a,#C9A96E);" aria-hidden="true"></div>
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,10,20,0.9) 0%,transparent 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:var(--space-3);">
-              <span class="label" style="margin-bottom:4px;">BARBERSHOP</span>
-              <h2 style="font-size:18px;">Barber &amp; Co</h2>
-              <span style="font-size:12px;opacity:0.6;">Élégant &amp; Sombre</span>
+
+          <div
+            class="demo-card-3d"
+            data-tier="classic"
+            data-name="Cabinet Renaud"
+            data-style="Élégant &amp; Sombre"
+            data-tag="AVOCAT"
+            data-link="../demo/avocat/index.html">
+            <div class="demo-card-preview">
+              <div
+                class="demo-card-preview-bg"
+                style="background: linear-gradient(135deg, #1a1408, #c9a96e 60%, #a07840)"></div>
+              <div class="demo-card-overlay"></div>
+              <div class="demo-card-meta">
+                <p class="demo-card-secteur">Avocat / Notaire</p>
+                <p class="demo-card-style">Élégant &amp; Sombre</p>
+              </div>
             </div>
-            <span style="position:absolute;top:12px;left:12px;background:var(--accent-teal);color:#020810;font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px;">SERVICES</span>
-          </div>
-          <div class="realisation-card" data-secteur="boulangerie" data-category="commerce" data-demo="/demo/boulangerie/" style="cursor:pointer;overflow:hidden;border-radius:var(--radius-card);position:relative;border:1px solid var(--border-card);">
-            <div style="width:100%;height:220px;background:linear-gradient(135deg,#8a4520,#C4622D);" aria-hidden="true"></div>
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,10,20,0.9) 0%,transparent 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:var(--space-3);">
-              <span class="label" style="margin-bottom:4px;">BOULANGERIE</span>
-              <h2 style="font-size:18px;">Maison Brioche</h2>
-              <span style="font-size:12px;opacity:0.6;">Clair &amp; Épuré</span>
+            <div class="demo-card-footer">
+              <p class="demo-card-name">Cabinet Renaud</p>
+              <span class="demo-card-tag" style="background: #c9a96e; color: #1a1408">DROIT</span>
             </div>
-            <span style="position:absolute;top:12px;left:12px;background:var(--accent-teal);color:#020810;font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px;">COMMERCE</span>
           </div>
-          <div class="realisation-card" data-secteur="trainer" data-category="services" data-demo="/demo/trainer/" style="cursor:pointer;overflow:hidden;border-radius:var(--radius-card);position:relative;border:1px solid var(--border-card);">
-            <div style="width:100%;height:220px;background:linear-gradient(135deg,#7a1212,#DC2626);" aria-hidden="true"></div>
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,10,20,0.9) 0%,transparent 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:var(--space-3);">
-              <span class="label" style="margin-bottom:4px;">SPORT / COACHING</span>
-              <h2 style="font-size:18px;">Forge Athletics</h2>
-              <span style="font-size:12px;opacity:0.6;">Graphique &amp; Impactant</span>
+
+          <div
+            class="demo-card-3d"
+            data-tier="classic"
+            data-carousel-line="beaute"
+            data-name="Studio Élise"
+            data-style="Clair &amp; Épuré"
+            data-tag="ESTHÉTIQUE"
+            data-link="../demo/estheticienne/index.html">
+            <div class="demo-card-preview">
+              <div
+                class="demo-card-preview-bg"
+                style="background: linear-gradient(135deg, #3d1830, #c9748f 60%, #a04570)"></div>
+              <div class="demo-card-overlay"></div>
+              <div class="demo-card-meta">
+                <p class="demo-card-secteur">Esthéticienne / Spa</p>
+                <p class="demo-card-style">Clair &amp; Épuré</p>
+              </div>
             </div>
-            <span style="position:absolute;top:12px;left:12px;background:var(--accent-teal);color:#020810;font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px;">SERVICES</span>
-          </div>
-          <div class="realisation-card" data-secteur="tatoueuse" data-category="perso" data-demo="/demo/tatoueuse/" style="cursor:pointer;overflow:hidden;border-radius:var(--radius-card);position:relative;border:1px solid var(--border-card);">
-            <div style="width:100%;height:220px;background:linear-gradient(145deg,#0a0608 0%,#8b1538 38%,#6b21a8 68%,#0d9488);" aria-hidden="true"></div>
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,10,20,0.92) 0%,transparent 58%);display:flex;flex-direction:column;justify-content:flex-end;padding:var(--space-3);">
-              <span class="label" style="margin-bottom:4px;">TATOUAGE · CRÉATION</span>
-              <h2 style="font-size:18px;">Nocturna Ink</h2>
-              <span style="font-size:12px;opacity:0.6;">Vitrine originale · effets poussés</span>
+            <div class="demo-card-footer">
+              <p class="demo-card-name">Studio Élise</p>
+              <span class="demo-card-tag" style="background: #c9748f">SPA</span>
             </div>
-            <span style="position:absolute;top:12px;left:12px;background:linear-gradient(90deg,#d4a574,#8b1538);color:#0a0608;font-size:10px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:0.04em;">CRÉATION PERSO</span>
           </div>
-          <div class="realisation-card" data-secteur="sur-mesure" data-category="perso" data-demo="/demo/sur-mesure/" style="cursor:pointer;overflow:hidden;border-radius:var(--radius-card);position:relative;border:1px solid var(--border-card);">
-            <div style="width:100%;height:220px;background:linear-gradient(155deg,#0E0D0B 0%,#4a3f32 45%,#C4A77D);" aria-hidden="true"></div>
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,10,20,0.92) 0%,transparent 58%);display:flex;flex-direction:column;justify-content:flex-end;padding:var(--space-3);">
-              <span class="label" style="margin-bottom:4px;">VITRINE COMPLÈTE</span>
-              <h2 style="font-size:18px;">Luminance &amp; Lieu</h2>
-              <span style="font-size:12px;opacity:0.6;">15+ photos · à propos · formulaire</span>
+
+          <div
+            class="demo-card-3d"
+            data-tier="classic"
+            data-carousel-line="beaute"
+            data-name="Lash Studio Camille"
+            data-style="Élégant &amp; Sombre"
+            data-tag="CILS"
+            data-link="../demo/cils/index.html">
+            <div class="demo-card-preview">
+              <div
+                class="demo-card-preview-bg"
+                style="background: linear-gradient(135deg, #2a1a5a, #9b7ff8 60%, #6b4fc8)"></div>
+              <div class="demo-card-overlay"></div>
+              <div class="demo-card-meta">
+                <p class="demo-card-secteur">Cils / Lash</p>
+                <p class="demo-card-style">Élégant &amp; Sombre</p>
+              </div>
             </div>
-            <span style="position:absolute;top:12px;left:12px;background:#C4A77D;color:#0E0D0B;font-size:10px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:0.06em;">SUR-MESURE</span>
+            <div class="demo-card-footer">
+              <p class="demo-card-name">Lash Studio Camille</p>
+              <span class="demo-card-tag" style="background: #9b7ff8">LASH</span>
+            </div>
           </div>
-          <a href="../diagnostic/index.html" style="border:1px dashed var(--border-card);border-radius:var(--radius-card);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:var(--space-5);text-align:center;min-height:220px;text-decoration:none;color:inherit;">
-            <span style="font-size:32px;margin-bottom:var(--space-2);" aria-hidden="true">+</span>
-            <h2 style="font-size:18px;margin-bottom:var(--space-1);">Votre secteur ?</h2>
-            <p style="font-size:14px;opacity:0.6;margin-bottom:var(--space-3);">Demandez un exemple pour votre métier.</p>
-            <span class="btn btn-secondary" style="font-size:13px;">Démarrer ma demande →</span>
+
+          <div
+            class="demo-card-3d"
+            data-tier="classic"
+            data-carousel-line="beaute"
+            data-name="Nail Studio Nina"
+            data-style="Clair &amp; Épuré"
+            data-tag="NAIL ART"
+            data-link="../demo/ongles/index.html">
+            <div class="demo-card-preview">
+              <div
+                class="demo-card-preview-bg"
+                style="background: linear-gradient(135deg, #4a2a10, #d4a574 60%, #a07040)"></div>
+              <div class="demo-card-overlay"></div>
+              <div class="demo-card-meta">
+                <p class="demo-card-secteur">Nail Art</p>
+                <p class="demo-card-style">Clair &amp; Épuré</p>
+              </div>
+            </div>
+            <div class="demo-card-footer">
+              <p class="demo-card-name">Nail Studio Nina</p>
+              <span class="demo-card-tag" style="background: #d4a574; color: #1a0a00">NAILS</span>
+            </div>
+          </div>
+
+          <div
+            class="demo-card-3d"
+            data-tier="classic"
+            data-carousel-line="beaute"
+            data-name="Salon Obsidian"
+            data-style="Élégant &amp; Sombre"
+            data-tag="COIFFURE"
+            data-link="../demo/coiffeur/index.html">
+            <div class="demo-card-preview">
+              <div
+                class="demo-card-preview-bg"
+                style="background: linear-gradient(135deg, #1a1510, #c0a882 60%, #8a7852)"></div>
+              <div class="demo-card-overlay"></div>
+              <div class="demo-card-meta">
+                <p class="demo-card-secteur">Coiffure</p>
+                <p class="demo-card-style">Élégant &amp; Sombre</p>
+              </div>
+            </div>
+            <div class="demo-card-footer">
+              <p class="demo-card-name">Salon Obsidian</p>
+              <span class="demo-card-tag" style="background: #c0a882; color: #1a1510">HAIR</span>
+            </div>
+          </div>
+
+          <div
+            class="demo-card-3d"
+            data-tier="classic"
+            data-carousel-line="beaute"
+            data-name="Barber &amp; Co"
+            data-style="Élégant &amp; Sombre"
+            data-tag="BARBIER"
+            data-link="../demo/barbier/index.html">
+            <div class="demo-card-preview">
+              <div
+                class="demo-card-preview-bg"
+                style="background: linear-gradient(135deg, #1a1408, #8b7355 60%, #5a4830)"></div>
+              <div class="demo-card-overlay"></div>
+              <div class="demo-card-meta">
+                <p class="demo-card-secteur">Barbier</p>
+                <p class="demo-card-style">Élégant &amp; Sombre</p>
+              </div>
+            </div>
+            <div class="demo-card-footer">
+              <p class="demo-card-name">Barber &amp; Co</p>
+              <span class="demo-card-tag" style="background: #8b7355; color: #fff">BARBER</span>
+            </div>
+          </div>
+
+          <div
+            class="demo-card-3d"
+            data-tier="classic"
+            data-name="Maison Brioche"
+            data-style="Clair &amp; Épuré"
+            data-tag="BOULANGERIE"
+            data-link="../demo/boulangerie/index.html">
+            <div class="demo-card-preview">
+              <div
+                class="demo-card-preview-bg"
+                style="background: linear-gradient(135deg, #5a200a, #c4622d 60%, #8a3a10)"></div>
+              <div class="demo-card-overlay"></div>
+              <div class="demo-card-meta">
+                <p class="demo-card-secteur">Boulangerie</p>
+                <p class="demo-card-style">Clair &amp; Épuré</p>
+              </div>
+            </div>
+            <div class="demo-card-footer">
+              <p class="demo-card-name">Maison Brioche</p>
+              <span class="demo-card-tag" style="background: #c4622d">BOULANG.</span>
+            </div>
+          </div>
+
+          <div
+            class="demo-card-3d"
+            data-tier="classic"
+            data-name="Forge Athletics"
+            data-style="Graphique &amp; Impactant"
+            data-tag="SPORT / FITNESS"
+            data-link="../demo/trainer/index.html">
+            <div class="demo-card-preview">
+              <div
+                class="demo-card-preview-bg"
+                style="background: linear-gradient(135deg, #1a0000, #dc2626 60%, #8b0000)"></div>
+              <div class="demo-card-overlay"></div>
+              <div class="demo-card-meta">
+                <p class="demo-card-secteur">Sport / Fitness</p>
+                <p class="demo-card-style">Graphique &amp; Impactant</p>
+              </div>
+            </div>
+            <div class="demo-card-footer">
+              <p class="demo-card-name">Forge Athletics</p>
+              <span class="demo-card-tag" style="background: #dc2626">FITNESS</span>
+            </div>
+          </div>
+
+          <div
+            class="demo-card-3d"
+            data-tier="perso"
+            data-name="Nocturna Ink"
+            data-style="Néons · encre · sur mesure"
+            data-tag="TATOUAGE · CRÉATION"
+            data-link="../demo/tatoueuse/index.html">
+            <div class="demo-card-preview">
+              <div
+                class="demo-card-preview-bg"
+                style="background: linear-gradient(145deg, #1a0508 0%, #8b1538 32%, #6b21a8 58%, #0d9488)"></div>
+              <div class="demo-card-overlay"></div>
+              <div class="demo-card-meta">
+                <p class="demo-card-secteur">Tatoueuse · vitrine sur mesure</p>
+                <p class="demo-card-style">Effets visuels · immersion</p>
+              </div>
+            </div>
+            <div class="demo-card-footer">
+              <p class="demo-card-name">Nocturna Ink</p>
+              <span class="demo-card-tag" style="background: linear-gradient(90deg, #8b1538, #6b21a8); color: #fff"
+                >INK</span
+              >
+            </div>
+          </div>
+
+          <div
+            class="demo-card-3d"
+            data-tier="premium"
+            data-name="Luminance &amp; Lieu"
+            data-style="Galerie 15 photos · formulaire · éditorial"
+            data-tag="SITE COMPLET SUR-MESURE"
+            data-link="../demo/sur-mesure/index.html">
+            <div class="demo-card-preview">
+              <div
+                class="demo-card-preview-bg"
+                style="background: linear-gradient(160deg, #1a1510 0%, #6b5a45 40%, #c4a77d 85%)"></div>
+              <div class="demo-card-overlay"></div>
+              <div class="demo-card-meta">
+                <p class="demo-card-secteur">Même exigence que Mémoire &amp; Présence</p>
+                <p class="demo-card-style">Vitrine riche · photos · contact</p>
+              </div>
+            </div>
+            <div class="demo-card-footer">
+              <p class="demo-card-name">Luminance &amp; Lieu</p>
+              <span class="demo-card-tag" style="background: #c4a77d; color: #1a1510">COMPLET</span>
+            </div>
+          </div>
+
+          <div
+            class="demo-card-3d"
+            data-tier="creative"
+            data-name="Nexus Heroes"
+            data-style="Blockbuster · lumière cinéma · héroïque"
+            data-tag="UNIVERS SUPER-HÉROS"
+            data-link="../univers/index.html">
+            <div class="demo-card-preview">
+              <div
+                class="demo-card-preview-bg"
+                style="background: linear-gradient(145deg, #0a1628 0%, #1e3a8a 35%, #38bdf8 55%, #f0f9ff 100%)"></div>
+              <div class="demo-card-overlay"></div>
+              <div class="demo-card-meta">
+                <p class="demo-card-secteur">Univers créatif</p>
+                <p class="demo-card-style">Cosplay héroïque · affiches IA</p>
+              </div>
+            </div>
+            <div class="demo-card-footer">
+              <p class="demo-card-name">Nexus Heroes</p>
+              <span class="demo-card-tag" style="background: linear-gradient(90deg, #38bdf8, #7b4fe8); color: #fff"
+                >HÉROS</span
+              >
+            </div>
+          </div>
+
+          <div
+            class="demo-card-3d"
+            data-tier="creative"
+            data-name="Atelier Kai"
+            data-style="Convention · pop culture · néons"
+            data-tag="COSPLAY &amp; POP CULTURE"
+            data-link="../univers/index.html">
+            <div class="demo-card-preview">
+              <div
+                class="demo-card-preview-bg"
+                style="background: linear-gradient(135deg, #1a0a28, #5b21b6 45%, #ec4899 78%, #fae8ff)"></div>
+              <div class="demo-card-overlay"></div>
+              <div class="demo-card-meta">
+                <p class="demo-card-secteur">Univers créatif</p>
+                <p class="demo-card-style">Salon, studio photo, boutique cosplay</p>
+              </div>
+            </div>
+            <div class="demo-card-footer">
+              <p class="demo-card-name">Atelier Kai</p>
+              <span class="demo-card-tag" style="background: #ec4899; color: #fff">COSPLAY</span>
+            </div>
+          </div>
+
+          <div
+            class="demo-card-3d"
+            data-tier="creative"
+            data-name="Oracle &amp; Cie"
+            data-style="Fantasy premium · mythologie · dorures"
+            data-tag="FANTASY &amp; SAGA"
+            data-link="../univers/index.html">
+            <div class="demo-card-preview">
+              <div
+                class="demo-card-preview-bg"
+                style="background: linear-gradient(160deg, #0f0518 0%, #4c1d95 40%, #c9a227 70%, #fef3c7)"></div>
+              <div class="demo-card-overlay"></div>
+              <div class="demo-card-meta">
+                <p class="demo-card-secteur">Univers créatif</p>
+                <p class="demo-card-style">RPG, éditeur, univers immersif</p>
+              </div>
+            </div>
+            <div class="demo-card-footer">
+              <p class="demo-card-name">Oracle &amp; Cie</p>
+              <span class="demo-card-tag" style="background: #c9a227; color: #1a0a12">FANTASY</span>
+            </div>
+          </div>
+
+          <!-- Contrôles -->
+          <button type="button" class="carousel-prev" aria-label="Démo précédente">&#8592;</button>
+          <button type="button" class="carousel-next" aria-label="Démo suivante">&#8594;</button>
+          <div class="carousel-dots" role="tablist" aria-label="Navigation carousel"></div>
+        </div>
+
+        <!-- Info dynamique -->
+        <div class="carousel-info" aria-live="polite" style="text-align: center">
+          <span class="info-tag">ARTISAN / BTP</span>
+          <p class="info-name">Renov &amp; Co</p>
+          <p class="info-style">Graphique &amp; Impactant</p>
+          <a class="info-cta" href="../demo/artisan/index.html" target="_blank" rel="noopener">
+            Ouvrir la vitrine &rarr;
           </a>
-                <div style="text-align:center;margin-top:var(--space-7);">
-          <p style="font-size:1rem;opacity:0.7;margin-bottom:var(--space-4);">Votre secteur n'est pas dans la liste ? Décrivez votre activité — je vous montre ce qui est possible.</p>
-          <a href="../diagnostic/index.html" class="btn btn-primary pinapp-breathe">Démarrer ma demande — gratuit</a>
         </div>
-      </div>
-    </section>
 
-    <div class="modal" id="demoModal" aria-hidden="true" role="dialog" aria-label="Vitrine interactive" style="position:fixed;inset:0;z-index:9999;background:rgba(5,10,20,0.98);">
-      <div class="modal-content" style="height:100%;display:flex;flex-direction:column;">
-        <div style="height:48px;background:rgba(5,10,20,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-card);display:flex;align-items:center;justify-content:space-between;padding:0 var(--space-3);flex-shrink:0;">
-          <span class="label">Pinapp Studio — niveau Mémoire &amp; Présence · scénario de présentation</span>
-          <button type="button" id="demoClose" style="font-size:20px;color:var(--text-secondary);" aria-label="Fermer">×</button>
+        <p class="carousel-honesty">
+          Ingénierie, éditorial et détail visuel : même ligne que Mémoire &amp; Présence.<br />
+          Marques et témoignages : scénarios pour vous montrer le rendu — pas une liste de mandats.
+        </p>
+      </section>
+
+      <!-- GRILLE COMPLÈTE -->
+      <section class="section section-enter" id="realisations">
+        <div class="container">
+          <p class="label" style="text-align: center; margin-bottom: var(--space-2)">PORTEFEUILLE D&apos;AMBIANCES</p>
+          <h3
+            style="
+              font-size: var(--text-h1);
+              text-align: center;
+              letter-spacing: -0.02em;
+              margin-bottom: var(--space-2);
+            ">
+            Des sites qui portent votre métier avec la même exigence.
+          </h3>
+          <p style="text-align: center; opacity: 0.6; margin-bottom: var(--space-6); font-size: 14px">
+            Cliquez pour ouvrir une vitrine interactive — conçue comme un livrable, pas comme un thème.
+          </p>
+          <div
+            style="
+              display: flex;
+              gap: var(--space-2);
+              flex-wrap: wrap;
+              justify-content: center;
+              margin-bottom: var(--space-5);
+            ">
+            <button type="button" class="filter-btn active" data-filter="all">Tous</button>
+            <button type="button" class="filter-btn" data-filter="beaute">Beauté</button>
+            <button type="button" class="filter-btn" data-filter="services">Services</button>
+            <button type="button" class="filter-btn" data-filter="commerce">Commerce</button>
+            <button type="button" class="filter-btn" data-filter="sante">Santé &amp; beauté</button>
+            <button type="button" class="filter-btn" data-filter="perso">Créations perso</button>
+          </div>
+          <div class="grid grid-3" id="realisationsGrid">
+            <div
+              class="realisation-card"
+              data-secteur="artisan"
+              data-category="services"
+              data-demo="/demo/artisan/"
+              style="
+                cursor: pointer;
+                overflow: hidden;
+                border-radius: var(--radius-card);
+                position: relative;
+                border: 1px solid var(--border-card);
+              ">
+              <img
+                src="../assets/images/demo-artisan.webp"
+                alt="Exemple site web artisan professionnel — Pinapp Studio"
+                loading="lazy"
+                style="width: 100%; height: 220px; object-fit: cover" />
+              <div
+                style="
+                  position: absolute;
+                  inset: 0;
+                  background: linear-gradient(to top, rgba(5, 10, 20, 0.9) 0%, transparent 60%);
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: flex-end;
+                  padding: var(--space-3);
+                ">
+                <span class="label" style="margin-bottom: 4px">ARTISAN / BTP</span>
+                <h2 style="font-size: 18px">Renov &amp; Co</h2>
+                <span style="font-size: 12px; opacity: 0.6">Graphique &amp; Impactant</span>
+              </div>
+              <span
+                style="
+                  position: absolute;
+                  top: 12px;
+                  left: 12px;
+                  background: var(--accent-teal);
+                  color: #020810;
+                  font-size: 11px;
+                  font-weight: 600;
+                  padding: 4px 10px;
+                  border-radius: 100px;
+                "
+                >SERVICES</span
+              >
+            </div>
+            <div
+              class="realisation-card"
+              data-secteur="restaurant"
+              data-category="commerce"
+              data-demo="/demo/restaurant/"
+              style="
+                cursor: pointer;
+                overflow: hidden;
+                border-radius: var(--radius-card);
+                position: relative;
+                border: 1px solid var(--border-card);
+              ">
+              <img
+                src="../assets/images/demo-restaurant.webp"
+                alt="Exemple site web restaurant — Pinapp Studio"
+                loading="lazy"
+                style="width: 100%; height: 220px; object-fit: cover" />
+              <div
+                style="
+                  position: absolute;
+                  inset: 0;
+                  background: linear-gradient(to top, rgba(5, 10, 20, 0.9) 0%, transparent 60%);
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: flex-end;
+                  padding: var(--space-3);
+                ">
+                <span class="label" style="margin-bottom: 4px">RESTAURANT</span>
+                <h2 style="font-size: 18px">Ōkami</h2>
+                <span style="font-size: 12px; opacity: 0.6">Élégant &amp; Sombre</span>
+              </div>
+              <span
+                style="
+                  position: absolute;
+                  top: 12px;
+                  left: 12px;
+                  background: var(--accent-teal);
+                  color: #020810;
+                  font-size: 11px;
+                  font-weight: 600;
+                  padding: 4px 10px;
+                  border-radius: 100px;
+                "
+                >COMMERCE</span
+              >
+            </div>
+            <div
+              class="realisation-card"
+              data-secteur="coach"
+              data-category="services"
+              data-demo="/demo/coach/"
+              style="
+                cursor: pointer;
+                overflow: hidden;
+                border-radius: var(--radius-card);
+                position: relative;
+                border: 1px solid var(--border-card);
+              ">
+              <img
+                src="../assets/images/demo-coach.webp"
+                alt="Exemple site web coach certifiée — Pinapp Studio"
+                loading="lazy"
+                style="width: 100%; height: 220px; object-fit: cover" />
+              <div
+                style="
+                  position: absolute;
+                  inset: 0;
+                  background: linear-gradient(to top, rgba(5, 10, 20, 0.9) 0%, transparent 60%);
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: flex-end;
+                  padding: var(--space-3);
+                ">
+                <span class="label" style="margin-bottom: 4px">COACH / CONSULTANT</span>
+                <h2 style="font-size: 18px">Clara Fontaine</h2>
+                <span style="font-size: 12px; opacity: 0.6">Clair &amp; Épuré</span>
+              </div>
+              <span
+                style="
+                  position: absolute;
+                  top: 12px;
+                  left: 12px;
+                  background: var(--accent-teal);
+                  color: #020810;
+                  font-size: 11px;
+                  font-weight: 600;
+                  padding: 4px 10px;
+                  border-radius: 100px;
+                "
+                >SERVICES</span
+              >
+            </div>
+            <div
+              class="realisation-card"
+              data-secteur="avocat"
+              data-category="services"
+              data-demo="/demo/avocat/"
+              style="
+                cursor: pointer;
+                overflow: hidden;
+                border-radius: var(--radius-card);
+                position: relative;
+                border: 1px solid var(--border-card);
+              ">
+              <img
+                src="../assets/images/demo-avocat.webp"
+                alt="Exemple site web cabinet avocat — Pinapp Studio"
+                loading="lazy"
+                style="width: 100%; height: 220px; object-fit: cover" />
+              <div
+                style="
+                  position: absolute;
+                  inset: 0;
+                  background: linear-gradient(to top, rgba(5, 10, 20, 0.9) 0%, transparent 60%);
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: flex-end;
+                  padding: var(--space-3);
+                ">
+                <span class="label" style="margin-bottom: 4px">AVOCAT / NOTAIRE</span>
+                <h2 style="font-size: 18px">Cabinet Renaud</h2>
+                <span style="font-size: 12px; opacity: 0.6">Élégant &amp; Sombre</span>
+              </div>
+              <span
+                style="
+                  position: absolute;
+                  top: 12px;
+                  left: 12px;
+                  background: var(--accent-teal);
+                  color: #020810;
+                  font-size: 11px;
+                  font-weight: 600;
+                  padding: 4px 10px;
+                  border-radius: 100px;
+                "
+                >SERVICES</span
+              >
+            </div>
+            <div
+              class="realisation-card"
+              data-secteur="estheticienne"
+              data-line="beaute"
+              data-category="sante"
+              data-demo="/demo/estheticienne/"
+              style="
+                cursor: pointer;
+                overflow: hidden;
+                border-radius: var(--radius-card);
+                position: relative;
+                border: 1px solid var(--border-card);
+              ">
+              <img
+                src="../assets/images/demo-estheticienne.webp"
+                alt="Exemple site web institut beauté — Pinapp Studio"
+                loading="lazy"
+                style="width: 100%; height: 220px; object-fit: cover" />
+              <div
+                style="
+                  position: absolute;
+                  inset: 0;
+                  background: linear-gradient(to top, rgba(5, 10, 20, 0.9) 0%, transparent 60%);
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: flex-end;
+                  padding: var(--space-3);
+                ">
+                <span class="label" style="margin-bottom: 4px">ESTHÉTICIENNE / SPA</span>
+                <h2 style="font-size: 18px">Studio Élise</h2>
+                <span style="font-size: 12px; opacity: 0.6">Clair &amp; Épuré</span>
+              </div>
+              <span
+                style="
+                  position: absolute;
+                  top: 12px;
+                  left: 12px;
+                  background: var(--accent-teal);
+                  color: #020810;
+                  font-size: 11px;
+                  font-weight: 600;
+                  padding: 4px 10px;
+                  border-radius: 100px;
+                "
+                >SANTÉ &amp; BEAUTÉ</span
+              >
+            </div>
+            <div
+              class="realisation-card"
+              data-secteur="cils"
+              data-line="beaute"
+              data-category="sante"
+              data-demo="/demo/cils/"
+              style="
+                cursor: pointer;
+                overflow: hidden;
+                border-radius: var(--radius-card);
+                position: relative;
+                border: 1px solid var(--border-card);
+              ">
+              <div
+                style="width: 100%; height: 220px; background: linear-gradient(135deg, #5a3d9a, #9b7ff8)"
+                aria-hidden="true"></div>
+              <div
+                style="
+                  position: absolute;
+                  inset: 0;
+                  background: linear-gradient(to top, rgba(5, 10, 20, 0.9) 0%, transparent 60%);
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: flex-end;
+                  padding: var(--space-3);
+                ">
+                <span class="label" style="margin-bottom: 4px">CILS / LASH</span>
+                <h2 style="font-size: 18px">Lash Studio Camille</h2>
+                <span style="font-size: 12px; opacity: 0.6">Élégant &amp; Sombre</span>
+              </div>
+              <span
+                style="
+                  position: absolute;
+                  top: 12px;
+                  left: 12px;
+                  background: var(--accent-teal);
+                  color: #020810;
+                  font-size: 11px;
+                  font-weight: 600;
+                  padding: 4px 10px;
+                  border-radius: 100px;
+                "
+                >SANTÉ &amp; BEAUTÉ</span
+              >
+            </div>
+            <div
+              class="realisation-card"
+              data-secteur="ongles"
+              data-line="beaute"
+              data-category="sante"
+              data-demo="/demo/ongles/"
+              style="
+                cursor: pointer;
+                overflow: hidden;
+                border-radius: var(--radius-card);
+                position: relative;
+                border: 1px solid var(--border-card);
+              ">
+              <div
+                style="width: 100%; height: 220px; background: linear-gradient(135deg, #8a6540, #d4a574)"
+                aria-hidden="true"></div>
+              <div
+                style="
+                  position: absolute;
+                  inset: 0;
+                  background: linear-gradient(to top, rgba(5, 10, 20, 0.9) 0%, transparent 60%);
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: flex-end;
+                  padding: var(--space-3);
+                ">
+                <span class="label" style="margin-bottom: 4px">NAIL ART</span>
+                <h2 style="font-size: 18px">Nail Studio Nina</h2>
+                <span style="font-size: 12px; opacity: 0.6">Clair &amp; Épuré</span>
+              </div>
+              <span
+                style="
+                  position: absolute;
+                  top: 12px;
+                  left: 12px;
+                  background: var(--accent-teal);
+                  color: #020810;
+                  font-size: 11px;
+                  font-weight: 600;
+                  padding: 4px 10px;
+                  border-radius: 100px;
+                "
+                >SANTÉ &amp; BEAUTÉ</span
+              >
+            </div>
+            <div
+              class="realisation-card"
+              data-secteur="coiffeur"
+              data-line="beaute"
+              data-category="sante"
+              data-demo="/demo/coiffeur/"
+              style="
+                cursor: pointer;
+                overflow: hidden;
+                border-radius: var(--radius-card);
+                position: relative;
+                border: 1px solid var(--border-card);
+              ">
+              <div
+                style="width: 100%; height: 220px; background: linear-gradient(135deg, #4a3d28, #c0a882)"
+                aria-hidden="true"></div>
+              <div
+                style="
+                  position: absolute;
+                  inset: 0;
+                  background: linear-gradient(to top, rgba(5, 10, 20, 0.9) 0%, transparent 60%);
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: flex-end;
+                  padding: var(--space-3);
+                ">
+                <span class="label" style="margin-bottom: 4px">COIFFURE</span>
+                <h2 style="font-size: 18px">Salon Obsidian</h2>
+                <span style="font-size: 12px; opacity: 0.6">Élégant &amp; Sombre</span>
+              </div>
+              <span
+                style="
+                  position: absolute;
+                  top: 12px;
+                  left: 12px;
+                  background: var(--accent-teal);
+                  color: #020810;
+                  font-size: 11px;
+                  font-weight: 600;
+                  padding: 4px 10px;
+                  border-radius: 100px;
+                "
+                >SANTÉ &amp; BEAUTÉ</span
+              >
+            </div>
+            <div
+              class="realisation-card"
+              data-secteur="barbier"
+              data-line="beaute"
+              data-category="services"
+              data-demo="/demo/barbier/"
+              style="
+                cursor: pointer;
+                overflow: hidden;
+                border-radius: var(--radius-card);
+                position: relative;
+                border: 1px solid var(--border-card);
+              ">
+              <div
+                style="width: 100%; height: 220px; background: linear-gradient(135deg, #5c4a2a, #c9a96e)"
+                aria-hidden="true"></div>
+              <div
+                style="
+                  position: absolute;
+                  inset: 0;
+                  background: linear-gradient(to top, rgba(5, 10, 20, 0.9) 0%, transparent 60%);
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: flex-end;
+                  padding: var(--space-3);
+                ">
+                <span class="label" style="margin-bottom: 4px">BARBERSHOP</span>
+                <h2 style="font-size: 18px">Barber &amp; Co</h2>
+                <span style="font-size: 12px; opacity: 0.6">Élégant &amp; Sombre</span>
+              </div>
+              <span
+                style="
+                  position: absolute;
+                  top: 12px;
+                  left: 12px;
+                  background: var(--accent-teal);
+                  color: #020810;
+                  font-size: 11px;
+                  font-weight: 600;
+                  padding: 4px 10px;
+                  border-radius: 100px;
+                "
+                >SERVICES</span
+              >
+            </div>
+            <div
+              class="realisation-card"
+              data-secteur="boulangerie"
+              data-category="commerce"
+              data-demo="/demo/boulangerie/"
+              style="
+                cursor: pointer;
+                overflow: hidden;
+                border-radius: var(--radius-card);
+                position: relative;
+                border: 1px solid var(--border-card);
+              ">
+              <div
+                style="width: 100%; height: 220px; background: linear-gradient(135deg, #8a4520, #c4622d)"
+                aria-hidden="true"></div>
+              <div
+                style="
+                  position: absolute;
+                  inset: 0;
+                  background: linear-gradient(to top, rgba(5, 10, 20, 0.9) 0%, transparent 60%);
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: flex-end;
+                  padding: var(--space-3);
+                ">
+                <span class="label" style="margin-bottom: 4px">BOULANGERIE</span>
+                <h2 style="font-size: 18px">Maison Brioche</h2>
+                <span style="font-size: 12px; opacity: 0.6">Clair &amp; Épuré</span>
+              </div>
+              <span
+                style="
+                  position: absolute;
+                  top: 12px;
+                  left: 12px;
+                  background: var(--accent-teal);
+                  color: #020810;
+                  font-size: 11px;
+                  font-weight: 600;
+                  padding: 4px 10px;
+                  border-radius: 100px;
+                "
+                >COMMERCE</span
+              >
+            </div>
+            <div
+              class="realisation-card"
+              data-secteur="trainer"
+              data-category="services"
+              data-demo="/demo/trainer/"
+              style="
+                cursor: pointer;
+                overflow: hidden;
+                border-radius: var(--radius-card);
+                position: relative;
+                border: 1px solid var(--border-card);
+              ">
+              <div
+                style="width: 100%; height: 220px; background: linear-gradient(135deg, #7a1212, #dc2626)"
+                aria-hidden="true"></div>
+              <div
+                style="
+                  position: absolute;
+                  inset: 0;
+                  background: linear-gradient(to top, rgba(5, 10, 20, 0.9) 0%, transparent 60%);
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: flex-end;
+                  padding: var(--space-3);
+                ">
+                <span class="label" style="margin-bottom: 4px">SPORT / COACHING</span>
+                <h2 style="font-size: 18px">Forge Athletics</h2>
+                <span style="font-size: 12px; opacity: 0.6">Graphique &amp; Impactant</span>
+              </div>
+              <span
+                style="
+                  position: absolute;
+                  top: 12px;
+                  left: 12px;
+                  background: var(--accent-teal);
+                  color: #020810;
+                  font-size: 11px;
+                  font-weight: 600;
+                  padding: 4px 10px;
+                  border-radius: 100px;
+                "
+                >SERVICES</span
+              >
+            </div>
+            <div
+              class="realisation-card"
+              data-secteur="tatoueuse"
+              data-category="perso"
+              data-demo="/demo/tatoueuse/"
+              style="
+                cursor: pointer;
+                overflow: hidden;
+                border-radius: var(--radius-card);
+                position: relative;
+                border: 1px solid var(--border-card);
+              ">
+              <div
+                style="
+                  width: 100%;
+                  height: 220px;
+                  background: linear-gradient(145deg, #0a0608 0%, #8b1538 38%, #6b21a8 68%, #0d9488);
+                "
+                aria-hidden="true"></div>
+              <div
+                style="
+                  position: absolute;
+                  inset: 0;
+                  background: linear-gradient(to top, rgba(5, 10, 20, 0.92) 0%, transparent 58%);
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: flex-end;
+                  padding: var(--space-3);
+                ">
+                <span class="label" style="margin-bottom: 4px">TATOUAGE · CRÉATION</span>
+                <h2 style="font-size: 18px">Nocturna Ink</h2>
+                <span style="font-size: 12px; opacity: 0.6">Vitrine originale · effets poussés</span>
+              </div>
+              <span
+                style="
+                  position: absolute;
+                  top: 12px;
+                  left: 12px;
+                  background: linear-gradient(90deg, #d4a574, #8b1538);
+                  color: #0a0608;
+                  font-size: 10px;
+                  font-weight: 700;
+                  padding: 4px 10px;
+                  border-radius: 100px;
+                  letter-spacing: 0.04em;
+                "
+                >CRÉATION PERSO</span
+              >
+            </div>
+            <div
+              class="realisation-card"
+              data-secteur="sur-mesure"
+              data-category="perso"
+              data-demo="/demo/sur-mesure/"
+              style="
+                cursor: pointer;
+                overflow: hidden;
+                border-radius: var(--radius-card);
+                position: relative;
+                border: 1px solid var(--border-card);
+              ">
+              <div
+                style="
+                  width: 100%;
+                  height: 220px;
+                  background: linear-gradient(155deg, #0e0d0b 0%, #4a3f32 45%, #c4a77d);
+                "
+                aria-hidden="true"></div>
+              <div
+                style="
+                  position: absolute;
+                  inset: 0;
+                  background: linear-gradient(to top, rgba(5, 10, 20, 0.92) 0%, transparent 58%);
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: flex-end;
+                  padding: var(--space-3);
+                ">
+                <span class="label" style="margin-bottom: 4px">VITRINE COMPLÈTE</span>
+                <h2 style="font-size: 18px">Luminance &amp; Lieu</h2>
+                <span style="font-size: 12px; opacity: 0.6">15+ photos · à propos · formulaire</span>
+              </div>
+              <span
+                style="
+                  position: absolute;
+                  top: 12px;
+                  left: 12px;
+                  background: #c4a77d;
+                  color: #0e0d0b;
+                  font-size: 10px;
+                  font-weight: 700;
+                  padding: 4px 10px;
+                  border-radius: 100px;
+                  letter-spacing: 0.06em;
+                "
+                >SUR-MESURE</span
+              >
+            </div>
+            <a
+              href="../diagnostic/index.html"
+              style="
+                border: 1px dashed var(--border-card);
+                border-radius: var(--radius-card);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: var(--space-5);
+                text-align: center;
+                min-height: 220px;
+                text-decoration: none;
+                color: inherit;
+              ">
+              <span style="font-size: 32px; margin-bottom: var(--space-2)" aria-hidden="true">+</span>
+              <h2 style="font-size: 18px; margin-bottom: var(--space-1)">Votre secteur ?</h2>
+              <p style="font-size: 14px; opacity: 0.6; margin-bottom: var(--space-3)">
+                Demandez un exemple pour votre métier.
+              </p>
+              <span class="btn btn-secondary" style="font-size: 13px">Démarrer ma demande →</span>
+            </a>
+          </div>
+          <div style="text-align: center; margin-top: var(--space-7)">
+            <p style="font-size: 1rem; opacity: 0.7; margin-bottom: var(--space-4)">
+              Votre secteur n'est pas dans la liste ? Décrivez votre activité — je vous montre ce qui est possible.
+            </p>
+            <a href="../diagnostic/index.html" class="btn btn-primary pinapp-breathe">Démarrer ma demande — gratuit</a>
+          </div>
         </div>
-        <div id="demoSkeleton" style="flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:var(--space-3);">
-          <div class="skeleton-pulse"></div>
-          <p style="font-size:13px;opacity:0.4;">Chargement du site…</p>
+      </section>
+
+      <div
+        class="modal"
+        id="demoModal"
+        aria-hidden="true"
+        role="dialog"
+        aria-label="Vitrine interactive"
+        style="position: fixed; inset: 0; z-index: 9999; background: rgba(5, 10, 20, 0.98)">
+        <div class="modal-content" style="height: 100%; display: flex; flex-direction: column">
+          <div
+            style="
+              height: 48px;
+              background: rgba(5, 10, 20, 0.95);
+              backdrop-filter: blur(20px);
+              border-bottom: 1px solid var(--border-card);
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              padding: 0 var(--space-3);
+              flex-shrink: 0;
+            ">
+            <span class="label">Pinapp Studio — niveau Mémoire &amp; Présence · scénario de présentation</span>
+            <button
+              type="button"
+              id="demoClose"
+              style="font-size: 20px; color: var(--text-secondary)"
+              aria-label="Fermer">
+              ×
+            </button>
+          </div>
+          <div
+            id="demoSkeleton"
+            style="
+              flex: 1;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-direction: column;
+              gap: var(--space-3);
+            ">
+            <div class="skeleton-pulse"></div>
+            <p style="font-size: 13px; opacity: 0.4">Chargement du site…</p>
+          </div>
+          <iframe
+            id="demoIframe"
+            src=""
+            title="Vitrine Pinapp Studio"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+            style="flex: 1; border: none; display: none"></iframe>
         </div>
-        <iframe id="demoIframe" src="" title="Vitrine Pinapp Studio" sandbox="allow-scripts allow-same-origin allow-forms allow-popups" style="flex:1;border:none;display:none;"></iframe>
       </div>
-    </div>
-    <p style="text-align:center;font-size:13px;opacity:0.45;padding:0 var(--space-4) var(--space-4);max-width:640px;margin:0 auto;line-height:1.5;">Les vitrines ci-dessus sont des scénarios de présentation : elles montrent le niveau de livrable Pinapp (équivalent à un projet type Mémoire &amp; Présence). Elles ne constituent pas une liste de clients avec droit à l&apos;image — les mandats réels peuvent être communiqués sur demande lors d&apos;un échange.</p>
-  </main>
+      <p
+        style="
+          text-align: center;
+          font-size: 13px;
+          opacity: 0.45;
+          padding: 0 var(--space-4) var(--space-4);
+          max-width: 640px;
+          margin: 0 auto;
+          line-height: 1.5;
+        ">
+        Les vitrines ci-dessus sont des scénarios de présentation : elles montrent le niveau de livrable Pinapp
+        (équivalent à un projet type Mémoire &amp; Présence). Elles ne constituent pas une liste de clients avec droit à
+        l&apos;image — les mandats réels peuvent être communiqués sur demande lors d&apos;un échange.
+      </p>
+    </main>
     <footer class="site-footer">
-    <div aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none;">
-      <svg viewBox="0 0 120 140" width="380" height="440" style="position:absolute;bottom:-60px;right:-40px;opacity:0.03;" aria-hidden="true" fill="currentColor"><ellipse cx="60" cy="80" rx="38" ry="48"/><path d="M60 32 C54 38 50 42 52 48"/><path d="M60 32 C60 38 60 42 60 48"/><path d="M60 32 C66 38 70 42 68 48"/><rect x="22" y="60" width="76" height="4" rx="2"/><rect x="22" y="72" width="76" height="4" rx="2"/><rect x="22" y="84" width="76" height="4" rx="2"/></svg>
-    </div>
-    <div class="container" style="position:relative;text-align:center;padding:var(--space-7) 0 var(--space-5);">
-      <p style="font-size:1.0625rem;opacity:0.55;margin-bottom:var(--space-4);font-style:italic;letter-spacing:-0.01em;">Pinapp orchestre. Vous validez. Toujours.</p>
-      <nav style="display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-3);margin-bottom:var(--space-4);font-size:13px;opacity:0.65;" aria-label="Liens footer">
-        <a href="https://linkedin.com/in/lauralie-daguzay-4a4542197/" rel="noopener noreferrer" target="_blank">LinkedIn</a>
-        <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
-        <a href="../legal/mentions.html">Mentions légales</a>
-        <a href="../legal/cgv.html">CGV</a>
-        <a href="../legal/confidentialite.html">Confidentialité</a>
-      </nav>
-        <nav style="display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-3);margin-bottom:var(--space-3);font-size:12px;opacity:0.4;" aria-label="Liens secondaires">
+      <div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden; pointer-events: none">
+        <svg
+          viewBox="0 0 120 140"
+          width="380"
+          height="440"
+          style="position: absolute; bottom: -60px; right: -40px; opacity: 0.03"
+          aria-hidden="true"
+          fill="currentColor">
+          <ellipse cx="60" cy="80" rx="38" ry="48" />
+          <path d="M60 32 C54 38 50 42 52 48" />
+          <path d="M60 32 C60 38 60 42 60 48" />
+          <path d="M60 32 C66 38 70 42 68 48" />
+          <rect x="22" y="60" width="76" height="4" rx="2" />
+          <rect x="22" y="72" width="76" height="4" rx="2" />
+          <rect x="22" y="84" width="76" height="4" rx="2" />
+        </svg>
+      </div>
+      <div class="container" style="position: relative; text-align: center; padding: var(--space-7) 0 var(--space-5)">
+        <p
+          style="
+            font-size: 1.0625rem;
+            opacity: 0.55;
+            margin-bottom: var(--space-4);
+            font-style: italic;
+            letter-spacing: -0.01em;
+          ">
+          Pinapp orchestre. Vous validez. Toujours.
+        </p>
+        <nav
+          style="
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+            font-size: 13px;
+            opacity: 0.65;
+          "
+          aria-label="Liens footer">
+          <a href="https://linkedin.com/in/lauralie-daguzay-4a4542197/" rel="noopener noreferrer" target="_blank"
+            >LinkedIn</a
+          >
+          <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
+          <a href="../legal/mentions.html">Mentions légales</a>
+          <a href="../legal/cgv.html">CGV</a>
+          <a href="../legal/confidentialite.html">Confidentialité</a>
+        </nav>
+        <nav
+          style="
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-3);
+            font-size: 12px;
+            opacity: 0.4;
+          "
+          aria-label="Liens secondaires">
           <a href="../expertise-ia/index.html">IA &amp; systèmes</a>
           <a href="../auralis/index.html">Auralis RH</a>
           <a href="../formation-gratuite/index.html">Formation IA</a>
         </nav>
-      <p style="font-size:12px;opacity:0.35;letter-spacing:0.04em;">Pinapp Studio © 2026</p>
-    </div>
-  </footer>
-  <div id="cookie-banner" role="dialog" aria-label="Cookies" style="position:fixed;bottom:0;left:0;right:0;padding:var(--space-3);background:var(--bg-card);border-top:1px solid var(--border-card);backdrop-filter:blur(20px);z-index:9000;display:none;">
-    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap;">
-      <p style="font-size:13px;opacity:0.8;max-width:600px;">Ce site utilise des cookies de mesure d’audience anonymes (Plausible Analytics — sans tracking personnel).</p>
-      <div style="display:flex;gap:var(--space-2);">
-        <button type="button" id="cookieAccept" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Accepter</button>
-        <button type="button" id="cookieRefuse" class="btn btn-secondary" style="font-size:13px;padding:10px 20px;">Refuser</button>
+        <p style="font-size: 12px; opacity: 0.35; letter-spacing: 0.04em">Pinapp Studio © 2026</p>
+      </div>
+    </footer>
+    <div
+      id="cookie-banner"
+      role="dialog"
+      aria-label="Cookies"
+      style="
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: var(--space-3);
+        background: var(--bg-card);
+        border-top: 1px solid var(--border-card);
+        backdrop-filter: blur(20px);
+        z-index: 9000;
+        display: none;
+      ">
+      <div
+        class="container"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: var(--space-3);
+          flex-wrap: wrap;
+        ">
+        <p style="font-size: 13px; opacity: 0.8; max-width: 600px">
+          Ce site utilise des cookies de mesure d’audience anonymes (Plausible Analytics — sans tracking personnel).
+        </p>
+        <div style="display: flex; gap: var(--space-2)">
+          <button type="button" id="cookieAccept" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px">
+            Accepter
+          </button>
+          <button type="button" id="cookieRefuse" class="btn btn-secondary" style="font-size: 13px; padding: 10px 20px">
+            Refuser
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <script src="../assets/js/config.js"></script>
-  <script src="../assets/js/security.js" defer></script>
-  <script src="../assets/js/main.js" defer></script>
-  <script src="../assets/js/particles.js" defer></script>
-  <script src="../assets/js/aurora.js" defer></script>
-  <script src="../assets/js/parallax.js" defer></script>
-  <script src="../assets/js/intelligence.js" defer></script><script src="../assets/js/carousel-3d.js" defer></script><script src="../assets/js/scroll-cinema.js" defer></script>
-  <script src="../assets/js/cursor.js" defer></script>
-<script src="../assets/js/pandora-night.js" defer></script><script src="../assets/js/mode-toggle.js" defer></script>
-  <script src="../assets/js/bio-particles.js" defer></script>
-  <script src="../assets/js/pandora-world.js"></script>
-  <script src="../assets/js/pandora-interactions.js"></script>
-</body>
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/security.js" defer></script>
+    <script src="../assets/js/main.js" defer></script>
+    <script src="../assets/js/particles.js" defer></script>
+    <script src="../assets/js/aurora.js" defer></script>
+    <script src="../assets/js/parallax.js" defer></script>
+    <script src="../assets/js/intelligence.js" defer></script>
+    <script src="../assets/js/carousel-3d.js" defer></script>
+    <script src="../assets/js/scroll-cinema.js" defer></script>
+    <script src="../assets/js/cursor.js" defer></script>
+    <script src="../assets/js/pandora-night.js" defer></script>
+    <script src="../assets/js/mode-toggle.js" defer></script>
+    <script src="../assets/js/bio-particles.js" defer></script>
+    <script src="../assets/js/pandora-world.js"></script>
+    <script src="../assets/js/pandora-interactions.js"></script>
+  </body>
 </html>

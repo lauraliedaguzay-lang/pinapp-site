@@ -85,9 +85,13 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true, root
   <link rel="stylesheet" href="${a('/assets/css/aurora-mobile.css')}">
   <link rel="stylesheet" href="${a('/assets/css/cursor.css')}">
   <link rel="stylesheet" href="${a('/assets/css/pandora-ux.css')}">
-  ${includeLdJson ? `<script type="application/ld+json">
+  ${
+    includeLdJson
+      ? `<script type="application/ld+json">
   {"@context":"https://schema.org","@type":"ProfessionalService","name":"Pinapp Studio","founder":{"@type":"Person","name":"Lauralie Daguzay"},"email":"lauralie.daguzay@pinapp.fr","url":"https://pinapp.fr","sameAs":"https://www.linkedin.com/in/lauralie-daguzay-4a4542197/"}
-  </script>` : ''}
+  </script>`
+      : ''
+  }
 </head>
 <body class="page-with-bottom-nav">
   <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
@@ -771,7 +775,7 @@ for (const p of pages) {
   fs.writeFileSync(
     path.join(root, p.file),
     shell(p.title, p.desc, p.og, body, true, rootPrefix),
-    'utf8'
+    'utf8',
   );
   console.log('Wrote', p.file);
 }
