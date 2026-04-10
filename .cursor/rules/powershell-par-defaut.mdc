@@ -1,0 +1,12 @@
+---
+description: Shell et automatisation Pinapp en PowerShell par défaut (Windows)
+alwaysApply: true
+---
+
+# PowerShell par défaut (pinapp-site)
+
+- Pour **toute commande terminal** proposée ou exécutée dans ce dépôt sur **Windows**, utiliser **PowerShell** (syntaxe `Set-Location`, `$env:VAR`, `.\script.ps1`), pas Bash / `&&` sauf si l’utilisateur est explicitement sous Git Bash ou WSL.
+- **Point d’entrée** des tâches locales : `.\tools\Pinapp.ps1` (ou `npm run pinapp -- <commande>`).
+- **Domaine / DNS GitHub Pages** : `.\tools\Pinapp.ps1 domain` ou `dns` ; éviter de dupliquer la logique ailleurs.
+- Les scripts **`.ps1`** doivent être **lancés comme fichiers** (`.\tools\…ps1`), jamais collés ligne par ligne dans la console (sinon `$PSScriptRoot` est absent).
+- **CI / build** : `npm run ci`, `npm run build` restent valides ; pour enchaîner tout : `.\tools\Pinapp.ps1 check`.

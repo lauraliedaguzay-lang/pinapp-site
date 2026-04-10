@@ -36,7 +36,9 @@ $DomainScript = Join-Path $PSScriptRoot 'pinapp-fr-domaine.ps1'
 
 function Write-PinappHelp {
     Write-Host ''
-    Write-Host 'Pinapp - commandes PowerShell' -ForegroundColor Cyan
+    Write-Host 'Pinapp - commandes PowerShell (defaut Windows)' -ForegroundColor Cyan
+    Write-Host '  Depuis npm : npm run pinapp -- <commande>   (ex. npm run pinapp -- check)' -ForegroundColor DarkGray
+    Write-Host ''
     Write-Host '  .\tools\Pinapp.ps1 pull     - git pull' -ForegroundColor White
     Write-Host '  .\tools\Pinapp.ps1 install - npm install' -ForegroundColor White
     Write-Host '  .\tools\Pinapp.ps1 ci      - npm run ci (Prettier + verify)' -ForegroundColor White
