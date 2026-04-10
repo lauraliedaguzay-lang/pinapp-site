@@ -8,7 +8,7 @@
   ou  .\tools\Pinapp.ps1 <commande>
 
 .PARAMETER Command
-  pull | install | ci | build | domain | dns | auth | urls | probe | open | suite | status | check | help
+  pull | install | dev | ci | build | format | format-check | domain | dns | auth | urls | probe | open | suite | status | check | help
 
 .EXAMPLE
   cd $env:USERPROFILE\Projects\pinapp-site
@@ -23,7 +23,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('pull', 'install', 'ci', 'build', 'domain', 'dns', 'auth', 'urls', 'probe', 'open', 'suite', 'status', 'check', 'help')]
+    [ValidateSet('pull', 'install', 'dev', 'ci', 'build', 'format', 'format-check', 'domain', 'dns', 'auth', 'urls', 'probe', 'open', 'suite', 'status', 'check', 'help')]
     [string] $Command = 'help'
 )
 
@@ -68,7 +68,10 @@ function Write-PinappHelp {
     Write-Host ''
     Write-Host '  .\pinapp.ps1 pull         - git pull' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 install      - npm install' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 dev          - npm run dev (Vite, laisser le terminal ouvert)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 ci           - npm run ci (Prettier + verify)' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 format       - npm run format (Prettier --write)' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 format-check - npm run format:check' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 build        - npm run build (_site)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 domain       - domaine GitHub Pages (menu interactif)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 dns          - instructions DNS seulement' -ForegroundColor White
@@ -94,6 +97,10 @@ switch ($Command) {
         Write-Host 'npm install...' -ForegroundColor Gray
         npm install
     }
+    'dev' {
+        Write-Host 'npm run dev (Vite)...' -ForegroundColor Gray
+        npm run dev
+    }
     'ci' {
         Write-Host 'npm run ci...' -ForegroundColor Gray
         npm run ci
@@ -101,6 +108,14 @@ switch ($Command) {
     'build' {
         Write-Host 'npm run build...' -ForegroundColor Gray
         npm run build
+    }
+    'format' {
+        Write-Host 'npm run format...' -ForegroundColor Gray
+        npm run format
+    }
+    'format-check' {
+        Write-Host 'npm run format:check...' -ForegroundColor Gray
+        npm run format:check
     }
     'domain' {
         & $DomainScript

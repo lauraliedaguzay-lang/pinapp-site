@@ -58,6 +58,8 @@ Set-Location $env:USERPROFILE\Projects\pinapp-site
 .\pinapp.ps1 help
 .\pinapp.ps1 check
 .\pinapp.ps1 suite
+.\pinapp.ps1 dev
+.\pinapp.ps1 format
 ```
 
 - **Domaine GitHub Pages / DNS** : `.\pinapp.ps1 dns`, `.\pinapp.ps1 domain`, `.\pinapp.ps1 open` (réglages Pages), `.\pinapp.ps1 probe`.
