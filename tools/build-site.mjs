@@ -80,4 +80,15 @@ if (!fs.existsSync(path.join(dest, 'assets/variables.css'))) {
   process.exit(1);
 }
 
+const cnameDest = path.join(dest, 'CNAME');
+if (!fs.existsSync(cnameDest)) {
+  console.error('build-site: CNAME manquant dans _site (domaine personnalise GitHub Pages)');
+  process.exit(1);
+}
+const cnameBody = fs.readFileSync(cnameDest, 'utf8').trim();
+if (cnameBody !== 'pinapp.fr') {
+  console.error('build-site: _site/CNAME doit etre pinapp.fr, trouve :', JSON.stringify(cnameBody));
+  process.exit(1);
+}
+
 console.log('build-site: OK →', dest);

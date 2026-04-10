@@ -7,7 +7,7 @@
   Depuis la racine du depot :  .\tools\Pinapp.ps1 <commande>
 
 .PARAMETER Command
-  pull | install | ci | build | domain | dns | auth | urls | status | check | help
+  pull | install | ci | build | domain | dns | auth | urls | probe | status | check | help
 
 .EXAMPLE
   cd $env:USERPROFILE\Projects\pinapp-site
@@ -21,7 +21,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('pull', 'install', 'ci', 'build', 'domain', 'dns', 'auth', 'urls', 'status', 'check', 'help')]
+    [ValidateSet('pull', 'install', 'ci', 'build', 'domain', 'dns', 'auth', 'urls', 'probe', 'status', 'check', 'help')]
     [string] $Command = 'help'
 )
 
@@ -33,6 +33,28 @@ if (-not $PSScriptRoot) {
 
 $RepoRoot = Split-Path -Parent $PSScriptRoot
 $DomainScript = Join-Path $PSScriptRoot 'pinapp-fr-domaine.ps1'
+
+function Invoke-PinappHttpProbe {
+    param(
+        [string] $Label,
+        [string] $Uri
+    )
+    try {
+        try {
+            $r = Invoke-WebRequest -Uri $Uri -Method Head -MaximumRedirection 5 -TimeoutSec 20 -UseBasicParsing -ErrorAction Stop
+        } catch {
+            $r = Invoke-WebRequest -Uri $Uri -Method Get -MaximumRedirection 5 -TimeoutSec 20 -UseBasicParsing -ErrorAction Stop
+        }
+        Write-Host ($Label + ' : HTTP ' + [int]$r.StatusCode) -ForegroundColor Green
+    } catch {
+        $resp = $_.Exception.Response
+        if ($resp -and $resp.StatusCode) {
+            Write-Host ($Label + ' : HTTP ' + [int]$resp.StatusCode) -ForegroundColor Yellow
+        } else {
+            Write-Host ($Label + ' : ' + $_.Exception.Message) -ForegroundColor Red
+        }
+    }
+}
 
 function Write-PinappHelp {
     Write-Host ''
@@ -47,6 +69,7 @@ function Write-PinappHelp {
     Write-Host '  .\tools\Pinapp.ps1 dns     - instructions DNS seulement' -ForegroundColor White
     Write-Host '  .\tools\Pinapp.ps1 auth    - gh auth status (CLI GitHub)' -ForegroundColor White
     Write-Host '  .\tools\Pinapp.ps1 urls    - liens Pages / depot / domaine' -ForegroundColor White
+    Write-Host '  .\tools\Pinapp.ps1 probe   - test HTTP Pages + pinapp.fr' -ForegroundColor White
     Write-Host '  .\tools\Pinapp.ps1 status  - git status -sb' -ForegroundColor White
     Write-Host '  .\tools\Pinapp.ps1 check   - pull + install + ci + build' -ForegroundColor White
     Write-Host ''
@@ -94,6 +117,13 @@ switch ($Command) {
         Write-Host '  Domaine    : https://pinapp.fr/' -ForegroundColor White
         Write-Host '  Pages repo : https://github.com/lauraliedaguzay-lang/pinapp-site/settings/pages' -ForegroundColor White
         Write-Host '  DNS script : .\tools\Pinapp.ps1 dns' -ForegroundColor DarkGray
+        Write-Host ''
+    }
+    'probe' {
+        Write-Host ''
+        Write-Host 'Sonde HTTP (HEAD puis GET si besoin)...' -ForegroundColor Cyan
+        Invoke-PinappHttpProbe -Label 'GitHub Pages' -Uri 'https://lauraliedaguzay-lang.github.io/pinapp-site/'
+        Invoke-PinappHttpProbe -Label 'pinapp.fr' -Uri 'https://pinapp.fr/'
         Write-Host ''
     }
     'status' {

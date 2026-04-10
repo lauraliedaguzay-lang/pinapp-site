@@ -128,9 +128,12 @@ function Show-PinappDnsBlock {
         [string] $RepoRootPath
     )
     $cnamePath = Join-Path $RepoRootPath 'CNAME'
+    $dnsRef = Join-Path (Join-Path $RepoRootPath 'tools') 'dns-hostinger-pinapp-fr.txt'
     Write-Host ''
     Write-Host ('=== DNS Hostinger (hPanel > Domaines > ' + $DomainName + ' > DNS) ===') -ForegroundColor Cyan
     Write-Host @"
+
+Reference detaillee (fichier dans le depot) : $dnsRef
 
 Supprime les enregistrements A qui pointent encore vers l'IP d'hebergement Hostinger
 si tu veux que le site soit servi uniquement par GitHub Pages.
