@@ -4,10 +4,10 @@
   Declarer pinapp.fr sur GitHub Pages (REST API) et afficher les DNS Hostinger.
 
 .DESCRIPTION
-  Jeton : $env:GITHUB_TOKEN, ou sortie de 'gh auth token', ou saisie masquee (mode interactif).
+  Jeton : $env:GITHUB_TOKEN, ou 'gh auth token', ou menu interactif (PAT / DNS seulement / quitter).
 
 .PARAMETER NonInteractive
-  Pas de Read-Host. Sans jeton : message + exit 2.
+  Pas de menu ni Read-Host. Sans jeton : message + exit 2.
 
 .PARAMETER DnsOnly
   N'appelle pas l'API : affiche uniquement les instructions DNS (exit 0).
@@ -21,7 +21,7 @@
   .\tools\pinapp-fr-domaine.ps1 -NonInteractive
 
 .NOTES
-  Lancer comme FICHIER : .\tools\pinapp-fr-domaine.ps1 (ne pas coller le corps ligne par ligne).
+  Lancer comme FICHIER : .\tools\pinapp-fr-domaine.ps1
   Codes sortie : 0 OK | 1 mauvais usage | 2 pas de jeton (NonInteractive) | 3 echec API
 #>
 [CmdletBinding()]
@@ -35,7 +35,6 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-# Console UTF-8 (evite affichages type masquǸe sur Windows PowerShell 5.1)
 try {
     if ($OutputEncoding.CodePage -ne 65001) {
         $OutputEncoding = [System.Text.UTF8Encoding]::new($false)
@@ -57,11 +56,9 @@ function Test-PinappScriptRoot {
     }
 }
 
-function Get-PinappGitHubToken {
-    param([switch] $AllowPrompt)
+function Get-PinappGitHubTokenSilent {
     $t = $env:GITHUB_TOKEN
     if ($t) { return $t.Trim() }
-
     $gh = Get-Command gh -ErrorAction SilentlyContinue
     if ($gh) {
         try {
@@ -69,11 +66,12 @@ function Get-PinappGitHubToken {
             if ($raw -and $raw.Trim()) { return $raw.Trim() }
         } catch {}
     }
+    return $null
+}
 
-    if (-not $AllowPrompt) { return $null }
-
-    Write-Host 'Aucun jeton : connecte GitHub CLI (gh auth login) ou definis $env:GITHUB_TOKEN.' -ForegroundColor Yellow
-    Write-Host 'Saisie masquee du PAT (classic, scope repo) :' -ForegroundColor Yellow
+function Read-PinappPatSecure {
+    Write-Host ''
+    Write-Host 'Saisie masquee du PAT (GitHub : classic token, scope repo).' -ForegroundColor Yellow
     $sec = Read-Host 'Personal Access Token' -AsSecureString
     if (-not $sec) { throw 'Jeton requis. Annule.' }
     $bstr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($sec)
@@ -84,6 +82,43 @@ function Get-PinappGitHubToken {
     }
     if (-not $plain -or -not $plain.Trim()) { throw 'Jeton vide. Annule.' }
     return $plain.Trim()
+}
+
+function Invoke-PinappInteractiveMenu {
+    param(
+        [string] $DomainName,
+        [string] $RepoRootPath
+    )
+    while ($true) {
+        Write-Host ''
+        Write-Host '--- Aucun jeton GitHub detecte ---' -ForegroundColor Yellow
+        Write-Host '  [1] Saisir un PAT (Personal Access Token, saisie masquee)' -ForegroundColor White
+        Write-Host '  [2] Afficher uniquement les DNS Hostinger (pas d appel API)' -ForegroundColor White
+        Write-Host '  [3] Quitter : configure d abord  gh auth login  puis relance ce script' -ForegroundColor White
+        Write-Host ''
+        $c = Read-Host 'Ton choix [1-3]'
+        $c = if ($c) { $c.Trim() } else { '' }
+        switch ($c) {
+            '1' { return 'pat' }
+            '2' {
+                Show-PinappDnsBlock -DomainName $DomainName -RepoRootPath $RepoRootPath
+                return 'dns_done'
+            }
+            '3' {
+                Write-Host ''
+                Write-Host 'Dans un autre terminal PowerShell :' -ForegroundColor Cyan
+                Write-Host '  gh auth login' -ForegroundColor White
+                Write-Host 'Puis :' -ForegroundColor Cyan
+                Write-Host ('  $env:GITHUB_TOKEN = gh auth token') -ForegroundColor White
+                Write-Host ('  .\tools\pinapp-fr-domaine.ps1 -NonInteractive') -ForegroundColor White
+                Write-Host ''
+                return 'quit'
+            }
+            default {
+                Write-Host 'Choix invalide. Entre 1, 2 ou 3.' -ForegroundColor Red
+            }
+        }
+    }
 }
 
 function Show-PinappDnsBlock {
@@ -147,26 +182,31 @@ if ($DnsOnly) {
     exit 0
 }
 
-$allowPrompt = -not $NonInteractive
-try {
-    $token = Get-PinappGitHubToken -AllowPrompt:$allowPrompt
-} catch {
-    Write-Host $_.Exception.Message -ForegroundColor Red
-    exit 1
+$token = Get-PinappGitHubTokenSilent
+
+if (-not $token -and -not $NonInteractive) {
+    $action = Invoke-PinappInteractiveMenu -DomainName $Domain -RepoRootPath $repoRoot
+    if ($action -eq 'dns_done') { exit 0 }
+    if ($action -eq 'quit') { exit 0 }
+    if ($action -eq 'pat') {
+        try {
+            $token = Read-PinappPatSecure
+        } catch {
+            Write-Host $_.Exception.Message -ForegroundColor Red
+            exit 1
+        }
+    }
 }
 
 if (-not $token) {
-    Write-Host 'Pas de jeton GitHub. Fais : gh auth login' -ForegroundColor Red
-    Write-Host 'puis : $env:GITHUB_TOKEN = gh auth token' -ForegroundColor Yellow
-    Write-Host 'Ou relance sans -NonInteractive pour saisir un PAT.' -ForegroundColor Yellow
+    Write-Host 'Pas de jeton GitHub.' -ForegroundColor Red
+    Write-Host 'Mode non interactif : definis GITHUB_TOKEN ou connecte gh, puis -NonInteractive.' -ForegroundColor Yellow
     exit 2
 }
 
 Write-Host 'Appel API GitHub Pages (PUT)...' -ForegroundColor Gray
-$apiOk = $false
 try {
     $null = Invoke-PinappGitHubPagesPut -OwnerName $Owner -RepoName $Repo -DomainName $Domain -BearerToken $token
-    $apiOk = $true
     Write-Host ('OK : domaine ' + $Domain + ' enregistre sur GitHub Pages (HTTPS).') -ForegroundColor Green
 } catch {
     $msg = $_.Exception.Message
