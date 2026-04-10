@@ -10,8 +10,10 @@ Branche par défaut : `main` ou `master` (les deux sont prises en charge par la 
 
 ### Premier envoi ou mise à jour (HTTPS + token)
 
-```bash
-cd pinapp-site
+Sous **Windows**, ouvrez **PowerShell** dans le dossier parent du dépôt.
+
+```powershell
+Set-Location pinapp-site
 git init
 git add .
 git commit -m "Initial import Pinapp site"
@@ -22,7 +24,7 @@ git push -u origin main
 
 Si `origin` existe déjà avec une autre URL :
 
-```bash
+```powershell
 git remote set-url origin https://github.com/lauraliedaguzay-lang/pinapp-site.git
 git push -u origin main
 ```
@@ -38,15 +40,28 @@ Le site reste **HTML + CSS + JS vanilla** en production (pas de React/Vue). La c
 
 **Prérequis :** [Node.js 20+](https://nodejs.org/)
 
-```bash
-cd pinapp-site
+```powershell
+Set-Location pinapp-site
 npm install
 npm run dev
 ```
 
 - La fenêtre du terminal doit **rester ouverte** : sinon le navigateur affiche **ERR_CONNECTION_REFUSED**.
 - URL : **`http://127.0.0.1:5173/`** ou `http://localhost:5173/` (le serveur écoute sur toutes les interfaces).
-- **Windows** : `powershell -ExecutionPolicy Bypass -File tools\dev-vite.ps1` (vérifie Node, lance `npm install` si besoin, puis Vite).
+
+#### Windows — PowerShell par défaut
+
+À la racine du dépôt, le script **`pinapp.ps1`** regroupe les tâches courantes (même commandes qu’avec `npm run pinapp -- …`) :
+
+```powershell
+Set-Location $env:USERPROFILE\Projects\pinapp-site
+.\pinapp.ps1 help
+.\pinapp.ps1 check
+.\pinapp.ps1 suite
+```
+
+- **Domaine GitHub Pages / DNS** : `.\pinapp.ps1 dns`, `.\pinapp.ps1 domain`, `.\pinapp.ps1 open` (réglages Pages), `.\pinapp.ps1 probe`.
+- **Vite** : `powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\dev-vite.ps1` (vérifie Node, `npm install` si besoin, puis le serveur de dev).
 
 Les pages profondes fonctionnent en MPA (`/offres/index.html`, etc.).
 
@@ -75,10 +90,12 @@ Après chaque push sur **`main`**, le workflow **Déployer GitHub Pages** publie
 
 Les fichiers **`.htaccess`** (Apache) ne s’appliquent pas sur Pages ; pour la prod **pinapp.fr**, utilisez **Hostinger** (ou équivalent) avec le ZIP ou le FTP.
 
+Sous **Windows**, pour les enregistrements DNS et la vérification HTTP : **`.\pinapp.ps1 suite`** ou **`.\pinapp.ps1 dns`**.
+
 ## Déploiement production (pinapp.fr)
 
 - Hébergement type **Hostinger** (Apache) : uploader le contenu du dossier à la racine du domaine, en conservant **`.htaccess`** à la racine.
-- ZIP complet pour Netlify manuel : `powershell -File tools\package-netlify.ps1` (voir `DEPLOIEMENT-NETLIFY.txt`).
+- ZIP complet pour Netlify manuel : `powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\package-netlify.ps1` (voir `DEPLOIEMENT-NETLIFY.txt`).
 - Vérifiez que **`/.well-known/security.txt`** est accessible en HTTPS.
 - Ne déployez **jamais** `.htpasswd` ni `.env` via le dépôt : créez le fichier mot de passe **uniquement sur le serveur**.
 
