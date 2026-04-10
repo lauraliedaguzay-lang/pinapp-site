@@ -18,6 +18,12 @@
 .PARAMETER Status
   GET API Pages : affiche cname, HTTPS, statut de build (jeton requis comme pour PUT).
 
+.PARAMETER Diagnose
+  DNS + HTTP uniquement puis instructions Hostinger (sans API, sans menu).
+
+.PARAMETER Repair
+  Diagnostic puis enregistrement API (comme sans DnsOnly) : corrige le cote GitHub ; le DNS Hostinger reste a faire a la main.
+
 .EXAMPLE
   cd $env:USERPROFILE\Projects\pinapp-site
   .\tools\pinapp-fr-domaine.ps1
@@ -28,7 +34,7 @@
 
 .NOTES
   Lancer comme FICHIER : .\tools\pinapp-fr-domaine.ps1
-  Point d entree global : .\pinapp.ps1 domain | dns | pages   (ou .\tools\Pinapp.ps1)
+  Point d entree global : .\pinapp.ps1 diagnose-fr | corrige-fr | domain | dns | pages
   Codes sortie : 0 OK | 1 mauvais usage | 2 pas de jeton (NonInteractive) | 3 echec API
 #>
 [CmdletBinding()]
@@ -39,7 +45,9 @@ param(
     [switch] $NonInteractive,
     [switch] $DnsOnly,
     [switch] $Quiet,
-    [switch] $Status
+    [switch] $Status,
+    [switch] $Diagnose,
+    [switch] $Repair
 )
 
 $ErrorActionPreference = 'Stop'
@@ -163,6 +171,87 @@ Fichier CNAME dans le depot : $cnamePath
     Write-Host ''
 }
 
+function Get-PinappGitHubPagesARecords {
+    return @(
+        '185.199.108.153',
+        '185.199.109.153',
+        '185.199.110.153',
+        '185.199.111.153'
+    )
+}
+
+function Invoke-PinappFrDnsHttpDiagnose {
+    param(
+        [string] $DomainName
+    )
+    $githubA = Get-PinappGitHubPagesARecords
+    Write-Host ''
+    Write-Host ('=== Diagnostic DNS + HTTP : ' + $DomainName + ' ===') -ForegroundColor Cyan
+    try {
+        $aRecs = @(Resolve-DnsName -Name $DomainName -Type A -DnsOnly -ErrorAction Stop | Where-Object { $_.IPAddress })
+    } catch {
+        try {
+            $aRecs = @(Resolve-DnsName -Name $DomainName -Type A -ErrorAction Stop | Where-Object { $_.IPAddress })
+        } catch {
+            Write-Host ('  DNS A : echec (' + $_.Exception.Message + ')') -ForegroundColor Yellow
+            $aRecs = @()
+        }
+    }
+    if ($aRecs.Count -eq 0) {
+        Write-Host '  Aucun enregistrement A (query DNS).' -ForegroundColor Yellow
+    } else {
+        $allGithub = $true
+        foreach ($r in $aRecs) {
+            $ip = [string]$r.IPAddress
+            $ok = $githubA -contains $ip
+            if (-not $ok) { $allGithub = $false }
+            $color = if ($ok) { 'Green' } else { 'Red' }
+            $label = if ($ok) { 'OK (GitHub Pages)' } else { 'PAS GitHub Pages (souvent Hostinger / ancien hebergeur)' }
+            Write-Host ('  A  ' + $ip + '  -> ' + $label) -ForegroundColor $color
+        }
+        if (-not $allGithub) {
+            Write-Host ''
+            Write-Host '  Cause frequente du 403 : le domaine pointe encore vers Hostinger (LiteSpeed), pas vers GitHub.' -ForegroundColor Yellow
+            Write-Host '  Action : modifier les DNS chez Hostinger (voir bloc ci-dessous).' -ForegroundColor Yellow
+        }
+    }
+    try {
+        $wc = @(Resolve-DnsName -Name ('www.' + $DomainName) -Type CNAME -DnsOnly -ErrorAction SilentlyContinue)
+    } catch {
+        $wc = @(Resolve-DnsName -Name ('www.' + $DomainName) -Type CNAME -ErrorAction SilentlyContinue)
+    }
+    foreach ($w in $wc) {
+        if ($w.NameHost) {
+            Write-Host ('  www CNAME -> ' + $w.NameHost) -ForegroundColor Gray
+        }
+    }
+    Write-Host ''
+    Write-Host '  Test HTTPS :' -ForegroundColor Gray
+    try {
+        $head = Invoke-WebRequest -Uri ('https://' + $DomainName + '/') -Method Head -TimeoutSec 20 -UseBasicParsing -MaximumRedirection 3 -ErrorAction Stop
+        Write-Host ('  HTTP ' + [int]$head.StatusCode) -ForegroundColor Green
+        if ($head.Headers['Server']) {
+            Write-Host ('  Server: ' + $head.Headers['Server']) -ForegroundColor Gray
+        }
+    } catch {
+        $resp = $_.Exception.Response
+        if ($resp) {
+            $code = [int]$resp.StatusCode
+            Write-Host ('  HTTP ' + $code) -ForegroundColor $(if ($code -eq 403) { 'Yellow' } else { 'Yellow' })
+            try {
+                $srv = $resp.Headers['Server']
+                if ($srv) { Write-Host ('  Server: ' + $srv) -ForegroundColor Gray }
+            } catch {}
+            if ($code -eq 403) {
+                Write-Host '  (403 + LiteSpeed/hostinger => DNS encore sur Hostinger ou pas de site sur ce vhost)' -ForegroundColor DarkGray
+            }
+        } else {
+            Write-Host ('  Erreur : ' + $_.Exception.Message) -ForegroundColor Red
+        }
+    }
+    Write-Host ''
+}
+
 function Invoke-PinappGitHubPagesGet {
     param(
         [string] $OwnerName,
@@ -210,10 +299,24 @@ if ($DnsOnly) {
     exit 0
 }
 
-Write-Host ''
-Write-Host '=== Pinapp - domaine GitHub Pages + DNS Hostinger ===' -ForegroundColor Cyan
-Write-Host ('Depot : ' + $Owner + '/' + $Repo + '  |  Domaine : ' + $Domain) -ForegroundColor Gray
-Write-Host ''
+if ($Diagnose -and -not $Repair) {
+    Invoke-PinappFrDnsHttpDiagnose -DomainName $Domain
+    Show-PinappDnsBlock -DomainName $Domain -RepoRootPath $repoRoot
+    exit 0
+}
+
+if ($Repair) {
+    Invoke-PinappFrDnsHttpDiagnose -DomainName $Domain
+    Write-Host '--- Correction cote GitHub (API Pages) ---' -ForegroundColor Cyan
+    Write-Host ('Depot : ' + $Owner + '/' + $Repo + '  |  Domaine : ' + $Domain) -ForegroundColor Gray
+    Write-Host 'Le DNS Hostinger (4x A GitHub) doit etre fait dans hPanel ; sans ca, pinapp.fr restera en 403.' -ForegroundColor DarkYellow
+    Write-Host ''
+} else {
+    Write-Host ''
+    Write-Host '=== Pinapp - domaine GitHub Pages + DNS Hostinger ===' -ForegroundColor Cyan
+    Write-Host ('Depot : ' + $Owner + '/' + $Repo + '  |  Domaine : ' + $Domain) -ForegroundColor Gray
+    Write-Host ''
+}
 
 $token = Get-PinappGitHubTokenSilent
 

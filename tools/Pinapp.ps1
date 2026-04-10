@@ -8,7 +8,7 @@
   ou  .\tools\Pinapp.ps1 <commande>
 
 .PARAMETER Command
-  pull | install | dev | serve | preview | ci | build | verify | ship | clean | format | format-check | info | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | status | check | help
+  pull | install | dev | serve | preview | ci | build | verify | ship | clean | format | format-check | info | diagnose-fr | corrige-fr | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | status | check | help
 
 .EXAMPLE
   cd $env:USERPROFILE\Projects\pinapp-site
@@ -23,7 +23,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('pull', 'install', 'dev', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'clean', 'format', 'format-check', 'info', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'status', 'check', 'help')]
+    [ValidateSet('pull', 'install', 'dev', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'clean', 'format', 'format-check', 'info', 'diagnose-fr', 'corrige-fr', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'status', 'check', 'help')]
     [string] $Command = 'help'
 )
 
@@ -98,6 +98,8 @@ function Write-PinappHelp {
     Write-Host '  .\pinapp.ps1 format-check - npm run format:check' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 build        - npm run build (_site)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 info         - Node / npm / git / dossier courant' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 diagnose-fr  - DNS + HTTP pinapp.fr + instructions Hostinger' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 corrige-fr   - diagnostic puis API GitHub (403 DNS a corriger a la main)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 domain       - domaine GitHub Pages (menu interactif)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 dns          - instructions DNS seulement' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 pages        - lire statut GitHub Pages (API, jeton requis)' -ForegroundColor White
@@ -206,6 +208,12 @@ switch ($Command) {
         }
         Write-Host ''
     }
+    'diagnose-fr' {
+        & $DomainScript -Diagnose
+    }
+    'corrige-fr' {
+        & $DomainScript -Repair
+    }
     'domain' {
         & $DomainScript
     }
@@ -264,6 +272,7 @@ switch ($Command) {
         & $PinappSelf urls
         & $PinappSelf probe
         Write-Host 'Enregistrer le domaine sur GitHub (API ou UI) :' -ForegroundColor Cyan
+        Write-Host '  .\pinapp.ps1 diagnose-fr | corrige-fr' -ForegroundColor White
         Write-Host '  .\pinapp.ps1 domain' -ForegroundColor White
         Write-Host '  .\pinapp.ps1 open' -ForegroundColor White
         Write-Host '  .\pinapp.ps1 pages' -ForegroundColor White

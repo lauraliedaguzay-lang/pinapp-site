@@ -97,7 +97,7 @@ Après chaque push sur **`main`**, le workflow **Déployer GitHub Pages** publie
 
 Les fichiers **`.htaccess`** (Apache) ne s’appliquent pas sur Pages ; pour la prod **pinapp.fr**, utilisez **Hostinger** (ou équivalent) avec le ZIP ou le FTP.
 
-Sous **Windows**, pour les enregistrements DNS et la vérification HTTP : **`.\pinapp.ps1 suite`** ou **`.\pinapp.ps1 dns`**.
+Sous **Windows**, pour les enregistrements DNS et la vérification HTTP : **`.\pinapp.ps1 suite`**, **`.\pinapp.ps1 dns`**, ou en cas de **403 sur pinapp.fr** : **`.\pinapp.ps1 diagnose-fr`** (analyse DNS + HTTPS et rappel des enregistrements Hostinger) puis **`.\pinapp.ps1 corrige-fr`** (même chose + enregistrement du domaine sur GitHub via API si `gh` / jeton).
 
 ## Déploiement production (pinapp.fr)
 
