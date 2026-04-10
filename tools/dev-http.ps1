@@ -1,6 +1,8 @@
 #requires -Version 5.1
 param(
-    [switch] $Built
+    [switch] $Built,
+    [ValidateRange(1024, 65535)]
+    [int] $Port = 8899
 )
 $ErrorActionPreference = 'Stop'
 $repoRoot = Split-Path -Parent $PSScriptRoot
@@ -15,8 +17,9 @@ if ($Built) {
         Write-Error '_site introuvable ou sans index.html. Lance : npm run build (ou .\pinapp.ps1 build).'
     }
 }
+$prefix = 'http://127.0.0.1:' + $Port + '/'
 $listener = New-Object System.Net.HttpListener
-$listener.Prefixes.Add('http://127.0.0.1:8899/')
+$listener.Prefixes.Add($prefix)
 $listener.Start()
 while ($listener.IsListening) {
   $ctx = $listener.GetContext()

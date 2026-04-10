@@ -65,7 +65,9 @@ Set-Location $env:USERPROFILE\Projects\pinapp-site
 ```
 
 - **Avant un push** : `.\pinapp.ps1 ship` (même contrôle que la CI + build `_site`). **Domaine GitHub Pages / DNS** : `.\pinapp.ps1 dns`, `.\pinapp.ps1 domain`, `.\pinapp.ps1 pages` (statut API, jeton GitHub), `.\pinapp.ps1 open` (réglages Pages), `.\pinapp.ps1 probe`.
-- **HTTP local (sans Vite)** : `.\pinapp.ps1 serve` (racine du dépôt) ou `.\pinapp.ps1 preview` (dossier `_site` après `build`) — [http://127.0.0.1:8899/](http://127.0.0.1:8899/).
+- **HTTP local (sans Vite)** : `.\pinapp.ps1 serve` (racine du dépôt) ou `.\pinapp.ps1 preview` (`_site` après `build`). Port par défaut **8899** ; pour en changer : `$env:PINAPP_HTTP_PORT = 9000` puis `serve` / `preview`.
+- **Nettoyage** : `.\pinapp.ps1 clean` supprime le dossier `_site`.
+- **GitHub** : `.\pinapp.ps1 repo`, `.\pinapp.ps1 actions`, `.\pinapp.ps1 open` (réglages Pages).
 - **Vite** : `powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\dev-vite.ps1` (vérifie Node, `npm install` si besoin, puis le serveur de dev).
 
 Les pages profondes fonctionnent en MPA (`/offres/index.html`, etc.).
