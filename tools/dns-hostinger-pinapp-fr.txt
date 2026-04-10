@@ -1,0 +1,26 @@
+DNS Hostinger — pointer pinapp.fr vers GitHub Pages
+====================================================
+À coller / créer dans hPanel → Domaines → pinapp.fr → DNS / Enregistrements DNS.
+Supprime les anciennes lignes qui pointent pinapp.fr vers l’hébergement Hostinger (A vers IP Hostinger) si tu veux que le site soit servi par GitHub uniquement.
+
+Domaine racine (apex) pinapp.fr — enregistrements A (4 lignes) :
+  Type : A
+  Nom : @   (ou pinapp.fr selon l’interface)
+  Pointe vers / Valeur : 185.199.108.153   TTL : 3600 (ou Auto)
+
+  Type : A, Nom : @, Valeur : 185.199.109.153
+
+  Type : A, Nom : @, Valeur : 185.199.110.153
+
+  Type : A, Nom : @, Valeur : 185.199.111.153
+
+Optionnel www :
+  Type : CNAME
+  Nom : www
+  Valeur : lauraliedaguzay-lang.github.io.
+  (point final parfois requis)
+
+Après propagation (souvent 15 min–48 h) :
+  GitHub → dépôt pinapp-site → Settings → Pages : vérifier "Custom domain" = pinapp.fr et cocher "Enforce HTTPS" si proposé.
+
+Le fichier CNAME dans le dépôt (contenu : pinapp.fr) est déjà poussé avec le site.
