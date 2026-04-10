@@ -57,12 +57,14 @@ npm run dev
 Set-Location $env:USERPROFILE\Projects\pinapp-site
 .\pinapp.ps1 help
 .\pinapp.ps1 check
+.\pinapp.ps1 ship
+.\pinapp.ps1 info
 .\pinapp.ps1 suite
 .\pinapp.ps1 dev
 .\pinapp.ps1 format
 ```
 
-- **Domaine GitHub Pages / DNS** : `.\pinapp.ps1 dns`, `.\pinapp.ps1 domain`, `.\pinapp.ps1 open` (réglages Pages), `.\pinapp.ps1 probe`.
+- **Avant un push** : `.\pinapp.ps1 ship` (même contrôle que la CI + build `_site`). **Domaine GitHub Pages / DNS** : `.\pinapp.ps1 dns`, `.\pinapp.ps1 domain`, `.\pinapp.ps1 open` (réglages Pages), `.\pinapp.ps1 probe`.
 - **Vite** : `powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\dev-vite.ps1` (vérifie Node, `npm install` si besoin, puis le serveur de dev).
 
 Les pages profondes fonctionnent en MPA (`/offres/index.html`, etc.).
