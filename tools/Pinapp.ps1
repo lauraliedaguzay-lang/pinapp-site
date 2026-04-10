@@ -9,7 +9,7 @@
   pinapp.fr sans menu : fr-prepare-profile (une fois) puis fr-auto (DNS Hostinger + GitHub API).
 
 .PARAMETER Command
-  pull | install | dev | serve | preview | ci | build | verify | ship | clean | format | format-check | info | 403 | diagnose-fr | corrige-fr | sync-fr | fr-auto | fr-prepare-profile | dns-hostinger | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | status | check | help
+  pull | install | dev | serve | preview | ci | build | verify | ship | clean | format | format-check | info | 403 | diagnose-fr | corrige-fr | sync-fr | fr-auto | fr-prepare-profile | dns-hostinger | hostinger-token | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | status | check | help
 
 .EXAMPLE
   cd $env:USERPROFILE\Projects\pinapp-site
@@ -24,7 +24,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('pull', 'install', 'dev', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'clean', 'format', 'format-check', 'info', '403', 'diagnose-fr', 'corrige-fr', 'sync-fr', 'fr-auto', 'fr-prepare-profile', 'dns-hostinger', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'status', 'check', 'help')]
+    [ValidateSet('pull', 'install', 'dev', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'clean', 'format', 'format-check', 'info', '403', 'diagnose-fr', 'corrige-fr', 'sync-fr', 'fr-auto', 'fr-prepare-profile', 'dns-hostinger', 'hostinger-token', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'status', 'check', 'help')]
     [string] $Command = 'help'
 )
 
@@ -38,6 +38,7 @@ $RepoRoot = Split-Path -Parent $PSScriptRoot
 $DomainScript = Join-Path $PSScriptRoot 'pinapp-fr-domaine.ps1'
 $DevHttpScript = Join-Path $PSScriptRoot 'dev-http.ps1'
 $HostingerDnsScript = Join-Path $PSScriptRoot 'hostinger-dns-github-pages.ps1'
+$HostingerJetonScript = Join-Path $PSScriptRoot 'hostinger-enregistrer-jeton.ps1'
 $PinappSelf = Join-Path $PSScriptRoot 'Pinapp.ps1'
 $PagesSettingsUrl = 'https://github.com/lauraliedaguzay-lang/pinapp-site/settings/pages'
 $GitHubRepoUrl = 'https://github.com/lauraliedaguzay-lang/pinapp-site'
@@ -132,6 +133,7 @@ function Write-PinappHelp {
     Write-Host '  .\pinapp.ps1 corrige-fr   - diagnostic puis API GitHub' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 sync-fr      - assistant avec questions o/N' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 dns-hostinger - DNS via API Hostinger (HOSTINGER_API_TOKEN)' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 hostinger-token - hPanel + enregistrer jeton dans ~\.pinapp-fr-env.ps1' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 domain       - domaine GitHub Pages (menu interactif)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 dns          - instructions DNS seulement' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 pages        - lire statut GitHub Pages (API, jeton requis)' -ForegroundColor White
@@ -332,7 +334,7 @@ $env:HOSTINGER_API_TOKEN = "COLLE_ICI_JETON_API_HOSTINGER_HPANEL"
 '@
         Set-Content -LiteralPath $profFr -Value $tpl -Encoding UTF8
         Write-Host ('Fichier cree : ' + $profFr) -ForegroundColor Green
-        Write-Host '1) Ouvre le fichier, remplace COLLE_ICI... par ton jeton Hostinger API.' -ForegroundColor Cyan
+        Write-Host '1) Remplis le jeton (manuellement) ou une fois : .\pinapp.ps1 hostinger-token' -ForegroundColor Cyan
         Write-Host '2) Optionnel : decommente GITHUB_TOKEN ou fais gh auth login une fois.' -ForegroundColor Cyan
         Write-Host '3) Puis a chaque fois (PowerShell) :' -ForegroundColor Cyan
         Write-Host ('   . ' + $profFr) -ForegroundColor White
@@ -346,6 +348,9 @@ $env:HOSTINGER_API_TOKEN = "COLLE_ICI_JETON_API_HOSTINGER_HPANEL"
         Write-Host '  .\tools\hostinger-dns-github-pages.ps1 -WhatIf' -ForegroundColor White
         Write-Host ''
         & $HostingerDnsScript
+    }
+    'hostinger-token' {
+        & $HostingerJetonScript
     }
     'domain' {
         & $DomainScript
