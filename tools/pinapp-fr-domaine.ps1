@@ -52,8 +52,8 @@ function Get-GitHubTokenFromGh {
 }
 
 Write-Host ""
-Write-Host "=== Pinapp — domaine GitHub Pages + DNS Hostinger ===" -ForegroundColor Cyan
-Write-Host "Dépôt : $Owner/$Repo  |  Domaine : $Domain" -ForegroundColor Gray
+Write-Host '=== Pinapp - domaine GitHub Pages + DNS Hostinger ===' -ForegroundColor Cyan
+Write-Host "Depot : $Owner/$Repo  |  Domaine : $Domain" -ForegroundColor Gray
 Write-Host ""
 
 $token = $env:GITHUB_TOKEN
@@ -61,8 +61,8 @@ if (-not $token) {
     $token = Get-GitHubTokenFromGh
 }
 if (-not $token) {
-    Write-Host "Aucun jeton : connecte GitHub CLI avec :  gh auth login" -ForegroundColor Yellow
-    Write-Host "Ou colle un PAT (classic, scope repo) ci-dessous (saisie masquée)." -ForegroundColor Yellow
+    Write-Host 'Aucun jeton : connecte GitHub CLI avec :  gh auth login' -ForegroundColor Yellow
+    Write-Host 'Ou colle un PAT (classic, scope repo) ci-dessous (saisie masquée).' -ForegroundColor Yellow
     $sec = Read-Host 'Personal Access Token' -AsSecureString
     if (-not $sec) { Write-Error 'Jeton requis. Annulé.' }
     $bstr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($sec)
@@ -85,10 +85,10 @@ $body = @{
     https_enforced = $true
 } | ConvertTo-Json
 
-Write-Host "Appel API GitHub Pages (PUT)..." -ForegroundColor Gray
+Write-Host 'Appel API GitHub Pages (PUT)...' -ForegroundColor Gray
 try {
     $null = Invoke-RestMethod -Method Put -Uri $uri -Headers $headers -Body $body -ContentType 'application/json'
-    Write-Host "OK — Domaine $Domain enregistré sur GitHub Pages (HTTPS forcé)." -ForegroundColor Green
+    Write-Host ('OK : domaine ' + $Domain + ' enregistre sur GitHub Pages (HTTPS).') -ForegroundColor Green
 } catch {
     $msg = $_.Exception.Message
     if ($_.ErrorDetails.Message) {
@@ -97,18 +97,18 @@ try {
             if ($j.message) { $msg = $j.message }
         } catch {}
     }
-    Write-Host "Échec API : $msg" -ForegroundColor Red
-    Write-Host "Alternative : GitHub → $Repo → Settings → Pages → Custom domain → $Domain → Save" -ForegroundColor Yellow
+    Write-Host ('Echec API : ' + $msg) -ForegroundColor Red
+    Write-Host ('Alternative : GitHub > ' + $Repo + ' > Settings > Pages > Custom domain = ' + $Domain + ' > Save') -ForegroundColor Yellow
 }
 
 Write-Host ""
-Write-Host "=== DNS à saisir chez Hostinger (hPanel → Domaines → $Domain → DNS) ===" -ForegroundColor Cyan
+Write-Host ('=== DNS Hostinger (hPanel > Domaines > ' + $Domain + ' > DNS) ===') -ForegroundColor Cyan
 Write-Host @"
 
 Supprime les enregistrements A qui pointent encore vers l'IP d'hébergement Hostinger
 si tu veux que le site soit servi uniquement par GitHub Pages.
 
-Enregistrements A (apex / @) — 4 lignes :
+Enregistrements A (apex / @) - 4 lignes :
   Type A | Nom @ | 185.199.108.153
   Type A | Nom @ | 185.199.109.153
   Type A | Nom @ | 185.199.110.153
@@ -117,8 +117,8 @@ Enregistrements A (apex / @) — 4 lignes :
 Optionnel www :
   Type CNAME | Nom www | lauraliedaguzay-lang.github.io.
 
-Après propagation (souvent 15 min – 48 h), ouvre : https://$Domain/
-Vérifie aussi : GitHub → Settings → Pages → Enforce HTTPS
+Apres propagation (souvent 15 min - 48 h), ouvre : https://$Domain/
+Verifie aussi : GitHub > Settings > Pages > Enforce HTTPS
 
 Fichier CNAME dans le dépôt : $(Join-Path $RepoRoot 'CNAME')
 "@
