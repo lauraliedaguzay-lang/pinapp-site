@@ -14,6 +14,11 @@
 .EXAMPLE
   $env:GITHUB_TOKEN = "ghp_xxxx"
   .\tools\pinapp-fr-domaine.ps1 -Domain "pinapp.fr"
+
+.NOTES
+  Ne colle pas le contenu de ce fichier ligne par ligne dans la console : sans fichier .ps1,
+  `$PSScriptRoot` n'existe pas et les chemins seront incorrects. Lance toujours :
+  cd ...\pinapp-site ; .\tools\pinapp-fr-domaine.ps1
 #>
 param(
     [string]$Owner = 'lauraliedaguzay-lang',
@@ -22,7 +27,18 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+
+# Uniquement défini quand le script est exécuté en tant que fichier (.ps1), pas en copier-coller interactif.
+if (-not $PSScriptRoot) {
+    Write-Host ""
+    Write-Host "Ce script doit être lancé comme FICHIER, pas collé ligne par ligne dans PowerShell." -ForegroundColor Red
+    Write-Host "Exemple :" -ForegroundColor Yellow
+    Write-Host "  cd `$env:USERPROFILE\Projects\pinapp-site" -ForegroundColor White
+    Write-Host "  .\tools\pinapp-fr-domaine.ps1" -ForegroundColor White
+    Write-Host ""
+    exit 1
+}
+$ScriptDir = $PSScriptRoot
 $RepoRoot = Split-Path -Parent $ScriptDir
 
 function Get-GitHubTokenFromGh {
