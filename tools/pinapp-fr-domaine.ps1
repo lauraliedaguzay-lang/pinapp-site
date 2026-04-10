@@ -73,13 +73,21 @@ function Test-PinappScriptRoot {
     }
 }
 
+function Normalize-PinappEnvTokenString {
+    param([string] $Raw)
+    if (-not $Raw) { return $null }
+    $t = $Raw.Trim().TrimStart([char]0xFEFF).Trim()
+    while ($t.Length -ge 2 -and (($t.StartsWith('"') -and $t.EndsWith('"')) -or ($t.StartsWith("'") -and $t.EndsWith("'")))) {
+        $t = $t.Substring(1, $t.Length - 2).Trim()
+    }
+    if ($t) { return $t }
+    return $null
+}
+
 function Get-PinappGitHubTokenSilent {
-    $t = $env:GITHUB_TOKEN
-    if ($t) {
-        $t = $t.Trim().TrimStart([char]0xFEFF).Trim()
-        while ($t.Length -ge 2 -and (($t.StartsWith('"') -and $t.EndsWith('"')) -or ($t.StartsWith("'") -and $t.EndsWith("'")))) {
-            $t = $t.Substring(1, $t.Length - 2).Trim()
-        }
+    foreach ($envKey in @('GITHUB_TOKEN', 'GH_TOKEN')) {
+        $raw = [Environment]::GetEnvironmentVariable($envKey, 'Process')
+        $t = Normalize-PinappEnvTokenString $raw
         if ($t) { return $t }
     }
     $ghExe = $null

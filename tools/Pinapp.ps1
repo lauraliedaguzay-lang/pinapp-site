@@ -9,7 +9,7 @@
   pinapp.fr sans menu : fr-prepare-profile (une fois) puis fr-auto (DNS Hostinger + GitHub API).
 
 .PARAMETER Command
-  pull | install | dev | serve | preview | ci | build | verify | ship | clean | format | format-check | info | 403 | diagnose-fr | corrige-fr | sync-fr | fr-auto | fr-prepare-profile | dns-hostinger | hostinger-token | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | status | check | help
+  pull | install | dev | serve | preview | ci | build | verify | ship | clean | format | format-check | info | 403 | diagnose-fr | corrige-fr | sync-fr | fr-auto | fr-prepare-profile | fr-secrets | dns-hostinger | hostinger-token | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | status | check | help
 
 .EXAMPLE
   cd $env:USERPROFILE\Projects\pinapp-site
@@ -24,7 +24,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('pull', 'install', 'dev', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'clean', 'format', 'format-check', 'info', '403', 'diagnose-fr', 'corrige-fr', 'sync-fr', 'fr-auto', 'fr-prepare-profile', 'dns-hostinger', 'hostinger-token', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'status', 'check', 'help')]
+    [ValidateSet('pull', 'install', 'dev', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'clean', 'format', 'format-check', 'info', '403', 'diagnose-fr', 'corrige-fr', 'sync-fr', 'fr-auto', 'fr-prepare-profile', 'fr-secrets', 'dns-hostinger', 'hostinger-token', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'status', 'check', 'help')]
     [string] $Command = 'help'
 )
 
@@ -87,9 +87,11 @@ function Get-PinappGhExecutable {
 }
 
 function Test-PinappGitHubTokenAvailable {
-    $t = $env:GITHUB_TOKEN
-    if ($t -and $t.Trim()) {
-        return $true
+    foreach ($k in @('GITHUB_TOKEN', 'GH_TOKEN')) {
+        $t = [Environment]::GetEnvironmentVariable($k, 'Process')
+        if ($t -and $t.Trim()) {
+            return $true
+        }
     }
     $ghExe = Get-PinappGhExecutable
     if (-not $ghExe) {
@@ -147,6 +149,7 @@ function Write-PinappHelp {
     Write-Host '  .\pinapp.ps1 403          - alias : diagnostic 403 pinapp.fr (voir diagnose-fr)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 fr-auto      - ZERO question : DNS Hostinger API + GitHub API (jetons requis)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 fr-prepare-profile - cree ~\.pinapp-fr-env.ps1 (secrets, une fois)' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 fr-secrets       - cree ~\.pinapp-secrets.ps1 (surcharge jetons, hors template)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 diagnose-fr  - DNS + HTTP pinapp.fr + instructions Hostinger' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 corrige-fr   - diagnostic puis API GitHub' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 sync-fr      - assistant avec questions o/N' -ForegroundColor White
@@ -316,6 +319,16 @@ switch ($Command) {
             Write-Host ('Profil absent : ' + $profFr) -ForegroundColor DarkGray
             Write-Host 'Une fois : .\pinapp.ps1 fr-prepare-profile puis editer le fichier, ou definir les variables a la main.' -ForegroundColor Yellow
         }
+        $profSecrets = Join-Path $env:USERPROFILE '.pinapp-secrets.ps1'
+        if (Test-Path -LiteralPath $profSecrets) {
+            Write-Host ('Surcharge jetons : ' + $profSecrets) -ForegroundColor DarkGray
+            try {
+                . $profSecrets
+            } catch {
+                Write-Host ('Erreur chargement secrets : ' + $_.Exception.Message) -ForegroundColor Red
+                exit 14
+            }
+        }
         $ht = $env:HOSTINGER_API_TOKEN
         if (-not $ht -or -not $ht.Trim()) {
             Write-Host 'HOSTINGER_API_TOKEN manquant (hPanel > API).' -ForegroundColor Red
@@ -327,7 +340,7 @@ switch ($Command) {
         if (-not (Test-PinappGitHubTokenAvailable)) {
             Write-Host ''
             Write-Host 'DNS Hostinger : etape terminee si aucune erreur ci-dessus.' -ForegroundColor Green
-            Write-Host 'GitHub : aucun jeton (GITHUB_TOKEN ou gh auth login).' -ForegroundColor Red
+            Write-Host 'GitHub : aucun jeton (GITHUB_TOKEN, GH_TOKEN ou gh auth login).' -ForegroundColor Red
             $ghexe = Get-PinappGhExecutable
             if (-not $ghexe) {
                 Write-Host '  Installe GitHub CLI : winget install GitHub.cli' -ForegroundColor White
@@ -363,11 +376,31 @@ $env:HOSTINGER_API_TOKEN = "COLLE_ICI_JETON_API_HOSTINGER_HPANEL"
         Set-Content -LiteralPath $profFr -Value $tpl -Encoding UTF8
         Write-Host ('Fichier cree : ' + $profFr) -ForegroundColor Green
         Write-Host '1) Remplis le jeton (manuellement) ou une fois : .\pinapp.ps1 hostinger-token' -ForegroundColor Cyan
-        Write-Host '2) Optionnel : decommente GITHUB_TOKEN ou fais gh auth login une fois.' -ForegroundColor Cyan
+        Write-Host '   Ou jetons reels dans : .\pinapp.ps1 fr-secrets  (fichier separe, surcharge ce modele)' -ForegroundColor DarkGray
+        Write-Host '2) Optionnel : GITHUB_TOKEN / GH_TOKEN dans le fichier, ou gh auth login une fois.' -ForegroundColor Cyan
         Write-Host '3) Puis a chaque fois (PowerShell) :' -ForegroundColor Cyan
         Write-Host ('   . ' + $profFr) -ForegroundColor White
         Write-Host ('   Set-Location ' + $RepoRoot) -ForegroundColor White
         Write-Host '   .\pinapp.ps1 fr-auto' -ForegroundColor White
+        Write-Host ''
+    }
+    'fr-secrets' {
+        $secPath = Join-Path $env:USERPROFILE '.pinapp-secrets.ps1'
+        if (Test-Path -LiteralPath $secPath) {
+            Write-Host ('Fichier existe deja : ' + $secPath) -ForegroundColor Yellow
+            Write-Host 'Edite-le : il est charge apres .pinapp-fr-env.ps1 par fr-auto et deploy-pinapp-fr.ps1.' -ForegroundColor Cyan
+            exit 0
+        }
+        $tpl = @'
+# Surcharge pinapp.fr — charge apres .pinapp-fr-env.ps1 (fr-auto, deploy-pinapp-fr.ps1). Ne pas committer.
+$env:HOSTINGER_API_TOKEN = "COLLE_JETON_API_HOSTINGER"
+# $env:GITHUB_TOKEN = "ghp_..."
+# Alternative CI / GitHub CLI : $env:GH_TOKEN = "ghp_..."
+'@
+        Set-Content -LiteralPath $secPath -Value $tpl -Encoding UTF8
+        Write-Host ('Fichier cree : ' + $secPath) -ForegroundColor Green
+        Write-Host 'Remplace COLLE_JETON... par le jeton hPanel, enregistre, puis :' -ForegroundColor Cyan
+        Write-Host '  .\deploy-pinapp-fr.ps1' -ForegroundColor White
         Write-Host ''
     }
     'dns-hostinger' {
