@@ -14,7 +14,7 @@ Fichier machine : `https://pinapp.fr/.well-known/security.txt` (déployé depuis
 
 ## Bonnes pratiques dépôt GitHub
 
-- Ne jamais committer : `.env`, `.htpasswd`, mots de passe FTP/SFTP, clés API.
+- Ne jamais committer : `.env`, `.htpasswd`, mots de passe FTP/SFTP, clés API, jeton **Hostinger API** (`HOSTINGER_API_TOKEN`), PAT GitHub.
 - Fichier `.sftp.json` est listé dans `.gitignore` ; utilisez des secrets GitHub Actions si vous automatisez le déploiement.
 - Activez sur le dépôt : **Secret scanning** (paramètres GitHub), **branch protection** sur `main` (ex. PR obligatoire, pas de push direct).
 

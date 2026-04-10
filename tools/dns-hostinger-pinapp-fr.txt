@@ -1,5 +1,19 @@
 DNS Hostinger — pointer pinapp.fr vers GitHub Pages
 ====================================================
+
+API (PowerShell, sans cliquer dans hPanel)
+-----------------------------------------
+1. Créer un jeton API : hPanel (compte Hostinger) → section API / développeurs
+   (voir aussi https://developers.hostinger.com ).
+2. Variable d’environnement : $env:HOSTINGER_API_TOKEN = '...'
+3. Aperçu du JSON envoyé :  .\tools\hostinger-dns-github-pages.ps1 -WhatIf
+4. Lecture seule zone DNS :  .\tools\hostinger-dns-github-pages.ps1 -GetOnly
+5. Appliquer (remplace @ A + www CNAME GitHub Pages) :
+   .\tools\hostinger-dns-github-pages.ps1 -Force
+   (ou confirmation interactive sans -Force)
+
+Manuel (hPanel)
+---------------
 À coller / créer dans hPanel → Domaines → pinapp.fr → DNS / Enregistrements DNS.
 Supprime les anciennes lignes qui pointent pinapp.fr vers l’hébergement Hostinger (A vers IP Hostinger) si tu veux que le site soit servi par GitHub uniquement.
 

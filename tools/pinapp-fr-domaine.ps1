@@ -151,6 +151,9 @@ function Show-PinappDnsBlock {
 
 Reference detaillee (fichier dans le depot) : $dnsRef
 
+API Hostinger (PowerShell, jeton hPanel) : .\tools\hostinger-dns-github-pages.ps1 -WhatIf
+  puis avec HOSTINGER_API_TOKEN : .\tools\hostinger-dns-github-pages.ps1 -Force
+
 Supprime les enregistrements A qui pointent encore vers l'IP d'hebergement Hostinger
 si tu veux que le site soit servi uniquement par GitHub Pages.
 

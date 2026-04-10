@@ -8,7 +8,7 @@
   ou  .\tools\Pinapp.ps1 <commande>
 
 .PARAMETER Command
-  pull | install | dev | serve | preview | ci | build | verify | ship | clean | format | format-check | info | 403 | diagnose-fr | corrige-fr | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | status | check | help
+  pull | install | dev | serve | preview | ci | build | verify | ship | clean | format | format-check | info | 403 | diagnose-fr | corrige-fr | dns-hostinger | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | status | check | help
 
 .EXAMPLE
   cd $env:USERPROFILE\Projects\pinapp-site
@@ -23,7 +23,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('pull', 'install', 'dev', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'clean', 'format', 'format-check', 'info', '403', 'diagnose-fr', 'corrige-fr', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'status', 'check', 'help')]
+    [ValidateSet('pull', 'install', 'dev', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'clean', 'format', 'format-check', 'info', '403', 'diagnose-fr', 'corrige-fr', 'dns-hostinger', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'status', 'check', 'help')]
     [string] $Command = 'help'
 )
 
@@ -36,6 +36,7 @@ if (-not $PSScriptRoot) {
 $RepoRoot = Split-Path -Parent $PSScriptRoot
 $DomainScript = Join-Path $PSScriptRoot 'pinapp-fr-domaine.ps1'
 $DevHttpScript = Join-Path $PSScriptRoot 'dev-http.ps1'
+$HostingerDnsScript = Join-Path $PSScriptRoot 'hostinger-dns-github-pages.ps1'
 $PinappSelf = Join-Path $PSScriptRoot 'Pinapp.ps1'
 $PagesSettingsUrl = 'https://github.com/lauraliedaguzay-lang/pinapp-site/settings/pages'
 $GitHubRepoUrl = 'https://github.com/lauraliedaguzay-lang/pinapp-site'
@@ -101,6 +102,7 @@ function Write-PinappHelp {
     Write-Host '  .\pinapp.ps1 403          - alias : diagnostic 403 pinapp.fr (voir diagnose-fr)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 diagnose-fr  - DNS + HTTP pinapp.fr + instructions Hostinger' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 corrige-fr   - diagnostic puis API GitHub (DNS Hostinger a la main)' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 dns-hostinger - DNS via API Hostinger (HOSTINGER_API_TOKEN)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 domain       - domaine GitHub Pages (menu interactif)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 dns          - instructions DNS seulement' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 pages        - lire statut GitHub Pages (API, jeton requis)' -ForegroundColor White
@@ -220,6 +222,13 @@ switch ($Command) {
     }
     'corrige-fr' {
         & $DomainScript -Repair
+    }
+    'dns-hostinger' {
+        Write-Host 'Jeton : $env:HOSTINGER_API_TOKEN (hPanel > API, voir developers.hostinger.com)' -ForegroundColor DarkGray
+        Write-Host 'Options (-WhatIf, -GetOnly, -ApexOnly, -Force) : lancer le script directement :' -ForegroundColor DarkGray
+        Write-Host '  .\tools\hostinger-dns-github-pages.ps1 -WhatIf' -ForegroundColor White
+        Write-Host ''
+        & $HostingerDnsScript
     }
     'domain' {
         & $DomainScript
