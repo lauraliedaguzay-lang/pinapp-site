@@ -4,13 +4,15 @@
   Point d entree PowerShell pour le depot pinapp-site (tout en PowerShell).
 
 .DESCRIPTION
-  Depuis la racine du depot :  .\tools\Pinapp.ps1 <commande>
+  Depuis la racine du depot :  .\pinapp.ps1 <commande>   (recommande)
+  ou  .\tools\Pinapp.ps1 <commande>
 
 .PARAMETER Command
-  pull | install | ci | build | domain | dns | auth | urls | probe | status | check | help
+  pull | install | ci | build | domain | dns | auth | urls | probe | suite | status | check | help
 
 .EXAMPLE
   cd $env:USERPROFILE\Projects\pinapp-site
+  .\pinapp.ps1 suite
   .\tools\Pinapp.ps1 pull
   .\tools\Pinapp.ps1 ci
   .\tools\Pinapp.ps1 domain
@@ -21,7 +23,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('pull', 'install', 'ci', 'build', 'domain', 'dns', 'auth', 'urls', 'probe', 'status', 'check', 'help')]
+    [ValidateSet('pull', 'install', 'ci', 'build', 'domain', 'dns', 'auth', 'urls', 'probe', 'suite', 'status', 'check', 'help')]
     [string] $Command = 'help'
 )
 
@@ -33,6 +35,7 @@ if (-not $PSScriptRoot) {
 
 $RepoRoot = Split-Path -Parent $PSScriptRoot
 $DomainScript = Join-Path $PSScriptRoot 'pinapp-fr-domaine.ps1'
+$PinappSelf = Join-Path $PSScriptRoot 'Pinapp.ps1'
 
 function Invoke-PinappHttpProbe {
     param(
@@ -59,19 +62,21 @@ function Invoke-PinappHttpProbe {
 function Write-PinappHelp {
     Write-Host ''
     Write-Host 'Pinapp - commandes PowerShell (defaut Windows)' -ForegroundColor Cyan
-    Write-Host '  Depuis npm : npm run pinapp -- <commande>   (ex. npm run pinapp -- check)' -ForegroundColor DarkGray
+    Write-Host '  Racine du depot : .\pinapp.ps1 <commande>   (recommande)' -ForegroundColor White
+    Write-Host '  Alternative npm : npm run pinapp -- <commande>' -ForegroundColor DarkGray
     Write-Host ''
-    Write-Host '  .\tools\Pinapp.ps1 pull     - git pull' -ForegroundColor White
-    Write-Host '  .\tools\Pinapp.ps1 install - npm install' -ForegroundColor White
-    Write-Host '  .\tools\Pinapp.ps1 ci      - npm run ci (Prettier + verify)' -ForegroundColor White
-    Write-Host '  .\tools\Pinapp.ps1 build   - npm run build (_site)' -ForegroundColor White
-    Write-Host '  .\tools\Pinapp.ps1 domain  - domaine GitHub Pages (menu interactif)' -ForegroundColor White
-    Write-Host '  .\tools\Pinapp.ps1 dns     - instructions DNS seulement' -ForegroundColor White
-    Write-Host '  .\tools\Pinapp.ps1 auth    - gh auth status (CLI GitHub)' -ForegroundColor White
-    Write-Host '  .\tools\Pinapp.ps1 urls    - liens Pages / depot / domaine' -ForegroundColor White
-    Write-Host '  .\tools\Pinapp.ps1 probe   - test HTTP Pages + pinapp.fr' -ForegroundColor White
-    Write-Host '  .\tools\Pinapp.ps1 status  - git status -sb' -ForegroundColor White
-    Write-Host '  .\tools\Pinapp.ps1 check   - pull + install + ci + build' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 pull         - git pull' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 install      - npm install' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 ci           - npm run ci (Prettier + verify)' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 build        - npm run build (_site)' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 domain       - domaine GitHub Pages (menu interactif)' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 dns          - instructions DNS seulement' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 auth         - gh auth status (CLI GitHub)' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 urls         - liens Pages / depot / domaine' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 probe        - test HTTP Pages + pinapp.fr' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 suite        - dns + urls + probe + rappel API domaine' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 status       - git status -sb' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 check        - pull + install + ci + build' -ForegroundColor White
     Write-Host ''
 }
 
@@ -116,7 +121,7 @@ switch ($Command) {
         Write-Host '  Site Pages : https://lauraliedaguzay-lang.github.io/pinapp-site/' -ForegroundColor White
         Write-Host '  Domaine    : https://pinapp.fr/' -ForegroundColor White
         Write-Host '  Pages repo : https://github.com/lauraliedaguzay-lang/pinapp-site/settings/pages' -ForegroundColor White
-        Write-Host '  DNS script : .\tools\Pinapp.ps1 dns' -ForegroundColor DarkGray
+        Write-Host '  DNS : .\pinapp.ps1 dns' -ForegroundColor DarkGray
         Write-Host ''
     }
     'probe' {
@@ -124,6 +129,19 @@ switch ($Command) {
         Write-Host 'Sonde HTTP (HEAD puis GET si besoin)...' -ForegroundColor Cyan
         Invoke-PinappHttpProbe -Label 'GitHub Pages' -Uri 'https://lauraliedaguzay-lang.github.io/pinapp-site/'
         Invoke-PinappHttpProbe -Label 'pinapp.fr' -Uri 'https://pinapp.fr/'
+        Write-Host ''
+    }
+    'suite' {
+        Write-Host ''
+        Write-Host '=== Pinapp : suite domaine (PowerShell) ===' -ForegroundColor Cyan
+        Write-Host ''
+        & $DomainScript -DnsOnly
+        Write-Host ''
+        & $PinappSelf urls
+        & $PinappSelf probe
+        Write-Host 'Enregistrer le domaine sur GitHub (API ou UI) :' -ForegroundColor Cyan
+        Write-Host '  .\pinapp.ps1 domain' -ForegroundColor White
+        Write-Host '  $env:GITHUB_TOKEN = gh auth token; .\tools\pinapp-fr-domaine.ps1 -NonInteractive' -ForegroundColor DarkGray
         Write-Host ''
     }
     'status' {

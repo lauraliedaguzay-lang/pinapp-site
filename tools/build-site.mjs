@@ -36,6 +36,7 @@ const excludeTop = new Set([
   'node_modules',
   '_site',
   'tools',
+  'pinapp.ps1',
   '.cursor',
   '.cursorrules',
   '.gitattributes',
