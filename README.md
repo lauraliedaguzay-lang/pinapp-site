@@ -64,7 +64,7 @@ Set-Location $env:USERPROFILE\Projects\pinapp-site
 .\pinapp.ps1 format
 ```
 
-- **Avant un push** : `.\pinapp.ps1 ship` (même contrôle que la CI + build `_site`). **Domaine GitHub Pages / DNS** : `.\pinapp.ps1 dns`, `.\pinapp.ps1 dns-hostinger` (rappel + script API Hostinger avec `HOSTINGER_API_TOKEN`), `.\tools\hostinger-dns-github-pages.ps1 -WhatIf`, `.\pinapp.ps1 domain`, `.\pinapp.ps1 pages`, `.\pinapp.ps1 open`, `.\pinapp.ps1 probe`.
+- **Avant un push** : `.\pinapp.ps1 ship` (même contrôle que la CI + build `_site`). **Domaine pinapp.fr** : `.\pinapp.ps1 sync-fr` (assistant : diagnostic, puis API Hostinger si `HOSTINGER_API_TOKEN`, puis API GitHub), ou `.\pinapp.ps1 dns` / `dns-hostinger` / `.\tools\hostinger-dns-github-pages.ps1 -WhatIf`, `domain`, `pages`, `open`, `probe`.
 - **HTTP local (sans Vite)** : `.\pinapp.ps1 serve` (racine du dépôt) ou `.\pinapp.ps1 preview` (`_site` après `build`). Port par défaut **8899** ; pour en changer : `$env:PINAPP_HTTP_PORT = 9000` puis `serve` / `preview`.
 - **Nettoyage** : `.\pinapp.ps1 clean` supprime le dossier `_site`.
 - **GitHub** : `.\pinapp.ps1 repo`, `.\pinapp.ps1 actions`, `.\pinapp.ps1 open` (réglages Pages).

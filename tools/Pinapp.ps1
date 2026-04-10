@@ -8,7 +8,7 @@
   ou  .\tools\Pinapp.ps1 <commande>
 
 .PARAMETER Command
-  pull | install | dev | serve | preview | ci | build | verify | ship | clean | format | format-check | info | 403 | diagnose-fr | corrige-fr | dns-hostinger | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | status | check | help
+  pull | install | dev | serve | preview | ci | build | verify | ship | clean | format | format-check | info | 403 | diagnose-fr | corrige-fr | sync-fr | dns-hostinger | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | status | check | help
 
 .EXAMPLE
   cd $env:USERPROFILE\Projects\pinapp-site
@@ -23,7 +23,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('pull', 'install', 'dev', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'clean', 'format', 'format-check', 'info', '403', 'diagnose-fr', 'corrige-fr', 'dns-hostinger', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'status', 'check', 'help')]
+    [ValidateSet('pull', 'install', 'dev', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'clean', 'format', 'format-check', 'info', '403', 'diagnose-fr', 'corrige-fr', 'sync-fr', 'dns-hostinger', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'status', 'check', 'help')]
     [string] $Command = 'help'
 )
 
@@ -56,6 +56,14 @@ function Get-PinappLocalHttpPort {
     }
     Write-Warning ('PINAPP_HTTP_PORT="' + $raw + '" ignore (entier 1024-65535 attendu). Port ' + $defaultPort + '.')
     return $defaultPort
+}
+
+function Test-PinappAffirmative {
+    param([string] $Prompt)
+    $c = Read-Host $Prompt
+    if (-not $c) { return $false }
+    $t = $c.Trim().ToLowerInvariant()
+    return ($t -eq 'o' -or $t -eq 'oui' -or $t -eq 'y' -or $t -eq 'yes')
 }
 
 function Invoke-PinappHttpProbe {
@@ -102,6 +110,7 @@ function Write-PinappHelp {
     Write-Host '  .\pinapp.ps1 403          - alias : diagnostic 403 pinapp.fr (voir diagnose-fr)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 diagnose-fr  - DNS + HTTP pinapp.fr + instructions Hostinger' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 corrige-fr   - diagnostic puis API GitHub (DNS Hostinger a la main)' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 sync-fr      - assistant : diagnostic puis API Hostinger + GitHub (o/N)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 dns-hostinger - DNS via API Hostinger (HOSTINGER_API_TOKEN)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 domain       - domaine GitHub Pages (menu interactif)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 dns          - instructions DNS seulement' -ForegroundColor White
@@ -223,6 +232,33 @@ switch ($Command) {
     'corrige-fr' {
         & $DomainScript -Repair
     }
+    'sync-fr' {
+        Write-Host ''
+        Write-Host '=== Synchro pinapp.fr (assistant PowerShell) ===' -ForegroundColor Cyan
+        Write-Host 'Jetons : HOSTINGER_API_TOKEN (hPanel API) ; GitHub via gh ou GITHUB_TOKEN' -ForegroundColor DarkGray
+        Write-Host ''
+        & $DomainScript -Diagnose
+        Write-Host '--- Etape A : DNS Hostinger (API) ---' -ForegroundColor Cyan
+        if ($env:HOSTINGER_API_TOKEN) {
+            if (Test-PinappAffirmative -Prompt 'Appliquer A GitHub + CNAME www via API Hostinger ? (o/N)') {
+                & $HostingerDnsScript -Force -NonInteractive
+            } else {
+                Write-Host 'Etape A annulee.' -ForegroundColor Gray
+            }
+        } else {
+            Write-Host 'HOSTINGER_API_TOKEN absent : etape A sautee. Definis le token ou DNS manuel (voir ci-dessus).' -ForegroundColor Yellow
+        }
+        Write-Host ''
+        Write-Host '--- Etape B : domaine GitHub Pages (API) ---' -ForegroundColor Cyan
+        if (Test-PinappAffirmative -Prompt 'Declarer pinapp.fr sur GitHub Pages (Repair) ? (o/N)') {
+            & $DomainScript -Repair
+        } else {
+            Write-Host 'Etape B annulee. Plus tard : .\pinapp.ps1 corrige-fr' -ForegroundColor Gray
+        }
+        Write-Host ''
+        Write-Host 'Apres propagation DNS : .\pinapp.ps1 diagnose-fr' -ForegroundColor Cyan
+        Write-Host ''
+    }
     'dns-hostinger' {
         Write-Host 'Jeton : $env:HOSTINGER_API_TOKEN (hPanel > API, voir developers.hostinger.com)' -ForegroundColor DarkGray
         Write-Host 'Options (-WhatIf, -GetOnly, -ApexOnly, -Force) : lancer le script directement :' -ForegroundColor DarkGray
@@ -288,7 +324,7 @@ switch ($Command) {
         & $PinappSelf urls
         & $PinappSelf probe
         Write-Host 'Enregistrer le domaine sur GitHub (API ou UI) :' -ForegroundColor Cyan
-        Write-Host '  .\pinapp.ps1 diagnose-fr | corrige-fr' -ForegroundColor White
+        Write-Host '  .\pinapp.ps1 sync-fr   |   diagnose-fr   |   corrige-fr' -ForegroundColor White
         Write-Host '  .\pinapp.ps1 domain' -ForegroundColor White
         Write-Host '  .\pinapp.ps1 open' -ForegroundColor White
         Write-Host '  .\pinapp.ps1 pages' -ForegroundColor White
