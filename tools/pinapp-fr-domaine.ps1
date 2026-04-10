@@ -15,6 +15,9 @@
 .PARAMETER Quiet
   Avec DnsOnly : pas d en-tete (utile pour pinapp.ps1 suite).
 
+.PARAMETER Status
+  GET API Pages : affiche cname, HTTPS, statut de build (jeton requis comme pour PUT).
+
 .EXAMPLE
   cd $env:USERPROFILE\Projects\pinapp-site
   .\tools\pinapp-fr-domaine.ps1
@@ -25,7 +28,7 @@
 
 .NOTES
   Lancer comme FICHIER : .\tools\pinapp-fr-domaine.ps1
-  Point d entree global : .\pinapp.ps1 domain | dns   (ou .\tools\Pinapp.ps1)
+  Point d entree global : .\pinapp.ps1 domain | dns | pages   (ou .\tools\Pinapp.ps1)
   Codes sortie : 0 OK | 1 mauvais usage | 2 pas de jeton (NonInteractive) | 3 echec API
 #>
 [CmdletBinding()]
@@ -35,7 +38,8 @@ param(
     [string] $Domain = 'pinapp.fr',
     [switch] $NonInteractive,
     [switch] $DnsOnly,
-    [switch] $Quiet
+    [switch] $Quiet,
+    [switch] $Status
 )
 
 $ErrorActionPreference = 'Stop'
@@ -159,6 +163,21 @@ Fichier CNAME dans le depot : $cnamePath
     Write-Host ''
 }
 
+function Invoke-PinappGitHubPagesGet {
+    param(
+        [string] $OwnerName,
+        [string] $RepoName,
+        [string] $BearerToken
+    )
+    $uri = 'https://api.github.com/repos/' + $OwnerName + '/' + $RepoName + '/pages'
+    $headers = @{
+        Authorization          = 'Bearer ' + $BearerToken
+        Accept                 = 'application/vnd.github+json'
+        'X-GitHub-Api-Version' = '2022-11-28'
+    }
+    return Invoke-RestMethod -Method Get -Uri $uri -Headers $headers
+}
+
 function Invoke-PinappGitHubPagesPut {
     param(
         [string] $OwnerName,
@@ -216,6 +235,37 @@ if (-not $token) {
     Write-Host 'Pas de jeton GitHub.' -ForegroundColor Red
     Write-Host 'Mode non interactif : definis GITHUB_TOKEN ou connecte gh, puis -NonInteractive.' -ForegroundColor Yellow
     exit 2
+}
+
+if ($Status) {
+    Write-Host 'Lecture API GitHub Pages (GET)...' -ForegroundColor Gray
+    try {
+        $pg = Invoke-PinappGitHubPagesGet -OwnerName $Owner -RepoName $Repo -BearerToken $token
+        Write-Host ''
+        Write-Host ('--- GitHub Pages (depot ' + $Owner + '/' + $Repo + ') ---') -ForegroundColor Cyan
+        Write-Host ('  status          : ' + $pg.status) -ForegroundColor White
+        Write-Host ('  cname           : ' + $pg.cname) -ForegroundColor White
+        Write-Host ('  https_enforced  : ' + $pg.https_enforced) -ForegroundColor White
+        if ($pg.html_url) {
+            Write-Host ('  html_url        : ' + $pg.html_url) -ForegroundColor White
+        }
+        if ($pg.build_type) {
+            Write-Host ('  build_type      : ' + $pg.build_type) -ForegroundColor White
+        }
+        Write-Host ''
+    } catch {
+        $msg = $_.Exception.Message
+        if ($_.ErrorDetails.Message) {
+            try {
+                $j = $_.ErrorDetails.Message | ConvertFrom-Json
+                if ($j.message) { $msg = $j.message }
+            } catch {}
+        }
+        Write-Host ('Echec GET Pages : ' + $msg) -ForegroundColor Red
+        Write-Host 'Pages est peut-etre desactive ou le depot sans site Pages.' -ForegroundColor Yellow
+        exit 3
+    }
+    exit 0
 }
 
 Write-Host 'Appel API GitHub Pages (PUT)...' -ForegroundColor Gray

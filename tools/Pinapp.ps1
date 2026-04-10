@@ -8,7 +8,7 @@
   ou  .\tools\Pinapp.ps1 <commande>
 
 .PARAMETER Command
-  pull | install | dev | ci | build | verify | ship | format | format-check | info | domain | dns | auth | urls | probe | open | suite | status | check | help
+  pull | install | dev | serve | preview | ci | build | verify | ship | format | format-check | info | domain | dns | pages | auth | urls | probe | open | suite | status | check | help
 
 .EXAMPLE
   cd $env:USERPROFILE\Projects\pinapp-site
@@ -23,7 +23,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('pull', 'install', 'dev', 'ci', 'build', 'verify', 'ship', 'format', 'format-check', 'info', 'domain', 'dns', 'auth', 'urls', 'probe', 'open', 'suite', 'status', 'check', 'help')]
+    [ValidateSet('pull', 'install', 'dev', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'format', 'format-check', 'info', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'suite', 'status', 'check', 'help')]
     [string] $Command = 'help'
 )
 
@@ -35,6 +35,7 @@ if (-not $PSScriptRoot) {
 
 $RepoRoot = Split-Path -Parent $PSScriptRoot
 $DomainScript = Join-Path $PSScriptRoot 'pinapp-fr-domaine.ps1'
+$DevHttpScript = Join-Path $PSScriptRoot 'dev-http.ps1'
 $PinappSelf = Join-Path $PSScriptRoot 'Pinapp.ps1'
 $PagesSettingsUrl = 'https://github.com/lauraliedaguzay-lang/pinapp-site/settings/pages'
 
@@ -69,6 +70,8 @@ function Write-PinappHelp {
     Write-Host '  .\pinapp.ps1 pull         - git pull' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 install      - npm install' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 dev          - npm run dev (Vite, laisser le terminal ouvert)' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 serve        - HTTP local sources : http://127.0.0.1:8899/ (Ctrl+C arrete)' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 preview      - HTTP local _site (apres build), meme port' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 ci           - npm run ci (Prettier + verify)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 verify       - npm run verify (fichiers critiques, sans Prettier)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 ship         - ci + build (avant git push)' -ForegroundColor White
@@ -78,6 +81,7 @@ function Write-PinappHelp {
     Write-Host '  .\pinapp.ps1 info         - Node / npm / git / dossier courant' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 domain       - domaine GitHub Pages (menu interactif)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 dns          - instructions DNS seulement' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 pages        - lire statut GitHub Pages (API, jeton requis)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 auth         - gh auth status (CLI GitHub)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 urls         - liens Pages / depot / domaine' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 probe        - test HTTP Pages + pinapp.fr + www' -ForegroundColor White
@@ -103,6 +107,16 @@ switch ($Command) {
     'dev' {
         Write-Host 'npm run dev (Vite)...' -ForegroundColor Gray
         npm run dev
+    }
+    'serve' {
+        Write-Host 'Serveur HTTP local (sources du depot) : http://127.0.0.1:8899/' -ForegroundColor Cyan
+        Write-Host 'Ctrl+C pour arreter.' -ForegroundColor DarkGray
+        & $DevHttpScript
+    }
+    'preview' {
+        Write-Host 'Serveur HTTP local (_site) : http://127.0.0.1:8899/' -ForegroundColor Cyan
+        Write-Host 'Ctrl+C pour arreter.' -ForegroundColor DarkGray
+        & $DevHttpScript -Built
     }
     'ci' {
         Write-Host 'npm run ci...' -ForegroundColor Gray
@@ -164,6 +178,9 @@ switch ($Command) {
     'dns' {
         & $DomainScript -DnsOnly
     }
+    'pages' {
+        & $DomainScript -Status
+    }
     'auth' {
         $gh = Get-Command gh -ErrorAction SilentlyContinue
         if (-not $gh) {
@@ -205,6 +222,7 @@ switch ($Command) {
         Write-Host 'Enregistrer le domaine sur GitHub (API ou UI) :' -ForegroundColor Cyan
         Write-Host '  .\pinapp.ps1 domain' -ForegroundColor White
         Write-Host '  .\pinapp.ps1 open' -ForegroundColor White
+        Write-Host '  .\pinapp.ps1 pages' -ForegroundColor White
         Write-Host '  $env:GITHUB_TOKEN = gh auth token; .\tools\pinapp-fr-domaine.ps1 -NonInteractive' -ForegroundColor DarkGray
         Write-Host ''
     }

@@ -1,4 +1,20 @@
-$root = Split-Path -Parent $PSScriptRoot
+#requires -Version 5.1
+param(
+    [switch] $Built
+)
+$ErrorActionPreference = 'Stop'
+$repoRoot = Split-Path -Parent $PSScriptRoot
+$root = if ($Built) {
+    Join-Path $repoRoot '_site'
+} else {
+    $repoRoot
+}
+if ($Built) {
+    $indexBuilt = Join-Path $root 'index.html'
+    if (-not (Test-Path -LiteralPath $indexBuilt)) {
+        Write-Error '_site introuvable ou sans index.html. Lance : npm run build (ou .\pinapp.ps1 build).'
+    }
+}
 $listener = New-Object System.Net.HttpListener
 $listener.Prefixes.Add('http://127.0.0.1:8899/')
 $listener.Start()
