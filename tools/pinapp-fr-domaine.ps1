@@ -12,6 +12,9 @@
 .PARAMETER DnsOnly
   N'appelle pas l'API : affiche uniquement les instructions DNS (exit 0).
 
+.PARAMETER Quiet
+  Avec DnsOnly : pas d en-tete (utile pour pinapp.ps1 suite).
+
 .EXAMPLE
   cd $env:USERPROFILE\Projects\pinapp-site
   .\tools\pinapp-fr-domaine.ps1
@@ -22,7 +25,7 @@
 
 .NOTES
   Lancer comme FICHIER : .\tools\pinapp-fr-domaine.ps1
-  Point d entree global : .\tools\Pinapp.ps1 domain   ou   .\tools\Pinapp.ps1 dns
+  Point d entree global : .\pinapp.ps1 domain | dns   (ou .\tools\Pinapp.ps1)
   Codes sortie : 0 OK | 1 mauvais usage | 2 pas de jeton (NonInteractive) | 3 echec API
 #>
 [CmdletBinding()]
@@ -31,7 +34,8 @@ param(
     [string] $Repo = 'pinapp-site',
     [string] $Domain = 'pinapp.fr',
     [switch] $NonInteractive,
-    [switch] $DnsOnly
+    [switch] $DnsOnly,
+    [switch] $Quiet
 )
 
 $ErrorActionPreference = 'Stop'
@@ -176,15 +180,21 @@ function Invoke-PinappGitHubPagesPut {
 Test-PinappScriptRoot
 $repoRoot = Split-Path -Parent $PSScriptRoot
 
+if ($DnsOnly) {
+    if (-not $Quiet) {
+        Write-Host ''
+        Write-Host '=== Pinapp - domaine GitHub Pages + DNS Hostinger ===' -ForegroundColor Cyan
+        Write-Host ('Depot : ' + $Owner + '/' + $Repo + '  |  Domaine : ' + $Domain) -ForegroundColor Gray
+        Write-Host ''
+    }
+    Show-PinappDnsBlock -DomainName $Domain -RepoRootPath $repoRoot
+    exit 0
+}
+
 Write-Host ''
 Write-Host '=== Pinapp - domaine GitHub Pages + DNS Hostinger ===' -ForegroundColor Cyan
 Write-Host ('Depot : ' + $Owner + '/' + $Repo + '  |  Domaine : ' + $Domain) -ForegroundColor Gray
 Write-Host ''
-
-if ($DnsOnly) {
-    Show-PinappDnsBlock -DomainName $Domain -RepoRootPath $repoRoot
-    exit 0
-}
 
 $token = Get-PinappGitHubTokenSilent
 

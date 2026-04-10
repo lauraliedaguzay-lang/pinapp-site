@@ -8,7 +8,7 @@
   ou  .\tools\Pinapp.ps1 <commande>
 
 .PARAMETER Command
-  pull | install | ci | build | domain | dns | auth | urls | probe | suite | status | check | help
+  pull | install | ci | build | domain | dns | auth | urls | probe | open | suite | status | check | help
 
 .EXAMPLE
   cd $env:USERPROFILE\Projects\pinapp-site
@@ -23,7 +23,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('pull', 'install', 'ci', 'build', 'domain', 'dns', 'auth', 'urls', 'probe', 'suite', 'status', 'check', 'help')]
+    [ValidateSet('pull', 'install', 'ci', 'build', 'domain', 'dns', 'auth', 'urls', 'probe', 'open', 'suite', 'status', 'check', 'help')]
     [string] $Command = 'help'
 )
 
@@ -36,6 +36,7 @@ if (-not $PSScriptRoot) {
 $RepoRoot = Split-Path -Parent $PSScriptRoot
 $DomainScript = Join-Path $PSScriptRoot 'pinapp-fr-domaine.ps1'
 $PinappSelf = Join-Path $PSScriptRoot 'Pinapp.ps1'
+$PagesSettingsUrl = 'https://github.com/lauraliedaguzay-lang/pinapp-site/settings/pages'
 
 function Invoke-PinappHttpProbe {
     param(
@@ -73,7 +74,8 @@ function Write-PinappHelp {
     Write-Host '  .\pinapp.ps1 dns          - instructions DNS seulement' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 auth         - gh auth status (CLI GitHub)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 urls         - liens Pages / depot / domaine' -ForegroundColor White
-    Write-Host '  .\pinapp.ps1 probe        - test HTTP Pages + pinapp.fr' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 probe        - test HTTP Pages + pinapp.fr + www' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 open         - ouvrir reglages Pages sur GitHub (navigateur)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 suite        - dns + urls + probe + rappel API domaine' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 status       - git status -sb' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 check        - pull + install + ci + build' -ForegroundColor White
@@ -120,7 +122,7 @@ switch ($Command) {
         Write-Host 'Liens utiles (pinapp-site)' -ForegroundColor Cyan
         Write-Host '  Site Pages : https://lauraliedaguzay-lang.github.io/pinapp-site/' -ForegroundColor White
         Write-Host '  Domaine    : https://pinapp.fr/' -ForegroundColor White
-        Write-Host '  Pages repo : https://github.com/lauraliedaguzay-lang/pinapp-site/settings/pages' -ForegroundColor White
+        Write-Host ('  Pages repo : ' + $PagesSettingsUrl) -ForegroundColor White
         Write-Host '  DNS : .\pinapp.ps1 dns' -ForegroundColor DarkGray
         Write-Host ''
     }
@@ -129,18 +131,24 @@ switch ($Command) {
         Write-Host 'Sonde HTTP (HEAD puis GET si besoin)...' -ForegroundColor Cyan
         Invoke-PinappHttpProbe -Label 'GitHub Pages' -Uri 'https://lauraliedaguzay-lang.github.io/pinapp-site/'
         Invoke-PinappHttpProbe -Label 'pinapp.fr' -Uri 'https://pinapp.fr/'
+        Invoke-PinappHttpProbe -Label 'www.pinapp.fr' -Uri 'https://www.pinapp.fr/'
         Write-Host ''
+    }
+    'open' {
+        Write-Host ('Ouverture : ' + $PagesSettingsUrl) -ForegroundColor Cyan
+        Start-Process $PagesSettingsUrl
     }
     'suite' {
         Write-Host ''
         Write-Host '=== Pinapp : suite domaine (PowerShell) ===' -ForegroundColor Cyan
         Write-Host ''
-        & $DomainScript -DnsOnly
+        & $DomainScript -DnsOnly -Quiet
         Write-Host ''
         & $PinappSelf urls
         & $PinappSelf probe
         Write-Host 'Enregistrer le domaine sur GitHub (API ou UI) :' -ForegroundColor Cyan
         Write-Host '  .\pinapp.ps1 domain' -ForegroundColor White
+        Write-Host '  .\pinapp.ps1 open' -ForegroundColor White
         Write-Host '  $env:GITHUB_TOKEN = gh auth token; .\tools\pinapp-fr-domaine.ps1 -NonInteractive' -ForegroundColor DarkGray
         Write-Host ''
     }
