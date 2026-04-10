@@ -2,7 +2,6 @@
 // Analyse d'activité via Claude — clé API jamais en front-end
 
 exports.handler = async (event) => {
-
   const headers = {
     'Access-Control-Allow-Origin': 'https://pinapp.fr',
     'Access-Control-Allow-Headers': 'Content-Type',
@@ -15,8 +14,9 @@ exports.handler = async (event) => {
 
   if (event.httpMethod !== 'POST') {
     return {
-      statusCode: 405, headers,
-      body: JSON.stringify({ error: 'Method not allowed' })
+      statusCode: 405,
+      headers,
+      body: JSON.stringify({ error: 'Method not allowed' }),
     };
   }
 
@@ -25,16 +25,18 @@ exports.handler = async (event) => {
     body = JSON.parse(event.body);
   } catch {
     return {
-      statusCode: 400, headers,
-      body: JSON.stringify({ error: 'Invalid JSON' })
+      statusCode: 400,
+      headers,
+      body: JSON.stringify({ error: 'Invalid JSON' }),
     };
   }
 
   const { activite } = body;
   if (!activite || activite.length > 300) {
     return {
-      statusCode: 400, headers,
-      body: JSON.stringify({ error: 'Invalid input' })
+      statusCode: 400,
+      headers,
+      body: JSON.stringify({ error: 'Invalid input' }),
     };
   }
 
@@ -68,8 +70,8 @@ Règles :
 → Automatisations très concrètes au secteur
 → Jamais de jargon technique
 → Toujours en français`,
-        messages: [{ role: 'user', content: activite.trim() }]
-      })
+        messages: [{ role: 'user', content: activite.trim() }],
+      }),
     });
 
     if (!resp.ok) throw new Error('API error');
@@ -77,14 +79,15 @@ Règles :
     const text = data.content?.[0]?.text || '';
 
     return {
-      statusCode: 200, headers,
-      body: JSON.stringify({ result: text })
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({ result: text }),
     };
-
-  } catch(e) {
+  } catch (e) {
     return {
-      statusCode: 500, headers,
-      body: JSON.stringify({ error: 'Service temporairement indisponible' })
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({ error: 'Service temporairement indisponible' }),
     };
   }
 };

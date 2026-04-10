@@ -19,7 +19,9 @@
   }
 
   /* ── Utilitaires ─────────────────────────────────── */
-  function fmt(n) { return n.toLocaleString('fr-FR') + ' €'; }
+  function fmt(n) {
+    return n.toLocaleString('fr-FR') + ' €';
+  }
   function anim(el, from, to, dur, cb) {
     var t0 = Date.now();
     var tick = function () {
@@ -61,23 +63,24 @@
       </div>`);
 
     var slider = document.getElementById('df-surface');
-    var valEl  = document.getElementById('df-surface-val');
+    var valEl = document.getElementById('df-surface-val');
     var prixEl = document.getElementById('df-prix');
-    var mult   = 45;
+    var mult = 45;
 
     function calc() {
       var s = parseInt(slider.value);
       valEl.textContent = s;
       var target = s * mult;
-      anim(prixEl, parseInt(prixEl.textContent.replace(/\s/g,'')) || target, target, 300);
+      anim(prixEl, parseInt(prixEl.textContent.replace(/\s/g, '')) || target, target, 300);
     }
 
     slider.addEventListener('input', calc);
 
-    document.querySelectorAll('#df-type-pills .df-pill').forEach(function(p) {
-      p.addEventListener('click', function() {
-        document.querySelectorAll('#df-type-pills .df-pill')
-          .forEach(function(x) { x.classList.remove('active'); });
+    document.querySelectorAll('#df-type-pills .df-pill').forEach(function (p) {
+      p.addEventListener('click', function () {
+        document.querySelectorAll('#df-type-pills .df-pill').forEach(function (x) {
+          x.classList.remove('active');
+        });
         p.classList.add('active');
         mult = parseInt(p.dataset.mult);
         calc();
@@ -90,28 +93,53 @@
      ============================================== */
   function featurePlanSalle() {
     var tables = [
-      {id:'t1',x:40, y:40, r:22, cap:2, libre:true},
-      {id:'t2',x:110,y:40, r:22, cap:2, libre:false},
-      {id:'t3',x:180,y:40, r:22, cap:4, libre:true},
-      {id:'t4',x:250,y:40, r:22, cap:4, libre:true},
-      {id:'t5',x:40, y:110,r:28, cap:6, libre:true},
-      {id:'t6',x:130,y:110,r:28, cap:6, libre:false},
-      {id:'t7',x:220,y:110,r:28, cap:6, libre:true},
-      {id:'t8',x:40, y:185,r:22, cap:2, libre:true},
-      {id:'t9',x:110,y:185,r:22, cap:2, libre:false},
-      {id:'t10',x:185,y:185,r:34, cap:8, libre:true},
+      { id: 't1', x: 40, y: 40, r: 22, cap: 2, libre: true },
+      { id: 't2', x: 110, y: 40, r: 22, cap: 2, libre: false },
+      { id: 't3', x: 180, y: 40, r: 22, cap: 4, libre: true },
+      { id: 't4', x: 250, y: 40, r: 22, cap: 4, libre: true },
+      { id: 't5', x: 40, y: 110, r: 28, cap: 6, libre: true },
+      { id: 't6', x: 130, y: 110, r: 28, cap: 6, libre: false },
+      { id: 't7', x: 220, y: 110, r: 28, cap: 6, libre: true },
+      { id: 't8', x: 40, y: 185, r: 22, cap: 2, libre: true },
+      { id: 't9', x: 110, y: 185, r: 22, cap: 2, libre: false },
+      { id: 't10', x: 185, y: 185, r: 34, cap: 8, libre: true },
     ];
 
-    var svgCircles = tables.map(function(t) {
-      var fill = t.libre ? 'rgba(0,180,100,0.18)' : 'rgba(200,30,30,0.18)';
-      var stroke = t.libre ? '#39E075' : '#dc2626';
-      return '<g class="df-table" data-id="' + t.id + '" style="cursor:' + (t.libre?'pointer':'default') + '">' +
-        '<circle cx="' + t.x + '" cy="' + t.y + '" r="' + t.r + '"' +
-          ' fill="' + fill + '" stroke="' + stroke + '" stroke-width="1.5"/>' +
-        '<text x="' + t.x + '" y="' + (t.y+4) + '"' +
-          ' text-anchor="middle" font-size="10" fill="' + stroke + '">' +
-          t.cap + 'p</text></g>';
-    }).join('');
+    var svgCircles = tables
+      .map(function (t) {
+        var fill = t.libre ? 'rgba(0,180,100,0.18)' : 'rgba(200,30,30,0.18)';
+        var stroke = t.libre ? '#39E075' : '#dc2626';
+        return (
+          '<g class="df-table" data-id="' +
+          t.id +
+          '" style="cursor:' +
+          (t.libre ? 'pointer' : 'default') +
+          '">' +
+          '<circle cx="' +
+          t.x +
+          '" cy="' +
+          t.y +
+          '" r="' +
+          t.r +
+          '"' +
+          ' fill="' +
+          fill +
+          '" stroke="' +
+          stroke +
+          '" stroke-width="1.5"/>' +
+          '<text x="' +
+          t.x +
+          '" y="' +
+          (t.y + 4) +
+          '"' +
+          ' text-anchor="middle" font-size="10" fill="' +
+          stroke +
+          '">' +
+          t.cap +
+          'p</text></g>'
+        );
+      })
+      .join('');
 
     inject(`
       <div class="df-card">
@@ -139,16 +167,19 @@
         <p class="df-note">Cliquez sur une table disponible</p>
       </div>`);
 
-    document.querySelectorAll('.df-table').forEach(function(g) {
+    document.querySelectorAll('.df-table').forEach(function (g) {
       var id = g.dataset.id;
-      var t  = tables.find(function(x) { return x.id === id; });
+      var t = tables.find(function (x) {
+        return x.id === id;
+      });
       if (!t || !t.libre) return;
-      g.addEventListener('click', function() {
-        document.querySelectorAll('.df-table circle')
-          .forEach(function(c) { c.setAttribute('stroke-width','1.5'); });
-        g.querySelector('circle').setAttribute('stroke-width','3');
+      g.addEventListener('click', function () {
+        document.querySelectorAll('.df-table circle').forEach(function (c) {
+          c.setAttribute('stroke-width', '1.5');
+        });
+        g.querySelector('circle').setAttribute('stroke-width', '3');
         var info = document.getElementById('df-table-info');
-        var msg  = document.getElementById('df-table-msg');
+        var msg = document.getElementById('df-table-msg');
         info.style.display = '';
         msg.textContent = 'Table ' + t.cap + ' personnes sélectionnée ✓';
       });
@@ -163,11 +194,12 @@
       { q: 'Vous avez une décision importante à prendre ?', oui: 20, non: 0 },
       { q: 'Vous vous sentez bloqué(e) depuis plus de 3 mois ?', oui: 20, non: 0 },
       { q: 'Vous avez déjà essayé seul(e) sans succès ?', oui: 20, non: 5 },
-      { q: 'Vous êtes prêt(e) à passer à l\'action dès maintenant ?', oui: 30, non: 0 },
+      { q: "Vous êtes prêt(e) à passer à l'action dès maintenant ?", oui: 30, non: 0 },
       { q: 'Un accompagnement extérieur vous semble utile ?', oui: 10, non: 0 },
     ];
 
-    var current = 0, score = 0;
+    var current = 0,
+      score = 0;
 
     inject(`
       <div class="df-card">
@@ -204,8 +236,8 @@
     function showQ() {
       if (current >= qs.length) return showResult();
       document.getElementById('df-quiz-q').textContent = qs[current].q;
-      document.getElementById('df-qcount').textContent = (current+1) + ' / ' + qs.length;
-      document.getElementById('df-qprog').style.width = ((current / qs.length) * 100) + '%';
+      document.getElementById('df-qcount').textContent = current + 1 + ' / ' + qs.length;
+      document.getElementById('df-qprog').style.width = (current / qs.length) * 100 + '%';
     }
     function answer(oui) {
       score += oui ? qs[current].oui : qs[current].non;
@@ -219,19 +251,23 @@
       var pct = Math.min(score, 100);
       document.getElementById('df-pct').textContent = pct + '%';
       var ring = document.getElementById('df-ring');
-      setTimeout(function() {
-        ring.style.strokeDashoffset = 264 - (264 * pct / 100);
+      setTimeout(function () {
+        ring.style.strokeDashoffset = 264 - (264 * pct) / 100;
       }, 100);
       var msgs = {
-        high: 'Nous sommes très compatibles. Passons à l\'action.',
-        mid:  'De bonnes bases. Une séance pour confirmer.',
-        low:  'Un premier échange pour voir si c\'est le bon moment.',
+        high: "Nous sommes très compatibles. Passons à l'action.",
+        mid: 'De bonnes bases. Une séance pour confirmer.',
+        low: "Un premier échange pour voir si c'est le bon moment.",
       };
       document.getElementById('df-compat-msg').textContent =
         pct >= 70 ? msgs.high : pct >= 40 ? msgs.mid : msgs.low;
     }
-    document.getElementById('df-oui').addEventListener('click', function() { answer(true); });
-    document.getElementById('df-non').addEventListener('click', function() { answer(false); });
+    document.getElementById('df-oui').addEventListener('click', function () {
+      answer(true);
+    });
+    document.getElementById('df-non').addEventListener('click', function () {
+      answer(false);
+    });
     showQ();
   }
 
@@ -242,31 +278,67 @@
     var tree = {
       q: 'Quel est votre besoin principal ?',
       opts: [
-        { label: 'Contrat / Accord', next: {
-          q: 'Quel type de contrat ?',
-          opts: [
-            { label: 'Commercial', answer: 'Rédaction ou révision de contrat commercial. Consultation sous 48h.' },
-            { label: 'Bail / Location', answer: 'Bail commercial ou résidentiel — vérification des clauses.' },
-            { label: 'Partenariat', answer: 'Convention de partenariat — protégez vos intérêts dès le départ.' },
-          ]
-        }},
-        { label: 'Litige / Conflit', next: {
-          q: 'Avec qui ?',
-          opts: [
-            { label: 'Un client', answer: 'Mise en demeure, recouvrement, procédure. On établit la stratégie.' },
-            { label: 'Un fournisseur', answer: 'Rupture de contrat, inexécution — vos recours en 3 étapes.' },
-            { label: 'Un associé', answer: 'Conflit interne — médiation ou procédure. On vous guide.' },
-          ]
-        }},
-        { label: 'Création / Société', next: {
-          q: 'Quelle structure ?',
-          opts: [
-            { label: 'SAS / SARL', answer: 'Statuts sur mesure, pacte d\'associés, immatriculation sécurisée.' },
-            { label: 'Auto-entrepreneur', answer: 'Contrats-types, protection intellectuelle, conformité URSSAF.' },
-            { label: 'Reprise d\'entreprise', answer: 'Due diligence juridique complète avant toute acquisition.' },
-          ]
-        }},
-      ]
+        {
+          label: 'Contrat / Accord',
+          next: {
+            q: 'Quel type de contrat ?',
+            opts: [
+              {
+                label: 'Commercial',
+                answer: 'Rédaction ou révision de contrat commercial. Consultation sous 48h.',
+              },
+              {
+                label: 'Bail / Location',
+                answer: 'Bail commercial ou résidentiel — vérification des clauses.',
+              },
+              {
+                label: 'Partenariat',
+                answer: 'Convention de partenariat — protégez vos intérêts dès le départ.',
+              },
+            ],
+          },
+        },
+        {
+          label: 'Litige / Conflit',
+          next: {
+            q: 'Avec qui ?',
+            opts: [
+              {
+                label: 'Un client',
+                answer: 'Mise en demeure, recouvrement, procédure. On établit la stratégie.',
+              },
+              {
+                label: 'Un fournisseur',
+                answer: 'Rupture de contrat, inexécution — vos recours en 3 étapes.',
+              },
+              {
+                label: 'Un associé',
+                answer: 'Conflit interne — médiation ou procédure. On vous guide.',
+              },
+            ],
+          },
+        },
+        {
+          label: 'Création / Société',
+          next: {
+            q: 'Quelle structure ?',
+            opts: [
+              {
+                label: 'SAS / SARL',
+                answer: "Statuts sur mesure, pacte d'associés, immatriculation sécurisée.",
+              },
+              {
+                label: 'Auto-entrepreneur',
+                answer: 'Contrats-types, protection intellectuelle, conformité URSSAF.',
+              },
+              {
+                label: "Reprise d'entreprise",
+                answer: 'Due diligence juridique complète avant toute acquisition.',
+              },
+            ],
+          },
+        },
+      ],
     };
 
     inject(`
@@ -289,7 +361,7 @@
         var back = document.createElement('button');
         back.className = 'df-pill df-back';
         back.textContent = '← Retour';
-        back.addEventListener('click', function() {
+        back.addEventListener('click', function () {
           history.pop();
           render(history.length ? history[history.length - 1].next : tree);
         });
@@ -301,11 +373,11 @@
       treeEl.appendChild(qEl);
 
       if (node.opts) {
-        node.opts.forEach(function(opt) {
+        node.opts.forEach(function (opt) {
           var btn = document.createElement('button');
           btn.className = 'df-pill';
           btn.textContent = opt.label;
-          btn.addEventListener('click', function() {
+          btn.addEventListener('click', function () {
             if (opt.answer) {
               treeEl.innerHTML = '<p class="df-answer">' + opt.answer + '</p>';
               document.getElementById('df-tree-cta').style.display = '';
@@ -326,19 +398,33 @@
      ============================================== */
   function featureDiagnosticPeau() {
     var qs = [
-      { q: 'Votre peau en milieu de journée :', opts: ['Tiraillements', 'Brillances T-zone', 'Mixte / Normal', 'Brillances totales'] },
-      { q: 'Votre principale préoccupation :', opts: ['Rides / Fermeté', 'Éclat / Teint', 'Hydratation', 'Pores / Imperfections'] },
-      { q: 'Votre routine actuelle :', opts: ['Aucune routine', 'Basique (nettoyage)', 'Complète', 'Je ne sais pas'] },
+      {
+        q: 'Votre peau en milieu de journée :',
+        opts: ['Tiraillements', 'Brillances T-zone', 'Mixte / Normal', 'Brillances totales'],
+      },
+      {
+        q: 'Votre principale préoccupation :',
+        opts: ['Rides / Fermeté', 'Éclat / Teint', 'Hydratation', 'Pores / Imperfections'],
+      },
+      {
+        q: 'Votre routine actuelle :',
+        opts: ['Aucune routine', 'Basique (nettoyage)', 'Complète', 'Je ne sais pas'],
+      },
     ];
 
     var recos = [
-      { type: 'Soin hydratation intense', desc: 'Masque régénérant + sérum acide hyaluronique.', prix: '75€' },
+      {
+        type: 'Soin hydratation intense',
+        desc: 'Masque régénérant + sérum acide hyaluronique.',
+        prix: '75€',
+      },
       { type: 'Soin éclat signature', desc: 'Peeling doux + luminothérapie LED.', prix: '90€' },
       { type: 'Soin anti-âge prestige', desc: 'Microneedling + collagène + UV', prix: '120€' },
       { type: 'Soin purifiant complet', desc: 'Extraction + masque argile + zinc.', prix: '65€' },
     ];
 
-    var current = 0, answers = [];
+    var current = 0,
+      answers = [];
 
     inject(`
       <div class="df-card">
@@ -365,14 +451,14 @@
     function showQ() {
       var q = qs[current];
       document.getElementById('df-diag-q').textContent = q.q;
-      document.getElementById('df-dprog').style.width = ((current / qs.length) * 100) + '%';
+      document.getElementById('df-dprog').style.width = (current / qs.length) * 100 + '%';
       var pills = document.getElementById('df-diag-pills');
       pills.innerHTML = '';
-      q.opts.forEach(function(o, i) {
+      q.opts.forEach(function (o, i) {
         var b = document.createElement('button');
         b.className = 'df-pill';
         b.textContent = o;
-        b.addEventListener('click', function() {
+        b.addEventListener('click', function () {
           answers.push(i);
           current++;
           if (current < qs.length) showQ();
@@ -399,9 +485,9 @@
      ============================================== */
   function featureConfigCils() {
     var longueurs = ['10mm', '12mm', '14mm', '16mm'];
-    var courbes   = ['J', 'B', 'C', 'D'];
-    var volumes   = ['Naturel', 'Classique', 'Volume russe'];
-    var prix      = { '10mm': 45, '12mm': 55, '14mm': 65, '16mm': 75 };
+    var courbes = ['J', 'B', 'C', 'D'];
+    var volumes = ['Naturel', 'Classique', 'Volume russe'];
+    var prix = { '10mm': 45, '12mm': 55, '14mm': 65, '16mm': 75 };
 
     inject(`
       <div class="df-card">
@@ -439,12 +525,14 @@
     var state = { long: '12mm', courbe: 'C', vol: 'Classique' };
 
     function makepills(el, items, key) {
-      items.forEach(function(v) {
+      items.forEach(function (v) {
         var b = document.createElement('button');
         b.className = 'df-pill' + (state[key] === v ? ' active' : '');
         b.textContent = v;
-        b.addEventListener('click', function() {
-          el.querySelectorAll('.df-pill').forEach(function(x){x.classList.remove('active');});
+        b.addEventListener('click', function () {
+          el.querySelectorAll('.df-pill').forEach(function (x) {
+            x.classList.remove('active');
+          });
           b.classList.add('active');
           state[key] = v;
           updateCils();
@@ -453,9 +541,9 @@
       });
     }
 
-    makepills(document.getElementById('df-long'),   longueurs, 'long');
-    makepills(document.getElementById('df-courbe'), courbes,   'courbe');
-    makepills(document.getElementById('df-vol'),    volumes,   'vol');
+    makepills(document.getElementById('df-long'), longueurs, 'long');
+    makepills(document.getElementById('df-courbe'), courbes, 'courbe');
+    makepills(document.getElementById('df-vol'), volumes, 'vol');
 
     function updateCils() {
       var p = prix[state.long] || 55;
@@ -463,15 +551,22 @@
       document.getElementById('df-cils-prix').textContent = p;
       // SVG simplifié des cils
       var g = document.getElementById('df-cils-svg');
-      var angles = { 'J':10, 'B':20, 'C':35, 'D':50 };
+      var angles = { J: 10, B: 20, C: 35, D: 50 };
       var angle = angles[state.courbe] || 35;
       var n = state.vol === 'Volume russe' ? 11 : state.vol === 'Classique' ? 9 : 7;
       var paths = '';
       for (var i = 0; i < n; i++) {
         var x = 30 + i * (140 / (n - 1));
-        var len = 20 + Math.sin((i / (n-1)) * Math.PI) * 14;
-        var rad = (angle + (i - n/2) * 2) * Math.PI / 180;
-        paths += '<line x1="' + x + '" y1="55" x2="' + (x + Math.sin(rad) * len) + '" y2="' + (55 - Math.cos(rad) * len) + '"/>';
+        var len = 20 + Math.sin((i / (n - 1)) * Math.PI) * 14;
+        var rad = ((angle + (i - n / 2) * 2) * Math.PI) / 180;
+        paths +=
+          '<line x1="' +
+          x +
+          '" y1="55" x2="' +
+          (x + Math.sin(rad) * len) +
+          '" y2="' +
+          (55 - Math.cos(rad) * len) +
+          '"/>';
       }
       g.innerHTML = paths;
     }
@@ -483,12 +578,21 @@
      ============================================== */
   function featureSwatchesOngles() {
     var palette = [
-      '#E8B4B8','#C9748F','#A84B6E','#7B2D4A',
-      '#D4A574','#C07A40','#8B4513','#5C2A0A',
-      '#9B7FF8','#6B4FC8','#3B2088','#1B0848',
+      '#E8B4B8',
+      '#C9748F',
+      '#A84B6E',
+      '#7B2D4A',
+      '#D4A574',
+      '#C07A40',
+      '#8B4513',
+      '#5C2A0A',
+      '#9B7FF8',
+      '#6B4FC8',
+      '#3B2088',
+      '#1B0848',
     ];
     var selected = palette[0];
-    var prix = ['25€ Vernis','35€ Semi-permanent','55€ Gel UV','75€ Capsules'];
+    var prix = ['25€ Vernis', '35€ Semi-permanent', '55€ Gel UV', '75€ Capsules'];
 
     inject(`
       <div class="df-card">
@@ -511,14 +615,16 @@
 
     // Swatches
     var sw = document.getElementById('df-swatches');
-    palette.forEach(function(c) {
+    palette.forEach(function (c) {
       var b = document.createElement('button');
       b.className = 'df-swatch';
       b.style.background = c;
       b.setAttribute('aria-label', 'Couleur ' + c);
-      b.addEventListener('click', function() {
+      b.addEventListener('click', function () {
         selected = c;
-        document.querySelectorAll('.df-swatch').forEach(function(x){x.classList.remove('active');});
+        document.querySelectorAll('.df-swatch').forEach(function (x) {
+          x.classList.remove('active');
+        });
         b.classList.add('active');
         renderNails();
       });
@@ -528,12 +634,14 @@
 
     // Poses
     var pp = document.getElementById('df-pose-pills');
-    prix.forEach(function(p, i) {
+    prix.forEach(function (p, i) {
       var b = document.createElement('button');
-      b.className = 'df-pill' + (i===0?' active':'');
+      b.className = 'df-pill' + (i === 0 ? ' active' : '');
       b.textContent = p.split(' ')[1];
-      b.addEventListener('click', function() {
-        document.querySelectorAll('#df-pose-pills .df-pill').forEach(function(x){x.classList.remove('active');});
+      b.addEventListener('click', function () {
+        document.querySelectorAll('#df-pose-pills .df-pill').forEach(function (x) {
+          x.classList.remove('active');
+        });
         b.classList.add('active');
         document.getElementById('df-nails-prix').textContent = p;
       });
@@ -542,21 +650,45 @@
 
     // SVG main (5 doigts stylisés)
     var nailPositions = [
-      {x:30, y:90, w:20, h:28, rx:10},
-      {x:60, y:70, w:22, h:40, rx:11},
-      {x:90, y:60, w:22, h:50, rx:11},
-      {x:120,y:68, w:22, h:42, rx:11},
-      {x:152,y:82, w:18, h:32, rx:9},
+      { x: 30, y: 90, w: 20, h: 28, rx: 10 },
+      { x: 60, y: 70, w: 22, h: 40, rx: 11 },
+      { x: 90, y: 60, w: 22, h: 50, rx: 11 },
+      { x: 120, y: 68, w: 22, h: 42, rx: 11 },
+      { x: 152, y: 82, w: 18, h: 32, rx: 9 },
     ];
 
     function renderNails() {
       var g = document.getElementById('df-nails-svg');
-      var shapes = nailPositions.map(function(n) {
-        return '<rect x="' + n.x + '" y="' + n.y + '" width="' + n.w + '" height="' + n.h + '"' +
-          ' rx="' + n.rx + '" fill="rgba(255,220,180,0.25)" stroke="rgba(255,200,150,0.4)" stroke-width="1"/>' +
-          '<rect x="' + n.x + '" y="' + n.y + '" width="' + n.w + '" height="14"' +
-          ' rx="' + n.rx + '" fill="' + selected + '" opacity="0.90"/>';
-      }).join('');
+      var shapes = nailPositions
+        .map(function (n) {
+          return (
+            '<rect x="' +
+            n.x +
+            '" y="' +
+            n.y +
+            '" width="' +
+            n.w +
+            '" height="' +
+            n.h +
+            '"' +
+            ' rx="' +
+            n.rx +
+            '" fill="rgba(255,220,180,0.25)" stroke="rgba(255,200,150,0.4)" stroke-width="1"/>' +
+            '<rect x="' +
+            n.x +
+            '" y="' +
+            n.y +
+            '" width="' +
+            n.w +
+            '" height="14"' +
+            ' rx="' +
+            n.rx +
+            '" fill="' +
+            selected +
+            '" opacity="0.90"/>'
+          );
+        })
+        .join('');
       g.innerHTML = shapes;
     }
     renderNails();
@@ -590,12 +722,14 @@
         </button>
       </div>`);
 
-    document.querySelectorAll('.df-hair-btn').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.df-hair-btn').forEach(function(b){b.classList.remove('active');});
+    document.querySelectorAll('.df-hair-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.df-hair-btn').forEach(function (b) {
+          b.classList.remove('active');
+        });
         btn.classList.add('active');
         var prixEl = document.getElementById('df-hair-prix');
-        anim(prixEl, parseInt(prixEl.textContent)||35, parseInt(btn.dataset.prix), 300);
+        anim(prixEl, parseInt(prixEl.textContent) || 35, parseInt(btn.dataset.prix), 300);
         document.getElementById('df-hair-details').textContent = btn.dataset.details;
       });
     });
@@ -611,7 +745,7 @@
       { nom: 'Coupe + Barbe', dur: '1h', prix: '50€' },
       { nom: 'Rasage complet', dur: '45min', prix: '40€' },
     ];
-    var creneaux = ['09:00','10:00','11:00','14:00','15:00','16:00','17:00'];
+    var creneaux = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00', '17:00'];
     var selected = { service: null, creneau: null };
 
     inject(`
@@ -632,12 +766,14 @@
       </div>`);
 
     var sp = document.getElementById('df-srv-pills');
-    services.forEach(function(s) {
+    services.forEach(function (s) {
       var b = document.createElement('button');
       b.className = 'df-pill df-srv';
       b.innerHTML = '<strong>' + s.nom + '</strong> — ' + s.dur + ' · ' + s.prix;
-      b.addEventListener('click', function() {
-        document.querySelectorAll('.df-srv').forEach(function(x){x.classList.remove('active');});
+      b.addEventListener('click', function () {
+        document.querySelectorAll('.df-srv').forEach(function (x) {
+          x.classList.remove('active');
+        });
         b.classList.add('active');
         selected.service = s;
         tryConfirm();
@@ -646,12 +782,14 @@
     });
 
     var tp = document.getElementById('df-time-pills');
-    creneaux.forEach(function(c) {
+    creneaux.forEach(function (c) {
       var b = document.createElement('button');
       b.className = 'df-pill';
       b.textContent = c;
-      b.addEventListener('click', function() {
-        document.querySelectorAll('#df-time-pills .df-pill').forEach(function(x){x.classList.remove('active');});
+      b.addEventListener('click', function () {
+        document.querySelectorAll('#df-time-pills .df-pill').forEach(function (x) {
+          x.classList.remove('active');
+        });
         b.classList.add('active');
         selected.creneau = c;
         tryConfirm();
@@ -669,11 +807,16 @@
       clearInterval(countdownInterval);
       var secs = 300;
       var el = document.getElementById('df-countdown');
-      countdownInterval = setInterval(function() {
+      countdownInterval = setInterval(function () {
         secs--;
-        if (secs <= 0) { clearInterval(countdownInterval); el.textContent = 'Expiré'; return; }
-        var m = Math.floor(secs/60), s = secs%60;
-        el.textContent = (m<10?'0':'') + m + ':' + (s<10?'0':'') + s;
+        if (secs <= 0) {
+          clearInterval(countdownInterval);
+          el.textContent = 'Expiré';
+          return;
+        }
+        var m = Math.floor(secs / 60),
+          s = secs % 60;
+        el.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
       }, 1000);
     }
   }
@@ -683,11 +826,11 @@
      ============================================== */
   function featurePanierBoulangerie() {
     var produits = [
-      { nom: 'Croissant pur beurre', prix: 1.80, emoji: '🥐' },
-      { nom: 'Pain de campagne 400g', prix: 3.20, emoji: '🍞' },
-      { nom: 'Tarte aux fraises', prix: 6.50, emoji: '🍓' },
-      { nom: 'Chausson aux pommes', prix: 2.40, emoji: '🥧' },
-      { nom: 'Éclair chocolat', prix: 3.90, emoji: '⚡' },
+      { nom: 'Croissant pur beurre', prix: 1.8, emoji: '🥐' },
+      { nom: 'Pain de campagne 400g', prix: 3.2, emoji: '🍞' },
+      { nom: 'Tarte aux fraises', prix: 6.5, emoji: '🍓' },
+      { nom: 'Chausson aux pommes', prix: 2.4, emoji: '🥧' },
+      { nom: 'Éclair chocolat', prix: 3.9, emoji: '⚡' },
     ];
     var panier = {};
 
@@ -708,44 +851,56 @@
       </div>`);
 
     var wrap = document.getElementById('df-produits');
-    produits.forEach(function(p, i) {
+    produits.forEach(function (p, i) {
       var row = document.createElement('div');
       row.className = 'df-panier-row';
       row.innerHTML =
-        '<span class="df-panier-emoji">' + p.emoji + '</span>' +
-        '<span class="df-panier-nom">' + p.nom + '</span>' +
-        '<span class="df-panier-prix">' + p.prix.toFixed(2).replace('.',',') + '€</span>' +
+        '<span class="df-panier-emoji">' +
+        p.emoji +
+        '</span>' +
+        '<span class="df-panier-nom">' +
+        p.nom +
+        '</span>' +
+        '<span class="df-panier-prix">' +
+        p.prix.toFixed(2).replace('.', ',') +
+        '€</span>' +
         '<div class="df-qte-ctrl">' +
-          '<button class="df-qte-btn df-minus" data-i="' + i + '">−</button>' +
-          '<span class="df-qte" id="df-q' + i + '">0</span>' +
-          '<button class="df-qte-btn df-plus" data-i="' + i + '">+</button>' +
+        '<button class="df-qte-btn df-minus" data-i="' +
+        i +
+        '">−</button>' +
+        '<span class="df-qte" id="df-q' +
+        i +
+        '">0</span>' +
+        '<button class="df-qte-btn df-plus" data-i="' +
+        i +
+        '">+</button>' +
         '</div>';
       wrap.appendChild(row);
     });
 
     function updateTotal() {
       var total = 0;
-      Object.keys(panier).forEach(function(k) {
+      Object.keys(panier).forEach(function (k) {
         total += produits[k].prix * panier[k];
       });
-      document.getElementById('df-total').textContent = total.toFixed(2).replace('.',',') + ' €';
+      document.getElementById('df-total').textContent = total.toFixed(2).replace('.', ',') + ' €';
       document.getElementById('df-panier-cta').disabled = total === 0;
     }
 
-    document.querySelectorAll('.df-plus').forEach(function(b) {
-      b.addEventListener('click', function() {
+    document.querySelectorAll('.df-plus').forEach(function (b) {
+      b.addEventListener('click', function () {
         var i = parseInt(b.dataset.i);
         panier[i] = (panier[i] || 0) + 1;
-        document.getElementById('df-q'+i).textContent = panier[i];
+        document.getElementById('df-q' + i).textContent = panier[i];
         updateTotal();
       });
     });
-    document.querySelectorAll('.df-minus').forEach(function(b) {
-      b.addEventListener('click', function() {
+    document.querySelectorAll('.df-minus').forEach(function (b) {
+      b.addEventListener('click', function () {
         var i = parseInt(b.dataset.i);
         if ((panier[i] || 0) > 0) {
           panier[i]--;
-          document.getElementById('df-q'+i).textContent = panier[i];
+          document.getElementById('df-q' + i).textContent = panier[i];
           updateTotal();
         }
       });
@@ -804,42 +959,56 @@
         </div>
       </div>`);
 
-    var sexe = 'H', fact = 1.55;
+    var sexe = 'H',
+      fact = 1.55;
 
-    document.querySelectorAll('[data-sexe]').forEach(function(b) {
-      b.addEventListener('click', function() {
-        document.querySelectorAll('[data-sexe]').forEach(function(x){x.classList.remove('active');});
-        b.classList.add('active'); sexe = b.dataset.sexe;
+    document.querySelectorAll('[data-sexe]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.querySelectorAll('[data-sexe]').forEach(function (x) {
+          x.classList.remove('active');
+        });
+        b.classList.add('active');
+        sexe = b.dataset.sexe;
       });
     });
-    document.querySelectorAll('[data-fact]').forEach(function(b) {
-      b.addEventListener('click', function() {
-        document.querySelectorAll('[data-fact]').forEach(function(x){x.classList.remove('active');});
-        b.classList.add('active'); fact = parseFloat(b.dataset.fact);
+    document.querySelectorAll('[data-fact]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.querySelectorAll('[data-fact]').forEach(function (x) {
+          x.classList.remove('active');
+        });
+        b.classList.add('active');
+        fact = parseFloat(b.dataset.fact);
       });
     });
 
-    document.getElementById('df-hb-calc').addEventListener('click', function() {
-      var age    = parseInt(document.getElementById('df-age').value) || 30;
-      var poids  = parseInt(document.getElementById('df-poids').value) || 75;
+    document.getElementById('df-hb-calc').addEventListener('click', function () {
+      var age = parseInt(document.getElementById('df-age').value) || 30;
+      var poids = parseInt(document.getElementById('df-poids').value) || 75;
       var taille = parseInt(document.getElementById('df-taille').value) || 175;
-      var bmr = sexe === 'H'
-        ? 88.362 + 13.397*poids + 4.799*taille - 5.677*age
-        : 447.593 + 9.247*poids + 3.098*taille - 4.330*age;
+      var bmr =
+        sexe === 'H'
+          ? 88.362 + 13.397 * poids + 4.799 * taille - 5.677 * age
+          : 447.593 + 9.247 * poids + 3.098 * taille - 4.33 * age;
       var tdee = Math.round(bmr * fact);
-      var imc  = (poids / ((taille/100) * (taille/100))).toFixed(1);
-      var msg  = imc < 18.5 ? 'Sous le poids idéal — programme prise de masse.' :
-                 imc < 25   ? 'IMC idéal — programme performance.' :
-                 imc < 30   ? 'Légère surcharge — programme perte de gras.' :
-                              'Programme intensif recommandé.';
-      document.getElementById('df-bmr').textContent  = Math.round(bmr);
+      var imc = (poids / ((taille / 100) * (taille / 100))).toFixed(1);
+      var msg =
+        imc < 18.5
+          ? 'Sous le poids idéal — programme prise de masse.'
+          : imc < 25
+            ? 'IMC idéal — programme performance.'
+            : imc < 30
+              ? 'Légère surcharge — programme perte de gras.'
+              : 'Programme intensif recommandé.';
+      document.getElementById('df-bmr').textContent = Math.round(bmr);
       document.getElementById('df-tdee').textContent = tdee;
-      document.getElementById('df-imc').textContent  = imc;
+      document.getElementById('df-imc').textContent = imc;
       document.getElementById('df-hb-msg').textContent = msg;
       document.getElementById('df-hb-result').style.display = '';
       // Barre macro SVG
       var svg = document.getElementById('df-hb-bar');
-      var prot = Math.round(tdee * 0.30 / 4), carbs = Math.round(tdee * 0.45 / 4), lip = Math.round(tdee * 0.25 / 9);
+      var prot = Math.round((tdee * 0.3) / 4),
+        carbs = Math.round((tdee * 0.45) / 4),
+        lip = Math.round((tdee * 0.25) / 9);
       svg.innerHTML =
         '<rect x="0" y="20" width="90" height="20" rx="4" fill="#00E5CC"/>' +
         '<rect x="95" y="20" width="110" height="20" rx="4" fill="#7B4FE8"/>' +
@@ -847,30 +1016,35 @@
         '<text x="45" y="14" text-anchor="middle" font-size="9" fill="#00E5CC">Protéines</text>' +
         '<text x="150" y="14" text-anchor="middle" font-size="9" fill="#7B4FE8">Glucides</text>' +
         '<text x="255" y="14" text-anchor="middle" font-size="9" fill="#FFB830">Lipides</text>' +
-        '<text x="45" y="52" text-anchor="middle" font-size="9" fill="rgba(238,248,255,0.6)">' + prot + 'g</text>' +
-        '<text x="150" y="52" text-anchor="middle" font-size="9" fill="rgba(238,248,255,0.6)">' + carbs + 'g</text>' +
-        '<text x="255" y="52" text-anchor="middle" font-size="9" fill="rgba(238,248,255,0.6)">' + lip + 'g</text>';
+        '<text x="45" y="52" text-anchor="middle" font-size="9" fill="rgba(238,248,255,0.6)">' +
+        prot +
+        'g</text>' +
+        '<text x="150" y="52" text-anchor="middle" font-size="9" fill="rgba(238,248,255,0.6)">' +
+        carbs +
+        'g</text>' +
+        '<text x="255" y="52" text-anchor="middle" font-size="9" fill="rgba(238,248,255,0.6)">' +
+        lip +
+        'g</text>';
     });
   }
 
   /* ── Dispatch selon S.feature ────────────────────── */
   var features = {
-    'calculateur-artisan':  featureCalculateurArtisan,
-    'plan-salle':           featurePlanSalle,
-    'quiz-coach':           featureQuizCoach,
-    'arbre-juridique':      featureArbreJuridique,
-    'diagnostic-peau':      featureDiagnosticPeau,
-    'config-cils':          featureConfigCils,
-    'swatches-ongles':      featureSwatchesOngles,
-    'slider-coiffeur':      featureSliderCoiffeur,
-    'booking-barbier':      featureBookingBarbier,
-    'panier-boulangerie':   featurePanierBoulangerie,
-    'harris-benedict':      featureHarrisBenedict,
+    'calculateur-artisan': featureCalculateurArtisan,
+    'plan-salle': featurePlanSalle,
+    'quiz-coach': featureQuizCoach,
+    'arbre-juridique': featureArbreJuridique,
+    'diagnostic-peau': featureDiagnosticPeau,
+    'config-cils': featureConfigCils,
+    'swatches-ongles': featureSwatchesOngles,
+    'slider-coiffeur': featureSliderCoiffeur,
+    'booking-barbier': featureBookingBarbier,
+    'panier-boulangerie': featurePanierBoulangerie,
+    'harris-benedict': featureHarrisBenedict,
   };
 
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     var fn = features[S.feature];
     if (fn) fn();
   });
-
 })();

@@ -13,7 +13,7 @@
         zone.style.setProperty('--tz-x', x + '%');
         zone.style.setProperty('--tz-y', y + '%');
       },
-      { passive: true }
+      { passive: true },
     );
   }
 
@@ -25,7 +25,7 @@
         document.documentElement.style.setProperty('--spot-x', e.clientX + 'px');
         document.documentElement.style.setProperty('--spot-y', e.clientY + 'px');
       },
-      { passive: true }
+      { passive: true },
     );
   }
 
@@ -40,9 +40,13 @@
         var px = (e.clientX - r.left) / r.width - 0.5;
         var py = (e.clientY - r.top) / r.height - 0.5;
         heroInner.style.transform =
-          'perspective(1200px) rotateY(' + px * 8 + 'deg) rotateX(' + -py * 6 + 'deg) translateZ(0)';
+          'perspective(1200px) rotateY(' +
+          px * 8 +
+          'deg) rotateX(' +
+          -py * 6 +
+          'deg) translateZ(0)';
       },
-      { passive: true }
+      { passive: true },
     );
     hero.addEventListener('pointerleave', function () {
       heroInner.style.transform = '';
@@ -79,7 +83,7 @@
           }
         });
       },
-      { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
     );
     document.querySelectorAll('.tat-reveal').forEach(function (el) {
       io.observe(el);

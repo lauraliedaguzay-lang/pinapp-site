@@ -4,9 +4,7 @@
 (function () {
   'use strict';
 
-  const prefersReducedMotion = window.matchMedia(
-    '(prefers-reduced-motion: reduce)'
-  ).matches;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* Spotlight curseur → variables --spot-x / --spot-y (lumière ambiante body::after) */
   if (!prefersReducedMotion && window.matchMedia('(min-width: 1024px)').matches) {
@@ -24,7 +22,7 @@
           rootStyle.setProperty('--spot-y', y + '%');
         });
       },
-      { passive: true }
+      { passive: true },
     );
   }
 
@@ -85,7 +83,7 @@
       var bar = document.getElementById('scrollProgress');
       if (bar) bar.style.transform = 'scaleX(' + Math.min(1, Math.max(0, p)) + ')';
     },
-    { passive: true }
+    { passive: true },
   );
 
   /* Nav scroll-aware : masquage au scroll uniquement sur petit écran (évite « nav morte » sur bureau) */
@@ -118,7 +116,7 @@
       }
       lastScroll = current;
     },
-    { passive: true }
+    { passive: true },
   );
 
   /* Zéro scroll : pas d’IntersectionObserver pour révéler le contenu au fil du défilement */
@@ -197,7 +195,7 @@
       var eff = effectiveTheme();
       btn.setAttribute(
         'aria-label',
-        eff === 'light' ? 'Activer le mode sombre' : 'Activer le mode clair'
+        eff === 'light' ? 'Activer le mode sombre' : 'Activer le mode clair',
       );
       btn.setAttribute('title', btn.getAttribute('aria-label'));
     }
@@ -376,73 +374,78 @@
   var onboardingStage = document.getElementById('onboardingStage');
   var progressEl = document.getElementById('onboardingProgress');
 
-  if (onboardingStage) document.querySelectorAll('.pill-btn').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var q = parseInt(btn.getAttribute('data-q'), 10);
-      var val = btn.getAttribute('data-val');
-      answers[q] = val;
+  if (onboardingStage)
+    document.querySelectorAll('.pill-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var q = parseInt(btn.getAttribute('data-q'), 10);
+        var val = btn.getAttribute('data-val');
+        answers[q] = val;
 
-      if (progressEl && progressMap[q]) {
-        progressEl.style.width = progressMap[q] + '%';
-      }
-
-      var messages = { 1: 'Bien noté.', 2: 'Parfait.', 3: 'On y est presque.' };
-
-      if (q < 4) {
-        var msg = document.createElement('div');
-        msg.className = 'transition-msg';
-        msg.textContent = messages[q];
-        msg.style.cssText =
-          'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:18px;color:var(--accent-teal);pointer-events:none;';
-        if (onboardingStage) onboardingStage.appendChild(msg);
-
-        var qEl = document.getElementById('q' + q);
-        if (qEl) qEl.classList.remove('active');
-        window.setTimeout(function () {
-          msg.remove();
-          var next = document.getElementById('q' + (q + 1));
-          if (next) next.classList.add('active');
-        }, 700);
-      } else {
-        var q4 = document.getElementById('q4');
-        if (q4) q4.classList.remove('active');
-        if (progressEl) progressEl.style.width = '100%';
-
-        var finMsg = document.getElementById('finMessage');
-        if (finMsg && answers[4] === 'moins-1000') {
-          finMsg.textContent =
-            'Parfait pour notre Starter à 349€. Je reviens vers vous sous 24h.';
+        if (progressEl && progressMap[q]) {
+          progressEl.style.width = progressMap[q] + '%';
         }
 
-        var qfin = document.getElementById('qfin');
-        if (qfin) qfin.classList.add('active');
+        var messages = { 1: 'Bien noté.', 2: 'Parfait.', 3: 'On y est presque.' };
 
-        /* Envoi Netlify Forms + webhook n8n si configuré */
-        var onboardingPayload = {
-          'form-name': 'onboarding-parcours',
-          secteur:     answers[1] || '',
-          budget:      answers[2] || '',
-          urgence:     answers[3] || '',
-          budget2:     answers[4] || '',
-          timestamp:   new Date().toISOString(),
-          page:        location.href,
-        };
-        /* Netlify Forms (toujours) */
-        var fd = new FormData();
-        Object.keys(onboardingPayload).forEach(function(k){ fd.append(k, onboardingPayload[k]); });
-        fetch('/', { method: 'POST', headers: { 'Accept': 'application/json' }, body: fd }).catch(function(){});
-        /* Webhook n8n si branché */
-        var cfg = window.PinappConfig;
-        if (cfg && cfg.features.onboardingWebhook && cfg._isRealUrl(cfg.webhooks.onboarding)) {
-          fetch(cfg.webhooks.onboarding, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(onboardingPayload),
-          }).catch(function(){});
+        if (q < 4) {
+          var msg = document.createElement('div');
+          msg.className = 'transition-msg';
+          msg.textContent = messages[q];
+          msg.style.cssText =
+            'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:18px;color:var(--accent-teal);pointer-events:none;';
+          if (onboardingStage) onboardingStage.appendChild(msg);
+
+          var qEl = document.getElementById('q' + q);
+          if (qEl) qEl.classList.remove('active');
+          window.setTimeout(function () {
+            msg.remove();
+            var next = document.getElementById('q' + (q + 1));
+            if (next) next.classList.add('active');
+          }, 700);
+        } else {
+          var q4 = document.getElementById('q4');
+          if (q4) q4.classList.remove('active');
+          if (progressEl) progressEl.style.width = '100%';
+
+          var finMsg = document.getElementById('finMessage');
+          if (finMsg && answers[4] === 'moins-1000') {
+            finMsg.textContent =
+              'Parfait pour notre Starter à 349€. Je reviens vers vous sous 24h.';
+          }
+
+          var qfin = document.getElementById('qfin');
+          if (qfin) qfin.classList.add('active');
+
+          /* Envoi Netlify Forms + webhook n8n si configuré */
+          var onboardingPayload = {
+            'form-name': 'onboarding-parcours',
+            secteur: answers[1] || '',
+            budget: answers[2] || '',
+            urgence: answers[3] || '',
+            budget2: answers[4] || '',
+            timestamp: new Date().toISOString(),
+            page: location.href,
+          };
+          /* Netlify Forms (toujours) */
+          var fd = new FormData();
+          Object.keys(onboardingPayload).forEach(function (k) {
+            fd.append(k, onboardingPayload[k]);
+          });
+          fetch('/', { method: 'POST', headers: { Accept: 'application/json' }, body: fd }).catch(
+            function () {},
+          );
+          /* Webhook n8n si branché */
+          var cfg = window.PinappConfig;
+          if (cfg && cfg.features.onboardingWebhook && cfg._isRealUrl(cfg.webhooks.onboarding)) {
+            fetch(cfg.webhooks.onboarding, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(onboardingPayload),
+            }).catch(function () {});
+          }
         }
-      }
+      });
     });
-  });
 
   /* FAQ */
   document.querySelectorAll('.faq-trigger').forEach(function (trigger) {
@@ -470,26 +473,33 @@
       /* Lead Netlify Forms + webhook n8n si configuré */
       var lfPayload = {
         'form-name': 'lead-guide-gratuit',
-        email:       email,
-        timestamp:   new Date().toISOString(),
-        page:        location.href,
+        email: email,
+        timestamp: new Date().toISOString(),
+        page: location.href,
       };
       var lfd = new FormData();
-      Object.keys(lfPayload).forEach(function(k){ lfd.append(k, lfPayload[k]); });
-      fetch('/', { method: 'POST', headers: { 'Accept': 'application/json' }, body: lfd }).catch(function(){});
+      Object.keys(lfPayload).forEach(function (k) {
+        lfd.append(k, lfPayload[k]);
+      });
+      fetch('/', { method: 'POST', headers: { Accept: 'application/json' }, body: lfd }).catch(
+        function () {},
+      );
       var lcfg = window.PinappConfig;
       if (lcfg && lcfg.features.leadWebhook && lcfg._isRealUrl(lcfg.webhooks.leadMagnet)) {
         fetch(lcfg.webhooks.leadMagnet, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(lfPayload),
-        }).catch(function(){});
+        }).catch(function () {});
       }
       /* Feedback visuel */
       leadBtn.textContent = 'Guide envoyé ✓';
       leadBtn.disabled = true;
       if (leadEmail) leadEmail.value = '';
-      setTimeout(function(){ leadBtn.textContent = 'Recevoir le guide →'; leadBtn.disabled = false; }, 4000);
+      setTimeout(function () {
+        leadBtn.textContent = 'Recevoir le guide →';
+        leadBtn.disabled = false;
+      }, 4000);
     });
   }
 
@@ -531,9 +541,9 @@
       var w = canvas.offsetWidth;
       var h = canvas.offsetHeight;
       ctx.clearRect(0, 0, w, h);
-      var teal = getComputedStyle(document.documentElement)
-        .getPropertyValue('--accent-teal')
-        .trim() || '#3EEBD6';
+      var teal =
+        getComputedStyle(document.documentElement).getPropertyValue('--accent-teal').trim() ||
+        '#3EEBD6';
 
       particles.forEach(function (p) {
         p.x += p.vx;
