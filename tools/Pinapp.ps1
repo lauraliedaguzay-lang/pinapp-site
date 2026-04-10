@@ -68,17 +68,35 @@ function Test-PinappAffirmative {
     return ($t -eq 'o' -or $t -eq 'oui' -or $t -eq 'y' -or $t -eq 'yes')
 }
 
+function Get-PinappGhExecutable {
+    $cmd = Get-Command gh -ErrorAction SilentlyContinue
+    if ($cmd -and $cmd.Source) {
+        return $cmd.Source
+    }
+    $candidates = @(
+        (Join-Path $env:ProgramFiles 'GitHub CLI\gh.exe')
+        "${env:ProgramFiles(x86)}\GitHub CLI\gh.exe"
+        (Join-Path $env:LOCALAPPDATA 'Programs\GitHub CLI\gh.exe')
+    )
+    foreach ($p in $candidates) {
+        if ($p -and (Test-Path -LiteralPath $p)) {
+            return $p
+        }
+    }
+    return $null
+}
+
 function Test-PinappGitHubTokenAvailable {
     $t = $env:GITHUB_TOKEN
     if ($t -and $t.Trim()) {
         return $true
     }
-    $gh = Get-Command gh -ErrorAction SilentlyContinue
-    if (-not $gh) {
+    $ghExe = Get-PinappGhExecutable
+    if (-not $ghExe) {
         return $false
     }
     try {
-        $raw = & gh auth token 2>$null
+        $raw = & $ghExe auth token 2>$null
         return ($raw -and $raw.Trim())
     } catch {
         return $false
@@ -304,12 +322,22 @@ switch ($Command) {
             Write-Host '  .\pinapp.ps1 fr-prepare-profile' -ForegroundColor White
             exit 12
         }
-        if (-not (Test-PinappGitHubTokenAvailable)) {
-            Write-Host 'GitHub : definis GITHUB_TOKEN ou execute une fois : gh auth login' -ForegroundColor Red
-            exit 13
-        }
         Write-Host '1/2 API Hostinger (DNS -> GitHub Pages)...' -ForegroundColor Gray
         & $HostingerDnsScript -Force -NonInteractive
+        if (-not (Test-PinappGitHubTokenAvailable)) {
+            Write-Host ''
+            Write-Host 'DNS Hostinger : etape terminee si aucune erreur ci-dessus.' -ForegroundColor Green
+            Write-Host 'GitHub : aucun jeton (GITHUB_TOKEN ou gh auth login).' -ForegroundColor Red
+            $ghexe = Get-PinappGhExecutable
+            if (-not $ghexe) {
+                Write-Host '  Installe GitHub CLI : winget install GitHub.cli' -ForegroundColor White
+            } else {
+                Write-Host ('  gh trouve : ' + $ghexe) -ForegroundColor DarkGray
+                Write-Host '  Dans un terminal : gh auth login' -ForegroundColor White
+            }
+            Write-Host '  Puis : .\pinapp.ps1 corrige-fr   ou   .\tools\pinapp-fr-domaine.ps1 -Repair -NonInteractive' -ForegroundColor White
+            exit 13
+        }
         Write-Host '2/2 API GitHub Pages (custom domain)...' -ForegroundColor Gray
         & $DomainScript -Repair -NonInteractive
         Write-Host ''

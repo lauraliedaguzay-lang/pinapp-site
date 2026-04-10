@@ -75,11 +75,31 @@ function Test-PinappScriptRoot {
 
 function Get-PinappGitHubTokenSilent {
     $t = $env:GITHUB_TOKEN
-    if ($t) { return $t.Trim() }
-    $gh = Get-Command gh -ErrorAction SilentlyContinue
-    if ($gh) {
+    if ($t) {
+        $t = $t.Trim().TrimStart([char]0xFEFF).Trim()
+        while ($t.Length -ge 2 -and (($t.StartsWith('"') -and $t.EndsWith('"')) -or ($t.StartsWith("'") -and $t.EndsWith("'")))) {
+            $t = $t.Substring(1, $t.Length - 2).Trim()
+        }
+        if ($t) { return $t }
+    }
+    $ghExe = $null
+    $cmd = Get-Command gh -ErrorAction SilentlyContinue
+    if ($cmd -and $cmd.Source) { $ghExe = $cmd.Source }
+    if (-not $ghExe) {
+        foreach ($p in @(
+                (Join-Path $env:ProgramFiles 'GitHub CLI\gh.exe')
+                $(if (${env:ProgramFiles(x86)}) { Join-Path ${env:ProgramFiles(x86)} 'GitHub CLI\gh.exe' })
+                (Join-Path $env:LOCALAPPDATA 'Programs\GitHub CLI\gh.exe')
+            )) {
+            if ($p -and (Test-Path -LiteralPath $p)) {
+                $ghExe = $p
+                break
+            }
+        }
+    }
+    if ($ghExe) {
         try {
-            $raw = & gh auth token 2>$null
+            $raw = & $ghExe auth token 2>$null
             if ($raw -and $raw.Trim()) { return $raw.Trim() }
         } catch {}
     }

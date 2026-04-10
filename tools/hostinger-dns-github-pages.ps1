@@ -63,8 +63,19 @@ function Test-HostingerScriptRoot {
 
 function Get-HostingerApiToken {
     $t = $env:HOSTINGER_API_TOKEN
-    if ($t) { return $t.Trim() }
-    return $null
+    if (-not $t) { return $null }
+    $t = $t.Trim()
+    # UTF-8 BOM ou caractere invisible en tete (copier-coller depuis certains editeurs)
+    $t = $t.TrimStart([char]0xFEFF).Trim()
+    while ($t.Length -ge 2 -and (($t.StartsWith('"') -and $t.EndsWith('"')) -or ($t.StartsWith("'") -and $t.EndsWith("'")))) {
+        $t = $t.Substring(1, $t.Length - 2).Trim()
+    }
+    if ($t -match 'COLLE_ICI|PLACEHOLDER|\[TON-') {
+        Write-Host 'HOSTINGER_API_TOKEN : valeur type placeholder detectee (COLLE_ICI...). Remplace par un jeton reel : hPanel > API > New token.' -ForegroundColor Yellow
+        Write-Host '  .\pinapp.ps1 hostinger-token' -ForegroundColor White
+        return $null
+    }
+    return $t
 }
 
 function Read-HostingerTokenSecure {
@@ -206,6 +217,10 @@ try {
 } catch {
     Write-Host ('GET DNS : ' + $_.Exception.Message) -ForegroundColor Red
     if ($_.ErrorDetails.Message) { Write-Host $_.ErrorDetails.Message -ForegroundColor Red }
+    if ($_.Exception.Message -match '401|Non autoris') {
+        Write-Host '401 : jeton refuse ou expire. Cree un nouveau jeton (hPanel > API), puis : .\pinapp.ps1 hostinger-token' -ForegroundColor Yellow
+        Write-Host 'Verifie aussi : pas de guillemets en trop, pas d espace, domaine pinapp.fr sur ce compte Hostinger.' -ForegroundColor DarkGray
+    }
     exit 3
 }
 
@@ -231,6 +246,9 @@ try {
 } catch {
     Write-Host ('PUT DNS : ' + $_.Exception.Message) -ForegroundColor Red
     if ($_.ErrorDetails.Message) { Write-Host $_.ErrorDetails.Message -ForegroundColor Red }
+    if ($_.Exception.Message -match '401|Non autoris') {
+        Write-Host '401 : jeton refuse ou expire. Nouveau jeton : hPanel > API ; puis .\pinapp.ps1 hostinger-token' -ForegroundColor Yellow
+    }
     exit 3
 }
 
