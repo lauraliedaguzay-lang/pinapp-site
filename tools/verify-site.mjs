@@ -9,6 +9,7 @@ const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 const required = [
   'index.html',
+  'CNAME',
   'robots.txt',
   'sitemap.xml',
   '.htaccess',
@@ -35,6 +36,18 @@ if (fs.existsSync(path.join(root, '.env'))) {
 if (fs.existsSync(path.join(root, '.htpasswd'))) {
   console.error('verify-site: .htpasswd ne doit pas être versionné');
   err = 1;
+}
+
+const cnamePath = path.join(root, 'CNAME');
+if (fs.existsSync(cnamePath)) {
+  const cname = fs.readFileSync(cnamePath, 'utf8').trim();
+  if (cname !== 'pinapp.fr') {
+    console.error(
+      'verify-site: CNAME doit contenir exactement pinapp.fr (ligne unique), trouvé :',
+      JSON.stringify(cname),
+    );
+    err = 1;
+  }
 }
 
 process.exit(err);

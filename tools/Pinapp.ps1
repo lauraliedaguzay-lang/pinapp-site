@@ -7,7 +7,7 @@
   Depuis la racine du depot :  .\tools\Pinapp.ps1 <commande>
 
 .PARAMETER Command
-  pull | install | ci | build | domain | dns | status | check | help
+  pull | install | ci | build | domain | dns | auth | urls | status | check | help
 
 .EXAMPLE
   cd $env:USERPROFILE\Projects\pinapp-site
@@ -21,7 +21,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('pull', 'install', 'ci', 'build', 'domain', 'dns', 'status', 'check', 'help')]
+    [ValidateSet('pull', 'install', 'ci', 'build', 'domain', 'dns', 'auth', 'urls', 'status', 'check', 'help')]
     [string] $Command = 'help'
 )
 
@@ -45,6 +45,8 @@ function Write-PinappHelp {
     Write-Host '  .\tools\Pinapp.ps1 build   - npm run build (_site)' -ForegroundColor White
     Write-Host '  .\tools\Pinapp.ps1 domain  - domaine GitHub Pages (menu interactif)' -ForegroundColor White
     Write-Host '  .\tools\Pinapp.ps1 dns     - instructions DNS seulement' -ForegroundColor White
+    Write-Host '  .\tools\Pinapp.ps1 auth    - gh auth status (CLI GitHub)' -ForegroundColor White
+    Write-Host '  .\tools\Pinapp.ps1 urls    - liens Pages / depot / domaine' -ForegroundColor White
     Write-Host '  .\tools\Pinapp.ps1 status  - git status -sb' -ForegroundColor White
     Write-Host '  .\tools\Pinapp.ps1 check   - pull + install + ci + build' -ForegroundColor White
     Write-Host ''
@@ -75,6 +77,24 @@ switch ($Command) {
     }
     'dns' {
         & $DomainScript -DnsOnly
+    }
+    'auth' {
+        $gh = Get-Command gh -ErrorAction SilentlyContinue
+        if (-not $gh) {
+            Write-Host 'gh (GitHub CLI) introuvable. Installe-le puis : gh auth login' -ForegroundColor Yellow
+            Write-Host '  winget install GitHub.cli' -ForegroundColor White
+            exit 1
+        }
+        & gh auth status
+    }
+    'urls' {
+        Write-Host ''
+        Write-Host 'Liens utiles (pinapp-site)' -ForegroundColor Cyan
+        Write-Host '  Site Pages : https://lauraliedaguzay-lang.github.io/pinapp-site/' -ForegroundColor White
+        Write-Host '  Domaine    : https://pinapp.fr/' -ForegroundColor White
+        Write-Host '  Pages repo : https://github.com/lauraliedaguzay-lang/pinapp-site/settings/pages' -ForegroundColor White
+        Write-Host '  DNS script : .\tools\Pinapp.ps1 dns' -ForegroundColor DarkGray
+        Write-Host ''
     }
     'status' {
         git status -sb
