@@ -34,7 +34,7 @@
 
 .NOTES
   Lancer comme FICHIER : .\tools\pinapp-fr-domaine.ps1
-  Point d entree global : .\pinapp.ps1 diagnose-fr | corrige-fr | domain | dns | pages
+  Point d entree global : .\pinapp.ps1 fr-auto | fr-prepare-profile | diagnose-fr | corrige-fr | domain | dns | pages
   Codes sortie : 0 OK | 1 mauvais usage | 2 pas de jeton (NonInteractive) | 3 echec API
 #>
 [CmdletBinding()]
@@ -312,7 +312,7 @@ if ($Repair) {
     Invoke-PinappFrDnsHttpDiagnose -DomainName $Domain
     Write-Host '--- Correction cote GitHub (API Pages) ---' -ForegroundColor Cyan
     Write-Host ('Depot : ' + $Owner + '/' + $Repo + '  |  Domaine : ' + $Domain) -ForegroundColor Gray
-    Write-Host 'Le DNS Hostinger (4x A GitHub) doit etre fait dans hPanel ; sans ca, pinapp.fr restera en 403.' -ForegroundColor DarkYellow
+    Write-Host 'DNS GitHub Pages : 4x A @ + CNAME www (hPanel ou .\tools\hostinger-dns-github-pages.ps1). Sans ca, pinapp.fr peut rester en 403.' -ForegroundColor DarkYellow
     Write-Host ''
 } else {
     Write-Host ''
