@@ -22,6 +22,7 @@
 
 .NOTES
   Lancer comme FICHIER : .\tools\pinapp-fr-domaine.ps1
+  Point d entree global : .\tools\Pinapp.ps1 domain   ou   .\tools\Pinapp.ps1 dns
   Codes sortie : 0 OK | 1 mauvais usage | 2 pas de jeton (NonInteractive) | 3 echec API
 #>
 [CmdletBinding()]
