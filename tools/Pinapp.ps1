@@ -105,6 +105,19 @@ function Test-PinappGitHubTokenAvailable {
     }
 }
 
+function Test-PinappFrHostingerAssignmentIsPlaceholder {
+    param([string] $FilePath)
+    if (-not (Test-Path -LiteralPath $FilePath)) {
+        return $false
+    }
+    foreach ($line in @(Get-Content -LiteralPath $FilePath -ErrorAction SilentlyContinue)) {
+        if ($line -match '^\s*\$env:HOSTINGER_API_TOKEN\s*=') {
+            return [bool]($line -match 'COLLE_ICI|COLLE_JETON|PLACEHOLDER|\[TON-')
+        }
+    }
+    return $false
+}
+
 function Invoke-PinappHttpProbe {
     param(
         [string] $Label,
@@ -327,6 +340,11 @@ switch ($Command) {
             } catch {
                 Write-Host ('Erreur chargement secrets : ' + $_.Exception.Message) -ForegroundColor Red
                 exit 14
+            }
+        }
+        foreach ($pair in @(@{ p = $profFr; label = '.pinapp-fr-env.ps1' }, @{ p = $profSecrets; label = '.pinapp-secrets.ps1' })) {
+            if (Test-PinappFrHostingerAssignmentIsPlaceholder $pair.p) {
+                Write-Host ('Dans ' + $pair.label + ', la ligne $env:HOSTINGER_API_TOKEN contient encore un modele (COLLE_* / PLACEHOLDER) - remplace par le jeton hPanel (API).') -ForegroundColor Yellow
             }
         }
         $ht = $env:HOSTINGER_API_TOKEN

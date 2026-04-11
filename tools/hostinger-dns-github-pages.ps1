@@ -71,7 +71,8 @@ function Get-HostingerApiToken {
         $t = $t.Substring(1, $t.Length - 2).Trim()
     }
     if ($t -match 'COLLE_ICI|COLLE_JETON|PLACEHOLDER|\[TON-') {
-        Write-Host 'HOSTINGER_API_TOKEN : valeur type placeholder detectee (COLLE_ICI...). Remplace par un jeton reel : hPanel > API > New token.' -ForegroundColor Yellow
+        Write-Host 'HOSTINGER_API_TOKEN : valeur type placeholder detectee (COLLE_ICI / COLLE_JETON / ...). Remplace par un jeton reel : hPanel > API > New token.' -ForegroundColor Yellow
+        Write-Host ('  Longueur actuelle : ' + $t.Length + ' caracteres - edite ~\.pinapp-secrets.ps1 ou ~\.pinapp-fr-env.ps1 (pas de chaine modele).') -ForegroundColor DarkYellow
         Write-Host '  .\pinapp.ps1 hostinger-token' -ForegroundColor White
         return $null
     }
