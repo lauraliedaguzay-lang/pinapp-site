@@ -107,9 +107,10 @@ def github_pages_put() -> int:
 
 
 def main() -> int:
+    # GitHub Pages en premier : declarer pinapp.fr sur le depot meme si Hostinger echoue ensuite.
     rc = 0
-    rc |= hostinger_dns_put()
     rc |= github_pages_put()
+    rc |= hostinger_dns_put()
     return rc
 
 

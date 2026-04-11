@@ -73,7 +73,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Ne pas faire echouer tout le workflow si DNS Hostinger ou PUT Pages a un souci (Pages deja publiee).
       - name: Synchroniser pinapp.fr (Hostinger si secret, GitHub Pages toujours)
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}

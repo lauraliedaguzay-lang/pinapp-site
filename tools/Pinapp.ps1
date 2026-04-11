@@ -10,7 +10,7 @@
   Meme chose sur GitHub : workflow pinapp-fr-api.yml (secret HOSTINGER_API_TOKEN).
 
 .PARAMETER Command
-  pull | install | dev | serve | preview | ci | build | verify | ship | clean | format | format-check | info | 403 | diagnose-fr | corrige-fr | sync-fr | fr-auto | fr-api | fr-prepare-profile | fr-secrets | dns-hostinger | hostinger-token | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | tout | dormir | applique | orchestrate | relie | status | check | help
+  pull | install | dev | serve | preview | ci | build | verify | ship | clean | format | format-check | info | 403 | diagnose-fr | corrige-fr | sync-fr | fr-auto | fr-api | fr-prepare-profile | fr-secrets | dns-hostinger | hostinger-token | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | tout | dormir | applique | orchestrate | relie | merge-deploy | status | check | help
 
 .EXAMPLE
   cd $env:USERPROFILE\Projects\pinapp-site
@@ -25,7 +25,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('pull', 'install', 'dev', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'clean', 'format', 'format-check', 'info', '403', 'diagnose-fr', 'corrige-fr', 'sync-fr', 'fr-auto', 'fr-api', 'fr-prepare-profile', 'fr-secrets', 'dns-hostinger', 'hostinger-token', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'tout', 'dormir', 'applique', 'orchestrate', 'relie', 'status', 'check', 'help')]
+    [ValidateSet('pull', 'install', 'dev', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'clean', 'format', 'format-check', 'info', '403', 'diagnose-fr', 'corrige-fr', 'sync-fr', 'fr-auto', 'fr-api', 'fr-prepare-profile', 'fr-secrets', 'dns-hostinger', 'hostinger-token', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'tout', 'dormir', 'applique', 'orchestrate', 'relie', 'merge-deploy', 'status', 'check', 'help')]
     [string] $Command = 'help'
 )
 
@@ -191,6 +191,7 @@ function Write-PinappHelp {
     Write-Host '  .\pinapp.ps1 orchestrate  - idem (-SkipN8n, -TestAnthropic, -DryRun via script direct)' -ForegroundColor White
     Write-Host '  .\pinapp-relie-tout.ps1   - charge stack (pinapp-stack.local.ps1) + gh + orchestrate' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 relie        - idem' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 merge-deploy - fusionne branche courante -> main + push (declenche Actions)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 status       - git status -sb' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 check        - pull + install + ci + build' -ForegroundColor White
     Write-Host ''
@@ -532,6 +533,13 @@ $env:HOSTINGER_API_TOKEN = "COLLE_JETON_API_HOSTINGER"
             Write-Error ('Introuvable : ' + $relieScript)
         }
         & $relieScript
+    }
+    'merge-deploy' {
+        $mergeScript = Join-Path $RepoRoot 'pinapp-merge-deploy-main.ps1'
+        if (-not (Test-Path -LiteralPath $mergeScript)) {
+            Write-Error ('Introuvable : ' + $mergeScript)
+        }
+        & $mergeScript
     }
     'suite' {
         Write-Host ''
