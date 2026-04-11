@@ -8,6 +8,7 @@
     2) -ConfigFile si fourni
     3) %USERPROFILE%\pinapp-fr-deploy.ps1 OU pinapp-fr-deploy.local.ps1
     4) %USERPROFILE%\.pinapp-fr-env.ps1 puis .pinapp-secrets.ps1
+    5) pinapp-tes-clefs.ps1 a la racine du depot (prioritaire — voir pinapp-tes-clefs.EXAMPLE.ps1)
 
   Ensuite :
     - GITHUB_TOKEN = GH_TOKEN si GITHUB_TOKEN vide (compat API GitHub)
@@ -100,6 +101,11 @@ foreach ($p in @(
     if (Test-Path -LiteralPath $p) {
         $null = Import-PinappDotSource -Path $p
     }
+}
+
+$tesClefs = Join-Path $PSScriptRoot 'pinapp-tes-clefs.ps1'
+if (Test-Path -LiteralPath $tesClefs) {
+    $null = Import-PinappDotSource -Path $tesClefs
 }
 
 # Aliases jeton GitHub (REST + gh)

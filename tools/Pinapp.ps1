@@ -191,6 +191,7 @@ function Write-PinappHelp {
     Write-Host '  .\pinapp.ps1 orchestrate  - idem (-SkipN8n, -TestAnthropic, -DryRun via script direct)' -ForegroundColor White
     Write-Host '  .\pinapp-relie-tout.ps1   - charge stack (pinapp-stack.local.ps1) + gh + orchestrate' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 relie        - idem' -ForegroundColor White
+    Write-Host '  pinapp-tes-clefs.EXAMPLE.ps1 -> pinapp-tes-clefs.ps1 (tous les jetons / URLs a remplir)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 merge-deploy - fusionne branche courante -> main + push (declenche Actions)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 status       - git status -sb' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 check        - pull + install + ci + build' -ForegroundColor White
