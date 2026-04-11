@@ -7,7 +7,14 @@ alwaysApply: true
 
 - Pour ce dépôt, **privilégier PowerShell** pour tout script, automatisation ou commande terminal : ne pas proposer bash/sh comme chemin principal si un équivalent **`.\pinapp.ps1`** ou **`.ps1`** existe.
 - Exécuter les scripts en **fichier** : `powershell -NoProfile -ExecutionPolicy Bypass -File .\pinapp.ps1 <commande>` ou depuis la racine : **`.\pinapp.ps1 <commande>`** (Windows).
-- **Ne pas** coller de secrets dans le chat ; jetons uniquement dans **`~\.pinapp-secrets.ps1`** / **`~\.pinapp-fr-env.ps1`** ou via **`.\pinapp.ps1 hostinger-token`**.
+- **Ne pas** coller de secrets dans le chat ; jetons uniquement dans **`~\.pinapp-secrets.ps1`** / **`~\.pinapp-fr-env.ps1`** / **`pinapp-tes-clefs.ps1`** ou via **`.\pinapp.ps1 hostinger-token`**.
+
+# Mode automatique (agent)
+
+- **Ne pas** solliciter l’utilisateur pour des confirmations intermédiaires : enchaîner en **PowerShell** (pull, `ship`, `relie`, `probe`, etc.) sans poser de questions du type « veux-tu que je… ».
+- Préférer les commandes **sans menu** : **`fr-auto`**, **`relie`**, **`applique`**, **`orchestrate -SkipN8n`**, **`tout`** — éviter **`sync-fr`** et **`domain`** (interactifs) sauf demande explicite.
+- Si un jeton manque : **message factuel** + prochaine action technique ; **pas** de questionnaire.
+- Commande raccourcie dépôt : **`.\pinapp.ps1 auto`** (= `pinapp-relie-tout -SkipN8n`).
 
 # Outils PowerShell — pinapp-site
 
@@ -21,6 +28,7 @@ alwaysApply: true
   .\pinapp.ps1 status
   ```
   Pipeline sans pousser le dépôt : `.\pinapp-tout.ps1 -SkipPush` ; avec push : `.\pinapp-tout.ps1`.
+  Mode auto agent : `.\pinapp.ps1 auto` ou `npm run auto`.
 - **Qualité / build** : `.\pinapp.ps1 check` (pull, install, ci, build) ; avant push local : `ship` (ci + build) ; garde-fous seuls : `verify` ; `info` (Node/npm/git) ; dev : `dev` ; Prettier : `format`, `format-check`.
 - **Domaine pinapp.fr (tout PS, sans interaction)** : `fr-prepare-profile` une fois (`~\.pinapp-fr-env.ps1`) puis `fr-auto` (API Hostinger + GitHub). Sinon `sync-fr` (questions), `diagnose-fr`, `corrige-fr`, `suite`, `dns`, `dns-hostinger`, `domain`, `pages`, `open`, `probe`, `auth`, `urls`.
 - **DNS Hostinger (API)** : `.\tools\hostinger-dns-github-pages.ps1` avec **`HOSTINGER_API_TOKEN`** ; raccourci info : `.\pinapp.ps1 dns-hostinger`.

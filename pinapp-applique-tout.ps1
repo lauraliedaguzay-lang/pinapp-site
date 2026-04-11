@@ -10,7 +10,8 @@
   Puis charge comme deploy-pinapp-fr : .pinapp-fr-env.ps1 puis .pinapp-secrets.ps1
   Enfin : fr-auto (DNS + domaine Pages) puis probe.
 
-  Mets les jetons du ton doc dans pinapp-fr-deploy.local.ps1 (copie pinapp-fr-deploy.EXAMPLE.ps1).
+  Mets les jetons du ton doc dans pinapp-fr-deploy.local.ps1 (copie pinapp-fr-deploy.EXAMPLE.ps1)
+  ou tout-en-un : pinapp-tes-clefs.ps1 (copie pinapp-tes-clefs.EXAMPLE.ps1).
 .PARAMETER ConfigFile
   Chemin absolu ou relatif vers un .ps1 qui definit HOSTINGER_API_TOKEN / GH_TOKEN / GITHUB_TOKEN.
 .PARAMETER SkipShip
@@ -93,6 +94,17 @@ foreach ($p in @(
             Write-Host ('Erreur : ' + $_.Exception.Message) -ForegroundColor Red
             exit 14
         }
+    }
+}
+
+$tesClefs = Join-Path $PSScriptRoot 'pinapp-tes-clefs.ps1'
+if (Test-Path -LiteralPath $tesClefs) {
+    Write-Host ('pinapp-tes-clefs : ' + $tesClefs) -ForegroundColor DarkGray
+    try {
+        . $tesClefs
+    } catch {
+        Write-Host ('Erreur : ' + $_.Exception.Message) -ForegroundColor Red
+        exit 14
     }
 }
 
