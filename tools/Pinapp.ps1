@@ -10,7 +10,7 @@
   Meme chose sur GitHub : workflow pinapp-fr-api.yml (secret HOSTINGER_API_TOKEN).
 
 .PARAMETER Command
-  pull | install | dev | serve | preview | ci | build | verify | ship | clean | format | format-check | info | 403 | diagnose-fr | corrige-fr | sync-fr | fr-auto | fr-api | fr-prepare-profile | fr-secrets | dns-hostinger | hostinger-token | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | tout | dormir | status | check | help
+  pull | install | dev | serve | preview | ci | build | verify | ship | clean | format | format-check | info | 403 | diagnose-fr | corrige-fr | sync-fr | fr-auto | fr-api | fr-prepare-profile | fr-secrets | dns-hostinger | hostinger-token | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | tout | dormir | applique | status | check | help
 
 .EXAMPLE
   cd $env:USERPROFILE\Projects\pinapp-site
@@ -25,7 +25,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('pull', 'install', 'dev', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'clean', 'format', 'format-check', 'info', '403', 'diagnose-fr', 'corrige-fr', 'sync-fr', 'fr-auto', 'fr-api', 'fr-prepare-profile', 'fr-secrets', 'dns-hostinger', 'hostinger-token', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'tout', 'dormir', 'status', 'check', 'help')]
+    [ValidateSet('pull', 'install', 'dev', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'clean', 'format', 'format-check', 'info', '403', 'diagnose-fr', 'corrige-fr', 'sync-fr', 'fr-auto', 'fr-api', 'fr-prepare-profile', 'fr-secrets', 'dns-hostinger', 'hostinger-token', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'tout', 'dormir', 'applique', 'status', 'check', 'help')]
     [string] $Command = 'help'
 )
 
@@ -185,6 +185,8 @@ function Write-PinappHelp {
     Write-Host '  .\pinapp-tout.ps1         - idem (-SkipPush, -SkipFr) ; push sur main declenche site + API pinapp.fr' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 dormir       - ship + rappel merge PR + secret Hostinger (pinapp.fr)' -ForegroundColor White
     Write-Host '  .\pinapp-dormir.ps1       - idem (-NoBrowser pour ne pas ouvrir les onglets)' -ForegroundColor White
+    Write-Host '  .\pinapp-applique-tout.ps1 - config locale (doc) puis ship + fr-auto + probe' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 applique     - idem' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 status       - git status -sb' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 check        - pull + install + ci + build' -ForegroundColor White
     Write-Host ''
@@ -505,6 +507,13 @@ $env:HOSTINGER_API_TOKEN = "COLLE_JETON_API_HOSTINGER"
             Write-Error ('Introuvable : ' + $dormirScript)
         }
         & $dormirScript
+    }
+    'applique' {
+        $appliqueScript = Join-Path $RepoRoot 'pinapp-applique-tout.ps1'
+        if (-not (Test-Path -LiteralPath $appliqueScript)) {
+            Write-Error ('Introuvable : ' + $appliqueScript)
+        }
+        & $appliqueScript
     }
     'suite' {
         Write-Host ''
