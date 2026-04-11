@@ -10,7 +10,7 @@
   Meme chose sur GitHub : workflow pinapp-fr-api.yml (secret HOSTINGER_API_TOKEN).
 
 .PARAMETER Command
-  pull | install | dev | serve | preview | ci | build | verify | ship | clean | format | format-check | info | 403 | diagnose-fr | corrige-fr | sync-fr | fr-auto | fr-api | fr-prepare-profile | fr-secrets | dns-hostinger | hostinger-token | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | status | check | help
+  pull | install | dev | serve | preview | ci | build | verify | ship | clean | format | format-check | info | 403 | diagnose-fr | corrige-fr | sync-fr | fr-auto | fr-api | fr-prepare-profile | fr-secrets | dns-hostinger | hostinger-token | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | tout | status | check | help
 
 .EXAMPLE
   cd $env:USERPROFILE\Projects\pinapp-site
@@ -25,7 +25,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('pull', 'install', 'dev', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'clean', 'format', 'format-check', 'info', '403', 'diagnose-fr', 'corrige-fr', 'sync-fr', 'fr-auto', 'fr-api', 'fr-prepare-profile', 'fr-secrets', 'dns-hostinger', 'hostinger-token', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'status', 'check', 'help')]
+    [ValidateSet('pull', 'install', 'dev', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'clean', 'format', 'format-check', 'info', '403', 'diagnose-fr', 'corrige-fr', 'sync-fr', 'fr-auto', 'fr-api', 'fr-prepare-profile', 'fr-secrets', 'dns-hostinger', 'hostinger-token', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'tout', 'status', 'check', 'help')]
     [string] $Command = 'help'
 )
 
@@ -181,6 +181,8 @@ function Write-PinappHelp {
     Write-Host '  .\pinapp.ps1 actions      - ouvrir Actions GitHub du depot' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 repo         - ouvrir la page du depot sur GitHub' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 suite        - dns + urls + probe + rappel API domaine' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 tout         - pull, ship, git push si arbre propre (Actions), deploy local FR, probe' -ForegroundColor White
+    Write-Host '  .\pinapp-tout.ps1         - idem (-SkipPush, -SkipFr) ; push sur main declenche site + API pinapp.fr' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 status       - git status -sb' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 check        - pull + install + ci + build' -ForegroundColor White
     Write-Host ''
@@ -487,6 +489,13 @@ $env:HOSTINGER_API_TOKEN = "COLLE_JETON_API_HOSTINGER"
     'repo' {
         Write-Host ('Ouverture : ' + $GitHubRepoUrl) -ForegroundColor Cyan
         Start-Process $GitHubRepoUrl
+    }
+    'tout' {
+        $toutScript = Join-Path $RepoRoot 'pinapp-tout.ps1'
+        if (-not (Test-Path -LiteralPath $toutScript)) {
+            Write-Error ('Introuvable : ' + $toutScript)
+        }
+        & $toutScript
     }
     'suite' {
         Write-Host ''

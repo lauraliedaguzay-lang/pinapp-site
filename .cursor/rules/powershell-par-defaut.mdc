@@ -11,7 +11,16 @@ alwaysApply: true
 
 # Outils PowerShell — pinapp-site
 
-- **Point d’entrée** : **`.\pinapp.ps1`** à la racine du dépôt (équivalent : `.\tools\Pinapp.ps1`). Optionnel : `npm run pinapp -- <commande>`.
+- **Point d’entrée** : **`.\pinapp.ps1`** à la racine du dépôt (équivalent : `.\tools\Pinapp.ps1`). **npm** relaie PowerShell : `npm run pinapp -- <commande>` ; raccourcis **`npm run ship`**, **`npm run tout`** (push si arbre propre), **`npm run tout:check`** (même chose sans `git push`).
+- **Bloc agent (copier tel quel, une session)** — depuis la racine `pinapp-site` :
+  ```powershell
+  $env:Path = [Environment]::GetEnvironmentVariable('Path','Machine') + ';' + [Environment]::GetEnvironmentVariable('Path','User')
+  Set-Location "$env:USERPROFILE\Projects\pinapp-site"
+  .\pinapp.ps1 help
+  .\pinapp.ps1 info
+  .\pinapp.ps1 status
+  ```
+  Pipeline sans pousser le dépôt : `.\pinapp-tout.ps1 -SkipPush` ; avec push : `.\pinapp-tout.ps1`.
 - **Qualité / build** : `.\pinapp.ps1 check` (pull, install, ci, build) ; avant push local : `ship` (ci + build) ; garde-fous seuls : `verify` ; `info` (Node/npm/git) ; dev : `dev` ; Prettier : `format`, `format-check`.
 - **Domaine pinapp.fr (tout PS, sans interaction)** : `fr-prepare-profile` une fois (`~\.pinapp-fr-env.ps1`) puis `fr-auto` (API Hostinger + GitHub). Sinon `sync-fr` (questions), `diagnose-fr`, `corrige-fr`, `suite`, `dns`, `dns-hostinger`, `domain`, `pages`, `open`, `probe`, `auth`, `urls`.
 - **DNS Hostinger (API)** : `.\tools\hostinger-dns-github-pages.ps1` avec **`HOSTINGER_API_TOKEN`** ; raccourci info : `.\pinapp.ps1 dns-hostinger`.

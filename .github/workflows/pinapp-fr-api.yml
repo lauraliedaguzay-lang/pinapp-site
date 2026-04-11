@@ -1,11 +1,10 @@
-# pinapp.fr : DNS Hostinger + domaine GitHub Pages, uniquement via APIs REST.
+# pinapp.fr : DNS Hostinger + domaine GitHub Pages (API REST).
 # Declenchement manuel : Actions > ce workflow > Run workflow.
 #
-# Secret requis :
-#   HOSTINGER_API_TOKEN — hPanel > API (meme jeton que en local).
-# Le GITHUB_TOKEN du workflow sert pour PUT /repos/.../pages (permissions ci-dessous).
+# Secret : HOSTINGER_API_TOKEN (optionnel pour l etape Hostinger ; sans lui, seul GitHub est mis a jour).
+# GITHUB_TOKEN : fourni par Actions (permissions pages:write).
 #
-# Reference locale : .\pinapp.ps1 fr-auto  |  .\deploy-pinapp-fr.ps1
+# Apres chaque push sur main, le workflow « Déployer GitHub Pages » enchaine aussi pinapp-fr (meme script).
 name: pinapp.fr (API Hostinger + GitHub)
 
 on:
@@ -16,7 +15,7 @@ on:
         required: true
         default: pinapp.fr
       pages_cname_target:
-        description: Cible CNAME pour www (avec point final recommande)
+        description: Cible CNAME pour www
         required: true
         default: lauraliedaguzay-lang.github.io.
       hostinger_only:
@@ -33,98 +32,19 @@ permissions:
   pages: write
 
 jobs:
-  hostinger-dns:
-    if: ${{ !inputs.github_only }}
+  sync:
     runs-on: ubuntu-latest
     steps:
-      - name: PUT DNS Hostinger (zone -> GitHub Pages)
-        env:
-          HOSTINGER_API_TOKEN: ${{ secrets.HOSTINGER_API_TOKEN }}
-          DOMAIN: ${{ inputs.domain }}
-          CNAME_TARGET: ${{ inputs.pages_cname_target }}
-        run: |
-          python3 << 'PY'
-          import json, os, sys, urllib.error, urllib.parse, urllib.request
+      - name: Checkout
+        uses: actions/checkout@v4
 
-          token = (os.environ.get("HOSTINGER_API_TOKEN") or "").strip()
-          if not token:
-              print("::error::Secret HOSTINGER_API_TOKEN manquant (Settings > Secrets and variables > Actions)")
-              sys.exit(1)
-
-          domain = os.environ["DOMAIN"].strip()
-          target = os.environ["CNAME_TARGET"].strip()
-          if not target.endswith("."):
-              target += "."
-
-          ips = ["185.199.108.153", "185.199.109.153", "185.199.110.153", "185.199.111.153"]
-          zone = [
-              {"name": "@", "type": "A", "ttl": 3600, "records": [{"content": ip} for ip in ips]},
-              {"name": "www", "type": "CNAME", "ttl": 3600, "records": [{"content": target}]},
-          ]
-          payload = {"overwrite": True, "zone": zone}
-          body = json.dumps(payload, separators=(",", ":")).encode("utf-8")
-          path = urllib.parse.quote(domain, safe="")
-          url = f"https://developers.hostinger.com/api/dns/v1/zones/{path}"
-          req = urllib.request.Request(
-              url,
-              data=body,
-              method="PUT",
-              headers={
-                  "Authorization": f"Bearer {token}",
-                  "Accept": "application/json",
-                  "Content-Type": "application/json; charset=utf-8",
-              },
-          )
-          try:
-              with urllib.request.urlopen(req, timeout=120) as r:
-                  print(f"Hostinger DNS PUT -> HTTP {r.status}")
-          except urllib.error.HTTPError as e:
-              err = e.read().decode("utf-8", errors="replace")
-              print(f"::error::Hostinger API HTTP {e.code}: {err[:2000]}")
-              sys.exit(1)
-          PY
-
-  github-pages-domain:
-    if: ${{ !inputs.hostinger_only }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: PUT domaine custom GitHub Pages
+      - name: pinapp.fr (API)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
+          HOSTINGER_API_TOKEN: ${{ secrets.HOSTINGER_API_TOKEN }}
           PINAPP_DOMAIN: ${{ inputs.domain }}
-        run: |
-          python3 << 'PY'
-          import json, os, sys, urllib.error, urllib.request
-
-          owner, _, repo = os.environ["GITHUB_REPOSITORY"].partition("/")
-          if not owner or not repo:
-              print("::error::GITHUB_REPOSITORY invalide")
-              sys.exit(1)
-          token = (os.environ.get("GITHUB_TOKEN") or "").strip()
-          if not token:
-              print("::error::GITHUB_TOKEN absent")
-              sys.exit(1)
-          cname = os.environ["PINAPP_DOMAIN"].strip()
-
-          body = json.dumps({"cname": cname, "https_enforced": True}).encode("utf-8")
-          url = f"https://api.github.com/repos/{owner}/{repo}/pages"
-          req = urllib.request.Request(
-              url,
-              data=body,
-              method="PUT",
-              headers={
-                  "Authorization": f"Bearer {token}",
-                  "Accept": "application/vnd.github+json",
-                  "X-GitHub-Api-Version": "2022-11-28",
-                  "Content-Type": "application/json",
-              },
-          )
-          try:
-              with urllib.request.urlopen(req, timeout=120) as r:
-                  print(f"GitHub Pages PUT -> HTTP {r.status}")
-          except urllib.error.HTTPError as e:
-              err = e.read().decode("utf-8", errors="replace")
-              print(f"::error::GitHub API HTTP {e.code}: {err[:2000]}")
-              sys.exit(1)
-          PY
+          PAGES_CNAME_TARGET: ${{ inputs.pages_cname_target }}
+          PINAPP_SKIP_HOSTINGER: ${{ inputs.github_only && '1' || '0' }}
+          PINAPP_SKIP_GITHUB: ${{ inputs.hostinger_only && '1' || '0' }}
+        run: python3 tools/ci/pinapp-fr-sync.py

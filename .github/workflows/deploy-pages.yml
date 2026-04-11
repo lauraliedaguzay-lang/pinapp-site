@@ -1,6 +1,8 @@
 # Déploiement GitHub Pages : build reproductible (npm run build) + artefact _site/
 # Pages : Settings → Pages → Source : GitHub Actions
 # Secret optionnel : AURALIS_APP_URL (URL de l’app SaaS, injectée dans assets/js/auralis-config.js au build)
+# Secret optionnel : HOSTINGER_API_TOKEN — apres chaque deploiement sur main, DNS pinapp.fr -> GitHub Pages (API).
+# Sans ce secret : seule la declaration du domaine sur GitHub Pages (API) est appliquee.
 name: Déployer GitHub Pages
 
 on:
@@ -58,3 +60,24 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  pinapp-fr:
+    name: pinapp.fr (DNS + domaine API)
+    needs: deploy
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Synchroniser pinapp.fr (Hostinger si secret, GitHub Pages toujours)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          HOSTINGER_API_TOKEN: ${{ secrets.HOSTINGER_API_TOKEN }}
+          PINAPP_DOMAIN: pinapp.fr
+          PAGES_CNAME_TARGET: lauraliedaguzay-lang.github.io.
+        run: python3 tools/ci/pinapp-fr-sync.py
