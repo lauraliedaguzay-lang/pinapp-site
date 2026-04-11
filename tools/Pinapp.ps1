@@ -6,10 +6,11 @@
 .DESCRIPTION
   Depuis la racine du depot :  .\pinapp.ps1 <commande>   (recommande)
   ou  .\tools\Pinapp.ps1 <commande>
-  pinapp.fr sans menu : fr-prepare-profile (une fois) puis fr-auto (DNS Hostinger + GitHub API).
+  pinapp.fr sans menu : fr-prepare-profile (une fois) puis fr-auto ou fr-api (DNS Hostinger + GitHub API).
+  Meme chose sur GitHub : workflow pinapp-fr-api.yml (secret HOSTINGER_API_TOKEN).
 
 .PARAMETER Command
-  pull | install | dev | serve | preview | ci | build | verify | ship | clean | format | format-check | info | 403 | diagnose-fr | corrige-fr | sync-fr | fr-auto | fr-prepare-profile | fr-secrets | dns-hostinger | hostinger-token | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | status | check | help
+  pull | install | dev | serve | preview | ci | build | verify | ship | clean | format | format-check | info | 403 | diagnose-fr | corrige-fr | sync-fr | fr-auto | fr-api | fr-prepare-profile | fr-secrets | dns-hostinger | hostinger-token | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | status | check | help
 
 .EXAMPLE
   cd $env:USERPROFILE\Projects\pinapp-site
@@ -24,7 +25,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('pull', 'install', 'dev', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'clean', 'format', 'format-check', 'info', '403', 'diagnose-fr', 'corrige-fr', 'sync-fr', 'fr-auto', 'fr-prepare-profile', 'fr-secrets', 'dns-hostinger', 'hostinger-token', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'status', 'check', 'help')]
+    [ValidateSet('pull', 'install', 'dev', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'clean', 'format', 'format-check', 'info', '403', 'diagnose-fr', 'corrige-fr', 'sync-fr', 'fr-auto', 'fr-api', 'fr-prepare-profile', 'fr-secrets', 'dns-hostinger', 'hostinger-token', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'status', 'check', 'help')]
     [string] $Command = 'help'
 )
 
@@ -161,6 +162,8 @@ function Write-PinappHelp {
     Write-Host '  .\pinapp.ps1 info         - Node / npm / git / dossier courant' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 403          - alias : diagnostic 403 pinapp.fr (voir diagnose-fr)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 fr-auto      - ZERO question : DNS Hostinger API + GitHub API (jetons requis)' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 fr-api       - identique a fr-auto (alias ; ou workflow Actions pinapp-fr-api.yml)' -ForegroundColor White
+    Write-Host '  .\deploy-pinapp-fr-api.ps1 - declenche ce workflow via gh (secret HOSTINGER sur le depot)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 fr-prepare-profile - cree ~\.pinapp-fr-env.ps1 (secrets, une fois)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 fr-secrets       - cree ~\.pinapp-secrets.ps1 (surcharge jetons, hors template)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 diagnose-fr  - DNS + HTTP pinapp.fr + instructions Hostinger' -ForegroundColor White
@@ -316,8 +319,13 @@ switch ($Command) {
         Write-Host 'Apres propagation DNS : .\pinapp.ps1 diagnose-fr' -ForegroundColor Cyan
         Write-Host ''
     }
-    'fr-auto' {
+    { $_ -in @('fr-auto', 'fr-api') } {
         Write-Host ''
+        if ($Command -eq 'fr-api') {
+            Write-Host 'fr-api : meme flux que fr-auto (APIs uniquement).' -ForegroundColor DarkGray
+            Write-Host 'Sur GitHub : Actions > pinapp.fr (API Hostinger + GitHub) + secret HOSTINGER_API_TOKEN.' -ForegroundColor DarkGray
+            Write-Host ''
+        }
         Write-Host '=== pinapp.fr : tout automatique (aucune question) ===' -ForegroundColor Cyan
         $profFr = Join-Path $env:USERPROFILE '.pinapp-fr-env.ps1'
         if (Test-Path -LiteralPath $profFr) {
@@ -489,7 +497,8 @@ $env:HOSTINGER_API_TOKEN = "COLLE_JETON_API_HOSTINGER"
         & $PinappSelf urls
         & $PinappSelf probe
         Write-Host 'Enregistrer le domaine sur GitHub (API ou UI) :' -ForegroundColor Cyan
-        Write-Host '  .\pinapp.ps1 fr-auto   |   sync-fr   |   diagnose-fr   |   corrige-fr' -ForegroundColor White
+        Write-Host '  .\pinapp.ps1 fr-auto | fr-api   |   sync-fr   |   diagnose-fr   |   corrige-fr' -ForegroundColor White
+        Write-Host '  Actions : workflow pinapp-fr-api.yml (API Hostinger + GitHub, secret repo)' -ForegroundColor DarkGray
         Write-Host '  .\pinapp.ps1 domain' -ForegroundColor White
         Write-Host '  .\pinapp.ps1 open' -ForegroundColor White
         Write-Host '  .\pinapp.ps1 pages' -ForegroundColor White
