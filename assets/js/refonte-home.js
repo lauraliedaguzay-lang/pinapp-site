@@ -152,7 +152,10 @@
     chatDemoStarted = true;
 
     var steps = [
-      { t: 0, html: '<div class="refonte-chat-bubble refonte-chat-bubble--bot">Bonjour, comment pouvons-nous vous aider ?</div>' },
+      {
+        t: 0,
+        html: '<div class="refonte-chat-bubble refonte-chat-bubble--bot">Bonjour, comment pouvons-nous vous aider ?</div>',
+      },
       {
         t: 400,
         html: '<div class="refonte-chat-bubble refonte-chat-bubble--user">Je perds trop de temps à relancer mes clients</div>',
@@ -160,8 +163,7 @@
       { t: 900, typing: true },
       {
         t: 1700,
-        html:
-          '<div class="refonte-chat-bubble refonte-chat-bubble--bot">Combien de relances faites-vous par semaine ?</div>',
+        html: '<div class="refonte-chat-bubble refonte-chat-bubble--bot">Combien de relances faites-vous par semaine ?</div>',
       },
       {
         t: 2200,
@@ -170,8 +172,7 @@
       { t: 2700, typing: true },
       {
         t: 3500,
-        html:
-          '<div class="refonte-chat-bubble refonte-chat-bubble--bot">Avec une automatisation simple, ces 20 relances partent seules. Voulez-vous voir comment ?</div>',
+        html: '<div class="refonte-chat-bubble refonte-chat-bubble--bot">Avec une automatisation simple, ces 20 relances partent seules. Voulez-vous voir comment ?</div>',
       },
     ];
 
@@ -256,7 +257,12 @@
       var attr = (root.getAttribute('data-webhook') || '').trim();
       if (attr && window.PinappConfig && window.PinappConfig._isRealUrl(attr)) return attr;
       var cfg = window.PinappConfig;
-      if (cfg && cfg.features && cfg.features.onboardingWebhook && cfg._isRealUrl(cfg.webhooks.onboarding)) {
+      if (
+        cfg &&
+        cfg.features &&
+        cfg.features.onboardingWebhook &&
+        cfg._isRealUrl(cfg.webhooks.onboarding)
+      ) {
         return cfg.webhooks.onboarding;
       }
       return '';
@@ -449,9 +455,11 @@
       { threshold: 0.12, rootMargin: '0px 0px -60px 0px' },
     );
 
-    document.querySelectorAll('.refonte-io-target, .refonte-io-title, .refonte-io-sub').forEach(function (el) {
-      obs.observe(el);
-    });
+    document
+      .querySelectorAll('.refonte-io-target, .refonte-io-title, .refonte-io-sub')
+      .forEach(function (el) {
+        obs.observe(el);
+      });
 
     /* Cartes services : stagger */
     document.querySelectorAll('[data-refonte-stagger]').forEach(function (group) {
@@ -472,7 +480,8 @@
         var btn = tabs.querySelector('[data-tab="' + id + '"]');
         if (btn) btn.click();
         var target = document.getElementById('refonte-demos');
-        if (target) target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+        if (target)
+          target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
       });
     });
   }

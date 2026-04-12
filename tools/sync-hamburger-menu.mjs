@@ -120,7 +120,8 @@ for (const file of files) {
   }
   if (mAlt) {
     const repl =
-      '<button type="button" id="drawerClose" aria-label="Fermer le menu">×</button>\n' + buildDrawerNavLinksFixed(p);
+      '<button type="button" id="drawerClose" aria-label="Fermer le menu">×</button>\n' +
+      buildDrawerNavLinksFixed(p);
     text = text.replace(DRAWER_ALT_PREFIX_REGEX, repl);
     fs.writeFileSync(file, text, 'utf8');
     updated++;

@@ -5,7 +5,7 @@
     var m = document.getElementById('pinapp-theme-color');
     if (t === 'light' || t === 'dark') {
       document.documentElement.setAttribute('data-theme', t);
-      if (m) m.setAttribute('content', t === 'light' ? '#E8EEF5' : '#0A0A0A');
+      if (m) m.setAttribute('content', t === 'light' ? '#060D1F' : '#0A0A0A');
     } else {
       document.documentElement.setAttribute('data-theme', 'dark');
       if (m) m.setAttribute('content', '#0A0A0A');

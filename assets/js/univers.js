@@ -231,7 +231,9 @@ const UniversDigital = {
     return {
       nom: nom,
       palette: { fond: fond, accent1: ac[0], accent2: ac[1] },
-      atmosphere: briefText ? baseAtmo + ' Votre brief sera pris en compte en production.' : baseAtmo,
+      atmosphere: briefText
+        ? baseAtmo + ' Votre brief sera pris en compte en production.'
+        : baseAtmo,
       promesse: 'Vos clients arrivent. Ils restent. Ils reviennent.',
     };
   },

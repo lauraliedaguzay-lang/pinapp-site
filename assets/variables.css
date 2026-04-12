@@ -35,7 +35,7 @@
   /* FONDS — nuit : OLED + jungle (noir profond, pas gris bleuté) */
   --fond-nuit: #020807;
   --bg-deep: #010605;
-  --fond-jour: #e8eef5; /* jour — brume ardoise (aligné mode clair) */
+  --fond-jour: #060d1f; /* jour — Océan Pandora (sombre eau) */
 
   /* GLASS NUIT — verre teinté jade / eau turquoise */
   --glass: rgba(4, 22, 24, 0.52);
@@ -228,17 +228,12 @@ html[data-theme='dark'] body::after {
     );
 }
 html[data-theme='light'] body::after {
-  /* Jour — accents océan (cyan / violet) sur brume claire */
+  /* Jour — halos bioluminescence eau (cyan / indigo sur abyssal) */
   background:
-    radial-gradient(120% 70% at 50% -10%, rgba(255, 255, 255, 0.55) 0%, transparent 45%),
-    radial-gradient(80% 50% at 95% 15%, rgba(124, 77, 255, 0.08) 0%, transparent 50%),
-    radial-gradient(85% 55% at 5% 85%, rgba(8, 145, 178, 0.08) 0%, transparent 52%),
-    linear-gradient(
-      180deg,
-      rgba(232, 238, 245, 0.4) 0%,
-      transparent 42%,
-      rgba(238, 242, 252, 0.55) 100%
-    );
+    radial-gradient(95% 55% at 50% -5%, rgba(79, 195, 247, 0.12) 0%, transparent 48%),
+    radial-gradient(85% 50% at 100% 20%, rgba(124, 77, 255, 0.14) 0%, transparent 52%),
+    radial-gradient(90% 55% at 0% 80%, rgba(13, 71, 161, 0.12) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(6, 13, 31, 0.35) 0%, transparent 45%, rgba(6, 13, 31, 0.55) 100%);
 }
 
 /* Fallback si PNG absent */
@@ -267,7 +262,7 @@ html[data-theme='light'] body::after {
     transform: scale(1.12);
   }
   body.mode-jour::before {
-    filter: blur(30px) saturate(150%) brightness(1.05);
+    filter: blur(30px) saturate(122%) brightness(0.8) hue-rotate(-8deg);
     transform: scale(1.12);
   }
 }
@@ -279,7 +274,7 @@ html[data-theme='light'] body::after {
 body.mode-jour,
 html[data-theme='light'] body {
   background-color: var(--fond-jour);
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 /* Fond jour détaillé : pandora-jour.css (::before + animations) */
@@ -287,25 +282,25 @@ html[data-theme='light'] body {
 /* Tokens jour */
 body.mode-jour,
 html[data-theme='light'] body {
-  --text: #0f1729;
-  --text-primary: #0f1729;
-  --text-2: rgba(15, 23, 41, 0.72);
-  --text-3: rgba(15, 23, 41, 0.48);
-  --text-4: rgba(15, 23, 41, 0.28);
-  --glass: rgba(255, 255, 255, 0.9);
-  --glass-nav: rgba(255, 255, 255, 0.95);
-  --glass-card: rgba(255, 255, 255, 0.92);
-  --border-card: rgba(15, 23, 41, 0.1);
-  --border-subtle: rgba(15, 23, 41, 0.06);
-  --teal: #0891b2;
-  --accent-teal: #0891b2;
+  --text: #e3f2fd;
+  --text-primary: #e3f2fd;
+  --text-2: rgba(227, 242, 253, 0.78);
+  --text-3: rgba(227, 242, 253, 0.52);
+  --text-4: rgba(227, 242, 253, 0.34);
+  --glass: rgba(13, 27, 62, 0.52);
+  --glass-nav: rgba(6, 13, 31, 0.88);
+  --glass-card: rgba(13, 27, 62, 0.58);
+  --border-card: rgba(79, 195, 247, 0.14);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --teal: #4fc3f7;
+  --accent-teal: #4fc3f7;
   --violet: #7c4dff;
   --accent-violet: #7c4dff;
-  --green: #15803d;
-  --accent-green: #15803d;
-  --glow-violet: 0 0 20px rgba(79, 70, 229, 0.2), 0 0 40px rgba(79, 70, 229, 0.1);
-  --nav-bg: rgba(255, 255, 255, 0.94);
-  --bg-deep: #eef2f9;
+  --green: #5eead4;
+  --accent-green: #5eead4;
+  --glow-violet: 0 0 24px rgba(124, 77, 255, 0.28), 0 0 56px rgba(124, 77, 255, 0.12);
+  --nav-bg: rgba(6, 13, 31, 0.88);
+  --bg-deep: #0d1b3e;
 }
 
 /* iOS Safari â€” position fixed marche mais scale doit rester */
@@ -453,29 +448,30 @@ html[data-theme='light'] body {
     var(--shadow-xl);
 }
 
-/* Mode jour â€” blocs opalescents */
+/* Mode jour — blocs Océan Pandora (override peut affiner) */
 body.mode-jour .block-cyan,
 html[data-theme='light'] .block-cyan {
   background:
     linear-gradient(
       135deg,
-      rgba(0, 155, 140, 0.12) 0%,
-      rgba(0, 200, 180, 0.06) 40%,
+      rgba(79, 195, 247, 0.18) 0%,
+      rgba(41, 182, 246, 0.08) 40%,
       transparent 70%
     ),
-    rgba(255, 255, 255, 0.65);
-  border-color: rgba(0, 160, 210, 0.22);
+    rgba(13, 27, 62, 0.55);
+  border-color: rgba(79, 195, 247, 0.24);
 }
 body.mode-jour .block-violet,
 html[data-theme='light'] .block-violet {
   background:
     linear-gradient(
       135deg,
-      rgba(91, 63, 216, 0.12) 0%,
-      rgba(100, 80, 200, 0.06) 40%,
+      rgba(124, 77, 255, 0.18) 0%,
+      rgba(91, 79, 232, 0.08) 40%,
       transparent 70%
     ),
-    rgba(255, 255, 255, 0.65);
+    rgba(13, 27, 62, 0.55);
+  border-color: rgba(124, 77, 255, 0.22);
 }
 
 /* =====================================================
@@ -564,9 +560,9 @@ html[data-theme='light'] .block-violet {
 
 body.mode-jour .btn-secondary,
 html[data-theme='light'] .btn-secondary {
-  background: rgba(26, 10, 46, 0.06);
-  border-color: rgba(26, 10, 46, 0.18);
-  color: rgba(26, 10, 46, 0.75) !important;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(79, 195, 247, 0.32);
+  color: rgba(227, 242, 253, 0.92) !important;
 }
 
 .btn-secondary:hover {
@@ -610,9 +606,9 @@ body.mode-jour input,
 body.mode-jour textarea,
 html[data-theme='light'] input,
 html[data-theme='light'] textarea {
-  background: rgba(255, 255, 255, 0.75);
-  border-color: rgba(15, 118, 110, 0.28);
-  color: #0f1729;
+  background: rgba(6, 13, 31, 0.72);
+  border-color: rgba(79, 195, 247, 0.28);
+  color: #e3f2fd;
 }
 
 /* =====================================================
@@ -653,8 +649,8 @@ nav.scrolled,
 }
 body.mode-jour nav.scrolled,
 html[data-theme='light'] nav.scrolled {
-  background: rgba(255, 248, 240, 0.85);
-  border-bottom: 1px solid rgba(26, 10, 46, 0.08);
+  background: rgba(6, 13, 31, 0.9);
+  border-bottom: 1px solid rgba(79, 195, 247, 0.12);
 }
 
 /* =====================================================
@@ -783,8 +779,8 @@ html[data-theme='light'] nav.scrolled {
   }
 }
 
-/* Pinapp refonte BLOC 1 — texte jour du cahier (#0D1B3E), au-dessus des tokens Pandora jour legacy */
+/* Pinapp refonte BLOC 1 — jour Océan Pandora : texte #E3F2FD (cosmos / override détaillent le reste) */
 html[data-theme='light'] body {
-  --text: #0d1b3e;
-  --text-primary: #0d1b3e;
+  --text: #e3f2fd;
+  --text-primary: #e3f2fd;
 }

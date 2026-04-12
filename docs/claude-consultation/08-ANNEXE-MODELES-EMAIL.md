@@ -15,11 +15,11 @@ Implémentation typique : **Make** (scénario hebdo) ou **Google Apps Script** +
 
 ## 0. Sujet des e-mails (exemples)
 
-| Type              | Objet suggéré (préfixe commun `Pinapp —` pour filtres Gmail) |
-| ----------------- | ----------------------------------------------------------- |
-| Veille tech hebdo | `Pinapp — Veille tech · semaine du JJ/MM/AAAA`              |
-| Alertes sécurité  | `Pinapp — Alertes dépendances / sécurité (action)`          |
-| RH & admin        | `Pinapp — RH & admin · semaine du JJ/MM/AAAA`               |
+| Type              | Objet suggéré (préfixe commun `Pinapp —` pour filtres Gmail)  |
+| ----------------- | ------------------------------------------------------------- |
+| Veille tech hebdo | `Pinapp — Veille tech · semaine du JJ/MM/AAAA`                |
+| Alertes sécurité  | `Pinapp — Alertes dépendances / sécurité (action)`            |
+| RH & admin        | `Pinapp — RH & admin · semaine du JJ/MM/AAAA`                 |
 | Client / prospect | `Pinapp — Diagnostic — Prénom` ou `Pinapp — Votre projet — …` |
 
 ---

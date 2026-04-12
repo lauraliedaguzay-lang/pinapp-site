@@ -230,7 +230,7 @@
   function syncThemeColorMeta() {
     var m = document.getElementById('pinapp-theme-color');
     if (!m) return;
-    m.setAttribute('content', effectiveTheme() === 'light' ? '#E8EEF5' : '#050A14');
+    m.setAttribute('content', effectiveTheme() === 'light' ? '#060D1F' : '#050A14');
   }
 
   function setThemePreference(mode) {

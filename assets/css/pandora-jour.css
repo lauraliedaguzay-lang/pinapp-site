@@ -1,32 +1,33 @@
 ﻿/* PINAPP — pandora-jour.css — v6
-   Fond Pandora JOUR — Dylan Cole Avatar 3 — aube sur Pandora
-   Colorimétrie : ambre solaire, jade bioluminescent résiduel, lavande douce
+   Fond Pandora JOUR — Océan Pandora (eau / bioluminescence, cahier graphique)
    Tempo : The Light Always Returns — 3.5s
    ================================================================= */
 
 /* =====================================================
-   FOND JOUR — ivoire chaud de serre Pandora
+   FOND JOUR — abyssal + photo Dylan Cole (teinte eau)
    ===================================================== */
 
 body.mode-jour,
 html[data-theme='light'] body {
-  background-color: #e8eef5;
+  background-color: var(--fond-jour, #060d1f);
 }
 
 body.mode-jour::before,
 html[data-theme='light'] body::before {
   background-image:
-    radial-gradient(ellipse 70% 50% at 50% -5%, rgba(255, 255, 255, 0.55) 0%, transparent 55%),
-    radial-gradient(ellipse 55% 42% at 92% 12%, rgba(99, 102, 241, 0.1) 0%, transparent 62%),
-    radial-gradient(ellipse 50% 45% at 8% 78%, rgba(15, 118, 110, 0.12) 0%, transparent 60%),
-    radial-gradient(ellipse 45% 40% at 70% 65%, rgba(56, 189, 248, 0.08) 0%, transparent 58%),
+    radial-gradient(ellipse 75% 55% at 50% -8%, rgba(79, 195, 247, 0.14) 0%, transparent 52%),
+    radial-gradient(ellipse 55% 45% at 95% 18%, rgba(124, 77, 255, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 48% at 8% 82%, rgba(13, 71, 161, 0.14) 0%, transparent 58%),
+    radial-gradient(ellipse 48% 42% at 72% 62%, rgba(45, 212, 191, 0.06) 0%, transparent 58%),
+    /* Voile : lisibilité texte + un peu plus de relief photo (relecture 2026) */
     linear-gradient(
-      165deg,
-      rgba(232, 238, 245, 0.5) 0%,
-      rgba(255, 255, 255, 0.15) 45%,
-      rgba(238, 242, 252, 0.4) 100%
-    ),
-    url('../assets/images/bg-pandora-jour.png');
+        165deg,
+        rgba(6, 13, 31, 0.7) 0%,
+        rgba(13, 27, 62, 0.34) 48%,
+        rgba(6, 13, 31, 0.64) 100%
+      ),
+    /* Chemin relatif au fichier CSS (assets/css/), pas à la racine du site */
+    url('../images/bg-pandora-jour.png');
   background-size:
     100% 100%,
     100% 100%,
@@ -42,13 +43,13 @@ html[data-theme='light'] body::before {
 /* Dérive jour — lent souffle (photo + halos via filtre ; mouvement aussi via orbes / nuages / grille) */
 @keyframes pandora-jour-drift {
   0% {
-    filter: blur(20px) hue-rotate(0deg) brightness(1) saturate(1.02);
+    filter: blur(20px) hue-rotate(-6deg) brightness(0.8) saturate(1.12);
   }
   50% {
-    filter: blur(20px) hue-rotate(4deg) brightness(1.02) saturate(1.06);
+    filter: blur(20px) hue-rotate(-2deg) brightness(0.84) saturate(1.18);
   }
   100% {
-    filter: blur(20px) hue-rotate(-3deg) brightness(0.99) saturate(0.98);
+    filter: blur(20px) hue-rotate(-8deg) brightness(0.78) saturate(1.08);
   }
 }
 
@@ -351,11 +352,11 @@ html[data-theme='light'] .jour-spores {
 
 body.mode-jour,
 html[data-theme='light'] body {
-  --ambre: #0f766e;
-  --or: #115e59;
-  --accent-ambre: #0f766e;
-  --glow-teal: 0 0 14px rgba(15, 118, 110, 0.35), 0 0 40px rgba(15, 118, 110, 0.14);
-  --glow-ambre: 0 0 16px rgba(15, 118, 110, 0.28), 0 0 36px rgba(15, 118, 110, 0.1);
+  --ambre: #4fc3f7;
+  --or: #7c4dff;
+  --accent-ambre: #4fc3f7;
+  --glow-teal: 0 0 16px rgba(79, 195, 247, 0.4), 0 0 48px rgba(79, 195, 247, 0.18);
+  --glow-ambre: 0 0 18px rgba(124, 77, 255, 0.32), 0 0 44px rgba(124, 77, 255, 0.14);
 }
 
 /* =====================================================
@@ -374,7 +375,7 @@ html[data-theme='light'] body {
 }
 body.mode-jour #pandora-loader,
 html[data-theme='light'] #pandora-loader {
-  background: #e8eef5;
+  background: #060d1f;
 }
 
 /* Écran d’entrée : logo officiel + barre (nuit / jour) */
@@ -398,7 +399,7 @@ html[data-theme='light'] #pandora-loader {
 
 body.mode-jour .pinapp-entry-logo,
 html[data-theme='light'] .pinapp-entry-logo {
-  filter: drop-shadow(0 4px 18px rgba(15, 23, 42, 0.12));
+  filter: drop-shadow(0 6px 24px rgba(0, 0, 0, 0.45));
 }
 
 .pinapp-entry-progress-track {
@@ -412,8 +413,8 @@ html[data-theme='light'] .pinapp-entry-logo {
 
 body.mode-jour .pinapp-entry-progress-track,
 html[data-theme='light'] .pinapp-entry-progress-track {
-  background: rgba(15, 23, 42, 0.1);
-  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.06) inset;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 1px rgba(79, 195, 247, 0.12) inset;
 }
 
 .pinapp-entry-progress-bar {
@@ -426,7 +427,7 @@ html[data-theme='light'] .pinapp-entry-progress-track {
 
 body.mode-jour .pinapp-entry-progress-bar,
 html[data-theme='light'] .pinapp-entry-progress-bar {
-  background: linear-gradient(90deg, #0f766e 0%, #2dd4bf 55%, #14b8a6 100%);
+  background: linear-gradient(90deg, #4fc3f7 0%, #7c4dff 55%, #2dd4bf 100%);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -443,7 +444,7 @@ html[data-theme='light'] .pinapp-entry-progress-bar {
   body.mode-jour::before,
   html[data-theme='light'] body::before {
     animation: pandora-jour-drift 32s ease-in-out infinite alternate;
-    filter: blur(22px) saturate(135%) brightness(1.04);
+    filter: blur(22px) saturate(118%) brightness(0.82) hue-rotate(-6deg);
   }
 
   /* Ne pas couper la grille animée (nuit + jour) — réduction via pandora-world / reduced-motion */

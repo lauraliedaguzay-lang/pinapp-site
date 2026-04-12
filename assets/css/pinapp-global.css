@@ -1,0 +1,256 @@
+/**
+ * Pinapp Studio — styles partagés (légal, démos, engagements, rappels globaux)
+ * Les pages home-2026 chargent home-2026.css après ce fichier pour réappliquer la palette .cursorrules.
+ */
+:root {
+  --bg: #0a0a0a;
+  --bg-card: #111111;
+  --bg-hover: #1a1a1a;
+  --border: #1e1e1e;
+  --text: #f5f5f5;
+  --text-secondary: #a0a0a0;
+  --accent: #c9a96e;
+  --success: #4caf50;
+  --error: #ff4444;
+  --font-serif: Georgia, 'Times New Roman', serif;
+  --font-sans: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --radius: 16px;
+  --shadow: rgba(201, 169, 110, 0.08);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 200ms;
+  --duration-base: 300ms;
+  --duration-slow: 400ms;
+  --duration-hero: 600ms;
+  /* Alias pour pages existantes (engagements, démos) */
+  --muted: var(--text-secondary);
+  --surface: var(--bg-card);
+  --champagne: var(--accent);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Canvas particules (script pinapp-particles.js) */
+#particles {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--duration-slow) var(--ease);
+}
+
+#particles.is-on {
+  opacity: 1;
+}
+
+.pinapp-root {
+  position: relative;
+  z-index: 1;
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--duration-hero) var(--ease),
+    transform var(--duration-hero) var(--ease);
+}
+
+.fade-up.is-visible,
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in {
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease);
+}
+
+.fade-in.is-visible,
+.fade-in.visible {
+  opacity: 1;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 32px var(--shadow);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  background: transparent;
+  cursor: pointer;
+  transition:
+    color var(--duration-fast) var(--ease),
+    background var(--duration-fast) var(--ease),
+    border-color var(--duration-fast) var(--ease);
+}
+
+@media (hover: hover) {
+  .btn-outline:hover {
+    background: rgba(201, 169, 110, 0.08);
+  }
+}
+
+.btn-solid {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--bg);
+  text-decoration: none;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--accent);
+  cursor: pointer;
+  transition:
+    filter var(--duration-fast) var(--ease),
+    transform var(--duration-fast) var(--ease);
+}
+
+@media (hover: hover) {
+  .btn-solid:hover {
+    filter: brightness(1.06);
+  }
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(30, 30, 30, 0.6);
+}
+
+.nav-back {
+  position: fixed;
+  top: 16px;
+  left: 20px;
+  z-index: 100;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease);
+}
+
+@media (hover: hover) {
+  .nav-back:hover {
+    color: var(--text);
+  }
+}
+
+.cta-float {
+  position: fixed;
+  right: 20px;
+  bottom: 24px;
+  z-index: 90;
+  padding: 12px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--bg);
+  text-decoration: none;
+  background: var(--accent);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 24px var(--shadow);
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition:
+    opacity var(--duration-base) var(--ease),
+    transform var(--duration-base) var(--ease);
+}
+
+.cta-float.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.footer-legal {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.footer-legal a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+@media (hover: hover) {
+  .footer-legal a:hover {
+    text-decoration: underline;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .fade-up,
+  .fade-in {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  #particles {
+    transition: none !important;
+  }
+}

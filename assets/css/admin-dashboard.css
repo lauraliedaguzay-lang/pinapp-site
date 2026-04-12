@@ -1,0 +1,426 @@
+/**
+ * Pinapp — console admin (studio / catalogue / aperçu)
+ * Tokens : html[data-theme] via variables.css → refonte-conformite.css (BLOC 1, même palette que pinapp-refonte-complete.ps1)
+ */
+
+.admin-root {
+  min-height: 100svh;
+  padding: 1.25rem 1rem 2.5rem;
+  padding-bottom: max(2.5rem, env(safe-area-inset-bottom, 0));
+  color: var(--text);
+  font-family: var(--font-body, Inter, -apple-system, BlinkMacSystemFont, system-ui, sans-serif);
+  font-size: 1rem;
+  line-height: 1.7;
+  background-color: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+.admin-root--login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-login {
+  width: 100%;
+  max-width: 22rem;
+  padding: 2rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.admin-login h1 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.35rem;
+  margin: 0 0 0.35rem;
+  letter-spacing: -0.02em;
+}
+
+.admin-login p {
+  margin: 0 0 1rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.admin-login label {
+  display: block;
+  font-size: 0.688rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--teal);
+  margin-bottom: 0.35rem;
+}
+
+.admin-login input[type='password'] {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius-input, 14px);
+  border: 1px solid var(--border);
+  background: var(--bg-card-2);
+  color: var(--text);
+  font: inherit;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+}
+
+.admin-login button[type='submit'] {
+  width: 100%;
+  padding: 0.65rem 1.25rem;
+  border: none;
+  border-radius: 100px;
+  background: var(--violet);
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.813rem;
+  cursor: pointer;
+  transition:
+    opacity 200ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    transform 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .admin-login button[type='submit']:hover {
+    opacity: 0.92;
+  }
+}
+
+.admin-login .admin-error {
+  color: #f472b6;
+  font-size: 0.8125rem;
+  margin-top: 0.75rem;
+}
+
+.admin-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.admin-bar h1 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.25rem;
+  margin: 0;
+  flex: 1 1 auto;
+  min-width: 10rem;
+}
+
+.admin-bar__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.admin-btn {
+  padding: 0.45rem 0.9rem;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  background: var(--bg-card-2);
+  color: var(--text);
+  font-size: 0.8125rem;
+  cursor: pointer;
+  font: inherit;
+}
+
+.admin-btn--primary {
+  background: var(--violet);
+  border-color: transparent;
+  color: #fff;
+}
+
+.admin-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.admin-tabs button {
+  padding: 0.4rem 0.85rem;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  cursor: pointer;
+  font: inherit;
+}
+
+.admin-tabs button[aria-selected='true'] {
+  background: var(--violet);
+  border-color: var(--violet);
+  color: #fff;
+}
+
+.admin-panel[hidden] {
+  display: none !important;
+}
+
+.admin-api-url {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+  word-break: break-all;
+}
+
+.admin-api-url code {
+  color: var(--teal);
+  font-size: 0.8rem;
+}
+
+.admin-pre {
+  margin: 0;
+  padding: 1rem;
+  border-radius: 1.25rem;
+  background: var(--bg-card-2);
+  border: 1px solid var(--border);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  overflow: auto;
+  max-height: min(70vh, 36rem);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.admin-program {
+  margin-bottom: 1.5rem;
+  padding: 2rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow);
+  transition: transform 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .admin-program:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.admin-program h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.125rem;
+  margin: 0 0 0.5rem;
+}
+
+.admin-program .meta {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.admin-pack {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: var(--r-block, 1rem);
+  background: var(--bg-card-2);
+  border: 1px solid var(--border);
+}
+
+.admin-pack h3 {
+  font-size: 1rem;
+  margin: 0 0 0.35rem;
+}
+
+.admin-pack ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.15rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.admin-pages-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.admin-pages-table th,
+.admin-pages-table td {
+  text-align: left;
+  padding: 0.6rem 0.5rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.admin-pages-table th {
+  color: var(--teal);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.admin-preview-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.admin-preview-toolbar select {
+  flex: 1 1 12rem;
+  min-width: 10rem;
+  padding: 0.5rem 0.65rem;
+  border-radius: var(--radius-input, 14px);
+  border: 1px solid var(--border);
+  background: var(--bg-card-2);
+  color: var(--text);
+  font: inherit;
+}
+
+.admin-preview-frame-wrap {
+  border-radius: 1.25rem;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg-card-2);
+  min-height: 50vh;
+  box-shadow: var(--shadow);
+}
+
+.admin-preview-frame-wrap iframe {
+  width: 100%;
+  height: min(78vh, 900px);
+  border: 0;
+  display: block;
+}
+
+.admin-warn {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  padding: 0.85rem 1rem;
+  border-left: 3px solid var(--teal);
+  border-radius: 0 0.5rem 0.5rem 0;
+  background: var(--bg-card-2);
+  margin-bottom: 1.25rem;
+}
+
+.admin-root .refonte-link-teal {
+  color: var(--teal);
+  text-decoration: none;
+}
+
+.admin-root .refonte-link-teal:hover {
+  text-decoration: underline;
+}
+
+/* ── Gestion studio (Lauralie / Michaël / duo) ─────────────────── */
+.admin-studio-lede {
+  margin: 0 0 1rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 48rem;
+}
+
+.admin-studio-links {
+  margin: 0 0 1.25rem;
+  padding-left: 1.2rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.admin-studio-meta {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin: 0 0 1rem;
+}
+
+.admin-studio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.admin-studio-card {
+  padding: 1.25rem 1.35rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow);
+  transition: transform 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .admin-studio-card:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.admin-studio-card h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1rem;
+  margin: 0 0 0.35rem;
+  line-height: 1.35;
+}
+
+.admin-studio-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin: 0 0 0.65rem;
+  line-height: 1.45;
+}
+
+.admin-studio-checklist {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.admin-studio-checklist li {
+  margin-bottom: 0.5rem;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+
+.admin-studio-checklist label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  cursor: pointer;
+}
+
+.admin-studio-checklist input[type='checkbox'] {
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+}
+
+.admin-studio-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  padding-top: 0.25rem;
+}
+
+/* Focus — même logique que refonte-conformite (BLOC accessibilité) */
+.admin-login input:focus-visible,
+.admin-tabs button:focus-visible,
+.admin-btn:focus-visible,
+.admin-preview-toolbar select:focus-visible {
+  outline: 2px solid var(--teal, #00e5cc);
+  outline-offset: 3px;
+}
+
+.admin-btn--primary:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px var(--teal, #00e5cc);
+}
+
+.admin-studio-checklist input[type='checkbox']:focus-visible {
+  outline: 2px solid var(--teal, #00e5cc);
+  outline-offset: 2px;
+}

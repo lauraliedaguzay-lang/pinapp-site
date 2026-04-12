@@ -97,7 +97,12 @@ window.PinappConfig._isRealUrl = function (url) {
 /** Questionnaire accueil (index refonte) → même schéma que fetch manuel dans refonte-home.js */
 window.PinappConfig.sendOnboardingLead = function (answers) {
   var cfg = window.PinappConfig;
-  if (!cfg || !cfg.features || !cfg.features.onboardingWebhook || !cfg._isRealUrl(cfg.webhooks.onboarding)) {
+  if (
+    !cfg ||
+    !cfg.features ||
+    !cfg.features.onboardingWebhook ||
+    !cfg._isRealUrl(cfg.webhooks.onboarding)
+  ) {
     return Promise.reject(new Error('onboarding webhook disabled'));
   }
   return fetch(cfg.webhooks.onboarding, {
@@ -113,7 +118,12 @@ window.PinappConfig.sendOnboardingLead = function (answers) {
 
 window.PinappConfig.sendDiagnosticLead = function (payload) {
   var cfg = window.PinappConfig;
-  if (!cfg || !cfg.features || !cfg.features.diagnosticWebhook || !cfg._isRealUrl(cfg.webhooks.diagnosticLead)) {
+  if (
+    !cfg ||
+    !cfg.features ||
+    !cfg.features.diagnosticWebhook ||
+    !cfg._isRealUrl(cfg.webhooks.diagnosticLead)
+  ) {
     return;
   }
   fetch(cfg.webhooks.diagnosticLead, {
@@ -128,7 +138,12 @@ window.PinappConfig.sendDiagnosticLead = function (payload) {
 /** Webhook optionnel : premier passage Claude / plan (n8n). Règle métier : pas d’email client automatique depuis ce flux. */
 window.PinappConfig.sendDiagnosticClaudePrep = function (payload) {
   var cfg = window.PinappConfig;
-  if (!cfg || !cfg.features || !cfg.features.diagnosticClaudePrep || !cfg._isRealUrl(cfg.webhooks.diagnosticClaudePrep)) {
+  if (
+    !cfg ||
+    !cfg.features ||
+    !cfg.features.diagnosticClaudePrep ||
+    !cfg._isRealUrl(cfg.webhooks.diagnosticClaudePrep)
+  ) {
     return;
   }
   fetch(cfg.webhooks.diagnosticClaudePrep, {

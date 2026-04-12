@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="fr" data-theme="dark">
+  <head>
+    <script>
+      (function () {
+        var t0 = localStorage.getItem('pinapp-theme') || localStorage.getItem('pinapp-mode');
+        var m = t0 === 'light' || t0 === 'jour' ? 'jour' : t0 === 'dark' || t0 === 'nuit' ? 'nuit' : 'nuit';
+        document.documentElement.setAttribute('data-mode', m);
+        document.documentElement.setAttribute('data-theme', m === 'jour' ? 'light' : 'dark');
+        if (document.body) document.body.classList.add('mode-' + m);
+        document.addEventListener('DOMContentLoaded', function () {
+          document.body.classList.add('mode-' + m);
+        });
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Numérique responsable — Pinapp</title>
+    <meta
+      name="description"
+      content="Engagement Pinapp : sites plus sobres, automatisation utile, références éco-conception web (Green IT, Website Carbon Calculator)." />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <meta name="theme-color" content="#050A14" />
+    <script src="../assets/js/theme-init.js" defer></script>
+    <link rel="stylesheet" href="../assets/variables.css" />
+    <link rel="stylesheet" href="../assets/grid.css" />
+    <link rel="stylesheet" href="../assets/css/pandora-ux.css" />
+    <style>
+      .eco-doc {
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: 5rem 1.25rem 4rem;
+        color: var(--text);
+      }
+      .eco-doc h1 {
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: clamp(1.5rem, 4vw, 2rem);
+        letter-spacing: -0.02em;
+        margin: 0 0 0.5rem;
+      }
+      .eco-doc .eco-lead {
+        color: var(--text-muted);
+        font-size: 1rem;
+        line-height: 1.65;
+        margin: 0 0 2rem;
+      }
+      .eco-doc h2 {
+        font-size: 1.05rem;
+        margin: 2rem 0 0.75rem;
+        color: var(--teal);
+      }
+      .eco-doc p,
+      .eco-doc li {
+        font-size: 0.9375rem;
+        line-height: 1.7;
+        color: var(--text-muted);
+      }
+      .eco-doc ul {
+        padding-left: 1.2rem;
+        margin: 0.5rem 0 1rem;
+      }
+      .eco-doc a {
+        color: var(--teal);
+      }
+      .eco-back {
+        display: inline-block;
+        margin-bottom: 1.5rem;
+        font-size: 0.875rem;
+        color: var(--teal);
+        text-decoration: none;
+      }
+      .eco-back:hover {
+        text-decoration: underline;
+      }
+      .eco-note {
+        font-size: 0.8125rem;
+        border-left: 3px solid var(--border);
+        padding-left: 1rem;
+        margin-top: 2rem;
+        color: var(--text-muted);
+      }
+    </style>
+  </head>
+  <body style="min-height: 100svh; background: var(--bg, #050a14)">
+    <main id="contenu-principal" class="eco-doc">
+      <a class="eco-back" href="../index.html#eco-conception">← Retour à l’accueil</a>
+      <h1>Numérique responsable</h1>
+      <p class="eco-lead">
+        Le web consomme de l’énergie à chaque requête. Les marques crédibles ne cachent pas ça : elles réduisent le
+        superflu, mesurent, et choisissent des partenaires alignés. Voici comment Pinapp s’inscrit dans cette démarche —
+        et ce que nous proposons à vos projets.
+      </p>
+
+      <h2>1. Ce que font les sites engagés (références utiles)</h2>
+      <p>Les bonnes pratiques reconnues en 2024–2026 convergent vers :</p>
+      <ul>
+        <li>
+          <strong>Sobriété des pages</strong> — moins de données transférées (images compressées, formats modernes, pas
+          de scripts inutiles), donc moins de consommation côté serveurs et terminaux.
+        </li>
+        <li>
+          <strong>Hébergement et CDN</strong> — infrastructures mutualisées, cache long sur les fichiers statiques,
+          proximité géographique des contenus pour limiter la latence et les allers-retours.
+        </li>
+        <li>
+          <strong>Accessibilité et clarté</strong> — parcours simples = moins de temps passé sur la page pour atteindre
+          l’objectif ; aligné avec le référentiel français d’écoconception (Collectif Green IT).
+        </li>
+        <li>
+          <strong>Mesure</strong> — estimateurs d’empreinte par page (ex. Website Carbon Calculator) pour suivre
+          l’évolution, sans se prendre pour une certification officielle.
+        </li>
+      </ul>
+      <p>
+        Référentiel français :
+        <a href="https://ref.greenit.fr/" rel="noopener noreferrer" target="_blank">ref.greenit.fr</a> (bonnes pratiques
+        d’écoconception web).<br />
+        Mesure indicative :
+        <a href="https://www.websitecarbon.com/" rel="noopener noreferrer" target="_blank">websitecarbon.com</a>.<br />
+        Hébergeurs « verts » :
+        <a href="https://www.thegreenwebfoundation.org/" rel="noopener noreferrer" target="_blank"
+          >Green Web Foundation</a
+        >.
+      </p>
+
+      <h2>2. Ce que Pinapp met déjà en œuvre sur pinapp.fr</h2>
+      <ul>
+        <li>Cache long sur les fichiers sous <code>/assets/</code> (moins de re-téléchargement).</li>
+        <li>Images en lazy loading là où c’est pertinent ; SVG pour le favicon.</li>
+        <li>
+          Site majoritairement statique : pas de serveur applicatif à faire tourner en permanence pour chaque visite.
+        </li>
+        <li>
+          Automatisation et IA proposées pour <strong>éviter le gaspillage humain</strong> (relances, saisies répétées)
+          — la sobriété, c’est aussi ne pas refaire cinq fois la même tâche.
+        </li>
+      </ul>
+
+      <h2>3. Ce que nous intégrons à vos livrables</h2>
+      <ul>
+        <li>Priorité aux parcours courts et aux contenus utiles (moins de « remplissage »).</li>
+        <li>Recommandations sur poids des médias, formats et chargement différé.</li>
+        <li>Architecture sobre quand le projet s’y prête (pages statiques, intégrations ciblées).</li>
+        <li>Veille sur les évolutions du référentiel Green IT et des outils de mesure.</li>
+      </ul>
+
+      <p class="eco-note">
+        Aucun label écolo sur un site ne remplace une politique RSE complète. Nous formulons des engagements techniques
+        et méthodologiques honnêtes — pas de promesse « zéro carbone » sans bilan vérifiable de votre côté.
+      </p>
+      <p style="margin-top: 2rem; font-size: 0.875rem">
+        <a href="mentions.html">Mentions légales</a> · <a href="accessibilite.html">Accessibilité</a> ·
+        <a href="ethique.html">Éthique &amp; IA</a> ·
+        <a href="../index.html">Accueil</a>
+      </p>
+    </main>
+    <script src="../assets/js/mode-toggle.js" defer></script>
+  </body>
+</html>

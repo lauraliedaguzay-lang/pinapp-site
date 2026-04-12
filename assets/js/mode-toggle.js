@@ -95,7 +95,7 @@ const ModeToggle = {
       .forEach((b) => b.setAttribute('aria-label', 'Passer en mode nuit'));
     // Mettre à jour theme-color meta
     const meta = document.getElementById('pinapp-theme-color');
-    if (meta) meta.setAttribute('content', '#E8EEF5');
+    if (meta) meta.setAttribute('content', '#060D1F');
     document.body.dispatchEvent(new Event('modeChange'));
     // Canvas aurora : masqué en jour
     const canvas = document.getElementById('pandora-canvas');

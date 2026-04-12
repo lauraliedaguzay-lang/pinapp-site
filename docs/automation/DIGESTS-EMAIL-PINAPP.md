@@ -7,12 +7,12 @@ Implémentation typique : **Make** (scénario hebdo) ou **Google Apps Script** +
 
 ## 0. Sujet des e-mails (exemples)
 
-| Type              | Objet suggéré                                      |
-| ----------------- | -------------------------------------------------- |
-| Veille tech hebdo | `Pinapp — Veille tech · semaine du JJ/MM/AAAA`     |
+| Type                        | Objet suggéré                                         |
+| --------------------------- | ----------------------------------------------------- |
+| Veille tech hebdo           | `Pinapp — Veille tech · semaine du JJ/MM/AAAA`        |
 | Veille IA créative / offres | `Pinapp — Veille IA créative · semaine du JJ/MM/AAAA` |
-| Alertes sécurité  | `Pinapp — Alertes dépendances / sécurité (action)` |
-| RH & admin        | `Pinapp — RH & admin · semaine du JJ/MM/AAAA`      |
+| Alertes sécurité            | `Pinapp — Alertes dépendances / sécurité (action)`    |
+| RH & admin                  | `Pinapp — RH & admin · semaine du JJ/MM/AAAA`         |
 
 ---
 

@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="fr" data-pinapp-particles="force">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Hub démos — Démo Pinapp Studio</title>
+    <meta name="description" content="Vitrine des démos sectorielles Pinapp Studio — non indexable." />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/pinapp-global.css" />
+    <style>
+      body {
+        min-height: 100vh;
+      }
+      .demo-hub-back.nav-back {
+        top: 20px;
+        color: var(--accent);
+      }
+      .hub {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 72px 24px 88px;
+      }
+      .hub h1 {
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+        font-weight: 400;
+        line-height: 1.15;
+        text-align: center;
+        text-wrap: balance;
+        margin: 0 0 16px;
+      }
+      .hub-intro {
+        font-size: 18px;
+        line-height: 1.6;
+        color: var(--muted);
+        text-align: center;
+        text-wrap: balance;
+        max-width: 42rem;
+        margin: 0 auto 40px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      @media (min-width: 640px) {
+        .grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (min-width: 1024px) {
+        .grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+      .hub .card {
+        display: block;
+        padding: 32px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        text-decoration: none;
+        color: inherit;
+        transition:
+          transform 300ms ease,
+          box-shadow 300ms ease;
+      }
+      @media (hover: hover) {
+        .hub .card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 0 40px var(--shadow);
+        }
+      }
+      .card-k {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 0 0 12px;
+      }
+      .card-t {
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 1.3;
+        color: var(--text);
+        text-wrap: balance;
+        margin: 0 0 20px;
+      }
+      .card-cta {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--champagne);
+      }
+      .card-reveal {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      .card-reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+        transition:
+          opacity 400ms cubic-bezier(0.16, 1, 0.3, 1),
+          transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+        transition-delay: var(--d, 0ms);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .hub .card {
+          transition: none !important;
+        }
+        .card-reveal,
+        .card-reveal.is-visible {
+          opacity: 1 !important;
+          transform: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="particles" aria-hidden="true"></canvas>
+    <a class="nav-back demo-hub-back" href="../index.html">← Pinapp</a>
+    <div class="hub pinapp-root">
+      <h1>Nos réalisations sectorielles.</h1>
+      <p class="hub-intro">Cliquez sur votre secteur. Voyez ce qu'on peut faire pour vous.</p>
+      <div class="grid" id="demoGrid">
+        <a class="card card-reveal" href="immobilier.html" style="--d: 0ms">
+          <p class="card-k">Agence immobilière</p>
+          <p class="card-t">Votre patrimoine, entre de bonnes mains.</p>
+          <span class="card-cta">Voir la démo →</span>
+        </a>
+        <a class="card card-reveal" href="sante.html" style="--d: 60ms">
+          <p class="card-k">Cabinet médical</p>
+          <p class="card-t">Prenez soin de vos patients, on s'occupe du reste.</p>
+          <span class="card-cta">Voir la démo →</span>
+        </a>
+        <a class="card card-reveal" href="restauration.html" style="--d: 120ms">
+          <p class="card-k">Restaurant</p>
+          <p class="card-t">Une table qui se mérite.</p>
+          <span class="card-cta">Voir la démo →</span>
+        </a>
+        <a class="card card-reveal" href="artisan.html" style="--d: 180ms">
+          <p class="card-k">Artisan</p>
+          <p class="card-t">Du travail bien fait. Vu par ceux qui le cherchent.</p>
+          <span class="card-cta">Voir la démo →</span>
+        </a>
+        <a class="card card-reveal" href="coach.html" style="--d: 240ms">
+          <p class="card-k">Coach &amp; thérapeute</p>
+          <p class="card-t">Accompagner, c'est votre métier. Trouvez vos clients, c'est le nôtre.</p>
+          <span class="card-cta">Voir la démo →</span>
+        </a>
+        <a class="card card-reveal" href="rh.html" style="--d: 300ms">
+          <p class="card-k">Cabinet RH</p>
+          <p class="card-t">Les bons profils. Au bon moment.</p>
+          <span class="card-cta">Voir la démo →</span>
+        </a>
+        <a class="card card-reveal" href="juridique.html" style="--d: 360ms">
+          <p class="card-k">Cabinet juridique</p>
+          <p class="card-t">Votre droit. Défendu avec précision.</p>
+          <span class="card-cta">Voir la démo →</span>
+        </a>
+        <a class="card card-reveal" href="beaute.html" style="--d: 420ms">
+          <p class="card-k">Institut beauté &amp; bien-être</p>
+          <p class="card-t">Prenez soin de vous. On s'occupe du reste.</p>
+          <span class="card-cta">Voir la démo →</span>
+        </a>
+        <a class="card card-reveal" href="tech.html" style="--d: 480ms">
+          <p class="card-k">Startup &amp; tech</p>
+          <p class="card-t">Vous construisez l'avenir. On vous aide à le montrer.</p>
+          <span class="card-cta">Voir la démo →</span>
+        </a>
+        <a class="card card-reveal" href="ecommerce.html" style="--d: 540ms">
+          <p class="card-k">E-commerce</p>
+          <p class="card-t">Vendez plus. Sans y penser.</p>
+          <span class="card-cta">Voir la démo →</span>
+        </a>
+        <a class="card card-reveal" href="evenementiel.html" style="--d: 600ms">
+          <p class="card-k">Événementiel</p>
+          <p class="card-t">Des événements qui marquent les esprits.</p>
+          <span class="card-cta">Voir la démo →</span>
+        </a>
+      </div>
+    </div>
+    <script>
+      (function () {
+        var cards = document.querySelectorAll('.card-reveal');
+        if (!cards.length || !('IntersectionObserver' in window)) {
+          cards.forEach(function (c) {
+            c.classList.add('is-visible');
+          });
+          return;
+        }
+        var obs = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (!e.isIntersecting) return;
+              e.target.classList.add('is-visible');
+              obs.unobserve(e.target);
+            });
+          },
+          { threshold: 0.08, rootMargin: '0px 0px -40px 0px' },
+        );
+        cards.forEach(function (c) {
+          obs.observe(c);
+        });
+      })();
+    </script>
+    <p class="demo-banner pinapp-root" style="position: fixed; bottom: 0; left: 0; right: 0; z-index: 30">
+      Démo Pinapp — accueil
+      <a href="../index.html#onboarding">Onboarding →</a>
+    </p>
+    <script src="../assets/js/pinapp-particles.js"></script>
+  </body>
+</html>

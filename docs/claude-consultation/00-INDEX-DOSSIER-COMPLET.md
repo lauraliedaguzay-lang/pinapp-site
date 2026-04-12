@@ -6,20 +6,20 @@ Tout le dossier est lisible et à jour sur **GitHub** (branche `main`) :
 
 **[→ Ouvrir le dossier `docs/claude-consultation` sur GitHub](https://github.com/lauraliedaguzay-lang/pinapp-site/tree/main/docs/claude-consultation)**
 
-| Fichier                               | Lien GitHub                                                                                                                                                     |
-| ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Index (ce fichier)                    | [00-INDEX-DOSSIER-COMPLET.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/00-INDEX-DOSSIER-COMPLET.md)               |
-| Ancien index court                    | [00-INDEX.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/00-INDEX.md)                                               |
-| 01 — Contexte site                    | [01-CONTEXTE-ET-SITE.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/01-CONTEXTE-ET-SITE.md)                         |
-| 02 — Mail / devis                     | [02-MAIL-CLAUDE-BROUILLONS-DEVIS.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/02-MAIL-CLAUDE-BROUILLONS-DEVIS.md) |
-| 03 — Réseaux sociaux                  | [03-RESEAUX-SOCIAUX-AUTO.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/03-RESEAUX-SOCIAUX-AUTO.md)                 |
-| 04 — Ops H24                          | [04-OPS-H24.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/04-OPS-H24.md)                                           |
-| 05 — Questions                        | [05-QUESTIONS-POUR-CLAUDE.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/05-QUESTIONS-POUR-CLAUDE.md)               |
-| 06 — Veille / RH / admin              | [06-VEILLE-RH-ADMIN.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/06-VEILLE-RH-ADMIN.md)                           |
-| 07 — Synthèse règles                  | [07-SYNTHESE-REGLES-PROJET.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/07-SYNTHESE-REGLES-PROJET.md)             |
-| 08 — Modèles e-mail                   | [08-ANNEXE-MODELES-EMAIL.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/08-ANNEXE-MODELES-EMAIL.md)                 |
-| 10 — Apps Script H24 (Gmail × Claude) | [10-APPS-SCRIPT-H24-SETUP.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/10-APPS-SCRIPT-H24-SETUP.md)               |
-| **Studio — processus unique (L / M / client + consignes Claude)** | [PROCESSUS-UNIQUE-PINAPP.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/studio/PROCESSUS-UNIQUE-PINAPP.md) |
+| Fichier                                                           | Lien GitHub                                                                                                                                                     |
+| ----------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Index (ce fichier)                                                | [00-INDEX-DOSSIER-COMPLET.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/00-INDEX-DOSSIER-COMPLET.md)               |
+| Ancien index court                                                | [00-INDEX.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/00-INDEX.md)                                               |
+| 01 — Contexte site                                                | [01-CONTEXTE-ET-SITE.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/01-CONTEXTE-ET-SITE.md)                         |
+| 02 — Mail / devis                                                 | [02-MAIL-CLAUDE-BROUILLONS-DEVIS.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/02-MAIL-CLAUDE-BROUILLONS-DEVIS.md) |
+| 03 — Réseaux sociaux                                              | [03-RESEAUX-SOCIAUX-AUTO.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/03-RESEAUX-SOCIAUX-AUTO.md)                 |
+| 04 — Ops H24                                                      | [04-OPS-H24.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/04-OPS-H24.md)                                           |
+| 05 — Questions                                                    | [05-QUESTIONS-POUR-CLAUDE.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/05-QUESTIONS-POUR-CLAUDE.md)               |
+| 06 — Veille / RH / admin                                          | [06-VEILLE-RH-ADMIN.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/06-VEILLE-RH-ADMIN.md)                           |
+| 07 — Synthèse règles                                              | [07-SYNTHESE-REGLES-PROJET.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/07-SYNTHESE-REGLES-PROJET.md)             |
+| 08 — Modèles e-mail                                               | [08-ANNEXE-MODELES-EMAIL.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/08-ANNEXE-MODELES-EMAIL.md)                 |
+| 10 — Apps Script H24 (Gmail × Claude)                             | [10-APPS-SCRIPT-H24-SETUP.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/claude-consultation/10-APPS-SCRIPT-H24-SETUP.md)               |
+| **Studio — processus unique (L / M / client + consignes Claude)** | [PROCESSUS-UNIQUE-PINAPP.md](https://github.com/lauraliedaguzay-lang/pinapp-site/blob/main/docs/studio/PROCESSUS-UNIQUE-PINAPP.md)                              |
 
 **Dépôt :** [github.com/lauraliedaguzay-lang/pinapp-site](https://github.com/lauraliedaguzay-lang/pinapp-site)
 

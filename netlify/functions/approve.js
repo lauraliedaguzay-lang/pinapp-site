@@ -33,7 +33,11 @@ function isSafeLeadId(id) {
 }
 
 function safeHexTokenEqual(received, expected) {
-  if (typeof received !== 'string' || typeof expected !== 'string' || received.length !== expected.length) {
+  if (
+    typeof received !== 'string' ||
+    typeof expected !== 'string' ||
+    received.length !== expected.length
+  ) {
     return false;
   }
   try {
@@ -86,7 +90,10 @@ exports.handler = async (event) => {
   }
 
   const isApproved = action === 'approve';
-  return htmlResponse(200, isApproved ? pageApproved(escapeHtml(id)) : pageDeclined(escapeHtml(id)));
+  return htmlResponse(
+    200,
+    isApproved ? pageApproved(escapeHtml(id)) : pageDeclined(escapeHtml(id)),
+  );
 };
 
 /* ── Helpers ────────────────────────────────────────────────── */

@@ -27,14 +27,14 @@ Fichier machine : `https://pinapp.fr/.well-known/security.txt` (déployé depuis
 
 ## Audit interne (état au dernier passage)
 
-| Zone | Mesure |
-| ---- | ------ |
-| Transport | HTTPS, **HSTS** (preload sur Netlify), redirection HTTP → HTTPS sur Apache |
-| En-têtes | `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, **COOP** / **CORP** (Netlify), `X-Frame-Options` ou équivalent CSP `frame-ancestors` |
-| **CSP** | Politique dans `netlify.toml` et `.htaccess` : `base-uri`, `object-src 'none'`, `upgrade-insecure-requests`, `form-action 'self'`, domaines autorisés (polices Bunny/Google, Plausible, Calendly, Make, n8n cloud) |
-| Listing | `Options -Indexes` (Apache) |
-| Dashboard | Auth Basic sur `/dashboard/` si `.htpasswd` configuré côté serveur |
-| Fuite de secrets | `.gitignore` renforcé + CI vérifie l’absence de `.env` / `.htpasswd` |
-| Dépendances | Dependabot sur les workflows Actions |
+| Zone             | Mesure                                                                                                                                                                                                             |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Transport        | HTTPS, **HSTS** (preload sur Netlify), redirection HTTP → HTTPS sur Apache                                                                                                                                         |
+| En-têtes         | `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, **COOP** / **CORP** (Netlify), `X-Frame-Options` ou équivalent CSP `frame-ancestors`                                                            |
+| **CSP**          | Politique dans `netlify.toml` et `.htaccess` : `base-uri`, `object-src 'none'`, `upgrade-insecure-requests`, `form-action 'self'`, domaines autorisés (polices Bunny/Google, Plausible, Calendly, Make, n8n cloud) |
+| Listing          | `Options -Indexes` (Apache)                                                                                                                                                                                        |
+| Dashboard        | Auth Basic sur `/dashboard/` si `.htpasswd` configuré côté serveur                                                                                                                                                 |
+| Fuite de secrets | `.gitignore` renforcé + CI vérifie l’absence de `.env` / `.htpasswd`                                                                                                                                               |
+| Dépendances      | Dependabot sur les workflows Actions                                                                                                                                                                               |
 
 À faire côté exploitation : vérifier le **chemin `AuthUserFile`** réel sur Apache, confirmer la **CSP** en préproduction (widgets tiers), et si vous utilisez un **domaine Plausible personnalisé**, l’ajouter dans `script-src` et `connect-src`.

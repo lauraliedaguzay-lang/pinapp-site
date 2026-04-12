@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="fr" data-pinapp-particles="force">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="robots" content="index, follow" />
+    <title>Nos engagements — Pinapp Studio</title>
+    <meta name="description" content="Livraison garantie, satisfait ou remboursé 30 jours, transparence totale." />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href="https://pinapp.fr/engagements/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/pinapp-global.css" />
+    <style>
+      .nav-back {
+        position: fixed;
+        top: 16px;
+        left: 20px;
+        z-index: 100;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--muted);
+        text-decoration: none;
+        opacity: 0;
+        transform: translateY(8px);
+        animation: navIn 600ms var(--ease) 100ms forwards;
+      }
+      @keyframes navIn {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @media (hover: hover) {
+        .nav-back:hover {
+          color: var(--text);
+        }
+      }
+      .section {
+        position: relative;
+        z-index: 2;
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 80px 24px 48px;
+      }
+      .section--hero {
+        padding-top: 96px;
+      }
+      .hero-l {
+        position: absolute;
+        top: 96px;
+        left: 24px;
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: 24px;
+        color: var(--champagne);
+        letter-spacing: 8px;
+        margin: 0;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 600ms var(--ease) forwards;
+        animation-delay: 0ms;
+      }
+      @media (min-width: 768px) {
+        .hero-l {
+          left: 32px;
+        }
+      }
+      .hero-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        width: 100%;
+      }
+      .hero-h1 {
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: clamp(48px, 12vw, 96px);
+        font-weight: 400;
+        line-height: 1.05;
+        letter-spacing: -2px;
+        color: var(--text);
+        margin: 0;
+        text-wrap: balance;
+        opacity: 0;
+        transform: translateY(24px);
+        animation: fadeUp 600ms var(--ease) forwards;
+        animation-delay: 200ms;
+      }
+      .hero-sub {
+        font-size: 18px;
+        line-height: 1.65;
+        color: var(--muted);
+        margin: 24px 0 0;
+        max-width: 36rem;
+        text-wrap: balance;
+        opacity: 0;
+        transform: translateY(24px);
+        animation: fadeUp 600ms var(--ease) forwards;
+        animation-delay: 400ms;
+      }
+      @keyframes fadeUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .section--cards {
+        background: var(--bg);
+      }
+      .section__title {
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: clamp(32px, 5vw, 48px);
+        font-weight: 400;
+        line-height: 1.15;
+        text-align: center;
+        text-wrap: balance;
+        margin: 0 auto 60px;
+        max-width: 20ch;
+      }
+      .grid-5 {
+        display: grid;
+        gap: 16px;
+        max-width: 1100px;
+        margin: 0 auto;
+        width: 100%;
+      }
+      @media (min-width: 768px) and (max-width: 1023px) {
+        .grid-5 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .grid-5 .engage-card:last-child {
+          grid-column: 1 / -1;
+          justify-self: center;
+          width: 100%;
+          max-width: 420px;
+        }
+      }
+      @media (min-width: 1024px) {
+        .grid-5 {
+          grid-template-columns: repeat(6, 1fr);
+          gap: 20px;
+        }
+        .grid-5 .engage-card:nth-child(1) {
+          grid-column: span 3;
+        }
+        .grid-5 .engage-card:nth-child(2) {
+          grid-column: span 3;
+        }
+        .grid-5 .engage-card:nth-child(3) {
+          grid-column: span 2;
+        }
+        .grid-5 .engage-card:nth-child(4) {
+          grid-column: span 2;
+        }
+        .grid-5 .engage-card:nth-child(5) {
+          grid-column: span 2;
+        }
+      }
+      .engage-card {
+        position: relative;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: clamp(24px, 4vw, 40px);
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 400ms var(--ease),
+          transform 400ms var(--ease);
+        transition-delay: var(--reveal-delay, 0ms);
+      }
+      .engage-card.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .engage-card__wm {
+        position: absolute;
+        top: 8px;
+        right: 12px;
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: 80px;
+        line-height: 1;
+        color: var(--text);
+        opacity: 0.04;
+        pointer-events: none;
+        user-select: none;
+      }
+      .engage-card__num {
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: 64px;
+        line-height: 1;
+        color: var(--border);
+        margin: 0 0 16px;
+      }
+      .engage-card h3 {
+        font-size: 20px;
+        font-weight: 500;
+        color: var(--text);
+        margin: 0 0 12px;
+        line-height: 1.3;
+        text-wrap: balance;
+      }
+      .engage-card p {
+        font-size: 14px;
+        line-height: 1.7;
+        color: var(--muted);
+        margin: 0;
+        text-wrap: balance;
+      }
+      .section--never {
+        background: var(--bg);
+      }
+      .never-wrap {
+        max-width: 800px;
+        margin: 0 auto;
+        width: 100%;
+      }
+      .never-block {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 20px;
+        align-items: start;
+        padding: 32px 0;
+        border-bottom: 1px solid var(--border);
+        opacity: 0;
+        transform: translateY(18px);
+        transition:
+          opacity 400ms var(--ease),
+          transform 400ms var(--ease);
+        transition-delay: var(--reveal-delay, 0ms);
+      }
+      .never-block:first-child {
+        padding-top: 0;
+      }
+      .never-block:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+      .never-block.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .never-block svg {
+        flex-shrink: 0;
+        margin-top: 4px;
+      }
+      .never-block strong {
+        display: block;
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--text);
+        margin-bottom: 8px;
+        text-wrap: balance;
+      }
+      .never-block span {
+        font-size: 14px;
+        line-height: 1.7;
+        color: var(--muted);
+        text-wrap: balance;
+      }
+      .section--cta {
+        text-align: center;
+        align-items: center;
+      }
+      .cta-final h2 {
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: clamp(32px, 5vw, 48px);
+        font-weight: 400;
+        line-height: 1.15;
+        text-wrap: balance;
+        max-width: 700px;
+        margin: 0 auto 40px;
+      }
+      .cta-final__btn {
+        display: inline-block;
+        padding: 14px 32px;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--champagne);
+        text-decoration: none;
+        border: 1px solid var(--champagne);
+        border-radius: 12px;
+        animation: ctaShimmer 3s var(--ease) infinite;
+        transition:
+          background-color 300ms var(--ease),
+          color 300ms var(--ease);
+      }
+      @keyframes ctaShimmer {
+        0%,
+        100% {
+          opacity: 0.6;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+      @media (hover: hover) {
+        .cta-final__btn:hover {
+          background: var(--champagne);
+          color: var(--bg);
+          opacity: 1;
+          animation: none;
+        }
+      }
+      .cta-final__mail {
+        margin-top: 16px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .cta-final__mail a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 200ms var(--ease);
+      }
+      @media (hover: hover) {
+        .cta-final__mail a:hover {
+          color: var(--champagne);
+        }
+      }
+      .float-cta {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 90;
+        padding: 12px 20px;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        color: var(--champagne);
+        text-decoration: none;
+        border: 1px solid var(--champagne);
+        border-radius: 12px;
+        background: rgba(10, 10, 10, 0.92);
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(12px);
+        transition:
+          opacity 500ms var(--ease),
+          transform 500ms var(--ease),
+          background-color 300ms var(--ease),
+          color 300ms var(--ease);
+      }
+      .float-cta.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+      @media (hover: hover) {
+        .float-cta:hover {
+          background: var(--champagne);
+          color: var(--bg);
+        }
+      }
+      @media (max-width: 389px) {
+        .float-cta {
+          right: 16px;
+          bottom: 16px;
+          left: 16px;
+          text-align: center;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        #particles {
+          transition: none !important;
+        }
+        .nav-back,
+        .hero-l,
+        .hero-h1,
+        .hero-sub,
+        .engage-card,
+        .never-block,
+        .cta-final__btn,
+        .float-cta {
+          animation: none !important;
+          transition: none !important;
+          opacity: 1 !important;
+          transform: none !important;
+        }
+        .engage-card,
+        .never-block {
+          transition-delay: 0ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="particles" aria-hidden="true"></canvas>
+    <a class="nav-back" href="../index.html">← Pinapp</a>
+
+    <section class="section section--hero" aria-labelledby="eng-hero-title">
+      <p class="hero-l" aria-hidden="true">L.</p>
+      <div class="hero-inner">
+        <h1 id="eng-hero-title" class="hero-h1">Nos engagements.</h1>
+        <p class="hero-sub">Ce qu'on vous promet. Et ce qu'on tient.</p>
+      </div>
+    </section>
+
+    <section class="section section--cards" aria-labelledby="eng-cards-title">
+      <h2 id="eng-cards-title" class="section__title">Ce que vous pouvez exiger de nous.</h2>
+      <div class="grid-5">
+        <article class="engage-card" style="--reveal-delay: 0ms" data-reveal>
+          <span class="engage-card__wm" aria-hidden="true">01</span>
+          <p class="engage-card__num">01</p>
+          <h3>Livraison dans les délais annoncés</h3>
+          <p>
+            Chaque projet démarre avec une date de livraison précise. Si on dépasse, on vous rembourse 10&nbsp;% par
+            jour de retard.
+          </p>
+        </article>
+        <article class="engage-card" style="--reveal-delay: 80ms" data-reveal>
+          <span class="engage-card__wm" aria-hidden="true">02</span>
+          <p class="engage-card__num">02</p>
+          <h3>Satisfait ou remboursé 30 jours</h3>
+          <p>Si le livrable ne correspond pas au brief validé, on corrige ou on rembourse. Sans discussion.</p>
+        </article>
+        <article class="engage-card" style="--reveal-delay: 160ms" data-reveal>
+          <span class="engage-card__wm" aria-hidden="true">03</span>
+          <p class="engage-card__num">03</p>
+          <h3>Un seul interlocuteur</h3>
+          <p>
+            Lauralie pilote votre projet de A à Z. Pas de stagiaire. Pas de sous-traitant inconnu. Vous savez toujours à
+            qui vous parlez.
+          </p>
+        </article>
+        <article class="engage-card" style="--reveal-delay: 240ms" data-reveal>
+          <span class="engage-card__wm" aria-hidden="true">04</span>
+          <p class="engage-card__num">04</p>
+          <h3>Transparence totale</h3>
+          <p>
+            Chaque décision technique et créative vous est expliquée avant exécution. Zéro surprise sur la facture
+            finale.
+          </p>
+        </article>
+        <article class="engage-card" style="--reveal-delay: 320ms" data-reveal>
+          <span class="engage-card__wm" aria-hidden="true">05</span>
+          <p class="engage-card__num">05</p>
+          <h3>Code propre, à vous</h3>
+          <p>Tout livrable vous appartient intégralement. Code commenté, fichiers organisés, documenté pour durer.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section--never" aria-labelledby="eng-never-title">
+      <h2 id="eng-never-title" class="section__title">Ce que vous ne vivrez jamais avec nous.</h2>
+      <div class="never-wrap">
+        <div class="never-block" style="--reveal-delay: 0ms" data-reveal-never>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#C9A96E"
+            stroke-width="2"
+            aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" />
+          </svg>
+          <div>
+            <strong>Devis qui gonfle en cours de route</strong>
+            <span>Le prix signé est le prix payé. Point.</span>
+          </div>
+        </div>
+        <div class="never-block" style="--reveal-delay: 100ms" data-reveal-never>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#C9A96E"
+            stroke-width="2"
+            aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" />
+          </svg>
+          <div>
+            <strong>Relances ignorées</strong>
+            <span>Réponse garantie sous 24&nbsp;h ouvrées. Si on dépasse, c'est notre faute.</span>
+          </div>
+        </div>
+        <div class="never-block" style="--reveal-delay: 200ms" data-reveal-never>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#C9A96E"
+            stroke-width="2"
+            aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" />
+          </svg>
+          <div>
+            <strong>Livrable que vous ne comprenez pas</strong>
+            <span>On vous forme à utiliser ce qu'on vous livre. Toujours.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--cta" aria-labelledby="eng-cta-title">
+      <div class="cta-final">
+        <h2 id="eng-cta-title">Prêt à travailler avec quelqu'un qui tient parole&nbsp;?</h2>
+        <a class="cta-final__btn" href="../index.html#onboarding">Parlons de votre projet →</a>
+        <p class="cta-final__mail">
+          Ou écrivez directement :
+          <a href="mailto:hello@pinapp.fr">hello@pinapp.fr</a>
+        </p>
+      </div>
+    </section>
+
+    <a class="float-cta" id="floatCta" href="../index.html#onboarding">Parlons de votre projet →</a>
+
+    <script src="../assets/js/pinapp-particles.js"></script>
+    <script>
+      (function () {
+        'use strict';
+        var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        function revealAll(selector, className) {
+          document.querySelectorAll(selector).forEach(function (el) {
+            el.classList.add(className || 'is-visible');
+          });
+        }
+
+        if (reduced) {
+          revealAll('.engage-card');
+          revealAll('.never-block');
+        } else if ('IntersectionObserver' in window) {
+          var obs = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (e) {
+                if (!e.isIntersecting) return;
+                e.target.classList.add('is-visible');
+                obs.unobserve(e.target);
+              });
+            },
+            { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
+          );
+          document.querySelectorAll('[data-reveal]').forEach(function (el) {
+            obs.observe(el);
+          });
+          document.querySelectorAll('[data-reveal-never]').forEach(function (el) {
+            obs.observe(el);
+          });
+        } else {
+          revealAll('.engage-card');
+          revealAll('.never-block');
+        }
+
+        var floatEl = document.getElementById('floatCta');
+        if (floatEl && !reduced) {
+          window.setTimeout(function () {
+            floatEl.classList.add('is-visible');
+          }, 3000);
+        } else if (floatEl) {
+          floatEl.classList.add('is-visible');
+        }
+      })();
+    </script>
+  </body>
+</html>
