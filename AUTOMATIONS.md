@@ -93,7 +93,7 @@ https://pinapp.fr/.netlify/functions/approve?id={{leadId}}&token={{hmacToken}}&a
 **Déclencheur** : GET `https://pinapp.fr/.netlify/functions/approve?...`
 **Actions** :
 
-- **Si approve** : Email auto au prospect ("Bonjour, j'ai bien reçu votre demande...") + statut CRM = Qualifié + tâche Notion "RDV à planifier"
+- **Si approve** : Email auto au prospect ("Bonjour, nous avons bien reçu votre demande...") + statut CRM = Qualifié + tâche Notion "RDV à planifier"
 - **Si decline** : Statut CRM = Archivé, aucun email
 
 ---
@@ -235,8 +235,8 @@ https://pinapp.fr/.netlify/functions/approve?id={{leadId}}&token={{hmacToken}}&a
       "parameters": {
         "from": "Pinapp Studio <noreply@pinapp.fr>",
         "to": "={{ $json.email }}",
-        "subject": "J'ai bien reçu votre demande — Pinapp Studio",
-        "html": "<p>Bonjour {{ $json.nom }},</p><p>Je viens de recevoir votre demande concernant <strong>{{ $json.besoin }}</strong>.</p><p>Je vous réponds personnellement sous 24h avec des pistes concrètes — même si vous ne choisissez pas Pinapp.</p><p>À très vite,<br>Lauralie<br>Pinapp Studio</p>"
+        "subject": "Nous avons bien reçu votre demande — Pinapp Studio",
+        "html": "<p>Bonjour {{ $json.nom }},</p><p>Nous avons bien reçu votre demande concernant <strong>{{ $json.besoin }}</strong>.</p><p>Nous vous répondons sous 24h avec des pistes concrètes — même si vous ne choisissez pas Pinapp.</p><p>À très vite,<br>Pinapp Studio</p>"
       },
       "name": "Email accusé réception",
       "type": "n8n-nodes-base.emailSend",

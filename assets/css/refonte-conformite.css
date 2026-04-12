@@ -1,0 +1,479 @@
+/**
+ * Pinapp — conformité refonte Pandora (BLOCs 1, 3, 4–6 partiels, 15–16 partiels)
+ * Source de vérité partagée avec : tools/pinapp-refonte-complete.ps1 (prompt embarqué)
+ * Nav + tabbar injectées sur les pages secondaires par : pinapp-fix-all.ps1
+ * Chargé via @import depuis assets/variables.css
+ */
+
+/* ── BLOC 1 : tokens refonte (s’ajoutent aux variables existantes) ── */
+html[data-theme='dark'] {
+  --bg: #050a14;
+  --bg-card: #0a1628;
+  --bg-card-2: #0d1e35;
+  --text: #e8f4f8;
+  --text-muted: rgba(232, 244, 248, 0.6);
+  --teal: #00e5cc;
+  --violet: #7b4fe8;
+  --green: #39e075;
+  --blue: #4fc3f7;
+  --glow: rgba(0, 229, 204, 0.08);
+  --glow-green: rgba(57, 224, 117, 0.3);
+  --border: rgba(0, 229, 204, 0.12);
+  --shadow: 0 0 40px rgba(0, 229, 204, 0.08), 0 2px 8px rgba(0, 0, 0, 0.4);
+
+  /* Pont avec l’ancien design system : tout ce qui lit --fond-nuit / --bg-primary suit le BLOC 1 refonte */
+  --fond-nuit: var(--bg);
+  --bg-deep: var(--bg);
+  --bg-primary: var(--bg);
+  --text-primary: var(--text);
+  --glass: rgba(10, 22, 40, 0.55);
+  --glass-nav: rgba(5, 10, 20, 0.88);
+  --glass-card: rgba(10, 22, 40, 0.58);
+  --glass-tag: rgba(8, 18, 32, 0.45);
+  --glass-modal: rgba(5, 10, 20, 0.92);
+  --bg-overlay: rgba(5, 10, 20, 0.72);
+  --border-card: rgba(0, 229, 204, 0.14);
+  --border-subtle: rgba(0, 229, 204, 0.1);
+  --border-input: rgba(0, 229, 204, 0.22);
+  --separator: rgba(0, 229, 204, 0.08);
+}
+
+html[data-theme='light'] {
+  /* Mode jour — palette unique : brume ardoise + teal Pinapp + indigo doux */
+  --bg: #e8eef5;
+  --bg-card: #ffffff;
+  --bg-card-2: #eef2f9;
+  --text: #0f1729;
+  --text-muted: rgba(15, 23, 41, 0.62);
+  --teal: #0f766e;
+  --violet: #4f46e5;
+  --green: #15803d;
+  --blue: #2563eb;
+  --glow: rgba(15, 118, 110, 0.09);
+  --glow-green: rgba(21, 128, 61, 0.18);
+  --border: rgba(15, 23, 41, 0.1);
+  --shadow: 0 4px 24px rgba(15, 23, 41, 0.06), 0 1px 3px rgba(15, 23, 41, 0.04);
+
+  --fond-jour: var(--bg);
+  --bg-deep: var(--bg-card-2);
+  --bg-primary: var(--bg);
+  --text-primary: var(--text);
+  --glass: rgba(255, 255, 255, 0.88);
+  --glass-nav: rgba(255, 255, 255, 0.94);
+  --glass-card: rgba(255, 255, 255, 0.92);
+  --nav-bg: rgba(255, 255, 255, 0.94);
+}
+
+html[data-theme='dark'] body {
+  background-color: var(--bg) !important;
+  color: var(--text);
+}
+
+/* Grain noise (couche fixe, ne remplace pas la photo Pandora sur ::before body) */
+.pinapp-refonte-noise {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* ── BLOC 3 : barre scroll haut (id scroll-bar, spec) ── */
+#scroll-bar.scroll-progress,
+#scroll-bar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  height: 2px !important;
+  z-index: 9999 !important;
+  width: 0%;
+  max-width: 100%;
+  transform: none !important;
+  transform-origin: left center;
+  border-radius: 100px;
+  background: linear-gradient(90deg, var(--green, #39e075), var(--teal, #00e5cc)) !important;
+  box-shadow: 0 0 12px var(--glow-green, rgba(57, 224, 117, 0.3)) !important;
+  transition: width 100ms linear;
+  pointer-events: none;
+}
+
+/* ── BLOC 2 partiel : typo refonte hero / sections ── */
+.refonte-hero-label {
+  font-size: 0.688rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.refonte-hero-h1 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2rem, 7vw, 3.5rem);
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: var(--text, inherit);
+}
+
+@media (min-width: 768px) {
+  .refonte-hero-h1 {
+    font-size: clamp(3rem, 8vw, 6rem);
+  }
+}
+
+.refonte-shimmer {
+  color: var(--teal);
+  animation: refonte-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes refonte-shimmer {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.refonte-hero-lead {
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: var(--text-muted);
+  text-align: center;
+  max-width: 45ch;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+.refonte-hero-sub {
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 0.75rem;
+}
+
+.refonte-hero-micro {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  opacity: 0.6;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .refonte-hero-lead,
+  .refonte-hero-sub,
+  .refonte-hero-micro {
+    max-width: 65ch;
+  }
+}
+
+/* Nav refonte (desktop) — complète les styles .nav existants */
+html[data-theme='dark'] #mainNav.nav,
+html[data-theme='dark'] nav.nav#mainNav {
+  height: 64px;
+  background: rgba(5, 10, 20, 0.85) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: transform 300ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+html[data-theme='light'] #mainNav.nav {
+  background: rgba(253, 240, 243, 0.85) !important;
+  border-bottom: 1px solid var(--border);
+}
+
+.refonte-nav-link {
+  position: relative;
+  font-size: 0.875rem !important;
+  letter-spacing: 0.02em !important;
+  color: var(--text-muted) !important;
+  opacity: 1 !important;
+  text-decoration: none !important;
+}
+
+.refonte-nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1px;
+  background: var(--teal);
+  transition: width 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .refonte-nav-link:hover::after {
+    width: 100%;
+  }
+}
+
+.refonte-nav-cta {
+  font-size: 0.813rem !important;
+  font-weight: 500 !important;
+  padding: 0.5rem 1.25rem !important;
+  border-radius: 100px !important;
+  background: var(--violet) !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+/* Burger / tiroir : spec = supprimés visuellement (JS existant peut rester inactif) */
+#burger,
+#mobileDrawer {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Bottom bar refonte — 4 colonnes (index & pages avec .pinapp-tabbar-refonte) */
+.pinapp-tabbar-refonte {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 64px;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  background: rgba(5, 10, 20, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+html[data-theme='light'] .pinapp-tabbar-refonte {
+  background: rgba(253, 240, 243, 0.98);
+}
+
+.pinapp-tabbar-refonte a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.625rem;
+  gap: 2px;
+}
+
+.pinapp-tabbar-refonte a[aria-current='page'],
+.pinapp-tabbar-refonte a.pinapp-tab-active {
+  color: var(--teal);
+}
+
+.pinapp-tabbar-refonte svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+}
+
+@media (max-width: 767px) {
+  .pinapp-tabbar-refonte {
+    display: grid;
+  }
+
+  /* Masquer la bottom-bar ancienne à 6 liens si les deux présents */
+  .bottom-bar--site:not(.pinapp-tabbar-refonte) {
+    display: none !important;
+  }
+
+  .nav-links.refonte-nav-center {
+    display: none !important;
+  }
+}
+
+/* Texte réservé lecteurs d’écran (équivalent .visually-hidden) */
+.pinapp-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Particules hero : masquer <768 (BLOC 6) */
+@media (max-width: 767px) {
+  .refonte-hero-particles,
+  #particles.refonte-hero-particles {
+    display: none !important;
+  }
+}
+
+/* ── BLOC 6 : hero refonte (layout + entrées) ── */
+.pinapp-hero-refonte.pinapp-hero-viewport {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  padding-top: 64px;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  position: relative;
+  overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  .pinapp-hero-refonte.pinapp-hero-viewport {
+    padding-top: max(52px, calc(env(safe-area-inset-top, 0px) + 48px));
+    padding-left: max(1rem, env(safe-area-inset-left, 0px));
+    padding-right: max(1rem, env(safe-area-inset-right, 0px));
+  }
+}
+
+.pinapp-hero-refonte #particles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.pinapp-hero-refonte .refonte-hero-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 50rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-4, 1rem);
+  padding-right: var(--space-4, 1rem);
+}
+
+.pinapp-hero-refonte .refonte-hero-label {
+  opacity: 0;
+  transition: opacity 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.pinapp-hero-refonte .refonte-hero-label.visible {
+  opacity: 1;
+}
+
+.pinapp-hero-refonte .refonte-hero-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    transform 400ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.pinapp-hero-refonte .refonte-hero-word.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pinapp-hero-refonte .refonte-hero-lead {
+  opacity: 0;
+  transition: opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.pinapp-hero-refonte .refonte-hero-lead.visible {
+  opacity: 1;
+}
+
+.pinapp-hero-refonte .refonte-hero-sub {
+  opacity: 0;
+  transition: opacity 300ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.pinapp-hero-refonte .refonte-hero-sub.visible {
+  opacity: 1;
+}
+
+.pinapp-hero-refonte .refonte-hero-micro {
+  opacity: 0;
+  transition: opacity 300ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.pinapp-hero-refonte .refonte-hero-micro.visible {
+  opacity: 1;
+}
+
+.pinapp-hero-refonte .refonte-hero-ctas {
+  opacity: 0;
+  transform: scale(0.96);
+  transition:
+    opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    transform 400ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.pinapp-hero-refonte .refonte-hero-ctas.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.pinapp-hero-refonte .refonte-hero-scroll {
+  opacity: 0;
+  transition: opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  animation: refonte-chevron-bounce 2.2s ease-in-out infinite;
+}
+
+.pinapp-hero-refonte .refonte-hero-scroll.visible {
+  opacity: 1;
+}
+
+@keyframes refonte-chevron-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+/* BLOC 15 */
+html,
+body {
+  overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Focus visible (composants refonte + tabbar) — WCAG 2.4.11 / 2.4.13 ── */
+.refonte-cta-violet:focus-visible,
+.refonte-link-teal:focus-visible,
+.refonte-demos-tabs button:focus-visible,
+.refonte-pills button:focus-visible,
+.refonte-demo-card:focus-visible,
+.refonte-demo-modal__close:focus-visible,
+.refonte-pipeline-node:focus-visible,
+.pinapp-tabbar-refonte a:focus-visible {
+  outline: 2px solid var(--teal, #00e5cc);
+  outline-offset: 3px;
+}
+
+.refonte-cta-violet:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px var(--teal, #00e5cc);
+}

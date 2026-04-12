@@ -1,0 +1,1260 @@
+/**
+ * Pinapp home — BLOC 7–14 (PROMPT-REFONTE-CURSOR)
+ * Entrées scroll : gérées par refonte-home.js + html.refonte-io-ready
+ */
+
+.refonte-section {
+  padding: clamp(2.5rem, 6vw, 4rem) 0;
+  position: relative;
+}
+
+.refonte-section__label {
+  font-size: 0.688rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal);
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+.refonte-section__title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  letter-spacing: -0.02em;
+  text-align: center;
+  margin: 0 auto 1.5rem;
+  max-width: 20ch;
+  line-height: 1.15;
+  color: var(--text);
+}
+
+.refonte-services-grid {
+  display: grid;
+  gap: 1.25rem;
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 900px) {
+  .refonte-services-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.refonte-glass-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow);
+  padding: clamp(1.25rem, 4vw, 2rem);
+  min-width: 0;
+  transition: transform 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .refonte-glass-card:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.refonte-glass-card svg.refonte-card-icon {
+  display: block;
+  margin-bottom: 1rem;
+  color: var(--teal);
+}
+
+.refonte-glass-card h3 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.25rem;
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.refonte-glass-card p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin: 0 0 1rem;
+}
+
+.refonte-link-teal {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--teal);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .refonte-link-teal:hover {
+    border-bottom-color: var(--teal);
+  }
+}
+
+/* ── Numérique responsable (accueil) ── */
+.refonte-eco-lead {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.65;
+  max-width: 40rem;
+  margin: -0.25rem auto 1.5rem;
+}
+
+.refonte-eco-grid {
+  display: grid;
+  gap: 1rem;
+  max-width: 56rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .refonte-eco-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .refonte-eco-grid {
+    gap: 1.25rem;
+  }
+}
+
+.refonte-eco-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.0625rem;
+  margin: 0 0 0.5rem;
+  font-family: Georgia, 'Times New Roman', serif;
+  color: var(--text);
+}
+
+.refonte-eco-card p {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+
+.refonte-eco-foot {
+  text-align: center;
+  margin-top: 1.75rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+/* ── BLOC 8 : demos ── */
+.refonte-demos-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.refonte-demos-tabs button {
+  border-radius: 100px;
+  padding: 0.5rem 1.1rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  transition: background 200ms cubic-bezier(0.25, 0.1, 0.25, 1), color 200ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    border-color 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  min-height: 44px;
+}
+
+.refonte-demos-tabs button[aria-selected='true'] {
+  background: var(--violet);
+  border-color: var(--violet);
+  color: #fff;
+}
+
+.refonte-tabpanels {
+  position: relative;
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.refonte-tabpanel {
+  display: none;
+  animation: refonte-fade-in 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.refonte-tabpanel.is-active {
+  display: block;
+}
+
+@keyframes refonte-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.refonte-demo-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.refonte-demo-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+  animation: refonte-pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes refonte-pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.refonte-pipeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  align-items: stretch;
+}
+
+.refonte-pipeline-node {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  position: relative;
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+.refonte-pipeline-node.refonte-done::after {
+  content: '';
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  background: var(--green);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--bg-card);
+}
+
+.refonte-pipeline-node.refonte-done::before {
+  content: '✓';
+  position: absolute;
+  top: 0.5rem;
+  right: 0.45rem;
+  font-size: 0.65rem;
+  color: #fff;
+  z-index: 1;
+  font-weight: 700;
+}
+
+.refonte-pipeline-connector {
+  width: 1px;
+  flex: 0 0 1.25rem;
+  margin: 0 auto;
+  background: linear-gradient(180deg, var(--teal), var(--teal));
+  opacity: 0.35;
+  min-height: 1.25rem;
+  position: relative;
+}
+
+.refonte-pipeline-connector.refonte-line-on {
+  animation: refonte-line-grow 400ms cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+@keyframes refonte-line-grow {
+  from {
+    transform: scaleY(0);
+    transform-origin: top center;
+  }
+
+  to {
+    transform: scaleY(1);
+    transform-origin: top center;
+  }
+}
+
+.refonte-pipeline-replay {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.refonte-macbook {
+  background: #2a2f3a;
+  border-radius: 0.75rem;
+  padding: 0.5rem;
+  box-shadow: var(--shadow);
+  max-width: 28rem;
+  margin: 0 auto;
+}
+
+.refonte-macbook-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.5rem 0.5rem;
+}
+
+.refonte-macbook-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+}
+
+.refonte-macbook-screen {
+  background: #0a1628;
+  border-radius: 0.35rem;
+  padding: 1.25rem 1rem;
+  min-height: 11rem;
+  border: 1px solid var(--border);
+}
+
+.refonte-macbook-screen h4 {
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+  color: var(--text);
+}
+
+.refonte-macbook-screen p {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin: 0 0 1rem;
+  line-height: 1.6;
+}
+
+.refonte-macbook-badge {
+  font-size: 0.5625rem;
+  text-align: center;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+}
+
+.refonte-iphone {
+  width: 11rem;
+  max-width: 100%;
+  margin: 0 auto;
+  background: #1a1f28;
+  border-radius: 1.75rem;
+  padding: 0.45rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.refonte-iphone-notch {
+  width: 35%;
+  height: 1.1rem;
+  background: #0a0e14;
+  border-radius: 0 0 0.5rem 0.5rem;
+  margin: 0 auto 0.35rem;
+}
+
+.refonte-iphone-chat {
+  background: var(--bg-card);
+  border-radius: 0.65rem;
+  padding: 0.65rem;
+  min-height: 16rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.refonte-chat-bubble {
+  max-width: 92%;
+  padding: 0.45rem 0.6rem;
+  border-radius: 0.65rem;
+  font-size: 0.6875rem;
+  line-height: 1.45;
+}
+
+.refonte-chat-bubble--bot {
+  align-self: flex-start;
+  background: rgba(0, 229, 204, 0.08);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.refonte-chat-bubble--user {
+  align-self: flex-end;
+  background: var(--violet);
+  color: #fff;
+}
+
+.refonte-chat-typing {
+  display: flex;
+  gap: 0.2rem;
+  padding: 0.4rem 0.6rem;
+  align-self: flex-start;
+}
+
+.refonte-chat-typing span {
+  width: 0.3rem;
+  height: 0.3rem;
+  background: var(--teal);
+  border-radius: 50%;
+  animation: refonte-typing 1s ease-in-out infinite;
+}
+
+.refonte-chat-typing span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.refonte-chat-typing span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes refonte-typing {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+.refonte-chat-input {
+  margin-top: auto;
+  font-size: 0.625rem;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 0.4rem 0.65rem;
+}
+
+.refonte-iphone-home {
+  width: 28%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  margin: 0.45rem auto 0;
+}
+
+/* ── BLOC 9 Auralis ── */
+.refonte-auralis {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 56rem;
+  margin: 0 auto;
+  background: var(--bg-card-2);
+  border: 1px solid var(--border);
+  border-radius: 1.5rem;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .refonte-auralis {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.refonte-auralis-copy p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin: 0 0 0.75rem;
+}
+
+.refonte-auralis-copy p strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.refonte-auralis-mock {
+  display: flex;
+  justify-content: center;
+}
+
+.refonte-auralis-phone {
+  width: 10rem;
+  background: var(--bg-card);
+  border-radius: 1.5rem;
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+}
+
+.refonte-score-ring {
+  display: block;
+  margin: 0.5rem auto;
+}
+
+.refonte-auralis-stats {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ── BLOC 10 — Mémoire & Présence (service Pinapp) ── */
+.refonte-memoire-card {
+  max-width: 48rem;
+  margin: 0 auto;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.refonte-memoire-visual {
+  min-height: 14rem;
+  background: #e2d5bc;
+  color: #3d6b4f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Georgia, serif;
+  font-size: 1.125rem;
+  text-align: center;
+  padding: 0;
+  overflow: hidden;
+}
+
+.refonte-memoire-visual img {
+  width: 100%;
+  height: 100%;
+  min-height: 14rem;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+}
+
+.refonte-memoire-body {
+  padding: 1.5rem;
+}
+
+.refonte-memoire-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.refonte-memoire-tags span {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+.refonte-partner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  max-width: 48rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.refonte-partner-photo {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  background: var(--bg-card-2);
+}
+
+.refonte-partner picture {
+  display: block;
+  flex-shrink: 0;
+}
+
+.refonte-team-card picture {
+  display: block;
+  margin: 0 auto 1rem;
+  width: 7.5rem;
+  height: 7.5rem;
+}
+
+.refonte-team-card picture img {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.refonte-storytelling {
+  max-width: 42rem;
+  margin: 1.75rem auto 0;
+  padding: 1.25rem 1.35rem 1.25rem 1.25rem;
+  border-left: 3px solid var(--teal);
+  border-radius: 0 0.75rem 0.75rem 0;
+  background: var(--bg-card-2);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  font-style: italic;
+  box-shadow: var(--shadow);
+}
+
+.refonte-storytelling cite {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-family: var(--font-body, system-ui, sans-serif);
+  color: var(--text-muted);
+  opacity: 0.9;
+}
+
+.refonte-partner-fallback {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  background: var(--bg-card-2);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  color: var(--teal);
+  font-weight: 600;
+}
+
+/* ── BLOC 11 onboarding ── */
+.refonte-onboard {
+  max-width: 36rem;
+  margin: 0 auto;
+}
+
+.refonte-onboard-progress-wrap {
+  height: 2px;
+  background: rgba(0, 229, 204, 0.12);
+  border-radius: 100px;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+.refonte-onboard-progress {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--green), var(--teal));
+  transition: width 300ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.refonte-onboard-step h3 {
+  font-size: 1.125rem;
+  margin: 0 0 1rem;
+  font-family: Georgia, serif;
+}
+
+.refonte-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.refonte-pills button {
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text);
+  transition: background 200ms cubic-bezier(0.25, 0.1, 0.25, 1), border-color 200ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    color 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  min-height: 44px;
+}
+
+.refonte-pills button.refonte-pill-selected {
+  background: var(--violet);
+  border-color: var(--violet);
+  color: #fff;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .refonte-pills button:hover:not(.refonte-pill-selected) {
+    border-color: var(--teal);
+  }
+}
+
+.refonte-onboard-msg {
+  font-size: 0.9375rem;
+  color: var(--teal);
+  min-height: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.refonte-onboard-done {
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.refonte-checkmark {
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  background: rgba(57, 224, 117, 0.15);
+  border: 2px solid var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--green);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.refonte-rgpd {
+  font-size: 0.5625rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 1.25rem;
+  line-height: 1.5;
+}
+
+/* ── BLOC 12 équipe ── */
+.refonte-team-grid {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .refonte-team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.refonte-team-card {
+  text-align: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  padding: 2rem 1.5rem;
+}
+
+.refonte-team-card img {
+  width: 7.5rem;
+  height: 7.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 1rem;
+  display: block;
+  border: 1px solid var(--border);
+}
+
+.refonte-team-card h3 {
+  font-family: Georgia, serif;
+  margin: 0 0 0.25rem;
+  font-size: 1.25rem;
+}
+
+.refonte-team-card .role {
+  font-size: 0.8125rem;
+  color: var(--teal);
+  margin-bottom: 0.75rem;
+}
+
+.refonte-team-card .bio {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin: 0;
+}
+
+.refonte-team-card .siret {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.75rem;
+}
+
+.refonte-team-more {
+  margin: 1rem 0 0;
+  font-size: 0.875rem;
+}
+
+.refonte-team-more--stack {
+  margin-top: 0.35rem;
+}
+
+/* ── Derrière Pinapp + espace Micha (sous l’équipe) ── */
+.refonte-behind-lead {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.65;
+  max-width: 40rem;
+  margin: -0.25rem auto 1.75rem;
+}
+
+.refonte-behind-panel {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 1.75rem 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.refonte-behind-panel p {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+}
+
+.refonte-behind-panel p:last-child {
+  margin-bottom: 0;
+}
+
+.refonte-micha-intro {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.65;
+  max-width: 42rem;
+  margin: -0.25rem auto 1.5rem;
+}
+
+.refonte-micha-block {
+  max-width: 52rem;
+  margin: 0 auto 2rem;
+}
+
+.refonte-micha-block:last-child {
+  margin-bottom: 0;
+}
+
+.refonte-micha-block h3 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.125rem, 2.5vw, 1.35rem);
+  margin: 0 0 1rem;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.refonte-portfolio-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .refonte-portfolio-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.refonte-portfolio-item {
+  margin: 0;
+}
+
+.refonte-portfolio-slot {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: var(--bg-card-2);
+  border: 1px dashed var(--border);
+}
+
+.refonte-portfolio-slot:empty::after {
+  content: 'Photo — glissez une image ici (ex. assets/images/micha-portfolio/01.jpg) ou ajoutez une balise <img> dans ce bloc.';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+.refonte-portfolio-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.refonte-portfolio-item figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.refonte-video-row {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 900px) {
+  .refonte-video-row--split {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.refonte-video-embed {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: var(--bg-card-2);
+  border: 1px solid var(--border);
+}
+
+.refonte-video-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.refonte-video-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  text-align: center;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.refonte-video-embed:has(iframe) .refonte-video-fallback {
+  display: none;
+}
+
+.refonte-formations {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.refonte-formations li {
+  margin: 0;
+  padding: 1rem 1.15rem;
+  background: var(--bg-card-2);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.refonte-formations strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* ── BLOC 13 grille démos ── */
+.refonte-demos-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .refonte-demos-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .refonte-demos-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.refonte-demo-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  transition: transform 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  width: 100%;
+  min-height: 44px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .refonte-demo-card:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.refonte-demo-card h3 {
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+  font-family: Georgia, serif;
+}
+
+.refonte-demo-card p {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.55;
+}
+
+.refonte-demo-badge {
+  display: block;
+  font-size: 0.5625rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 0.75rem;
+  opacity: 0.85;
+}
+
+/* Modal */
+.refonte-demo-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10050;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 300ms cubic-bezier(0.25, 0.1, 0.25, 1), visibility 300ms;
+}
+
+.refonte-demo-modal.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.refonte-demo-modal__inner {
+  position: relative;
+  width: 100%;
+  max-width: 56rem;
+  max-height: 90vh;
+  overflow: auto;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.refonte-demo-modal__close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+  border-radius: 50%;
+}
+
+.refonte-demo-modal__inner iframe {
+  width: 100%;
+  min-height: 70vh;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: #fff;
+}
+
+/* IO */
+html.refonte-io-ready .refonte-io-target {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 300ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    transform 300ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+html.refonte-io-ready .refonte-io-target.refonte-io-in {
+  opacity: 1;
+  transform: none;
+}
+
+html.refonte-io-ready .refonte-io-title {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1), transform 400ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+html.refonte-io-ready .refonte-io-title.refonte-io-in {
+  opacity: 1;
+  transform: none;
+}
+
+html.refonte-io-ready .refonte-io-sub {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    transform 400ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  transition-delay: 80ms;
+}
+
+html.refonte-io-ready .refonte-io-sub.refonte-io-in {
+  opacity: 1;
+  transform: none;
+}
+
+.refonte-cta-violet {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.5rem 1.25rem;
+  border-radius: 100px;
+  background: var(--violet);
+  color: #fff !important;
+  font-size: 0.813rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* ── BLOC 14 : footer ── */
+.site-footer.refonte-footer {
+  position: relative;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border);
+  padding: 3rem 0 2rem;
+  padding-bottom: calc(2rem + env(safe-area-inset-bottom, 0));
+}
+
+.refonte-footer-grid {
+  display: grid;
+  gap: 2rem;
+  align-items: start;
+  text-align: center;
+}
+
+@media (max-width: 899px) {
+  .refonte-footer-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem 1.25rem;
+  }
+  .refonte-footer-baseline {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (min-width: 900px) {
+  .refonte-footer-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: left;
+  }
+}
+
+.refonte-footer-baseline {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0.75rem 0 0;
+  max-width: 22rem;
+}
+
+.refonte-footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.refonte-footer-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .refonte-footer-links a:hover {
+    color: var(--teal);
+  }
+}
+
+.refonte-footer-aside {
+  font-size: 0.875rem;
+}
+
+.refonte-footer-aside a {
+  color: var(--teal);
+  text-decoration: none;
+}
+
+.refonte-footer-rule {
+  height: 1px;
+  background: var(--border);
+  margin: 2rem 0 1rem;
+  border: 0;
+}
+
+.refonte-footer-meta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.refonte-footer-meta a {
+  color: var(--text-muted);
+  margin: 0 0.5rem;
+}
+
+.refonte-footer-note {
+  font-size: 0.625rem;
+  color: var(--text-muted);
+  opacity: 0.85;
+  text-align: center;
+  margin-top: 0.75rem;
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
+}

@@ -10,6 +10,7 @@ Implémentation typique : **Make** (scénario hebdo) ou **Google Apps Script** +
 | Type              | Objet suggéré                                      |
 | ----------------- | -------------------------------------------------- |
 | Veille tech hebdo | `Pinapp — Veille tech · semaine du JJ/MM/AAAA`     |
+| Veille IA créative / offres | `Pinapp — Veille IA créative · semaine du JJ/MM/AAAA` |
 | Alertes sécurité  | `Pinapp — Alertes dépendances / sécurité (action)` |
 | RH & admin        | `Pinapp — RH & admin · semaine du JJ/MM/AAAA`      |
 
@@ -124,6 +125,11 @@ ne rien inventer ; signaler les champs à compléter manuellement. »
 - `https://github.com/vitejs/vite/releases.atom`
 - `https://github.blog/changelog/rss/`
 - Blog / feed Anthropic (si disponible en RSS) ou veille manuelle mensuelle capturée dans le scénario.
+
+### 4.1 Veille « offres site » + IA créative (Michaël)
+
+Fiche dédiée (Higgsfield, vidéo générative, Adobe / Firefly, modèle d’e-mail, prompts) : **`docs/automation/VEILLE-IA-CREATIVE-PINAPP.md`**.  
+À brancher en **scénario séparé** ou **section du même mail** hebdo, selon votre tolérance au volume.
 
 ---
 

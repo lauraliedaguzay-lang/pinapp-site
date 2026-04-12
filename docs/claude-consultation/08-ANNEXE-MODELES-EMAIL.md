@@ -15,11 +15,12 @@ Implémentation typique : **Make** (scénario hebdo) ou **Google Apps Script** +
 
 ## 0. Sujet des e-mails (exemples)
 
-| Type              | Objet suggéré                                      |
-| ----------------- | -------------------------------------------------- |
-| Veille tech hebdo | `Pinapp — Veille tech · semaine du JJ/MM/AAAA`     |
-| Alertes sécurité  | `Pinapp — Alertes dépendances / sécurité (action)` |
-| RH & admin        | `Pinapp — RH & admin · semaine du JJ/MM/AAAA`      |
+| Type              | Objet suggéré (préfixe commun `Pinapp —` pour filtres Gmail) |
+| ----------------- | ----------------------------------------------------------- |
+| Veille tech hebdo | `Pinapp — Veille tech · semaine du JJ/MM/AAAA`              |
+| Alertes sécurité  | `Pinapp — Alertes dépendances / sécurité (action)`          |
+| RH & admin        | `Pinapp — RH & admin · semaine du JJ/MM/AAAA`               |
+| Client / prospect | `Pinapp — Diagnostic — Prénom` ou `Pinapp — Votre projet — …` |
 
 ---
 
@@ -65,7 +66,7 @@ Si oui, propose une petite amélioration concrète avec fichiers ciblés. »
 ━━ RAPPEL ━━
 Rien n’est mergé sans ton feu vert sur GitHub / Cursor.
 
-— Automatisation Pinapp (brouillon généré)
+— Pinapp Studio (automatisation interne — brouillon à valider)
 ```
 
 Remplace les `{{…}}` par ton scénario (Make mappe RSS → OpenAI/Claude → email, ou rédaction manuelle assistée).

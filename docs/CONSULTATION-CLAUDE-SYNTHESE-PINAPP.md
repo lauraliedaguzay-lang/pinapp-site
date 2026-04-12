@@ -4,7 +4,7 @@
 > Ce fichier reste une synthèse courte ; pour un avis détaillé, privilégier tout le dossier.
 
 > Document à transmettre à Claude (ou un autre modèle) pour critique, risques et recommandations.  
-> Périmètre : **Pinapp Studio** — pas Mémoire & Présence.
+> Périmètre : **Pinapp Studio**, **y compris le service Mémoire & Présence** (offre Pinapp ; site memoireetpresence.fr).
 
 ---
 

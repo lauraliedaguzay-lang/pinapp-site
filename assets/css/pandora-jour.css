@@ -10,82 +10,45 @@
 
 body.mode-jour,
 html[data-theme='light'] body {
-  background-color: #fbf5e8; /* ivoire chaud — lumière de canopée Pandora */
+  background-color: #e8eef5;
 }
 
 body.mode-jour::before,
 html[data-theme='light'] body::before {
   background-image:
-    /* Soleil matinal — haut droite, source directionnelle Dylan Cole */
-    radial-gradient(
-      ellipse 55% 45% at 88% 8%,
-      rgba(255, 215, 100, 0.28) 0%,
-      rgba(255, 185, 60, 0.14) 34%,
-      rgba(255, 140, 60, 0.05) 58%,
-      transparent 78%
-    ),
-    /* Halo or diffus — ciel Pandora ouvert */
-    radial-gradient(
-        ellipse 90% 50% at 60% 0%,
-        rgba(255, 230, 160, 0.16) 0%,
-        rgba(255, 200, 100, 0.07) 48%,
-        transparent 72%
-      ),
-    /* Rose pêche organique — centre-bas */
-    radial-gradient(
-        ellipse 80% 55% at 42% 72%,
-        rgba(255, 165, 130, 0.12) 0%,
-        rgba(235, 140, 170, 0.05) 50%,
-        transparent 74%
-      ),
-    /* Lavande Dylan Cole — haut gauche (non dominant) */
-    radial-gradient(
-        ellipse 65% 50% at 12% 18%,
-        rgba(195, 155, 245, 0.14) 0%,
-        rgba(175, 135, 225, 0.06) 48%,
-        transparent 70%
-      ),
-    /* Jade bioluminescent résiduel — bas gauche (plantes à l'aube) */
-    radial-gradient(
-        ellipse 55% 45% at 8% 82%,
-        rgba(60, 210, 170, 0.18) 0%,
-        rgba(80, 200, 160, 0.08) 40%,
-        transparent 65%
-      ),
-    /* Jade clair — milieu droit */
-    radial-gradient(ellipse 40% 35% at 78% 58%, rgba(100, 220, 190, 0.09) 0%, transparent 55%),
-    /* Bleu perle irisé — transition ciel */
-    radial-gradient(
-        ellipse 45% 38% at 82% 25%,
-        rgba(155, 195, 240, 0.1) 0%,
-        rgba(135, 175, 225, 0.05) 50%,
-        transparent 68%
-      ),
-    /* Voile léger — ne masque pas le fond photo */
+    radial-gradient(ellipse 70% 50% at 50% -5%, rgba(255, 255, 255, 0.55) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 42% at 92% 12%, rgba(99, 102, 241, 0.1) 0%, transparent 62%),
+    radial-gradient(ellipse 50% 45% at 8% 78%, rgba(15, 118, 110, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 45% 40% at 70% 65%, rgba(56, 189, 248, 0.08) 0%, transparent 58%),
     linear-gradient(
-        175deg,
-        rgba(255, 245, 230, 0.2) 0%,
-        rgba(248, 238, 255, 0.15) 40%,
-        rgba(235, 255, 248, 0.12) 78%,
-        rgba(255, 240, 200, 0.1) 100%
-      ),
+      165deg,
+      rgba(232, 238, 245, 0.5) 0%,
+      rgba(255, 255, 255, 0.15) 45%,
+      rgba(238, 242, 252, 0.4) 100%
+    ),
     url('../assets/images/bg-pandora-jour.png');
-  background-size: auto, cover;
-  background-position: center, center;
-  background-repeat: no-repeat, no-repeat;
-  animation: pandora-jour-drift 3.5s ease-in-out infinite alternate;
+  background-size:
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    cover;
+  background-position: center, center, center, center, center, center;
+  background-repeat: no-repeat;
+  animation: pandora-jour-drift 22s ease-in-out infinite alternate;
 }
 
-/* Dérive vivante — saturation + hue-rotate Pandora */
+/* Dérive jour — lent souffle (photo + halos via filtre ; mouvement aussi via orbes / nuages / grille) */
 @keyframes pandora-jour-drift {
   0% {
-    filter: blur(20px) hue-rotate(0deg) brightness(1) saturate(1);
+    filter: blur(20px) hue-rotate(0deg) brightness(1) saturate(1.02);
   }
   50% {
-    filter: blur(20px) hue-rotate(6deg) brightness(1.03) saturate(1.08);
+    filter: blur(20px) hue-rotate(4deg) brightness(1.02) saturate(1.06);
   }
   100% {
-    filter: blur(20px) hue-rotate(-5deg) brightness(0.99) saturate(0.96);
+    filter: blur(20px) hue-rotate(-3deg) brightness(0.99) saturate(0.98);
   }
 }
 
@@ -137,14 +100,14 @@ html[data-theme='dark'] .pandora-shapes {
   }
 }
 
-/* Shape 1 — jade forêt bioluminescent */
+/* Shape 1 — teal brume */
 .pandora-shape-1 {
   width: clamp(260px, 45vw, 500px);
   height: clamp(200px, 35vw, 400px);
   background: radial-gradient(
     ellipse,
-    rgba(60, 210, 170, 0.3) 0%,
-    rgba(80, 190, 160, 0.14) 55%,
+    rgba(15, 118, 110, 0.22) 0%,
+    rgba(45, 160, 180, 0.1) 55%,
     transparent 100%
   );
   filter: blur(clamp(45px, 8vw, 70px));
@@ -157,14 +120,14 @@ html[data-theme='dark'] .pandora-shapes {
   --rot: 8deg;
 }
 
-/* Shape 2 — ambre solaire */
+/* Shape 2 — indigo très doux */
 .pandora-shape-2 {
   width: clamp(280px, 55vw, 600px);
   height: clamp(180px, 30vw, 350px);
   background: radial-gradient(
     ellipse,
-    rgba(255, 175, 40, 0.38) 0%,
-    rgba(240, 140, 60, 0.16) 52%,
+    rgba(99, 102, 241, 0.16) 0%,
+    rgba(129, 140, 248, 0.08) 52%,
     transparent 100%
   );
   filter: blur(clamp(40px, 7vw, 65px));
@@ -177,14 +140,14 @@ html[data-theme='dark'] .pandora-shapes {
   --rot: -6deg;
 }
 
-/* Shape 3 — jade eau, perle irisée */
+/* Shape 3 — cyan glacier */
 .pandora-shape-3 {
   width: clamp(180px, 35vw, 400px);
   height: clamp(220px, 40vw, 500px);
   background: radial-gradient(
     ellipse,
-    rgba(30, 180, 160, 0.26) 0%,
-    rgba(0, 160, 140, 0.12) 55%,
+    rgba(14, 165, 233, 0.14) 0%,
+    rgba(15, 118, 110, 0.1) 55%,
     transparent 100%
   );
   filter: blur(clamp(40px, 7vw, 65px));
@@ -197,14 +160,14 @@ html[data-theme='dark'] .pandora-shapes {
   --rot: 12deg;
 }
 
-/* Shape 4 — corail Pandora / pêche chaud */
+/* Shape 4 — lavande ardoise */
 .pandora-shape-4 {
   width: clamp(160px, 30vw, 350px);
   height: clamp(140px, 25vw, 300px);
   background: radial-gradient(
     ellipse,
-    rgba(255, 130, 80, 0.24) 0%,
-    rgba(230, 110, 60, 0.1) 52%,
+    rgba(100, 116, 139, 0.12) 0%,
+    rgba(79, 70, 229, 0.08) 52%,
     transparent 100%
   );
   filter: blur(clamp(40px, 7vw, 65px));
@@ -259,7 +222,8 @@ html[data-theme='dark'] .pandora-shapes {
 @media (max-width: 767px) {
   .pandora-shape-3,
   .pandora-shape-4 {
-    display: none;
+    transform: scale(0.85);
+    opacity: 0.85;
   }
 }
 
@@ -288,10 +252,10 @@ html[data-theme='light'] .jour-spores {
   width: 3px;
   height: 3px;
   border-radius: 50%;
-  background: rgba(255, 200, 80, 0.55);
+  background: rgba(45, 212, 191, 0.45);
   box-shadow:
-    0 0 6px rgba(255, 200, 80, 0.4),
-    0 0 12px rgba(255, 180, 40, 0.2);
+    0 0 6px rgba(15, 118, 110, 0.35),
+    0 0 12px rgba(99, 102, 241, 0.15);
   animation: spore-jour-float var(--dur, 18s) ease-in-out var(--delay, 0s) infinite;
   will-change: transform, opacity;
 }
@@ -370,22 +334,7 @@ html[data-theme='light'] .jour-spores {
   animation: grid-breathe 3.5s ease-in-out infinite;
 }
 
-body.mode-jour .holo-grid,
-html[data-theme='light'] .holo-grid {
-  background-image:
-    linear-gradient(rgba(25, 155, 125, 0.038) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(195, 125, 35, 0.028) 1px, transparent 1px);
-}
-
-@keyframes grid-breathe {
-  0%,
-  100% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 1;
-  }
-}
+/* Grille jour : pandora-world.css (teal/indigo + holo-grid-drift-jour) */
 
 @media (prefers-reduced-motion: reduce) {
   .pandora-shape {
@@ -397,16 +346,16 @@ html[data-theme='light'] .holo-grid {
 }
 
 /* =====================================================
-   TOKENS MODE JOUR — ambre + jade actifs
+   TOKENS MODE JOUR — alignés variables.css / pandora-jour-override
    ===================================================== */
 
 body.mode-jour,
 html[data-theme='light'] body {
-  --ambre: #c87a08; /* ambre Pandora — contraste WCAG sur fond ivoire */
-  --or: #a86a10;
-  --accent-ambre: #c87a08;
-  --glow-teal: 0 0 14px rgba(0, 140, 120, 0.42), 0 0 40px rgba(0, 140, 120, 0.18);
-  --glow-ambre: 0 0 16px rgba(200, 122, 8, 0.45), 0 0 40px rgba(200, 122, 8, 0.2);
+  --ambre: #0f766e;
+  --or: #115e59;
+  --accent-ambre: #0f766e;
+  --glow-teal: 0 0 14px rgba(15, 118, 110, 0.35), 0 0 40px rgba(15, 118, 110, 0.14);
+  --glow-ambre: 0 0 16px rgba(15, 118, 110, 0.28), 0 0 36px rgba(15, 118, 110, 0.1);
 }
 
 /* =====================================================
@@ -425,27 +374,79 @@ html[data-theme='light'] body {
 }
 body.mode-jour #pandora-loader,
 html[data-theme='light'] #pandora-loader {
-  background: #fbf5e8;
+  background: #e8eef5;
 }
-#pandora-loader svg {
-  animation: kiri-soar 5.5s ease-in-out infinite;
+
+/* Écran d’entrée : logo officiel + barre (nuit / jour) */
+.pinapp-entry-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(22px, 4vh, 36px);
+  padding: 24px;
+}
+
+.pinapp-entry-logo {
+  width: auto;
+  height: auto;
+  max-width: min(220px, 58vw);
+  max-height: 56px;
+  object-fit: contain;
+  object-position: center;
+  filter: drop-shadow(0 8px 28px rgba(0, 0, 0, 0.35));
+}
+
+body.mode-jour .pinapp-entry-logo,
+html[data-theme='light'] .pinapp-entry-logo {
+  filter: drop-shadow(0 4px 18px rgba(15, 23, 42, 0.12));
+}
+
+.pinapp-entry-progress-track {
+  width: min(280px, 72vw);
+  height: 5px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.14);
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+}
+
+body.mode-jour .pinapp-entry-progress-track,
+html[data-theme='light'] .pinapp-entry-progress-track {
+  background: rgba(15, 23, 42, 0.1);
+  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.06) inset;
+}
+
+.pinapp-entry-progress-bar {
+  width: 0%;
+  height: 100%;
+  border-radius: 100px;
+  background: linear-gradient(90deg, #7b4fe8 0%, #00e5cc 100%);
+  transition: width 0.18s ease-out;
+}
+
+body.mode-jour .pinapp-entry-progress-bar,
+html[data-theme='light'] .pinapp-entry-progress-bar {
+  background: linear-gradient(90deg, #0f766e 0%, #2dd4bf 55%, #14b8a6 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pinapp-entry-progress-bar {
+    transition: none;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════
    MOBILE PERFORMANCE — pandora-jour
    ═══════════════════════════════════════════════════════════════ */
 @media (max-width: 767px) {
-  /* body::before — désactiver drift GPU-intensif sur mobile */
+  /* Jour mobile — drift plus lent (mouvement conservé, GPU modéré) */
   body.mode-jour::before,
   html[data-theme='light'] body::before {
-    animation: none;
-    filter: blur(24px) saturate(140%) brightness(1.06);
+    animation: pandora-jour-drift 32s ease-in-out infinite alternate;
+    filter: blur(22px) saturate(135%) brightness(1.04);
   }
 
-  /* Holo-grid — désactiver animation sur mobile */
-  .holo-grid {
-    animation: none;
-  }
+  /* Ne pas couper la grille animée (nuit + jour) — réduction via pandora-world / reduced-motion */
 
   /* pandora-shapes — animation très lente (pas de zéro qui cache) */
   .pandora-shape {

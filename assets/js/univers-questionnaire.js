@@ -9,16 +9,27 @@ var _he = function (s) {
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#x27;');
 };
+
+function sanitizeHexColor(c) {
+  if (!c || typeof c !== 'string') return '#0a0a12';
+  const s = c.trim();
+  if (/^#[0-9A-Fa-f]{3}$/.test(s) || /^#[0-9A-Fa-f]{6}$/.test(s)) return s;
+  return '#0a0a12';
+}
+
 /* PINAPP — univers-questionnaire.js
    Questions structurantes + texte libre → brief JSON (brief_orient_claude)
    pour orienter Claude via webhook n8n. Fallback local si endpoint absent.
    ============================================================ */
 
-/* endpoint résolu depuis config.js si disponible */
+/* endpoint : flag + URL réelle ; sinon null = démo locale sans requête réseau */
 const AURORA_UNIVERS_ENDPOINT =
-  window.PinappConfig && window.PinappConfig._isRealUrl(window.PinappConfig.webhooks.auroraUnivers)
+  window.PinappConfig &&
+  window.PinappConfig.features &&
+  window.PinappConfig.features.auroraUniversIA &&
+  window.PinappConfig._isRealUrl(window.PinappConfig.webhooks.auroraUnivers)
     ? window.PinappConfig.webhooks.auroraUnivers
-    : null; /* null = mode fallback local actif */
+    : null;
 
 const UniversQ = {
   state: { lieu: null, emotion: null, reference: '', prenom: '', briefOrientClaude: '' },
@@ -115,10 +126,13 @@ const UniversQ = {
       <p style="color:var(--accent-teal);font-size:14px;
                 animation:kiri-soar 5.5s ease-in-out infinite;
                 text-align:center;padding:24px 0;">
-        ${prn ? `Aurora compose votre univers, ${prn}...` : 'Aurora compose votre univers...'}
+        ${prn ? `Aurora compose votre univers, ${_he(prn)}...` : 'Aurora compose votre univers...'}
       </p>`;
 
     try {
+      if (!AURORA_UNIVERS_ENDPOINT) {
+        throw new Error('no-endpoint');
+      }
       const resp = await fetch(AURORA_UNIVERS_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -132,7 +146,14 @@ const UniversQ = {
       });
 
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-      const u = await resp.json();
+      const data = await resp.json();
+      const u =
+        data &&
+        typeof data.univers === 'object' &&
+        data.univers !== null &&
+        !Array.isArray(data.univers)
+          ? data.univers
+          : data;
       this.afficher(u);
 
       try {
@@ -146,7 +167,7 @@ const UniversQ = {
         );
       } catch (e) {}
     } catch (e) {
-      /* Fallback local si webhook non connecté */
+      /* Fallback local si webhook absent, désactivé ou erreur réseau */
       const univers = this.genererLocal();
       this.afficher(univers);
       try {
@@ -218,9 +239,9 @@ const UniversQ = {
     const intro = prenom ? `${prenom}, votre univers s'appelle` : "Votre univers s'appelle";
 
     resultat.innerHTML = `
-      <p style="font-size:13px;color:var(--text-4);margin-bottom:8px;">${intro}</p>
+      <p style="font-size:13px;color:var(--text-4);margin-bottom:8px;">${_he(intro)}</p>
 
-      <div class="univers-nom">✦ ${u.nom || 'Votre Univers'}</div>
+      <div class="univers-nom">✦ ${_he(u.nom || 'Votre Univers')}</div>
 
       ${
         u.palette
@@ -230,7 +251,7 @@ const UniversQ = {
             .filter(Boolean)
             .map(
               (c) => `
-            <div style="width:36px;height:36px;border-radius:50%;background:${c};
+            <div style="width:36px;height:36px;border-radius:50%;background:${sanitizeHexColor(c)};
                         box-shadow:0 2px 8px rgba(0,0,0,0.25),0 0 0 1px rgba(255,255,255,0.10);
                         transition:transform 200ms ease;"
                  onmouseenter="this.style.transform='scale(1.15)'"
@@ -318,8 +339,14 @@ const UniversQ = {
   },
 
   hexRgb(hex) {
-    if (!hex?.startsWith('#')) return '196,30,168';
-    return `${parseInt(hex.slice(1, 3), 16)},${parseInt(hex.slice(3, 5), 16)},${parseInt(hex.slice(5, 7), 16)}`;
+    let s = sanitizeHexColor(hex).replace('#', '');
+    if (s.length === 3) s = s[0] + s[0] + s[1] + s[1] + s[2] + s[2];
+    if (s.length !== 6) return '10,10,18';
+    const r = parseInt(s.slice(0, 2), 16);
+    const g = parseInt(s.slice(2, 4), 16);
+    const b = parseInt(s.slice(4, 6), 16);
+    if (Number.isNaN(r) || Number.isNaN(g) || Number.isNaN(b)) return '10,10,18';
+    return `${r},${g},${b}`;
   },
 };
 

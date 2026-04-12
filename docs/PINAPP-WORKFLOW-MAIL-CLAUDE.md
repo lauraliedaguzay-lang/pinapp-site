@@ -61,7 +61,7 @@ Pour faciliter le parsing dans un brouillon Gmail :
 ===FIN_BROUILLON===
 ```
 
-Lauralie supprime les blocs confidentiels avant envoi si le brouillon est structuré comme sur Mémoire & Présence (tout en bas du brouillon).
+Lauralie supprime les blocs confidentiels avant envoi si le brouillon est structuré comme sur le service Mémoire & Présence (Pinapp) — tout en bas du brouillon.
 
 ---
 

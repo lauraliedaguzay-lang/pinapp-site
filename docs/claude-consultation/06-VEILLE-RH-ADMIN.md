@@ -19,6 +19,8 @@
 
 - Modèles de corps d’e-mail : `docs/automation/DIGESTS-EMAIL-PINAPP.md`
 - Règle Cursor : `.cursor/rules/pinapp-veille-rh-admin.mdc`
+- Pilotage duo (console + rôles) : `docs/studio/ADMINISTRATION-INTELLIGENTE.md` et onglet **Gestion studio** sous `/admin/`
+- Veille **offres site + IA créative** (Higgsfield, vidéo/photo, Adobe) : `docs/automation/VEILLE-IA-CREATIVE-PINAPP.md`
 
 ## Rappel honnête
 

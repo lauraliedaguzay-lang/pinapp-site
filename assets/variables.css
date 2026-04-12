@@ -1,7 +1,11 @@
-﻿/* PINAPP â€” variables.css â€” Design System v5 â€” Pandora Â· Avatar Â· Cameron
+/* PINAPP â€” variables.css â€” Design System v5 â€” Pandora Â· Avatar Â· Cameron
    ColorimÃ©trie : Parc Avatar Disney (nuit) + Dylan Cole Avatar 3 (jour)
    Tempo musical : "The Light Always Returns" â€” Simon Franglen â€” 3.5s
    ================================================================= */
+
+@import './css/refonte-conformite.css';
+@import './css/refonte-home.css';
+@import './css/pinapp-cosmos-v1.css';
 
 :root {
   /* COULEURS PANDORA */
@@ -31,7 +35,7 @@
   /* FONDS — nuit : OLED + jungle (noir profond, pas gris bleuté) */
   --fond-nuit: #020807;
   --bg-deep: #010605;
-  --fond-jour: #fbf5e8; /* ivoire chaud â€” lumiÃ¨re de serre Pandora */
+  --fond-jour: #e8eef5; /* jour — brume ardoise (aligné mode clair) */
 
   /* GLASS NUIT — verre teinté jade / eau turquoise */
   --glass: rgba(4, 22, 24, 0.52);
@@ -196,44 +200,44 @@ body::after {
 }
 /* Aligné sur data-theme (défini dans le <head>) pour éviter un flash avant .mode-jour / .mode-nuit sur <body> */
 html[data-theme='dark'] body::after {
-  /* Nuit : OLED + biolume (halos teal/violet lisibles, vignette profonde) */
+  /* Nuit — Cosmos v1 : halos violet #7B2FBE + mint #2DD4BF sur fond #0A0A0A */
   background:
     radial-gradient(
       95% 50% at 50% -8%,
-      rgba(123, 79, 232, 0.12) 0%,
-      rgba(2, 8, 7, 0.2) 48%,
-      rgba(1, 4, 4, 0.85) 100%
+      rgba(123, 47, 190, 0.14) 0%,
+      rgba(10, 10, 10, 0.25) 48%,
+      rgba(5, 5, 5, 0.9) 100%
     ),
     radial-gradient(
       120% 70% at 50% 102%,
-      rgba(0, 229, 204, 0.14) 0%,
-      rgba(0, 180, 160, 0.06) 42%,
-      rgba(1, 6, 6, 0.65) 100%
+      rgba(45, 212, 191, 0.12) 0%,
+      rgba(45, 180, 160, 0.05) 42%,
+      rgba(8, 8, 8, 0.72) 100%
     ),
     radial-gradient(
       130% 85% at 50% 100%,
-      rgba(0, 210, 188, 0.22) 0%,
-      rgba(2, 14, 14, 0.35) 50%,
-      rgba(0, 0, 0, 0.25) 100%
+      rgba(91, 79, 232, 0.15) 0%,
+      rgba(12, 12, 14, 0.4) 50%,
+      rgba(0, 0, 0, 0.3) 100%
     ),
     linear-gradient(
       180deg,
-      rgba(0, 0, 0, 0.28) 0%,
-      rgba(4, 22, 22, 0.12) 45%,
-      rgba(0, 0, 0, 0.5) 100%
+      rgba(0, 0, 0, 0.35) 0%,
+      rgba(14, 14, 16, 0.14) 45%,
+      rgba(0, 0, 0, 0.55) 100%
     );
 }
 html[data-theme='light'] body::after {
-  /* Jour : retour de la lumière — halo d’aube + lavande + jade résiduel */
+  /* Jour — accents océan (cyan / violet) sur brume claire */
   background:
-    radial-gradient(120% 65% at 50% -8%, rgba(255, 228, 175, 0.15) 0%, transparent 48%),
-    radial-gradient(85% 50% at 92% 10%, rgba(190, 165, 240, 0.085) 0%, transparent 52%),
-    radial-gradient(90% 55% at 8% 88%, rgba(48, 195, 165, 0.075) 0%, transparent 55%),
+    radial-gradient(120% 70% at 50% -10%, rgba(255, 255, 255, 0.55) 0%, transparent 45%),
+    radial-gradient(80% 50% at 95% 15%, rgba(124, 77, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(85% 55% at 5% 85%, rgba(8, 145, 178, 0.08) 0%, transparent 52%),
     linear-gradient(
       180deg,
-      rgba(251, 245, 232, 0.09) 0%,
-      transparent 38%,
-      rgba(228, 255, 248, 0.06) 100%
+      rgba(232, 238, 245, 0.4) 0%,
+      transparent 42%,
+      rgba(238, 242, 252, 0.55) 100%
     );
 }
 
@@ -278,35 +282,30 @@ html[data-theme='light'] body {
   color-scheme: light;
 }
 
-/* MODE JOUR â€” Ciel Ikran (dos d'Ikran, Dylan Cole Avatar 3) */
-body.mode-jour::before,
-html[data-theme='light'] body::before {
-  background-image: url('../assets/images/bg-pandora-jour.png');
-  filter: blur(20px) saturate(160%) brightness(1.08);
-}
+/* Fond jour détaillé : pandora-jour.css (::before + animations) */
 
 /* Tokens jour */
 body.mode-jour,
 html[data-theme='light'] body {
-  --text: #1a0a2e;
-  --text-primary: #1a0a2e;
-  --text-2: rgba(26, 10, 46, 0.7);
-  --text-3: rgba(26, 10, 46, 0.45);
-  --text-4: rgba(26, 10, 46, 0.25);
-  --glass: rgba(255, 255, 255, 0.78);
-  --glass-nav: rgba(255, 248, 240, 0.85);
-  --glass-card: rgba(255, 255, 255, 0.78);
-  --border-card: rgba(0, 0, 0, 0.12);
-  --border-subtle: rgba(26, 10, 46, 0.08);
-  --teal: #009b8c;
-  --accent-teal: #009b8c;
-  --violet: #5b3fd8;
-  --accent-violet: #5b3fd8;
-  --green: #2eaf6b;
-  --accent-green: #2eaf6b;
-  --glow-violet: 0 0 24px rgba(91, 63, 216, 0.3), 0 0 48px rgba(91, 63, 216, 0.15);
-  --nav-bg: rgba(255, 248, 238, 0.94);
-  --bg-deep: #e4efe9;
+  --text: #0f1729;
+  --text-primary: #0f1729;
+  --text-2: rgba(15, 23, 41, 0.72);
+  --text-3: rgba(15, 23, 41, 0.48);
+  --text-4: rgba(15, 23, 41, 0.28);
+  --glass: rgba(255, 255, 255, 0.9);
+  --glass-nav: rgba(255, 255, 255, 0.95);
+  --glass-card: rgba(255, 255, 255, 0.92);
+  --border-card: rgba(15, 23, 41, 0.1);
+  --border-subtle: rgba(15, 23, 41, 0.06);
+  --teal: #0891b2;
+  --accent-teal: #0891b2;
+  --violet: #7c4dff;
+  --accent-violet: #7c4dff;
+  --green: #15803d;
+  --accent-green: #15803d;
+  --glow-violet: 0 0 20px rgba(79, 70, 229, 0.2), 0 0 40px rgba(79, 70, 229, 0.1);
+  --nav-bg: rgba(255, 255, 255, 0.94);
+  --bg-deep: #eef2f9;
 }
 
 /* iOS Safari â€” position fixed marche mais scale doit rester */
@@ -612,8 +611,8 @@ body.mode-jour textarea,
 html[data-theme='light'] input,
 html[data-theme='light'] textarea {
   background: rgba(255, 255, 255, 0.75);
-  border-color: rgba(0, 160, 210, 0.25);
-  color: #1a0a2e;
+  border-color: rgba(15, 118, 110, 0.28);
+  color: #0f1729;
 }
 
 /* =====================================================
@@ -782,4 +781,10 @@ html[data-theme='light'] nav.scrolled {
     flex-direction: column;
     gap: 64px;
   }
+}
+
+/* Pinapp refonte BLOC 1 — texte jour du cahier (#0D1B3E), au-dessus des tokens Pandora jour legacy */
+html[data-theme='light'] body {
+  --text: #0d1b3e;
+  --text-primary: #0d1b3e;
 }

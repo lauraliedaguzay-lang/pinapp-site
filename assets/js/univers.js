@@ -9,6 +9,25 @@ var _he = function (s) {
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#x27;');
 };
+
+/** Couleurs API : uniquement #RGB / #RRGGBB (évite injection CSS). */
+function sanitizeHexColor(c) {
+  if (!c || typeof c !== 'string') return '#0a0a12';
+  var s = c.trim();
+  if (/^#[0-9A-Fa-f]{3}$/.test(s) || /^#[0-9A-Fa-f]{6}$/.test(s)) return s;
+  return '#0a0a12';
+}
+
+function hexToRgbComponents(hexColor) {
+  var s = sanitizeHexColor(hexColor).replace('#', '');
+  if (s.length === 3) s = s[0] + s[0] + s[1] + s[1] + s[2] + s[2];
+  if (s.length !== 6) return [10, 10, 18];
+  var r = parseInt(s.slice(0, 2), 16);
+  var g = parseInt(s.slice(2, 4), 16);
+  var b = parseInt(s.slice(4, 6), 16);
+  if (Number.isNaN(r) || Number.isNaN(g) || Number.isNaN(b)) return [10, 10, 18];
+  return [r, g, b];
+}
 /* =====================================================
    UNIVERS DIGITAL — Aurora directrice artistique
    Pinapp Studio · Avril 2026
@@ -19,11 +38,18 @@ var _he = function (s) {
    Ex : https://[votre-n8n]/webhook/aurora-univers
    ===================================================== */
 
-/* endpoint résolu depuis config.js si disponible */
-const AURORA_ENDPOINT =
-  window.PinappConfig && window.PinappConfig._isRealUrl(window.PinappConfig.webhooks.auroraUnivers)
-    ? window.PinappConfig.webhooks.auroraUnivers
-    : 'https://[TON-N8N]/webhook/aurora-univers';
+function pinappAuroraUniversEndpoint() {
+  var cfg = window.PinappConfig;
+  if (
+    !cfg ||
+    !cfg.features ||
+    !cfg.features.auroraUniversIA ||
+    !cfg._isRealUrl(cfg.webhooks.auroraUnivers)
+  ) {
+    return null;
+  }
+  return cfg.webhooks.auroraUnivers;
+}
 
 const UniversDigital = {
   state: {
@@ -138,9 +164,13 @@ const UniversDigital = {
       PinappIntel.data.universGenere = true;
     }
 
+    const endpoint = pinappAuroraUniversEndpoint();
+
     try {
-      /* ─── Appel au webhook n8n (relais sécurisé vers Claude) ─── */
-      const resp = await fetch(AURORA_ENDPOINT, {
+      if (!endpoint) {
+        throw new Error('no-endpoint');
+      }
+      const resp = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -158,14 +188,52 @@ const UniversDigital = {
       this.afficherResultat(univers);
       this.notifyLauralie(univers);
     } catch (e) {
-      resultat.innerHTML = `
-        <p style="color:var(--text-2)">
-          Aurora n&rsquo;a pas pu composer votre univers.<br>
-          <a href="/diagnostic/" style="color:var(--teal)">
-            Demander une synth&egrave;se par &eacute;crit &rarr;
-          </a>
-        </p>`;
+      /* Webhook absent / erreur : démo locale (même UX que page Univers dédiée) */
+      await new Promise(function (r) {
+        setTimeout(r, 700);
+      });
+      const univers = this.genererLocalFallback(brief);
+      this.afficherResultat(univers);
+      try {
+        localStorage.setItem(
+          'pinapp-univers',
+          JSON.stringify(
+            Object.assign({}, univers, {
+              brief_orient_claude: this.state.briefOrientClaude || undefined,
+            }),
+          ),
+        );
+      } catch (err) {}
+      this.notifyLauralie(univers);
     }
+  },
+
+  genererLocalFallback(briefText) {
+    var noms = [
+      'Lumière Voilée',
+      'Horizon Intérieur',
+      'Nuit Dorée',
+      'Brume de Jade',
+      'Éclat du Soir',
+      'Cristal Nordique',
+    ];
+    var fonds = ['#080C18', '#100810', '#0A0D0A'];
+    var accs = [
+      ['#3EEBD6', '#A78BFA'],
+      ['#00E5CC', '#7B4FE8'],
+      ['#C9A96E', '#F0EDE8'],
+    ];
+    var nom = noms[Math.floor(Math.random() * noms.length)];
+    var fond = fonds[Math.floor(Math.random() * fonds.length)];
+    var ac = accs[Math.floor(Math.random() * accs.length)];
+    var baseAtmo =
+      'Un espace qui respire à votre rythme. Aperçu local : branchez n8n (auroraUniversIA + URL) pour une composition Claude.';
+    return {
+      nom: nom,
+      palette: { fond: fond, accent1: ac[0], accent2: ac[1] },
+      atmosphere: briefText ? baseAtmo + ' Votre brief sera pris en compte en production.' : baseAtmo,
+      promesse: 'Vos clients arrivent. Ils restent. Ils reviennent.',
+    };
   },
 
   afficherResultat(u) {
@@ -175,10 +243,10 @@ const UniversDigital = {
     // Teinter le bloc avec la couleur accent1 de l'univers
     const iface = document.querySelector('.univers-interface');
     if (iface && u.palette?.accent1) {
-      const hex = u.palette.accent1.replace('#', '');
-      const r = parseInt(hex.slice(0, 2), 16);
-      const g = parseInt(hex.slice(2, 4), 16);
-      const b = parseInt(hex.slice(4, 6), 16);
+      var rgb = hexToRgbComponents(u.palette.accent1);
+      var r = rgb[0];
+      var g = rgb[1];
+      var b = rgb[2];
       iface.style.background = `
         linear-gradient(135deg,
           rgba(${r},${g},${b},0.12) 0%,
@@ -200,13 +268,13 @@ const UniversDigital = {
           u.palette
             ? `
           <div class="univers-swatch"
-               style="background:${_he(u.palette.fond)}"
+               style="background:${sanitizeHexColor(u.palette.fond)}"
                title="Fond"></div>
           <div class="univers-swatch"
-               style="background:${_he(u.palette.accent1)}"
+               style="background:${sanitizeHexColor(u.palette.accent1)}"
                title="Accent principal"></div>
           <div class="univers-swatch"
-               style="background:${_he(u.palette.accent2)}"
+               style="background:${sanitizeHexColor(u.palette.accent2)}"
                title="Accent secondaire"></div>
           <span class="univers-palette-label">Votre palette</span>
         `
@@ -222,7 +290,7 @@ const UniversDigital = {
         u.signature
           ? `
         <div class="univers-signature">
-          ◈ Signature visuelle : ${u.signature}
+          ◈ Signature visuelle : ${_he(u.signature)}
         </div>
       `
           : ''
@@ -288,28 +356,32 @@ const UniversDigital = {
   },
 
   notifyLauralie(u) {
-    // Webhook n8n → notif WhatsApp Lauralie avec l'univers généré
+    // Webhook n8n → notif interne (ex. WhatsApp) — uniquement si URL réelle + flag actif
+    var cfg = window.PinappConfig;
+    if (
+      !cfg ||
+      !cfg.features ||
+      !cfg.features.whatsappNotifs ||
+      !cfg._isRealUrl(cfg.webhooks.notifWhatsapp)
+    ) {
+      return;
+    }
     try {
-      fetch(
-        window.PinappConfig &&
-          window.PinappConfig._isRealUrl(window.PinappConfig.webhooks.notifWhatsapp)
-          ? window.PinappConfig.webhooks.notifWhatsapp
-          : 'https://[TON-N8N]/webhook/univers-genere',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            lieu: this.state.lieu,
-            emotion: this.state.emotion,
-            reference: this.state.reference,
-            brief_orient_claude: this.state.briefOrientClaude || '',
-            univers: u.nom,
-            palette: u.palette,
-            timestamp: new Date().toISOString(),
-            page: location.href,
-          }),
-        },
-      ).catch(() => {});
+      fetch(cfg.webhooks.notifWhatsapp, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          source: 'univers-genere',
+          lieu: this.state.lieu,
+          emotion: this.state.emotion,
+          reference: this.state.reference,
+          brief_orient_claude: this.state.briefOrientClaude || '',
+          univers: u.nom,
+          palette: u.palette,
+          timestamp: new Date().toISOString(),
+          page: location.href,
+        }),
+      }).catch(function () {});
     } catch (e) {}
   },
 

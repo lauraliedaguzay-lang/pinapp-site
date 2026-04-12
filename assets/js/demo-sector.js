@@ -1,7 +1,7 @@
 /**
  * PINAPP — démos sectorielles (prompt sites démo)
  * Attend window.PINAPP_DEMO_SITE défini avant ce script.
- * Scroll section : instantané (pas de smooth) — règle site Pinapp.
+ * Ancrage vers le formulaire : défilement fluide (scroll-behavior sur main + scrollIntoView smooth).
  */
 (function () {
   'use strict';
@@ -25,6 +25,109 @@
     Object.keys(map).forEach(function (k) {
       root.style.setProperty(k, map[k]);
     });
+  }
+
+  function resolveDemoImgUrl(u) {
+    if (!u) return '';
+    if (/^https?:\/\//i.test(u) || String(u).indexOf('//') === 0) return String(u);
+    var imgBase = '/assets/images/';
+    try {
+      var sc = document.querySelector('script[src*="demo-sector.js"]');
+      if (sc && sc.src) imgBase = new URL('../images/', sc.src).href;
+    } catch (e) {}
+    return imgBase + u;
+  }
+
+  /** Plusieurs visuels hero (photo pack + galerie) — points cliquables, rotation lente */
+  function setupHeroVisuals() {
+    var hero = document.querySelector('.hero');
+    if (!hero) return;
+
+    ['.hero-carousel', '.hero-dots'].forEach(function (sel) {
+      var old = hero.querySelector(sel);
+      if (old) old.remove();
+    });
+
+    var slides = [];
+    if (S.heroSlides && S.heroSlides.length) {
+      slides = S.heroSlides.slice();
+    } else if (S.photoHero) {
+      slides.push(S.photoHero);
+      if (S.galerie && S.galerie.length) {
+        for (var i = 0; i < S.galerie.length && slides.length < 6; i++) {
+          var gs = S.galerie[i].src;
+          if (gs && slides.indexOf(gs) === -1) slides.push(gs);
+        }
+      }
+    }
+
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (slides.length <= 1 || reduceMotion) {
+      var one = slides[0] || S.photoHero;
+      if (one) {
+        var heroUrl = resolveDemoImgUrl(one);
+        hero.style.backgroundImage =
+          "url('" +
+          String(heroUrl).replace(/'/g, "\\'") +
+          "'), linear-gradient(135deg, " +
+          (S.accentDark || S.accent) +
+          ', ' +
+          S.accent +
+          ')';
+      } else {
+        hero.style.backgroundImage =
+          'linear-gradient(135deg,' + (S.accentDark || S.accent) + ',' + S.accent + ')';
+      }
+      return;
+    }
+
+    hero.style.backgroundImage =
+      'linear-gradient(135deg,' + (S.accentDark || S.accent) + ',' + S.accent + ')';
+
+    var car = document.createElement('div');
+    car.className = 'hero-carousel';
+    car.setAttribute('aria-hidden', 'true');
+    slides.forEach(function (raw, i) {
+      var u = resolveDemoImgUrl(raw);
+      var slide = document.createElement('div');
+      slide.className = 'hero-slide' + (i === 0 ? ' is-active' : '');
+      slide.style.backgroundImage = "url('" + String(u).replace(/'/g, "\\'") + "')";
+      car.appendChild(slide);
+    });
+    hero.insertBefore(car, hero.firstChild);
+
+    var dots = document.createElement('div');
+    dots.className = 'hero-dots';
+    dots.setAttribute('role', 'tablist');
+    var slideEls = car.querySelectorAll('.hero-slide');
+    var idx = 0;
+
+    function go(n) {
+      idx = ((n % slideEls.length) + slideEls.length) % slideEls.length;
+      slideEls.forEach(function (s, j) {
+        s.classList.toggle('is-active', j === idx);
+      });
+      dots.querySelectorAll('.hero-dot').forEach(function (d, j) {
+        d.classList.toggle('is-active', j === idx);
+      });
+    }
+
+    slideEls.forEach(function (_, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'hero-dot' + (i === 0 ? ' is-active' : '');
+      b.setAttribute('aria-label', 'Visuel ' + (i + 1));
+      b.addEventListener('click', function () {
+        go(i);
+      });
+      dots.appendChild(b);
+    });
+    hero.appendChild(dots);
+
+    window.setInterval(function () {
+      go(idx + 1);
+    }, 5200);
   }
 
   function applyTheme() {
@@ -120,7 +223,7 @@
 
   function scrollToSection(el) {
     if (!el) return;
-    el.scrollIntoView({ behavior: 'auto', block: 'start' });
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   window.scrollToBooking = function () {

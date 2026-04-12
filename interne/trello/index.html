@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="fr" data-theme="dark">
+  <head>
+    <script>
+      (function () {
+        var s = localStorage.getItem('pinapp-theme');
+        var d = window.matchMedia('(prefers-color-scheme:dark)').matches;
+        var m = s || (d ? 'nuit' : 'jour');
+        document.documentElement.setAttribute('data-mode', m);
+        document.documentElement.setAttribute('data-theme', m === 'jour' ? 'light' : 'dark');
+        document.addEventListener('DOMContentLoaded', function () {
+          document.body.classList.add('mode-' + m);
+        });
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="googlebot" content="noindex, nofollow" />
+    <meta name="theme-color" content="#020807" />
+    <title>Tableau interne — Pinapp Studio</title>
+    <meta
+      name="description"
+      content="Outil interne Kanban — ne pas indexer. Données stockées dans ce navigateur (localStorage)." />
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+    <link rel="stylesheet" href="../../assets/variables.css" />
+    <link rel="stylesheet" href="../../assets/grid.css" />
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" />
+    <style>
+      .trello-page {
+        min-height: 100dvh;
+        background: var(--bg-primary, var(--fond-nuit));
+        color: var(--text-primary, var(--text));
+        font-family: 'Inter', system-ui, sans-serif;
+        padding: var(--space-4, 1rem);
+        padding-bottom: calc(var(--space-6, 1.5rem) + env(safe-area-inset-bottom, 0));
+      }
+      .trello-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-3, 0.75rem);
+        margin-bottom: var(--space-5, 1.25rem);
+        max-width: 100%;
+      }
+      .trello-toolbar h1 {
+        font-size: clamp(1.125rem, 2.5vw, 1.35rem);
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        margin: 0;
+      }
+      .trello-toolbar .sub {
+        font-size: var(--text-small, 0.875rem);
+        color: var(--text-3, rgba(238, 248, 255, 0.55));
+        margin: 0.25rem 0 0;
+        max-width: 36rem;
+        line-height: 1.5;
+      }
+      .trello-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2, 0.5rem);
+        align-items: center;
+      }
+      .trello-actions button,
+      .trello-actions a.btn-link {
+        font: inherit;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 0.5rem 0.9rem;
+        border-radius: var(--r-pill, 100px);
+        border: 1px solid var(--border-card);
+        background: var(--glass-card, rgba(4, 22, 24, 0.54));
+        color: var(--text-primary, var(--text));
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        transition:
+          border-color 0.15s,
+          box-shadow 0.15s;
+      }
+      .trello-actions button:hover,
+      .trello-actions a.btn-link:hover {
+        border-color: var(--accent-teal);
+        box-shadow: var(--glow-teal, 0 0 12px rgba(0, 229, 204, 0.25));
+      }
+      .trello-actions .btn-primary {
+        background: var(--accent-teal);
+        color: var(--fond-nuit, #020807);
+        border-color: transparent;
+      }
+      .trello-actions .btn-primary:hover {
+        box-shadow: var(--glow-teal-lg, 0 0 20px rgba(0, 229, 204, 0.45));
+      }
+      .trello-actions .btn-danger {
+        border-color: rgba(196, 30, 140, 0.45);
+        color: var(--accent-rose, #c41e8c);
+      }
+      .trello-board {
+        display: flex;
+        gap: var(--space-4, 1rem);
+        overflow-x: auto;
+        padding-bottom: var(--space-4, 1rem);
+        scroll-snap-type: x proximity;
+        -webkit-overflow-scrolling: touch;
+      }
+      .trello-list {
+        flex: 0 0 min(100%, 300px);
+        scroll-snap-align: start;
+        background: var(--bg-card);
+        border: 1px solid var(--border-card);
+        border-radius: var(--r-block, 20px);
+        display: flex;
+        flex-direction: column;
+        max-height: min(78dvh, 720px);
+        box-shadow: var(--shadow-md, 0 8px 24px rgba(0, 0, 0, 0.22));
+      }
+      .trello-list-header {
+        padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+        border-bottom: 1px solid var(--separator);
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: var(--space-2, 0.5rem);
+      }
+      .trello-list-title {
+        font-size: 0.8125rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--accent-teal);
+        margin: 0;
+        flex: 1;
+        min-width: 0;
+      }
+      .trello-list-title[contenteditable='true'] {
+        outline: none;
+        border-radius: var(--r-input, 8px);
+        padding: 2px 6px;
+        margin: -2px -6px;
+        box-shadow: 0 0 0 1px var(--border-input);
+      }
+      .trello-list-remove {
+        font-size: 12px;
+        padding: 4px 8px;
+        border-radius: var(--r-pill);
+        border: none;
+        background: transparent;
+        color: var(--text-3);
+        cursor: pointer;
+      }
+      .trello-list-remove:hover {
+        color: var(--accent-rose);
+      }
+      .trello-cards {
+        flex: 1;
+        overflow-y: auto;
+        padding: var(--space-3, 0.75rem);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2, 0.5rem);
+        min-height: 120px;
+      }
+      .trello-cards.is-drag-over {
+        outline: 2px dashed var(--accent-teal);
+        outline-offset: 2px;
+        border-radius: var(--r-input);
+      }
+      .trello-card {
+        background: var(--glass-tag, rgba(3, 18, 20, 0.42));
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--r-input, 14px);
+        padding: var(--space-3, 0.75rem);
+        cursor: grab;
+        touch-action: manipulation;
+        transition:
+          transform 0.12s,
+          box-shadow 0.12s;
+      }
+      .trello-card:active {
+        cursor: grabbing;
+      }
+      .trello-card:focus-visible {
+        outline: 2px solid var(--accent-teal);
+        outline-offset: 2px;
+      }
+      .trello-card-title {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.45;
+        margin: 0 0 4px;
+        word-break: break-word;
+      }
+      .trello-card-meta {
+        font-size: 11px;
+        color: var(--text-4);
+        margin: 0;
+      }
+      .trello-add {
+        padding: 0 var(--space-4, 1rem) var(--space-4, 1rem);
+      }
+      .trello-add form {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .trello-add input {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: var(--r-input);
+        border: 1px solid var(--border-input);
+        background: var(--bg-deep, #010605);
+        color: var(--text);
+        font: inherit;
+        font-size: 14px;
+      }
+      .trello-add button[type='submit'] {
+        font: inherit;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 8px 12px;
+        border-radius: var(--r-pill);
+        border: none;
+        background: var(--accent-teal);
+        color: var(--fond-nuit);
+        cursor: pointer;
+      }
+      .trello-add-list {
+        flex: 0 0 min(100%, 280px);
+        scroll-snap-align: start;
+        align-self: flex-start;
+        padding: var(--space-5, 1.25rem);
+        border: 2px dashed var(--border-card);
+        border-radius: var(--r-block);
+        background: transparent;
+        min-height: 160px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .trello-add-list h2 {
+        margin: 0 0 var(--space-3, 0.75rem);
+        font-size: 14px;
+        color: var(--text-3);
+      }
+      .trello-add-list input {
+        width: 100%;
+        margin-bottom: 8px;
+        padding: 10px 12px;
+        border-radius: var(--r-input);
+        border: 1px solid var(--border-input);
+        background: var(--bg-card);
+        color: var(--text);
+        font-size: 14px;
+      }
+      .trello-modal[hidden] {
+        display: none !important;
+      }
+      .trello-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 9000;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding: var(--space-4, 1rem);
+        padding-bottom: max(var(--space-4, 1rem), env(safe-area-inset-bottom));
+        background: var(--bg-overlay, rgba(1, 10, 12, 0.72));
+        backdrop-filter: blur(12px);
+      }
+      @media (min-width: 600px) {
+        .trello-modal {
+          align-items: center;
+        }
+      }
+      .trello-modal-panel {
+        width: min(100%, 440px);
+        max-height: min(85dvh, 560px);
+        overflow: auto;
+        background: var(--glass-modal, rgba(2, 14, 16, 0.92));
+        border: 1px solid var(--border-card);
+        border-radius: var(--r-widget, 24px);
+        padding: var(--space-5, 1.25rem);
+        box-shadow: var(--shadow-xl);
+      }
+      .trello-modal-panel h2 {
+        margin: 0 0 var(--space-4, 1rem);
+        font-size: 1.125rem;
+      }
+      .trello-modal-panel label {
+        display: block;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-3);
+        margin-bottom: 6px;
+      }
+      .trello-modal-panel input,
+      .trello-modal-panel textarea {
+        width: 100%;
+        margin-bottom: var(--space-4, 1rem);
+        padding: 10px 12px;
+        border-radius: var(--r-input);
+        border: 1px solid var(--border-input);
+        background: var(--bg-deep);
+        color: var(--text);
+        font: inherit;
+        font-size: 15px;
+      }
+      .trello-modal-panel textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+      .trello-modal-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2, 0.5rem);
+        justify-content: flex-end;
+      }
+      .trello-modal-actions button {
+        font: inherit;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 0.5rem 0.9rem;
+        border-radius: var(--r-pill);
+        border: 1px solid var(--border-card);
+        background: var(--glass-card);
+        color: var(--text);
+        cursor: pointer;
+      }
+      .trello-modal-actions .btn-primary {
+        background: var(--accent-teal);
+        color: var(--fond-nuit);
+        border-color: transparent;
+        font-weight: 600;
+      }
+      .trello-modal-actions .btn-danger {
+        border-color: rgba(196, 30, 140, 0.45);
+        color: var(--accent-rose, #c41e8c);
+        background: transparent;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#board" class="sr-only">Aller au tableau</a>
+    <div class="trello-page">
+      <header class="trello-toolbar">
+        <div>
+          <h1>Tableau interne — style Trello</h1>
+          <p class="sub">
+            Usage studio uniquement. Les cartes restent dans <strong>ce navigateur</strong> (localStorage). Exportez
+            régulièrement en JSON. Pas de synchronisation serveur.
+          </p>
+        </div>
+        <div class="trello-actions">
+          <button type="button" id="btnExport" class="btn-primary">Exporter JSON</button>
+          <button type="button" id="btnImport">Importer JSON</button>
+          <input type="file" id="importFile" accept="application/json,.json" hidden />
+          <button type="button" id="btnReset" class="btn-danger">Réinitialiser</button>
+          <a class="btn-link" href="../../index.html">← Site Pinapp</a>
+        </div>
+      </header>
+
+      <div id="board" class="trello-board" aria-label="Colonnes du tableau Kanban"></div>
+    </div>
+
+    <div
+      id="cardModal"
+      class="trello-modal"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle">
+      <div class="trello-modal-panel">
+        <h2 id="modalTitle">Carte</h2>
+        <label for="modalCardTitle">Titre</label>
+        <input type="text" id="modalCardTitle" autocomplete="off" />
+        <label for="modalCardBody">Notes</label>
+        <textarea id="modalCardBody" rows="5"></textarea>
+        <div class="trello-modal-actions">
+          <button type="button" id="modalDelete" class="btn-danger">Supprimer</button>
+          <button type="button" id="modalCancel">Fermer</button>
+          <button type="button" id="modalSave" class="btn-primary">Enregistrer</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        'use strict';
+
+        var STORAGE_KEY = 'pinapp-interne-kanban-v1';
+
+        function uid() {
+          if (crypto.randomUUID) return crypto.randomUUID();
+          return 'id-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 9);
+        }
+
+        function defaultState() {
+          return {
+            version: 1,
+            lists: [
+              { id: uid(), title: 'Backlog', order: 0 },
+              { id: uid(), title: 'À faire', order: 1 },
+              { id: uid(), title: 'En cours', order: 2 },
+              { id: uid(), title: 'En revue', order: 3 },
+              { id: uid(), title: 'Terminé', order: 4 },
+            ],
+            cards: [],
+          };
+        }
+
+        function loadState() {
+          try {
+            var raw = localStorage.getItem(STORAGE_KEY);
+            if (!raw) return defaultState();
+            var data = JSON.parse(raw);
+            if (!data || !Array.isArray(data.lists)) return defaultState();
+            return data;
+          } catch (e) {
+            return defaultState();
+          }
+        }
+
+        function saveState(state) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        }
+
+        var state = loadState();
+        var boardEl = document.getElementById('board');
+        var dragCardId = null;
+        var editingListId = null;
+
+        function sortedLists() {
+          return state.lists.slice().sort(function (a, b) {
+            return a.order - b.order;
+          });
+        }
+
+        function cardsInList(listId) {
+          return state.cards
+            .filter(function (c) {
+              return c.listId === listId;
+            })
+            .sort(function (a, b) {
+              return a.order - b.order;
+            });
+        }
+
+        function normalizeOrders(listId) {
+          var list = cardsInList(listId);
+          list.forEach(function (c, i) {
+            c.order = i;
+          });
+        }
+
+        function render() {
+          boardEl.innerHTML = '';
+          sortedLists().forEach(function (list) {
+            boardEl.appendChild(renderList(list));
+          });
+          boardEl.appendChild(renderAddList());
+        }
+
+        function renderList(list) {
+          var section = document.createElement('section');
+          section.className = 'trello-list';
+          section.dataset.listId = list.id;
+          section.setAttribute('aria-label', 'Liste : ' + list.title);
+
+          var head = document.createElement('div');
+          head.className = 'trello-list-header';
+
+          var title = document.createElement('h2');
+          title.className = 'trello-list-title';
+          title.textContent = list.title;
+          title.setAttribute('title', 'Double-cliquer pour renommer');
+          title.addEventListener('dblclick', function () {
+            title.contentEditable = 'true';
+            title.focus();
+            var range = document.createRange();
+            range.selectNodeContents(title);
+            var sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+          });
+          title.addEventListener('blur', function () {
+            title.contentEditable = 'false';
+            var t = title.textContent.trim() || 'Sans titre';
+            title.textContent = t;
+            var L = state.lists.find(function (x) {
+              return x.id === list.id;
+            });
+            if (L) L.title = t;
+            saveState(state);
+          });
+          title.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              title.blur();
+            }
+          });
+
+          var rm = document.createElement('button');
+          rm.type = 'button';
+          rm.className = 'trello-list-remove';
+          rm.setAttribute('aria-label', 'Supprimer la liste ' + list.title);
+          rm.textContent = '×';
+          rm.addEventListener('click', function () {
+            var n = state.cards.filter(function (c) {
+              return c.listId === list.id;
+            }).length;
+            if (n && !confirm('Supprimer cette liste et ses ' + n + ' carte(s) ?')) return;
+            state.cards = state.cards.filter(function (c) {
+              return c.listId !== list.id;
+            });
+            state.lists = state.lists.filter(function (L) {
+              return L.id !== list.id;
+            });
+            saveState(state);
+            render();
+          });
+
+          head.appendChild(title);
+          head.appendChild(rm);
+
+          var cardsWrap = document.createElement('div');
+          cardsWrap.className = 'trello-cards';
+          cardsWrap.dataset.listId = list.id;
+          cardsWrap.addEventListener('dragover', onListDragOver);
+          cardsWrap.addEventListener('dragleave', onListDragLeave);
+          cardsWrap.addEventListener('drop', onListDrop);
+
+          cardsInList(list.id).forEach(function (card) {
+            cardsWrap.appendChild(renderCard(card));
+          });
+
+          var add = document.createElement('div');
+          add.className = 'trello-add';
+          var form = document.createElement('form');
+          var inp = document.createElement('input');
+          inp.type = 'text';
+          inp.placeholder = 'Nouvelle carte…';
+          inp.setAttribute('aria-label', 'Titre de la nouvelle carte');
+          var sub = document.createElement('button');
+          sub.type = 'submit';
+          sub.textContent = 'Ajouter';
+          form.appendChild(inp);
+          form.appendChild(sub);
+          form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var text = inp.value.trim();
+            if (!text) return;
+            var maxO = cardsInList(list.id).reduce(function (m, c) {
+              return Math.max(m, c.order);
+            }, -1);
+            state.cards.push({
+              id: uid(),
+              listId: list.id,
+              title: text,
+              body: '',
+              order: maxO + 1,
+              created: Date.now(),
+            });
+            inp.value = '';
+            saveState(state);
+            render();
+          });
+          add.appendChild(form);
+
+          section.appendChild(head);
+          section.appendChild(cardsWrap);
+          section.appendChild(add);
+          return section;
+        }
+
+        function renderCard(card) {
+          var el = document.createElement('article');
+          el.className = 'trello-card';
+          el.draggable = true;
+          el.dataset.cardId = card.id;
+          el.setAttribute('tabindex', '0');
+          el.setAttribute('role', 'button');
+          el.setAttribute('aria-label', 'Carte : ' + card.title);
+
+          var t = document.createElement('p');
+          t.className = 'trello-card-title';
+          t.textContent = card.title;
+
+          var meta = document.createElement('p');
+          meta.className = 'trello-card-meta';
+          meta.textContent = card.body ? 'Notes…' : '';
+
+          el.appendChild(t);
+          el.appendChild(meta);
+
+          el.addEventListener('dragstart', function (e) {
+            dragCardId = card.id;
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/plain', card.id);
+            el.style.opacity = '0.5';
+          });
+          el.addEventListener('dragend', function () {
+            el.style.opacity = '';
+            dragCardId = null;
+            document.querySelectorAll('.trello-cards.is-drag-over').forEach(function (x) {
+              x.classList.remove('is-drag-over');
+            });
+          });
+          el.addEventListener('click', function () {
+            openModal(card.id);
+          });
+          el.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              openModal(card.id);
+            }
+          });
+          return el;
+        }
+
+        function onListDragOver(e) {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = 'move';
+          e.currentTarget.classList.add('is-drag-over');
+        }
+
+        function onListDragLeave(e) {
+          if (e.currentTarget.contains(e.relatedTarget)) return;
+          e.currentTarget.classList.remove('is-drag-over');
+        }
+
+        function onListDrop(e) {
+          e.preventDefault();
+          var wrap = e.currentTarget;
+          wrap.classList.remove('is-drag-over');
+          var id = dragCardId || e.dataTransfer.getData('text/plain');
+          if (!id) return;
+          var card = state.cards.find(function (c) {
+            return c.id === id;
+          });
+          if (!card) return;
+          var newListId = wrap.dataset.listId;
+          if (card.listId === newListId) {
+            normalizeOrders(newListId);
+            saveState(state);
+            render();
+            return;
+          }
+          card.listId = newListId;
+          var inList = cardsInList(newListId).filter(function (c) {
+            return c.id !== id;
+          });
+          card.order = inList.length;
+          normalizeOrders(newListId);
+          if (arguments[0]) {
+            /* re-normalize old list */
+          }
+          state.lists.forEach(function (L) {
+            normalizeOrders(L.id);
+          });
+          saveState(state);
+          render();
+        }
+
+        function renderAddList() {
+          var box = document.createElement('div');
+          box.className = 'trello-add-list';
+          var h = document.createElement('h2');
+          h.textContent = 'Nouvelle liste';
+          var inp = document.createElement('input');
+          inp.type = 'text';
+          inp.placeholder = 'Nom de la colonne';
+          inp.setAttribute('aria-label', 'Nom de la nouvelle liste');
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'btn-primary';
+          btn.textContent = 'Créer la liste';
+          btn.style.cssText =
+            'padding:10px 16px;border-radius:100px;border:none;background:var(--accent-teal);color:var(--fond-nuit);font-weight:600;cursor:pointer;';
+          btn.addEventListener('click', function () {
+            var name = inp.value.trim();
+            if (!name) return;
+            var maxO = state.lists.reduce(function (m, L) {
+              return Math.max(m, L.order);
+            }, -1);
+            state.lists.push({ id: uid(), title: name, order: maxO + 1 });
+            inp.value = '';
+            saveState(state);
+            render();
+          });
+          box.appendChild(h);
+          box.appendChild(inp);
+          box.appendChild(btn);
+          return box;
+        }
+
+        /* Modal */
+        var modal = document.getElementById('cardModal');
+        var modalTitle = document.getElementById('modalCardTitle');
+        var modalBody = document.getElementById('modalCardBody');
+        var modalEditingId = null;
+
+        function openModal(cardId) {
+          var c = state.cards.find(function (x) {
+            return x.id === cardId;
+          });
+          if (!c) return;
+          modalEditingId = cardId;
+          modalTitle.value = c.title;
+          modalBody.value = c.body || '';
+          modal.hidden = false;
+          modalTitle.focus();
+        }
+
+        function closeModal() {
+          modal.hidden = true;
+          modalEditingId = null;
+        }
+
+        document.getElementById('modalCancel').addEventListener('click', closeModal);
+        document.getElementById('modalSave').addEventListener('click', function () {
+          if (!modalEditingId) return;
+          var c = state.cards.find(function (x) {
+            return x.id === modalEditingId;
+          });
+          if (!c) return;
+          c.title = modalTitle.value.trim() || 'Sans titre';
+          c.body = modalBody.value.trim();
+          saveState(state);
+          closeModal();
+          render();
+        });
+        document.getElementById('modalDelete').addEventListener('click', function () {
+          if (!modalEditingId) return;
+          if (!confirm('Supprimer cette carte ?')) return;
+          state.cards = state.cards.filter(function (x) {
+            return x.id !== modalEditingId;
+          });
+          saveState(state);
+          closeModal();
+          render();
+        });
+        modal.addEventListener('click', function (e) {
+          if (e.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && !modal.hidden) closeModal();
+        });
+
+        /* Export / import */
+        document.getElementById('btnExport').addEventListener('click', function () {
+          var blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+          var a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'pinapp-kanban-' + new Date().toISOString().slice(0, 10) + '.json';
+          a.click();
+          URL.revokeObjectURL(a.href);
+        });
+
+        var importInput = document.getElementById('importFile');
+        document.getElementById('btnImport').addEventListener('click', function () {
+          importInput.click();
+        });
+        importInput.addEventListener('change', function () {
+          var f = importInput.files && importInput.files[0];
+          if (!f) return;
+          var reader = new FileReader();
+          reader.onload = function () {
+            try {
+              var data = JSON.parse(reader.result);
+              if (!data.lists || !Array.isArray(data.lists)) throw new Error('JSON invalide');
+              if (!confirm('Remplacer le tableau actuel par ce fichier ?')) return;
+              state = data;
+              if (!Array.isArray(state.cards)) state.cards = [];
+              saveState(state);
+              render();
+            } catch (err) {
+              alert('Import impossible : fichier JSON invalide.');
+            }
+            importInput.value = '';
+          };
+          reader.readAsText(f, 'UTF-8');
+        });
+
+        document.getElementById('btnReset').addEventListener('click', function () {
+          if (!confirm('Effacer tout le tableau sur cet appareil ?')) return;
+          state = defaultState();
+          saveState(state);
+          render();
+        });
+
+        render();
+      })();
+    </script>
+  </body>
+</html>

@@ -1,3 +1,5 @@
+const { timingSafeEqual } = require('crypto');
+
 /**
  * PINAPP STUDIO — Netlify Function : approve
  * Endpoint sécurisé pour le workflow WhatsApp "1 clic = approuver"
@@ -16,11 +18,39 @@
  *   AIRTABLE_KEY     — (optionnel) clé Airtable pour logger les décisions
  */
 
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;');
+}
+
+/** Lead id attendu : enregistrement CRM / UUID — pas de caractères HTML. */
+function isSafeLeadId(id) {
+  return typeof id === 'string' && id.length <= 128 && /^[a-zA-Z0-9._-]+$/.test(id);
+}
+
+function safeHexTokenEqual(received, expected) {
+  if (typeof received !== 'string' || typeof expected !== 'string' || received.length !== expected.length) {
+    return false;
+  }
+  try {
+    const a = Buffer.from(received, 'hex');
+    const b = Buffer.from(expected, 'hex');
+    if (a.length !== b.length || a.length === 0) return false;
+    return timingSafeEqual(a, b);
+  } catch {
+    return false;
+  }
+}
+
 exports.handler = async (event) => {
   const { id, token, action } = event.queryStringParameters || {};
 
   /* Validation des paramètres */
-  if (!id || !token || !['approve', 'decline'].includes(action)) {
+  if (!id || !token || !['approve', 'decline'].includes(action) || !isSafeLeadId(id)) {
     return htmlResponse(400, pageError('Lien invalide ou expiré.'));
   }
 
@@ -31,7 +61,7 @@ exports.handler = async (event) => {
   }
 
   const expectedToken = await signToken(id, secret);
-  if (token !== expectedToken) {
+  if (!safeHexTokenEqual(token, expectedToken)) {
     return htmlResponse(403, pageError('Token invalide ou expiré. Ce lien est à usage unique.'));
   }
 
@@ -56,7 +86,7 @@ exports.handler = async (event) => {
   }
 
   const isApproved = action === 'approve';
-  return htmlResponse(200, isApproved ? pageApproved(id) : pageDeclined(id));
+  return htmlResponse(200, isApproved ? pageApproved(escapeHtml(id)) : pageDeclined(escapeHtml(id)));
 };
 
 /* ── Helpers ────────────────────────────────────────────────── */
@@ -167,7 +197,7 @@ function pageError(message) {
 <body>
   <div class="card">
     <h1>Erreur</h1>
-    <p>${message}</p>
+    <p>${escapeHtml(message)}</p>
   </div>
 </body>
 </html>`;

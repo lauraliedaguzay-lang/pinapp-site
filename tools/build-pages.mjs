@@ -272,7 +272,7 @@ const pages = [
           <!-- Calendly : remplacer par le widget officiel -->
           <p style="opacity:0.5;font-size:14px;">Calendly : à configurer (widget inline + script Calendly).</p>
           <p style="opacity:0.7;font-size:14px;margin-top:var(--space-3);">En attendant, contact direct :</p>
-          <a href="mailto:lauralie.daguzay@pinapp.fr?subject=Demande%20de%20diagnostic%20Pinapp" class="btn btn-primary" style="margin-top:var(--space-3);">Envoyer un email</a>
+          <a href="mailto:lauralie.daguzay@pinapp.fr?subject=Pinapp%20%E2%80%94%20Diagnostic" class="btn btn-primary" style="margin-top:var(--space-3);">Envoyer un email</a>
         </div>
         <div style="background:var(--bg-card);border-radius:var(--radius-card);padding:var(--space-3);border:1px solid rgba(57,224,117,0.2);">
           <p style="font-size:14px;opacity:0.7;"><strong style="color:var(--accent-green);">Garantie :</strong> Si ma réponse écrite ne vous apporte rien de concret, je vous offre un template de votre secteur.</p>
@@ -497,7 +497,7 @@ const pages = [
           <h3 style="margin-bottom:var(--space-3);">Commander maintenant</h3>
           <p style="opacity:0.6;font-size:14px;margin-bottom:var(--space-4);">Choisissez votre secteur et payez. Je vous contacte dans l'heure pour démarrer.</p>
           <!-- Paiement : lien Stripe Payment Link à configurer -->
-          <a href="mailto:lauralie.daguzay@pinapp.fr?subject=Commande%20Pinapp%20Starter" class="btn btn-primary">Commander — 349 €</a>
+          <a href="mailto:lauralie.daguzay@pinapp.fr?subject=Pinapp%20%E2%80%94%20Starter%20%E2%80%94%20commande" class="btn btn-primary">Commander — 349 €</a>
           <p style="font-size:var(--text-legal);opacity:0.4;margin-top:var(--space-3);">Paiement sécurisé · TVA non applicable art. 293B CGI · Satisfait ou révision offerte</p>
         </div>
       </div>
@@ -525,7 +525,7 @@ const pages = [
               <p style="font-size:12px;opacity:0.5;">Accès à vie</p>
             </div>
           </div>
-          <a href="mailto:lauralie.daguzay@pinapp.fr?subject=Formation%20Pinapp%20119%E2%82%AC" class="btn btn-primary pinapp-breathe" style="margin-top:var(--space-3);">Je m'inscris</a>
+          <a href="mailto:lauralie.daguzay@pinapp.fr?subject=Pinapp%20%E2%80%94%20Formation%20courte%20%E2%80%94%20119%20%E2%82%AC" class="btn btn-primary pinapp-breathe" style="margin-top:var(--space-3);">Je m'inscris</a>
           <p style="font-size:var(--text-legal);opacity:0.45;margin-top:var(--space-2);">Prix HT · TVA non applicable art. 293B CGI · Paiement et accès confirmés par email</p>
         </div>
         <div class="card" style="border-color:var(--accent-violet);">
@@ -540,7 +540,7 @@ const pages = [
               <p style="font-size:12px;opacity:0.5;">6 semaines · live</p>
             </div>
           </div>
-          <a href="mailto:lauralie.daguzay@pinapp.fr?subject=Formation%20premium%20Pinapp%20590%E2%82%AC" class="btn btn-primary pinapp-breathe" style="margin-top:var(--space-3);">Je m'inscris</a>
+          <a href="mailto:lauralie.daguzay@pinapp.fr?subject=Pinapp%20%E2%80%94%20Programme%20complet%20%E2%80%94%20590%20%E2%82%AC" class="btn btn-primary pinapp-breathe" style="margin-top:var(--space-3);">Je m'inscris</a>
           <p style="font-size:var(--text-legal);opacity:0.45;margin-top:var(--space-2);">Prix HT · TVA non applicable art. 293B CGI · Places limitées</p>
         </div>
         <div style="text-align:center;margin-top:var(--space-6);padding:var(--space-5);background:var(--bg-card);border-radius:var(--radius-card);border:1px solid var(--border-card);">
@@ -606,15 +606,15 @@ const pages = [
         <div class="grid grid-3">
           <div class="card" style="opacity:0.4;border-style:dashed;">
             <div style="width:40px;height:40px;border-radius:50%;background:var(--border-card);margin-bottom:var(--space-2);"></div>
-            <p style="font-style:italic;font-size:14px;opacity:0.6;">Votre témoignage ici bientôt.</p>
+            <p style="font-style:italic;font-size:14px;opacity:0.6;">Votre témoignage ici.</p>
           </div>
           <div class="card" style="opacity:0.4;border-style:dashed;">
             <div style="width:40px;height:40px;border-radius:50%;background:var(--border-card);margin-bottom:var(--space-2);"></div>
-            <p style="font-style:italic;font-size:14px;opacity:0.6;">Votre témoignage ici bientôt.</p>
+            <p style="font-style:italic;font-size:14px;opacity:0.6;">Votre témoignage ici.</p>
           </div>
           <div class="card" style="opacity:0.4;border-style:dashed;">
             <div style="width:40px;height:40px;border-radius:50%;background:var(--border-card);margin-bottom:var(--space-2);"></div>
-            <p style="font-style:italic;font-size:14px;opacity:0.6;">Votre témoignage ici bientôt.</p>
+            <p style="font-style:italic;font-size:14px;opacity:0.6;">Votre témoignage ici.</p>
           </div>
         </div>
         <div style="text-align:center;margin-top:var(--space-6);">
@@ -760,7 +760,7 @@ const pages = [
         </div>
         <div class="card">
           <p class="label" style="margin-bottom:var(--space-2);">UNE QUESTION ?</p>
-          <a href="mailto:lauralie.daguzay@pinapp.fr" class="btn btn-primary">Envoyer un message</a>
+          <a href="mailto:lauralie.daguzay@pinapp.fr?subject=Pinapp%20%E2%80%94%20Espace%20client%20%E2%80%94%20question" class="btn btn-primary">Envoyer un message</a>
         </div>
       </div>
     </section>`,

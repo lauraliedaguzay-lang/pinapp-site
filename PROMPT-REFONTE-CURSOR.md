@@ -99,7 +99,7 @@ border-bottom: 1px solid var(--border);
 
 Contenu nav desktop :
 
-- Gauche : logo Pinapp (ananas outline teal + wordmark Inter 300)
+- Gauche : logo Pinapp officiel (favicon.svg / pinapp-logo.png + wordmark Inter 300)
 - Centre : 4 liens uniquement : Services - Demos - Auralis - Contact
   font-size: 0.875rem; color: var(--text-muted); letter-spacing: 0.02em
   Underline teal qui se dessine gauche-droite au hover (200ms)
@@ -166,11 +166,11 @@ Contenu hero :
    Mot "pret" en couleur var(--teal) avec shimmer anime :
    @keyframes shimmer { 0%,100%{opacity:1} 50%{opacity:0.6} }
    animation: shimmer 3s ease-in-out infinite;
-3. Baseline : "Je pense le systeme. Je le construis. Vous recoltez."
+3. Baseline : "Nous pensons le systeme. Nous le construisons. Vous recoltez."
    font-size: 1.25rem; color: var(--text-muted); font-weight: 300
 4. Sous-ligne : "30 minutes. 3 opportunites. Zero engagement."
    font-size: 0.875rem; color: var(--text-muted); letter-spacing: 0.04em
-5. Micro-ligne : "Lauralie -- Fondatrice Pinapp - Conceptrice d'Auralis RH"
+5. Micro-ligne : "Pinapp -- notre studio : Lauralie & Michaël · stratégie, code & image"
    font-size: 0.75rem; color: var(--text-muted); opacity: 0.6
 6. CTAs :
    Principal : bouton pill fond var(--violet) "Diagnostic offert -- 30 min" -> /diagnostic/index.html
@@ -190,7 +190,7 @@ Scroll indicator : chevron anime bounce lent en bas, disparait apres 3s
 BLOC 7 -- SECTION SERVICES
 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
-Titre section : "Ce que je construis"
+Titre section : "Ce que nous construisons"
 Label : "SERVICES"
 
 3 cartes glassmorphism cote a cote desktop / stack mobile :
@@ -253,7 +253,7 @@ Badge "Contenu illustratif" en 9px sous le mockup
 DEMO 3 -- Chatbot commercial dans mockup iPhone :
 Mockup iPhone CSS pur : bords arrondis, notch, home indicator
 Interface chat avec bulles :
-Bot : "Bonjour, comment puis-je vous aider ?"
+Bot : "Bonjour, comment pouvons-nous vous aider ?"
 User : "Je perds trop de temps a relancer mes clients"
 Bot (apres typing indicator 800ms) : "Combien de relances faites-vous par semaine ?"
 User : "Une vingtaine"
@@ -331,7 +331,7 @@ Transition "On y est presque." puis Q4
 Q4 : "Une idee du budget ?"
 4 pills : "-1000" | "1000-3000" | "3000+" | "A definir ensemble"
 
-Fin : "C'est tout. Je vous reponds sous 24h." + checkmark SVG anime var(--green)
+Fin : "C'est tout. Nous vous repondons sous 24h." + checkmark SVG anime var(--green)
 Envoi via fetch POST vers webhook Make (placeholder URL a remplacer) ou fallback mailto:lauralie.daguzay@pinapp.fr
 
 Mention RGPD sous le formulaire 9px :
@@ -352,7 +352,7 @@ Titre : "Deux expertises. Un standard."
 Carte Lauralie :
 Photo : assets/images/lauralie.png (existante)
 "Lauralie Daguzay"
-"Fondatrice Pinapp - Conceptrice d'Auralis RH"
+"Pinapp — notre studio : Lauralie & Michaël · stratégie, code & image"
 "Strategie, ingenierie digitale, IA"
 
 Carte Micha :
@@ -391,7 +391,7 @@ BLOC 14 -- FOOTER
 Fond var(--bg-card); border-top: 1px solid var(--border); padding: 3rem 0 2rem
 
 Structure :
-Gauche : Logo Pinapp + baseline "Je pense le systeme. Je le construis. Vous recoltez."
+Gauche : Logo Pinapp + baseline "Nous pensons le systeme. Nous le construisons. Vous recoltez."
 Centre : Liens : Services - Demos - Auralis - Diagnostic
 Droite : LinkedIn (https://linkedin.com/in/lauralie-daguzay-4a4542197/) + lauralie.daguzay@pinapp.fr
 

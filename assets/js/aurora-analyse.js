@@ -6,6 +6,22 @@
    Mettre features.auroraAnalyseIA = true quand n8n est branché.
    ===================================================== */
 
+function _auroraHtmlEscape(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;');
+}
+
+/** Texte API / n8n : sûr pour innerHTML (sauts de ligne + numéros stylés). */
+function _auroraFormatResultHtml(text) {
+  return _auroraHtmlEscape(text)
+    .replace(/\n/g, '<br>')
+    .replace(/[①②③④⑤]/g, (m) => `<span class="aurora-num">${m}</span>`);
+}
+
 const AuroraAnalyse = {
   /* Fallback local — réponses pertinentes sans API */
   _localResponse(activite) {
@@ -92,19 +108,20 @@ const AuroraAnalyse = {
       }
     }
 
-    /* Affichage lettre par lettre */
-    result.innerHTML = '';
+    /* Affichage lettre par lettre — texte brut (pas d’HTML injecté par l’API) */
+    result.style.whiteSpace = 'pre-line';
+    result.textContent = '';
     let i = 0;
     const type = setInterval(() => {
       if (i < text.length) {
-        result.innerHTML = text
-          .slice(0, i + 1)
-          .replace(/\n/g, '<br>')
-          .replace(/[①②③④⑤]/g, (m) => `<span class="aurora-num">${m}</span>`);
+        result.textContent = text.slice(0, i + 1);
         i++;
       } else {
         clearInterval(type);
-        result.innerHTML += `<br><br>
+        result.style.whiteSpace = '';
+        result.innerHTML =
+          _auroraFormatResultHtml(text) +
+          `<br><br>
           <a href="diagnostic/index.html"
             class="btn btn-primary aurora-cta"
             style="display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:12px 24px;font-size:14px;">

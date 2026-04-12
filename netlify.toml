@@ -1,5 +1,24 @@
-﻿[build]
+[build]
   functions = "netlify/functions"
+
+# Forcer HTTPS + canonique sans www (évite « Non sécurisé » sur http:// ou www)
+[[redirects]]
+  from = "http://pinapp.fr/*"
+  to = "https://pinapp.fr/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.pinapp.fr/*"
+  to = "https://pinapp.fr/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.pinapp.fr/*"
+  to = "https://pinapp.fr/:splat"
+  status = 301
+  force = true
 
 [[redirects]]
   from = "/formation/"
@@ -21,7 +40,7 @@
     Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
     Cross-Origin-Opener-Policy = "same-origin"
     Cross-Origin-Resource-Policy = "cross-origin"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://assets.calendly.com https://plausible.io; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https:; connect-src 'self' https://plausible.io https://*.n8n.cloud; frame-src https://calendly.com 'self'; frame-ancestors 'none'"
+    Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests; script-src 'self' 'unsafe-inline' https://assets.calendly.com https://plausible.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.bunny.net; font-src 'self' data: https://fonts.gstatic.com https://fonts.bunny.net; img-src 'self' data: https:; connect-src 'self' https://plausible.io https://calendly.com https://*.n8n.cloud https://*.make.com; frame-src https://calendly.com 'self'; frame-ancestors 'none'; form-action 'self'"
 
 [[headers]]
   for = "/assets/*"
@@ -35,5 +54,10 @@
 
 [[headers]]
   for = "/dashboard/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/interne/*"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"

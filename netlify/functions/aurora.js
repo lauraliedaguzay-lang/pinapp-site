@@ -5,11 +5,20 @@ exports.handler = async (event) => {
   const headers = {
     'Access-Control-Allow-Origin': 'https://pinapp.fr',
     'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Content-Type': 'application/json',
   };
 
   if (event.httpMethod === 'OPTIONS') {
     return { statusCode: 200, headers, body: '' };
+  }
+
+  if (!process.env.ANTHROPIC_API_KEY) {
+    return {
+      statusCode: 503,
+      headers,
+      body: JSON.stringify({ error: 'Service indisponible' }),
+    };
   }
 
   if (event.httpMethod !== 'POST') {
@@ -32,7 +41,7 @@ exports.handler = async (event) => {
   }
 
   const { activite } = body;
-  if (!activite || activite.length > 300) {
+  if (typeof activite !== 'string' || !activite.trim() || activite.length > 300) {
     return {
       statusCode: 400,
       headers,

@@ -12,25 +12,37 @@
 }
 
 /* ══════════════════════════════════════════
-   MODE JOUR — masquage ciblé
-   .pandora-shapes reste visible (géré par pandora-jour.css)
-   Orbes, étoiles, nuages = night-only
+   MODE JOUR — étoiles masquées ; orbes + nuages actifs (halos doux animés)
 ══════════════════════════════════════════ */
-body.mode-jour .pandora-orbs,
-html[data-theme='light'] .pandora-orbs,
 body.mode-jour .pandora-stars,
-html[data-theme='light'] .pandora-stars,
-body.mode-jour .pandora-clouds,
-html[data-theme='light'] .pandora-clouds {
+html[data-theme='light'] .pandora-stars {
   display: none;
 }
 
-/* Grille jour : même « structure » que la nuit, teintes canopée (jade + ambre) */
+/* Grille jour — lignes teal / indigo + dérive lente */
 body.mode-jour .holo-grid,
 html[data-theme='light'] .holo-grid {
   background-image:
-    linear-gradient(rgba(25, 155, 125, 0.038) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(195, 125, 35, 0.028) 1px, transparent 1px);
+    linear-gradient(rgba(15, 118, 110, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79, 70, 229, 0.05) 1px, transparent 1px);
+  background-size: 72px 72px;
+  opacity: 0.55;
+  animation:
+    grid-breathe 11s ease-in-out infinite,
+    holo-grid-drift-jour 42s ease-in-out infinite;
+}
+
+@keyframes holo-grid-drift-jour {
+  0%,
+  100% {
+    background-position: 0 0, 0 0;
+  }
+  33% {
+    background-position: 48px 28px, -32px 20px;
+  }
+  66% {
+    background-position: -24px 52px, 40px -16px;
+  }
 }
 
 /* ══════════════════════════════════════════
@@ -107,7 +119,76 @@ body:not(.mode-jour) .orb-4 {
   animation: orb-1 21s ease-in-out infinite -9s reverse; /* 6× 3.5s */
 }
 
-/* Jour : orbes désactivées — pandora-jour.css gère les effets jour */
+/* ── JOUR — orbes volumétriques (même moteur d’animation que la nuit) ── */
+body.mode-jour .pandora-orbs,
+html[data-theme='light'] .pandora-orbs {
+  mix-blend-mode: multiply;
+  opacity: 0.92;
+}
+
+body.mode-jour .orb-1,
+html[data-theme='light'] .orb-1 {
+  width: 68vw;
+  height: 58vh;
+  background: radial-gradient(
+    ellipse,
+    rgba(15, 118, 110, 0.22) 0%,
+    rgba(100, 180, 200, 0.1) 48%,
+    transparent 72%
+  );
+  bottom: -14%;
+  left: -12%;
+  filter: blur(58px);
+  animation: orb-1 16s ease-in-out infinite;
+}
+
+body.mode-jour .orb-2,
+html[data-theme='light'] .orb-2 {
+  width: 58vw;
+  height: 52vh;
+  background: radial-gradient(
+    ellipse,
+    rgba(99, 102, 241, 0.14) 0%,
+    rgba(45, 160, 180, 0.12) 50%,
+    transparent 72%
+  );
+  top: -12%;
+  right: -12%;
+  filter: blur(58px);
+  animation: orb-2 19s ease-in-out infinite -3s;
+}
+
+body.mode-jour .orb-3,
+html[data-theme='light'] .orb-3 {
+  width: 48vw;
+  height: 44vh;
+  background: radial-gradient(
+    ellipse,
+    rgba(20, 184, 166, 0.2) 0%,
+    rgba(125, 180, 220, 0.1) 52%,
+    transparent 72%
+  );
+  top: 28%;
+  left: 18%;
+  filter: blur(68px);
+  animation: orb-3 14s ease-in-out infinite -5s;
+}
+
+body.mode-jour .orb-4,
+html[data-theme='light'] .orb-4 {
+  width: 38vw;
+  height: 36vh;
+  background: radial-gradient(
+    ellipse,
+    rgba(129, 140, 248, 0.12) 0%,
+    rgba(15, 118, 110, 0.14) 50%,
+    transparent 74%
+  );
+  bottom: 18%;
+  right: 4%;
+  filter: blur(72px);
+  animation: orb-1 22s ease-in-out infinite -8s reverse;
+}
 
 @keyframes orb-1 {
   0%,
@@ -230,7 +311,8 @@ body.mode-jour .pandora-stars {
   transition: opacity 600ms ease;
   pointer-events: none;
 }
-body.mode-jour .pandora-clouds {
+body.mode-jour .pandora-clouds,
+html[data-theme='light'] .pandora-clouds {
   opacity: 1;
 }
 
@@ -239,6 +321,12 @@ body.mode-jour .pandora-clouds {
   border-radius: 50%;
   filter: blur(60px);
   background: rgba(255, 248, 240, 0.18);
+}
+
+body.mode-jour .cloud,
+html[data-theme='light'] .cloud {
+  background: rgba(255, 255, 255, 0.45);
+  filter: blur(56px);
 }
 .cloud-1 {
   width: 50vw;
@@ -271,21 +359,23 @@ body.mode-jour .pandora-clouds {
 }
 
 /* ══════════════════════════════════════════
-   TURBULENCE JOUR — Ikran bat des ailes
+   TURBULENCE JOUR — léger souffle (mobile inclus)
 ══════════════════════════════════════════ */
-body.mode-jour #pandora-world {
-  animation: ikran 14s ease-in-out infinite;
+body.mode-jour #pandora-world,
+html[data-theme='light'] #pandora-world {
+  animation: ikran-jour 18s ease-in-out infinite;
 }
-@keyframes ikran {
+
+@keyframes ikran-jour {
   0%,
   100% {
-    transform: translateY(0);
+    transform: translate(0, 0);
   }
-  25% {
-    transform: translateY(-3px);
+  33% {
+    transform: translate(2px, -4px);
   }
-  75% {
-    transform: translateY(3px);
+  66% {
+    transform: translate(-3px, 3px);
   }
 }
 
@@ -303,12 +393,7 @@ body.mode-jour #pandora-world {
   opacity: 0.44;
   animation: grid-breathe 9s ease-in-out infinite;
 }
-body.mode-jour .holo-grid {
-  background-image:
-    linear-gradient(rgba(26, 10, 46, 0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(26, 10, 46, 0.015) 1px, transparent 1px);
-  opacity: 0.5;
-}
+/* .holo-grid jour : défini plus haut avec holo-grid-drift-jour */
 @keyframes grid-breathe {
   0%,
   100% {
@@ -324,39 +409,52 @@ body.mode-jour .holo-grid {
 ══════════════════════════════════════════ */
 
 @media (max-width: 767px) {
-  /* Désactiver turbulence */
-  body.mode-jour #pandora-world {
-    animation: none;
-  }
+  /* Turbulence jour conservée (ikran-jour) — mouvement léger sur mobile */
 
-  /* Orbes réduites */
-  .orb-1,
-  .orb-2 {
+  body:not(.mode-jour) .orb-1,
+  html:not([data-theme='light']) body .orb-1,
+  body:not(.mode-jour) .orb-2,
+  html:not([data-theme='light']) body .orb-2 {
     width: 300px !important;
     height: 300px !important;
   }
 
-  /* Désactiver les 2 orbes secondaires */
-  .orb-3,
-  .orb-4 {
+  body:not(.mode-jour) .orb-3,
+  html:not([data-theme='light']) body .orb-3,
+  body:not(.mode-jour) .orb-4,
+  html:not([data-theme='light']) body .orb-4 {
     display: none;
   }
 
-  /* Flou réduit */
-  .orb {
+  body.mode-jour .orb-3,
+  html[data-theme='light'] body .orb-3 {
+    opacity: 0.75;
+  }
+  body.mode-jour .orb-4,
+  html[data-theme='light'] body .orb-4 {
+    opacity: 0.65;
+  }
+
+  body:not(.mode-jour) .orb,
+  html:not([data-theme='light']) body .orb {
     filter: blur(50px) !important;
   }
 
-  /* Nuages réduits */
   .cloud {
-    width: 200px !important;
-    height: 100px !important;
+    max-width: 70vw;
   }
 }
 
 @media (max-width: 390px) {
-  .holo-grid {
+  /* Grille visible en jour (très légère) pour garder du mouvement */
+  body:not(.mode-jour) .holo-grid,
+  html:not([data-theme='light']) body .holo-grid {
     display: none;
+  }
+  body.mode-jour .holo-grid,
+  html[data-theme='light'] body .holo-grid {
+    opacity: 0.35;
+    background-size: 56px 56px;
   }
 }
 

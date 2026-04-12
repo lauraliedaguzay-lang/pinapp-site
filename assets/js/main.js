@@ -74,14 +74,21 @@
     armLoaderFailsafe();
   }
 
-  /* Scroll progress */
+  /* Scroll progress — id scroll-bar (spec refonte) ou ancien scrollProgress */
   window.addEventListener(
     'scroll',
     function () {
       var max = document.body.scrollHeight - window.innerHeight;
       var p = max > 0 ? window.scrollY / max : 0;
-      var bar = document.getElementById('scrollProgress');
-      if (bar) bar.style.transform = 'scaleX(' + Math.min(1, Math.max(0, p)) + ')';
+      var clamped = Math.min(1, Math.max(0, p));
+      var bar = document.getElementById('scroll-bar');
+      if (bar) {
+        bar.style.width = clamped * 100 + '%';
+        bar.style.transform = '';
+      } else {
+        var legacy = document.getElementById('scrollProgress');
+        if (legacy) legacy.style.transform = 'scaleX(' + clamped + ')';
+      }
     },
     { passive: true },
   );
@@ -125,6 +132,65 @@
   function revealHero() {
     var root = document.querySelector('[data-chapter="invitation"]');
     if (!root) return;
+
+    if (root.classList.contains('pinapp-hero-refonte')) {
+      if (prefersReducedMotion) {
+        root
+          .querySelectorAll(
+            '.refonte-hero-label, .refonte-hero-word, .refonte-hero-lead, .refonte-hero-sub, .refonte-hero-micro, .refonte-hero-ctas, .refonte-hero-scroll',
+          )
+          .forEach(function (el) {
+            el.classList.add('visible');
+          });
+        return;
+      }
+      var label = root.querySelector('.refonte-hero-label');
+      if (label) {
+        window.setTimeout(function () {
+          label.classList.add('visible');
+        }, 0);
+      }
+      root.querySelectorAll('.refonte-hero-word').forEach(function (w, i) {
+        window.setTimeout(
+          function () {
+            w.classList.add('visible');
+          },
+          200 + i * 60,
+        );
+      });
+      var lead = root.querySelector('.refonte-hero-lead');
+      if (lead) {
+        window.setTimeout(function () {
+          lead.classList.add('visible');
+        }, 600);
+      }
+      var sub = root.querySelector('.refonte-hero-sub');
+      if (sub) {
+        window.setTimeout(function () {
+          sub.classList.add('visible');
+        }, 800);
+      }
+      var micro = root.querySelector('.refonte-hero-micro');
+      if (micro) {
+        window.setTimeout(function () {
+          micro.classList.add('visible');
+        }, 900);
+      }
+      var ctas = root.querySelector('.refonte-hero-ctas');
+      if (ctas) {
+        window.setTimeout(function () {
+          ctas.classList.add('visible');
+        }, 1000);
+      }
+      var scrollInd = root.querySelector('.refonte-hero-scroll');
+      if (scrollInd) {
+        window.setTimeout(function () {
+          scrollInd.classList.add('visible');
+        }, 1100);
+      }
+      return;
+    }
+
     var els = root.querySelectorAll('.hero-el');
     var words = root.querySelectorAll('.hero-word');
     var delay = 0;
@@ -154,27 +220,29 @@
     revealHero();
   }
 
-  /* Thème clair / sombre (bouton nav + localStorage ; sinon réglage système) */
+  /* Thème : défaut dark (PROMPT-REFONTE) ; toggle conserve localStorage */
   function effectiveTheme() {
     var a = document.documentElement.getAttribute('data-theme');
     if (a === 'light' || a === 'dark') return a;
-    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    return 'dark';
   }
 
   function syncThemeColorMeta() {
     var m = document.getElementById('pinapp-theme-color');
     if (!m) return;
-    m.setAttribute('content', effectiveTheme() === 'light' ? '#FDF0F3' : '#050A14');
+    m.setAttribute('content', effectiveTheme() === 'light' ? '#E8EEF5' : '#050A14');
   }
 
   function setThemePreference(mode) {
     if (mode !== 'light' && mode !== 'dark') return;
     document.documentElement.setAttribute('data-theme', mode);
+    document.documentElement.setAttribute('data-mode', mode === 'light' ? 'jour' : 'nuit');
     /* Sync body classes pour les scripts JS (aurora, cursor, particles) */
     document.body.classList.toggle('mode-jour', mode === 'light');
     document.body.classList.toggle('mode-nuit', mode === 'dark');
     try {
       localStorage.setItem('pinapp-theme', mode);
+      localStorage.setItem('pinapp-mode', mode === 'light' ? 'jour' : 'nuit');
     } catch (e) {}
     syncThemeColorMeta();
     /* Dispatch pour aurora.js, cursor.js, particles.js */
@@ -184,6 +252,7 @@
   /* Sync initiale au chargement */
   (function syncBodyClassOnLoad() {
     var t = effectiveTheme();
+    document.documentElement.setAttribute('data-mode', t === 'light' ? 'jour' : 'nuit');
     document.body.classList.toggle('mode-jour', t === 'light');
     document.body.classList.toggle('mode-nuit', t === 'dark');
   })();
@@ -220,6 +289,24 @@
 
   bindThemeToggle();
 
+  /* Nav desktop — masquage au scroll (spec refonte BLOC 4) */
+  (function refonteDesktopNavScroll() {
+    if (!window.matchMedia('(min-width: 768px)').matches) return;
+    var nav = document.getElementById('mainNav');
+    if (!nav) return;
+    var lastY = 0;
+    window.addEventListener(
+      'scroll',
+      function () {
+        var y = window.scrollY;
+        if (y > lastY && y > 100) nav.style.transform = 'translateY(-100%)';
+        else nav.style.transform = 'translateY(0)';
+        lastY = y;
+      },
+      { passive: true },
+    );
+  })();
+
   /* Cookies RGPD */
   var cookieBanner = document.getElementById('cookie-banner');
   if (!localStorage.getItem('cookie-consent') && cookieBanner) {
@@ -230,12 +317,18 @@
   if (accept) {
     accept.addEventListener('click', function () {
       localStorage.setItem('cookie-consent', 'accepted');
+      if (typeof window.pinappLoadPlausibleIfConsented === 'function') {
+        window.pinappLoadPlausibleIfConsented();
+      }
       if (cookieBanner) cookieBanner.style.display = 'none';
     });
   }
   if (refuse) {
     refuse.addEventListener('click', function () {
       localStorage.setItem('cookie-consent', 'refused');
+      window.plausible = function () {};
+      var ps = document.querySelector('script[data-pinapp-plausible]');
+      if (ps && ps.parentNode) ps.parentNode.removeChild(ps);
       if (cookieBanner) cookieBanner.style.display = 'none';
     });
   }

@@ -5,6 +5,19 @@
    Pinapp Studio · 2026
    ===================================================== */
 
+function applyDemoCardPreviewImages() {
+  const map = window.PINAPP_DEMO_PREVIEW_URLS;
+  if (!map) return;
+  document.querySelectorAll('.demo-card-3d[data-preview]').forEach((card) => {
+    const key = card.getAttribute('data-preview');
+    const url = map[key];
+    const bg = card.querySelector('.demo-card-preview-bg');
+    if (!url || !bg) return;
+    const safe = String(url).replace(/'/g, '');
+    bg.style.backgroundImage = `url('${safe}')`;
+  });
+}
+
 class Carousel3D {
   constructor(el) {
     this.el = el;
@@ -371,6 +384,7 @@ class Carousel3D {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  applyDemoCardPreviewImages();
   const el = document.querySelector('.carousel-3d');
   if (!el) return;
   const carousel = new Carousel3D(el);

@@ -4,10 +4,11 @@ Options -Indexes
 # Évite les 403 sur hébergeurs qui ne résolvent pas index.html implicitement
 DirectoryIndex index.html
 
-# HTTPS forcé
+# HTTPS forcé (origine directe + derrière proxy CDN / Hostinger : X-Forwarded-Proto)
 RewriteEngine On
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # Compression Gzip
 <IfModule mod_deflate.c>
@@ -35,7 +36,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 # Webhooks (Make, Brevo, etc.) : ajoutez l’URL HTTPS exacte dans connect-src quand vous branchez les formulaires.
 # Durcir plus tard : nonces + externaliser la config démo → retirer 'unsafe-inline' pour script-src.
 <IfModule mod_headers.c>
-Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self' https://pinapp.fr; frame-src 'self'; script-src 'self' 'unsafe-inline' https://plausible.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://plausible.io; form-action 'self'; upgrade-insecure-requests;"
+Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self' https://pinapp.fr; frame-src 'self' https://calendly.com; script-src 'self' 'unsafe-inline' https://assets.calendly.com https://plausible.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.bunny.net; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com https://fonts.bunny.net; connect-src 'self' https://plausible.io https://calendly.com https://*.n8n.cloud https://*.make.com; form-action 'self'; upgrade-insecure-requests;"
 
 # APIs navigateur inutiles ici (réduit la surface)
 Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=()"
@@ -44,8 +45,8 @@ Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), 
 Header always set X-Content-Type-Options "nosniff"
 Header always set Referrer-Policy "strict-origin-when-cross-origin"
 Header always set X-Frame-Options "SAMEORIGIN"
-# Décommenter après validation HTTPS stable (sinon risque de bloquer des sous-domaines de test)
-# Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+# HSTS : le navigateur réutilise HTTPS (moins de http:// « non sécurisé »). Préload : soumission manuelle sur hstspreload.org si besoin.
+Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains"
 </IfModule>
 
 # 404 custom

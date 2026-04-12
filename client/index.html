@@ -17,7 +17,7 @@
     <link rel="preload" as="image" href="../assets/images/bg-dark-pandora-apple.png" fetchpriority="high" />
     <link rel="preload" as="image" href="../assets/images/bg-light-pandora-apple.png" />
     <meta charset="UTF-8" />
-    <meta name="theme-color" id="pinapp-theme-color" content="#020810" />
+    <meta name="theme-color" id="pinapp-theme-color" content="#0A0A0A" />
     <script src="../assets/js/theme-init.js" defer></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Votre espace — Pinapp</title>
@@ -26,7 +26,7 @@
     <meta name="googlebot" content="noindex, nofollow" />
     <meta property="og:title" content="Votre espace — Pinapp" />
     <meta property="og:description" content="Espace client Pinapp." />
-    <meta property="og:image" content="https://pinapp.fr/assets/images/og-home.png" />
+    <meta property="og:image" content="https://pinapp.fr/assets/images/og-pinapp-share.png" />
     <meta property="og:url" content="https://pinapp.fr/client/" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="fr_FR" />
@@ -179,19 +179,24 @@
     <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" role="dialog" aria-label="Menu" aria-modal="true">
       <div class="mobile-drawer-panel">
         <button type="button" id="drawerClose" aria-label="Fermer le menu">×</button>
-        <a href="../pourquoi-pinapp/index.html">Pourquoi Pinapp</a>
-        <a href="../comment-ca-marche/index.html">Comment ça marche</a>
-        <a href="../offres/index.html">Offres</a>
         <div class="nav-links">
+          <a href="../index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Accueil</a>
           <a href="../offres/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Offres</a>
-          <a href="../realisations/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Réalisations</a>
-          <a href="../a-propos/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">À propos</a>
+          <a href="../comment-ca-marche/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Comment &ccedil;a marche</a>
+          <a href="../pourquoi-pinapp/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Pourquoi Pinapp</a>
+          <a href="../confiance/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Confiance</a>
+          <a href="../expertise-ia/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Expertise IA</a>
+          <a href="../formation-gratuite/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Guide offert</a>
+          <a href="../offres/formation/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Formations payantes</a>
+          <a href="../realisations/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">R&eacute;alisations</a>
+          <a href="../a-propos/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">&Agrave; propos</a>
           <a href="../faq/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">FAQ</a>
           <a href="../auralis/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Auralis</a>
           <a href="../univers/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Univers</a>
+          <a href="../votre-projet/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Votre projet</a>
+          <a href="../client/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Espace client</a>
           <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px"
-            >Démarrer ma demande</a
-          >
+            >Diagnostic offert &mdash; par &eacute;crit</a>
         </div>
       </div>
     </div>
@@ -513,23 +518,22 @@
           if (wrap) wrap.classList.add('submitted');
           if (ok) ok.classList.add('visible');
 
-          // Optional: notify via n8n webhook
-          if (
-            window.PinappConfig &&
-            window.PinappConfig.webhooks &&
-            window.PinappConfig.features &&
-            window.PinappConfig.features.diagnosticWebhook
-          ) {
-            var url = window.PinappConfig.webhooks.diagnosticLead;
-            if (url) {
-              try {
-                fetch(url, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ source: 'idees-client', timestamp: new Date().toISOString() }),
-                });
-              } catch (e) {}
-            }
+          // Optionnel : même pipeline n8n que le diagnostic (routage par source)
+          if (window.PinappConfig && typeof window.PinappConfig.sendDiagnosticLead === 'function') {
+            var titreEl = document.getElementById('ideaTitre');
+            var descEl = document.getElementById('ideaDesc');
+            var typeEl = document.getElementById('ideaType');
+            var prioEl = document.getElementById('ideaPriorite');
+            window.PinappConfig.sendDiagnosticLead({
+              source: 'idees-client',
+              nom: titreEl ? titreEl.value.trim() : '',
+              email: '',
+              secteur: typeEl ? String(typeEl.value || '') : '',
+              besoin: descEl ? descEl.value.trim() : '',
+              situation: prioEl ? String(prioEl.value || '') : '',
+              budget: '',
+              message: '',
+            });
           }
         }
 

@@ -8,6 +8,17 @@
 
    FEATURE FLAGS : passez à true au fur et à mesure
    que vous activez les workflows n8n correspondants.
+
+   Cohérence pages (payload.source pour n8n) :
+   • diagnosticWebhook + diagnosticLead → /diagnostic/, /client/ (idées),
+     /votre-projet/ (source: votre-projet | idees-client | diagnostic)
+   • diagnosticClaudePrep → même formulaires que ci-dessus (prépa interne)
+   • onboardingWebhook + onboarding → main.js (newsletter / onboarding)
+   • leadWebhook + leadMagnet → formation-gratuite (liste d’attente)
+   • auroraAnalyseIA + auroraAnalyse → aurora-analyse.js (puis Netlify fn)
+   • auroraUniversIA + auroraUnivers → univers.js, univers-questionnaire.js
+   • whatsappNotifs + notifWhatsapp → univers.js après génération (notif interne)
+   • formApproval, projetSigne, demandeAvis → réservés n8n / Netlify (approve.js), pas fetch front direct
    ===================================================== */
 
 window.PinappConfig = {
@@ -73,40 +84,65 @@ window.PinappConfig = {
 
 /* Détection : webhook est-il une vraie URL ? */
 window.PinappConfig._isRealUrl = function (url) {
-  return url && !url.includes('[TON-N8N]') && url.startsWith('https://');
+  return (
+    url &&
+    typeof url === 'string' &&
+    url.startsWith('https://') &&
+    !url.includes('[TON-N8N]') &&
+    !url.includes('REPLACE')
+  );
 };
 
 /* Helper : déclencher le webhook diagnostic si activé */
+/** Questionnaire accueil (index refonte) → même schéma que fetch manuel dans refonte-home.js */
+window.PinappConfig.sendOnboardingLead = function (answers) {
+  var cfg = window.PinappConfig;
+  if (!cfg || !cfg.features || !cfg.features.onboardingWebhook || !cfg._isRealUrl(cfg.webhooks.onboarding)) {
+    return Promise.reject(new Error('onboarding webhook disabled'));
+  }
+  return fetch(cfg.webhooks.onboarding, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      source: 'pinapp-home-onboarding',
+      answers: answers,
+      timestamp: new Date().toISOString(),
+    }),
+  });
+};
+
 window.PinappConfig.sendDiagnosticLead = function (payload) {
   var cfg = window.PinappConfig;
-  if (cfg.features.diagnosticWebhook && cfg._isRealUrl(cfg.webhooks.diagnosticLead)) {
-    fetch(cfg.webhooks.diagnosticLead, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(
-        Object.assign({ source: 'diagnostic', timestamp: new Date().toISOString() }, payload),
-      ),
-    }).catch(function () {});
+  if (!cfg || !cfg.features || !cfg.features.diagnosticWebhook || !cfg._isRealUrl(cfg.webhooks.diagnosticLead)) {
+    return;
   }
+  fetch(cfg.webhooks.diagnosticLead, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(
+      Object.assign({ source: 'diagnostic', timestamp: new Date().toISOString() }, payload),
+    ),
+  }).catch(function () {});
 };
 
 /** Webhook optionnel : premier passage Claude / plan (n8n). Règle métier : pas d’email client automatique depuis ce flux. */
 window.PinappConfig.sendDiagnosticClaudePrep = function (payload) {
   var cfg = window.PinappConfig;
-  if (cfg.features.diagnosticClaudePrep && cfg._isRealUrl(cfg.webhooks.diagnosticClaudePrep)) {
-    fetch(cfg.webhooks.diagnosticClaudePrep, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(
-        Object.assign(
-          {
-            source: 'diagnostic',
-            intent: 'diagnostic-claude-prep',
-            timestamp: new Date().toISOString(),
-          },
-          payload,
-        ),
-      ),
-    }).catch(function () {});
+  if (!cfg || !cfg.features || !cfg.features.diagnosticClaudePrep || !cfg._isRealUrl(cfg.webhooks.diagnosticClaudePrep)) {
+    return;
   }
+  fetch(cfg.webhooks.diagnosticClaudePrep, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(
+      Object.assign(
+        {
+          source: 'diagnostic',
+          intent: 'diagnostic-claude-prep',
+          timestamp: new Date().toISOString(),
+        },
+        payload,
+      ),
+    ),
+  }).catch(function () {});
 };

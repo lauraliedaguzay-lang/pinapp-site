@@ -6,30 +6,37 @@
 
 const ModeToggle = {
   init() {
-    const saved = localStorage.getItem('pinapp-mode');
-    const dark = window.matchMedia('(prefers-color-scheme:dark)').matches;
-
-    // Priorité : sauvegarde > préférence système
-    if (saved === 'jour') this.setJour(false);
-    else if (saved === 'nuit') this.setNuit(false);
-    else if (dark) this.setNuit(false);
-    else this.setJour(false);
-
-    // Suivre le réglage système si pas de préférence sauvegardée
-    window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change', (e) => {
-      if (!localStorage.getItem('pinapp-mode'))
-        e.matches ? this.setNuit(false) : this.setJour(false);
-    });
-
-    // Bind uniquement si main.js n'est PAS chargé (main.js gère déjà le clic)
-    // main.js appelle classList.toggle('mode-jour') + dispatch modeChange
-    // Si les deux handlers tournent, ils s'annulent mutuellement
     const hasMain = !!document.querySelector('script[src*="main.js"]');
+
     if (!hasMain) {
+      const theme = localStorage.getItem('pinapp-theme');
+      const saved = localStorage.getItem('pinapp-mode');
+      const dark = window.matchMedia('(prefers-color-scheme:dark)').matches;
+
+      if (theme === 'light') this.setJour(false);
+      else if (theme === 'dark') this.setNuit(false);
+      else if (saved === 'jour') this.setJour(false);
+      else if (saved === 'nuit') this.setNuit(false);
+      else if (dark) this.setNuit(false);
+      else this.setJour(false);
+
       document
         .querySelectorAll('.mode-toggle')
         .forEach((b) => b.addEventListener('click', () => this.toggle()));
+    } else {
+      document.querySelectorAll('.mode-toggle').forEach((b) => {
+        b.setAttribute(
+          'aria-label',
+          this.current === 'jour' ? 'Passer en mode nuit' : 'Passer en mode jour',
+        );
+      });
     }
+
+    window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change', (e) => {
+      if (!localStorage.getItem('pinapp-theme') && !localStorage.getItem('pinapp-mode')) {
+        e.matches ? this.setNuit(false) : this.setJour(false);
+      }
+    });
 
     // Pulse discret 2s après le premier chargement
     setTimeout(() => {
@@ -55,12 +62,15 @@ const ModeToggle = {
     document.documentElement.setAttribute('data-theme', 'dark');
     document.documentElement.setAttribute('data-mode', 'nuit');
     localStorage.setItem('pinapp-mode', 'nuit');
+    try {
+      localStorage.setItem('pinapp-theme', 'dark');
+    } catch (e) {}
     document
       .querySelectorAll('.mode-toggle')
       .forEach((b) => b.setAttribute('aria-label', 'Passer en mode jour'));
     // Mettre à jour theme-color meta
     const meta = document.getElementById('pinapp-theme-color');
-    if (meta) meta.setAttribute('content', '#020810');
+    if (meta) meta.setAttribute('content', '#050A14');
     document.body.dispatchEvent(new Event('modeChange'));
     // Canvas aurora : visible
     const canvas = document.getElementById('pandora-canvas');
@@ -77,12 +87,15 @@ const ModeToggle = {
     document.documentElement.setAttribute('data-theme', 'light');
     document.documentElement.setAttribute('data-mode', 'jour');
     localStorage.setItem('pinapp-mode', 'jour');
+    try {
+      localStorage.setItem('pinapp-theme', 'light');
+    } catch (e) {}
     document
       .querySelectorAll('.mode-toggle')
       .forEach((b) => b.setAttribute('aria-label', 'Passer en mode nuit'));
     // Mettre à jour theme-color meta
     const meta = document.getElementById('pinapp-theme-color');
-    if (meta) meta.setAttribute('content', '#F8F0FF');
+    if (meta) meta.setAttribute('content', '#E8EEF5');
     document.body.dispatchEvent(new Event('modeChange'));
     // Canvas aurora : masqué en jour
     const canvas = document.getElementById('pandora-canvas');

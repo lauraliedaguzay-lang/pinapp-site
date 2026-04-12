@@ -2,15 +2,13 @@
    PANDORA JOUR OVERRIDE — Couche maître mode clair
    Chargée EN DERNIER — gagne sur toutes les autres feuilles.
 
-   PALETTE DYLAN COLE / AVATAR 3 — Aube sur Pandora
+   Palette jour unifiée (brume ardoise + teal + indigo)
    ─────────────────────────────────────────────────
-   #FBF5E8  Ivoire chaud (fond canopée)
-   #C87A08  Ambre Pandora (accent principal jour)
-   #1E9E80  Jade bioluminescent résiduel
-   #5B3FD8  Violet (CTA, liens actifs)
-   #1A0A2E  Encre sombre (texte principal)
-   rgba(255,252,245,0.88)  Verre chaud (cartes)
-   rgba(255,248,238,0.90)  Verre ivoire (nav)
+   #E8EEF5  Fond
+   #FFFFFF  Surfaces / cartes
+   #0F1729  Texte
+   #0F766E  Accent teal (liens, labels, hovers)
+   #4F46E5  Accent indigo (CTA forts, onglets actifs)
    ═══════════════════════════════════════════════════════════════ */
 
 /* ──────────────────────────────────────────────────────────────
@@ -18,56 +16,48 @@
    ────────────────────────────────────────────────────────────── */
 html[data-theme='light'],
 html[data-mode='jour'] {
-  /* Fixes la cascade des variables avant body */
-  --bg-primary: #fbf5e8;
-  --fond-actif: #fbf5e8;
+  --bg-primary: #e8eef5;
+  --fond-actif: #e8eef5;
   color-scheme: light;
 }
 
 body.mode-jour,
 html[data-theme='light'] body {
-  /* Fond */
-  --fond-jour: #fbf5e8;
-  --bg-primary: #fbf5e8;
-  background-color: #fbf5e8 !important;
+  --fond-jour: #e8eef5;
+  --bg-primary: #e8eef5;
+  background-color: #e8eef5 !important;
   color-scheme: light;
 
-  /* Texte */
-  --text: #1a0a2e;
-  --text-primary: #1a0a2e;
-  --text-2: rgba(26, 10, 46, 0.72);
-  --text-3: rgba(26, 10, 46, 0.5);
-  --text-4: rgba(26, 10, 46, 0.28);
-  color: #1a0a2e;
+  --text: #0f1729;
+  --text-primary: #0f1729;
+  --text-2: rgba(15, 23, 41, 0.72);
+  --text-3: rgba(15, 23, 41, 0.5);
+  --text-4: rgba(15, 23, 41, 0.28);
+  color: #0f1729;
 
-  /* Accents */
-  --teal: #1e9e80;
-  --accent-teal: #1e9e80;
-  --ambre: #c87a08;
-  --accent-ambre: #c87a08;
-  --violet: #5b3fd8;
-  --accent-violet: #5b3fd8;
-  --green: #2a9a5c;
+  --teal: #0f766e;
+  --accent-teal: #0f766e;
+  --ambre: #0f766e;
+  --accent-ambre: #0f766e;
+  --violet: #4f46e5;
+  --accent-violet: #4f46e5;
+  --green: #15803d;
 
-  /* Verre */
-  --glass: rgba(255, 252, 245, 0.82);
-  --glass-nav: rgba(255, 248, 238, 0.9);
-  --glass-card: rgba(255, 252, 245, 0.88);
+  --glass: rgba(255, 255, 255, 0.9);
+  --glass-nav: rgba(255, 255, 255, 0.95);
+  --glass-card: rgba(255, 255, 255, 0.92);
 
-  /* Bordures */
-  --border-card: rgba(0, 0, 0, 0.1);
-  --border-subtle: rgba(26, 10, 46, 0.07);
-  --c-divider: rgba(90, 60, 20, 0.15);
+  --border-card: rgba(15, 23, 41, 0.09);
+  --border-subtle: rgba(15, 23, 41, 0.06);
+  --c-divider: rgba(15, 23, 41, 0.1);
 
-  /* Ombres */
-  --shadow-md: 0 4px 20px rgba(26, 10, 46, 0.08), 0 1px 4px rgba(26, 10, 46, 0.05);
-  --shadow-lg: 0 12px 40px rgba(26, 10, 46, 0.1), 0 2px 8px rgba(26, 10, 46, 0.06);
-  --shadow-xl: 0 24px 64px rgba(26, 10, 46, 0.12), 0 4px 16px rgba(26, 10, 46, 0.07);
+  --shadow-md: 0 4px 20px rgba(15, 23, 41, 0.07), 0 1px 4px rgba(15, 23, 41, 0.04);
+  --shadow-lg: 0 12px 40px rgba(15, 23, 41, 0.09), 0 2px 8px rgba(15, 23, 41, 0.05);
+  --shadow-xl: 0 24px 64px rgba(15, 23, 41, 0.1), 0 4px 16px rgba(15, 23, 41, 0.06);
 
-  /* Glows */
-  --glow-teal: 0 0 20px rgba(30, 158, 128, 0.25), 0 0 40px rgba(30, 158, 128, 0.1);
-  --glow-violet: 0 0 20px rgba(91, 63, 216, 0.25), 0 0 40px rgba(91, 63, 216, 0.1);
-  --glow-ambre: 0 0 16px rgba(200, 122, 8, 0.3), 0 0 36px rgba(200, 122, 8, 0.12);
+  --glow-teal: 0 0 20px rgba(15, 118, 110, 0.22), 0 0 44px rgba(15, 118, 110, 0.08);
+  --glow-violet: 0 0 20px rgba(79, 70, 229, 0.2), 0 0 40px rgba(79, 70, 229, 0.08);
+  --glow-ambre: 0 0 16px rgba(15, 118, 110, 0.2), 0 0 32px rgba(15, 118, 110, 0.08);
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -75,25 +65,25 @@ html[data-theme='light'] body {
    ────────────────────────────────────────────────────────────── */
 body.mode-jour nav.nav,
 html[data-theme='light'] nav.nav {
-  background: rgba(255, 248, 238, 0.9) !important;
-  border-bottom: 1px solid rgba(200, 122, 8, 0.1) !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+  border-bottom: 1px solid rgba(15, 23, 41, 0.08) !important;
   box-shadow:
-    0 1px 0 rgba(255, 248, 238, 0.8),
-    var(--glass-shadow-sm, 0 2px 12px rgba(26, 10, 46, 0.06)) !important;
+    0 1px 0 rgba(255, 255, 255, 0.9),
+    var(--glass-shadow-sm, 0 2px 12px rgba(15, 23, 41, 0.06)) !important;
 }
 
 body.mode-jour .nav-logo,
 html[data-theme='light'] .nav-logo,
 body.mode-jour .nav-links a,
 html[data-theme='light'] .nav-links a {
-  color: #1a0a2e !important;
+  color: #0f1729 !important;
 }
 
 body.mode-jour .nav-links a:hover,
 html[data-theme='light'] .nav-links a:hover,
 body.mode-jour nav a.active,
 html[data-theme='light'] nav a.active {
-  color: var(--ambre, #c87a08) !important;
+  color: var(--ambre, #0f766e) !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -103,7 +93,7 @@ body.mode-jour .label,
 html[data-theme='light'] .label,
 body.mode-jour [class*='label-'],
 html[data-theme='light'] [class*='label-'] {
-  color: var(--ambre, #c87a08) !important;
+  color: var(--ambre, #0f766e) !important;
 }
 
 body.mode-jour .tag,
@@ -112,14 +102,14 @@ body.mode-jour .badge,
 html[data-theme='light'] .badge,
 body.mode-jour [class*='-tag']:not(.offre-tag),
 html[data-theme='light'] [class*='-tag']:not(.offre-tag) {
-  background: rgba(200, 122, 8, 0.1) !important;
-  color: #a06000 !important;
-  border-color: rgba(200, 122, 8, 0.2) !important;
+  background: rgba(15, 118, 110, 0.1) !important;
+  color: #115e59 !important;
+  border-color: rgba(15, 118, 110, 0.2) !important;
 }
 
 body.mode-jour .offre-secteur-tag,
 html[data-theme='light'] .offre-secteur-tag {
-  background: rgba(200, 122, 8, 0.1) !important;
+  background: rgba(15, 118, 110, 0.1) !important;
   color: #9a5a00 !important;
 }
 
@@ -140,13 +130,13 @@ body.mode-jour .tech-card,
 html[data-theme='light'] .tech-card,
 body.mode-jour .form-card,
 html[data-theme='light'] .form-card {
-  background: rgba(255, 252, 245, 0.88) !important;
-  border-color: rgba(200, 122, 8, 0.12) !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(15, 118, 110, 0.12) !important;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    0 8px 32px rgba(26, 10, 46, 0.08),
-    0 1px 4px rgba(26, 10, 46, 0.04) !important;
-  color: #1a0a2e !important;
+    0 8px 32px rgba(15, 23, 41, 0.08),
+    0 1px 4px rgba(15, 23, 41, 0.04) !important;
+  color: #0f1729 !important;
 }
 
 body.mode-jour .block:hover,
@@ -155,22 +145,22 @@ body.mode-jour .card:hover,
 html[data-theme='light'] .card:hover {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 16px 48px rgba(26, 10, 46, 0.1),
-    0 0 0 1px rgba(200, 122, 8, 0.16) !important;
+    0 16px 48px rgba(15, 23, 41, 0.1),
+    0 0 0 1px rgba(15, 118, 110, 0.16) !important;
 }
 
 /* Blocs colorés — variantes Pandora jour */
 body.mode-jour .block-cyan,
 html[data-theme='light'] .block-cyan {
   background:
-    linear-gradient(135deg, rgba(30, 158, 128, 0.1) 0%, transparent 60%), rgba(235, 255, 250, 0.88) !important;
-  border-color: rgba(30, 158, 128, 0.2) !important;
+    linear-gradient(135deg, rgba(15, 118, 110, 0.1) 0%, transparent 60%), rgba(236, 253, 245, 0.92) !important;
+  border-color: rgba(15, 118, 110, 0.2) !important;
 }
 body.mode-jour .block-violet,
 html[data-theme='light'] .block-violet {
   background:
-    linear-gradient(135deg, rgba(91, 63, 216, 0.09) 0%, transparent 60%), rgba(248, 242, 255, 0.88) !important;
-  border-color: rgba(91, 63, 216, 0.18) !important;
+    linear-gradient(135deg, rgba(79, 70, 229, 0.08) 0%, transparent 60%), rgba(245, 243, 255, 0.92) !important;
+  border-color: rgba(79, 70, 229, 0.16) !important;
 }
 body.mode-jour .block-vert,
 html[data-theme='light'] .block-vert {
@@ -181,8 +171,8 @@ html[data-theme='light'] .block-vert {
 body.mode-jour .block-ambre,
 html[data-theme='light'] .block-ambre {
   background:
-    linear-gradient(135deg, rgba(200, 122, 8, 0.12) 0%, transparent 60%), rgba(255, 248, 230, 0.88) !important;
-  border-color: rgba(200, 122, 8, 0.2) !important;
+    linear-gradient(135deg, rgba(15, 118, 110, 0.12) 0%, transparent 60%), rgba(255, 248, 230, 0.88) !important;
+  border-color: rgba(15, 118, 110, 0.2) !important;
 }
 body.mode-jour .block-or,
 html[data-theme='light'] .block-or {
@@ -198,7 +188,7 @@ html[data-theme='light'] .block-rose {
 }
 body.mode-jour .block-neutre,
 html[data-theme='light'] .block-neutre {
-  background: rgba(255, 252, 245, 0.88) !important;
+  background: rgba(255, 255, 255, 0.9) !important;
   border-color: rgba(0, 0, 0, 0.1) !important;
 }
 
@@ -207,7 +197,7 @@ html[data-theme='light'] .block-neutre {
    ────────────────────────────────────────────────────────────── */
 body.mode-jour section,
 html[data-theme='light'] section {
-  color: #1a0a2e;
+  color: #0f1729;
 }
 
 /* Sections avec fonds sombres explicites → transparents en mode-jour */
@@ -225,7 +215,7 @@ body.mode-jour .section-alt,
 html[data-theme='light'] .section-alt,
 body.mode-jour .bg-alt,
 html[data-theme='light'] .bg-alt {
-  background: rgba(244, 238, 224, 0.5) !important;
+  background: rgba(232, 238, 245, 0.65) !important;
 }
 
 /* Pipeline / Étapes */
@@ -249,7 +239,7 @@ html[data-theme='light'] h1,
 html[data-theme='light'] h2,
 html[data-theme='light'] h3,
 html[data-theme='light'] h4 {
-  color: #1a0a2e !important;
+  color: #0f1729 !important;
 }
 
 body.mode-jour p,
@@ -258,7 +248,7 @@ body.mode-jour span,
 html[data-theme='light'] p,
 html[data-theme='light'] li,
 html[data-theme='light'] span {
-  color: rgba(26, 10, 46, 0.82);
+  color: rgba(15, 23, 41, 0.82);
 }
 
 body.mode-jour .hero-titre,
@@ -267,14 +257,14 @@ body.mode-jour [class*='-title'],
 html[data-theme='light'] .hero-titre,
 html[data-theme='light'] [class*='-titre'],
 html[data-theme='light'] [class*='-title'] {
-  color: #1a0a2e !important;
+  color: #0f1729 !important;
 }
 
 body.mode-jour .hero-sous-titre,
 body.mode-jour [class*='-sous-titre'],
 body.mode-jour [class*='-subtitle'],
 html[data-theme='light'] .hero-sous-titre {
-  color: rgba(26, 10, 46, 0.7) !important;
+  color: rgba(15, 23, 41, 0.7) !important;
 }
 
 /* Accent de texte teal / ambre */
@@ -289,7 +279,7 @@ html[data-theme='light'] .text-teal {
 body.mode-jour .text-ambre,
 body.mode-jour [class*='-ambre'],
 html[data-theme='light'] .text-ambre {
-  color: #c87a08 !important;
+  color: #0f766e !important;
 }
 
 /* Accent hero jour : gradient défini dans apple-finish.css (ne pas écraser) */
@@ -299,37 +289,37 @@ html[data-theme='light'] .text-ambre {
    ────────────────────────────────────────────────────────────── */
 body.mode-jour .btn-primary,
 html[data-theme='light'] .btn-primary {
-  background: linear-gradient(135deg, #5b3fd8 0%, #7b5fe8 100%) !important;
+  background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%) !important;
   color: #ffffff !important;
   box-shadow:
-    0 4px 20px rgba(91, 63, 216, 0.3),
-    0 1px 4px rgba(91, 63, 216, 0.15) !important;
+    0 4px 20px rgba(15, 118, 110, 0.28),
+    0 1px 4px rgba(15, 118, 110, 0.12) !important;
 }
 body.mode-jour .btn-primary:hover,
 html[data-theme='light'] .btn-primary:hover {
   box-shadow:
-    0 8px 32px rgba(91, 63, 216, 0.4),
-    0 2px 8px rgba(91, 63, 216, 0.2) !important;
+    0 8px 32px rgba(15, 118, 110, 0.35),
+    0 2px 8px rgba(15, 118, 110, 0.18) !important;
   transform: translateY(-2px) scale(1.02) !important;
 }
 
 body.mode-jour .btn-secondary,
 html[data-theme='light'] .btn-secondary {
-  background: rgba(255, 252, 245, 0.8) !important;
-  color: #1a0a2e !important;
-  border: 1px solid rgba(200, 122, 8, 0.22) !important;
-  box-shadow: 0 2px 12px rgba(26, 10, 46, 0.07) !important;
+  background: rgba(255, 255, 255, 0.88) !important;
+  color: #0f1729 !important;
+  border: 1px solid rgba(15, 118, 110, 0.22) !important;
+  box-shadow: 0 2px 12px rgba(15, 23, 41, 0.07) !important;
 }
 body.mode-jour .btn-secondary:hover,
 html[data-theme='light'] .btn-secondary:hover {
-  background: rgba(255, 252, 245, 0.95) !important;
-  border-color: rgba(200, 122, 8, 0.35) !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-color: rgba(15, 118, 110, 0.35) !important;
 }
 
 /* Bouton ambre (CTA secondaire jour) */
 body.mode-jour .btn-ambre,
 html[data-theme='light'] .btn-ambre {
-  background: linear-gradient(135deg, #c87a08 0%, #e09010 100%) !important;
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%) !important;
   color: #ffffff !important;
 }
 
@@ -343,18 +333,18 @@ body.mode-jour [class*='-pill'],
 html[data-theme='light'] .pill,
 html[data-theme='light'] .filtre-pill,
 html[data-theme='light'] [class*='-pill'] {
-  background: rgba(255, 248, 230, 0.8) !important;
-  color: rgba(26, 10, 46, 0.7) !important;
-  border-color: rgba(200, 122, 8, 0.15) !important;
+  background: rgba(238, 242, 252, 0.85) !important;
+  color: rgba(15, 23, 41, 0.7) !important;
+  border-color: rgba(15, 118, 110, 0.15) !important;
 }
 body.mode-jour .pill.selected,
 body.mode-jour .filtre-pill.selected,
 body.mode-jour [class*='-pill'].active,
 html[data-theme='light'] .pill.selected,
 html[data-theme='light'] .filtre-pill.selected {
-  background: rgba(200, 122, 8, 0.14) !important;
-  color: #8a5000 !important;
-  border-color: rgba(200, 122, 8, 0.3) !important;
+  background: rgba(15, 118, 110, 0.14) !important;
+  color: #115e59 !important;
+  border-color: rgba(15, 118, 110, 0.3) !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -366,16 +356,16 @@ body.mode-jour select,
 html[data-theme='light'] input,
 html[data-theme='light'] textarea,
 html[data-theme='light'] select {
-  background: rgba(255, 252, 245, 0.9) !important;
+  background: rgba(255, 255, 255, 0.92) !important;
   border-color: rgba(0, 0, 0, 0.14) !important;
-  color: #1a0a2e !important;
+  color: #0f1729 !important;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05) !important;
 }
 body.mode-jour input::placeholder,
 body.mode-jour textarea::placeholder,
 html[data-theme='light'] input::placeholder,
 html[data-theme='light'] textarea::placeholder {
-  color: rgba(26, 10, 46, 0.35) !important;
+  color: rgba(15, 23, 41, 0.35) !important;
 }
 body.mode-jour input:focus,
 body.mode-jour textarea:focus,
@@ -383,7 +373,7 @@ body.mode-jour select:focus,
 html[data-theme='light'] input:focus,
 html[data-theme='light'] textarea:focus,
 html[data-theme='light'] select:focus {
-  border-color: rgba(200, 122, 8, 0.4) !important;
+  border-color: rgba(15, 118, 110, 0.4) !important;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04) !important;
   outline: none !important;
 }
@@ -393,18 +383,18 @@ body.mode-jour select:focus-visible,
 html[data-theme='light'] input:focus-visible,
 html[data-theme='light'] textarea:focus-visible,
 html[data-theme='light'] select:focus-visible {
-  border-color: rgba(200, 122, 8, 0.45) !important;
+  border-color: rgba(15, 118, 110, 0.45) !important;
   box-shadow:
     inset 0 1px 3px rgba(0, 0, 0, 0.04),
-    0 0 0 3px rgba(200, 122, 8, 0.14),
-    0 0 16px rgba(200, 122, 8, 0.08) !important;
+    0 0 0 3px rgba(15, 118, 110, 0.14),
+    0 0 16px rgba(15, 118, 110, 0.08) !important;
   outline: none !important;
 }
 
 /* Labels de formulaires */
 body.mode-jour label,
 html[data-theme='light'] label {
-  color: rgba(26, 10, 46, 0.75) !important;
+  color: rgba(15, 23, 41, 0.75) !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -412,23 +402,23 @@ html[data-theme='light'] label {
    ────────────────────────────────────────────────────────────── */
 body.mode-jour .bottom-bar,
 html[data-theme='light'] .bottom-bar {
-  background: rgba(255, 248, 238, 0.92) !important;
-  border-top: 1px solid rgba(200, 122, 8, 0.12) !important;
+  background: rgba(255, 255, 255, 0.94) !important;
+  border-top: 1px solid rgba(15, 23, 41, 0.08) !important;
   box-shadow:
-    0 -1px 0 rgba(255, 255, 255, 0.8),
-    0 -4px 20px rgba(26, 10, 46, 0.06) !important;
+    0 -1px 0 rgba(255, 255, 255, 0.9),
+    0 -4px 20px rgba(15, 23, 41, 0.06) !important;
 }
 body.mode-jour .bottom-bar a,
 body.mode-jour .bottom-bar button,
 html[data-theme='light'] .bottom-bar a,
 html[data-theme='light'] .bottom-bar button {
-  color: rgba(26, 10, 46, 0.55) !important;
+  color: rgba(15, 23, 41, 0.55) !important;
 }
 body.mode-jour .bottom-bar a.active,
 body.mode-jour .bottom-bar .active,
 html[data-theme='light'] .bottom-bar a.active,
 html[data-theme='light'] .bottom-bar .active {
-  color: #c87a08 !important;
+  color: #0f766e !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -438,19 +428,19 @@ body.mode-jour .site-footer,
 body.mode-jour footer,
 html[data-theme='light'] .site-footer,
 html[data-theme='light'] footer {
-  background: rgba(244, 238, 224, 0.8) !important;
-  border-top: 1px solid rgba(200, 122, 8, 0.12) !important;
-  color: rgba(26, 10, 46, 0.65) !important;
+  background: rgba(232, 238, 245, 0.88) !important;
+  border-top: 1px solid rgba(15, 118, 110, 0.12) !important;
+  color: rgba(15, 23, 41, 0.65) !important;
 }
 body.mode-jour .site-footer a,
 html[data-theme='light'] .site-footer a,
 body.mode-jour footer a,
 html[data-theme='light'] footer a {
-  color: rgba(26, 10, 46, 0.6) !important;
+  color: rgba(15, 23, 41, 0.6) !important;
 }
 body.mode-jour .site-footer a:hover,
 html[data-theme='light'] .site-footer a:hover {
-  color: #c87a08 !important;
+  color: #0f766e !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -462,14 +452,14 @@ body.mode-jour .separator,
 html[data-theme='light'] .separator,
 body.mode-jour .section-separator,
 html[data-theme='light'] .section-separator {
-  border-color: rgba(90, 60, 20, 0.12) !important;
-  background: linear-gradient(90deg, transparent, rgba(200, 122, 8, 0.2), transparent) !important;
+  border-color: rgba(15, 23, 41, 0.12) !important;
+  background: linear-gradient(90deg, transparent, rgba(15, 118, 110, 0.2), transparent) !important;
 }
 
 body.mode-jour .section-separator-dot,
 html[data-theme='light'] .section-separator-dot {
-  background: rgba(200, 122, 8, 0.4) !important;
-  box-shadow: 0 0 8px rgba(200, 122, 8, 0.3) !important;
+  background: rgba(15, 118, 110, 0.4) !important;
+  box-shadow: 0 0 8px rgba(15, 118, 110, 0.3) !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -497,11 +487,11 @@ html[data-theme='light'] .pandora-stars {
    ────────────────────────────────────────────────────────────── */
 body.mode-jour .scroll-indicator,
 html[data-theme='light'] .scroll-indicator {
-  border-color: rgba(200, 122, 8, 0.3) !important;
+  border-color: rgba(15, 118, 110, 0.3) !important;
 }
 body.mode-jour .scroll-chevron,
 html[data-theme='light'] .scroll-chevron {
-  color: rgba(200, 122, 8, 0.6) !important;
+  color: rgba(15, 118, 110, 0.6) !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -509,12 +499,12 @@ html[data-theme='light'] .scroll-chevron {
    ────────────────────────────────────────────────────────────── */
 body.mode-jour ::selection,
 html[data-theme='light'] ::selection {
-  background: rgba(200, 122, 8, 0.18) !important;
-  color: #1a0a2e !important;
+  background: rgba(15, 118, 110, 0.18) !important;
+  color: #0f1729 !important;
 }
 body.mode-jour *::-webkit-scrollbar-thumb,
 html[data-theme='light'] *::-webkit-scrollbar-thumb {
-  background: rgba(200, 122, 8, 0.22) !important;
+  background: rgba(15, 118, 110, 0.22) !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -526,14 +516,14 @@ body.mode-jour .stat-number,
 html[data-theme='light'] .stat-number,
 body.mode-jour .counter,
 html[data-theme='light'] .counter {
-  color: #c87a08 !important;
-  text-shadow: 0 0 16px rgba(200, 122, 8, 0.25) !important;
+  color: #0f766e !important;
+  text-shadow: 0 0 16px rgba(15, 118, 110, 0.25) !important;
 }
 body.mode-jour [data-count].counting,
 html[data-theme='light'] [data-count].counting {
   text-shadow:
-    0 0 24px rgba(200, 122, 8, 0.4),
-    0 0 48px rgba(200, 122, 8, 0.2) !important;
+    0 0 24px rgba(15, 118, 110, 0.4),
+    0 0 48px rgba(15, 118, 110, 0.2) !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -541,15 +531,15 @@ html[data-theme='light'] [data-count].counting {
    ────────────────────────────────────────────────────────────── */
 body.mode-jour .mobile-drawer-panel,
 html[data-theme='light'] .mobile-drawer-panel {
-  background: rgba(255, 250, 242, 0.96) !important;
-  border-color: rgba(200, 122, 8, 0.1) !important;
+  background: rgba(255, 255, 255, 0.97) !important;
+  border-color: rgba(15, 118, 110, 0.1) !important;
 }
 
 body.mode-jour #cookie-banner,
 html[data-theme='light'] #cookie-banner {
-  background: rgba(255, 250, 242, 0.96) !important;
-  color: #1a0a2e !important;
-  border-color: rgba(200, 122, 8, 0.12) !important;
+  background: rgba(255, 255, 255, 0.97) !important;
+  color: #0f1729 !important;
+  border-color: rgba(15, 118, 110, 0.12) !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -559,7 +549,7 @@ body.mode-jour .offre-prix,
 html[data-theme='light'] .offre-prix,
 body.mode-jour .prix-principal,
 html[data-theme='light'] .prix-principal {
-  color: #1a0a2e !important;
+  color: #0f1729 !important;
 }
 
 body.mode-jour .offre-footer,
@@ -569,9 +559,9 @@ html[data-theme='light'] .offre-footer {
 
 body.mode-jour .offre-tag,
 html[data-theme='light'] .offre-tag {
-  background: rgba(200, 122, 8, 0.1) !important;
-  color: #8a5000 !important;
-  border-color: rgba(200, 122, 8, 0.2) !important;
+  background: rgba(15, 118, 110, 0.1) !important;
+  color: #115e59 !important;
+  border-color: rgba(15, 118, 110, 0.2) !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -584,21 +574,21 @@ html[data-theme='light'] .offre-tag {
   html[data-theme='light'] .card,
   body.mode-jour .offre-card,
   html[data-theme='light'] .offre-card {
-    background: rgba(255, 252, 245, 0.92) !important;
-    border-color: rgba(200, 122, 8, 0.12) !important;
-    color: #1a0a2e !important;
+    background: rgba(255, 255, 255, 0.93) !important;
+    border-color: rgba(15, 118, 110, 0.12) !important;
+    color: #0f1729 !important;
   }
   body.mode-jour .block-cyan,
   html[data-theme='light'] .block-cyan {
     background:
-      linear-gradient(135deg, rgba(30, 158, 128, 0.1) 0%, transparent 60%),
-      rgba(235, 255, 250, 0.92) !important;
+      linear-gradient(135deg, rgba(15, 118, 110, 0.1) 0%, transparent 60%),
+      rgba(236, 253, 245, 0.92) !important;
   }
   body.mode-jour .block-violet,
   html[data-theme='light'] .block-violet {
     background:
-      linear-gradient(135deg, rgba(91, 63, 216, 0.09) 0%, transparent 60%),
-      rgba(248, 242, 255, 0.92) !important;
+      linear-gradient(135deg, rgba(79, 70, 229, 0.08) 0%, transparent 60%),
+      rgba(245, 243, 255, 0.92) !important;
   }
   body.mode-jour .block-vert,
   html[data-theme='light'] .block-vert {
@@ -608,8 +598,8 @@ html[data-theme='light'] .offre-tag {
   body.mode-jour .block-ambre,
   html[data-theme='light'] .block-ambre {
     background:
-      linear-gradient(135deg, rgba(200, 122, 8, 0.12) 0%, transparent 60%),
-      rgba(255, 248, 230, 0.92) !important;
+      linear-gradient(135deg, rgba(15, 118, 110, 0.12) 0%, transparent 60%),
+      rgba(238, 242, 252, 0.93) !important;
   }
   body.mode-jour .block-or,
   html[data-theme='light'] .block-or {
@@ -630,11 +620,11 @@ html[data-theme='light'] .offre-tag {
    ────────────────────────────────────────────────────────────── */
 body.mode-jour .mode-toggle,
 html[data-theme='light'] .mode-toggle {
-  color: rgba(26, 10, 46, 0.6) !important;
+  color: rgba(15, 23, 41, 0.6) !important;
 }
 body.mode-jour .mode-toggle:hover,
 html[data-theme='light'] .mode-toggle:hover {
-  color: #c87a08 !important;
+  color: #0f766e !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -642,5 +632,5 @@ html[data-theme='light'] .mode-toggle:hover {
    ────────────────────────────────────────────────────────────── */
 body.mode-jour #pandora-loader,
 html[data-theme='light'] #pandora-loader {
-  background: #fbf5e8 !important;
+  background: #e8eef5 !important;
 }
