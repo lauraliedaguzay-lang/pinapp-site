@@ -1,0 +1,86 @@
+﻿{
+  "name": "🔷 Pinapp — Formation séquence email",
+  "nodes": [
+    {
+      "id": "1",
+      "name": "Trigger achat formation",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": { "path": "formation-achat", "method": "POST" },
+      "position": [0, 0]
+    },
+    {
+      "id": "2",
+      "name": "Email J+0 Bienvenue",
+      "type": "n8n-nodes-base.gmail",
+      "parameters": {
+        "to": "={{ $json.email }}",
+        "subject": "Bienvenue dans votre formation Pinapp Studio",
+        "body": "Bonjour {{ $json.prenom }},\n\nVotre formation commence maintenant. Accès : {{ $json.lien_formation }}\n\nBonne formation !\nLaurale"
+      },
+      "position": [200, 0]
+    },
+    {
+      "id": "3",
+      "name": "Wait J+1",
+      "type": "n8n-nodes-base.wait",
+      "parameters": { "amount": 1, "unit": "days" },
+      "position": [400, 0]
+    },
+    {
+      "id": "4",
+      "name": "Email J+1",
+      "type": "n8n-nodes-base.gmail",
+      "parameters": {
+        "to": "={{ $json.email }}",
+        "subject": "Module 1 — avez-vous commencé ?",
+        "body": "Bonjour {{ $json.prenom }},\n\nAvez-vous pu commencer le module 1 ? N'hésitez pas si vous avez des questions.\n\nLaurale"
+      },
+      "position": [600, 0]
+    },
+    {
+      "id": "5",
+      "name": "Wait J+3",
+      "type": "n8n-nodes-base.wait",
+      "parameters": { "amount": 2, "unit": "days" },
+      "position": [800, 0]
+    },
+    {
+      "id": "6",
+      "name": "Email J+3",
+      "type": "n8n-nodes-base.gmail",
+      "parameters": {
+        "to": "={{ $json.email }}",
+        "subject": "Votre progression — on fait le point ?",
+        "body": "Bonjour {{ $json.prenom }},\n\nComment avancez-vous ? Si vous êtes bloqué, répondez à cet email.\n\nLaurale"
+      },
+      "position": [1000, 0]
+    },
+    {
+      "id": "7",
+      "name": "Wait J+14",
+      "type": "n8n-nodes-base.wait",
+      "parameters": { "amount": 11, "unit": "days" },
+      "position": [1200, 0]
+    },
+    {
+      "id": "8",
+      "name": "Upsell J+14",
+      "type": "n8n-nodes-base.gmail",
+      "parameters": {
+        "to": "={{ $json.email }}",
+        "subject": "Prêt pour la prochaine étape ?",
+        "body": "Bonjour {{ $json.prenom }},\n\nVous avez terminé votre formation. La prochaine étape vous intéresse ? Voici notre offre : {{ $json.upsell_url }}\n\nLaurale"
+      },
+      "position": [1400, 0]
+    }
+  ],
+  "connections": {
+    "1": { "main": [[{ "node": "2", "type": "main", "index": 0 }]] },
+    "2": { "main": [[{ "node": "3", "type": "main", "index": 0 }]] },
+    "3": { "main": [[{ "node": "4", "type": "main", "index": 0 }]] },
+    "4": { "main": [[{ "node": "5", "type": "main", "index": 0 }]] },
+    "5": { "main": [[{ "node": "6", "type": "main", "index": 0 }]] },
+    "6": { "main": [[{ "node": "7", "type": "main", "index": 0 }]] },
+    "7": { "main": [[{ "node": "8", "type": "main", "index": 0 }]] }
+  }
+}

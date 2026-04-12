@@ -2,14 +2,16 @@
 (function () {
   try {
     var t = localStorage.getItem('pinapp-theme');
+    var pm = localStorage.getItem('pinapp-mode');
+    var darkOs = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var mode;
+    if (t === 'light' || pm === 'jour') mode = 'light';
+    else if (t === 'dark' || pm === 'nuit') mode = 'dark';
+    else mode = darkOs ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', mode);
+    document.documentElement.setAttribute('data-mode', mode === 'light' ? 'jour' : 'nuit');
     var m = document.getElementById('pinapp-theme-color');
-    if (t === 'light' || t === 'dark') {
-      document.documentElement.setAttribute('data-theme', t);
-      if (m) m.setAttribute('content', t === 'light' ? '#060D1F' : '#0A0A0A');
-    } else {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      if (m) m.setAttribute('content', '#0A0A0A');
-    }
+    if (m) m.setAttribute('content', mode === 'light' ? '#0a2a2e' : '#080d18');
   } catch (e) {}
 
   /* Retrait du loader si main.js ne charge pas (404, CSP, erreur) — idempotent avec main.js */

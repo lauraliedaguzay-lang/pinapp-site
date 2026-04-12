@@ -1,0 +1,233 @@
+/**
+ * Pinapp — accueil / offres 2026
+ * Fonds : jour = eau Pandora (photo + halos) · nuit = bioluminescence (halos teal/violet + photo nuit)
+ * À charger après home-2026.css
+ */
+
+html {
+  background-color: #080d18;
+}
+
+body.home-2026 {
+  background-color: transparent !important;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* ── Calque principal (fixe, sous le contenu) ── */
+body.home-2026::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: #080d18;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  transition:
+    filter 0.8s ease,
+    opacity 0.6s ease;
+}
+
+/* Nuit — bioluminescence + bg pandora */
+html[data-theme='dark'] body.home-2026::before {
+  background-image:
+    radial-gradient(ellipse 90% 55% at 15% 12%, rgba(0, 229, 204, 0.22) 0%, transparent 58%),
+    radial-gradient(ellipse 70% 50% at 88% 8%, rgba(123, 79, 232, 0.28) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 45% at 50% 95%, rgba(79, 195, 247, 0.12) 0%, transparent 52%),
+    radial-gradient(ellipse 40% 35% at 72% 42%, rgba(0, 200, 180, 0.08) 0%, transparent 50%),
+    linear-gradient(
+      185deg,
+      rgba(2, 6, 14, 0.55) 0%,
+      rgba(8, 13, 24, 0.25) 45%,
+      rgba(3, 10, 22, 0.7) 100%
+    ),
+    url('../images/bg-pandora-nuit.png');
+  background-size:
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    cover;
+  animation: home-atmos-nuit-bio 16s ease-in-out infinite alternate;
+}
+
+/* Jour — eau Pandora */
+html[data-theme='light'] body.home-2026::before {
+  background-image:
+    radial-gradient(ellipse 78% 52% at 50% -6%, rgba(79, 195, 247, 0.2) 0%, transparent 54%),
+    radial-gradient(ellipse 58% 48% at 92% 16%, rgba(124, 77, 255, 0.14) 0%, transparent 58%),
+    radial-gradient(ellipse 52% 44% at 6% 78%, rgba(13, 71, 161, 0.12) 0%, transparent 56%),
+    radial-gradient(ellipse 45% 40% at 68% 58%, rgba(45, 212, 191, 0.08) 0%, transparent 55%),
+    linear-gradient(
+      168deg,
+      rgba(236, 244, 252, 0.92) 0%,
+      rgba(220, 232, 248, 0.78) 42%,
+      rgba(236, 244, 252, 0.95) 100%
+    ),
+    url('../images/bg-pandora-jour.png');
+  background-size:
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    cover;
+  animation: home-atmos-jour-eau 26s ease-in-out infinite alternate;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) body.home-2026::before {
+    background-image:
+      radial-gradient(ellipse 90% 55% at 15% 12%, rgba(0, 229, 204, 0.22) 0%, transparent 58%),
+      radial-gradient(ellipse 70% 50% at 88% 8%, rgba(123, 79, 232, 0.28) 0%, transparent 55%),
+      radial-gradient(ellipse 55% 45% at 50% 95%, rgba(79, 195, 247, 0.12) 0%, transparent 52%),
+      radial-gradient(ellipse 40% 35% at 72% 42%, rgba(0, 200, 180, 0.08) 0%, transparent 50%),
+      linear-gradient(
+        185deg,
+        rgba(2, 6, 14, 0.55) 0%,
+        rgba(8, 13, 24, 0.25) 45%,
+        rgba(3, 10, 22, 0.7) 100%
+      ),
+      url('../images/bg-pandora-nuit.png');
+    background-size:
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      cover;
+    animation: home-atmos-nuit-bio 16s ease-in-out infinite alternate;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  html:not([data-theme]) body.home-2026::before {
+    background-image:
+      radial-gradient(ellipse 78% 52% at 50% -6%, rgba(79, 195, 247, 0.2) 0%, transparent 54%),
+      radial-gradient(ellipse 58% 48% at 92% 16%, rgba(124, 77, 255, 0.14) 0%, transparent 58%),
+      radial-gradient(ellipse 52% 44% at 6% 78%, rgba(13, 71, 161, 0.12) 0%, transparent 56%),
+      radial-gradient(ellipse 45% 40% at 68% 58%, rgba(45, 212, 191, 0.08) 0%, transparent 55%),
+      linear-gradient(
+        168deg,
+        rgba(236, 244, 252, 0.92) 0%,
+        rgba(220, 232, 248, 0.78) 42%,
+        rgba(236, 244, 252, 0.95) 100%
+      ),
+      url('../images/bg-pandora-jour.png');
+    background-size:
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      cover;
+    animation: home-atmos-jour-eau 26s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes home-atmos-nuit-bio {
+  0% {
+    filter: brightness(0.94) saturate(1.06);
+  }
+  100% {
+    filter: brightness(1.06) saturate(1.15);
+  }
+}
+
+@keyframes home-atmos-jour-eau {
+  0% {
+    filter: saturate(1.04) hue-rotate(-3deg);
+  }
+  100% {
+    filter: saturate(1.1) hue-rotate(4deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.home-2026::before {
+    animation: none !important;
+  }
+}
+
+/* Grain discret (lisibilité + profondeur) */
+body.home-2026::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+html[data-theme='light'] body.home-2026::after {
+  opacity: 0.038;
+  mix-blend-mode: soft-light;
+}
+
+@media (prefers-color-scheme: light) {
+  html:not([data-theme]) body.home-2026::after {
+    opacity: 0.038;
+    mix-blend-mode: soft-light;
+  }
+}
+
+/* Hero : les PNG restent en léger voile + parallaxe par-dessus l’atmosphère */
+body.home-2026 .hero-2026__bg-img {
+  opacity: 0.18;
+  mix-blend-mode: screen;
+}
+
+html[data-theme='light'] body.home-2026 .hero-2026__bg-img {
+  opacity: 0.22;
+  mix-blend-mode: multiply;
+}
+
+@media (prefers-color-scheme: light) {
+  html:not([data-theme]) body.home-2026 .hero-2026__bg-img {
+    opacity: 0.22;
+    mix-blend-mode: multiply;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) body.home-2026 .hero-2026__bg-img {
+    opacity: 0.18;
+    mix-blend-mode: screen;
+  }
+}
+
+/* Empilement : particules & caustics au-dessus du fond, sous le contenu */
+body.home-2026 #particles.is-on {
+  z-index: 1;
+  opacity: 0.5;
+}
+
+body.home-2026 .caustics {
+  z-index: 1;
+}
+
+body.home-2026 > .skip-link-2026,
+body.home-2026 > aside#pinapp-encarts,
+body.home-2026 > nav.nav-2026,
+body.home-2026 > .stack-2026 {
+  position: relative;
+  z-index: 2;
+}
+
+body.home-2026 .pinapp-encarts-2026 {
+  z-index: 1002;
+}
+
+body.home-2026 .nav-2026 {
+  z-index: 1000;
+}
+
+body.home-2026 #cursor,
+body.home-2026 #progress {
+  z-index: 10001;
+}

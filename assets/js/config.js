@@ -3,7 +3,7 @@
    Configuration centralisée de tous les modules
 
    SEUL FICHIER À ÉDITER pour brancher vos webhooks n8n.
-   Remplacez [TON-N8N] par votre sous-domaine n8n.
+   Remplacez [TON-N8N] par votre sous-domaine n8n (voir aussi PINAPP-REMPLACEMENTS.md — [[PINAPP_TODO:).
    Ex : https://lauralie.n8n.cloud/webhook/...
 
    FEATURE FLAGS : passez à true au fur et à mesure
@@ -71,7 +71,7 @@ window.PinappConfig = {
 
   /* ─── CONTACT ──────────────────────────────────────── */
   email: 'lauralie.daguzay@pinapp.fr',
-  whatsapp: 'https://wa.me/33XXXXXXXXX', // ← remplacer par le vrai numéro
+  whatsapp: 'https://wa.me/33XXXXXXXXX', // PINAPP_TODO — remplacer 33XXXXXXXXX par le n° international sans espaces
 
   /* ─── BRANDING ─────────────────────────────────────── */
   siteUrl: 'https://pinapp.fr',

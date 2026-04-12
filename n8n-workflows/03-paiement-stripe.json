@@ -1,0 +1,81 @@
+﻿{
+  "name": "🔷 Pinapp — Paiement reçu",
+  "nodes": [
+    {
+      "id": "1",
+      "name": "Webhook Stripe",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": { "path": "stripe-payment", "method": "POST" },
+      "position": [0, 0]
+    },
+    {
+      "id": "2",
+      "name": "Switch type",
+      "type": "n8n-nodes-base.switch",
+      "parameters": {
+        "value": "={{ $json.type }}",
+        "rules": [
+          { "value": "payment_intent.succeeded", "output": 0 },
+          { "value": "checkout.session.completed", "output": 1 }
+        ]
+      },
+      "position": [200, 0]
+    },
+    {
+      "id": "3",
+      "name": "Email confirmation client",
+      "type": "n8n-nodes-base.gmail",
+      "parameters": {
+        "to": "={{ $json.customer_email }}",
+        "subject": "Paiement reçu — Pinapp Studio",
+        "body": "Votre paiement a bien été reçu. Nous commençons votre projet.\n\nLaurale — Pinapp Studio"
+      },
+      "position": [400, 0]
+    },
+    {
+      "id": "4",
+      "name": "Accès formation",
+      "type": "n8n-nodes-base.gmail",
+      "parameters": {
+        "to": "={{ $json.customer_email }}",
+        "subject": "Votre accès formation Pinapp Studio",
+        "body": "Bienvenue ! Voici votre lien d'accès à votre formation : {{ $json.formation_url }}\n\nBonne formation !\nPinapp Studio"
+      },
+      "position": [400, 200]
+    },
+    {
+      "id": "5",
+      "name": "Notion update",
+      "type": "n8n-nodes-base.notion",
+      "parameters": {
+        "operation": "update",
+        "pageId": "={{ $json.notion_id }}",
+        "properties": {
+          "Statut": { "select": { "name": "Payé" } },
+          "Date paiement": { "date": { "start": "={{ new Date().toISOString() }}" } }
+        }
+      },
+      "position": [600, 0]
+    },
+    {
+      "id": "6",
+      "name": "Notif 🔷 Pinapp",
+      "type": "n8n-nodes-base.gmail",
+      "parameters": {
+        "to": "contact@pinapp.fr",
+        "subject": "🔷 Paiement reçu — {{ $json.amount }}€",
+        "body": "Paiement de {{ $json.amount }}€ reçu de {{ $json.customer_email }}."
+      },
+      "position": [600, 200]
+    }
+  ],
+  "connections": {
+    "1": { "main": [[{ "node": "2", "type": "main", "index": 0 }]] },
+    "2": {
+      "main": [
+        [{ "node": "3", "type": "main", "index": 0 }],
+        [{ "node": "4", "type": "main", "index": 0 }]
+      ]
+    }
+  }
+}

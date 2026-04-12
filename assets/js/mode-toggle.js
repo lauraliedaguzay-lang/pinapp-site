@@ -70,7 +70,7 @@ const ModeToggle = {
       .forEach((b) => b.setAttribute('aria-label', 'Passer en mode jour'));
     // Mettre à jour theme-color meta
     const meta = document.getElementById('pinapp-theme-color');
-    if (meta) meta.setAttribute('content', '#050A14');
+    if (meta) meta.setAttribute('content', '#080d18');
     document.body.dispatchEvent(new Event('modeChange'));
     // Canvas aurora : visible
     const canvas = document.getElementById('pandora-canvas');
@@ -95,7 +95,7 @@ const ModeToggle = {
       .forEach((b) => b.setAttribute('aria-label', 'Passer en mode nuit'));
     // Mettre à jour theme-color meta
     const meta = document.getElementById('pinapp-theme-color');
-    if (meta) meta.setAttribute('content', '#060D1F');
+    if (meta) meta.setAttribute('content', '#0a2a2e');
     document.body.dispatchEvent(new Event('modeChange'));
     // Canvas aurora : masqué en jour
     const canvas = document.getElementById('pandora-canvas');

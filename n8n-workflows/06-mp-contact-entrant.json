@@ -1,0 +1,75 @@
+﻿{
+  "name": "🌿 Mémoire & Présence — Contact entrant",
+  "nodes": [
+    {
+      "id": "1",
+      "name": "Webhook M&P",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": { "path": "mp-contact", "method": "POST" },
+      "position": [0, 0]
+    },
+    {
+      "id": "2",
+      "name": "Set données",
+      "type": "n8n-nodes-base.set",
+      "parameters": {
+        "values": {
+          "string": [
+            { "name": "nom", "value": "={{ $json.nom }}" },
+            { "name": "email", "value": "={{ $json.email }}" },
+            { "name": "demande", "value": "={{ $json.demande }}" }
+          ]
+        }
+      },
+      "position": [200, 0]
+    },
+    {
+      "id": "3",
+      "name": "Notion M&P",
+      "type": "n8n-nodes-base.notion",
+      "parameters": {
+        "operation": "create",
+        "databaseId": "VOTRE_DB_MP_ID",
+        "title": "={{ $json.nom }} — M&P"
+      },
+      "position": [400, 0]
+    },
+    {
+      "id": "4",
+      "name": "Email confirmation famille",
+      "type": "n8n-nodes-base.gmail",
+      "parameters": {
+        "to": "={{ $json.email }}",
+        "subject": "Votre demande — Mémoire & Présence",
+        "body": "Bonjour {{ $json.nom }},\n\nNous avons bien reçu votre demande et vous répondrons très rapidement avec toute l'attention qu'elle mérite.\n\nMicha — Mémoire & Présence"
+      },
+      "position": [600, 0]
+    },
+    {
+      "id": "5",
+      "name": "WhatsApp Micha 🌿",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.whatsapp.com/send",
+        "body": {
+          "to": "336XXXXXXXX",
+          "message": "🌿 Nouvelle demande M&P\nNom : {{ $json.nom }}\nEmail : {{ $json.email }}\nDemande : {{ $json.demande }}"
+        }
+      },
+      "position": [600, 200]
+    }
+  ],
+  "connections": {
+    "1": { "main": [[{ "node": "2", "type": "main", "index": 0 }]] },
+    "2": {
+      "main": [
+        [
+          { "node": "3", "type": "main", "index": 0 },
+          { "node": "4", "type": "main", "index": 0 },
+          { "node": "5", "type": "main", "index": 0 }
+        ]
+      ]
+    }
+  }
+}

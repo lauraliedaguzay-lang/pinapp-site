@@ -1,100 +1,100 @@
-/* PINAPP — particles.js — v5
-   6 particules bioluminescentes ascendantes — voix Na'vi
-   Tempo : The Light Always Returns — 3.5s
-   Toujours vers le haut — ascension
-   ================================================================= */
-
-const Particles = {
-  active: false,
-
-  init() {
-    if (this.active) return;
-
-    const isJour = document.body.classList.contains('mode-jour');
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const mobile = window.innerWidth < 768;
-    /* Anti-lag : 0 si reduced motion, 3 mobile, 6 desktop */
-    const count = reduced ? 0 : mobile ? 3 : 6;
-    if (count === 0) return;
-    this.active = true;
-    const colorsNuit = [
-      'rgba(0,200,188,',
-      'rgba(0,229,204,',
-      'rgba(123,79,232,',
-      'rgba(196,30,168,',
-    ];
-    const colorsJour = ['rgba(123,79,232,', 'rgba(200,160,240,', 'rgba(255,190,80,'];
-    const colors = isJour ? colorsJour : colorsNuit;
-
-    const fragment = document.createDocumentFragment();
-
-    for (let i = 0; i < count; i++) {
-      const p = document.createElement('div');
-      const size = 2 + Math.random() * 2.5;
-      const dur = 20 + Math.random() * 16;
-      const color = colors[i % colors.length];
-      const opacity = 0.15 + Math.random() * 0.22;
-      const dx = (Math.random() - 0.5) * 20;
-
-      p.style.cssText = `
-        position:fixed;
-        width:${size}px;
-        height:${size}px;
-        border-radius:50%;
-        background:${color}${opacity});
-        pointer-events:none;
-        z-index:1;
-        left:${10 + Math.random() * 80}%;
-        top:${20 + Math.random() * 70}%;
-        filter:${mobile ? 'none' : 'blur(1px)'};
-        box-shadow:
-          0 0 6px ${color}0.8),
-          0 0 12px ${color}0.4),
-          0 0 24px ${color}0.2);
-        animation:particle-ascend ${dur}s ease-in-out infinite;
-        animation-delay:-${Math.random() * dur}s;
-        --dx:${dx}px;
-        will-change:auto;
-      `;
-      fragment.appendChild(p);
-    }
-
-    document.body.appendChild(fragment);
-
-    // Injecter les keyframes une seule fois
-    if (!document.getElementById('particle-style')) {
-      const style = document.createElement('style');
-      style.id = 'particle-style';
-      style.textContent = `
-        @keyframes particle-ascend {
-          0% {
-            transform: translate(0,0) scale(1);
-            opacity: 0;
-          }
-          10% { opacity: 1; }
-          80% { opacity: 0.8; }
-          100% {
-            transform: translate(var(--dx,0px), -60px) scale(0.6);
-            opacity: 0;
-          }
+﻿(function () {
+  var canvas = document.getElementById('canvas-pandora');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var C = ['#00E5B0', '#B388FF', '#7FFFEA', '#E040FB'],
+    N = 80,
+    L = 100,
+    W,
+    H,
+    pts = [],
+    raf;
+  function resize() {
+    W = canvas.width = innerWidth;
+    H = canvas.height = innerHeight;
+  }
+  function rand(a, b) {
+    return Math.random() * (b - a) + a;
+  }
+  function mk() {
+    return {
+      x: rand(0, W),
+      y: rand(0, H),
+      vx: rand(-0.12, 0.12),
+      vy: rand(-0.12, 0.12),
+      r: rand(1, 2.4),
+      c: C[Math.floor(Math.random() * 4)],
+      a: rand(0.3, 0.75),
+    };
+  }
+  function init() {
+    resize();
+    pts = Array.from({ length: N }, mk);
+  }
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    for (var i = 0; i < pts.length; i++) {
+      for (var j = i + 1; j < pts.length; j++) {
+        var dx = pts[i].x - pts[j].x,
+          dy = pts[i].y - pts[j].y,
+          d = Math.sqrt(dx * dx + dy * dy);
+        if (d < L) {
+          ctx.beginPath();
+          ctx.strokeStyle = pts[i].c;
+          ctx.globalAlpha = (1 - d / L) * 0.15;
+          ctx.lineWidth = 0.5;
+          ctx.moveTo(pts[i].x, pts[i].y);
+          ctx.lineTo(pts[j].x, pts[j].y);
+          ctx.stroke();
         }
-        @media (prefers-reduced-motion: reduce) {
-          [style*="particle-ascend"] { animation: none !important; }
-        }
-      `;
-      document.head.appendChild(style);
+      }
     }
-
-    // Mettre à jour les couleurs au changement de mode
-    document.body.addEventListener('modeChange', () => {
-      // Supprimer et recréer les particules
-      document.querySelectorAll('[style*="particle-ascend"]').forEach((el) => el.remove());
-      this.active = false;
-      this.init();
+    pts.forEach(function (p) {
+      ctx.globalAlpha = p.a;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = p.c;
+      ctx.fill();
+      var g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 5);
+      g.addColorStop(0, p.c + '50');
+      g.addColorStop(1, p.c + '00');
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * 5, 0, Math.PI * 2);
+      ctx.fillStyle = g;
+      ctx.globalAlpha = p.a * 0.4;
+      ctx.fill();
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < -10) p.x = W + 10;
+      if (p.x > W + 10) p.x = -10;
+      if (p.y < -10) p.y = H + 10;
+      if (p.y > H + 10) p.y = -10;
     });
-  },
-};
-
-document.addEventListener('DOMContentLoaded', () => {
-  Particles.init();
-});
+    ctx.globalAlpha = 1;
+  }
+  function loop() {
+    if (document.hidden) return;
+    draw();
+    raf = requestAnimationFrame(loop);
+  }
+  function start() {
+    if (!raf) loop();
+  }
+  function stop() {
+    cancelAnimationFrame(raf);
+    raf = null;
+  }
+  document.addEventListener('visibilitychange', function () {
+    document.hidden ? stop() : start();
+  });
+  window.addEventListener('resize', function () {
+    resize();
+    pts = Array.from({ length: N }, mk);
+  });
+  var obs = new MutationObserver(function () {
+    document.documentElement.getAttribute('data-theme') === 'light' ? stop() : start();
+  });
+  obs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  init();
+  if (document.documentElement.getAttribute('data-theme') !== 'light') start();
+})();

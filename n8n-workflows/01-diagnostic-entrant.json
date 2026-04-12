@@ -1,0 +1,80 @@
+﻿{
+  "name": "🔷 Pinapp — Diagnostic entrant",
+  "nodes": [
+    {
+      "id": "1",
+      "name": "Webhook Tally",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": { "path": "diagnostic-pinapp", "method": "POST" },
+      "position": [0, 0]
+    },
+    {
+      "id": "2",
+      "name": "Set Prospect",
+      "type": "n8n-nodes-base.set",
+      "parameters": {
+        "values": {
+          "string": [
+            { "name": "nom", "value": "={{ $json.nom }}" },
+            { "name": "email", "value": "={{ $json.email }}" },
+            { "name": "besoin", "value": "={{ $json.besoin }}" },
+            { "name": "secteur", "value": "={{ $json.secteur }}" }
+          ]
+        }
+      },
+      "position": [200, 0]
+    },
+    {
+      "id": "3",
+      "name": "Créer Notion",
+      "type": "n8n-nodes-base.notion",
+      "parameters": {
+        "operation": "create",
+        "databaseId": "VOTRE_DB_ID",
+        "title": "={{ $json.nom }} — {{ $json.secteur }}"
+      },
+      "position": [400, 0]
+    },
+    {
+      "id": "4",
+      "name": "Email confirmation",
+      "type": "n8n-nodes-base.gmail",
+      "parameters": {
+        "to": "={{ $json.email }}",
+        "subject": "Votre diagnostic Pinapp Studio — reçu",
+        "body": "Bonjour {{ $json.nom }},\n\nNous avons bien reçu votre demande et vous répondrons sous 24h avec un diagnostic personnalisé.\n\nLaurale & Micha — Pinapp Inc."
+      },
+      "position": [600, 0]
+    },
+    {
+      "id": "5",
+      "name": "Notif 🔷 Pinapp",
+      "type": "n8n-nodes-base.gmail",
+      "parameters": {
+        "to": "contact@pinapp.fr",
+        "subject": "🔷 Nouveau diagnostic — {{ $json.nom }}",
+        "body": "Nouveau prospect : {{ $json.nom }}\nEmail : {{ $json.email }}\nSecteur : {{ $json.secteur }}\nBesoin : {{ $json.besoin }}"
+      },
+      "position": [600, 200]
+    },
+    {
+      "id": "6",
+      "name": "Relance J+1",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "parameters": { "rule": { "interval": [{ "field": "hours", "minutesInterval": 24 }] } },
+      "position": [800, 0]
+    }
+  ],
+  "connections": {
+    "1": { "main": [[{ "node": "2", "type": "main", "index": 0 }]] },
+    "2": {
+      "main": [
+        [
+          { "node": "3", "type": "main", "index": 0 },
+          { "node": "4", "type": "main", "index": 0 },
+          { "node": "5", "type": "main", "index": 0 }
+        ]
+      ]
+    }
+  }
+}

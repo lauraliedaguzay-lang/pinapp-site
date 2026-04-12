@@ -1,5 +1,5 @@
 /**
- * Pinapp Studio — canvas particules (gris #1E1E1E, pas d’interaction souris)
+ * Pinapp Studio — canvas particules (cyan discret type Pandora, pas d’interaction souris)
  * Forcer sur fond toujours sombre : <html data-pinapp-particles="force">
  * Sinon : actif seulement si prefers-color-scheme: dark (cohérent avec l’accueil).
  */
@@ -14,6 +14,9 @@
   var force = doc.documentElement.getAttribute('data-pinapp-particles') === 'force';
 
   function isDarkScheme() {
+    var dt = doc.documentElement.getAttribute('data-theme');
+    if (dt === 'light') return false;
+    if (dt === 'dark') return true;
     return window.matchMedia('(prefers-color-scheme: dark)').matches;
   }
 
@@ -25,9 +28,9 @@
   var ctx = canvas.getContext('2d');
   var particles = [];
   var animId = null;
-  var COLOR = '#1e1e1e';
+  var COLOR = '#4fc3f7';
   var SPEED = 0.2;
-  var OPACITY = 0.4;
+  var OPACITY = 0.22;
   var COUNT = 72;
 
   function resize() {
@@ -101,10 +104,21 @@
 
   if (!force) {
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+      if (doc.documentElement.getAttribute('data-theme')) return;
       if (shouldRun()) start();
       else stop();
     });
   }
+
+  function bindModeChange() {
+    if (!doc.body) return;
+    doc.body.addEventListener('modeChange', function () {
+      if (shouldRun()) start();
+      else stop();
+    });
+  }
+  if (doc.body) bindModeChange();
+  else doc.addEventListener('DOMContentLoaded', bindModeChange);
 
   window.addEventListener(
     'resize',

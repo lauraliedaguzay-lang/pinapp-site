@@ -50,13 +50,12 @@ BLOC 2 -- TYPOGRAPHIE
 
 Preload dans <head> de tous les HTML :
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+<link rel="stylesheet" href="https://fonts.bunny.net/css?family=clash-display:wght@400;500;600;700|inter:wght@300;400;500&display=swap">
 
 Regles typographiques :
 
-- Titres h1 h2 h3 : font-family Georgia serif; letter-spacing: -0.02em
+- Titres h1 h2 h3 : font-family 'Clash Display', system-ui, sans-serif; letter-spacing: -0.02em
 - Corps : font-family: Inter, -apple-system, BlinkMacSystemFont, system-ui, sans-serif
 - font-display: swap sur toutes les fonts
 - Tailles rem uniquement -- jamais px sur les fonts

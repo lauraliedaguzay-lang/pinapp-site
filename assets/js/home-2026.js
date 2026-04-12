@@ -46,6 +46,7 @@
   function initNavAndProgress() {
     var nav = doc.getElementById('nav');
     var progress = doc.getElementById('progress');
+    var scrollProgress = doc.getElementById('scrollProgress');
     var lastY = 0;
     window.addEventListener(
       'scroll',
@@ -60,6 +61,12 @@
           var max = doc.body.scrollHeight - window.innerHeight;
           var pct = max > 0 ? (y / max) * 100 : 0;
           progress.style.width = Math.min(100, Math.max(0, pct)) + '%';
+        }
+        if (scrollProgress) {
+          var max2 = doc.body.scrollHeight - window.innerHeight;
+          var p = max2 > 0 ? y / max2 : 0;
+          var clamped = Math.min(1, Math.max(0, p));
+          scrollProgress.style.transform = 'scaleX(' + clamped + ')';
         }
       },
       { passive: true },
@@ -516,7 +523,17 @@
     });
   }
 
+  function initEncartsPanel() {
+    var el = doc.getElementById('pinapp-encarts');
+    if (!el) return;
+    var params = new URLSearchParams(location.search);
+    var show = params.get('encarts') === '1' || localStorage.getItem('pinappEncarts') === '1';
+    if (!show) return;
+    el.removeAttribute('hidden');
+  }
+
   function boot() {
+    initEncartsPanel();
     initCursor();
     initNavAndProgress();
     initHeroParallax();

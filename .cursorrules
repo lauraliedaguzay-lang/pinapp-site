@@ -1,264 +1,151 @@
-# Pinapp Studio — règles permanentes (gouvernance agent)
-
-**Portée :** tout le dépôt `pinapp-site`. Ne pas générer en contradiction avec ce fichier sans validation explicite de la fondatrice.
-
----
-
-## Identité
-
-- **Marque :** Pinapp Studio  
-- **Slogan entrée :** « Bienvenue dans Pinapp Studio. »  
-- **Baseline :** « La technologie qui exécute. L'image qui émeut. L'humain qui connecte. »  
-- **Tagline :** « Nous construisons ce que vos concurrents n'ont pas encore. »  
-- **CTA principal :** « Premier échange offert »  
-- **CTA secondaire :** « Voir nos réalisations »  
-
-**Fondateurs**
-
-- **Lauralie :** PDG, technique, IA, automatisation, scripts PowerShell.  
-- **Micha :** Co-fondateur, imagerie, photo, vidéo, Adobe, IA générative, restauration highfield.  
-
-**Voix :** « nous » côté studio ; « je » pour sections personnelles signées.
-
-**Philosophie (Avatar / Cameron) :** connexion, symbiose, sobriété, conscience, responsabilité, humanisme, transmission.
-
----
-
-## Palette — mode nuit (`prefers-color-scheme: dark`)
-
-Déclarer en `:root` (ou équivalent thème sombre du design system) :
-
-```css
-:root {
-  --bg: #0d0a1a;
-  --bg-card: #120d28;
-  --text: #f0f8ff;
-  --text-muted: rgba(240, 248, 255, 0.55);
-  --accent: #00e5b0;
-  --accent-2: #b388ff;
-  --accent-3: #7fffea;
-  --accent-4: #e040fb;
-  --champagne: #c9a96e;
-  --card-border: rgba(0, 229, 176, 0.08);
-  --separator: rgba(0, 229, 176, 0.06);
-  --shadow: rgba(0, 0, 0, 0.25);
-}
-```
-
-## Palette — mode jour (`prefers-color-scheme: light`)
-
-```css
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg: #f0fafa;
-    --bg-card: #e8f6f5;
-    --text: #050a0e;
-    --text-muted: rgba(5, 10, 14, 0.55);
-    --accent: #5b4fe8;
-    --accent-2: #2ddfd4;
-    --accent-3: #3d2b8e;
-    --accent-4: #7c3aed;
-    --champagne: #a07840;
-    --card-border: rgba(91, 79, 232, 0.08);
-    --separator: rgba(91, 79, 232, 0.06);
-    --shadow: rgba(0, 0, 0, 0.08);
-  }
-}
-```
-
-**Intégration codebase :** le site public peut combiner `prefers-color-scheme` et le toggle `data-theme` / `localStorage` (`pinapp-theme`). Lors de nouvelles pages ou refontes, harmoniser les tokens ci-dessus avec `assets/variables.css`, `assets/css/pinapp-cosmos-v1.css` et les overrides jour — sans casser le contraste WCAG AA.
-
----
-
-## Typographie
-
-- **Familles :** Cormorant Garamond + Inter.  
-- **Hébergement :** `/assets/fonts/` avec **preload** dans chaque `<head>` (ou politique fonts déjà en place : ne pas multiplier les origines sans raison).
-
-**Échelle (référence)**
-
-- `--font-hero: 104px` (mobile ~56px)  
-- `--font-h1: 64px` (mobile ~40px)  
-- `--font-citation: 32px`  
-- `--font-h2: 24px`  
-- `--font-h3: 18px`  
-- `--font-body-l: 18px`  
-- `--font-body: 16px`  
-- `--font-label: 11px`  
-- `--font-cta: 14px`  
-- `--font-nav: 13px`  
-
-**Règles**
-
-- `text-wrap: balance` sur tous les titres.  
-- Max **~68ch** par ligne desktop sur blocs de texte longs.  
-- Letter-spacing hero **-0.035em**, h1 **-0.025em**, labels uppercase **0.14em**.  
-- `line-height` corps **1.75**.
-
----
-
-## Textures et fonds
-
-**Nuit — body**
-
-- `body::before` : image plein écran **WebP** `/assets/images/bg-sombre.webp`, `center/cover`, fixe ou équivalent performant, `z-index` sous le contenu.  
-- `body::after` : grain SVG léger, **opacity ~0.03**.  
-- Vignette : `radial-gradient(ellipse at center, transparent 40%, rgba(13,10,26,0.7) 100%)`.
-
-**Jour — body**
-
-- `body::before` : `/assets/images/bg-clair.webp`, même logique.  
-- Couche **caustics** : trois formes floues animées (teintes `--accent-2`, `--accent`, `--accent-3`) en `position: fixed`, `pointer-events: none`, sous le contenu.
-
-**Cartes glass (Pandora)**
-
-- `backdrop-filter: blur(16px)` (+ préfixe WebKit).  
-- Fond nuit type `rgba(18,13,40,0.7)` ; jour `rgba(232,246,245,0.8)` en light.  
-- Bordure `var(--card-border)`, `border-radius: 20px`, ombre discrète.  
-- Pseudo `::before` avec dégradé discret (mint / violet / champagne).
-
-**Réalité actuelle :** tant que les WebP ne sont pas en prod, conserver les PNG Pandora (`bg-pandora-nuit.png`, `bg-pandora-jour.png`) et planifier migration sans régression visuelle.
-
----
-
-## Canvas particules (nuit uniquement)
-
-- Canvas fixe plein viewport, `pointer-events: none`, opacité modérée (~0.7).  
-- Couleurs : `#00E5B0`, `#B388FF`, `#7FFFEA`, `#E040FB`.  
-- ~80 particules, liaisons légères si distance &lt; 100px, **pause** si `document.hidden` (éco).  
-- **Actif seulement** quand le schéma couleur effectif est sombre (media `prefers-color-scheme: dark` **et/ou** `data-theme="dark"` selon implémentation — rester cohérent avec le toggle site).  
-- Implémentation : préférer un module vanilla dans `assets/js/` (pas de framework).
-
----
-
-## Navigation (composant réutilisable)
-
-Structure cible :
-
-- `nav.nav#nav` (ou alignement avec `#mainNav` existant lors des migrations).  
-- Logo texte : *Pinapp* + *Studio* en accent.  
-- Liens : Studio (`/a-propos/`), Réalisations, Offres, Formations, Pourquoi nous.  
-- CTA : « Premier échange offert » → `/diagnostic/`.  
-- Burger + drawer mobile si requis par la page.
-
-Styles : fixe 64px, glass, bordure basse `var(--separator)`, `z-index` nav élevé, classe `.hidden` / `translateY(-100%)` au scroll descendant (seuil ~80px).  
-Barre de progression **2px** en haut (`#progress` ou `#scroll-bar` / `scrollProgress` selon page — une seule barre par page).
-
----
-
-## Curseur custom (desktop uniquement)
-
-- Anneau discret, `mix-blend-mode: difference`, scale au survol liens/boutons/cartes.  
-- **`@media (hover: none)` :** désactiver, `cursor: auto`, pas de `cursor: none` sur tactile.
-
----
-
-## Footer (composant réutilisable)
-
-- Marque + tagline courte (ex. « Connecter. Construire. Transmettre. » — ajuster si la baseline officielle prime).  
-- Liens : LinkedIn, email studio, mentions, CGV, confidentialité, engagements, **Mémoire & Présence** (`/memoire-et-presence/`).  
-- Bloc éco : mention CO₂ approximative si maintenu.  
-- Mentions légales prix : **HT, TVA non applicable art. 293 B CGI**, année à jour (**2026**).
-
-**Chemins légaux :** le dépôt utilise souvent `legal/mentions.html` etc. — lors de création de routes `/legal/…`, ajouter redirections ou harmoniser les liens pour ne pas casser le déploiement GitHub Pages.
-
----
-
-## Images
-
-- **Format privilégié :** WebP, `loading="lazy"`, alt descriptifs.  
-- **Filtre unifié sur images décoratives :** `filter: brightness(0.85) contrast(1.05) saturate(0.9);` (sauf cas où le contraste WCAG l’interdit).  
-- **Overlay** bas de vignette plein écran : dégradé vers `rgba(13,10,26,0.8)`.  
-- **Unsplash :** ne pas utiliser `source.unsplash.com` (déprécié). Préférer assets locaux ou URLs `images.unsplash.com` stables + droits, ou placeholders documentés.
-
-**Commentaires placeholders visuels Micha**
-
-```html
-<!-- [MICHA] Format: WebP 1200x800px — micha-[sujet]-[date].webp -->
-```
-
-Mots-clés de recherche d’images par contexte (brief créa) : tech dark, studio créatif, workflow, IA, photo/vidéo, restauration luxe, juridique premium, coach bien-être, e-commerce minimal, immobilier, yoga, SaaS, artisanat, médical, consultant, ONG, mémoire & présence (bougie, douceur).
-
----
-
-## Animations globales
-
-- Easing standard : `cubic-bezier(0.25, 0.1, 0.25, 1)`.  
-- Easing entrée : `cubic-bezier(0.22, 1, 0.36, 1)`.  
-- Durée UI par défaut **≤ 300 ms** sauf exception justifiée.  
-- **Pas de hover** sur mobile : `@media (hover: hover)`.
-
-**IntersectionObserver (scroll)** : `threshold: 0.15`, `rootMargin: 0px 0px -50px 0px`.  
-Classes : `.anim-fade`, `.anim-up`, `.anim-scale` + `.visible` pour révélation.
-
-**Shimmer texte** : gradient sur `background-clip: text`, animation lente, pas « néon agressif ».
-
----
-
-## Grille et espacements (système 8px)
-
-```css
-:root {
-  --max-w: 1280px;
-  --pad-desktop: 80px;
-  --pad-tablet: 40px;
-  --pad-mobile: 20px;
-  --section-v: 128px;
-  --section-v-tablet: 80px;
-  --section-v-mobile: 64px;
-  --gap: 24px;
-  --radius: 20px;
-  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
-  --ease-in: cubic-bezier(0.22, 1, 0.36, 1);
-}
-```
-
-`.container` : `max-width: var(--max-w)`, padding horizontal responsive. **Mobile-first 390px.**
-
----
-
-## Règles absolues
-
-**Interdit**
-
-- Frameworks JS (React, Vue, etc.).  
-- CDN externes **sauf** polices (ou politique équivalente self-host).  
-- Scroll horizontal.  
-- Hover sur mobile.  
-- Valeurs d’espacement hors grille 8px (sauf justification documentée).  
-- Gradients criards, bordures non intentionnelles.  
-- `box-shadow` avec opacité globale &gt; **0.12** sur les surfaces standard.  
-- Pages HTML &gt; **~500 Ko** par fichier (viser en dessous).  
-- `localStorage` pour **données métier sensibles** — préférer webhooks (n8n) et traitement serveur.
-
-**Obligatoire**
-
-- Vanilla JS.  
-- Custom properties pour les couleurs.  
-- WebP pour les images finales.  
-- Lazy-load natif images.  
-- Thème : `prefers-color-scheme` **et** cohérence avec le toggle site quand il existe.  
-- **WCAG AA** sur contrastes.  
-- Prix **HT** + mention TVA art. 293 B CGI.  
-- Déploiement : changements visibles sur **pinapp.fr** uniquement après **merge sur `main` + push** (GitHub Actions).
-
----
-
-## Feuille de route prompts (référence)
-
-| Prompt | Cible |
-|--------|--------|
-| 1 | `.cursorrules` (ce fichier) |
-| 2 | `index.html` |
-| 3 | `offres/index.html` |
-| 4 | `formations/index.html` |
-| 5 | `memoire-et-presence/index.html` |
-| 6 | `engagements/index.html` |
-| 7 | `dashboard/index.html` |
-| 8 | `demo/` (11 secteurs) |
-| 9 | n8n workflows (7 JSON) |
-| 10 | `legal/` (CGV, mentions, confidentialité) |
-
----
-
-*Dernière mise à jour : règles agent Pinapp Studio — cahier graphique & intégration dépôt.*
+﻿# PINAPP INC. — RÈGLES PERMANENTES AGENT
+# Portée : tout le dépôt pinapp-site
+# Cerveau stratégique : Claude | Générateur : Cursor | Déploiement : Hostinger SFTP
+
+## ENTITÉ LÉGALE
+- Pinapp Inc. = maison mère
+- Pinapp Studio (pinapp.fr) = agence B2B premium — seul revenu actuel
+- Auralis RH = SaaS IA RH pré-commercial
+- Mémoire & Présence (memoireetpresence.fr) = digitalisation secteur funéraire
+  · Vocabulaire M&P : hommage · transmission · présence · lien · mémoire
+  · JAMAIS : mort · deuil · décès · funérailles dans les textes publics
+
+## ASSOCIÉS — ÉGALITÉ TOTALE
+- Lauralie : PDG Pinapp Inc. · technique · IA · automatisation
+  · Zéro photo publique
+- Michaël Bouilhac (Micha) : co-associé · imagerie · photo · vidéo · DA · Adobe · IA générative
+  · Contact : micha@memoireetpresence.fr · WhatsApp uniquement
+  · Zéro photo publique sans validation
+- Traitement visuel égal partout — même espace · même hiérarchie
+
+## STACK TECHNIQUE
+- Claude = cerveau stratégique. Zéro code direct.
+- Cursor = générateur de tout le code HTML/CSS/JS
+- Hostinger SFTP (extension Cursor — Natizyskunk)
+- n8n self-hosted Hostinger ~3€/mois
+- Tally (formulaires · webhook natif)
+- YouSign (signature électronique)
+- Stripe (paiement)
+- Notion (CRM · suivi · comptabilité)
+- Gmail via n8n (emails automatiques)
+- Buffer (social media)
+- Claude API (IA · résumés · copy)
+- WhatsApp Business (notifications Micha M&P)
+- Budget max : 100€/mois · Claude Pro priorité (20€/mois)
+- Netlify : SUPPRIMÉ définitivement
+
+## NOTIFICATIONS N8N
+- 🔷 Pinapp Studio — toutes notifications Pinapp
+- 🌿 Mémoire & Présence — toutes notifications M&P → WhatsApp Micha
+- Comptabilité séparée Notion : Pinapp vs M&P
+
+## PALETTE — NUIT (défaut)
+--bg:          #080d18
+--bg-card:     rgba(255,255,255,0.04)
+--text:        #f0f8ff
+--text-muted:  rgba(240,248,255,0.55)
+--accent:      #00e5b0
+--accent-2:    #b388ff
+--accent-3:    #7fffea
+--accent-4:    #e040fb
+--nacre:       #e8f4f8
+--card-border: rgba(179,136,255,0.08)
+--separator:   rgba(0,229,176,0.06)
+--btn-cta-bg:  rgba(91,60,180,0.85)
+--btn-cta-bd:  rgba(179,136,255,0.30)
+
+## PALETTE — JOUR (eau Avatar 2)
+--bg:          #0a2a2e
+--bg-card:     rgba(10,60,65,0.60)
+--text:        #e8fffd
+--text-muted:  rgba(232,255,253,0.55)
+--accent:      #7fffea
+--accent-2:    #c4b5fd
+--accent-3:    #ffffff
+--accent-4:    #a78bfa
+--nacre:       #e8f4f8
+--btn-cta-bg:  rgba(109,40,217,0.80)
+--btn-cta-bd:  rgba(196,181,253,0.30)
+
+## TYPOGRAPHIE
+- Titres : Clash Display 700 (Bunny Fonts)
+- Corps  : Inter 300/400/500 (Bunny Fonts)
+- Hero   : clamp(48px,8vw,104px) · letter-spacing -0.04em
+- H2     : clamp(32px,5vw,56px) · letter-spacing -0.03em
+- Label  : 11px · uppercase · letter-spacing 0.14em
+- Shimmer : cyan→violet→nacré sur 1 mot-clé hero
+- text-wrap: balance sur tous les titres
+
+## FOND
+- Nuit : #080d18 CSS pur · canvas particules 80pt 4 couleurs · liaisons <100px
+- Jour : #0a2a2e CSS pur · 3 caustics blur(80px) mix-blend-mode:screen · rayons
+- ZÉRO image de fond (bg-sombre/bg-clair supprimés définitivement)
+- ZÉRO image Unsplash
+
+## GLASSMORPHISM
+- backdrop-filter: blur(20px)
+- bg-card: rgba(255,255,255,0.04)
+- border: 1px solid var(--card-border)
+- border-radius: 20px
+- pseudo ::before : dégradé cyan→violet→nacré opacity 0.03
+
+## LAYOUT
+- scroll-snap-type: y mandatory · sections 100dvh
+- 1 idée / 1 section / 1 CTA maximum
+- Nav latérale : points de section
+- Mobile-first 390px iPhone Safari
+- Vanilla JS uniquement · WCAG AA
+
+## PRICING VALIDÉ
+- Automatisation Messages   : 490€ HT
+- Automatisation Facturation: 590€ HT
+- Automatisation Devis      : 790€ HT
+- Automatisation RDV        : 990€ HT
+- IA sur-mesure             : 890€ HT
+- Site Vitrine              : 1 290€ HT
+- Système Complet           : dès 2 400€ HT · sur devis
+- Pack Duo Lauralie+Micha   : dès 3 900€ HT · sur devis (~1600€ économisés)
+- Formation 1               : 67€
+- Formation 2               : 147€
+- Formation 3               : 397€
+- Pack Prompting            : 97€ (inclus dans 397€)
+
+## AUTOMATISATIONS N8N (8 WORKFLOWS)
+1. Diagnostic → Notion + email confirmation + notification 🔷
+2. Devis → YouSign → Stripe → facture auto + notification 🔷
+3. Paiement Stripe → accès formation + email bienvenue
+4. Formation → séquence email J+1/J+3/J+7 + certificat + upsell J+14
+5. Livraison → feedback Tally + avis Google J+7 + maintenance J+30
+6. M&P contact → WhatsApp Micha 🌿 + email famille + Notion M&P
+7. Veille hebdo → Claude API → Buffer → Newsletter Notion
+8. Maintenance mensuel → rapport clients + relance impayés + export comptable
+
+## RÈGLES ABSOLUES
+INTERDIT :
+- Frameworks JS (React, Vue, etc.)
+- Images de fond (bg-sombre/bg-clair supprimés)
+- Images Unsplash · photos de Lauralie ou Micha sans validation
+- Champagne #C9A96E (remplacé par nacré #e8f4f8)
+- Scroll horizontal · hover sur mobile
+- box-shadow opacity > 0.12 · HTML > 500Ko
+- CDN externes sauf Bunny Fonts
+- Mention : mort · deuil · décès · funérailles (M&P)
+- Prix TTC sans mention TVA
+
+OBLIGATOIRE :
+- Vanilla JS · Custom properties · WebP final · Lazy-load
+- WCAG AA · Prix HT + TVA art. 293 B CGI
+- HTTPS Hostinger (Let's Encrypt hPanel)
+- Arnaud valide tout livrable visuel
+- Thomas bloque toute livraison non conforme
+
+## AGENTS ACTIFS
+DA      : Arnaud (Apple/Tesla) · Théo · Raphaëlle · Nino · Viktor T.
+Copy    : Élisa (StoryBrand) · Lucas (Brand)
+Commer. : Alexis · Clara · Bruno · Mehdi · Chloé · Fiona · Omar
+Formation: Samir · Rémi
+Cognitif: Dr. Élise (TDAH) · Prof. Karim
+Juridique: Lila · Maître Dubois · Maître Fontaine
+Finance : Éric · Nathalie
+Veille  : Nora · Axel
+QA      : Thomas (arbitre · bloque si non conforme)

@@ -1,0 +1,15 @@
+---
+description: Source de vérité pour la refonte Pinapp (script PowerShell + prompt généré)
+alwaysApply: true
+---
+
+# Refonte Pinapp — source canonique
+
+- **Script de référence** (à respecter, ne pas « improviser » à côté) : `tools/pinapp-refonte-complete.ps1`  
+  C’est la copie du fichier Téléchargements `pinapp-refonte-complete (1).ps1`. Toute évolution de spec refonte doit modifier **ce script** (here-string `$prompt`), puis être rejouée.
+
+- **Régénération** : dans PowerShell, `.\tools\pinapp-refonte-complete.ps1` — écrit `PROMPT-REFONTE-CURSOR.md`, met à jour `storyboard/memoire-presence-guide-micha.html`, tente les photos depuis `Downloads` si présentes.
+
+- **Application du contenu** : ouvrir `PROMPT-REFONTE-CURSOR.md`, tout sélectionner, coller dans le chat Cursor pour que l’agent applique les blocs HTML/CSS/JS. Ensuite : `.\pinapp.ps1 auto` (ou `ship` si APIs indisponibles).
+
+- Le script **ne remplace pas** l’agent : il prépare le prompt et les fichiers annexes ; la refonte visuelle vient de l’exécution du prompt dans Cursor.

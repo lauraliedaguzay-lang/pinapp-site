@@ -1,0 +1,79 @@
+﻿{
+  "name": "🔷 Pinapp — Veille hebdo IA",
+  "nodes": [
+    {
+      "id": "1",
+      "name": "Schedule hebdo lundi 8h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "parameters": {
+        "rule": { "interval": [{ "field": "cronExpression", "expression": "0 8 * * 1" }] }
+      },
+      "position": [0, 0]
+    },
+    {
+      "id": "2",
+      "name": "Scrape sources IA",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": { "method": "GET", "url": "https://feeds.feedburner.com/oreilly/radar/atom" },
+      "position": [200, 0]
+    },
+    {
+      "id": "3",
+      "name": "Claude API résumé",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "headers": {
+          "x-api-key": "={{ $credentials.claudeApiKey }}",
+          "anthropic-version": "2023-06-01"
+        },
+        "body": {
+          "model": "claude-sonnet-4-20250514",
+          "max_tokens": 1000,
+          "messages": [
+            {
+              "role": "user",
+              "content": "Résume en français les 5 actualités IA les plus importantes de cette semaine pour des TPE/PME françaises : {{ $json.content }}"
+            }
+          ]
+        }
+      },
+      "position": [400, 0]
+    },
+    {
+      "id": "4",
+      "name": "Draft Buffer LinkedIn",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.bufferapp.com/1/updates/create",
+        "body": { "text": "={{ $json.content[0].text }}", "profile_ids": ["VOTRE_PROFILE_ID"] }
+      },
+      "position": [600, 0]
+    },
+    {
+      "id": "5",
+      "name": "Update Notion Newsletter",
+      "type": "n8n-nodes-base.notion",
+      "parameters": {
+        "operation": "create",
+        "databaseId": "VOTRE_DB_NEWSLETTER",
+        "title": "Veille IA — {{ new Date().toLocaleDateString('fr-FR') }}"
+      },
+      "position": [600, 200]
+    }
+  ],
+  "connections": {
+    "1": { "main": [[{ "node": "2", "type": "main", "index": 0 }]] },
+    "2": { "main": [[{ "node": "3", "type": "main", "index": 0 }]] },
+    "3": {
+      "main": [
+        [
+          { "node": "4", "type": "main", "index": 0 },
+          { "node": "5", "type": "main", "index": 0 }
+        ]
+      ]
+    }
+  }
+}

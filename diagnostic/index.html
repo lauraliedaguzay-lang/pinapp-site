@@ -1,967 +1,218 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="fr" data-theme="dark">
   <head>
-    <script>
-      (function () {
-        var t = localStorage.getItem('pinapp-theme') || localStorage.getItem('pinapp-mode');
-        var d = window.matchMedia('(prefers-color-scheme:dark)').matches;
-        var m = t === 'light' || t === 'jour' ? 'jour' : t === 'dark' || t === 'nuit' ? 'nuit' : d ? 'nuit' : 'jour';
-        document.documentElement.setAttribute('data-mode', m);
-        document.documentElement.setAttribute('data-theme', m === 'jour' ? 'light' : 'dark');
-        if (document.body) {
-          document.body.classList.add('mode-' + m);
-        }
-        document.addEventListener('DOMContentLoaded', function () {
-          document.body.classList.add('mode-' + m);
-        });
-      })();
-    </script>
-    <link rel="preload" as="image" href="../assets/images/bg-pandora-nuit.png" fetchpriority="high" />
-    <link rel="preload" as="image" href="../assets/images/bg-pandora-jour.png" />
     <meta charset="UTF-8" />
-    <meta name="theme-color" id="pinapp-theme-color" content="#0A0A0A" />
-    <script src="../assets/js/theme-init.js" defer></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Diagnostic offert — automatisé, vous confirmez (par écrit) — Pinapp Studio</title>
-    <meta
-      name="description"
-      content="Service client premium par &eacute;crit : d&eacute;crivez votre besoin en quelques minutes. Analyse (Claude + relecture studio), plan d&rsquo;action concret et devis personnalis&eacute; par email sous 24 h ouvr&eacute;es &mdash; sans appel ni visio." />
-    <meta property="og:title" content="Diagnostic offert par &eacute;crit &mdash; Pinapp Studio" />
-    <meta
-      property="og:description"
-      content="Votre demande est analys&eacute;e (Claude + validation humaine) : plan concret, puis devis sur mesure par email. R&eacute;ponse vis&eacute;e sous 24 h, tout par &eacute;crit." />
-    <meta property="og:image" content="https://pinapp.fr/assets/images/og-pinapp-share.png" />
-    <meta property="og:url" content="https://pinapp.fr/diagnostic/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="fr_FR" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
-    <link rel="stylesheet" href="../assets/variables.css" />
-    <link rel="stylesheet" href="../assets/grid.css" />
-    <link rel="stylesheet" href="../assets/animations.css" />
-    <link rel="stylesheet" href="../assets/css/aurora-mobile.css" />
-    <link rel="stylesheet" href="../assets/css/pandora-jour.css" />
-    <link rel="stylesheet" href="../assets/css/cursor.css" />
-    <link rel="stylesheet" href="../assets/css/pandora-ux.css" />
-    <link rel="preconnect" href="https://fonts.bunny.net" />
-    <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" />
-    <link rel="stylesheet" href="../assets/css/pandora-dance.css" />
-    <link rel="stylesheet" href="../assets/css/ios-glass.css" />
-    <link rel="stylesheet" href="../assets/css/apple-finish.css" />
-    <link rel="stylesheet" href="../assets/css/pinapp-modern-biolume.css" />
-    <link rel="stylesheet" href="../assets/css/pinapp-premium.css" />
-    <link rel="stylesheet" href="../assets/css/deploy-harmonise.css" />
-    <link rel="stylesheet" href="../assets/css/pandora-jour-override.css" />
-    <link rel="stylesheet" href="../assets/css/mobile-premium.css" />
-    <link rel="stylesheet" href="../assets/css/neuro-layout.css" />
-
-    <link rel="stylesheet" href="../assets/css/pandora-world.css" />
-    <link rel="stylesheet" href="../assets/css/pandora-details.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diagnostic offert — Pinapp Studio</title>
+    <meta name="description" content="Décrivez votre besoin par écrit. Réponse sous 24h. Aucun engagement." />
+    <link rel="canonical" href="https://pinapp.fr/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.bunny.net/css?family=clash-display:wght@400;500;600;700|inter:wght@300;400;500&display=swap" />
+    <link rel="stylesheet" href="/assets/css/pinapp-global.css" />
+    <script src="/assets/js/theme.js"></script>
   </head>
-  <body class="page-with-bottom-nav">
-    <div id="pandora-world" aria-hidden="true">
-      <div class="pandora-orbs">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-        <div class="orb orb-4"></div>
-      </div>
-      <div class="pandora-spores" id="spores-container"></div>
-      <div class="pandora-stars" id="stars-container"></div>
-      <div class="pandora-clouds" id="clouds-container">
-        <div class="cloud cloud-1"></div>
-        <div class="cloud cloud-2"></div>
-        <div class="cloud cloud-3"></div>
-      </div>
-      <div class="holo-grid"></div>
-    </div>
-    <div id="pandora-loader" aria-hidden="true">
-      <svg width="32" height="38" viewBox="0 0 32 38" fill="none">
-        <defs>
-          <linearGradient id="pg-l" x1="16" y1="36" x2="16" y2="2" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#7B4FE8" />
-            <stop offset="100%" stop-color="#00E5CC" />
-          </linearGradient>
-        </defs>
-        <path d="M16 2 C13 5 10 6 11 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
-        <path d="M16 2 L16 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" />
-        <path d="M16 2 C19 5 22 6 21 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
-        <ellipse cx="16" cy="24" rx="9" ry="12" fill="url(#pg-l)" />
-        <path d="M7 20 L16 15 L25 20 L16 25 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
-        <path d="M7 26 L16 21 L25 26 L16 31 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
-      </svg>
-    </div>
-    <script>
-      (function () {
-        function hideLoader() {
-          var l = document.getElementById('pandora-loader');
-          if (l && l.parentNode) {
-            l.style.opacity = '0';
-            setTimeout(function () {
-              if (l.parentNode) l.remove();
-            }, 400);
-          }
-        }
-        window.addEventListener('load', hideLoader);
-        setTimeout(hideLoader, 2000);
-      })();
-    </script>
-    <div class="aurora-mobile" aria-hidden="true">
-      <div class="aurora-orb aurora-orb-1"></div>
-      <div class="aurora-orb aurora-orb-2"></div>
-      <div class="aurora-orb aurora-orb-3"></div>
-      <div class="aurora-orb aurora-orb-4"></div>
-    </div>
-    <div class="pandora-shapes" aria-hidden="true">
-      <div class="pandora-shape pandora-shape-1"></div>
-      <div class="pandora-shape pandora-shape-2"></div>
-      <div class="pandora-shape pandora-shape-3"></div>
-      <div class="pandora-shape pandora-shape-4"></div>
-    </div>
-    <div class="holo-grid" aria-hidden="true"></div>
-    <div class="noise" aria-hidden="true"></div>
-    <div class="jour-spores" aria-hidden="true">
-      <span class="jour-spore" style="left: 12%; top: 75%; --dur: 22s; --delay: -4s; --dx: 18px; --dy: -90px"></span
-      ><span class="jour-spore" style="left: 28%; top: 60%; --dur: 28s; --delay: -11s; --dx: -12px; --dy: -75px"></span
-      ><span class="jour-spore" style="left: 45%; top: 82%; --dur: 19s; --delay: -7s; --dx: 25px; --dy: -60px"></span
-      ><span class="jour-spore" style="left: 62%; top: 70%; --dur: 32s; --delay: -2s; --dx: -20px; --dy: -85px"></span
-      ><span class="jour-spore" style="left: 78%; top: 65%; --dur: 24s; --delay: -15s; --dx: 14px; --dy: -70px"></span
-      ><span
-        class="jour-spore jour-spore-teal"
-        style="left: 20%; top: 85%; --dur: 26s; --delay: -18s; --dx: 10px; --dy: -65px"></span
-      ><span
-        class="jour-spore jour-spore-teal"
-        style="left: 55%; top: 88%; --dur: 30s; --delay: -5s; --dx: -15px; --dy: -95px"></span>
-    </div>
-    <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
-    <div class="scroll-progress" id="scrollProgress"></div>
-    <div class="noise-overlay" aria-hidden="true"></div>
-    <nav class="nav" id="mainNav" aria-label="Navigation principale">
-      <div class="container nav-inner">
-        <a
-          href="../index.html"
-          class="nav-logo"
-          aria-label="Pinapp Studio — accueil"
-          style="display: flex; align-items: center; gap: 10px; text-decoration: none">
-          <img
-            class="nav-logo-img"
-            src="../assets/images/pinapp-logo.png"
-            alt=""
-            width="132"
-            height="36"
-            decoding="async" />
-        </a>
-        <div class="nav-links">
-          <a href="../offres/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Offres</a>
-          <a href="../realisations/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Réalisations</a>
-          <a href="../a-propos/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">À propos</a>
-          <a href="../faq/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">FAQ</a>
-          <a href="../auralis/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Auralis</a>
-          <a href="../univers/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Univers</a>
-          <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px"
-            >Diagnostic offert &mdash; par &eacute;crit</a
-          >
-        </div>
-        <div class="nav-trailing">
-          <button type="button" class="mode-toggle" id="themeToggle" aria-label="Passer en mode jour">
-            <svg class="icon-lune" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <path
-                d="M15.5 10.5A6.5 6.5 0 0 1 7.5 2.5a6.5 6.5 0 1 0 8 8z"
-                stroke="#00E5CC"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                fill="none" /></svg
-            ><svg class="icon-soleil" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <circle cx="9" cy="9" r="3.5" stroke="#009B8C" stroke-width="1.5" />
-              <line x1="9" y1="1" x2="9" y2="3" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
-              <line x1="9" y1="15" x2="9" y2="17" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
-              <line x1="1" y1="9" x2="3" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
-              <line x1="15" y1="9" x2="17" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
-            </svg>
-          </button>
-          <button
-            type="button"
-            class="burger"
-            id="burger"
-            aria-label="Ouvrir le menu"
-            aria-expanded="false"
-            aria-controls="mobileDrawer">
-            <svg
-              width="22"
-              height="22"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              aria-hidden="true">
-              <path d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+  <body>
+    <div id="cursor" aria-hidden="true"></div>
+    <div id="progress" aria-hidden="true"></div>
+    <canvas id="canvas-pandora" aria-hidden="true"></canvas>
+    <div class="caustics" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="light-rays" aria-hidden="true"></div>
+    <a class="skip-link" href="#main">Aller au contenu</a>
+
+    <nav class="nav" id="nav" aria-label="Navigation principale">
+      <div class="nav__inner">
+        <a class="nav__logo" href="/">Pinapp <span>Inc.</span></a>
+        <ul class="nav__menu" role="list">
+          <li class="nav__item">
+            <a class="nav__link" href="/offres/">
+              Pinapp Studio
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                <path d="M2 3l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+              </svg>
+            </a>
+            <div class="nav__dropdown">
+              <span class="nav__dropdown-label">Pinapp Studio</span>
+              <a href="/offres/">Offres</a>
+              <a href="/realisations/">Réalisations</a>
+              <a href="/offres/formation/">Formations</a>
+              <a href="/a-propos/">Notre studio</a>
+            </div>
+          </li>
+          <li class="nav__item">
+            <a class="nav__link" href="/auralis/">
+              Auralis RH
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                <path d="M2 3l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+              </svg>
+            </a>
+            <div class="nav__dropdown">
+              <span class="nav__dropdown-label">Auralis RH</span>
+              <a href="/auralis/">Le produit</a>
+              <a href="/auralis/#aurora">Aurora, l'IA</a>
+              <a href="/auralis/#beta">Accès bêta</a>
+            </div>
+          </li>
+          <li class="nav__item">
+            <a class="nav__link" href="/memoire-et-presence/">
+              Mémoire & Présence
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                <path d="M2 3l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+              </svg>
+            </a>
+            <div class="nav__dropdown">
+              <span class="nav__dropdown-label">Mémoire & Présence</span>
+              <a href="/memoire-et-presence/">Notre approche</a>
+              <a href="/memoire-et-presence/#realisations">Réalisations Micha</a>
+              <a href="https://memoireetpresence.fr" target="_blank" rel="noopener">memoireetpresence.fr ↗</a>
+            </div>
+          </li>
+        </ul>
+        <div class="nav__actions">
+          <button class="nav__theme" id="theme-toggle" aria-label="Mode jour">◐</button>
+          <a class="nav__cta" href="/diagnostic/">Premier échange offert</a>
+          <button class="nav__burger" aria-label="Menu" aria-expanded="false">
+            <span></span><span></span><span></span>
           </button>
         </div>
+      </div>
+      <div class="nav__drawer">
+        <div class="nav__drawer-section">
+          <span class="nav__drawer-label">Pinapp Studio</span>
+          <a href="/offres/">Offres</a>
+          <a href="/realisations/">Réalisations</a>
+          <a href="/offres/formation/">Formations</a>
+          <a href="/a-propos/">Notre studio</a>
+        </div>
+        <div class="nav__drawer-section">
+          <span class="nav__drawer-label">Auralis RH</span>
+          <a href="/auralis/">Le produit</a>
+          <a href="/auralis/#beta">Accès bêta</a>
+        </div>
+        <div class="nav__drawer-section">
+          <span class="nav__drawer-label">Mémoire & Présence</span>
+          <a href="/memoire-et-presence/">Notre approche</a>
+          <a href="https://memoireetpresence.fr" target="_blank" rel="noopener">memoireetpresence.fr ↗</a>
+        </div>
+        <a href="/diagnostic/" class="btn btn--primary" style="margin-top: 8px">Premier échange offert</a>
       </div>
     </nav>
-    <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" role="dialog" aria-label="Menu" aria-modal="true">
-      <div class="mobile-drawer-panel">
-        <button type="button" id="drawerClose" aria-label="Fermer le menu">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            aria-hidden="true">
-            <path d="M18 6L6 18M6 6l12 12" />
-          </svg>
-        </button>
-        <div class="nav-links">
-          <a href="../index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Accueil</a>
-          <a href="../offres/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Offres</a>
-          <a href="../comment-ca-marche/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8"
-            >Comment &ccedil;a marche</a
-          >
-          <a href="../pourquoi-pinapp/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8"
-            >Pourquoi Pinapp</a
-          >
-          <a href="../confiance/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Confiance</a>
-          <a href="../expertise-ia/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Expertise IA</a>
-          <a href="../formation-gratuite/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8"
-            >Guide offert</a
-          >
-          <a href="../offres/formation/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8"
-            >Formations payantes</a
-          >
-          <a href="../realisations/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8"
-            >R&eacute;alisations</a
-          >
-          <a href="../a-propos/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">&Agrave; propos</a>
-          <a href="../faq/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">FAQ</a>
-          <a href="../auralis/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Auralis</a>
-          <a href="../univers/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Univers</a>
-          <a href="../votre-projet/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Votre projet</a>
-          <a href="../client/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Espace client</a>
-          <a href="../diagnostic/index.html" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px"
-            >Diagnostic offert &mdash; par &eacute;crit</a
-          >
-        </div>
-      </div>
-    </div>
-    <div class="bottom-bar bottom-bar--site bottom-bar--six" aria-label="Navigation du site">
-      <a href="../index.html">Accueil</a>
-      <a href="../offres/index.html">Offres</a>
-      <a href="../diagnostic/index.html" class="bottom-bar-cta">Diagnostic</a>
-      <a href="../univers/index.html">Univers</a>
-      <a href="../formation-gratuite/index.html">Form.</a>
-      <a href="../realisations/index.html">R&eacute;alis.</a>
-    </div>
-    <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
-      <!-- ÉTAPE 3 — Intro Lauralie + Ce qui se passe -->
-      <section class="diagnostic-intro section-enter">
-        <div class="diagnostic-lauralie">
-          <picture class="diagnostic-photo-wrapper">
-            <img
-              src="../assets/images/lauralie.png"
-              alt="Lauralie Daguzay"
-              width="72"
-              height="72"
-              class="diagnostic-photo"
-              loading="eager"
-              decoding="async"
-              onerror="this.closest('picture').style.display = 'none'" />
-          </picture>
-          <div class="diagnostic-lauralie-text">
-            <strong>Lauralie Daguzay</strong>
-            <span>Fondatrice Pinapp Studio</span>
-            <span class="diagnostic-dispo" id="diag-dispo"
-              >&#x25CF; Service client premium &mdash; r&eacute;ponse vis&eacute;e sous 24 h (jours ouvr&eacute;s)</span
-            >
-          </div>
-        </div>
 
-        <h1 class="diagnostic-titre">
-          Tout par &eacute;crit &mdash; vous confirmez.<br />
-          Quelques minutes pour d&eacute;crire votre besoin :<br />
-          la pr&eacute;paration est encha&icirc;n&eacute;e, r&eacute;ponse sous 24 h.
-        </h1>
+    <nav class="nav-dots" aria-label="Sections"><button class="nav-dot active"></button></nav>
 
-        <div class="diagnostic-bloc block block-cyan">
-          <p class="label">CE QUI SE PASSE ENSUITE</p>
-          <div class="diagnostic-steps">
-            <div class="diag-step">
-              <span class="diag-num">1</span>
-              <div>
-                <strong>Vous d&eacute;crivez votre situation</strong>
-                <p>La t&acirc;che qui vous &eacute;puise le plus. Votre secteur. Votre volume.</p>
-              </div>
-            </div>
-            <div class="diag-step">
-              <span class="diag-num">2</span>
-              <div>
-                <strong>Analyse &rarr; plan concret &rarr; devis par email</strong>
-                <p>
-                  Votre dossier est structur&eacute; ; <strong>Claude</strong> aide &agrave; produire un
-                  <strong>plan d&rsquo;action adapt&eacute;</strong> (priorit&eacute;s, automatisations possibles,
-                  site). Tout est <strong>relu et valid&eacute; c&ocirc;t&eacute; studio</strong> avant envoi. Vous
-                  recevez une <strong>proposition chiffr&eacute;e sur mesure</strong> par email &mdash; pas seulement
-                  une grille g&eacute;n&eacute;rique.
-                </p>
-              </div>
-            </div>
-            <div class="diag-step">
-              <span class="diag-num">3</span>
-              <div>
-                <strong>Vous confirmez &agrave; votre rythme</strong>
-                <p>Go, ajustement ou stop : un mot par &eacute;crit suffit. Pas de pression.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="diagnostic-bloc block block-neutre">
-          <p class="label">CE QU&rsquo;ON NE FAIT PAS</p>
-          <ul class="diagnostic-pas-liste">
-            <li>Pas de PowerPoint</li>
-            <li>Pas de pr&eacute;sentation de 45 minutes</li>
-            <li>Pas de pression pour signer</li>
-            <li>Pas d&rsquo;appel ni visio &mdash; formulaire et email uniquement</li>
-          </ul>
-        </div>
-
-        <p class="diagnostic-creneau" id="prochain-creneau">
-          Pas de cr&eacute;neau &agrave; choisir : envoyez le formulaire ci-dessous &mdash; r&eacute;ponse
-          d&eacute;taill&eacute;e sous 24 h (jours ouvr&eacute;s).
-        </p>
-      </section>
-      <div class="section-separator" aria-hidden="true"><div class="section-separator-dot"></div></div>
-      <section class="section section-enter">
-        <div class="container" style="max-width: 620px; text-align: center">
-          <!-- Univers généré — affiché si localStorage contient un univers -->
-          <div id="univers-context" style="display: none; margin-bottom: var(--space-5)"></div>
-
-          <p class="label" style="margin-bottom: var(--space-2)">
-            SERVICE CLIENT PREMIUM &middot; GRATUIT &middot; PAR &Eacute;CRIT &middot; VOUS CONFIRMEZ
-          </p>
-          <h2 style="font-size: var(--text-h1); letter-spacing: -0.02em; margin-bottom: var(--space-3)">
-            D&eacute;crivez votre besoin.<br />R&eacute;ponse structur&eacute;e sous 24 h.
-          </h2>
-
-          <!-- Bloc humain Lauralie -->
-          <div
-            style="
-              display: flex;
-              align-items: center;
-              gap: var(--space-3);
-              background: var(--glass);
-              border: 1px solid var(--border-card);
-              border-radius: 16px;
-              padding: var(--space-4);
-              margin-bottom: var(--space-5);
-              text-align: left;
-            ">
-            <img
-              src="../assets/images/lauralie.png"
-              alt="Lauralie Daguzay, fondatrice Pinapp Studio"
-              style="
-                width: 56px;
-                height: 56px;
-                border-radius: 50%;
-                object-fit: cover;
-                flex-shrink: 0;
-                border: 2px solid rgba(0, 229, 204, 0.3);
-              "
-              onerror="this.style.display = 'none'" />
-            <div style="min-width: 0; flex: 1">
-              <p style="font-size: 14px; font-weight: 600; margin-bottom: 4px">Lauralie Daguzay — Pinapp Studio</p>
-              <p style="font-size: 13px; opacity: 0.7; line-height: 1.6">
-                Chaque demande est trait&eacute;e comme un dossier : analyse (Claude + validation humaine), plan
-                concret, puis <strong>devis personnalis&eacute; par email</strong> si le projet colle. Pas de formulaire
-                dans le vide. Pas de relance si vous arr&ecirc;tez l&agrave;.
-              </p>
-            </div>
-          </div>
-
-          <p style="font-size: 1.0625rem; opacity: 0.7; margin-bottom: var(--space-5)">
-            Environ 2 minutes. Pas d&apos;appel, pas de r&eacute;union. Vous recevez un retour structur&eacute; :
-            <strong>plan d&rsquo;action</strong> (passe Claude + relecture studio) et, si pertinent, une
-            <strong>proposition de site et/ou d&rsquo;automatisation sur devis</strong> par email. Vous confirmez
-            seulement si &ccedil;a vous convient.
-          </p>
-
-          <!-- Barre de progression -->
-          <div
-            role="progressbar"
-            aria-valuemin="1"
-            aria-valuemax="5"
-            aria-valuenow="1"
-            id="onboardingProgress"
-            style="
-              height: 3px;
-              background: var(--border-card);
-              border-radius: 2px;
-              margin-bottom: var(--space-6);
-              overflow: hidden;
-            ">
-            <div
-              id="progressBar"
-              style="
-                height: 100%;
-                width: 20%;
-                background: var(--accent-teal);
-                border-radius: 2px;
-                transition: width 0.4s ease;
-              "></div>
-          </div>
-
-          <!-- Questionnaire -->
-          <div id="questionnaire" style="min-height: 220px">
-            <div class="question" id="q1">
-              <p style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-4)">Votre activité ?</p>
-              <div style="display: flex; flex-wrap: wrap; gap: var(--space-2); justify-content: center">
-                <button type="button" class="pill-btn" data-q="1" data-val="Artisan (plombier, électricien, maçon…)">
-                  · Artisan
-                </button>
-                <button type="button" class="pill-btn" data-q="1" data-val="Restaurateur / commerce">
-                  · Restaurateur / commerce
-                </button>
-                <button type="button" class="pill-btn" data-q="1" data-val="Coach / thérapeute / consultant">
-                  · Coach / indépendant
-                </button>
-                <button type="button" class="pill-btn" data-q="1" data-val="Autre activité">Autre</button>
-              </div>
-            </div>
-
-            <div class="question" id="q2" style="display: none">
-              <p style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-4)">
-                Ce dont vous avez besoin ?
-              </p>
-              <div style="display: flex; flex-wrap: wrap; gap: var(--space-2); justify-content: center">
-                <button type="button" class="pill-btn" data-q="2" data-val="Un site web professionnel">
-                  🌐 Un site web
-                </button>
-                <button type="button" class="pill-btn" data-q="2" data-val="Automatiser mes relances et devis">
-                  → Automatiser mes relances / devis
-                </button>
-                <button type="button" class="pill-btn" data-q="2" data-val="Les deux (site + automatisation)">
-                  ✦ Les deux
-                </button>
-                <button type="button" class="pill-btn" data-q="2" data-val="Je ne sais pas encore">
-                  Je ne sais pas encore
-                </button>
-              </div>
-            </div>
-
-            <div class="question" id="q3" style="display: none">
-              <p style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-4)">
-                Votre situation actuelle ?
-              </p>
-              <div style="display: flex; flex-wrap: wrap; gap: var(--space-2); justify-content: center">
-                <button type="button" class="pill-btn" data-q="3" data-val="Pas de site pour le moment">
-                  Pas de site pour le moment
-                </button>
-                <button type="button" class="pill-btn" data-q="3" data-val="Un site à refaire ou améliorer">
-                  Site à refaire / améliorer
-                </button>
-                <button type="button" class="pill-btn" data-q="3" data-val="Site ok, besoin d'automatisation">
-                  Site ok, besoin d'automatisation
-                </button>
-                <button type="button" class="pill-btn" data-q="3" data-val="Je démarre mon activité">
-                  Je démarre mon activité
-                </button>
-              </div>
-            </div>
-
-            <div class="question" id="q4" style="display: none">
-              <p style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-4)">
-                Votre budget indicatif ?
-              </p>
-              <div style="display: flex; flex-wrap: wrap; gap: var(--space-2); justify-content: center">
-                <button type="button" class="pill-btn" data-q="4" data-val="Moins de 500 €">Moins de 500 €</button>
-                <button type="button" class="pill-btn" data-q="4" data-val="500 – 2 000 €">500 – 2 000 €</button>
-                <button type="button" class="pill-btn" data-q="4" data-val="2 000 € et plus">2 000 € et plus</button>
-                <button type="button" class="pill-btn" data-q="4" data-val="À définir ensemble">
-                  À définir ensemble
-                </button>
-              </div>
-            </div>
-
-            <!-- Étape contact -->
-            <div class="question" id="qcontact" style="display: none" role="group" aria-labelledby="qcontact-label">
-              <p id="qcontact-label" style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-2)">
-                Dernière étape — votre email :
-              </p>
-              <p style="font-size: 13px; opacity: 0.6; margin-bottom: var(--space-4)">
-                Utilisé uniquement pour vous répondre. Pas de relance. Pas de liste. Jamais.
-              </p>
-              <form
-                id="formDiagnostic"
-                name="diagnostic"
-                method="POST"
-                data-netlify="true"
-                netlify-honeypot="bot-field"
+    <main id="main">
+      <div class="snap-container">
+        <section class="snap-section" id="diag-hero" style="justify-content: center; text-align: center">
+          <div class="container" style="max-width: 700px; margin: 0 auto">
+            <span class="label anim-fade">Premier échange offert</span>
+            <h1
+              style="font-size: clamp(36px, 6vw, 72px); letter-spacing: -0.04em; margin-bottom: 24px"
+              class="anim-up"
+              data-delay="100">
+              Par quoi on <span class="shimmer">commence</span> ?
+            </h1>
+            <p
+              style="font-size: 17px; color: var(--text-muted); margin-bottom: 40px; line-height: 1.6"
+              class="anim-up"
+              data-delay="180">
+              Décrivez votre besoin par écrit. Nous vous répondons sous 24h avec un diagnostic et une proposition
+              concrète. Aucun engagement.
+            </p>
+            <div class="card anim-scale" style="padding: 40px; text-align: left" data-delay="240">
+              <div
                 style="
-                  display: flex;
-                  flex-direction: column;
-                  gap: var(--space-2);
-                  max-width: 340px;
-                  margin: 0 auto var(--space-4);
+                  font-size: 11px;
+                  letter-spacing: 0.14em;
+                  text-transform: uppercase;
+                  color: var(--accent);
+                  margin-bottom: 24px;
                 ">
-                <input type="hidden" name="form-name" value="diagnostic" />
-                <!-- Honeypot anti-spam -->
-                <p style="display: none">
-                  <label>Ne pas remplir : <input name="bot-field" /></label>
-                </p>
-                <!-- Réponses questionnaire injectées par JS -->
-                <input type="hidden" name="activite" id="h-activite" />
-                <input type="hidden" name="besoin" id="h-besoin" />
-                <input type="hidden" name="situation" id="h-situation" />
-                <input type="hidden" name="budget" id="h-budget" />
-                <input
-                  type="text"
-                  id="contactPrenom"
-                  aria-label="Votre prénom"
-                  required
-                  aria-required="true"
-                  name="prenom"
-                  placeholder="Votre prénom"
-                  autocomplete="given-name"
-                  style="
-                    font-size: max(1rem, 16px);
-                    padding: 0.875rem 1rem;
-                    border-radius: var(--radius-input);
-                    border: 1px solid var(--border-card);
-                    background: var(--glass-card);
-                    color: var(--text-primary);
-                    width: 100%;
-                    box-sizing: border-box;
-                  " />
-                <input
-                  type="email"
-                  id="contactEmail"
-                  aria-label="Votre adresse email"
-                  required
-                  aria-required="true"
-                  name="email"
-                  placeholder="Votre adresse email"
-                  autocomplete="email"
-                  style="
-                    font-size: max(1rem, 16px);
-                    padding: 0.875rem 1rem;
-                    border-radius: var(--radius-input);
-                    border: 1px solid var(--border-card);
-                    background: var(--glass-card);
-                    color: var(--text-primary);
-                    width: 100%;
-                    box-sizing: border-box;
-                  " />
-                <textarea
-                  id="contactMessage"
-                  name="message"
-                  placeholder="Un mot sur votre situation (facultatif)"
-                  rows="3"
-                  style="
-                    font-size: max(1rem, 16px);
-                    padding: 0.875rem 1rem;
-                    border-radius: var(--radius-input);
-                    border: 1px solid var(--border-card);
-                    background: var(--glass-card);
-                    color: var(--text-primary);
-                    width: 100%;
-                    box-sizing: border-box;
-                    resize: vertical;
-                    font-family: inherit;
-                  "></textarea>
-                <p
-                  id="form-error"
-                  role="alert"
-                  style="color: var(--accent-violet); font-size: 13px; display: none; margin: 0">
-                  Merci d&rsquo;indiquer votre pr&eacute;nom et une adresse e-mail valide (avec un @).
-                </p>
-                <button
-                  type="submit"
-                  id="submitContact"
-                  class="btn btn-primary"
-                  style="margin-top: var(--space-1); min-height: 3rem; font-size: 1rem">
-                  Envoyer mon diagnostic gratuit &rarr;
-                </button>
-              </form>
-              <p style="font-size: 12px; opacity: 0.5">
-                Vos données servent uniquement à vous répondre. Aucun démarchage.
-                <a href="../legal/confidentialite.html" style="text-decoration: underline"
-                  >Politique de confidentialité.</a
-                >
-              </p>
-            </div>
-
-            <!-- Fin -->
-            <div class="question" id="qfin" style="display: none">
-              <div style="width: 56px; height: 56px; margin: 0 auto var(--space-4)">
-                <svg
-                  viewBox="0 0 56 56"
-                  fill="none"
-                  stroke="var(--accent-teal)"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true">
-                  <circle cx="28" cy="28" r="26" />
-                  <polyline points="16,28 23,35 40,18" />
-                </svg>
+                Formulaire de diagnostic
               </div>
-              <h2 style="font-size: 1.5rem; margin-bottom: var(--space-3)">Demande reçue.</h2>
-              <p style="font-size: 1rem; opacity: 0.75; line-height: 1.7; margin-bottom: var(--space-4)">
-                Sous 24 h : analyse de votre message, <strong>plan concret</strong> et, le cas &eacute;ch&eacute;ant,
-                <strong>devis personnalis&eacute; par email</strong> pour site et/ou automatisation.<br />Plus rien
-                &agrave; faire de votre c&ocirc;t&eacute; tant que vous n&rsquo;avez pas lu et confirm&eacute; (ou pas).
-              </p>
-              <p
-                id="qfin-mailto-note"
-                style="display: none; font-size: 14px; opacity: 0.75; line-height: 1.7; margin-bottom: var(--space-4)">
-                Votre messagerie s&rsquo;est ouverte avec un message d&eacute;j&agrave; r&eacute;dig&eacute; :
-                envoyez-le pour que je le re&ccedil;oive. Ce n&rsquo;est pas un envoi automatique depuis le site.
-              </p>
-              <p style="font-size: 13px; opacity: 0.5">lauralie.daguzay@pinapp.fr</p>
+              <!-- TALLY EMBED — remplacer TALLY_FORM_ID par votre ID Tally -->
+              <script src="https://tally.so/widgets/embed.js"></script>
+              <iframe
+                data-tally-src="https://tally.so/embed/TALLY_FORM_ID?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+                loading="lazy"
+                width="100%"
+                height="400"
+                frameborder="0"
+                marginheight="0"
+                marginwidth="0"
+                title="Diagnostic Pinapp Studio"
+                style="border: none; background: transparent">
+              </iframe>
             </div>
+            <div
+              style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px"
+              class="anim-up"
+              data-delay="300">
+              <div style="text-align: center; padding: 16px">
+                <div
+                  style="
+                    font-family: 'Clash Display', sans-serif;
+                    font-size: 28px;
+                    color: var(--accent);
+                    margin-bottom: 4px;
+                  ">
+                  24h
+                </div>
+                <p style="font-size: 12px; color: var(--text-muted)">Délai de réponse</p>
+              </div>
+              <div style="text-align: center; padding: 16px">
+                <div
+                  style="
+                    font-family: 'Clash Display', sans-serif;
+                    font-size: 28px;
+                    color: var(--accent-2);
+                    margin-bottom: 4px;
+                  ">
+                  0 €
+                </div>
+                <p style="font-size: 12px; color: var(--text-muted)">Diagnostic offert</p>
+              </div>
+              <div style="text-align: center; padding: 16px">
+                <div
+                  style="
+                    font-family: 'Clash Display', sans-serif;
+                    font-size: 28px;
+                    color: var(--nacre);
+                    margin-bottom: 4px;
+                  ">
+                  30j
+                </div>
+                <p style="font-size: 12px; color: var(--text-muted)">Satisfait ou remboursé</p>
+              </div>
+            </div>
+            <p style="font-size: 11px; color: var(--text-muted); margin-top: 24px; letter-spacing: 0.06em">
+              Prix HT · TVA non applicable art. 293 B CGI · Paiement sur livrable
+            </p>
           </div>
-        </div>
-      </section>
-    </main>
-    <footer class="site-footer">
-      <div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden; pointer-events: none">
-        <svg
-          viewBox="0 0 120 140"
-          width="380"
-          height="440"
-          style="position: absolute; bottom: -60px; right: -40px; opacity: 0.03"
-          aria-hidden="true"
-          fill="currentColor">
-          <ellipse cx="60" cy="80" rx="38" ry="48" />
-          <path d="M60 32 C54 38 50 42 52 48" />
-          <path d="M60 32 C60 38 60 42 60 48" />
-          <path d="M60 32 C66 38 70 42 68 48" />
-          <rect x="22" y="60" width="76" height="4" rx="2" />
-          <rect x="22" y="72" width="76" height="4" rx="2" />
-          <rect x="22" y="84" width="76" height="4" rx="2" />
-        </svg>
+        </section>
       </div>
-      <div class="container" style="position: relative; text-align: center; padding: var(--space-7) 0 var(--space-5)">
-        <p
-          style="
-            font-size: 1.0625rem;
-            opacity: 0.55;
-            margin-bottom: var(--space-4);
-            font-style: italic;
-            letter-spacing: -0.01em;
-          ">
-          Pinapp orchestre. Vous validez. Toujours.
-        </p>
-        <nav
-          style="
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: var(--space-3);
-            margin-bottom: var(--space-4);
-            font-size: 13px;
-            opacity: 0.65;
-          "
-          aria-label="Liens footer">
-          <a href="https://linkedin.com/in/lauralie-daguzay-4a4542197/" rel="noopener noreferrer" target="_blank"
-            >LinkedIn</a
-          >
-          <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
-          <a href="../legal/mentions.html">Mentions légales</a>
-          <a href="../legal/cgv.html">CGV</a>
-          <a href="../legal/confidentialite.html">Confidentialité</a>
+    </main>
+
+    <footer style="scroll-snap-align: start">
+      <div class="container">
+        <div class="footer__brand">Pinapp <span>Inc.</span></div>
+        <p class="footer__tagline">Connecter. Construire. Transmettre.</p>
+        <nav class="footer__links" aria-label="Footer">
+          <a href="/a-propos/">Notre société</a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="mailto:contact@pinapp.fr">contact@pinapp.fr</a>
+          <a href="/legal/mentions.html">Mentions légales</a>
+          <a href="/legal/cgv.html">CGV</a>
+          <a href="/legal/confidentialite.html">Confidentialité</a>
+          <a href="/engagements/">Nos engagements</a>
+          <a href="https://memoireetpresence.fr" target="_blank" rel="noopener">🌿 Mémoire & Présence</a>
         </nav>
-        <nav
-          style="
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: var(--space-3);
-            margin-bottom: var(--space-3);
-            font-size: 12px;
-            opacity: 0.4;
-          "
-          aria-label="Liens secondaires">
-          <a href="../expertise-ia/index.html">IA &amp; systèmes</a>
-          <a href="../auralis/index.html">Auralis RH</a>
-          <a href="../formation-gratuite/index.html">Formation IA</a>
-        </nav>
-        <p style="font-size: 12px; opacity: 0.35; letter-spacing: 0.04em">Pinapp Studio © 2026</p>
+        <p class="footer__legal">© 2026 Pinapp Inc. · Lauralie & Micha · Prix HT · TVA non applicable art. 293 B CGI</p>
       </div>
     </footer>
-    <div
-      id="cookie-banner"
-      role="dialog"
-      aria-label="Cookies"
-      style="
-        position: fixed;
-        bottom: calc(56px + env(safe-area-inset-bottom, 0px));
-        right: 16px;
-        left: auto;
-        max-width: 300px;
-        padding: 12px 16px;
-        background: rgba(2, 8, 20, 0.92);
-        border: 0.5px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        backdrop-filter: blur(28px) saturate(160%);
-        z-index: 8900;
-        display: none;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.42);
-      ">
-      <p style="font-size: 12px; opacity: 0.7; margin-bottom: 10px; line-height: 1.5">
-        Mesure d&rsquo;audience anonyme &mdash; sans tracking.
-      </p>
-      <div style="display: flex; gap: 8px">
-        <button
-          type="button"
-          id="cookieAccept"
-          style="
-            flex: 1;
-            background: var(--violet, #7b4fe8);
-            color: #fff;
-            border: none;
-            border-radius: 100px;
-            padding: 10px 0;
-            min-height: 44px;
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-          ">
-          OK
-        </button>
-        <button
-          type="button"
-          id="cookieRefuse"
-          style="
-            flex: 1;
-            background: rgba(255, 255, 255, 0.06);
-            color: inherit;
-            border: 0.5px solid rgba(255, 255, 255, 0.12);
-            border-radius: 100px;
-            padding: 10px 0;
-            min-height: 44px;
-            font-size: 13px;
-            cursor: pointer;
-            opacity: 0.7;
-          ">
-          Non merci
-        </button>
-      </div>
-    </div>
-    <script>
-      /* Questionnaire diagnostic — flux q1→q2→q3→q4→qcontact→qfin */
-      document.addEventListener('DOMContentLoaded', () => {
-        const flow = ['q1', 'q2', 'q3', 'q4', 'qcontact', 'qfin'];
-        const progressBar = document.getElementById('progressBar');
-        const progressEl = document.getElementById('onboardingProgress');
-        const answers = {};
 
-        const show = (id) => {
-          document.querySelectorAll('.question').forEach((q) => {
-            q.style.display = q.id === id ? '' : 'none';
-          });
-          const idx = flow.indexOf(id);
-          if (progressBar && idx >= 0) {
-            const pct = Math.round(((idx + 1) / flow.length) * 100);
-            progressBar.style.width = pct + '%';
-            if (progressEl) {
-              progressEl.setAttribute('aria-valuenow', idx + 1);
-              progressEl.setAttribute('aria-label', 'Étape ' + (idx + 1) + ' sur ' + flow.length);
-            }
-          }
-        };
-
-        document.querySelectorAll('.pill-btn').forEach((btn) => {
-          btn.addEventListener('click', () => {
-            const q = btn.dataset.q;
-            answers['q' + q] = btn.dataset.val;
-            btn
-              .closest('.question')
-              ?.querySelectorAll('.pill-btn')
-              .forEach((b) => b.classList.remove('active'));
-            btn.classList.add('active');
-            const nextIdx = flow.indexOf('q' + q) + 1;
-            if (nextIdx < flow.length) setTimeout(() => show(flow[nextIdx]), 220);
-          });
-        });
-
-        const form = document.getElementById('formDiagnostic');
-        if (form) {
-          form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const prenom = document.getElementById('contactPrenom')?.value.trim();
-            const email = document.getElementById('contactEmail')?.value.trim();
-            const message = document.getElementById('contactMessage')?.value.trim() || '';
-            const errEl = document.getElementById('form-error');
-            const submitBtn = document.getElementById('submitContact');
-
-            if (!prenom || !email || !email.includes('@')) {
-              if (errEl) errEl.style.display = '';
-              return;
-            }
-            if (errEl) errEl.style.display = 'none';
-
-            // Remplir les champs cachés avec les réponses du questionnaire
-            ['activite', 'besoin', 'situation', 'budget'].forEach((k, i) => {
-              const el = document.getElementById('h-' + k);
-              if (el) el.value = answers['q' + (i + 1)] || '';
-            });
-
-            answers.prenom = prenom;
-            answers.email = email;
-
-            // Désactiver le bouton pendant l'envoi
-            if (submitBtn) {
-              submitBtn.disabled = true;
-              submitBtn.textContent = 'Envoi…';
-            }
-
-            try {
-              const formData = new FormData(form);
-              const resp = await fetch('/', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams(formData).toString(),
-              });
-              if (resp.ok) {
-                /* Webhook n8n si configuré */
-                if (window.PinappConfig && typeof window.PinappConfig.sendDiagnosticLead === 'function') {
-                  var leadPayload = {
-                    nom: prenom,
-                    email,
-                    secteur: answers.q1 || '',
-                    besoin: answers.q2 || '',
-                    situation: answers.q3 || '',
-                    budget: answers.q4 || '',
-                    message,
-                  };
-                  window.PinappConfig.sendDiagnosticLead(leadPayload);
-                  if (typeof window.PinappConfig.sendDiagnosticClaudePrep === 'function') {
-                    window.PinappConfig.sendDiagnosticClaudePrep(leadPayload);
-                  }
-                }
-                const mailtoNote = document.getElementById('qfin-mailto-note');
-                if (mailtoNote) mailtoNote.style.display = 'none';
-                show('qfin');
-              } else {
-                throw new Error('Serveur: ' + resp.status);
-              }
-            } catch (err) {
-              // Fallback mailto si Netlify Forms non disponible (ex. GitHub Pages) — webhooks n8n / Claude prep quand même
-              const leadPayloadFallback = {
-                nom: prenom,
-                email,
-                secteur: answers.q1 || '',
-                besoin: answers.q2 || '',
-                situation: answers.q3 || '',
-                budget: answers.q4 || '',
-                message,
-              };
-              if (window.PinappConfig) {
-                if (typeof window.PinappConfig.sendDiagnosticLead === 'function') {
-                  window.PinappConfig.sendDiagnosticLead(leadPayloadFallback);
-                }
-                if (typeof window.PinappConfig.sendDiagnosticClaudePrep === 'function') {
-                  window.PinappConfig.sendDiagnosticClaudePrep(leadPayloadFallback);
-                }
-              }
-              const mailtoNote = document.getElementById('qfin-mailto-note');
-              if (mailtoNote) mailtoNote.style.display = '';
-              const body = encodeURIComponent(
-                'Pinapp Studio — diagnostic (e-mail de secours, service client premium par écrit)\n\n' +
-                  'Prénom : ' +
-                  prenom +
-                  '\nE-mail : ' +
-                  email +
-                  '\n\nActivité : ' +
-                  (answers.q1 || '—') +
-                  '\nBesoin : ' +
-                  (answers.q2 || '—') +
-                  '\nSituation : ' +
-                  (answers.q3 || '—') +
-                  '\nBudget : ' +
-                  (answers.q4 || '—') +
-                  (message ? '\n\nMessage : ' + message : '') +
-                  '\n\n—\nRéponse visée sous 24 h (jours ouvrés).',
-              );
-              const mailSubject = 'Pinapp — Diagnostic — ' + prenom;
-              window.location.href =
-                'mailto:lauralie.daguzay@pinapp.fr?subject=' + encodeURIComponent(mailSubject) + '&body=' + body;
-              setTimeout(() => show('qfin'), 600);
-            } finally {
-              if (submitBtn) {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Envoyer mon diagnostic gratuit \u2192';
-              }
-            }
-          });
-        }
-      });
-    </script>
-    <script src="../assets/js/security.js" defer></script>
-    <script src="../assets/js/config.js"></script>
-    <script src="../assets/js/main.js" defer></script>
-    <script src="../assets/js/particles.js" defer></script>
-    <script src="../assets/js/aurora.js" defer></script>
-    <script src="../assets/js/parallax.js" defer></script>
-    <script src="../assets/js/intelligence.js" defer></script>
-    <script src="../assets/js/scroll-cinema.js" defer></script>
-    <script src="../assets/js/cursor.js" defer></script>
-    <script src="../assets/js/pandora-night.js" defer></script>
-    <script src="../assets/js/mode-toggle.js" defer></script>
-    <script>
-      /* Pré-remplissage univers Aurora sur la page diagnostic */
-      document.addEventListener('DOMContentLoaded', function () {
-        try {
-          var u = JSON.parse(localStorage.getItem('pinapp-univers') || 'null');
-          if (!u || !u.nom) return;
-          var ctx = document.getElementById('univers-context');
-          if (!ctx) return;
-          ctx.style.display = '';
-          ctx.className = 'block block-rose';
-          ctx.style.cssText =
-            'padding:20px 24px;margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto;text-align:left;';
-          var safeName = window.PinappSec
-            ? window.PinappSec.htmlEscape(u.nom)
-            : u.nom.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-          var briefNote = u.brief_orient_claude
-            ? '<p style="font-size:12px;opacity:0.55;margin-top:10px;line-height:1.5;">Brief texte libre : transmis avec vos r&eacute;ponses pour orienter Claude.</p>'
-            : '';
-          ctx.innerHTML =
-            '<p class="label" style="margin-bottom:8px;">VOTRE UNIVERS</p><p style="font-family:Georgia,serif;font-size:22px;color:var(--text);margin-bottom:8px;">✦ ' +
-            safeName +
-            '</p><p style="font-size:14px;opacity:0.65;line-height:1.5;">Lauralie a reçu votre univers.<br>Elle arrive préparée.</p>' +
-            briefNote;
-        } catch (e) {}
-      });
-    </script>
-    <script src="../assets/js/bio-particles.js" defer></script>
-    <script>
-      // Prefill offre depuis localStorage
-      (function () {
-        try {
-          var PinS = window.PinappStorage;
-          var offre = PinS ? PinS.get(PinS.KEYS.OFFRE) : localStorage.getItem('pinapp-offre');
-          if (offre) {
-            var map = {
-              'lundi-matin': 'Automatisation RDV',
-              'devis-express': 'Automatisation devis',
-              facturation: 'Automatisation facturation',
-              inbox: 'Automatisation messages',
-              site: 'Site vitrine',
-              'systeme-complet': 'Syst\u00e8me complet',
-            };
-            var label = map[offre] || offre;
-            var h = document.getElementById('h-besoin');
-            if (h) h.value = label;
-          }
-        } catch (e) {}
-      })();
-    </script>
-    <script src="../assets/js/pandora-world.js"></script>
-    <script src="../assets/js/pandora-interactions.js"></script>
+    <script src="/assets/js/particles.js" defer></script>
+    <script src="/assets/js/main.js" defer></script>
   </body>
 </html>

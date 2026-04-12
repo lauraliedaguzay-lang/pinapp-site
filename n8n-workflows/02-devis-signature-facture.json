@@ -1,0 +1,70 @@
+﻿{
+  "name": "🔷 Pinapp — Devis → Signature → Facture",
+  "nodes": [
+    {
+      "id": "1",
+      "name": "Webhook YouSign",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": { "path": "yousign-signature", "method": "POST" },
+      "position": [0, 0]
+    },
+    {
+      "id": "2",
+      "name": "Switch statut",
+      "type": "n8n-nodes-base.switch",
+      "parameters": {
+        "value": "={{ $json.status }}",
+        "rules": [{ "value": "signed", "output": 0 }]
+      },
+      "position": [200, 0]
+    },
+    {
+      "id": "3",
+      "name": "Générer facture",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.stripe.com/v1/invoices",
+        "authentication": "genericCredentialType"
+      },
+      "position": [400, 0]
+    },
+    {
+      "id": "4",
+      "name": "Envoyer lien paiement",
+      "type": "n8n-nodes-base.gmail",
+      "parameters": {
+        "to": "={{ $json.client_email }}",
+        "subject": "Votre facture Pinapp Studio — paiement sécurisé",
+        "body": "Bonjour,\n\nVotre devis a été signé. Voici votre lien de paiement sécurisé : {{ $json.payment_link }}\n\nMerci de votre confiance.\nLaurale — Pinapp Studio"
+      },
+      "position": [600, 0]
+    },
+    {
+      "id": "5",
+      "name": "Notion → En cours",
+      "type": "n8n-nodes-base.notion",
+      "parameters": {
+        "operation": "update",
+        "pageId": "={{ $json.notion_id }}",
+        "properties": { "Statut": { "select": { "name": "En cours" } } }
+      },
+      "position": [600, 200]
+    },
+    {
+      "id": "6",
+      "name": "Notif 🔷",
+      "type": "n8n-nodes-base.gmail",
+      "parameters": {
+        "to": "contact@pinapp.fr",
+        "subject": "🔷 Devis signé — {{ $json.client_nom }}",
+        "body": "Devis signé et facture envoyée pour {{ $json.client_nom }}."
+      },
+      "position": [800, 0]
+    }
+  ],
+  "connections": {
+    "1": { "main": [[{ "node": "2", "type": "main", "index": 0 }]] },
+    "2": { "main": [[{ "node": "3", "type": "main", "index": 0 }]] }
+  }
+}

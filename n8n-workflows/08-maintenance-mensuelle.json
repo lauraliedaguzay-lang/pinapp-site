@@ -1,0 +1,78 @@
+﻿{
+  "name": "🔷 Pinapp — Maintenance mensuelle",
+  "nodes": [
+    {
+      "id": "1",
+      "name": "Schedule 1er du mois 9h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "parameters": {
+        "rule": { "interval": [{ "field": "cronExpression", "expression": "0 9 1 * *" }] }
+      },
+      "position": [0, 0]
+    },
+    {
+      "id": "2",
+      "name": "Lire clients Notion",
+      "type": "n8n-nodes-base.notion",
+      "parameters": { "operation": "getAll", "databaseId": "VOTRE_DB_CLIENTS" },
+      "position": [200, 0]
+    },
+    {
+      "id": "3",
+      "name": "Filter actifs",
+      "type": "n8n-nodes-base.filter",
+      "parameters": {
+        "conditions": {
+          "string": [{ "value1": "={{ $json.statut }}", "operation": "equal", "value2": "Actif" }]
+        }
+      },
+      "position": [400, 0]
+    },
+    {
+      "id": "4",
+      "name": "Email rapport mensuel",
+      "type": "n8n-nodes-base.gmail",
+      "parameters": {
+        "to": "={{ $json.email }}",
+        "subject": "Votre rapport mensuel Pinapp Studio — {{ new Date().toLocaleDateString('fr-FR', {month:'long', year:'numeric'}) }}",
+        "body": "Bonjour {{ $json.nom }},\n\nVoici votre rapport mensuel de vos automatisations Pinapp Studio.\n\nLaurale"
+      },
+      "position": [600, 0]
+    },
+    {
+      "id": "5",
+      "name": "Relance impayés >30j",
+      "type": "n8n-nodes-base.gmail",
+      "parameters": {
+        "to": "={{ $json.email }}",
+        "subject": "Facture en attente — Pinapp Studio",
+        "body": "Bonjour,\n\nNous n'avons pas encore reçu votre règlement. Voici le lien de paiement : {{ $json.payment_link }}\n\nCordialement,\nPinapp Studio"
+      },
+      "position": [600, 200]
+    },
+    {
+      "id": "6",
+      "name": "Export comptable Notion",
+      "type": "n8n-nodes-base.notion",
+      "parameters": {
+        "operation": "create",
+        "databaseId": "VOTRE_DB_COMPTA",
+        "title": "Export {{ new Date().toLocaleDateString('fr-FR', {month:'long', year:'numeric'}) }}"
+      },
+      "position": [800, 0]
+    }
+  ],
+  "connections": {
+    "1": { "main": [[{ "node": "2", "type": "main", "index": 0 }]] },
+    "2": { "main": [[{ "node": "3", "type": "main", "index": 0 }]] },
+    "3": {
+      "main": [
+        [
+          { "node": "4", "type": "main", "index": 0 },
+          { "node": "5", "type": "main", "index": 0 },
+          { "node": "6", "type": "main", "index": 0 }
+        ]
+      ]
+    }
+  }
+}

@@ -1,1319 +1,438 @@
-<!doctype html>
-<html lang="fr">
+﻿<!doctype html>
+<html lang="fr" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="index, follow" />
-    <title>Nos offres — Pinapp Studio</title>
+    <title>Offres — Pinapp Studio</title>
     <meta
       name="description"
-      content="Sites web, automatisations, IA sur-mesure. Tarifs transparents, livraison garantie." />
-    <meta property="og:title" content="Nos offres — Pinapp Studio" />
-    <meta property="og:image" content="https://pinapp.fr/assets/images/og-pinapp-share.png" />
-    <meta property="og:url" content="https://pinapp.fr/offres/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="fr_FR" />
-    <link rel="canonical" href="https://pinapp.fr/offres/" />
-    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
-    <meta name="theme-color" content="#0D0A1A" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#F0FAFA" media="(prefers-color-scheme: light)" />
+      content="Sites premium, automatisation n8n, IA sur-mesure, Pack Duo. Diagnostic offert. Paiement sur livrable." />
+    <link rel="canonical" href="https://pinapp.fr/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.bunny.net/css?family=cormorant-garamond:ital,wght@0,300;0,400;1,300;1,400|inter:ital,wght@0,300;0,400;0,500;1,400&display=swap" />
-    <link rel="stylesheet" href="../assets/css/pinapp-global.css" />
-    <link rel="stylesheet" href="../assets/css/home-2026.css" />
-    <link rel="stylesheet" href="../assets/css/offres-2026.css" />
+      href="https://fonts.bunny.net/css?family=clash-display:wght@400;500;600;700|inter:wght@300;400;500&display=swap" />
+    <link rel="stylesheet" href="/assets/css/pinapp-global.css" />
+    <script src="/assets/js/theme.js"></script>
   </head>
-  <body class="home-2026 page-offres">
+  <body>
     <div id="cursor" aria-hidden="true"></div>
     <div id="progress" aria-hidden="true"></div>
-    <canvas id="particles" aria-hidden="true"></canvas>
+    <canvas id="canvas-pandora" aria-hidden="true"></canvas>
     <div class="caustics" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="light-rays" aria-hidden="true"></div>
+    <a class="skip-link" href="#main">Aller au contenu</a>
 
-    <a class="skip-link-2026" href="#contenu-principal">Aller au contenu principal</a>
-
-    <nav class="nav-2026" id="nav" aria-label="Navigation principale">
-      <div class="nav-2026__inner">
-        <a class="nav-2026__logo" href="../index.html">Pinapp <span>Studio</span></a>
-        <ul class="nav-2026__links">
-          <li><a href="../a-propos/index.html">Studio</a></li>
-          <li><a href="../realisations/index.html">Réalisations</a></li>
-          <li><a href="index.html">Offres</a></li>
-          <li><a href="../formation-gratuite/index.html">Formations</a></li>
-          <li><a href="../pourquoi-pinapp/index.html">Pourquoi nous</a></li>
+    <nav class="nav" id="nav" aria-label="Navigation principale">
+      <div class="nav__inner">
+        <a class="nav__logo" href="/">Pinapp <span>Inc.</span></a>
+        <ul class="nav__menu" role="list">
+          <li class="nav__item">
+            <a class="nav__link" href="/offres/">
+              Pinapp Studio
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                <path d="M2 3l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+              </svg>
+            </a>
+            <div class="nav__dropdown">
+              <span class="nav__dropdown-label">Pinapp Studio</span>
+              <a href="/offres/">Offres</a>
+              <a href="/realisations/">Réalisations</a>
+              <a href="/offres/formation/">Formations</a>
+              <a href="/a-propos/">Notre studio</a>
+            </div>
+          </li>
+          <li class="nav__item">
+            <a class="nav__link" href="/auralis/">
+              Auralis RH
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                <path d="M2 3l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+              </svg>
+            </a>
+            <div class="nav__dropdown">
+              <span class="nav__dropdown-label">Auralis RH</span>
+              <a href="/auralis/">Le produit</a>
+              <a href="/auralis/#aurora">Aurora, l'IA</a>
+              <a href="/auralis/#beta">Accès bêta</a>
+            </div>
+          </li>
+          <li class="nav__item">
+            <a class="nav__link" href="/memoire-et-presence/">
+              Mémoire & Présence
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                <path d="M2 3l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+              </svg>
+            </a>
+            <div class="nav__dropdown">
+              <span class="nav__dropdown-label">Mémoire & Présence</span>
+              <a href="/memoire-et-presence/">Notre approche</a>
+              <a href="/memoire-et-presence/#realisations">Réalisations Micha</a>
+              <a href="https://memoireetpresence.fr" target="_blank" rel="noopener">memoireetpresence.fr ↗</a>
+            </div>
+          </li>
         </ul>
-        <a class="nav-2026__cta" href="../diagnostic/index.html">Premier échange offert</a>
-        <button type="button" class="nav-2026__burger" aria-label="Ouvrir le menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
+        <div class="nav__actions">
+          <button class="nav__theme" id="theme-toggle" aria-label="Mode jour">◐</button>
+          <a class="nav__cta" href="/diagnostic/">Premier échange offert</a>
+          <button class="nav__burger" aria-label="Menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
       </div>
-      <div class="nav-2026__drawer" id="navDrawer" aria-hidden="true">
-        <a href="../a-propos/index.html">Studio</a>
-        <a href="../realisations/index.html">Réalisations</a>
-        <a href="index.html">Offres</a>
-        <a href="../formation-gratuite/index.html">Formations</a>
-        <a href="../pourquoi-pinapp/index.html">Pourquoi nous</a>
-        <a href="../diagnostic/index.html">Premier échange offert</a>
+      <div class="nav__drawer">
+        <div class="nav__drawer-section">
+          <span class="nav__drawer-label">Pinapp Studio</span>
+          <a href="/offres/">Offres</a>
+          <a href="/realisations/">Réalisations</a>
+          <a href="/offres/formation/">Formations</a>
+          <a href="/a-propos/">Notre studio</a>
+        </div>
+        <div class="nav__drawer-section">
+          <span class="nav__drawer-label">Auralis RH</span>
+          <a href="/auralis/">Le produit</a>
+          <a href="/auralis/#beta">Accès bêta</a>
+        </div>
+        <div class="nav__drawer-section">
+          <span class="nav__drawer-label">Mémoire & Présence</span>
+          <a href="/memoire-et-presence/">Notre approche</a>
+          <a href="https://memoireetpresence.fr" target="_blank" rel="noopener">memoireetpresence.fr ↗</a>
+        </div>
+        <a href="/diagnostic/" class="btn btn--primary" style="margin-top: 8px">Premier échange offert</a>
       </div>
     </nav>
 
-    <div class="stack-2026">
-      <main id="contenu-principal" class="offres-2026__scroll-context">
-        <section class="hero-2026 hero-2026--compact" aria-labelledby="offres-hero-title">
-          <div class="hero-2026__bg">
-            <img
-              class="hero-2026__bg-img hero-2026__bg--dark img-filter"
-              src="../assets/images/bg-sombre.png"
-              alt=""
-              width="1920"
-              height="1080"
-              fetchpriority="high"
-              decoding="async" />
-            <img
-              class="hero-2026__bg-img hero-2026__bg--light img-filter"
-              src="../assets/images/bg-clair.png"
-              alt=""
-              width="1920"
-              height="1080"
-              fetchpriority="high"
-              decoding="async" />
-          </div>
-          <div class="hero-2026__vignette" aria-hidden="true"></div>
-          <div class="container-2026 hero-2026__content">
-            <span class="label-2026 anim-fade-hero" style="--delay: 0ms">Nos prestations</span>
-            <h1 class="hero-2026__title" id="offres-hero-title" style="animation-delay: 0.2s">
-              Ce que nous faisons.<br />
-              Ce que ça inclut.<br />
-              Ce que ça coûte.
+    <nav class="nav-dots" aria-label="Sections">
+      <button class="nav-dot active"></button><button class="nav-dot"></button><button class="nav-dot"></button
+      ><button class="nav-dot"></button>
+    </nav>
+
+    <main id="main">
+      <div class="snap-container">
+        <section class="snap-section" id="offres-hero" aria-labelledby="offres-title">
+          <div class="container">
+            <span class="label anim-fade">Pinapp Studio · Offres</span>
+            <h1
+              id="offres-title"
+              style="
+                font-size: clamp(40px, 7vw, 88px);
+                letter-spacing: -0.04em;
+                max-width: 800px;
+                margin-bottom: 32px;
+                line-height: 1;
+              "
+              class="anim-up"
+              data-delay="100">
+              Choisissez votre secteur.<br />Les offres <span class="shimmer">s'adaptent</span>.
             </h1>
-            <p class="hero-2026__sub anim-fade-hero" style="--delay: 400ms">
-              Transparence totale. Zéro surprise. Chaque prestation expliquée comme si vous nous demandiez en face —
-              sans jargon inutile.
+            <div class="sector-filter anim-up" data-delay="200">
+              <button class="sector-btn active" data-sector="tous">Tous</button>
+              <button class="sector-btn" data-sector="beaute">💅 Beauté</button>
+              <button class="sector-btn" data-sector="artisan">🔧 Artisan</button>
+              <button class="sector-btn" data-sector="coach">🎯 Coach</button>
+              <button class="sector-btn" data-sector="restaurant">🍽 Restaurant</button>
+              <button class="sector-btn" data-sector="commerce">🛍 Commerce</button>
+              <button class="sector-btn" data-sector="pme">🏢 PME</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="snap-section" id="offres-auto" aria-labelledby="offres-auto-title">
+          <div class="container">
+            <span class="label anim-fade">Automatisations</span>
+            <h2
+              id="offres-auto-title"
+              style="font-size: clamp(24px, 3vw, 36px); letter-spacing: -0.03em; margin-bottom: 32px"
+              class="anim-up"
+              data-delay="60">
+              Vos tâches répétitives disparaissent.
+            </h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px">
+              <div class="offre-wrap">
+                <article
+                  class="card offre-card anim-up"
+                  data-delay="0"
+                  data-sectors="tous,coach,beaute,artisan,restaurant,pme">
+                  <span class="offre-label">Automatisation RDV</span>
+                  <h3 class="offre-title">Récupérez votre lundi matin.</h3>
+                  <p class="offre-desc">Confirmation · rappel · relance no-show. Tout part automatiquement.</p>
+                  <ul class="crosslist">
+                    <li>Confirmer chaque RDV à la main</li>
+                    <li>Envoyer les rappels la veille</li>
+                    <li>Relancer les no-show</li>
+                  </ul>
+                  <p class="offre-reste">"Une notification quand quelqu'un réserve. C'est tout."</p>
+                  <div class="offre-gain"><span class="count-up" data-target="5">0</span>h</div>
+                  <p class="offre-gain-label">récupérées par semaine</p>
+                  <div class="offre-price">990 € HT</div>
+                  <p class="offre-delai">Livraison en 48h</p>
+                  <a href="/diagnostic/" class="btn btn--primary">Diagnostic offert — par écrit →</a>
+                </article>
+              </div>
+
+              <div class="offre-wrap">
+                <article class="card offre-card anim-up" data-delay="80" data-sectors="tous,artisan,coach,commerce,pme">
+                  <span class="offre-label">Automatisation Devis</span>
+                  <h3 class="offre-title">Votre devis en 2 minutes. Sans vous.</h3>
+                  <p class="offre-desc">
+                    Le prospect remplit un formulaire. L'IA analyse · propose le devis · l'envoie. Vous validez en 30
+                    secondes.
+                  </p>
+                  <ul class="crosslist">
+                    <li>Rédiger chaque devis à la main</li>
+                    <li>Oublier de relancer un prospect</li>
+                    <li>Passer 1h sur un devis qui ne signe pas</li>
+                  </ul>
+                  <p class="offre-reste">"Approuver le devis en un clic. Le reste est automatique."</p>
+                  <div class="offre-gain"><span class="count-up" data-target="3">0</span>h</div>
+                  <p class="offre-gain-label">récupérées par semaine</p>
+                  <div class="offre-price">790 € HT</div>
+                  <p class="offre-delai">Livraison en 48h</p>
+                  <a href="/diagnostic/" class="btn btn--primary">Diagnostic offert — par écrit →</a>
+                </article>
+              </div>
+
+              <div class="offre-wrap">
+                <article
+                  class="card offre-card anim-up"
+                  data-delay="160"
+                  data-sectors="tous,artisan,commerce,coach,pme">
+                  <span class="offre-label">Automatisation Facturation</span>
+                  <h3 class="offre-title">Une journée récupérée chaque mois.</h3>
+                  <p class="offre-desc">
+                    Facture générée à la signature. Relance automatique si impayé. Export comptable le 1er du mois.
+                  </p>
+                  <ul class="crosslist">
+                    <li>Faire vos factures le dimanche soir</li>
+                    <li>Relancer les impayés à la main</li>
+                    <li>Chercher quelle facture a été payée</li>
+                  </ul>
+                  <p class="offre-reste">"Encaisser. Vérifier une fois par mois. C'est tout."</p>
+                  <div class="offre-gain">1 jour</div>
+                  <p class="offre-gain-label">récupéré par mois</p>
+                  <div class="offre-price">590 € HT</div>
+                  <p class="offre-delai">Livraison en 48h</p>
+                  <a href="/diagnostic/" class="btn btn--primary">Diagnostic offert — par écrit →</a>
+                </article>
+              </div>
+
+              <div class="offre-wrap">
+                <article
+                  class="card offre-card anim-up"
+                  data-delay="0"
+                  data-sectors="tous,beaute,restaurant,commerce,coach,pme">
+                  <span class="offre-label">Automatisation Messages</span>
+                  <h3 class="offre-title">Des réponses prêtes, plus vite.</h3>
+                  <p class="offre-desc">
+                    L'assistant IA lit vos messages. Il propose une réponse. Vous validez en quelques secondes.
+                  </p>
+                  <ul class="crosslist">
+                    <li>Rédiger les mêmes réponses en boucle</li>
+                    <li>Laisser des messages en attente plusieurs jours</li>
+                    <li>Gérer Instagram · Gmail · WhatsApp séparément</li>
+                  </ul>
+                  <p class="offre-reste">"Lire la réponse rédigée. Appuyer sur envoyer."</p>
+                  <div class="offre-gain">1 jour</div>
+                  <p class="offre-gain-label">récupéré par mois</p>
+                  <div class="offre-price">490 € HT</div>
+                  <p class="offre-delai">Livraison en 48h · Offre d'entrée</p>
+                  <a href="/diagnostic/" class="btn btn--primary">Diagnostic offert — par écrit →</a>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="snap-section" id="offres-site-ia" aria-labelledby="offres-site-title">
+          <div class="container">
+            <span class="label anim-fade">Sites & IA</span>
+            <h2
+              id="offres-site-title"
+              style="font-size: clamp(24px, 3vw, 36px); letter-spacing: -0.03em; margin-bottom: 32px"
+              class="anim-up"
+              data-delay="60">
+              Votre présence digitale. Votre IA métier.
+            </h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px">
+              <div class="offre-wrap">
+                <article
+                  class="card offre-card anim-up"
+                  data-delay="0"
+                  data-sectors="tous,artisan,coach,beaute,commerce,restaurant,pme">
+                  <span class="offre-label">Site Vitrine</span>
+                  <h3 class="offre-title">Un site qui vous ressemble. Et qui travaille pendant que vous dormez.</h3>
+                  <p class="offre-desc">Design sur-mesure · Copywriting · SEO · Mode nuit/jour · Livré en 7 jours.</p>
+                  <ul class="crosslist">
+                    <li>Hésiter à partager votre lien</li>
+                    <li>Expliquer ce que vous faites à chaque RDV</li>
+                    <li>Payer 200–400€/mois à une agence sans résultat</li>
+                  </ul>
+                  <p class="offre-reste">"Donner votre URL. Votre site fait le reste."</p>
+                  <div class="offre-gain">7 jours</div>
+                  <p class="offre-gain-label">de la commande à la mise en ligne</p>
+                  <div class="offre-price">1 290 € HT</div>
+                  <p class="offre-delai">15 univers · Sur mesure</p>
+                  <a href="/diagnostic/" class="btn btn--primary">Diagnostic offert — par écrit →</a>
+                </article>
+              </div>
+
+              <div class="offre-wrap">
+                <article
+                  class="card offre-card anim-up"
+                  data-delay="80"
+                  data-sectors="tous,artisan,coach,beaute,commerce,restaurant,pme">
+                  <span class="offre-label">IA Sur-mesure</span>
+                  <h3 class="offre-title">L'IA formée sur votre métier. Opérationnelle en 48h.</h3>
+                  <p class="offre-desc">
+                    Formée sur vos documents. Intégrée sur votre site. Qualifie vos leads. Répond à vos clients.
+                  </p>
+                  <ul class="checklist">
+                    <li>Formée sur vos documents</li>
+                    <li>Intégrée sur votre site</li>
+                    <li>Tests 50 scénarios</li>
+                    <li>Dashboard inclus</li>
+                  </ul>
+                  <p class="offre-reste">"Votre assistant IA répond pendant que vous êtes sur le terrain."</p>
+                  <div class="offre-gain">48h</div>
+                  <p class="offre-gain-label">délai de mise en production</p>
+                  <div class="offre-price">890 € HT</div>
+                  <p class="offre-delai">+ 100€/mois maintenance optionnelle</p>
+                  <a href="/diagnostic/" class="btn btn--primary">Diagnostic offert — par écrit →</a>
+                </article>
+              </div>
+
+              <div class="offre-wrap">
+                <article class="card offre-card anim-up" data-delay="160" data-sectors="tous">
+                  <span class="offre-label" style="color: var(--accent-2)">Système Complet</span>
+                  <h3 class="offre-title">Vous approuvez. Tout le reste tourne seul.</h3>
+                  <p class="offre-desc">
+                    Site + automatisations + IA. On câble, on teste, on met en production avec vous.
+                  </p>
+                  <ul class="checklist">
+                    <li>Site premium livré en 7 jours</li>
+                    <li>3 automatisations au choix</li>
+                    <li>Assistant IA métier intégré</li>
+                    <li>Formation 2h incluse</li>
+                  </ul>
+                  <p
+                    style="
+                      font-size: 13px;
+                      color: var(--text-muted);
+                      margin: 16px 0;
+                      font-style: italic;
+                      line-height: 1.6;
+                    ">
+                    Paiement sur livrable. Pas d'abonnement imposé. Un système bien calibré se rentabilise en quelques
+                    semaines.
+                  </p>
+                  <div style="font-size: 13px; color: var(--accent); margin-bottom: 4px; letter-spacing: 0.06em">
+                    0 € de logiciel supplémentaire
+                  </div>
+                  <div class="offre-price">Dès 2 400 € HT</div>
+                  <p class="offre-delai">Sur devis · Satisfait ou remboursé 30 jours</p>
+                  <a href="/diagnostic/" class="btn btn--primary">Diagnostic offert — par écrit →</a>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="snap-section" id="offres-duo" aria-labelledby="duo-offre-title">
+          <div class="container">
+            <span class="label anim-fade">Lauralie + Micha</span>
+            <h2
+              id="duo-offre-title"
+              style="font-size: clamp(28px, 4vw, 48px); letter-spacing: -0.03em; margin-bottom: 20px"
+              class="anim-up"
+              data-delay="80">
+              Pack Complet Duo.<br />Tout. Clé en main.
+            </h2>
+            <p
+              style="font-size: 17px; color: var(--text-muted); max-width: 600px; margin-bottom: 40px; line-height: 1.6"
+              class="anim-up"
+              data-delay="120">
+              Site + automatisation + IA + direction artistique + shooting photo + vidéo + branding. Un seul
+              interlocuteur. Deux expertises. Zéro coordination à gérer.
             </p>
-          </div>
-        </section>
-
-        <div class="offres-2026__tabs-wrap">
-          <div class="container-2026 offres-2026__tabs-row" role="navigation" aria-label="Sections des offres">
-            <a href="#lauralie" class="offres-2026__tab active">Lauralie — technique &amp; assistant intelligent</a>
-            <a href="#micha" class="offres-2026__tab">Micha — imagerie</a>
-            <a href="#stacks" class="offres-2026__tab">Offres duo</a>
-          </div>
-        </div>
-
-        <section class="section-2026 offres-2026__section" id="lauralie">
-          <div class="container-2026">
-            <div class="offres-2026__header anim-up" style="--delay: 0ms">
-              <div class="offres-2026__avatar">
-                <img
-                  src="../assets/images/lauralie.png"
-                  alt="Portrait de Lauralie"
-                  width="240"
-                  height="240"
-                  loading="lazy" />
-                <div class="offres-2026__avatar-glow offres-2026__avatar-glow--teal" aria-hidden="true"></div>
-              </div>
-              <div class="offres-2026__header-text">
-                <span class="label-2026">Technique &amp; intelligence artificielle</span>
-                <h2>Lauralie</h2>
-                <p>
-                  Je conçois <strong>et</strong> je mets en place. Pas de chef de projet d’un côté et une autre personne
-                  qui branche les câbles de l’autre : c’est la même personne, c’est moi.
-                </p>
-              </div>
-            </div>
-
-            <div class="offres-2026__grid">
-              <article class="offre-card-2026 anim-up" style="--delay: 0ms" id="sites">
-                <div class="offre-card-2026__visual">
-                  <img
-                    class="offre-card-2026__cover img-filter"
-                    src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&amp;fit=crop&amp;w=800&amp;h=450&amp;q=80"
-                    alt=""
-                    width="800"
-                    height="450"
-                    loading="lazy" />
-                  <span class="offre-card-2026__badge">Site web</span>
-                </div>
-                <div class="offre-card-2026__body">
-                  <span class="label-2026">Création de site web</span>
-                  <h3>Je vous crée un site professionnel qui vous ressemble vraiment.</h3>
-                  <p class="offre-card-2026__pitch">
-                    Vous n’avez pas de site, ou votre site actuel ne vous met plus en valeur ? Je conçois votre vitrine
-                    de A à Z — apparence, textes, mise en ligne. Vous n’avez pas à vous débattre avec la technique.
-                  </p>
-                  <p class="offre-card-2026__block-title">Exemples concrets</p>
-                  <ul class="offre-card-2026__list">
-                    <li>Un artisan qui veut montrer son travail et recevoir des demandes en ligne</li>
-                    <li>Un coach dont les clients peuvent prendre rendez-vous sans quinze mails</li>
-                    <li>Une jeune structure qui veut rassurer et convaincre dès la première visite</li>
-                  </ul>
-                  <p class="offre-card-2026__block-title">Ce que vous recevez</p>
-                  <ul class="offre-card-2026__checklist">
-                    <li>Apparence sur mesure, lisible sur téléphone et ordinateur</li>
-                    <li>Textes rédigés et mis en page pour vous</li>
-                    <li>Formulaire de contact relié à votre boîte mail</li>
-                    <li>Affichage clair ou plus doux selon les réglages du visiteur (jour / nuit)</li>
-                    <li>Référencement naturel de base pour être trouvé sur Google</li>
-                    <li>Mise en ligne complète</li>
-                    <li>1 h d’explication pour comprendre comment ça tourne, sans devenir technicien</li>
-                  </ul>
-                  <p class="offre-card-2026__block-title offre-card-2026__block-title--muted">
-                    Ce qui n’est pas inclus
-                  </p>
-                  <ul class="offre-card-2026__list">
-                    <li>
-                      Hébergement et nom de domaine (en général une petite somme par an, réglée chez le prestataire que
-                      vous choisissez)
-                    </li>
-                    <li>Photos et tournages sur place (possible avec Micha en offre combinée)</li>
-                    <li>Maintenance après livraison (option mensuelle ci-dessous)</li>
-                  </ul>
-                  <p class="offre-card-2026__block-title">Comment ça se passe</p>
-                  <ol class="offre-card-2026__list">
-                    <li>Premier échange offert (~30 min) pour comprendre votre activité</li>
-                    <li>Je vous montre une maquette avant de construire la version finale</li>
-                    <li>Livraison + 1 h pour prendre le site en main</li>
-                  </ol>
-                  <div class="offre-card-2026__delay">Livré en 10 à 15 jours ouvrés en moyenne</div>
-                  <div class="offre-card-2026__pricing">
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Page d’accueil unique (landing)</span
-                      ><span class="pricing-2026__price">800 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Site 3 à 5 pages</span
-                      ><span class="pricing-2026__price">1 500 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Site premium avec animations soignées</span
-                      ><span class="pricing-2026__price">2 500 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name"
-                        >Site + automatisation intégrée (prise de contact, relances…)</span
-                      ><span class="pricing-2026__price">3 000 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row pricing-2026__row--extra">
-                      <span class="pricing-2026__name">Maintenance mensuelle</span
-                      ><span class="pricing-2026__price">150 € HT / mois</span>
-                    </div>
+            <div class="card pack-duo anim-up" style="padding: 40px; max-width: 700px" data-delay="160">
+              <div class="pack-duo-badge">Pack Duo Complet · Exclusif</div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 28px">
+                <div>
+                  <div
+                    style="
+                      font-size: 11px;
+                      letter-spacing: 0.14em;
+                      text-transform: uppercase;
+                      color: var(--accent);
+                      margin-bottom: 10px;
+                    ">
+                    Lauralie apporte
                   </div>
-                  <p class="offre-card-2026__eco">
-                    Site léger, hébergement privilégié en Europe, pas de publicité cachée qui vous suit.
-                  </p>
-                  <a href="../diagnostic/index.html" class="btn-2026 btn-2026--primary">Premier échange offert →</a>
+                  <ul class="checklist">
+                    <li>Site premium 7 jours</li>
+                    <li>3 automatisations</li>
+                    <li>Assistant IA métier</li>
+                    <li>Formation 2h</li>
+                  </ul>
                 </div>
-              </article>
-
-              <article class="offre-card-2026 anim-up" style="--delay: 40ms" id="automatisation">
-                <div class="offre-card-2026__visual">
-                  <img
-                    class="offre-card-2026__cover img-filter"
-                    src="https://images.unsplash.com/photo-1518186287729-2f7645d327ed?auto=format&amp;fit=crop&amp;w=800&amp;h=450&amp;q=80"
-                    alt=""
-                    width="800"
-                    height="450"
-                    loading="lazy" />
-                  <div class="flow-mini-2026" aria-hidden="true">
-                    <span class="flow-node-2026">E-mail</span>
-                    <span>→</span>
-                    <span class="flow-node-2026">Liste / dossier</span>
-                    <span>→</span>
-                    <span class="flow-node-2026">C’est fait</span>
+                <div>
+                  <div
+                    style="
+                      font-size: 11px;
+                      letter-spacing: 0.14em;
+                      text-transform: uppercase;
+                      color: var(--accent-3);
+                      margin-bottom: 10px;
+                    ">
+                    Micha apporte
                   </div>
-                  <span class="offre-card-2026__badge">Automatisation</span>
-                </div>
-                <div class="offre-card-2026__body">
-                  <span class="label-2026">Automatisation de vos tâches répétitives</span>
-                  <h3>Je fais disparaître les gestes qui vous volent des heures chaque semaine.</h3>
-                  <p class="offre-card-2026__pitch">
-                    Même e-mail à retaper, mêmes relances oubliées, mêmes copier-coller vers plusieurs outils ? Je relie
-                    vos logiciels entre eux pour que les actions s’enchaînent seules, selon des règles qu’on définit
-                    ensemble. Vous validez le fonctionnement ; vous n’avez pas à « coder ».
-                  </p>
-                  <p class="offre-card-2026__block-title">Exemples concrets</p>
-                  <ul class="offre-card-2026__list">
-                    <li>
-                      Un visiteur envoie un formulaire → message de bienvenue part tout seul + vous recevez une alerte
-                    </li>
-                    <li>Un prospect ne répond pas → relances aux dates prévues, sans que vous y pensiez</li>
-                    <li>
-                      Une commande ou un paiement arrive → confirmations, mise à jour de votre fichier clients, facture
-                      : tout s’enchaîne
-                    </li>
-                    <li>Un rendez-vous est réservé → confirmation et rappel automatiques</li>
+                  <ul class="checklist">
+                    <li>Direction artistique</li>
+                    <li>Shooting photo pro</li>
+                    <li>Vidéo de présentation</li>
+                    <li>Branding Adobe complet</li>
                   </ul>
-                  <p class="offre-card-2026__block-title">Ce que vous recevez</p>
-                  <ul class="offre-card-2026__checklist">
-                    <li>1 h pour lister ce qui vous prend du temps inutilement</li>
-                    <li>Mise en place du scénario automatique de bout en bout</li>
-                    <li>Jusqu’à 5 outils reliés (messagerie, agenda, fichier clients, tableur…)</li>
-                    <li>Tests sur les cas réels du quotidien</li>
-                    <li>Document simple : « si ceci arrive, alors cela se passe »</li>
-                    <li>1 h pour vous montrer le résultat en langage clair</li>
-                  </ul>
-                  <p class="offre-card-2026__block-title offre-card-2026__block-title--muted">
-                    Ce qui n’est pas inclus
-                  </p>
-                  <ul class="offre-card-2026__list">
-                    <li>Abonnements des logiciels utilisés (vous les réglez chez les éditeurs)</li>
-                    <li>Gros changements après livraison (possible via maintenance mensuelle)</li>
-                  </ul>
-                  <div class="offre-card-2026__roi">
-                    <span class="roi-2026__label">Retour moyen constaté</span>
-                    <span class="roi-2026__value">~6 semaines</span>
-                    <span class="roi-2026__desc"
-                      >Exemple : une automatisation à 1 200 € qui vous fait gagner 5 h par semaine valorisées à 50 € / h
-                      se rentabilise vite ; ensuite le temps gagné reste pour vous.</span
-                    >
-                  </div>
-                  <p class="offre-card-2026__block-title">Comment ça se passe</p>
-                  <ol class="offre-card-2026__list">
-                    <li>Atelier 1 h : on repère vos 3 plus grosses pertes de temps</li>
-                    <li>Je vous présente le plan avant de tout brancher</li>
-                    <li>Mise en place, tests, puis handover clair</li>
-                  </ol>
-                  <div class="offre-card-2026__delay">Opérationnel en 7 à 10 jours ouvrés en moyenne</div>
-                  <div class="offre-card-2026__pricing">
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Parcours simple (1 à 2 étapes)</span
-                      ><span class="pricing-2026__price">500 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Parcours complet (5 à 7 étapes)</span
-                      ><span class="pricing-2026__price">1 200 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Plusieurs parcours / gros volume</span
-                      ><span class="pricing-2026__price">2 500 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row pricing-2026__row--extra">
-                      <span class="pricing-2026__name">Maintenance mensuelle</span
-                      ><span class="pricing-2026__price">150 € HT / mois</span>
-                    </div>
-                  </div>
-                  <p class="offre-card-2026__eco">
-                    Objectif : moins de clics répétés, plus de temps pour décider et créer.
-                  </p>
-                  <a href="../diagnostic/index.html" class="btn-2026 btn-2026--primary">Premier échange offert →</a>
-                </div>
-              </article>
-
-              <article class="offre-card-2026 anim-up" style="--delay: 80ms" id="ia">
-                <div class="offre-card-2026__visual">
-                  <img
-                    class="offre-card-2026__cover img-filter"
-                    src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&amp;fit=crop&amp;w=800&amp;h=450&amp;q=80"
-                    alt=""
-                    width="800"
-                    height="450"
-                    loading="lazy" />
-                  <div class="chat-preview-2026" aria-hidden="true">
-                    <div class="chat-bubble-2026 chat-bubble-2026--client">
-                      Bonjour, j’aimerais un devis pour une rénovation.
-                    </div>
-                    <div class="chat-bubble-2026 chat-bubble-2026--ai">Avec plaisir. Quelle surface environ ?</div>
-                  </div>
-                  <span class="offre-card-2026__badge">Assistant intelligent</span>
-                </div>
-                <div class="offre-card-2026__body">
-                  <span class="label-2026">Assistant intelligent sur mesure</span>
-                  <h3>Un interlocuteur automatique qui connaît votre activité et répond à toute heure.</h3>
-                  <p class="offre-card-2026__pitch">
-                    Vous aimeriez qu’on réponde aux questions fréquentes, qu’on oriente les bons profils et qu’on
-                    prépare le terrain avant que vous rappeliez — même le soir ou le week-end ? Je construis un
-                    assistant formé sur <strong>vos</strong> contenus et <strong>votre</strong> ton, intégré à votre
-                    site.
-                  </p>
-                  <p class="offre-card-2026__block-title">Exemples concrets</p>
-                  <ul class="offre-card-2026__list">
-                    <li>Réponses aux questions courantes quand vous n’êtes pas disponible</li>
-                    <li>Tri des demandes : les messages arrivent déjà qualifiés chez vous</li>
-                    <li>Aide au choix d’une offre ou d’un premier niveau de service</li>
-                    <li>Collecte des infos utiles avant votre premier échange (vous arrivez préparé)</li>
-                  </ul>
-                  <p class="offre-card-2026__block-title">Ce que vous recevez</p>
-                  <ul class="offre-card-2026__checklist">
-                    <li>Ton aligné sur votre marque</li>
-                    <li>Apprentissage à partir de vos documents (FAQ, plaquettes, process — jusqu’à ~50 pages)</li>
-                    <li>Intégration sur votre site actuel</li>
-                    <li>Tests sur de nombreux cas réalistes</li>
-                    <li>Vue d’ensemble des conversations (tableau simple)</li>
-                    <li>1 h de prise en main</li>
-                  </ul>
-                  <p class="offre-card-2026__block-title offre-card-2026__block-title--muted">
-                    Ce qui n’est pas inclus
-                  </p>
-                  <ul class="offre-card-2026__list">
-                    <li>
-                      Coût du fournisseur d’IA selon le volume de conversations (ordre de grandeur : quelques dizaines
-                      d’euros par mois si l’usage est soutenu)
-                    </li>
-                    <li>Évolutions régulières après lancement (forfait maintenance possible)</li>
-                  </ul>
-                  <p class="offre-card-2026__block-title">Comment ça se passe</p>
-                  <ol class="offre-card-2026__list">
-                    <li>Échange métier 1 h pour comprendre comment vous travaillez</li>
-                    <li>Vous fournissez vos textes existants (ou on les rédige ensemble)</li>
-                    <li>Version test → vos retours → mise en ligne</li>
-                  </ol>
-                  <div class="offre-card-2026__delay">Opérationnel en 10 à 14 jours ouvrés en moyenne</div>
-                  <div class="offre-card-2026__pricing">
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">FAQ / questions-réponses ciblées</span
-                      ><span class="pricing-2026__price">600 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Assistant complet métier</span
-                      ><span class="pricing-2026__price">1 500 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Raccord à plusieurs outils (agenda, paiement…)</span
-                      ><span class="pricing-2026__price">2 500 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row pricing-2026__row--extra">
-                      <span class="pricing-2026__name">Maintenance + évolutions</span
-                      ><span class="pricing-2026__price">100 € HT / mois</span>
-                    </div>
-                  </div>
-                  <p class="offre-card-2026__eco">Conception sobre : on ne fait pas tourner l’IA pour rien.</p>
-                  <a href="../diagnostic/index.html" class="btn-2026 btn-2026--primary">Premier échange offert →</a>
-                </div>
-              </article>
-
-              <article class="offre-card-2026 anim-up" style="--delay: 120ms" id="conseil">
-                <div class="offre-card-2026__visual">
-                  <img
-                    class="offre-card-2026__cover img-filter"
-                    src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&amp;fit=crop&amp;w=800&amp;h=450&amp;q=80"
-                    alt=""
-                    width="800"
-                    height="450"
-                    loading="lazy" />
-                  <span class="offre-card-2026__badge">Conseil</span>
-                </div>
-                <div class="offre-card-2026__body">
-                  <span class="label-2026">Audit &amp; conseil digital</span>
-                  <h3>Je clarifie votre situation et je vous donne un plan d’action priorisé.</h3>
-                  <p class="offre-card-2026__pitch">
-                    Vous sentez qu’il y a du mieux à faire en ligne ou dans l’organisation du travail, mais par où
-                    commencer ? Je passe du temps avec vous, j’analyse, puis je vous rends un document clair : quoi
-                    faire en premier, pourquoi, et dans quel ordre.
-                  </p>
-                  <p class="offre-card-2026__block-title">Ce que vous recevez</p>
-                  <ul class="offre-card-2026__checklist">
-                    <li>Regard sur votre présence en ligne actuelle</li>
-                    <li>Repérage des tâches qui vous ralentissent</li>
-                    <li>Rapport écrit avec actions classées par impact</li>
-                    <li>Feuille de route sur 90 jours</li>
-                    <li>Un point de suivi à 30 jours inclus</li>
-                  </ul>
-                  <p class="offre-card-2026__block-title">Comment ça se passe</p>
-                  <ol class="offre-card-2026__list">
-                    <li>Session d’environ 2 h (visio ou présentiel si possible)</li>
-                    <li>Rapport sous 5 jours ouvrés</li>
-                    <li>Rendez-vous de contrôle à 30 jours</li>
-                  </ol>
-                  <div class="offre-card-2026__delay">Rapport livré sous 5 jours ouvrés après la session</div>
-                  <div class="offre-card-2026__pricing">
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Audit digital (2 h)</span
-                      ><span class="pricing-2026__price">200 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Accompagnement mensuel</span
-                      ><span class="pricing-2026__price">300 € HT / mois</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Journée en entreprise (formation / atelier)</span
-                      ><span class="pricing-2026__price">800 € HT / jour</span>
-                    </div>
-                  </div>
-                  <a href="../diagnostic/index.html" class="btn-2026 btn-2026--primary">Premier échange offert →</a>
-                </div>
-              </article>
-
-              <article class="offre-card-2026 anim-up" style="--delay: 160ms" id="technique">
-                <div class="offre-card-2026__visual">
-                  <img
-                    class="offre-card-2026__cover img-filter"
-                    src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&amp;fit=crop&amp;w=800&amp;h=450&amp;q=80"
-                    alt=""
-                    width="800"
-                    height="450"
-                    loading="lazy" />
-                  <span class="offre-card-2026__badge">Mise en place technique</span>
-                </div>
-                <div class="offre-card-2026__body">
-                  <span class="label-2026">Configuration &amp; mise en ligne</span>
-                  <h3>Je règle la partie technique pour que tout fonctionne ensemble.</h3>
-                  <p class="offre-card-2026__pitch">
-                    Hébergement à paramétrer, outil d’automatisation à installer sur votre serveur, lien entre votre
-                    site et un service de paiement ou de prise de rendez-vous ? Je m’en occupe de A à Z, avec des tests
-                    et une trace écrite de ce qui a été fait.
-                  </p>
-                  <p class="offre-card-2026__block-title">Exemples concrets</p>
-                  <ul class="offre-card-2026__list">
-                    <li>Mise en place de l’hébergement et envoi automatique des mises à jour du site</li>
-                    <li>Installation de l’outil d’automatisation sur un serveur qui vous appartient</li>
-                    <li>Liaison entre vos services (paiement en ligne, agenda, base de connaissances…)</li>
-                    <li>Petits scripts pour gagner du temps sur les mises en ligne répétitives</li>
-                    <li>Déplacement de données d’un outil vers un autre</li>
-                  </ul>
-                  <p class="offre-card-2026__block-title">Ce que vous recevez</p>
-                  <ul class="offre-card-2026__checklist">
-                    <li>Paramétrage complet selon le besoin</li>
-                    <li>Tests en conditions réelles</li>
-                    <li>Notice courte : ce qui a été fait et où cliquer en cas de question</li>
-                  </ul>
-                  <div class="offre-card-2026__pricing">
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Selon complexité (devis après échange)</span
-                      ><span class="pricing-2026__price">à partir de 150 € HT</span>
-                    </div>
-                  </div>
-                  <a href="../diagnostic/index.html" class="btn-2026 btn-2026--primary">Demander un devis →</a>
-                </div>
-              </article>
-
-              <article class="offre-card-2026 anim-up" style="--delay: 200ms" id="veille">
-                <div class="offre-card-2026__visual">
-                  <img
-                    class="offre-card-2026__cover img-filter"
-                    src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&amp;fit=crop&amp;w=800&amp;h=450&amp;q=80"
-                    alt=""
-                    width="800"
-                    height="450"
-                    loading="lazy" />
-                  <span class="offre-card-2026__badge">Veille</span>
-                </div>
-                <div class="offre-card-2026__body">
-                  <span class="label-2026">Veille &amp; recommandations</span>
-                  <h3>Restez à jour sans passer vos soirées à lire des flux d’actus.</h3>
-                  <p class="offre-card-2026__pitch">
-                    Les outils autour de l’intelligence artificielle bougent vite. Je trie l’information à votre place
-                    et je vous envoie chaque mois un résumé lisible : ce qui peut vous servir, ce qui est surfait, et
-                    quoi tester en priorité selon votre secteur.
-                  </p>
-                  <p class="offre-card-2026__block-title">Ce que vous recevez</p>
-                  <ul class="offre-card-2026__checklist">
-                    <li>Lettre mensuelle : les évolutions utiles pour votre métier</li>
-                    <li>Pistes personnalisées selon ce que vous faites</li>
-                    <li>Alertes « à tester » quand un outil devient pertinent</li>
-                    <li>Accès à une bibliothèque de ressources Pinapp</li>
-                  </ul>
-                  <div class="offre-card-2026__pricing">
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Lettre mensuelle</span
-                      ><span class="pricing-2026__price">49 € HT / mois</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Veille + recommandations personnalisées</span
-                      ><span class="pricing-2026__price">149 € HT / mois</span>
-                    </div>
-                  </div>
-                  <a href="../diagnostic/index.html" class="btn-2026 btn-2026--primary">Nous en parler →</a>
-                </div>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section class="section-2026 offres-2026__section offres-2026__section--micha" id="micha">
-          <div class="container-2026">
-            <div class="offres-2026__header anim-up" style="--delay: 0ms">
-              <div class="offres-2026__avatar">
-                <img src="../assets/images/micha.svg" alt="Portrait de Micha" width="200" height="200" loading="lazy" />
-                <div class="offres-2026__avatar-glow offres-2026__avatar-glow--violet" aria-hidden="true"></div>
-              </div>
-              <div class="offres-2026__header-text">
-                <span class="label-2026">Imagerie &amp; direction artistique</span>
-                <h2>Micha</h2>
-                <p>
-                  Je travaille depuis mon studio avec des outils professionnels — suite de création Adobe, intelligence
-                  artificielle pour l’image lorsque c’est pertinent, et restauration haute qualité. La plupart des
-                  prestations se font à distance ; je me déplace en Nouvelle-Aquitaine pour les prises de vue et
-                  tournages.
-                </p>
-                <div class="offres-2026__badges">
-                  <span class="offres-2026__badge">À distance en priorité</span>
-                  <span class="offres-2026__badge">Déplacements : Nouvelle-Aquitaine</span>
                 </div>
               </div>
-            </div>
-
-            <div class="offres-2026__deplacement anim-fade" style="--delay: 0ms">
-              <p>
-                <strong>Déplacements photo / vidéo :</strong> inclus jusqu’à 30 km · +80 € jusqu’à 80 km · +150 €
-                jusqu’à 150 km · +250 € jusqu’à 300 km · au-delà : sur devis (+ frais d’hébergement si besoin).
+              <p class="pack-duo-economy">~1 600 € économisés vs. séparé · Valeur estimée ~5 500 €</p>
+              <div
+                style="
+                  font-family: 'Clash Display', sans-serif;
+                  font-size: 36px;
+                  color: var(--nacre);
+                  margin-bottom: 4px;
+                ">
+                À partir de 3 900 € HT
+              </div>
+              <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 28px">
+                Sur devis selon périmètre · Paiement sur livrable
               </p>
-            </div>
-
-            <div class="offres-2026__grid">
-              <article class="offre-card-2026 anim-up" style="--delay: 0ms" id="restauration">
-                <div class="offre-card-2026__visual">
-                  <img
-                    class="offre-card-2026__cover img-filter"
-                    src="https://images.unsplash.com/photo-1520854221050-0f4caff449fb?auto=format&amp;fit=crop&amp;w=800&amp;h=450&amp;q=80"
-                    alt=""
-                    width="800"
-                    height="450"
-                    loading="lazy" />
-                  <div class="before-after-2026" aria-hidden="true">
-                    <div class="before-after-2026__cell before-after-2026__cell--before">
-                      <img
-                        src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&amp;fit=crop&amp;w=400&amp;h=300&amp;q=80"
-                        alt=""
-                        width="200"
-                        height="150"
-                        loading="lazy" />
-                      <span>Avant</span>
-                    </div>
-                    <div class="before-after-2026__cell">
-                      <img
-                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&amp;fit=crop&amp;w=400&amp;h=300&amp;q=80"
-                        alt=""
-                        width="200"
-                        height="150"
-                        loading="lazy" />
-                      <span>Après</span>
-                    </div>
-                  </div>
-                  <span class="offre-card-2026__badge offre-card-2026__badge--distance">100 % à distance</span>
-                </div>
-                <div class="offre-card-2026__body">
-                  <span class="label-2026">Restauration photo &amp; vidéo</span>
-                  <h3>Je redonne vie à vos souvenirs abîmés ou flous.</h3>
-                  <p class="offre-card-2026__pitch">
-                    Vieilles photos de famille, films amateur, cassettes : je répare, nettoie, stabilise et, si vous le
-                    souhaitez, colore des images noir et blanc. Le but est simple : que vous puissiez les regarder à
-                    nouveau avec plaisir.
-                  </p>
-                  <p class="offre-card-2026__block-title">Ce que je restaure</p>
-                  <ul class="offre-card-2026__list">
-                    <li>Photos déchirées, ternies, trop sombres ou floues</li>
-                    <li>Noir et blanc à coloriser avec respect du sujet</li>
-                    <li>Vidéos anciennes (cassette, fichiers récupérés…)</li>
-                    <li>Amélioration de la netteté et passage vers une définition plus grande pour écran ou tirage</li>
-                  </ul>
-                  <p class="offre-card-2026__block-title">Ce que vous recevez</p>
-                  <ul class="offre-card-2026__checklist">
-                    <li>
-                      Diagnostic gratuit : vous envoyez un fichier, je vous dis ce qui est possible avant facturation
-                    </li>
-                    <li>Fichier haute qualité + version adaptée à l’impression si besoin</li>
-                    <li>Une série de retouches incluse après votre retour</li>
-                  </ul>
-                  <div class="offre-card-2026__delay">3 à 7 jours ouvrés selon l’état du fichier</div>
-                  <div class="offre-card-2026__pricing">
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Photo simple (tache, petite déchirure)</span
-                      ><span class="pricing-2026__price">80 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Photo complexe (reconstruction partielle)</span
-                      ><span class="pricing-2026__price">250 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Colorisation noir &amp; blanc</span
-                      ><span class="pricing-2026__price">120 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Vidéo courte (&lt; 5 min)</span
-                      ><span class="pricing-2026__price">350 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Vidéo longue ou très abîmée</span
-                      ><span class="pricing-2026__price">800 — 2 000 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Agrandissement qualité (ancienne définition → HD / 4K)</span
-                      ><span class="pricing-2026__price">200 — 600 € HT</span>
-                    </div>
-                  </div>
-                  <div>
-                    <a href="../diagnostic/index.html" class="btn-2026 btn-2026--primary"
-                      >Envoyer un fichier pour diagnostic →</a
-                    >
-                    <p class="offre-card-2026__cta-note">Réponse sous 24 h ouvrées avec une fourchette claire.</p>
-                  </div>
-                </div>
-              </article>
-
-              <article class="offre-card-2026 anim-up" style="--delay: 40ms" id="branding">
-                <div class="offre-card-2026__visual">
-                  <img
-                    class="offre-card-2026__cover img-filter"
-                    src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&amp;fit=crop&amp;w=800&amp;h=450&amp;q=80"
-                    alt=""
-                    width="800"
-                    height="450"
-                    loading="lazy" />
-                  <span class="offre-card-2026__badge offre-card-2026__badge--distance">100 % à distance</span>
-                </div>
-                <div class="offre-card-2026__body">
-                  <span class="label-2026">Identité visuelle &amp; image de marque</span>
-                  <h3>Je crée une identité que l’on reconnaît tout de suite.</h3>
-                  <p class="offre-card-2026__pitch">
-                    Logo daté, couleurs différentes selon les supports, publications qui ne se ressemblent pas ? Je vous
-                    propose un ensemble cohérent : logo, couleurs, typographies, modèles pour les réseaux — pour que
-                    tout soit aligné avec ce que vous voulez transmettre.
-                  </p>
-                  <p class="offre-card-2026__block-title">Ce que vous recevez</p>
-                  <ul class="offre-card-2026__checklist">
-                    <li>Logo et déclinaisons (couleur, monochrome, petit format)</li>
-                    <li>Charte : couleurs exactes, polices, règles d’usage simples</li>
-                    <li>Modèles pour publications réseaux</li>
-                    <li>Fichiers sources pour votre imprimeur ou votre équipe</li>
-                    <li>Guide d’utilisation en langage clair</li>
-                  </ul>
-                  <div class="offre-card-2026__delay">7 à 14 jours ouvrés</div>
-                  <div class="offre-card-2026__pricing">
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Logo seul</span><span class="pricing-2026__price">400 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Logo + charte complète</span
-                      ><span class="pricing-2026__price">800 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Identité + modèles réseaux</span
-                      ><span class="pricing-2026__price">1 500 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Brochure ou plaquette (fichier PDF)</span
-                      ><span class="pricing-2026__price">400 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Catalogue produits</span
-                      ><span class="pricing-2026__price">600 € HT</span>
-                    </div>
-                  </div>
-                  <a href="../diagnostic/index.html" class="btn-2026 btn-2026--primary">Premier échange offert →</a>
-                </div>
-              </article>
-
-              <article class="offre-card-2026 anim-up" style="--delay: 80ms" id="visuels-ia">
-                <div class="offre-card-2026__visual">
-                  <img
-                    class="offre-card-2026__cover img-filter"
-                    src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&amp;fit=crop&amp;w=800&amp;h=450&amp;q=80"
-                    alt=""
-                    width="800"
-                    height="450"
-                    loading="lazy" />
-                  <span class="offre-card-2026__badge offre-card-2026__badge--distance">100 % à distance</span>
-                </div>
-                <div class="offre-card-2026__body">
-                  <span class="label-2026">Visuels assistés par IA</span>
-                  <h3>Des images uniques, retravaillées avec un œil de directeur artistique.</h3>
-                  <p class="offre-card-2026__pitch">
-                    Besoin de beaucoup de visuels pour un site ou les réseaux, sans budget shooting à chaque fois ? Je
-                    combine des outils de création d’images modernes et une retouche manuelle pour que le rendu reste
-                    cohérent avec votre univers — pas du contenu « générique ».
-                  </p>
-                  <p class="offre-card-2026__block-title">Ce que vous recevez</p>
-                  <ul class="offre-card-2026__checklist">
-                    <li>20 visuels retravaillés et alignés avec votre charte</li>
-                    <li>Formats adaptés site, réseaux professionnels, stories</li>
-                    <li>Fichiers prêts à publier</li>
-                  </ul>
-                  <div class="offre-card-2026__delay">5 à 7 jours ouvrés</div>
-                  <div class="offre-card-2026__pricing">
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Pack 20 visuels</span
-                      ><span class="pricing-2026__price">500 € HT</span>
-                    </div>
-                  </div>
-                  <a href="../diagnostic/index.html" class="btn-2026 btn-2026--primary">Demander un devis →</a>
-                </div>
-              </article>
-
-              <article class="offre-card-2026 anim-up" style="--delay: 120ms" id="montage">
-                <div class="offre-card-2026__visual">
-                  <img
-                    class="offre-card-2026__cover img-filter"
-                    src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&amp;fit=crop&amp;w=800&amp;h=450&amp;q=80"
-                    alt=""
-                    width="800"
-                    height="450"
-                    loading="lazy" />
-                  <span class="offre-card-2026__badge offre-card-2026__badge--distance">100 % à distance</span>
-                </div>
-                <div class="offre-card-2026__body">
-                  <span class="label-2026">Montage vidéo &amp; motion design</span>
-                  <h3>Je transforme vos rushes en vidéos propres, lisibles, prêtes à publier.</h3>
-                  <p class="offre-card-2026__pitch">
-                    Vous avez filmé avec un téléphone ou une caméra mais le montage vous bloque ? Je découpe,
-                    j’enchaîne, j’harmonise les couleurs, j’ajoute les sous-titres et je livre les bons formats pour
-                    chaque canal.
-                  </p>
-                  <p class="offre-card-2026__block-title">Ce que vous recevez</p>
-                  <ul class="offre-card-2026__checklist">
-                    <li>Montage soigné et harmonisation des couleurs</li>
-                    <li>Sous-titres relus (pas seulement automatiques)</li>
-                    <li>Formats pour réseaux, site, plateforme longue durée</li>
-                  </ul>
-                  <div class="offre-card-2026__delay">3 à 7 jours ouvrés</div>
-                  <div class="offre-card-2026__pricing">
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Reel ~30 s</span
-                      ><span class="pricing-2026__price">300 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Pack 3 Reels</span
-                      ><span class="pricing-2026__price">700 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Montage événement</span
-                      ><span class="pricing-2026__price">800 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Animation courte (~30 s)</span
-                      ><span class="pricing-2026__price">600 € HT</span>
-                    </div>
-                  </div>
-                  <a href="../diagnostic/index.html" class="btn-2026 btn-2026--primary">Premier échange offert →</a>
-                </div>
-              </article>
-
-              <article class="offre-card-2026 anim-up" style="--delay: 160ms" id="photo">
-                <div class="offre-card-2026__visual">
-                  <img
-                    class="offre-card-2026__cover img-filter"
-                    src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&amp;fit=crop&amp;w=800&amp;h=450&amp;q=80"
-                    alt=""
-                    width="800"
-                    height="450"
-                    loading="lazy" />
-                  <div class="offre-card-2026__photographer">
-                    <img src="../assets/images/micha.svg" alt="" width="32" height="32" loading="lazy" />
-                    <span>Micha derrière l’objectif</span>
-                  </div>
-                  <span class="offre-card-2026__badge offre-card-2026__badge--local">Nouvelle-Aquitaine</span>
-                </div>
-                <div class="offre-card-2026__body">
-                  <span class="label-2026">Photographie</span>
-                  <h3>Des photos qui racontent qui vous êtes et donnent envie d’échanger.</h3>
-                  <p class="offre-card-2026__pitch">
-                    Portrait LinkedIn daté, pas d’images de l’équipe ou des locaux ? Je viens sur place (selon zone)
-                    pour construire un petit reportage : portraits, environnement, détails qui vous ressemblent.
-                  </p>
-                  <p class="offre-card-2026__block-title">Ce que je photographie</p>
-                  <ul class="offre-card-2026__list">
-                    <li>Vous et votre équipe</li>
-                    <li>Lieux de travail, atelier, boutique</li>
-                    <li>Produits pour site ou catalogue</li>
-                    <li>Univers culinaire</li>
-                    <li>Biens à mettre en valeur</li>
-                    <li>Événements professionnels</li>
-                  </ul>
-                  <p class="offre-card-2026__block-title">Ce que vous recevez</p>
-                  <ul class="offre-card-2026__checklist">
-                    <li>Direction des poses et de la lumière sur place</li>
-                    <li>Images retouchées haute définition</li>
-                    <li>Plusieurs formats (web, réseaux, tirage)</li>
-                    <li>Galerie de téléchargement privée pendant 30 jours</li>
-                  </ul>
-                  <div class="offre-card-2026__delay">Livraison sous ~5 jours ouvrés après la séance</div>
-                  <div class="offre-card-2026__pricing">
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Portrait pro (~2 h, 15 photos retouchées)</span
-                      ><span class="pricing-2026__price">300 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Demi-journée</span
-                      ><span class="pricing-2026__price">600 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Journée complète</span
-                      ><span class="pricing-2026__price">1 000 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Produits (10 visuels)</span
-                      ><span class="pricing-2026__price">400 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Univers culinaire</span
-                      ><span class="pricing-2026__price">500 € HT</span>
-                    </div>
-                  </div>
-                  <p class="offre-card-2026__deplacement">
-                    Au-delà de 30 km : voir le barème de déplacement en haut de section.
-                  </p>
-                  <a href="../diagnostic/index.html" class="btn-2026 btn-2026--primary"
-                    >Vérifier les disponibilités →</a
-                  >
-                </div>
-              </article>
-
-              <article class="offre-card-2026 anim-up" style="--delay: 200ms" id="video">
-                <div class="offre-card-2026__visual">
-                  <img
-                    class="offre-card-2026__cover img-filter"
-                    src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&amp;fit=crop&amp;w=800&amp;h=450&amp;q=80"
-                    alt=""
-                    width="800"
-                    height="450"
-                    loading="lazy" />
-                  <span class="offre-card-2026__badge offre-card-2026__badge--local">Nouvelle-Aquitaine</span>
-                </div>
-                <div class="offre-card-2026__body">
-                  <span class="label-2026">Vidéo &amp; tournage</span>
-                  <h3>Des vidéos dont vous êtes fier : du tournage au montage final.</h3>
-                  <p class="offre-card-2026__pitch">
-                    Vous voulez montrer votre métier, un produit, ou la voix de vos clients ? Je conçois le tournage, je
-                    filme, je monte : image stable, son propre, couleurs équilibrées, sous-titres, formats pour chaque
-                    canal.
-                  </p>
-                  <p class="offre-card-2026__block-title">Ce que je réalise</p>
-                  <ul class="offre-card-2026__list">
-                    <li>Film de présentation pour votre page d’accueil</li>
-                    <li>Vidéos courtes pour réseaux</li>
-                    <li>Témoignages clients filmés</li>
-                    <li>Captation de conférence, formation, événement</li>
-                    <li>Démonstrations produit / service</li>
-                  </ul>
-                  <p class="offre-card-2026__block-title">Ce que vous recevez</p>
-                  <ul class="offre-card-2026__checklist">
-                    <li>Montage, titres, musique en droits clairs</li>
-                    <li>Harmonisation des couleurs</li>
-                    <li>Sous-titres</li>
-                    <li>Fichiers prêts à publier</li>
-                  </ul>
-                  <div class="offre-card-2026__pricing">
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Vidéo institutionnelle ~2 min</span
-                      ><span class="pricing-2026__price">1 200 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Film entreprise ~5 min</span
-                      ><span class="pricing-2026__price">2 500 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Témoignage client filmé</span
-                      ><span class="pricing-2026__price">400 € HT</span>
-                    </div>
-                    <div class="pricing-2026__row">
-                      <span class="pricing-2026__name">Captation événement</span
-                      ><span class="pricing-2026__price">800 € HT</span>
-                    </div>
-                  </div>
-                  <p class="offre-card-2026__deplacement">
-                    Au-delà de 30 km : voir le barème de déplacement en haut de section.
-                  </p>
-                  <a href="../diagnostic/index.html" class="btn-2026 btn-2026--primary"
-                    >Vérifier les disponibilités →</a
-                  >
-                </div>
-              </article>
-
-              <article class="offre-card-2026 anim-up" style="--delay: 240ms" id="formations-micha">
-                <div class="offre-card-2026__visual">
-                  <img
-                    class="offre-card-2026__cover img-filter"
-                    src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&amp;fit=crop&amp;w=800&amp;h=450&amp;q=80"
-                    alt=""
-                    width="800"
-                    height="450"
-                    loading="lazy" />
-                  <span class="offre-card-2026__badge offre-card-2026__badge--distance">100 % en ligne</span>
-                </div>
-                <div class="offre-card-2026__body">
-                  <span class="label-2026">Formations imagerie</span>
-                  <h3>Apprenez à produire vos propres visuels avec de bonnes bases.</h3>
-                  <p class="offre-card-2026__pitch">
-                    Moins dépendre d’un prestataire pour chaque post ou chaque visuel : des parcours structurés, pensés
-                    comme des formations (pas des vidéos décousues), avec des modules clairs et un certificat à la clé.
-                  </p>
-                  <div class="offre-card-2026__packs">
-                    <div class="pack-2026">
-                      <div class="pack-2026__header">
-                        <span class="pack-2026__name">Découverte imagerie</span>
-                        <span class="pack-2026__price">67 € HT</span>
-                      </div>
-                      <p class="pack-2026__desc">Belles images avec l’IA en ~2 h, sans prérequis technique.</p>
-                      <ul class="pack-2026__modules">
-                        <li>Création d’images assistée par IA (outils du moment)</li>
-                        <li>Cadrage visuel simple</li>
-                        <li>Retouche rapide sur mobile</li>
-                        <li>Bases d’une courte vidéo verticale</li>
-                        <li>Certificat</li>
-                      </ul>
-                      <a href="formation/index.html" class="btn-2026 btn-2026--ghost">En savoir plus →</a>
-                    </div>
-                    <div class="pack-2026 pack-2026--featured">
-                      <div class="pack-2026__header">
-                        <span class="pack-2026__name">Pro retouche &amp; montage</span>
-                        <span class="pack-2026__price">197 € HT</span>
-                      </div>
-                      <p class="pack-2026__desc">Retouche photo, montage vidéo, reels : ~4 h + exercice guidé.</p>
-                      <ul class="pack-2026__modules">
-                        <li>Bases retouche photo professionnelle</li>
-                        <li>Traitement de lots d’images</li>
-                        <li>Montage vidéo pas à pas</li>
-                        <li>Reels orientés message clair</li>
-                        <li>IA créative un peu plus poussée</li>
-                        <li>Certificat</li>
-                      </ul>
-                      <a href="formation/index.html" class="btn-2026 btn-2026--primary">En savoir plus →</a>
-                    </div>
-                    <div class="pack-2026">
-                      <div class="pack-2026__header">
-                        <span class="pack-2026__name">Expert visuel complet</span>
-                        <span class="pack-2026__price">497 € HT</span>
-                      </div>
-                      <p class="pack-2026__desc">Parcours long (~8 h) + point live mensuel avec Micha.</p>
-                      <ul class="pack-2026__modules">
-                        <li>Tout le niveau « Pro »</li>
-                        <li>Animation légère et titres</li>
-                        <li>Correction couleur vidéo (étalonnage) : introduction</li>
-                        <li>Restauration photo / vidéo assistée</li>
-                        <li>Session live mensuelle</li>
-                        <li>Certificat « expert »</li>
-                      </ul>
-                      <a href="formation/index.html" class="btn-2026 btn-2026--ghost">En savoir plus →</a>
-                    </div>
-                  </div>
-                </div>
-              </article>
+              <a href="/diagnostic/" class="btn btn--primary">Demander un devis →</a>
             </div>
           </div>
         </section>
+      </div>
+    </main>
 
-        <section class="section-2026 offres-2026__section" id="stacks">
-          <div class="container-2026">
-            <span class="label-2026 anim-fade" style="--delay: 0ms">Lauralie + Micha</span>
-            <h2 class="anim-up" style="--delay: 40ms">Deux expertises.<br />Un seul interlocuteur côté studio.</h2>
-            <p class="section-2026__sub anim-up" style="--delay: 80ms">
-              En regroupant site, automatisation et imagerie dans un même brief, vous gagnez en cohérence — et souvent
-              jusqu’à environ 30 % par rapport au détail des prestations prises séparément.
-            </p>
+    <footer style="scroll-snap-align: start">
+      <div class="container">
+        <div class="footer__brand">Pinapp <span>Inc.</span></div>
+        <p class="footer__tagline">Connecter. Construire. Transmettre.</p>
+        <nav class="footer__links" aria-label="Footer">
+          <a href="/a-propos/">Notre société</a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="mailto:contact@pinapp.fr">contact@pinapp.fr</a>
+          <a href="/legal/mentions.html">Mentions légales</a>
+          <a href="/legal/cgv.html">CGV</a>
+          <a href="/legal/confidentialite.html">Confidentialité</a>
+          <a href="/engagements/">Nos engagements</a>
+          <a href="https://memoireetpresence.fr" target="_blank" rel="noopener">🌿 Mémoire & Présence</a>
+        </nav>
+        <p class="footer__legal">© 2026 Pinapp Inc. · Lauralie & Micha · Prix HT · TVA non applicable art. 293 B CGI</p>
+      </div>
+    </footer>
 
-            <div class="stacks-2026__grid">
-              <article class="stack-card-2026 anim-up" style="--delay: 0ms">
-                <div class="stack-card-2026__visual">
-                  <img
-                    class="img-filter"
-                    src="https://images.unsplash.com/photo-1522071820081-80f806f77732?auto=format&amp;fit=crop&amp;w=800&amp;h=400&amp;q=80"
-                    alt=""
-                    width="800"
-                    height="400"
-                    loading="lazy" />
-                </div>
-                <div class="stack-card-2026__body">
-                  <span class="label-2026">Offre duo 1</span>
-                  <h3>Présence complète</h3>
-                  <p>Idéal pour un lancement ou une refonte totale : image + site qui vont dans le même sens.</p>
-                  <div class="stack-card-2026__who">
-                    <span class="who-2026--lauralie">Lauralie</span>
-                    <ul>
-                      <li>Site vitrine soigné</li>
-                      <li>Formulaire relié à vos messages et rappels automatiques si besoin</li>
-                      <li>Lien avec votre messagerie et votre fichier clients</li>
-                    </ul>
-                  </div>
-                  <div class="stack-card-2026__who">
-                    <span class="who-2026--micha">Micha</span>
-                    <ul>
-                      <li>Séance photo équipe / locaux</li>
-                      <li>Film de présentation ~2 min</li>
-                      <li>3 vidéos courtes pour réseaux</li>
-                    </ul>
-                  </div>
-                  <div class="stack-card-2026__price-block">
-                    <span class="price-2026--stack">3 500 € HT</span>
-                    <span class="price-2026--normal">Valeur séparée indicatif ~5 000 €</span>
-                    <span class="price-2026--saving">Économie indicative ~30 %</span>
-                  </div>
-                  <a href="../diagnostic/index.html" class="btn-2026 btn-2026--primary">Nous en parler →</a>
-                </div>
-              </article>
-
-              <article class="stack-card-2026 anim-up" style="--delay: 80ms">
-                <div class="stack-card-2026__visual">
-                  <img
-                    class="img-filter"
-                    src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&amp;fit=crop&amp;w=800&amp;h=400&amp;q=80"
-                    alt=""
-                    width="800"
-                    height="400"
-                    loading="lazy" />
-                </div>
-                <div class="stack-card-2026__body">
-                  <span class="label-2026">Offre duo 2</span>
-                  <h3>Lancement digital</h3>
-                  <p>
-                    Pour une offre, un produit ou une nouvelle activité : page d’accueil ciblée + image qui accroche.
-                  </p>
-                  <div class="stack-card-2026__who">
-                    <span class="who-2026--lauralie">Lauralie</span>
-                    <ul>
-                      <li>Page d’accueil orientée conversion</li>
-                      <li>Suites de mails automatiques pour les contacts entrants</li>
-                      <li>Liens vers vos réseaux</li>
-                    </ul>
-                  </div>
-                  <div class="stack-card-2026__who">
-                    <span class="who-2026--micha">Micha</span>
-                    <ul>
-                      <li>20 visuels retravaillés</li>
-                      <li>Pack 3 Reels prêts à publier</li>
-                      <li>Direction artistique commune avec Lauralie</li>
-                    </ul>
-                  </div>
-                  <div class="stack-card-2026__price-block">
-                    <span class="price-2026--stack">2 200 € HT</span>
-                    <span class="price-2026--normal">Valeur séparée indicatif ~3 200 €</span>
-                    <span class="price-2026--saving">Économie indicative ~30 %</span>
-                  </div>
-                  <a href="../diagnostic/index.html" class="btn-2026 btn-2026--primary">Nous en parler →</a>
-                </div>
-              </article>
-
-              <article class="stack-card-2026 anim-up" style="--delay: 160ms">
-                <div class="stack-card-2026__visual">
-                  <img
-                    class="img-filter"
-                    src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&amp;fit=crop&amp;w=800&amp;h=400&amp;q=80"
-                    alt=""
-                    width="800"
-                    height="400"
-                    loading="lazy" />
-                </div>
-                <div class="stack-card-2026__body">
-                  <span class="label-2026">Offre duo 3</span>
-                  <h3>Assistant + image produit</h3>
-                  <p>L’assistant répond sur le site ; la vidéo montre ce que vous vendez.</p>
-                  <div class="stack-card-2026__who">
-                    <span class="who-2026--lauralie">Lauralie</span>
-                    <ul>
-                      <li>Assistant conversationnel formé sur votre activité</li>
-                      <li>Intégration sur votre site actuel</li>
-                      <li>3 mois d’ajustements légers inclus</li>
-                    </ul>
-                  </div>
-                  <div class="stack-card-2026__who">
-                    <span class="who-2026--micha">Micha</span>
-                    <ul>
-                      <li>Vidéo démo produit ~60 s</li>
-                      <li>Version courte pour réseaux ~30 s</li>
-                      <li>Miniature vidéo soignée pour les clics</li>
-                    </ul>
-                  </div>
-                  <div class="stack-card-2026__price-block">
-                    <span class="price-2026--stack">1 800 € HT</span>
-                    <span class="price-2026--normal">Valeur séparée indicatif ~2 600 €</span>
-                    <span class="price-2026--saving">Économie indicative ~30 %</span>
-                  </div>
-                  <a href="../diagnostic/index.html" class="btn-2026 btn-2026--primary">Nous en parler →</a>
-                </div>
-              </article>
-
-              <article class="stack-card-2026 anim-up" style="--delay: 240ms">
-                <div class="stack-card-2026__visual">
-                  <img
-                    class="img-filter"
-                    src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&amp;fit=crop&amp;w=800&amp;h=400&amp;q=80"
-                    alt=""
-                    width="800"
-                    height="400"
-                    loading="lazy" />
-                </div>
-                <div class="stack-card-2026__body">
-                  <span class="label-2026">Offre duo 4</span>
-                  <h3>Identité complète</h3>
-                  <p>De zéro à une présence cohérente : marque, site, premiers contenus vidéo.</p>
-                  <div class="stack-card-2026__who">
-                    <span class="who-2026--lauralie">Lauralie</span>
-                    <ul>
-                      <li>Site vitrine multi-pages</li>
-                      <li>Parcours d’accueil automatisé pour les nouveaux contacts</li>
-                      <li>Respect des couleurs et du logo sur le site</li>
-                    </ul>
-                  </div>
-                  <div class="stack-card-2026__who">
-                    <span class="who-2026--micha">Micha</span>
-                    <ul>
-                      <li>Logo + charte graphique</li>
-                      <li>Modèles pour réseaux</li>
-                      <li>3 vidéos courtes de lancement</li>
-                    </ul>
-                  </div>
-                  <div class="stack-card-2026__price-block">
-                    <span class="price-2026--stack">4 000 € HT</span>
-                    <span class="price-2026--normal">Valeur séparée indicatif ~5 700 €</span>
-                    <span class="price-2026--saving">Économie indicative ~30 %</span>
-                  </div>
-                  <a href="../diagnostic/index.html" class="btn-2026 btn-2026--primary">Nous en parler →</a>
-                </div>
-              </article>
-
-              <article class="stack-card-2026 anim-up" style="--delay: 320ms">
-                <div class="stack-card-2026__visual">
-                  <img
-                    class="img-filter"
-                    src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&amp;fit=crop&amp;w=800&amp;h=400&amp;q=80"
-                    alt=""
-                    width="800"
-                    height="400"
-                    loading="lazy" />
-                </div>
-                <div class="stack-card-2026__body">
-                  <span class="label-2026">Offre duo 5</span>
-                  <h3>Formation en ligne visible</h3>
-                  <p>Vendre une formation avec une plateforme propre et des vidéos soignées.</p>
-                  <div class="stack-card-2026__who">
-                    <span class="who-2026--lauralie">Lauralie</span>
-                    <ul>
-                      <li>Espace formation (accès par compte)</li>
-                      <li>Paiement en ligne sécurisé et accès automatique</li>
-                      <li>Attestations ou certificats générés automatiquement</li>
-                    </ul>
-                  </div>
-                  <div class="stack-card-2026__who">
-                    <span class="who-2026--micha">Micha</span>
-                    <ul>
-                      <li>Tournage des modules</li>
-                      <li>Montage et harmonisation des couleurs</li>
-                      <li>Miniatures d’épisodes cohérentes</li>
-                    </ul>
-                  </div>
-                  <div class="stack-card-2026__price-block">
-                    <span class="price-2026--stack">3 000 € HT</span>
-                    <span class="price-2026--normal">+ revenus récurrents possibles selon votre prix de vente</span>
-                  </div>
-                  <a href="../diagnostic/index.html" class="btn-2026 btn-2026--primary">Nous en parler →</a>
-                </div>
-              </article>
-
-              <article class="stack-card-2026 stack-card-2026--mp anim-up" style="--delay: 400ms">
-                <div class="stack-card-2026__visual">
-                  <img
-                    class="img-filter"
-                    src="https://images.unsplash.com/photo-1519681392907-6a565b29bd37?auto=format&amp;fit=crop&amp;w=800&amp;h=400&amp;q=80"
-                    alt=""
-                    width="800"
-                    height="400"
-                    loading="lazy" />
-                </div>
-                <div class="stack-card-2026__body">
-                  <span class="label-2026" style="color: var(--champagne)">Mémoire &amp; Présence</span>
-                  <h3>Hommage complet</h3>
-                  <p>Une page souvenir dédiée, des médias restaurés, une vidéo d’hommage — le tout coordonné.</p>
-                  <div class="stack-card-2026__who">
-                    <span class="who-2026--lauralie">Lauralie</span>
-                    <ul>
-                      <li>Page hommage sur mesure</li>
-                      <li>Lien ou QR code pour y accéder facilement</li>
-                      <li>Hébergement pérenne</li>
-                    </ul>
-                  </div>
-                  <div class="stack-card-2026__who">
-                    <span class="who-2026--micha">Micha</span>
-                    <ul>
-                      <li>Restauration photos et vidéos familiales</li>
-                      <li>Montage de la vidéo hommage</li>
-                      <li>Direction sobre et respectueuse</li>
-                    </ul>
-                  </div>
-                  <div class="stack-card-2026__price-block">
-                    <span class="price-2026--stack">1 200 — 2 500 € HT</span>
-                    <span class="price-2026--normal">Selon volume de médias et longueur de vidéo</span>
-                  </div>
-                  <a href="../memoire-et-presence/index.html" class="btn-2026 btn-2026--champagne"
-                    >Découvrir Mémoire &amp; Présence →</a
-                  >
-                </div>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section class="section-2026 reassurance-2026" aria-labelledby="reassurance-title">
-          <div class="container-2026">
-            <h2 id="reassurance-title" class="visually-hidden-2026">Pourquoi travailler avec nous</h2>
-            <div class="reassurance-2026__grid">
-              <div class="reassurance-2026__block anim-up" style="--delay: 0ms">
-                <div class="reassurance-2026__icon" aria-hidden="true">🎁</div>
-                <h3>Premier échange offert</h3>
-                <p>Environ 30 minutes pour comprendre votre projet. Sans engagement ni pression commerciale.</p>
-              </div>
-              <div class="reassurance-2026__block anim-up" style="--delay: 80ms">
-                <div class="reassurance-2026__icon" aria-hidden="true">✅</div>
-                <h3>Validation avant construction</h3>
-                <p>
-                  Pour le site, vous validez la maquette avant que la version finale soit construite. Conditions
-                  détaillées aux CGV.
-                </p>
-              </div>
-              <div class="reassurance-2026__block anim-up" style="--delay: 160ms">
-                <div class="reassurance-2026__icon" aria-hidden="true">⚡</div>
-                <h3>Réponse rapide</h3>
-                <p>Nous revenons vers vous en général sous 24 h les jours ouvrés.</p>
-              </div>
-              <div class="reassurance-2026__block anim-up" style="--delay: 240ms">
-                <div class="reassurance-2026__icon" aria-hidden="true">🔒</div>
-                <h3>Prix affichés</h3>
-                <p>
-                  Les montants listés sur cette page sont ceux annoncés ; le détail d’un projet peut faire l’objet d’un
-                  devis personnalisé.
-                </p>
-              </div>
-            </div>
-            <p class="reassurance-2026__legal">
-              Tous les prix sont indiqués hors taxes (HT). TVA non applicable — art. 293 B du CGI.
-            </p>
-            <div class="reassurance-2026__cta anim-scale" style="--delay: 0ms">
-              <a href="../diagnostic/index.html" class="btn-2026 btn-2026--primary btn-2026--large"
-                >Premier échange offert →</a
-              >
-              <p>Réponse sous 24 h ouvrées en principe</p>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <footer class="footer-2026">
-        <div class="footer-2026__inner">
-          <div>
-            <span class="footer-2026__brand">Pinapp Studio</span>
-            <span class="footer-2026__tagline">Connecter. Construire. Transmettre.</span>
-          </div>
-          <nav class="footer-2026__links" aria-label="Liens pied de page">
-            <a href="https://www.linkedin.com/in/lauralie-daguzay-4a4542197/" target="_blank" rel="noopener noreferrer"
-              >LinkedIn</a
-            >
-            <a href="mailto:lauralie.daguzay@pinapp.fr">E-mail studio</a>
-            <a href="../legal/mentions.html">Mentions légales</a>
-            <a href="../legal/cgv.html">CGV</a>
-            <a href="../legal/confidentialite.html">Confidentialité</a>
-            <a href="../confiance/index.html">Engagements</a>
-            <a href="../memoire-et-presence/index.html" class="footer-2026__mp">Mémoire &amp; Présence</a>
-          </nav>
-          <p class="footer-2026__eco">
-            Estimation empreinte : selon votre navigation. Hébergement et outils choisis en Europe lorsque c’est
-            possible.
-          </p>
-          <p class="footer-2026__copy">
-            Prix indiqués en euros HT. TVA non applicable, art. 293 B du CGI. © 2026 Pinapp Studio.
-          </p>
-        </div>
-      </footer>
-    </div>
-
-    <script src="../assets/js/offres-2026.js" defer></script>
-    <noscript>
-      <style>
-        .section-2026 .anim-up,
-        .section-2026 .anim-fade,
-        .section-2026 .anim-scale {
-          opacity: 1 !important;
-          transform: none !important;
-        }
-      </style>
-    </noscript>
+    <script src="/assets/js/particles.js" defer></script>
+    <script src="/assets/js/main.js" defer></script>
   </body>
 </html>

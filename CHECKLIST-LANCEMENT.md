@@ -1,5 +1,7 @@
 # Checklist avant mise en ligne Pinapp Studio
 
+> **Trous à combler dans le code :** recherchez `[[PINAPP_TODO:` dans le dépôt (légal, Mémoire & Présence, etc.). Inventaire détaillé : **`PINAPP-REMPLACEMENTS.md`** à la racine.
+
 ## Informations légales à compléter
 
 - [ ] Forme juridique (SASU ou EURL)
@@ -57,8 +59,8 @@
 
 ## À vérifier
 
-- **Route `formations/index.html`** : absente du dépôt ; hub formations = `offres/formation/index.html` + `formation-gratuite/index.html`. Créer une redirection `/formations/` → `/offres/formation/` côté hébergeur si besoin SEO.
-- **`memoire-et-presence/index.html`** : fichier absent alors que le footer et les offres pointent vers cette URL. Créer la page ou mettre à jour tous les liens vers la destination réelle (non décidé ici — ne pas casser la charte M&P sans brief).
+- **Route `formations/index.html`** : fichier présent — redirection `noindex` vers `offres/formation/`. Remplacer par un vrai hub si besoin.
+- **`memoire-et-presence/index.html`** : brouillon avec marqueurs `[[PINAPP_TODO:mp_*]]` — remplacer le texte avant diffusion ; adapter la charte M&amp;P avec Michaël si besoin.
 - **Dossier `n8n/*.json`** : aucun workflow versionné dans ce clone ; audit JSON (credentials nommés, chaînage 01→02/06, signature mail, préfixe WhatsApp 🔷) à faire dès que les exports sont ajoutés au dépôt.
 - **CTA Offres** : le brief prompts demandait des liens vers `../index.html#onboarding` ; `.cursorrules` impose le CTA principal « Premier échange offert » vers `/diagnostic/`. Les CTA principaux restent sur `/diagnostic/` ; ajuster manuellement si la stratégie de conversion privilégie l’onboarding.
 - **Palette `pinapp-global.css` vs `.cursorrules`** : `pinapp-global.css` utilise les tokens « champagne / noir » du cahier prompts Hostinger ; les pages `home-2026` chargent `home-2026.css` ensuite pour rétablir la palette Pandora (mint / violet). Pas de fusion automatique des deux systèmes sur la home.
@@ -78,3 +80,4 @@
 - `[legal/*]` `pinapp-global.css`, titres « — », `robots` (mentions `noindex`, CGV & confidentialité `index,follow`).
 - `[demo/*]` hub + 11 démos plates + démos dossier : `noindex,nofollow`, `pinapp-global.css`, `pinapp-particles.js`, titres « — Démo Pinapp Studio », bandeaux / footers avec lien `../../index.html#onboarding` où applicable ; suppression de `demo-particles.js`.
 - `[n8n/*.json]` non présents dans le dépôt — aucune modification (voir section « À vérifier »).
+- Marqueurs globaux `[[PINAPP_TODO:…]]` + `PINAPP-REMPLACEMENTS.md` ; pages `formations/index.html` (redirect), `memoire-et-presence/index.html` (brouillon) ; email unifié en placeholder sur légal + accueil + JSON-LD.

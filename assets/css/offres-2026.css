@@ -25,14 +25,17 @@
   z-index: 40;
   padding: 12px 0;
   border-bottom: 1px solid var(--card-border);
-  background: rgba(13, 10, 26, 0.75);
+  background: rgba(8, 13, 24, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
 @media (prefers-color-scheme: light) {
-  .offres-2026__tabs-wrap {
-    background: rgba(240, 250, 250, 0.88);
+  html:not([data-theme]) .offres-2026__tabs-wrap {
+    background: rgba(236, 244, 252, 0.9);
   }
+}
+html[data-theme='light'] .offres-2026__tabs-wrap {
+  background: rgba(236, 244, 252, 0.9);
 }
 
 .offres-2026__tabs-row {
@@ -63,22 +66,28 @@
 }
 .offres-2026__tab.active {
   background: var(--accent);
-  color: #0d0a1a;
+  color: #031018;
   border-color: var(--accent);
 }
 @media (prefers-color-scheme: light) {
-  .offres-2026__tab.active {
+  html:not([data-theme]) .offres-2026__tab.active {
     color: #fff;
   }
+}
+html[data-theme='light'] .offres-2026__tab.active {
+  color: #fff;
 }
 
 .offres-2026__section--micha {
   background: rgba(0, 0, 0, 0.06);
 }
 @media (prefers-color-scheme: light) {
-  .offres-2026__section--micha {
+  html:not([data-theme]) .offres-2026__section--micha {
     background: rgba(91, 79, 232, 0.04);
   }
+}
+html[data-theme='light'] .offres-2026__section--micha {
+  background: rgba(91, 79, 232, 0.04);
 }
 
 .offres-2026__header {
@@ -123,7 +132,7 @@
 }
 
 .offres-2026__header-text h2 {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: 'Clash Display', system-ui, sans-serif;
   font-size: clamp(28px, 4vw, 40px);
   margin: 0 0 12px;
   color: var(--text);
@@ -153,14 +162,17 @@
   padding: 16px 20px;
   border-radius: 12px;
   border: 1px solid var(--card-border);
-  background: rgba(18, 13, 40, 0.35);
+  background: rgba(12, 22, 42, 0.35);
   font-size: 14px;
   color: var(--text-muted);
 }
 @media (prefers-color-scheme: light) {
-  .offres-2026__deplacement {
+  html:not([data-theme]) .offres-2026__deplacement {
     background: rgba(255, 255, 255, 0.6);
   }
+}
+html[data-theme='light'] .offres-2026__deplacement {
+  background: rgba(255, 255, 255, 0.6);
 }
 
 .offres-2026__grid {
@@ -173,10 +185,14 @@
 .offre-card-2026 {
   display: grid;
   grid-template-columns: 1fr;
+  align-items: stretch;
+  min-height: 0;
   border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--card-border);
-  box-shadow: 0 8px 32px var(--shadow);
+  box-shadow:
+    0 8px 32px var(--shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 @media (min-width: 900px) {
   .offre-card-2026 {
@@ -204,9 +220,10 @@
 
 .offre-card-2026__body {
   padding: 32px 24px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  background: rgba(18, 13, 40, 0.72);
+  min-height: 0;
+  backdrop-filter: blur(18px) saturate(120%);
+  -webkit-backdrop-filter: blur(18px) saturate(120%);
+  background: rgba(12, 22, 42, 0.72);
 }
 @media (min-width: 768px) {
   .offre-card-2026__body {
@@ -214,13 +231,16 @@
   }
 }
 @media (prefers-color-scheme: light) {
-  .offre-card-2026__body {
-    background: rgba(232, 246, 245, 0.88);
+  html:not([data-theme]) .offre-card-2026__body {
+    background: rgba(226, 236, 248, 0.92);
   }
+}
+html[data-theme='light'] .offre-card-2026__body {
+  background: rgba(226, 236, 248, 0.92);
 }
 
 .offre-card-2026__body h3 {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: 'Clash Display', system-ui, sans-serif;
   font-size: clamp(20px, 2.5vw, 26px);
   margin: 8px 0 12px;
   text-wrap: balance;
@@ -236,7 +256,7 @@
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.06em;
-  background: rgba(13, 10, 26, 0.75);
+  background: rgba(8, 13, 24, 0.75);
   border: 1px solid var(--card-border);
   color: var(--accent);
   backdrop-filter: blur(8px);
@@ -300,9 +320,12 @@
   color: var(--text-muted);
 }
 @media (prefers-color-scheme: light) {
-  .offre-card-2026__delay {
+  html:not([data-theme]) .offre-card-2026__delay {
     background: rgba(91, 79, 232, 0.06);
   }
+}
+html[data-theme='light'] .offre-card-2026__delay {
+  background: rgba(91, 79, 232, 0.06);
 }
 
 .offre-card-2026__pricing {
@@ -326,9 +349,12 @@
   background: rgba(0, 229, 176, 0.04);
 }
 @media (prefers-color-scheme: light) {
-  .pricing-2026__row--extra {
+  html:not([data-theme]) .pricing-2026__row--extra {
     background: rgba(91, 79, 232, 0.05);
   }
+}
+html[data-theme='light'] .pricing-2026__row--extra {
+  background: rgba(91, 79, 232, 0.05);
 }
 .pricing-2026__name {
   font-size: 14px;
@@ -336,7 +362,7 @@
   flex: 1;
 }
 .pricing-2026__price {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: 'Clash Display', system-ui, sans-serif;
   font-size: 20px;
   color: var(--accent);
   white-space: nowrap;
@@ -359,7 +385,7 @@
   margin-bottom: 4px;
 }
 .roi-2026__value {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: 'Clash Display', system-ui, sans-serif;
   font-size: 36px;
   color: var(--champagne);
   line-height: 1.1;
@@ -482,7 +508,7 @@
   gap: 8px;
   padding: 6px 10px;
   border-radius: 100px;
-  background: rgba(13, 10, 26, 0.75);
+  background: rgba(8, 13, 24, 0.75);
   border: 1px solid var(--card-border);
   font-size: 11px;
   color: var(--text);
@@ -517,9 +543,12 @@
   background: rgba(0, 229, 176, 0.04);
 }
 @media (prefers-color-scheme: light) {
-  .pack-2026--featured {
+  html:not([data-theme]) .pack-2026--featured {
     background: rgba(91, 79, 232, 0.06);
   }
+}
+html[data-theme='light'] .pack-2026--featured {
+  background: rgba(91, 79, 232, 0.06);
 }
 .pack-2026__header {
   display: flex;
@@ -534,7 +563,7 @@
   color: var(--text);
 }
 .pack-2026__price {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: 'Clash Display', system-ui, sans-serif;
   font-size: 22px;
   color: var(--accent);
 }
@@ -570,15 +599,18 @@
   border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--card-border);
-  background: rgba(18, 13, 40, 0.65);
+  background: rgba(12, 22, 42, 0.65);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   box-shadow: 0 8px 24px var(--shadow);
 }
 @media (prefers-color-scheme: light) {
-  .stack-card-2026 {
-    background: rgba(232, 246, 245, 0.85);
+  html:not([data-theme]) .stack-card-2026 {
+    background: rgba(226, 236, 248, 0.9);
   }
+}
+html[data-theme='light'] .stack-card-2026 {
+  background: rgba(226, 236, 248, 0.9);
 }
 .stack-card-2026--mp {
   border-color: rgba(201, 169, 110, 0.35);
@@ -594,7 +626,7 @@
   padding: 28px 24px 32px;
 }
 .stack-card-2026__body h3 {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: 'Clash Display', system-ui, sans-serif;
   font-size: 24px;
   margin: 8px 0 8px;
   color: var(--text);
@@ -634,7 +666,7 @@
   margin: 20px 0;
 }
 .price-2026--stack {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: 'Clash Display', system-ui, sans-serif;
   font-size: 30px;
   color: var(--accent);
   display: block;
@@ -662,7 +694,7 @@
 
 .btn-2026--champagne {
   background: var(--champagne);
-  color: #0d0a1a;
+  color: #031018;
   border: none;
 }
 @media (hover: hover) {

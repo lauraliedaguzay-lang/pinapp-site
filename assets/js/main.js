@@ -1,715 +1,188 @@
-/**
- * PINAPP — main.js v4.1 (vanilla)
- */
-(function () {
-  'use strict';
-
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* Spotlight curseur → variables --spot-x / --spot-y (lumière ambiante body::after) */
-  if (!prefersReducedMotion && window.matchMedia('(min-width: 1024px)').matches) {
-    var rootStyle = document.documentElement.style;
-    var spotRaf = null;
-    document.addEventListener(
-      'mousemove',
-      function (e) {
-        if (spotRaf) return;
-        spotRaf = window.requestAnimationFrame(function () {
-          spotRaf = null;
-          var x = (e.clientX / window.innerWidth) * 100;
-          var y = (e.clientY / window.innerHeight) * 100;
-          rootStyle.setProperty('--spot-x', x + '%');
-          rootStyle.setProperty('--spot-y', y + '%');
-        });
+﻿document.addEventListener('DOMContentLoaded', function () {
+  // Progress
+  var prog = document.getElementById('progress'),
+    snap = document.querySelector('.snap-container');
+  if (prog && snap)
+    snap.addEventListener(
+      'scroll',
+      function () {
+        var t = snap.scrollHeight - snap.clientHeight;
+        prog.style.width = t > 0 ? (snap.scrollTop / t) * 100 + '%' : '0%';
       },
       { passive: true },
     );
-  }
 
-  /* Ancre dans l’URL (#contenu-principal) : le loader fixe masque la cible au 1er paint ;
-     après retrait du loader, on rescroll pour file:// et HTTPS. */
-  function applyHashScroll() {
-    var h = location.hash;
-    if (!h || h.length < 2) return;
-    var raw;
-    try {
-      raw = decodeURIComponent(h.slice(1).split('&')[0]);
-    } catch (e) {
-      return;
-    }
-    if (!/^[a-zA-Z0-9_-]+$/.test(raw)) return;
-    var el = document.getElementById(raw);
-    if (!el) return;
-    el.scrollIntoView({ behavior: 'auto', block: 'start' });
-  }
-
-  /* Loader : retrait au load + secours si une ressource bloque l’événement load */
-  function dismissLoader() {
-    var loader = document.getElementById('loader');
-    if (!loader || loader.dataset.dismissed === '1') {
-      window.setTimeout(applyHashScroll, 0);
-      return;
-    }
-    loader.dataset.dismissed = '1';
-    loader.classList.add('hidden');
-    window.setTimeout(function () {
-      if (loader && loader.parentNode) loader.remove();
-      applyHashScroll();
-    }, 300);
-  }
-
-  window.addEventListener('load', dismissLoader);
-  window.addEventListener('load', function () {
-    [450, 900].forEach(function (ms) {
-      window.setTimeout(applyHashScroll, ms);
-    });
-  });
-
-  function armLoaderFailsafe() {
-    window.setTimeout(dismissLoader, 4000);
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', armLoaderFailsafe);
-  } else {
-    armLoaderFailsafe();
-  }
-
-  /* Scroll progress — id scroll-bar (spec refonte) ou ancien scrollProgress */
-  window.addEventListener(
-    'scroll',
-    function () {
-      var max = document.body.scrollHeight - window.innerHeight;
-      var p = max > 0 ? window.scrollY / max : 0;
-      var clamped = Math.min(1, Math.max(0, p));
-      var bar = document.getElementById('scroll-bar');
-      if (bar) {
-        bar.style.width = clamped * 100 + '%';
-        bar.style.transform = '';
-      } else {
-        var legacy = document.getElementById('scrollProgress');
-        if (legacy) legacy.style.transform = 'scaleX(' + clamped + ')';
-      }
-    },
-    { passive: true },
-  );
-
-  /* Nav scroll-aware : masquage au scroll uniquement sur petit écran (évite « nav morte » sur bureau) */
-  var navHideMq = window.matchMedia('(max-width: 767px)');
-  var lastScroll = 0;
-  function clearNavHiddenIfDesktop() {
-    var nav = document.getElementById('mainNav');
-    if (nav && !navHideMq.matches) nav.classList.remove('nav-hidden');
-  }
-  if (navHideMq.addEventListener) {
-    navHideMq.addEventListener('change', clearNavHiddenIfDesktop);
-  } else if (navHideMq.addListener) {
-    navHideMq.addListener(clearNavHiddenIfDesktop);
-  }
-  window.addEventListener(
-    'scroll',
-    function () {
-      var nav = document.getElementById('mainNav');
-      if (!nav) return;
-      if (!navHideMq.matches) {
-        nav.classList.remove('nav-hidden');
-        lastScroll = window.scrollY;
-        return;
-      }
-      var current = window.scrollY;
-      if (current > lastScroll && current > 100) {
-        nav.classList.add('nav-hidden');
-      } else {
-        nav.classList.remove('nav-hidden');
-      }
-      lastScroll = current;
-    },
-    { passive: true },
-  );
-
-  /* Zéro scroll : pas d’IntersectionObserver pour révéler le contenu au fil du défilement */
-
-  /* Hero — apparition initiale (chargement uniquement, pas lié au scroll) */
-  function revealHero() {
-    var root = document.querySelector('[data-chapter="invitation"]');
-    if (!root) return;
-
-    if (root.classList.contains('pinapp-hero-refonte')) {
-      if (prefersReducedMotion) {
-        root
-          .querySelectorAll(
-            '.refonte-hero-label, .refonte-hero-word, .refonte-hero-lead, .refonte-hero-sub, .refonte-hero-micro, .refonte-hero-ctas, .refonte-hero-scroll',
-          )
-          .forEach(function (el) {
-            el.classList.add('visible');
-          });
-        return;
-      }
-      var label = root.querySelector('.refonte-hero-label');
-      if (label) {
-        window.setTimeout(function () {
-          label.classList.add('visible');
-        }, 0);
-      }
-      root.querySelectorAll('.refonte-hero-word').forEach(function (w, i) {
-        window.setTimeout(
-          function () {
-            w.classList.add('visible');
-          },
-          200 + i * 60,
-        );
-      });
-      var lead = root.querySelector('.refonte-hero-lead');
-      if (lead) {
-        window.setTimeout(function () {
-          lead.classList.add('visible');
-        }, 600);
-      }
-      var sub = root.querySelector('.refonte-hero-sub');
-      if (sub) {
-        window.setTimeout(function () {
-          sub.classList.add('visible');
-        }, 800);
-      }
-      var micro = root.querySelector('.refonte-hero-micro');
-      if (micro) {
-        window.setTimeout(function () {
-          micro.classList.add('visible');
-        }, 900);
-      }
-      var ctas = root.querySelector('.refonte-hero-ctas');
-      if (ctas) {
-        window.setTimeout(function () {
-          ctas.classList.add('visible');
-        }, 1000);
-      }
-      var scrollInd = root.querySelector('.refonte-hero-scroll');
-      if (scrollInd) {
-        window.setTimeout(function () {
-          scrollInd.classList.add('visible');
-        }, 1100);
-      }
-      return;
-    }
-
-    var els = root.querySelectorAll('.hero-el');
-    var words = root.querySelectorAll('.hero-word');
-    var delay = 0;
-    els.forEach(function (el) {
-      window.setTimeout(function () {
-        el.classList.add('visible');
-      }, delay);
-      delay += 100;
-    });
-    words.forEach(function (el) {
-      window.setTimeout(function () {
-        el.classList.add('visible');
-      }, delay);
-      delay += 120;
-    });
-    var cta = root.querySelector('.hero-cta');
-    if (cta) {
-      window.setTimeout(function () {
-        cta.classList.add('visible');
-      }, delay);
-    }
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', revealHero);
-  } else {
-    revealHero();
-  }
-
-  /* Thème : défaut dark (PROMPT-REFONTE) ; toggle conserve localStorage */
-  function effectiveTheme() {
-    var a = document.documentElement.getAttribute('data-theme');
-    if (a === 'light' || a === 'dark') return a;
-    return 'dark';
-  }
-
-  function syncThemeColorMeta() {
-    var m = document.getElementById('pinapp-theme-color');
-    if (!m) return;
-    m.setAttribute('content', effectiveTheme() === 'light' ? '#060D1F' : '#050A14');
-  }
-
-  function setThemePreference(mode) {
-    if (mode !== 'light' && mode !== 'dark') return;
-    document.documentElement.setAttribute('data-theme', mode);
-    document.documentElement.setAttribute('data-mode', mode === 'light' ? 'jour' : 'nuit');
-    /* Sync body classes pour les scripts JS (aurora, cursor, particles) */
-    document.body.classList.toggle('mode-jour', mode === 'light');
-    document.body.classList.toggle('mode-nuit', mode === 'dark');
-    try {
-      localStorage.setItem('pinapp-theme', mode);
-      localStorage.setItem('pinapp-mode', mode === 'light' ? 'jour' : 'nuit');
-    } catch (e) {}
-    syncThemeColorMeta();
-    /* Dispatch pour aurora.js, cursor.js, particles.js */
-    document.body.dispatchEvent(new CustomEvent('modeChange', { bubbles: true }));
-  }
-
-  /* Sync initiale au chargement */
-  (function syncBodyClassOnLoad() {
-    var t = effectiveTheme();
-    document.documentElement.setAttribute('data-mode', t === 'light' ? 'jour' : 'nuit');
-    document.body.classList.toggle('mode-jour', t === 'light');
-    document.body.classList.toggle('mode-nuit', t === 'dark');
-  })();
-
-  function bindThemeToggle() {
-    var btn = document.getElementById('themeToggle');
-    if (!btn) return;
-    function syncLabel() {
-      var eff = effectiveTheme();
-      btn.setAttribute(
-        'aria-label',
-        eff === 'light' ? 'Activer le mode sombre' : 'Activer le mode clair',
-      );
-      btn.setAttribute('title', btn.getAttribute('aria-label'));
-    }
-    syncLabel();
-    syncThemeColorMeta();
-    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function () {
-      try {
-        if (!localStorage.getItem('pinapp-theme')) {
-          syncLabel();
-          syncThemeColorMeta();
-        }
-      } catch (e) {
-        syncLabel();
-        syncThemeColorMeta();
-      }
-    });
-    btn.addEventListener('click', function () {
-      setThemePreference(effectiveTheme() === 'light' ? 'dark' : 'light');
-      syncLabel();
-    });
-  }
-
-  bindThemeToggle();
-
-  /* Nav desktop — masquage au scroll (spec refonte BLOC 4) */
-  (function refonteDesktopNavScroll() {
-    if (!window.matchMedia('(min-width: 768px)').matches) return;
-    var nav = document.getElementById('mainNav');
-    if (!nav) return;
+  // Nav hide
+  var nav = document.querySelector('.nav');
+  if (nav && snap) {
     var lastY = 0;
-    window.addEventListener(
+    snap.addEventListener(
       'scroll',
       function () {
-        var y = window.scrollY;
-        if (y > lastY && y > 100) nav.style.transform = 'translateY(-100%)';
-        else nav.style.transform = 'translateY(0)';
+        var y = snap.scrollTop;
+        nav.classList.toggle('hidden', y > lastY && y > 80);
         lastY = y;
       },
       { passive: true },
     );
-  })();
-
-  /* Cookies RGPD */
-  var cookieBanner = document.getElementById('cookie-banner');
-  if (!localStorage.getItem('cookie-consent') && cookieBanner) {
-    cookieBanner.style.display = 'block';
   }
-  var accept = document.getElementById('cookieAccept');
-  var refuse = document.getElementById('cookieRefuse');
-  if (accept) {
-    accept.addEventListener('click', function () {
-      localStorage.setItem('cookie-consent', 'accepted');
-      if (typeof window.pinappLoadPlausibleIfConsented === 'function') {
-        window.pinappLoadPlausibleIfConsented();
+
+  // Curseur
+  var cur = document.getElementById('cursor');
+  if (cur && window.matchMedia('(hover:hover)').matches) {
+    document.addEventListener('mousemove', function (e) {
+      cur.style.left = e.clientX + 'px';
+      cur.style.top = e.clientY + 'px';
+    });
+    document.querySelectorAll('a,button,[role="button"]').forEach(function (el) {
+      el.addEventListener('mouseenter', function () {
+        cur.classList.add('active');
+      });
+      el.addEventListener('mouseleave', function () {
+        cur.classList.remove('active');
+      });
+    });
+  }
+
+  // IntersectionObserver animations
+  var anims = document.querySelectorAll('.anim-fade,.anim-up,.anim-scale');
+  if (anims.length) {
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            var d = parseInt(e.target.dataset.delay || 0);
+            setTimeout(function () {
+              e.target.classList.add('visible');
+            }, d);
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
+    );
+    anims.forEach(function (el) {
+      io.observe(el);
+    });
+  }
+
+  // Count-up
+  document.querySelectorAll('.count-up').forEach(function (el) {
+    var target = parseInt(el.dataset.target, 10),
+      dur = 1600;
+    var io2 = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      io2.disconnect();
+      var t0 = performance.now();
+      function step(now) {
+        var p = Math.min((now - t0) / dur, 1),
+          e = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(e * target).toLocaleString('fr-FR');
+        if (p < 1) requestAnimationFrame(step);
       }
-      if (cookieBanner) cookieBanner.style.display = 'none';
+      requestAnimationFrame(step);
     });
-  }
-  if (refuse) {
-    refuse.addEventListener('click', function () {
-      localStorage.setItem('cookie-consent', 'refused');
-      window.plausible = function () {};
-      var ps = document.querySelector('script[data-pinapp-plausible]');
-      if (ps && ps.parentNode) ps.parentNode.removeChild(ps);
-      if (cookieBanner) cookieBanner.style.display = 'none';
-    });
-  }
-
-  /* Parallaxe aurora : désactivée (règle Pinapp « zéro scroll » — pas de décor lié au scroll) */
-
-  /* Menu mobile (drawer) */
-  var burger = document.getElementById('burger');
-  var drawer = document.getElementById('mobileDrawer');
-  var drawerClose = document.getElementById('drawerClose');
-
-  function setDrawer(open) {
-    if (!drawer) return;
-    drawer.classList.toggle('open', open);
-    drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
-    if (burger) {
-      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-      burger.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
-    }
-    document.body.style.overflow = open ? 'hidden' : '';
-  }
-
-  if (burger && drawer) {
-    burger.addEventListener('click', function () {
-      setDrawer(!drawer.classList.contains('open'));
-    });
-  }
-  if (drawerClose) {
-    drawerClose.addEventListener('click', function () {
-      setDrawer(false);
-    });
-  }
-  if (drawer) {
-    drawer.addEventListener('click', function (e) {
-      if (e.target === drawer) setDrawer(false);
-    });
-  }
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && drawer && drawer.classList.contains('open')) {
-      setDrawer(false);
-    }
+    io2.observe(el);
   });
 
-  /* Filtre réalisations */
-  var filterBtns = document.querySelectorAll('.filter-btn');
-  var realisationCards = document.querySelectorAll('#realisationsGrid .realisation-card');
+  // Nav dots
+  var dots = document.querySelectorAll('.nav-dot'),
+    sects = document.querySelectorAll('.snap-section');
+  if (dots.length && snap) {
+    snap.addEventListener(
+      'scroll',
+      function () {
+        var mid = snap.scrollTop + snap.clientHeight / 2,
+          active = 0;
+        sects.forEach(function (s, i) {
+          if (s.offsetTop <= mid) active = i;
+        });
+        dots.forEach(function (d, i) {
+          d.classList.toggle('active', i === active);
+        });
+      },
+      { passive: true },
+    );
+    dots.forEach(function (d, i) {
+      d.addEventListener('click', function () {
+        sects[i] && sects[i].scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  }
 
-  filterBtns.forEach(function (btn) {
+  // Burger
+  var burger = document.querySelector('.nav__burger'),
+    drawer = document.querySelector('.nav__drawer');
+  if (burger && drawer)
+    burger.addEventListener('click', function () {
+      var o = drawer.classList.toggle('open');
+      burger.setAttribute('aria-expanded', o);
+    });
+
+  // Sélecteur secteur
+  var sbtns = document.querySelectorAll('.sector-btn'),
+    ocards = document.querySelectorAll('.offre-card[data-sectors]');
+  sbtns.forEach(function (btn) {
     btn.addEventListener('click', function () {
-      var f = btn.getAttribute('data-filter');
-      filterBtns.forEach(function (b) {
+      sbtns.forEach(function (b) {
         b.classList.remove('active');
       });
       btn.classList.add('active');
-      realisationCards.forEach(function (card) {
-        var cat = card.getAttribute('data-category') || '';
-        var line = card.getAttribute('data-line') || '';
-        var show =
-          f === 'all' ||
-          (f === 'beaute' && line === 'beaute') ||
-          (f === 'perso' && cat === 'perso') ||
-          (f !== 'all' && f !== 'beaute' && f !== 'perso' && cat === f);
-        card.style.display = show ? '' : 'none';
+      var sel = btn.dataset.sector;
+      ocards.forEach(function (card) {
+        var ss = card.dataset.sectors.split(',');
+        card.closest('.offre-wrap').style.display =
+          sel === 'tous' || ss.includes(sel) ? '' : 'none';
       });
-      var car = window.__pinappCarousel3D;
-      if (car && typeof car.applyFilter === 'function') {
-        if (f === 'beaute') car.applyFilter('beaute');
-        else if (f === 'perso') car.applyFilter('perso');
-        else car.applyFilter('all');
-      }
     });
   });
 
-  /* Modal démo */
-  var demoModal = document.getElementById('demoModal');
-  var demoIframe = document.getElementById('demoIframe');
-  var demoSkeleton = document.getElementById('demoSkeleton');
-  var demoClose = document.getElementById('demoClose');
-
-  function openDemo(url) {
-    if (!demoModal || !demoIframe) return;
-    demoModal.classList.add('open');
-    demoModal.setAttribute('aria-hidden', 'false');
-    demoIframe.style.display = 'none';
-    if (demoSkeleton) demoSkeleton.style.display = 'flex';
-    demoIframe.src = url;
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeDemo() {
-    if (!demoModal || !demoIframe) return;
-    demoModal.classList.remove('open');
-    demoModal.setAttribute('aria-hidden', 'true');
-    demoIframe.src = '';
-    demoIframe.style.display = 'none';
-    if (demoSkeleton) demoSkeleton.style.display = 'flex';
-    document.body.style.overflow = '';
-  }
-
-  if (demoIframe) {
-    demoIframe.addEventListener('load', function () {
-      if (demoSkeleton) demoSkeleton.style.display = 'none';
-      demoIframe.style.display = 'block';
-    });
-  }
-
-  document.querySelectorAll('.realisation-card[data-demo]').forEach(function (card) {
-    card.addEventListener('click', function () {
-      var url = card.getAttribute('data-demo');
-      if (url) openDemo(url);
-    });
-    card.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        var url = card.getAttribute('data-demo');
-        if (url) openDemo(url);
-      }
-    });
-    card.setAttribute('tabindex', '0');
-    card.setAttribute('role', 'button');
-  });
-
-  if (demoClose) {
-    demoClose.addEventListener('click', closeDemo);
-  }
-
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && demoModal && demoModal.classList.contains('open')) {
-      closeDemo();
-    }
-  });
-
-  /* Onboarding — actif uniquement sur la page index (présence de #onboardingStage) */
-  var answers = {};
-  var progressMap = { 1: 25, 2: 50, 3: 75, 4: 100 };
-  var onboardingStage = document.getElementById('onboardingStage');
-  var progressEl = document.getElementById('onboardingProgress');
-
-  if (onboardingStage)
-    document.querySelectorAll('.pill-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var q = parseInt(btn.getAttribute('data-q'), 10);
-        var val = btn.getAttribute('data-val');
-        answers[q] = val;
-
-        if (progressEl && progressMap[q]) {
-          progressEl.style.width = progressMap[q] + '%';
-        }
-
-        var messages = { 1: 'Bien noté.', 2: 'Parfait.', 3: 'On y est presque.' };
-
-        if (q < 4) {
-          var msg = document.createElement('div');
-          msg.className = 'transition-msg';
-          msg.textContent = messages[q];
-          msg.style.cssText =
-            'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:18px;color:var(--accent-teal);pointer-events:none;';
-          if (onboardingStage) onboardingStage.appendChild(msg);
-
-          var qEl = document.getElementById('q' + q);
-          if (qEl) qEl.classList.remove('active');
-          window.setTimeout(function () {
-            msg.remove();
-            var next = document.getElementById('q' + (q + 1));
-            if (next) next.classList.add('active');
-          }, 700);
-        } else {
-          var q4 = document.getElementById('q4');
-          if (q4) q4.classList.remove('active');
-          if (progressEl) progressEl.style.width = '100%';
-
-          var finMsg = document.getElementById('finMessage');
-          if (finMsg && answers[4] === 'moins-1000') {
-            finMsg.textContent =
-              'Parfait pour notre Starter à 349€. Je reviens vers vous sous 24h.';
+  // Barres graphique
+  var bars = document.querySelectorAll('.bar[data-h]');
+  if (bars.length) {
+    var bioBar = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.style.height = e.target.dataset.h + 'px';
+            bioBar.unobserve(e.target);
           }
-
-          var qfin = document.getElementById('qfin');
-          if (qfin) qfin.classList.add('active');
-
-          /* Envoi Netlify Forms + webhook n8n si configuré */
-          var onboardingPayload = {
-            'form-name': 'onboarding-parcours',
-            secteur: answers[1] || '',
-            budget: answers[2] || '',
-            urgence: answers[3] || '',
-            budget2: answers[4] || '',
-            timestamp: new Date().toISOString(),
-            page: location.href,
-          };
-          /* Netlify Forms (toujours) */
-          var fd = new FormData();
-          Object.keys(onboardingPayload).forEach(function (k) {
-            fd.append(k, onboardingPayload[k]);
-          });
-          fetch('/', { method: 'POST', headers: { Accept: 'application/json' }, body: fd }).catch(
-            function () {},
-          );
-          /* Webhook n8n si branché */
-          var cfg = window.PinappConfig;
-          if (cfg && cfg.features.onboardingWebhook && cfg._isRealUrl(cfg.webhooks.onboarding)) {
-            fetch(cfg.webhooks.onboarding, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(onboardingPayload),
-            }).catch(function () {});
-          }
-        }
-      });
-    });
-
-  /* FAQ */
-  document.querySelectorAll('.faq-trigger').forEach(function (trigger) {
-    trigger.addEventListener('click', function () {
-      var item = trigger.closest('.faq-item');
-      if (!item) return;
-      var isOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(function (i) {
-        i.classList.remove('open');
-      });
-      if (!isOpen) item.classList.add('open');
-    });
-  });
-
-  /* Lead magnet — formation (page formation-gratuite / guide offert) */
-  var leadBtn = document.getElementById('leadSubmit');
-  var leadEmail = document.getElementById('leadEmail');
-  if (leadBtn) {
-    leadBtn.addEventListener('click', function () {
-      var email = leadEmail && leadEmail.value ? leadEmail.value.trim() : '';
-      if (!email) {
-        if (leadEmail) leadEmail.focus();
-        return;
-      }
-      /* Lead Netlify Forms + webhook n8n si configuré */
-      var lfPayload = {
-        'form-name': 'lead-guide-gratuit',
-        email: email,
-        timestamp: new Date().toISOString(),
-        page: location.href,
-      };
-      var lfd = new FormData();
-      Object.keys(lfPayload).forEach(function (k) {
-        lfd.append(k, lfPayload[k]);
-      });
-      fetch('/', { method: 'POST', headers: { Accept: 'application/json' }, body: lfd }).catch(
-        function () {},
-      );
-      var lcfg = window.PinappConfig;
-      if (lcfg && lcfg.features.leadWebhook && lcfg._isRealUrl(lcfg.webhooks.leadMagnet)) {
-        fetch(lcfg.webhooks.leadMagnet, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(lfPayload),
-        }).catch(function () {});
-      }
-      /* Feedback visuel */
-      leadBtn.textContent = 'Guide envoyé ✓';
-      leadBtn.disabled = true;
-      if (leadEmail) leadEmail.value = '';
-      setTimeout(function () {
-        leadBtn.textContent = 'Recevoir le guide →';
-        leadBtn.disabled = false;
-      }, 4000);
-    });
-  }
-
-  /* Particules hero (canvas) */
-  function initParticles() {
-    var canvas = document.getElementById('particles');
-    if (!canvas || prefersReducedMotion) return;
-
-    var ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    var particles = [];
-    var n = window.innerWidth < 768 ? 28 : 48;
-
-    function resize() {
-      var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      var w = canvas.offsetWidth;
-      var h = canvas.offsetHeight;
-      canvas.width = Math.floor(w * dpr);
-      canvas.height = Math.floor(h * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
-
-    function spawn() {
-      particles = [];
-      for (var i = 0; i < n; i++) {
-        particles.push({
-          x: Math.random() * canvas.offsetWidth,
-          y: Math.random() * canvas.offsetHeight,
-          r: Math.random() * 1.2 + 0.3,
-          vx: (Math.random() - 0.5) * 0.15,
-          vy: (Math.random() - 0.5) * 0.15,
-          a: Math.random() * 0.35 + 0.1,
         });
-      }
-    }
-
-    function tick() {
-      var w = canvas.offsetWidth;
-      var h = canvas.offsetHeight;
-      ctx.clearRect(0, 0, w, h);
-      var teal =
-        getComputedStyle(document.documentElement).getPropertyValue('--accent-teal').trim() ||
-        '#3EEBD6';
-
-      particles.forEach(function (p) {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0 || p.x > w) p.vx *= -1;
-        if (p.y < 0 || p.y > h) p.vy *= -1;
-        ctx.beginPath();
-        ctx.fillStyle = teal;
-        ctx.globalAlpha = p.a;
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-      });
-      ctx.globalAlpha = 1;
-      requestAnimationFrame(tick);
-    }
-
-    resize();
-    spawn();
-    window.addEventListener('resize', function () {
-      resize();
-      spawn();
+      },
+      { threshold: 0.3 },
+    );
+    bars.forEach(function (b) {
+      b.style.height = '0';
+      bioBar.observe(b);
     });
-    requestAnimationFrame(tick);
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initParticles);
-  } else {
-    initParticles();
+  // Donut SVG
+  var donut = document.getElementById('donut-svg');
+  if (donut) {
+    var r = 44,
+      circ = 2 * Math.PI * r,
+      data = [
+        { p: 45, c: '#00e5b0' },
+        { p: 30, c: '#b388ff' },
+        { p: 15, c: '#7fffea' },
+        { p: 10, c: '#e040fb' },
+      ],
+      offset = 0;
+    data.forEach(function (d) {
+      var arc = (d.p / 100) * circ,
+        circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('cx', '50');
+      circle.setAttribute('cy', '50');
+      circle.setAttribute('r', r);
+      circle.setAttribute('fill', 'none');
+      circle.setAttribute('stroke', d.c);
+      circle.setAttribute('stroke-width', '12');
+      circle.setAttribute('stroke-dasharray', arc + ' ' + (circ - arc));
+      circle.setAttribute('stroke-dashoffset', -offset);
+      circle.setAttribute('transform', 'rotate(-90 50 50)');
+      donut.appendChild(circle);
+      offset += arc;
+    });
   }
-
-  /* ── Éléments DOM danse Pandora (filaments + lucioles + souffle) ── */
-  function initDanceElements() {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    /* Souffle Eywa (nuit seulement, géré par CSS) */
-    if (!document.querySelector('.pandora-breath')) {
-      var breath = document.createElement('div');
-      breath.className = 'pandora-breath';
-      breath.setAttribute('aria-hidden', 'true');
-      document.body.appendChild(breath);
-    }
-
-    /* Filaments bioluminescents */
-    if (!document.querySelector('.bio-filaments')) {
-      var filDiv = document.createElement('div');
-      filDiv.className = 'bio-filaments';
-      filDiv.setAttribute('aria-hidden', 'true');
-      for (var fi = 0; fi < 10; fi++) {
-        var fil = document.createElement('div');
-        fil.className = 'filament';
-        filDiv.appendChild(fil);
-      }
-      document.body.appendChild(filDiv);
-    }
-
-    /* Lucioles nuit */
-    if (!document.querySelector('.lucioles-night')) {
-      var lucDiv = document.createElement('div');
-      lucDiv.className = 'lucioles-night';
-      lucDiv.setAttribute('aria-hidden', 'true');
-      for (var li = 0; li < 8; li++) {
-        var luc = document.createElement('div');
-        luc.className = 'luciole';
-        lucDiv.appendChild(luc);
-      }
-      document.body.appendChild(lucDiv);
-    }
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initDanceElements);
-  } else {
-    initDanceElements();
-  }
-})();
+});

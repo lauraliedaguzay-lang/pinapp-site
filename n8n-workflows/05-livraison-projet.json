@@ -1,0 +1,84 @@
+﻿{
+  "name": "🔷 Pinapp — Livraison projet",
+  "nodes": [
+    {
+      "id": "1",
+      "name": "Trigger Notion Livré",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": { "path": "projet-livre", "method": "POST" },
+      "position": [0, 0]
+    },
+    {
+      "id": "2",
+      "name": "Email livraison client",
+      "type": "n8n-nodes-base.gmail",
+      "parameters": {
+        "to": "={{ $json.client_email }}",
+        "subject": "Votre projet est livré — Pinapp Studio",
+        "body": "Bonjour {{ $json.client_nom }},\n\nVotre projet est livré ! Retrouvez votre accès ici : {{ $json.livrable_url }}\n\nNous restons disponibles pour toute question.\n\nLaurale & Micha — Pinapp Inc."
+      },
+      "position": [200, 0]
+    },
+    {
+      "id": "3",
+      "name": "Lien feedback Tally",
+      "type": "n8n-nodes-base.gmail",
+      "parameters": {
+        "to": "={{ $json.client_email }}",
+        "subject": "Votre avis nous intéresse — 2 minutes",
+        "body": "Bonjour,\n\nComment s'est passé votre expérience ? {{ $json.feedback_url }}\n\nMerci !\nPinapp Studio"
+      },
+      "position": [200, 200]
+    },
+    {
+      "id": "4",
+      "name": "Wait J+7",
+      "type": "n8n-nodes-base.wait",
+      "parameters": { "amount": 7, "unit": "days" },
+      "position": [400, 0]
+    },
+    {
+      "id": "5",
+      "name": "Relance avis Google",
+      "type": "n8n-nodes-base.gmail",
+      "parameters": {
+        "to": "={{ $json.client_email }}",
+        "subject": "Un avis Google ? Ça compte beaucoup.",
+        "body": "Bonjour,\n\nSi votre projet vous satisfait, un avis Google nous aide énormément : {{ $json.google_review_url }}\n\nMerci !\nLaurale"
+      },
+      "position": [600, 0]
+    },
+    {
+      "id": "6",
+      "name": "Wait J+30",
+      "type": "n8n-nodes-base.wait",
+      "parameters": { "amount": 23, "unit": "days" },
+      "position": [800, 0]
+    },
+    {
+      "id": "7",
+      "name": "Proposition maintenance",
+      "type": "n8n-nodes-base.gmail",
+      "parameters": {
+        "to": "={{ $json.client_email }}",
+        "subject": "Et si on allait plus loin ?",
+        "body": "Bonjour,\n\nUn mois après votre livraison — comment tout fonctionne ? Nous proposons un suivi mensuel pour optimiser vos automatisations : {{ $json.maintenance_url }}\n\nLaurale"
+      },
+      "position": [1000, 0]
+    }
+  ],
+  "connections": {
+    "1": {
+      "main": [
+        [
+          { "node": "2", "type": "main", "index": 0 },
+          { "node": "3", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "2": { "main": [[{ "node": "4", "type": "main", "index": 0 }]] },
+    "4": { "main": [[{ "node": "5", "type": "main", "index": 0 }]] },
+    "5": { "main": [[{ "node": "6", "type": "main", "index": 0 }]] },
+    "6": { "main": [[{ "node": "7", "type": "main", "index": 0 }]] }
+  }
+}
