@@ -3,25 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Notre société — Pinapp Inc.</title>
+    <title>Notre société — Pinapp Inc. · Lauralie & Micha</title>
     <meta
       name="description"
-      content="Pinapp Inc. est née d'une conviction : la technologie doit servir les gens. Lauralie & Micha, associés à égalité." />
-    <link rel="canonical" href="https://pinapp.fr/" />
+      content="Storyboard complet de Lauralie et Micha. Leurs parcours, leurs valeurs, pourquoi Pinapp Inc. existe en 2026." />
+    <link rel="canonical" href="https://pinapp.fr/a-propos/" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.bunny.net/css?family=clash-display:wght@400;500;600;700|inter:wght@300;400;500&display=swap" />
+    <link rel="preload" href="/assets/fonts/ClashDisplay-Bold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/assets/css/pinapp-global.css" />
     <script src="/assets/js/theme.js"></script>
   </head>
   <body>
     <div id="cursor" aria-hidden="true"></div>
+    <div id="cursor-trail" aria-hidden="true"></div>
     <div id="progress" aria-hidden="true"></div>
     <canvas id="canvas-pandora" aria-hidden="true"></canvas>
-    <div class="caustics" aria-hidden="true"><span></span><span></span><span></span></div>
-    <div class="light-rays" aria-hidden="true"></div>
+    <div class="caustics" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <div class="water-surface" aria-hidden="true"></div>
+    <div class="water-reflets" aria-hidden="true"></div>
     <a class="skip-link" href="#main">Aller au contenu</a>
 
     <nav class="nav" id="nav" aria-label="Navigation principale">
@@ -29,27 +29,25 @@
         <a class="nav__logo" href="/">Pinapp <span>Inc.</span></a>
         <ul class="nav__menu" role="list">
           <li class="nav__item">
-            <a class="nav__link" href="/offres/">
-              Pinapp Studio
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-                <path d="M2 3l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
-              </svg>
-            </a>
+            <a class="nav__link" href="/offres/"
+              >Pinapp Studio
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" /></svg
+            ></a>
             <div class="nav__dropdown">
               <span class="nav__dropdown-label">Pinapp Studio</span>
-              <a href="/offres/">Offres</a>
+              <a href="/offres/">Offres & tarifs</a>
               <a href="/realisations/">Réalisations</a>
               <a href="/offres/formation/">Formations</a>
               <a href="/a-propos/">Notre studio</a>
             </div>
           </li>
           <li class="nav__item">
-            <a class="nav__link" href="/auralis/">
-              Auralis RH
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-                <path d="M2 3l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
-              </svg>
-            </a>
+            <a class="nav__link" href="/auralis/"
+              >Auralis RH
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" /></svg
+            ></a>
             <div class="nav__dropdown">
               <span class="nav__dropdown-label">Auralis RH</span>
               <a href="/auralis/">Le produit</a>
@@ -58,35 +56,36 @@
             </div>
           </li>
           <li class="nav__item">
-            <a class="nav__link" href="/memoire-et-presence/">
-              Mémoire & Présence
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-                <path d="M2 3l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
-              </svg>
-            </a>
+            <a class="nav__link" href="/memoire-et-presence/"
+              >Mémoire & Présence
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" /></svg
+            ></a>
             <div class="nav__dropdown">
               <span class="nav__dropdown-label">Mémoire & Présence</span>
               <a href="/memoire-et-presence/">Notre approche</a>
-              <a href="/memoire-et-presence/#realisations">Réalisations Micha</a>
+              <a href="/memoire-et-presence/#portfolio">Portfolio Micha</a>
+              <a href="/memoire-et-presence/#tarifs">Tarifs image</a>
               <a href="https://memoireetpresence.fr" target="_blank" rel="noopener">memoireetpresence.fr ↗</a>
             </div>
           </li>
         </ul>
         <div class="nav__actions">
-          <button class="nav__theme" id="theme-toggle" aria-label="Mode jour">◐</button>
+          <button class="nav__theme" id="theme-toggle" aria-label="Mode jour Avatar 2">◐</button>
           <a class="nav__cta" href="/diagnostic/">Premier échange offert</a>
-          <button class="nav__burger" aria-label="Menu" aria-expanded="false">
+          <button class="nav__burger" aria-label="Ouvrir le menu" aria-expanded="false">
             <span></span><span></span><span></span>
           </button>
         </div>
       </div>
-      <div class="nav__drawer">
+
+      <!-- DRAWER MOBILE -->
+      <div class="nav__drawer" role="dialog" aria-label="Menu principal">
         <div class="nav__drawer-section">
           <span class="nav__drawer-label">Pinapp Studio</span>
-          <a href="/offres/">Offres</a>
+          <a href="/offres/">Offres & tarifs</a>
           <a href="/realisations/">Réalisations</a>
           <a href="/offres/formation/">Formations</a>
-          <a href="/a-propos/">Notre studio</a>
         </div>
         <div class="nav__drawer-section">
           <span class="nav__drawer-label">Auralis RH</span>
@@ -96,9 +95,45 @@
         <div class="nav__drawer-section">
           <span class="nav__drawer-label">Mémoire & Présence</span>
           <a href="/memoire-et-presence/">Notre approche</a>
+          <a href="/memoire-et-presence/#portfolio">Portfolio Micha</a>
           <a href="https://memoireetpresence.fr" target="_blank" rel="noopener">memoireetpresence.fr ↗</a>
         </div>
-        <a href="/diagnostic/" class="btn btn--primary" style="margin-top: 8px">Premier échange offert</a>
+        <div class="nav__drawer-section">
+          <span class="nav__drawer-label">Pinapp Inc.</span>
+          <a href="/a-propos/">Notre société</a>
+          <a href="/engagements/">Nos engagements</a>
+          <a href="/diagnostic/">Premier échange offert</a>
+        </div>
+
+        <!-- STORYBOARD DANS LE DRAWER -->
+        <div class="drawer-story">
+          <span class="drawer-story-title">Qui sommes-nous ?</span>
+          <div class="drawer-story-cards">
+            <a href="/a-propos/#lauralie" class="drawer-story-card">
+              <div class="drawer-story-avatar" style="background: linear-gradient(135deg, #00e5b0, #b388ff)">L</div>
+              <div class="drawer-story-name">Lauralie</div>
+              <div class="drawer-story-role">Architecte systèmes & IA · Pinapp Studio</div>
+            </a>
+            <a href="/a-propos/#micha-story" class="drawer-story-card">
+              <div class="drawer-story-avatar" style="background: linear-gradient(135deg, #7fffea, #e040fb)">M</div>
+              <div class="drawer-story-name">Micha</div>
+              <div class="drawer-story-role">Image, DA & événementiel · Storyboard complet ↓</div>
+            </a>
+          </div>
+          <a
+            href="/a-propos/#derriere-pinapp"
+            class="drawer-story-full"
+            style="
+              display: block;
+              margin-top: 12px;
+              font-size: 12px;
+              color: var(--accent);
+              text-decoration: none;
+              letter-spacing: 0.04em;
+            "
+            >Storyboard complet — entrée de page (encarts photo à compléter)</a
+          >
+        </div>
       </div>
     </nav>
 
@@ -107,14 +142,20 @@
       ><button class="nav-dot"></button><button class="nav-dot"></button>
     </nav>
 
+    <!-- LIGHTBOX MICHA -->
+    <div id="lightbox" class="lightbox" role="dialog" aria-label="Visualisation">
+      <div class="lightbox-inner">
+        <button class="lightbox-close" aria-label="Fermer">×</button>
+        <img src="" alt="" loading="lazy" />
+      </div>
+    </div>
+
     <main id="main">
       <div class="snap-container">
-        <!-- HERO SOCIÉTÉ -->
-        <section class="snap-section" id="societe" aria-labelledby="societe-title">
+        <section class="snap-section" id="derriere-pinapp">
           <div class="container">
-            <span class="label anim-fade">Pinapp Inc.</span>
+            <span class="label anim-fade">Pinapp Inc. · Notre histoire</span>
             <h1
-              id="societe-title"
               style="
                 font-size: clamp(40px, 7vw, 88px);
                 letter-spacing: -0.04em;
@@ -127,286 +168,662 @@
               Nous construisons des systèmes.<br />Nous croyons à <span class="shimmer">l'humain</span>.
             </h1>
             <p
-              style="font-size: 18px; color: var(--text-muted); max-width: 560px; line-height: 1.7"
+              style="font-size: 18px; color: var(--text-muted); max-width: 600px; margin-bottom: 40px; line-height: 1.7"
               class="anim-up"
-              data-delay="200">
+              data-delay="180">
               Pinapp Inc. est née d'une conviction simple : la technologie doit servir les gens, pas les remplacer. Nous
-              construisons des outils qui libèrent du temps, préservent les liens, et permettent à chacun de se
-              concentrer sur ce qui compte vraiment.
+              avons enquêté, testé, échoué, recommencé. Puis nous avons construit ce qui manquait — pour nous d'abord,
+              pour vous ensuite.
+            </p>
+            <div class="etude-cite anim-up" data-delay="220">
+              <div class="etude-cite-bar"></div>
+              <div>
+                <div class="etude-cite-text">
+                  "Les systèmes les plus efficaces sont ceux construits par des gens qui en avaient eux-mêmes besoin."
+                </div>
+                <div class="etude-cite-source">
+                  — Principe de conception centrée utilisateur · Nielsen Norman Group · Appliqué par Pinapp Inc.
+                </div>
+              </div>
+            </div>
+            <p
+              class="encart-charge-cognitive anim-up"
+              data-delay="260"
+              style="
+                margin-top: 28px;
+                max-width: 640px;
+                padding: 18px 22px;
+                border-radius: var(--radius-sm, 12px);
+                border: 1px solid var(--card-border);
+                background: var(--bg-card);
+                font-size: 14px;
+                color: var(--text-muted);
+                line-height: 1.65;
+              ">
+              <strong style="color: var(--text)">Charge mentale : notre priorité.</strong>
+              Nous nous appuyons sur la recherche en cognition (structure des contenus, progressivité, réduction de la
+              charge intrinsèque — cadre de
+              <a
+                href="https://www.nngroup.com/articles/minimize-cognitive-load/"
+                rel="noopener noreferrer"
+                target="_blank"
+                >Sweller / UX appliquée</a
+              >) pour que chaque page soit lisible, actionnable, sans surcharge. Objectif : vous aider à devenir un
+              <strong style="color: var(--accent)">travailleur augmenté</strong>, pas à subir l’outil.
             </p>
           </div>
         </section>
 
-        <!-- LAURALIE + MICHA — ÉGALITÉ TOTALE -->
-        <section class="snap-section" id="associes" aria-labelledby="associes-title">
+        <!-- STORYBOARD LAURALIE -->
+        <section class="snap-section" id="lauralie">
           <div class="container">
-            <span class="label anim-fade">Les associés</span>
-            <h2
-              id="associes-title"
-              style="font-size: clamp(28px, 4vw, 48px); letter-spacing: -0.03em; margin-bottom: 48px"
-              class="anim-up"
-              data-delay="80">
-              Deux expertises.<br />Une vision commune.
-            </h2>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px">
-              <div class="card anim-up" style="padding: 40px" data-delay="0">
-                <div
-                  style="
-                    width: 64px;
-                    height: 64px;
-                    border-radius: 50%;
-                    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-family: 'Clash Display', sans-serif;
-                    font-size: 24px;
-                    font-weight: 700;
-                    color: #080d18;
-                    margin-bottom: 24px;
-                  ">
-                  L
-                </div>
-                <div class="label" style="color: var(--accent); margin-bottom: 8px">Co-associée · PDG</div>
-                <h3 style="font-size: 28px; margin-bottom: 16px">Lauralie</h3>
-                <p style="font-size: 15px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.7">
-                  Architecte technique et stratégique. Je conçois les systèmes, j'écris les specs, je les déploie. De
-                  l'IA à l'automatisation, du site au SaaS — sans intermédiaire.
-                </p>
-                <ul class="checklist">
-                  <li>Sites & landing pages premium</li>
-                  <li>Automatisation n8n</li>
-                  <li>Intelligence artificielle sur-mesure</li>
-                  <li>Auralis RH — produit en cours</li>
-                  <li>Scripts & déploiement Hostinger</li>
-                </ul>
-              </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start">
+              <div>
+                <span class="label anim-fade">Co-associée · Architecte systèmes & IA</span>
+                <h2
+                  style="font-size: clamp(32px, 5vw, 56px); letter-spacing: -0.03em; margin-bottom: 32px"
+                  class="anim-up"
+                  data-delay="80">
+                  Lauralie.
+                </h2>
 
-              <div class="card anim-up" style="padding: 40px; border-color: rgba(127, 255, 234, 0.12)" data-delay="120">
-                <div
-                  style="
-                    width: 64px;
-                    height: 64px;
-                    border-radius: 50%;
-                    background: linear-gradient(135deg, var(--accent-3) 0%, var(--accent-4) 100%);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-family: 'Clash Display', sans-serif;
-                    font-size: 24px;
-                    font-weight: 700;
-                    color: #080d18;
-                    margin-bottom: 24px;
-                  ">
-                  M
+                <!-- Timeline storyboard -->
+                <div style="display: flex; flex-direction: column; gap: 0; position: relative">
+                  <div
+                    style="
+                      position: absolute;
+                      left: 15px;
+                      top: 0;
+                      bottom: 0;
+                      width: 1px;
+                      background: var(--separator);
+                    "></div>
+
+                  <div
+                    style="display: flex; gap: 20px; margin-bottom: 28px; padding-left: 40px; position: relative"
+                    class="anim-left"
+                    data-delay="100">
+                    <div
+                      style="
+                        position: absolute;
+                        left: 10px;
+                        top: 4px;
+                        width: 12px;
+                        height: 12px;
+                        border-radius: 50%;
+                        background: var(--accent);
+                        box-shadow: 0 0 10px var(--accent);
+                      "></div>
+                    <div>
+                      <div
+                        style="
+                          font-size: 10px;
+                          letter-spacing: 0.12em;
+                          text-transform: uppercase;
+                          color: var(--accent);
+                          margin-bottom: 4px;
+                        ">
+                        Études
+                      </div>
+                      <h3 style="font-size: 16px; margin-bottom: 6px">Informatique & systèmes</h3>
+                      <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6">
+                        Formation technique approfondie. Algorithmique, architecture logicielle, bases de données. La
+                        rigueur comme discipline.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div
+                    style="display: flex; gap: 20px; margin-bottom: 28px; padding-left: 40px; position: relative"
+                    class="anim-left"
+                    data-delay="180">
+                    <div
+                      style="
+                        position: absolute;
+                        left: 10px;
+                        top: 4px;
+                        width: 12px;
+                        height: 12px;
+                        border-radius: 50%;
+                        background: var(--accent-2);
+                        box-shadow: 0 0 10px var(--accent-2);
+                      "></div>
+                    <div>
+                      <div
+                        style="
+                          font-size: 10px;
+                          letter-spacing: 0.12em;
+                          text-transform: uppercase;
+                          color: var(--accent-2);
+                          margin-bottom: 4px;
+                        ">
+                        Recherche & entraînement
+                      </div>
+                      <h3 style="font-size: 16px; margin-bottom: 6px">Des années d'exploration</h3>
+                      <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6">
+                        Automatisation, no-code, IA — chaque outil testé, documenté, maîtrisé. Un perfectionnisme qui ne
+                        s'excuse pas.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div
+                    style="display: flex; gap: 20px; margin-bottom: 28px; padding-left: 40px; position: relative"
+                    class="anim-left"
+                    data-delay="260">
+                    <div
+                      style="
+                        position: absolute;
+                        left: 10px;
+                        top: 4px;
+                        width: 12px;
+                        height: 12px;
+                        border-radius: 50%;
+                        background: var(--accent-3);
+                        box-shadow: 0 0 10px var(--accent-3);
+                      "></div>
+                    <div>
+                      <div
+                        style="
+                          font-size: 10px;
+                          letter-spacing: 0.12em;
+                          text-transform: uppercase;
+                          color: var(--accent-3);
+                          margin-bottom: 4px;
+                        ">
+                        Terrain
+                      </div>
+                      <h3 style="font-size: 16px; margin-bottom: 6px">Enquêtes auprès des indépendants</h3>
+                      <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6">
+                        50+ entretiens avec des TPE, artisans, coachs. Les vraies douleurs, pas les supposées. C'est de
+                        là que viennent les offres Pinapp.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div
+                    style="display: flex; gap: 20px; padding-left: 40px; position: relative"
+                    class="anim-left"
+                    data-delay="340">
+                    <div
+                      style="
+                        position: absolute;
+                        left: 10px;
+                        top: 4px;
+                        width: 12px;
+                        height: 12px;
+                        border-radius: 50%;
+                        background: var(--nacre);
+                        box-shadow: 0 0 10px var(--nacre);
+                      "></div>
+                    <div>
+                      <div
+                        style="
+                          font-size: 10px;
+                          letter-spacing: 0.12em;
+                          text-transform: uppercase;
+                          color: var(--nacre);
+                          margin-bottom: 4px;
+                        ">
+                        Aujourd'hui
+                      </div>
+                      <h3 style="font-size: 16px; margin-bottom: 6px">Pinapp Inc. · Auralis RH</h3>
+                      <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6">
+                        Architecte des systèmes qui font tourner les business. Pas de titre ronflant — juste des
+                        livrables qui fonctionnent.
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <div
-                  style="
-                    font-size: 11px;
-                    letter-spacing: 0.14em;
-                    text-transform: uppercase;
-                    color: var(--accent-3);
-                    margin-bottom: 8px;
-                  ">
-                  Co-associé · Directeur artistique
+              </div>
+              <div>
+                <!-- ⚠️ [LAURALIE] Ta photo ici — WebP 600×700px — ou laisser le placeholder -->
+                <div class="card" style="padding: 40px; border-color: rgba(0, 229, 176, 0.12)">
+                  <div
+                    class="placeholder-block"
+                    style="
+                      height: 280px;
+                      display: flex;
+                      flex-direction: column;
+                      align-items: center;
+                      justify-content: center;
+                      gap: 12px;
+                      margin-bottom: 24px;
+                    ">
+                    <div
+                      style="
+                        width: 80px;
+                        height: 80px;
+                        border-radius: 50%;
+                        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-family: 'Clash Display', sans-serif;
+                        font-size: 32px;
+                        font-weight: 700;
+                        color: #080d18;
+                      ">
+                      L
+                    </div>
+                    <div style="font-size: 11px; opacity: 0.5; text-align: center">
+                      ⚠️ [LAURALIE] Photo portrait<br />WebP 600×700px à glisser ici
+                    </div>
+                  </div>
+                  <h3 style="font-size: 22px; margin-bottom: 6px">Lauralie</h3>
+                  <p
+                    style="
+                      font-size: 12px;
+                      color: var(--accent);
+                      letter-spacing: 0.08em;
+                      text-transform: uppercase;
+                      margin-bottom: 16px;
+                    ">
+                    Architecte systèmes & IA · Pinapp Studio
+                  </p>
+                  <ul class="checklist">
+                    <li>Sites & automatisation n8n</li>
+                    <li>Intelligence artificielle sur-mesure</li>
+                    <li>Auralis RH — en développement</li>
+                    <li>Scripts & déploiement Hostinger</li>
+                  </ul>
                 </div>
-                <h3 style="font-size: 28px; margin-bottom: 16px">Micha</h3>
-                <p style="font-size: 15px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.7">
-                  Vidéaste, photographe, directeur artistique. Je crée les visuels qui font ressentir ce que les mots ne
-                  peuvent pas dire. Adobe, IA générative, restauration — depuis mon studio ou chez vous.
-                </p>
-                <ul class="checklist">
-                  <li>Photo & vidéo professionnelles</li>
-                  <li>Direction artistique complète</li>
-                  <li>Branding Adobe suite</li>
-                  <li>Restauration & retouche avancée</li>
-                  <li>Mémoire & Présence — projet fondateur</li>
-                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- STORYBOARD MICHA -->
+        <section class="snap-section" id="micha-story">
+          <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start">
+              <div>
+                <!-- ⚠️ [MICHA] Ta photo ici — WebP 600×700px -->
+                <div class="card" style="padding: 40px; border-color: rgba(127, 255, 234, 0.12)">
+                  <div
+                    class="placeholder-block"
+                    style="
+                      height: 280px;
+                      display: flex;
+                      flex-direction: column;
+                      align-items: center;
+                      justify-content: center;
+                      gap: 12px;
+                      margin-bottom: 24px;
+                    ">
+                    <div
+                      style="
+                        width: 80px;
+                        height: 80px;
+                        border-radius: 50%;
+                        background: linear-gradient(135deg, var(--accent-3), var(--accent-4));
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-family: 'Clash Display', sans-serif;
+                        font-size: 32px;
+                        font-weight: 700;
+                        color: #080d18;
+                      ">
+                      M
+                    </div>
+                    <div style="font-size: 11px; opacity: 0.5; text-align: center">
+                      ⚠️ [MICHA] Photo portrait<br />WebP 600×700px à glisser ici
+                    </div>
+                  </div>
+                  <h3 style="font-size: 22px; margin-bottom: 6px">Micha</h3>
+                  <p
+                    style="
+                      font-size: 12px;
+                      color: var(--accent-3);
+                      letter-spacing: 0.08em;
+                      text-transform: uppercase;
+                      margin-bottom: 16px;
+                    ">
+                    Directeur artistique & image · M&P
+                  </p>
+                  <ul class="checklist">
+                    <li>Photo & vidéo professionnelles</li>
+                    <li>Direction artistique complète</li>
+                    <li>IA générative dirigée</li>
+                    <li>Mémoire & Présence — projet fondateur</li>
+                  </ul>
+                </div>
+              </div>
+              <div>
+                <span class="label anim-fade" style="color: var(--accent-3)">Co-associé · Directeur artistique</span>
+                <h2
+                  style="font-size: clamp(32px, 5vw, 56px); letter-spacing: -0.03em; margin-bottom: 32px"
+                  class="anim-up"
+                  data-delay="80">
+                  Micha.
+                </h2>
+
+                <div style="display: flex; flex-direction: column; gap: 0; position: relative">
+                  <div
+                    style="
+                      position: absolute;
+                      left: 15px;
+                      top: 0;
+                      bottom: 0;
+                      width: 1px;
+                      background: rgba(127, 255, 234, 0.15);
+                    "></div>
+
+                  <div
+                    style="display: flex; gap: 20px; margin-bottom: 28px; padding-left: 40px; position: relative"
+                    class="anim-right"
+                    data-delay="100">
+                    <div
+                      style="
+                        position: absolute;
+                        left: 10px;
+                        top: 4px;
+                        width: 12px;
+                        height: 12px;
+                        border-radius: 50%;
+                        background: var(--accent-3);
+                        box-shadow: 0 0 10px var(--accent-3);
+                      "></div>
+                    <div>
+                      <div
+                        style="
+                          font-size: 10px;
+                          letter-spacing: 0.12em;
+                          text-transform: uppercase;
+                          color: var(--accent-3);
+                          margin-bottom: 4px;
+                        ">
+                        Événementiel
+                      </div>
+                      <h3 style="font-size: 16px; margin-bottom: 6px">Mariages, corporate, live</h3>
+                      <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6">
+                        Des années à capturer des moments qui ne se répètent pas. La pression du terrain comme meilleure
+                        école.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div
+                    style="display: flex; gap: 20px; margin-bottom: 28px; padding-left: 40px; position: relative"
+                    class="anim-right"
+                    data-delay="180">
+                    <div
+                      style="
+                        position: absolute;
+                        left: 10px;
+                        top: 4px;
+                        width: 12px;
+                        height: 12px;
+                        border-radius: 50%;
+                        background: var(--accent-2);
+                        box-shadow: 0 0 10px var(--accent-2);
+                      "></div>
+                    <div>
+                      <div
+                        style="
+                          font-size: 10px;
+                          letter-spacing: 0.12em;
+                          text-transform: uppercase;
+                          color: var(--accent-2);
+                          margin-bottom: 4px;
+                        ">
+                        Passion tech
+                      </div>
+                      <h3 style="font-size: 16px; margin-bottom: 6px">Maîtrise Adobe & IA générative</h3>
+                      <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6">
+                        Midjourney, Firefly, Runway — explorés dès leurs débuts. L'IA comme outil créatif, pas comme
+                        raccourci.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div
+                    style="display: flex; gap: 20px; margin-bottom: 28px; padding-left: 40px; position: relative"
+                    class="anim-right"
+                    data-delay="260">
+                    <div
+                      style="
+                        position: absolute;
+                        left: 10px;
+                        top: 4px;
+                        width: 12px;
+                        height: 12px;
+                        border-radius: 50%;
+                        background: var(--accent);
+                        box-shadow: 0 0 10px var(--accent);
+                      "></div>
+                    <div>
+                      <div
+                        style="
+                          font-size: 10px;
+                          letter-spacing: 0.12em;
+                          text-transform: uppercase;
+                          color: var(--accent);
+                          margin-bottom: 4px;
+                        ">
+                        Recherche & maîtrise
+                      </div>
+                      <h3 style="font-size: 16px; margin-bottom: 6px">Des centaines d'heures de pratique</h3>
+                      <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6">
+                        Chaque logiciel appris en profondeur. Chaque technique testée sur de vraies productions avant
+                        d'être enseignée.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div
+                    style="display: flex; gap: 20px; padding-left: 40px; position: relative"
+                    class="anim-right"
+                    data-delay="340">
+                    <div
+                      style="
+                        position: absolute;
+                        left: 10px;
+                        top: 4px;
+                        width: 12px;
+                        height: 12px;
+                        border-radius: 50%;
+                        background: var(--nacre);
+                        box-shadow: 0 0 10px var(--nacre);
+                      "></div>
+                    <div>
+                      <div
+                        style="
+                          font-size: 10px;
+                          letter-spacing: 0.12em;
+                          text-transform: uppercase;
+                          color: var(--nacre);
+                          margin-bottom: 4px;
+                        ">
+                        Aujourd'hui
+                      </div>
+                      <h3 style="font-size: 16px; margin-bottom: 6px">Mémoire & Présence · Pinapp Inc.</h3>
+                      <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6">
+                        La technique au service de l'humain. Des visuels qui font ressentir ce que les mots ne peuvent
+                        pas dire.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
         <!-- VALEURS -->
-        <section class="snap-section" id="valeurs" aria-labelledby="valeurs-title">
+        <section class="snap-section" id="valeurs">
           <div class="container">
             <span class="label anim-fade">Ce en quoi nous croyons</span>
             <h2
-              id="valeurs-title"
-              style="font-size: clamp(28px, 4vw, 48px); letter-spacing: -0.03em; margin-bottom: 48px"
+              style="font-size: clamp(28px, 4vw, 48px); letter-spacing: -0.03em; margin-bottom: 40px"
               class="anim-up"
               data-delay="80">
               Nos valeurs.<br />Pas des mots. Des décisions.
             </h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px">
-              <div class="card valeur-card anim-up" data-delay="0">
-                <div class="valeur-icon">🤝</div>
-                <h3>L'humain d'abord</h3>
-                <p>
-                  La technologie existe pour servir les gens. Pas pour les impressionner. Chaque outil que nous
-                  construisons libère du temps pour ce qui compte vraiment.
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px">
+              <div class="card anim-up" style="padding: 28px" data-delay="0">
+                <svg class="icon-svg" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                  <path d="M20 8c-4 0-8 4-8 8s8 16 8 16 8-12 8-16-4-8-8-8z" stroke="currentColor" stroke-width="1.5" />
+                </svg>
+                <h3 style="font-size: 18px; margin-bottom: 10px">L'humain d'abord</h3>
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.7">
+                  La technologie existe pour servir les gens. Pas pour les impressionner. Chaque outil libère du temps
+                  pour ce qui compte vraiment.
                 </p>
               </div>
-              <div class="card valeur-card anim-up" data-delay="60">
-                <div class="valeur-icon">🔗</div>
-                <h3>La connexion</h3>
-                <p>
-                  Entre les outils, entre les gens, entre les générations. Nous construisons des ponts. Numériques quand
-                  c'est utile. Humains toujours.
+              <div class="card anim-up" style="padding: 28px" data-delay="60">
+                <svg class="icon-svg" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                  <circle cx="20" cy="20" r="12" stroke="currentColor" stroke-width="1.5" />
+                  <path d="M14 20h12M20 14v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+                <h3 style="font-size: 18px; margin-bottom: 10px">La connexion</h3>
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.7">
+                  Entre les outils, entre les gens, entre les générations. Nous construisons des ponts — numériques
+                  quand c'est utile, humains toujours.
                 </p>
               </div>
-              <div class="card valeur-card anim-up" data-delay="120">
-                <div class="valeur-icon">🌱</div>
-                <h3>La sobriété</h3>
-                <p>
-                  Zéro outil superflu. Chaque solution est justifiée ou supprimée. Moins d'outils, moins d'énergie, plus
-                  d'impact. Stack 100% européen.
+              <div class="card anim-up" style="padding: 28px" data-delay="120">
+                <svg class="icon-svg" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                  <path
+                    d="M20 8l2 6h6l-5 4 2 6-5-4-5 4 2-6-5-4h6l2-6z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linejoin="round" />
+                </svg>
+                <h3 style="font-size: 18px; margin-bottom: 10px">La sobriété</h3>
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.7">
+                  Zéro outil superflu. Chaque solution justifiée ou supprimée. Stack 100% européen. Moins de complexité,
+                  plus d'impact.
                 </p>
               </div>
-              <div class="card valeur-card anim-up" data-delay="180">
-                <div class="valeur-icon">📖</div>
-                <h3>La transmission</h3>
-                <p>
-                  Ce que nous construisons doit durer et se comprendre. Documentation incluse. Formation incluse. Vous
-                  êtes autonomes après notre départ.
+              <div class="card anim-up" style="padding: 28px" data-delay="0">
+                <svg class="icon-svg" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                  <path
+                    d="M12 32V20l8-12 8 12v12"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <rect x="16" y="24" width="8" height="8" stroke="currentColor" stroke-width="1.5" />
+                </svg>
+                <h3 style="font-size: 18px; margin-bottom: 10px">La transmission</h3>
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.7">
+                  Documentation incluse. Formation incluse. Vous êtes autonomes après notre départ. Ce que nous
+                  construisons doit durer.
                 </p>
               </div>
-              <div class="card valeur-card anim-up" data-delay="240">
-                <div class="valeur-icon">⚖️</div>
-                <h3>L'honnêteté</h3>
-                <p>
-                  Paiement sur livrable. Satisfait ou remboursé 30 jours. Pas de jargon inutile. Pas de résultat
-                  garanti. Des engagements tenables.
+              <div class="card anim-up" style="padding: 28px" data-delay="60">
+                <svg class="icon-svg" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                  <path d="M20 10v12l6 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                  <circle cx="20" cy="20" r="12" stroke="currentColor" stroke-width="1.5" />
+                </svg>
+                <h3 style="font-size: 18px; margin-bottom: 10px">L'honnêteté</h3>
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.7">
+                  Paiement sur livrable. Satisfait ou remboursé 30 jours. Pas de jargon. Pas de résultat garanti. Des
+                  engagements tenables.
                 </p>
               </div>
-              <div class="card valeur-card anim-up" data-delay="300">
-                <div class="valeur-icon">🎯</div>
-                <h3>L'égalité</h3>
-                <p>
-                  Entre nous d'abord — Lauralie et Micha, associés à parts égales. Dans nos projets ensuite — chaque
-                  client mérite le même niveau d'exigence.
+              <div class="card anim-up" style="padding: 28px" data-delay="120">
+                <svg class="icon-svg" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                  <path
+                    d="M12 20h16M20 12l8 8-8 8"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+                <h3 style="font-size: 18px; margin-bottom: 10px">L'égalité</h3>
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.7">
+                  Entre nous d'abord — associés à parts égales. Dans nos projets ensuite — chaque client mérite le même
+                  niveau d'exigence.
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- NOS 3 PROJETS -->
-        <section class="snap-section" id="projets" aria-labelledby="projets-title">
+        <!-- POURQUOI MAINTENANT — ÉTUDE DE MARCHÉ -->
+        <section class="snap-section" id="pourquoi">
           <div class="container">
-            <span class="label anim-fade">Pinapp Inc.</span>
+            <span class="label anim-fade">Contexte 2026</span>
             <h2
-              id="projets-title"
-              style="font-size: clamp(28px, 4vw, 48px); letter-spacing: -0.03em; margin-bottom: 48px"
+              style="font-size: clamp(28px, 4vw, 48px); letter-spacing: -0.03em; margin-bottom: 20px"
               class="anim-up"
               data-delay="80">
-              Trois projets.<br />Une maison mère.
+              Pourquoi maintenant ?<br />Parce que le virage est là.
             </h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px">
-              <div class="card anim-up" style="padding: 36px" data-delay="0">
-                <div class="label" style="margin-bottom: 12px">Pinapp Studio</div>
-                <h3 style="font-size: 24px; margin-bottom: 14px">L'agence digitale premium</h3>
-                <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.7">
-                  Sites web, automatisation n8n, IA sur-mesure pour TPE et PME françaises. Notre moteur de revenus
-                  actuel.
-                </p>
-                <a href="/offres/" class="btn btn--primary" style="font-size: 12px; padding: 10px 20px"
-                  >Voir les offres →</a
-                >
-              </div>
-
-              <div class="card anim-up" style="padding: 36px; border-color: rgba(179, 136, 255, 0.15)" data-delay="80">
-                <div
-                  style="
-                    font-size: 11px;
-                    letter-spacing: 0.14em;
-                    text-transform: uppercase;
-                    color: var(--accent-2);
-                    margin-bottom: 12px;
-                  ">
-                  Auralis RH
-                </div>
-                <h3 style="font-size: 24px; margin-bottom: 14px">Le SaaS qui prend soin des RH</h3>
-                <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.7">
-                  Aurora, notre IA RH, observe, prépare et suggère. Les RH décident. Toujours. En développement actif.
-                </p>
-                <a
-                  href="/auralis/"
-                  class="btn btn--ghost"
-                  style="
-                    font-size: 12px;
-                    padding: 10px 20px;
-                    border-color: rgba(179, 136, 255, 0.3);
-                    color: var(--accent-2);
-                  "
-                  >Découvrir Aurora →</a
-                >
-              </div>
-
-              <div class="card anim-up" style="padding: 36px; border-color: rgba(127, 255, 234, 0.12)" data-delay="160">
-                <div
-                  style="
-                    font-size: 11px;
-                    letter-spacing: 0.14em;
-                    text-transform: uppercase;
-                    color: var(--accent-3);
-                    margin-bottom: 12px;
-                  ">
-                  Mémoire & Présence
-                </div>
-                <h3 style="font-size: 24px; margin-bottom: 14px">La présence qui traverse le temps</h3>
-                <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.7">
-                  Digitalisation du secteur funéraire. QR codes d'hommage, transmission de mémoires, présence numérique
-                  durable. Micha en lead.
-                </p>
-                <a
-                  href="/memoire-et-presence/"
-                  class="btn btn--ghost"
-                  style="
-                    font-size: 12px;
-                    padding: 10px 20px;
-                    border-color: rgba(127, 255, 234, 0.2);
-                    color: var(--accent-3);
-                  "
-                  >Notre approche →</a
-                >
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- CE QU'ON REFUSE -->
-        <section class="snap-section" id="refuses" aria-labelledby="refuses-title">
-          <div class="container" style="max-width: 800px; margin: 0 auto">
-            <span class="label anim-fade">Notre positionnement</span>
-            <h2
-              id="refuses-title"
-              style="font-size: clamp(28px, 4vw, 48px); letter-spacing: -0.03em; margin-bottom: 40px"
+            <p
+              style="font-size: 16px; color: var(--text-muted); max-width: 560px; margin-bottom: 40px; line-height: 1.6"
               class="anim-up"
-              data-delay="80">
-              Ce que nous refusons de faire.
-            </h2>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px" class="anim-up" data-delay="160">
-              <div class="card" style="padding: 28px">
-                <ul class="crosslist">
-                  <li>Les agences fantômes qui facturent sans livrer</li>
-                  <li>Les outils inutiles qu'on revend en commission</li>
-                  <li>Les sites WordPress à 300€ livrés en 3 mois</li>
-                  <li>Les résultats garantis sans conditions</li>
-                  <li>Le jargon pour impressionner</li>
-                </ul>
-              </div>
-              <div class="card" style="padding: 28px">
-                <p style="font-size: 15px; color: var(--text); line-height: 1.8; font-style: italic">
-                  "Nous avons construit ces outils pour nous d'abord. Pour gérer notre propre complexité. Aujourd'hui
-                  nous les construisons pour vous."
+              data-delay="120">
+              Nous avons enquêté, analysé, croisé les données. Ce que nous avons vu nous a convaincus qu'il fallait agir
+              maintenant — pas dans deux ans.
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px">
+              <div class="card anim-up" style="padding: 28px; text-align: center" data-delay="0">
+                <div
+                  style="
+                    font-family: 'Clash Display', sans-serif;
+                    font-size: 64px;
+                    font-weight: 700;
+                    color: var(--accent);
+                    line-height: 1;
+                    margin-bottom: 8px;
+                  ">
+                  <span class="count-up" data-target="67">0</span>%
+                </div>
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6">
+                  des TPE françaises n'ont pas encore automatisé leurs process
                 </p>
-                <p style="font-size: 13px; color: var(--text-muted); margin-top: 16px">— Lauralie & Micha</p>
+                <div class="study-badge" style="margin-top: 12px; justify-content: center">BPI France · 2024</div>
+              </div>
+              <div class="card anim-up" style="padding: 28px; text-align: center" data-delay="80">
+                <div
+                  style="
+                    font-family: 'Clash Display', sans-serif;
+                    font-size: 64px;
+                    font-weight: 700;
+                    color: var(--accent-2);
+                    line-height: 1;
+                    margin-bottom: 8px;
+                  ">
+                  <span class="count-up" data-target="60">0</span>%
+                </div>
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6">
+                  de réduction du temps de production de contenu avec l'IA générative
+                </p>
+                <div class="study-badge" style="margin-top: 12px; justify-content: center">McKinsey · 2024</div>
+              </div>
+              <div class="card anim-up" style="padding: 28px; text-align: center" data-delay="160">
+                <div
+                  style="
+                    font-family: 'Clash Display', sans-serif;
+                    font-size: 64px;
+                    font-weight: 700;
+                    color: var(--nacre);
+                    line-height: 1;
+                    margin-bottom: 8px;
+                  ">
+                  <span class="count-up" data-target="400">0</span>h
+                </div>
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6">
+                  perdues par an en tâches répétitives pour un indépendant moyen
+                </p>
+                <div class="study-badge" style="margin-top: 12px; justify-content: center">Enquête Pinapp · 2026</div>
               </div>
             </div>
-            <div style="text-align: center; margin-top: 40px" class="anim-scale" data-delay="200">
+            <div class="urgence-banner anim-up" style="margin-top: 32px" data-delay="200">
+              <div class="urgence-dot"></div>
+              <span
+                >Le virage IA se prend maintenant. Dans 18 mois, les entreprises qui l'auront raté auront 2 ans de
+                retard à rattraper. Nous formons les gens à l'IA pour réduire les inégalités — pas pour les
+                creuser.</span
+              >
+            </div>
+            <div style="text-align: center; margin-top: 40px" class="anim-scale" data-delay="240">
               <a href="/diagnostic/" class="btn btn--primary" style="font-size: 15px; padding: 16px 36px"
-                >Travailler avec nous →</a
+                >Commencer avec nous →</a
               >
             </div>
           </div>
@@ -429,6 +846,9 @@
           <a href="https://memoireetpresence.fr" target="_blank" rel="noopener">🌿 Mémoire & Présence</a>
         </nav>
         <p class="footer__legal">© 2026 Pinapp Inc. · Lauralie & Micha · Prix HT · TVA non applicable art. 293 B CGI</p>
+        <div class="footer__ai-badge">
+          <span class="ai-badge">Assisté par IA · Validé par Lauralie & Micha · EU AI Act Art. 50</span>
+        </div>
       </div>
     </footer>
 

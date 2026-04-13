@@ -3,25 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mémoire & Présence — Pinapp Inc.</title>
+    <title>Mémoire & Présence — Micha · Portfolio & Tarifs</title>
     <meta
       name="description"
-      content="La présence numérique qui traverse le temps. QR codes d'hommage, captation, transmission. Micha & Lauralie — Pinapp Inc." />
-    <link rel="canonical" href="https://pinapp.fr/" />
+      content="Portfolio photo, vidéo, DA et IA générative de Micha. Tarifs clairs. Prestations image pour entreprises et particuliers." />
+    <link rel="canonical" href="https://pinapp.fr/memoire-et-presence/" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.bunny.net/css?family=clash-display:wght@400;500;600;700|inter:wght@300;400;500&display=swap" />
+    <link rel="preload" href="/assets/fonts/ClashDisplay-Bold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/assets/css/pinapp-global.css" />
     <script src="/assets/js/theme.js"></script>
   </head>
   <body>
     <div id="cursor" aria-hidden="true"></div>
+    <div id="cursor-trail" aria-hidden="true"></div>
     <div id="progress" aria-hidden="true"></div>
     <canvas id="canvas-pandora" aria-hidden="true"></canvas>
-    <div class="caustics" aria-hidden="true"><span></span><span></span><span></span></div>
-    <div class="light-rays" aria-hidden="true"></div>
+    <div class="caustics" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <div class="water-surface" aria-hidden="true"></div>
+    <div class="water-reflets" aria-hidden="true"></div>
     <a class="skip-link" href="#main">Aller au contenu</a>
 
     <nav class="nav" id="nav" aria-label="Navigation principale">
@@ -29,27 +29,25 @@
         <a class="nav__logo" href="/">Pinapp <span>Inc.</span></a>
         <ul class="nav__menu" role="list">
           <li class="nav__item">
-            <a class="nav__link" href="/offres/">
-              Pinapp Studio
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-                <path d="M2 3l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
-              </svg>
-            </a>
+            <a class="nav__link" href="/offres/"
+              >Pinapp Studio
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" /></svg
+            ></a>
             <div class="nav__dropdown">
               <span class="nav__dropdown-label">Pinapp Studio</span>
-              <a href="/offres/">Offres</a>
+              <a href="/offres/">Offres & tarifs</a>
               <a href="/realisations/">Réalisations</a>
               <a href="/offres/formation/">Formations</a>
               <a href="/a-propos/">Notre studio</a>
             </div>
           </li>
           <li class="nav__item">
-            <a class="nav__link" href="/auralis/">
-              Auralis RH
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-                <path d="M2 3l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
-              </svg>
-            </a>
+            <a class="nav__link" href="/auralis/"
+              >Auralis RH
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" /></svg
+            ></a>
             <div class="nav__dropdown">
               <span class="nav__dropdown-label">Auralis RH</span>
               <a href="/auralis/">Le produit</a>
@@ -58,35 +56,36 @@
             </div>
           </li>
           <li class="nav__item">
-            <a class="nav__link" href="/memoire-et-presence/">
-              Mémoire & Présence
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-                <path d="M2 3l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
-              </svg>
-            </a>
+            <a class="nav__link" href="/memoire-et-presence/"
+              >Mémoire & Présence
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" /></svg
+            ></a>
             <div class="nav__dropdown">
               <span class="nav__dropdown-label">Mémoire & Présence</span>
               <a href="/memoire-et-presence/">Notre approche</a>
-              <a href="/memoire-et-presence/#realisations">Réalisations Micha</a>
+              <a href="/memoire-et-presence/#portfolio">Portfolio Micha</a>
+              <a href="/memoire-et-presence/#tarifs">Tarifs image</a>
               <a href="https://memoireetpresence.fr" target="_blank" rel="noopener">memoireetpresence.fr ↗</a>
             </div>
           </li>
         </ul>
         <div class="nav__actions">
-          <button class="nav__theme" id="theme-toggle" aria-label="Mode jour">◐</button>
+          <button class="nav__theme" id="theme-toggle" aria-label="Mode jour Avatar 2">◐</button>
           <a class="nav__cta" href="/diagnostic/">Premier échange offert</a>
-          <button class="nav__burger" aria-label="Menu" aria-expanded="false">
+          <button class="nav__burger" aria-label="Ouvrir le menu" aria-expanded="false">
             <span></span><span></span><span></span>
           </button>
         </div>
       </div>
-      <div class="nav__drawer">
+
+      <!-- DRAWER MOBILE -->
+      <div class="nav__drawer" role="dialog" aria-label="Menu principal">
         <div class="nav__drawer-section">
           <span class="nav__drawer-label">Pinapp Studio</span>
-          <a href="/offres/">Offres</a>
+          <a href="/offres/">Offres & tarifs</a>
           <a href="/realisations/">Réalisations</a>
           <a href="/offres/formation/">Formations</a>
-          <a href="/a-propos/">Notre studio</a>
         </div>
         <div class="nav__drawer-section">
           <span class="nav__drawer-label">Auralis RH</span>
@@ -96,9 +95,32 @@
         <div class="nav__drawer-section">
           <span class="nav__drawer-label">Mémoire & Présence</span>
           <a href="/memoire-et-presence/">Notre approche</a>
+          <a href="/memoire-et-presence/#portfolio">Portfolio Micha</a>
           <a href="https://memoireetpresence.fr" target="_blank" rel="noopener">memoireetpresence.fr ↗</a>
         </div>
-        <a href="/diagnostic/" class="btn btn--primary" style="margin-top: 8px">Premier échange offert</a>
+        <div class="nav__drawer-section">
+          <span class="nav__drawer-label">Pinapp Inc.</span>
+          <a href="/a-propos/">Notre société</a>
+          <a href="/engagements/">Nos engagements</a>
+          <a href="/diagnostic/">Premier échange offert</a>
+        </div>
+
+        <!-- STORYBOARD DANS LE DRAWER -->
+        <div class="drawer-story">
+          <span class="drawer-story-title">Qui sommes-nous ?</span>
+          <div class="drawer-story-cards">
+            <a href="/a-propos/#lauralie" class="drawer-story-card">
+              <div class="drawer-story-avatar" style="background: linear-gradient(135deg, #00e5b0, #b388ff)">L</div>
+              <div class="drawer-story-name">Lauralie</div>
+              <div class="drawer-story-role">Architecte systèmes & IA · Pinapp Studio</div>
+            </a>
+            <a href="/a-propos/#micha" class="drawer-story-card">
+              <div class="drawer-story-avatar" style="background: linear-gradient(135deg, #7fffea, #e040fb)">M</div>
+              <div class="drawer-story-name">Micha</div>
+              <div class="drawer-story-role">Directeur artistique & image · M&P</div>
+            </a>
+          </div>
+        </div>
       </div>
     </nav>
 
@@ -107,9 +129,17 @@
       ><button class="nav-dot"></button>
     </nav>
 
+    <!-- LIGHTBOX MICHA -->
+    <div id="lightbox" class="lightbox" role="dialog" aria-label="Visualisation">
+      <div class="lightbox-inner">
+        <button class="lightbox-close" aria-label="Fermer">×</button>
+        <img src="" alt="" loading="lazy" />
+      </div>
+    </div>
+
     <main id="main">
       <div class="snap-container">
-        <section class="snap-section" id="mp-hero" aria-labelledby="mp-title">
+        <section class="snap-section" id="mp-hero">
           <div class="container">
             <div
               style="
@@ -130,7 +160,6 @@
               🌿 Mémoire & Présence · Pinapp Inc.
             </div>
             <h1
-              id="mp-title"
               style="
                 font-size: clamp(40px, 7vw, 88px);
                 letter-spacing: -0.04em;
@@ -143,61 +172,118 @@
               La <span class="shimmer">présence</span><br />qui traverse le temps.
             </h1>
             <p
-              style="font-size: 18px; color: var(--text-muted); max-width: 560px; margin-bottom: 48px; line-height: 1.7"
+              style="font-size: 18px; color: var(--text-muted); max-width: 560px; margin-bottom: 40px; line-height: 1.7"
               class="anim-up"
-              data-delay="200">
-              Nous digitalisons les hommages, préservons les mémoires et créons des liens durables entre ceux qui
-              restent et ceux qui sont partis. Image, son, présence numérique — pour que rien ne s'efface.
+              data-delay="180">
+              Nous digitalisons les hommages, préservons les mémoires et créons des liens durables. Image, son, présence
+              numérique — pour que rien ne s'efface.
             </p>
-            <div style="display: flex; gap: 16px; flex-wrap: wrap" class="anim-up" data-delay="300">
+            <div style="display: flex; gap: 16px; flex-wrap: wrap" class="anim-up" data-delay="260">
               <a href="https://memoireetpresence.fr" target="_blank" rel="noopener" class="btn btn--primary"
-                >Voir memoireetpresence.fr ↗</a
+                >memoireetpresence.fr ↗</a
               >
-              <a href="/diagnostic/" class="btn btn--ghost">Nous contacter</a>
+              <a href="#portfolio" class="btn btn--ghost">Voir le portfolio</a>
+              <a href="#tarifs" class="btn btn--nacre">Tarifs image</a>
             </div>
           </div>
         </section>
 
-        <section class="snap-section" id="mp-micha" aria-labelledby="mp-micha-title">
+        <!-- MICHA STORYBOARD -->
+        <section class="snap-section" id="mp-micha">
           <div class="container">
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center">
               <div>
                 <span class="label anim-fade" style="color: var(--accent-3)">Co-associé · Directeur artistique</span>
                 <h2
-                  id="mp-micha-title"
-                  style="font-size: clamp(32px, 5vw, 56px); letter-spacing: -0.03em; margin-bottom: 20px"
+                  style="font-size: clamp(32px, 5vw, 56px); letter-spacing: -0.03em; margin-bottom: 24px"
                   class="anim-up"
                   data-delay="80">
                   Micha.
                 </h2>
-                <p
-                  style="font-size: 16px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.7"
-                  class="anim-up"
-                  data-delay="160">
-                  Vidéaste, photographe, directeur artistique. Michaël Bouilhac crée les visuels qui donnent à voir ce
-                  que les mots ne peuvent pas dire. Depuis son studio en Nouvelle-Aquitaine ou à distance partout en
-                  France.
-                </p>
+                <!-- STORYBOARD MICHA -->
+                <div style="display: flex; flex-direction: column; gap: 20px; margin-bottom: 32px">
+                  <div
+                    class="etude-cite"
+                    style="border-color: rgba(127, 255, 234, 0.12); background: rgba(127, 255, 234, 0.03)">
+                    <div class="etude-cite-bar" style="background: var(--accent-3)"></div>
+                    <div>
+                      <div
+                        style="
+                          font-size: 11px;
+                          letter-spacing: 0.1em;
+                          text-transform: uppercase;
+                          color: var(--accent-3);
+                          margin-bottom: 4px;
+                        ">
+                        Avant Pinapp
+                      </div>
+                      <div class="etude-cite-text">
+                        Des années dans l'événementiel — mariages, corporate, captations live. Le regard s'est formé sur
+                        le terrain, dans l'urgence du moment unique.
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="etude-cite"
+                    style="border-color: rgba(127, 255, 234, 0.12); background: rgba(127, 255, 234, 0.03)">
+                    <div class="etude-cite-bar" style="background: var(--accent-3)"></div>
+                    <div>
+                      <div
+                        style="
+                          font-size: 11px;
+                          letter-spacing: 0.1em;
+                          text-transform: uppercase;
+                          color: var(--accent-3);
+                          margin-bottom: 4px;
+                        ">
+                        La passion tech
+                      </div>
+                      <div class="etude-cite-text">
+                        Passionné de nouvelles technologies, Micha a exploré l'IA générative dès ses débuts —
+                        Midjourney, Firefly, Runway — pour en faire des outils créatifs, pas des raccourcis.
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="etude-cite"
+                    style="border-color: rgba(127, 255, 234, 0.12); background: rgba(127, 255, 234, 0.03)">
+                    <div class="etude-cite-bar" style="background: var(--accent-3)"></div>
+                    <div>
+                      <div
+                        style="
+                          font-size: 11px;
+                          letter-spacing: 0.1em;
+                          text-transform: uppercase;
+                          color: var(--accent-3);
+                          margin-bottom: 4px;
+                        ">
+                        Mémoire & Présence
+                      </div>
+                      <div class="etude-cite-text">
+                        Avec Lauralie, il a co-fondé Mémoire & Présence — pour que chaque hommage soit aussi soigné
+                        qu'un grand reportage. La technique au service de l'humain.
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <ul class="checklist anim-up" data-delay="200">
-                  <li>Photo professionnelle haute définition</li>
-                  <li>Vidéo de présentation et hommage</li>
-                  <li>Direction artistique complète</li>
+                  <li>Photo & vidéo professionnelles haute définition</li>
+                  <li>Direction artistique & charte visuelle</li>
                   <li>Branding Adobe suite complète</li>
-                  <li>Restauration et retouche avancée</li>
-                  <li>IA générative dirigée</li>
+                  <li>Restauration & retouche avancée</li>
+                  <li>IA générative dirigée (Midjourney, Firefly, Runway)</li>
+                  <li>Événementiel & captation live</li>
                 </ul>
                 <div
                   style="
-                    margin-top: 32px;
-                    padding: 20px;
+                    margin-top: 28px;
+                    padding: 16px 20px;
                     background: rgba(127, 255, 234, 0.04);
                     border: 1px solid rgba(127, 255, 234, 0.1);
                     border-radius: 12px;
-                  "
-                  class="anim-up"
-                  data-delay="260">
-                  <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px">
-                    Contact exclusif par WhatsApp
+                  ">
+                  <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 4px">
+                    Contact exclusif par WhatsApp · Nouvelle-Aquitaine & France entière
                   </p>
                   <a
                     href="mailto:micha@memoireetpresence.fr"
@@ -209,136 +295,426 @@
               <div>
                 <div
                   class="card anim-scale"
-                  style="padding: 40px; text-align: center; border-color: rgba(127, 255, 234, 0.12)"
+                  style="padding: 40px; text-align: center; border-color: rgba(127, 255, 234, 0.15)"
                   data-delay="150">
-                  <div style="font-size: 80px; margin-bottom: 20px">🎬</div>
+                  <!-- ⚠️ [MICHA] À COMPLÉTER : ta photo ici — format WebP 600x700px -->
                   <div
+                    class="placeholder-block"
                     style="
-                      font-family: 'Clash Display', sans-serif;
-                      font-size: 28px;
-                      font-weight: 700;
-                      color: var(--text);
-                      margin-bottom: 8px;
+                      height: 280px;
+                      display: flex;
+                      flex-direction: column;
+                      align-items: center;
+                      justify-content: center;
+                      gap: 12px;
+                      margin-bottom: 20px;
                     ">
-                    Micha
+                    <div style="font-size: 48px; opacity: 0.3">📷</div>
+                    <div style="font-size: 11px; opacity: 0.5">
+                      ⚠️ [MICHA] Photo portrait<br />WebP 600×700px à glisser ici
+                    </div>
                   </div>
                   <div
                     style="
-                      font-size: 13px;
+                      font-family: 'Clash Display', sans-serif;
+                      font-size: 24px;
+                      font-weight: 700;
+                      color: var(--text);
+                      margin-bottom: 6px;
+                    ">
+                    Michaël Bouilhac
+                  </div>
+                  <div
+                    style="
+                      font-size: 12px;
                       color: var(--accent-3);
                       letter-spacing: 0.08em;
                       text-transform: uppercase;
-                      margin-bottom: 20px;
+                      margin-bottom: 16px;
                     ">
-                    Vidéaste · DA · M&P
+                    Micha · Vidéaste · DA · M&P
                   </div>
-                  <div
-                    style="
-                      font-family: 'Clash Display', sans-serif;
-                      font-size: 22px;
-                      color: var(--nacre);
-                      margin-bottom: 4px;
-                    ">
+                  <div style="font-family: 'Clash Display', sans-serif; font-size: 20px; color: var(--nacre)">
                     À partir de 300 € HT
                   </div>
-                  <p style="font-size: 12px; color: var(--text-muted)">Sur devis selon périmètre</p>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        <section class="snap-section" id="mp-realisations" aria-labelledby="mp-real-title">
+        <!-- PORTFOLIO CAROUSEL -->
+        <section class="snap-section" id="portfolio">
           <div class="container">
-            <span class="label anim-fade" style="color: var(--accent-3)">Réalisations</span>
+            <span class="label anim-fade" style="color: var(--accent-3)">Portfolio Micha</span>
             <h2
-              id="mp-real-title"
               style="font-size: clamp(28px, 4vw, 48px); letter-spacing: -0.03em; margin-bottom: 16px"
               class="anim-up"
               data-delay="80">
               Le travail de Micha.
             </h2>
             <p
-              style="font-size: 16px; color: var(--text-muted); margin-bottom: 40px; line-height: 1.6"
+              style="font-size: 15px; color: var(--text-muted); margin-bottom: 32px; line-height: 1.6"
               class="anim-up"
               data-delay="120">
-              Photos, vidéos, directions artistiques — cliquez pour voir les réalisations complètes sur
-              memoireetpresence.fr
+              Cliquez pour agrandir · Filtrez par catégorie
             </p>
-            <div class="gallery-grid anim-up" data-delay="160">
-              <div class="gallery-item" onclick="window.open('https://memoireetpresence.fr', '_blank')">
-                <span style="opacity: 0.5">Photo · Hommage</span>
+
+            <!-- FILTRES CATÉGORIES -->
+            <div class="carousel-cats anim-up" data-delay="140">
+              <button class="carousel-cat active" data-cat="tous">Tous</button>
+              <button class="carousel-cat" data-cat="photo">Photo</button>
+              <button class="carousel-cat" data-cat="video">Vidéo</button>
+              <button class="carousel-cat" data-cat="da">Direction artistique</button>
+              <button class="carousel-cat" data-cat="ia">IA générative</button>
+              <button class="carousel-cat" data-cat="event">Événementiel</button>
+            </div>
+
+            <!-- CAROUSEL -->
+            <div class="carousel-wrap anim-up" data-delay="180">
+              <div class="carousel-track" id="micha-carousel">
+                <!-- ⚠️ [MICHA] Photo 01 -->
+                <div
+                  class="carousel-item"
+                  data-cat="photo"
+                  data-src="/assets/images/micha/photo-01.webp"
+                  data-alt="Portrait professionnel">
+                  <div class="carousel-placeholder">
+                    <div class="carousel-placeholder-icon">📸</div>
+                    <div class="carousel-placeholder-label">⚠️ [MICHA] Photo 01<br />WebP 800×600px</div>
+                  </div>
+                  <div class="carousel-item-overlay">Portrait · Photo</div>
+                </div>
+
+                <!-- ⚠️ [MICHA] Photo 02 -->
+                <div
+                  class="carousel-item"
+                  data-cat="photo"
+                  data-src="/assets/images/micha/photo-02.webp"
+                  data-alt="Reportage événementiel">
+                  <div class="carousel-placeholder">
+                    <div class="carousel-placeholder-icon">📸</div>
+                    <div class="carousel-placeholder-label">⚠️ [MICHA] Photo 02<br />WebP 800×600px</div>
+                  </div>
+                  <div class="carousel-item-overlay">Événement · Photo</div>
+                </div>
+
+                <!-- ⚠️ [MICHA] Photo 03 -->
+                <div
+                  class="carousel-item"
+                  data-cat="photo"
+                  data-src="/assets/images/micha/photo-03.webp"
+                  data-alt="Shooting produit">
+                  <div class="carousel-placeholder">
+                    <div class="carousel-placeholder-icon">📸</div>
+                    <div class="carousel-placeholder-label">⚠️ [MICHA] Photo 03<br />WebP 800×600px</div>
+                  </div>
+                  <div class="carousel-item-overlay">Produit · Photo</div>
+                </div>
+
+                <!-- ⚠️ [MICHA] Vidéo 01 -->
+                <div
+                  class="carousel-item"
+                  data-cat="video"
+                  data-src="/assets/images/micha/video-thumb-01.webp"
+                  data-alt="Vidéo corporate">
+                  <div class="carousel-placeholder">
+                    <div class="carousel-placeholder-icon">🎬</div>
+                    <div class="carousel-placeholder-label">⚠️ [MICHA] Vidéo 01<br />Thumbnail WebP + lien vidéo</div>
+                  </div>
+                  <div class="carousel-item-overlay">Corporate · Vidéo</div>
+                </div>
+
+                <!-- ⚠️ [MICHA] Vidéo 02 -->
+                <div
+                  class="carousel-item"
+                  data-cat="video"
+                  data-src="/assets/images/micha/video-thumb-02.webp"
+                  data-alt="Film mariage">
+                  <div class="carousel-placeholder">
+                    <div class="carousel-placeholder-icon">🎬</div>
+                    <div class="carousel-placeholder-label">⚠️ [MICHA] Vidéo 02<br />Thumbnail WebP + lien vidéo</div>
+                  </div>
+                  <div class="carousel-item-overlay">Hommage · Vidéo</div>
+                </div>
+
+                <!-- ⚠️ [MICHA] DA 01 -->
+                <div
+                  class="carousel-item"
+                  data-cat="da"
+                  data-src="/assets/images/micha/da-01.webp"
+                  data-alt="Identité visuelle">
+                  <div class="carousel-placeholder">
+                    <div class="carousel-placeholder-icon">🎨</div>
+                    <div class="carousel-placeholder-label">⚠️ [MICHA] DA 01<br />Identité visuelle WebP</div>
+                  </div>
+                  <div class="carousel-item-overlay">Identité · DA</div>
+                </div>
+
+                <!-- ⚠️ [MICHA] DA 02 -->
+                <div class="carousel-item" data-cat="da" data-src="/assets/images/micha/da-02.webp" data-alt="Branding">
+                  <div class="carousel-placeholder">
+                    <div class="carousel-placeholder-icon">🎨</div>
+                    <div class="carousel-placeholder-label">⚠️ [MICHA] DA 02<br />Branding WebP</div>
+                  </div>
+                  <div class="carousel-item-overlay">Branding · DA</div>
+                </div>
+
+                <!-- ⚠️ [MICHA] IA 01 -->
+                <div
+                  class="carousel-item"
+                  data-cat="ia"
+                  data-src="/assets/images/micha/ia-01.webp"
+                  data-alt="IA générative">
+                  <div class="carousel-placeholder">
+                    <div class="carousel-placeholder-icon">✨</div>
+                    <div class="carousel-placeholder-label">⚠️ [MICHA] IA Générative 01<br />WebP</div>
+                  </div>
+                  <div class="carousel-item-overlay">IA générative</div>
+                </div>
+
+                <!-- ⚠️ [MICHA] IA 02 -->
+                <div
+                  class="carousel-item"
+                  data-cat="ia"
+                  data-src="/assets/images/micha/ia-02.webp"
+                  data-alt="IA générative">
+                  <div class="carousel-placeholder">
+                    <div class="carousel-placeholder-icon">✨</div>
+                    <div class="carousel-placeholder-label">⚠️ [MICHA] IA Générative 02<br />WebP</div>
+                  </div>
+                  <div class="carousel-item-overlay">IA générative</div>
+                </div>
+
+                <!-- ⚠️ [MICHA] Événementiel 01 -->
+                <div
+                  class="carousel-item"
+                  data-cat="event"
+                  data-src="/assets/images/micha/event-01.webp"
+                  data-alt="Mariage">
+                  <div class="carousel-placeholder">
+                    <div class="carousel-placeholder-icon">💍</div>
+                    <div class="carousel-placeholder-label">⚠️ [MICHA] Événement 01<br />Mariage WebP</div>
+                  </div>
+                  <div class="carousel-item-overlay">Événement · Photo</div>
+                </div>
+
+                <!-- ⚠️ [MICHA] Événementiel 02 -->
+                <div
+                  class="carousel-item"
+                  data-cat="event"
+                  data-src="/assets/images/micha/event-02.webp"
+                  data-alt="Corporate">
+                  <div class="carousel-placeholder">
+                    <div class="carousel-placeholder-icon">🏢</div>
+                    <div class="carousel-placeholder-label">⚠️ [MICHA] Événement 02<br />Corporate WebP</div>
+                  </div>
+                  <div class="carousel-item-overlay">Corporate · Événement</div>
+                </div>
               </div>
-              <div class="gallery-item" onclick="window.open('https://memoireetpresence.fr', '_blank')">
-                <span style="opacity: 0.5">Vidéo · Transmission</span>
-              </div>
-              <div class="gallery-item" onclick="window.open('https://memoireetpresence.fr', '_blank')">
-                <span style="opacity: 0.5">DA · Branding</span>
-              </div>
-              <div class="gallery-item" onclick="window.open('https://memoireetpresence.fr', '_blank')">
-                <span style="opacity: 0.5">Restauration · Mémoire</span>
-              </div>
-              <div class="gallery-item" onclick="window.open('https://memoireetpresence.fr', '_blank')">
-                <span style="opacity: 0.5">Portrait · Présence</span>
-              </div>
-              <div class="gallery-item" onclick="window.open('https://memoireetpresence.fr', '_blank')">
-                <span style="opacity: 0.5">QR Code · Lien</span>
+
+              <div class="carousel-controls">
+                <button class="carousel-btn carousel-prev" aria-label="Précédent">←</button>
+                <button class="carousel-btn carousel-next" aria-label="Suivant">→</button>
               </div>
             </div>
+
             <div style="text-align: center; margin-top: 32px" class="anim-fade" data-delay="200">
               <a href="https://memoireetpresence.fr" target="_blank" rel="noopener" class="btn btn--primary">
-                Voir toutes les réalisations sur memoireetpresence.fr ↗
+                Portfolio complet sur memoireetpresence.fr ↗
               </a>
             </div>
           </div>
         </section>
 
-        <section class="snap-section" id="mp-ce-que-nous-faisons" aria-labelledby="mp-service-title">
+        <!-- TARIFS MICHA -->
+        <section class="snap-section" id="tarifs">
           <div class="container">
-            <span class="label anim-fade" style="color: var(--accent-3)">Ce que nous construisons</span>
+            <span class="label anim-fade" style="color: var(--accent-3)">Tarifs Micha · Prestations image</span>
             <h2
-              id="mp-service-title"
-              style="font-size: clamp(28px, 4vw, 48px); letter-spacing: -0.03em; margin-bottom: 48px"
+              style="font-size: clamp(28px, 4vw, 48px); letter-spacing: -0.03em; margin-bottom: 40px"
               class="anim-up"
               data-delay="80">
-              La présence numérique.<br />Le lien qui dure.
+              Des tarifs clairs.<br />Un travail sans compromis.
             </h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px">
-              <div class="card anim-up" style="padding: 32px; border-color: rgba(127, 255, 234, 0.12)" data-delay="0">
-                <div style="font-size: 32px; margin-bottom: 16px">📱</div>
-                <h3 style="font-size: 20px; margin-bottom: 12px">QR codes d'hommage</h3>
-                <p style="font-size: 14px; color: var(--text-muted); line-height: 1.7">
-                  Un QR code. Une page. Une présence numérique durable qui relie les proches à la mémoire de ceux qui
-                  comptent.
-                </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px">
+              <!-- PHOTO -->
+              <div class="card anim-up" style="padding: 28px; border-color: rgba(127, 255, 234, 0.12)" data-delay="0">
+                <div
+                  style="
+                    font-size: 11px;
+                    letter-spacing: 0.14em;
+                    text-transform: uppercase;
+                    color: var(--accent-3);
+                    margin-bottom: 16px;
+                  ">
+                  📸 Photo
+                </div>
+                <table class="pricing-table">
+                  <thead>
+                    <tr>
+                      <th>Prestation</th>
+                      <th>Prix HT</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        Shooting produit / portrait<br /><small style="opacity: 0.6">2h · 20 photos retouchées</small>
+                      </td>
+                      <td>390 €</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Shooting événement ½ journée<br /><small style="opacity: 0.6"
+                          >4h · 50 photos · galerie privée</small
+                        >
+                      </td>
+                      <td>590 €</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Shooting événement journée<br /><small style="opacity: 0.6"
+                          >8h · 100 photos · galerie privée</small
+                        >
+                      </td>
+                      <td>990 €</td>
+                    </tr>
+                    <tr>
+                      <td>Reportage<br /><small style="opacity: 0.6">Journée · galerie · album numérique</small></td>
+                      <td>1 490 €</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div class="card anim-up" style="padding: 32px; border-color: rgba(127, 255, 234, 0.12)" data-delay="80">
-                <div style="font-size: 32px; margin-bottom: 16px">🎞</div>
-                <h3 style="font-size: 20px; margin-bottom: 12px">Captation & transmission</h3>
-                <p style="font-size: 14px; color: var(--text-muted); line-height: 1.7">
-                  Vidéos de mémoire, photos de famille, restauration d'archives. Tout ce qui mérite d'être préservé.
-                </p>
+
+              <!-- VIDÉO -->
+              <div class="card anim-up" style="padding: 28px; border-color: rgba(127, 255, 234, 0.12)" data-delay="80">
+                <div
+                  style="
+                    font-size: 11px;
+                    letter-spacing: 0.14em;
+                    text-transform: uppercase;
+                    color: var(--accent-3);
+                    margin-bottom: 16px;
+                  ">
+                  🎬 Vidéo
+                </div>
+                <table class="pricing-table">
+                  <thead>
+                    <tr>
+                      <th>Prestation</th>
+                      <th>Prix HT</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        Vidéo présentation &lt; 2min<br /><small style="opacity: 0.6"
+                          >Tournage + montage + sous-titres</small
+                        >
+                      </td>
+                      <td>590 €</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Vidéo corporate 2–5min<br /><small style="opacity: 0.6"
+                          >Tournage + montage + musique + étalonnage</small
+                        >
+                      </td>
+                      <td>990 €</td>
+                    </tr>
+                    <tr>
+                      <td>Film événement<br /><small style="opacity: 0.6">Journée + montage + teaser 60s</small></td>
+                      <td>1 490 €</td>
+                    </tr>
+                    <tr>
+                      <td>Série Reels x5<br /><small style="opacity: 0.6">Tournage 1j + montage 5 formats</small></td>
+                      <td>790 €</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div class="card anim-up" style="padding: 32px; border-color: rgba(127, 255, 234, 0.12)" data-delay="160">
-                <div style="font-size: 32px; margin-bottom: 16px">🌐</div>
-                <h3 style="font-size: 20px; margin-bottom: 12px">Présence numérique</h3>
-                <p style="font-size: 14px; color: var(--text-muted); line-height: 1.7">
-                  Sites, pages de mémoire, interfaces digitales pour les professionnels du secteur funéraire.
-                </p>
-              </div>
-              <div class="card anim-up" style="padding: 32px; border-color: rgba(127, 255, 234, 0.12)" data-delay="240">
-                <div style="font-size: 32px; margin-bottom: 16px">🤝</div>
-                <h3 style="font-size: 20px; margin-bottom: 12px">Accompagnement des familles</h3>
-                <p style="font-size: 14px; color: var(--text-muted); line-height: 1.7">
-                  Un service pensé avec soin. Discret, respectueux, centré sur l'humain à chaque étape.
-                </p>
+
+              <!-- DA + IA + RESTAURATION -->
+              <div class="card anim-up" style="padding: 28px; border-color: rgba(127, 255, 234, 0.12)" data-delay="160">
+                <div
+                  style="
+                    font-size: 11px;
+                    letter-spacing: 0.14em;
+                    text-transform: uppercase;
+                    color: var(--accent-3);
+                    margin-bottom: 16px;
+                  ">
+                  🎨 DA · IA · Restauration
+                </div>
+                <table class="pricing-table">
+                  <thead>
+                    <tr>
+                      <th>Prestation</th>
+                      <th>Prix HT</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        Identité visuelle complète<br /><small style="opacity: 0.6"
+                          >Logo + charte + templates + guide</small
+                        >
+                      </td>
+                      <td>890 €</td>
+                    </tr>
+                    <tr>
+                      <td>Refonte DA existante<br /><small style="opacity: 0.6">Audit + corrections + guide</small></td>
+                      <td>590 €</td>
+                    </tr>
+                    <tr>
+                      <td>Brief créa + direction<br /><small style="opacity: 0.6">3h + document complet</small></td>
+                      <td>290 €</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Visuels IA dirigée x10<br /><small style="opacity: 0.6">Prompts + sélection + retouche</small>
+                      </td>
+                      <td>390 €</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Pack contenu IA mensuel<br /><small style="opacity: 0.6">20 visuels + 4 formats sociaux</small>
+                      </td>
+                      <td>290 €/mois</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Restauration photo ancienne<br /><small style="opacity: 0.6"
+                          >Scan + restauration + impression HD</small
+                        >
+                      </td>
+                      <td>90 €/photo</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div style="margin-top: 20px">
+                  <a
+                    href="/diagnostic/"
+                    class="btn btn--primary"
+                    style="
+                      font-size: 12px;
+                      padding: 10px 20px;
+                      background: rgba(127, 255, 234, 0.15);
+                      border-color: rgba(127, 255, 234, 0.3);
+                      width: 100%;
+                      justify-content: center;
+                    ">
+                    Demander un devis Micha →
+                  </a>
+                </div>
               </div>
             </div>
-            <div style="text-align: center; margin-top: 40px" class="anim-scale" data-delay="200">
-              <a href="https://memoireetpresence.fr" target="_blank" rel="noopener" class="btn btn--primary">
-                Découvrir memoireetpresence.fr ↗
-              </a>
-            </div>
+            <p style="font-size: 11px; color: var(--text-soft); margin-top: 20px; text-align: center">
+              Prix HT · TVA non applicable art. 293 B CGI · Devis personnalisé sur demande · Déplacement possible toute
+              France
+            </p>
           </div>
         </section>
       </div>
@@ -359,6 +735,9 @@
           <a href="https://memoireetpresence.fr" target="_blank" rel="noopener">🌿 Mémoire & Présence</a>
         </nav>
         <p class="footer__legal">© 2026 Pinapp Inc. · Lauralie & Micha · Prix HT · TVA non applicable art. 293 B CGI</p>
+        <div class="footer__ai-badge">
+          <span class="ai-badge">Assisté par IA · Validé par Lauralie & Micha · EU AI Act Art. 50</span>
+        </div>
       </div>
     </footer>
 

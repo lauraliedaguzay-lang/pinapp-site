@@ -1,5 +1,6 @@
-﻿document.addEventListener('DOMContentLoaded', function () {
-  // Progress
+﻿/* Pinapp Inc. — Main JS V2 */
+document.addEventListener('DOMContentLoaded', function () {
+  // ── PROGRESS
   var prog = document.getElementById('progress'),
     snap = document.querySelector('.snap-container');
   if (prog && snap)
@@ -12,10 +13,10 @@
       { passive: true },
     );
 
-  // Nav hide
-  var nav = document.querySelector('.nav');
-  if (nav && snap) {
-    var lastY = 0;
+  // ── NAV HIDE
+  var nav = document.querySelector('.nav'),
+    lastY = 0;
+  if (nav && snap)
     snap.addEventListener(
       'scroll',
       function () {
@@ -25,27 +26,37 @@
       },
       { passive: true },
     );
-  }
 
-  // Curseur
-  var cur = document.getElementById('cursor');
+  // ── CURSEUR + TRAÎNÉE
+  var cur = document.getElementById('cursor'),
+    trail = document.getElementById('cursor-trail');
   if (cur && window.matchMedia('(hover:hover)').matches) {
+    var tx = 0,
+      ty = 0;
     document.addEventListener('mousemove', function (e) {
       cur.style.left = e.clientX + 'px';
       cur.style.top = e.clientY + 'px';
+      setTimeout(function () {
+        if (trail) {
+          trail.style.left = e.clientX + 'px';
+          trail.style.top = e.clientY + 'px';
+        }
+      }, 80);
     });
-    document.querySelectorAll('a,button,[role="button"]').forEach(function (el) {
-      el.addEventListener('mouseenter', function () {
-        cur.classList.add('active');
+    document
+      .querySelectorAll('a,button,[role="button"],.card,.carousel-item')
+      .forEach(function (el) {
+        el.addEventListener('mouseenter', function () {
+          cur.classList.add('active');
+        });
+        el.addEventListener('mouseleave', function () {
+          cur.classList.remove('active');
+        });
       });
-      el.addEventListener('mouseleave', function () {
-        cur.classList.remove('active');
-      });
-    });
   }
 
-  // IntersectionObserver animations
-  var anims = document.querySelectorAll('.anim-fade,.anim-up,.anim-scale');
+  // ── INTERSECTION OBSERVER
+  var anims = document.querySelectorAll('.anim-fade,.anim-up,.anim-scale,.anim-left,.anim-right');
   if (anims.length) {
     var io = new IntersectionObserver(
       function (entries) {
@@ -66,10 +77,10 @@
     });
   }
 
-  // Count-up
+  // ── COUNT-UP
   document.querySelectorAll('.count-up').forEach(function (el) {
     var target = parseInt(el.dataset.target, 10),
-      dur = 1600;
+      dur = 1800;
     var io2 = new IntersectionObserver(function (entries) {
       if (!entries[0].isIntersecting) return;
       io2.disconnect();
@@ -85,7 +96,7 @@
     io2.observe(el);
   });
 
-  // Nav dots
+  // ── NAV DOTS
   var dots = document.querySelectorAll('.nav-dot'),
     sects = document.querySelectorAll('.snap-section');
   if (dots.length && snap) {
@@ -110,18 +121,29 @@
     });
   }
 
-  // Burger
+  // ── BURGER
   var burger = document.querySelector('.nav__burger'),
     drawer = document.querySelector('.nav__drawer');
-  if (burger && drawer)
+  if (burger && drawer) {
     burger.addEventListener('click', function () {
-      var o = drawer.classList.toggle('open');
-      burger.setAttribute('aria-expanded', o);
+      var open = drawer.classList.toggle('open');
+      burger.classList.toggle('open', open);
+      burger.setAttribute('aria-expanded', open);
+      document.body.style.overflow = open ? 'hidden' : '';
     });
+    // Fermer sur lien
+    drawer.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        drawer.classList.remove('open');
+        burger.classList.remove('open');
+        burger.setAttribute('aria-expanded', false);
+        document.body.style.overflow = '';
+      });
+    });
+  }
 
-  // Sélecteur secteur
-  var sbtns = document.querySelectorAll('.sector-btn'),
-    ocards = document.querySelectorAll('.offre-card[data-sectors]');
+  // ── SÉLECTEUR SECTEUR
+  var sbtns = document.querySelectorAll('.sector-btn');
   sbtns.forEach(function (btn) {
     btn.addEventListener('click', function () {
       sbtns.forEach(function (b) {
@@ -129,15 +151,18 @@
       });
       btn.classList.add('active');
       var sel = btn.dataset.sector;
-      ocards.forEach(function (card) {
+      document.querySelectorAll('.offre-wrap').forEach(function (wrap) {
+        var card = wrap.querySelector('[data-sectors]');
+        if (!card) {
+          return;
+        }
         var ss = card.dataset.sectors.split(',');
-        card.closest('.offre-wrap').style.display =
-          sel === 'tous' || ss.includes(sel) ? '' : 'none';
+        wrap.style.display = sel === 'tous' || ss.includes(sel) ? '' : 'none';
       });
     });
   });
 
-  // Barres graphique
+  // ── GRAPHIQUES BARRES
   var bars = document.querySelectorAll('.bar[data-h]');
   if (bars.length) {
     var bioBar = new IntersectionObserver(
@@ -157,7 +182,7 @@
     });
   }
 
-  // Donut SVG
+  // ── DONUT SVG
   var donut = document.getElementById('donut-svg');
   if (donut) {
     var r = 44,
@@ -185,4 +210,97 @@
       offset += arc;
     });
   }
+
+  // ── CAROUSEL MICHA
+  document.querySelectorAll('.carousel-wrap').forEach(function (wrap) {
+    var track = wrap.querySelector('.carousel-track');
+    var btnPrev = wrap.querySelector('.carousel-prev');
+    var btnNext = wrap.querySelector('.carousel-next');
+    var cats = wrap.querySelectorAll('.carousel-cat');
+    if (!track) return;
+    var current = 0,
+      itemW = 296; // 280 + 16gap
+
+    function scrollTo(i) {
+      current = Math.max(0, Math.min(i, track.children.length - 1));
+      track.style.transform = 'translateX(-' + current * itemW + 'px)';
+    }
+    if (btnPrev)
+      btnPrev.addEventListener('click', function () {
+        scrollTo(current - 1);
+      });
+    if (btnNext)
+      btnNext.addEventListener('click', function () {
+        scrollTo(current + 1);
+      });
+
+    // Filtrage par catégorie
+    cats.forEach(function (cat) {
+      cat.addEventListener('click', function () {
+        cats.forEach(function (c) {
+          c.classList.remove('active');
+        });
+        cat.classList.add('active');
+        var sel = cat.dataset.cat;
+        Array.from(track.children).forEach(function (item) {
+          item.style.display = sel === 'tous' || item.dataset.cat === sel ? '' : 'none';
+        });
+        current = 0;
+        track.style.transform = 'translateX(0)';
+      });
+    });
+
+    // Touch swipe
+    var touchStartX = 0;
+    track.addEventListener(
+      'touchstart',
+      function (e) {
+        touchStartX = e.touches[0].clientX;
+      },
+      { passive: true },
+    );
+    track.addEventListener(
+      'touchend',
+      function (e) {
+        var diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) scrollTo(diff > 0 ? current + 1 : current - 1);
+      },
+      { passive: true },
+    );
+  });
+
+  // ── LIGHTBOX
+  var lb = document.getElementById('lightbox');
+  if (lb) {
+    document.querySelectorAll('.carousel-item[data-src]').forEach(function (item) {
+      item.addEventListener('click', function () {
+        var img = lb.querySelector('img');
+        if (img) {
+          img.src = item.dataset.src;
+          img.alt = item.dataset.alt || '';
+        }
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+    lb.addEventListener('click', function (e) {
+      if (e.target === lb || e.target.classList.contains('lightbox-close')) {
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && lb.classList.contains('open')) {
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+
+  // ── URGENCE BANNER — compteur dynamique
+  var urgenceCounts = document.querySelectorAll('.urgence-count');
+  urgenceCounts.forEach(function (el) {
+    // Nombre aléatoire de "personnes vues aujourd'hui"
+    el.textContent = Math.floor(Math.random() * 40 + 20);
+  });
 });

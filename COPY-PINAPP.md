@@ -55,7 +55,7 @@
 **H1 :** Nous construisons des systèmes. Nous croyons à l'humain.
 **Desc :** Pinapp Inc. est née d'une conviction simple : la technologie doit servir les gens, pas les remplacer.
 
-**Lauralie :** Co-associée · PDG · Architecte technique et stratégique
+**Lauralie :** Co-associée · Architecte systèmes & IA · Stratégie produit
 **Bio :** Je conçois les systèmes, j'écris les specs, je les déploie. De l'IA à l'automatisation, du site au SaaS — sans intermédiaire.
 
 **Micha :** Co-associé · Directeur artistique

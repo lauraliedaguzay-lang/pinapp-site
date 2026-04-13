@@ -1,14 +1,17 @@
-﻿(function () {
+﻿/* Pinapp Inc. — Canvas Pandora V2 · Nuit · 80pt · 4 couleurs · liaisons · halo */
+(function () {
   var canvas = document.getElementById('canvas-pandora');
   if (!canvas) return;
   var ctx = canvas.getContext('2d');
-  var C = ['#00E5B0', '#B388FF', '#7FFFEA', '#E040FB'],
-    N = 80,
-    L = 100,
+  var C = ['#00E5B0', '#B388FF', '#7FFFEA', '#E040FB'];
+  var N = 80,
+    L = 110,
     W,
     H,
     pts = [],
-    raf;
+    raf,
+    active = true;
+
   function resize() {
     W = canvas.width = innerWidth;
     H = canvas.height = innerHeight;
@@ -20,19 +23,23 @@
     return {
       x: rand(0, W),
       y: rand(0, H),
-      vx: rand(-0.12, 0.12),
-      vy: rand(-0.12, 0.12),
-      r: rand(1, 2.4),
+      vx: rand(-0.1, 0.1),
+      vy: rand(-0.1, 0.1),
+      r: rand(1, 2.6),
       c: C[Math.floor(Math.random() * 4)],
-      a: rand(0.3, 0.75),
+      a: rand(0.25, 0.7),
+      pulse: rand(0, Math.PI * 2),
+      pulseSpeed: rand(0.01, 0.03),
     };
   }
   function init() {
     resize();
     pts = Array.from({ length: N }, mk);
   }
+
   function draw() {
     ctx.clearRect(0, 0, W, H);
+    // Liaisons
     for (var i = 0; i < pts.length; i++) {
       for (var j = i + 1; j < pts.length; j++) {
         var dx = pts[i].x - pts[j].x,
@@ -41,28 +48,34 @@
         if (d < L) {
           ctx.beginPath();
           ctx.strokeStyle = pts[i].c;
-          ctx.globalAlpha = (1 - d / L) * 0.15;
-          ctx.lineWidth = 0.5;
+          ctx.globalAlpha = (1 - d / L) * 0.12;
+          ctx.lineWidth = 0.4;
           ctx.moveTo(pts[i].x, pts[i].y);
           ctx.lineTo(pts[j].x, pts[j].y);
           ctx.stroke();
         }
       }
     }
+    // Points + halo pulsé
     pts.forEach(function (p) {
-      ctx.globalAlpha = p.a;
+      p.pulse += p.pulseSpeed;
+      var pa = p.a * (0.8 + 0.2 * Math.sin(p.pulse));
+      // Halo
+      var g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 6);
+      g.addColorStop(0, p.c + '60');
+      g.addColorStop(1, p.c + '00');
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * 6, 0, Math.PI * 2);
+      ctx.fillStyle = g;
+      ctx.globalAlpha = pa * 0.35;
+      ctx.fill();
+      // Point
+      ctx.globalAlpha = pa;
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
       ctx.fillStyle = p.c;
       ctx.fill();
-      var g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 5);
-      g.addColorStop(0, p.c + '50');
-      g.addColorStop(1, p.c + '00');
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r * 5, 0, Math.PI * 2);
-      ctx.fillStyle = g;
-      ctx.globalAlpha = p.a * 0.4;
-      ctx.fill();
+      // Mouvement
       p.x += p.vx;
       p.y += p.vy;
       if (p.x < -10) p.x = W + 10;
@@ -72,18 +85,20 @@
     });
     ctx.globalAlpha = 1;
   }
+
   function loop() {
-    if (document.hidden) return;
+    if (document.hidden || !active) return;
     draw();
     raf = requestAnimationFrame(loop);
   }
   function start() {
-    if (!raf) loop();
+    if (!raf && active) loop();
   }
   function stop() {
     cancelAnimationFrame(raf);
     raf = null;
   }
+
   document.addEventListener('visibilitychange', function () {
     document.hidden ? stop() : start();
   });
@@ -91,10 +106,20 @@
     resize();
     pts = Array.from({ length: N }, mk);
   });
+
+  // Sync avec toggle thème
+  document.addEventListener('themeChanged', function (e) {
+    active = e.detail.theme === 'dark';
+    active ? start() : stop();
+  });
+  // Sync MutationObserver fallback
   var obs = new MutationObserver(function () {
-    document.documentElement.getAttribute('data-theme') === 'light' ? stop() : start();
+    active = document.documentElement.getAttribute('data-theme') !== 'light';
+    active ? start() : stop();
   });
   obs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
   init();
-  if (document.documentElement.getAttribute('data-theme') !== 'light') start();
+  active = document.documentElement.getAttribute('data-theme') !== 'light';
+  if (active) start();
 })();

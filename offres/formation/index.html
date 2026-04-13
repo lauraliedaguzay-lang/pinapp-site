@@ -1,714 +1,612 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="fr" data-theme="dark">
   <head>
-    <script>
-      (function () {
-        var t = localStorage.getItem('pinapp-theme') || localStorage.getItem('pinapp-mode');
-        var d = window.matchMedia('(prefers-color-scheme:dark)').matches;
-        var m = t === 'light' || t === 'jour' ? 'jour' : t === 'dark' || t === 'nuit' ? 'nuit' : d ? 'nuit' : 'jour';
-        document.documentElement.setAttribute('data-mode', m);
-        document.documentElement.setAttribute('data-theme', m === 'jour' ? 'light' : 'dark');
-        if (document.body) {
-          document.body.classList.add('mode-' + m);
-        }
-        document.addEventListener('DOMContentLoaded', function () {
-          document.body.classList.add('mode-' + m);
-        });
-      })();
-    </script>
-    <script>
-      /* PINAPP_TODO : coller les liens Stripe Checkout (ou IDs) — voir PINAPP-REMPLACEMENTS.md */
-      window.__PINAPP__ = Object.assign(
-        {
-          STRIPE_FORMATION_1: '',
-          STRIPE_FORMATION_2: '',
-          STRIPE_FORMATION_3: '',
-          STRIPE_PACK_PROMPTING: '',
-        },
-        window.__PINAPP__ || {},
-      );
-    </script>
-    <link rel="preload" as="image" href="../../assets/images/bg-pandora-nuit.png" fetchpriority="high" />
-    <link rel="preload" as="image" href="../../assets/images/bg-pandora-jour.png" />
     <meta charset="UTF-8" />
-    <meta name="theme-color" id="pinapp-theme-color" content="#080d18" />
-    <script src="../../assets/js/theme-init.js" defer></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="robots" content="index, follow" />
-    <title>Formations — Pinapp Studio</title>
-    <meta name="description" content="Formations IA et automatisation. De 47€ à 397€. Conçues par des praticiens." />
-    <meta property="og:title" content="Formations — Pinapp Studio" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formations — Pinapp Inc. · Lauralie & Micha</title>
     <meta
-      property="og:description"
-      content="Formations IA et automatisation. De 47€ à 397€. Conçues par des praticiens." />
-    <meta property="og:image" content="https://pinapp.fr/assets/images/og-pinapp-share.png" />
-    <meta property="og:url" content="https://pinapp.fr/offres/formation/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="fr_FR" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
-    <link rel="stylesheet" href="../../assets/variables.css" />
-    <link rel="stylesheet" href="../../assets/grid.css" />
-    <link rel="stylesheet" href="../../assets/animations.css" />
-    <link rel="stylesheet" href="../../assets/css/pandora-ux.css" />
-    <link rel="preconnect" href="https://fonts.bunny.net" />
-    <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" />
-    <link rel="stylesheet" href="../../assets/css/pandora-dance.css" />
-    <link rel="stylesheet" href="../../assets/css/ios-glass.css" />
-    <link rel="stylesheet" href="../../assets/css/apple-finish.css" />
-    <link rel="stylesheet" href="../../assets/css/pinapp-modern-biolume.css" />
-    <link rel="stylesheet" href="../../assets/css/pinapp-premium.css" />
-    <link rel="stylesheet" href="../../assets/css/deploy-harmonise.css" />
-    <link rel="stylesheet" href="../../assets/css/pandora-jour-override.css" />
-    <link rel="stylesheet" href="../../assets/css/mobile-premium.css" />
-    <link rel="stylesheet" href="../../assets/css/neuro-layout.css" />
-
-    <link rel="stylesheet" href="../../assets/css/pandora-world.css" />
-    <link rel="stylesheet" href="../../assets/css/pandora-details.css" />
+      name="description"
+      content="Devenez un travailleur augmenté. Formations IA, automatisation, image et direction artistique. Basées sur des études cognitives réelles." />
+    <link rel="canonical" href="https://pinapp.fr/offres/formation/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="/assets/fonts/ClashDisplay-Bold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/assets/css/pinapp-global.css" />
+    <script src="/assets/js/theme.js"></script>
   </head>
-  <body class="page-with-bottom-nav">
-    <div id="pandora-world" aria-hidden="true">
-      <div class="pandora-orbs">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-        <div class="orb orb-4"></div>
-      </div>
-      <div class="pandora-spores" id="spores-container"></div>
-      <div class="pandora-stars" id="stars-container"></div>
-      <div class="pandora-clouds" id="clouds-container">
-        <div class="cloud cloud-1"></div>
-        <div class="cloud cloud-2"></div>
-        <div class="cloud cloud-3"></div>
-      </div>
-      <div class="holo-grid"></div>
-    </div>
-    <div id="pandora-loader" aria-hidden="true">
-      <svg width="32" height="38" viewBox="0 0 32 38" fill="none">
-        <defs>
-          <linearGradient id="pg-l" x1="16" y1="36" x2="16" y2="2" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#7B4FE8" />
-            <stop offset="100%" stop-color="#00E5CC" />
-          </linearGradient>
-        </defs>
-        <path d="M16 2 C13 5 10 6 11 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
-        <path d="M16 2 L16 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" />
-        <path d="M16 2 C19 5 22 6 21 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
-        <ellipse cx="16" cy="24" rx="9" ry="12" fill="url(#pg-l)" />
-        <path d="M7 20 L16 15 L25 20 L16 25 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
-        <path d="M7 26 L16 21 L25 26 L16 31 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
-      </svg>
-    </div>
-    <script>
-      (function () {
-        function hideLoader() {
-          var l = document.getElementById('pandora-loader');
-          if (l && l.parentNode) {
-            l.style.opacity = '0';
-            setTimeout(function () {
-              if (l.parentNode) l.remove();
-            }, 400);
-          }
-        }
-        window.addEventListener('load', hideLoader);
-        setTimeout(hideLoader, 2000);
-      })();
-    </script>
-    <div class="aurora-mobile" aria-hidden="true">
-      <div class="aurora-orb aurora-orb-1"></div>
-      <div class="aurora-orb aurora-orb-2"></div>
-      <div class="aurora-orb aurora-orb-3"></div>
-      <div class="aurora-orb aurora-orb-4"></div>
-    </div>
-    <div class="pandora-shapes" aria-hidden="true">
-      <div class="pandora-shape pandora-shape-1"></div>
-      <div class="pandora-shape pandora-shape-2"></div>
-      <div class="pandora-shape pandora-shape-3"></div>
-      <div class="pandora-shape pandora-shape-4"></div>
-    </div>
-    <div class="holo-grid" aria-hidden="true"></div>
-    <div class="noise" aria-hidden="true"></div>
-    <div class="jour-spores" aria-hidden="true">
-      <span class="jour-spore" style="left: 12%; top: 75%; --dur: 22s; --delay: -4s; --dx: 18px; --dy: -90px"></span
-      ><span class="jour-spore" style="left: 28%; top: 60%; --dur: 28s; --delay: -11s; --dx: -12px; --dy: -75px"></span
-      ><span class="jour-spore" style="left: 45%; top: 82%; --dur: 19s; --delay: -7s; --dx: 25px; --dy: -60px"></span
-      ><span class="jour-spore" style="left: 62%; top: 70%; --dur: 32s; --delay: -2s; --dx: -20px; --dy: -85px"></span
-      ><span class="jour-spore" style="left: 78%; top: 65%; --dur: 24s; --delay: -15s; --dx: 14px; --dy: -70px"></span
-      ><span
-        class="jour-spore jour-spore-teal"
-        style="left: 20%; top: 85%; --dur: 26s; --delay: -18s; --dx: 10px; --dy: -65px"></span
-      ><span
-        class="jour-spore jour-spore-teal"
-        style="left: 55%; top: 88%; --dur: 30s; --delay: -5s; --dx: -15px; --dy: -95px"></span>
-    </div>
-    <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
-    <div class="scroll-progress" id="scrollProgress"></div>
-    <div class="noise-overlay" aria-hidden="true"></div>
-    <nav class="nav" id="mainNav" aria-label="Navigation principale">
-      <div class="container nav-inner">
-        <a
-          href="../../index.html"
-          class="nav-logo"
-          aria-label="Pinapp Studio — accueil"
-          style="display: flex; align-items: center; gap: 10px; text-decoration: none">
-          <img
-            class="nav-logo-img"
-            src="../../assets/images/pinapp-logo.png"
-            alt=""
-            width="132"
-            height="36"
-            decoding="async" />
-        </a>
-        <div class="nav-links">
-          <a href="../../offres/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Offres</a>
-          <a href="../../formation-gratuite/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8"
-            >Parcours &amp; packs</a
-          >
-          <a href="../../realisations/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8"
-            >Réalisations</a
-          >
-          <a href="../../a-propos/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">À propos</a>
-          <a href="../../faq/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">FAQ</a>
-          <a href="../../auralis/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Auralis</a>
-          <a href="../../univers/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Univers</a>
-          <a href="../../diagnostic/index.html" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px"
-            >Démarrer ma demande</a
-          >
+  <body>
+    <div id="cursor" aria-hidden="true"></div>
+    <div id="cursor-trail" aria-hidden="true"></div>
+    <div id="progress" aria-hidden="true"></div>
+    <canvas id="canvas-pandora" aria-hidden="true"></canvas>
+    <div class="caustics" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <div class="water-surface" aria-hidden="true"></div>
+    <div class="water-reflets" aria-hidden="true"></div>
+    <a class="skip-link" href="#main">Aller au contenu</a>
+
+    <nav class="nav" id="nav" aria-label="Navigation principale">
+      <div class="nav__inner">
+        <a class="nav__logo" href="/">Pinapp <span>Inc.</span></a>
+        <ul class="nav__menu" role="list">
+          <li class="nav__item">
+            <a class="nav__link" href="/offres/"
+              >Pinapp Studio
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" /></svg
+            ></a>
+            <div class="nav__dropdown">
+              <span class="nav__dropdown-label">Pinapp Studio</span>
+              <a href="/offres/">Offres & tarifs</a>
+              <a href="/realisations/">Réalisations</a>
+              <a href="/offres/formation/">Formations</a>
+              <a href="/a-propos/">Notre studio</a>
+            </div>
+          </li>
+          <li class="nav__item">
+            <a class="nav__link" href="/auralis/"
+              >Auralis RH
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" /></svg
+            ></a>
+            <div class="nav__dropdown">
+              <span class="nav__dropdown-label">Auralis RH</span>
+              <a href="/auralis/">Le produit</a>
+              <a href="/auralis/#aurora">Aurora, l'IA</a>
+              <a href="/auralis/#beta">Accès bêta</a>
+            </div>
+          </li>
+          <li class="nav__item">
+            <a class="nav__link" href="/memoire-et-presence/"
+              >Mémoire & Présence
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" /></svg
+            ></a>
+            <div class="nav__dropdown">
+              <span class="nav__dropdown-label">Mémoire & Présence</span>
+              <a href="/memoire-et-presence/">Notre approche</a>
+              <a href="/memoire-et-presence/#portfolio">Portfolio Micha</a>
+              <a href="/memoire-et-presence/#tarifs">Tarifs image</a>
+              <a href="https://memoireetpresence.fr" target="_blank" rel="noopener">memoireetpresence.fr ↗</a>
+            </div>
+          </li>
+        </ul>
+        <div class="nav__actions">
+          <button class="nav__theme" id="theme-toggle" aria-label="Mode jour Avatar 2">◐</button>
+          <a class="nav__cta" href="/diagnostic/">Premier échange offert</a>
+          <button class="nav__burger" aria-label="Ouvrir le menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
         </div>
-        <div class="nav-trailing">
-          <button type="button" class="mode-toggle" id="themeToggle" aria-label="Passer en mode jour">
-            <svg class="icon-lune" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <path
-                d="M15.5 10.5A6.5 6.5 0 0 1 7.5 2.5a6.5 6.5 0 1 0 8 8z"
-                stroke="#00E5CC"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                fill="none" /></svg
-            ><svg class="icon-soleil" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <circle cx="9" cy="9" r="3.5" stroke="#009B8C" stroke-width="1.5" />
-              <line x1="9" y1="1" x2="9" y2="3" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
-              <line x1="9" y1="15" x2="9" y2="17" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
-              <line x1="1" y1="9" x2="3" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
-              <line x1="15" y1="9" x2="17" y2="9" stroke="#009B8C" stroke-width="1.5" stroke-linecap="round" />
-            </svg>
-          </button>
-          <button
-            type="button"
-            class="burger"
-            id="burger"
-            aria-label="Ouvrir le menu"
-            aria-expanded="false"
-            aria-controls="mobileDrawer">
-            <svg
-              width="22"
-              height="22"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              aria-hidden="true">
-              <path d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
+      </div>
+
+      <!-- DRAWER MOBILE -->
+      <div class="nav__drawer" role="dialog" aria-label="Menu principal">
+        <div class="nav__drawer-section">
+          <span class="nav__drawer-label">Pinapp Studio</span>
+          <a href="/offres/">Offres & tarifs</a>
+          <a href="/realisations/">Réalisations</a>
+          <a href="/offres/formation/">Formations</a>
+        </div>
+        <div class="nav__drawer-section">
+          <span class="nav__drawer-label">Auralis RH</span>
+          <a href="/auralis/">Le produit</a>
+          <a href="/auralis/#beta">Accès bêta</a>
+        </div>
+        <div class="nav__drawer-section">
+          <span class="nav__drawer-label">Mémoire & Présence</span>
+          <a href="/memoire-et-presence/">Notre approche</a>
+          <a href="/memoire-et-presence/#portfolio">Portfolio Micha</a>
+          <a href="https://memoireetpresence.fr" target="_blank" rel="noopener">memoireetpresence.fr ↗</a>
+        </div>
+        <div class="nav__drawer-section">
+          <span class="nav__drawer-label">Pinapp Inc.</span>
+          <a href="/a-propos/">Notre société</a>
+          <a href="/engagements/">Nos engagements</a>
+          <a href="/diagnostic/">Premier échange offert</a>
+        </div>
+
+        <!-- STORYBOARD DANS LE DRAWER -->
+        <div class="drawer-story">
+          <span class="drawer-story-title">Qui sommes-nous ?</span>
+          <div class="drawer-story-cards">
+            <a href="/a-propos/#lauralie" class="drawer-story-card">
+              <div class="drawer-story-avatar" style="background: linear-gradient(135deg, #00e5b0, #b388ff)">L</div>
+              <div class="drawer-story-name">Lauralie</div>
+              <div class="drawer-story-role">Architecte systèmes & IA · Pinapp Studio</div>
+            </a>
+            <a href="/a-propos/#micha-story" class="drawer-story-card">
+              <div class="drawer-story-avatar" style="background: linear-gradient(135deg, #7fffea, #e040fb)">M</div>
+              <div class="drawer-story-name">Micha</div>
+              <div class="drawer-story-role">Directeur artistique & image · M&P</div>
+            </a>
+          </div>
         </div>
       </div>
     </nav>
-    <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true" role="dialog" aria-label="Menu" aria-modal="true">
-      <div class="mobile-drawer-panel">
-        <button type="button" id="drawerClose" aria-label="Fermer le menu">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            aria-hidden="true">
-            <path d="M18 6L6 18M6 6l12 12" />
-          </svg>
-        </button>
-        <div class="nav-links">
-          <a href="../../index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Accueil</a>
-          <a href="../../offres/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Offres</a>
-          <a href="../../comment-ca-marche/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8"
-            >Comment &ccedil;a marche</a
-          >
-          <a href="../../pourquoi-pinapp/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8"
-            >Pourquoi Pinapp</a
-          >
-          <a href="../../confiance/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Confiance</a>
-          <a href="../../expertise-ia/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8"
-            >Expertise IA</a
-          >
-          <a href="../../formation-gratuite/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8"
-            >Guide offert</a
-          >
-          <a href="../../offres/formation/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8"
-            >Formations payantes</a
-          >
-          <a href="../../realisations/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8"
-            >R&eacute;alisations</a
-          >
-          <a href="../../a-propos/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">&Agrave; propos</a>
-          <a href="../../faq/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">FAQ</a>
-          <a href="../../auralis/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Auralis</a>
-          <a href="../../univers/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Univers</a>
-          <a href="../../votre-projet/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8"
-            >Votre projet</a
-          >
-          <a href="../../client/index.html" class="nav-link" style="font-size: 14px; opacity: 0.8">Espace client</a>
-          <a href="../../diagnostic/index.html" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px"
-            >Diagnostic offert &mdash; par &eacute;crit</a
-          >
-        </div>
+
+    <nav class="nav-dots" aria-label="Sections">
+      <button class="nav-dot active"></button><button class="nav-dot"></button><button class="nav-dot"></button
+      ><button class="nav-dot"></button>
+    </nav>
+
+    <!-- LIGHTBOX MICHA -->
+    <div id="lightbox" class="lightbox" role="dialog" aria-label="Visualisation">
+      <div class="lightbox-inner">
+        <button class="lightbox-close" aria-label="Fermer">×</button>
+        <img src="" alt="" loading="lazy" />
       </div>
     </div>
-    <div class="bottom-bar bottom-bar--site bottom-bar--six" aria-label="Navigation du site">
-      <a href="../../index.html">Accueil</a>
-      <a href="../../offres/index.html">Offres</a>
-      <a href="../../diagnostic/index.html" class="bottom-bar-cta">D&eacute;marrer</a>
-      <a href="../../univers/index.html">Univers</a>
-      <a href="../../formation-gratuite/index.html">Form.</a>
-      <a href="../../realisations/index.html">R&eacute;alis.</a>
-    </div>
-    <main id="contenu-principal" class="stack-above-bg" tabindex="-1">
-      <section class="section section-enter">
-        <div class="container" style="max-width: 800px">
-          <p class="label" style="text-align: center">DISPONIBLES DÈS MAINTENANT · ACCÈS IMMÉDIAT</p>
-          <h1 style="font-size: var(--text-h1); letter-spacing: -0.02em; text-align: center">
-            Apprenez à automatiser votre business.
-          </h1>
-          <p
-            style="
-              font-size: 1rem;
-              opacity: 0.7;
-              margin-bottom: var(--space-6);
-              text-align: center;
-              max-width: 560px;
-              margin-left: auto;
-              margin-right: auto;
-            ">
-            Des formations disponibles maintenant — concrètes, asynchrones, avec un résultat mesurable à la fin.
-          </p>
 
-          <!-- Formation courte -->
-          <div class="card" style="margin-bottom: var(--space-4)">
-            <p class="label" style="margin-bottom: var(--space-2)">AUTONOMIE · RÉCUPÉRER 5H / SEMAINE</p>
-            <div
+    <main id="main">
+      <div class="snap-container">
+        <section class="snap-section" id="form-hero">
+          <div class="container">
+            <span class="label anim-fade">Formations Pinapp Inc.</span>
+            <h1
               style="
-                display: flex;
-                justify-content: space-between;
-                align-items: flex-start;
-                flex-wrap: wrap;
-                gap: var(--space-3);
-                margin-bottom: var(--space-3);
-              ">
-              <div style="flex: 1; min-width: 280px">
-                <h2 style="font-size: 1.375rem; margin-bottom: var(--space-2)">Récupère 5h par semaine</h2>
-                <p style="opacity: 0.7; font-size: 14px; line-height: 1.65; margin-bottom: var(--space-3)">
-                  PDF interactif + vidéos &lt; 10 min — même offre que sur la page d'accueil Pinapp. Accès à vie + mises
-                  à jour incluses.
-                </p>
-                <div style="display: flex; flex-wrap: wrap; gap: 8px">
-                  <span
-                    style="
-                      font-size: 11px;
-                      padding: 3px 10px;
-                      background: rgba(255, 255, 255, 0.06);
-                      border: 1px solid rgba(255, 255, 255, 0.1);
-                      border-radius: 100px;
-                      opacity: 0.7;
-                    "
-                    >~4 h async</span
-                  >
-                  <span
-                    style="
-                      font-size: 11px;
-                      padding: 3px 10px;
-                      background: rgba(255, 255, 255, 0.06);
-                      border: 1px solid rgba(255, 255, 255, 0.1);
-                      border-radius: 100px;
-                      opacity: 0.7;
-                    "
-                    >Accès à vie</span
-                  >
-                  <span
-                    style="
-                      font-size: 11px;
-                      padding: 3px 10px;
-                      background: rgba(255, 255, 255, 0.06);
-                      border: 1px solid rgba(255, 255, 255, 0.1);
-                      border-radius: 100px;
-                      opacity: 0.7;
-                    "
-                    >Prérequis : aucun</span
-                  >
+                font-size: clamp(40px, 7vw, 88px);
+                letter-spacing: -0.04em;
+                max-width: 800px;
+                margin-bottom: 24px;
+                line-height: 1;
+              "
+              class="anim-up"
+              data-delay="100">
+              Devenez un <span class="shimmer">travailleur augmenté</span>.
+            </h1>
+            <p
+              style="font-size: 17px; color: var(--text-muted); max-width: 580px; margin-bottom: 32px; line-height: 1.7"
+              class="anim-up"
+              data-delay="180">
+              Nous avons enquêté auprès de 50+ indépendants et dirigeants de TPE. Résultat : 78% perdent plus de 15h par
+              semaine sur des tâches que l'IA peut faire. Les parcours sont bâtis sur ces données — prix affichés sur
+              cette page, pas de surprise. Côté studio, Lauralie pilote les systèmes et l'IA ; Micha porte l'image, la
+              DA et les usages visuels augmentés : un duo terrain + méthode.
+            </p>
+            <div class="etude-cite anim-up" data-delay="220">
+              <div class="etude-cite-bar"></div>
+              <div>
+                <div class="etude-cite-text">
+                  "La surcharge cognitive est le principal frein à la productivité des travailleurs indépendants.
+                  Réduire les micro-décisions répétitives libère en moyenne 2,3h de concentration profonde par jour."
+                </div>
+                <div class="etude-cite-source">
+                  — D'après Sweller, théorie de la charge cognitive (1988) · Appliqué par Pinapp Inc. 2026
                 </div>
               </div>
-              <div style="text-align: right; flex-shrink: 0">
-                <p style="font-size: 2.25rem; font-weight: 700; color: var(--accent-violet); letter-spacing: -0.04em">
-                  47 €
+            </div>
+            <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: 32px" class="anim-up" data-delay="260">
+              <a href="#lauralie" class="btn btn--primary">Formations Lauralie</a>
+              <a href="#micha" class="btn btn--nacre">Formations Micha</a>
+              <a href="#packs" class="btn btn--ghost">Packs combinés</a>
+            </div>
+          </div>
+        </section>
+
+        <!-- FORMATIONS LAURALIE -->
+        <section class="snap-section" id="lauralie">
+          <div class="container">
+            <span class="label anim-fade">Formations Lauralie · Systèmes & IA</span>
+            <h2
+              style="font-size: clamp(28px, 4vw, 48px); letter-spacing: -0.03em; margin-bottom: 40px"
+              class="anim-up"
+              data-delay="80">
+              Automatisez. Déléguez à l'IA.<br />Récupérez votre temps.
+            </h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px">
+              <div class="card formation-card anim-up" data-delay="0">
+                <span class="formation-level">Niveau 1 · Entrée</span>
+                <h3 class="formation-title">Récupère 5h par semaine</h3>
+                <p class="formation-subtitle">"L'automatisation sans coder"</p>
+                <p class="formation-desc">
+                  Automatise tes tâches répétitives avec n8n. 5 modules. Cas pratiques réels. Zéro code.
                 </p>
-                <p style="font-size: 12px; opacity: 0.5">TVA non applicable art. 293B CGI</p>
+                <p class="formation-format">📄 PDF interactif + vidéos &lt; 10min</p>
+                <div class="formation-price">67 €</div>
+                <a href="/diagnostic/" class="btn btn--primary" style="font-size: 12px; padding: 10px 20px"
+                  >Accéder →</a
+                >
+              </div>
+
+              <div class="card formation-card anim-up" data-delay="80">
+                <span class="formation-level">Niveau 2 · Création</span>
+                <h3 class="formation-title">Ton site pro en 7 jours</h3>
+                <p class="formation-subtitle">"De zéro à en ligne"</p>
+                <p class="formation-desc">
+                  Cursor, SFTP, copywriting, déploiement. 7 modules. Parcours asynchrone + checklist PDF.
+                </p>
+                <p class="formation-format">🎬 Vidéos HD + checklist PDF</p>
+                <div class="formation-price">147 €</div>
+                <a href="/diagnostic/" class="btn btn--primary" style="font-size: 12px; padding: 10px 20px"
+                  >Accéder →</a
+                >
+              </div>
+
+              <div class="card formation-card anim-up" data-delay="160">
+                <span class="formation-level">Niveau 3 · Maîtrise</span>
+                <h3 class="formation-title">Claude pour votre business</h3>
+                <p class="formation-subtitle">"Tout ce que Claude peut faire"</p>
+                <p class="formation-desc">
+                  Prompts avancés, Artifacts, analyse documents, intégration workflow. 6 modules + PDF prompts.
+                </p>
+                <p class="formation-format">🎬 Vidéos HD + PDF 50 prompts</p>
+                <div class="formation-price">97 €</div>
+                <a href="/diagnostic/" class="btn btn--primary" style="font-size: 12px; padding: 10px 20px"
+                  >Accéder →</a
+                >
+              </div>
+
+              <div class="card formation-card anim-up" data-delay="0">
+                <span class="formation-level">Niveau 4 · Transformation</span>
+                <h3 class="formation-title">L'IA au travail pour toi</h3>
+                <p class="formation-subtitle">"Chatbot, automatisation avancée, prompt engineering"</p>
+                <p class="formation-desc">
+                  10 modules. Claude API, n8n avancé, chatbot métier. Vidéos HD + replay + ressources Notion.
+                </p>
+                <p class="formation-format">🎬 10 vidéos HD + replay + Notion</p>
+                <div class="formation-price">397 €</div>
+                <a href="/diagnostic/" class="btn btn--primary" style="font-size: 12px; padding: 10px 20px"
+                  >Accéder →</a
+                >
+              </div>
+
+              <div class="card formation-card anim-up" data-delay="80">
+                <span class="formation-level">Pack · Outils complets</span>
+                <h3 class="formation-title">Pack Outils Lauralie</h3>
+                <p class="formation-subtitle">"Claude + n8n + Notion + Tally + Stripe"</p>
+                <p class="formation-desc">
+                  Tous les outils de Pinapp Studio maîtrisés. De la stratégie au déploiement. En autonomie totale.
+                </p>
+                <p class="formation-format">🎬 Vidéos + PDF + templates</p>
+                <div class="formation-price">197 €</div>
+                <a href="/diagnostic/" class="btn btn--primary" style="font-size: 12px; padding: 10px 20px"
+                  >Accéder →</a
+                >
+              </div>
+
+              <div class="card formation-card anim-up" data-delay="160" style="border-color: rgba(0, 229, 176, 0.2)">
+                <span class="formation-level">Premium · Accompagnement</span>
+                <h3 class="formation-title">1:1 Lauralie</h3>
+                <p class="formation-subtitle">"4 sessions stratégie & implémentation"</p>
+                <p class="formation-desc">
+                  Audit de votre situation. Roadmap personnalisée. Implémentation guidée. Suivi 30 jours.
+                </p>
+                <p class="formation-format">🎙 4 sessions 1h + support écrit</p>
+                <div class="formation-price">497 €</div>
+                <!-- ⚠️ [LAURALIE] À COMPLÉTER : lien calendly ou Tally RDV -->
+                <a href="/diagnostic/" class="btn btn--primary" style="font-size: 12px; padding: 10px 20px"
+                  >Réserver →</a
+                >
               </div>
             </div>
-            <a
-              data-pinapp-stripe="STRIPE_FORMATION_1"
-              href="mailto:hello@pinapp.fr?subject=Pinapp%20%E2%80%94%20Formation%2047%20%E2%82%AC&body=Bonjour%2C%0A%0AJe%20souhaite%20m%27inscrire%20%C3%A0%20la%20formation%20Pinapp%20Studio%20%2847%20%E2%82%AC%29.%0A%0ACordialement"
-              class="btn btn-primary pinapp-breathe"
-              style="margin-top: var(--space-1)"
-              >Je m'inscris — 47 € &rarr;</a
-            >
-            <p style="font-size: 11px; opacity: 0.4; margin-top: var(--space-2)">
-              Paiement et accès confirmés par email sous 24 h.
-            </p>
           </div>
+        </section>
 
-          <!-- Formation site 7 jours -->
-          <div class="card" style="margin-bottom: var(--space-4)">
-            <p class="label" style="margin-bottom: var(--space-2)">CRÉATION · SITE PRO</p>
-            <div
-              style="
-                display: flex;
-                justify-content: space-between;
-                align-items: flex-start;
-                flex-wrap: wrap;
-                gap: var(--space-3);
-                margin-bottom: var(--space-3);
-              ">
-              <div style="flex: 1; min-width: 280px">
-                <h2 style="font-size: 1.375rem; margin-bottom: var(--space-2)">Ton site pro en 7 jours</h2>
-                <p style="opacity: 0.7; font-size: 14px; line-height: 1.65; margin-bottom: var(--space-3)">
-                  Parcours asynchrone + checklist PDF — même ligne que sur la page d'accueil Pinapp.
-                </p>
-              </div>
-              <div style="text-align: right; flex-shrink: 0">
-                <p style="font-size: 2.25rem; font-weight: 700; color: var(--accent-violet); letter-spacing: -0.04em">
-                  147 €
-                </p>
-                <p style="font-size: 12px; opacity: 0.5">TVA non applicable art. 293B CGI</p>
-              </div>
-            </div>
-            <a
-              data-pinapp-stripe="STRIPE_FORMATION_2"
-              href="mailto:hello@pinapp.fr?subject=Pinapp%20%E2%80%94%20Formation%20site%20147%20%E2%82%AC&body=Bonjour%2C%0A%0AJe%20souhaite%20m%27inscrire%20%C3%A0%20la%20formation%20%28147%20%E2%82%AC%29.%0A%0ACordialement"
-              class="btn btn-primary pinapp-breathe"
-              style="margin-top: var(--space-1)"
-              >Je m'inscris — 147 € &rarr;</a
-            >
-          </div>
-
-          <!-- Formation premium -->
-          <div class="card" style="border-color: rgba(123, 79, 232, 0.35); margin-bottom: var(--space-4)">
-            <p class="label" style="margin-bottom: var(--space-2); color: var(--accent-violet)">
-              PROGRAMME COMPLET · INTERMÉDIAIRE → EXPERT · LE PLUS COMPLET
-            </p>
-            <div
-              style="
-                display: flex;
-                justify-content: space-between;
-                align-items: flex-start;
-                flex-wrap: wrap;
-                gap: var(--space-3);
-                margin-bottom: var(--space-3);
-              ">
-              <div style="flex: 1; min-width: 280px">
-                <h2 style="font-size: 1.375rem; margin-bottom: var(--space-2)">L'IA au travail pour toi</h2>
-                <p style="opacity: 0.7; font-size: 14px; line-height: 1.65; margin-bottom: var(--space-3)">
-                  Programme complet : sites, automatisations, IA, contenu. Sessions live hebdomadaires + accompagnement
-                  individuel. Prochaine session : dates sur inscription.
-                </p>
-                <p style="opacity: 0.65; font-size: 13px; line-height: 1.6; margin-bottom: var(--space-2)">
-                  Production vidéo : Michaël Bouilhac — Mémoire &amp; Présence
-                </p>
-                <div style="display: flex; flex-wrap: wrap; gap: 8px">
-                  <span
-                    style="
-                      font-size: 11px;
-                      padding: 3px 10px;
-                      background: rgba(123, 79, 232, 0.1);
-                      border: 1px solid rgba(123, 79, 232, 0.25);
-                      border-radius: 100px;
-                      opacity: 0.85;
-                    "
-                    >6 semaines</span
-                  >
-                  <span
-                    style="
-                      font-size: 11px;
-                      padding: 3px 10px;
-                      background: rgba(123, 79, 232, 0.1);
-                      border: 1px solid rgba(123, 79, 232, 0.25);
-                      border-radius: 100px;
-                      opacity: 0.85;
-                    "
-                    >Sessions live</span
-                  >
-                  <span
-                    style="
-                      font-size: 11px;
-                      padding: 3px 10px;
-                      background: rgba(123, 79, 232, 0.1);
-                      border: 1px solid rgba(123, 79, 232, 0.25);
-                      border-radius: 100px;
-                      opacity: 0.85;
-                    "
-                    >Accompagnement</span
-                  >
-                  <span
-                    style="
-                      font-size: 11px;
-                      padding: 3px 10px;
-                      background: rgba(123, 79, 232, 0.1);
-                      border: 1px solid rgba(123, 79, 232, 0.25);
-                      border-radius: 100px;
-                      opacity: 0.85;
-                    "
-                    >Places limitées</span
-                  >
-                </div>
-              </div>
-              <div style="text-align: right; flex-shrink: 0">
-                <p style="font-size: 2.25rem; font-weight: 700; color: var(--accent-violet); letter-spacing: -0.04em">
-                  397 €
-                </p>
-                <p style="font-size: 12px; opacity: 0.5">TVA non applicable art. 293B CGI</p>
-              </div>
-            </div>
-            <a
-              data-pinapp-stripe="STRIPE_FORMATION_3"
-              href="mailto:hello@pinapp.fr?subject=Pinapp%20%E2%80%94%20Programme%20complet%20%E2%80%94%20397%20%E2%82%AC&body=Bonjour%2C%0A%0AJe%20souhaite%20m%27inscrire%20au%20programme%20complet%20Pinapp%20Studio%20%28397%20%E2%82%AC%29.%0A%0ACordialement"
-              class="btn btn-primary pinapp-breathe"
-              style="margin-top: var(--space-1)"
-              >Je m'inscris — 397 € &rarr;</a
-            >
-            <p style="font-size: 11px; opacity: 0.4; margin-top: var(--space-2)">
-              Dates et modalités communiquées par email sous 24 h.
-            </p>
-          </div>
-
-          <!-- Pack prompts -->
-          <div class="card" style="margin-bottom: var(--space-4); border-color: rgba(0, 229, 204, 0.25)">
-            <p class="label" style="margin-bottom: var(--space-2); color: var(--accent-teal)">PACK PROMPTS · 97 €</p>
-            <div
-              style="
-                display: flex;
-                justify-content: space-between;
-                align-items: flex-start;
-                flex-wrap: wrap;
-                gap: var(--space-3);
-                margin-bottom: var(--space-3);
-              ">
-              <div style="flex: 1; min-width: 280px">
-                <h2 style="font-size: 1.375rem; margin-bottom: var(--space-2)">50+ prompts opérationnels</h2>
-                <p style="opacity: 0.7; font-size: 14px; line-height: 1.65; margin-bottom: var(--space-3)">
-                  Inclus dans la formation à 397 € — ou achetable seul. Aligné avec la grille tarifaire Pinapp Studio.
-                </p>
-              </div>
-              <div style="text-align: right; flex-shrink: 0">
-                <p style="font-size: 2.25rem; font-weight: 700; color: var(--accent-teal); letter-spacing: -0.04em">
-                  97 €
-                </p>
-                <p style="font-size: 12px; opacity: 0.5">TVA non applicable art. 293B CGI</p>
-              </div>
-            </div>
-            <a
-              data-pinapp-stripe="STRIPE_PACK_PROMPTING"
-              href="mailto:hello@pinapp.fr?subject=Pinapp%20%E2%80%94%20Pack%20prompts%2097%20%E2%82%AC&body=Bonjour%2C%0A%0AJe%20souhaite%20commander%20le%20pack%20prompts%20%2897%20%E2%82%AC%29.%0A%0ACordialement"
-              class="btn btn-secondary pinapp-breathe"
-              style="margin-top: var(--space-1)"
-              >Obtenir le pack — 97 € &rarr;</a
-            >
-          </div>
-
-          <!-- Pont vers parcours progressif -->
-          <div
-            style="
-              text-align: center;
-              padding: var(--space-5);
-              background: var(--glass);
-              border-radius: var(--radius-card);
-              border: 1px solid rgba(0, 229, 204, 0.2);
-            ">
-            <p class="label" style="margin-bottom: var(--space-2); color: var(--accent-teal)">
-              BIENTÔT DISPONIBLE — ÉTÉ 2026
-            </p>
-            <h2 style="font-size: 1.25rem; margin-bottom: var(--space-2); font-weight: 600">
-              Le parcours complet débutant → expert
+        <!-- FORMATIONS MICHA -->
+        <section class="snap-section" id="micha">
+          <div class="container">
+            <span class="label anim-fade" style="color: var(--accent-3)">Formations Micha · Image & DA</span>
+            <h2
+              style="font-size: clamp(28px, 4vw, 48px); letter-spacing: -0.03em; margin-bottom: 16px"
+              class="anim-up"
+              data-delay="80">
+              Maîtrisez l'image.<br />Racontez votre histoire.
             </h2>
             <p
-              style="
-                opacity: 0.7;
-                margin-bottom: var(--space-4);
-                max-width: 28rem;
-                margin-left: auto;
-                margin-right: auto;
-                font-size: 14px;
-                line-height: 1.6;
-              ">
-              3 packs progressifs (47 € / 147 € / 397 €) et pack prompts 97 € avec quiz de déblocage, modules Notion,
-              certificats et coaching. Inscrivez-vous sur la liste d'attente pour être notifié en avant-première.
+              style="font-size: 16px; color: var(--text-muted); max-width: 560px; margin-bottom: 40px; line-height: 1.6"
+              class="anim-up"
+              data-delay="120">
+              Issu de l'événementiel et des mariages, Micha a développé un regard unique sur la narration visuelle. Ces
+              formations transmettent ce savoir-faire de terrain.
             </p>
-            <a href="../../formation-gratuite/index.html" class="btn btn-secondary"
-              >Voir le parcours complet &amp; rejoindre la liste &rarr;</a
-            >
+            <div
+              class="etude-cite anim-up"
+              data-delay="140"
+              style="border-color: rgba(127, 255, 234, 0.15); background: rgba(127, 255, 234, 0.03)">
+              <div class="etude-cite-bar" style="background: var(--accent-3)"></div>
+              <div>
+                <div class="etude-cite-text">
+                  "93% de la communication humaine est non-verbale. Apprendre à voir avant d'apprendre à filmer change
+                  tout."
+                </div>
+                <div class="etude-cite-source">
+                  — D'après Dondis, A Primer of Visual Literacy · MIT Press · Appliqué par Micha, Pinapp Inc.
+                </div>
+              </div>
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+                gap: 16px;
+                margin-top: 32px;
+              ">
+              <div class="card formation-card anim-up" data-delay="0" style="border-color: rgba(127, 255, 234, 0.1)">
+                <span class="formation-level" style="color: var(--accent-3)">Niveau 1 · Fondations</span>
+                <h3 class="formation-title">L'œil avant l'outil</h3>
+                <p class="formation-subtitle">"Voir, cadrer, raconter"</p>
+                <p class="formation-desc">
+                  Lumière, cadrage, narration visuelle. Zéro logiciel requis. Pour les entrepreneurs qui veulent de
+                  meilleures photos avec leur téléphone.
+                </p>
+                <p class="formation-format">📄 PDF interactif + 5 vidéos &lt; 10min</p>
+                <div class="formation-price">67 €</div>
+                <!-- ⚠️ [MICHA] À COMPLÉTER : lien accès formation -->
+                <a
+                  href="/diagnostic/"
+                  class="btn btn--primary"
+                  style="
+                    font-size: 12px;
+                    padding: 10px 20px;
+                    background: rgba(127, 255, 234, 0.15);
+                    border-color: rgba(127, 255, 234, 0.3);
+                  "
+                  >Accéder →</a
+                >
+              </div>
+
+              <div class="card formation-card anim-up" data-delay="80" style="border-color: rgba(127, 255, 234, 0.1)">
+                <span class="formation-level" style="color: var(--accent-3)">Niveau 2 · Adobe</span>
+                <h3 class="formation-title">Maîtrisez vos images</h3>
+                <p class="formation-subtitle">"Photoshop · Lightroom · Premiere"</p>
+                <p class="formation-desc">
+                  Les fondations Adobe. De la retouche photo au montage vidéo court. Fichiers d'exercices inclus.
+                </p>
+                <p class="formation-format">🎬 8 vidéos HD + fichiers exercices</p>
+                <div class="formation-price">147 €</div>
+                <!-- ⚠️ [MICHA] À COMPLÉTER : lien accès formation -->
+                <a
+                  href="/diagnostic/"
+                  class="btn btn--primary"
+                  style="
+                    font-size: 12px;
+                    padding: 10px 20px;
+                    background: rgba(127, 255, 234, 0.15);
+                    border-color: rgba(127, 255, 234, 0.3);
+                  "
+                  >Accéder →</a
+                >
+              </div>
+
+              <div class="card formation-card anim-up" data-delay="160" style="border-color: rgba(127, 255, 234, 0.1)">
+                <span class="formation-level" style="color: var(--accent-3)">Niveau 3 · IA Générative</span>
+                <h3 class="formation-title">L'image augmentée</h3>
+                <p class="formation-subtitle">"Midjourney · Firefly · Runway"</p>
+                <p class="formation-desc">
+                  Créer des visuels pro sans shooting. Prompts opérationnels. Galerie d'exemples commentés.
+                </p>
+                <p class="formation-format">🎬 6 vidéos HD + 30 prompts + galerie</p>
+                <div class="formation-price">197 €</div>
+                <!-- ⚠️ [MICHA] À COMPLÉTER : lien accès formation -->
+                <a
+                  href="/diagnostic/"
+                  class="btn btn--primary"
+                  style="
+                    font-size: 12px;
+                    padding: 10px 20px;
+                    background: rgba(127, 255, 234, 0.15);
+                    border-color: rgba(127, 255, 234, 0.3);
+                  "
+                  >Accéder →</a
+                >
+              </div>
+
+              <div class="card formation-card anim-up" data-delay="0" style="border-color: rgba(127, 255, 234, 0.1)">
+                <span class="formation-level" style="color: var(--accent-3)">Niveau 4 · DA</span>
+                <h3 class="formation-title">Construire une identité visuelle</h3>
+                <p class="formation-subtitle">"Charte · cohérence · brief créa"</p>
+                <p class="formation-desc">
+                  Charte graphique, cohérence de marque, brief créa, relation client. Ce que Micha fait pour ses
+                  clients.
+                </p>
+                <p class="formation-format">🎬 10 vidéos + templates Adobe + guide</p>
+                <div class="formation-price">297 €</div>
+                <!-- ⚠️ [MICHA] À COMPLÉTER : lien accès formation -->
+                <a
+                  href="/diagnostic/"
+                  class="btn btn--primary"
+                  style="
+                    font-size: 12px;
+                    padding: 10px 20px;
+                    background: rgba(127, 255, 234, 0.15);
+                    border-color: rgba(127, 255, 234, 0.3);
+                  "
+                  >Accéder →</a
+                >
+              </div>
+
+              <div class="card formation-card anim-up" data-delay="80" style="border-color: rgba(127, 255, 234, 0.1)">
+                <span class="formation-level" style="color: var(--accent-3)">Niveau 5 · Masterclass</span>
+                <h3 class="formation-title">Capturer ce qui ne se répète pas</h3>
+                <p class="formation-subtitle">"Événementiel · mariages · corporate"</p>
+                <p class="formation-desc">
+                  Photo et vidéo en conditions réelles. Gestion du stress, matériel, post-prod rapide. Issu de 10 ans de
+                  terrain.
+                </p>
+                <p class="formation-format">🎙 Live Zoom 3h + replay illimité + Q&A mensuel</p>
+                <div class="formation-price">397 €</div>
+                <!-- ⚠️ [MICHA] À COMPLÉTER : date prochaine session live -->
+                <a
+                  href="/diagnostic/"
+                  class="btn btn--primary"
+                  style="
+                    font-size: 12px;
+                    padding: 10px 20px;
+                    background: rgba(127, 255, 234, 0.15);
+                    border-color: rgba(127, 255, 234, 0.3);
+                  "
+                  >Réserver →</a
+                >
+              </div>
+
+              <div
+                class="card formation-card anim-up"
+                data-delay="160"
+                style="border-color: rgba(127, 255, 234, 0.2); background: rgba(127, 255, 234, 0.03)">
+                <span class="formation-level" style="color: var(--accent-3)">Pack Cursus Complet</span>
+                <h3 class="formation-title">De l'œil à la DA</h3>
+                <p class="formation-subtitle">"Les 5 niveaux + communauté + coaching"</p>
+                <p class="formation-desc">
+                  Accès à tous les niveaux + communauté privée + 1h coaching individuel avec Micha.
+                </p>
+                <ul class="checklist" style="margin-bottom: 16px">
+                  <li>5 formations complètes</li>
+                  <li>Communauté privée</li>
+                  <li>1h coaching Micha</li>
+                  <li>Certifié Micha · M&P</li>
+                </ul>
+                <div style="font-size: 13px; color: var(--accent-3); margin-bottom: 8px">~340 € économisés</div>
+                <div class="formation-price">797 €</div>
+                <a
+                  href="/diagnostic/"
+                  class="btn btn--primary"
+                  style="
+                    font-size: 12px;
+                    padding: 10px 20px;
+                    background: rgba(127, 255, 234, 0.15);
+                    border-color: rgba(127, 255, 234, 0.3);
+                  "
+                  >Accéder →</a
+                >
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
-    </main>
-    <footer class="site-footer">
-      <div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden; pointer-events: none">
-        <svg
-          viewBox="0 0 120 140"
-          width="380"
-          height="440"
-          style="position: absolute; bottom: -60px; right: -40px; opacity: 0.03"
-          aria-hidden="true"
-          fill="currentColor">
-          <ellipse cx="60" cy="80" rx="38" ry="48" />
-          <path d="M60 32 C54 38 50 42 52 48" />
-          <path d="M60 32 C60 38 60 42 60 48" />
-          <path d="M60 32 C66 38 70 42 68 48" />
-          <rect x="22" y="60" width="76" height="4" rx="2" />
-          <rect x="22" y="72" width="76" height="4" rx="2" />
-          <rect x="22" y="84" width="76" height="4" rx="2" />
-        </svg>
+        </section>
+
+        <!-- PACKS COMBINÉS -->
+        <section class="snap-section" id="packs">
+          <div class="container">
+            <span class="label anim-fade">Packs combinés</span>
+            <h2
+              style="font-size: clamp(28px, 4vw, 48px); letter-spacing: -0.03em; margin-bottom: 40px"
+              class="anim-up"
+              data-delay="80">
+              Tout maîtriser.<br />Digital + Image.
+            </h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px">
+              <div class="card pack-duo anim-up" style="padding: 36px" data-delay="0">
+                <div class="pack-duo-badge">Pack Duo Formations</div>
+                <h3 style="font-size: 26px; margin-bottom: 14px">Toutes les formations Lauralie + Micha</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px">
+                  <div>
+                    <div
+                      style="
+                        font-size: 10px;
+                        letter-spacing: 0.12em;
+                        text-transform: uppercase;
+                        color: var(--accent);
+                        margin-bottom: 8px;
+                      ">
+                      Lauralie
+                    </div>
+                    <ul class="checklist" style="margin: 0">
+                      <li>n8n débutant</li>
+                      <li>Site 7 jours</li>
+                      <li>Claude business</li>
+                      <li>IA avancée</li>
+                      <li>Pack outils</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <div
+                      style="
+                        font-size: 10px;
+                        letter-spacing: 0.12em;
+                        text-transform: uppercase;
+                        color: var(--accent-3);
+                        margin-bottom: 8px;
+                      ">
+                      Micha
+                    </div>
+                    <ul class="checklist" style="margin: 0">
+                      <li>L'œil avant l'outil</li>
+                      <li>Adobe fondations</li>
+                      <li>IA générative</li>
+                      <li>Direction artistique</li>
+                      <li>Masterclass événement</li>
+                    </ul>
+                  </div>
+                </div>
+                <p class="pack-duo-economy">~600 € économisés vs. séparé</p>
+                <div
+                  style="
+                    font-family: 'Clash Display', sans-serif;
+                    font-size: 36px;
+                    color: var(--nacre);
+                    margin-bottom: 4px;
+                  ">
+                  997 €
+                </div>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 24px">
+                  Accès à vie · Mises à jour incluses
+                </p>
+                <a href="/diagnostic/" class="btn btn--primary">Accéder au pack →</a>
+              </div>
+
+              <div class="card anim-up" style="padding: 36px" data-delay="120">
+                <div
+                  style="
+                    font-size: 11px;
+                    letter-spacing: 0.14em;
+                    text-transform: uppercase;
+                    color: var(--accent-2);
+                    margin-bottom: 12px;
+                  ">
+                  Accompagnement mensuel
+                </div>
+                <h3 style="font-size: 26px; margin-bottom: 14px">Stratégie & suivi 1:1</h3>
+                <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.7">
+                  Veille IA personnalisée + 1h conseil mensuel + rapport automatisé. Lauralie ou Micha selon votre
+                  besoin.
+                </p>
+                <ul class="checklist" style="margin-bottom: 24px">
+                  <li>Veille IA hebdo personnalisée</li>
+                  <li>1h conseil mensuel</li>
+                  <li>Rapport mensuel automatisé</li>
+                  <li>Accès formation au choix</li>
+                </ul>
+                <div
+                  style="
+                    font-family: 'Clash Display', sans-serif;
+                    font-size: 36px;
+                    color: var(--nacre);
+                    margin-bottom: 4px;
+                  ">
+                  297 €/mois
+                </div>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 24px">
+                  Sans engagement · Résiliable à tout moment
+                </p>
+                <a href="/diagnostic/" class="btn btn--primary">Démarrer →</a>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
-      <div class="container" style="position: relative; text-align: center; padding: var(--space-7) 0 var(--space-5)">
-        <p
-          style="
-            font-size: 1.0625rem;
-            opacity: 0.55;
-            margin-bottom: var(--space-4);
-            font-style: italic;
-            letter-spacing: -0.01em;
-          ">
-          Pinapp orchestre. Vous validez. Toujours.
-        </p>
-        <nav
-          style="
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: var(--space-3);
-            margin-bottom: var(--space-4);
-            font-size: 13px;
-            opacity: 0.65;
-          "
-          aria-label="Liens footer">
-          <a href="https://linkedin.com/in/lauralie-daguzay-4a4542197/" rel="noopener noreferrer" target="_blank"
-            >LinkedIn</a
-          >
-          <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
-          <a href="../../legal/mentions.html">Mentions légales</a>
-          <a href="../../legal/cgv.html">CGV</a>
-          <a href="../../legal/confidentialite.html">Confidentialité</a>
+    </main>
+
+    <footer style="scroll-snap-align: start">
+      <div class="container">
+        <div class="footer__brand">Pinapp <span>Inc.</span></div>
+        <p class="footer__tagline">Connecter. Construire. Transmettre.</p>
+        <nav class="footer__links" aria-label="Footer">
+          <a href="/a-propos/">Notre société</a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="mailto:contact@pinapp.fr">contact@pinapp.fr</a>
+          <a href="/legal/mentions.html">Mentions légales</a>
+          <a href="/legal/cgv.html">CGV</a>
+          <a href="/legal/confidentialite.html">Confidentialité</a>
+          <a href="/engagements/">Nos engagements</a>
+          <a href="https://memoireetpresence.fr" target="_blank" rel="noopener">🌿 Mémoire & Présence</a>
         </nav>
-        <nav
-          style="
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: var(--space-3);
-            margin-bottom: var(--space-3);
-            font-size: 12px;
-            opacity: 0.4;
-          "
-          aria-label="Liens secondaires">
-          <a href="../../expertise-ia/index.html">IA &amp; systèmes</a>
-          <a href="../../auralis/index.html">Auralis RH</a>
-          <a href="../../formation-gratuite/index.html">Formation IA</a>
-        </nav>
-        <p style="font-size: 12px; opacity: 0.35; letter-spacing: 0.04em">Pinapp Studio © 2026</p>
+        <p class="footer__legal">© 2026 Pinapp Inc. · Lauralie & Micha · Prix HT · TVA non applicable art. 293 B CGI</p>
+        <div class="footer__ai-badge">
+          <span class="ai-badge">Assisté par IA · Validé par Lauralie & Micha · EU AI Act Art. 50</span>
+        </div>
       </div>
     </footer>
-    <div
-      id="cookie-banner"
-      role="dialog"
-      aria-label="Cookies"
-      style="
-        position: fixed;
-        bottom: calc(56px + env(safe-area-inset-bottom, 0px));
-        right: 16px;
-        left: auto;
-        max-width: 300px;
-        padding: 12px 16px;
-        background: rgba(2, 8, 20, 0.92);
-        border: 0.5px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        backdrop-filter: blur(28px) saturate(160%);
-        z-index: 8900;
-        display: none;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.42);
-      ">
-      <p style="font-size: 12px; opacity: 0.7; margin-bottom: 10px; line-height: 1.5">
-        Mesure d&rsquo;audience anonyme &mdash; sans tracking.
-      </p>
-      <div style="display: flex; gap: 8px">
-        <button
-          type="button"
-          id="cookieAccept"
-          style="
-            flex: 1;
-            background: var(--violet, #7b4fe8);
-            color: #fff;
-            border: none;
-            border-radius: 100px;
-            padding: 10px 0;
-            min-height: 44px;
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-          ">
-          OK
-        </button>
-        <button
-          type="button"
-          id="cookieRefuse"
-          style="
-            flex: 1;
-            background: rgba(255, 255, 255, 0.06);
-            color: inherit;
-            border: 0.5px solid rgba(255, 255, 255, 0.12);
-            border-radius: 100px;
-            padding: 10px 0;
-            min-height: 44px;
-            font-size: 13px;
-            cursor: pointer;
-            opacity: 0.7;
-          ">
-          Non merci
-        </button>
-      </div>
-    </div>
-    <script src="../../assets/js/config.js"></script>
-    <script src="../../assets/js/security.js" defer></script>
-    <script src="../../assets/js/main.js" defer></script>
-    <script src="../../assets/js/particles.js" defer></script>
-    <script src="../../assets/js/aurora.js" defer></script>
-    <script src="../../assets/js/parallax.js" defer></script>
-    <script src="../../assets/js/intelligence.js" defer></script>
-    <script src="../../assets/js/scroll-cinema.js" defer></script>
-    <script src="../../assets/js/cursor.js" defer></script>
-    <script src="../../assets/js/pandora-night.js" defer></script>
-    <script src="../../assets/js/mode-toggle.js" defer></script>
-    <script src="../../assets/js/bio-particles.js" defer></script>
-    <script src="../../assets/js/pandora-world.js"></script>
-    <script src="../../assets/js/pandora-interactions.js"></script>
-    <script>
-      (function () {
-        function applyStripeHrefs() {
-          var P = window.__PINAPP__ || {};
-          document.querySelectorAll('[data-pinapp-stripe]').forEach(function (a) {
-            var key = a.getAttribute('data-pinapp-stripe');
-            var url = P[key];
-            if (url && String(url).trim().indexOf('http') === 0) a.setAttribute('href', String(url).trim());
-          });
-        }
-        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', applyStripeHrefs);
-        else applyStripeHrefs();
-      })();
-    </script>
+
+    <script src="/assets/js/particles.js" defer></script>
+    <script src="/assets/js/main.js" defer></script>
   </body>
 </html>

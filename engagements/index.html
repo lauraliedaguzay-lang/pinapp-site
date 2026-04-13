@@ -1,569 +1,280 @@
-<!doctype html>
-<html lang="fr" data-pinapp-particles="force">
+﻿<!doctype html>
+<html lang="fr" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="robots" content="index, follow" />
-    <title>Nos engagements — Pinapp Studio</title>
-    <meta name="description" content="Livraison garantie, satisfait ou remboursé 30 jours, transparence totale." />
-    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nos engagements — Pinapp Inc.</title>
+    <meta
+      name="description"
+      content="Éthiques, responsables, transparents. Stack européen, IA déclarée, paiement sur livrable, inclusif. Nos engagements sont des décisions opérationnelles." />
     <link rel="canonical" href="https://pinapp.fr/engagements/" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../assets/css/pinapp-global.css" />
-    <style>
-      .nav-back {
-        position: fixed;
-        top: 16px;
-        left: 20px;
-        z-index: 100;
-        font-size: 13px;
-        font-weight: 500;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: var(--muted);
-        text-decoration: none;
-        opacity: 0;
-        transform: translateY(8px);
-        animation: navIn 600ms var(--ease) 100ms forwards;
-      }
-      @keyframes navIn {
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      @media (hover: hover) {
-        .nav-back:hover {
-          color: var(--text);
-        }
-      }
-      .section {
-        position: relative;
-        z-index: 2;
-        min-height: 100vh;
-        min-height: 100dvh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 80px 24px 48px;
-      }
-      .section--hero {
-        padding-top: 96px;
-      }
-      .hero-l {
-        position: absolute;
-        top: 96px;
-        left: 24px;
-        font-family: Georgia, 'Times New Roman', serif;
-        font-size: 24px;
-        color: var(--champagne);
-        letter-spacing: 8px;
-        margin: 0;
-        opacity: 0;
-        transform: translateY(20px);
-        animation: fadeUp 600ms var(--ease) forwards;
-        animation-delay: 0ms;
-      }
-      @media (min-width: 768px) {
-        .hero-l {
-          left: 32px;
-        }
-      }
-      .hero-inner {
-        max-width: 1100px;
-        margin: 0 auto;
-        width: 100%;
-      }
-      .hero-h1 {
-        font-family: Georgia, 'Times New Roman', serif;
-        font-size: clamp(48px, 12vw, 96px);
-        font-weight: 400;
-        line-height: 1.05;
-        letter-spacing: -2px;
-        color: var(--text);
-        margin: 0;
-        text-wrap: balance;
-        opacity: 0;
-        transform: translateY(24px);
-        animation: fadeUp 600ms var(--ease) forwards;
-        animation-delay: 200ms;
-      }
-      .hero-sub {
-        font-size: 18px;
-        line-height: 1.65;
-        color: var(--muted);
-        margin: 24px 0 0;
-        max-width: 36rem;
-        text-wrap: balance;
-        opacity: 0;
-        transform: translateY(24px);
-        animation: fadeUp 600ms var(--ease) forwards;
-        animation-delay: 400ms;
-      }
-      @keyframes fadeUp {
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      .section--cards {
-        background: var(--bg);
-      }
-      .section__title {
-        font-family: Georgia, 'Times New Roman', serif;
-        font-size: clamp(32px, 5vw, 48px);
-        font-weight: 400;
-        line-height: 1.15;
-        text-align: center;
-        text-wrap: balance;
-        margin: 0 auto 60px;
-        max-width: 20ch;
-      }
-      .grid-5 {
-        display: grid;
-        gap: 16px;
-        max-width: 1100px;
-        margin: 0 auto;
-        width: 100%;
-      }
-      @media (min-width: 768px) and (max-width: 1023px) {
-        .grid-5 {
-          grid-template-columns: repeat(2, 1fr);
-        }
-        .grid-5 .engage-card:last-child {
-          grid-column: 1 / -1;
-          justify-self: center;
-          width: 100%;
-          max-width: 420px;
-        }
-      }
-      @media (min-width: 1024px) {
-        .grid-5 {
-          grid-template-columns: repeat(6, 1fr);
-          gap: 20px;
-        }
-        .grid-5 .engage-card:nth-child(1) {
-          grid-column: span 3;
-        }
-        .grid-5 .engage-card:nth-child(2) {
-          grid-column: span 3;
-        }
-        .grid-5 .engage-card:nth-child(3) {
-          grid-column: span 2;
-        }
-        .grid-5 .engage-card:nth-child(4) {
-          grid-column: span 2;
-        }
-        .grid-5 .engage-card:nth-child(5) {
-          grid-column: span 2;
-        }
-      }
-      .engage-card {
-        position: relative;
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        padding: clamp(24px, 4vw, 40px);
-        overflow: hidden;
-        opacity: 0;
-        transform: translateY(20px);
-        transition:
-          opacity 400ms var(--ease),
-          transform 400ms var(--ease);
-        transition-delay: var(--reveal-delay, 0ms);
-      }
-      .engage-card.is-visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      .engage-card__wm {
-        position: absolute;
-        top: 8px;
-        right: 12px;
-        font-family: Georgia, 'Times New Roman', serif;
-        font-size: 80px;
-        line-height: 1;
-        color: var(--text);
-        opacity: 0.04;
-        pointer-events: none;
-        user-select: none;
-      }
-      .engage-card__num {
-        font-family: Georgia, 'Times New Roman', serif;
-        font-size: 64px;
-        line-height: 1;
-        color: var(--border);
-        margin: 0 0 16px;
-      }
-      .engage-card h3 {
-        font-size: 20px;
-        font-weight: 500;
-        color: var(--text);
-        margin: 0 0 12px;
-        line-height: 1.3;
-        text-wrap: balance;
-      }
-      .engage-card p {
-        font-size: 14px;
-        line-height: 1.7;
-        color: var(--muted);
-        margin: 0;
-        text-wrap: balance;
-      }
-      .section--never {
-        background: var(--bg);
-      }
-      .never-wrap {
-        max-width: 800px;
-        margin: 0 auto;
-        width: 100%;
-      }
-      .never-block {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 20px;
-        align-items: start;
-        padding: 32px 0;
-        border-bottom: 1px solid var(--border);
-        opacity: 0;
-        transform: translateY(18px);
-        transition:
-          opacity 400ms var(--ease),
-          transform 400ms var(--ease);
-        transition-delay: var(--reveal-delay, 0ms);
-      }
-      .never-block:first-child {
-        padding-top: 0;
-      }
-      .never-block:last-child {
-        border-bottom: none;
-        padding-bottom: 0;
-      }
-      .never-block.is-visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      .never-block svg {
-        flex-shrink: 0;
-        margin-top: 4px;
-      }
-      .never-block strong {
-        display: block;
-        font-size: 18px;
-        font-weight: 500;
-        color: var(--text);
-        margin-bottom: 8px;
-        text-wrap: balance;
-      }
-      .never-block span {
-        font-size: 14px;
-        line-height: 1.7;
-        color: var(--muted);
-        text-wrap: balance;
-      }
-      .section--cta {
-        text-align: center;
-        align-items: center;
-      }
-      .cta-final h2 {
-        font-family: Georgia, 'Times New Roman', serif;
-        font-size: clamp(32px, 5vw, 48px);
-        font-weight: 400;
-        line-height: 1.15;
-        text-wrap: balance;
-        max-width: 700px;
-        margin: 0 auto 40px;
-      }
-      .cta-final__btn {
-        display: inline-block;
-        padding: 14px 32px;
-        font-size: 14px;
-        font-weight: 600;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: var(--champagne);
-        text-decoration: none;
-        border: 1px solid var(--champagne);
-        border-radius: 12px;
-        animation: ctaShimmer 3s var(--ease) infinite;
-        transition:
-          background-color 300ms var(--ease),
-          color 300ms var(--ease);
-      }
-      @keyframes ctaShimmer {
-        0%,
-        100% {
-          opacity: 0.6;
-        }
-        50% {
-          opacity: 1;
-        }
-      }
-      @media (hover: hover) {
-        .cta-final__btn:hover {
-          background: var(--champagne);
-          color: var(--bg);
-          opacity: 1;
-          animation: none;
-        }
-      }
-      .cta-final__mail {
-        margin-top: 16px;
-        font-size: 13px;
-        color: var(--muted);
-      }
-      .cta-final__mail a {
-        color: inherit;
-        text-decoration: none;
-        transition: color 200ms var(--ease);
-      }
-      @media (hover: hover) {
-        .cta-final__mail a:hover {
-          color: var(--champagne);
-        }
-      }
-      .float-cta {
-        position: fixed;
-        bottom: 24px;
-        right: 24px;
-        z-index: 90;
-        padding: 12px 20px;
-        font-size: 13px;
-        font-weight: 600;
-        letter-spacing: 0.06em;
-        color: var(--champagne);
-        text-decoration: none;
-        border: 1px solid var(--champagne);
-        border-radius: 12px;
-        background: rgba(10, 10, 10, 0.92);
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-        opacity: 0;
-        pointer-events: none;
-        transform: translateY(12px);
-        transition:
-          opacity 500ms var(--ease),
-          transform 500ms var(--ease),
-          background-color 300ms var(--ease),
-          color 300ms var(--ease);
-      }
-      .float-cta.is-visible {
-        opacity: 1;
-        pointer-events: auto;
-        transform: translateY(0);
-      }
-      @media (hover: hover) {
-        .float-cta:hover {
-          background: var(--champagne);
-          color: var(--bg);
-        }
-      }
-      @media (max-width: 389px) {
-        .float-cta {
-          right: 16px;
-          bottom: 16px;
-          left: 16px;
-          text-align: center;
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        html {
-          scroll-behavior: auto;
-        }
-        #particles {
-          transition: none !important;
-        }
-        .nav-back,
-        .hero-l,
-        .hero-h1,
-        .hero-sub,
-        .engage-card,
-        .never-block,
-        .cta-final__btn,
-        .float-cta {
-          animation: none !important;
-          transition: none !important;
-          opacity: 1 !important;
-          transform: none !important;
-        }
-        .engage-card,
-        .never-block {
-          transition-delay: 0ms !important;
-        }
-      }
-    </style>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="/assets/fonts/ClashDisplay-Bold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/assets/css/pinapp-global.css" />
+    <script src="/assets/js/theme.js"></script>
   </head>
   <body>
-    <canvas id="particles" aria-hidden="true"></canvas>
-    <a class="nav-back" href="../index.html">← Pinapp</a>
+    <div id="cursor" aria-hidden="true"></div>
+    <div id="cursor-trail" aria-hidden="true"></div>
+    <div id="progress" aria-hidden="true"></div>
+    <canvas id="canvas-pandora" aria-hidden="true"></canvas>
+    <div class="caustics" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <div class="water-surface" aria-hidden="true"></div>
+    <div class="water-reflets" aria-hidden="true"></div>
+    <a class="skip-link" href="#main">Aller au contenu</a>
 
-    <section class="section section--hero" aria-labelledby="eng-hero-title">
-      <p class="hero-l" aria-hidden="true">L.</p>
-      <div class="hero-inner">
-        <h1 id="eng-hero-title" class="hero-h1">Nos engagements.</h1>
-        <p class="hero-sub">Ce qu'on vous promet. Et ce qu'on tient.</p>
-      </div>
-    </section>
-
-    <section class="section section--cards" aria-labelledby="eng-cards-title">
-      <h2 id="eng-cards-title" class="section__title">Ce que vous pouvez exiger de nous.</h2>
-      <div class="grid-5">
-        <article class="engage-card" style="--reveal-delay: 0ms" data-reveal>
-          <span class="engage-card__wm" aria-hidden="true">01</span>
-          <p class="engage-card__num">01</p>
-          <h3>Livraison dans les délais annoncés</h3>
-          <p>
-            Chaque projet démarre avec une date de livraison précise. Si on dépasse, on vous rembourse 10&nbsp;% par
-            jour de retard.
-          </p>
-        </article>
-        <article class="engage-card" style="--reveal-delay: 80ms" data-reveal>
-          <span class="engage-card__wm" aria-hidden="true">02</span>
-          <p class="engage-card__num">02</p>
-          <h3>Satisfait ou remboursé 30 jours</h3>
-          <p>Si le livrable ne correspond pas au brief validé, on corrige ou on rembourse. Sans discussion.</p>
-        </article>
-        <article class="engage-card" style="--reveal-delay: 160ms" data-reveal>
-          <span class="engage-card__wm" aria-hidden="true">03</span>
-          <p class="engage-card__num">03</p>
-          <h3>Un seul interlocuteur</h3>
-          <p>
-            Lauralie pilote votre projet de A à Z. Pas de stagiaire. Pas de sous-traitant inconnu. Vous savez toujours à
-            qui vous parlez.
-          </p>
-        </article>
-        <article class="engage-card" style="--reveal-delay: 240ms" data-reveal>
-          <span class="engage-card__wm" aria-hidden="true">04</span>
-          <p class="engage-card__num">04</p>
-          <h3>Transparence totale</h3>
-          <p>
-            Chaque décision technique et créative vous est expliquée avant exécution. Zéro surprise sur la facture
-            finale.
-          </p>
-        </article>
-        <article class="engage-card" style="--reveal-delay: 320ms" data-reveal>
-          <span class="engage-card__wm" aria-hidden="true">05</span>
-          <p class="engage-card__num">05</p>
-          <h3>Code propre, à vous</h3>
-          <p>Tout livrable vous appartient intégralement. Code commenté, fichiers organisés, documenté pour durer.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section section--never" aria-labelledby="eng-never-title">
-      <h2 id="eng-never-title" class="section__title">Ce que vous ne vivrez jamais avec nous.</h2>
-      <div class="never-wrap">
-        <div class="never-block" style="--reveal-delay: 0ms" data-reveal-never>
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#C9A96E"
-            stroke-width="2"
-            aria-hidden="true">
-            <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" />
-          </svg>
-          <div>
-            <strong>Devis qui gonfle en cours de route</strong>
-            <span>Le prix signé est le prix payé. Point.</span>
-          </div>
-        </div>
-        <div class="never-block" style="--reveal-delay: 100ms" data-reveal-never>
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#C9A96E"
-            stroke-width="2"
-            aria-hidden="true">
-            <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" />
-          </svg>
-          <div>
-            <strong>Relances ignorées</strong>
-            <span>Réponse garantie sous 24&nbsp;h ouvrées. Si on dépasse, c'est notre faute.</span>
-          </div>
-        </div>
-        <div class="never-block" style="--reveal-delay: 200ms" data-reveal-never>
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#C9A96E"
-            stroke-width="2"
-            aria-hidden="true">
-            <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" />
-          </svg>
-          <div>
-            <strong>Livrable que vous ne comprenez pas</strong>
-            <span>On vous forme à utiliser ce qu'on vous livre. Toujours.</span>
-          </div>
+    <nav class="nav" id="nav" aria-label="Navigation principale">
+      <div class="nav__inner">
+        <a class="nav__logo" href="/">Pinapp <span>Inc.</span></a>
+        <ul class="nav__menu" role="list">
+          <li class="nav__item">
+            <a class="nav__link" href="/offres/"
+              >Pinapp Studio
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" /></svg
+            ></a>
+            <div class="nav__dropdown">
+              <span class="nav__dropdown-label">Pinapp Studio</span>
+              <a href="/offres/">Offres & tarifs</a>
+              <a href="/realisations/">Réalisations</a>
+              <a href="/offres/formation/">Formations</a>
+              <a href="/a-propos/">Notre studio</a>
+            </div>
+          </li>
+          <li class="nav__item">
+            <a class="nav__link" href="/auralis/"
+              >Auralis RH
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" /></svg
+            ></a>
+            <div class="nav__dropdown">
+              <span class="nav__dropdown-label">Auralis RH</span>
+              <a href="/auralis/">Le produit</a>
+              <a href="/auralis/#aurora">Aurora, l'IA</a>
+              <a href="/auralis/#beta">Accès bêta</a>
+            </div>
+          </li>
+          <li class="nav__item">
+            <a class="nav__link" href="/memoire-et-presence/"
+              >Mémoire & Présence
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" /></svg
+            ></a>
+            <div class="nav__dropdown">
+              <span class="nav__dropdown-label">Mémoire & Présence</span>
+              <a href="/memoire-et-presence/">Notre approche</a>
+              <a href="/memoire-et-presence/#portfolio">Portfolio Micha</a>
+              <a href="/memoire-et-presence/#tarifs">Tarifs image</a>
+              <a href="https://memoireetpresence.fr" target="_blank" rel="noopener">memoireetpresence.fr ↗</a>
+            </div>
+          </li>
+        </ul>
+        <div class="nav__actions">
+          <button class="nav__theme" id="theme-toggle" aria-label="Mode jour Avatar 2">◐</button>
+          <a class="nav__cta" href="/diagnostic/">Premier échange offert</a>
+          <button class="nav__burger" aria-label="Ouvrir le menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
         </div>
       </div>
-    </section>
 
-    <section class="section section--cta" aria-labelledby="eng-cta-title">
-      <div class="cta-final">
-        <h2 id="eng-cta-title">Prêt à travailler avec quelqu'un qui tient parole&nbsp;?</h2>
-        <a class="cta-final__btn" href="../index.html#onboarding">Parlons de votre projet →</a>
-        <p class="cta-final__mail">
-          Ou écrivez directement :
-          <a href="mailto:hello@pinapp.fr">hello@pinapp.fr</a>
-        </p>
+      <!-- DRAWER MOBILE -->
+      <div class="nav__drawer" role="dialog" aria-label="Menu principal">
+        <div class="nav__drawer-section">
+          <span class="nav__drawer-label">Pinapp Studio</span>
+          <a href="/offres/">Offres & tarifs</a>
+          <a href="/realisations/">Réalisations</a>
+          <a href="/offres/formation/">Formations</a>
+        </div>
+        <div class="nav__drawer-section">
+          <span class="nav__drawer-label">Auralis RH</span>
+          <a href="/auralis/">Le produit</a>
+          <a href="/auralis/#beta">Accès bêta</a>
+        </div>
+        <div class="nav__drawer-section">
+          <span class="nav__drawer-label">Mémoire & Présence</span>
+          <a href="/memoire-et-presence/">Notre approche</a>
+          <a href="/memoire-et-presence/#portfolio">Portfolio Micha</a>
+          <a href="https://memoireetpresence.fr" target="_blank" rel="noopener">memoireetpresence.fr ↗</a>
+        </div>
+        <div class="nav__drawer-section">
+          <span class="nav__drawer-label">Pinapp Inc.</span>
+          <a href="/a-propos/">Notre société</a>
+          <a href="/engagements/">Nos engagements</a>
+          <a href="/diagnostic/">Premier échange offert</a>
+        </div>
+
+        <!-- STORYBOARD DANS LE DRAWER -->
+        <div class="drawer-story">
+          <span class="drawer-story-title">Qui sommes-nous ?</span>
+          <div class="drawer-story-cards">
+            <a href="/a-propos/#lauralie" class="drawer-story-card">
+              <div class="drawer-story-avatar" style="background: linear-gradient(135deg, #00e5b0, #b388ff)">L</div>
+              <div class="drawer-story-name">Lauralie</div>
+              <div class="drawer-story-role">Architecte systèmes & IA · Pinapp Studio</div>
+            </a>
+            <a href="/a-propos/#micha" class="drawer-story-card">
+              <div class="drawer-story-avatar" style="background: linear-gradient(135deg, #7fffea, #e040fb)">M</div>
+              <div class="drawer-story-name">Micha</div>
+              <div class="drawer-story-role">Directeur artistique & image · M&P</div>
+            </a>
+          </div>
+        </div>
       </div>
-    </section>
+    </nav>
 
-    <a class="float-cta" id="floatCta" href="../index.html#onboarding">Parlons de votre projet →</a>
+    <nav class="nav-dots" aria-label="Sections"><button class="nav-dot active"></button></nav>
 
-    <script src="../assets/js/pinapp-particles.js"></script>
-    <script>
-      (function () {
-        'use strict';
-        var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    <!-- LIGHTBOX MICHA -->
+    <div id="lightbox" class="lightbox" role="dialog" aria-label="Visualisation">
+      <div class="lightbox-inner">
+        <button class="lightbox-close" aria-label="Fermer">×</button>
+        <img src="" alt="" loading="lazy" />
+      </div>
+    </div>
 
-        function revealAll(selector, className) {
-          document.querySelectorAll(selector).forEach(function (el) {
-            el.classList.add(className || 'is-visible');
-          });
-        }
+    <main id="main">
+      <div class="snap-container">
+        <section class="snap-section" id="eng-hero" style="justify-content: center">
+          <div class="container" style="max-width: 800px; margin: 0 auto">
+            <span class="label anim-fade">Nos engagements</span>
+            <h1
+              style="font-size: clamp(36px, 6vw, 72px); letter-spacing: -0.04em; margin-bottom: 24px"
+              class="anim-up"
+              data-delay="100">
+              Éthiques. Responsables.<br /><span class="shimmer">Transparents.</span>
+            </h1>
+            <p
+              style="font-size: 17px; color: var(--text-muted); margin-bottom: 40px; line-height: 1.7"
+              class="anim-up"
+              data-delay="180">
+              Nos engagements ne sont pas du marketing. Ce sont des décisions opérationnelles qui ont un coût — et qu'on
+              assume.
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px">
+              <div class="card anim-up" style="padding: 28px" data-delay="0">
+                <svg class="icon-svg" viewBox="0 0 40 40" fill="none">
+                  <path
+                    d="M20 8l3 9h9l-7 5 3 9-8-6-8 6 3-9-7-5h9l3-9z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linejoin="round" />
+                </svg>
+                <h3 style="font-size: 18px; margin-bottom: 10px">Stack 100% européen</h3>
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.7">
+                  Vos données restent en Europe. Hostinger EU, Notion EU, YouSign FR. Zéro transit vers des serveurs
+                  américains.
+                </p>
+              </div>
+              <div class="card anim-up" style="padding: 28px" data-delay="80">
+                <svg class="icon-svg" viewBox="0 0 40 40" fill="none">
+                  <path
+                    d="M20 10C14 10 10 14 10 20s4 10 10 10 10-4 10-10-4-10-10-10z"
+                    stroke="currentColor"
+                    stroke-width="1.5" />
+                  <path
+                    d="M16 20l3 3 6-6"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+                <h3 style="font-size: 18px; margin-bottom: 10px">IA transparente</h3>
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.7">
+                  Tout contenu assisté par IA est signalé. EU AI Act Article 50 respecté. Vous savez toujours ce qui est
+                  humain et ce qui est automatisé.
+                </p>
+                <div class="ai-badge" style="margin-top: 12px">EU AI Act · Art. 50 · Conforme</div>
+              </div>
+              <div class="card anim-up" style="padding: 28px" data-delay="160">
+                <svg class="icon-svg" viewBox="0 0 40 40" fill="none">
+                  <path
+                    d="M10 20h20M20 10l10 10-10 10"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+                <h3 style="font-size: 18px; margin-bottom: 10px">Zéro outil superflu</h3>
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.7">
+                  Chaque outil recommandé est celui qu'on utilise nous-mêmes. Pas de commission. Pas d'affiliation
+                  cachée. Juste ce qui fonctionne.
+                </p>
+              </div>
+              <div class="card anim-up" style="padding: 28px" data-delay="0">
+                <svg class="icon-svg" viewBox="0 0 40 40" fill="none">
+                  <path
+                    d="M12 28l4-8 4 4 4-8 4 12"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+                <h3 style="font-size: 18px; margin-bottom: 10px">Paiement sur livrable</h3>
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.7">
+                  Vous payez ce que vous recevez. Satisfait ou remboursé 30 jours sur toutes les prestations. Aucun
+                  acompte sans contrat signé.
+                </p>
+              </div>
+              <div class="card anim-up" style="padding: 28px" data-delay="80">
+                <svg class="icon-svg" viewBox="0 0 40 40" fill="none">
+                  <circle cx="20" cy="16" r="6" stroke="currentColor" stroke-width="1.5" />
+                  <path
+                    d="M10 32c0-6 4-10 10-10s10 4 10 10"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round" />
+                </svg>
+                <h3 style="font-size: 18px; margin-bottom: 10px">Inclusif & accessible</h3>
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.7">
+                  Nos formations sont conçues pour tous les profils cognitifs. TDAH, neuroatypiques, débutants — chacun
+                  trouve son rythme.
+                </p>
+              </div>
+              <div class="card anim-up" style="padding: 28px" data-delay="160">
+                <svg class="icon-svg" viewBox="0 0 40 40" fill="none">
+                  <path
+                    d="M20 10v4M10 20h4M30 20h-4M20 30v-4M14 14l3 3M26 14l-3 3M14 26l3-3M26 26l-3-3"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round" />
+                  <circle cx="20" cy="20" r="4" stroke="currentColor" stroke-width="1.5" />
+                </svg>
+                <h3 style="font-size: 18px; margin-bottom: 10px">Réduction des inégalités</h3>
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.7">
+                  Former les indépendants à l'IA, c'est leur donner les mêmes armes que les grandes entreprises. C'est
+                  notre conviction depuis le début.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
 
-        if (reduced) {
-          revealAll('.engage-card');
-          revealAll('.never-block');
-        } else if ('IntersectionObserver' in window) {
-          var obs = new IntersectionObserver(
-            function (entries) {
-              entries.forEach(function (e) {
-                if (!e.isIntersecting) return;
-                e.target.classList.add('is-visible');
-                obs.unobserve(e.target);
-              });
-            },
-            { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
-          );
-          document.querySelectorAll('[data-reveal]').forEach(function (el) {
-            obs.observe(el);
-          });
-          document.querySelectorAll('[data-reveal-never]').forEach(function (el) {
-            obs.observe(el);
-          });
-        } else {
-          revealAll('.engage-card');
-          revealAll('.never-block');
-        }
+    <footer style="scroll-snap-align: start">
+      <div class="container">
+        <div class="footer__brand">Pinapp <span>Inc.</span></div>
+        <p class="footer__tagline">Connecter. Construire. Transmettre.</p>
+        <nav class="footer__links" aria-label="Footer">
+          <a href="/a-propos/">Notre société</a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="mailto:contact@pinapp.fr">contact@pinapp.fr</a>
+          <a href="/legal/mentions.html">Mentions légales</a>
+          <a href="/legal/cgv.html">CGV</a>
+          <a href="/legal/confidentialite.html">Confidentialité</a>
+          <a href="/engagements/">Nos engagements</a>
+          <a href="https://memoireetpresence.fr" target="_blank" rel="noopener">🌿 Mémoire & Présence</a>
+        </nav>
+        <p class="footer__legal">© 2026 Pinapp Inc. · Lauralie & Micha · Prix HT · TVA non applicable art. 293 B CGI</p>
+        <div class="footer__ai-badge">
+          <span class="ai-badge">Assisté par IA · Validé par Lauralie & Micha · EU AI Act Art. 50</span>
+        </div>
+      </div>
+    </footer>
 
-        var floatEl = document.getElementById('floatCta');
-        if (floatEl && !reduced) {
-          window.setTimeout(function () {
-            floatEl.classList.add('is-visible');
-          }, 3000);
-        } else if (floatEl) {
-          floatEl.classList.add('is-visible');
-        }
-      })();
-    </script>
+    <script src="/assets/js/particles.js" defer></script>
+    <script src="/assets/js/main.js" defer></script>
   </body>
 </html>

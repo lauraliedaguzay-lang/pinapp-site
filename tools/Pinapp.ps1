@@ -10,7 +10,7 @@
   Meme chose sur GitHub : workflow pinapp-fr-api.yml (secret HOSTINGER_API_TOKEN).
 
 .PARAMETER Command
-  pull | install | dev | serve | preview | ci | build | verify | ship | clean | format | format-check | info | 403 | diagnose-fr | corrige-fr | sync-fr | fr-auto | fr-api | fr-prepare-profile | fr-secrets | dns-hostinger | hostinger-token | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | tout | dormir | applique | orchestrate | relie | merge-deploy | auto | status | check | help
+  pull | install | dev | serve | preview | ci | build | verify | ship | clean | format | format-check | info | 403 | diagnose-fr | corrige-fr | sync-fr | fr-auto | fr-api | fr-prepare-profile | fr-secrets | dns-hostinger | hostinger-token | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | tout | dormir | applique | orchestrate | relie | merge-deploy | auto | status | check | tally | tally-show | tally-env | tally-chain | help
 
 .EXAMPLE
   cd $env:USERPROFILE\Projects\pinapp-site
@@ -25,7 +25,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('pull', 'install', 'dev', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'clean', 'format', 'format-check', 'info', '403', 'diagnose-fr', 'corrige-fr', 'sync-fr', 'fr-auto', 'fr-api', 'fr-prepare-profile', 'fr-secrets', 'dns-hostinger', 'hostinger-token', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'tout', 'dormir', 'applique', 'orchestrate', 'relie', 'merge-deploy', 'auto', 'status', 'check', 'help')]
+    [ValidateSet('pull', 'install', 'dev', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'clean', 'format', 'format-check', 'info', '403', 'diagnose-fr', 'corrige-fr', 'sync-fr', 'fr-auto', 'fr-api', 'fr-prepare-profile', 'fr-secrets', 'dns-hostinger', 'hostinger-token', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'tout', 'dormir', 'applique', 'orchestrate', 'relie', 'merge-deploy', 'auto', 'status', 'check', 'tally', 'tally-show', 'tally-env', 'tally-chain', 'help')]
     [string] $Command = 'help'
 )
 
@@ -196,6 +196,12 @@ function Write-PinappHelp {
     Write-Host '  .\pinapp.ps1 merge-deploy - fusionne branche courante -> main + push (declenche Actions)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 status       - git status -sb' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 check        - pull + install + ci + build' -ForegroundColor White
+    Write-Host '  Tally (diagnostic /diagnostic/) :' -ForegroundColor DarkGray
+    Write-Host '  .\pinapp.ps1 tally        - aide + affiche IDs (diagnostic-tally.ids.js)' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 tally-show   - IDs seulement' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 tally-env    - ecrit depuis PINAPP_TALLY_DEFAULT (et _SYSTEME _IMAGE _DUO)' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 tally-chain  - Prettier ids.js + ci + build' -ForegroundColor White
+    Write-Host '  .\tools\pinapp-diagnostic-tally.ps1 -Default ID  (ecriture directe)' -ForegroundColor DarkGray
     Write-Host ''
 }
 
@@ -581,5 +587,31 @@ $env:HOSTINGER_API_TOKEN = "COLLE_JETON_API_HOSTINGER"
         Write-Host '=== check : npm run build ===' -ForegroundColor Cyan
         npm run build
         Write-Host '=== check : OK ===' -ForegroundColor Green
+    }
+    { $_ -in @('tally', 'tally-show', 'tally-env', 'tally-chain') } {
+        $tallyScript = Join-Path $PSScriptRoot 'pinapp-diagnostic-tally.ps1'
+        if (-not (Test-Path -LiteralPath $tallyScript)) {
+            Write-Error ('Introuvable : ' + $tallyScript)
+        }
+        switch ($Command) {
+            'tally' { & $tallyScript }
+            'tally-show' { & $tallyScript -Show }
+            'tally-env' { & $tallyScript -FromEnv }
+            'tally-chain' {
+                Write-Host '=== tally-chain : Prettier diagnostic-tally.ids.js ===' -ForegroundColor Cyan
+                $idsRel = 'assets/js/diagnostic-tally.ids.js'
+                $idsPath = Join-Path $RepoRoot $idsRel
+                if (Test-Path -LiteralPath $idsPath) {
+                    $null = & npx prettier --write $idsRel 2>&1
+                } else {
+                    Write-Host ('Absent : ' + $idsPath + ' (ignorer Prettier)') -ForegroundColor Yellow
+                }
+                Write-Host '=== tally-chain : npm run ci ===' -ForegroundColor Cyan
+                npm run ci
+                Write-Host '=== tally-chain : npm run build ===' -ForegroundColor Cyan
+                npm run build
+                Write-Host '=== tally-chain : OK ===' -ForegroundColor Green
+            }
+        }
     }
 }
