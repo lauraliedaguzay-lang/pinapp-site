@@ -372,3 +372,54 @@ h6,
   font-size: 9px !important;
   opacity: 0.7 !important;
 }
+
+/* ── 9. RAYONS & MOUVEMENT MODE JOUR (PDF Avatar 2 · calques absents du bundle)
+   La couche .light-rays est dans index / offres / diagnostic mais sans CSS dédié. ── */
+.light-rays {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  background:
+    radial-gradient(ellipse 90% 55% at 50% -25%, rgba(255, 255, 255, 0.22), transparent 58%),
+    radial-gradient(ellipse 70% 50% at 85% 25%, rgba(0, 229, 212, 0.14), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 12% 40%, rgba(125, 212, 252, 0.1), transparent 50%);
+  animation: pinapp-light-rays-drift 16s ease-in-out infinite alternate;
+}
+[data-theme='light'] .light-rays,
+html[data-theme='light'] .light-rays {
+  opacity: 1 !important;
+}
+@keyframes pinapp-light-rays-drift {
+  0% {
+    transform: translateY(0) scale(1);
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    transform: translateY(1.5vh) scale(1.02);
+    filter: hue-rotate(12deg);
+  }
+}
+
+/* Caustiques / surface eau : forcer lecture des keyframes en mode jour + respect reduced-motion */
+[data-theme='light'] .caustics span,
+html[data-theme='light'] .caustics span {
+  animation-play-state: running !important;
+}
+[data-theme='light'] .water-surface,
+html[data-theme='light'] .water-surface {
+  animation-play-state: running !important;
+}
+[data-theme='light'] .water-reflets,
+html[data-theme='light'] .water-reflets {
+  animation-play-state: running !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .light-rays,
+  [data-theme='light'] .caustics span,
+  html[data-theme='light'] .caustics span {
+    animation: none !important;
+  }
+}

@@ -11,6 +11,126 @@
     return !!document.querySelector('script[src*="main.js"]');
   }
 
+  /* ── COOKIES + PLAUSIBLE (RGPD) ──
+     Bannière injectée si absente · refus = pas de script · accept = chargement différé ── */
+  var PLAUSIBLE_DOMAIN = 'pinapp.fr';
+  var PLAUSIBLE_SRC = 'https://plausible.io/js/script.js';
+  var COOKIE_STORAGE_KEY = 'cookie-consent';
+
+  function pinappPlausibleStub() {
+    return function () {
+      (window.plausible.q = window.plausible.q || []).push(arguments);
+    };
+  }
+
+  function pinappInjectPlausibleScript(onload) {
+    if (document.querySelector('script[data-pinapp-plausible]')) {
+      if (typeof onload === 'function') onload();
+      return;
+    }
+    var s = document.createElement('script');
+    s.defer = true;
+    s.setAttribute('data-domain', PLAUSIBLE_DOMAIN);
+    s.src = PLAUSIBLE_SRC;
+    s.setAttribute('data-pinapp-plausible', '1');
+    if (typeof onload === 'function') s.addEventListener('load', onload);
+    document.head.appendChild(s);
+  }
+
+  function pinappEnsureCookieBanner() {
+    var ban = document.getElementById('cookie-banner');
+    if (ban) return ban;
+    ban = document.createElement('div');
+    ban.id = 'cookie-banner';
+    ban.setAttribute('role', 'dialog');
+    ban.setAttribute('aria-label', 'Cookies');
+    ban.setAttribute('aria-describedby', 'cookie-banner-desc');
+    ban.style.cssText =
+      'position:fixed;bottom:0;left:0;right:0;padding:18px 16px;background:var(--bg-card,rgba(15,23,42,.96));border-top:1px solid var(--card-border,rgba(148,163,184,.25));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:9500;display:none;';
+    ban.innerHTML =
+      '<div class="container" style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">' +
+      '<p id="cookie-banner-desc" style="font-size:13px;opacity:.88;max-width:640px;margin:0;line-height:1.55">Ce site utilise des cookies de mesure d\u2019audience anonymes (Plausible Analytics — sans tracking personnel).</p>' +
+      '<div style="display:flex;gap:10px;flex-wrap:wrap;">' +
+      '<button type="button" id="cookieAccept" class="btn btn-primary" style="font-size:13px;padding:10px 18px">Accepter</button>' +
+      '<button type="button" id="cookieRefuse" class="btn btn-secondary" style="font-size:13px;padding:10px 18px">Refuser</button>' +
+      '</div></div>';
+    document.body.appendChild(ban);
+    return ban;
+  }
+
+  function pinappWirePlausibleCta() {
+    document.querySelectorAll('.btn-primary').forEach(function (b) {
+      if (b.id === 'cookieAccept' || b.id === 'cookieRefuse') return;
+      if (b.getAttribute('data-pinapp-cta-wired') === '1') return;
+      b.setAttribute('data-pinapp-cta-wired', '1');
+      b.addEventListener('click', function () {
+        if (typeof window.plausible !== 'function') return;
+        window.plausible('CTA Click', {
+          props: { page: location.pathname, text: (b.textContent || '').trim() },
+        });
+      });
+    });
+  }
+
+  function initCookieConsent() {
+    if (window.__pinappCookieConsentInit) return;
+    if (document.documentElement.getAttribute('data-pinapp-no-cookie') === '1') return;
+    window.__pinappCookieConsentInit = true;
+
+    var ban = pinappEnsureCookieBanner();
+    if (!ban) return;
+
+    var c = null;
+    try {
+      c = localStorage.getItem(COOKIE_STORAGE_KEY);
+    } catch (e) {}
+
+    if (c === 'refused') {
+      window.plausible = function () {};
+      ban.style.display = 'none';
+      return;
+    }
+
+    window.plausible = window.plausible || pinappPlausibleStub();
+
+    if (c === 'accepted') {
+      ban.style.display = 'none';
+      pinappInjectPlausibleScript(function () {
+        pinappWirePlausibleCta();
+      });
+      return;
+    }
+
+    ban.style.display = 'flex';
+
+    var acc = document.getElementById('cookieAccept');
+    var ref = document.getElementById('cookieRefuse');
+
+    function hideBanner() {
+      ban.style.display = 'none';
+    }
+
+    if (acc)
+      acc.addEventListener('click', function () {
+        try {
+          localStorage.setItem(COOKIE_STORAGE_KEY, 'accepted');
+        } catch (e) {}
+        pinappInjectPlausibleScript(function () {
+          pinappWirePlausibleCta();
+        });
+        hideBanner();
+      });
+
+    if (ref)
+      ref.addEventListener('click', function () {
+        try {
+          localStorage.setItem(COOKIE_STORAGE_KEY, 'refused');
+        } catch (e) {}
+        window.plausible = function () {};
+        hideBanner();
+      });
+  }
+
   /* ── BURGER MOBILE ──
      Résout : "pas de menu burger sur iPhone" ── */
   function initBurger() {
@@ -416,6 +536,7 @@
 
   /* ── INIT ── */
   document.addEventListener('DOMContentLoaded', function () {
+    initCookieConsent();
     var mainPresent = pageUsesMainJs();
     if (!mainPresent) {
       initBurger();
