@@ -10,7 +10,7 @@
   Meme chose sur GitHub : workflow pinapp-fr-api.yml (secret HOSTINGER_API_TOKEN).
 
 .PARAMETER Command
-  pull | install | dev | serve | preview | ci | build | verify | ship | clean | format | format-check | info | 403 | diagnose-fr | corrige-fr | sync-fr | fr-auto | fr-api | fr-prepare-profile | fr-secrets | dns-hostinger | hostinger-token | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | tout | dormir | applique | orchestrate | relie | merge-deploy | auto | status | check | tally | tally-show | tally-env | tally-chain | help
+  pull | install | dev | serve | preview | ci | build | verify | ship | clean | format | format-check | info | 403 | diagnose-fr | corrige-fr | sync-fr | fr-auto | fr-api | fr-prepare-profile | fr-secrets | dns-hostinger | hostinger-token | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | tout | dormir | applique | orchestrate | relie | merge-deploy | publie | auto | status | check | tally | tally-show | tally-env | tally-chain | help
 
 .EXAMPLE
   cd $env:USERPROFILE\Projects\pinapp-site
@@ -25,7 +25,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('pull', 'install', 'dev', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'clean', 'format', 'format-check', 'info', '403', 'diagnose-fr', 'corrige-fr', 'sync-fr', 'fr-auto', 'fr-api', 'fr-prepare-profile', 'fr-secrets', 'dns-hostinger', 'hostinger-token', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'tout', 'dormir', 'applique', 'orchestrate', 'relie', 'merge-deploy', 'auto', 'status', 'check', 'tally', 'tally-show', 'tally-env', 'tally-chain', 'help')]
+    [ValidateSet('pull', 'install', 'dev', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'clean', 'format', 'format-check', 'info', '403', 'diagnose-fr', 'corrige-fr', 'sync-fr', 'fr-auto', 'fr-api', 'fr-prepare-profile', 'fr-secrets', 'dns-hostinger', 'hostinger-token', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'tout', 'dormir', 'applique', 'orchestrate', 'relie', 'merge-deploy', 'publie', 'auto', 'status', 'check', 'tally', 'tally-show', 'tally-env', 'tally-chain', 'help')]
     [string] $Command = 'help'
 )
 
@@ -194,6 +194,8 @@ function Write-PinappHelp {
     Write-Host '  .\pinapp.ps1 auto         - mode auto : relie-tout -SkipN8n (sans question)' -ForegroundColor White
     Write-Host '  pinapp-tes-clefs.EXAMPLE.ps1 -> pinapp-tes-clefs.ps1 (tous les jetons / URLs a remplir)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 merge-deploy - fusionne branche courante -> main + push (declenche Actions)' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 publie       - .\pinapp-publie.ps1 (format + ci + build + push ; options dans le script)' -ForegroundColor White
+    Write-Host '  .\pinapp-publie.ps1       - flux complet PowerShell : -Commit -Message -MergeMain (voir aide du script)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 status       - git status -sb' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 check        - pull + install + ci + build' -ForegroundColor White
     Write-Host '  Tally (diagnostic /diagnostic/) :' -ForegroundColor DarkGray
@@ -548,6 +550,13 @@ $env:HOSTINGER_API_TOKEN = "COLLE_JETON_API_HOSTINGER"
             Write-Error ('Introuvable : ' + $mergeScript)
         }
         & $mergeScript
+    }
+    'publie' {
+        $publieScript = Join-Path $RepoRoot 'pinapp-publie.ps1'
+        if (-not (Test-Path -LiteralPath $publieScript)) {
+            Write-Error ('Introuvable : ' + $publieScript)
+        }
+        & $publieScript
     }
     'auto' {
         $relieScript = Join-Path $RepoRoot 'pinapp-relie-tout.ps1'
