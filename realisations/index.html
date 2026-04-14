@@ -5,7 +5,7 @@
       (function () {
         var t = localStorage.getItem('pinapp-theme') || localStorage.getItem('pinapp-mode');
         var d = window.matchMedia('(prefers-color-scheme:dark)').matches;
-        var m = t === 'light' || t === 'jour' ? 'jour' : t === 'dark' || t === 'nuit' ? 'nuit' : d ? 'nuit' : 'jour';
+        var m = t === 'light' || t === 'jour' ? 'jour' : t === 'dark' || t === 'nuit' ? 'nuit' : 'nuit';
         document.documentElement.setAttribute('data-mode', m);
         document.documentElement.setAttribute('data-theme', m === 'jour' ? 'light' : 'dark');
         if (document.body) {
@@ -89,6 +89,7 @@
 
     <link rel="stylesheet" href="../assets/css/pandora-world.css" />
     <link rel="stylesheet" href="../assets/css/pandora-details.css" />
+    <link rel="stylesheet" href="../assets/css/pinapp-master-v3.css" />
   </head>
   <body class="page-with-bottom-nav">
     <div id="pandora-world" aria-hidden="true">
@@ -787,6 +788,38 @@
           Ingénierie, éditorial et détail visuel : même ligne que Mémoire &amp; Présence.<br />
           Marques et témoignages : scénarios pour vous montrer le rendu — pas une liste de mandats.
         </p>
+
+        <div
+          style="
+            margin: var(--space-6) auto 0;
+            max-width: 720px;
+            border: 1px dashed rgba(0, 229, 176, 0.28);
+            border-radius: 20px;
+            min-height: 140px;
+            padding: 1.35rem 1.1rem;
+            text-align: center;
+            font-size: 12px;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.03);
+          "
+          data-pinapp-slot="realisations-imagerie-micha">
+          <strong style="display: block; color: var(--text-primary); margin-bottom: 8px; letter-spacing: 0.06em"
+            >Imagerie &amp; mouvement — Micha</strong
+          >
+          <span style="opacity: 0.75; line-height: 1.55"
+            >Même vitrine que les sites : carrousel photo / vidéo / IA générative à glisser ici (WebP ou MP4 court).
+            Parité visuelle avec les démos web ci-dessus.</span
+          >
+          <div style="margin-top: 14px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center">
+            <a href="../a-propos/index.html#micha-story" class="btn btn-secondary" style="font-size: 12px"
+              >Parcours Micha</a
+            >
+            <a href="../memoire-et-presence/index.html#portfolio" class="btn btn-secondary" style="font-size: 12px"
+              >Portfolio M&amp;P</a
+            >
+          </div>
+        </div>
       </section>
 
       <!-- GRILLE COMPLÈTE -->
@@ -1637,5 +1670,6 @@
     <script src="../assets/js/bio-particles.js" defer></script>
     <script src="../assets/js/pandora-world.js"></script>
     <script src="../assets/js/pandora-interactions.js"></script>
+    <script src="../assets/js/pinapp-master-v3.js" defer></script>
   </body>
 </html>

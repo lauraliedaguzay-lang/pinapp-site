@@ -5,7 +5,7 @@
       (function () {
         var s = localStorage.getItem('pinapp-theme');
         var d = window.matchMedia('(prefers-color-scheme:dark)').matches;
-        var m = s || (d ? 'nuit' : 'jour');
+        var m = s || 'nuit';
         document.documentElement.setAttribute('data-mode', m);
         document.documentElement.setAttribute('data-theme', m === 'jour' ? 'light' : 'dark');
         document.addEventListener('DOMContentLoaded', function () {
@@ -354,6 +354,7 @@
         border: 0;
       }
     </style>
+    <link rel="stylesheet" href="../../assets/css/pinapp-master-v3.css" />
   </head>
   <body>
     <a href="#board" class="sr-only">Aller au tableau</a>
@@ -801,5 +802,6 @@
         render();
       })();
     </script>
+    <script src="../../assets/js/pinapp-master-v3.js" defer></script>
   </body>
 </html>

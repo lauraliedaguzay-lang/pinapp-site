@@ -3,11 +3,10 @@
   try {
     var t = localStorage.getItem('pinapp-theme');
     var pm = localStorage.getItem('pinapp-mode');
-    var darkOs = window.matchMedia('(prefers-color-scheme: dark)').matches;
     var mode;
     if (t === 'light' || pm === 'jour') mode = 'light';
     else if (t === 'dark' || pm === 'nuit') mode = 'dark';
-    else mode = darkOs ? 'dark' : 'light';
+    else mode = 'dark';
     document.documentElement.setAttribute('data-theme', mode);
     document.documentElement.setAttribute('data-mode', mode === 'light' ? 'jour' : 'nuit');
     var m = document.getElementById('pinapp-theme-color');

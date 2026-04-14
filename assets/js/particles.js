@@ -4,7 +4,7 @@
   if (!canvas) return;
   var ctx = canvas.getContext('2d');
   var C = ['#00E5B0', '#B388FF', '#7FFFEA', '#E040FB'];
-  var N = 80,
+  var N = window.innerWidth < 768 ? 35 : 80,
     L = 110,
     W,
     H,

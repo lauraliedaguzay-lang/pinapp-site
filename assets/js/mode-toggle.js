@@ -17,8 +17,7 @@ const ModeToggle = {
       else if (theme === 'dark') this.setNuit(false);
       else if (saved === 'jour') this.setJour(false);
       else if (saved === 'nuit') this.setNuit(false);
-      else if (dark) this.setNuit(false);
-      else this.setJour(false);
+      else this.setNuit(false);
 
       document
         .querySelectorAll('.mode-toggle')
@@ -32,9 +31,9 @@ const ModeToggle = {
       });
     }
 
-    window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change', (e) => {
+    window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change', () => {
       if (!localStorage.getItem('pinapp-theme') && !localStorage.getItem('pinapp-mode')) {
-        e.matches ? this.setNuit(false) : this.setJour(false);
+        this.setNuit(false);
       }
     });
 

@@ -1,0 +1,433 @@
+/* ============================================================
+   PINAPP INC. — JS MASTER CORRECTIF V3
+   Burger · Emojis SVG · Intro IA futuriste · Scroll-snap
+   ============================================================ */
+(function () {
+  'use strict';
+
+  /** Si main.js est sur la page, il gère déjà burger · snap · dots · etc. — évite double toggle. */
+  function pageUsesMainJs() {
+    if (document.documentElement.getAttribute('data-pinapp-v3-full') === '1') return false;
+    return !!document.querySelector('script[src*="main.js"]');
+  }
+
+  /* ── BURGER MOBILE ──
+     Résout : "pas de menu burger sur iPhone" ── */
+  function initBurger() {
+    var burger = document.querySelector('.nav__burger');
+    var drawer = document.querySelector('.nav__drawer');
+    if (!burger || !drawer) return;
+
+    // S'assurer que le burger est visible sur mobile
+    burger.style.display = 'flex';
+    burger.setAttribute('aria-expanded', 'false');
+    burger.setAttribute('aria-label', 'Ouvrir le menu');
+
+    burger.addEventListener('click', function () {
+      var isOpen = drawer.classList.toggle('open');
+      burger.classList.toggle('open', isOpen);
+      burger.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+      // Animer les barres burger
+      var spans = burger.querySelectorAll('span');
+      if (spans.length >= 3) {
+        if (isOpen) {
+          spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+          spans[1].style.opacity = '0';
+          spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+        } else {
+          spans[0].style.transform = '';
+          spans[1].style.opacity = '1';
+          spans[2].style.transform = '';
+        }
+      }
+    });
+
+    // Fermer sur clic lien
+    drawer.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        drawer.classList.remove('open');
+        burger.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+        var spans = burger.querySelectorAll('span');
+        spans.forEach(function (s) {
+          s.style.transform = '';
+          s.style.opacity = '1';
+        });
+      });
+    });
+
+    // Fermer sur clic extérieur
+    document.addEventListener('click', function (e) {
+      if (
+        drawer.classList.contains('open') &&
+        !drawer.contains(e.target) &&
+        !burger.contains(e.target)
+      ) {
+        drawer.classList.remove('open');
+        burger.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+        var spans = burger.querySelectorAll('span');
+        spans.forEach(function (s) {
+          s.style.transform = '';
+          s.style.opacity = '1';
+        });
+      }
+    });
+  }
+
+  /* ── EMOJIS → SVG ──
+     Résout : "emojis iOS différents · zéro emoji site premium"
+     PDF Audit : Arnaud bloque les emojis ── */
+  var SVG_ICONS = {
+    '⏱': '<svg viewBox="0 0 40 40" fill="none" class="icon-svg" aria-hidden="true"><circle cx="20" cy="21" r="11" stroke="currentColor" stroke-width="1.5"/><path d="M20 16v5l3.5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M16 8h8M20 8v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+    '🔗': '<svg viewBox="0 0 40 40" fill="none" class="icon-svg" aria-hidden="true"><path d="M17 23l6-6M14 22l-2 2a5 5 0 007 7l2-2M26 18l2-2a5 5 0 00-7-7l-2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+    '🌙': '<svg viewBox="0 0 40 40" fill="none" class="icon-svg" aria-hidden="true"><path d="M29 22a11 11 0 01-13-13 11 11 0 1013 13z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+    '🖥': '<svg viewBox="0 0 40 40" fill="none" class="icon-svg" aria-hidden="true"><rect x="7" y="9" width="26" height="17" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M14 31h12M20 26v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+    '📅': '<svg viewBox="0 0 40 40" fill="none" class="icon-svg" aria-hidden="true"><rect x="7" y="11" width="26" height="22" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 18h26M15 7v6M25 7v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+    '🏠': '<svg viewBox="0 0 40 40" fill="none" class="icon-svg" aria-hidden="true"><path d="M8 20l12-11 12 11v13H8V20z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="15" y="24" width="10" height="9" stroke="currentColor" stroke-width="1.5"/></svg>',
+    '📸': '<svg viewBox="0 0 40 40" fill="none" class="icon-svg" aria-hidden="true"><path d="M6 14a2 2 0 012-2h4l2-3h12l2 3h4a2 2 0 012 2v16a2 2 0 01-2 2H8a2 2 0 01-2-2V14z" stroke="currentColor" stroke-width="1.5"/><circle cx="20" cy="22" r="5" stroke="currentColor" stroke-width="1.5"/></svg>',
+    '🎬': '<svg viewBox="0 0 40 40" fill="none" class="icon-svg" aria-hidden="true"><rect x="5" y="9" width="30" height="22" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M5 16h30M5 24h30M14 9v22M26 9v22" stroke="currentColor" stroke-width="1.5"/></svg>',
+    '🎨': '<svg viewBox="0 0 40 40" fill="none" class="icon-svg" aria-hidden="true"><circle cx="20" cy="20" r="13" stroke="currentColor" stroke-width="1.5"/><circle cx="14" cy="16" r="2" fill="currentColor"/><circle cx="26" cy="16" r="2" fill="currentColor"/><circle cx="20" cy="26" r="2" fill="currentColor"/></svg>',
+    '✨': '<svg viewBox="0 0 40 40" fill="none" class="icon-svg" aria-hidden="true"><path d="M20 8v24M8 20h24M12 12l16 16M28 12L12 28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/><circle cx="20" cy="20" r="3" fill="currentColor"/></svg>',
+    '💍': '<svg viewBox="0 0 40 40" fill="none" class="icon-svg" aria-hidden="true"><circle cx="20" cy="22" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M15 12l2-4h6l2 4" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="20" cy="9" r="2" stroke="currentColor" stroke-width="1.5"/></svg>',
+    '🏢': '<svg viewBox="0 0 40 40" fill="none" class="icon-svg" aria-hidden="true"><rect x="8" y="6" width="24" height="28" stroke="currentColor" stroke-width="1.5"/><path d="M15 13h3M22 13h3M15 19h3M22 19h3M15 25h3M22 25h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><rect x="16" y="30" width="8" height="4" stroke="currentColor" stroke-width="1.5"/></svg>',
+  };
+
+  function replaceEmojis() {
+    var emojis = Object.keys(SVG_ICONS);
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+    var nodes = [];
+    var node;
+    while ((node = walker.nextNode())) {
+      emojis.forEach(function (emoji) {
+        if (node.nodeValue && node.nodeValue.includes(emoji)) {
+          nodes.push({ node: node, emoji: emoji });
+        }
+      });
+    }
+    nodes.forEach(function (item) {
+      var parent = item.node.parentNode;
+      if (!parent || parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE') return;
+      var wrap = document.createElement('span');
+      wrap.innerHTML = item.node.nodeValue.replace(item.emoji, SVG_ICONS[item.emoji]);
+      parent.replaceChild(wrap, item.node);
+    });
+  }
+
+  /* ── INTRO IA FUTURISTE ──
+     PDF : "style comme les IA dans les films futuristes"
+     Style : HAL 9000 × Jarvis × Ex Machina ── */
+  function initIntroIA() {
+    // Ne pas rejouer si déjà vu cette session
+    if (sessionStorage.getItem('pinapp-intro-done')) return;
+
+    var intro = document.getElementById('pinapp-intro');
+    if (!intro) {
+      // Créer l'intro si elle n'existe pas
+      intro = document.createElement('div');
+      intro.id = 'pinapp-intro';
+      intro.setAttribute('role', 'status');
+      intro.setAttribute('aria-live', 'polite');
+      intro.innerHTML = [
+        '<div class="pi-scan" aria-hidden="true"></div>',
+        '<div class="pi-grid" aria-hidden="true"></div>',
+        '<div class="pi-content">',
+        '  <div class="pi-status"><span class="pi-dot"></span><span class="pi-status-txt">PINAPP · SYSTÈME ACTIF</span></div>',
+        '  <div class="pi-text" id="pi-text"></div>',
+        '  <div class="pi-cursor" aria-hidden="true">_</div>',
+        '  <button class="pi-skip" id="pi-skip">Passer →</button>',
+        '</div>',
+      ].join('');
+
+      var style = document.createElement('style');
+      style.textContent = [
+        '#pinapp-intro{position:fixed;inset:0;z-index:9999;background:#020408;display:flex;align-items:center;justify-content:center;transition:opacity 0.8s ease}',
+        '#pinapp-intro.pi-out{opacity:0;pointer-events:none}',
+        '#pinapp-intro.pi-gone{display:none}',
+        '.pi-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,229,176,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,176,.03) 1px,transparent 1px);background-size:40px 40px;animation:pi-grid-p 4s ease-in-out infinite}',
+        '@keyframes pi-grid-p{0%,100%{opacity:.5}50%{opacity:1}}',
+        '.pi-scan{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,229,176,.8),transparent);box-shadow:0 0 20px rgba(0,229,176,.4);animation:pi-scan 3s linear infinite}',
+        '@keyframes pi-scan{0%{top:0}100%{top:100%}}',
+        '.pi-content{position:relative;z-index:1;text-align:center;max-width:580px;padding:0 24px}',
+        '.pi-status{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border:1px solid rgba(0,229,176,.2);border-radius:100px;margin-bottom:40px;background:rgba(0,229,176,.05)}',
+        '.pi-dot{width:6px;height:6px;border-radius:50%;background:#00e5b0;box-shadow:0 0 8px #00e5b0;animation:pi-blink 1s ease-in-out infinite}',
+        '@keyframes pi-blink{0%,100%{opacity:1}50%{opacity:.2}}',
+        '.pi-status-txt{font-size:10px;letter-spacing:.20em;text-transform:uppercase;color:#00e5b0;font-family:-apple-system,BlinkMacSystemFont,sans-serif}',
+        '#pi-text{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;font-size:clamp(20px,5vw,38px);font-weight:300;color:#f0f8ff;line-height:1.4;letter-spacing:-.02em;min-height:120px;display:flex;align-items:center;justify-content:center;text-align:center}',
+        '.pi-cursor{font-size:28px;color:#00e5b0;animation:pi-cur .8s step-end infinite;margin-top:8px}',
+        '@keyframes pi-cur{0%,100%{opacity:1}50%{opacity:0}}',
+        '.pi-skip{position:fixed;bottom:max(env(safe-area-inset-bottom,0px),24px);right:24px;background:transparent;border:1px solid rgba(0,229,176,.2);border-radius:100px;color:rgba(240,248,255,.4);font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:12px;letter-spacing:.08em;padding:8px 16px;cursor:pointer;min-height:44px;transition:color .2s,border-color .2s}',
+        '.pi-skip:hover,.pi-skip:focus{color:#f0f8ff;border-color:rgba(0,229,176,.5)}',
+      ].join('');
+      document.head.appendChild(style);
+      document.body.insertBefore(intro, document.body.firstChild);
+    }
+
+    var textEl = document.getElementById('pi-text');
+    var skipBtn = document.getElementById('pi-skip');
+    if (!textEl) return;
+
+    var lines = [
+      { text: 'Bienvenue.', delay: 600 },
+      { text: "Vous êtes sur le point d'entrer\ndans un système différent.", delay: 2200 },
+      { text: "Le problème n'est plus\nle manque d'outils.", delay: 4200 },
+      { text: "C'est le manque de structure.", delay: 6200 },
+      { text: 'Nous construisons la structure.\nVous récoltez.', delay: 8000 },
+      { text: 'Pinapp Inc.', delay: 10000 },
+    ];
+
+    var timers = [];
+
+    function showLine(line) {
+      textEl.style.opacity = '0';
+      textEl.style.transition = 'opacity 0.4s';
+      setTimeout(function () {
+        textEl.innerHTML = line.text.replace(/\n/g, '<br/>');
+        textEl.style.opacity = '1';
+      }, 400);
+    }
+
+    lines.forEach(function (line) {
+      timers.push(
+        setTimeout(function () {
+          showLine(line);
+        }, line.delay),
+      );
+    });
+
+    function closeIntro() {
+      timers.forEach(function (t) {
+        clearTimeout(t);
+      });
+      intro.classList.add('pi-out');
+      setTimeout(function () {
+        intro.classList.add('pi-gone');
+      }, 900);
+      sessionStorage.setItem('pinapp-intro-done', '1');
+    }
+
+    // Auto-ferme après 12s
+    timers.push(setTimeout(closeIntro, 12000));
+
+    if (skipBtn) {
+      skipBtn.addEventListener('click', closeIntro);
+    }
+    // Fermer sur tap
+    intro.addEventListener('click', function (e) {
+      if (e.target === intro || e.target.classList.contains('pi-content')) closeIntro();
+    });
+  }
+
+  /* ── SCROLL-SNAP FIX SAFARI ──
+     Résout : sections ne snappent pas sur iPhone ── */
+  function initScrollSnap() {
+    var container = document.querySelector('.snap-container');
+    if (!container) return;
+    // Forcer le recalcul après chargement
+    setTimeout(function () {
+      container.style.scrollSnapType = 'none';
+      requestAnimationFrame(function () {
+        container.style.scrollSnapType = 'y mandatory';
+      });
+    }, 300);
+  }
+
+  /* ── NAVIGATION DOTS ── */
+  function initNavDots() {
+    var dots = document.querySelectorAll('.nav-dot');
+    var sections = document.querySelectorAll('.snap-section');
+    var container = document.querySelector('.snap-container');
+    if (!dots.length || !container) return;
+
+    container.addEventListener(
+      'scroll',
+      function () {
+        var mid = container.scrollTop + container.clientHeight / 2;
+        var active = 0;
+        sections.forEach(function (s, i) {
+          if (s.offsetTop <= mid) active = i;
+        });
+        dots.forEach(function (d, i) {
+          d.classList.toggle('active', i === active);
+        });
+      },
+      { passive: true },
+    );
+
+    dots.forEach(function (d, i) {
+      d.addEventListener('click', function () {
+        if (sections[i]) sections[i].scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  }
+
+  /* ── PROGRESS BAR ── */
+  function initProgress() {
+    var prog = document.getElementById('progress');
+    var container = document.querySelector('.snap-container');
+    if (!prog || !container) return;
+    container.addEventListener(
+      'scroll',
+      function () {
+        var total = container.scrollHeight - container.clientHeight;
+        prog.style.width = total > 0 ? (container.scrollTop / total) * 100 + '%' : '0%';
+      },
+      { passive: true },
+    );
+  }
+
+  /* ── ANIMATIONS INTERSECTION OBSERVER ── */
+  function initAnimations() {
+    var elems = document.querySelectorAll('.anim-fade,.anim-up,.anim-scale,.anim-left,.anim-right');
+    if (!elems.length) return;
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            var delay = parseInt(e.target.dataset.delay || 0);
+            setTimeout(function () {
+              e.target.classList.add('visible');
+            }, delay);
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
+    );
+    elems.forEach(function (el) {
+      io.observe(el);
+    });
+  }
+
+  /* ── COUNT-UP ── */
+  function initCountUp() {
+    document.querySelectorAll('.count-up').forEach(function (el) {
+      var target = parseInt(el.dataset.target, 10);
+      if (!target) return;
+      var io = new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting) return;
+        io.disconnect();
+        var t0 = performance.now();
+        var dur = 1800;
+        function step(now) {
+          var p = Math.min((now - t0) / dur, 1);
+          var e = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(e * target).toLocaleString('fr-FR');
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+      io.observe(el);
+    });
+  }
+
+  /* ── CAROUSEL MICHA ── */
+  function initCarousel() {
+    document.querySelectorAll('.carousel-wrap').forEach(function (wrap) {
+      var track = wrap.querySelector('.carousel-track');
+      var prev = wrap.querySelector('.carousel-prev');
+      var next = wrap.querySelector('.carousel-next');
+      if (!track) return;
+      var current = 0;
+      var itemW = 256;
+
+      function scrollTo(i) {
+        var max = track.children.length - 1;
+        current = Math.max(0, Math.min(i, max));
+        track.style.transform = 'translateX(-' + current * itemW + 'px)';
+      }
+
+      if (prev)
+        prev.addEventListener('click', function () {
+          scrollTo(current - 1);
+        });
+      if (next)
+        next.addEventListener('click', function () {
+          scrollTo(current + 1);
+        });
+
+      // Swipe touch
+      var startX = 0;
+      track.addEventListener(
+        'touchstart',
+        function (e) {
+          startX = e.touches[0].clientX;
+        },
+        { passive: true },
+      );
+      track.addEventListener(
+        'touchend',
+        function (e) {
+          var diff = startX - e.changedTouches[0].clientX;
+          if (Math.abs(diff) > 50) scrollTo(diff > 0 ? current + 1 : current - 1);
+        },
+        { passive: true },
+      );
+
+      // Filtres catégories
+      wrap.querySelectorAll('.carousel-cat').forEach(function (cat) {
+        cat.addEventListener('click', function () {
+          wrap.querySelectorAll('.carousel-cat').forEach(function (c) {
+            c.classList.remove('active');
+          });
+          cat.classList.add('active');
+          var sel = cat.dataset.cat;
+          Array.from(track.children).forEach(function (item) {
+            item.style.display = sel === 'tous' || item.dataset.cat === sel ? '' : 'none';
+          });
+          current = 0;
+          track.style.transform = 'translateX(0)';
+        });
+      });
+    });
+  }
+
+  /* ── LIGHTBOX ── */
+  function initLightbox() {
+    var lb = document.getElementById('lightbox');
+    if (!lb) return;
+    document.querySelectorAll('.carousel-item[data-src]').forEach(function (item) {
+      item.addEventListener('click', function () {
+        var img = lb.querySelector('img');
+        if (img) {
+          img.src = item.dataset.src;
+          img.alt = item.dataset.alt || '';
+        }
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+    lb.addEventListener('click', function (e) {
+      if (e.target === lb || e.target.classList.contains('lightbox-close')) {
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && lb.classList.contains('open')) {
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+
+  /* ── INIT ── */
+  document.addEventListener('DOMContentLoaded', function () {
+    var mainPresent = pageUsesMainJs();
+    if (!mainPresent) {
+      initBurger();
+      initScrollSnap();
+      initNavDots();
+      initProgress();
+      initAnimations();
+      initCountUp();
+      initCarousel();
+      initLightbox();
+    }
+    replaceEmojis();
+    initIntroIA();
+  });
+})();
