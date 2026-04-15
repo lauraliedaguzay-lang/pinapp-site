@@ -1,4 +1,4 @@
-# PINAPP INC. — .htaccess v4
+# PINAPP INC. — .htaccess v5 (cache CSS/JS : pas d’immutable — sinon le site « ne bouge jamais » si l’HTML n’est pas rebumpé)
 Options -Indexes
 
 RewriteEngine On
@@ -13,7 +13,19 @@ RewriteRule ^(.*)$ https://pinapp.fr/$1 [L,R=301]
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
 
-<FilesMatch "\.(css|js|woff2|png|jpg|webp|svg|ico)$">
+<FilesMatch "\.(html)$">
+  <IfModule mod_headers.c>
+    Header set Cache-Control "no-cache, private, must-revalidate"
+  </IfModule>
+</FilesMatch>
+
+<FilesMatch "\.(css|js)$">
+  <IfModule mod_headers.c>
+    Header set Cache-Control "public, max-age=3600, must-revalidate"
+  </IfModule>
+</FilesMatch>
+
+<FilesMatch "\.(woff2|png|jpg|webp|svg|ico)$">
   <IfModule mod_headers.c>
     Header set Cache-Control "max-age=31536000, public, immutable"
   </IfModule>

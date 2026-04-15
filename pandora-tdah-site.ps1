@@ -94,7 +94,7 @@ $CSS_TDAH = @'
   border-bottom: 1px solid var(--border);
 }
 .tdah-modal__title {
-  font-family: Inter, system-ui, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Helvetica Neue', Helvetica, system-ui, sans-serif;
   font-size: 1.15rem;
   font-weight: 700;
   color: var(--text);

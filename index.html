@@ -9,8 +9,8 @@
       content="Systèmes digitaux, automatisation IA et design premium. Lauralie &amp; Micha — nous avons étudié, testé, observé." />
     <link rel="canonical" href="https://pinapp.fr/" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="/style.css?v=10" />
-    <link rel="stylesheet" href="/assets/css/home-2026.css?v=1" />
+    <link rel="stylesheet" href="/style.css?v=20260415" />
+    <link rel="stylesheet" href="/assets/css/home-2026.css?v=20260415" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://pinapp.fr/" />
     <meta property="og:title" content="Pinapp — Systèmes digitaux, automatisation IA, design premium" />
@@ -334,8 +334,9 @@
         display: none;
         position: fixed;
         inset: 0;
-        background: rgba(5, 10, 15, 0.88);
-        backdrop-filter: blur(10px);
+        background: color-mix(in srgb, var(--bg) 72%, transparent);
+        backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+        -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
         z-index: 9000;
         align-items: center;
         justify-content: center;
@@ -346,15 +347,39 @@
       }
 
       .tdah-modal {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 16px;
+        isolation: isolate;
+        background: color-mix(in srgb, var(--bg-card) 92%, transparent);
+        border: 1px solid var(--card-border);
+        border-radius: var(--glass-radius);
         width: 100%;
         max-width: 560px;
         max-height: 90dvh;
         overflow-y: auto;
         position: relative;
+        backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+        -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
         box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+      }
+
+      .tdah-modal::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        pointer-events: none;
+        z-index: 0;
+        background: linear-gradient(
+          128deg,
+          rgba(var(--accent-rgb), 0.12),
+          rgba(var(--accent-2-rgb), 0.1),
+          rgba(232, 244, 248, 0.08)
+        );
+        opacity: 0.03;
+      }
+
+      .tdah-modal > *:not(.tdah-modal__close) {
+        position: relative;
+        z-index: 1;
       }
 
       .tdah-modal__close {
@@ -364,8 +389,8 @@
         width: 36px;
         height: 36px;
         border-radius: 50%;
-        border: 1px solid var(--border);
-        background: var(--bg);
+        border: 1px solid var(--card-border);
+        background: color-mix(in srgb, var(--bg-card) 88%, transparent);
         color: var(--text);
         cursor: pointer;
         font-size: 1.25rem;
@@ -373,7 +398,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        z-index: 2;
+        z-index: 4;
+        backdrop-filter: blur(12px) saturate(160%);
+        -webkit-backdrop-filter: blur(12px) saturate(160%);
       }
       .tdah-modal__close:hover {
         opacity: 0.92;
@@ -381,10 +408,12 @@
 
       .tdah-modal__header {
         padding: 1.25rem 1.25rem 0.5rem;
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid var(--card-border);
       }
       .tdah-modal__title {
-        font-family: Inter, system-ui, sans-serif;
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Helvetica Neue', Helvetica, system-ui,
+          sans-serif;
         font-size: 1.15rem;
         font-weight: 700;
         color: var(--text);
@@ -413,7 +442,7 @@
         display: flex;
         gap: 0.35rem;
         padding: 0.65rem 1.25rem;
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid var(--card-border);
       }
       .tdah-step {
         flex: 1;
@@ -468,10 +497,10 @@
       @keyframes tdah-breathe {
         0%,
         100% {
-          box-shadow: 0 0 16px rgba(0, 201, 177, 0.08);
+          box-shadow: 0 0 16px rgba(var(--accent-rgb), 0.08);
         }
         50% {
-          box-shadow: 0 0 22px rgba(0, 201, 177, 0.12);
+          box-shadow: 0 0 22px rgba(var(--accent-rgb), 0.12);
         }
       }
 
@@ -500,11 +529,13 @@
         letter-spacing: 0.08em;
         text-transform: uppercase;
         color: var(--teal);
-        border: 1px solid var(--border);
+        border: 1px solid var(--card-border);
         border-radius: 999px;
         padding: 0.3rem 0.75rem;
         margin-bottom: 0.75rem;
-        background: var(--teal-glow);
+        background: color-mix(in srgb, var(--bg-card) 85%, var(--teal-glow));
+        backdrop-filter: blur(12px) saturate(160%);
+        -webkit-backdrop-filter: blur(12px) saturate(160%);
       }
       .tdah-badge-hero__dot {
         width: 6px;
@@ -797,8 +828,13 @@
     </style>
   </head>
   <body>
+    <div class="bg-light-veil" aria-hidden="true">
+      <span class="bg-light-veil__pulse"></span>
+      <span class="bg-light-veil__pulse bg-light-veil__pulse--b"></span>
+      <span class="bg-light-veil__pulse bg-light-veil__pulse--c"></span>
+    </div>
     <canvas id="bg-canvas" aria-hidden="true"></canvas>
-    <div class="bg-rays" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="bg-rays" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
     <a class="skip" href="#contenu">Aller au contenu</a>
     <div class="ellipses" aria-hidden="true">
       <span class="ellipses__b ellipses__b--1"></span>
@@ -809,9 +845,10 @@
     <div class="page">
       <header class="nav" id="siteNav">
         <div class="nav__inner">
-          <a class="nav__logo" href="/">PINAPP</a>
+          <a class="nav__logo" href="/">Pinapp <span class="nav__logo__inc">Inc.</span></a>
           <ul class="nav__links" role="list">
-            <li><a href="#apropos">À propos</a></li>
+            <li><a href="#apropos">Constat</a></li>
+            <li><a href="#preuves">Preuves</a></li>
             <li><a href="#systemes">Systèmes</a></li>
             <li><a href="#demos">Démos</a></li>
             <li><a href="#portfolio">Portfolio</a></li>
@@ -861,7 +898,8 @@
         </div>
         <div class="drawer" id="navDrawer" aria-hidden="true">
           <div class="drawer__panel" role="navigation" aria-label="Menu mobile">
-            <a href="#apropos">À propos</a>
+            <a href="#apropos">Constat</a>
+            <a href="#preuves">Preuves</a>
             <a href="#systemes">Systèmes</a>
             <a href="#demos">Démos</a>
             <a href="#portfolio">Portfolio</a>
@@ -879,11 +917,12 @@
           <div id="heroCursor" class="hero__cursor" aria-hidden="true"></div>
           <div class="hero__inner">
             <div class="tdah-badge-hero" role="status" aria-live="polite">
-              <span class="tdah-badge-hero__dot" aria-hidden="true"></span>Reponse sous 24 h
+              <span class="tdah-badge-hero__dot" aria-hidden="true"></span>Réponse sous 24 h
             </div>
+            <p class="hero__eyebrow">Pinapp Inc. · IA · automatisation · Web · Image</p>
             <h1>
-              <span class="word">Je</span>
-              <span class="word">construis</span>
+              <span class="word">Nous</span>
+              <span class="word hero__gradient">construisons</span>
               <span class="word">ce</span>
               <span class="word">que</span>
               <span class="word">vos</span>
@@ -891,16 +930,16 @@
               <br />
               <span class="word">n'ont</span>
               <span class="word">pas</span>
-              <span class="word">encore</span>
-              <span class="word accent glitch" data-text="imaginé.">imaginé.</span>
+              <span class="word">encore.</span>
             </h1>
             <p class="hero__baseline">
-              Dites-nous votre besoin en 2 minutes.<br />Nous repondons sous 24 h avec la suite claire.
+              Nous connectons l'IA et l'automatisation à votre site et à vos visuels pour que le système travaille
+              pendant que vous êtes sur le terrain.
             </p>
-            <p class="hero__kicker hero__kicker--tw">Sites et systemes qui travaillent pendant que vous avancez.</p>
             <div class="hero__cta">
-              <a class="btn btn--primary js-tdah-open" href="#contact">Lancer mon projet — formulaire 2 min</a>
+              <a class="btn btn--primary js-tdah-open" href="#contact">Premier échange offert →</a>
               <a class="btn btn--ghost" href="#demos">Voir les démos</a>
+              <a class="btn btn--ghost" href="/offres/formation/">Formations →</a>
             </div>
             <div class="scroll-hint">
               <span>Défiler</span>
@@ -913,22 +952,126 @@
 
         <section class="section" id="apropos" data-reveal>
           <div class="wrap">
-            <header class="section__head">
-              <h2>Notre <span class="accent">constat</span></h2>
-            </header>
-            <div class="manifeste__grid">
-              <div class="manifeste__col">
-                <p>Trop d'outils, pas assez de clarte.<br />Nous reduisons le bruit.</p>
-              </div>
-              <div class="manifeste__col">
-                <p>Le probleme : des outils sans systeme.<br />La solution : un fil conducteur unique.</p>
-              </div>
-              <div class="manifeste__col">
-                <p>Nous vendons des systemes qui pensent a votre place.<br />Pas des logiciels isolés.</p>
-              </div>
+            <span class="save-preuves__label">Ce que vous vivez en ce moment</span>
+            <h2 class="save-preuves__title">
+              Vos outils ont été conçus pour le bureau.<br />Votre équipe, elle, travaille de partout.
+            </h2>
+            <div class="save-pain-stack">
+              <article class="save-pain">
+                <div class="save-pain__icon" aria-hidden="true">⏱</div>
+                <h3>Vous répondez trop lentement.</h3>
+                <p>
+                  Le prospect est passé ailleurs. Votre assistant IA, lui, répond pendant que vous êtes sur le terrain.
+                </p>
+              </article>
+              <article class="save-pain">
+                <div class="save-pain__icon" aria-hidden="true">🔗</div>
+                <h3>5 outils qui ne se parlent pas.</h3>
+                <p>Gmail, Notion, Calendly, Stripe, votre site. On connecte tout. Une seule source de vérité.</p>
+              </article>
+              <article class="save-pain">
+                <div class="save-pain__icon" aria-hidden="true">🌙</div>
+                <h3>Les factures le dimanche soir.</h3>
+                <p>Générée à la signature. Relance automatique si impayé. Export comptable le 1er du mois.</p>
+              </article>
+              <article class="save-pain">
+                <div class="save-pain__icon" aria-hidden="true">🖥</div>
+                <h3>Honte de donner votre URL.</h3>
+                <p>Un site que vous partagez fièrement. Design premium. Livré en 7 jours.</p>
+              </article>
+              <article class="save-pain">
+                <div class="save-pain__icon" aria-hidden="true">📅</div>
+                <h3>Les no-shows non relancés.</h3>
+                <p>Confirmation · rappel · relance automatiques. Vous ne touchez à rien.</p>
+              </article>
+              <article class="save-pain">
+                <div class="save-pain__icon" aria-hidden="true">🏠</div>
+                <h3>Équipe en télétravail, process de bureau.</h3>
+                <p>Workflows reconstruits pour le distanciel. Zéro friction. Zéro coordination manuelle.</p>
+              </article>
             </div>
-            <p class="manifeste__quote">L'intelligence au service de votre <span class="accent">liberté.</span></p>
-            <p class="manifeste__cap">Basé sur des recherches cognitives, comportementales et neuroscientifiques.</p>
+          </div>
+        </section>
+
+        <section class="section" id="preuves" data-reveal>
+          <div class="wrap">
+            <span class="save-preuves__label">Preuves chiffrées</span>
+            <h2 class="save-preuves__title">Où part votre temps ?<br />Et combien en récupère-t-on ?</h2>
+            <div class="save-preuves__grid">
+              <article class="save-chart-card">
+                <div class="save-chart-title">Heures récupérées / mois</div>
+                <div class="save-bar-chart">
+                  <div class="save-bar-wrap">
+                    <div class="save-bar save-bar--rel"><span class="save-bar-val">8h</span></div>
+                    <span class="save-bar-lbl">Relances</span>
+                  </div>
+                  <div class="save-bar-wrap">
+                    <div class="save-bar save-bar--dev"><span class="save-bar-val">6h</span></div>
+                    <span class="save-bar-lbl">Devis</span>
+                  </div>
+                  <div class="save-bar-wrap">
+                    <div class="save-bar save-bar--rdv"><span class="save-bar-val">5h</span></div>
+                    <span class="save-bar-lbl">RDV</span>
+                  </div>
+                  <div class="save-bar-wrap">
+                    <div class="save-bar save-bar--fac"><span class="save-bar-val">4h</span></div>
+                    <span class="save-bar-lbl">Factures</span>
+                  </div>
+                </div>
+                <p class="save-chart-foot">Chaque tâche représente des heures passées à la main chaque mois.</p>
+              </article>
+              <article class="save-chart-card">
+                <div class="save-chart-title">Où part votre temps ?</div>
+                <div class="save-donut-row">
+                  <div
+                    class="save-donut"
+                    role="img"
+                    aria-label="Relances 45 pour cent, Devis 30 pour cent, RDV 15 pour cent, Autres 10 pour cent"></div>
+                  <div class="save-donut-legend">
+                    <div class="save-donut-item">
+                      <span class="save-donut-dot" style="background: #00c9b1"></span>Relances (45&nbsp;%)
+                    </div>
+                    <div class="save-donut-item">
+                      <span class="save-donut-dot" style="background: #7b5ea7"></span>Devis (30&nbsp;%)
+                    </div>
+                    <div class="save-donut-item">
+                      <span class="save-donut-dot" style="background: #7fffea"></span>RDV (15&nbsp;%)
+                    </div>
+                    <div class="save-donut-item">
+                      <span class="save-donut-dot" style="background: #e040fb"></span>Autres (10&nbsp;%)
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <article class="save-chart-card">
+                <div class="save-chart-title">Interventions manuelles</div>
+                <svg class="save-curve" viewBox="0 0 260 120" aria-label="Courbe avant et avec Pinapp">
+                  <polyline
+                    class="save-curve__before"
+                    points="10,85 50,65 90,78 130,58 170,72 210,52 250,68"
+                    fill="none"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <polyline
+                    class="save-curve__after"
+                    points="10,30 50,40 90,52 130,65 170,75 210,82 250,88"
+                    fill="none"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+                <div class="save-curve-legend">
+                  <span class="save-curve-leg"
+                    ><span class="save-curve-line save-curve-line--before"></span>Avant</span
+                  >
+                  <span class="save-curve-leg"
+                    ><span class="save-curve-line save-curve-line--after"></span>Avec Pinapp</span
+                  >
+                </div>
+              </article>
+            </div>
+            <p class="save-preuves__brand">Pinapp Inc.</p>
           </div>
         </section>
 
@@ -1032,19 +1175,44 @@
                     <rect x="162" y="70" width="56" height="36" rx="6" stroke="#00C9B1" fill="rgba(13,17,23,0.35)" />
                     <rect x="238" y="70" width="56" height="36" rx="6" stroke="#7B5EA7" fill="rgba(13,17,23,0.35)" />
                     <rect x="314" y="70" width="36" height="36" rx="6" stroke="#00C9B1" fill="rgba(13,17,23,0.35)" />
-                    <text x="14" y="92" fill="rgba(240,237,232,0.55)" font-size="10" font-family="Inter, sans-serif">
+                    <text
+                      x="14"
+                      y="92"
+                      fill="rgba(240,237,232,0.55)"
+                      font-size="10"
+                      font-family="-apple-system, BlinkMacSystemFont, sans-serif">
                       Formulaire
                     </text>
-                    <text x="96" y="92" fill="rgba(240,237,232,0.55)" font-size="10" font-family="Inter, sans-serif">
+                    <text
+                      x="96"
+                      y="92"
+                      fill="rgba(240,237,232,0.55)"
+                      font-size="10"
+                      font-family="-apple-system, BlinkMacSystemFont, sans-serif">
                       Claude IA
                     </text>
-                    <text x="178" y="92" fill="rgba(240,237,232,0.55)" font-size="10" font-family="Inter, sans-serif">
+                    <text
+                      x="178"
+                      y="92"
+                      fill="rgba(240,237,232,0.55)"
+                      font-size="10"
+                      font-family="-apple-system, BlinkMacSystemFont, sans-serif">
                       n8n
                     </text>
-                    <text x="246" y="92" fill="rgba(240,237,232,0.55)" font-size="10" font-family="Inter, sans-serif">
+                    <text
+                      x="246"
+                      y="92"
+                      fill="rgba(240,237,232,0.55)"
+                      font-size="10"
+                      font-family="-apple-system, BlinkMacSystemFont, sans-serif">
                       Email
                     </text>
-                    <text x="318" y="92" fill="rgba(240,237,232,0.55)" font-size="10" font-family="Inter, sans-serif">
+                    <text
+                      x="318"
+                      y="92"
+                      fill="rgba(240,237,232,0.55)"
+                      font-size="10"
+                      font-family="-apple-system, BlinkMacSystemFont, sans-serif">
                       CRM
                     </text>
                     <path
@@ -1529,7 +1697,7 @@
 
       <footer class="footer">
         <div class="wrap">
-          <div class="footer__logo">PINAPP</div>
+          <div class="footer__logo">Pinapp Inc.</div>
           <p class="footer__tag">L'intelligence au service de votre liberté.</p>
           <nav class="footer__links" aria-label="Liens pied de page">
             <a href="/legal/mentions-legales.html">Mentions légales</a>
@@ -1546,7 +1714,7 @@
       </footer>
     </div>
 
-    <script src="/script.js?v=10" defer></script>
+    <script src="/script.js?v=20260415" defer></script>
     <script src="/assets/js/pandora-fx.js?v=1" defer></script>
     <!-- Pandora TDAH : modale Tally -->
     <div class="tdah-modal-overlay" id="tallyModal" role="dialog" aria-modal="true" aria-labelledby="tdahModalTitle">

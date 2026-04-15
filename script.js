@@ -31,6 +31,7 @@
       document.body.classList.toggle('day', next === 'light');
       localStorage.setItem('pinapp-vitrine-theme', next);
       setThemeAria(btn, next === 'light');
+      window.dispatchEvent(new Event('resize'));
     });
   }
 
@@ -145,6 +146,8 @@
     if (!ctx) return;
 
     var particles = [];
+    var stars = [];
+    var flares = [];
     var nebulae = [];
     var rays = [
       { offset: 0, speed: 0.35, width: 1.2, len: 2.4 },
@@ -167,20 +170,63 @@
     }
 
     function spawn(w, h) {
-      particles.length = 0;
-      nebulae.length = 0;
       var i;
-      for (i = 0; i < 80; i++) {
+      particles.length = 0;
+      stars.length = 0;
+      flares.length = 0;
+      nebulae.length = 0;
+
+      for (i = 0; i < 32; i++) {
         particles.push({
           x: Math.random() * w,
           y: Math.random() * h,
-          vx: (Math.random() < 0.5 ? -1 : 1) * (0.2 + Math.random() * 0.3),
-          vy: (Math.random() < 0.5 ? -1 : 1) * (0.2 + Math.random() * 0.3),
-          r: 1 + Math.random() * 2,
-          base: 0.06 + Math.random() * 0.12,
+          vx: (Math.random() < 0.5 ? -1 : 1) * (0.12 + Math.random() * 0.22),
+          vy: (Math.random() < 0.5 ? -1 : 1) * (0.12 + Math.random() * 0.22),
+          r: 1.2 + Math.random() * 2.2,
+          base: 0.05 + Math.random() * 0.09,
           phase: Math.random() * Math.PI * 2,
         });
       }
+
+      var starCount = Math.min(220, Math.floor((w * h) / 9000) + 90);
+      for (i = 0; i < starCount; i++) {
+        stars.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.42,
+          vy: (Math.random() - 0.5) * 0.36,
+          r: 0.35 + Math.random() * 1.45,
+          phase: Math.random() * Math.PI * 2,
+          tw: 0.35 + Math.random() * 0.65,
+          kind: Math.random() < 0.82 ? 0 : 1,
+        });
+      }
+      if (isLight()) {
+        var extra = Math.min(85, Math.floor((w * h) / 12000) + 40);
+        for (i = 0; i < extra; i++) {
+          stars.push({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            vx: (Math.random() - 0.5) * 0.3,
+            vy: (Math.random() - 0.5) * 0.26,
+            r: 0.4 + Math.random() * 1.35,
+            phase: Math.random() * Math.PI * 2,
+            tw: 0.42 + Math.random() * 0.48,
+            kind: Math.random() < 0.62 ? 1 : 0,
+          });
+        }
+      }
+
+      for (i = 0; i < 5; i++) {
+        flares.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: Math.min(w, h) * (0.28 + Math.random() * 0.22),
+          phase: Math.random() * Math.PI * 2,
+          spd: 0.14 + Math.random() * 0.12,
+        });
+      }
+
       for (i = 0; i < 5; i++) {
         nebulae.push({
           x: Math.random() * w,
@@ -198,8 +244,8 @@
       var light = isLight();
       var col =
         n.hue === 'violet' || light
-          ? 'rgba(123,94,167,' + n.opacity * (light ? 1.2 : 1) + ')'
-          : 'rgba(0,201,177,' + n.opacity + ')';
+          ? 'rgba(196,181,253,' + n.opacity * (light ? 1.38 : 1) + ')'
+          : 'rgba(0,229,176,' + n.opacity * (light ? 1.15 : 1) + ')';
       var driftX = Math.sin(now / 8000 + n.phase) * 0.8;
       var driftY = Math.cos(now / 9000 + n.phase) * 0.6;
       n.x += driftX * 0.1 + 0.02 * Math.sin(now / 4000 + n.phase);
@@ -219,13 +265,79 @@
       ctx.restore();
     }
 
+    function drawFlares(w, h, now, light, elapsed) {
+      var i;
+      var f;
+      var t;
+      var cx;
+      var cy;
+      ctx.save();
+      ctx.globalCompositeOperation = light ? 'soft-light' : 'lighter';
+      for (i = 0; i < flares.length; i++) {
+        f = flares[i];
+        t = now / 1000 * f.spd + f.phase;
+        cx = f.x + Math.sin(t) * w * 0.1;
+        cy = f.y + Math.cos(t * 0.85) * h * 0.08;
+        var g = ctx.createRadialGradient(cx, cy, 0, cx, cy, f.r);
+        if (light) {
+          g.addColorStop(0, 'rgba(200, 235, 255,' + (light ? 0.09 : 0.07) + ')');
+          g.addColorStop(0.45, 'rgba(127,255,234,' + (light ? 0.05 : 0.04) + ')');
+          g.addColorStop(1, 'rgba(0,0,0,0)');
+        } else {
+          g.addColorStop(0, 'rgba(232,248,255,' + (0.05 + 0.02 * Math.sin(elapsed / 3500 + f.phase)) + ')');
+          g.addColorStop(0.42, 'rgba(179,136,255,' + (0.045 + 0.015 * Math.sin(elapsed / 4200 + f.phase)) + ')');
+          g.addColorStop(1, 'rgba(0,0,0,0)');
+        }
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(cx, cy, f.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+      ctx.globalCompositeOperation = 'source-over';
+    }
+
+    function drawStars(w, h, elapsed, light, move) {
+      var i;
+      var s;
+      var tw;
+      var a;
+      var col;
+      for (i = 0; i < stars.length; i++) {
+        s = stars[i];
+        if (move) {
+          s.x += s.vx;
+          s.y += s.vy;
+          if (s.x < -3) s.x = w + 3;
+          else if (s.x > w + 3) s.x = -3;
+          if (s.y < -3) s.y = h + 3;
+          else if (s.y > h + 3) s.y = -3;
+        }
+        tw = 0.52 + 0.48 * Math.sin(elapsed / (900 + s.phase * 120) + s.phase);
+        a = s.tw * tw * (light ? 0.84 : 1);
+        a = Math.min(light ? 0.7 : 0.95, a);
+        col =
+          s.kind === 1
+            ? light
+              ? 'rgba(160, 245, 255,'
+              : 'rgba(0,229,176,'
+            : light
+              ? 'rgba(215, 248, 255,'
+              : 'rgba(230,242,255,';
+        ctx.fillStyle = col + a + ')';
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
     function drawRays(w, h, now) {
       var light = isLight();
-      var alpha = light ? 0.015 : 0.02;
-      var col = light ? '123,94,167' : '0,201,177';
+      var alpha = light ? 0.038 : 0.026;
+      var col = light ? '120,200,230' : '0,229,176';
       ctx.save();
       ctx.strokeStyle = 'rgba(' + col + ',' + alpha + ')';
-      ctx.lineWidth = 1;
+      ctx.lineWidth = light ? 1.15 : 1;
       var i;
       for (i = 0; i < rays.length; i++) {
         var r = rays[i];
@@ -256,7 +368,10 @@
         drawNebula(nebulae[i], w, h, now);
       }
 
+      drawFlares(w, h, now, light, elapsed);
       drawRays(w, h, now);
+
+      drawStars(w, h, elapsed, light, true);
 
       for (i = 0; i < particles.length; i++) {
         var p = particles[i];
@@ -279,8 +394,8 @@
 
         var pulse = 0.75 + 0.25 * Math.sin(elapsed / 2000 + p.phase);
         var base = p.base * (light ? 0.35 : 1);
-        var a = Math.min(0.22, base * pulse);
-        ctx.fillStyle = light ? 'rgba(123,94,167,' + a + ')' : 'rgba(0,201,177,' + a + ')';
+        var a2 = Math.min(0.22, base * pulse);
+        ctx.fillStyle = light ? 'rgba(196,181,253,' + a2 + ')' : 'rgba(0,229,176,' + a2 + ')';
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
@@ -303,10 +418,15 @@
       var w = window.innerWidth;
       var h = window.innerHeight;
       var once = performance.now();
+      var light = isLight();
+      var elapsed = once - t0;
       for (var j = 0; j < nebulae.length; j++) drawNebula(nebulae[j], w, h, once);
+      drawFlares(w, h, once, light, elapsed);
+      drawRays(w, h, once);
+      drawStars(w, h, elapsed, light, false);
       for (var k = 0; k < particles.length; k++) {
         var p = particles[k];
-        ctx.fillStyle = isLight() ? 'rgba(123,94,167,0.04)' : 'rgba(0,201,177,0.1)';
+        ctx.fillStyle = light ? 'rgba(196,181,253,0.04)' : 'rgba(0,229,176,0.1)';
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
@@ -345,7 +465,7 @@
         var rect = hero.getBoundingClientRect();
         var x = e.clientX - rect.left;
         var y = e.clientY - rect.top;
-        var core = isLight() ? 'rgba(123,94,167,0.08)' : 'rgba(0,201,177,0.08)';
+        var core = isLight() ? 'rgba(196,181,253,0.08)' : 'rgba(0,229,176,0.08)';
         layer.style.background =
           'radial-gradient(circle 9.375rem at ' +
           x +
@@ -565,6 +685,11 @@
           if (inp.type === 'radio' || inp.type === 'checkbox') return;
           if (!inp.checkValidity()) valid = false;
         });
+        step.querySelectorAll('textarea[minlength], input[minlength]').forEach(function (inp) {
+          if (inp.type === 'radio' || inp.type === 'checkbox') return;
+          var m = parseInt(String(inp.getAttribute('minlength') || '0'), 10);
+          if (m > 0 && (inp.value || '').trim().length < m) valid = false;
+        });
         var radios = step.querySelectorAll('input[type="radio"][required]');
         var seen = {};
         radios.forEach(function (r) {
@@ -636,22 +761,77 @@
       });
     }
 
+    function labelForField(panel, field) {
+      if (field.id) {
+        var lb = panel.querySelector('label[for="' + field.id + '"]');
+        if (lb && lb.textContent) return lb.textContent.replace(/\s+/g, ' ').trim();
+      }
+      if (field.type === 'radio' && field.checked) {
+        var fs = field.closest('fieldset');
+        if (fs) {
+          var leg = fs.querySelector('legend');
+          if (leg && leg.textContent) return leg.textContent.replace(/\s+/g, ' ').trim();
+        }
+      }
+      return field.name || field.id || 'champ';
+    }
+
     function buildBody(panel) {
       var lines = [];
-      lines.push('— Demande Pinapp (vitrine) —');
-      lines.push('Onglet : ' + (panel.dataset.label || ''));
+      var label = panel.dataset.label || '';
+      lines.push('=== DEMANDE PINAPP — BLOC POUR CLAUDE (copier-coller) ===');
+      lines.push('Horodatage (navigateur) : ' + new Date().toISOString());
+      lines.push('Canal : ' + label);
+      lines.push('--- DONNEES ---');
+
+      var byName = {};
       panel.querySelectorAll('input, textarea, select').forEach(function (field) {
-        if (field.type === 'button') return;
-        if ((field.type === 'radio' || field.type === 'checkbox') && !field.checked) return;
-        var label = field.name || field.id || 'champ';
-        var val = field.value;
-        if (field.type === 'radio' || field.type === 'checkbox')
-          val = field.checked ? field.value : '';
-        if (val) lines.push(label + ' : ' + val);
+        if (field.type === 'button' || field.type === 'submit') return;
+        if (field.type === 'radio' && !field.checked) return;
+        if (field.type === 'checkbox' && !field.checked) return;
+        var nm = field.name || field.id || 'champ';
+        var val = (field.value || '').trim();
+        if (field.type === 'checkbox' && field.checked) val = field.value;
+        if (!val) return;
+        if (field.type === 'checkbox') {
+          if (!byName[nm]) byName[nm] = [];
+          byName[nm].push(val);
+        } else {
+          byName[nm] = val;
+        }
       });
+
+      Object.keys(byName).forEach(function (k) {
+        var v = byName[k];
+        var displayKey = k;
+        if (Array.isArray(v)) {
+          lines.push(displayKey + ' : ' + v.join(', '));
+        } else {
+          var sample = panel.querySelector('[name="' + k.replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"]');
+          if (!sample && k.indexOf(' ') === -1) sample = panel.querySelector('#' + k);
+          if (sample && sample.id) {
+            var lk = labelForField(panel, sample);
+            if (lk && lk !== k) displayKey = lk;
+          }
+          lines.push(displayKey + ' : ' + v);
+        }
+      });
+
+      lines.push('--- CONSIGNE POUR CLAUDE ---');
+      lines.push(
+        'À partir de DONNEES ci-dessus, produire : (1) résumé exécutif 5 phrases max ; (2) hypothèses et risques ; (3) questions de clarification numérotées ; (4) proposition de prochaine étape concrète (appel, audit, devis) avec priorité P0–P2.',
+      );
       lines.push('');
-      lines.push('Contact : contact@pinapp.fr');
-      return lines.join('\n');
+      lines.push('Réponse à : contact@pinapp.fr');
+
+      var body = lines.join('\n');
+      var maxRaw = 1100;
+      if (body.length > maxRaw) {
+        body =
+          body.slice(0, maxRaw) +
+          '\n\n[Troncature : message trop long pour mailto — envoyer le reste dans un 2e mail ou via Tally.]';
+      }
+      return body;
     }
 
     activate('tab-laura');

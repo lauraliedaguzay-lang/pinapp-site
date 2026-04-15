@@ -4,7 +4,7 @@ Site statique (HTML / CSS / JS) pour **pinapp.fr**.
 
 ### Ajouter vidéos, photos, démos (Lauralie & Micha)
 
-Tout est expliqué dans **[`GUIDE-CONTENU.md`](./GUIDE-CONTENU.md)** : emplacements des fichiers, noms imposés (loader, portfolio Micha), remplacement des photos Unsplash des démos, création d’un nouveau site sous `demo/`, checklist avant mise en ligne. Les fichiers `assets/js/config.js` et `assets/js/demo-photo-packs.js` pointent aussi vers ce guide en en-tête.
+Tout est expliqué dans `**[GUIDE-CONTENU.md](./GUIDE-CONTENU.md)`** : emplacements des fichiers, noms imposés (loader, portfolio Micha), remplacement des photos Unsplash des démos, création d’un nouveau site sous `demo/`, checklist avant mise en ligne. Les fichiers `assets/js/config.js` et `assets/js/demo-photo-packs.js` pointent aussi vers ce guide en en-tête.
 
 ## Dépôt GitHub
 
@@ -35,12 +35,14 @@ git push -u origin main
 
 ## Outils de développement (frameworks / chaîne locale)
 
-Le site reste **HTML + CSS + JS vanilla** en production (pas de React/Vue). La chaîne locale repose sur **Node** (dépendances npm) et sur **`pinapp.ps1`** pour dev, format, CI et build :
+Le site reste **HTML + CSS + JS vanilla** en production (pas de React/Vue). La chaîne locale repose sur **Node** (dépendances npm) et sur `**pinapp.ps1`** pour dev, format, CI et build :
+
 
 | Outil                                | Rôle                                                                                            |
 | ------------------------------------ | ----------------------------------------------------------------------------------------------- |
 | **[Vite](https://vitejs.dev/)**      | Serveur de dev multi-pages (`appType: 'mpa'`), rechargement rapide, chemins comme en HTTP réel. |
 | **[Prettier](https://prettier.io/)** | Formatage optionnel HTML/CSS/JS/JSON/YAML.                                                      |
+
 
 **Prérequis :** [Node.js 20+](https://nodejs.org/)
 
@@ -52,11 +54,11 @@ Set-Location pinapp-site
 
 - Équivalent npm : `npm install` puis `npm run dev` (les scripts `package.json` appellent déjà `pinapp.ps1`).
 - La fenêtre du terminal doit **rester ouverte** : sinon le navigateur affiche **ERR_CONNECTION_REFUSED**.
-- URL : **`http://127.0.0.1:5173/`** ou `http://localhost:5173/` (le serveur écoute sur toutes les interfaces).
+- URL : `**http://127.0.0.1:5173/`** ou `http://localhost:5173/` (le serveur écoute sur toutes les interfaces).
 
 #### PowerShell par défaut (Windows et entrée CI)
 
-À la racine du dépôt, le script **`pinapp.ps1`** regroupe les tâches courantes (équivalent : `npm run pinapp -- …`) :
+À la racine du dépôt, le script `**pinapp.ps1**` regroupe les tâches courantes (équivalent : `npm run pinapp -- …`) :
 
 ```powershell
 Set-Location $env:USERPROFILE\Projects\pinapp-site
@@ -84,35 +86,35 @@ Les pages profondes fonctionnent en MPA (`/offres/index.html`, etc.).
 
 ## Déploiement prévisualisation (GitHub Pages)
 
-Après chaque push sur **`main`**, le workflow **Déployer GitHub Pages** publie le site.
+Après chaque push sur `**main`**, le workflow **Déployer GitHub Pages** publie le site.
 
 1. Sur GitHub : **Settings → Pages** → **Build and deployment** : source **GitHub Actions** (pas « Deploy from a branch »).
-2. Au premier déploiement, autorisez l’environnement **`github-pages`** si GitHub le demande.
+2. Au premier déploiement, autorisez l’environnement `**github-pages`** si GitHub le demande.
 3. URL du site : **[https://lauraliedaguzay-lang.github.io/pinapp-site/](https://lauraliedaguzay-lang.github.io/pinapp-site/)**
-   - Ouvrir **exactement** ce lien (avec **`/pinapp-site/`**).
-   - **`https://lauraliedaguzay-lang.github.io/`** seul → **404** (normal : ce n’est pas un site « utilisateur » à la racine).
+  - Ouvrir **exactement** ce lien (avec `**/pinapp-site/`**).
+  - `**https://lauraliedaguzay-lang.github.io/**` seul → **404** (normal : ce n’est pas un site « utilisateur » à la racine).
 
 ### Si vous voyez encore une 404
 
 1. **Settings → Pages** : la source doit être **GitHub Actions**, pas « Deploy from a branch ».
 2. **Actions** : le workflow **Déployer GitHub Pages** doit être vert ; en cas d’échec, ouvrir le log du job **deploy**.
-3. **Environnement** : au premier déploiement, valider **`github-pages`** dans **Settings → Environments** si une protection est activée.
+3. **Environnement** : au premier déploiement, valider `**github-pages`** dans **Settings → Environments** si une protection est activée.
 4. Dépôt **privé** sur compte gratuit : vérifiez la [doc GitHub Pages](https://docs.github.com/pages) (visibilité du site).
 5. Relancer manuellement : **Actions → Déployer GitHub Pages → Run workflow**.
 
-Les fichiers **`.htaccess`** (Apache) ne s’appliquent pas sur Pages ; pour la prod **pinapp.fr**, utilisez **Hostinger** (ou équivalent) avec le ZIP ou le FTP.
+Les fichiers `**.htaccess`** (Apache) ne s’appliquent pas sur Pages ; pour la prod **pinapp.fr**, utilisez **Hostinger** (ou équivalent) avec le ZIP ou le FTP.
 
-Sous **Windows**, pour les enregistrements DNS et la vérification HTTP : **`.\pinapp.ps1 suite`**, **`.\pinapp.ps1 dns`**, ou en cas de **403 sur pinapp.fr** : **`.\pinapp.ps1 403`** ou **`.\pinapp.ps1 diagnose-fr`**, puis **`.\pinapp.ps1 corrige-fr`** après **`gh auth login`** pour pousser le domaine sur GitHub (API).
+Sous **Windows**, pour les enregistrements DNS et la vérification HTTP : `**.\pinapp.ps1 suite`**, `**.\pinapp.ps1 dns**`, ou en cas de **403 sur pinapp.fr** : `**.\pinapp.ps1 403`** ou `**.\pinapp.ps1 diagnose-fr**`, puis `**.\pinapp.ps1 corrige-fr**` après `**gh auth login**` pour pousser le domaine sur GitHub (API).
 
 ## Déploiement production (pinapp.fr)
 
-- Hébergement type **Hostinger** (Apache) : uploader le contenu du dossier à la racine du domaine, en conservant **`.htaccess`** à la racine.
+- Hébergement type **Hostinger** (Apache) : uploader le contenu du dossier à la racine du domaine, en conservant `**.htaccess`** à la racine.
 - ZIP complet pour Netlify manuel : `powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\package-netlify.ps1` (voir `DEPLOIEMENT-NETLIFY.txt`).
-- Vérifiez que **`/.well-known/security.txt`** est accessible en HTTPS.
+- Vérifiez que `**/.well-known/security.txt**` est accessible en HTTPS.
 - Ne déployez **jamais** `.htpasswd` ni `.env` via le dépôt : créez le fichier mot de passe **uniquement sur le serveur**.
 
 Détails sécurité et signalement : voir **[SECURITY.md](./SECURITY.md)**.
 
 ## CI GitHub
 
-Les workflows **Site — vérifications** et **Déployer GitHub Pages** enchaînent **`pwsh -File ./pinapp.ps1 install`**, puis **`ci`** (Prettier + garde-fous Node) et **`build`** sur `main`. Même logique qu’en local avec **`.\pinapp.ps1 ship`**. Après déploiement Pages, l’étape **pinapp.fr** appelle **`pwsh -File ./tools/ci/pinapp-fr-sync.ps1`** (DNS Hostinger + domaine GitHub ; équivalent historique : `pinapp-fr-sync.py`).
+Les workflows **Site — vérifications** et **Déployer GitHub Pages** enchaînent `**pwsh -File ./pinapp.ps1 install`**, puis `**ci**` (Prettier + garde-fous Node) et `**build**` sur `main`. Même logique qu’en local avec `**.\pinapp.ps1 ship**`. Après déploiement Pages, l’étape **pinapp.fr** appelle `**pwsh -File ./tools/ci/pinapp-fr-sync.ps1`** (DNS Hostinger + domaine GitHub ; équivalent historique : `pinapp-fr-sync.py`).
