@@ -35,8 +35,6 @@
     <link rel="stylesheet" href="assets/variables.css" />
     <link rel="stylesheet" href="assets/grid.css" />
     <link rel="stylesheet" href="assets/animations.css" />
-    <link rel="preconnect" href="https://fonts.bunny.net" />
-    <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" />
     <link rel="stylesheet" href="assets/css/pandora-dance.css" />
     <link rel="stylesheet" href="assets/css/ios-glass.css" />
     <link rel="stylesheet" href="assets/css/apple-finish.css" />
@@ -44,29 +42,45 @@
     <link rel="stylesheet" href="assets/css/pinapp-premium.css" />
     <link rel="stylesheet" href="assets/css/neuro-layout.css" />
     <link rel="stylesheet" href="/assets/css/pinapp-master-v3.css" />
+    <link rel="stylesheet" href="/assets/css/pinapp-master-v4.css" />
   </head>
   <body class="page-with-bottom-nav">
-    <div id="pandora-loader" aria-hidden="true">
-      <svg width="32" height="38" viewBox="0 0 32 38" fill="none">
-        <defs>
-          <linearGradient id="pg-l" x1="16" y1="36" x2="16" y2="2" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#7B4FE8" />
-            <stop offset="100%" stop-color="#00E5CC" />
-          </linearGradient>
-        </defs>
-        <path d="M16 2 C13 5 10 6 11 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
-        <path d="M16 2 L16 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" />
-        <path d="M16 2 C19 5 22 6 21 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
-        <ellipse cx="16" cy="24" rx="9" ry="12" fill="url(#pg-l)" />
-        <path d="M7 20 L16 15 L25 20 L16 25 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
-        <path d="M7 26 L16 21 L25 26 L16 31 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
-      </svg>
+    <div id="pandora-loader" class="pinapp-cinema-loader" aria-hidden="true">
+      <div class="pinapp-cinema-loader__aurora" aria-hidden="true"></div>
+      <div class="pinapp-cinema-loader__video-wrap">
+        <video
+          class="pinapp-cinema-loader__video"
+          autoplay
+          muted
+          playsinline
+          loop
+          preload="metadata"
+          poster="/assets/images/bg-pandora-nuit.png">
+          <source src="/assets/video/pinapp-loader-intro.webm" type="video/webm" />
+          <source src="/assets/video/pinapp-loader-intro.mp4" type="video/mp4" />
+        </video>
+        <div class="pinapp-cinema-loader__veil" aria-hidden="true"></div>
+        <div class="pinapp-cinema-loader__hud" aria-hidden="true">
+          <span class="pinapp-cinema-loader__corner pinapp-cinema-loader__corner--tl"></span>
+          <span class="pinapp-cinema-loader__corner pinapp-cinema-loader__corner--tr"></span>
+          <span class="pinapp-cinema-loader__corner pinapp-cinema-loader__corner--bl"></span>
+          <span class="pinapp-cinema-loader__corner pinapp-cinema-loader__corner--br"></span>
+          <div class="pinapp-cinema-loader__voice" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
     </div>
     <script>
       (function () {
         function hideLoader() {
           var l = document.getElementById('pandora-loader');
           if (l && l.parentNode) {
+            var _pinappV = l.querySelector('video');
+            if (_pinappV)
+              try {
+                _pinappV.pause();
+              } catch (_e) {}
             l.style.opacity = '0';
             setTimeout(function () {
               if (l.parentNode) l.remove();
@@ -239,7 +253,7 @@
           line-height: 1.7;
           max-width: 420px;
           font-style: italic;
-          font-family: Georgia, serif;
+          font-family: ui-serif, 'Iowan Old Style', 'Apple Garamond', serif;
         ">
         Peut-être est-ce un signe de commencer quelque chose de nouveau.
       </p>
@@ -362,5 +376,7 @@
     <script src="assets/js/scroll-cinema.js" defer></script>
     <script src="assets/js/bio-particles.js" defer></script>
     <script src="/assets/js/pinapp-master-v3.js" defer></script>
+    <script src="/assets/js/pinapp-master-v4.js" defer></script>
   </body>
 </html>
+

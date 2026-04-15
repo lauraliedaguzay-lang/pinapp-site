@@ -78,13 +78,15 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true, root
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/svg+xml" href="${a('/favicon.svg')}">
-  <link rel="preload" href="${a('/assets/fonts/inter-var.woff2')}" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="${a('/assets/variables.css')}">
   <link rel="stylesheet" href="${a('/assets/grid.css')}">
+  <link rel="stylesheet" href="${a('/assets/css/pinapp-loader-cinema.css')}">
   <link rel="stylesheet" href="${a('/assets/animations.css')}">
   <link rel="stylesheet" href="${a('/assets/css/aurora-mobile.css')}">
   <link rel="stylesheet" href="${a('/assets/css/cursor.css')}">
   <link rel="stylesheet" href="${a('/assets/css/pandora-ux.css')}">
+  <link rel="stylesheet" href="${a('/assets/css/pinapp-neurodiversite.css')}">
+  <link rel="stylesheet" href="${a('/assets/css/pinapp-futur-cinema.css')}">
   ${
     includeLdJson
       ? `<script type="application/ld+json">
@@ -96,13 +98,32 @@ export function shell(title, desc, ogPath, mainInner, includeLdJson = true, root
 <body class="page-with-bottom-nav">
   <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
   <div class="scroll-progress" id="scrollProgress"></div>
-  <div id="loader" role="status" aria-label="Chargement">
-    <svg viewBox="0 0 40 48" width="48" height="58" fill="none" stroke="var(--accent-teal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M20 2 C16 6 12 8 14 12"/><path d="M20 2 C20 7 20 9 20 12"/><path d="M20 2 C24 6 28 8 26 12"/>
-      <ellipse cx="20" cy="30" rx="12" ry="16"/>
-      <path d="M8 24 L20 18 L32 24 L20 30 Z"/><path d="M8 30 L20 24 L32 30 L20 36 Z"/><path d="M8 36 L20 30 L32 36 L20 42 Z"/>
-    </svg>
-    <p>Pinapp se prépare.</p>
+  <div id="loader" class="pinapp-cinema-loader" role="status" aria-label="Chargement">
+    <div class="pinapp-cinema-loader__aurora" aria-hidden="true"></div>
+    <div class="pinapp-cinema-loader__video-wrap">
+      <video
+        class="pinapp-cinema-loader__video"
+        autoplay
+        muted
+        playsinline
+        loop
+        preload="metadata"
+        poster="${a('/assets/images/bg-pandora-nuit.png')}"
+      >
+        <source src="${a('/assets/video/pinapp-loader-intro.webm')}" type="video/webm" />
+        <source src="${a('/assets/video/pinapp-loader-intro.mp4')}" type="video/mp4" />
+      </video>
+      <div class="pinapp-cinema-loader__veil" aria-hidden="true"></div>
+      <div class="pinapp-cinema-loader__hud" aria-hidden="true">
+        <span class="pinapp-cinema-loader__corner pinapp-cinema-loader__corner--tl"></span>
+        <span class="pinapp-cinema-loader__corner pinapp-cinema-loader__corner--tr"></span>
+        <span class="pinapp-cinema-loader__corner pinapp-cinema-loader__corner--bl"></span>
+        <span class="pinapp-cinema-loader__corner pinapp-cinema-loader__corner--br"></span>
+        <div class="pinapp-cinema-loader__voice" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="noise-overlay" aria-hidden="true"></div>
   <div class="aurora-mobile" aria-hidden="true">
@@ -669,15 +690,15 @@ const pages = [
               <svg width="100" height="100" viewBox="0 0 100 100" aria-hidden="true">
                 <circle cx="50" cy="50" r="36" fill="none" stroke="rgba(62,235,214,0.18)" stroke-width="3"/>
                 <circle cx="50" cy="50" r="36" fill="none" stroke="#3EEBD6" stroke-width="3" stroke-dasharray="226" stroke-dashoffset="68" stroke-linecap="round" transform="rotate(-90 50 50)"/>
-                <text x="50" y="50" text-anchor="middle" dominant-baseline="central" font-family="Jost,sans-serif" font-size="20" font-weight="600" fill="#E4F7F3">82</text>
-                <text x="50" y="65" text-anchor="middle" font-family="Jost,sans-serif" font-size="8" fill="rgba(228,247,243,0.5)">/100</text>
+                <text x="50" y="50" text-anchor="middle" dominant-baseline="central" font-family="system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="20" font-weight="600" fill="#E4F7F3">82</text>
+                <text x="50" y="65" text-anchor="middle" font-family="system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="8" fill="rgba(228,247,243,0.5)">/100</text>
               </svg>
               <div style="width:100%;">
-                <p style="font-size:10px;opacity:0.5;margin-bottom:6px;font-family:Jost,sans-serif;letter-spacing:0.1em;">BIEN-ÊTRE</p>
+                <p style="font-size:10px;opacity:0.5;margin-bottom:6px;font-family:system-ui,-apple-system,sans-serif;letter-spacing:0.1em;">BIEN-ÊTRE</p>
                 <div style="height:3px;background:rgba(62,235,214,0.18);border-radius:100px;"><div class="auralis-bar" style="height:3px;width:68%;"></div></div>
               </div>
               <div style="background:rgba(62,235,214,0.06);border:1px solid rgba(62,235,214,0.12);border-radius:12px;padding:10px;width:100%;">
-                <p style="font-size:11px;opacity:0.7;font-family:Jost,sans-serif;line-height:1.5;">Votre semaine semble chargée. Une pause de 10 min est disponible.</p>
+                <p style="font-size:11px;opacity:0.7;font-family:system-ui,-apple-system,sans-serif;line-height:1.5;">Votre semaine semble chargée. Une pause de 10 min est disponible.</p>
               </div>
             </div>
           </div>

@@ -1,5 +1,8 @@
 ﻿PORTFOLIO MICHA — IMAGES À GLISSER ICI
 =======================================
+
+→ Guide détaillé (carousel, checklist, autres médias) : GUIDE-CONTENU.md à la racine du dépôt.
+
 Format : WebP · Qualité 85% · Compression optimale
 
 PHOTOS :

@@ -1,0 +1,84 @@
+/* ============================================================
+   PINAPP — SIGNATURE UX (couche « expérience unique »)
+   Calque atmosphère + détails futuristes · respecte prefers-reduced-motion
+   Le pointeur pilote une lueur (injectée en #pinapp-signature-atmosphere par JS)
+   ============================================================ */
+
+:root {
+  --pinapp-glow-x: 50vw;
+  --pinapp-glow-y: 38vh;
+}
+
+#pinapp-signature-atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      72vmin circle at var(--pinapp-glow-x) var(--pinapp-glow-y),
+      rgba(0, 229, 204, 0.14),
+      transparent 52%
+    ),
+    radial-gradient(
+      48vmin circle at calc(var(--pinapp-glow-x) + 12vw) calc(var(--pinapp-glow-y) - 8vh)),
+      rgba(179, 136, 255, 0.08),
+      transparent 50%
+    );
+  mix-blend-mode: screen;
+  opacity: 0.55;
+  transition: opacity 0.6s ease;
+}
+
+html[data-theme='light'] #pinapp-signature-atmosphere {
+  background:
+    radial-gradient(
+      68vmin circle at var(--pinapp-glow-x) var(--pinapp-glow-y),
+      rgba(127, 255, 234, 0.12),
+      transparent 52%
+    ),
+    radial-gradient(
+      42vmin circle at calc(var(--pinapp-glow-x) - 10vw) calc(var(--pinapp-glow-y) + 6vh)),
+      rgba(196, 181, 253, 0.08),
+      transparent 48%
+    );
+  mix-blend-mode: soft-light;
+  opacity: 0.45;
+}
+
+html[data-pinapp-ux='calm'] #pinapp-signature-atmosphere {
+  display: none !important;
+}
+
+/* Barre de progression : plus « système » */
+#progress {
+  height: 2px;
+  box-shadow:
+    0 0 12px rgba(0, 229, 204, 0.35),
+    0 0 28px rgba(123, 79, 232, 0.2);
+  filter: saturate(1.1);
+}
+
+[data-theme='light'] #progress {
+  box-shadow:
+    0 0 14px rgba(127, 255, 234, 0.3),
+    0 0 24px rgba(167, 139, 250, 0.15);
+}
+
+/* Navigation : léger halo au repos (profondeur cockpit) */
+.nav {
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+}
+
+/* Liens internes hash : cible visible après scroll */
+:target {
+  scroll-margin-top: calc(64px + env(safe-area-inset-top, 0px) + 12px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #progress {
+    box-shadow: none;
+    filter: none;
+  }
+}

@@ -59,4 +59,4 @@ Remplace chaque bloc par ta valeur, puis supprime le marqueur.
 - **`formations/index.html`** — redirection `noindex` vers `offres/formation/`.
 - **`memoire-et-presence/index.html`** — page brouillon à personnaliser.
 
-Après remplacement : `npm run ci`, puis vérification manuelle des liens `mailto:`, paiements et workflows n8n.
+Après remplacement : `.\pinapp.ps1 ci` (ou `npm run ci`), puis vérification manuelle des liens `mailto:`, paiements et workflows n8n.

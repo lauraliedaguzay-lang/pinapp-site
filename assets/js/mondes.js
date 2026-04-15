@@ -190,7 +190,7 @@ const Mondes = {
     content.innerHTML = `
       <div style="text-align:center;margin-bottom:36px;">
         <div style="font-size:48px;margin-bottom:12px;">${monde.emoji}</div>
-        <h2 style="font-family:Georgia,serif;font-size:clamp(32px,5vw,56px);font-weight:300;
+        <h2 style="font-family:ui-serif,'Iowan Old Style','Apple Garamond',serif;font-size:clamp(32px,5vw,56px);font-weight:300;
                    color:${monde.texte || 'var(--text)'};margin:0 0 8px;">${_he(monde.nom)}</h2>
         <p style="font-style:italic;color:${monde.accent1};font-size:16px;">"${_he(monde.tagline)}"</p>
       </div>
@@ -215,7 +215,7 @@ const Mondes = {
         </div>
         <div class="modal-info-block">
           <p class="modal-info-label" style="color:${monde.accent1}">VOS CLIENTS RESSENTENT</p>
-          <p class="modal-info-value" style="font-family:Georgia,serif;font-style:italic;font-size:15px;">
+          <p class="modal-info-value" style="font-family:ui-serif,'Iowan Old Style','Apple Garamond',serif;font-style:italic;font-size:15px;">
             ${monde.emotion}
           </p>
         </div>
@@ -229,7 +229,7 @@ const Mondes = {
       </blockquote>
 
       <div style="text-align:center;">
-        <p style="font-family:Georgia,serif;font-size:30px;color:var(--text);margin-bottom:4px;">
+        <p style="font-family:ui-serif,'Iowan Old Style','Apple Garamond',serif;font-size:30px;color:var(--text);margin-bottom:4px;">
           ${monde.prix}
         </p>
         <p style="font-size:13px;color:var(--text-3);margin-bottom:28px;">

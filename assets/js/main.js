@@ -1,5 +1,13 @@
 ﻿/* Pinapp Inc. — Main JS V2 */
 document.addEventListener('DOMContentLoaded', function () {
+  function pinappNeuroCalm() {
+    return (
+      document.documentElement.getAttribute('data-pinapp-calm') === '1' ||
+      (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+    );
+  }
+  var calm = pinappNeuroCalm();
+
   // ── PROGRESS
   var prog = document.getElementById('progress'),
     snap = document.querySelector('.snap-container');
@@ -30,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // ── CURSEUR + TRAÎNÉE
   var cur = document.getElementById('cursor'),
     trail = document.getElementById('cursor-trail');
-  if (cur && window.matchMedia('(hover:hover)').matches) {
+  if (cur && window.matchMedia('(hover:hover)').matches && !calm) {
     var tx = 0,
       ty = 0;
     document.addEventListener('mousemove', function (e) {
@@ -58,29 +66,39 @@ document.addEventListener('DOMContentLoaded', function () {
   // ── INTERSECTION OBSERVER
   var anims = document.querySelectorAll('.anim-fade,.anim-up,.anim-scale,.anim-left,.anim-right');
   if (anims.length) {
-    var io = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) {
-            var d = parseInt(e.target.dataset.delay || 0);
-            setTimeout(function () {
-              e.target.classList.add('visible');
-            }, d);
-            io.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
-    );
-    anims.forEach(function (el) {
-      io.observe(el);
-    });
+    if (calm) {
+      anims.forEach(function (el) {
+        el.classList.add('visible');
+      });
+    } else {
+      var io = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              var d = parseInt(e.target.dataset.delay || 0);
+              setTimeout(function () {
+                e.target.classList.add('visible');
+              }, d);
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
+      );
+      anims.forEach(function (el) {
+        io.observe(el);
+      });
+    }
   }
 
   // ── COUNT-UP
   document.querySelectorAll('.count-up').forEach(function (el) {
     var target = parseInt(el.dataset.target, 10),
       dur = 1800;
+    if (calm) {
+      if (target) el.textContent = target.toLocaleString('fr-FR');
+      return;
+    }
     var io2 = new IntersectionObserver(function (entries) {
       if (!entries[0].isIntersecting) return;
       io2.disconnect();
@@ -116,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
     );
     dots.forEach(function (d, i) {
       d.addEventListener('click', function () {
-        sects[i] && sects[i].scrollIntoView({ behavior: 'smooth' });
+        sects[i] && sects[i].scrollIntoView({ behavior: calm ? 'auto' : 'smooth' });
       });
     });
   }
@@ -207,21 +225,27 @@ document.addEventListener('DOMContentLoaded', function () {
   // ── GRAPHIQUES BARRES
   var bars = document.querySelectorAll('.bar[data-h]');
   if (bars.length) {
-    var bioBar = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) {
-            e.target.style.height = e.target.dataset.h + 'px';
-            bioBar.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.3 },
-    );
-    bars.forEach(function (b) {
-      b.style.height = '0';
-      bioBar.observe(b);
-    });
+    if (calm) {
+      bars.forEach(function (b) {
+        b.style.height = b.dataset.h + 'px';
+      });
+    } else {
+      var bioBar = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              e.target.style.height = e.target.dataset.h + 'px';
+              bioBar.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.3 },
+      );
+      bars.forEach(function (b) {
+        b.style.height = '0';
+        bioBar.observe(b);
+      });
+    }
   }
 
   // ── DONUT SVG

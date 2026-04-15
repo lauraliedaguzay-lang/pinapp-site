@@ -5,7 +5,7 @@
 
 .DESCRIPTION
   - Remet le PATH machine+user (comme pinapp-tout.ps1) pour trouver node/npm.
-  - Enchaîne : npm run format → npm run ci → npm run build (chacun peut être sauté).
+  - Enchaîne : npm run format → ci → build (scripts npm → pinapp.ps1 ; chaque étape peut être sautée).
   - Option -Commit : git add -A + git commit -m (obligatoire avec -Commit).
   - Pousse la branche courante vers origin (sauf -SkipPush).
   - Option -MergeMain : exécute pinapp-merge-deploy-main.ps1 (déclenche GitHub Pages sur main).

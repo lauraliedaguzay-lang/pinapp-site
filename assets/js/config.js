@@ -2,12 +2,19 @@
    PINAPP STUDIO — config.js
    Configuration centralisée de tous les modules
 
-   SEUL FICHIER À ÉDITER pour brancher vos webhooks n8n.
-   Remplacez [TON-N8N] par votre sous-domaine n8n (voir aussi PINAPP-REMPLACEMENTS.md — [[PINAPP_TODO:).
-   Ex : https://lauralie.n8n.cloud/webhook/...
+   Médias (vidéos, photos, démos) : ne pas configurer ici.
+   → Voir GUIDE-CONTENU.md à la racine du dépôt.
 
-   FEATURE FLAGS : passez à true au fur et à mesure
-   que vous activez les workflows n8n correspondants.
+   Production (GitHub Actions / build) : définir les secrets
+   PINAPP_N8N_BASE_URL (ou PINAPP_N8N_HOST) et optionnellement
+   PINAPP_TALLY_DIAGNOSTIC_DEFAULT — le script inject-automation-config.mjs
+   réécrit _site/assets/js/config.js et diagnostic-tally.ids.js au build.
+   Fichier local : copier pinapp-automation.env.example → pinapp-automation.env
+
+   Développement sans build : remplacer manuellement https://[TON-N8N] par
+   votre base n8n (ex. https://lauralie.n8n.cloud) et passer les flags à true.
+
+   FEATURE FLAGS : false = désactivé même si l’URL est valide. true = actif si URL valide.
 
    Cohérence pages (payload.source pour n8n) :
    • diagnosticWebhook + diagnosticLead → /diagnostic/, /client/ (idées),
@@ -100,7 +107,7 @@ window.PinappConfig.sendOnboardingLead = function (answers) {
   if (
     !cfg ||
     !cfg.features ||
-    !cfg.features.onboardingWebhook ||
+    cfg.features.onboardingWebhook === false ||
     !cfg._isRealUrl(cfg.webhooks.onboarding)
   ) {
     return Promise.reject(new Error('onboarding webhook disabled'));
@@ -121,7 +128,7 @@ window.PinappConfig.sendDiagnosticLead = function (payload) {
   if (
     !cfg ||
     !cfg.features ||
-    !cfg.features.diagnosticWebhook ||
+    cfg.features.diagnosticWebhook === false ||
     !cfg._isRealUrl(cfg.webhooks.diagnosticLead)
   ) {
     return;
@@ -141,7 +148,7 @@ window.PinappConfig.sendDiagnosticClaudePrep = function (payload) {
   if (
     !cfg ||
     !cfg.features ||
-    !cfg.features.diagnosticClaudePrep ||
+    cfg.features.diagnosticClaudePrep === false ||
     !cfg._isRealUrl(cfg.webhooks.diagnosticClaudePrep)
   ) {
     return;

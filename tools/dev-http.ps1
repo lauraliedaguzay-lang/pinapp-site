@@ -14,7 +14,7 @@ $root = if ($Built) {
 if ($Built) {
     $indexBuilt = Join-Path $root 'index.html'
     if (-not (Test-Path -LiteralPath $indexBuilt)) {
-        Write-Error '_site introuvable ou sans index.html. Lance : npm run build (ou .\pinapp.ps1 build).'
+        Write-Error '_site introuvable ou sans index.html. Lance : .\pinapp.ps1 build (ou npm run build).'
     }
 }
 $prefix = 'http://127.0.0.1:' + $Port + '/'

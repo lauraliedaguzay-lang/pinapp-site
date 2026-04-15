@@ -1,8 +1,10 @@
-﻿FONTS SELF-HOSTED — PINAPP
-==========================
+﻿FONTS — PINAPP (2026)
+=====================
 
-Fichiers présents (woff2) :
-- Clash Display 400–700 : Fontshare CDN (licence Fontshare / ITF)
-- Inter 300–500 : @fontsource/inter (SIL OFL) via jsDelivr
+Typographie du site : pile système Apple uniquement (SF Pro via -apple-system /
+BlinkMacSystemFont). Aucun chargement de fichiers woff2 pour le rendu principal.
 
-Réglages : assets/css/fonts.css — importé par assets/css/pinapp-global.css
+Réglages : assets/css/fonts.css — importé par assets/variables.css
+
+Les anciens fichiers woff2 (Clash Display, Inter) peuvent rester sur disque pour
+archives locales ; ils ne sont plus référencés par le CSS livré.

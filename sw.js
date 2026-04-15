@@ -46,7 +46,6 @@ self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
   if (e.request.url.includes('/.netlify/')) return;
   if (e.request.url.includes('plausible.io')) return;
-  if (e.request.url.includes('fonts.bunny.net')) return;
 
   e.respondWith(
     fetch(e.request)

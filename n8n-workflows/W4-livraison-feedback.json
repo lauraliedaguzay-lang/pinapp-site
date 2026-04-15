@@ -1,0 +1,14 @@
+{
+  "name": "🔷 W4 — Livraison → Feedback → Avis Google J+7",
+  "nodes": [
+    {"id":"1","name":"Notion Trigger — Statut Livrée","type":"n8n-nodes-base.notionTrigger","typeVersion":1,"position":[240,300],"parameters":{"databaseId":"={{$env.NOTION_MISSIONS_DB}}"}},
+    {"id":"2","name":"Gmail — Email livraison","type":"n8n-nodes-base.gmail","typeVersion":1,"position":[460,300],"parameters":{"operation":"send","toList":"={{$json.properties.Email.email}}","subject":"Votre projet est livré ✓","message":"Bonjour,\n\nVotre projet est livré. Retrouvez tout ici :\n{{$json.properties.LienClient.url}}\n\nDes ajustements ? Je suis disponible 48h.\nLauralie"}},
+    {"id":"3","name":"Wait 7 jours","type":"n8n-nodes-base.wait","typeVersion":1,"position":[680,300],"parameters":{"resume":"timeInterval","unit":"days","value":7}},
+    {"id":"4","name":"Gmail — Demande avis","type":"n8n-nodes-base.gmail","typeVersion":1,"position":[900,300],"parameters":{"operation":"send","toList":"={{$json.properties.Email.email}}","subject":"60 secondes pour un retour ?","message":"Bonjour,\n\n60 secondes pour partager votre expérience :\nhttps://tally.so/r/{{$env.TALLY_AVIS_ID}}\n\nMerci — Lauralie"}},
+    {"id":"5","name":"Tally Webhook — Réponse","type":"n8n-nodes-base.webhook","typeVersion":1,"position":[1120,300],"parameters":{"path":"avis-recu"}},
+    {"id":"6","name":"IF — Note ≥ 4","type":"n8n-nodes-base.if","typeVersion":1,"position":[1340,300],"parameters":{"conditions":{"number":[{"value1":"={{$json.note}}","operation":"largerEqual","value2":4}]}}},
+    {"id":"7","name":"Gmail — Demande Google","type":"n8n-nodes-base.gmail","typeVersion":1,"position":[1560,200],"parameters":{"operation":"send","toList":"={{$json.email}}","subject":"Un avis Google pour nous aider ?","message":"Merci pour votre retour positif !\n\nUn avis Google nous aiderait énormément :\nhttps://g.page/r/{{$env.GOOGLE_REVIEW_ID}}/review\n\nMerci — Lauralie"}},
+    {"id":"8","name":"Gmail — Suivi Lauralie","type":"n8n-nodes-base.gmail","typeVersion":1,"position":[1560,400],"parameters":{"operation":"send","toList":"contact@pinapp.fr","subject":"⚠️ Avis négatif — suivi requis","message":"Un client a laissé une note < 4.\nNote : {{$json.note}}\nCommentaire : {{$json.commentaire}}\nEmail : {{$json.email}}"}}
+  ],
+  "connections":{"Notion Trigger — Statut Livrée":{"main":[[{"node":"Gmail — Email livraison","type":"main","index":0}]]},"Gmail — Email livraison":{"main":[[{"node":"Wait 7 jours","type":"main","index":0}]]},"Wait 7 jours":{"main":[[{"node":"Gmail — Demande avis","type":"main","index":0}]]},"Tally Webhook — Réponse":{"main":[[{"node":"IF — Note ≥ 4","type":"main","index":0}]]},"IF — Note ≥ 4":{"main":[[{"node":"Gmail — Demande Google","type":"main","index":0}],[{"node":"Gmail — Suivi Lauralie","type":"main","index":0}]]}}
+}

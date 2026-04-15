@@ -32,8 +32,68 @@
   }
   // Init immédiat avant paint
   apply(get());
+  try {
+    if (localStorage.getItem('pinapp-neuro-calm') === '1') {
+      document.documentElement.setAttribute('data-pinapp-calm', '1');
+    }
+  } catch (e) {}
   document.addEventListener('DOMContentLoaded', function () {
     var b = document.getElementById('theme-toggle');
     if (b) b.addEventListener('click', toggle);
   });
+})();
+
+(function loadPinappJourWaves() {
+  var scripts = document.getElementsByTagName('script');
+  var url = '';
+  for (var i = scripts.length - 1; i >= 0; i--) {
+    var src = scripts[i].src || '';
+    if (/\/theme\.js(\?|$)/i.test(src) || src.endsWith('theme.js')) {
+      url = src.replace(/theme\.js(\?[^#]*)?/i, 'pinapp-jour-waves.js$1');
+      break;
+    }
+  }
+  if (!url) return;
+  var s = document.createElement('script');
+  s.src = url;
+  s.defer = true;
+  document.head.appendChild(s);
+})();
+
+(function loadPinappFuturAmbient() {
+  if (document.querySelector('script[data-pinapp-futur-ambient]')) return;
+  var scripts = document.getElementsByTagName('script');
+  var url = '';
+  for (var i = scripts.length - 1; i >= 0; i--) {
+    var src = scripts[i].src || '';
+    if (/\/theme\.js(\?|$)/i.test(src) || src.endsWith('theme.js')) {
+      url = src.replace(/theme\.js(\?[^#]*)?/i, 'pinapp-futur-ambient.js$1');
+      break;
+    }
+  }
+  if (!url) return;
+  var s = document.createElement('script');
+  s.src = url;
+  s.defer = true;
+  s.setAttribute('data-pinapp-futur-ambient', '1');
+  document.head.appendChild(s);
+})();
+
+(function loadPinappNeuroCalmUi() {
+  if (document.querySelector('script[data-pinapp-neuro-calm-ui]')) return;
+  var scripts = document.getElementsByTagName('script');
+  var url = '';
+  for (var i = scripts.length - 1; i >= 0; i--) {
+    var src = scripts[i].src || '';
+    if (/\/theme\.js(\?|$)/i.test(src) || src.endsWith('theme.js')) {
+      url = src.replace(/theme\.js(\?[^#]*)?/i, 'pinapp-neuro-calm-ui.js$1');
+      break;
+    }
+  }
+  if (!url) return;
+  var s = document.createElement('script');
+  s.src = url;
+  s.defer = true;
+  s.setAttribute('data-pinapp-neuro-calm-ui', '1');
+  document.head.appendChild(s);
 })();

@@ -10,7 +10,7 @@
   Meme chose sur GitHub : workflow pinapp-fr-api.yml (secret HOSTINGER_API_TOKEN).
 
 .PARAMETER Command
-  pull | install | dev | serve | preview | ci | build | verify | ship | clean | format | format-check | info | 403 | diagnose-fr | corrige-fr | sync-fr | fr-auto | fr-api | fr-prepare-profile | fr-secrets | dns-hostinger | hostinger-token | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | tout | dormir | applique | orchestrate | relie | merge-deploy | publie | auto | status | check | tally | tally-show | tally-env | tally-chain | help
+  pull | install | dev | local | local-check | pr | serve | preview | ci | build | verify | conformite | ship | clean | format | format-check | info | 403 | diagnose-fr | corrige-fr | sync-fr | fr-auto | fr-api | fr-prepare-profile | fr-secrets | dns-hostinger | hostinger-token | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | tout | dormir | applique | orchestrate | relie | merge-deploy | publie | auto | status | check | tally | tally-show | tally-env | tally-chain | help
 
 .EXAMPLE
   cd $env:USERPROFILE\Projects\pinapp-site
@@ -25,7 +25,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('pull', 'install', 'dev', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'clean', 'format', 'format-check', 'info', '403', 'diagnose-fr', 'corrige-fr', 'sync-fr', 'fr-auto', 'fr-api', 'fr-prepare-profile', 'fr-secrets', 'dns-hostinger', 'hostinger-token', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'tout', 'dormir', 'applique', 'orchestrate', 'relie', 'merge-deploy', 'publie', 'auto', 'status', 'check', 'tally', 'tally-show', 'tally-env', 'tally-chain', 'help')]
+    [ValidateSet('pull', 'install', 'dev', 'local', 'local-check', 'pr', 'serve', 'preview', 'ci', 'build', 'verify', 'conformite', 'ship', 'clean', 'format', 'format-check', 'info', '403', 'diagnose-fr', 'corrige-fr', 'sync-fr', 'fr-auto', 'fr-api', 'fr-prepare-profile', 'fr-secrets', 'dns-hostinger', 'hostinger-token', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'tout', 'dormir', 'applique', 'orchestrate', 'relie', 'merge-deploy', 'publie', 'auto', 'status', 'check', 'tally', 'tally-show', 'tally-env', 'tally-chain', 'help')]
     [string] $Command = 'help'
 )
 
@@ -44,6 +44,48 @@ $PinappSelf = Join-Path $PSScriptRoot 'Pinapp.ps1'
 $PagesSettingsUrl = 'https://github.com/lauraliedaguzay-lang/pinapp-site/settings/pages'
 $GitHubRepoUrl = 'https://github.com/lauraliedaguzay-lang/pinapp-site'
 $GitHubActionsUrl = 'https://github.com/lauraliedaguzay-lang/pinapp-site/actions'
+$PinappPrettierGlob = '**/*.{html,css,js,mjs,json,md,yml}'
+
+function Invoke-PinappPrettier {
+    param([switch]$Write)
+    Push-Location -LiteralPath $RepoRoot
+    try {
+        $mode = if ($Write) { '--write' } else { '--check' }
+        Write-Host ('> npx prettier ' + $mode + ' ' + $PinappPrettierGlob) -ForegroundColor DarkGray
+        & npx --yes prettier $mode $PinappPrettierGlob
+    } finally {
+        Pop-Location
+    }
+    if ($LASTEXITCODE -ne 0) {
+        exit $LASTEXITCODE
+    }
+}
+
+function Invoke-PinappNodeScript {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string] $RelativePathUnderRepo
+    )
+    $scriptPath = Join-Path $RepoRoot $RelativePathUnderRepo
+    if (-not (Test-Path -LiteralPath $scriptPath)) {
+        Write-Error ('Introuvable : ' + $scriptPath)
+    }
+    Push-Location -LiteralPath $RepoRoot
+    try {
+        Write-Host ('> node ' + $RelativePathUnderRepo) -ForegroundColor DarkGray
+        & node $scriptPath
+    } finally {
+        Pop-Location
+    }
+    if ($LASTEXITCODE -ne 0) {
+        exit $LASTEXITCODE
+    }
+}
+
+function Invoke-PinappCiCore {
+    Invoke-PinappPrettier
+    Invoke-PinappNodeScript -RelativePathUnderRepo 'tools\verify-site.mjs'
+}
 
 function Get-PinappLocalHttpPort {
     $defaultPort = 8899
@@ -145,20 +187,27 @@ function Write-PinappHelp {
     Write-Host ''
     Write-Host 'Pinapp - commandes PowerShell (defaut Windows)' -ForegroundColor Cyan
     Write-Host '  Racine du depot : .\pinapp.ps1 <commande>   (recommande)' -ForegroundColor White
-    Write-Host '  Alternative npm : npm run pinapp -- <commande>' -ForegroundColor DarkGray
+    Write-Host '  Defaut : PowerShell (.\pinapp.ps1 ou npm run pinapp -- <commande>)' -ForegroundColor DarkGray
     Write-Host ''
     Write-Host '  .\pinapp.ps1 pull         - git pull' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 install      - npm install' -ForegroundColor White
-    Write-Host '  .\pinapp.ps1 dev          - npm run dev (Vite, laisser le terminal ouvert)' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 dev          - Vite (tools\dev-vite.ps1), laisser le terminal ouvert' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 local        - npm install + Vite' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 local-check  - install + verify + Vite' -ForegroundColor White
+    Write-Host '  .\pinapp-local.ps1        - -Action install|verify|ci|build|dev|serve|all' -ForegroundColor White
+    Write-Host '  .\pinapp-dev.ps1          - alias dev (pinapp-local -Action dev)' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 pr           - creer PR vers main (gh ou navigateur)' -ForegroundColor White
+    Write-Host '  .\pinapp-pr.ps1           - idem (-Title -BodyFile -Push)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 serve        - HTTP local sources (defaut port 8899, Ctrl+C arrete)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 preview      - HTTP local _site (meme port ; PINAPP_HTTP_PORT pour changer)' -ForegroundColor White
-    Write-Host '  .\pinapp.ps1 ci           - npm run ci (Prettier + verify)' -ForegroundColor White
-    Write-Host '  .\pinapp.ps1 verify       - npm run verify (fichiers critiques, sans Prettier)' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 ci           - Prettier check + verify-site (sans npm run ci)' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 verify       - verify-site.mjs' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 conformite   - pinapp-conformite.ps1 (Node)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 ship         - ci + build (avant git push)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 clean        - supprime le dossier _site' -ForegroundColor White
-    Write-Host '  .\pinapp.ps1 format       - npm run format (Prettier --write)' -ForegroundColor White
-    Write-Host '  .\pinapp.ps1 format-check - npm run format:check' -ForegroundColor White
-    Write-Host '  .\pinapp.ps1 build        - npm run build (_site)' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 format       - Prettier --write' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 format-check - Prettier --check' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 build        - build-site.mjs (_site)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 info         - Node / npm / git / dossier courant' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 403          - alias : diagnostic 403 pinapp.fr (voir diagnose-fr)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 fr-auto      - ZERO question : DNS Hostinger API + GitHub API (jetons requis)' -ForegroundColor White
@@ -220,8 +269,38 @@ switch ($Command) {
         npm install
     }
     'dev' {
-        Write-Host 'npm run dev (Vite)...' -ForegroundColor Gray
-        npm run dev
+        $vite = Join-Path $PSScriptRoot 'dev-vite.ps1'
+        Write-Host 'Demarrage Vite (tools\dev-vite.ps1)...' -ForegroundColor Gray
+        & $vite
+        exit $LASTEXITCODE
+    }
+    'local' {
+        $pl = Join-Path $RepoRoot 'pinapp-local.ps1'
+        if (-not (Test-Path -LiteralPath $pl)) {
+            Write-Error ('Introuvable : ' + $pl)
+        }
+        & $pl -Action all
+        exit $LASTEXITCODE
+    }
+    'local-check' {
+        Write-Host 'npm install...' -ForegroundColor Gray
+        npm install
+        if ($LASTEXITCODE -ne 0) {
+            exit $LASTEXITCODE
+        }
+        Write-Host 'verify-site (Node)...' -ForegroundColor Gray
+        Invoke-PinappNodeScript -RelativePathUnderRepo 'tools\verify-site.mjs'
+        $vite = Join-Path $PSScriptRoot 'dev-vite.ps1'
+        & $vite
+        exit $LASTEXITCODE
+    }
+    'pr' {
+        $prScript = Join-Path $RepoRoot 'pinapp-pr.ps1'
+        if (-not (Test-Path -LiteralPath $prScript)) {
+            Write-Error ('Introuvable : ' + $prScript)
+        }
+        & $prScript
+        exit $LASTEXITCODE
     }
     'serve' {
         $httpPort = Get-PinappLocalHttpPort
@@ -238,18 +317,20 @@ switch ($Command) {
         & $DevHttpScript -Built -Port $httpPort
     }
     'ci' {
-        Write-Host 'npm run ci...' -ForegroundColor Gray
-        npm run ci
+        Write-Host 'ci : Prettier --check + verify-site.mjs' -ForegroundColor Gray
+        Invoke-PinappCiCore
     }
     'verify' {
-        Write-Host 'npm run verify...' -ForegroundColor Gray
-        npm run verify
+        Invoke-PinappNodeScript -RelativePathUnderRepo 'tools\verify-site.mjs'
+    }
+    'conformite' {
+        Invoke-PinappNodeScript -RelativePathUnderRepo 'tools\pinapp-conformite.mjs'
     }
     'ship' {
-        Write-Host '=== ship : npm run ci ===' -ForegroundColor Cyan
-        npm run ci
-        Write-Host '=== ship : npm run build ===' -ForegroundColor Cyan
-        npm run build
+        Write-Host '=== ship : ci (Prettier + verify) ===' -ForegroundColor Cyan
+        Invoke-PinappCiCore
+        Write-Host '=== ship : build (_site) ===' -ForegroundColor Cyan
+        Invoke-PinappNodeScript -RelativePathUnderRepo 'tools\build-site.mjs'
         Write-Host '=== ship : OK (pret a pousser) ===' -ForegroundColor Green
     }
     'clean' {
@@ -262,16 +343,13 @@ switch ($Command) {
         }
     }
     'build' {
-        Write-Host 'npm run build...' -ForegroundColor Gray
-        npm run build
+        Invoke-PinappNodeScript -RelativePathUnderRepo 'tools\build-site.mjs'
     }
     'format' {
-        Write-Host 'npm run format...' -ForegroundColor Gray
-        npm run format
+        Invoke-PinappPrettier -Write
     }
     'format-check' {
-        Write-Host 'npm run format:check...' -ForegroundColor Gray
-        npm run format:check
+        Invoke-PinappPrettier
     }
     'info' {
         Write-Host ''
@@ -591,10 +669,13 @@ $env:HOSTINGER_API_TOKEN = "COLLE_JETON_API_HOSTINGER"
         git pull --ff-only
         Write-Host '=== check : npm install ===' -ForegroundColor Cyan
         npm install
-        Write-Host '=== check : npm run ci ===' -ForegroundColor Cyan
-        npm run ci
-        Write-Host '=== check : npm run build ===' -ForegroundColor Cyan
-        npm run build
+        if ($LASTEXITCODE -ne 0) {
+            exit $LASTEXITCODE
+        }
+        Write-Host '=== check : ci (Prettier + verify) ===' -ForegroundColor Cyan
+        Invoke-PinappCiCore
+        Write-Host '=== check : build (_site) ===' -ForegroundColor Cyan
+        Invoke-PinappNodeScript -RelativePathUnderRepo 'tools\build-site.mjs'
         Write-Host '=== check : OK ===' -ForegroundColor Green
     }
     { $_ -in @('tally', 'tally-show', 'tally-env', 'tally-chain') } {
@@ -615,10 +696,10 @@ $env:HOSTINGER_API_TOKEN = "COLLE_JETON_API_HOSTINGER"
                 } else {
                     Write-Host ('Absent : ' + $idsPath + ' (ignorer Prettier)') -ForegroundColor Yellow
                 }
-                Write-Host '=== tally-chain : npm run ci ===' -ForegroundColor Cyan
-                npm run ci
-                Write-Host '=== tally-chain : npm run build ===' -ForegroundColor Cyan
-                npm run build
+                Write-Host '=== tally-chain : ci (Prettier + verify) ===' -ForegroundColor Cyan
+                Invoke-PinappCiCore
+                Write-Host '=== tally-chain : build (_site) ===' -ForegroundColor Cyan
+                Invoke-PinappNodeScript -RelativePathUnderRepo 'tools\build-site.mjs'
                 Write-Host '=== tally-chain : OK ===' -ForegroundColor Green
             }
         }

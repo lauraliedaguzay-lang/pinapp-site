@@ -8,8 +8,8 @@
 /* ── BLOC 1 : tokens refonte (s’ajoutent aux variables existantes) ── */
 html[data-theme='dark'] {
   --bg: #050a14;
-  --bg-card: #0a1628;
-  --bg-card-2: #0d1e35;
+  --bg-card: rgba(10, 22, 40, 0.44);
+  --bg-card-2: rgba(10, 22, 40, 0.62);
   --text: #e8f4f8;
   --text-muted: rgba(232, 244, 248, 0.6);
   --teal: #00e5cc;
@@ -18,7 +18,7 @@ html[data-theme='dark'] {
   --blue: #4fc3f7;
   --glow: rgba(0, 229, 204, 0.08);
   --glow-green: rgba(57, 224, 117, 0.3);
-  --border: rgba(0, 229, 204, 0.12);
+  --border: rgba(255, 255, 255, 0.08);
   --shadow: 0 0 40px rgba(0, 229, 204, 0.08), 0 2px 8px rgba(0, 0, 0, 0.4);
 
   /* Pont avec l’ancien design system : tout ce qui lit --fond-nuit / --bg-primary suit le BLOC 1 refonte */
@@ -26,14 +26,19 @@ html[data-theme='dark'] {
   --bg-deep: var(--bg);
   --bg-primary: var(--bg);
   --text-primary: var(--text);
-  --glass: rgba(10, 22, 40, 0.55);
-  --glass-nav: rgba(5, 10, 20, 0.88);
-  --glass-card: rgba(10, 22, 40, 0.58);
-  --glass-tag: rgba(8, 18, 32, 0.45);
-  --glass-modal: rgba(5, 10, 20, 0.92);
-  --bg-overlay: rgba(5, 10, 20, 0.72);
-  --border-card: rgba(0, 229, 204, 0.14);
-  --border-subtle: rgba(0, 229, 204, 0.1);
+  --glass: rgba(10, 22, 40, 0.4);
+  --glass-nav: rgba(5, 10, 20, 0.56);
+  --glass-card: rgba(10, 22, 40, 0.44);
+  --glass-tag: rgba(8, 18, 32, 0.32);
+  --glass-modal: rgba(5, 10, 20, 0.72);
+  --glass-blur: saturate(180%) blur(20px);
+  --glass-blur-nav: saturate(180%) blur(24px);
+  --glass-blur-thin: saturate(170%) blur(14px);
+  --glass-edge: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  --glass-edge-soft: inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+  --bg-overlay: rgba(5, 10, 20, 0.52);
+  --border-card: rgba(255, 255, 255, 0.09);
+  --border-subtle: rgba(0, 229, 204, 0.09);
   --border-input: rgba(0, 229, 204, 0.22);
   --separator: rgba(0, 229, 204, 0.08);
 }
@@ -41,7 +46,7 @@ html[data-theme='dark'] {
 html[data-theme='light'] {
   /* Mode jour — Océan Pandora (cosmos-v1 surcharge les détails) */
   --bg: #060d1f;
-  --bg-card: rgba(255, 255, 255, 0.06);
+  --bg-card: rgba(230, 244, 255, 0.12);
   --bg-card-2: #0d1b3e;
   --text: #e3f2fd;
   --text-muted: rgba(227, 242, 253, 0.62);
@@ -51,17 +56,22 @@ html[data-theme='light'] {
   --blue: #4fc3f7;
   --glow: rgba(79, 195, 247, 0.12);
   --glow-green: rgba(94, 234, 212, 0.2);
-  --border: rgba(255, 255, 255, 0.1);
+  --border: rgba(255, 255, 255, 0.12);
   --shadow: 0 4px 28px rgba(0, 0, 0, 0.45), 0 0 0 0.5px rgba(79, 195, 247, 0.06);
 
   --fond-jour: var(--bg);
   --bg-deep: var(--bg-card-2);
   --bg-primary: var(--bg);
   --text-primary: var(--text);
-  --glass: rgba(13, 27, 62, 0.52);
-  --glass-nav: rgba(6, 13, 31, 0.88);
-  --glass-card: rgba(13, 27, 62, 0.58);
-  --nav-bg: rgba(6, 13, 31, 0.88);
+  --glass: rgba(230, 244, 255, 0.12);
+  --glass-nav: rgba(6, 13, 31, 0.52);
+  --glass-card: rgba(230, 244, 255, 0.14);
+  --glass-blur: saturate(180%) blur(22px);
+  --glass-blur-nav: saturate(180%) blur(26px);
+  --glass-blur-thin: saturate(170%) blur(16px);
+  --glass-edge: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  --glass-edge-soft: inset 0 -1px 0 rgba(0, 0, 0, 0.12);
+  --nav-bg: rgba(6, 13, 31, 0.52);
 }
 
 html[data-theme='dark'] body {
@@ -109,7 +119,7 @@ html[data-theme='dark'] body {
 }
 
 .refonte-hero-h1 {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--font-apple-serif);
   font-size: clamp(2rem, 7vw, 3.5rem);
   letter-spacing: -0.03em;
   line-height: 1.08;
@@ -178,16 +188,18 @@ html[data-theme='dark'] body {
 html[data-theme='dark'] #mainNav.nav,
 html[data-theme='dark'] nav.nav#mainNav {
   height: 64px;
-  background: rgba(5, 10, 20, 0.85) !important;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
+  background: var(--glass-nav) !important;
+  -webkit-backdrop-filter: var(--glass-blur-nav);
+  backdrop-filter: var(--glass-blur-nav);
+  border-bottom: 0.5px solid var(--border);
   transition: transform 300ms cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 html[data-theme='light'] #mainNav.nav {
-  background: rgba(6, 13, 31, 0.88) !important;
-  border-bottom: 1px solid var(--border);
+  background: var(--glass-nav) !important;
+  -webkit-backdrop-filter: var(--glass-blur-nav);
+  backdrop-filter: var(--glass-blur-nav);
+  border-bottom: 0.5px solid var(--border);
 }
 
 .refonte-nav-link {
@@ -244,17 +256,19 @@ html[data-theme='light'] #mainNav.nav {
   z-index: 1000;
   height: 64px;
   padding-bottom: env(safe-area-inset-bottom, 0);
-  background: rgba(5, 10, 20, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-top: 1px solid var(--border);
+  background: var(--glass-nav, rgba(5, 10, 20, 0.58));
+  -webkit-backdrop-filter: var(--glass-blur-nav, saturate(180%) blur(24px));
+  backdrop-filter: var(--glass-blur-nav, saturate(180%) blur(24px));
+  border-top: 0.5px solid var(--border);
   grid-template-columns: repeat(4, 1fr);
   align-items: center;
   justify-items: center;
 }
 
 html[data-theme='light'] .pinapp-tabbar-refonte {
-  background: rgba(6, 13, 31, 0.96);
+  background: var(--glass-nav);
+  -webkit-backdrop-filter: var(--glass-blur-nav);
+  backdrop-filter: var(--glass-blur-nav);
 }
 
 .pinapp-tabbar-refonte a {

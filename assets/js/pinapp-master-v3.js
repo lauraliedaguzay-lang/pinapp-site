@@ -5,6 +5,13 @@
 (function () {
   'use strict';
 
+  function neuroCalmActive() {
+    return (
+      document.documentElement.getAttribute('data-pinapp-calm') === '1' ||
+      (typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches)
+    );
+  }
+
   /** Si main.js est sur la page, il gère déjà burger · snap · dots · etc. — évite double toggle. */
   function pageUsesMainJs() {
     if (document.documentElement.getAttribute('data-pinapp-v3-full') === '1') return false;
@@ -403,6 +410,12 @@
   function initAnimations() {
     var elems = document.querySelectorAll('.anim-fade,.anim-up,.anim-scale,.anim-left,.anim-right');
     if (!elems.length) return;
+    if (neuroCalmActive()) {
+      elems.forEach(function (el) {
+        el.classList.add('visible');
+      });
+      return;
+    }
     var io = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (e) {
@@ -427,6 +440,10 @@
     document.querySelectorAll('.count-up').forEach(function (el) {
       var target = parseInt(el.dataset.target, 10);
       if (!target) return;
+      if (neuroCalmActive()) {
+        el.textContent = target.toLocaleString('fr-FR');
+        return;
+      }
       var io = new IntersectionObserver(function (entries) {
         if (!entries[0].isIntersecting) return;
         io.disconnect();
@@ -534,9 +551,107 @@
     });
   }
 
+  /* ── Loader cinéma (vidéo d’accueil dans l’encart) : fermeture unifiée si pas de script inline ── */
+  /* ── Signature UX : calque lumière pilotée par le pointeur (desktop calme) ── */
+  function initSignatureUx() {
+    if (typeof document === 'undefined' || !document.body) return;
+    var calm = neuroCalmActive();
+    var finePointer =
+      typeof matchMedia !== 'undefined' && matchMedia('(hover: hover) and (pointer: fine)').matches;
+    document.documentElement.setAttribute('data-pinapp-ux', calm || !finePointer ? 'calm' : '1');
+    if (calm || !finePointer) return;
+
+    var layer = document.getElementById('pinapp-signature-atmosphere');
+    if (!layer) {
+      layer = document.createElement('div');
+      layer.id = 'pinapp-signature-atmosphere';
+      layer.setAttribute('aria-hidden', 'true');
+      var loader = document.getElementById('pandora-loader') || document.getElementById('loader');
+      if (loader && loader.parentNode === document.body) {
+        loader.insertAdjacentElement('afterend', layer);
+      } else {
+        document.body.insertAdjacentElement('afterbegin', layer);
+      }
+    }
+
+    var root = document.documentElement;
+    var ticking = false;
+    var mx = 0;
+    var my = 0;
+    document.addEventListener(
+      'mousemove',
+      function (e) {
+        mx = e.clientX;
+        my = e.clientY;
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          ticking = false;
+          root.style.setProperty('--pinapp-glow-x', mx + 'px');
+          root.style.setProperty('--pinapp-glow-y', my + 'px');
+        });
+      },
+      { passive: true },
+    );
+
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      if (a.getAttribute('data-pinapp-hash-smooth') === '1') return;
+      a.setAttribute('data-pinapp-hash-smooth', '1');
+      a.addEventListener('click', function (e) {
+        var href = a.getAttribute('href');
+        if (!href || href === '#' || href.length < 2) return;
+        var id = href.slice(1);
+        var target = document.getElementById(id);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        try {
+          history.pushState(null, '', href);
+        } catch (_err) {}
+      });
+    });
+  }
+
+  function initCinemaLoader() {
+    var l = document.getElementById('pandora-loader') || document.getElementById('loader');
+    if (!l || !l.classList.contains('pinapp-cinema-loader')) return;
+    if (l.getAttribute('data-pinapp-loader-dismiss') === '1') return;
+    l.setAttribute('data-pinapp-loader-dismiss', '1');
+    var done = false;
+    function dismiss() {
+      if (done) return;
+      if (!l || !l.parentNode) {
+        done = true;
+        return;
+      }
+      done = true;
+      var v = l.querySelector('video');
+      if (v) {
+        try {
+          v.pause();
+        } catch (_e) {}
+      }
+      l.style.opacity = '0';
+      l.style.pointerEvents = 'none';
+      setTimeout(function () {
+        if (l.parentNode) l.remove();
+      }, 440);
+    }
+    if (neuroCalmActive()) {
+      setTimeout(dismiss, 380);
+      return;
+    }
+    window.addEventListener('load', function () {
+      setTimeout(dismiss, 320);
+    });
+    setTimeout(dismiss, 9000);
+  }
+
   /* ── INIT ── */
   document.addEventListener('DOMContentLoaded', function () {
     initCookieConsent();
+    initCinemaLoader();
+    initSignatureUx();
     var mainPresent = pageUsesMainJs();
     if (!mainPresent) {
       initBurger();

@@ -1,6 +1,7 @@
-# Déploiement GitHub Pages : build reproductible (npm run build) + artefact _site/
+# Déploiement GitHub Pages : build reproductible (pinapp.ps1 ci + build) + artefact _site/
 # Pages : Settings → Pages → Source : GitHub Actions
 # Secret optionnel : AURALIS_APP_URL (URL de l’app SaaS, injectée dans assets/js/auralis-config.js au build)
+# Secrets optionnels automatisations : PINAPP_N8N_BASE_URL (ou PINAPP_N8N_HOST), PINAPP_TALLY_DIAGNOSTIC_DEFAULT
 # Secret optionnel : HOSTINGER_API_TOKEN — apres chaque deploiement sur main, DNS pinapp.fr -> GitHub Pages (API).
 # Sans ce secret : seule la declaration du domaine sur GitHub Pages (API) est appliquee.
 name: Déployer GitHub Pages
@@ -32,16 +33,20 @@ jobs:
           node-version: '22'
 
       - name: Dépendances
-        run: npm install
+        run: pwsh -NoProfile -File ./pinapp.ps1 install
 
       - name: Qualité (Prettier + fichiers critiques)
-        run: npm run ci
+        run: pwsh -NoProfile -File ./pinapp.ps1 ci
 
       - name: Construire _site/
         env:
           CI: true
           AURALIS_APP_URL: ${{ secrets.AURALIS_APP_URL }}
-        run: npm run build
+          PINAPP_N8N_BASE_URL: ${{ secrets.PINAPP_N8N_BASE_URL }}
+          PINAPP_N8N_HOST: ${{ secrets.PINAPP_N8N_HOST }}
+          PINAPP_TALLY_DIAGNOSTIC_DEFAULT: ${{ secrets.PINAPP_TALLY_DIAGNOSTIC_DEFAULT }}
+          PINAPP_DISABLE_AUTOMATION_FEATURES: ${{ secrets.PINAPP_DISABLE_AUTOMATION_FEATURES }}
+        run: pwsh -NoProfile -File ./pinapp.ps1 build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -82,4 +87,4 @@ jobs:
           HOSTINGER_API_TOKEN: ${{ secrets.HOSTINGER_API_TOKEN }}
           PINAPP_DOMAIN: pinapp.fr
           PAGES_CNAME_TARGET: lauraliedaguzay-lang.github.io.
-        run: python3 tools/ci/pinapp-fr-sync.py
+        run: pwsh -NoProfile -File ./tools/ci/pinapp-fr-sync.ps1

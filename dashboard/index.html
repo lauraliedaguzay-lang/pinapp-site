@@ -1,16 +1,17 @@
-﻿<!doctype html>
-<html lang="fr">
+<!doctype html>
+<html lang="fr" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
+    <script src="../assets/js/theme.js" defer></script>
     <link rel="canonical" href="https://pinapp.fr/dashboard/" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="robots" content="noindex, nofollow" />
     <title>Admin — Pinapp</title>
+    <meta name="description" content="Cockpit interne Pinapp — synthèse studio (noindex)." />
     <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
-    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
-    <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" />
     <link rel="stylesheet" href="../assets/css/pinapp-global.css" />
+    <link rel="stylesheet" href="../assets/css/pinapp-dashboard-cockpit.css" />
     <style>
       :root {
         --green: #4caf50;
@@ -18,6 +19,9 @@
         --sidebar-w: 220px;
         --topbar-h: 64px;
         --bottom-nav-h: 64px;
+        --muted: var(--text-muted);
+        --champagne: var(--accent);
+        --border: var(--separator);
       }
 
       *,
@@ -33,7 +37,7 @@
       }
 
       body {
-        font-family: Inter, system-ui, sans-serif;
+        font-family: var(--font-apple-sans);
         background: var(--bg);
         color: var(--text);
         -webkit-font-smoothing: antialiased;
@@ -71,7 +75,7 @@
       .auth-input {
         width: 100%;
         padding: 14px 20px;
-        font-family: Inter, system-ui, sans-serif;
+        font-family: var(--font-apple-sans);
         font-size: 15px;
         color: var(--text);
         background: #111111;
@@ -92,7 +96,7 @@
       .auth-submit {
         align-self: flex-start;
         padding: 12px 24px;
-        font-family: Inter, system-ui, sans-serif;
+        font-family: var(--font-apple-sans);
         font-size: 13px;
         font-weight: 500;
         letter-spacing: 2px;
@@ -145,7 +149,7 @@
         border: none;
         border-left: 2px solid transparent;
         background: transparent;
-        font-family: Inter, system-ui, sans-serif;
+        font-family: var(--font-apple-sans);
         font-size: 13px;
         font-weight: 500;
         letter-spacing: 1px;
@@ -205,7 +209,7 @@
       }
 
       .topbar-mark {
-        font-family: Georgia, 'Times New Roman', serif;
+        font-family: var(--font-apple-serif);
         font-size: 20px;
         color: var(--champagne);
         letter-spacing: 4px;
@@ -307,7 +311,7 @@
       }
 
       .kpi-value {
-        font-family: Georgia, 'Times New Roman', serif;
+        font-family: var(--font-apple-serif);
         font-size: 40px;
         font-weight: 400;
         color: var(--text);
@@ -545,7 +549,7 @@
       }
 
       .rev-metric .val {
-        font-family: Georgia, 'Times New Roman', serif;
+        font-family: var(--font-apple-serif);
         font-size: 32px;
         color: var(--text);
         margin: 0 0 8px;
@@ -647,8 +651,9 @@
       }
     </style>
     <link rel="stylesheet" href="../assets/css/pinapp-master-v3.css" />
+    <link rel="stylesheet" href="../assets/css/pinapp-master-v4.css" />
   </head>
-  <body>
+  <body class="pinapp-dashboard">
     <a class="skip-link" href="#main">Aller au contenu</a>
     <!-- CHANGER AVANT MISE EN LIGNE — mot de passe admin provisoire (voir script : pinapp2026) -->
     <div id="authOverlay" class="auth-overlay" role="dialog" aria-modal="true" aria-labelledby="authTitle">
@@ -720,6 +725,7 @@
               <span class="topbar-dot" aria-hidden="true"></span>
               <span>Actif</span>
             </div>
+            <button type="button" id="theme-toggle" class="dashboard-theme" aria-label="Changer le thème"></button>
           </div>
         </header>
 
@@ -791,7 +797,7 @@
 
           <section id="panel-revenus" class="panel" data-panel>
             <h2 class="section-title" style="margin-top: 0">Revenus</h2>
-            <div class="chart-wrap">
+            <div class="chart-wrap pinapp-hud-panel pinapp-hud-panel--scan">
               <svg
                 id="chartSvg"
                 class="chart-svg"
@@ -1001,7 +1007,7 @@
           container.innerHTML = list
             .map(function (p) {
               return (
-                '<article class="project-card"><h4>' +
+                '<article class="project-card pinapp-hud-panel pinapp-hud-panel--scan"><h4>' +
                 escapeHtml(p.titre) +
                 '</h4><p class="project-client">' +
                 escapeHtml(p.client) +
@@ -1045,7 +1051,7 @@
           var grid = document.getElementById('kpiGrid');
           grid.innerHTML = MOCK_KPIS.map(function (k) {
             return (
-              '<article class="kpi-card" data-kpi-id="' +
+              '<article class="kpi-card pinapp-hud-panel pinapp-hud-panel--scan" data-kpi-id="' +
               k.id +
               '"><p class="kpi-label">' +
               escapeHtml(k.label) +
@@ -1131,7 +1137,7 @@
                 (x + barW / 2) +
                 '" y="' +
                 (h - pad.b + 18) +
-                '" text-anchor="middle" fill="#A0A0A0" font-size="11" font-family="Inter, sans-serif">' +
+                '" text-anchor="middle" fill="#A0A0A0" font-size="11" font-family="system-ui,-apple-system,sans-serif">' +
                 data.months[i] +
                 '</text>',
             );
@@ -1162,13 +1168,13 @@
           var el = document.getElementById('revMetrics');
           var m = MOCK_REVENUS;
           el.innerHTML =
-            '<div class="rev-metric"><p class="val">' +
+            '<div class="rev-metric pinapp-hud-panel pinapp-hud-panel--scan"><p class="val">' +
             formatFrInt(m.caTotal2026) +
             '\u202f€</p><p class="lbl">CA total 2026</p></div>' +
-            '<div class="rev-metric"><p class="val">' +
+            '<div class="rev-metric pinapp-hud-panel pinapp-hud-panel--scan"><p class="val">' +
             formatFrInt(m.panierMoyen) +
             '\u202f€</p><p class="lbl">Panier moyen</p></div>' +
-            '<div class="rev-metric"><p class="val">' +
+            '<div class="rev-metric pinapp-hud-panel pinapp-hud-panel--scan"><p class="val">' +
             escapeHtml(m.meilleurMois) +
             '</p><p class="lbl">Meilleur mois</p></div>';
         }
@@ -1183,7 +1189,7 @@
                   ? formatFrInt(k.valueNum) + '\u202f%'
                   : formatFrInt(k.valueNum);
             return (
-              '<article class="kpi-card"><p class="kpi-label">' +
+              '<article class="kpi-card pinapp-hud-panel pinapp-hud-panel--scan"><p class="kpi-label">' +
               escapeHtml(k.label) +
               '</p><p class="kpi-value">' +
               display +
@@ -1316,5 +1322,7 @@
       })();
     </script>
     <script src="../assets/js/pinapp-master-v3.js" defer></script>
+    <script src="../assets/js/pinapp-master-v4.js" defer></script>
   </body>
 </html>
+

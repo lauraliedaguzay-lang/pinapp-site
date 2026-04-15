@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="fr" data-theme="dark">
   <head>
     <script>
@@ -25,128 +25,136 @@
     <link rel="stylesheet" href="../assets/variables.css" />
     <link rel="stylesheet" href="../assets/css/admin-dashboard.css" />
     <link rel="stylesheet" href="../assets/css/pinapp-master-v3.css" />
+    <link rel="stylesheet" href="../assets/css/pinapp-master-v4.css" />
   </head>
   <body class="admin-root admin-root--login">
-    <a class="skip-link" href="#admin-login-root">Aller au contenu</a>
+    <a class="skip-link" href="#contenu-principal">Aller au contenu</a>
     <div class="pinapp-refonte-noise" aria-hidden="true"></div>
-    <div id="admin-login-root" tabindex="-1">
-      <div class="admin-login">
-        <h1>Pinapp — console studio</h1>
-        <p>
-          Gestion studio (Lauralie &amp; Michaël), catalogue, pages publiques et JSON. Mot de passe dans
-          <code style="font-size: 0.75rem">assets/js/admin-dashboard.js</code> — à changer avant mise en ligne ;
-          préférer une protection hébergeur (Basic Auth, etc.).
-        </p>
-        <form id="admin-login-form" autocomplete="off">
-          <label for="admin-pass">Mot de passe</label>
-          <input id="admin-pass" type="password" name="password" required autocomplete="current-password" />
-          <button type="submit">Entrer</button>
-          <p id="admin-login-error" class="admin-error" role="alert"></p>
-        </form>
-      </div>
-    </div>
-
-    <div id="admin-app-root" hidden>
-      <header class="admin-bar">
-        <h2 class="admin-bar__title">Studio — pilotage, catalogue &amp; aperçu</h2>
-        <div class="admin-bar__actions">
-          <button type="button" class="admin-btn" id="admin-logout">Déconnexion</button>
+    <main id="contenu-principal" tabindex="-1">
+      <div id="admin-login-root" tabindex="-1">
+        <div class="admin-login">
+          <h1>Pinapp — console studio</h1>
+          <p>
+            Gestion studio (Lauralie &amp; Michaël), catalogue, pages publiques et JSON. En production sur Netlify, le
+            mot de passe est vérifié par la fonction
+            <code style="font-size: 0.75rem">/.netlify/functions/admin-session</code> (variable
+            <code style="font-size: 0.75rem">PINAPP_ADMIN_PASSWORD</code>). Sans cette variable, un mot de passe de
+            secours dans <code style="font-size: 0.75rem">assets/js/admin-dashboard.js</code> sert pour le dev local
+            uniquement — complétez par Basic Auth ou règles Netlify si besoin.
+          </p>
+          <form id="admin-login-form" autocomplete="off">
+            <label for="admin-pass">Mot de passe</label>
+            <input id="admin-pass" type="password" name="password" required autocomplete="current-password" />
+            <button type="submit">Entrer</button>
+            <p id="admin-login-error" class="admin-error" role="alert"></p>
+          </form>
         </div>
-      </header>
-
-      <p class="admin-warn">
-        <strong>Sécurité :</strong> sur un site 100&nbsp;% statique, le mot de passe est vérifiable dans le JavaScript.
-        Ce panneau sert à vous organiser et à consulter la même donnée que l’«&nbsp;API&nbsp;» JSON. Pour un vrai accès
-        restreint, ajoutez une protection côté hébergeur (Basic Auth, règle Netlify, etc.).
-      </p>
-
-      <div class="admin-tabs" role="tablist" aria-label="Sections admin">
-        <button type="button" role="tab" aria-selected="true" aria-controls="panel-programs">
-          Formations (vue data)
-        </button>
-        <button type="button" role="tab" aria-selected="false" aria-controls="panel-studio">Gestion studio</button>
-        <button type="button" role="tab" aria-selected="false" aria-controls="panel-pages">Pages publiques</button>
-        <button type="button" role="tab" aria-selected="false" aria-controls="panel-preview">Prévisualisation</button>
-        <button type="button" role="tab" aria-selected="false" aria-controls="panel-api">API JSON</button>
       </div>
 
-      <div id="panel-programs" class="admin-panel" role="tabpanel">
-        <p class="meta" style="margin: 0 0 1rem; font-size: 0.875rem; color: var(--text-muted)">
-          Contenu aligné sur les pages <strong>formation-gratuite</strong> et <strong>offres/formation</strong>.
-          Modifier le fichier
-          <code style="color: var(--teal); font-size: 0.8rem">assets/data/pinapp-catalog.json</code> pour mettre à jour
-          l’API et les listes.
+      <div id="admin-app-root" hidden>
+        <header class="admin-bar">
+          <h2 class="admin-bar__title">Studio — pilotage, catalogue &amp; aperçu</h2>
+          <div class="admin-bar__actions">
+            <button type="button" class="admin-btn" id="admin-logout">Déconnexion</button>
+          </div>
+        </header>
+
+        <p class="admin-warn">
+          <strong>Sécurité :</strong> avec <code>PINAPP_ADMIN_PASSWORD</code> sur Netlify, la connexion passe par le
+          back-end ; le jeton de session est stocké en <code>sessionStorage</code>. Le mot de passe dans le JS ne doit
+          servir qu’en secours (dev / sans env). Pour un accès renforcé, gardez une protection hébergeur (Basic Auth,
+          etc.).
         </p>
-        <div id="admin-programs"></div>
-      </div>
 
-      <div id="panel-studio" class="admin-panel" role="tabpanel" hidden>
-        <p class="admin-studio-lede">
-          Pilotage administratif <strong>léger</strong> : tâches récurrentes par rôle, mémoire locale, récap à coller
-          dans un message (Slack, WhatsApp, e-mail). Les automatisations lourdes restent dans n8n / Netlify / Notion —
-          voir <code style="font-size: 0.8rem; color: var(--teal)">docs/studio/ADMINISTRATION-INTELLIGENTE.md</code> sur
-          le dépôt.
-        </p>
-        <ul class="admin-studio-links" aria-label="Raccourcis utiles">
-          <li>
-            <a class="refonte-link-teal" href="../diagnostic/index.html" target="_blank" rel="noopener noreferrer"
-              >Formulaire diagnostic (vue publique)</a
-            >
-          </li>
-          <li>
-            <a class="refonte-link-teal" href="../assets/js/config.js" target="_blank" rel="noopener noreferrer"
-              >config.js — webhooks &amp; feature flags</a
-            >
-          </li>
-          <li>
-            <a class="refonte-link-teal" href="../AUTOMATIONS.md" target="_blank" rel="noopener noreferrer"
-              >AUTOMATIONS.md</a
-            >
-          </li>
-          <li>
-            <a
-              class="refonte-link-teal"
-              href="../docs/studio/PROCESSUS-UNIQUE-PINAPP.md"
-              target="_blank"
-              rel="noopener noreferrer"
-              >Processus unique (Lauralie · Michaël · client) + consignes Claude</a
-            >
-          </li>
-        </ul>
-        <div id="admin-studio-mount"></div>
-      </div>
-
-      <div id="panel-pages" class="admin-panel" role="tabpanel" hidden>
-        <div id="admin-pages"></div>
-      </div>
-
-      <div id="panel-preview" class="admin-panel" role="tabpanel" hidden>
-        <p class="meta" style="margin: 0 0 0.75rem; font-size: 0.875rem; color: var(--text-muted)">
-          Même origine que le site : la page se charge comme pour un visiteur (cookies, thème, scripts actifs).
-        </p>
-        <div class="admin-preview-toolbar">
-          <label class="visually-hidden" for="admin-preview-url">URL à prévisualiser</label>
-          <select id="admin-preview-url" aria-label="Choisir une page à prévisualiser"></select>
-          <button type="button" class="admin-btn admin-btn--primary" id="admin-preview-reload">
-            Recharger l’iframe
+        <div class="admin-tabs" role="tablist" aria-label="Sections admin">
+          <button type="button" role="tab" aria-selected="true" aria-controls="panel-programs">
+            Formations (vue data)
           </button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="panel-studio">Gestion studio</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="panel-pages">Pages publiques</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="panel-preview">Prévisualisation</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="panel-api">API JSON</button>
         </div>
-        <div class="admin-preview-frame-wrap">
-          <iframe
-            id="admin-preview-iframe"
-            title="Aperçu page client"
-            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
-        </div>
-      </div>
 
-      <div id="panel-api" class="admin-panel" role="tabpanel" hidden>
-        <p id="admin-api-endpoint" class="admin-api-url"></p>
-        <p style="margin: 0 0 0.75rem">
-          <button type="button" class="admin-btn admin-btn--primary" id="admin-copy-json">Copier le JSON</button>
-        </p>
-        <pre id="admin-json-pre" class="admin-pre" aria-label="Contenu JSON du catalogue"></pre>
+        <div id="panel-programs" class="admin-panel" role="tabpanel">
+          <p class="meta" style="margin: 0 0 1rem; font-size: 0.875rem; color: var(--text-muted)">
+            Contenu aligné sur les pages <strong>formation-gratuite</strong> et <strong>offres/formation</strong>.
+            Modifier le fichier
+            <code style="color: var(--teal); font-size: 0.8rem">assets/data/pinapp-catalog.json</code> pour mettre à
+            jour l’API et les listes.
+          </p>
+          <div id="admin-programs"></div>
+        </div>
+
+        <div id="panel-studio" class="admin-panel" role="tabpanel" hidden>
+          <p class="admin-studio-lede">
+            Pilotage administratif <strong>léger</strong> : tâches récurrentes par rôle, mémoire locale, récap à coller
+            dans un message (Slack, WhatsApp, e-mail). Les automatisations lourdes restent dans n8n / Netlify / Notion —
+            voir
+            <code style="font-size: 0.8rem; color: var(--teal)">docs/studio/ADMINISTRATION-INTELLIGENTE.md</code> sur le
+            dépôt.
+          </p>
+          <ul class="admin-studio-links" aria-label="Raccourcis utiles">
+            <li>
+              <a class="refonte-link-teal" href="../diagnostic/index.html" target="_blank" rel="noopener noreferrer"
+                >Formulaire diagnostic (vue publique)</a
+              >
+            </li>
+            <li>
+              <a class="refonte-link-teal" href="../assets/js/config.js" target="_blank" rel="noopener noreferrer"
+                >config.js — webhooks &amp; feature flags</a
+              >
+            </li>
+            <li>
+              <a class="refonte-link-teal" href="../AUTOMATIONS.md" target="_blank" rel="noopener noreferrer"
+                >AUTOMATIONS.md</a
+              >
+            </li>
+            <li>
+              <a
+                class="refonte-link-teal"
+                href="../docs/studio/PROCESSUS-UNIQUE-PINAPP.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Processus unique (Lauralie · Michaël · client) + consignes Claude</a
+              >
+            </li>
+          </ul>
+          <div id="admin-studio-mount"></div>
+        </div>
+
+        <div id="panel-pages" class="admin-panel" role="tabpanel" hidden>
+          <div id="admin-pages"></div>
+        </div>
+
+        <div id="panel-preview" class="admin-panel" role="tabpanel" hidden>
+          <p class="meta" style="margin: 0 0 0.75rem; font-size: 0.875rem; color: var(--text-muted)">
+            Même origine que le site : la page se charge comme pour un visiteur (cookies, thème, scripts actifs).
+          </p>
+          <div class="admin-preview-toolbar">
+            <label class="visually-hidden" for="admin-preview-url">URL à prévisualiser</label>
+            <select id="admin-preview-url" aria-label="Choisir une page à prévisualiser"></select>
+            <button type="button" class="admin-btn admin-btn--primary" id="admin-preview-reload">
+              Recharger l’iframe
+            </button>
+          </div>
+          <div class="admin-preview-frame-wrap">
+            <iframe
+              id="admin-preview-iframe"
+              title="Aperçu page client"
+              sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+          </div>
+        </div>
+
+        <div id="panel-api" class="admin-panel" role="tabpanel" hidden>
+          <p id="admin-api-endpoint" class="admin-api-url"></p>
+          <p style="margin: 0 0 0.75rem">
+            <button type="button" class="admin-btn admin-btn--primary" id="admin-copy-json">Copier le JSON</button>
+          </p>
+          <pre id="admin-json-pre" class="admin-pre" aria-label="Contenu JSON du catalogue"></pre>
+        </div>
       </div>
-    </div>
+    </main>
 
     <style>
       .visually-hidden {
@@ -164,5 +172,7 @@
     <script src="../assets/js/admin-studio.js" defer></script>
     <script src="../assets/js/admin-dashboard.js" defer></script>
     <script src="../assets/js/pinapp-master-v3.js" defer></script>
+    <script src="../assets/js/pinapp-master-v4.js" defer></script>
   </body>
 </html>
+

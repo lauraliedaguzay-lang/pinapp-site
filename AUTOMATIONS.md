@@ -1,6 +1,24 @@
 ﻿# PINAPP INC. — DOCUMENTATION AUTOMATISATIONS N8N
 
+**Médias (vidéos, photos, sites démo) :** ce fichier ne les couvre pas — voir **`GUIDE-CONTENU.md`** à la racine du dépôt.
+
 ## 8 Workflows · Stack : n8n + Tally + YouSign + Stripe + Notion + Gmail + Buffer + Claude API
+
+---
+
+## Mise en service du site (webhooks + Tally)
+
+Sans cette étape, le dépôt reste volontairement **hors ligne** côté automatisations : `assets/js/config.js` contient `https://[TON-N8N]` et les feature flags restent à `false` jusqu’au build de production.
+
+1. **n8n** : créez les workflows qui exposent les chemins `/webhook/diagnostic-lead`, `/webhook/onboarding-lead`, etc. (voir exports dans `n8n-workflows/`).
+2. **Secrets GitHub** (Settings → Secrets → Actions) : ajoutez au minimum  
+   `PINAPP_N8N_BASE_URL` = `https://VOTRE_INSTANCE.n8n.cloud`  
+   (ou `PINAPP_N8N_HOST` = `VOTRE_INSTANCE.n8n.cloud`).  
+   Optionnel : `PINAPP_TALLY_DIAGNOSTIC_DEFAULT` = ID du formulaire embed Tally (page `/diagnostic/`).
+3. **Push sur `main`** : le workflow « Déployer GitHub Pages » lance `pwsh -File ./pinapp.ps1 build` (équivalent local : `.\pinapp.ps1 build` ou `npm run build`), qui réécrit **`_site/` uniquement** : URLs réelles + flags à `true` pour les webhooks listés dans `config.js`.
+4. **Alternative locale** : copiez `pinapp-automation.env.example` → `pinapp-automation.env`, remplissez les variables, puis `.\pinapp.ps1 build` (ou `npm run build`) avant tout déploiement manuel.
+5. **Diagnostic** : le flux principal est **Tally → n8n** (intégration native Tally). Les appels `sendDiagnosticLead` dans `votre-projet/` et `client/` partent du navigateur vers n8n : CORS doit être accepté côté n8n (ou proxy).
+6. **Netlify Functions** (`approve`, etc.) : l’URL dans `approveEndpoint` suppose un déploiement **Netlify** (ou équivalent). Sur **GitHub Pages seul**, ces URLs ne s’exécutent pas — prévoir un hébergeur fonctions ou retirer ce maillon du workflow.
 
 ---
 

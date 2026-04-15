@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="fr" data-theme="dark">
   <head>
     <script>
@@ -27,14 +27,12 @@
     <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
     <link rel="stylesheet" href="../../assets/variables.css" />
     <link rel="stylesheet" href="../../assets/grid.css" />
-    <link rel="preconnect" href="https://fonts.bunny.net" />
-    <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" />
     <style>
       .trello-page {
         min-height: 100dvh;
         background: var(--bg-primary, var(--fond-nuit));
         color: var(--text-primary, var(--text));
-        font-family: 'Inter', system-ui, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
         padding: var(--space-4, 1rem);
         padding-bottom: calc(var(--space-6, 1.5rem) + env(safe-area-inset-bottom, 0));
       }
@@ -357,10 +355,11 @@
       }
     </style>
     <link rel="stylesheet" href="../../assets/css/pinapp-master-v3.css" />
+    <link rel="stylesheet" href="../../assets/css/pinapp-master-v4.css" />
   </head>
   <body>
-    <a href="#board" class="sr-only">Aller au tableau</a>
-    <div class="trello-page">
+    <a class="skip-link" href="#contenu-principal">Aller au contenu</a>
+    <main id="contenu-principal" class="trello-page" tabindex="-1">
       <header class="trello-toolbar">
         <div>
           <h1>Tableau interne — style Trello</h1>
@@ -379,7 +378,7 @@
       </header>
 
       <div id="board" class="trello-board" aria-label="Colonnes du tableau Kanban"></div>
-    </div>
+    </main>
 
     <div id="cardModal" class="trello-modal" hidden role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="trello-modal-panel">
@@ -805,5 +804,7 @@
       })();
     </script>
     <script src="../../assets/js/pinapp-master-v3.js" defer></script>
+    <script src="../../assets/js/pinapp-master-v4.js" defer></script>
   </body>
 </html>
+

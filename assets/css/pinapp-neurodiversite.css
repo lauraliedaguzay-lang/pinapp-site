@@ -1,0 +1,106 @@
+/* =====================================================
+   PINAPP — Neurodiversité · TDAH · charge cognitive
+   Mode concentration (data-pinapp-calm) + prefers-reduced-motion
+   ===================================================== */
+
+/* Bouton flottant (injecté par pinapp-neuro-calm-ui.js) */
+.pinapp-neuro-calm-btn {
+  position: fixed;
+  z-index: 9500;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 5.75rem);
+  right: max(12px, env(safe-area-inset-right));
+  padding: 0.45rem 0.85rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 229, 204, 0.4);
+  background: rgba(8, 13, 24, 0.9);
+  color: var(--text, #f0f8ff);
+  cursor: pointer;
+  box-shadow: 0 4px 28px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  max-width: min(200px, calc(100vw - 24px));
+}
+
+html[data-theme='light'] .pinapp-neuro-calm-btn {
+  background: rgba(250, 252, 255, 0.94);
+  color: #0a2a2e;
+  border-color: rgba(10, 42, 46, 0.28);
+}
+
+.pinapp-neuro-calm-btn:focus-visible {
+  outline: 2px solid var(--accent, #00e5cc);
+  outline-offset: 3px;
+}
+
+/* Lisibilité : interligne un peu plus aéré */
+html[data-pinapp-calm='1'] #main,
+html[data-pinapp-calm='1'] main,
+html[data-pinapp-calm='1'] .prose {
+  line-height: 1.65;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #main,
+  main,
+  .prose {
+    line-height: 1.65;
+  }
+}
+
+/* Décorations : atténuer ou figer */
+html[data-pinapp-calm='1'] .caustics,
+html[data-pinapp-calm='1'] .caustics span,
+html[data-pinapp-calm='1'] .light-rays,
+html[data-pinapp-calm='1'] .water-surface,
+html[data-pinapp-calm='1'] .water-reflets,
+html[data-pinapp-calm='1'] .aurora-mobile,
+html[data-pinapp-calm='1'] .pandora-shapes,
+html[data-pinapp-calm='1'] .holo-grid,
+html[data-pinapp-calm='1'] .noise-overlay {
+  opacity: 0 !important;
+  animation: none !important;
+  pointer-events: none;
+}
+
+html[data-pinapp-calm='1'] #cursor,
+html[data-pinapp-calm='1'] #cursor-trail {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+html[data-pinapp-calm='1'] .bio-particle {
+  display: none !important;
+}
+
+html[data-pinapp-calm='1'] .sticky-cta {
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caustics,
+  .caustics span,
+  .light-rays,
+  .water-surface,
+  .water-reflets,
+  .aurora-mobile,
+  .pandora-shapes,
+  .holo-grid,
+  .noise-overlay {
+    opacity: 0 !important;
+    animation: none !important;
+    pointer-events: none;
+  }
+
+  #cursor,
+  #cursor-trail {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  .bio-particle {
+    display: none !important;
+  }
+}

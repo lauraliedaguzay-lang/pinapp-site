@@ -2493,9 +2493,9 @@ npm run dev
 Rechercher dans le code : `⚠️ [LAURALIE]` et `⚠️ [MICHA]`
 Ces marqueurs indiquent exactement où glisser les fichiers manquants.
 
-```bash
-grep -r "⚠️ \[LAURALIE\]" --include="*.html" .
-grep -r "⚠️ \[MICHA\]" --include="*.html" .
+```powershell
+Get-ChildItem -Recurse -Include *.html | Select-String -SimpleMatch '⚠️ [LAURALIE]'
+Get-ChildItem -Recurse -Include *.html | Select-String -SimpleMatch '⚠️ [MICHA]'
 ```
 '@
 
@@ -2538,7 +2538,7 @@ Write-Host "  fontsource.org/fonts/clash-display → télécharger .woff2" -Fore
 Write-Host "  → placer dans assets/fonts/ → ship" -ForegroundColor Gray
 Write-Host ""
 Write-Host "  Pour trouver tous les placeholders :" -ForegroundColor Yellow
-Write-Host '  grep -r "⚠️" --include="*.html" .' -ForegroundColor Gray
+Write-Host '  Get-ChildItem -Recurse -Include *.html | Select-String -SimpleMatch ''⚠️''' -ForegroundColor Gray
 Write-Host ""
 Write-Host "  Thomas — zéro blocage. Prêt à déployer." -ForegroundColor Cyan
 Write-Host ""

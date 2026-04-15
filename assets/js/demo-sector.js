@@ -142,8 +142,9 @@
 
     if (style === 'light-minimal') {
       Object.assign(base, {
-        '--demo-typo-titre': 'Georgia, "Times New Roman", serif',
-        '--demo-typo-body': 'Inter, system-ui, sans-serif',
+        '--demo-typo-titre': 'ui-serif, "Apple Garamond", "Iowan Old Style", serif',
+        '--demo-typo-body':
+          '-apple-system, BlinkMacSystemFont, system-ui, "SF Pro Text", "SF Pro Display", sans-serif',
         '--demo-overlay-hero': 'rgba(253, 253, 253, 0.42)',
         '--demo-texte-hero': S.texte,
         '--demo-texte-btn': '#f4f4f4',
@@ -156,8 +157,9 @@
       });
     } else if (style === 'dark-luxury') {
       Object.assign(base, {
-        '--demo-typo-titre': 'Georgia, "Times New Roman", serif',
-        '--demo-typo-body': 'Inter, system-ui, sans-serif',
+        '--demo-typo-titre': 'ui-serif, "Apple Garamond", "Iowan Old Style", serif',
+        '--demo-typo-body':
+          '-apple-system, BlinkMacSystemFont, system-ui, "SF Pro Text", "SF Pro Display", sans-serif',
         '--demo-overlay-hero': 'rgba(8, 8, 10, 0.62)',
         '--demo-texte-hero': '#f4f0ec',
         '--demo-texte-btn': '#f4f0ec',
@@ -171,8 +173,10 @@
     } else {
       /* bold-tech */
       Object.assign(base, {
-        '--demo-typo-titre': 'Inter, system-ui, sans-serif',
-        '--demo-typo-body': 'Inter, system-ui, sans-serif',
+        '--demo-typo-titre':
+          '-apple-system, BlinkMacSystemFont, system-ui, "SF Pro Display", "SF Pro Text", sans-serif',
+        '--demo-typo-body':
+          '-apple-system, BlinkMacSystemFont, system-ui, "SF Pro Text", "SF Pro Display", sans-serif',
         '--demo-overlay-hero': 'rgba(5, 5, 8, 0.72)',
         '--demo-texte-hero': '#f4f4f4',
         '--demo-texte-btn': '#f4f4f4',

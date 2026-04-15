@@ -302,7 +302,7 @@ const UniversDigital = {
         u.promesse
           ? `
         <p style="font-size:18px;font-weight:500;color:var(--text);
-                  margin-bottom:32px;font-family:Georgia,serif;">
+                  margin-bottom:32px;font-family:ui-serif,'Iowan Old Style','Apple Garamond',serif;">
           ${_he(u.promesse)}
         </p>
       `

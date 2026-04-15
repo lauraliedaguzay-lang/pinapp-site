@@ -6,29 +6,35 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { injectAuralisAppUrl } from './inject-auralis-env.mjs';
+import { injectAutomationConfig } from './inject-automation-config.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, '..');
 const dest = path.join(root, '_site');
 
-/** Charge .env à la racine (sans dépendance) — ne remplace pas les variables déjà définies. */
-function loadDotEnv() {
-  const p = path.join(root, '.env');
-  if (!fs.existsSync(p)) return;
-  for (const line of fs.readFileSync(p, 'utf8').split(/\n/)) {
-    const t = line.trim();
-    if (!t || t.startsWith('#')) continue;
-    const eq = t.indexOf('=');
-    if (eq < 1) continue;
-    const key = t.slice(0, eq).trim();
-    let val = t.slice(eq + 1).trim();
-    if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
-      val = val.slice(1, -1);
+/** Charge .env + pinapp-automation.env (sans dépendance) — ne remplace pas les variables déjà définies. */
+function loadDotEnvFiles() {
+  for (const name of ['.env', 'pinapp-automation.env']) {
+    const p = path.join(root, name);
+    if (!fs.existsSync(p)) continue;
+    for (const line of fs.readFileSync(p, 'utf8').split(/\n/)) {
+      const t = line.trim();
+      if (!t || t.startsWith('#')) continue;
+      const eq = t.indexOf('=');
+      if (eq < 1) continue;
+      const key = t.slice(0, eq).trim();
+      let val = t.slice(eq + 1).trim();
+      if (
+        (val.startsWith('"') && val.endsWith('"')) ||
+        (val.startsWith("'") && val.endsWith("'"))
+      ) {
+        val = val.slice(1, -1);
+      }
+      if (process.env[key] === undefined) process.env[key] = val;
     }
-    if (process.env[key] === undefined) process.env[key] = val;
   }
 }
-loadDotEnv();
+loadDotEnvFiles();
 
 const excludeTop = new Set([
   '.git',
@@ -41,6 +47,7 @@ const excludeTop = new Set([
   '.cursorrules',
   '.gitattributes',
   '.env',
+  'pinapp-automation.env',
   '.htpasswd',
   'dist',
 ]);
@@ -70,6 +77,20 @@ fs.writeFileSync(path.join(dest, '.nojekyll'), '');
 const cfg = path.join(dest, 'assets/js/auralis-config.js');
 if (fs.existsSync(cfg)) {
   injectAuralisAppUrl(cfg);
+}
+
+const auto = injectAutomationConfig(dest);
+if (auto.configUrl || auto.flags || auto.tally) {
+  console.log(
+    'build-site: automatisations →',
+    [
+      auto.configUrl && 'webhooks n8n',
+      auto.flags && 'feature flags',
+      auto.tally && 'Tally diagnostic',
+    ]
+      .filter(Boolean)
+      .join(', ') || '(rien)',
+  );
 }
 
 if (!fs.existsSync(path.join(dest, 'index.html'))) {

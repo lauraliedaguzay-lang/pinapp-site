@@ -1,0 +1,149 @@
+/* ============================================================
+   PINAPP INC. — CSS MASTER FINAL V4
+   SF Pro · Mode jour Avatar 2 · Mobile-first · Animations
+   ============================================================ */
+
+/* ── POLICES SF PRO NATIF APPLE ── */
+*, *::before, *::after {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+               "Helvetica Neue", "Inter", Arial, sans-serif;
+}
+h1,h2,h3,h4,h5,h6,
+.nav__logo,.footer__brand,.offre-title,.offre-gain,
+.offre-price,.formation-title,.pack-duo-badge,
+.metric-num,[style*="Clash Display"] {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+               "Helvetica Neue", "Clash Display", Arial, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── MODE JOUR — EAU AVATAR 2 ── */
+[data-theme="light"] {
+  --bg:           #0a3d52 !important;
+  --bg-card:      rgba(0,180,200,0.08) !important;
+  --text:         #ffffff !important;
+  --text-muted:   rgba(255,255,255,0.65) !important;
+  --text-soft:    rgba(255,255,255,0.35) !important;
+  --accent:       #00e5d4 !important;
+  --accent-2:     #7dd4fc !important;
+  --accent-3:     #ffffff !important;
+  --accent-4:     #00b4d8 !important;
+  --nacre:        #e0f7ff !important;
+  --card-border:  rgba(0,229,212,0.20) !important;
+  --separator:    rgba(0,229,212,0.12) !important;
+  --shadow:       rgba(0,20,40,0.30) !important;
+  --btn-cta-bg:   rgba(0,100,160,0.90) !important;
+  --btn-cta-bd:   rgba(125,212,252,0.40) !important;
+  --btn-ghost-bd: rgba(255,255,255,0.25) !important;
+}
+[data-theme="light"] .nav { background: rgba(8,50,70,0.92) !important; }
+[data-theme="light"] .nav__drawer { background: rgba(6,40,56,0.98) !important; }
+[data-theme="light"] .caustics { opacity:1 !important; }
+[data-theme="light"] .caustics span:nth-child(1) { background:rgba(0,229,212,0.28) !important; }
+[data-theme="light"] .caustics span:nth-child(2) { background:rgba(125,212,252,0.20) !important; }
+[data-theme="light"] .caustics span:nth-child(3) { background:rgba(255,255,255,0.14) !important; }
+[data-theme="light"] .water-surface { opacity:1 !important; }
+[data-theme="light"] .water-reflets {
+  opacity:1 !important;
+  background: linear-gradient(180deg,rgba(125,212,252,0.20) 0%,rgba(0,229,212,0.08) 50%,transparent 100%) !important;
+}
+[data-theme="light"] #canvas-pandora { opacity:0 !important; }
+
+/* ── VIDEO HERO ── */
+.hero-video-wrap {
+  position: fixed; inset:0; z-index:0;
+  overflow: hidden;
+}
+.hero-video-wrap video {
+  width:100%; height:100%;
+  object-fit: cover;
+  opacity: 0.35;
+}
+.hero-video-wrap::after {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(8,13,24,0.4) 0%, rgba(8,13,24,0.8) 100%);
+}
+
+/* ── MOBILE 390px ── */
+@media (max-width:768px) {
+
+  /* Toutes grilles → 1 colonne */
+  [style*="grid-template-columns: 1fr 1fr"],
+  [style*="grid-template-columns:1fr 1fr"],
+  [style*="grid-template-columns: repeat(2"],
+  [style*="grid-template-columns:repeat(2"],
+  [style*="grid-template-columns: repeat(auto-fit"] {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  /* Typographie */
+  h1 { font-size: clamp(28px,8vw,36px) !important; letter-spacing:-0.03em !important; line-height:1.05 !important; }
+  h2 { font-size: clamp(22px,6vw,28px) !important; letter-spacing:-0.02em !important; }
+  h3 { font-size: clamp(16px,4.5vw,20px) !important; }
+
+  /* Prix max 24px */
+  .offre-price,.offre-gain,.pack-price,
+  [style*="font-size:32px"],[style*="font-size:36px"],
+  [style*="font-size:40px"],[style*="font-size:44px"],
+  [style*="font-size:48px"],[style*="font-size:56px"],
+  [style*="font-size:64px"],[style*="font-size:72px"],
+  [style*="font-size:80px"],[style*="font-size:88px"] {
+    font-size: 24px !important; line-height:1.2 !important;
+  }
+
+  /* Boutons hero pleine largeur */
+  .hero .btn, section:first-of-type .btn {
+    width:100% !important; justify-content:center !important;
+    min-height:50px !important; margin-bottom:10px !important;
+  }
+
+  /* Scroll-snap Safari */
+  .snap-container {
+    height:100svh !important; height:-webkit-fill-available !important;
+    overflow-y:scroll !important; -webkit-overflow-scrolling:touch !important;
+    scroll-snap-type:y mandatory !important; overscroll-behavior-y:contain !important;
+  }
+  .snap-section {
+    min-height:100svh !important; min-height:-webkit-fill-available !important;
+    scroll-snap-align:start !important; scroll-snap-stop:always !important;
+    padding-top: max(80px, calc(64px + env(safe-area-inset-top,0px))) !important;
+    padding-bottom:48px !important;
+  }
+
+  /* Touch targets 44px */
+  .nav__burger,.nav__theme,.carousel-btn { min-width:44px !important; min-height:44px !important; }
+
+  /* Safe area */
+  .nav { padding-top:env(safe-area-inset-top,0px) !important; height:calc(64px + env(safe-area-inset-top,0px)) !important; }
+  footer { padding-bottom:max(env(safe-area-inset-bottom,0px),40px) !important; }
+
+  /* Burger TOUJOURS visible */
+  .nav__burger { display:flex !important; }
+  .nav__menu, .nav__cta { display:none !important; }
+
+  /* Drawer scrollable */
+  .nav__drawer {
+    overflow-y:auto !important; -webkit-overflow-scrolling:touch !important;
+    max-height:calc(100svh - 64px) !important;
+    padding-bottom:max(env(safe-area-inset-bottom,0px),32px) !important;
+    display:none !important;
+  }
+  .nav__drawer.open { display:flex !important; }
+
+  /* Container */
+  .container { padding-left:16px !important; padding-right:16px !important; }
+
+  /* Cards */
+  .card,.offre-card,.formation-card { padding:20px !important; }
+
+  /* Aurora lisible */
+  .aurora-mock p,[class*="aurora"] p { font-style:normal !important; font-size:14px !important; line-height:1.6 !important; }
+
+  /* Défiler masqué */
+  .hero__scroll,.scroll-hint { display:none !important; }
+
+  /* Graphiques */
+  .donut-wrap { flex-direction:column !important; gap:16px !important; }
+  .bar-chart { height:90px !important; }
+}

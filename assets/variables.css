@@ -4,6 +4,9 @@
    ================================================================= */
 
 @import './css/fonts.css';
+@import './css/pinapp-audit-harmony.css';
+@import './css/pinapp-jour-waves.css';
+@import './css/pinapp-biolume-cinematic.css';
 @import './css/refonte-conformite.css';
 @import './css/refonte-home.css';
 @import './css/pinapp-cosmos-v1.css';
@@ -38,21 +41,25 @@
   --bg-deep: #010605;
   --fond-jour: #060d1f; /* jour — Océan Pandora (sombre eau) */
 
-  /* GLASS NUIT — verre teinté jade / eau turquoise */
-  --glass: rgba(4, 22, 24, 0.52);
-  --glass-nav: rgba(3, 16, 18, 0.78);
-  --glass-card: rgba(4, 22, 24, 0.54);
-  --glass-tag: rgba(3, 18, 20, 0.42);
-  --glass-modal: rgba(2, 14, 16, 0.88);
-  --glass-blur: blur(24px) saturate(140%); /* Apple : sans brightness() */
-  --glass-blur-nav: blur(20px) saturate(140%);
-  --bg-card: rgba(3, 20, 22, 0.58);
-  --bg-overlay: rgba(1, 10, 12, 0.62);
+  /* GLASS NUIT — Apple : léger tint + transparence (le flou assure la lisibilité) */
+  --glass: rgba(8, 26, 32, 0.38);
+  --glass-nav: rgba(4, 16, 20, 0.55);
+  --glass-card: rgba(6, 24, 30, 0.4);
+  --glass-tag: rgba(4, 18, 22, 0.28);
+  --glass-modal: rgba(2, 12, 16, 0.68);
+  /* Ordre type Safari / vibrance vitre : saturate puis blur */
+  --glass-blur: saturate(180%) blur(20px);
+  --glass-blur-nav: saturate(180%) blur(24px);
+  --glass-blur-thin: saturate(170%) blur(14px);
+  --glass-edge: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  --glass-edge-soft: inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+  --bg-card: rgba(6, 24, 30, 0.42);
+  --bg-overlay: rgba(1, 10, 12, 0.52);
   --bg-primary: var(--fond-nuit);
 
-  /* BORDERS NUIT — turquoise menthe (moins cyan « UI ») */
-  --border-card: rgba(72, 210, 195, 0.16);
-  --border-subtle: rgba(72, 210, 195, 0.09);
+  /* BORDERS NUIT — hairline + hint menthe (lisible sur OLED) */
+  --border-card: rgba(255, 255, 255, 0.09);
+  --border-subtle: rgba(72, 210, 195, 0.08);
   --border-input: rgba(90, 220, 200, 0.24);
   --separator: rgba(72, 210, 195, 0.07);
 
@@ -93,8 +100,8 @@
   --label: 11px;
   --small: 13px;
   --text-legal: 11px;
-  --font-body: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-display: 'Clash Display', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: var(--font-apple-sans);
+  --font-display: var(--font-apple-display);
   --text-body: 1.0625rem; /* 17px â€” alignÃ© apple.com */
   --text-label: 0.6875rem; /* 11px */
   --text-cta: 0.9375rem; /* 15px */
@@ -142,8 +149,8 @@
   --space-9: 96px;
   --space-10: 128px;
 
-  /* NAV */
-  --nav-bg: rgba(2, 12, 14, 0.82);
+  /* NAV — alignée verre (barre fixe / drawer) */
+  --nav-bg: rgba(4, 16, 20, 0.55);
 }
 
 /* =====================================================
@@ -221,20 +228,25 @@ html[data-theme='dark'] body::after {
       rgba(12, 12, 14, 0.4) 50%,
       rgba(0, 0, 0, 0.3) 100%
     ),
+    radial-gradient(ellipse 55% 40% at 8% 12%, rgba(0, 229, 204, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 38% at 92% 88%, rgba(0, 229, 204, 0.06) 0%, transparent 48%),
     linear-gradient(
       180deg,
       rgba(0, 0, 0, 0.35) 0%,
       rgba(14, 14, 16, 0.14) 45%,
       rgba(0, 0, 0, 0.55) 100%
     );
+  animation: pinapp-biolume-field-dark 22s ease-in-out infinite alternate;
 }
 html[data-theme='light'] body::after {
   /* Jour — halos bioluminescence eau (cyan / indigo sur abyssal) */
   background:
-    radial-gradient(95% 55% at 50% -5%, rgba(79, 195, 247, 0.12) 0%, transparent 48%),
-    radial-gradient(85% 50% at 100% 20%, rgba(124, 77, 255, 0.14) 0%, transparent 52%),
-    radial-gradient(90% 55% at 0% 80%, rgba(13, 71, 161, 0.12) 0%, transparent 55%),
+    radial-gradient(95% 55% at 50% -5%, rgba(79, 195, 247, 0.14) 0%, transparent 48%),
+    radial-gradient(85% 50% at 100% 20%, rgba(124, 77, 255, 0.16) 0%, transparent 52%),
+    radial-gradient(90% 55% at 0% 80%, rgba(13, 71, 161, 0.14) 0%, transparent 55%),
+    radial-gradient(ellipse 48% 36% at 50% 100%, rgba(127, 255, 234, 0.1) 0%, transparent 52%),
     linear-gradient(180deg, rgba(6, 13, 31, 0.35) 0%, transparent 45%, rgba(6, 13, 31, 0.55) 100%);
+  animation: pinapp-biolume-field-light 24s ease-in-out infinite alternate;
 }
 
 /* Fallback si PNG absent */
@@ -288,10 +300,13 @@ html[data-theme='light'] body {
   --text-2: rgba(227, 242, 253, 0.78);
   --text-3: rgba(227, 242, 253, 0.52);
   --text-4: rgba(227, 242, 253, 0.34);
-  --glass: rgba(13, 27, 62, 0.52);
-  --glass-nav: rgba(6, 13, 31, 0.88);
-  --glass-card: rgba(13, 27, 62, 0.58);
-  --border-card: rgba(79, 195, 247, 0.14);
+  --glass: rgba(230, 244, 255, 0.12);
+  --glass-nav: rgba(6, 13, 31, 0.52);
+  --glass-card: rgba(230, 244, 255, 0.14);
+  --glass-blur: saturate(180%) blur(22px);
+  --glass-blur-nav: saturate(180%) blur(26px);
+  --glass-blur-thin: saturate(170%) blur(16px);
+  --border-card: rgba(255, 255, 255, 0.14);
   --border-subtle: rgba(255, 255, 255, 0.08);
   --teal: #4fc3f7;
   --accent-teal: #4fc3f7;
@@ -300,7 +315,7 @@ html[data-theme='light'] body {
   --green: #5eead4;
   --accent-green: #5eead4;
   --glow-violet: 0 0 24px rgba(124, 77, 255, 0.28), 0 0 56px rgba(124, 77, 255, 0.12);
-  --nav-bg: rgba(6, 13, 31, 0.88);
+  --nav-bg: rgba(6, 13, 31, 0.52);
   --bg-deep: #0d1b3e;
 }
 
@@ -326,15 +341,14 @@ html[data-theme='light'] body {
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
   border-radius: var(--r-block);
-  border: 1px solid var(--border-card);
+  border: 0.5px solid var(--border-card);
   transform: translateZ(0);
   isolation: isolate;
   position: relative;
   overflow: hidden;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.14),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.1),
-    var(--shadow-lg);
+    var(--glass-edge, inset 0 1px 0 rgba(255, 255, 255, 0.14)),
+    var(--glass-edge-soft, inset 0 -1px 0 rgba(0, 0, 0, 0.08)), var(--shadow-lg);
 }
 
 /* Reflet supÃ©rieur â€” verre */
@@ -584,7 +598,7 @@ select {
   border: 1px solid var(--border-input);
   border-radius: var(--r-input);
   padding: 14px 18px;
-  font-family: Inter, sans-serif;
+  font-family: var(--font-body);
   font-size: 16px; /* jamais moins â€” Safari zoom */
   color: var(--text);
   transition: all var(--t-hover);
@@ -643,15 +657,15 @@ nav,
 }
 nav.scrolled,
 .nav.scrolled {
-  background: rgba(8, 36, 38, 0.74);
-  backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
-  border-bottom: 1px solid rgba(72, 210, 195, 0.12);
+  background: var(--glass-nav);
+  -webkit-backdrop-filter: var(--glass-blur-nav);
+  backdrop-filter: var(--glass-blur-nav);
+  border-bottom: 0.5px solid var(--border-card);
 }
 body.mode-jour nav.scrolled,
 html[data-theme='light'] nav.scrolled {
-  background: rgba(6, 13, 31, 0.9);
-  border-bottom: 1px solid rgba(79, 195, 247, 0.12);
+  background: var(--glass-nav);
+  border-bottom: 0.5px solid var(--border-card);
 }
 
 /* =====================================================
@@ -685,14 +699,14 @@ html[data-theme='light'] nav.scrolled {
 @media (max-width: 768px) {
   .block:not(:nth-child(-n + 3)),
   .card:not(:nth-child(-n + 3)) {
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    background: rgba(6, 28, 32, 0.88) !important;
+    -webkit-backdrop-filter: var(--glass-blur-thin);
+    backdrop-filter: var(--glass-blur-thin);
+    background: rgba(6, 26, 32, 0.5) !important;
   }
   body.mode-jour .block:not(:nth-child(-n + 3)),
   body.mode-jour .card:not(:nth-child(-n + 3)),
   html[data-theme='light'] .card:not(:nth-child(-n + 3)) {
-    background: rgba(248, 240, 255, 0.92) !important;
+    background: rgba(230, 244, 255, 0.16) !important;
   }
 }
 
@@ -751,15 +765,17 @@ html[data-theme='light'] nav.scrolled {
 @supports not (backdrop-filter: blur(1px)) {
   .block,
   .card {
-    background: rgba(6, 28, 32, 0.92) !important;
+    background: rgba(6, 28, 32, 0.88) !important;
   }
   nav.scrolled,
   .nav.scrolled {
-    background: rgba(8, 36, 38, 0.96);
+    background: rgba(4, 16, 20, 0.92);
   }
   body.mode-jour .block,
-  body.mode-jour .card {
-    background: rgba(255, 255, 255, 0.96) !important;
+  body.mode-jour .card,
+  html[data-theme='light'] .block,
+  html[data-theme='light'] .card {
+    background: rgba(230, 244, 255, 0.88) !important;
   }
 }
 
