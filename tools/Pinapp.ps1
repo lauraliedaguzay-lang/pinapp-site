@@ -10,7 +10,7 @@
   Meme chose sur GitHub : workflow pinapp-fr-api.yml (secret HOSTINGER_API_TOKEN).
 
 .PARAMETER Command
-  pull | install | dev | serve | preview | ci | build | verify | ship | clean | format | format-check | info | 403 | diagnose-fr | corrige-fr | sync-fr | fr-auto | fr-api | fr-prepare-profile | fr-secrets | dns-hostinger | hostinger-token | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | tout | dormir | applique | orchestrate | relie | merge-deploy | publie | auto | status | check | tally | tally-show | tally-env | tally-chain | help
+  pull | install | dev | local | local-check | serve | preview | ci | build | verify | ship | clean | format | format-check | info | 403 | diagnose-fr | corrige-fr | sync-fr | fr-auto | fr-api | fr-prepare-profile | fr-secrets | dns-hostinger | hostinger-token | domain | dns | pages | auth | urls | probe | open | actions | repo | suite | tout | dormir | applique | orchestrate | relie | merge-deploy | publie | auto | status | check | tally | tally-show | tally-env | tally-chain | help
 
 .EXAMPLE
   cd $env:USERPROFILE\Projects\pinapp-site
@@ -25,7 +25,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('pull', 'install', 'dev', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'clean', 'format', 'format-check', 'info', '403', 'diagnose-fr', 'corrige-fr', 'sync-fr', 'fr-auto', 'fr-api', 'fr-prepare-profile', 'fr-secrets', 'dns-hostinger', 'hostinger-token', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'tout', 'dormir', 'applique', 'orchestrate', 'relie', 'merge-deploy', 'publie', 'auto', 'status', 'check', 'tally', 'tally-show', 'tally-env', 'tally-chain', 'help')]
+    [ValidateSet('pull', 'install', 'dev', 'local', 'local-check', 'serve', 'preview', 'ci', 'build', 'verify', 'ship', 'clean', 'format', 'format-check', 'info', '403', 'diagnose-fr', 'corrige-fr', 'sync-fr', 'fr-auto', 'fr-api', 'fr-prepare-profile', 'fr-secrets', 'dns-hostinger', 'hostinger-token', 'domain', 'dns', 'pages', 'auth', 'urls', 'probe', 'open', 'actions', 'repo', 'suite', 'tout', 'dormir', 'applique', 'orchestrate', 'relie', 'merge-deploy', 'publie', 'auto', 'status', 'check', 'tally', 'tally-show', 'tally-env', 'tally-chain', 'help')]
     [string] $Command = 'help'
 )
 
@@ -149,7 +149,8 @@ function Write-PinappHelp {
     Write-Host ''
     Write-Host '  .\pinapp.ps1 pull         - git pull' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 install      - npm install' -ForegroundColor White
-    Write-Host '  .\pinapp.ps1 dev          - npm run dev (Vite, laisser le terminal ouvert)' -ForegroundColor White
+    Write-Host '  .\pinapp.ps1 dev          - Vite (tools\dev-vite.ps1), laisser le terminal ouvert' -ForegroundColor White
+    Write-Host '  .\pinapp-dev.ps1          - meme chose (raccourci racine)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 serve        - HTTP local sources (defaut port 8899, Ctrl+C arrete)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 preview      - HTTP local _site (meme port ; PINAPP_HTTP_PORT pour changer)' -ForegroundColor White
     Write-Host '  .\pinapp.ps1 ci           - npm run ci (Prettier + verify)' -ForegroundColor White
@@ -220,8 +221,33 @@ switch ($Command) {
         npm install
     }
     'dev' {
-        Write-Host 'npm run dev (Vite)...' -ForegroundColor Gray
-        npm run dev
+        $vite = Join-Path $PSScriptRoot 'dev-vite.ps1'
+        Write-Host 'Demarrage Vite (tools\dev-vite.ps1)...' -ForegroundColor Gray
+        & $vite
+        exit $LASTEXITCODE
+    }
+    'local' {
+        $pl = Join-Path $RepoRoot 'pinapp-local.ps1'
+        if (-not (Test-Path -LiteralPath $pl)) {
+            Write-Error ('Introuvable : ' + $pl)
+        }
+        & $pl -Action all
+        exit $LASTEXITCODE
+    }
+    'local-check' {
+        Write-Host 'npm install...' -ForegroundColor Gray
+        npm install
+        if ($LASTEXITCODE -ne 0) {
+            exit $LASTEXITCODE
+        }
+        Write-Host 'npm run verify...' -ForegroundColor Gray
+        npm run verify
+        if ($LASTEXITCODE -ne 0) {
+            exit $LASTEXITCODE
+        }
+        $vite = Join-Path $PSScriptRoot 'dev-vite.ps1'
+        & $vite
+        exit $LASTEXITCODE
     }
     'serve' {
         $httpPort = Get-PinappLocalHttpPort
