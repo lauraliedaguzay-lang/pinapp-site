@@ -51,10 +51,18 @@
     var drawer = document.getElementById('navDrawer');
     if (!nav || !toggle || !drawer) return;
 
+    var focusableSel = 'a[href], button:not([disabled]), input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])';
+
     function setOpen(open) {
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       drawer.classList.toggle('is-open', open);
       drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+      if (open) {
+        var first = drawer.querySelector(focusableSel);
+        if (first) first.focus();
+      } else {
+        toggle.focus();
+      }
     }
 
     toggle.addEventListener('click', function () {
@@ -66,6 +74,14 @@
       a.addEventListener('click', function () {
         setOpen(false);
       });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      if (toggle.getAttribute('aria-expanded') === 'true') {
+        e.preventDefault();
+        setOpen(false);
+      }
     });
 
     window.addEventListener(
@@ -282,6 +298,7 @@
   }
 
   function bumpEllipses() {
+    if (prefersReduced.matches) return;
     var ell = document.querySelectorAll('.ellipses__b');
     ell.forEach(function (el) {
       var cur = parseFloat(el.style.opacity || '') || null;
@@ -296,7 +313,7 @@
   }
 
   function initContact() {
-    var tablist = document.querySelector('[role="tablist"]');
+    var tablist = document.querySelector('#contact [role="tablist"]');
     if (!tablist) return;
     var tabs = tablist.querySelectorAll('[role="tab"]');
     var panels = document.querySelectorAll('[role="tabpanel"]');
@@ -332,7 +349,7 @@
 
     function bindWizard(panel) {
       var steps = panel.querySelectorAll('.step');
-      var mail = 'mailto:email@pinapp.fr';
+      var mail = 'mailto:contact@pinapp.fr';
 
       function activeStep() {
         for (var i = 0; i < steps.length; i++) {
@@ -380,6 +397,20 @@
         if (t.matches('[data-next]')) {
           var step = activeStep();
           if (!validateStep(step)) {
+            var reqFs = step.querySelector('fieldset.js-require-one');
+            if (reqFs) {
+              var chks = reqFs.querySelectorAll('input[type="checkbox"]');
+              var anyChk = false;
+              for (var ci = 0; ci < chks.length; ci++) {
+                if (chks[ci].checked) anyChk = true;
+              }
+              if (!anyChk && chks.length) {
+                chks[0].setCustomValidity('Sélectionnez au moins une option.');
+                chks[0].reportValidity();
+                chks[0].setCustomValidity('');
+                return;
+              }
+            }
             step.reportValidity();
             return;
           }
@@ -418,7 +449,7 @@
         if (val) lines.push(label + ' : ' + val);
       });
       lines.push('');
-      lines.push('Email de contact (placeholder) : email@pinapp.fr');
+      lines.push('Contact : contact@pinapp.fr');
       return lines.join('\n');
     }
 
