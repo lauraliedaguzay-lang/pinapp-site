@@ -7,6 +7,7 @@
   install | verify | ci | build | dev | serve | all
   - all (defaut) : npm install puis Vite (http://localhost:5173/)
   - serve : HTTP statique sur le depot (pinapp.ps1 serve, port 8899 par defaut)
+  - pr : creer une PR vers main (pinapp-pr.ps1)
 
 .EXAMPLE
   cd $env:USERPROFILE\Projects\pinapp-site
@@ -17,7 +18,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('install', 'verify', 'ci', 'build', 'dev', 'serve', 'all')]
+    [ValidateSet('install', 'verify', 'ci', 'build', 'dev', 'serve', 'pr', 'all')]
     [string] $Action = 'all'
 )
 
@@ -36,12 +37,28 @@ function Invoke-PinappNpm {
 
 $vite = Join-Path $Root 'tools\dev-vite.ps1'
 $pinapp = Join-Path $Root 'pinapp.ps1'
+$prScript = Join-Path $Root 'pinapp-pr.ps1'
 
 switch ($Action) {
     'install' { Invoke-PinappNpm @('install') }
-    'verify' { Invoke-PinappNpm @('run', 'verify') }
-    'ci' { Invoke-PinappNpm @('run', 'ci') }
-    'build' { Invoke-PinappNpm @('run', 'build') }
+    'verify' {
+        if (-not (Test-Path -LiteralPath $pinapp)) {
+            Write-Error ('Introuvable : ' + $pinapp)
+        }
+        & $pinapp verify
+    }
+    'ci' {
+        if (-not (Test-Path -LiteralPath $pinapp)) {
+            Write-Error ('Introuvable : ' + $pinapp)
+        }
+        & $pinapp ci
+    }
+    'build' {
+        if (-not (Test-Path -LiteralPath $pinapp)) {
+            Write-Error ('Introuvable : ' + $pinapp)
+        }
+        & $pinapp build
+    }
     'dev' {
         if (-not (Test-Path -LiteralPath $vite)) {
             Write-Error ('Introuvable : ' + $vite)
@@ -53,6 +70,12 @@ switch ($Action) {
             Write-Error ('Introuvable : ' + $pinapp)
         }
         & $pinapp serve
+    }
+    'pr' {
+        if (-not (Test-Path -LiteralPath $prScript)) {
+            Write-Error ('Introuvable : ' + $prScript)
+        }
+        & $prScript
     }
     'all' {
         Invoke-PinappNpm @('install')

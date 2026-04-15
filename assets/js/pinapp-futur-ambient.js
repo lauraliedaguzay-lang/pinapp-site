@@ -4,7 +4,8 @@
 
   function motionBlocked() {
     if (document.documentElement.getAttribute('data-pinapp-calm') === '1') return true;
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return true;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+      return true;
     return false;
   }
 
@@ -45,9 +46,7 @@
   window.addEventListener('pinapp-neuro-calm-changed', sync);
   if (window.matchMedia) {
     try {
-      window
-        .matchMedia('(prefers-reduced-motion: reduce)')
-        .addEventListener('change', sync);
+      window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', sync);
     } catch (e) {
       window.matchMedia('(prefers-reduced-motion: reduce)').addListener(sync);
     }

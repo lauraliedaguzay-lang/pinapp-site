@@ -29,7 +29,9 @@
       btn.setAttribute('aria-pressed', on ? 'true' : 'false');
       btn.setAttribute(
         'aria-label',
-        on ? 'Désactiver le mode concentration' : 'Activer le mode concentration (moins d’animations)',
+        on
+          ? 'Désactiver le mode concentration'
+          : 'Activer le mode concentration (moins d’animations)',
       );
     }
     dispatch();

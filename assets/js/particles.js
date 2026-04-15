@@ -145,9 +145,7 @@
         .matchMedia('(prefers-reduced-motion: reduce)')
         .addEventListener('change', applyMotionState);
     } catch (e) {
-      window
-        .matchMedia('(prefers-reduced-motion: reduce)')
-        .addListener(applyMotionState);
+      window.matchMedia('(prefers-reduced-motion: reduce)').addListener(applyMotionState);
     }
   }
 

@@ -164,7 +164,11 @@ function collectAuditIssues(rel, html) {
   }
 
   if (!/<meta\s+charset\s*=\s*["']?utf-8/i.test(html)) {
-    issues.push({ level: 'error', code: 'CHARSET', msg: 'meta charset utf-8 manquant ou non UTF-8' });
+    issues.push({
+      level: 'error',
+      code: 'CHARSET',
+      msg: 'meta charset utf-8 manquant ou non UTF-8',
+    });
   }
 
   const vp = html.match(/<meta\s+name=["']viewport["']\s+content=["']([^"']*)["']/i);
@@ -261,9 +265,7 @@ function runAudit() {
       else warnCount++;
     }
   }
-  console.log(
-    `pinapp-conformite --audit: ${errCount} erreur(s), ${warnCount} avertissement(s)`,
-  );
+  console.log(`pinapp-conformite --audit: ${errCount} erreur(s), ${warnCount} avertissement(s)`);
   if (errCount > 0) process.exit(1);
 }
 

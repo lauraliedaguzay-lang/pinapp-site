@@ -134,8 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
     );
     dots.forEach(function (d, i) {
       d.addEventListener('click', function () {
-        sects[i] &&
-          sects[i].scrollIntoView({ behavior: calm ? 'auto' : 'smooth' });
+        sects[i] && sects[i].scrollIntoView({ behavior: calm ? 'auto' : 'smooth' });
       });
     });
   }
