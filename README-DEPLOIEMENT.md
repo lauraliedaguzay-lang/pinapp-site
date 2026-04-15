@@ -77,8 +77,8 @@ Le site utilise la **pile système Apple / SF Pro** (pas de chargement Google/Bu
 ## DÉPLOIEMENT
 
 ```powershell
-# 1. Vérifier en local
-npm run dev
+# 1. Vérifier en local (Vite)
+.\pinapp.ps1 dev
 
 # 2. Ship vers main
 .\pinapp.ps1 ship
@@ -93,7 +93,7 @@ npm run dev
 Rechercher dans le code : `⚠️ [LAURALIE]` et `⚠️ [MICHA]`
 Ces marqueurs indiquent exactement où glisser les fichiers manquants.
 
-```bash
-grep -r "⚠️ \[LAURALIE\]" --include="*.html" .
-grep -r "⚠️ \[MICHA\]" --include="*.html" .
+```powershell
+Get-ChildItem -Recurse -Include *.html | Select-String -SimpleMatch '⚠️ [LAURALIE]'
+Get-ChildItem -Recurse -Include *.html | Select-String -SimpleMatch '⚠️ [MICHA]'
 ```

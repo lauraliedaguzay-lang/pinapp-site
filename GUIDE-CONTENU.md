@@ -101,7 +101,7 @@ Les pages sous `demo/artisan/`, `demo/restaurant/`, etc. chargent des visuels vi
 1. Créer un sous-dossier propre, par ex. `assets/images/demos/artisan/`.
 2. Y mettre `hero.webp`, `galerie-01.webp`, etc.
 3. Dans `demo-photo-packs.js`, pour la clé concernée, remplacer les `img('...')` par des chaînes **`'/assets/images/demos/artisan/hero.webp'`** (chemin absolu depuis la racine du site).
-4. Vérifier la page en local (`npm run dev` ou ouverture du fichier selon votre habitude).
+4. Vérifier la page en local (`.\pinapp.ps1 dev`, ou `npm run dev`, ou ouverture du fichier selon votre habitude).
 
 **Textes démo** (slogan, services, CTA) : dans le même `demo/.../index.html`, bloc `window.PINAPP_DEMO_SITE = { ... }`.
 

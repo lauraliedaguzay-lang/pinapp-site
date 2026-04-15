@@ -35,7 +35,7 @@ git push -u origin main
 
 ## Outils de développement (frameworks / chaîne locale)
 
-Le site reste **HTML + CSS + JS vanilla** en production (pas de React/Vue). La chaîne npm sert au **confort local** :
+Le site reste **HTML + CSS + JS vanilla** en production (pas de React/Vue). La chaîne locale repose sur **Node** (dépendances npm) et sur **`pinapp.ps1`** pour dev, format, CI et build :
 
 | Outil                                | Rôle                                                                                            |
 | ------------------------------------ | ----------------------------------------------------------------------------------------------- |
@@ -46,16 +46,17 @@ Le site reste **HTML + CSS + JS vanilla** en production (pas de React/Vue). La c
 
 ```powershell
 Set-Location pinapp-site
-npm install
-npm run dev
+.\pinapp.ps1 install
+.\pinapp.ps1 dev
 ```
 
+- Équivalent npm : `npm install` puis `npm run dev` (les scripts `package.json` appellent déjà `pinapp.ps1`).
 - La fenêtre du terminal doit **rester ouverte** : sinon le navigateur affiche **ERR_CONNECTION_REFUSED**.
 - URL : **`http://127.0.0.1:5173/`** ou `http://localhost:5173/` (le serveur écoute sur toutes les interfaces).
 
-#### Windows — PowerShell par défaut
+#### PowerShell par défaut (Windows et entrée CI)
 
-À la racine du dépôt, le script **`pinapp.ps1`** regroupe les tâches courantes (même commandes qu’avec `npm run pinapp -- …`) :
+À la racine du dépôt, le script **`pinapp.ps1`** regroupe les tâches courantes (équivalent : `npm run pinapp -- …`) :
 
 ```powershell
 Set-Location $env:USERPROFILE\Projects\pinapp-site
@@ -76,8 +77,8 @@ Set-Location $env:USERPROFILE\Projects\pinapp-site
 
 Les pages profondes fonctionnent en MPA (`/offres/index.html`, etc.).
 
-- `npm run format` — formater le dépôt (vérifiez le diff avant commit).
-- `npm run format:check` — contrôle sans écrire (adaptable en CI).
+- `.\pinapp.ps1 format` — formater le dépôt (vérifiez le diff avant commit) ; équivalent : `npm run format`.
+- `.\pinapp.ps1 format-check` — contrôle sans écrire ; équivalent : `npm run format:check`.
 
 **Important :** le déploiement (Hostinger, GitHub Pages, ZIP Netlify) continue d’utiliser les **fichiers sources** tels quels ; il n’y a **pas** d’étape `vite build` en prod pour éviter tout conflit avec le dossier `assets/` existant.
 
@@ -114,4 +115,4 @@ Détails sécurité et signalement : voir **[SECURITY.md](./SECURITY.md)**.
 
 ## CI GitHub
 
-Le workflow **Site — vérifications** contrôle la présence des fichiers critiques et l’absence de `.env` / `.htpasswd` dans le dépôt.
+Les workflows **Site — vérifications** et **Déployer GitHub Pages** enchaînent **`pwsh -File ./pinapp.ps1 install`**, puis **`ci`** (Prettier + garde-fous Node) et **`build`** sur `main`. Même logique qu’en local avec **`.\pinapp.ps1 ship`**.
