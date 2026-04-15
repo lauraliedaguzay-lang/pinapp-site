@@ -4,46 +4,26 @@
   var html = document.documentElement;
   var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  function syncHeroBg() {
-    var img = document.getElementById('heroBgImg');
-    if (!img) return;
-    var night = img.getAttribute('data-bg-night');
-    var day = img.getAttribute('data-bg-day');
-    var isLight = html.getAttribute('data-theme') === 'light';
-    var next = isLight ? day : night;
-    if (next && img.getAttribute('src') !== next) img.setAttribute('src', next);
-  }
-
-  function setThemeLabel(btn, isLight) {
+  function setThemeAria(btn, isLight) {
     if (!btn) return;
     btn.setAttribute('aria-pressed', isLight ? 'true' : 'false');
-    btn.textContent = isLight ? 'Jour' : 'Nuit';
+    btn.setAttribute('aria-label', isLight ? 'Mode jour actif — passer en nuit' : 'Mode nuit actif — passer en jour');
   }
 
   function initTheme() {
     var stored = localStorage.getItem('pinapp-vitrine-theme');
     var scheme = stored || 'dark';
     html.setAttribute('data-theme', scheme);
-    syncHeroBg();
-    var heroImg = document.getElementById('heroBgImg');
-    if (heroImg) {
-      heroImg.addEventListener('error', function () {
-        heroImg.removeAttribute('src');
-        heroImg.style.display = 'none';
-      });
-    }
     var btn = document.getElementById('themeToggle');
-    setThemeLabel(btn, scheme === 'light');
+    setThemeAria(btn, scheme === 'light');
     if (!btn) return;
     btn.addEventListener('click', function () {
       var next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
       html.setAttribute('data-theme', next);
       localStorage.setItem('pinapp-vitrine-theme', next);
-      setThemeLabel(btn, next === 'light');
-      syncHeroBg();
+      setThemeAria(btn, next === 'light');
     });
   }
-
 
   function initNav() {
     var nav = document.getElementById('siteNav');
@@ -51,10 +31,18 @@
     var drawer = document.getElementById('navDrawer');
     if (!nav || !toggle || !drawer) return;
 
+    var focusableSel = 'a[href], button:not([disabled]), input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])';
+
     function setOpen(open) {
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       drawer.classList.toggle('is-open', open);
       drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+      if (open) {
+        var first = drawer.querySelector(focusableSel);
+        if (first) first.focus();
+      } else {
+        toggle.focus();
+      }
     }
 
     toggle.addEventListener('click', function () {
@@ -66,6 +54,14 @@
       a.addEventListener('click', function () {
         setOpen(false);
       });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      if (toggle.getAttribute('aria-expanded') === 'true') {
+        e.preventDefault();
+        setOpen(false);
+      }
     });
 
     window.addEventListener(
@@ -129,8 +125,7 @@
     }
 
     function color() {
-      var c = getComputedStyle(html).getPropertyValue('--particle').trim() || '#00c9b1';
-      return c;
+      return getComputedStyle(html).getPropertyValue('--particle').trim() || '#00c9b1';
     }
 
     function spawn() {
@@ -155,8 +150,8 @@
       ctx.fillStyle = color();
       for (var i = 0; i < particles.length; i++) {
         var p = particles[i];
-        p.x += (Math.random() - 0.5) * 0.6;
-        p.y += (Math.random() - 0.5) * 0.6;
+        p.x += (Math.random() - 0.5) * 0.3;
+        p.y += (Math.random() - 0.5) * 0.3;
         if (p.x < 0) p.x = w;
         if (p.x > w) p.x = 0;
         if (p.y < 0) p.y = h;
@@ -227,9 +222,10 @@
       window.setTimeout(next, 900);
     }
     if (!prefersReduced.matches) window.setTimeout(next, 400);
-    else bubbles.forEach(function (b) {
-      b.classList.add('is-on');
-    });
+    else
+      bubbles.forEach(function (b) {
+        b.classList.add('is-on');
+      });
   }
 
   function initCarousel(rootId) {
@@ -282,24 +278,31 @@
   }
 
   function bumpEllipses() {
-    var ell = document.querySelectorAll('.ellipses__b');
-    ell.forEach(function (el) {
-      var cur = parseFloat(el.style.opacity || '') || null;
-      var base =
-        el.classList.contains('ellipses__b--1') ? 0.05 : el.classList.contains('ellipses__b--2') ? 0.04 : 0.03;
+    if (prefersReduced.matches) return;
+    document.querySelectorAll('.ellipses__b').forEach(function (el) {
+      var base = el.classList.contains('ellipses__b--1')
+        ? 0.05
+        : el.classList.contains('ellipses__b--2')
+          ? 0.04
+          : 0.03;
       var v = Math.min(0.12, base + 0.02);
       el.style.opacity = String(v);
       window.setTimeout(function () {
         el.style.opacity = '';
       }, 450);
     });
+    var shell = document.querySelector('.contact-shell');
+    if (shell) {
+      var g = parseFloat(getComputedStyle(shell).getPropertyValue('--contact-glow')) || 0.02;
+      shell.style.setProperty('--contact-glow', String(Math.min(0.14, g + 0.02)));
+    }
   }
 
   function initContact() {
-    var tablist = document.querySelector('[role="tablist"]');
+    var tablist = document.querySelector('#contact [role="tablist"]');
     if (!tablist) return;
     var tabs = tablist.querySelectorAll('[role="tab"]');
-    var panels = document.querySelectorAll('[role="tabpanel"]');
+    var panels = document.querySelectorAll('#contact [role="tabpanel"]');
 
     function activate(id) {
       tabs.forEach(function (t) {
@@ -312,6 +315,8 @@
         p.hidden = !on;
         if (on) resetPanel(p);
       });
+      var shell = document.querySelector('.contact-shell');
+      if (shell) shell.style.setProperty('--contact-glow', '0.02');
     }
 
     function resetPanel(panel) {
@@ -332,7 +337,7 @@
 
     function bindWizard(panel) {
       var steps = panel.querySelectorAll('.step');
-      var mail = 'mailto:email@pinapp.fr';
+      var mail = 'mailto:contact@pinapp.fr';
 
       function activeStep() {
         for (var i = 0; i < steps.length; i++) {
@@ -380,6 +385,20 @@
         if (t.matches('[data-next]')) {
           var step = activeStep();
           if (!validateStep(step)) {
+            var reqFs = step.querySelector('fieldset.js-require-one');
+            if (reqFs) {
+              var chks = reqFs.querySelectorAll('input[type="checkbox"]');
+              var anyChk = false;
+              for (var ci = 0; ci < chks.length; ci++) {
+                if (chks[ci].checked) anyChk = true;
+              }
+              if (!anyChk && chks.length) {
+                chks[0].setCustomValidity('Sélectionnez au moins une option.');
+                chks[0].reportValidity();
+                chks[0].setCustomValidity('');
+                return;
+              }
+            }
             step.reportValidity();
             return;
           }
@@ -400,7 +419,8 @@
             return;
           }
           var body = buildBody(panel);
-          window.location.href = mail + '?subject=' + encodeURIComponent(panel.dataset.subject || 'Demande Pinapp') + '&body=' + encodeURIComponent(body);
+          window.location.href =
+            mail + '?subject=' + encodeURIComponent(panel.dataset.subject || 'Demande Pinapp') + '&body=' + encodeURIComponent(body);
         }
       });
     }
@@ -418,7 +438,7 @@
         if (val) lines.push(label + ' : ' + val);
       });
       lines.push('');
-      lines.push('Email de contact (placeholder) : email@pinapp.fr');
+      lines.push('Contact : contact@pinapp.fr');
       return lines.join('\n');
     }
 
