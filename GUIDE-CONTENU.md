@@ -4,7 +4,7 @@
 
 **Règle d’or :** en production (`pinapp.fr`), les chemins publics commencent par **`/assets/...`** (racine du site). Vous déposez les fichiers dans le dossier du dépôt `pinapp-site/assets/...` avec les **mêmes noms** que ci‑dessous, sauf si vous mettez à jour le HTML/JS en même temps.
 
-**Après chaque série de changements :** dans le dossier `pinapp-site`, lancer `npm run ci` (ou laisser GitHub Actions le faire au push sur `main`).
+**Après chaque série de changements :** dans le dossier `pinapp-site`, lancer `.\pinapp.ps1 ci` (équivalent : `npm run ci` ; GitHub Actions le fait au push sur `main`).
 
 ---
 
@@ -116,7 +116,7 @@ Les pages sous `demo/artisan/`, `demo/restaurant/`, etc. chargent des visuels vi
    - Ligne `Object.assign(..., PINAPP_DEMO_PHOTO_PACKS.xxx)` : utiliser une **nouvelle clé** ou réutiliser un pack existant.
 3. Dans `demo-photo-packs.js` : ajouter une entrée **`monMetier: { ... }`** calquée sur `artisan` si c’est un nouveau pack.
 4. **Lien depuis le site :** `realisations/index.html` (ou menu) — ajouter une carte / lien vers `/demo/mon-metier/` (ou chemin relatif selon la page).
-5. Lancer `npm run ci` avant commit.
+5. Lancer `.\pinapp.ps1 ci` (ou `npm run ci`) avant commit.
 
 ---
 
@@ -150,7 +150,7 @@ Les pages sous `demo/artisan/`, `demo/restaurant/`, etc. chargent des visuels vi
 - [ ] Fichiers médias aux **bons chemins** et **bons noms** (ou HTML/JS mis à jour).
 - [ ] **Alt** descriptifs sur les images importantes (`data-alt`, `alt=`).
 - [ ] **WebP** compressé (éviter les 5 Mo+ sur la home).
-- [ ] `npm run ci` **vert** en local.
+- [ ] `.\pinapp.ps1 ci` (ou `npm run ci`) **vert** en local.
 - [ ] Sur GitHub : push sur `main` → workflow Pages + injection automatisations si secrets définis.
 
 ---
