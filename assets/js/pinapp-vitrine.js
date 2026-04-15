@@ -7,7 +7,10 @@
   function setThemeAria(btn, isLight) {
     if (!btn) return;
     btn.setAttribute('aria-pressed', isLight ? 'true' : 'false');
-    btn.setAttribute('aria-label', isLight ? 'Mode jour actif — passer en nuit' : 'Mode nuit actif — passer en jour');
+    btn.setAttribute(
+      'aria-label',
+      isLight ? 'Mode jour actif — passer en nuit' : 'Mode nuit actif — passer en jour',
+    );
   }
 
   function initTheme() {
@@ -31,7 +34,8 @@
     var drawer = document.getElementById('navDrawer');
     if (!nav || !toggle || !drawer) return;
 
-    var focusableSel = 'a[href], button:not([disabled]), input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])';
+    var focusableSel =
+      'a[href], button:not([disabled]), input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])';
 
     function setOpen(open) {
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
@@ -70,7 +74,7 @@
         if (window.scrollY > 12) nav.classList.add('nav--scrolled');
         else nav.classList.remove('nav--scrolled');
       },
-      { passive: true }
+      { passive: true },
     );
   }
 
@@ -97,7 +101,7 @@
           }
         });
       },
-      { rootMargin: '0px 0px -8% 0px', threshold: 0.12 }
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.12 },
     );
     nodes.forEach(function (n) {
       io.observe(n);
@@ -205,7 +209,7 @@
           y +
           'px, rgba(0,201,177,0.06), transparent 55%)';
       },
-      { passive: true }
+      { passive: true },
     );
   }
 
@@ -259,7 +263,7 @@
       function (e) {
         startX = e.changedTouches[0].screenX;
       },
-      { passive: true }
+      { passive: true },
     );
     track.addEventListener(
       'touchend',
@@ -271,7 +275,7 @@
         if (dx > 0) go(index - 1);
         else go(index + 1);
       },
-      { passive: true }
+      { passive: true },
     );
 
     go(0);
@@ -420,7 +424,11 @@
           }
           var body = buildBody(panel);
           window.location.href =
-            mail + '?subject=' + encodeURIComponent(panel.dataset.subject || 'Demande Pinapp') + '&body=' + encodeURIComponent(body);
+            mail +
+            '?subject=' +
+            encodeURIComponent(panel.dataset.subject || 'Demande Pinapp') +
+            '&body=' +
+            encodeURIComponent(body);
         }
       });
     }
@@ -434,7 +442,8 @@
         if ((field.type === 'radio' || field.type === 'checkbox') && !field.checked) return;
         var label = field.name || field.id || 'champ';
         var val = field.value;
-        if (field.type === 'radio' || field.type === 'checkbox') val = field.checked ? field.value : '';
+        if (field.type === 'radio' || field.type === 'checkbox')
+          val = field.checked ? field.value : '';
         if (val) lines.push(label + ' : ' + val);
       });
       lines.push('');

@@ -1,0 +1,420 @@
+{
+  "meta": {
+    "title": "Pinapp Inc. — Workflows n8n TDAH",
+    "version": "2026-04-15",
+    "note": "Importer dans n8n : chaque objet du tableau workflows est un workflow complet (Import from File, ou copier-coller un objet). Remplacer tous les REMPLACER_* et activer les noeuds desactives (dormants)."
+  },
+  "workflows": [
+    {
+      "name": "Pinapp W1 — Tally Lead → Telegram + email prospect + Notion",
+      "nodes": [
+        {
+          "parameters": {
+            "httpMethod": "POST",
+            "path": "REMPLACER_PATH_TALLY_LEAD",
+            "responseMode": "onReceived",
+            "options": {}
+          },
+          "id": "w1-webhook",
+          "name": "Webhook Tally",
+          "type": "n8n-nodes-base.webhook",
+          "typeVersion": 2,
+          "position": [240, 300],
+          "webhookId": "REMPLACER_PATH_TALLY_LEAD"
+        },
+        {
+          "parameters": {
+            "assignments": {
+              "assignments": [
+                {
+                  "id": "a1",
+                  "name": "payload",
+                  "value": "={{ $json.body ?? $json }}",
+                  "type": "object"
+                }
+              ]
+            },
+            "options": {}
+          },
+          "id": "w1-set",
+          "name": "Normaliser payload",
+          "type": "n8n-nodes-base.set",
+          "typeVersion": 3.4,
+          "position": [460, 300]
+        },
+        {
+          "parameters": {
+            "method": "POST",
+            "url": "https://api.telegram.org/botREMPLACER_BOT_TOKEN_PINAPP/sendMessage",
+            "sendBody": true,
+            "specifyBody": "json",
+            "jsonBody": "={\"chat_id\": \"REMPLACER_CHAT_ID_PINAPP\", \"parse_mode\": \"HTML\", \"text\": \"<b>Lead Pinapp</b>\\n\" + JSON.stringify($json.payload).slice(0,3500) }"
+          },
+          "id": "w1-tg",
+          "name": "Telegram Pinapp",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4.2,
+          "position": [680, 220]
+        },
+        {
+          "parameters": {
+            "method": "POST",
+            "url": "REMPLACER_URL_EMAIL_PROSPECT_WEBHOOK",
+            "sendBody": true,
+            "specifyBody": "json",
+            "jsonBody": "={{ JSON.stringify($json.payload) }}"
+          },
+          "id": "w1-mail",
+          "name": "Email prospect (HTTP)",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4.2,
+          "position": [680, 400],
+          "notesInFlow": true,
+          "notes": "Brancher Gmail/SendGrid ou webhook interne. URL = votre endpoint d envoi."
+        },
+        {
+          "parameters": {
+            "method": "POST",
+            "url": "REMPLACER_NOTION_CREATE_PAGE_URL",
+            "sendBody": true,
+            "specifyBody": "json",
+            "jsonBody": "={{ JSON.stringify({ parent: { database_id: \"REMPLACER_NOTION_DB_LEADS\" }, properties: { title: { title: [{ text: { content: \"Lead \" + $now } }] } } }) }}"
+          },
+          "id": "w1-notion",
+          "name": "Notion log (squelette)",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4.2,
+          "position": [900, 300],
+          "disabled": true,
+          "notes": "Activer et remplacer par le noeud Notion natif + credentials."
+        },
+        {
+          "parameters": {
+            "respondWith": "json",
+            "responseBody": "={\"ok\":true}",
+            "options": {}
+          },
+          "id": "w1-resp",
+          "name": "Repondre 200",
+          "type": "n8n-nodes-base.respondToWebhook",
+          "typeVersion": 1.1,
+          "position": [1120, 300]
+        }
+      ],
+      "connections": {
+        "Webhook Tally": {
+          "main": [[{ "node": "Normaliser payload", "type": "main", "index": 0 }]]
+        },
+        "Normaliser payload": {
+          "main": [[{ "node": "Telegram Pinapp", "type": "main", "index": 0 }]]
+        },
+        "Telegram Pinapp": {
+          "main": [[{ "node": "Email prospect (HTTP)", "type": "main", "index": 0 }]]
+        },
+        "Email prospect (HTTP)": {
+          "main": [[{ "node": "Repondre 200", "type": "main", "index": 0 }]]
+        }
+      },
+      "settings": { "executionOrder": "v1" }
+    },
+    {
+      "name": "Pinapp W2 — Relance lead non traite 2h → Telegram",
+      "active": false,
+      "nodes": [
+        {
+          "parameters": {
+            "rule": {
+              "interval": [{ "field": "minutes", "minutesInterval": 30 }]
+            }
+          },
+          "id": "w2-cron",
+          "name": "Toutes les 30 min",
+          "type": "n8n-nodes-base.scheduleTrigger",
+          "typeVersion": 1.2,
+          "position": [240, 300]
+        },
+        {
+          "parameters": {
+            "content": "## W2 Relance 2h\n\n1. Lire les leads Notion (ou DB) sans statut traite et cree il y a > 2h.\n2. Si trouve : Telegram Pinapp avec resume.\n3. Eviter doublons : marquer relance_envoyee.\n\nREMPLACER : requete Notion / SQL puis brancher le noeud HTTP Telegram.",
+            "height": 320,
+            "width": 400
+          },
+          "id": "w2-note",
+          "name": "Instructions",
+          "type": "n8n-nodes-base.stickyNote",
+          "typeVersion": 1,
+          "position": [420, 140]
+        },
+        {
+          "parameters": {
+            "assignments": {
+              "assignments": [
+                {
+                  "id": "w2a",
+                  "name": "status",
+                  "value": "REMPLACER_brancher_Not puis_HTTP_Telegram",
+                  "type": "string"
+                }
+              ]
+            },
+            "options": {}
+          },
+          "id": "w2-set",
+          "name": "Squelette (a completer)",
+          "type": "n8n-nodes-base.set",
+          "typeVersion": 3.4,
+          "position": [480, 360]
+        }
+      ],
+      "connections": {
+        "Toutes les 30 min": {
+          "main": [[{ "node": "Squelette (a completer)", "type": "main", "index": 0 }]]
+        }
+      },
+      "settings": { "executionOrder": "v1" }
+    },
+    {
+      "name": "Pinapp W3 — Waitlist Tally → email confirmation + Notion",
+      "nodes": [
+        {
+          "parameters": {
+            "httpMethod": "POST",
+            "path": "REMPLACER_PATH_TALLY_WAITLIST",
+            "responseMode": "onReceived",
+            "options": {}
+          },
+          "id": "w3-wh",
+          "name": "Webhook Waitlist",
+          "type": "n8n-nodes-base.webhook",
+          "typeVersion": 2,
+          "position": [240, 300],
+          "webhookId": "REMPLACER_PATH_TALLY_WAITLIST"
+        },
+        {
+          "parameters": {
+            "method": "POST",
+            "url": "REMPLACER_URL_WAITLIST_CONFIRM_EMAIL",
+            "sendBody": true,
+            "specifyBody": "json",
+            "jsonBody": "={{ JSON.stringify($json.body ?? $json) }}"
+          },
+          "id": "w3-mail",
+          "name": "Email confirmation",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4.2,
+          "position": [480, 300]
+        },
+        {
+          "parameters": {
+            "respondWith": "json",
+            "responseBody": "={\"ok\":true}",
+            "options": {}
+          },
+          "id": "w3-resp",
+          "name": "Repondre 200",
+          "type": "n8n-nodes-base.respondToWebhook",
+          "typeVersion": 1.1,
+          "position": [720, 300]
+        }
+      ],
+      "connections": {
+        "Webhook Waitlist": {
+          "main": [[{ "node": "Email confirmation", "type": "main", "index": 0 }]]
+        },
+        "Email confirmation": {
+          "main": [[{ "node": "Repondre 200", "type": "main", "index": 0 }]]
+        }
+      },
+      "settings": { "executionOrder": "v1" }
+    },
+    {
+      "name": "Pinapp W4 — Lancement formation → blast waitlist (dormant)",
+      "active": false,
+      "nodes": [
+        {
+          "parameters": {},
+          "id": "w4-man",
+          "name": "Declencheur manuel",
+          "type": "n8n-nodes-base.manualTrigger",
+          "typeVersion": 1,
+          "position": [240, 300]
+        },
+        {
+          "parameters": {
+            "content": "## W4 Dormant\n\nBrancher segment waitlist (Notion/Brevo) + template email \"formation disponible\". Ne pas activer avant la liste prete.",
+            "height": 260,
+            "width": 380
+          },
+          "id": "w4-note",
+          "name": "Lisez-moi",
+          "type": "n8n-nodes-base.stickyNote",
+          "typeVersion": 1,
+          "position": [400, 120]
+        },
+        {
+          "parameters": {
+            "method": "POST",
+            "url": "REMPLACER_URL_BATCH_EMAIL_SERVICE",
+            "sendBody": true,
+            "specifyBody": "json",
+            "jsonBody": "={\"campaign\":\"REMPLACER_CAMPAIGN_ID\",\"segment\":\"waitlist_formation\"}"
+          },
+          "id": "w4-http",
+          "name": "Blast segmente (stub)",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4.2,
+          "position": [480, 360],
+          "disabled": true
+        }
+      ],
+      "connections": {
+        "Declencheur manuel": {
+          "main": [[{ "node": "Blast segmente (stub)", "type": "main", "index": 0 }]]
+        }
+      },
+      "settings": { "executionOrder": "v1" }
+    },
+    {
+      "name": "Pinapp W5 — Recap quotidien 8h → Telegram Pinapp + M&P",
+      "nodes": [
+        {
+          "parameters": {
+            "rule": {
+              "interval": [{ "field": "cronExpression", "expression": "0 8 * * *" }]
+            }
+          },
+          "id": "w5-cron",
+          "name": "Chaque jour 8h",
+          "type": "n8n-nodes-base.scheduleTrigger",
+          "typeVersion": 1.2,
+          "position": [240, 300]
+        },
+        {
+          "parameters": {
+            "method": "POST",
+            "url": "https://api.telegram.org/botREMPLACER_BOT_TOKEN_PINAPP/sendMessage",
+            "sendBody": true,
+            "specifyBody": "json",
+            "jsonBody": "={\"chat_id\":\"REMPLACER_CHAT_ID_PINAPP\",\"text\":\"📊 Recap Pinapp — REMPLACER : agréger leads / waitlist / deploiements / QR.\"}"
+          },
+          "id": "w5-tg1",
+          "name": "Telegram Pinapp",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4.2,
+          "position": [480, 220]
+        },
+        {
+          "parameters": {
+            "method": "POST",
+            "url": "https://api.telegram.org/botREMPLACER_BOT_TOKEN_MP/sendMessage",
+            "sendBody": true,
+            "specifyBody": "json",
+            "jsonBody": "={\"chat_id\":\"REMPLACER_CHAT_ID_MP\",\"text\":\"🌿 Recap M&P — REMPLACER : stats journee memoireetpresence.\"}"
+          },
+          "id": "w5-tg2",
+          "name": "Telegram M&P",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4.2,
+          "position": [480, 400]
+        }
+      ],
+      "connections": {
+        "Chaque jour 8h": {
+          "main": [
+            [
+              { "node": "Telegram Pinapp", "type": "main", "index": 0 },
+              { "node": "Telegram M&P", "type": "main", "index": 0 }
+            ]
+          ]
+        }
+      },
+      "settings": { "executionOrder": "v1" }
+    },
+    {
+      "name": "Pinapp W6 — Deploy GitHub → statut Telegram Pinapp",
+      "nodes": [
+        {
+          "parameters": {
+            "httpMethod": "POST",
+            "path": "REMPLACER_PATH_DEPLOY_HOOK",
+            "responseMode": "onReceived",
+            "options": {}
+          },
+          "id": "w6-wh",
+          "name": "Webhook deploy (fallback)",
+          "type": "n8n-nodes-base.webhook",
+          "typeVersion": 2,
+          "position": [240, 480],
+          "webhookId": "REMPLACER_PATH_DEPLOY_HOOK"
+        },
+        {
+          "parameters": {
+            "method": "POST",
+            "url": "https://api.telegram.org/botREMPLACER_BOT_TOKEN_PINAPP/sendMessage",
+            "sendBody": true,
+            "specifyBody": "json",
+            "jsonBody": "={\"chat_id\":\"REMPLACER_CHAT_ID_PINAPP\",\"text\":\"Deploy : \" + JSON.stringify($json.body ?? $json).slice(0,3000) }"
+          },
+          "id": "w6-tg",
+          "name": "Telegram statut",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4.2,
+          "position": [520, 380]
+        }
+      ],
+      "connections": {
+        "Webhook deploy (fallback)": {
+          "main": [[{ "node": "Telegram statut", "type": "main", "index": 0 }]]
+        }
+      },
+      "settings": { "executionOrder": "v1" }
+    },
+    {
+      "name": "Pinapp W7 — QR M&P scanne → Telegram M&P (dormant)",
+      "active": false,
+      "nodes": [
+        {
+          "parameters": {},
+          "id": "w7-man",
+          "name": "Declencheur manuel",
+          "type": "n8n-nodes-base.manualTrigger",
+          "typeVersion": 1,
+          "position": [240, 300]
+        },
+        {
+          "parameters": {
+            "content": "## W7 Dormant\n\nBrancher URL QR (redirect avec param ?id=) ou webhook analytics. Telegram M&P + log famille (Notion).",
+            "height": 240,
+            "width": 360
+          },
+          "id": "w7-note",
+          "name": "Lisez-moi",
+          "type": "n8n-nodes-base.stickyNote",
+          "typeVersion": 1,
+          "position": [400, 120]
+        },
+        {
+          "parameters": {
+            "method": "POST",
+            "url": "https://api.telegram.org/botREMPLACER_BOT_TOKEN_MP/sendMessage",
+            "sendBody": true,
+            "specifyBody": "json",
+            "jsonBody": "={\"chat_id\":\"REMPLACER_CHAT_ID_MP\",\"text\":\"QR M&P scanne — REMPLACER donnees visiteur.\"}"
+          },
+          "id": "w7-tg",
+          "name": "Telegram M&P",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4.2,
+          "position": [480, 360],
+          "disabled": true
+        }
+      ],
+      "connections": {
+        "Declencheur manuel": {
+          "main": [[{ "node": "Telegram M&P", "type": "main", "index": 0 }]]
+        }
+      },
+      "settings": { "executionOrder": "v1" }
+    }
+  ]
+}

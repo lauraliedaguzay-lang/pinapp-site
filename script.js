@@ -11,7 +11,10 @@
   function setThemeAria(btn, light) {
     if (!btn) return;
     btn.setAttribute('aria-pressed', light ? 'true' : 'false');
-    btn.setAttribute('aria-label', light ? 'Mode jour actif — passer en nuit' : 'Mode nuit actif — passer en jour');
+    btn.setAttribute(
+      'aria-label',
+      light ? 'Mode jour actif — passer en nuit' : 'Mode nuit actif — passer en jour',
+    );
   }
 
   function initTheme() {
@@ -77,7 +80,7 @@
         if (window.scrollY > 50) nav.classList.add('nav--scrolled');
         else nav.classList.remove('nav--scrolled');
       },
-      { passive: true }
+      { passive: true },
     );
   }
 
@@ -104,7 +107,7 @@
           }
         });
       },
-      { rootMargin: '0px 0px -6% 0px', threshold: 0.1 }
+      { rootMargin: '0px 0px -6% 0px', threshold: 0.1 },
     );
     nodes.forEach(function (n) {
       io.observe(n);
@@ -128,7 +131,7 @@
           }, 600);
         });
       },
-      { threshold: 0.12, rootMargin: '0px 0px -10% 0px' }
+      { threshold: 0.12, rootMargin: '0px 0px -10% 0px' },
     );
     sections.forEach(function (s) {
       io.observe(s);
@@ -146,7 +149,7 @@
     var rays = [
       { offset: 0, speed: 0.35, width: 1.2, len: 2.4 },
       { offset: 0.33, speed: 0.22, width: 1, len: 2.2 },
-      { offset: 0.66, speed: 0.28, width: 1, len: 2.3 }
+      { offset: 0.66, speed: 0.28, width: 1, len: 2.3 },
     ];
     var running = true;
     var t0 = performance.now();
@@ -175,7 +178,7 @@
           vy: (Math.random() < 0.5 ? -1 : 1) * (0.2 + Math.random() * 0.3),
           r: 1 + Math.random() * 2,
           base: 0.06 + Math.random() * 0.12,
-          phase: Math.random() * Math.PI * 2
+          phase: Math.random() * Math.PI * 2,
         });
       }
       for (i = 0; i < 5; i++) {
@@ -186,7 +189,7 @@
           blur: 60 + Math.random() * 60,
           phase: Math.random() * Math.PI * 2,
           hue: i % 2 === 0 ? 'teal' : 'violet',
-          opacity: 0.03 + Math.random() * 0.03
+          opacity: 0.03 + Math.random() * 0.03,
         });
       }
     }
@@ -344,9 +347,15 @@
         var y = e.clientY - rect.top;
         var core = isLight() ? 'rgba(123,94,167,0.08)' : 'rgba(0,201,177,0.08)';
         layer.style.background =
-          'radial-gradient(circle 9.375rem at ' + x + 'px ' + y + 'px, ' + core + ', transparent 70%)';
+          'radial-gradient(circle 9.375rem at ' +
+          x +
+          'px ' +
+          y +
+          'px, ' +
+          core +
+          ', transparent 70%)';
       },
-      { passive: true }
+      { passive: true },
     );
   }
 
@@ -359,9 +368,12 @@
     function play() {
       var delays = [500, 1500, 2800];
       bubbles.forEach(function (b, i) {
-        window.setTimeout(function () {
-          b.classList.add('is-on');
-        }, delays[i] != null ? delays[i] : 900 * i);
+        window.setTimeout(
+          function () {
+            b.classList.add('is-on');
+          },
+          delays[i] != null ? delays[i] : 900 * i,
+        );
       });
     }
 
@@ -388,7 +400,7 @@
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.15 },
     );
     io.observe(demos);
   }
@@ -435,7 +447,7 @@
       function (e) {
         startX = e.changedTouches[0].screenX;
       },
-      { passive: true }
+      { passive: true },
     );
     track.addEventListener(
       'touchend',
@@ -448,7 +460,7 @@
         else go(index + 1);
         resetAutoplay();
       },
-      { passive: true }
+      { passive: true },
     );
 
     go(0);
@@ -633,7 +645,8 @@
         if ((field.type === 'radio' || field.type === 'checkbox') && !field.checked) return;
         var label = field.name || field.id || 'champ';
         var val = field.value;
-        if (field.type === 'radio' || field.type === 'checkbox') val = field.checked ? field.value : '';
+        if (field.type === 'radio' || field.type === 'checkbox')
+          val = field.checked ? field.value : '';
         if (val) lines.push(label + ' : ' + val);
       });
       lines.push('');
