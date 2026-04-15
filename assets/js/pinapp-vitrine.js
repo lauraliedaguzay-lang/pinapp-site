@@ -4,34 +4,16 @@
   var html = document.documentElement;
   var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  function syncHeroBg() {
-    var img = document.getElementById('heroBgImg');
-    if (!img) return;
-    var night = img.getAttribute('data-bg-night');
-    var day = img.getAttribute('data-bg-day');
-    var isLight = html.getAttribute('data-theme') === 'light';
-    var next = isLight ? day : night;
-    if (next && img.getAttribute('src') !== next) img.setAttribute('src', next);
-  }
-
   function setThemeLabel(btn, isLight) {
     if (!btn) return;
     btn.setAttribute('aria-pressed', isLight ? 'true' : 'false');
-    btn.textContent = isLight ? 'Jour' : 'Nuit';
+    btn.setAttribute('aria-label', isLight ? 'Mode jour actif — passer en nuit' : 'Mode nuit actif — passer en jour');
   }
 
   function initTheme() {
     var stored = localStorage.getItem('pinapp-vitrine-theme');
     var scheme = stored || 'dark';
     html.setAttribute('data-theme', scheme);
-    syncHeroBg();
-    var heroImg = document.getElementById('heroBgImg');
-    if (heroImg) {
-      heroImg.addEventListener('error', function () {
-        heroImg.removeAttribute('src');
-        heroImg.style.display = 'none';
-      });
-    }
     var btn = document.getElementById('themeToggle');
     setThemeLabel(btn, scheme === 'light');
     if (!btn) return;
@@ -40,7 +22,6 @@
       html.setAttribute('data-theme', next);
       localStorage.setItem('pinapp-vitrine-theme', next);
       setThemeLabel(btn, next === 'light');
-      syncHeroBg();
     });
   }
 
@@ -94,36 +75,6 @@
     );
   }
 
-  function initReveal() {
-    if (prefersReduced.matches) {
-      document.querySelectorAll('[data-reveal]').forEach(function (el) {
-        el.classList.add('is-visible');
-      });
-      return;
-    }
-    var nodes = document.querySelectorAll('[data-reveal]');
-    if (!nodes.length || !('IntersectionObserver' in window)) {
-      nodes.forEach(function (el) {
-        el.classList.add('is-visible');
-      });
-      return;
-    }
-    var io = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) {
-            e.target.classList.add('is-visible');
-            io.unobserve(e.target);
-          }
-        });
-      },
-      { rootMargin: '0px 0px -8% 0px', threshold: 0.12 }
-    );
-    nodes.forEach(function (n) {
-      io.observe(n);
-    });
-  }
-
   function initParticles() {
     var canvas = document.getElementById('heroParticles');
     if (!canvas) return;
@@ -171,8 +122,8 @@
       ctx.fillStyle = color();
       for (var i = 0; i < particles.length; i++) {
         var p = particles[i];
-        p.x += (Math.random() - 0.5) * 0.6;
-        p.y += (Math.random() - 0.5) * 0.6;
+        p.x += (Math.random() - 0.5) * 0.3;
+        p.y += (Math.random() - 0.5) * 0.3;
         if (p.x < 0) p.x = w;
         if (p.x > w) p.x = 0;
         if (p.y < 0) p.y = h;
@@ -301,7 +252,6 @@
     if (prefersReduced.matches) return;
     var ell = document.querySelectorAll('.ellipses__b');
     ell.forEach(function (el) {
-      var cur = parseFloat(el.style.opacity || '') || null;
       var base =
         el.classList.contains('ellipses__b--1') ? 0.05 : el.classList.contains('ellipses__b--2') ? 0.04 : 0.03;
       var v = Math.min(0.12, base + 0.02);
@@ -310,6 +260,11 @@
         el.style.opacity = '';
       }, 450);
     });
+    var shell = document.querySelector('.contact-shell');
+    if (shell) {
+      var g = parseFloat(getComputedStyle(shell).getPropertyValue('--contact-glow')) || 0.02;
+      shell.style.setProperty('--contact-glow', String(Math.min(0.14, g + 0.02)));
+    }
   }
 
   function initContact() {
@@ -329,6 +284,8 @@
         p.hidden = !on;
         if (on) resetPanel(p);
       });
+      var shell = document.querySelector('.contact-shell');
+      if (shell) shell.style.setProperty('--contact-glow', '0.02');
     }
 
     function resetPanel(panel) {
@@ -458,7 +415,6 @@
 
   initTheme();
   initNav();
-  initReveal();
   initParticles();
   initCursorHalo();
   initChatDemo();
