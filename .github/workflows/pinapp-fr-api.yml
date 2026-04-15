@@ -47,4 +47,4 @@ jobs:
           PAGES_CNAME_TARGET: ${{ inputs.pages_cname_target }}
           PINAPP_SKIP_HOSTINGER: ${{ inputs.github_only && '1' || '0' }}
           PINAPP_SKIP_GITHUB: ${{ inputs.hostinger_only && '1' || '0' }}
-        run: python3 tools/ci/pinapp-fr-sync.py
+        run: pwsh -NoProfile -File ./tools/ci/pinapp-fr-sync.ps1

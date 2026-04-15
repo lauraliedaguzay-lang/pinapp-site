@@ -115,4 +115,4 @@ Détails sécurité et signalement : voir **[SECURITY.md](./SECURITY.md)**.
 
 ## CI GitHub
 
-Les workflows **Site — vérifications** et **Déployer GitHub Pages** enchaînent **`pwsh -File ./pinapp.ps1 install`**, puis **`ci`** (Prettier + garde-fous Node) et **`build`** sur `main`. Même logique qu’en local avec **`.\pinapp.ps1 ship`**.
+Les workflows **Site — vérifications** et **Déployer GitHub Pages** enchaînent **`pwsh -File ./pinapp.ps1 install`**, puis **`ci`** (Prettier + garde-fous Node) et **`build`** sur `main`. Même logique qu’en local avec **`.\pinapp.ps1 ship`**. Après déploiement Pages, l’étape **pinapp.fr** appelle **`pwsh -File ./tools/ci/pinapp-fr-sync.ps1`** (DNS Hostinger + domaine GitHub ; équivalent historique : `pinapp-fr-sync.py`).

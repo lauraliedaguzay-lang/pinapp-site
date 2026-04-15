@@ -3,6 +3,9 @@
 Synchronise pinapp.fr : DNS Hostinger (optionnel) + domaine custom GitHub Pages.
 Utilise les variables d'environnement ; aucun secret en sortie.
 
+CI GitHub : preferer tools/ci/pinapp-fr-sync.ps1 (PowerShell ; workflows pinapp-fr).
+Ce fichier reste comme reference / secours hors pwsh.
+
   HOSTINGER_API_TOKEN   — si absent ou vide : etape Hostinger ignoree (exit 0).
   GITHUB_TOKEN          — requis pour PUT Pages (sauf si PINAPP_SKIP_GITHUB=1).
   GITHUB_REPOSITORY     — owner/repo (fourni par GitHub Actions).
