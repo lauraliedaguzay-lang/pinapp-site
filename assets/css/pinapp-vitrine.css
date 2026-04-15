@@ -17,7 +17,8 @@
 
   --teal: #00c9b1;
   --violet: #7b5ea7;
-  --logo-gold: #c9a96e;
+  /* Marque : zéro or — logo neutre biolume (blanc nuit, contrasté jour) */
+  --logo: #ffffff;
 
   --bg: var(--bg-night);
   --surface: var(--surface-night);
@@ -45,6 +46,7 @@ html[data-theme='light'] {
   --particle: var(--violet);
   --ellipse-strong: rgba(123, 94, 167, 1);
   --ellipse-soft: rgba(0, 201, 177, 1);
+  --logo: var(--text-day);
 }
 
 *,
@@ -212,8 +214,13 @@ html[data-theme='light'] .ellipses__b {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 1.375rem;
   letter-spacing: -0.02em;
-  color: var(--logo-gold);
+  color: var(--logo);
   font-weight: 600;
+  text-shadow: 0 0 1.25rem color-mix(in srgb, var(--teal) 22%, transparent);
+}
+
+html[data-theme='light'] .nav__logo {
+  text-shadow: none;
 }
 
 .nav__links {
@@ -1033,9 +1040,10 @@ html[data-theme='light'] .duo__photo::after {
   border-color: color-mix(in srgb, var(--teal) 35%, transparent);
 }
 
-.badge--gold {
-  color: var(--logo-gold);
-  border-color: color-mix(in srgb, var(--logo-gold) 45%, transparent);
+.badge--signature {
+  color: var(--violet);
+  border-color: color-mix(in srgb, var(--teal) 42%, var(--violet) 28%, transparent);
+  background: color-mix(in srgb, var(--violet) 8%, transparent);
 }
 
 .offer h3 {
@@ -1202,9 +1210,14 @@ html[data-theme='light'] .duo__photo::after {
 .footer__logo {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 1.375rem;
-  color: var(--logo-gold);
+  color: var(--logo);
   font-weight: 600;
   letter-spacing: -0.02em;
+  text-shadow: 0 0 1.25rem color-mix(in srgb, var(--teal) 18%, transparent);
+}
+
+html[data-theme='light'] .footer__logo {
+  text-shadow: none;
 }
 
 .footer__tag {
