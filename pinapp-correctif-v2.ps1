@@ -2538,7 +2538,7 @@ Write-Host "  fontsource.org/fonts/clash-display → télécharger .woff2" -Fore
 Write-Host "  → placer dans assets/fonts/ → ship" -ForegroundColor Gray
 Write-Host ""
 Write-Host "  Pour trouver tous les placeholders :" -ForegroundColor Yellow
-Write-Host '  Get-ChildItem -Recurse -Include *.html | Select-String -SimpleMatch \"⚠️\"' -ForegroundColor Gray
+Write-Host '  Get-ChildItem -Recurse -Include *.html | Select-String -SimpleMatch ''⚠️''' -ForegroundColor Gray
 Write-Host ""
 Write-Host "  Thomas — zéro blocage. Prêt à déployer." -ForegroundColor Cyan
 Write-Host ""
