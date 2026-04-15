@@ -4,7 +4,7 @@
   var html = document.documentElement;
   var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  function setThemeLabel(btn, isLight) {
+  function setThemeAria(btn, isLight) {
     if (!btn) return;
     btn.setAttribute('aria-pressed', isLight ? 'true' : 'false');
     btn.setAttribute('aria-label', isLight ? 'Mode jour actif — passer en nuit' : 'Mode nuit actif — passer en jour');
@@ -15,16 +15,15 @@
     var scheme = stored || 'dark';
     html.setAttribute('data-theme', scheme);
     var btn = document.getElementById('themeToggle');
-    setThemeLabel(btn, scheme === 'light');
+    setThemeAria(btn, scheme === 'light');
     if (!btn) return;
     btn.addEventListener('click', function () {
       var next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
       html.setAttribute('data-theme', next);
       localStorage.setItem('pinapp-vitrine-theme', next);
-      setThemeLabel(btn, next === 'light');
+      setThemeAria(btn, next === 'light');
     });
   }
-
 
   function initNav() {
     var nav = document.getElementById('siteNav');
@@ -75,6 +74,36 @@
     );
   }
 
+  function initReveal() {
+    if (prefersReduced.matches) {
+      document.querySelectorAll('[data-reveal]').forEach(function (el) {
+        el.classList.add('is-visible');
+      });
+      return;
+    }
+    var nodes = document.querySelectorAll('[data-reveal]');
+    if (!nodes.length || !('IntersectionObserver' in window)) {
+      nodes.forEach(function (el) {
+        el.classList.add('is-visible');
+      });
+      return;
+    }
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-visible');
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.12 }
+    );
+    nodes.forEach(function (n) {
+      io.observe(n);
+    });
+  }
+
   function initParticles() {
     var canvas = document.getElementById('heroParticles');
     if (!canvas) return;
@@ -96,8 +125,7 @@
     }
 
     function color() {
-      var c = getComputedStyle(html).getPropertyValue('--particle').trim() || '#00c9b1';
-      return c;
+      return getComputedStyle(html).getPropertyValue('--particle').trim() || '#00c9b1';
     }
 
     function spawn() {
@@ -194,9 +222,10 @@
       window.setTimeout(next, 900);
     }
     if (!prefersReduced.matches) window.setTimeout(next, 400);
-    else bubbles.forEach(function (b) {
-      b.classList.add('is-on');
-    });
+    else
+      bubbles.forEach(function (b) {
+        b.classList.add('is-on');
+      });
   }
 
   function initCarousel(rootId) {
@@ -250,10 +279,12 @@
 
   function bumpEllipses() {
     if (prefersReduced.matches) return;
-    var ell = document.querySelectorAll('.ellipses__b');
-    ell.forEach(function (el) {
-      var base =
-        el.classList.contains('ellipses__b--1') ? 0.05 : el.classList.contains('ellipses__b--2') ? 0.04 : 0.03;
+    document.querySelectorAll('.ellipses__b').forEach(function (el) {
+      var base = el.classList.contains('ellipses__b--1')
+        ? 0.05
+        : el.classList.contains('ellipses__b--2')
+          ? 0.04
+          : 0.03;
       var v = Math.min(0.12, base + 0.02);
       el.style.opacity = String(v);
       window.setTimeout(function () {
@@ -271,7 +302,7 @@
     var tablist = document.querySelector('#contact [role="tablist"]');
     if (!tablist) return;
     var tabs = tablist.querySelectorAll('[role="tab"]');
-    var panels = document.querySelectorAll('[role="tabpanel"]');
+    var panels = document.querySelectorAll('#contact [role="tabpanel"]');
 
     function activate(id) {
       tabs.forEach(function (t) {
@@ -388,7 +419,8 @@
             return;
           }
           var body = buildBody(panel);
-          window.location.href = mail + '?subject=' + encodeURIComponent(panel.dataset.subject || 'Demande Pinapp') + '&body=' + encodeURIComponent(body);
+          window.location.href =
+            mail + '?subject=' + encodeURIComponent(panel.dataset.subject || 'Demande Pinapp') + '&body=' + encodeURIComponent(body);
         }
       });
     }
@@ -415,6 +447,7 @@
 
   initTheme();
   initNav();
+  initReveal();
   initParticles();
   initCursorHalo();
   initChatDemo();
