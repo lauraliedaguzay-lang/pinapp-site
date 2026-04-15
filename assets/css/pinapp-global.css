@@ -1,28 +1,42 @@
 ﻿/* ============================================================
    PINAPP INC. — GLOBAL CSS V2
    Correctif complet · DA Pandora/Avatar · Apple glassmorphism
-   Clash Display + Inter self-hosted (assets/fonts/)
+   Typo : pile Apple uniquement (SF Pro système — fonts.css)
    Scroll-snap fix Safari · Mode nuit défaut forcé
    Mode jour Avatar 2 renforcé · Emojis → SVG
    ============================================================ */
 
 /* Import fonts */
 @import url('/assets/css/fonts.css');
+@import url('/assets/css/pinapp-audit-harmony.css');
+@import url('/assets/css/pinapp-jour-waves.css');
+@import url('/assets/css/pinapp-biolume-cinematic.css');
+@import url('/assets/css/pinapp-neurodiversite.css');
+@import url('/assets/css/pinapp-futur-cinema.css');
+@import url('/assets/css/pinapp-loader-cinema.css');
+@import url('/assets/css/pinapp-signature-ux.css');
 
 /* ── TOKENS NUIT (défaut absolu) ── */
 :root {
   --bg: #080d18;
-  --bg-card: rgba(255, 255, 255, 0.04);
-  --bg-card-2: rgba(255, 255, 255, 0.07);
+  --bg-card: rgba(255, 255, 255, 0.07);
+  --bg-card-2: rgba(255, 255, 255, 0.1);
+  /* Vitre Apple : saturation puis flou */
+  --glass-blur: saturate(180%) blur(20px);
+  --glass-blur-nav: saturate(180%) blur(24px);
+  --glass-blur-menu: saturate(180%) blur(28px);
+  --glass-blur-widget: saturate(180%) blur(12px);
+  --glass-edge: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  --glass-edge-soft: inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   --text: #f0f8ff;
   --text-muted: rgba(240, 248, 255, 0.55);
   --text-soft: rgba(240, 248, 255, 0.35);
-  --accent: #00e5b0;
+  --accent: #00e5cc;
   --accent-2: #b388ff;
   --accent-3: #7fffea;
   --accent-4: #e040fb;
   --nacre: #e8f4f8;
-  --card-border: rgba(179, 136, 255, 0.08);
+  --card-border: rgba(255, 255, 255, 0.09);
   --card-border-2: rgba(0, 229, 176, 0.12);
   --separator: rgba(0, 229, 176, 0.06);
   --shadow: rgba(0, 0, 0, 0.25);
@@ -39,13 +53,15 @@
   --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
   --ease-in: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --font-sans: var(--font-apple-sans);
+  --font-display: var(--font-apple-display);
 }
 
 /* ── TOKENS JOUR — Eau Avatar 2 renforcée ── */
 [data-theme='light'] {
   --bg: #061e22;
-  --bg-card: rgba(6, 40, 46, 0.7);
-  --bg-card-2: rgba(6, 40, 46, 0.9);
+  --bg-card: rgba(230, 252, 255, 0.11);
+  --bg-card-2: rgba(6, 40, 46, 0.55);
   --text: #f0fffd;
   --text-muted: rgba(240, 255, 253, 0.6);
   --text-soft: rgba(240, 255, 253, 0.35);
@@ -54,7 +70,7 @@
   --accent-3: #ffffff;
   --accent-4: #a78bfa;
   --nacre: #e8f4f8;
-  --card-border: rgba(127, 255, 234, 0.14);
+  --card-border: rgba(255, 255, 255, 0.14);
   --card-border-2: rgba(196, 181, 253, 0.14);
   --separator: rgba(127, 255, 234, 0.08);
   --shadow: rgba(0, 0, 0, 0.3);
@@ -75,7 +91,7 @@
 html {
   -webkit-font-smoothing: antialiased;
   text-size-adjust: 100%;
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 /* MODE NUIT FORCÉ PAR DÉFAUT */
@@ -86,11 +102,7 @@ html:not([data-theme]) {
 body {
   background: var(--bg);
   color: var(--text);
-  font-family:
-    'Inter',
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
+  font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.75;
   overflow-x: hidden;
@@ -335,16 +347,18 @@ body {
   right: 0;
   height: 64px;
   z-index: 100;
-  background: rgba(8, 13, 24, 0.85);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-bottom: 1px solid var(--separator);
+  background: rgba(8, 13, 24, 0.58);
+  -webkit-backdrop-filter: var(--glass-blur-nav);
+  backdrop-filter: var(--glass-blur-nav);
+  border-bottom: 0.5px solid var(--separator);
   transition:
     transform 0.3s var(--ease),
     background 0.5s;
 }
 [data-theme='light'] .nav {
-  background: rgba(6, 30, 34, 0.9);
+  background: rgba(6, 28, 34, 0.48);
+  -webkit-backdrop-filter: var(--glass-blur-nav);
+  backdrop-filter: var(--glass-blur-nav);
 }
 .nav.hidden {
   transform: translateY(-100%);
@@ -373,7 +387,7 @@ body {
 }
 
 .nav__logo {
-  font-family: 'Clash Display', sans-serif;
+  font-family: var(--font-display);
   font-size: 17px;
   font-weight: 700;
   color: var(--text);
@@ -420,17 +434,23 @@ body {
   position: absolute;
   top: calc(100% + 8px);
   left: 0;
-  background: rgba(8, 13, 24, 0.96);
-  backdrop-filter: blur(24px);
-  border: 1px solid var(--card-border);
+  background: rgba(8, 13, 24, 0.52);
+  -webkit-backdrop-filter: var(--glass-blur-menu);
+  backdrop-filter: var(--glass-blur-menu);
+  border: 0.5px solid var(--card-border);
   border-radius: 14px;
   padding: 8px;
   min-width: 220px;
+  max-height: min(72vh, 520px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   z-index: 200;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+  box-shadow:
+    var(--glass-edge),
+    0 16px 40px rgba(0, 0, 0, 0.35);
 }
 [data-theme='light'] .nav__dropdown {
-  background: rgba(6, 30, 34, 0.97);
+  background: rgba(6, 28, 34, 0.42);
 }
 .nav__item:hover .nav__dropdown {
   display: block;
@@ -496,7 +516,8 @@ body {
   border-radius: 100px;
   color: var(--text);
   text-decoration: none;
-  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: var(--glass-blur-widget);
+  backdrop-filter: var(--glass-blur-widget);
   letter-spacing: 0.04em;
   white-space: nowrap;
   transition:
@@ -547,16 +568,17 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(6, 8, 20, 0.98);
-  backdrop-filter: blur(24px);
+  background: rgba(6, 8, 20, 0.55);
+  -webkit-backdrop-filter: var(--glass-blur-menu);
+  backdrop-filter: var(--glass-blur-menu);
   z-index: 99;
   flex-direction: column;
   padding: 32px var(--pad-m) 40px;
   overflow-y: auto;
-  border-top: 1px solid var(--separator);
+  border-top: 0.5px solid var(--separator);
 }
 [data-theme='light'] .nav__drawer {
-  background: rgba(4, 18, 22, 0.98);
+  background: rgba(4, 18, 22, 0.48);
 }
 .nav__drawer.open {
   display: flex;
@@ -633,13 +655,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Clash Display', sans-serif;
+  font-family: var(--font-display);
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 10px;
 }
 .drawer-story-name {
-  font-family: 'Clash Display', sans-serif;
+  font-family: var(--font-display);
   font-size: 15px;
   font-weight: 700;
   color: var(--text);
@@ -750,11 +772,14 @@ body {
 /* ── CARDS GLASS ── */
 .card {
   background: var(--bg-card);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--card-border);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 0.5px solid var(--card-border);
   border-radius: var(--radius);
-  box-shadow: 0 8px 32px var(--shadow);
+  box-shadow:
+    var(--glass-edge),
+    var(--glass-edge-soft),
+    0 8px 32px var(--shadow);
   position: relative;
   overflow: hidden;
   transition:
@@ -778,7 +803,10 @@ body {
 @media (hover: hover) {
   .card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 24px 64px var(--shadow-lg);
+    box-shadow:
+      var(--glass-edge),
+      var(--glass-edge-soft),
+      0 24px 64px var(--shadow-lg);
     border-color: rgba(0, 229, 176, 0.15);
   }
 }
@@ -799,7 +827,7 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: 'Clash Display', sans-serif;
+  font-family: var(--font-display);
   font-weight: 700;
   text-wrap: balance;
   line-height: 1.05;
@@ -864,6 +892,15 @@ h4 {
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .shimmer {
+    animation: none !important;
+    background: none !important;
+    -webkit-text-fill-color: var(--accent);
+    color: var(--accent);
+  }
+}
+
 /* ── BOUTONS ── */
 .btn {
   display: inline-flex;
@@ -873,7 +910,7 @@ h4 {
   border-radius: 100px;
   font-size: 13px;
   letter-spacing: 0.05em;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-sans);
   font-weight: 500;
   text-decoration: none;
   cursor: pointer;
@@ -886,7 +923,8 @@ h4 {
   background: var(--btn-cta-bg);
   border: 1px solid var(--btn-cta-bd);
   color: var(--text);
-  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: var(--glass-blur-widget);
+  backdrop-filter: var(--glass-blur-widget);
 }
 .btn--ghost {
   background: transparent;
@@ -1047,7 +1085,7 @@ h4 {
   line-height: 1.5;
 }
 .offre-gain {
-  font-family: 'Clash Display', sans-serif;
+  font-family: var(--font-display);
   font-size: 44px;
   font-weight: 700;
   color: var(--accent);
@@ -1059,7 +1097,7 @@ h4 {
   margin-bottom: 18px;
 }
 .offre-price {
-  font-family: 'Clash Display', sans-serif;
+  font-family: var(--font-display);
   font-size: 32px;
   font-weight: 700;
   color: var(--nacre);
@@ -1197,7 +1235,7 @@ h4 {
   color: var(--text-muted);
   cursor: pointer;
   transition: all 0.2s var(--ease);
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-sans);
 }
 .sector-btn.active {
   background: var(--btn-cta-bg);
@@ -1319,7 +1357,7 @@ h4 {
   color: var(--text-muted);
   cursor: pointer;
   transition: all 0.2s var(--ease);
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-sans);
 }
 .carousel-cat.active {
   background: rgba(127, 255, 234, 0.1);
@@ -1332,11 +1370,12 @@ h4 {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.92);
+  background: rgba(0, 0, 0, 0.72);
   z-index: 1000;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: saturate(140%) blur(16px);
+  backdrop-filter: saturate(140%) blur(16px);
 }
 .lightbox.open {
   display: flex;
@@ -1487,7 +1526,7 @@ h4 {
   margin-bottom: 16px;
 }
 .formation-price {
-  font-family: 'Clash Display', sans-serif;
+  font-family: var(--font-display);
   font-size: 28px;
   font-weight: 700;
   color: var(--nacre);
@@ -1516,7 +1555,7 @@ h4 {
   vertical-align: top;
 }
 .pricing-table td:last-child {
-  font-family: 'Clash Display', sans-serif;
+  font-family: var(--font-display);
   color: var(--nacre);
   font-weight: 700;
   white-space: nowrap;
@@ -1534,7 +1573,7 @@ footer {
   z-index: 1;
 }
 .footer__brand {
-  font-family: 'Clash Display', sans-serif;
+  font-family: var(--font-display);
   font-size: 22px;
   font-weight: 700;
   color: var(--text);
@@ -1619,7 +1658,7 @@ footer {
   color: rgba(255, 165, 0, 0.6);
   font-size: 12px;
   letter-spacing: 0.08em;
-  font-family: monospace;
+  font-family: var(--font-apple-mono);
   background: rgba(255, 165, 0, 0.03);
 }
 
@@ -1648,28 +1687,44 @@ footer {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
-/* Mode jour : plus de relief (parité d’intention avec la nuit Pandora) */
+/* Nuit Inc. — halos bioluminescents (parité avec le Studio) */
+html[data-theme='dark'] body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 88% 52% at 50% -6%, rgba(0, 229, 204, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse 45% 40% at 0% 75%, rgba(179, 136, 255, 0.1) 0%, transparent 48%),
+    radial-gradient(ellipse 50% 42% at 100% 25%, rgba(123, 79, 232, 0.09) 0%, transparent 50%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(0, 229, 204, 0.06) 0%, transparent 55%);
+  animation: pinapp-biolume-field-dark 22s ease-in-out infinite alternate;
+}
+
+/* Mode jour : relief + biolume */
 [data-theme='light'] body::after {
   content: '';
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.55;
-  background: radial-gradient(
-    ellipse 70% 50% at 50% 100%,
-    rgba(167, 139, 250, 0.07),
-    transparent 55%
-  );
-  animation: jour-horizon 22s ease-in-out infinite alternate;
+  opacity: 0.95;
+  background:
+    radial-gradient(ellipse 72% 48% at 50% 100%, rgba(167, 139, 250, 0.1), transparent 56%),
+    radial-gradient(ellipse 55% 40% at 8% 18%, rgba(127, 255, 234, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 38% at 92% 82%, rgba(79, 195, 247, 0.09) 0%, transparent 48%);
+  animation:
+    jour-horizon 22s ease-in-out infinite alternate,
+    pinapp-biolume-field-light 26s ease-in-out infinite alternate;
 }
 @keyframes jour-horizon {
   0% {
-    opacity: 0.35;
+    opacity: 0.42;
     transform: translateY(0);
   }
   100% {
-    opacity: 0.65;
+    opacity: 0.78;
     transform: translateY(-8px);
   }
 }

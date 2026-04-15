@@ -2,6 +2,10 @@
 
 Site statique (HTML / CSS / JS) pour **pinapp.fr**.
 
+### Ajouter vidéos, photos, démos (Lauralie & Micha)
+
+Tout est expliqué dans **[`GUIDE-CONTENU.md`](./GUIDE-CONTENU.md)** : emplacements des fichiers, noms imposés (loader, portfolio Micha), remplacement des photos Unsplash des démos, création d’un nouveau site sous `demo/`, checklist avant mise en ligne. Les fichiers `assets/js/config.js` et `assets/js/demo-photo-packs.js` pointent aussi vers ce guide en en-tête.
+
 ## Dépôt GitHub
 
 **URL du projet :** [https://github.com/lauraliedaguzay-lang/pinapp-site](https://github.com/lauraliedaguzay-lang/pinapp-site)

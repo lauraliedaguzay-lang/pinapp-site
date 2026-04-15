@@ -266,7 +266,7 @@ const UniversQ = {
       ${
         u.atmosphere
           ? `
-        <p style="font-family:Georgia,serif;font-style:italic;font-size:15px;line-height:1.8;
+        <p style="font-family:ui-serif,'Iowan Old Style','Apple Garamond',serif;font-style:italic;font-size:15px;line-height:1.8;
                   color:var(--text-2);margin-bottom:20px;">"${_he(u.atmosphere)}"</p>`
           : ''
       }
@@ -275,7 +275,7 @@ const UniversQ = {
         u.promesse
           ? `
         <p style="font-size:16px;font-weight:500;color:var(--text);margin-bottom:24px;
-                  font-family:Georgia,serif;">${_he(u.promesse)}</p>`
+                  font-family:ui-serif,'Iowan Old Style','Apple Garamond',serif;">${_he(u.promesse)}</p>`
           : ''
       }
 

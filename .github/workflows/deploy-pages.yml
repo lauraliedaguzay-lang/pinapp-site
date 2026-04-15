@@ -1,6 +1,7 @@
 # Déploiement GitHub Pages : build reproductible (npm run build) + artefact _site/
 # Pages : Settings → Pages → Source : GitHub Actions
 # Secret optionnel : AURALIS_APP_URL (URL de l’app SaaS, injectée dans assets/js/auralis-config.js au build)
+# Secrets optionnels automatisations : PINAPP_N8N_BASE_URL (ou PINAPP_N8N_HOST), PINAPP_TALLY_DIAGNOSTIC_DEFAULT
 # Secret optionnel : HOSTINGER_API_TOKEN — apres chaque deploiement sur main, DNS pinapp.fr -> GitHub Pages (API).
 # Sans ce secret : seule la declaration du domaine sur GitHub Pages (API) est appliquee.
 name: Déployer GitHub Pages
@@ -41,6 +42,10 @@ jobs:
         env:
           CI: true
           AURALIS_APP_URL: ${{ secrets.AURALIS_APP_URL }}
+          PINAPP_N8N_BASE_URL: ${{ secrets.PINAPP_N8N_BASE_URL }}
+          PINAPP_N8N_HOST: ${{ secrets.PINAPP_N8N_HOST }}
+          PINAPP_TALLY_DIAGNOSTIC_DEFAULT: ${{ secrets.PINAPP_TALLY_DIAGNOSTIC_DEFAULT }}
+          PINAPP_DISABLE_AUTOMATION_FEATURES: ${{ secrets.PINAPP_DISABLE_AUTOMATION_FEATURES }}
         run: npm run build
 
       - name: Upload artifact

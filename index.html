@@ -9,13 +9,37 @@
       content="Vos outils ont été conçus pour le bureau. Votre équipe travaille de partout. Nous construisons ce que vos concurrents n'ont pas encore." />
     <link rel="canonical" href="https://pinapp.fr/" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="preload" href="/assets/fonts/ClashDisplay-Bold.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/assets/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/assets/css/pinapp-global.css" />
     <script src="/assets/js/theme.js"></script>
     <link rel="stylesheet" href="/assets/css/pinapp-master-v3.css" />
   </head>
   <body>
+    <div id="pandora-loader" class="pinapp-cinema-loader" aria-hidden="true">
+      <div class="pinapp-cinema-loader__aurora" aria-hidden="true"></div>
+      <div class="pinapp-cinema-loader__video-wrap">
+        <video
+          class="pinapp-cinema-loader__video"
+          autoplay
+          muted
+          playsinline
+          loop
+          preload="metadata"
+          poster="/assets/images/bg-pandora-nuit.png">
+          <source src="/assets/video/pinapp-loader-intro.webm" type="video/webm" />
+          <source src="/assets/video/pinapp-loader-intro.mp4" type="video/mp4" />
+        </video>
+        <div class="pinapp-cinema-loader__veil" aria-hidden="true"></div>
+        <div class="pinapp-cinema-loader__hud" aria-hidden="true">
+          <span class="pinapp-cinema-loader__corner pinapp-cinema-loader__corner--tl"></span>
+          <span class="pinapp-cinema-loader__corner pinapp-cinema-loader__corner--tr"></span>
+          <span class="pinapp-cinema-loader__corner pinapp-cinema-loader__corner--bl"></span>
+          <span class="pinapp-cinema-loader__corner pinapp-cinema-loader__corner--br"></span>
+          <div class="pinapp-cinema-loader__voice" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+    </div>
     <div id="cursor" aria-hidden="true"></div>
     <div id="progress" aria-hidden="true"></div>
     <canvas id="canvas-pandora" aria-hidden="true"></canvas>
@@ -40,6 +64,16 @@
               <a href="/realisations/">Réalisations</a>
               <a href="/offres/formation/">Formations</a>
               <a href="/a-propos/">Notre studio</a>
+              <!-- pinapp-nav-studio-extra -->
+              <a href="/pourquoi-pinapp/">Pourquoi Pinapp</a>
+              <a href="/comment-ca-marche/">Comment ça marche</a>
+              <a href="/votre-projet/">Votre projet</a>
+              <a href="/confiance/">Confiance</a>
+              <a href="/faq/">FAQ</a>
+              <a href="/expertise-ia/">IA &amp; systèmes</a>
+              <a href="/formation-gratuite/">Formation IA gratuite</a>
+              <a href="/univers/">Univers créatif</a>
+              <a href="/client/">Espace client</a>
             </div>
           </li>
           <li class="nav__item">
@@ -86,6 +120,15 @@
           <a href="/realisations/">Réalisations</a>
           <a href="/offres/formation/">Formations</a>
           <a href="/a-propos/">Notre studio</a>
+          <a href="/pourquoi-pinapp/">Pourquoi Pinapp</a>
+          <a href="/comment-ca-marche/">Comment ça marche</a>
+          <a href="/votre-projet/">Votre projet</a>
+          <a href="/confiance/">Confiance</a>
+          <a href="/faq/">FAQ</a>
+          <a href="/expertise-ia/">IA &amp; systèmes</a>
+          <a href="/formation-gratuite/">Formation IA gratuite</a>
+          <a href="/univers/">Univers créatif</a>
+          <a href="/client/">Espace client</a>
         </div>
         <div class="nav__drawer-section">
           <span class="nav__drawer-label">Auralis RH</span>
@@ -101,6 +144,7 @@
         <div class="nav__drawer-section">
           <span class="nav__drawer-label">Derrière Pinapp</span>
           <a href="/a-propos/#derriere-pinapp">Storyboard équipe · terrain &amp; méthode</a>
+          <a href="/a-propos/#portraits-equipe">Portraits co-fondateur·ices</a>
           <a href="/a-propos/#lauralie">Lauralie — systèmes &amp; IA</a>
           <a href="/a-propos/#micha-story">Micha — image &amp; événementiel</a>
           <a href="/engagements/">Engagements éthiques, éco &amp; inclusifs</a>
@@ -108,14 +152,16 @@
         <div class="drawer-story">
           <span class="drawer-story-title">Qui construit Pinapp ?</span>
           <p style="font-size: 12px; line-height: 1.55; color: var(--text-muted); margin: 0 0 12px; max-width: 300px">
-            Deux associées, deux expertises : systèmes &amp; IA d’un côté, image &amp; direction artistique de l’autre.
-            Terrain, enquêtes auprès de TPE, transparence totale sur ce qui est automatisé. Micha arrive de
-            l’événementiel (mariages, corporate, captation live), avec un socle en informatique et des années de
-            pratique intensive sur Adobe &amp; l’IA générative — la même exigence que sur nos livrables studio.
+            Deux co-fondateur·ices, deux expertises : systèmes &amp; IA d’un côté, image &amp; direction artistique de
+            l’autre — au même niveau dans Pinapp Inc. <strong>Mémoire &amp; Présence</strong> est un chantier que nous
+            portons ensemble ; ce n’est pas le seul endroit où Micha « existe » sur le site. Terrain, enquêtes auprès
+            de TPE, transparence sur ce qui est automatisé. Micha arrive de l’événementiel (mariages, corporate,
+            captation live), avec un socle en informatique et des années sur Adobe &amp; l’IA générative — la même
+            exigence que sur nos livrables studio.
           </p>
           <div class="drawer-story-cards">
             <a href="/a-propos/#lauralie" class="drawer-story-card">
-              <div class="drawer-story-avatar" style="background: linear-gradient(135deg, #00e5b0, #b388ff)">L</div>
+              <div class="drawer-story-avatar" style="background: linear-gradient(135deg, #00e5cc, #7b4fe8)">L</div>
               <div class="drawer-story-name">Lauralie</div>
               <div class="drawer-story-role">Systèmes, IA, automatisation</div>
             </a>
@@ -139,12 +185,12 @@
       ><button class="nav-dot"></button><button class="nav-dot"></button>
     </nav>
 
-    <main id="main">
+    <main id="main" class="pinapp-da-page">
       <div class="snap-container">
         <!-- 1. HERO -->
         <section class="snap-section" id="hero" aria-labelledby="hero-title">
           <div class="container">
-            <span class="label anim-fade">Pinapp Inc. · IA · Automatisation · Web · Image</span>
+            <span class="label anim-fade pinapp-da-kicker">Pinapp Inc. · IA · Automatisation · Web · Image</span>
             <p
               class="anim-fade"
               style="
@@ -202,6 +248,7 @@
               <a href="/diagnostic/" class="btn btn--primary">Premier échange offert →</a>
               <a href="/realisations/" class="btn btn--ghost">Voir les démos</a>
             </div>
+            <hr class="pinapp-da-strip" style="margin-top: 36px" aria-hidden="true" />
           </div>
           <div
             style="
@@ -230,7 +277,7 @@
         <!-- 2. DOULEURS -->
         <section class="snap-section" id="douleurs" aria-labelledby="douleurs-title">
           <div class="container">
-            <span class="label anim-fade">Ce que vous vivez en ce moment</span>
+            <span class="label anim-fade pinapp-da-kicker">Ce que vous vivez en ce moment</span>
             <h2
               id="douleurs-title"
               style="font-size: clamp(28px, 4vw, 48px); letter-spacing: -0.03em; margin-bottom: 40px"
@@ -240,42 +287,60 @@
             </h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px">
               <div class="card anim-up" style="padding: 24px" data-delay="0">
-                <div style="font-size: 24px; margin-bottom: 12px">⏱</div>
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px">
+                  <span class="pinapp-da-orbit" aria-hidden="true"><span class="pinapp-da-orbit-dot"></span></span>
+                  <span style="font-size: 24px">⏱</span>
+                </div>
                 <h3 style="font-size: 18px; margin-bottom: 10px">Vous répondez trop lentement.</h3>
                 <p style="font-size: 14px; color: var(--text-muted); line-height: 1.7">
                   Le prospect est passé ailleurs. Votre assistant IA, lui, répond pendant que vous êtes sur le terrain.
                 </p>
               </div>
               <div class="card anim-up" style="padding: 24px" data-delay="60">
-                <div style="font-size: 24px; margin-bottom: 12px">🔗</div>
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px">
+                  <span class="pinapp-da-orbit" aria-hidden="true"><span class="pinapp-da-orbit-dot"></span></span>
+                  <span style="font-size: 24px">🔗</span>
+                </div>
                 <h3 style="font-size: 18px; margin-bottom: 10px">5 outils qui ne se parlent pas.</h3>
                 <p style="font-size: 14px; color: var(--text-muted); line-height: 1.7">
                   Gmail, Notion, Calendly, Stripe, votre site. On connecte tout. Une seule source de vérité.
                 </p>
               </div>
               <div class="card anim-up" style="padding: 24px" data-delay="120">
-                <div style="font-size: 24px; margin-bottom: 12px">🌙</div>
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px">
+                  <span class="pinapp-da-orbit" aria-hidden="true"><span class="pinapp-da-orbit-dot"></span></span>
+                  <span style="font-size: 24px">🌙</span>
+                </div>
                 <h3 style="font-size: 18px; margin-bottom: 10px">Les factures le dimanche soir.</h3>
                 <p style="font-size: 14px; color: var(--text-muted); line-height: 1.7">
                   Générée à la signature. Relance automatique si impayé. Export comptable le 1er du mois.
                 </p>
               </div>
               <div class="card anim-up" style="padding: 24px" data-delay="0">
-                <div style="font-size: 24px; margin-bottom: 12px">🖥</div>
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px">
+                  <span class="pinapp-da-orbit" aria-hidden="true"><span class="pinapp-da-orbit-dot"></span></span>
+                  <span style="font-size: 24px">🖥</span>
+                </div>
                 <h3 style="font-size: 18px; margin-bottom: 10px">Honte de donner votre URL.</h3>
                 <p style="font-size: 14px; color: var(--text-muted); line-height: 1.7">
                   Un site que vous partagez fièrement. Design premium. Livré en 7 jours.
                 </p>
               </div>
               <div class="card anim-up" style="padding: 24px" data-delay="60">
-                <div style="font-size: 24px; margin-bottom: 12px">📅</div>
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px">
+                  <span class="pinapp-da-orbit" aria-hidden="true"><span class="pinapp-da-orbit-dot"></span></span>
+                  <span style="font-size: 24px">📅</span>
+                </div>
                 <h3 style="font-size: 18px; margin-bottom: 10px">Les no-shows non relancés.</h3>
                 <p style="font-size: 14px; color: var(--text-muted); line-height: 1.7">
                   Confirmation · rappel · relance automatiques. Vous ne touchez à rien.
                 </p>
               </div>
               <div class="card anim-up" style="padding: 24px" data-delay="120">
-                <div style="font-size: 24px; margin-bottom: 12px">🏠</div>
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px">
+                  <span class="pinapp-da-orbit" aria-hidden="true"><span class="pinapp-da-orbit-dot"></span></span>
+                  <span style="font-size: 24px">🏠</span>
+                </div>
                 <h3 style="font-size: 18px; margin-bottom: 10px">Équipe en télétravail, process de bureau.</h3>
                 <p style="font-size: 14px; color: var(--text-muted); line-height: 1.7">
                   Workflows reconstruits pour le distanciel. Zéro friction. Zéro coordination manuelle.
@@ -288,7 +353,7 @@
         <!-- 2b. CONVICTION — IA, formation, charge cognitive (brief réunion) -->
         <section class="snap-section" id="conviction" aria-labelledby="conviction-title">
           <div class="container">
-            <span class="label anim-fade">Pourquoi maintenant</span>
+            <span class="label anim-fade pinapp-da-kicker">Pourquoi maintenant</span>
             <h2
               id="conviction-title"
               style="font-size: clamp(26px, 4vw, 44px); letter-spacing: -0.03em; margin-bottom: 20px; max-width: 720px"
@@ -351,7 +416,7 @@
         <!-- 3. SERVICES -->
         <section class="snap-section" id="services" aria-labelledby="services-title">
           <div class="container">
-            <span class="label anim-fade">Ce que nous construisons</span>
+            <span class="label anim-fade pinapp-da-kicker">Ce que nous construisons</span>
             <h2
               id="services-title"
               style="font-size: clamp(28px, 4vw, 48px); letter-spacing: -0.03em; margin-bottom: 48px"
@@ -368,7 +433,7 @@
                 </p>
                 <div
                   style="
-                    font-family: 'Clash Display', sans-serif;
+                    font-family: var(--font-apple-display);
                     font-size: 26px;
                     color: var(--nacre);
                     margin-bottom: 12px;
@@ -385,7 +450,7 @@
                 </p>
                 <div
                   style="
-                    font-family: 'Clash Display', sans-serif;
+                    font-family: var(--font-apple-display);
                     font-size: 26px;
                     color: var(--nacre);
                     margin-bottom: 12px;
@@ -402,7 +467,7 @@
                 </p>
                 <div
                   style="
-                    font-family: 'Clash Display', sans-serif;
+                    font-family: var(--font-apple-display);
                     font-size: 26px;
                     color: var(--nacre);
                     margin-bottom: 12px;
@@ -433,7 +498,7 @@
                 </p>
                 <div
                   style="
-                    font-family: 'Clash Display', sans-serif;
+                    font-family: var(--font-apple-display);
                     font-size: 26px;
                     color: var(--nacre);
                     margin-bottom: 12px;
@@ -449,7 +514,7 @@
         <!-- 4. GRAPHIQUES -->
         <section class="snap-section" id="graphiques" aria-labelledby="graph-title">
           <div class="container">
-            <span class="label anim-fade">Preuves chiffrées</span>
+            <span class="label anim-fade pinapp-da-kicker">Preuves chiffrées</span>
             <h2
               id="graph-title"
               style="font-size: clamp(28px, 4vw, 48px); letter-spacing: -0.03em; margin-bottom: 48px"
@@ -561,7 +626,7 @@
         <!-- 5. PACK DUO -->
         <section class="snap-section" id="pack-duo" aria-labelledby="duo-title">
           <div class="container">
-            <span class="label anim-fade">Lauralie + Micha</span>
+            <span class="label anim-fade pinapp-da-kicker">Lauralie + Micha</span>
             <h2
               id="duo-title"
               style="font-size: clamp(28px, 4vw, 48px); letter-spacing: -0.03em; margin-bottom: 20px"
@@ -591,7 +656,7 @@
                 <p class="pack-duo-economy">~1 600 € économisés vs. séparé</p>
                 <div
                   style="
-                    font-family: 'Clash Display', sans-serif;
+                    font-family: var(--font-apple-display);
                     font-size: 32px;
                     color: var(--nacre);
                     margin-bottom: 4px;
@@ -715,7 +780,7 @@
         <!-- 7. COMMENT ÇA MARCHE -->
         <section class="snap-section" id="comment" aria-labelledby="comment-title">
           <div class="container">
-            <span class="label anim-fade">Comment ça marche</span>
+            <span class="label anim-fade pinapp-da-kicker">Comment ça marche</span>
             <h2
               id="comment-title"
               style="font-size: clamp(28px, 4vw, 48px); letter-spacing: -0.03em; margin-bottom: 16px"
@@ -733,7 +798,7 @@
               <div class="card anim-up" style="padding: 28px" data-delay="0">
                 <div
                   style="
-                    font-family: 'Clash Display', sans-serif;
+                    font-family: var(--font-apple-display);
                     font-size: 48px;
                     font-weight: 700;
                     color: var(--accent);
@@ -751,7 +816,7 @@
               <div class="card anim-up" style="padding: 28px" data-delay="80">
                 <div
                   style="
-                    font-family: 'Clash Display', sans-serif;
+                    font-family: var(--font-apple-display);
                     font-size: 48px;
                     font-weight: 700;
                     color: var(--accent-2);
@@ -769,7 +834,7 @@
               <div class="card anim-up" style="padding: 28px" data-delay="160">
                 <div
                   style="
-                    font-family: 'Clash Display', sans-serif;
+                    font-family: var(--font-apple-display);
                     font-size: 48px;
                     font-weight: 700;
                     color: var(--accent-3);
@@ -787,7 +852,7 @@
               <div class="card anim-up" style="padding: 28px" data-delay="240">
                 <div
                   style="
-                    font-family: 'Clash Display', sans-serif;
+                    font-family: var(--font-apple-display);
                     font-size: 48px;
                     font-weight: 700;
                     color: var(--accent-4);
@@ -819,6 +884,12 @@
         <p class="footer__tagline">Connecter. Construire. Transmettre.</p>
         <nav class="footer__links" aria-label="Footer">
           <a href="/a-propos/">Notre société</a>
+          <a href="/offres/">Offres</a>
+          <a href="/realisations/">Réalisations</a>
+          <a href="/comment-ca-marche/">Comment ça marche</a>
+          <a href="/votre-projet/">Votre projet</a>
+          <a href="/faq/">FAQ</a>
+          <a href="/pourquoi-pinapp/">Pourquoi Pinapp</a>
           <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
           <a href="mailto:contact@pinapp.fr">contact@pinapp.fr</a>
           <a href="/legal/mentions.html">Mentions légales</a>

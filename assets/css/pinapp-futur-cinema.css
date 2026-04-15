@@ -1,0 +1,179 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   PINAPP — Futur cinéma (Tron · Avatar biolume · Apple glass · ambiance Tesla nuit)
+   Calques décoratifs + reflets cartes / CTA. Désactivé : mode concentration + reduced-motion.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Contenu et chrome au-dessus du calque futur (z-index 1) */
+main#main,
+main#contenu-principal,
+main.stack-above-bg {
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Calque plein écran (injecté par pinapp-futur-ambient.js) ───────────── */
+.pinapp-futur-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Grille perspective « Tron » — nuit */
+.pinapp-futur-layer::before {
+  content: '';
+  position: absolute;
+  inset: -25% -10% 0;
+  background-image:
+    linear-gradient(rgba(0, 229, 204, 0.065) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 204, 0.05) 1px, transparent 1px);
+  background-size: 52px 52px, 52px 52px;
+  mask-image: radial-gradient(ellipse 92% 72% at 50% 38%, #000 0%, transparent 72%);
+  -webkit-mask-image: radial-gradient(ellipse 92% 72% at 50% 38%, #000 0%, transparent 72%);
+  transform-origin: 50% 100%;
+  transform: perspective(520px) rotateX(76deg) scale(1.12);
+  animation: pinapp-futur-grid-drift 56s ease-in-out infinite alternate;
+  opacity: 0.55;
+}
+
+html[data-theme='light'] .pinapp-futur-layer::before {
+  background-image:
+    linear-gradient(rgba(127, 255, 234, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(196, 181, 253, 0.07) 1px, transparent 1px);
+  opacity: 0.45;
+}
+
+@keyframes pinapp-futur-grid-drift {
+  0% {
+    transform: perspective(520px) rotateX(76deg) scale(1.1) translateY(0);
+    filter: saturate(1);
+  }
+  100% {
+    transform: perspective(520px) rotateX(72deg) scale(1.18) translateY(1.5%);
+    filter: saturate(1.15);
+  }
+}
+
+/* Halo lent type « Passenger » / biolume */
+.pinapp-futur-layer::after {
+  content: '';
+  position: absolute;
+  inset: -15%;
+  background:
+    radial-gradient(ellipse 48% 36% at 30% 40%, rgba(0, 229, 204, 0.14), transparent 62%),
+    radial-gradient(ellipse 42% 34% at 78% 58%, rgba(179, 136, 255, 0.12), transparent 58%);
+  mix-blend-mode: screen;
+  animation: pinapp-futur-beacon 28s ease-in-out infinite;
+  opacity: 0.85;
+}
+
+html[data-theme='light'] .pinapp-futur-layer::after {
+  background:
+    radial-gradient(ellipse 46% 34% at 42% 36%, rgba(127, 255, 234, 0.18), transparent 60%),
+    radial-gradient(ellipse 40% 32% at 72% 64%, rgba(196, 181, 253, 0.14), transparent 55%);
+  mix-blend-mode: soft-light;
+}
+
+@keyframes pinapp-futur-beacon {
+  0%,
+  100% {
+    transform: translate(-6%, 4%) scale(1);
+    opacity: 0.55;
+  }
+  33% {
+    transform: translate(8%, -8%) scale(1.08);
+    opacity: 0.95;
+  }
+  66% {
+    transform: translate(4%, 10%) scale(1.03);
+    opacity: 0.7;
+  }
+}
+
+/* ── Cartes : liseré vivant + léger « sheen » (Apple / cockpit) ─────────── */
+.card {
+  box-shadow:
+    var(--glass-edge, inset 0 1px 0 rgba(255, 255, 255, 0.14)),
+    var(--glass-edge-soft, inset 0 -1px 0 rgba(0, 0, 0, 0.1)),
+    0 8px 36px var(--shadow, rgba(0, 0, 0, 0.28)),
+    0 0 0 0.5px rgba(0, 229, 204, 0.08);
+}
+
+@media (hover: hover) {
+  .card:hover {
+    box-shadow:
+      var(--glass-edge, inset 0 1px 0 rgba(255, 255, 255, 0.14)),
+      var(--glass-edge-soft, inset 0 -1px 0 rgba(0, 0, 0, 0.1)),
+      0 28px 72px var(--shadow-lg, rgba(0, 0, 0, 0.45)),
+      0 0 0 1px rgba(0, 229, 204, 0.22),
+      0 0 48px rgba(179, 136, 255, 0.12);
+    border-color: rgba(0, 229, 204, 0.22);
+  }
+}
+
+html[data-theme='light'] .card:hover {
+  box-shadow:
+    var(--glass-edge, inset 0 1px 0 rgba(255, 255, 255, 0.14)),
+    var(--glass-edge-soft, inset 0 -1px 0 rgba(0, 0, 0, 0.1)),
+    0 28px 72px var(--shadow-lg, rgba(0, 0, 0, 0.45)),
+    0 0 0 1px rgba(127, 255, 234, 0.28),
+    0 0 52px rgba(196, 181, 253, 0.18);
+}
+
+/* CTA primaire — halo discret façon interface véhicule */
+.btn--primary {
+  box-shadow:
+    0 0 0 1px rgba(0, 229, 204, 0.2),
+    0 4px 24px rgba(0, 0, 0, 0.35),
+    0 0 32px rgba(0, 229, 176, 0.15);
+  transition:
+    box-shadow 0.35s var(--ease, cubic-bezier(0.25, 0.1, 0.25, 1)),
+    transform 0.35s var(--ease, cubic-bezier(0.25, 0.1, 0.25, 1));
+}
+
+@media (hover: hover) {
+  .btn--primary:hover {
+    box-shadow:
+      0 0 0 1px rgba(0, 229, 204, 0.35),
+      0 8px 32px rgba(0, 0, 0, 0.4),
+      0 0 48px rgba(0, 229, 176, 0.28);
+  }
+}
+
+html[data-theme='light'] .btn--primary {
+  box-shadow:
+    0 0 0 1px rgba(127, 255, 234, 0.25),
+    0 4px 24px rgba(0, 0, 0, 0.35),
+    0 0 28px rgba(127, 255, 234, 0.12);
+}
+
+/* Logo nav — léger bloom */
+.nav__logo {
+  transition: filter 0.45s var(--ease, cubic-bezier(0.25, 0.1, 0.25, 1));
+}
+
+html[data-theme='dark'] .nav__logo {
+  filter: drop-shadow(0 0 20px rgba(0, 229, 204, 0.18)) drop-shadow(0 0 36px rgba(179, 136, 255, 0.1));
+}
+
+@media (hover: hover) {
+  html[data-theme='dark'] .nav__logo:hover {
+    filter: drop-shadow(0 0 28px rgba(0, 229, 204, 0.35)) drop-shadow(0 0 48px rgba(179, 136, 255, 0.18));
+  }
+}
+
+/* ── Accessibilité : calmer le spectacle ─────────────────────────────────── */
+html[data-pinapp-calm='1'] .pinapp-futur-layer,
+html[data-pinapp-calm='1'] .pinapp-futur-layer::before,
+html[data-pinapp-calm='1'] .pinapp-futur-layer::after {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pinapp-futur-layer,
+  .pinapp-futur-layer::before,
+  .pinapp-futur-layer::after {
+    display: none !important;
+  }
+}

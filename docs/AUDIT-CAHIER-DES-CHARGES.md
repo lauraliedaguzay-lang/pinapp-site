@@ -5,13 +5,13 @@
 
 ## 1. Hiérarchie des sources
 
-| Priorité | Document                                                                                  | Rôle                                                                                                            |
-| -------- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| A        | `pinapp-zero-scroll.mdc`                                                                  | Comportement scroll, barre de progression, interdiction de révélation des sections au fil du défilement         |
-| B        | `modernite-apple.mdc`, `premium-web-design-apple-inspired.mdc`, `blocs-frosted-glass.mdc` | Direction HIG / WCAG / glass                                                                                    |
-| C        | `pinapp-ultime-v3.mdc`                                                                    | Règles « absolues » historiques + anti-patterns contenu ; **tokens CSS souvent non alignés sur le code actuel** |
-| D        | `variables.css`, `pandora-jour-override.css`, `pinapp-modern-biolume.css`                 | **Réalité runtime** des couleurs, overlays, rayons                                                              |
-| E        | `docs/claude-consultation/07-SYNTHESE-REGLES-PROJET.md`                                   | Méta : ce qui est aspirationnel vs implémenté                                                                   |
+| Priorité | Document                                                                                                  | Rôle                                                                                                            |
+| -------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| A        | `pinapp-zero-scroll.mdc`                                                                                  | Comportement scroll, barre de progression, interdiction de révélation des sections au fil du défilement         |
+| B        | `modernite-apple.mdc`, `premium-web-design-apple-inspired.mdc`, `blocs-frosted-glass.mdc`                 | Direction HIG / WCAG / glass                                                                                    |
+| C        | `pinapp-ultime-v3.mdc`                                                                                    | Règles « absolues » historiques + anti-patterns contenu ; **tokens CSS souvent non alignés sur le code actuel** |
+| D        | `variables.css`, `pandora-jour-override.css`, `pinapp-modern-biolume.css`, **`pinapp-audit-harmony.css`** | **Réalité runtime** des couleurs, overlays, rayons + **motifs DA audit** (filets, kickers, biolume section)     |
+| E        | `docs/claude-consultation/07-SYNTHESE-REGLES-PROJET.md`                                                   | Méta : ce qui est aspirationnel vs implémenté                                                                   |
 
 **En cas de conflit :** appliquer **A + B + D** pour le front ; traiter **C** comme contrainte **éditoriale** et cible design **à réconcilier**, pas comme vérité du bundle CSS.
 
@@ -42,6 +42,7 @@
 
 ## 3. Fichiers outils à connaître
 
+- `assets/css/pinapp-audit-harmony.css` — harmonisation visuelle **audit / PDF** : teal `#00e5cc` · violet `#7b4fe8`, calques légers par `.snap-section` si `<main class="pinapp-da-page">`, classes utilitaires `.pinapp-da-kicker`, `.pinapp-da-strip`, `.pinapp-da-orbit` ; importé par `variables.css` (Studio) et `pinapp-global.css` (Inc.).
 - `assets/js/main.js` — scroll progress, nav, hero load, **pas** d’IO sections (commentaire explicite).
 - `assets/js/scroll-cinema.js` — nav `.scrolled`, **sections** (révélation), images, compteurs.
 - `assets/js/demo-sector.js` — IO sur sections des pages démo.

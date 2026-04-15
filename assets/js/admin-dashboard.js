@@ -1,16 +1,19 @@
 /**
- * Pinapp admin — mot de passe côté client uniquement (site statique).
- * Remplacez la phrase secrète avant mise en production.
+ * Pinapp admin — connexion : 1) API Netlify admin-session + jeton sessionStorage ; 2) repli mot de passe JS si
+ * serveur absent ou PINAPP_ADMIN_PASSWORD non configuré.
  */
 (function () {
   'use strict';
 
   var SESSION_KEY = 'pinapp_admin_ok';
+  var SESSION_TOKEN_KEY = 'pinapp_admin_token';
   var CATALOG_PATH = '../assets/data/pinapp-catalog.json';
+  /** POST login + GET/POST verify — même origine sur pinapp.fr ; en `vite` sans Netlify, fetch échoue → repli ci-dessous */
+  var ADMIN_SESSION_URL = '/.netlify/functions/admin-session';
 
   /**
-   * Mot de passe admin — à personnaliser impérativement.
-   * Sur hébergement statique, toute personne peut lire le JS : combinez avec auth serveur (Basic Auth, Netlify, etc.) si besoin réel.
+   * Mot de passe de secours (local, fichier statique, ou si PINAPP_ADMIN_PASSWORD absent sur Netlify).
+   * En production : définir PINAPP_ADMIN_PASSWORD sur Netlify et personnaliser cette phrase ou la retirer du flux.
    */
   var ADMIN_PASSPHRASE = 'pinapp-change-me-admin';
 
@@ -19,7 +22,27 @@
   var form = document.getElementById('admin-login-form');
   var errEl = document.getElementById('admin-login-error');
 
-  function isAuthed() {
+  function getToken() {
+    try {
+      return sessionStorage.getItem(SESSION_TOKEN_KEY);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function setToken(t) {
+    try {
+      if (t) sessionStorage.setItem(SESSION_TOKEN_KEY, t);
+    } catch (e) {}
+  }
+
+  function clearToken() {
+    try {
+      sessionStorage.removeItem(SESSION_TOKEN_KEY);
+    } catch (e) {}
+  }
+
+  function isLegacyAuthed() {
     try {
       return sessionStorage.getItem(SESSION_KEY) === '1';
     } catch (e) {
@@ -27,16 +50,50 @@
     }
   }
 
-  function setAuthed() {
+  function setLegacyAuthed() {
     try {
       sessionStorage.setItem(SESSION_KEY, '1');
     } catch (e) {}
   }
 
-  function clearAuthed() {
+  function clearLegacyAuthed() {
     try {
       sessionStorage.removeItem(SESSION_KEY);
     } catch (e) {}
+  }
+
+  function clearAuthed() {
+    clearToken();
+    clearLegacyAuthed();
+  }
+
+  function verifyTokenRequest(token) {
+    return fetch(ADMIN_SESSION_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify({ action: 'verify', token: token }),
+    }).then(function (r) {
+      return r.ok;
+    });
+  }
+
+  function loginRequest(password) {
+    return fetch(ADMIN_SESSION_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify({ password: password }),
+    }).then(function (r) {
+      return r.json().then(
+        function (data) {
+          return { status: r.status, data: data };
+        },
+        function () {
+          return { status: r.status, data: {} };
+        },
+      );
+    });
   }
 
   function showLogin() {
@@ -51,20 +108,68 @@
     document.body.classList.remove('admin-root--login');
   }
 
+  function enterAppAfterLogin() {
+    if (errEl) errEl.textContent = '';
+    var input = document.getElementById('admin-pass');
+    if (input) input.value = '';
+    showApp();
+    bootApp();
+  }
+
+  function tryClientFallback(val) {
+    if (val === ADMIN_PASSPHRASE) {
+      setLegacyAuthed();
+      enterAppAfterLogin();
+      return true;
+    }
+    return false;
+  }
+
   if (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var input = document.getElementById('admin-pass');
       var val = input ? input.value : '';
-      if (val === ADMIN_PASSPHRASE) {
-        setAuthed();
-        if (errEl) errEl.textContent = '';
-        if (input) input.value = '';
-        showApp();
-        bootApp();
-      } else {
-        if (errEl) errEl.textContent = 'Mot de passe incorrect.';
-      }
+      if (errEl) errEl.textContent = 'Connexion…';
+
+      loginRequest(val)
+        .then(function (res) {
+          if (res.status === 200 && res.data && res.data.ok && res.data.token) {
+            clearLegacyAuthed();
+            setToken(res.data.token);
+            enterAppAfterLogin();
+            return;
+          }
+          if (res.status === 401) {
+            if (errEl) errEl.textContent = 'Mot de passe incorrect.';
+            return;
+          }
+          if (res.status === 503 && res.data && res.data.error === 'not_configured') {
+            if (tryClientFallback(val)) {
+              if (errEl) errEl.textContent = '';
+              return;
+            }
+            if (errEl) {
+              errEl.textContent =
+                'Serveur : configurez PINAPP_ADMIN_PASSWORD sur Netlify, ou utilisez le mot de passe de secours (fichier JS) en local.';
+            }
+            return;
+          }
+          if (tryClientFallback(val)) {
+            if (errEl) errEl.textContent = '';
+            return;
+          }
+          if (errEl) errEl.textContent = 'Mot de passe incorrect ou serveur injoignable.';
+        })
+        .catch(function () {
+          if (tryClientFallback(val)) {
+            if (errEl) errEl.textContent = '';
+            return;
+          }
+          if (errEl)
+            errEl.textContent =
+              'Impossible de joindre le serveur. Vérifiez le mot de passe ou lancez netlify dev.';
+        });
     });
   }
 
@@ -300,7 +405,23 @@
     }
   }
 
-  if (isAuthed()) {
+  var tok = getToken();
+  if (tok) {
+    verifyTokenRequest(tok)
+      .then(function (ok) {
+        if (ok) {
+          showApp();
+          bootApp();
+        } else {
+          clearToken();
+          showLogin();
+        }
+      })
+      .catch(function () {
+        clearToken();
+        showLogin();
+      });
+  } else if (isLegacyAuthed()) {
     showApp();
     bootApp();
   } else {

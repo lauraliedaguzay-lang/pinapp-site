@@ -2,6 +2,14 @@
 (function () {
   var canvas = document.getElementById('canvas-pandora');
   if (!canvas) return;
+
+  function motionOff() {
+    return (
+      document.documentElement.getAttribute('data-pinapp-calm') === '1' ||
+      (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+    );
+  }
+
   var ctx = canvas.getContext('2d');
   var C = ['#00E5B0', '#B388FF', '#7FFFEA', '#E040FB'];
   var N = window.innerWidth < 768 ? 35 : 80,
@@ -110,16 +118,40 @@
   // Sync avec toggle thème
   document.addEventListener('themeChanged', function (e) {
     active = e.detail.theme === 'dark';
+    if (motionOff()) {
+      stop();
+      return;
+    }
     active ? start() : stop();
   });
   // Sync MutationObserver fallback
   var obs = new MutationObserver(function () {
     active = document.documentElement.getAttribute('data-theme') !== 'light';
+    if (motionOff()) {
+      stop();
+      return;
+    }
     active ? start() : stop();
   });
-  obs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  obs.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme', 'data-pinapp-calm'],
+  });
+
+  window.addEventListener('pinapp-neuro-calm-changed', applyMotionState);
+  if (window.matchMedia) {
+    try {
+      window
+        .matchMedia('(prefers-reduced-motion: reduce)')
+        .addEventListener('change', applyMotionState);
+    } catch (e) {
+      window
+        .matchMedia('(prefers-reduced-motion: reduce)')
+        .addListener(applyMotionState);
+    }
+  }
 
   init();
   active = document.documentElement.getAttribute('data-theme') !== 'light';
-  if (active) start();
+  applyMotionState();
 })();

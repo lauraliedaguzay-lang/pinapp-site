@@ -1,6 +1,9 @@
 /**
- * PINAPP — visuels démo (Unsplash, format cohérent)
+ * PINAPP — visuels démo (Unsplash par défaut ; remplaçable par vos fichiers)
  * Fusion : Object.assign(PINAPP_DEMO_SITE, PINAPP_DEMO_PHOTO_PACKS.xxx)
+ *
+ * Pour mettre les photos de Micha / tournages : remplacer les URL img(...) par des
+ * chemins '/assets/images/demos/<secteur>/....webp' — voir GUIDE-CONTENU.md §5–6.
  *
  * Chaque pack peut inclure servicesTitle, servicesSubtitle, bookingSub, confirmSub
  * (textes de section uniques — vitrine sur mesure, pas thème clé en main).

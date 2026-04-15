@@ -1,0 +1,436 @@
+/* ════════════════════════════════════════════════════════════════════
+   PINAPP — Loader cinéma / sci-fi (vidéo + IA)
+   Plein écran = salle obscure + aurore ; la vidéo vit dans un encart « holo »
+   (séquence type film : l’IA ouvre un flux vidéo dans un cadre flottant).
+   Narration = piste dans la vidéo. Fallback : poster + aurore si fichier absent.
+   ════════════════════════════════════════════════════════════════════ */
+
+#loader.pinapp-cinema-loader::before,
+#pandora-loader.pinapp-cinema-loader::before {
+  display: none !important;
+}
+
+#loader.pinapp-cinema-loader,
+#pandora-loader.pinapp-cinema-loader {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: 100vh !important;
+  min-height: 100svh !important;
+  min-height: 100dvh !important;
+  min-height: -webkit-fill-available !important;
+  z-index: 99999 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: max(12px, env(safe-area-inset-top, 0px)) max(14px, env(safe-area-inset-right, 0px))
+    max(16px, env(safe-area-inset-bottom, 0px)) max(14px, env(safe-area-inset-left, 0px)) !important;
+  margin: 0 !important;
+  background: #00040a !important;
+  overflow: hidden !important;
+  transition:
+    opacity 420ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    visibility 420ms !important;
+}
+
+/* Grille atmosphère salle de contrôle (très basse, derrière l’encart) */
+#loader.pinapp-cinema-loader::after,
+#pandora-loader.pinapp-cinema-loader::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image:
+    linear-gradient(rgba(0, 229, 204, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 204, 0.035) 1px, transparent 1px);
+  background-size:
+    100% 44px,
+    44px 100%;
+  mask-image: radial-gradient(ellipse 70% 65% at 50% 45%, black 0%, transparent 72%);
+}
+
+body.mode-jour #pandora-loader.pinapp-cinema-loader,
+html[data-theme='light'] #pandora-loader.pinapp-cinema-loader {
+  background: #030a18 !important;
+}
+
+/* Aurore animée (salle obscure autour de l’encart) */
+.pinapp-cinema-loader__aurora {
+  position: absolute;
+  z-index: 0;
+  inset: -20%;
+  background:
+    radial-gradient(ellipse 55% 45% at 50% 40%, rgba(0, 229, 204, 0.22), transparent 58%),
+    radial-gradient(ellipse 40% 50% at 80% 70%, rgba(123, 79, 232, 0.2), transparent 55%),
+    radial-gradient(ellipse 35% 40% at 15% 75%, rgba(0, 180, 216, 0.14), transparent 50%), #000308;
+  animation: pinapp-cinema-aurora 14s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pinapp-cinema-aurora {
+  0%,
+  100% {
+    transform: scale(1) translate(0, 0);
+    opacity: 1;
+  }
+  33% {
+    transform: scale(1.06) translate(2%, -1%);
+    opacity: 0.92;
+  }
+  66% {
+    transform: scale(1.03) translate(-1.5%, 1.5%);
+    opacity: 1;
+  }
+}
+
+/* Encart « holo » : la vidéo d’accueil se lance dans un cadre flottant */
+.pinapp-cinema-loader__video-wrap {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  z-index: 1;
+  width: min(96vw, 920px);
+  aspect-ratio: 16 / 9;
+  max-height: min(78dvh, 560px);
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 229, 204, 0.32);
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.06) 0%, transparent 42%),
+    rgba(4, 10, 22, 0.94);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.65) inset,
+    0 0 0 1px rgba(127, 255, 234, 0.08),
+    0 0 60px rgba(0, 229, 204, 0.1),
+    0 28px 90px rgba(0, 0, 0, 0.55);
+  flex-shrink: 0;
+  animation: pinapp-cinema-frame-boot 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes pinapp-cinema-frame-boot {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(16px);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Barre chrome type « transmission / IA » (au-dessus du flux) */
+.pinapp-cinema-loader__video-wrap::before {
+  content: '●  LIVE  ·  PINAPP  ·  FLUX VIDÉO D’ACCUEIL  ·  IA';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 34px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  box-sizing: border-box;
+  font-family: ui-monospace, 'SF Mono', 'Menlo', monospace;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(232, 244, 248, 0.88);
+  background: linear-gradient(180deg, rgba(8, 18, 32, 0.98), rgba(4, 12, 24, 0.88));
+  border-bottom: 1px solid rgba(0, 229, 204, 0.12);
+  text-shadow: 0 0 18px rgba(0, 229, 204, 0.25);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Scanlines + léger grain sur la zone vidéo uniquement */
+.pinapp-cinema-loader__video-wrap::after {
+  content: '';
+  position: absolute;
+  top: 34px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.045) 2px,
+      rgba(0, 0, 0, 0.045) 3px
+    ),
+    radial-gradient(ellipse 80% 55% at 50% 50%, transparent 30%, rgba(0, 4, 16, 0.25) 100%);
+  mix-blend-mode: soft-light;
+  opacity: 0.55;
+}
+
+/* Vidéo remplit l’encart sous la barre chrome */
+.pinapp-cinema-loader__video {
+  position: absolute;
+  top: 34px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100% !important;
+  height: auto !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-width: none;
+  transform: none;
+  object-fit: cover;
+  object-position: center center;
+  opacity: 0.95;
+  filter: saturate(1.06) contrast(1.04);
+}
+
+/* Voile cinéma : vignette dans l’encart uniquement */
+.pinapp-cinema-loader__veil {
+  position: absolute;
+  top: 34px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 85% 70% at 50% 48%, transparent 20%, rgba(0, 2, 12, 0.75) 100%),
+    linear-gradient(
+      180deg,
+      rgba(0, 20, 40, 0.35) 0%,
+      transparent 35%,
+      transparent 65%,
+      rgba(0, 4, 16, 0.85) 100%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 229, 204, 0.03) 2px,
+      rgba(0, 229, 204, 0.03) 3px
+    );
+  mix-blend-mode: normal;
+}
+
+/* HUD — coins sur le pourtour de l’encart (viseur sci-fi) */
+.pinapp-cinema-loader__hud {
+  position: absolute;
+  inset: 5px;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.pinapp-cinema-loader__corner {
+  position: absolute;
+  width: clamp(22px, 5vw, 48px);
+  height: clamp(22px, 5vw, 48px);
+  border-color: rgba(0, 229, 204, 0.55);
+  border-style: solid;
+  opacity: 0.85;
+  animation: pinapp-cinema-hud-pulse 2.8s ease-in-out infinite;
+}
+
+.pinapp-cinema-loader__corner--tl {
+  top: 0;
+  left: 0;
+  border-width: 2px 0 0 2px;
+  box-shadow: -1px -1px 12px rgba(0, 229, 204, 0.15);
+}
+.pinapp-cinema-loader__corner--tr {
+  top: 0;
+  right: 0;
+  border-width: 2px 2px 0 0;
+  box-shadow: 1px -1px 12px rgba(123, 79, 232, 0.12);
+}
+.pinapp-cinema-loader__corner--bl {
+  bottom: 0;
+  left: 0;
+  border-width: 0 0 2px 2px;
+}
+.pinapp-cinema-loader__corner--br {
+  bottom: 0;
+  right: 0;
+  border-width: 0 2px 2px 0;
+}
+
+@keyframes pinapp-cinema-hud-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    filter: drop-shadow(0 0 6px rgba(0, 229, 204, 0.2));
+  }
+  50% {
+    opacity: 0.95;
+    filter: drop-shadow(0 0 14px rgba(0, 229, 204, 0.35));
+  }
+}
+
+/* Visualisation « voix IA » — ancrée au bas de l’encart */
+.pinapp-cinema-loader__voice {
+  position: absolute;
+  bottom: max(10%, 14px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 5px;
+  height: 36px;
+  padding: 0 8px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.pinapp-cinema-loader__voice span {
+  display: block;
+  width: 4px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, rgba(0, 229, 204, 0.95), rgba(123, 79, 232, 0.75));
+  height: 10px;
+  animation: pinapp-cinema-voice 0.9s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(0, 229, 204, 0.35);
+}
+
+.pinapp-cinema-loader__voice span:nth-child(1) {
+  animation-delay: 0s;
+}
+.pinapp-cinema-loader__voice span:nth-child(2) {
+  animation-delay: 0.08s;
+}
+.pinapp-cinema-loader__voice span:nth-child(3) {
+  animation-delay: 0.16s;
+}
+.pinapp-cinema-loader__voice span:nth-child(4) {
+  animation-delay: 0.24s;
+}
+.pinapp-cinema-loader__voice span:nth-child(5) {
+  animation-delay: 0.32s;
+}
+.pinapp-cinema-loader__voice span:nth-child(6) {
+  animation-delay: 0.4s;
+}
+.pinapp-cinema-loader__voice span:nth-child(7) {
+  animation-delay: 0.48s;
+}
+.pinapp-cinema-loader__voice span:nth-child(8) {
+  animation-delay: 0.56s;
+}
+
+@keyframes pinapp-cinema-voice {
+  0%,
+  100% {
+    height: 8px;
+    opacity: 0.55;
+  }
+  35% {
+    height: 32px;
+    opacity: 1;
+  }
+  55% {
+    height: 14px;
+    opacity: 0.75;
+  }
+}
+
+/* ── Mobile / encoches : barres plus compactes, voix plus bas dans la zone sûre ── */
+@media (max-width: 768px) {
+  .pinapp-cinema-loader__aurora {
+    inset: -12%;
+  }
+
+  .pinapp-cinema-loader__video-wrap {
+    width: min(98vw, 640px);
+    max-height: min(70dvh, 420px);
+  }
+
+  .pinapp-cinema-loader__video-wrap::before {
+    font-size: 8px;
+    letter-spacing: 0.14em;
+    padding: 0 10px;
+  }
+
+  .pinapp-cinema-loader__veil {
+    background:
+      radial-gradient(ellipse 95% 75% at 50% 50%, transparent 15%, rgba(0, 2, 12, 0.78) 100%),
+      linear-gradient(
+        180deg,
+        rgba(0, 20, 40, 0.4) 0%,
+        transparent 32%,
+        transparent 68%,
+        rgba(0, 4, 16, 0.88) 100%
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0, 229, 204, 0.025) 3px,
+        rgba(0, 229, 204, 0.025) 4px
+      );
+  }
+}
+
+@media (max-width: 480px) {
+  .pinapp-cinema-loader__voice {
+    gap: 3px;
+    height: 32px;
+    bottom: max(10%, calc(env(safe-area-inset-bottom, 0px) + 6svh));
+  }
+
+  .pinapp-cinema-loader__voice span {
+    width: 3px;
+  }
+}
+
+/* Paysage téléphone : ne pas pousser les barres sous la barre d’adresse */
+@media (max-height: 460px) and (orientation: landscape) {
+  .pinapp-cinema-loader__video-wrap {
+    max-height: min(88dvh, 320px);
+  }
+
+  .pinapp-cinema-loader__voice {
+    bottom: 8px;
+    height: 22px;
+  }
+
+  .pinapp-cinema-loader__hud {
+    inset: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pinapp-cinema-loader__aurora {
+    animation: none !important;
+  }
+  .pinapp-cinema-loader__video-wrap {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .pinapp-cinema-loader__corner {
+    animation: none !important;
+    opacity: 0.7 !important;
+  }
+  .pinapp-cinema-loader__voice span {
+    animation: none !important;
+    height: 14px !important;
+    opacity: 0.65 !important;
+  }
+  .pinapp-cinema-loader__video {
+    opacity: 0.75 !important;
+  }
+}

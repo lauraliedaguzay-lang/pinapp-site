@@ -39,14 +39,14 @@ class BarChart {
           <text x="${x + w / 2}" y="${H - pad + 14}"
             text-anchor="middle"
             fill="rgba(238,248,255,0.45)"
-            font-size="8" font-family="Inter,sans-serif">
+            font-size="8" font-family="system-ui,-apple-system,BlinkMacSystemFont,sans-serif">
             ${d.l}
           </text>
           <text class="bar-val"
             x="${x + w / 2}" y="${y - 4}"
             text-anchor="middle"
             fill="#00E5CC" font-size="9"
-            font-family="Inter,sans-serif" opacity="0">
+            font-family="system-ui,-apple-system,BlinkMacSystemFont,sans-serif" opacity="0">
             ${d.v}h
           </text>
         </g>`;
@@ -96,7 +96,7 @@ class BarChart {
 }
 BarChart.prototype._id = 'main';
 
-/* ── LINE CHART — Interventions avant / après ─────── */
+/* ── LINE CHART — interventions avant / après ─────── */
 class LineChart {
   constructor(el, datasets) {
     this.el = el;
@@ -135,7 +135,7 @@ class LineChart {
     const legend = this.datasets
       .map(
         (ds) =>
-          `<tspan fill="${ds.color}" font-size="8" font-family="Inter,sans-serif">■ ${ds.label}  </tspan>`,
+          `<tspan fill="${ds.color}" font-size="8" font-family="system-ui,-apple-system,BlinkMacSystemFont,sans-serif">■ ${ds.label}  </tspan>`,
       )
       .join('');
 
@@ -200,7 +200,7 @@ class DonutChart {
       .map(
         (s, i) =>
           `<text x="170" y="${14 + i * 18}"
-         font-size="9" font-family="Inter,sans-serif"
+         font-size="9" font-family="system-ui,-apple-system,BlinkMacSystemFont,sans-serif"
          fill="rgba(238,248,255,0.65)">
         <tspan fill="${s.c}">■</tspan> ${s.label || s.v + '%'}
        </text>`,

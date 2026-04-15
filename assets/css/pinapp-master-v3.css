@@ -3,14 +3,14 @@
    Sources : PDF Audit 1 + 2 + ChatGPT + Screenshots iPhone
    ============================================================ */
 
+@import url('./fonts.css');
+
 /* ── 1. POLICES SF PRO NATIF APPLE (PDF : "polices impactantes")
-   Arnaud valide : SF Pro = ce qu'Apple utilise sur apple.com vu sur iPhone
-   Chargement zéro · rendu parfait · natif iOS ── */
+   Pile 100 % Apple (fonts.css) — chargement zéro · natif iOS / macOS ── */
 *,
 *::before,
 *::after {
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Inter', Arial, sans-serif;
+  font-family: var(--font-apple-sans);
 }
 
 h1,
@@ -25,12 +25,8 @@ h6,
 .offre-gain,
 .offre-price,
 .formation-title,
-.pack-duo-badge,
-[style*="font-family:'Clash Display'"],
-[style*='font-family:"Clash Display"'] {
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Clash Display', Arial,
-    sans-serif !important;
+.pack-duo-badge {
+  font-family: var(--font-apple-display) !important;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -118,7 +114,7 @@ h6,
   .studio-grid,
   .pricing-grid {
     grid-template-columns: 1fr !important;
-    gap: 14px !important;
+    gap: 20px !important;
   }
 
   /* ─ TYPOGRAPHIE MOBILE ─ */
@@ -143,12 +139,19 @@ h6,
   .offre-gain,
   .pack-price,
   [style*='font-size:32px'],
+  [style*='font-size: 32px'],
   [style*='font-size:36px'],
+  [style*='font-size: 36px'],
   [style*='font-size:40px'],
+  [style*='font-size: 40px'],
   [style*='font-size:44px'],
+  [style*='font-size: 44px'],
   [style*='font-size:48px'],
+  [style*='font-size: 48px'],
   [style*='font-size:56px'],
+  [style*='font-size: 56px'],
   [style*='font-size:64px'],
+  [style*='font-size: 64px'],
   [style*='font-size:72px'],
   [style*='font-size:80px'],
   [style*='font-size:88px'] {
@@ -324,6 +327,64 @@ h6,
     flex-direction: column !important;
     gap: 12px !important;
   }
+
+  /* --- Page À propos : rythme vertical, scroll moins bloquant, timelines lisibles --- */
+  .page-a-propos .snap-container {
+    scroll-snap-type: y proximity !important;
+  }
+  .page-a-propos .snap-section {
+    scroll-snap-stop: normal !important;
+    padding-bottom: 44px !important;
+  }
+  .page-a-propos .a-propos-bio-grid {
+    gap: 28px !important;
+  }
+  .page-a-propos .pinapp-duo-portraits {
+    gap: 24px !important;
+    margin-bottom: 28px !important;
+  }
+  .page-a-propos .pinapp-duo-portraits figcaption {
+    text-align: center;
+    padding-inline: 6px;
+    line-height: 1.45;
+  }
+  /* Micha : même lecture que Lauralie (parcours puis portrait) */
+  .page-a-propos #micha-story .a-propos-bio-grid > div:first-child {
+    order: 2;
+  }
+  .page-a-propos #micha-story .a-propos-bio-grid > div:last-child {
+    order: 1;
+  }
+  .page-a-propos #derriere-pinapp p[style*='font-size: 18px'] {
+    font-size: 16px !important;
+    line-height: 1.65 !important;
+  }
+  .page-a-propos .a-propos-timeline > div:first-child {
+    left: 10px !important;
+  }
+  .page-a-propos .a-propos-timeline-item > div:first-child {
+    left: 6px !important;
+  }
+  .page-a-propos .a-propos-timeline-item {
+    padding-left: 28px !important;
+    gap: 14px !important;
+  }
+  .page-a-propos #pourquoi [style*='font-size: 64px'] {
+    font-size: clamp(34px, 12vw, 44px) !important;
+    line-height: 1.05 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-a-propos .pinapp-duo-portraits {
+    gap: 20px !important;
+  }
+  .page-a-propos .a-propos-timeline-item {
+    padding-left: 24px !important;
+  }
+  .page-a-propos #derriere-pinapp h1[style*='clamp(40px'] {
+    margin-bottom: 22px !important;
+  }
 }
 
 /* ── 4. EMOJIS → SVG (PDF : "zéro emoji dans site Apple/Tesla")
@@ -421,5 +482,242 @@ html[data-theme='light'] .water-reflets {
   [data-theme='light'] .caustics span,
   html[data-theme='light'] .caustics span {
     animation: none !important;
+  }
+}
+
+/* ============================================================
+   PINAPP — EXECUTIVE FINISH (dernier maillon en cascade)
+   Apple HIG · Tesla UI · agencement premium KR
+   ============================================================ */
+
+:root {
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px rgba(0, 229, 204, 0.42);
+  --focus-ring-light: 0 0 0 2px var(--bg), 0 0 0 4px rgba(127, 255, 234, 0.5);
+  --text-muted: rgba(240, 248, 255, 0.5);
+  --text-soft: rgba(240, 248, 255, 0.32);
+  --card-border: rgba(255, 255, 255, 0.065);
+  --shadow: rgba(0, 0, 0, 0.28);
+  --shadow-lg: rgba(0, 0, 0, 0.42);
+}
+
+[data-theme='light'] {
+  --text-muted: rgba(240, 255, 253, 0.54);
+  --text-soft: rgba(240, 255, 253, 0.32);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --focus-ring: var(--focus-ring-light);
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+  text-rendering: optimizeLegibility;
+  line-height: 1.65;
+}
+
+::selection {
+  background: rgba(0, 229, 204, 0.22);
+  color: var(--text);
+}
+
+[data-theme='light'] ::selection {
+  background: rgba(127, 255, 234, 0.2);
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: 6px;
+}
+.btn:focus-visible,
+.nav__cta:focus-visible,
+.nav__theme:focus-visible,
+.nav__burger:focus-visible,
+.nav-dot:focus-visible {
+  border-radius: 100px;
+}
+.nav__link:focus-visible {
+  border-radius: 10px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-feature-settings: 'kern' 1, 'liga' 1;
+  text-wrap: balance;
+}
+
+@media (min-width: 900px) {
+  h1 {
+    letter-spacing: -0.038em;
+  }
+  h2 {
+    letter-spacing: -0.032em;
+  }
+}
+
+.label {
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  margin-bottom: 14px;
+  opacity: 0.95;
+}
+
+.nav {
+  transition:
+    transform 0.35s var(--ease-out-expo),
+    background 0.45s var(--ease-standard),
+    border-color 0.35s var(--ease-standard);
+  border-bottom-color: rgba(255, 255, 255, 0.04);
+}
+
+.nav__link {
+  transition:
+    color 0.28s var(--ease-standard),
+    background 0.28s var(--ease-standard);
+}
+
+.nav__cta {
+  transition:
+    opacity 0.28s var(--ease-standard),
+    transform 0.35s var(--ease-out-expo),
+    box-shadow 0.35s var(--ease-out-expo);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset;
+}
+
+@media (hover: hover) {
+  .nav__cta:hover {
+    opacity: 1;
+    transform: translateY(-1px);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.08) inset,
+      0 10px 28px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.card {
+  transition:
+    transform 0.45s var(--ease-out-expo),
+    box-shadow 0.45s var(--ease-out-expo),
+    border-color 0.35s var(--ease-standard);
+  box-shadow:
+    var(--glass-edge),
+    var(--glass-edge-soft),
+    0 4px 24px var(--shadow),
+    0 1px 0 rgba(255, 255, 255, 0.03) inset;
+}
+
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      var(--glass-edge),
+      var(--glass-edge-soft),
+      0 16px 48px var(--shadow-lg),
+      0 1px 0 rgba(255, 255, 255, 0.05) inset;
+    border-color: rgba(0, 229, 204, 0.12);
+  }
+}
+
+.btn {
+  transition:
+    opacity 0.28s var(--ease-standard),
+    transform 0.4s var(--ease-out-expo),
+    box-shadow 0.4s var(--ease-out-expo),
+    border-color 0.28s var(--ease-standard),
+    color 0.28s var(--ease-standard);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+}
+
+.btn--primary {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+@media (hover: hover) {
+  .btn:hover {
+    opacity: 1;
+    transform: translateY(-1px);
+  }
+  .btn--ghost:hover {
+    transform: translateY(-1px);
+  }
+}
+
+.nav-dot {
+  transition:
+    transform 0.4s var(--ease-out-expo),
+    background 0.3s var(--ease-standard),
+    box-shadow 0.4s var(--ease-out-expo);
+}
+.nav-dot.active {
+  transform: scale(1.35);
+  box-shadow: 0 0 6px rgba(0, 229, 204, 0.35);
+}
+
+.shimmer {
+  animation-duration: 8s;
+  animation-timing-function: ease-in-out;
+}
+
+main a:not([class]):not(.btn):not(.nav__link):not(.skip-link) {
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 229, 204, 0.35);
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color 0.25s var(--ease-standard);
+}
+@media (hover: hover) {
+  main a:not([class]):not(.btn):not(.nav__link):not(.skip-link):hover {
+    text-decoration-color: rgba(0, 229, 204, 0.75);
+  }
+}
+
+[data-theme='light'] main a:not([class]):not(.btn):not(.nav__link):not(.skip-link) {
+  text-decoration-color: rgba(127, 255, 234, 0.35);
+}
+@media (hover: hover) {
+  [data-theme='light'] main a:not([class]):not(.btn):not(.nav__link):not(.skip-link):hover {
+    text-decoration-color: rgba(127, 255, 234, 0.75);
+  }
+}
+
+.checklist li {
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+}
+
+.nav__drawer a {
+  transition:
+    color 0.28s var(--ease-standard),
+    background 0.28s var(--ease-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .btn,
+  .nav__cta,
+  .nav__link,
+  .nav,
+  .nav-dot,
+  .shimmer {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+  @media (hover: hover) {
+    .card:hover,
+    .btn:hover,
+    .nav__cta:hover {
+      transform: none !important;
+    }
   }
 }

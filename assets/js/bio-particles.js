@@ -6,9 +6,14 @@
 (function () {
   'use strict';
 
-  /* Uniquement sur desktop et sans prefers-reduced-motion */
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  /* Desktop uniquement (largeur) — le mode concentration / reduced-motion retire les spores */
   if (window.innerWidth < 1024) return;
+
+  function motionBlocked() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return true;
+    if (document.documentElement.getAttribute('data-pinapp-calm') === '1') return true;
+    return false;
+  }
 
   const NUIT_TYPES = ['spore', 'violet', 'wood', 'spore', 'violet'];
   const JOUR_TYPES = ['ambre', 'ambre', 'wood', 'ambre', 'wood'];
@@ -51,6 +56,7 @@
   /* Spawne les particules selon le mode actuel */
   function spawnParticles() {
     clearParticles();
+    if (motionBlocked()) return;
     const types = isJour() ? JOUR_TYPES : NUIT_TYPES;
 
     for (let i = 0; i < COUNT; i++) {
@@ -73,7 +79,9 @@
     for (const m of mutations) {
       if (
         m.type === 'attributes' &&
-        (m.attributeName === 'class' || m.attributeName === 'data-theme')
+        (m.attributeName === 'class' ||
+          m.attributeName === 'data-theme' ||
+          m.attributeName === 'data-pinapp-calm')
       ) {
         /* Petit délai pour laisser le CSS commuter avant de respawner */
         clearTimeout(observer._timer);
@@ -84,5 +92,13 @@
   });
 
   observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme', 'data-pinapp-calm'],
+  });
+
+  window.addEventListener('pinapp-neuro-calm-changed', function () {
+    clearTimeout(observer._timer);
+    observer._timer = setTimeout(spawnParticles, 50);
+  });
 })();

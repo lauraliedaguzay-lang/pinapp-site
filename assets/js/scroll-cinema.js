@@ -6,6 +6,14 @@
    NAV — glassmorphism au scroll
    ===================================================== */
 const nav = document.querySelector('nav');
+
+function pinappMotionCalm() {
+  return (
+    document.documentElement.getAttribute('data-pinapp-calm') === '1' ||
+    (typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches)
+  );
+}
+
 window.addEventListener(
   'scroll',
   () => {
@@ -40,52 +48,66 @@ setTimeout(function () {
 /* =====================================================
    IMAGES REVEAL
    ===================================================== */
-const imgObs = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        imgObs.unobserve(e.target);
-      }
-    });
-  },
-  { threshold: 0.1 },
-);
+if (pinappMotionCalm()) {
+  document.querySelectorAll('.img-reveal').forEach((img) => img.classList.add('visible'));
+} else {
+  const imgObs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          imgObs.unobserve(e.target);
+        }
+      });
+    },
+    { threshold: 0.1 },
+  );
 
-document.querySelectorAll('.img-reveal').forEach((img) => imgObs.observe(img));
+  document.querySelectorAll('.img-reveal').forEach((img) => imgObs.observe(img));
+}
 
 /* =====================================================
    COMPTEURS — data-count
    ===================================================== */
-const countObs = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((e) => {
-      if (!e.isIntersecting) return;
-      const el = e.target;
-      const target = parseInt(el.dataset.count, 10);
-      if (isNaN(target)) return;
-      el.classList.add('counting');
-      const start = Date.now();
-      const dur = 1400;
-      const tick = () => {
-        const p = Math.min((Date.now() - start) / dur, 1);
-        const ease = 1 - Math.pow(1 - p, 3);
-        el.textContent = Math.round(target * ease);
-        if (p < 1) {
-          requestAnimationFrame(tick);
-        } else {
-          el.classList.remove('counting');
-          el.classList.add('done');
-        }
-      };
-      tick();
-      countObs.unobserve(el);
-    });
-  },
-  { threshold: 0.5 },
-);
+if (pinappMotionCalm()) {
+  document.querySelectorAll('[data-count]').forEach((el) => {
+    const target = parseInt(el.dataset.count, 10);
+    if (!isNaN(target)) {
+      el.textContent = String(target);
+      el.classList.add('done');
+    }
+  });
+} else {
+  const countObs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        const target = parseInt(el.dataset.count, 10);
+        if (isNaN(target)) return;
+        el.classList.add('counting');
+        const start = Date.now();
+        const dur = 1400;
+        const tick = () => {
+          const p = Math.min((Date.now() - start) / dur, 1);
+          const ease = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(target * ease);
+          if (p < 1) {
+            requestAnimationFrame(tick);
+          } else {
+            el.classList.remove('counting');
+            el.classList.add('done');
+          }
+        };
+        tick();
+        countObs.unobserve(el);
+      });
+    },
+    { threshold: 0.5 },
+  );
 
-document.querySelectorAll('[data-count]').forEach((el) => countObs.observe(el));
+  document.querySelectorAll('[data-count]').forEach((el) => countObs.observe(el));
+}
 
 /* =====================================================
    SCROLL INDICATOR — disparaît au premier scroll
@@ -129,9 +151,9 @@ if (!path.includes('diagnostic') && !path.includes('votre-projet')) {
 }
 
 /* =====================================================
-   PARALLAXE 3 COUCHES — desktop + prefers-reduced-motion
+   PARALLAXE 3 COUCHES — desktop + pas de mode calme / reduced-motion
    ===================================================== */
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const prefersReducedMotion = pinappMotionCalm();
 
 if (window.innerWidth >= 1024 && !prefersReducedMotion) {
   const canvas = document.querySelector('#pandora-canvas');

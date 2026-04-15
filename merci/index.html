@@ -21,6 +21,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Merci — Pinapp Studio</title>
+    <meta name="description" content="Confirmation d’envoi — merci pour votre message à Pinapp Studio." />
     <meta name="robots" content="noindex, nofollow" />
     <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
     <link rel="stylesheet" href="../assets/variables.css" />
@@ -117,27 +118,42 @@
       </div>
       <div class="holo-grid"></div>
     </div>
-    <div id="pandora-loader" aria-hidden="true">
-      <svg width="32" height="38" viewBox="0 0 32 38" fill="none">
-        <defs>
-          <linearGradient id="pg-l" x1="16" y1="36" x2="16" y2="2" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#7B4FE8" />
-            <stop offset="100%" stop-color="#00E5CC" />
-          </linearGradient>
-        </defs>
-        <path d="M16 2 C13 5 10 6 11 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
-        <path d="M16 2 L16 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" />
-        <path d="M16 2 C19 5 22 6 21 9" stroke="url(#pg-l)" stroke-width="2" stroke-linecap="round" fill="none" />
-        <ellipse cx="16" cy="24" rx="9" ry="12" fill="url(#pg-l)" />
-        <path d="M7 20 L16 15 L25 20 L16 25 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
-        <path d="M7 26 L16 21 L25 26 L16 31 Z" stroke="rgba(255,255,255,0.45)" stroke-width="0.7" fill="none" />
-      </svg>
+    <div id="pandora-loader" class="pinapp-cinema-loader" aria-hidden="true">
+      <div class="pinapp-cinema-loader__aurora" aria-hidden="true"></div>
+      <div class="pinapp-cinema-loader__video-wrap">
+        <video
+          class="pinapp-cinema-loader__video"
+          autoplay
+          muted
+          playsinline
+          loop
+          preload="metadata"
+          poster="/assets/images/bg-pandora-nuit.png">
+          <source src="/assets/video/pinapp-loader-intro.webm" type="video/webm" />
+          <source src="/assets/video/pinapp-loader-intro.mp4" type="video/mp4" />
+        </video>
+        <div class="pinapp-cinema-loader__veil" aria-hidden="true"></div>
+        <div class="pinapp-cinema-loader__hud" aria-hidden="true">
+          <span class="pinapp-cinema-loader__corner pinapp-cinema-loader__corner--tl"></span>
+          <span class="pinapp-cinema-loader__corner pinapp-cinema-loader__corner--tr"></span>
+          <span class="pinapp-cinema-loader__corner pinapp-cinema-loader__corner--bl"></span>
+          <span class="pinapp-cinema-loader__corner pinapp-cinema-loader__corner--br"></span>
+          <div class="pinapp-cinema-loader__voice" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
     </div>
     <script>
       (function () {
         function h() {
           var l = document.getElementById('pandora-loader');
           if (l && l.parentNode) {
+            var _pinappV = l.querySelector('video');
+            if (_pinappV)
+              try {
+                _pinappV.pause();
+              } catch (_e) {}
             l.style.opacity = '0';
             setTimeout(function () {
               if (l.parentNode) l.remove();
@@ -175,7 +191,7 @@
 
         <h1
           style="
-            font-family: Georgia, serif;
+            font-family: ui-serif, 'Iowan Old Style', 'Apple Garamond', serif;
             font-size: clamp(32px, 5vw, 52px);
             font-weight: 300;
             letter-spacing: -0.02em;
@@ -235,7 +251,7 @@
           el.innerHTML =
             '<div style="padding:24px;border-radius:20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;">' +
             '<p style="font-size:12px;letter-spacing:0.10em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;">VOTRE UNIVERS G\u00C9N\u00C9R\u00C9</p>' +
-            '<p style="font-family:Georgia,serif;font-size:22px;color:var(--text);margin-bottom:16px;">\u2736 ' +
+            '<p style="font-family: ui-serif, 'Iowan Old Style', 'Apple Garamond', serif;font-size:22px;color:var(--text);margin-bottom:16px;">\u2736 ' +
             (u.nom || '') +
             '</p>' +
             '<div style="display:flex;gap:8px;justify-content:center;margin-bottom:16px;">' +

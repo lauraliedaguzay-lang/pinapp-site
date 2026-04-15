@@ -2,6 +2,8 @@
 
 # =====================================
 
+**Médias (vidéos loader, portfolio Micha, photos démos) :** voir **`GUIDE-CONTENU.md`** à la racine du dépôt — emplacements et noms de fichiers.
+
 # À faire AVANT de mettre en ligne
 
 ## 🔴 URGENT — Avant toute communication
@@ -13,14 +15,9 @@
 3. Let's Encrypt → Installer
 4. Forcer HTTPS dans .htaccess (déjà configuré)
 
-### Fonts Clash Display (10 min)
+### Typographie (rappel)
 
-1. Aller sur https://fontsource.org/fonts/clash-display
-2. Télécharger : Regular · Medium · Semibold · Bold (format woff2)
-3. Aller sur https://fontsource.org/fonts/inter
-4. Télécharger : Light · Regular · Medium (format woff2)
-5. Placer tous les .woff2 dans assets/fonts/
-6. Pusher sur main
+Le site utilise la **pile système Apple / SF Pro** (pas de chargement Google/Bunny). Les anciens `.woff2` dans `assets/fonts/` peuvent rester en archive ; le CSS ne les référence plus.
 
 ### Tally Forms (20 min)
 

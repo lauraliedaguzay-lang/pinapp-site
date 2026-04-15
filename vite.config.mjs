@@ -16,5 +16,12 @@ export default defineConfig({
     port: 5173,
     strictPort: false,
     open: '/index.html',
+    /** Avec `netlify dev` (port 8888 par défaut), la console admin peut joindre les fonctions depuis Vite. */
+    proxy: {
+      '/.netlify/functions': {
+        target: 'http://127.0.0.1:8888',
+        changeOrigin: true,
+      },
+    },
   },
 });
