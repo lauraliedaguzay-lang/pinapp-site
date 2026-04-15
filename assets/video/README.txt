@@ -1,22 +1,12 @@
-Vidéo d’introduction — loader cinéma Pinapp
-===========================================
+DOSSIER VIDÉO HERO — PINAPP INC.
+==================================
+⚠️ [MICHA] Placer ici le MP4 une fois produit avec les outils IA
 
-À produire avec Micha : ambiance film futuriste + voix IA (dialogue dans la vidéo
-ou piste audio synchronisée).
+Nom du fichier : pinapp-hero.mp4
+Format : H.264 · 1920×1080 · 24fps
+Durée : 60-75 secondes
+Taille max : 15Mo (compresser avec Handbrake si nécessaire)
 
-Fichiers attendus (même nom, racine web `/assets/video/`) :
+Version mobile (optionnelle) : pinapp-hero-mobile.mp4 (9:16 · 1080×1920)
 
-  pinapp-loader-intro.webm   — prioritaire (léger, transparent possible)
-  pinapp-loader-intro.mp4    — fallback Safari / iOS
-
-Recommandations :
-  — 1080p ou 720p, courte boucle (4–12 s), optimisée web (bitrate modéré)
-  — Son : la page charge la vidéo en muted + autoplay (politique navigateur) ;
-    la voix IA peut être intégrée dans la vidéo ; pour audio non muet, il faudra
-    un geste utilisateur ou une évolution UX plus tard.
-  — Poster : par défaut le loader utilise `/assets/images/bg-pandora-nuit.png`
-    tant que la vidéo n’est pas là.
-
-Sans ces fichiers, le loader affiche quand même le poster et l’animation « sci-fi ».
-
-Guide complet (vidéos, photos, démos, checklist) : GUIDE-CONTENU.md à la racine du dépôt.
+En attendant : le canvas particules Pandora sert de fond animé.
