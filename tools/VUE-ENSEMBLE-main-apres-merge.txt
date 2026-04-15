@@ -1,0 +1,465 @@
+# Vue d ensemble — branche main (apres merge Master V4 / cosmos)
+# Genere: 2026-04-15 14:31
+
+## HEAD actuel
+552e97b merge: branche cosmos + Master V4 + outillage PowerShell et CI
+
+## Derniers 12 commits
+552e97b merge: branche cosmos + Master V4 + outillage PowerShell et CI
+4c79fd7 docs(tools): rapport Master V4 vs main et patch diff CSS/JS
+afeae23 chore: re-run Master V4 ÔÇö HTML/CSS/JS et workflows n8n (Prettier)
+06117d9 feat(site): Master V4 ÔÇö CSS/JS pinapp-master-v4, workflows n8n W1ÔÇôW8, injections HTML, .htaccess
+0213ede fix(pinapp-correctif-v2): message Select-String sans echappements incorrects
+b2cd8e6 feat(ci): synchronisation pinapp.fr en PowerShell (pinapp-fr-sync.ps1)
+f3ce23d docs(ci): tout en PowerShell ÔÇö workflows install via pinapp, docs grep PS, pinapp-local sans npm direct
+887f6be docs: privil├®gier .\pinapp.ps1 ci|build (npm run * reste ├®quivalent)
+353d717 chore: outillage PowerShell par d├®faut, CI Prettier/verify sans r├®cursion npm
+035d0c1 PowerShell: pinapp-local, dev-vite garde-fous, commandes local/local-check
+2ab5619 Cosmos theme, nav interne, automations, admin session, typo Apple syst├¿me
+e782490 Site: conformite RGPD Plausible, canonicals et skip links, admin/dashboard a11y, mode jour light-rays, script conformite.
+
+## Diff stat vs main avant merge (commit e782490e1653bc31c971dc0180a233eec22db8fb)
+ .env.example                                    |   2 +-
+ .github/workflows/deploy-pages.yml              |  15 +-
+ .github/workflows/pinapp-fr-api.yml             |   2 +-
+ .github/workflows/site-checks.yml               |   4 +-
+ .gitignore                                      |   1 +
+ .htaccess                                       |  59 +-
+ .prettierignore                                 |   2 +
+ 404.html                                        |  52 +-
+ AUTOMATIONS.md                                  |  18 +
+ GUIDE-CONTENU.md                                | 169 +++++
+ PINAPP-REMPLACEMENTS.md                         |   2 +-
+ README-DEPLOIEMENT.md                           |  21 +-
+ README.md                                       |  21 +-
+ a-propos/index.html                             | 362 ++++++++---
+ admin/index.html                                | 228 +++----
+ assets/animations.css                           |   2 +-
+ assets/css/admin-dashboard.css                  |   2 +-
+ assets/css/apple-finish.css                     |   2 +
+ assets/css/demo-sector.css                      |   5 +-
+ assets/css/demo-tatoueuse.css                   |  10 +-
+ assets/css/deploy-harmonise.css                 |   4 +-
+ assets/css/fonts.css                            |  64 +-
+ assets/css/home-2026.css                        |  68 +-
+ assets/css/neuro-layout.css                     |   3 +
+ assets/css/offres-2026.css                      |  14 +-
+ assets/css/offres.css                           |  24 +-
+ assets/css/pandora-jour.css                     |   2 +
+ assets/css/pinapp-audit-harmony.css             | 157 +++++
+ assets/css/pinapp-biolume-cinematic.css         | 121 ++++
+ assets/css/pinapp-cosmos-v1.css                 |   2 +-
+ assets/css/pinapp-dashboard-cockpit.css         | 151 +++++
+ assets/css/pinapp-fix-mobile.css                |  11 +-
+ assets/css/pinapp-futur-cinema.css              | 183 ++++++
+ assets/css/pinapp-global.css                    | 175 ++++--
+ assets/css/pinapp-jour-waves.css                |  95 +++
+ assets/css/pinapp-loader-cinema.css             | 435 +++++++++++++
+ assets/css/pinapp-master-v3.css                 | 325 +++++++++-
+ assets/css/pinapp-master-v4.css                 | 149 +++++
+ assets/css/pinapp-modern-biolume.css            |  20 +-
+ assets/css/pinapp-neurodiversite.css            | 106 ++++
+ assets/css/pinapp-signature-ux.css              |  84 +++
+ assets/css/refonte-conformite.css               |  72 ++-
+ assets/css/refonte-home.css                     |  22 +-
+ assets/css/univers.css                          |   8 +-
+ assets/data/pinapp-catalog.json                 |   4 +-
+ assets/expertise-ia.css                         |   2 +-
+ assets/fonts/README.txt                         |  14 +-
+ assets/grid.css                                 |   9 +-
+ assets/images/README.txt                        |  13 +
+ assets/images/micha/README.txt                  |   3 +
+ assets/js/admin-dashboard.js                    | 155 ++++-
+ assets/js/bio-particles.js                      |  24 +-
+ assets/js/config.js                             |  23 +-
+ assets/js/demo-photo-packs.js                   |   5 +-
+ assets/js/demo-sector.js                        |  16 +-
+ assets/js/graphiques.js                         |  10 +-
+ assets/js/main.js                               |  92 ++-
+ assets/js/mondes.js                             |   6 +-
+ assets/js/particles.js                          |  34 +-
+ assets/js/pinapp-futur-ambient.js               |  54 ++
+ assets/js/pinapp-jour-waves.js                  |  68 ++
+ assets/js/pinapp-master-v3.js                   | 115 ++++
+ assets/js/pinapp-master-v4.js                   | 155 +++++
+ assets/js/pinapp-neuro-calm-ui.js               |  61 ++
+ assets/js/scroll-cinema.js                      | 106 ++--
+ assets/js/theme-init.js                         |  67 ++
+ assets/js/theme.js                              |  60 ++
+ assets/js/univers-questionnaire.js              |   4 +-
+ assets/js/univers.js                            |   2 +-
+ assets/variables.css                            | 104 ++--
+ assets/video/README.txt                         |  12 +
+ auralis/index.html                              |  66 +-
+ client/index.html                               |  52 +-
+ comment-ca-marche/index.html                    |  56 +-
+ confiance/index.html                            |  52 +-
+ dashboard/index.html                            |  48 +-
+ demo/artisan.html                               |   6 +-
+ demo/artisan/index.html                         |  54 +-
+ demo/avocat/index.html                          |  54 +-
+ demo/barbier/index.html                         |  54 +-
+ demo/beaute.html                                |   6 +-
+ demo/boulangerie/index.html                     |  54 +-
+ demo/cils/index.html                            |  54 +-
+ demo/coach.html                                 |   6 +-
+ demo/coach/index.html                           |  54 +-
+ demo/coiffeur/index.html                        |  54 +-
+ demo/demo-hero.css                              |   4 +-
+ demo/ecommerce.html                             |   6 +-
+ demo/estheticienne/index.html                   |  54 +-
+ demo/evenementiel.html                          |   6 +-
+ demo/immobilier.html                            |   6 +-
+ demo/index.html                                 |  17 +-
+ demo/juridique.html                             |   6 +-
+ demo/ongles/index.html                          |  54 +-
+ demo/restaurant/index.html                      |  54 +-
+ demo/restauration.html                          |   6 +-
+ demo/rh.html                                    |   6 +-
+ demo/sante.html                                 |   6 +-
+ demo/sur-mesure/index.html                      |  52 +-
+ demo/tatoueuse/index.html                       |   9 +-
+ demo/tech.html                                  |   6 +-
+ demo/trainer/index.html                         |  54 +-
+ diagnostic/index.html                           |  45 +-
+ docs/AUDIT-CAHIER-DES-CHARGES.md                |  15 +-
+ docs/claude-consultation/index.html             |  96 +--
+ en/index.html                                   |   3 +
+ engagements/index.html                          | 133 +++-
+ expertise-ia/index.html                         |  52 +-
+ faq/index.html                                  |  56 +-
+ formation-gratuite/index.html                   |  52 +-
+ formations/index.html                           |   4 +
+ index.html                                      | 157 +++--
+ index.legacy.html                               |   7 +-
+ interne/trello/index.html                       |  15 +-
+ legal/accessibilite.html                        |  74 ++-
+ legal/cgv.html                                  |  59 +-
+ legal/confidentialite.html                      |  59 +-
+ legal/ecologie.html                             |  25 +-
+ legal/ethique.html                              |  77 ++-
+ legal/mentions-legales.html                     |  10 +-
+ legal/mentions.html                             |  59 +-
+ memoire-et-presence/index.html                  |  84 ++-
+ merci/index.html                                |  55 +-
+ n8n-workflows/README.md                         |  25 +
+ n8n-workflows/W1-prospect-entrant.json          |  12 +
+ n8n-workflows/W2-devis-yousign-stripe.json      |  13 +
+ n8n-workflows/W3-formation-sequence.json        |  19 +
+ n8n-workflows/W4-livraison-feedback.json        |  14 +
+ n8n-workflows/W5-mp-contact.json                |  11 +
+ n8n-workflows/W6-veille-content.json            |  11 +
+ n8n-workflows/W7-maintenance-mensuelle.json     |  12 +
+ n8n-workflows/W8-auralis-aurora.json            |  12 +
+ netlify.toml                                    |   2 +-
+ netlify/functions/admin-session.js              | 194 ++++++
+ offline.html                                    |  21 +-
+ offres/automatisation/index.html                |  52 +-
+ offres/formation/index.html                     |  59 +-
+ offres/index.html                               |  57 +-
+ offres/sites/index.html                         |  54 +-
+ offres/starter/index.html                       |  54 +-
+ offres/systeme-complet/index.html               |  52 +-
+ og-image.html                                   |  56 +-
+ package.json                                    |  18 +-
+ pinapp-automation.env.example                   |  12 +
+ pinapp-conformite.ps1                           |  12 +-
+ pinapp-correctif-v2.ps1                         |   8 +-
+ pinapp-dev.ps1                                  |  18 +
+ pinapp-local.ps1                                |  87 +++
+ pinapp-master-final-v4.ps1                      | 797 ++++++++++++++++++++++++
+ pinapp-pr.ps1                                   | 103 +++
+ pinapp-publie.ps1                               |   2 +-
+ pourquoi-pinapp/index.html                      |  52 +-
+ realisations/index.html                         |  50 +-
+ storyboard/memoire-presence-guide-micha.html    |  91 +--
+ storyboard/pinapp-storyboard-template.html      |  23 +-
+ sw.js                                           |   1 -
+ tools/MASTER-V4-changements-branche-vs-main.txt | 551 ++++++++++++++++
+ tools/MASTER-V4-diff-css-js.patch               | 316 ++++++++++
+ tools/Pinapp.ps1                                | 147 ++++-
+ tools/apple-fonts-cleanup.mjs                   | 163 +++++
+ tools/build-pages.mjs                           |  45 +-
+ tools/build-site.mjs                            |  51 +-
+ tools/ci/pinapp-fr-sync.ps1                     | 127 ++++
+ tools/ci/pinapp-fr-sync.py                      |   3 +
+ tools/dev-http.ps1                              |   2 +-
+ tools/dev-vite.ps1                              |  73 ++-
+ tools/home-main.html                            |   1 +
+ tools/home-refonte-body-fragment.html           |   7 +-
+ tools/html-includes/faq-main.html               |   1 +
+ tools/html-includes/realisations-main.html      |   1 +
+ tools/html-includes/votre-projet-main.html      |   1 +
+ tools/inject-automation-config.mjs              |  90 +++
+ tools/patch-loader-cinema.mjs                   |  78 +++
+ tools/patch-nav-studio-full.mjs                 |  92 +++
+ tools/pinapp-conformite.mjs                     | 186 +++++-
+ tools/pinapp-email-html-base.html               |   9 +-
+ tools/refonte-nav-tabbar-extract.html           |   1 +
+ univers/index.html                              |  60 +-
+ vite.config.mjs                                 |   7 +
+ votre-projet/index.html                         |  50 +-
+ 180 files changed, 8964 insertions(+), 1747 deletions(-)
+
+## Liste des fichiers changes (tri)
+.env.example
+.github/workflows/deploy-pages.yml
+.github/workflows/pinapp-fr-api.yml
+.github/workflows/site-checks.yml
+.gitignore
+.htaccess
+.prettierignore
+404.html
+admin/index.html
+a-propos/index.html
+assets/animations.css
+assets/css/admin-dashboard.css
+assets/css/apple-finish.css
+assets/css/demo-sector.css
+assets/css/demo-tatoueuse.css
+assets/css/deploy-harmonise.css
+assets/css/fonts.css
+assets/css/home-2026.css
+assets/css/neuro-layout.css
+assets/css/offres.css
+assets/css/offres-2026.css
+assets/css/pandora-jour.css
+assets/css/pinapp-audit-harmony.css
+assets/css/pinapp-biolume-cinematic.css
+assets/css/pinapp-cosmos-v1.css
+assets/css/pinapp-dashboard-cockpit.css
+assets/css/pinapp-fix-mobile.css
+assets/css/pinapp-futur-cinema.css
+assets/css/pinapp-global.css
+assets/css/pinapp-jour-waves.css
+assets/css/pinapp-loader-cinema.css
+assets/css/pinapp-master-v3.css
+assets/css/pinapp-master-v4.css
+assets/css/pinapp-modern-biolume.css
+assets/css/pinapp-neurodiversite.css
+assets/css/pinapp-signature-ux.css
+assets/css/refonte-conformite.css
+assets/css/refonte-home.css
+assets/css/univers.css
+assets/data/pinapp-catalog.json
+assets/expertise-ia.css
+assets/fonts/README.txt
+assets/grid.css
+assets/images/micha/README.txt
+assets/images/README.txt
+assets/js/admin-dashboard.js
+assets/js/bio-particles.js
+assets/js/config.js
+assets/js/demo-photo-packs.js
+assets/js/demo-sector.js
+assets/js/graphiques.js
+assets/js/main.js
+assets/js/mondes.js
+assets/js/particles.js
+assets/js/pinapp-futur-ambient.js
+assets/js/pinapp-jour-waves.js
+assets/js/pinapp-master-v3.js
+assets/js/pinapp-master-v4.js
+assets/js/pinapp-neuro-calm-ui.js
+assets/js/scroll-cinema.js
+assets/js/theme.js
+assets/js/theme-init.js
+assets/js/univers.js
+assets/js/univers-questionnaire.js
+assets/variables.css
+assets/video/README.txt
+auralis/index.html
+AUTOMATIONS.md
+client/index.html
+comment-ca-marche/index.html
+confiance/index.html
+dashboard/index.html
+demo/artisan.html
+demo/artisan/index.html
+demo/avocat/index.html
+demo/barbier/index.html
+demo/beaute.html
+demo/boulangerie/index.html
+demo/cils/index.html
+demo/coach.html
+demo/coach/index.html
+demo/coiffeur/index.html
+demo/demo-hero.css
+demo/ecommerce.html
+demo/estheticienne/index.html
+demo/evenementiel.html
+demo/immobilier.html
+demo/index.html
+demo/juridique.html
+demo/ongles/index.html
+demo/restaurant/index.html
+demo/restauration.html
+demo/rh.html
+demo/sante.html
+demo/sur-mesure/index.html
+demo/tatoueuse/index.html
+demo/tech.html
+demo/trainer/index.html
+diagnostic/index.html
+docs/AUDIT-CAHIER-DES-CHARGES.md
+docs/claude-consultation/index.html
+en/index.html
+engagements/index.html
+expertise-ia/index.html
+faq/index.html
+formation-gratuite/index.html
+formations/index.html
+GUIDE-CONTENU.md
+index.html
+index.legacy.html
+interne/trello/index.html
+legal/accessibilite.html
+legal/cgv.html
+legal/confidentialite.html
+legal/ecologie.html
+legal/ethique.html
+legal/mentions.html
+legal/mentions-legales.html
+memoire-et-presence/index.html
+merci/index.html
+n8n-workflows/README.md
+n8n-workflows/W1-prospect-entrant.json
+n8n-workflows/W2-devis-yousign-stripe.json
+n8n-workflows/W3-formation-sequence.json
+n8n-workflows/W4-livraison-feedback.json
+n8n-workflows/W5-mp-contact.json
+n8n-workflows/W6-veille-content.json
+n8n-workflows/W7-maintenance-mensuelle.json
+n8n-workflows/W8-auralis-aurora.json
+netlify.toml
+netlify/functions/admin-session.js
+offline.html
+offres/automatisation/index.html
+offres/formation/index.html
+offres/index.html
+offres/sites/index.html
+offres/starter/index.html
+offres/systeme-complet/index.html
+og-image.html
+package.json
+pinapp-automation.env.example
+pinapp-conformite.ps1
+pinapp-correctif-v2.ps1
+pinapp-dev.ps1
+pinapp-local.ps1
+pinapp-master-final-v4.ps1
+pinapp-pr.ps1
+pinapp-publie.ps1
+PINAPP-REMPLACEMENTS.md
+pourquoi-pinapp/index.html
+README.md
+README-DEPLOIEMENT.md
+realisations/index.html
+storyboard/memoire-presence-guide-micha.html
+storyboard/pinapp-storyboard-template.html
+sw.js
+tools/apple-fonts-cleanup.mjs
+tools/build-pages.mjs
+tools/build-site.mjs
+tools/ci/pinapp-fr-sync.ps1
+tools/ci/pinapp-fr-sync.py
+tools/dev-http.ps1
+tools/dev-vite.ps1
+tools/home-main.html
+tools/home-refonte-body-fragment.html
+tools/html-includes/faq-main.html
+tools/html-includes/realisations-main.html
+tools/html-includes/votre-projet-main.html
+tools/inject-automation-config.mjs
+tools/MASTER-V4-changements-branche-vs-main.txt
+tools/MASTER-V4-diff-css-js.patch
+tools/patch-loader-cinema.mjs
+tools/patch-nav-studio-full.mjs
+tools/Pinapp.ps1
+tools/pinapp-conformite.mjs
+tools/pinapp-email-html-base.html
+tools/refonte-nav-tabbar-extract.html
+univers/index.html
+vite.config.mjs
+votre-projet/index.html
+
+## Fichiers avec pinapp-master-v4 (injection)
+HEAD:404.html
+HEAD:admin/index.html
+HEAD:a-propos/index.html
+HEAD:auralis/index.html
+HEAD:client/index.html
+HEAD:comment-ca-marche/index.html
+HEAD:confiance/index.html
+HEAD:dashboard/index.html
+HEAD:demo/artisan.html
+HEAD:demo/artisan/index.html
+HEAD:demo/avocat/index.html
+HEAD:demo/barbier/index.html
+HEAD:demo/beaute.html
+HEAD:demo/boulangerie/index.html
+HEAD:demo/cils/index.html
+HEAD:demo/coach.html
+HEAD:demo/coach/index.html
+HEAD:demo/coiffeur/index.html
+HEAD:demo/ecommerce.html
+HEAD:demo/estheticienne/index.html
+HEAD:demo/evenementiel.html
+HEAD:demo/immobilier.html
+HEAD:demo/index.html
+HEAD:demo/juridique.html
+HEAD:demo/ongles/index.html
+HEAD:demo/restaurant/index.html
+HEAD:demo/restauration.html
+HEAD:demo/rh.html
+HEAD:demo/sante.html
+HEAD:demo/sur-mesure/index.html
+HEAD:demo/tatoueuse/index.html
+HEAD:demo/tech.html
+HEAD:demo/trainer/index.html
+HEAD:diagnostic/index.html
+HEAD:docs/claude-consultation/index.html
+HEAD:en/index.html
+HEAD:engagements/index.html
+HEAD:expertise-ia/index.html
+HEAD:faq/index.html
+HEAD:formation-gratuite/index.html
+HEAD:formations/index.html
+HEAD:index.html
+HEAD:index.legacy.html
+HEAD:interne/trello/index.html
+HEAD:legal/accessibilite.html
+HEAD:legal/cgv.html
+HEAD:legal/confidentialite.html
+HEAD:legal/ecologie.html
+HEAD:legal/ethique.html
+HEAD:legal/mentions.html
+HEAD:legal/mentions-legales.html
+HEAD:memoire-et-presence/index.html
+HEAD:merci/index.html
+HEAD:offline.html
+HEAD:offres/automatisation/index.html
+HEAD:offres/formation/index.html
+HEAD:offres/index.html
+HEAD:offres/sites/index.html
+HEAD:offres/starter/index.html
+HEAD:offres/systeme-complet/index.html
+HEAD:og-image.html
+HEAD:pourquoi-pinapp/index.html
+HEAD:realisations/index.html
+HEAD:storyboard/memoire-presence-guide-micha.html
+HEAD:storyboard/pinapp-storyboard-template.html
+HEAD:tools/pinapp-email-html-base.html
+HEAD:univers/index.html
+HEAD:votre-projet/index.html
+
+## Taille approx. index.html (lignes)
+905 lignes
+
+## Resume insertion (diff merge uniquement)
+
+
+
+## Resume insertion (diff merge uniquement)
+ 180 files changed, 8964 insertions(+), 1747 deletions(-)
+

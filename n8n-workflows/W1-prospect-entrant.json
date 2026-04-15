@@ -1,12 +1,127 @@
 {
   "name": "🔷 W1 — Prospect entrant",
   "nodes": [
-    {"id":"1","name":"Webhook Tally","type":"n8n-nodes-base.webhook","typeVersion":1,"position":[240,300],"parameters":{"path":"prospect-entrant","responseMode":"onReceived","responseData":"allEntries"}},
-    {"id":"2","name":"Extraire données","type":"n8n-nodes-base.set","typeVersion":1,"position":[460,300],"parameters":{"values":{"string":[{"name":"prenom","value":"={{$json.body.prenom}}"},{"name":"email","value":"={{$json.body.email}}"},{"name":"secteur","value":"={{$json.body.secteur}}"},{"name":"budget","value":"={{$json.body.budget}}"},{"name":"besoin","value":"={{$json.body.besoin}}"},{"name":"date","value":"={{new Date().toISOString()}}"}]}}},
-    {"id":"3","name":"Claude — Scorer prospect","type":"n8n-nodes-base.httpRequest","typeVersion":1,"position":[680,300],"parameters":{"url":"https://api.anthropic.com/v1/messages","method":"POST","headerParameters":{"parameters":[{"name":"x-api-key","value":"={{$env.ANTHROPIC_API_KEY}}"},{"name":"anthropic-version","value":"2023-06-01"},{"name":"content-type","value":"application/json"}]},"bodyParameters":{"parameters":[{"name":"model","value":"claude-sonnet-4-20250514"},{"name":"max_tokens","value":300},{"name":"messages","value":"=[{\"role\":\"user\",\"content\":\"Score ce prospect Pinapp de 1 à 5. Secteur: {{$node.Extraire données.json.secteur}}, Budget: {{$node.Extraire données.json.budget}}, Besoin: {{$node.Extraire données.json.besoin}}. Réponds UNIQUEMENT en JSON: {score, priorite, contexte_court}\"}]"}]}}},
-    {"id":"4","name":"Notion — CRM","type":"n8n-nodes-base.notion","typeVersion":1,"position":[900,300],"parameters":{"operation":"create","databaseId":"{{$env.NOTION_CRM_DB}}","propertiesUi":{"propertyValues":[{"key":"Nom","textValue":"={{$node['Extraire données'].json.prenom}}"},{"key":"Email","emailValue":"={{$node['Extraire données'].json.email}}"},{"key":"Secteur","textValue":"={{$node['Extraire données'].json.secteur}}"},{"key":"Statut","selectValue":"Nouveau"},{"key":"Date","dateValue":"={{$node['Extraire données'].json.date}}"}]}}},
-    {"id":"5","name":"Gmail — Notif Lauralie","type":"n8n-nodes-base.gmail","typeVersion":1,"position":[1120,200],"parameters":{"operation":"send","toList":"contact@pinapp.fr","subject":"🔷 Prospect — {{$node['Extraire données'].json.secteur}}","message":"Prénom: {{$node['Extraire données'].json.prenom}}\nEmail: {{$node['Extraire données'].json.email}}\nSecteur: {{$node['Extraire données'].json.secteur}}\nBudget: {{$node['Extraire données'].json.budget}}\nBesoin: {{$node['Extraire données'].json.besoin}}"}},
-    {"id":"6","name":"Gmail — Accusé réception","type":"n8n-nodes-base.gmail","typeVersion":1,"position":[1120,400],"parameters":{"operation":"send","toList":"={{$node['Extraire données'].json.email}}","subject":"Votre demande Pinapp — reçue ✓","message":"Bonjour {{$node['Extraire données'].json.prenom}},\n\nJ'ai bien reçu votre demande. Je vous réponds sous 24h.\n\nLauralie — Pinapp Studio\ncontact@pinapp.fr"}}
+    {
+      "id": "1",
+      "name": "Webhook Tally",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "parameters": {
+        "path": "prospect-entrant",
+        "responseMode": "onReceived",
+        "responseData": "allEntries"
+      }
+    },
+    {
+      "id": "2",
+      "name": "Extraire données",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [460, 300],
+      "parameters": {
+        "values": {
+          "string": [
+            { "name": "prenom", "value": "={{$json.body.prenom}}" },
+            { "name": "email", "value": "={{$json.body.email}}" },
+            { "name": "secteur", "value": "={{$json.body.secteur}}" },
+            { "name": "budget", "value": "={{$json.body.budget}}" },
+            { "name": "besoin", "value": "={{$json.body.besoin}}" },
+            { "name": "date", "value": "={{new Date().toISOString()}}" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "3",
+      "name": "Claude — Scorer prospect",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [680, 300],
+      "parameters": {
+        "url": "https://api.anthropic.com/v1/messages",
+        "method": "POST",
+        "headerParameters": {
+          "parameters": [
+            { "name": "x-api-key", "value": "={{$env.ANTHROPIC_API_KEY}}" },
+            { "name": "anthropic-version", "value": "2023-06-01" },
+            { "name": "content-type", "value": "application/json" }
+          ]
+        },
+        "bodyParameters": {
+          "parameters": [
+            { "name": "model", "value": "claude-sonnet-4-20250514" },
+            { "name": "max_tokens", "value": 300 },
+            {
+              "name": "messages",
+              "value": "=[{\"role\":\"user\",\"content\":\"Score ce prospect Pinapp de 1 à 5. Secteur: {{$node.Extraire données.json.secteur}}, Budget: {{$node.Extraire données.json.budget}}, Besoin: {{$node.Extraire données.json.besoin}}. Réponds UNIQUEMENT en JSON: {score, priorite, contexte_court}\"}]"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "4",
+      "name": "Notion — CRM",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 1,
+      "position": [900, 300],
+      "parameters": {
+        "operation": "create",
+        "databaseId": "{{$env.NOTION_CRM_DB}}",
+        "propertiesUi": {
+          "propertyValues": [
+            { "key": "Nom", "textValue": "={{$node['Extraire données'].json.prenom}}" },
+            { "key": "Email", "emailValue": "={{$node['Extraire données'].json.email}}" },
+            { "key": "Secteur", "textValue": "={{$node['Extraire données'].json.secteur}}" },
+            { "key": "Statut", "selectValue": "Nouveau" },
+            { "key": "Date", "dateValue": "={{$node['Extraire données'].json.date}}" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "5",
+      "name": "Gmail — Notif Lauralie",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 1,
+      "position": [1120, 200],
+      "parameters": {
+        "operation": "send",
+        "toList": "contact@pinapp.fr",
+        "subject": "🔷 Prospect — {{$node['Extraire données'].json.secteur}}",
+        "message": "Prénom: {{$node['Extraire données'].json.prenom}}\nEmail: {{$node['Extraire données'].json.email}}\nSecteur: {{$node['Extraire données'].json.secteur}}\nBudget: {{$node['Extraire données'].json.budget}}\nBesoin: {{$node['Extraire données'].json.besoin}}"
+      }
+    },
+    {
+      "id": "6",
+      "name": "Gmail — Accusé réception",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 1,
+      "position": [1120, 400],
+      "parameters": {
+        "operation": "send",
+        "toList": "={{$node['Extraire données'].json.email}}",
+        "subject": "Votre demande Pinapp — reçue ✓",
+        "message": "Bonjour {{$node['Extraire données'].json.prenom}},\n\nJ'ai bien reçu votre demande. Je vous réponds sous 24h.\n\nLauralie — Pinapp Studio\ncontact@pinapp.fr"
+      }
+    }
   ],
-  "connections":{"Webhook Tally":{"main":[[{"node":"Extraire données","type":"main","index":0}]]},"Extraire données":{"main":[[{"node":"Claude — Scorer prospect","type":"main","index":0}]]},"Claude — Scorer prospect":{"main":[[{"node":"Notion — CRM","type":"main","index":0}]]},"Notion — CRM":{"main":[[{"node":"Gmail — Notif Lauralie","type":"main","index":0},{"node":"Gmail — Accusé réception","type":"main","index":0}]]}}
+  "connections": {
+    "Webhook Tally": { "main": [[{ "node": "Extraire données", "type": "main", "index": 0 }]] },
+    "Extraire données": {
+      "main": [[{ "node": "Claude — Scorer prospect", "type": "main", "index": 0 }]]
+    },
+    "Claude — Scorer prospect": {
+      "main": [[{ "node": "Notion — CRM", "type": "main", "index": 0 }]]
+    },
+    "Notion — CRM": {
+      "main": [
+        [
+          { "node": "Gmail — Notif Lauralie", "type": "main", "index": 0 },
+          { "node": "Gmail — Accusé réception", "type": "main", "index": 0 }
+        ]
+      ]
+    }
+  }
 }

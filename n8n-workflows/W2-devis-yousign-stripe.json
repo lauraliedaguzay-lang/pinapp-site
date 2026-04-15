@@ -1,13 +1,114 @@
 {
   "name": "🔷 W2 — Devis → YouSign → Stripe → Facture",
   "nodes": [
-    {"id":"1","name":"Notion Trigger — Devis créé","type":"n8n-nodes-base.notionTrigger","typeVersion":1,"position":[240,300],"parameters":{"databaseId":"={{$env.NOTION_DEVIS_DB}}","pollTimes":{"item":[{"mode":"everyMinute"}]}}},
-    {"id":"2","name":"YouSign — Envoyer signature","type":"n8n-nodes-base.httpRequest","typeVersion":1,"position":[460,300],"parameters":{"url":"https://api.yousign.app/v3/signature_requests","method":"POST","headerParameters":{"parameters":[{"name":"Authorization","value":"Bearer {{$env.YOUSIGN_API_KEY}}"},{"name":"Content-Type","value":"application/json"}]},"bodyParameters":{"parameters":[{"name":"name","value":"Devis Pinapp — {{$json.properties.Client.title[0].plain_text}}"},{"name":"delivery_mode","value":"email"}]}}},
-    {"id":"3","name":"Wait — Signature reçue","type":"n8n-nodes-base.wait","typeVersion":1,"position":[680,300],"parameters":{"resume":"webhook","webhookSuffix":"signature-ok"}},
-    {"id":"4","name":"Stripe — Créer lien paiement","type":"n8n-nodes-base.stripe","typeVersion":1,"position":[900,300],"parameters":{"operation":"create","resource":"paymentLink","amount":"={{$json.properties.Montant.number * 100}}","currency":"eur","name":"Mission Pinapp — {{$json.properties.Client.title[0].plain_text}}"}},
-    {"id":"5","name":"Gmail — Lien paiement","type":"n8n-nodes-base.gmail","typeVersion":1,"position":[1120,300],"parameters":{"operation":"send","toList":"={{$json.properties.Email.email}}","subject":"Votre devis Pinapp — signé ✓ — Paiement","message":"Bonjour,\n\nVotre devis est signé. Procédez au règlement ici :\n{{$node['Stripe — Créer lien paiement'].json.url}}\n\nLauralie — Pinapp Studio"}},
-    {"id":"6","name":"Stripe Webhook — Paiement reçu","type":"n8n-nodes-base.webhook","typeVersion":1,"position":[1340,300],"parameters":{"path":"stripe-paid","responseMode":"onReceived"}},
-    {"id":"7","name":"Notion — Statut Payée","type":"n8n-nodes-base.notion","typeVersion":1,"position":[1560,300],"parameters":{"operation":"update","pageId":"={{$json.metadata.notion_id}}","propertiesUi":{"propertyValues":[{"key":"Statut","selectValue":"Payée"}]}}}
+    {
+      "id": "1",
+      "name": "Notion Trigger — Devis créé",
+      "type": "n8n-nodes-base.notionTrigger",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "parameters": {
+        "databaseId": "={{$env.NOTION_DEVIS_DB}}",
+        "pollTimes": { "item": [{ "mode": "everyMinute" }] }
+      }
+    },
+    {
+      "id": "2",
+      "name": "YouSign — Envoyer signature",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [460, 300],
+      "parameters": {
+        "url": "https://api.yousign.app/v3/signature_requests",
+        "method": "POST",
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "Bearer {{$env.YOUSIGN_API_KEY}}" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "name",
+              "value": "Devis Pinapp — {{$json.properties.Client.title[0].plain_text}}"
+            },
+            { "name": "delivery_mode", "value": "email" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "3",
+      "name": "Wait — Signature reçue",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [680, 300],
+      "parameters": { "resume": "webhook", "webhookSuffix": "signature-ok" }
+    },
+    {
+      "id": "4",
+      "name": "Stripe — Créer lien paiement",
+      "type": "n8n-nodes-base.stripe",
+      "typeVersion": 1,
+      "position": [900, 300],
+      "parameters": {
+        "operation": "create",
+        "resource": "paymentLink",
+        "amount": "={{$json.properties.Montant.number * 100}}",
+        "currency": "eur",
+        "name": "Mission Pinapp — {{$json.properties.Client.title[0].plain_text}}"
+      }
+    },
+    {
+      "id": "5",
+      "name": "Gmail — Lien paiement",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 1,
+      "position": [1120, 300],
+      "parameters": {
+        "operation": "send",
+        "toList": "={{$json.properties.Email.email}}",
+        "subject": "Votre devis Pinapp — signé ✓ — Paiement",
+        "message": "Bonjour,\n\nVotre devis est signé. Procédez au règlement ici :\n{{$node['Stripe — Créer lien paiement'].json.url}}\n\nLauralie — Pinapp Studio"
+      }
+    },
+    {
+      "id": "6",
+      "name": "Stripe Webhook — Paiement reçu",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [1340, 300],
+      "parameters": { "path": "stripe-paid", "responseMode": "onReceived" }
+    },
+    {
+      "id": "7",
+      "name": "Notion — Statut Payée",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 1,
+      "position": [1560, 300],
+      "parameters": {
+        "operation": "update",
+        "pageId": "={{$json.metadata.notion_id}}",
+        "propertiesUi": { "propertyValues": [{ "key": "Statut", "selectValue": "Payée" }] }
+      }
+    }
   ],
-  "connections":{"Notion Trigger — Devis créé":{"main":[[{"node":"YouSign — Envoyer signature","type":"main","index":0}]]},"YouSign — Envoyer signature":{"main":[[{"node":"Wait — Signature reçue","type":"main","index":0}]]},"Wait — Signature reçue":{"main":[[{"node":"Stripe — Créer lien paiement","type":"main","index":0}]]},"Stripe — Créer lien paiement":{"main":[[{"node":"Gmail — Lien paiement","type":"main","index":0}]]},"Stripe Webhook — Paiement reçu":{"main":[[{"node":"Notion — Statut Payée","type":"main","index":0}]]}}
+  "connections": {
+    "Notion Trigger — Devis créé": {
+      "main": [[{ "node": "YouSign — Envoyer signature", "type": "main", "index": 0 }]]
+    },
+    "YouSign — Envoyer signature": {
+      "main": [[{ "node": "Wait — Signature reçue", "type": "main", "index": 0 }]]
+    },
+    "Wait — Signature reçue": {
+      "main": [[{ "node": "Stripe — Créer lien paiement", "type": "main", "index": 0 }]]
+    },
+    "Stripe — Créer lien paiement": {
+      "main": [[{ "node": "Gmail — Lien paiement", "type": "main", "index": 0 }]]
+    },
+    "Stripe Webhook — Paiement reçu": {
+      "main": [[{ "node": "Notion — Statut Payée", "type": "main", "index": 0 }]]
+    }
+  }
 }

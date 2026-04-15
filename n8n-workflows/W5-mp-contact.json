@@ -1,11 +1,100 @@
 {
   "name": "🌿 W5 — M&P Contact famille",
   "nodes": [
-    {"id":"1","name":"Webhook Tally M&P","type":"n8n-nodes-base.webhook","typeVersion":1,"position":[240,300],"parameters":{"path":"mp-contact","responseMode":"onReceived"}},
-    {"id":"2","name":"Extraire données M&P","type":"n8n-nodes-base.set","typeVersion":1,"position":[460,300],"parameters":{"values":{"string":[{"name":"prenom","value":"={{$json.body.prenom}}"},{"name":"email","value":"={{$json.body.email}}"},{"name":"message","value":"={{$json.body.message}}"},{"name":"type","value":"={{$json.body.type}}"},{"name":"date","value":"={{new Date().toISOString()}}"}]}}},
-    {"id":"3","name":"Notion — CRM M&P","type":"n8n-nodes-base.notion","typeVersion":1,"position":[680,300],"parameters":{"operation":"create","databaseId":"={{$env.NOTION_MP_DB}}","propertiesUi":{"propertyValues":[{"key":"Nom","textValue":"={{$json.prenom}}"},{"key":"Email","emailValue":"={{$json.email}}"},{"key":"Type","selectValue":"={{$json.type}}"},{"key":"Statut","selectValue":"Nouveau"},{"key":"Date","dateValue":"={{$json.date}}"}]}}},
-    {"id":"4","name":"HTTP — WhatsApp Micha","type":"n8n-nodes-base.httpRequest","typeVersion":1,"position":[900,200],"parameters":{"url":"https://api.whatsapp.com/send","method":"GET","queryParameters":{"parameters":[{"name":"phone","value":"={{$env.MICHA_PHONE}}"},{"name":"text","value":"🌿 Nouvelle demande M&P\nPrénom: {{$json.prenom}}\nType: {{$json.type}}\nEmail: {{$json.email}}\nMessage: {{$json.message}}"}]}}},
-    {"id":"5","name":"Gmail — Accusé famille","type":"n8n-nodes-base.gmail","typeVersion":1,"position":[900,400],"parameters":{"operation":"send","toList":"={{$json.email}}","subject":"Votre demande Mémoire & Présence — reçue","message":"Bonjour {{$json.prenom}},\n\nNous avons bien reçu votre demande.\nMicha vous contactera sous 24h.\n\nAvec respect,\nL'équipe Mémoire & Présence\nmicha@memoireetpresence.fr"}}
+    {
+      "id": "1",
+      "name": "Webhook Tally M&P",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "parameters": { "path": "mp-contact", "responseMode": "onReceived" }
+    },
+    {
+      "id": "2",
+      "name": "Extraire données M&P",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [460, 300],
+      "parameters": {
+        "values": {
+          "string": [
+            { "name": "prenom", "value": "={{$json.body.prenom}}" },
+            { "name": "email", "value": "={{$json.body.email}}" },
+            { "name": "message", "value": "={{$json.body.message}}" },
+            { "name": "type", "value": "={{$json.body.type}}" },
+            { "name": "date", "value": "={{new Date().toISOString()}}" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "3",
+      "name": "Notion — CRM M&P",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 1,
+      "position": [680, 300],
+      "parameters": {
+        "operation": "create",
+        "databaseId": "={{$env.NOTION_MP_DB}}",
+        "propertiesUi": {
+          "propertyValues": [
+            { "key": "Nom", "textValue": "={{$json.prenom}}" },
+            { "key": "Email", "emailValue": "={{$json.email}}" },
+            { "key": "Type", "selectValue": "={{$json.type}}" },
+            { "key": "Statut", "selectValue": "Nouveau" },
+            { "key": "Date", "dateValue": "={{$json.date}}" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "4",
+      "name": "HTTP — WhatsApp Micha",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [900, 200],
+      "parameters": {
+        "url": "https://api.whatsapp.com/send",
+        "method": "GET",
+        "queryParameters": {
+          "parameters": [
+            { "name": "phone", "value": "={{$env.MICHA_PHONE}}" },
+            {
+              "name": "text",
+              "value": "🌿 Nouvelle demande M&P\nPrénom: {{$json.prenom}}\nType: {{$json.type}}\nEmail: {{$json.email}}\nMessage: {{$json.message}}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "5",
+      "name": "Gmail — Accusé famille",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 1,
+      "position": [900, 400],
+      "parameters": {
+        "operation": "send",
+        "toList": "={{$json.email}}",
+        "subject": "Votre demande Mémoire & Présence — reçue",
+        "message": "Bonjour {{$json.prenom}},\n\nNous avons bien reçu votre demande.\nMicha vous contactera sous 24h.\n\nAvec respect,\nL'équipe Mémoire & Présence\nmicha@memoireetpresence.fr"
+      }
+    }
   ],
-  "connections":{"Webhook Tally M&P":{"main":[[{"node":"Extraire données M&P","type":"main","index":0}]]},"Extraire données M&P":{"main":[[{"node":"Notion — CRM M&P","type":"main","index":0}]]},"Notion — CRM M&P":{"main":[[{"node":"HTTP — WhatsApp Micha","type":"main","index":0},{"node":"Gmail — Accusé famille","type":"main","index":0}]]}}
+  "connections": {
+    "Webhook Tally M&P": {
+      "main": [[{ "node": "Extraire données M&P", "type": "main", "index": 0 }]]
+    },
+    "Extraire données M&P": {
+      "main": [[{ "node": "Notion — CRM M&P", "type": "main", "index": 0 }]]
+    },
+    "Notion — CRM M&P": {
+      "main": [
+        [
+          { "node": "HTTP — WhatsApp Micha", "type": "main", "index": 0 },
+          { "node": "Gmail — Accusé famille", "type": "main", "index": 0 }
+        ]
+      ]
+    }
+  }
 }

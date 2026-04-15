@@ -1,19 +1,196 @@
 {
   "name": "🔷 W3 — Paiement → Formation + Séquence J1/J3/J7/J14",
   "nodes": [
-    {"id":"1","name":"Stripe Webhook","type":"n8n-nodes-base.webhook","typeVersion":1,"position":[240,300],"parameters":{"path":"formation-achat","responseMode":"onReceived"}},
-    {"id":"2","name":"Identifier formation","type":"n8n-nodes-base.switch","typeVersion":1,"position":[460,300],"parameters":{"dataType":"string","value1":"={{$json.data.object.amount}}","rules":{"rules":[{"value2":"6700","output":0},{"value2":"14700","output":1},{"value2":"19700","output":2},{"value2":"39700","output":3},{"value2":"79700","output":4}]}}},
-    {"id":"3","name":"Générer code accès","type":"n8n-nodes-base.code","typeVersion":1,"position":[680,300],"parameters":{"jsCode":"const code='PINAPP-'+Math.random().toString(36).substr(2,8).toUpperCase();\nreturn [{json:{code, email:$input.first().json.data.object.customer_details.email, prenom:$input.first().json.data.object.customer_details.name.split(' ')[0]}}];"}},
-    {"id":"4","name":"Notion — Créer étudiant","type":"n8n-nodes-base.notion","typeVersion":1,"position":[900,300],"parameters":{"operation":"create","databaseId":"={{$env.NOTION_FORMATIONS_DB}}","propertiesUi":{"propertyValues":[{"key":"Nom","textValue":"={{$json.prenom}}"},{"key":"Email","emailValue":"={{$json.email}}"},{"key":"Code","textValue":"={{$json.code}}"},{"key":"Statut","selectValue":"Actif"},{"key":"Progression","numberValue":0}]}}},
-    {"id":"5","name":"Gmail — Accès immédiat","type":"n8n-nodes-base.gmail","typeVersion":1,"position":[1120,200],"parameters":{"operation":"send","toList":"={{$json.email}}","subject":"Ton accès Pinapp est prêt ✓","message":"Bonjour {{$json.prenom}},\n\nTon accès est activé.\n👉 https://pinapp.fr/formation/\n🔑 Code : {{$json.code}}\n\nBonne formation !\nLauralie"}},
-    {"id":"6","name":"Wait 1 jour","type":"n8n-nodes-base.wait","typeVersion":1,"position":[1120,350],"parameters":{"resume":"timeInterval","unit":"days","value":1}},
-    {"id":"7","name":"Gmail J+1 — Premiers pas","type":"n8n-nodes-base.gmail","typeVersion":1,"position":[1340,350],"parameters":{"operation":"send","toList":"={{$json.email}}","subject":"Jour 1 — As-tu commencé ?","message":"Bonjour {{$json.prenom}},\n\nJ'espère que tu as pu jeter un œil au module 1.\nUne question ? Réponds directement à cet email.\n\nLauralie"}},
-    {"id":"8","name":"Wait 2 jours","type":"n8n-nodes-base.wait","typeVersion":1,"position":[1340,450],"parameters":{"resume":"timeInterval","unit":"days","value":2}},
-    {"id":"9","name":"Gmail J+3 — Vérif","type":"n8n-nodes-base.gmail","typeVersion":1,"position":[1560,450],"parameters":{"operation":"send","toList":"={{$json.email}}","subject":"Comment ça avance ?","message":"Bonjour {{$json.prenom}},\n\nJ'aimerais savoir où tu en es. 2 minutes ?\nhttps://tally.so/r/{{$env.TALLY_FEEDBACK_ID}}\n\nLauralie"}},
-    {"id":"10","name":"Wait 4 jours","type":"n8n-nodes-base.wait","typeVersion":1,"position":[1560,550],"parameters":{"resume":"timeInterval","unit":"days","value":4}},
-    {"id":"11","name":"Gmail J+7 — Résultats","type":"n8n-nodes-base.gmail","typeVersion":1,"position":[1780,550],"parameters":{"operation":"send","toList":"={{$json.email}}","subject":"7 jours — quels résultats ?","message":"Bonjour {{$json.prenom}},\n\nUne semaine. Qu'est-ce que tu as mis en place ?\nRéponds à cet email, je lis tout.\n\nLauralie"}},
-    {"id":"12","name":"Wait 7 jours","type":"n8n-nodes-base.wait","typeVersion":1,"position":[1780,650],"parameters":{"resume":"timeInterval","unit":"days","value":7}},
-    {"id":"13","name":"Gmail J+14 — Upsell","type":"n8n-nodes-base.gmail","typeVersion":1,"position":[2000,650],"parameters":{"operation":"send","toList":"={{$json.email}}","subject":"Et si on allait plus loin ?","message":"Bonjour {{$json.prenom}},\n\nTu as terminé la formation. Pour aller encore plus loin :\n👉 https://pinapp.fr/offres/\n\nLauralie"}}
+    {
+      "id": "1",
+      "name": "Stripe Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "parameters": { "path": "formation-achat", "responseMode": "onReceived" }
+    },
+    {
+      "id": "2",
+      "name": "Identifier formation",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [460, 300],
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{$json.data.object.amount}}",
+        "rules": {
+          "rules": [
+            { "value2": "6700", "output": 0 },
+            { "value2": "14700", "output": 1 },
+            { "value2": "19700", "output": 2 },
+            { "value2": "39700", "output": 3 },
+            { "value2": "79700", "output": 4 }
+          ]
+        }
+      }
+    },
+    {
+      "id": "3",
+      "name": "Générer code accès",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [680, 300],
+      "parameters": {
+        "jsCode": "const code='PINAPP-'+Math.random().toString(36).substr(2,8).toUpperCase();\nreturn [{json:{code, email:$input.first().json.data.object.customer_details.email, prenom:$input.first().json.data.object.customer_details.name.split(' ')[0]}}];"
+      }
+    },
+    {
+      "id": "4",
+      "name": "Notion — Créer étudiant",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 1,
+      "position": [900, 300],
+      "parameters": {
+        "operation": "create",
+        "databaseId": "={{$env.NOTION_FORMATIONS_DB}}",
+        "propertiesUi": {
+          "propertyValues": [
+            { "key": "Nom", "textValue": "={{$json.prenom}}" },
+            { "key": "Email", "emailValue": "={{$json.email}}" },
+            { "key": "Code", "textValue": "={{$json.code}}" },
+            { "key": "Statut", "selectValue": "Actif" },
+            { "key": "Progression", "numberValue": 0 }
+          ]
+        }
+      }
+    },
+    {
+      "id": "5",
+      "name": "Gmail — Accès immédiat",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 1,
+      "position": [1120, 200],
+      "parameters": {
+        "operation": "send",
+        "toList": "={{$json.email}}",
+        "subject": "Ton accès Pinapp est prêt ✓",
+        "message": "Bonjour {{$json.prenom}},\n\nTon accès est activé.\n👉 https://pinapp.fr/formation/\n🔑 Code : {{$json.code}}\n\nBonne formation !\nLauralie"
+      }
+    },
+    {
+      "id": "6",
+      "name": "Wait 1 jour",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [1120, 350],
+      "parameters": { "resume": "timeInterval", "unit": "days", "value": 1 }
+    },
+    {
+      "id": "7",
+      "name": "Gmail J+1 — Premiers pas",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 1,
+      "position": [1340, 350],
+      "parameters": {
+        "operation": "send",
+        "toList": "={{$json.email}}",
+        "subject": "Jour 1 — As-tu commencé ?",
+        "message": "Bonjour {{$json.prenom}},\n\nJ'espère que tu as pu jeter un œil au module 1.\nUne question ? Réponds directement à cet email.\n\nLauralie"
+      }
+    },
+    {
+      "id": "8",
+      "name": "Wait 2 jours",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [1340, 450],
+      "parameters": { "resume": "timeInterval", "unit": "days", "value": 2 }
+    },
+    {
+      "id": "9",
+      "name": "Gmail J+3 — Vérif",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 1,
+      "position": [1560, 450],
+      "parameters": {
+        "operation": "send",
+        "toList": "={{$json.email}}",
+        "subject": "Comment ça avance ?",
+        "message": "Bonjour {{$json.prenom}},\n\nJ'aimerais savoir où tu en es. 2 minutes ?\nhttps://tally.so/r/{{$env.TALLY_FEEDBACK_ID}}\n\nLauralie"
+      }
+    },
+    {
+      "id": "10",
+      "name": "Wait 4 jours",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [1560, 550],
+      "parameters": { "resume": "timeInterval", "unit": "days", "value": 4 }
+    },
+    {
+      "id": "11",
+      "name": "Gmail J+7 — Résultats",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 1,
+      "position": [1780, 550],
+      "parameters": {
+        "operation": "send",
+        "toList": "={{$json.email}}",
+        "subject": "7 jours — quels résultats ?",
+        "message": "Bonjour {{$json.prenom}},\n\nUne semaine. Qu'est-ce que tu as mis en place ?\nRéponds à cet email, je lis tout.\n\nLauralie"
+      }
+    },
+    {
+      "id": "12",
+      "name": "Wait 7 jours",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [1780, 650],
+      "parameters": { "resume": "timeInterval", "unit": "days", "value": 7 }
+    },
+    {
+      "id": "13",
+      "name": "Gmail J+14 — Upsell",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 1,
+      "position": [2000, 650],
+      "parameters": {
+        "operation": "send",
+        "toList": "={{$json.email}}",
+        "subject": "Et si on allait plus loin ?",
+        "message": "Bonjour {{$json.prenom}},\n\nTu as terminé la formation. Pour aller encore plus loin :\n👉 https://pinapp.fr/offres/\n\nLauralie"
+      }
+    }
   ],
-  "connections":{"Stripe Webhook":{"main":[[{"node":"Identifier formation","type":"main","index":0}]]},"Identifier formation":{"main":[[{"node":"Générer code accès","type":"main","index":0}],[{"node":"Générer code accès","type":"main","index":0}],[{"node":"Générer code accès","type":"main","index":0}],[{"node":"Générer code accès","type":"main","index":0}],[{"node":"Générer code accès","type":"main","index":0}]]},"Générer code accès":{"main":[[{"node":"Notion — Créer étudiant","type":"main","index":0}]]},"Notion — Créer étudiant":{"main":[[{"node":"Gmail — Accès immédiat","type":"main","index":0},{"node":"Wait 1 jour","type":"main","index":0}]]},"Wait 1 jour":{"main":[[{"node":"Gmail J+1 — Premiers pas","type":"main","index":0}]]},"Gmail J+1 — Premiers pas":{"main":[[{"node":"Wait 2 jours","type":"main","index":0}]]},"Wait 2 jours":{"main":[[{"node":"Gmail J+3 — Vérif","type":"main","index":0}]]},"Gmail J+3 — Vérif":{"main":[[{"node":"Wait 4 jours","type":"main","index":0}]]},"Wait 4 jours":{"main":[[{"node":"Gmail J+7 — Résultats","type":"main","index":0}]]},"Gmail J+7 — Résultats":{"main":[[{"node":"Wait 7 jours","type":"main","index":0}]]},"Wait 7 jours":{"main":[[{"node":"Gmail J+14 — Upsell","type":"main","index":0}]]}}
+  "connections": {
+    "Stripe Webhook": {
+      "main": [[{ "node": "Identifier formation", "type": "main", "index": 0 }]]
+    },
+    "Identifier formation": {
+      "main": [
+        [{ "node": "Générer code accès", "type": "main", "index": 0 }],
+        [{ "node": "Générer code accès", "type": "main", "index": 0 }],
+        [{ "node": "Générer code accès", "type": "main", "index": 0 }],
+        [{ "node": "Générer code accès", "type": "main", "index": 0 }],
+        [{ "node": "Générer code accès", "type": "main", "index": 0 }]
+      ]
+    },
+    "Générer code accès": {
+      "main": [[{ "node": "Notion — Créer étudiant", "type": "main", "index": 0 }]]
+    },
+    "Notion — Créer étudiant": {
+      "main": [
+        [
+          { "node": "Gmail — Accès immédiat", "type": "main", "index": 0 },
+          { "node": "Wait 1 jour", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Wait 1 jour": {
+      "main": [[{ "node": "Gmail J+1 — Premiers pas", "type": "main", "index": 0 }]]
+    },
+    "Gmail J+1 — Premiers pas": {
+      "main": [[{ "node": "Wait 2 jours", "type": "main", "index": 0 }]]
+    },
+    "Wait 2 jours": { "main": [[{ "node": "Gmail J+3 — Vérif", "type": "main", "index": 0 }]] },
+    "Gmail J+3 — Vérif": { "main": [[{ "node": "Wait 4 jours", "type": "main", "index": 0 }]] },
+    "Wait 4 jours": { "main": [[{ "node": "Gmail J+7 — Résultats", "type": "main", "index": 0 }]] },
+    "Gmail J+7 — Résultats": { "main": [[{ "node": "Wait 7 jours", "type": "main", "index": 0 }]] },
+    "Wait 7 jours": { "main": [[{ "node": "Gmail J+14 — Upsell", "type": "main", "index": 0 }]] }
+  }
 }
