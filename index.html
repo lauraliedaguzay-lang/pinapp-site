@@ -1027,15 +1027,6 @@ input:focus, select:focus, textarea:focus {
   border-radius: 0 2px 2px 0 !important;
   box-shadow: 0 0 12px rgba(0,229,176,0.6), 0 0 24px rgba(155,109,255,0.3) !important;
 }
-</style><style id="ocean-light-fix">
-html[data-theme="light"] body::before{content:'';position:fixed;top:0;left:0;right:0;height:45vh;background:radial-gradient(ellipse 120% 80% at 50% -10%,rgba(255,255,255,.35) 0%,rgba(200,240,250,.15) 35%,transparent 70%);pointer-events:none;z-index:0;animation:surf-light 6s ease-in-out infinite alternate;}
-html[data-theme="light"] body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(-18deg,rgba(255,255,255,.03) 0%,transparent 2%,transparent 8%,rgba(255,255,255,.02) 10%);pointer-events:none;z-index:0;animation:sun-rays 10s ease-in-out infinite alternate;}
-@keyframes surf-light{0%{transform:scaleX(1) translateY(0)}100%{transform:scaleX(1.05) translateY(-3px)}}
-@keyframes sun-rays{0%{opacity:.6;transform:rotate(-1deg)}100%{opacity:1;transform:rotate(1deg)}}
-html[data-theme="light"] nav{background:rgba(0,100,130,.72)!important;border-bottom:1px solid rgba(255,255,255,.25)!important;}
-html[data-theme="light"] h1,html[data-theme="light"] h2,html[data-theme="light"] h3{color:#fff!important;text-shadow:0 2px 12px rgba(0,0,0,.25)!important;}
-html[data-theme="light"] p,html[data-theme="light"] li{color:rgba(255,255,255,.88)!important;}
-html[data-theme="light"] .card,html[data-theme="light"] .offer,html[data-theme="light"] article{background:rgba(255,255,255,.14)!important;border:1px solid rgba(255,255,255,.25)!important;backdrop-filter:blur(16px)!important;}
 </style><style id="hero-shimmer">
 /* ── CONSTRUISONS — shimmer cyan→violet→rose→aqua ── */
 .hero__gradient {
@@ -1091,7 +1082,124 @@ a[href*="demos"]:hover, a[href*="formations"]:hover {
   border-color: rgba(0,229,176,.4) !important;
   color: #fff !important;
 }
-</style></head>
+</style><style id="ocean-light-fix">
+/* ══ FOND OCÉAN AVATAR 2 — surface lumineuse ══ */
+html[data-theme="light"] body{
+  background:linear-gradient(
+    180deg,
+    #a8e6ef 0%,
+    #5bc5d4 12%,
+    #2a8a9a 28%,
+    #0d4a5c 50%,
+    #061825 80%,
+    #03101a 100%
+  )!important;
+}
+
+/* ── Lumière soleil filtrant à travers l'eau ── */
+html[data-theme="light"] body::before{
+  content:'';
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  background:
+    /* Halo soleil en surface */
+    radial-gradient(ellipse 80% 40% at 50% -5%,rgba(255,255,255,.38) 0%,transparent 60%),
+    /* Reflet latéral gauche */
+    radial-gradient(ellipse 40% 60% at -5% 20%,rgba(168,230,239,.2) 0%,transparent 55%),
+    /* Reflet latéral droit */
+    radial-gradient(ellipse 35% 50% at 105% 30%,rgba(91,197,212,.15) 0%,transparent 55%);
+  pointer-events:none;z-index:0;
+  animation:surf-halo 7s ease-in-out infinite alternate;
+}
+@keyframes surf-halo{
+  0%  {opacity:.7;transform:scale(1) translateY(0);}
+  100%{opacity:1; transform:scale(1.03) translateY(-6px);}
+}
+
+/* ── Rayons de soleil diagonaux ── */
+html[data-theme="light"] body::after{
+  content:'';
+  position:fixed;inset:0;
+  background:repeating-linear-gradient(
+    -22deg,
+    transparent 0%,
+    transparent 4%,
+    rgba(255,255,255,.028) 4%,
+    rgba(255,255,255,.028) 5%,
+    transparent 5%,
+    transparent 11%,
+    rgba(255,255,255,.018) 11%,
+    rgba(255,255,255,.018) 12%
+  );
+  pointer-events:none;z-index:0;
+  animation:sun-rays 12s ease-in-out infinite alternate;
+}
+@keyframes sun-rays{
+  0%  {opacity:.5;transform:rotate(0deg) scaleX(1);}
+  100%{opacity:1; transform:rotate(1.5deg) scaleX(1.04);}
+}
+
+/* ── Vagues SVG — forcer visibilité et animations en mode clair ── */
+html[data-theme="light"] #ow{
+  display:block!important;
+  opacity:1!important;
+}
+html[data-theme="light"] #w1{
+  animation:wv1 16s ease-in-out infinite alternate!important;
+  will-change:transform;
+}
+html[data-theme="light"] #w2{
+  animation:wv2 11s ease-in-out infinite alternate-reverse!important;
+  will-change:transform;
+}
+html[data-theme="light"] #w3{
+  animation:wv3 7s ease-in-out infinite alternate!important;
+  will-change:transform;
+}
+html[data-theme="light"] #w4{
+  animation:wv4 20s ease-in-out infinite alternate-reverse!important;
+  will-change:transform;
+}
+html[data-theme="light"] #oc{
+  animation:oc-drift 22s ease-in-out infinite alternate!important;
+}
+
+/* Vagues plus épaisses et colorées en mode clair */
+html[data-theme="light"] #w1 path{fill:rgba(0,160,190,.22)!important;}
+html[data-theme="light"] #w2 path{fill:rgba(0,200,215,.17)!important;}
+html[data-theme="light"] #w3 path{fill:rgba(125,220,230,.13)!important;}
+html[data-theme="light"] #w4 path{fill:rgba(200,245,250,.10)!important;}
+
+/* ── Caustics animés lumineux ── */
+html[data-theme="light"] #oc{
+  background:
+    radial-gradient(ellipse 50% 35% at 15% 30%,rgba(255,255,255,.18) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 28% at 80% 55%,rgba(168,230,239,.2) 0%,transparent 60%),
+    radial-gradient(ellipse 30% 22% at 50% 75%,rgba(255,255,255,.12) 0%,transparent 60%),
+    radial-gradient(ellipse 25% 20% at 35% 20%,rgba(91,197,212,.15) 0%,transparent 60%)
+    !important;
+}
+
+/* ── Canvas Pandora off en mode clair ── */
+html[data-theme="light"] #pc{opacity:0!important;pointer-events:none!important;}
+
+/* Textes et UI mode clair */
+html[data-theme="light"] h1,html[data-theme="light"] h2,html[data-theme="light"] h3{
+  color:#fff!important;text-shadow:0 2px 12px rgba(0,50,80,.3)!important;
+}
+html[data-theme="light"] p,html[data-theme="light"] li{color:rgba(255,255,255,.87)!important;}
+html[data-theme="light"] nav,.html[data-theme="light"] .nav{
+  background:rgba(0,60,90,.78)!important;
+  border-bottom:1px solid rgba(255,255,255,.22)!important;
+  backdrop-filter:blur(20px)!important;
+}
+html[data-theme="light"] .card,html[data-theme="light"] .offer,html[data-theme="light"] article,
+html[data-theme="light"] .pack-card,html[data-theme="light"] .spec-card{
+  background:rgba(255,255,255,.13)!important;
+  border:1px solid rgba(255,255,255,.22)!important;
+  backdrop-filter:blur(14px)!important;
+}
+</style>
+</head>
   <body>
 <canvas id="pc" aria-hidden="true"></canvas>
 <div id="ow" aria-hidden="true">
@@ -1236,7 +1344,7 @@ body>*:not(#pc):not(#ow){position:relative;z-index:1;}
             <a href="#apropos">Constat</a>
             <a href="#offres">Offres</a>
             <a href="#systemes">Systèmes</a>
-            <a href="#demos">Réalisations</a>
+            <a href="#preuves">Réalisations</a>
             <a href="#contact">Contact</a>
             <a href="#formations">Formations</a>
             <a href="#studio">L'équipe</a>
@@ -1448,6 +1556,48 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
             </div>
           </div>
         </section>
+
+
+<section id="pourquoi" aria-label="Pourquoi maintenant">
+  <div class="wrap" style="max-width:780px;margin:0 auto;">
+    <p class="section-eyebrow">Le monde change. Maintenant.</p>
+    <h2>Les TPE qui s'adaptent en 2026 <span class="accent">ont 3 ans d'avance.</span></h2>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.25rem;margin-top:2rem;">
+
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.4rem;backdrop-filter:blur(12px);">
+        <div style="font-size:1.8rem;font-weight:800;color:#00e5b0;margin-bottom:.35rem;">73%</div>
+        <p style="font-size:.83rem;color:rgba(255,255,255,.65);margin:0;line-height:1.5;">des dirigeants de TPE déclarent <strong style="color:rgba(255,255,255,.85);">manquer de temps pour le digital</strong></p>
+        <cite style="font-size:.68rem;color:rgba(255,255,255,.3);margin-top:.5rem;display:block;">CPME, 2025</cite>
+      </div>
+
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.4rem;backdrop-filter:blur(12px);">
+        <div style="font-size:1.8rem;font-weight:800;color:#9b6dff;margin-bottom:.35rem;">+340%</div>
+        <p style="font-size:.83rem;color:rgba(255,255,255,.65);margin:0;line-height:1.5;">de croissance du marché de la <strong style="color:rgba(255,255,255,.85);">formation IA en France</strong> en 2 ans</p>
+        <cite style="font-size:.68rem;color:rgba(255,255,255,.3);margin-top:.5rem;display:block;">France Compétences, 2025</cite>
+      </div>
+
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.4rem;backdrop-filter:blur(12px);">
+        <div style="font-size:1.8rem;font-weight:800;color:#ff6b9d;margin-bottom:.35rem;">-40%</div>
+        <p style="font-size:.83rem;color:rgba(255,255,255,.65);margin:0;line-height:1.5;">de charge administrative pour les entreprises qui <strong style="color:rgba(255,255,255,.85);">automatisent avec l'IA</strong></p>
+        <cite style="font-size:.68rem;color:rgba(255,255,255,.3);margin-top:.5rem;display:block;">McKinsey, 2024</cite>
+      </div>
+
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.4rem;backdrop-filter:blur(12px);">
+        <div style="font-size:1.8rem;font-weight:800;color:#7dd4fc;margin-bottom:.35rem;">42%</div>
+        <p style="font-size:.83rem;color:rgba(255,255,255,.65);margin:0;line-height:1.5;">des TPE françaises n'ont <strong style="color:rgba(255,255,255,.85);">pas encore de site professionnel viable</strong></p>
+        <cite style="font-size:.68rem;color:rgba(255,255,255,.3);margin-top:.5rem;display:block;">BPI France, 2025</cite>
+      </div>
+
+    </div>
+
+    <div style="margin-top:2rem;padding:1.25rem 1.75rem;background:rgba(0,229,176,.05);border:1px solid rgba(0,229,176,.18);border-radius:14px;text-align:center;">
+      <p style="font-size:.95rem;color:rgba(255,255,255,.75);margin:0;line-height:1.6;">Le marché du travail se réorganise <strong style="color:#00e5b0;">maintenant</strong> — pas dans 5 ans. <br>Les TPE qui agissent en 2026 construisent une avance que leurs concurrents mettront des années à combler.</p>
+    </div>
+  </div>
+</section>
+
+
 <section class="section" id="offres" data-reveal>
           <div class="offers-wrap">
             <header class="section__head wrap">
@@ -2056,7 +2206,71 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
 
 </main>
 
-      <section id="contact" data-reveal aria-label="Nous contacter">
+      
+<section id="studio" aria-label="L'équipe Pinapp">
+<style id="studio-section-style">
+#studio{padding:5rem 0;}
+.studio-duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;max-width:820px;margin:0 auto 2.5rem;}
+.studio-card{display:flex;flex-direction:column;align-items:center;gap:1.25rem;padding:2rem 1.5rem;background:rgba(255,255,255,.04);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.09);border-radius:20px;box-shadow:0 4px 24px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.07);text-align:center;transition:transform .3s ease,box-shadow .3s ease;}
+.studio-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.3);}
+.studio-photo-wrap{position:relative;width:140px;height:140px;}
+.studio-photo{width:140px;height:140px;object-fit:cover;border-radius:50%;display:block;border:2px solid rgba(255,255,255,.15);}
+.studio-avatar{width:140px;height:140px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2.5rem;font-weight:700;color:#fff;border:2px solid rgba(255,255,255,.15);}
+.studio-glow{position:absolute;inset:-8px;border-radius:50%;pointer-events:none;animation:studio-glow-pulse 3s ease-in-out infinite;}
+.glow--teal{box-shadow:0 0 28px rgba(0,229,176,.28),0 0 56px rgba(0,229,176,.10);}
+.glow--violet{box-shadow:0 0 28px rgba(155,109,255,.28),0 0 56px rgba(155,109,255,.10);}
+@keyframes studio-glow-pulse{0%,100%{opacity:.55}50%{opacity:1}}
+.studio-info{display:flex;flex-direction:column;align-items:center;gap:.45rem;}
+.studio-info h3{font-size:1.3rem;font-weight:700;color:#fff;margin:0;}
+.studio-role{font-size:.78rem;color:rgba(0,229,176,.9);font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin:0;}
+.studio-bio{font-size:.87rem;color:rgba(255,255,255,.62);line-height:1.65;margin:0;max-width:270px;}
+.studio-tags{display:flex;flex-wrap:wrap;gap:.35rem;justify-content:center;margin-top:.4rem;}
+.studio-tags span{font-size:.7rem;padding:.22rem .7rem;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:40px;color:rgba(255,255,255,.65);backdrop-filter:blur(6px);}
+.studio-tdah{display:flex;align-items:center;gap:1rem;max-width:620px;margin:0 auto;padding:1.25rem 1.75rem;background:rgba(0,229,176,.06);border:1px solid rgba(0,229,176,.22);border-radius:16px;backdrop-filter:blur(10px);}
+.studio-tdah p{font-size:.9rem;color:rgba(255,255,255,.72);font-style:italic;margin:0;line-height:1.55;}
+@media(max-width:680px){.studio-duo{grid-template-columns:1fr;}.studio-photo-wrap,.studio-photo,.studio-avatar{width:110px;height:110px;}}
+</style>
+  <div class="wrap">
+    <p class="section-eyebrow">Derrière Pinapp</p>
+    <h2>Deux cerveaux. <span class="accent">Un seul objectif.</span></h2>
+    <p class="section-sub" style="max-width:520px;margin:.75rem auto 2.5rem;">Des systèmes pensés pour libérer votre énergie — pas pour l'absorber.</p>
+    <div class="studio-duo">
+      <!-- LAURALIE -->
+      <div class="studio-card">
+        <div class="studio-photo-wrap">
+          <div class="studio-avatar" style="background:linear-gradient(135deg,#00e5b0,#9b6dff);">L</div>
+          <div class="studio-glow glow--teal"></div>
+        </div>
+        <div class="studio-info">
+          <h3>Lauralie</h3>
+          <p class="studio-role">Fondatrice · Systèmes, IA &amp; Web</p>
+          <p class="studio-bio">Études informatiques. Des milliers d'heures sur des logiciels que personne n'avait encore explorés. Quand l'IA a changé les règles, elle n'a pas subi — elle a reconstruit ses outils. Aujourd'hui elle conçoit des architectures qui libèrent du temps réel.</p>
+          <div class="studio-tags"><span>Systèmes</span><span>IA</span><span>n8n</span><span>Claude API</span><span>Cursor</span></div>
+        </div>
+      </div>
+      <!-- MICHA -->
+      <div class="studio-card">
+        <div class="studio-photo-wrap">
+          <img src="assets/images/micha.jpg" alt="Michaël — Vidéaste Pinapp" class="studio-photo" loading="lazy" width="140" height="140" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="studio-avatar" style="display:none;background:linear-gradient(135deg,#9b6dff,#ff6b9d);">M</div>
+          <div class="studio-glow glow--violet"></div>
+        </div>
+        <div class="studio-info">
+          <h3>Michaël</h3>
+          <p class="studio-role">Vidéaste &amp; Créateur · Image &amp; IA créative</p>
+          <p class="studio-bio">10 ans dans l'événementiel — mariages, galas, entreprises. L'œil qui sait quoi capturer avant que ça arrive. Puis Higgsfield et l'IA créative sont arrivés. Il fusionne aujourd'hui l'authenticité du terrain et la puissance des outils génératifs.</p>
+          <div class="studio-tags"><span>Vidéo</span><span>Photo</span><span>Higgsfield</span><span>IA créative</span><span>Montage</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="studio-tdah">
+      <span style="font-size:1.4rem;flex-shrink:0;">⚡</span>
+      <p>"Deux cerveaux qui ont arrêté de subir leurs outils — et décidé de les construire pour ceux qui pensent comme eux."</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" data-reveal aria-label="Nous contacter">
   <div class="wrap">
     <p class="section-eyebrow">Lançons votre projet</p>
     <h2>On vous répond <span class="accent">sous 24h.</span></h2>
@@ -2377,7 +2591,13 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
           </nav>
           <small>© 2026 Pinapp — Tous droits réservés</small>
         </div>
-      </footer>
+      
+<!-- Auralis RH teaser -->
+<div class="auralis-teaser" style="margin-top:2rem;padding:1rem 1.5rem;background:rgba(155,109,255,.06);border:1px solid rgba(155,109,255,.2);border-radius:14px;text-align:center;">
+  <p style="font-size:.78rem;color:rgba(155,109,255,.8);font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin:0 0 .3rem;">Bientôt disponible</p>
+  <p style="font-size:.88rem;color:rgba(255,255,255,.65);margin:0;"><strong style="color:rgba(155,109,255,.9);">Auralis RH</strong> — L'IA qui prend soin des équipes. Anti-burnout. Modulaire. Humain.</p>
+</div>
+</footer>
     </div>
 
     <script src="/script.js?v=20260416" defer></script>
@@ -3087,6 +3307,44 @@ cite { font-size: .72rem; color: rgba(255,255,255,.35); font-style: italic; marg
     attachCards();
     setTimeout(attachCards, 500); // fallback si DOM pas encore prêt
   }
+})();
+</script>
+<script id="theme-ocean-patch">
+(function(){
+  function applyTheme(theme){
+    var ow = document.getElementById('ow');
+    var pc = document.getElementById('pc');
+    if(!ow) return;
+    if(theme === 'light'){
+      ow.style.display = 'block';
+      ow.style.opacity = '1';
+      if(pc) pc.style.opacity = '0';
+    } else {
+      ow.style.display = 'none';
+      if(pc) pc.style.opacity = '1';
+    }
+  }
+  // Appliquer immédiatement
+  applyTheme(document.documentElement.dataset.theme || 'dark');
+  // Observer les changements
+  new MutationObserver(function(muts){
+    muts.forEach(function(m){
+      if(m.attributeName === 'data-theme'){
+        applyTheme(document.documentElement.dataset.theme);
+      }
+    });
+  }).observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
+  // Hook sur le bouton toggle
+  window.addEventListener('load', function(){
+    var toggles = document.querySelectorAll('[id*="themeToggle"],[id*="theme-toggle"],[class*="theme"],[aria-label*="thème"],[aria-label*="theme"]');
+    toggles.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        setTimeout(function(){
+          applyTheme(document.documentElement.dataset.theme || 'dark');
+        }, 50);
+      });
+    });
+  });
 })();
 </script>
 </body>
