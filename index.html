@@ -1066,300 +1066,7 @@ input:focus, select:focus, textarea:focus {
   100% { background-position: 300% center; }
 }
 </style>
-<style id="ocean-light-fix">
-/* ══ HIGH BY THE BEACH — MODE CLAIR COMPLET ══ */
-/* Toutes les règles avec !important pour battre style.css Hostinger */
-
-/* ── FOND PRINCIPAL : dégradé Malibu ── */
-html[data-theme="light"] body {
-  background: linear-gradient(
-    180deg,
-    #faf7f2 0%,
-    #eef4fa 8%,
-    #dde8f2 18%,
-    #cfdde8 32%,
-    #d8ccb4 55%,
-    #e8d8b8 72%,
-    #f4ead8 88%,
-    #faf2e4 100%
-  ) !important;
-  color: #2e2824 !important;
-}
-
-/* ── CANVAS PANDORA — off ── */
-html[data-theme="light"] #pc { opacity: 0 !important; pointer-events: none !important; }
-html[data-theme="light"] #bg-canvas { opacity: 0 !important; }
-
-/* ── VAGUES — off (remplacées par les nouvelles) ── */
-html[data-theme="light"] #ow { display: none !important; }
-
-/* ── HALOS DE LUMIÈRE MALIBU ── */
-html[data-theme="light"] body::before {
-  content: '' !important;
-  position: fixed !important;
-  inset: 0 !important;
-  background:
-    /* Soleil en surface — halo blanc surexposé */
-    radial-gradient(ellipse 90% 50% at 50% -8%, rgba(255,255,255,.95) 0%, rgba(255,255,255,.4) 30%, transparent 65%),
-    /* Reflet doré centre-droit */
-    radial-gradient(ellipse 55% 40% at 80% 25%, rgba(220,185,130,.22) 0%, transparent 55%),
-    /* Lueur piscine bleue à gauche */
-    radial-gradient(ellipse 50% 35% at 5% 35%, rgba(180,215,235,.2) 0%, transparent 55%),
-    /* Chaleur sable en bas */
-    radial-gradient(ellipse 80% 45% at 50% 105%, rgba(230,195,140,.3) 0%, transparent 60%)
-  !important;
-  pointer-events: none !important;
-  z-index: 0 !important;
-  animation: ldb-halos 9s ease-in-out infinite alternate !important;
-}
-@keyframes ldb-halos {
-  0%   { opacity: .75; transform: scale(1) translateY(0); }
-  100% { opacity: 1;   transform: scale(1.02) translateY(-8px); }
-}
-
-/* ── GRAIN PHOTO — texture brume Malibu ── */
-html[data-theme="light"] body::after {
-  content: '' !important;
-  position: fixed !important; inset: 0 !important;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.055'/%3E%3C/svg%3E") !important;
-  pointer-events: none !important;
-  z-index: 1 !important;
-  mix-blend-mode: multiply !important;
-  opacity: .55 !important;
-}
-
-/* ── RAYONS SOLEIL DIAGONAUX — très doux ── */
-html[data-theme="light"] .page::before {
-  content: '' !important;
-  position: fixed !important; inset: 0 !important;
-  background: repeating-linear-gradient(
-    -28deg,
-    transparent 0%,
-    transparent 6%,
-    rgba(255,248,235,.035) 6%,
-    rgba(255,248,235,.035) 7%,
-    transparent 7%,
-    transparent 14%,
-    rgba(230,210,175,.025) 14%,
-    rgba(230,210,175,.025) 15%
-  ) !important;
-  pointer-events: none !important;
-  z-index: 1 !important;
-  animation: ldb-rays 16s ease-in-out infinite alternate !important;
-}
-@keyframes ldb-rays {
-  0%   { opacity: .5; transform: rotate(0deg) translateX(0); }
-  100% { opacity: 1;  transform: rotate(1.5deg) translateX(8px); }
-}
-
-/* ── VAGUES SVG MALIBU — crème et sable ── */
-html[data-theme="light"] .page::after {
-  content: '' !important;
-  position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important;
-  height: 35vh !important;
-  background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 200' preserveAspectRatio='none'%3E%3Cpath fill='rgba(200,175,130,0.12)' d='M0,80 C200,140 400,20 600,80 C800,140 1000,20 1200,80 C1320,120 1400,100 1440,80 L1440,200 L0,200 Z'/%3E%3C/svg%3E") bottom/100% auto no-repeat,
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 200' preserveAspectRatio='none'%3E%3Cpath fill='rgba(170,200,220,0.1)' d='M0,120 C300,60 500,160 720,100 C940,40 1100,140 1440,100 L1440,200 L0,200 Z'/%3E%3C/svg%3E") bottom/120% auto no-repeat
-  !important;
-  pointer-events: none !important;
-  z-index: 1 !important;
-  animation: ldb-waves 18s ease-in-out infinite alternate !important;
-}
-@keyframes ldb-waves {
-  0%   { transform: translateX(0) scaleY(1); opacity: .6; }
-  100% { transform: translateX(-3%) scaleY(1.15); opacity: 1; }
-}
-
-/* ── NAVIGATION ── */
-html[data-theme="light"] nav,
-html[data-theme="light"] .nav,
-html[data-theme="light"] .site-nav,
-html[data-theme="light"] #siteNav {
-  background: rgba(250,245,235,.88) !important;
-  border-bottom: 1px solid rgba(200,180,145,.2) !important;
-  backdrop-filter: blur(24px) !important;
-  -webkit-backdrop-filter: blur(24px) !important;
-}
-
-/* ── TEXTES ── */
-html[data-theme="light"] h1,
-html[data-theme="light"] h2,
-html[data-theme="light"] h3 {
-  color: #2e2824 !important;
-  text-shadow: 0 1px 6px rgba(200,175,130,.15) !important;
-}
-html[data-theme="light"] p,
-html[data-theme="light"] li,
-html[data-theme="light"] .section-sub {
-  color: rgba(46,40,36,.72) !important;
-}
-html[data-theme="light"] .section-eyebrow,
-html[data-theme="light"] [class*="eyebrow"],
-html[data-theme="light"] .badge {
-  color: #a07840 !important;
-  border-color: rgba(160,120,64,.3) !important;
-  background: rgba(232,208,160,.15) !important;
-}
-html[data-theme="light"] .accent,
-html[data-theme="light"] .hero__gradient {
-  color: #b06030 !important;
-}
-
-/* ── CARDS ── */
-html[data-theme="light"] .card,
-html[data-theme="light"] .offer,
-html[data-theme="light"] article,
-html[data-theme="light"] .belief,
-html[data-theme="light"] .pack-card,
-html[data-theme="light"] .spec-card,
-html[data-theme="light"] .studio-card,
-html[data-theme="light"] [class*="card"] {
-  background: rgba(255,252,245,.75) !important;
-  border: 1px solid rgba(200,180,148,.25) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
-  box-shadow: 0 4px 20px rgba(180,150,100,.08) !important;
-}
-html[data-theme="light"] .card:hover,
-html[data-theme="light"] .offer:hover,
-html[data-theme="light"] .belief:hover {
-  box-shadow: 0 12px 36px rgba(180,150,100,.15) !important;
-  border-color: rgba(200,165,110,.4) !important;
-}
-
-/* ── BOUTONS PRIMAIRES ── */
-html[data-theme="light"] .btn--primary,
-html[data-theme="light"] .btn-primary,
-html[data-theme="light"] a.btn--primary {
-  background: linear-gradient(135deg, #c8783c, #a05830) !important;
-  color: #faf5ec !important;
-  border: none !important;
-  box-shadow: 0 4px 16px rgba(180,100,40,.25) !important;
-}
-html[data-theme="light"] .btn--primary:hover {
-  box-shadow: 0 8px 28px rgba(180,100,40,.35) !important;
-}
-
-/* ── BOUTONS SECONDAIRES ── */
-html[data-theme="light"] .hero__ctas a:not(:first-child),
-html[data-theme="light"] .btn--ghost,
-html[data-theme="light"] a[href*="demos"],
-html[data-theme="light"] a[href*="formations"] {
-  background: rgba(255,252,245,.6) !important;
-  border: 1px solid rgba(200,175,135,.4) !important;
-  color: #7a5828 !important;
-  backdrop-filter: blur(8px) !important;
-}
-
-/* ── TICKER ── */
-html[data-theme="light"] .ticker,
-html[data-theme="light"] [class*="ticker"] {
-  background: rgba(200,165,110,.12) !important;
-  border-top: 1px solid rgba(200,165,110,.2) !important;
-  border-bottom: 1px solid rgba(200,165,110,.2) !important;
-}
-html[data-theme="light"] .ticker__item,
-html[data-theme="light"] [class*="ticker"] span {
-  color: #8a6030 !important;
-}
-
-/* ── DRAWER / MENU MOBILE ── */
-html[data-theme="light"] .drawer,
-html[data-theme="light"] #navDrawer {
-  background: rgba(248,243,232,.97) !important;
-  border-left: 1px solid rgba(200,180,145,.2) !important;
-}
-html[data-theme="light"] .drawer a {
-  color: #3c3228 !important;
-}
-
-/* ── FORMULAIRE ── */
-html[data-theme="light"] input,
-html[data-theme="light"] select,
-html[data-theme="light"] textarea {
-  background: rgba(255,252,245,.85) !important;
-  border-color: rgba(200,175,135,.3) !important;
-  color: #2e2824 !important;
-}
-html[data-theme="light"] input:focus,
-html[data-theme="light"] select:focus {
-  border-color: rgba(180,120,55,.5) !important;
-  box-shadow: 0 0 0 3px rgba(180,120,55,.1) !important;
-}
-
-/* ── FOOTER ── */
-html[data-theme="light"] footer {
-  background: rgba(232,215,185,.3) !important;
-  border-top: 1px solid rgba(200,175,130,.2) !important;
-}
-
-/* ── MODALS VALEURS ── */
-html[data-theme="light"] .valeur-modal__panel {
-  background: linear-gradient(160deg, rgba(250,245,232,.98), rgba(240,232,215,.98)) !important;
-  border: 1px solid rgba(200,175,130,.2) !important;
-}
-html[data-theme="light"] .stat-number { color: #b06030 !important; }
-html[data-theme="light"] .valeur-modal__stat {
-  background: rgba(200,165,110,.08) !important;
-  border-color: rgba(200,165,110,.2) !important;
-}
-html[data-theme="light"] .valeur-modal__cta {
-  background: linear-gradient(135deg, #c8783c, #a05830) !important;
-}
-html[data-theme="light"] .valeur-modal__title { color: #2e2824 !important; }
-html[data-theme="light"] .valeur-modal__content p { color: rgba(46,40,36,.7) !important; }
-
-/* ── SECTIONS stats/chiffres ── */
-html[data-theme="light"] [style*="color:#00e5b0"],
-html[data-theme="light"] [style*="color: #00e5b0"] {
-  color: #b06030 !important;
-}
-html[data-theme="light"] [style*="color:rgba(0,229,176"] {
-  color: rgba(176,96,48,.8) !important;
-}
-
-/* ── SECTION PORTFOLIO TABS ── */
-html[data-theme="light"] .pt-btn {
-  background: rgba(255,252,245,.7) !important;
-  border-color: rgba(200,175,130,.25) !important;
-  color: rgba(46,40,36,.6) !important;
-}
-html[data-theme="light"] .pt-btn.on,
-html[data-theme="light"] .pt-btn:hover {
-  background: rgba(200,165,110,.15) !important;
-  border-color: rgba(180,120,55,.4) !important;
-  color: #a06030 !important;
-}
-
-/* ── SECTION STUDIO ── */
-html[data-theme="light"] .studio-card {
-  background: rgba(255,252,245,.8) !important;
-  border-color: rgba(200,175,130,.2) !important;
-}
-html[data-theme="light"] .studio-info h3 { color: #2e2824 !important; }
-html[data-theme="light"] .studio-role { color: #a06030 !important; }
-html[data-theme="light"] .studio-bio { color: rgba(46,40,36,.65) !important; }
-
-/* ── SECTION MÉMOIRE & PRÉSENCE ── */
-html[data-theme="light"] .mp-link-section {
-  background: linear-gradient(135deg, rgba(240,235,220,.9), rgba(232,225,205,.9)) !important;
-  border-top-color: rgba(180,160,120,.2) !important;
-}
-
-/* ── TOGGLE THÈME ── */
-html[data-theme="light"] [id*="themeToggle"],
-html[data-theme="light"] [class*="theme-toggle"],
-html[data-theme="light"] [class*="themeToggle"] {
-  background: rgba(255,248,230,.8) !important;
-  border-color: rgba(200,165,110,.3) !important;
-  color: #8a5820 !important;
-}
-
-/* ── JS THEME SWITCH — forcer les bons éléments ── */
-html[data-theme="light"] #bg-canvas { opacity: 0 !important; }
-html[data-theme="light"] #ow { display: none !important; }
-html[data-theme="light"] #pc { opacity: 0 !important; }
-</style><script id="construisons-svg-js">
+<script id="construisons-svg-js">
 (function(){
   var built = false;
   function buildSVG(){
@@ -2466,11 +2173,26 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
 <!-- Panel Lauralie — 5 encarts -->
 <div class="pp on" id="pp-lauralie">
 <div class="c3w"><div class="c3" id="c3l">
-<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Site restauration" loading="lazy"><div class="c3-info"><p class="c3-tag">Site vitrine</p><p class="c3-title">Restaurant gastronomique</p><p class="c3-desc">Réservations auto · Menu dynamique · SEO local</p><a href="#contact" class="c3-link">Voir le démo →</a></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/3985163/pexels-photo-3985163.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cabinet santé" loading="lazy"><div class="c3-info"><p class="c3-tag">Site + Automatisation</p><p class="c3-title">Cabinet naturopathie</p><p class="c3-desc">Prise de RDV · Relances n8n · Formulaire qualifié</p><a href="#contact" class="c3-link">Voir le démo →</a></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Artisan" loading="lazy"><div class="c3-info"><p class="c3-tag">Site vitrine</p><p class="c3-title">Artisan menuisier</p><p class="c3-desc">Portfolio projets · Devis auto · Galerie dynamique</p><a href="#contact" class="c3-link">Voir le démo →</a></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Freelance" loading="lazy"><div class="c3-info"><p class="c3-tag">Site + IA</p><p class="c3-title">Consultant freelance</p><p class="c3-desc">Lead magnet · Newsletter auto · Tunnel de vente</p><a href="#contact" class="c3-link">Voir le démo →</a></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/3764013/pexels-photo-3764013.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Institut beauté" loading="lazy"><div class="c3-info"><p class="c3-tag">Site Premium</p><p class="c3-title">Institut beauté</p><p class="c3-desc">Espace client · Réservations · Galerie soins</p><a href="#contact" class="c3-link">Voir le démo →</a></div></div>
+<div class="c3-card"><div class="c3-vis" style="width:100%;height:190px;background:linear-gradient(135deg,#0d1f17 0%,#1a3d28 40%,#c8903c 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;flex-shrink:0;">
+    <span style="font-size:2.2rem;filter:drop-shadow(0 0 12px rgba(255,255,255,.2));">🍽</span>
+    <span style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);">Site restauration</span>
+  </div><div class="c3-info"><p class="c3-tag">Site vitrine</p><p class="c3-title">Restaurant gastronomique</p><p class="c3-desc">Réservations auto · Menu dynamique · SEO local</p><a href="#contact" class="c3-link">Voir le démo →</a></div></div>
+<div class="c3-card"><div class="c3-vis" style="width:100%;height:190px;background:linear-gradient(135deg,#0f2017 0%,#234a2e 50%,#4a8a5e 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;flex-shrink:0;">
+    <span style="font-size:2.2rem;filter:drop-shadow(0 0 12px rgba(255,255,255,.2));">🌿</span>
+    <span style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);">Cabinet santé</span>
+  </div><div class="c3-info"><p class="c3-tag">Site + Automatisation</p><p class="c3-title">Cabinet naturopathie</p><p class="c3-desc">Prise de RDV · Relances n8n · Formulaire qualifié</p><a href="#contact" class="c3-link">Voir le démo →</a></div></div>
+<div class="c3-card"><div class="c3-vis" style="width:100%;height:190px;background:linear-gradient(135deg,#1c1208 0%,#3d2a10 50%,#8b6030 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;flex-shrink:0;">
+    <span style="font-size:2.2rem;filter:drop-shadow(0 0 12px rgba(255,255,255,.2));">🔨</span>
+    <span style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);">Artisan</span>
+  </div><div class="c3-info"><p class="c3-tag">Site vitrine</p><p class="c3-title">Artisan menuisier</p><p class="c3-desc">Portfolio projets · Devis auto · Galerie dynamique</p><a href="#contact" class="c3-link">Voir le démo →</a></div></div>
+<div class="c3-card"><div class="c3-vis" style="width:100%;height:190px;background:linear-gradient(135deg,#0a1020 0%,#1a2840 50%,#2a5890 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;flex-shrink:0;">
+    <span style="font-size:2.2rem;filter:drop-shadow(0 0 12px rgba(255,255,255,.2));">💼</span>
+    <span style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);">Freelance</span>
+  </div><div class="c3-info"><p class="c3-tag">Site + IA</p><p class="c3-title">Consultant freelance</p><p class="c3-desc">Lead magnet · Newsletter auto · Tunnel de vente</p><a href="#contact" class="c3-link">Voir le démo →</a></div></div>
+<div class="c3-card"><div class="c3-vis" style="width:100%;height:190px;background:linear-gradient(135deg,#1a0814 0%,#3d1828 50%,#8b4060 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;flex-shrink:0;">
+    <span style="font-size:2.2rem;filter:drop-shadow(0 0 12px rgba(255,255,255,.2));">✨</span>
+    <span style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);">Institut beauté</span>
+  </div><div class="c3-info"><p class="c3-tag">Site Premium</p><p class="c3-title">Institut beauté</p><p class="c3-desc">Espace client · Réservations · Galerie soins</p><a href="#contact" class="c3-link">Voir le démo →</a></div></div>
 </div></div>
 <div class="c3-nav" id="nl"><button class="c3-btn" data-d="-1">←</button><div class="c3-dots" id="dl"></div><button class="c3-btn" data-d="1">→</button></div>
 </div>
@@ -2479,14 +2201,38 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
 <div class="pp" id="pp-micha-video">
 <p class="port-note" style="margin-bottom:1.25rem;color:rgba(155,109,255,.6);">📍 Michaël se déplace partout en France · Belgique · Suisse</p>
 <div class="c3w"><div class="c3" id="c3mv">
-<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/1444442/pexels-photo-1444442.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mariage" loading="lazy"><div class="c3-info"><p class="c3-tag v">Mariage</p><p class="c3-title">Film de mariage cinématique</p><p class="c3-desc">Captation · Montage · Livraison 4K · Drone · Highlights</p><a href="#contact" class="c3-link v">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Portrait IA" loading="lazy"><div class="c3-info"><p class="c3-tag v">IA Créative · Higgsfield</p><p class="c3-title">Vidéo produit IA</p><p class="c3-desc">Animation portrait · Rendu premium · Multi-formats</p><a href="#contact" class="c3-link v">Demander un devis →</a></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Événement corporate" loading="lazy"><div class="c3-info"><p class="c3-tag v">Corporate</p><p class="c3-title">Film d'entreprise</p><p class="c3-desc">Présentation · Équipes · Produits · Storytelling de marque</p><a href="#contact" class="c3-link v">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Institutionnel" loading="lazy"><div class="c3-info"><p class="c3-tag v">Image de marque</p><p class="c3-title">Vidéo institutionnelle</p><p class="c3-desc">Scénario · Tournage · Motion design · Diffusion multi-plateformes</p><a href="#contact" class="c3-link v">Demander un devis →</a></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/1540406/pexels-photo-1540406.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Gala événement" loading="lazy"><div class="c3-info"><p class="c3-tag v">Événementiel</p><p class="c3-title">Gala & soirée de prestige</p><p class="c3-desc">Captation live · Montage express · Diffusion J+48</p><a href="#contact" class="c3-link v">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/3799832/pexels-photo-3799832.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Contenu social" loading="lazy"><div class="c3-info"><p class="c3-tag v">Social Media</p><p class="c3-title">Contenu social & Reels</p><p class="c3-desc">Short-form · Instagram · TikTok · LinkedIn · Formats multiples</p><a href="#contact" class="c3-link v">Demander un devis →</a></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/1024975/pexels-photo-1024975.jpeg?auto=compress&cs=tinysrgb&w=600" alt="PACS couple" loading="lazy"><div class="c3-info"><p class="c3-tag v">Couple & PACS</p><p class="c3-title">Film de cérémonie</p><p class="c3-desc">PACS · Fiançailles · Anniversaire de mariage · Mémoire</p><a href="#contact" class="c3-link v">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/3379942/pexels-photo-3379942.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Plateau tournage" loading="lazy"><div class="c3-info"><p class="c3-tag v">Production</p><p class="c3-title">Plateau de tournage</p><p class="c3-desc">Direction photo · Éclairage · Scénario · Production complète</p><a href="#contact" class="c3-link v">Demander un devis →</a></div></div>
+<div class="c3-card"><div class="c3-vis" style="width:100%;height:190px;background:linear-gradient(135deg,#0f0f1a 0%,#1e1e3c 50%,#4a3878 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;flex-shrink:0;">
+    <span style="font-size:2.2rem;filter:drop-shadow(0 0 12px rgba(255,255,255,.2));">💍</span>
+    <span style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);">Mariage</span>
+  </div><div class="c3-info"><p class="c3-tag v">Mariage</p><p class="c3-title">Film de mariage cinématique</p><p class="c3-desc">Captation · Montage · Livraison 4K · Drone · Highlights</p><a href="#contact" class="c3-link v">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
+<div class="c3-card"><div class="c3-vis" style="width:100%;height:190px;background:linear-gradient(135deg,#050510 0%,#0f0f28 50%,#302060 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;flex-shrink:0;">
+    <span style="font-size:2.2rem;filter:drop-shadow(0 0 12px rgba(255,255,255,.2));">🤖</span>
+    <span style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);">Portrait IA</span>
+  </div><div class="c3-info"><p class="c3-tag v">IA Créative · Higgsfield</p><p class="c3-title">Vidéo produit IA</p><p class="c3-desc">Animation portrait · Rendu premium · Multi-formats</p><a href="#contact" class="c3-link v">Demander un devis →</a></div></div>
+<div class="c3-card"><div class="c3-vis" style="width:100%;height:190px;background:linear-gradient(135deg,#080c14 0%,#141e30 50%,#283d60 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;flex-shrink:0;">
+    <span style="font-size:2.2rem;filter:drop-shadow(0 0 12px rgba(255,255,255,.2));">🎬</span>
+    <span style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);">Événement corporate</span>
+  </div><div class="c3-info"><p class="c3-tag v">Corporate</p><p class="c3-title">Film d'entreprise</p><p class="c3-desc">Présentation · Équipes · Produits · Storytelling de marque</p><a href="#contact" class="c3-link v">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
+<div class="c3-card"><div class="c3-vis" style="width:100%;height:190px;background:linear-gradient(135deg,#0a0d18 0%,#151c34 50%,#2a3568 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;flex-shrink:0;">
+    <span style="font-size:2.2rem;filter:drop-shadow(0 0 12px rgba(255,255,255,.2));">🏢</span>
+    <span style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);">Institutionnel</span>
+  </div><div class="c3-info"><p class="c3-tag v">Image de marque</p><p class="c3-title">Vidéo institutionnelle</p><p class="c3-desc">Scénario · Tournage · Motion design · Diffusion multi-plateformes</p><a href="#contact" class="c3-link v">Demander un devis →</a></div></div>
+<div class="c3-card"><div class="c3-vis" style="width:100%;height:190px;background:linear-gradient(135deg,#0f0808 0%,#281818 50%,#5c2830 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;flex-shrink:0;">
+    <span style="font-size:2.2rem;filter:drop-shadow(0 0 12px rgba(255,255,255,.2));">✨</span>
+    <span style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);">Gala événement</span>
+  </div><div class="c3-info"><p class="c3-tag v">Événementiel</p><p class="c3-title">Gala & soirée de prestige</p><p class="c3-desc">Captation live · Montage express · Diffusion J+48</p><a href="#contact" class="c3-link v">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
+<div class="c3-card"><div class="c3-vis" style="width:100%;height:190px;background:linear-gradient(135deg,#050510 0%,#0f0f28 50%,#302060 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;flex-shrink:0;">
+    <span style="font-size:2.2rem;filter:drop-shadow(0 0 12px rgba(255,255,255,.2));">🤖</span>
+    <span style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);">Contenu social</span>
+  </div><div class="c3-info"><p class="c3-tag v">Social Media</p><p class="c3-title">Contenu social & Reels</p><p class="c3-desc">Short-form · Instagram · TikTok · LinkedIn · Formats multiples</p><a href="#contact" class="c3-link v">Demander un devis →</a></div></div>
+<div class="c3-card"><div class="c3-vis" style="width:100%;height:190px;background:linear-gradient(135deg,#0f0f1a 0%,#201830 50%,#504070 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;flex-shrink:0;">
+    <span style="font-size:2.2rem;filter:drop-shadow(0 0 12px rgba(255,255,255,.2));">💑</span>
+    <span style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);">PACS couple</span>
+  </div><div class="c3-info"><p class="c3-tag v">Couple & PACS</p><p class="c3-title">Film de cérémonie</p><p class="c3-desc">PACS · Fiançailles · Anniversaire de mariage · Mémoire</p><a href="#contact" class="c3-link v">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
+<div class="c3-card"><div class="c3-vis" style="width:100%;height:190px;background:linear-gradient(135deg,#060810 0%,#101828 50%,#202d50 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;flex-shrink:0;">
+    <span style="font-size:2.2rem;filter:drop-shadow(0 0 12px rgba(255,255,255,.2));">🎥</span>
+    <span style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);">Plateau tournage</span>
+  </div><div class="c3-info"><p class="c3-tag v">Production</p><p class="c3-title">Plateau de tournage</p><p class="c3-desc">Direction photo · Éclairage · Scénario · Production complète</p><a href="#contact" class="c3-link v">Demander un devis →</a></div></div>
 </div></div>
 <div class="c3-nav" id="nmv"><button class="c3-btn vm" data-d="-1">←</button><div class="c3-dots vm" id="dmv"></div><button class="c3-btn vm" data-d="1">→</button></div>
 </div>
@@ -2495,12 +2241,30 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
 <div class="pp" id="pp-micha-photo">
 <p class="port-note" style="margin-bottom:1.25rem;color:rgba(255,107,157,.5);">📍 Michaël se déplace partout en France · Belgique · Suisse</p>
 <div class="c3w"><div class="c3" id="c3mp">
-<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/1444442/pexels-photo-1444442.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Photo mariage" loading="lazy"><div class="c3-info"><p class="c3-tag vp">Photo mariage</p><p class="c3-title">Reportage nuptial</p><p class="c3-desc">Préparatifs · Cérémonie · Cocktail · Soirée · 500+ clichés livrés</p><a href="#contact" class="c3-link vp">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Portrait pro" loading="lazy"><div class="c3-info"><p class="c3-tag vp">Portrait pro</p><p class="c3-title">Portrait professionnel</p><p class="c3-desc">LinkedIn · Site web · Presse · Direction artistique · Retouche pro</p><a href="#contact" class="c3-link vp">Demander un devis →</a></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Événement photo" loading="lazy"><div class="c3-info"><p class="c3-tag vp">Événementiel</p><p class="c3-title">Reportage d'événement</p><p class="c3-desc">Gala · Conférence · Séminaire · 200–600 images · Galerie privée</p><a href="#contact" class="c3-link vp">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/1667088/pexels-photo-1667088.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Photo produit" loading="lazy"><div class="c3-info"><p class="c3-tag vp">Photo produit</p><p class="c3-title">Packshots & produits</p><p class="c3-desc">E-commerce · Catalogue · Publicité · Studio ou en situation</p><a href="#contact" class="c3-link vp">Demander un devis →</a></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Photo corporate team" loading="lazy"><div class="c3-info"><p class="c3-tag vp">Corporate</p><p class="c3-title">Photo d'équipe & team</p><p class="c3-desc">Direction photo · Ambiance bureau · Portraits individuels et groupe</p><a href="#contact" class="c3-link vp">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/3762800/pexels-photo-3762800.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Portrait IA" loading="lazy"><div class="c3-info"><p class="c3-tag vp">Portrait IA · Higgsfield</p><p class="c3-title">Portrait IA animé</p><p class="c3-desc">Transformation photo → portrait animé premium · Higgsfield</p><a href="#contact" class="c3-link vp">Demander un devis →</a></div></div>
+<div class="c3-card"><div class="c3-vis" style="width:100%;height:190px;background:linear-gradient(135deg,#0f0f1a 0%,#1e1e3c 50%,#4a3878 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;flex-shrink:0;">
+    <span style="font-size:2.2rem;filter:drop-shadow(0 0 12px rgba(255,255,255,.2));">💍</span>
+    <span style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);">Photo mariage</span>
+  </div><div class="c3-info"><p class="c3-tag vp">Photo mariage</p><p class="c3-title">Reportage nuptial</p><p class="c3-desc">Préparatifs · Cérémonie · Cocktail · Soirée · 500+ clichés livrés</p><a href="#contact" class="c3-link vp">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
+<div class="c3-card"><div class="c3-vis" style="width:100%;height:190px;background:linear-gradient(135deg,#100c0a 0%,#28200a 50%,#604818 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;flex-shrink:0;">
+    <span style="font-size:2.2rem;filter:drop-shadow(0 0 12px rgba(255,255,255,.2));">📸</span>
+    <span style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);">Portrait pro</span>
+  </div><div class="c3-info"><p class="c3-tag vp">Portrait pro</p><p class="c3-title">Portrait professionnel</p><p class="c3-desc">LinkedIn · Site web · Presse · Direction artistique · Retouche pro</p><a href="#contact" class="c3-link vp">Demander un devis →</a></div></div>
+<div class="c3-card"><div class="c3-vis" style="width:100%;height:190px;background:linear-gradient(135deg,#0a0810 0%,#1a1428 50%,#3c2858 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;flex-shrink:0;">
+    <span style="font-size:2.2rem;filter:drop-shadow(0 0 12px rgba(255,255,255,.2));">📷</span>
+    <span style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);">Événement photo</span>
+  </div><div class="c3-info"><p class="c3-tag vp">Événementiel</p><p class="c3-title">Reportage d'événement</p><p class="c3-desc">Gala · Conférence · Séminaire · 200–600 images · Galerie privée</p><a href="#contact" class="c3-link vp">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
+<div class="c3-card"><div class="c3-vis" style="width:100%;height:190px;background:linear-gradient(135deg,#050a0a 0%,#0c1c1c 50%,#1a3c3c 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;flex-shrink:0;">
+    <span style="font-size:2.2rem;filter:drop-shadow(0 0 12px rgba(255,255,255,.2));">🛍</span>
+    <span style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);">Photo produit</span>
+  </div><div class="c3-info"><p class="c3-tag vp">Photo produit</p><p class="c3-title">Packshots & produits</p><p class="c3-desc">E-commerce · Catalogue · Publicité · Studio ou en situation</p><a href="#contact" class="c3-link vp">Demander un devis →</a></div></div>
+<div class="c3-card"><div class="c3-vis" style="width:100%;height:190px;background:linear-gradient(135deg,#080c14 0%,#141e30 50%,#283d60 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;flex-shrink:0;">
+    <span style="font-size:2.2rem;filter:drop-shadow(0 0 12px rgba(255,255,255,.2));">🎬</span>
+    <span style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);">Photo corporate team</span>
+  </div><div class="c3-info"><p class="c3-tag vp">Corporate</p><p class="c3-title">Photo d'équipe & team</p><p class="c3-desc">Direction photo · Ambiance bureau · Portraits individuels et groupe</p><a href="#contact" class="c3-link vp">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
+<div class="c3-card"><div class="c3-vis" style="width:100%;height:190px;background:linear-gradient(135deg,#050510 0%,#0f0f28 50%,#302060 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;flex-shrink:0;">
+    <span style="font-size:2.2rem;filter:drop-shadow(0 0 12px rgba(255,255,255,.2));">🤖</span>
+    <span style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);">Portrait IA</span>
+  </div><div class="c3-info"><p class="c3-tag vp">Portrait IA · Higgsfield</p><p class="c3-title">Portrait IA animé</p><p class="c3-desc">Transformation photo → portrait animé premium · Higgsfield</p><a href="#contact" class="c3-link vp">Demander un devis →</a></div></div>
 </div></div>
 <div class="c3-nav" id="nmp"><button class="c3-btn" style="border-color:rgba(255,107,157,.2);color:rgba(255,107,157,.5);" data-d="-1">←</button><div class="c3-dots" id="dmp"></div><button class="c3-btn" style="border-color:rgba(255,107,157,.2);color:rgba(255,107,157,.5);" data-d="1">→</button></div>
 </div>
@@ -2569,6 +2333,66 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
       <p>"Deux cerveaux qui ont arrêté de subir leurs outils — et décidé de les construire pour ceux qui pensent comme eux."</p>
     </div>
   </div>
+</section>
+
+<section id="createurs" aria-label="Créateurs de contenu">
+<style id="crea-style">
+#createurs{padding:5rem 0;position:relative;}
+#createurs::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(168,85,247,.07) 0%,transparent 65%);pointer-events:none;}
+.crea-hd{text-align:center;margin-bottom:3rem;}
+.crea-badge{display:inline-flex;align-items:center;gap:.4rem;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:#c084fc;border:1px solid rgba(192,132,252,.22);padding:.28rem .9rem;border-radius:40px;background:rgba(192,132,252,.06);margin-bottom:1rem;}
+.crea-hd h2{font-size:clamp(2rem,4vw,3rem);color:#fff;margin-bottom:.6rem;}
+.crea-hd h2 span{background:linear-gradient(135deg,#c084fc,#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.crea-hd p{color:rgba(255,255,255,.52);max-width:520px;margin:0 auto;font-size:.92rem;line-height:1.7;}
+.crea-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.1rem;margin-bottom:2.5rem;}
+.crea-c{background:rgba(255,255,255,.04);border:1px solid rgba(192,132,252,.1);border-radius:16px;padding:1.6rem;transition:all .3s;position:relative;overflow:hidden;}
+.crea-c::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#c084fc,#818cf8);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.crea-c:hover{background:rgba(192,132,252,.06);border-color:rgba(192,132,252,.25);transform:translateY(-3px);}
+.crea-c:hover::before{transform:scaleX(1);}
+.crea-ic{font-size:1.7rem;margin-bottom:.75rem;}
+.crea-c h3{font-size:1rem;font-weight:700;color:#fff;margin-bottom:.35rem;}
+.crea-c p{font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.6;}
+.crea-tools{display:flex;flex-wrap:wrap;gap:.25rem;margin-top:.75rem;}
+.crea-tool{font-size:.62rem;padding:.15rem .5rem;border-radius:40px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);}
+.crea-packs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.1rem;margin-bottom:2.5rem;}
+.crea-pack{border-radius:16px;padding:1.75rem;border:1px solid rgba(192,132,252,.15);background:rgba(255,255,255,.03);transition:all .3s;text-align:center;}
+.crea-pack.star{background:linear-gradient(135deg,rgba(192,132,252,.1),rgba(129,140,248,.07));border-color:rgba(192,132,252,.28);}
+.crea-pack:hover{transform:translateY(-3px);border-color:rgba(192,132,252,.28);}
+.crea-p-nom{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(192,132,252,.7);margin-bottom:.4rem;font-weight:600;}
+.crea-p-titre{font-size:1.2rem;font-weight:800;color:#fff;margin-bottom:.3rem;}
+.crea-p-prix{font-size:1.9rem;font-weight:800;color:#c084fc;margin:.4rem 0;}
+.crea-p-prix sub{font-size:.8rem;font-weight:400;color:rgba(255,255,255,.35);}
+.crea-p-desc{font-size:.78rem;color:rgba(255,255,255,.45);margin-bottom:1rem;line-height:1.55;}
+.crea-p-items{list-style:none;text-align:left;margin-bottom:1.25rem;}
+.crea-p-items li{font-size:.8rem;color:rgba(255,255,255,.62);padding:.25rem 0;display:flex;align-items:center;gap:.45rem;}
+.crea-p-items li::before{content:'✓';color:#c084fc;font-size:.72rem;flex-shrink:0;}
+.crea-p-cta{display:block;padding:.68rem;border-radius:10px;text-decoration:none;font-size:.75rem;font-weight:600;transition:all .2s;background:rgba(192,132,252,.1);border:1px solid rgba(192,132,252,.22);color:#c084fc;}
+.crea-pack.star .crea-p-cta{background:linear-gradient(135deg,#a855f7,#6d28d9);border:none;color:#fff;box-shadow:0 4px 16px rgba(168,85,247,.28);}
+.crea-note{text-align:center;padding:1.25rem 1.5rem;background:rgba(192,132,252,.05);border:1px solid rgba(192,132,252,.14);border-radius:12px;max-width:580px;margin:0 auto;font-size:.86rem;color:rgba(255,255,255,.55);line-height:1.65;}
+.crea-note strong{color:#c084fc;}
+@media(max-width:680px){#createurs{padding:3.5rem 0;}.crea-g,.crea-packs{grid-template-columns:1fr;}}
+</style>
+<div class="wrap">
+  <div class="crea-hd">
+    <div class="crea-badge">🎬 Créateurs &amp; Influenceurs</div>
+    <h2>Votre contenu, <span>automatisé.</span></h2>
+    <p>Vous créez. Les systèmes Pinapp publient, recyclent, analysent. Micha capte, l'IA diffuse.</p>
+  </div>
+  <div class="crea-g">
+    <div class="crea-c"><div class="crea-ic">🔄</div><h3>Recyclage contenu IA</h3><p>Une vidéo → 10 formats. Reel, newsletter, post LinkedIn, story, thread. En automatique.</p><div class="crea-tools"><span class="crea-tool">n8n</span><span class="crea-tool">Claude API</span><span class="crea-tool">Buffer</span></div></div>
+    <div class="crea-c"><div class="crea-ic">📅</div><h3>Planning éditorial IA</h3><p>Claude génère 30 jours de contenu adapté à votre voix. Vous validez d'un clic.</p><div class="crea-tools"><span class="crea-tool">Claude API</span><span class="crea-tool">Notion</span><span class="crea-tool">Tally</span></div></div>
+    <div class="crea-c"><div class="crea-ic">🎬</div><h3>Tournage avec Michaël</h3><p>Micha se déplace. Fichiers déposés dans votre Drive → montage + publication automatique.</p><div class="crea-tools"><span class="crea-tool">Higgsfield</span><span class="crea-tool">n8n</span><span class="crea-tool">Drive</span></div></div>
+    <div class="crea-c"><div class="crea-ic">📧</div><h3>Newsletter automatisée</h3><p>Chaque semaine, Claude rédige et envoie votre newsletter à partir de votre contenu.</p><div class="crea-tools"><span class="crea-tool">n8n</span><span class="crea-tool">Claude API</span><span class="crea-tool">Brevo</span></div></div>
+    <div class="crea-c"><div class="crea-ic">📊</div><h3>Rapport performance</h3><p>Chaque lundi : vues, abonnés, engagement, revenus. Recommandations IA intégrées.</p><div class="crea-tools"><span class="crea-tool">n8n</span><span class="crea-tool">Notion</span><span class="crea-tool">Claude API</span></div></div>
+    <div class="crea-c"><div class="crea-ic">🤝</div><h3>Réponses sponsors IA</h3><p>Demande partenariat → Claude rédige avec vos stats et tarifs. Vous validez avant envoi.</p><div class="crea-tools"><span class="crea-tool">Claude API</span><span class="crea-tool">Gmail</span><span class="crea-tool">n8n</span></div></div>
+  </div>
+  <div class="crea-packs">
+    <div class="crea-pack"><p class="crea-p-nom">Starter</p><p class="crea-p-titre">Créateur Solo</p><p class="crea-p-prix">490€<sub>/mois</sub></p><p class="crea-p-desc">Lancer l'automatisation et libérer du temps</p><ul class="crea-p-items"><li>Recyclage contenu (1 format source)</li><li>Planning éditorial 30 jours</li><li>Newsletter mensuelle</li></ul><a href="#contact" class="crea-p-cta">Démarrer →</a></div>
+    <div class="crea-pack star"><p class="crea-p-nom">Pro</p><p class="crea-p-titre">Créateur Amplifié</p><p class="crea-p-prix">890€<sub>/mois</sub></p><p class="crea-p-desc">Le système complet pour scaler sans épuisement</p><ul class="crea-p-items"><li>Recyclage multi-plateformes</li><li>Planning + validation Tally</li><li>Newsletter hebdo automatisée</li><li>Analytics chaque lundi</li><li>1 tournage Michaël/trimestre</li></ul><a href="#contact" class="crea-p-cta">Démarrer →</a></div>
+    <div class="crea-pack"><p class="crea-p-nom">Studio</p><p class="crea-p-titre">Créateur + Image</p><p class="crea-p-prix">1 490€<sub>/mois</sub></p><p class="crea-p-desc">Contenu + production vidéo/photo avec Michaël</p><ul class="crea-p-items"><li>Tout le pack Pro inclus</li><li>1 tournage Micha/mois (déplacement inclus)</li><li>Portraits IA Higgsfield</li><li>Site vitrine créateur inclus</li></ul><a href="#contact" class="crea-p-cta">Démarrer →</a></div>
+  </div>
+  <p class="crea-note">🎬 <strong>Micha se déplace partout en France</strong> pour les tournages. Vous déposez les fichiers dans votre Drive — <strong>n8n publie automatiquement</strong>. Vous n'avez qu'à vivre votre vie.</p>
+</div>
 </section>
 
 <section id="contact" data-reveal aria-label="Nous contacter">
@@ -3742,6 +3566,98 @@ cite { font-size: .72rem; color: rgba(255,255,255,.35); font-style: italic; marg
   window.addEventListener('load',function(){
     document.querySelectorAll('[id*="themeToggle"],[class*="theme-toggle"],[aria-label*="thème"],[aria-label*="theme"],[class*="themeBtn"]').forEach(function(b){b.addEventListener('click',function(){setTimeout(function(){apply(document.documentElement.dataset.theme);},50);});});
   });
+})();
+</script>
+<script id="ldr-light-mode">
+(function(){
+  // High by the Beach — Lana Del Rey
+  // 3 couleurs. 0 animation. Chaleur Malibu.
+  var FOND = 'linear-gradient(175deg,#f8f3e8 0%,#f0e8d5 35%,#e8dcc5 65%,#f0e6d0 100%)';
+  var FOND_BG = '#f5f0e4';
+  var TXT = '#2a2018';
+  var TXT_DIM = 'rgba(42,32,24,0.65)';
+  var ACCENT = '#a06828';
+  var CARD_BG = 'rgba(255,252,244,0.88)';
+  var CARD_BORDER = 'rgba(200,175,140,0.25)';
+  var NAV_BG = 'rgba(250,246,236,0.94)';
+
+  var active = false;
+
+  function on(){
+    if(active) return; active = true;
+    // Body
+    document.body.style.setProperty('background', FOND, 'important');
+    document.body.style.setProperty('background-color', FOND_BG, 'important');
+    document.body.style.setProperty('color', TXT, 'important');
+    // Cacher fond nuit
+    ['bg-canvas','pc','ow','w1','w2','w3','w4','oc','ldr-grain','ldr-halo'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el){el.style.setProperty('opacity','0','important');el.style.setProperty('display','none','important');}
+    });
+    document.querySelectorAll('canvas').forEach(function(c){c.style.setProperty('opacity','0','important');});
+    // Halo soleil simple — 1 seul
+    var halo = document.getElementById('ldr-halo-simple');
+    if(!halo){
+      halo = document.createElement('div');
+      halo.id = 'ldr-halo-simple';
+      halo.style.cssText = 'position:fixed;top:0;left:0;right:0;height:55vh;pointer-events:none;z-index:0;background:radial-gradient(ellipse 100% 80% at 50% -10%,rgba(255,248,220,0.9) 0%,rgba(255,240,195,0.4) 40%,transparent 70%);';
+      document.body.appendChild(halo);
+    }
+    halo.style.setProperty('opacity','1','important');
+    // Nav
+    document.querySelectorAll('nav,.nav,#siteNav').forEach(function(el){
+      el.style.setProperty('background',NAV_BG,'important');
+      el.style.setProperty('border-bottom','1px solid rgba(200,175,130,0.2)','important');
+    });
+    // Titres
+    document.querySelectorAll('h1,h2,h3').forEach(function(el){
+      el.style.setProperty('color',TXT,'important');
+      el.style.setProperty('text-shadow','none','important');
+    });
+    // Texte
+    document.querySelectorAll('p:not(.construisons-svg-wrap p),li,.section-sub').forEach(function(el){
+      el.style.setProperty('color',TXT_DIM,'important');
+    });
+    // Cards
+    document.querySelectorAll('.card,.offer,article,.belief,.pack-card,.spec-card,.studio-card').forEach(function(el){
+      el.style.setProperty('background',CARD_BG,'important');
+      el.style.setProperty('border','1px solid '+CARD_BORDER,'important');
+      el.style.setProperty('backdrop-filter','blur(8px)','important');
+    });
+    // CTA primaire
+    document.querySelectorAll('.btn--primary,a.btn--primary').forEach(function(el){
+      el.style.setProperty('background','linear-gradient(135deg,#b06828,#8a4e18)','important');
+      el.style.setProperty('color','#faf5ec','important');
+    });
+    // Footer
+    var ft = document.querySelector('footer');
+    if(ft) ft.style.setProperty('background','rgba(235,220,190,0.4)','important');
+  }
+
+  function off(){
+    if(!active) return; active = false;
+    document.body.style.removeProperty('background');
+    document.body.style.removeProperty('background-color');
+    document.body.style.removeProperty('color');
+    ['bg-canvas','pc','ow'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el){el.style.removeProperty('opacity');el.style.removeProperty('display');}
+    });
+    document.querySelectorAll('canvas').forEach(function(c){c.style.removeProperty('opacity');});
+    var halo=document.getElementById('ldr-halo-simple');
+    if(halo) halo.style.opacity='0';
+    document.querySelectorAll('nav,.nav,#siteNav,h1,h2,h3,.card,.offer,article,.belief,.pack-card,.spec-card,.studio-card,.btn--primary,a.btn--primary,footer').forEach(function(el){
+      ['background','border','color','text-shadow','backdrop-filter'].forEach(function(p){el.style.removeProperty(p);});
+    });
+  }
+
+  function check(){
+    document.documentElement.dataset.theme === 'light' ? on() : off();
+  }
+
+  new MutationObserver(check).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  window.addEventListener('load',function(){check();setTimeout(check,300);},{once:true});
+  if(document.readyState!=='loading') check(); else document.addEventListener('DOMContentLoaded',check,{once:true});
 })();
 </script>
 </body>
