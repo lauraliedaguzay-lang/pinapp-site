@@ -1119,6 +1119,99 @@ input:focus, select:focus, textarea:focus {
 </script>
 
 
+<style id="pp-drawer-css">
+/* ── DRAWER MOBILE ── */
+#navDrawer {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: min(320px, 85vw);
+  background: rgba(5,9,18,.97);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-left: 1px solid rgba(255,255,255,.08);
+  transform: translateX(100%);
+  transition: transform .35s cubic-bezier(.4,0,.2,1);
+  z-index: 9999;
+  padding: 5rem 2rem 2rem;
+  display: flex !important;
+  flex-direction: column;
+  gap: 1.75rem;
+  overflow-y: auto;
+}
+#navDrawer.is-open {
+  transform: translateX(0) !important;
+}
+#navDrawer[aria-hidden="false"] {
+  transform: translateX(0) !important;
+}
+#navDrawer a {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.85);
+  text-decoration: none;
+  padding: .5rem 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  transition: color .2s;
+}
+#navDrawer a:hover { color: #00e5b0; }
+
+/* Bouton hamburger — 3 traits */
+.nav__toggle {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px; height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  z-index: 10001;
+  position: relative;
+}
+.nav__toggle span,
+.nav__toggle::before,
+.nav__toggle::after {
+  display: block;
+  width: 22px; height: 2px;
+  background: rgba(255,255,255,.85);
+  border-radius: 2px;
+  transition: all .3s cubic-bezier(.4,0,.2,1);
+}
+.nav__toggle.is-open::before { transform: rotate(45deg) translate(5px,5px); }
+.nav__toggle.is-open::after  { transform: rotate(-45deg) translate(5px,-5px); }
+
+/* Overlay sombre derrière le drawer */
+#navDrawer::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity .35s;
+  pointer-events: none;
+}
+#navDrawer.is-open::before { opacity: 1; pointer-events: auto; }
+
+/* ── CONSTRUISONS — keyframe de secours ── */
+@keyframes construisons-shimmer {
+  0%   { background-position: 0%   center; }
+  100% { background-position: 300% center; }
+}
+@keyframes pandora-shimmer {
+  0%   { background-position: 0%   center; }
+  100% { background-position: 280% center; }
+}
+/* Forcer l'animation même avec prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero__gradient, .word.hero__gradient {
+    animation: construisons-shimmer 3.5s linear infinite !important;
+    animation-duration: 3.5s !important;
+    animation-play-state: running !important;
+  }
+}
+</style>
 </head>
   <body>
 <canvas id="pc" aria-hidden="true"></canvas>
@@ -1288,7 +1381,7 @@ body>*:not(#pc):not(#ow){position:relative;z-index:1;}
             <p class="hero__eyebrow">Pinapp Inc. · IA · automatisation · Web · Image</p>
             <h1>
               <span class="word">Nous</span>
-              <span class="word hero__gradient">construisons</span>
+              <span class="word hero__gradient" style="background:linear-gradient(100deg,#00E5B0 0%,#9B6DFF 28%,#FF6B9D 52%,#7FFFD4 76%,#00E5B0 100%);background-size:280% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;color:transparent;animation:construisons-shimmer 3.5s linear infinite;animation-duration:3.5s;display:inline-block;">construisons</span>
               <span class="word">ce</span>
               <span class="word">que</span>
               <span class="word">vos</span>
@@ -3661,5 +3754,63 @@ html[data-theme="light"] section li {
 }
 
 </style>
+<script id="pp-hamburger-fix">
+(function(){
+  function initHamburger(){
+    var toggle = document.getElementById('navToggle');
+    var drawer = document.getElementById('navDrawer');
+    if(!toggle || !drawer) return;
+    // Éviter double-bind
+    if(toggle._ppBound) return;
+    toggle._ppBound = true;
+    
+    toggle.addEventListener('click', function(){
+      var isOpen = drawer.classList.contains('is-open') || drawer.getAttribute('aria-hidden')==='false';
+      if(isOpen){
+        drawer.classList.remove('is-open','open');
+        drawer.setAttribute('aria-hidden','true');
+        toggle.setAttribute('aria-expanded','false');
+        toggle.classList.remove('is-open','open');
+        document.body.style.overflow = '';
+      } else {
+        drawer.classList.add('is-open');
+        drawer.setAttribute('aria-hidden','false');
+        toggle.setAttribute('aria-expanded','true');
+        toggle.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+    
+    // Fermer en cliquant un lien du menu
+    drawer.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        drawer.classList.remove('is-open','open');
+        drawer.setAttribute('aria-hidden','true');
+        toggle.setAttribute('aria-expanded','false');
+        toggle.classList.remove('is-open','open');
+        document.body.style.overflow = '';
+      });
+    });
+    
+    // Fermer avec Escape
+    document.addEventListener('keydown', function(e){
+      if(e.key==='Escape'){
+        drawer.classList.remove('is-open','open');
+        drawer.setAttribute('aria-hidden','true');
+        toggle.setAttribute('aria-expanded','false');
+        toggle.classList.remove('is-open','open');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+  
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', initHamburger);
+  } else {
+    initHamburger();
+    setTimeout(initHamburger, 300);
+  }
+})();
+</script>
 </body>
 </html>
