@@ -1117,6 +1117,65 @@ input:focus, select:focus, textarea:focus {
   }
 })();
 </script>
+<style id="pp-theme-fix">
+/* ─── MODE NUIT — textes nets, halos réduits ─── */
+html[data-theme="dark"] h1,
+html[data-theme="dark"] .hero__title,
+html[data-theme="dark"] .word {
+  color: #ffffff !important;
+  text-shadow: none !important;
+}
+html[data-theme="dark"] .hero p,
+html[data-theme="dark"] .hero__subtitle,
+html[data-theme="dark"] .subtitle {
+  color: rgba(255,255,255,.86) !important;
+  text-shadow: none !important;
+}
+/* Réduire les halos sur les blobs de fond nuit */
+html[data-theme="dark"] .bg-rays,
+html[data-theme="dark"] .ellipses {
+  opacity: .55 !important;
+}
+
+/* ─── MODE JOUR — Pandora plus lumineux et vivant ─── */
+/* Réduire le blur du fond pour que les effets soient visibles */
+html[data-theme="light"] body::before {
+  animation: pandora-jour-drift-light 22s ease-in-out infinite alternate !important;
+}
+@keyframes pandora-jour-drift-light {
+  0%   { filter: blur(8px) hue-rotate(-6deg) brightness(0.92) saturate(1.25); }
+  50%  { filter: blur(8px) hue-rotate(-2deg) brightness(0.96) saturate(1.3); }
+  100% { filter: blur(8px) hue-rotate(-8deg) brightness(0.9)  saturate(1.22); }
+}
+/* Shapes Pandora jour — plus opaques et visibles */
+html[data-theme="light"] .pandora-shape-1 { opacity: .85 !important; filter: blur(45px) !important; }
+html[data-theme="light"] .pandora-shape-2 { opacity: .75 !important; filter: blur(40px) !important; }
+html[data-theme="light"] .pandora-shape-3 { opacity: .7  !important; filter: blur(40px) !important; }
+html[data-theme="light"] .pandora-shape-4 { opacity: .65 !important; filter: blur(38px) !important; }
+/* Spores Pandora jour — légèrement plus brillantes */
+html[data-theme="light"] .jour-spore {
+  background: rgba(60,210,170,.65) !important;
+  box-shadow: 0 0 8px rgba(60,210,170,.5), 0 0 18px rgba(99,102,241,.25) !important;
+}
+/* Grille holo — légèrement plus visible */
+html[data-theme="light"] .holo-grid {
+  background-image:
+    linear-gradient(rgba(0,180,216,.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,180,216,.07) 1px, transparent 1px) !important;
+}
+/* Textes mode jour — meilleur contraste */
+html[data-theme="light"] h1,
+html[data-theme="light"] .hero__title,
+html[data-theme="light"] .word {
+  color: #f0f4ff !important;
+  text-shadow: 0 0 40px rgba(79,195,247,.2) !important;
+}
+html[data-theme="light"] .hero p,
+html[data-theme="light"] .hero__subtitle,
+html[data-theme="light"] .subtitle {
+  color: rgba(224,240,255,.82) !important;
+}
+</style>
 </head>
   <body>
 <canvas id="pc" aria-hidden="true"></canvas>
@@ -3795,6 +3854,71 @@ cite { font-size: .72rem; color: rgba(255,255,255,.35); font-style: italic; marg
   new MutationObserver(check).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
   window.addEventListener('load',function(){check();setTimeout(check,300);},{once:true});
   if(document.readyState!=='loading') check(); else document.addEventListener('DOMContentLoaded',check,{once:true});
+})();
+</script>
+<style id="pp-belief-style">
+/* Cartes beliefs — hover visible + cursor pointer */
+.belief {
+  cursor: pointer !important;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease !important;
+  user-select: none;
+}
+.belief:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 32px rgba(0,229,176,.15) !important;
+  border-color: rgba(0,229,176,.35) !important;
+}
+.belief::after {
+  content: 'Voir l\'étude →';
+  display: block;
+  font-size: .68rem;
+  color: rgba(0,229,176,.7);
+  font-weight: 600;
+  letter-spacing: .06em;
+  margin-top: .6rem;
+  opacity: 0;
+  transform: translateY(3px);
+  transition: opacity .2s ease, transform .2s ease;
+}
+.belief:hover::after {
+  opacity: 1;
+  transform: none;
+}
+</style>
+<script id="pp-belief-click">
+(function(){
+  var map = {
+    'thique':   'modal-ethique',
+    'cologie':  'modal-ecologie',
+    'nclusion': 'modal-inclusion',
+    'harge':    'modal-charge',
+    'entale':   'modal-charge'
+  };
+  function openModal(id){
+    var m=document.getElementById(id);
+    if(!m) return;
+    m.removeAttribute('hidden');
+    document.body.style.overflow='hidden';
+  }
+  function attachBeliefs(){
+    document.querySelectorAll('.belief').forEach(function(card){
+      var txt = card.innerText?.toLowerCase() || '';
+      var modalId = null;
+      Object.keys(map).forEach(function(k){ if(txt.includes(k.toLowerCase())) modalId = map[k]; });
+      if(!modalId) return;
+      if(card._ppAttached) return;
+      card._ppAttached = true;
+      card.setAttribute('tabindex','0');
+      card.setAttribute('role','button');
+      function go(){ openModal(modalId); }
+      card.addEventListener('click', go);
+      card.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' ') go(); });
+    });
+  }
+  document.readyState==='loading'
+    ? document.addEventListener('DOMContentLoaded', attachBeliefs)
+    : attachBeliefs();
+  setTimeout(attachBeliefs, 800);
 })();
 </script>
 </body>
