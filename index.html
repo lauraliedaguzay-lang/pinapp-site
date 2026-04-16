@@ -1036,6 +1036,61 @@ html[data-theme="light"] nav{background:rgba(0,100,130,.72)!important;border-bot
 html[data-theme="light"] h1,html[data-theme="light"] h2,html[data-theme="light"] h3{color:#fff!important;text-shadow:0 2px 12px rgba(0,0,0,.25)!important;}
 html[data-theme="light"] p,html[data-theme="light"] li{color:rgba(255,255,255,.88)!important;}
 html[data-theme="light"] .card,html[data-theme="light"] .offer,html[data-theme="light"] article{background:rgba(255,255,255,.14)!important;border:1px solid rgba(255,255,255,.25)!important;backdrop-filter:blur(16px)!important;}
+</style><style id="hero-shimmer">
+/* ── CONSTRUISONS — shimmer cyan→violet→rose→aqua ── */
+.hero__gradient {
+  background: linear-gradient(
+    100deg,
+    #00E5B0 0%,
+    #9B6DFF 28%,
+    #FF6B9D 52%,
+    #7FFFD4 72%,
+    #00E5B0 100%
+  ) !important;
+  background-size: 280% auto !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  color: transparent !important;
+  animation: pandora-shimmer 3.5s linear infinite !important;
+  display: inline-block !important;
+}
+@keyframes pandora-shimmer {
+  0%   { background-position: 0%   center; }
+  100% { background-position: 280% center; }
+}
+/* ── BOUTONS HERO — cohérence Apple ── */
+/* CTA principal — violet plein */
+.hero__ctas a:first-child,
+a.btn--primary, .btn--primary {
+  background: linear-gradient(135deg, #7c3aed, #5b21b6) !important;
+  border: none !important;
+  color: #fff !important;
+  border-radius: 40px !important;
+  padding: .7rem 1.5rem !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 20px rgba(124,58,237,.35) !important;
+  transition: transform .2s ease, box-shadow .2s ease !important;
+}
+/* CTAs secondaires — glass pill cohérents */
+.hero__ctas a:not(:first-child),
+a[href*="demos"], a[href*="formations"],
+.btn--ghost, .btn:not(.btn--primary):not([type="submit"]) {
+  background: rgba(255,255,255,.07) !important;
+  border: 1px solid rgba(255,255,255,.2) !important;
+  color: rgba(255,255,255,.88) !important;
+  border-radius: 40px !important;
+  padding: .7rem 1.5rem !important;
+  font-weight: 500 !important;
+  backdrop-filter: blur(8px) !important;
+  transition: background .2s ease, border-color .2s ease !important;
+}
+.hero__ctas a:not(:first-child):hover,
+a[href*="demos"]:hover, a[href*="formations"]:hover {
+  background: rgba(255,255,255,.13) !important;
+  border-color: rgba(0,229,176,.4) !important;
+  color: #fff !important;
+}
 </style></head>
   <body>
 <canvas id="pc" aria-hidden="true"></canvas>
@@ -2673,6 +2728,366 @@ window.addEventListener('load', function() {
     canvas.style.display='none';
   }
 });
+</script>
+
+<!-- ══ MODALS VALEURS ══ -->
+<div id="modal-ethique" class="valeur-modal" role="dialog" aria-modal="true" aria-label="Notre éthique" hidden>
+  <div class="valeur-modal__backdrop"></div>
+  <div class="valeur-modal__panel">
+    <button class="valeur-modal__close" aria-label="Fermer">✕</button>
+    <div class="valeur-modal__icon">⚖️</div>
+    <h3 class="valeur-modal__title">Éthique & Transparence</h3>
+    <div class="valeur-modal__stat">
+      <span class="stat-number">91%</span>
+      <span class="stat-label">des consommateurs abandonnent une marque qui manque de transparence</span>
+      <cite>Edelman Trust Barometer, 2024</cite>
+    </div>
+    <div class="valeur-modal__content">
+      <p>Nous publions nos outils, nos méthodes et nos partenaires. Vous savez exactement avec quoi et avec qui on travaille. <strong>Zéro boîte noire.</strong></p>
+      <p>Nos automatisations utilisent Claude (Anthropic), n8n open-source, et Hostinger. Nos formations sont construites sur nos propres pratiques — pas sur de la théorie. Chaque résultat annoncé est réel ou clairement estimé.</p>
+      <p>L'IA peut amplifier la manipulation comme la transparence. Nous choisissons la transparence — parce que c'est le seul modèle qui tient dans le temps.</p>
+    </div>
+    <div class="valeur-modal__studies">
+      <div class="study-item">
+        <span class="study-source">Baromètre Edelman 2024</span>
+        <span class="study-text">La confiance envers les entreprises repose à 78% sur la cohérence entre leurs actes et leurs communications.</span>
+      </div>
+      <div class="study-item">
+        <span class="study-source">MIT Sloan Management Review, 2023</span>
+        <span class="study-text">Les entreprises qui pratiquent la "radical transparency" sur leurs processus enregistrent +34% de rétention client.</span>
+      </div>
+    </div>
+    <a href="#contact" class="valeur-modal__cta btn btn--primary">Travailler avec nous →</a>
+  </div>
+</div>
+
+<div id="modal-ecologie" class="valeur-modal" role="dialog" aria-modal="true" aria-label="Notre engagement écologique" hidden>
+  <div class="valeur-modal__backdrop"></div>
+  <div class="valeur-modal__panel">
+    <button class="valeur-modal__close" aria-label="Fermer">✕</button>
+    <div class="valeur-modal__icon">🌿</div>
+    <h3 class="valeur-modal__title">Écologie Numérique</h3>
+    <div class="valeur-modal__stat">
+      <span class="stat-number">4%</span>
+      <span class="stat-label">des émissions mondiales de CO₂ viennent du numérique — plus que l'aviation civile</span>
+      <cite>The Shift Project, 2023</cite>
+    </div>
+    <div class="valeur-modal__content">
+      <p>Le web a une empreinte carbone réelle. Chaque requête, chaque image non compressée, chaque serveur inutile consomme de l'énergie. <strong>Nous faisons les choix techniques qui minimisent cet impact.</strong></p>
+      <p>Notre stack : hébergement mutualisé Hostinger (data centers certifiés ISO 14001), code HTML/CSS/JS vanilla sans framework inutile, images compressées, animations CSS pures (pas de JS lourd), pas de CDN tiers superflus.</p>
+      <p>Automatiser les tâches répétitives réduit aussi la consommation humaine : moins de réunions, moins de déplacements, moins d'heures perdues sur des tâches que l'IA peut faire mieux.</p>
+    </div>
+    <div class="valeur-modal__studies">
+      <div class="study-item">
+        <span class="study-source">The Shift Project, 2023</span>
+        <span class="study-text">Un site web optimisé peut réduire son empreinte carbone de 70% par rapport à un site non optimisé à trafic équivalent.</span>
+      </div>
+      <div class="study-item">
+        <span class="study-source">Green Web Foundation, 2024</span>
+        <span class="study-text">Seulement 17% des sites web dans le monde sont hébergés sur des serveurs alimentés en énergie renouvelable.</span>
+      </div>
+    </div>
+    <a href="#contact" class="valeur-modal__cta btn btn--primary">Travailler avec nous →</a>
+  </div>
+</div>
+
+<div id="modal-inclusion" class="valeur-modal" role="dialog" aria-modal="true" aria-label="Notre engagement inclusif" hidden>
+  <div class="valeur-modal__backdrop"></div>
+  <div class="valeur-modal__panel">
+    <button class="valeur-modal__close" aria-label="Fermer">✕</button>
+    <div class="valeur-modal__icon">🤝</div>
+    <h3 class="valeur-modal__title">Inclusion & Accessibilité</h3>
+    <div class="valeur-modal__stat">
+      <span class="stat-number">1/3</span>
+      <span class="stat-label">des Français est en situation d'illectronisme — exclu du numérique</span>
+      <cite>INSEE, 2023</cite>
+    </div>
+    <div class="valeur-modal__content">
+      <p>Maîtriser l'IA ne devrait pas être réservé aux grandes entreprises ou aux ingénieurs. <strong>Nos formations sont conçues pour que quelqu'un qui n'a jamais utilisé l'IA puisse automatiser ses premières tâches en 3 heures.</strong></p>
+      <p>Inclusion = rendre accessible ce qui était réservé aux "sachants". Les TPE représentent 96% du tissu économique français. Si elles n'adoptent pas les outils IA, elles perdront 3 à 5 ans sur leurs concurrents. Notre mission est d'empêcher ça.</p>
+      <p>Nos prix sont pensés pour les structures de 1 à 5 personnes. Nos interfaces sont pensées pour des cerveaux qui vont vite — ou au contraire, pour ceux qui ont besoin de clarté absolue.</p>
+    </div>
+    <div class="valeur-modal__studies">
+      <div class="study-item">
+        <span class="study-source">OCDE, 2024</span>
+        <span class="study-text">Les PME qui adoptent l'IA enregistrent une hausse de productivité de 25 à 40% dans les 18 premiers mois.</span>
+      </div>
+      <div class="study-item">
+        <span class="study-source">BPI France, 2024</span>
+        <span class="study-text">67% des dirigeants de TPE déclarent "ne pas se sentir légitimes" pour utiliser l'IA — la formation change ça.</span>
+      </div>
+    </div>
+    <a href="#contact" class="valeur-modal__cta btn btn--primary">Travailler avec nous →</a>
+  </div>
+</div>
+
+<div id="modal-charge" class="valeur-modal" role="dialog" aria-modal="true" aria-label="Charge mentale" hidden>
+  <div class="valeur-modal__backdrop"></div>
+  <div class="valeur-modal__panel">
+    <button class="valeur-modal__close" aria-label="Fermer">✕</button>
+    <div class="valeur-modal__icon">🧠</div>
+    <h3 class="valeur-modal__title">Charge Mentale & Neurodiversité</h3>
+    <div class="valeur-modal__stat">
+      <span class="stat-number">53%</span>
+      <span class="stat-label">des dirigeants de TPE disent que la surcharge cognitive affecte leurs décisions</span>
+      <cite>BPI France, 2024</cite>
+    </div>
+    <div class="valeur-modal__content">
+      <p>Nous avons construit Pinapp parce que nous vivons ce problème. <strong>Diriger une entreprise avec un cerveau qui pense en simultané à 14 choses demande des systèmes — pas de la volonté.</strong></p>
+      <p>Les profils neuroatypiques (TDAH, hypersensibilité, haut potentiel) représentent 15 à 20% de la population et sont surreprésentés dans l'entrepreneuriat. Ces cerveaux ont besoin d'outils qui réduisent la friction, pas qui l'augmentent.</p>
+      <p>Chaque système qu'on construit répond à une question : est-ce que ça libère de la bande passante cognitive, ou est-ce que ça en consomme ? Si ça n'en libère pas, on ne le fait pas.</p>
+    </div>
+    <div class="valeur-modal__studies">
+      <div class="study-item">
+        <span class="study-source">ADHD Foundation, 2023</span>
+        <span class="study-text">Les entrepreneurs TDAH ont 3x plus de probabilité de créer une entreprise à fort impact — et 2x plus de probabilité de l'abandonner sans système de soutien.</span>
+      </div>
+      <div class="study-item">
+        <span class="study-source">Dr. Ned Hallowell, Harvard Medical School</span>
+        <span class="study-text">La surcharge cognitive réduit les capacités de décision de 30 à 40%. Automatiser les décisions répétitives restaure cette capacité pour les choix qui comptent vraiment.</span>
+      </div>
+    </div>
+    <a href="#contact" class="valeur-modal__cta btn btn--primary">Travailler avec nous →</a>
+  </div>
+</div>
+
+<style id="valeurs-style">
+/* ── CARDS ENGAGEMENTS CLIQUABLES ── */
+.engagement__card, #engagements .card, #engagements article,
+#engagements [class*="card"] {
+  cursor: pointer !important;
+  position: relative !important;
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease !important;
+}
+.engagement__card:hover, #engagements .card:hover, #engagements article:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 12px 36px rgba(0,229,176,.15) !important;
+  border-color: rgba(0,229,176,.3) !important;
+}
+.engagement__card::after, #engagements .card::after, #engagements article::after {
+  content: 'Voir l'étude →';
+  display: block;
+  font-size: .72rem;
+  color: rgba(0,229,176,.7);
+  margin-top: .75rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity .2s ease, transform .2s ease;
+}
+.engagement__card:hover::after, #engagements .card:hover::after, #engagements article:hover::after {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── MODALS VALEURS ── */
+.valeur-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0 .5rem;
+}
+.valeur-modal[hidden] { display: none !important; }
+.valeur-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5,10,25,.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: pointer;
+}
+.valeur-modal__panel {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(160deg, rgba(20,12,40,.98), rgba(8,15,30,.98));
+  border: 1px solid rgba(255,255,255,.1);
+  border-bottom: none;
+  border-radius: 24px 24px 0 0;
+  width: 100%;
+  max-width: 600px;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 2rem 1.75rem 2.5rem;
+  box-shadow: 0 -16px 60px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.08);
+  animation: modal-slide-up .35s cubic-bezier(.34,1.56,.64,1);
+  scrollbar-width: none;
+}
+.valeur-modal__panel::-webkit-scrollbar { display: none; }
+@keyframes modal-slide-up {
+  0%   { transform: translateY(100%); opacity: 0; }
+  100% { transform: translateY(0);    opacity: 1; }
+}
+.valeur-modal__close {
+  position: absolute;
+  top: 1rem; right: 1.25rem;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+  color: rgba(255,255,255,.6);
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: .85rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s;
+}
+.valeur-modal__close:hover { background: rgba(255,255,255,.15); color: #fff; }
+.valeur-modal__icon { font-size: 2.2rem; margin-bottom: .75rem; }
+.valeur-modal__title { font-size: 1.4rem; font-weight: 700; color: #fff; margin: 0 0 1.25rem; }
+
+/* Stat-choc */
+.valeur-modal__stat {
+  background: rgba(0,229,176,.06);
+  border: 1px solid rgba(0,229,176,.2);
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+}
+.stat-number {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #00e5b0;
+  line-height: 1;
+  letter-spacing: -.03em;
+}
+.stat-label { font-size: .88rem; color: rgba(255,255,255,.75); line-height: 1.4; }
+cite { font-size: .72rem; color: rgba(255,255,255,.35); font-style: italic; margin-top: .25rem; }
+
+/* Contenu */
+.valeur-modal__content { margin-bottom: 1.5rem; }
+.valeur-modal__content p { font-size: .9rem; color: rgba(255,255,255,.7); line-height: 1.7; margin: 0 0 .75rem; }
+.valeur-modal__content p:last-child { margin-bottom: 0; }
+
+/* Études secondaires */
+.valeur-modal__studies {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  margin-bottom: 1.75rem;
+}
+.study-item {
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 10px;
+  padding: .75rem 1rem;
+}
+.study-source {
+  display: block;
+  font-size: .72rem;
+  color: rgba(0,229,176,.7);
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  margin-bottom: .3rem;
+}
+.study-text { font-size: .83rem; color: rgba(255,255,255,.6); line-height: 1.5; }
+
+/* CTA */
+.valeur-modal__cta {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+  padding: .85rem;
+  border-radius: 12px;
+  font-size: .95rem;
+  font-weight: 600;
+  background: linear-gradient(135deg,#00e5b0,#00b4d8) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 20px rgba(0,229,176,.25);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.valeur-modal__cta:hover { transform: scale(1.02); box-shadow: 0 8px 32px rgba(0,229,176,.35); }
+
+/* Indicateur de scroll top */
+.valeur-modal__panel::before {
+  content: '';
+  display: block;
+  width: 40px; height: 4px;
+  background: rgba(255,255,255,.2);
+  border-radius: 2px;
+  margin: -.5rem auto 1.5rem;
+}
+
+@media(max-width: 480px) {
+  .valeur-modal__panel { padding: 1.5rem 1.25rem 2rem; }
+  .stat-number { font-size: 2.2rem; }
+}
+</style>
+
+<script id="valeurs-modal-js">
+(function(){
+  // Map card → modal
+  var cardModalMap = {
+    'ethique':   'modal-ethique',
+    'éthique':   'modal-ethique',
+    'Éthique':   'modal-ethique',
+    'ecologie':  'modal-ecologie',
+    'écologie':  'modal-ecologie',
+    'Écologie':  'modal-ecologie',
+    'inclusion': 'modal-inclusion',
+    'Inclusion': 'modal-inclusion',
+    'charge':    'modal-charge',
+    'Charge':    'modal-charge',
+    'mentale':   'modal-charge'
+  };
+
+  function openModal(id) {
+    var m = document.getElementById(id);
+    if (!m) return;
+    m.removeAttribute('hidden');
+    document.body.style.overflow = 'hidden';
+    m.querySelector('.valeur-modal__panel')?.focus?.();
+  }
+  function closeModal(m) {
+    m.setAttribute('hidden','');
+    document.body.style.overflow = '';
+  }
+
+  // Attacher aux cards Engagements
+  function attachCards() {
+    var cards = document.querySelectorAll('#engagements .card, #engagements article, #engagements .engagement__card, #engagements [class*="card"]');
+    cards.forEach(function(card) {
+      var text = card.innerText?.toLowerCase() || '';
+      var modalId = null;
+      Object.keys(cardModalMap).forEach(function(key) {
+        if (text.includes(key.toLowerCase())) modalId = cardModalMap[key];
+      });
+      if (!modalId) return;
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-haspopup', 'dialog');
+      function handler() { openModal(modalId); }
+      card.addEventListener('click', handler);
+      card.addEventListener('keydown', function(e) { if(e.key==='Enter'||e.key===' ') handler(); });
+    });
+  }
+
+  // Fermeture
+  document.querySelectorAll('.valeur-modal').forEach(function(modal) {
+    modal.querySelector('.valeur-modal__close')?.addEventListener('click', function(){ closeModal(modal); });
+    modal.querySelector('.valeur-modal__backdrop')?.addEventListener('click', function(){ closeModal(modal); });
+    modal.querySelector('.valeur-modal__cta')?.addEventListener('click', function(){ closeModal(modal); });
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.valeur-modal:not([hidden])').forEach(function(m){ closeModal(m); });
+    }
+  });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', attachCards);
+  } else {
+    attachCards();
+    setTimeout(attachCards, 500); // fallback si DOM pas encore prêt
+  }
+})();
 </script>
 </body>
 </html>
