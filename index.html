@@ -1212,102 +1212,43 @@ section a.btn:hover, section button.btn:hover {
 
 </style></head>
   <body>
+<canvas id="pc" aria-hidden="true"></canvas>
+<div id="ow" aria-hidden="true">
+  <svg class="wv" id="w1" viewBox="0 0 1440 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,100 C180,160 360,40 540,100 C720,160 900,40 1080,100 C1260,160 1380,100 1440,100 L1440,200 L0,200Z" fill="rgba(0,180,160,0.13)"/></svg>
+  <svg class="wv" id="w2" viewBox="0 0 1440 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,120 C240,60 480,160 720,120 C960,80 1200,160 1440,120 L1440,200 L0,200Z" fill="rgba(0,210,190,0.09)"/></svg>
+  <svg class="wv" id="w3" viewBox="0 0 1440 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,140 C360,100 720,180 1080,140 C1260,120 1380,150 1440,140 L1440,200 L0,200Z" fill="rgba(125,212,252,0.07)"/></svg>
+  <div id="oc"></div>
+</div>
+<style id="bg-sys">
+#pc{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;}
+#ow{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;display:none;overflow:hidden;}
+.wv{position:absolute;bottom:0;left:0;width:200%;height:40%;}
+#w1{animation:wv1 16s ease-in-out infinite alternate;will-change:transform;}
+#w2{animation:wv2 11s ease-in-out infinite alternate-reverse;left:-20%;will-change:transform;}
+#w3{animation:wv3 7s ease-in-out infinite alternate;left:5%;will-change:transform;}
+#oc{position:absolute;inset:0;background:
+  radial-gradient(ellipse 55% 40% at 18% 25%,rgba(0,229,176,.12) 0%,transparent 65%),
+  radial-gradient(ellipse 45% 35% at 82% 55%,rgba(125,212,252,.09) 0%,transparent 65%),
+  radial-gradient(ellipse 35% 28% at 50% 80%,rgba(0,180,220,.07) 0%,transparent 65%);
+  animation:oc-drift 22s ease-in-out infinite alternate;will-change:transform;}
+@keyframes wv1{0%{transform:translateX(0) scaleY(1)}100%{transform:translateX(-14%) scaleY(1.1)}}
+@keyframes wv2{0%{transform:translateX(0) scaleY(.9)}100%{transform:translateX(11%) scaleY(1.05)}}
+@keyframes wv3{0%{transform:translateX(0) scaleY(1)}100%{transform:translateX(-7%) scaleY(1.15)}}
+@keyframes oc-drift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(2%,3%) scale(1.05)}}
+html[data-theme="dark"] body{background:linear-gradient(175deg,#0D0A1A 0%,#13072e 45%,#0a0d1e 100%)!important;}
+html[data-theme="light"] body,html[data-theme="light"] .page{background:linear-gradient(180deg,#0d5a75 0%,#083d55 18%,#061a2e 55%,#030e1a 100%)!important;}
+html[data-theme="light"] h1,html[data-theme="light"] h2,html[data-theme="light"] h3{color:#e0f7ff!important;}
+html[data-theme="light"] p,html[data-theme="light"] li{color:rgba(180,240,255,.75)!important;}
+html[data-theme="light"] nav{background:rgba(4,18,36,.88)!important;border-bottom:1px solid rgba(0,229,176,.15)!important;}
+html[data-theme="light"] .card,html[data-theme="light"] .offer,html[data-theme="light"] article{background:rgba(0,180,220,.07)!important;border:1px solid rgba(0,229,176,.14)!important;backdrop-filter:blur(12px)!important;}
+body>*:not(#pc):not(#ow){position:relative;z-index:1;}
+@media(prefers-reduced-motion:reduce){#w1,#w2,#w3,#oc,#pc{animation:none!important;}}
+</style>
 
-<!-- CANVAS PANDORA NIGHT -->
-<canvas id="pandora-canvas" aria-hidden="true" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:1;transition:opacity .5s;"></canvas>
 
-<!-- WAVES OCEAN DAY — 3 couches SVG -->
-<div id="ocean-waves" aria-hidden="true" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0;transition:opacity .5s;overflow:hidden;">
-  <!-- Couche 1 — vagues profondes lentes -->
-  <svg id="wave1" preserveAspectRatio="none" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg" style="position:absolute;bottom:0;left:0;width:200%;height:45%;will-change:transform;animation:wave-drift1 16s ease-in-out infinite alternate;">
-    <path fill="rgba(0,160,150,0.12)" d="M0,192 C240,256 480,128 720,192 C960,256 1200,128 1440,192 L1440,320 L0,320 Z"/>
-  </svg>
-  <!-- Couche 2 — vagues intermédiaires -->
-  <svg id="wave2" preserveAspectRatio="none" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg" style="position:absolute;bottom:0;left:-30%;width:200%;height:35%;will-change:transform;animation:wave-drift2 12s ease-in-out infinite alternate-reverse;">
-    <path fill="rgba(0,200,180,0.09)" d="M0,160 C360,224 720,96 1080,160 C1260,192 1380,144 1440,160 L1440,320 L0,320 Z"/>
-  </svg>
-  <!-- Couche 3 — vagues de surface rapides -->
-  <svg id="wave3" preserveAspectRatio="none" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg" style="position:absolute;bottom:0;left:10%;width:200%;height:25%;will-change:transform;animation:wave-drift3 8s ease-in-out infinite alternate;">
-    <path fill="rgba(125,212,252,0.07)" d="M0,224 C180,192 360,256 540,224 C720,192 900,256 1080,224 C1260,192 1380,224 1440,224 L1440,320 L0,320 Z"/>
-  </svg>
-  <!-- Caustics bioluminescents flottants -->
-  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 20% 30%,rgba(0,229,176,.10) 0%,transparent 70%),radial-gradient(ellipse 50% 35% at 80% 60%,rgba(125,212,252,.08) 0%,transparent 70%),radial-gradient(ellipse 40% 30% at 50% 80%,rgba(0,180,220,.06) 0%,transparent 70%);animation:caustic-drift 20s ease-in-out infinite alternate;will-change:transform;"></div>
 </div>
 
-<style id="bg-system">
-/* ── KEYFRAMES VAGUES OCÉAN ── */
-@keyframes wave-drift1 {
-  0%   { transform: translateX(0) scaleY(1); }
-  100% { transform: translateX(-15%) scaleY(1.08); }
-}
-@keyframes wave-drift2 {
-  0%   { transform: translateX(0) scaleY(1); }
-  100% { transform: translateX(12%) scaleY(.92); }
-}
-@keyframes wave-drift3 {
-  0%   { transform: translateX(0) scaleY(1); }
-  100% { transform: translateX(-8%) scaleY(1.12); }
-}
-@keyframes caustic-drift {
-  0%   { transform: translate(0,0) scale(1); }
-  100% { transform: translate(3%,4%) scale(1.06); }
-}
 
-/* ── MODE NUIT — fond Pandora ── */
-html[data-theme="dark"] body,
-html:not([data-theme]) body,
-html[data-theme="dark"] .page {
-  background: linear-gradient(180deg, #0D0A1A 0%, #13072e 40%, #0a0d1e 100%) !important;
-  position: relative;
-}
-html[data-theme="dark"] #pandora-canvas { opacity: 1 !important; }
-html[data-theme="dark"] #ocean-waves   { opacity: 0 !important; }
-
-/* ── MODE CLAIR — fond Océan Avatar 2 ── */
-html[data-theme="light"] body,
-html[data-theme="light"] .page {
-  background: linear-gradient(
-    180deg,
-    #0d5a75 0%,
-    #0a3d52 15%,
-    #082e42 35%,
-    #061a2e 60%,
-    #030e1a 100%
-  ) !important;
-  position: relative;
-}
-html[data-theme="light"] #pandora-canvas { opacity: 0 !important; }
-html[data-theme="light"] #ocean-waves   { opacity: 1 !important; }
-
-/* Textes lisibles sur fond ocean */
-html[data-theme="light"] h1,
-html[data-theme="light"] h2,
-html[data-theme="light"] h3 { color: #e0f7ff !important; }
-html[data-theme="light"] p,
-html[data-theme="light"] li { color: rgba(180,240,255,.75) !important; }
-html[data-theme="light"] nav,
-html[data-theme="light"] .nav {
-  background: rgba(4,18,36,.88) !important;
-  border-bottom: 1px solid rgba(0,229,176,.15) !important;
-}
-html[data-theme="light"] .card,
-html[data-theme="light"] .offer,
-html[data-theme="light"] article {
-  background: rgba(0,180,220,.07) !important;
-  border: 1px solid rgba(0,229,176,.14) !important;
-  backdrop-filter: blur(12px) !important;
-}
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  #wave1, #wave2, #wave3, #ocean-waves div { animation: none !important; }
-  #pandora-canvas { display: none; }
-}
-
-/* Z-index — canvas derrière tout */
-body > * { position: relative; z-index: 1; }
-#pandora-canvas, #ocean-waves { z-index: 0; }
-</style>
 
     <div class="bg-light-veil" aria-hidden="true">
       <span class="bg-light-veil__pulse"></span>
@@ -2360,133 +2301,6 @@ drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',clos
     document.addEventListener('DOMContentLoaded', observe);
   } else { observe(); }
 })();
-</script><script id="pandora-bg-js">
-(function(){
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var canvas = document.getElementById('pandora-canvas');
-  if(!canvas) return;
-  var ctx = canvas.getContext('2d');
-  var W, H, particles = [], aurora = [];
-  var frame = 0;
-
-  function resize(){
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize, {passive:true});
-
-  // Particules bioluminescentes Pandora
-  var COLORS = [
-    'rgba(0,229,176,', // teal
-    'rgba(155,109,255,', // violet
-    'rgba(255,107,157,', // rose
-    'rgba(127,255,212,', // aquamarine
-    'rgba(100,200,255,'  // cyan
-  ];
-  for(var i=0;i<85;i++){
-    var c = COLORS[Math.floor(Math.random()*COLORS.length)];
-    particles.push({
-      x: Math.random()*window.innerWidth,
-      y: Math.random()*window.innerHeight,
-      r: Math.random()*1.8+0.4,
-      vx: (Math.random()-.5)*0.18,
-      vy: (Math.random()-.5)*0.12,
-      color: c,
-      phase: Math.random()*Math.PI*2,
-      freq: Math.random()*0.008+0.003,
-      maxOpacity: Math.random()*0.55+0.15
-    });
-  }
-
-  // Bandes aurora boréale Pandora
-  var AURORA_COLORS = [
-    ['rgba(0,229,176,', 'rgba(155,109,255,'],
-    ['rgba(155,109,255,', 'rgba(255,107,157,'],
-    ['rgba(0,180,255,', 'rgba(0,229,176,']
-  ];
-  for(var j=0;j<3;j++){
-    aurora.push({
-      y: 0.15 + j*0.22,
-      amplitude: 60 + j*30,
-      wavelength: 0.003 - j*0.0005,
-      speed: 0.0008 + j*0.0003,
-      phase: (j*Math.PI*2)/3,
-      colors: AURORA_COLORS[j],
-      thickness: 80 + j*20
-    });
-  }
-
-  function draw(){
-    if(document.documentElement.dataset.theme === 'light'){
-      frame = requestAnimationFrame(draw);
-      return;
-    }
-
-    ctx.clearRect(0,0,W,H);
-
-    // Aurora boréale — bandes ondulantes
-    aurora.forEach(function(a){
-      var grad = ctx.createLinearGradient(0,0,W,0);
-      grad.addColorStop(0, a.colors[0]+'0)');
-      grad.addColorStop(0.3, a.colors[0]+'0.06)');
-      grad.addColorStop(0.5, a.colors[1]+'0.08)');
-      grad.addColorStop(0.7, a.colors[0]+'0.06)');
-      grad.addColorStop(1, a.colors[1]+'0)');
-      ctx.beginPath();
-      ctx.moveTo(0, H*a.y);
-      for(var x=0;x<=W;x+=4){
-        var y = H*a.y + Math.sin(x*a.wavelength + frame*a.speed + a.phase)*a.amplitude;
-        ctx.lineTo(x,y);
-      }
-      for(var x2=W;x2>=0;x2-=4){
-        var y2 = H*a.y + Math.sin(x2*a.wavelength + frame*a.speed + a.phase)*a.amplitude + a.thickness;
-        ctx.lineTo(x2,y2);
-      }
-      ctx.closePath();
-      ctx.fillStyle = grad;
-      ctx.fill();
-    });
-
-    // Particules
-    particles.forEach(function(p){
-      p.x += p.vx;
-      p.y += p.vy;
-      if(p.x < -5) p.x = W+5;
-      if(p.x > W+5) p.x = -5;
-      if(p.y < -5) p.y = H+5;
-      if(p.y > H+5) p.y = -5;
-
-      var opacity = p.maxOpacity * (0.5 + 0.5*Math.sin(frame*p.freq + p.phase));
-      var glow = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*6);
-      glow.addColorStop(0, p.color + opacity + ')');
-      glow.addColorStop(0.4, p.color + opacity*0.4 + ')');
-      glow.addColorStop(1, p.color + '0)');
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r*6,0,Math.PI*2);
-      ctx.fillStyle = glow;
-      ctx.fill();
-
-      // Noyau brillant
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle = p.color + Math.min(1, opacity*2) + ')';
-      ctx.fill();
-    });
-
-    frame++;
-    requestAnimationFrame(draw);
-  }
-
-  draw();
-
-  // Switcher mode — mettre à jour canvas opacity
-  var observer = new MutationObserver(function(){
-    var isLight = document.documentElement.dataset.theme === 'light';
-    canvas.style.opacity = isLight ? '0' : '1';
-  });
-  observer.observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
-})();
 </script><script id="burger-fix-js">
 (function(){
   var toggle = document.getElementById('navToggle') || document.querySelector('.nav__toggle');
@@ -2531,5 +2345,111 @@ drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',clos
     if(e.target===drawer) close();
   });
 })();
-</script></body>
+</script><script id="pandora-bg-js">
+window.addEventListener('load', function() {
+  var isLight = function(){ return document.documentElement.dataset.theme === 'light'; };
+  var canvas = document.getElementById('pc');
+  var oceanEl = document.getElementById('ow');
+  if(!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var W=0, H=0, pts=[], aurora=[], frame=0, raf;
+
+  function resize(){
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize, {passive:true});
+
+  // Particules bioluminescentes Pandora
+  var PC = ['rgba(0,229,176,','rgba(155,109,255,','rgba(255,107,157,','rgba(127,255,212,','rgba(80,180,255,'];
+  for(var i=0;i<90;i++){
+    var c=PC[i%PC.length];
+    pts.push({
+      x:Math.random()*window.innerWidth, y:Math.random()*window.innerHeight,
+      r:Math.random()*1.6+0.4,
+      vx:(Math.random()-.5)*.16, vy:(Math.random()-.5)*.11,
+      col:c, ph:Math.random()*6.28,
+      fr:Math.random()*.009+.003,
+      mo:Math.random()*.5+.15
+    });
+  }
+
+  // Aurora boréale — 3 bandes
+  var AC=[['rgba(0,229,176,','rgba(155,109,255,'],['rgba(155,109,255,','rgba(255,107,157,'],['rgba(0,180,255,','rgba(0,229,176,']];
+  for(var j=0;j<3;j++){
+    aurora.push({
+      ry:.12+j*.22, amp:55+j*28, wl:.0028-j*.0004,
+      sp:.0007+j*.0003, ph:j*2.09, cols:AC[j], th:85+j*22
+    });
+  }
+
+  function tick(){
+    if(isLight()){
+      ctx.clearRect(0,0,W,H);
+      canvas.style.opacity='0';
+      oceanEl.style.display='block';
+      raf=requestAnimationFrame(tick); frame++; return;
+    }
+    canvas.style.opacity='1';
+    oceanEl.style.display='none';
+    ctx.clearRect(0,0,W,H);
+
+    // Aurora
+    aurora.forEach(function(a){
+      var g=ctx.createLinearGradient(0,0,W,0);
+      g.addColorStop(0,a.cols[0]+'0)');
+      g.addColorStop(.25,a.cols[0]+'.05)');
+      g.addColorStop(.5,a.cols[1]+'.08)');
+      g.addColorStop(.75,a.cols[0]+'.05)');
+      g.addColorStop(1,a.cols[1]+'0)');
+      ctx.beginPath();
+      ctx.moveTo(0,H*a.ry);
+      for(var x=0;x<=W;x+=3){
+        ctx.lineTo(x, H*a.ry + Math.sin(x*a.wl+frame*a.sp+a.ph)*a.amp);
+      }
+      for(var x2=W;x2>=0;x2-=3){
+        ctx.lineTo(x2, H*a.ry + Math.sin(x2*a.wl+frame*a.sp+a.ph)*a.amp + a.th);
+      }
+      ctx.closePath(); ctx.fillStyle=g; ctx.fill();
+    });
+
+    // Particules
+    pts.forEach(function(p){
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<-5)p.x=W+5; if(p.x>W+5)p.x=-5;
+      if(p.y<-5)p.y=H+5; if(p.y>H+5)p.y=-5;
+      var op=p.mo*(.5+.5*Math.sin(frame*p.fr+p.ph));
+      var g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*7);
+      g.addColorStop(0,p.col+op+')');
+      g.addColorStop(.4,p.col+(op*.35)+')');
+      g.addColorStop(1,p.col+'0)');
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r*7,0,6.28); ctx.fillStyle=g; ctx.fill();
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,6.28);
+      ctx.fillStyle=p.col+Math.min(1,op*2)+')'; ctx.fill();
+    });
+
+    frame++;
+    raf=requestAnimationFrame(tick);
+  }
+
+  // Attendre un frame pour que le layout soit stable
+  requestAnimationFrame(function(){
+    resize();
+    tick();
+  });
+
+  // Observer changement de thème
+  new MutationObserver(function(){
+    resize();
+  }).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+
+  // Reduced motion
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+    cancelAnimationFrame(raf);
+    canvas.style.display='none';
+  }
+});
+</script>
+</body>
 </html>
