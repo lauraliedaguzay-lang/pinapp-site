@@ -1212,6 +1212,142 @@ input:focus, select:focus, textarea:focus {
   }
 }
 </style>
+<style id="pp-theme-fix">
+
+/* ═══════════════════════════════════════════════════
+   "construisons" — protégé en toutes circonstances
+   ═══════════════════════════════════════════════════ */
+@keyframes construisons-shimmer {
+  0%   { background-position: 0%   center; }
+  100% { background-position: 300% center; }
+}
+/* Override prefers-reduced-motion Hostinger */
+@media (prefers-reduced-motion: reduce) {
+  .hero__gradient, .word.hero__gradient {
+    animation-duration: 3.5s !important;
+    animation-name: construisons-shimmer !important;
+    animation-play-state: running !important;
+    animation-iteration-count: infinite !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   MODE NUIT — textes blancs nets
+   ═══════════════════════════════════════════════════ */
+html[data-theme="dark"] h1 .word:not(.hero__gradient),
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3 {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  text-shadow: none !important;
+}
+html[data-theme="dark"] .hero p,
+html[data-theme="dark"] .hero__desc { color: rgba(255,255,255,.84) !important; }
+html[data-theme="dark"] .bg-rays,
+html[data-theme="dark"] .ellipses   { opacity: .5 !important; }
+
+/* ═══════════════════════════════════════════════════
+   MODE JOUR — Apple Glass
+   Même univers Pandora que la nuit, rendu clair
+   Fond : bg-pandora-jour.png très lumineux
+   Éléments : verre blanc translucide
+   Textes : blancs avec text-shadow sombre léger
+   ═══════════════════════════════════════════════════ */
+
+/* Fond Pandora Jour — vraiment lumineux */
+html[data-theme="light"] body::before {
+  filter: blur(2px) brightness(2.4) saturate(1.6) hue-rotate(-3deg) !important;
+  animation: none !important;
+}
+
+/* Nav — Apple Glass blanc */
+html[data-theme="light"] #siteNav,
+html[data-theme="light"] header.nav,
+html[data-theme="light"] .nav {
+  background: rgba(255,255,255,.18) !important;
+  backdrop-filter: blur(28px) saturate(1.8) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(1.8) !important;
+  border-bottom: 1px solid rgba(255,255,255,.28) !important;
+  box-shadow: 0 1px 0 rgba(0,0,0,.06) !important;
+}
+html[data-theme="light"] .nav__logo {
+  color: rgba(5,10,25,.88) !important;
+  text-shadow: none !important;
+}
+html[data-theme="light"] .nav__links a,
+html[data-theme="light"] .nav__links li { color: rgba(5,10,25,.72) !important; }
+
+/* Textes héro mode jour — blancs avec ombre */
+html[data-theme="light"] h1 .word:not(.hero__gradient) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  text-shadow: 0 1px 24px rgba(0,0,0,.45), 0 0 60px rgba(0,0,0,.2) !important;
+}
+html[data-theme="light"] h2,
+html[data-theme="light"] h3 {
+  color: #ffffff !important;
+  text-shadow: 0 1px 16px rgba(0,0,0,.3) !important;
+}
+html[data-theme="light"] .hero p,
+html[data-theme="light"] .hero__desc,
+html[data-theme="light"] .subtitle {
+  color: rgba(255,255,255,.88) !important;
+  text-shadow: 0 1px 12px rgba(0,0,0,.35) !important;
+}
+html[data-theme="light"] section p,
+html[data-theme="light"] section li {
+  color: rgba(255,255,255,.82) !important;
+  text-shadow: 0 1px 8px rgba(0,0,0,.25) !important;
+}
+
+/* Cartes — verre blanc Apple Glass */
+html[data-theme="light"] .card,
+html[data-theme="light"] .belief,
+html[data-theme="light"] .offer,
+html[data-theme="light"] article,
+html[data-theme="light"] [class*="pack"] {
+  background: rgba(255,255,255,.16) !important;
+  backdrop-filter: blur(20px) saturate(1.4) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.4) !important;
+  border: 1px solid rgba(255,255,255,.32) !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.4) !important;
+}
+html[data-theme="light"] .card h3,
+html[data-theme="light"] .belief strong { color: #ffffff !important; text-shadow: 0 1px 8px rgba(0,0,0,.3) !important; }
+html[data-theme="light"] .card p,
+html[data-theme="light"] .belief p { color: rgba(255,255,255,.75) !important; }
+
+/* CTA mode jour — cyan Pandora (cohérent avec mode nuit) */
+html[data-theme="light"] .btn--primary,
+html[data-theme="light"] a.btn--primary {
+  background: linear-gradient(135deg, #00e5b0, #009b82) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 20px rgba(0,229,176,.35), inset 0 1px 0 rgba(255,255,255,.25) !important;
+}
+
+/* Shapes Pandora jour — belles et visibles */
+html[data-theme="light"] .pandora-shape   { opacity: 1 !important; }
+html[data-theme="light"] .jour-spore {
+  background: rgba(0,229,176,.9) !important;
+  box-shadow: 0 0 14px rgba(0,229,176,.7), 0 0 30px rgba(99,102,241,.35) !important;
+}
+html[data-theme="light"] .holo-grid { opacity: .7 !important; }
+
+/* Eyebrows et labels — teal Pandora */
+html[data-theme="light"] [class*="eyebrow"],
+html[data-theme="light"] .section__eyebrow {
+  color: rgba(0,229,176,.95) !important;
+  text-shadow: 0 0 16px rgba(0,229,176,.4) !important;
+}
+
+/* Stats — lisibles */
+html[data-theme="light"] .stat__num,
+html[data-theme="light"] [class*="stat"] strong { color: #00e5b0 !important; }
+
+/* Footer mode jour — glass sombre */
+html[data-theme="light"] footer { background: rgba(5,10,20,.55) !important; backdrop-filter: blur(20px) !important; }
+
+</style>
 </head>
   <body>
 <canvas id="pc" aria-hidden="true"></canvas>
@@ -1341,7 +1477,7 @@ body>*:not(#pc):not(#ow){position:relative;z-index:1;}
                   d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
               </svg>
             </button>
-            <a href="https://wa.me/33786173715" target="_blank" rel="noopener" class="nav-whatsapp" title="WhatsApp SAV — réponse sous 2h"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>SAV</a><button
+            <button
               type="button"
               class="nav__toggle"
               id="navToggle"
@@ -2528,6 +2664,78 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
 </div>
 <script id="c3-js">(function(){function mk(ci,ni,di,cls){var car=document.getElementById(ci),nav=document.getElementById(ni),dots=document.getElementById(di);if(!car||!nav)return;var items=Array.from(car.querySelectorAll('.c3-card')),N=items.length,cur=0,theta=2*Math.PI/N,radius=Math.max(210,N*42);dots.innerHTML='';items.forEach((_,i)=>{var d=document.createElement('button');d.className='c3-dot'+(cls?' '+cls:'')+(i===0?' on':'');d.style.cssText='border:none;padding:0;cursor:pointer;';d.addEventListener('click',()=>go(i));dots.appendChild(d);});function pos(){items.forEach((item,i)=>{var a=theta*(i-cur),x=Math.sin(a)*radius,z=Math.cos(a)*radius-radius,sc=0.68+0.32*((Math.cos(a)+1)/2),op=0.28+0.72*((Math.cos(a)+1)/2);item.style.transform='translateX('+x+'px) translateZ('+z+'px) scale('+sc+')';item.style.opacity=op;item.style.zIndex=Math.round(sc*100);item.classList.toggle('cur',!cls&&i===cur);item.classList.toggle('cur-m',cls==='vm'&&i===cur);});dots.querySelectorAll('.c3-dot').forEach((d,i)=>d.classList.toggle('on',i===cur));}function go(i){cur=((i%N)+N)%N;pos();}nav.querySelectorAll('.c3-btn').forEach(b=>b.addEventListener('click',()=>go(cur+parseInt(b.dataset.d))));items.forEach((_,i)=>items[i].addEventListener('click',()=>go(i)));var tx=0;car.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});car.addEventListener('touchend',e=>{var dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>40)go(cur+(dx<0?1:-1));},{passive:true});pos();}document.querySelectorAll('.pt-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.pt-btn').forEach(b=>b.classList.remove('on'));document.querySelectorAll('.pp').forEach(p=>p.classList.remove('on'));btn.classList.add('on');document.getElementById('pp-'+btn.dataset.p)?.classList.add('on');});});window.addEventListener('load',()=>{mk('c3l','nl','dl','');mk('c3mv','nmv','dmv','vm');mk('c3mp','nmp','dmp','');});}());</script>
 </section>
+
+<!-- OFFRES MICHA — Vidéo Image IA -->
+<section id="micha-offres" aria-labelledby="micha-h2">
+  <div class="wrap">
+    <header class="section__head">
+      <p class="section__eyebrow">Michaël Bouilhac · Vidéaste &amp; DA</p>
+      <h2 id="micha-h2">Image. Vidéo. Et l'IA qui amplifie les deux.</h2>
+      <p class="section__desc" style="color:rgba(255,255,255,.62);max-width:560px;">Micha capte. L'IA amplifie. Le résultat est impossible à obtenir autrement. Disponible en Nouvelle-Aquitaine — forfait sur devis.</p>
+    </header>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem;margin-top:2.5rem;">
+
+      <!-- Mariage -->
+      <div style="background:rgba(155,109,255,.07);border:1px solid rgba(155,109,255,.2);border-radius:16px;padding:1.5rem;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;right:0;width:80px;height:80px;background:radial-gradient(circle,rgba(155,109,255,.15),transparent);border-radius:0 0 0 80px;"></div>
+        <p style="font-size:1.5rem;margin:0 0 .75rem;">💍</p>
+        <h3 style="font-size:1rem;font-weight:700;color:#fff;margin:0 0 .4rem;">Mariage</h3>
+        <p style="font-size:.78rem;color:rgba(255,255,255,.55);line-height:1.6;margin:0 0 1rem;">Highlights 90 secondes · Film complet · Captures émotion · Portrait animé des mariés (Higgsfield)</p>
+        <p style="font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(155,109,255,.8);font-weight:600;">Devis sur demande</p>
+      </div>
+
+      <!-- Portrait pro + IA -->
+      <div style="background:rgba(0,229,176,.07);border:1px solid rgba(0,229,176,.2);border-radius:16px;padding:1.5rem;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;right:0;width:80px;height:80px;background:radial-gradient(circle,rgba(0,229,176,.15),transparent);border-radius:0 0 0 80px;"></div>
+        <p style="font-size:1.5rem;margin:0 0 .75rem;">✨</p>
+        <h3 style="font-size:1rem;font-weight:700;color:#fff;margin:0 0 .4rem;">Portrait pro &amp; IA</h3>
+        <p style="font-size:.78rem;color:rgba(255,255,255,.55);line-height:1.6;margin:0 0 1rem;">Photo LinkedIn · Portrait animé Higgsfield · Identité visuelle dirigeant · 1 session = photo + vidéo animée</p>
+        <p style="font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(0,229,176,.8);font-weight:600;">Devis sur demande</p>
+      </div>
+
+      <!-- Institutionnel / Corporate -->
+      <div style="background:rgba(255,107,157,.05);border:1px solid rgba(255,107,157,.18);border-radius:16px;padding:1.5rem;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;right:0;width:80px;height:80px;background:radial-gradient(circle,rgba(255,107,157,.12),transparent);border-radius:0 0 0 80px;"></div>
+        <p style="font-size:1.5rem;margin:0 0 .75rem;">🏢</p>
+        <h3 style="font-size:1rem;font-weight:700;color:#fff;margin:0 0 .4rem;">Film corporate</h3>
+        <p style="font-size:.78rem;color:rgba(255,255,255,.55);line-height:1.6;margin:0 0 1rem;">Film institutionnel · Présentation équipe · Voix off IA · Montage cinématique · Format LinkedIn + web</p>
+        <p style="font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,107,157,.8);font-weight:600;">Devis sur demande</p>
+      </div>
+
+      <!-- Événementiel -->
+      <div style="background:rgba(240,180,41,.05);border:1px solid rgba(240,180,41,.18);border-radius:16px;padding:1.5rem;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;right:0;width:80px;height:80px;background:radial-gradient(circle,rgba(240,180,41,.12),transparent);border-radius:0 0 0 80px;"></div>
+        <p style="font-size:1.5rem;margin:0 0 .75rem;">🎊</p>
+        <h3 style="font-size:1rem;font-weight:700;color:#fff;margin:0 0 .4rem;">Événementiel</h3>
+        <p style="font-size:.78rem;color:rgba(255,255,255,.55);line-height:1.6;margin:0 0 1rem;">Soirées · Conférences · Lancement produit · After movie 60s · Couverture photo complète</p>
+        <p style="font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(240,180,41,.8);font-weight:600;">Devis sur demande</p>
+      </div>
+
+      <!-- Contenu réseaux sociaux -->
+      <div style="background:rgba(14,165,233,.06);border:1px solid rgba(14,165,233,.18);border-radius:16px;padding:1.5rem;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;right:0;width:80px;height:80px;background:radial-gradient(circle,rgba(14,165,233,.12),transparent);border-radius:0 0 0 80px;"></div>
+        <p style="font-size:1.5rem;margin:0 0 .75rem;">📱</p>
+        <h3 style="font-size:1rem;font-weight:700;color:#fff;margin:0 0 .4rem;">Contenu réseaux</h3>
+        <p style="font-size:.78rem;color:rgba(255,255,255,.55);line-height:1.6;margin:0 0 1rem;">Reels Instagram · Shorts YouTube · Packshots produit · Ambiance lieu · Automatisation Buffer incluse</p>
+        <p style="font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(14,165,233,.8);font-weight:600;">Devis sur demande</p>
+      </div>
+
+      <!-- Pack Duo Lauralie + Micha -->
+      <div style="background:linear-gradient(135deg,rgba(0,229,176,.1),rgba(155,109,255,.1));border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:1.5rem;position:relative;overflow:hidden;grid-column:span 1;">
+        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,229,176,.06),rgba(155,109,255,.06));border-radius:inherit;"></div>
+        <p style="font-size:1.5rem;margin:0 0 .75rem;position:relative;">🚀</p>
+        <h3 style="font-size:1rem;font-weight:700;color:#fff;margin:0 0 .4rem;position:relative;">Pack Duo · Site + Image</h3>
+        <p style="font-size:.78rem;color:rgba(255,255,255,.6);line-height:1.6;margin:0 0 1rem;position:relative;">Lauralie construit le système. Micha crée les visuels. Un seul interlocuteur. Un seul devis. ~1 600€ économisés vs achat séparé.</p>
+        <p style="font-size:.82rem;font-weight:700;color:#fff;position:relative;">Dès 3 900€ HT <span style="font-size:.68rem;font-weight:400;color:rgba(255,255,255,.45);">· franchise TVA</span></p>
+      </div>
+
+    </div>
+
+    <!-- Note déplacement -->
+    <p style="margin-top:1.5rem;text-align:center;font-size:.78rem;color:rgba(255,255,255,.35);">Micha se déplace en Nouvelle-Aquitaine · Tournage et captation · Forfait sur devis · Paiement sur livrable</p>
+  </div>
+</section>
 <section id="studio" aria-label="L'équipe Pinapp">
 <style id="studio-section-style">
 #studio{padding:5rem 0;}
@@ -3624,121 +3832,6 @@ cite { font-size: .72rem; color: rgba(255,255,255,.35); font-style: italic; marg
   setTimeout(attachBeliefs, 800);
 })();
 </script>
-<style id="pp-theme-fix">
-
-/* ══════════════════════════════════════════════════════
-   PROTECTION "construisons" — JAMAIS écrasé
-   Le span .hero__gradient garde TOUJOURS son gradient animé
-   ══════════════════════════════════════════════════════ */
-.hero__gradient,
-h1 .hero__gradient,
-.word.hero__gradient {
-  background: linear-gradient(100deg,#00E5B0 0%,#9B6DFF 28%,#FF6B9D 52%,#7FFFD4 72%,#00E5B0 100%) !important;
-  background-size: 280% auto !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
-  color: transparent !important;
-  animation: pandora-shimmer 3.5s linear infinite !important;
-  display: inline-block !important;
-}
-@keyframes pandora-shimmer {
-  0%   { background-position: 0%   center; }
-  100% { background-position: 280% center; }
-}
-
-/* ══════════════════════════════════════════════════════
-   MODE NUIT — textes blancs, pas de text-shadow parasite
-   ══════════════════════════════════════════════════════ */
-html[data-theme="dark"] h1 .word:not(.hero__gradient),
-html[data-theme="dark"] h2,
-html[data-theme="dark"] h3 {
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
-  text-shadow: none !important;
-}
-html[data-theme="dark"] .hero p,
-html[data-theme="dark"] .hero__desc,
-html[data-theme="dark"] .subtitle {
-  color: rgba(255,255,255,.85) !important;
-}
-
-/* ══════════════════════════════════════════════════════
-   MODE JOUR — Pandora aquatique lumineux
-   Textes CLAIRS (pas noirs) sur fond Pandora
-   Fond : effets forcés visibles
-   ══════════════════════════════════════════════════════ */
-
-/* Fond : forcer brightness élevé via filter sur body::before */
-html[data-theme="light"] body::before {
-  filter: blur(3px) brightness(2.2) saturate(1.8) hue-rotate(-4deg) !important;
-  animation: none !important;
-}
-
-/* Textes mode jour : BLANCS / très clairs sur fond Pandora */
-html[data-theme="light"] h1 .word:not(.hero__gradient),
-html[data-theme="light"] h2,
-html[data-theme="light"] h3 {
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
-  text-shadow: 0 2px 20px rgba(0,0,0,.35) !important;
-}
-html[data-theme="light"] .hero p,
-html[data-theme="light"] .hero__desc,
-html[data-theme="light"] .subtitle {
-  color: rgba(255,255,255,.88) !important;
-  text-shadow: 0 1px 12px rgba(0,0,0,.3) !important;
-}
-
-/* Nav mode jour — verre dépoli clair */
-html[data-theme="light"] nav,
-html[data-theme="light"] header,
-html[data-theme="light"] .nav,
-html[data-theme="light"] .site-header {
-  background: rgba(6,20,40,.55) !important;
-  backdrop-filter: blur(20px) saturate(1.5) !important;
-  border-bottom: 1px solid rgba(0,229,176,.15) !important;
-}
-html[data-theme="light"] .nav__logo,
-html[data-theme="light"] [class*="logo"] {
-  color: #ffffff !important;
-}
-
-/* Cartes mode jour — verre sombre léger */
-html[data-theme="light"] .card,
-html[data-theme="light"] .belief,
-html[data-theme="light"] .offer,
-html[data-theme="light"] article {
-  background: rgba(0,20,40,.5) !important;
-  border-color: rgba(0,229,176,.2) !important;
-  backdrop-filter: blur(16px) !important;
-}
-html[data-theme="light"] .card h3,
-html[data-theme="light"] .belief strong,
-html[data-theme="light"] article h3 {
-  color: #ffffff !important;
-}
-html[data-theme="light"] .card p,
-html[data-theme="light"] .belief p {
-  color: rgba(255,255,255,.72) !important;
-}
-
-/* Shapes Pandora jour — opaques et belles */
-html[data-theme="light"] .pandora-shape { opacity: 1 !important; }
-html[data-theme="light"] .jour-spore {
-  background: rgba(0,229,176,.9) !important;
-  box-shadow: 0 0 12px rgba(0,229,176,.7),0 0 28px rgba(99,102,241,.4) !important;
-}
-html[data-theme="light"] .holo-grid { opacity:.8 !important; }
-
-/* Sections générales mode jour */
-html[data-theme="light"] section h2,
-html[data-theme="light"] section p,
-html[data-theme="light"] section li {
-  color: rgba(255,255,255,.88) !important;
-}
-
-</style>
 <script id="pp-hamburger-fix">
 (function(){
   function initHamburger(){
