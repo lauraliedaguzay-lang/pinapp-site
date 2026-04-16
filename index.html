@@ -884,21 +884,6 @@
 .section-video.is-visible .video-note{opacity:1}
 .video-note a{color:#00E5B0;text-decoration:none;font-weight:600}
 @media(max-width:768px){.video-player{border-radius:12px}.video-play-btn{width:56px;height:56px}}
-</style><style id="burger-apple">
-.nav__burger{display:flex;flex-direction:column;justify-content:center;align-items:center;width:40px;height:40px;background:none;border:none;cursor:pointer;position:relative;z-index:10001;gap:0}
-.nav__burger span{display:block;width:22px;height:1.5px;background:#fff;border-radius:2px;margin:3px 0;transition:transform .3s cubic-bezier(.4,0,.2,1),opacity .2s ease,margin .3s ease}
-.nav__burger.is-open span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
-.nav__burger.is-open span:nth-child(2){opacity:0;transform:scaleX(0)}
-.nav__burger.is-open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
-.drawer{position:fixed;inset:0;z-index:10000;background:rgba(6,10,20,.97);backdrop-filter:blur(24px) saturate(1.6);-webkit-backdrop-filter:blur(24px) saturate(1.6);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s cubic-bezier(.4,0,.2,1)}
-.drawer.is-open{opacity:1;pointer-events:all}
-.drawer__panel{display:flex;flex-direction:column;align-items:center;gap:.25rem;width:100%;padding:2rem 1.5rem}
-.drawer__panel a{display:block;font-size:clamp(1.6rem,5vw,2.4rem);font-weight:600;color:rgba(255,255,255,.85);text-decoration:none;text-align:center;letter-spacing:-.02em;padding:.55rem 2rem;border-radius:12px;opacity:0;transform:translateY(12px);transition:color .2s,background .2s,opacity .4s cubic-bezier(.4,0,.2,1),transform .4s cubic-bezier(.4,0,.2,1)}
-.drawer.is-open .drawer__panel a{opacity:1;transform:none}
-.drawer.is-open .drawer__panel a:nth-child(1){transition-delay:.05s}.drawer.is-open .drawer__panel a:nth-child(2){transition-delay:.10s}.drawer.is-open .drawer__panel a:nth-child(3){transition-delay:.15s}.drawer.is-open .drawer__panel a:nth-child(4){transition-delay:.20s}.drawer.is-open .drawer__panel a:nth-child(5){transition-delay:.25s}.drawer.is-open .drawer__panel a:nth-child(6){transition-delay:.30s}.drawer.is-open .drawer__panel a:nth-child(7){transition-delay:.36s}
-.drawer__panel a:hover{color:#00E5B0;background:rgba(0,229,176,.07)}
-.drawer__panel a:last-child{margin-top:1.25rem;color:#00E5B0!important;border:1px solid rgba(0,229,176,.4);padding:.65rem 2.5rem;border-radius:40px;font-size:clamp(1rem,2.5vw,1.1rem)!important;letter-spacing:.04em;text-transform:uppercase;font-weight:700}
-.drawer__panel a:last-child:hover{background:rgba(0,229,176,.12)!important;border-color:rgba(0,229,176,.7)}
 </style><style id="pinapp-fx">
 /* ════════════════════════════════
    SHIMMER CONSTRUISONS
@@ -1023,6 +1008,208 @@ section:not(#top) h2 {
 /* Fix gros blanc hero */
 #top { min-height: 100svh; }
 #video-showreel, #video-presentation { display: block !important; }
+</style><style id="pinapp-fixes">
+
+/* ══════════════════════════════════════
+   1. CONSTRUISONS — shimmer forcé !important
+   ══════════════════════════════════════ */
+@keyframes pandora-shimmer {
+  0%   { background-position: 0%   center; }
+  100% { background-position: 300% center; }
+}
+.hero__gradient {
+  background: linear-gradient(
+    100deg,
+    #00E5B0 0%,
+    #9B6DFF 28%,
+    #FF6B9D 52%,
+    #7FFFD4 75%,
+    #00E5B0 100%
+  ) !important;
+  background-size: 300% auto !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  animation: pandora-shimmer 3.5s linear infinite !important;
+  display: inline-block !important;
+}
+
+/* ══════════════════════════════════════
+   2. BURGER nav__toggle — overlay Apple
+   ══════════════════════════════════════ */
+
+/* Bouton burger */
+.nav__toggle {
+  position: relative;
+  z-index: 10001;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0;
+}
+/* On injecte les 3 barres via ::before, ::after et un pseudo-trick */
+.nav__toggle .line {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1),
+              opacity 0.2s ease;
+  pointer-events: none;
+}
+.nav__toggle.is-open .line:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav__toggle.is-open .line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav__toggle.is-open .line:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* Drawer overlay plein écran */
+.drawer {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 10000 !important;
+  background: rgba(6, 10, 20, 0.97) !important;
+  backdrop-filter: blur(24px) saturate(1.6) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.6) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.35s cubic-bezier(.4,0,.2,1) !important;
+  transform: none !important;
+}
+.drawer.is-open {
+  opacity: 1 !important;
+  pointer-events: all !important;
+}
+
+/* Links drawer stagger */
+.drawer__panel {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 0.2rem !important;
+  width: 100% !important;
+  padding: 2rem 1.5rem !important;
+}
+.drawer__panel a {
+  display: block !important;
+  font-size: clamp(1.7rem, 5vw, 2.5rem) !important;
+  font-weight: 600 !important;
+  color: rgba(255,255,255,0.85) !important;
+  text-decoration: none !important;
+  text-align: center !important;
+  letter-spacing: -0.02em !important;
+  padding: 0.5rem 2rem !important;
+  border-radius: 12px !important;
+  opacity: 0 !important;
+  transform: translateY(14px) !important;
+  transition:
+    color 0.2s,
+    background 0.2s,
+    opacity 0.4s cubic-bezier(.4,0,.2,1),
+    transform 0.4s cubic-bezier(.4,0,.2,1) !important;
+}
+.drawer.is-open .drawer__panel a { opacity: 1 !important; transform: none !important; }
+.drawer.is-open .drawer__panel a:nth-child(1) { transition-delay: 0.04s !important; }
+.drawer.is-open .drawer__panel a:nth-child(2) { transition-delay: 0.09s !important; }
+.drawer.is-open .drawer__panel a:nth-child(3) { transition-delay: 0.14s !important; }
+.drawer.is-open .drawer__panel a:nth-child(4) { transition-delay: 0.19s !important; }
+.drawer.is-open .drawer__panel a:nth-child(5) { transition-delay: 0.24s !important; }
+.drawer.is-open .drawer__panel a:nth-child(6) { transition-delay: 0.29s !important; }
+.drawer.is-open .drawer__panel a:nth-child(7) { transition-delay: 0.34s !important; }
+.drawer__panel a:hover { color: #00E5B0 !important; background: rgba(0,229,176,.08) !important; }
+/* CTA dernier lien */
+.drawer__panel a:last-child {
+  margin-top: 1.2rem !important;
+  color: #00E5B0 !important;
+  border: 1px solid rgba(0,229,176,.4) !important;
+  padding: 0.6rem 2.5rem !important;
+  border-radius: 40px !important;
+  font-size: 1rem !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  font-weight: 700 !important;
+}
+.drawer__panel a:last-child:hover {
+  background: rgba(0,229,176,.12) !important;
+  border-color: rgba(0,229,176,.7) !important;
+}
+
+/* ══════════════════════════════════════
+   3. BOUTONS — animations distinctes
+   ══════════════════════════════════════ */
+
+@keyframes btn-aura-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0,229,176,0), 0 4px 20px rgba(0,0,0,.3); }
+  50%       { box-shadow: 0 0 20px 4px rgba(0,229,176,.35), 0 6px 28px rgba(0,229,176,.2); }
+}
+@keyframes btn-ghost-shimmer {
+  0%   { border-color: rgba(255,255,255,.2); color: rgba(255,255,255,.8); }
+  50%  { border-color: rgba(0,229,176,.5); color: rgba(0,229,176,.9); }
+  100% { border-color: rgba(255,255,255,.2); color: rgba(255,255,255,.8); }
+}
+@keyframes btn-primary-shine {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Bouton primaire — aura teal pulsante + shine au hover */
+.btn--primary {
+  position: relative !important;
+  overflow: hidden !important;
+  animation: btn-aura-pulse 3s ease-in-out infinite !important;
+  transition: transform .2s ease, box-shadow .2s ease !important;
+}
+.btn--primary::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255,255,255,0.18) 50%,
+    transparent 70%
+  ) !important;
+  background-size: 200% auto !important;
+  animation: btn-primary-shine 3s linear infinite !important;
+  pointer-events: none !important;
+  border-radius: inherit !important;
+}
+.btn--primary:hover {
+  transform: translateY(-2px) scale(1.02) !important;
+}
+
+/* Bouton ghost — shimmer de bordure + hover teal */
+.btn--ghost {
+  animation: btn-ghost-shimmer 4s ease-in-out infinite !important;
+  transition: transform .2s ease, background .2s ease !important;
+}
+.btn--ghost:hover {
+  transform: translateY(-2px) !important;
+  background: rgba(0,229,176,.08) !important;
+  border-color: rgba(0,229,176,.6) !important;
+  color: #00E5B0 !important;
+}
+
+/* Tous les boutons CTA dans les sections — lift hover */
+.offers .btn, .offre-card .btn, #contact .btn,
+section a.btn, section button.btn {
+  transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s ease !important;
+}
+section a.btn:hover, section button.btn:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,.25) !important;
+}
+
 </style></head>
   <body>
 
@@ -2124,21 +2311,6 @@ ca.addEventListener('click',close);
 document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
 drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',close);});
 })();
-</script><script id="burger-js">
-(function(){
-var burger=document.querySelector('.nav__burger,[aria-label*="enu"] svg')?.closest('button')||document.querySelector('button[class*="burger"],button[class*="menu"],.theme-btn')?.parentElement?.querySelector('button:not(.theme-btn)');
-// Fallback — chercher par position (dernier bouton dans nav)
-if(!burger){var navBtns=document.querySelectorAll('nav button, header button');burger=navBtns[navBtns.length-1];}
-var drawer=document.querySelector('.drawer');
-if(!burger||!drawer)return;
-if(!burger.querySelector('span')){burger.innerHTML='<span></span><span></span><span></span>';}
-function open(){drawer.classList.add('is-open');burger.classList.add('is-open');burger.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';}
-function close(){drawer.classList.remove('is-open');burger.classList.remove('is-open');burger.setAttribute('aria-expanded','false');document.body.style.overflow='';}
-burger.addEventListener('click',function(){drawer.classList.contains('is-open')?close():open();});
-drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',close);});
-document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
-drawer.addEventListener('click',function(e){if(e.target===drawer)close();});
-})();
 </script><script id="pinapp-scroll-js">
 (function(){
   // Barre progression
@@ -2314,6 +2486,50 @@ drawer.addEventListener('click',function(e){if(e.target===drawer)close();});
     canvas.style.opacity = isLight ? '0' : '1';
   });
   observer.observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
+})();
+</script><script id="burger-fix-js">
+(function(){
+  var toggle = document.getElementById('navToggle') || document.querySelector('.nav__toggle');
+  var drawer = document.querySelector('.drawer');
+  if(!toggle || !drawer) return;
+
+  // Injecter 3 barres si pas déjà là
+  if(toggle.querySelectorAll('.line').length < 3){
+    toggle.innerHTML = '<span class="line"></span><span class="line"></span><span class="line"></span>';
+  }
+
+  function open(){
+    drawer.classList.add('is-open');
+    toggle.classList.add('is-open');
+    toggle.setAttribute('aria-expanded','true');
+    document.body.style.overflow='hidden';
+  }
+  function close(){
+    drawer.classList.remove('is-open');
+    toggle.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded','false');
+    document.body.style.overflow='';
+  }
+
+  // Supprimer tous les anciens listeners en clonant
+  var newToggle = toggle.cloneNode(true);
+  toggle.parentNode.replaceChild(newToggle, toggle);
+
+  // Réinjecter les barres sur le nouveau nœud
+  newToggle.innerHTML = '<span class="line"></span><span class="line"></span><span class="line"></span>';
+
+  newToggle.addEventListener('click', function(){
+    drawer.classList.contains('is-open') ? close() : open();
+  });
+  drawer.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', close);
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key==='Escape') close();
+  });
+  drawer.addEventListener('click', function(e){
+    if(e.target===drawer) close();
+  });
 })();
 </script></body>
 </html>
