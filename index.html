@@ -1034,32 +1034,7 @@ input:focus, select:focus, textarea:focus {
 .formations-prevente-note{text-align:center;margin:0 auto 1.75rem;font-size:.84rem;color:rgba(255,255,255,.55);background:rgba(255,160,50,.05);border:1px solid rgba(255,160,50,.15);border-radius:12px;padding:.7rem 1.2rem;max-width:600px;}
 .formations-prevente-note strong{color:#ffa032;}
 </style>
-<script id="hero-shimmer-js">
-(function(){
-  var tries = 0;
-  function go(){
-    var g = document.querySelector('.hero__gradient');
-    if(!g){ if(tries++<20) setTimeout(go,200); return; }
-    if(!document.getElementById('_skf')){
-      var s=document.createElement('style'); s.id='_skf';
-      s.textContent='@keyframes pandora-shimmer{0%{background-position:0% center}100%{background-position:280% center}}';
-      document.head.appendChild(s);
-    }
-    g.style.setProperty('background','linear-gradient(100deg,#00E5B0 0%,#9B6DFF 28%,#FF6B9D 52%,#7FFFD4 72%,#00E5B0 100%)','important');
-    g.style.setProperty('background-size','280% auto','important');
-    g.style.setProperty('-webkit-background-clip','text','important');
-    g.style.setProperty('-webkit-text-fill-color','transparent','important');
-    g.style.setProperty('background-clip','text','important');
-    g.style.setProperty('color','transparent','important');
-    g.style.setProperty('animation','pandora-shimmer 3.5s linear infinite','important');
-    g.style.setProperty('display','inline-block','important');
-    // Reboucler toutes les 800ms pendant 8s pour résister aux resets CSS
-    if(tries < 12){ tries++; setTimeout(go, 800); }
-  }
-  document.readyState==='loading' ? document.addEventListener('DOMContentLoaded',go) : go();
-  window.addEventListener('load', function(){ tries=0; go(); });
-})();
-</script>
+
 <style id="ocean-light-fix">
 /* MODE CLAIR — AVATAR 2 SURFACE EAU LUMINEUSE */
 html[data-theme="light"] body{
@@ -1108,7 +1083,165 @@ html[data-theme="light"] .belief,html[data-theme="light"] .pack-card,html[data-t
   background:rgba(255,255,255,.15)!important;border:1px solid rgba(255,255,255,.28)!important;backdrop-filter:blur(14px)!important;
 }
 </style>
-</head>
+<style id="construisons-svg-style">
+/* SVG construisons — immunisé contre tout CSS externe */
+.construisons-svg-wrap {
+  display: inline-block;
+  vertical-align: baseline;
+  line-height: 1;
+  /* Aligner avec le texte blanc du h1 */
+  position: relative;
+  top: 0.05em;
+}
+.construisons-svg-wrap svg {
+  height: 1em;
+  width: auto;
+  display: block;
+  overflow: visible;
+}
+/* Fallback si SVG ne charge pas */
+.construisons-fallback {
+  background: linear-gradient(100deg,#00E5B0,#9B6DFF,#FF6B9D,#00E5B0);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: cs-shimmer 3s linear infinite;
+}
+@keyframes cs-shimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 300% center; }
+}
+</style>
+<script id="construisons-svg-js">
+(function(){
+  // Créer un canvas offscreen pour mesurer le texte
+  function buildSVG() {
+    var h1 = document.querySelector('.hero__title, .hero h1, [class*="hero"] h1');
+    if (!h1) return;
+    
+    // Trouver le span construisons
+    var spans = Array.from(h1.querySelectorAll('span,em,strong'));
+    var target = spans.find(s => s.textContent.trim().toLowerCase() === 'construisons');
+    
+    if (!target) {
+      // Chercher dans le texte complet
+      var words = Array.from(h1.querySelectorAll('.word, span'));
+      target = words.find(w => w.textContent.trim().toLowerCase() === 'construisons');
+    }
+    
+    if (!target) return;
+    
+    // Créer le SVG gradient animé
+    var uid = 'grad-' + Math.random().toString(36).slice(2);
+    var svgNS = 'http://www.w3.org/2000/svg';
+    
+    var svg = document.createElementNS(svgNS, 'svg');
+    svg.setAttribute('viewBox', '0 0 600 100');
+    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.style.cssText = 'width:auto;height:1em;display:inline-block;vertical-align:baseline;overflow:visible;max-width:100%;';
+    
+    var defs = document.createElementNS(svgNS, 'defs');
+    
+    var grad = document.createElementNS(svgNS, 'linearGradient');
+    grad.setAttribute('id', uid);
+    grad.setAttribute('x1', '0%'); grad.setAttribute('y1', '0%');
+    grad.setAttribute('x2', '100%'); grad.setAttribute('y2', '0%');
+    
+    // 5 stops pour l'effet arc-en-ciel
+    var stops = [
+      {offset:'0%',   color:'#00E5B0'},
+      {offset:'25%',  color:'#9B6DFF'},
+      {offset:'50%',  color:'#FF6B9D'},
+      {offset:'75%',  color:'#7FFFD4'},
+      {offset:'100%', color:'#00E5B0'}
+    ];
+    stops.forEach(function(s) {
+      var stop = document.createElementNS(svgNS, 'stop');
+      stop.setAttribute('offset', s.offset);
+      stop.setAttribute('stop-color', s.color);
+      grad.appendChild(stop);
+    });
+    
+    defs.appendChild(grad);
+    svg.appendChild(defs);
+    
+    var text = document.createElementNS(svgNS, 'text');
+    text.setAttribute('x', '0');
+    text.setAttribute('y', '85');
+    text.setAttribute('font-size', '100');
+    text.setAttribute('font-weight', '900');
+    text.setAttribute('font-family', 'inherit');
+    text.setAttribute('fill', 'url(#' + uid + ')');
+    text.textContent = 'construisons';
+    
+    svg.appendChild(text);
+    
+    // Wrapper
+    var wrap = document.createElement('span');
+    wrap.className = 'construisons-svg-wrap';
+    wrap.setAttribute('aria-hidden', 'true');
+    wrap.appendChild(svg);
+    
+    // Remplacer le contenu du span
+    target.innerHTML = '';
+    target.appendChild(wrap);
+    // Texte accessible masqué
+    var sr = document.createElement('span');
+    sr.style.cssText = 'position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);';
+    sr.textContent = 'construisons';
+    target.appendChild(sr);
+    
+    // Animer le gradient avec RAF — indestructible
+    var pos = 0;
+    var colors = [
+      [0,229,176],   // teal
+      [155,109,255], // violet
+      [255,107,157], // rose
+      [127,255,212], // aqua
+      [0,229,176]    // teal (repeat)
+    ];
+    
+    function lerp(a, b, t) { return a + (b-a)*t; }
+    function getColor(t) {
+      // t de 0 à 1
+      var segments = colors.length - 1;
+      var seg = Math.min(Math.floor(t * segments), segments-1);
+      var local = (t * segments) - seg;
+      var from = colors[seg], to = colors[seg+1];
+      return [
+        Math.round(lerp(from[0],to[0],local)),
+        Math.round(lerp(from[1],to[1],local)),
+        Math.round(lerp(from[2],to[2],local))
+      ];
+    }
+    
+    function animate() {
+      pos = (pos + 0.004) % 1;
+      // Décaler tout le gradient
+      var stopsEl = grad.querySelectorAll('stop');
+      stopsEl.forEach(function(stop, i) {
+        var t = ((pos + i/4) % 1);
+        var c = getColor(t);
+        stop.setAttribute('stop-color', 'rgb('+c[0]+','+c[1]+','+c[2]+')');
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', buildSVG);
+  } else {
+    buildSVG();
+  }
+  window.addEventListener('load', function() {
+    setTimeout(buildSVG, 100);
+    setTimeout(buildSVG, 600);
+  });
+})();
+</script></head>
   <body>
 <canvas id="pc" aria-hidden="true"></canvas>
 <div id="ow" aria-hidden="true">
@@ -2574,6 +2707,105 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
   </script>
 </section>
 
+
+<style id="mp-footer-style">
+.mp-link-section {
+  background: linear-gradient(135deg, #1c2420 0%, #141f1a 100%);
+  border-top: 1px solid rgba(110,136,112,.2);
+  padding: 3rem;
+}
+.mp-link-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 3rem;
+  align-items: center;
+}
+.mp-brand {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+.mp-brand-name {
+  font-family: Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #c8d4c0;
+  letter-spacing: .04em;
+}
+.mp-brand-name em { font-style: italic; color: #6e8870; }
+.mp-brand-tag {
+  font-size: .68rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(200,212,192,.45);
+}
+.mp-description {
+  font-size: .88rem;
+  color: rgba(200,212,192,.65);
+  line-height: 1.75;
+}
+.mp-description p { margin-bottom: .65rem; }
+.mp-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  margin-top: .75rem;
+  font-family: Georgia, serif;
+  font-size: .82rem;
+  font-style: italic;
+  color: #6e8870;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(110,136,112,.3);
+  padding-bottom: .1rem;
+  transition: all .2s ease;
+}
+.mp-link-btn:hover {
+  color: #8aaa8c;
+  border-bottom-color: rgba(110,136,112,.6);
+}
+.mp-services {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+  margin-top: .85rem;
+}
+.mp-service {
+  font-size: .7rem;
+  letter-spacing: .08em;
+  color: rgba(200,212,192,.4);
+  background: rgba(110,136,112,.08);
+  border: 1px solid rgba(110,136,112,.15);
+  padding: .22rem .7rem;
+  border-radius: 40px;
+}
+@media(max-width:680px) {
+  .mp-link-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+  .mp-link-section { padding: 2rem 1.5rem; }
+}
+</style>
+
+<div class="mp-link-section">
+  <div class="mp-link-inner">
+    <div class="mp-brand">
+      <div class="mp-brand-name">Mémoire <em>&amp;</em> Présence</div>
+      <div class="mp-brand-tag">Un service Pinapp Inc.</div>
+    </div>
+    <div class="mp-description">
+      <p>Des pages hommage, des plaques mémorial avec QR code, des films tribut réalisés par Michaël. Pour que les visages, les voix et les histoires restent vivants.</p>
+      <div class="mp-services">
+        <span class="mp-service">Pages hommage</span>
+        <span class="mp-service">Plaques QR code</span>
+        <span class="mp-service">Films tribut</span>
+        <span class="mp-service">Depuis 249€</span>
+      </div>
+      <a href="https://lauraliedaguzay-lang.github.io/memoireetpresence/" target="_blank" rel="noopener" class="mp-link-btn">
+        Découvrir Mémoire &amp; Présence ↗
+      </a>
+    </div>
+  </div>
+</div>
 <footer class="footer">
         <div class="wrap">
           <div class="footer__logo">Pinapp Inc.</div>
