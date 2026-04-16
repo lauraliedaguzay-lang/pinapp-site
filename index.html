@@ -1027,6 +1027,15 @@ input:focus, select:focus, textarea:focus {
   border-radius: 0 2px 2px 0 !important;
   box-shadow: 0 0 12px rgba(0,229,176,0.6), 0 0 24px rgba(155,109,255,0.3) !important;
 }
+</style><style id="ocean-light-fix">
+html[data-theme="light"] body::before{content:'';position:fixed;top:0;left:0;right:0;height:45vh;background:radial-gradient(ellipse 120% 80% at 50% -10%,rgba(255,255,255,.35) 0%,rgba(200,240,250,.15) 35%,transparent 70%);pointer-events:none;z-index:0;animation:surf-light 6s ease-in-out infinite alternate;}
+html[data-theme="light"] body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(-18deg,rgba(255,255,255,.03) 0%,transparent 2%,transparent 8%,rgba(255,255,255,.02) 10%);pointer-events:none;z-index:0;animation:sun-rays 10s ease-in-out infinite alternate;}
+@keyframes surf-light{0%{transform:scaleX(1) translateY(0)}100%{transform:scaleX(1.05) translateY(-3px)}}
+@keyframes sun-rays{0%{opacity:.6;transform:rotate(-1deg)}100%{opacity:1;transform:rotate(1deg)}}
+html[data-theme="light"] nav{background:rgba(0,100,130,.72)!important;border-bottom:1px solid rgba(255,255,255,.25)!important;}
+html[data-theme="light"] h1,html[data-theme="light"] h2,html[data-theme="light"] h3{color:#fff!important;text-shadow:0 2px 12px rgba(0,0,0,.25)!important;}
+html[data-theme="light"] p,html[data-theme="light"] li{color:rgba(255,255,255,.88)!important;}
+html[data-theme="light"] .card,html[data-theme="light"] .offer,html[data-theme="light"] article{background:rgba(255,255,255,.14)!important;border:1px solid rgba(255,255,255,.25)!important;backdrop-filter:blur(16px)!important;}
 </style></head>
   <body>
 <canvas id="pc" aria-hidden="true"></canvas>
@@ -1063,18 +1072,7 @@ html[data-theme="dark"] #pc{opacity:1!important;}
 html[data-theme="dark"] #ow{display:none!important;}
 
 /* ── MODE CLAIR AVATAR 2 — SURFACE LUMINEUSE ── */
-html[data-theme="light"] body,html[data-theme="light"] .page{
-  background:linear-gradient(
-    180deg,
-    #7ecad0 0%,
-    #4ba8b5 12%,
-    #2a7f8c 28%,
-    #1a5f6e 45%,
-    #0f3d4a 65%,
-    #082530 85%,
-    #041520 100%
-  )!important;
-}
+html[data-theme="light"] body,html[data-theme="light"] .page{background:linear-gradient(180deg,#a8e6ef 0%,#5bc5d4 12%,#2a8a9a 28%,#0d4a5c 50%,#061825 80%,#03101a 100%)!important;}
 html[data-theme="light"] #pc{opacity:0!important;}
 html[data-theme="light"] #ow{display:block!important;}
 
@@ -1185,6 +1183,7 @@ body>*:not(#pc):not(#ow){position:relative;z-index:1;}
             <a href="#systemes">Systèmes</a>
             <a href="#demos">Réalisations</a>
             <a href="#contact">Contact</a>
+            <a href="#formations">Formations</a>
             <a href="#studio">L'équipe</a>
             <a href="#contact" style="margin-top:.75rem;color:var(--accent,#00e5d4);font-weight:700;border-top:1px solid rgba(255,255,255,.1);padding-top:.75rem;">Premier échange offert →</a>
           </div>
@@ -1220,7 +1219,7 @@ body>*:not(#pc):not(#ow){position:relative;z-index:1;}
             <div class="hero__cta">
               <a class="btn btn--primary js-tdah-open" href="#contact">Premier échange offert →</a>
               <a class="btn btn--ghost" href="#demos">Voir les démos</a>
-              <a class="btn btn--ghost" href="/offres/formation/">Formations →</a>
+              <a href="#formations" class="btn btn--ghost">Formations →</a>
             </div>
             <div class="scroll-hint">
               <span>Défiler</span>
@@ -1372,19 +1371,19 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
             </h2>
             <div class="save-pain-stack">
               <article class="save-pain">
-                <div class="save-pain__icon" aria-hidden="true">⏱</div>
+                <div class="save-pain__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
                 <h3>Vous répondez trop lentement.</h3>
                 <p>
                   Le prospect est passé ailleurs. Votre assistant IA, lui, répond pendant que vous êtes sur le terrain.
                 </p>
               </article>
               <article class="save-pain">
-                <div class="save-pain__icon" aria-hidden="true">🔗</div>
+                <div class="save-pain__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
                 <h3>5 outils qui ne se parlent pas.</h3>
                 <p>Gmail, Notion, Calendly, Stripe, votre site. On connecte tout. Une seule source de vérité.</p>
               </article>
               <article class="save-pain">
-                <div class="save-pain__icon" aria-hidden="true">🌙</div>
+                <div class="save-pain__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></div>
                 <h3>Les factures le dimanche soir.</h3>
                 <p>Générée à la signature. Relance automatique si impayé. Export comptable le 1er du mois.</p>
               </article>
@@ -1417,7 +1416,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
               <article class="offer offer--featured">
                 <span class="badge badge--teal">Le plus complet</span>
                 <h3>Accélération</h3>
-                <p class="section__sub">Dès 2 400 € HT — système clé en main, automatisation incluse.</p>
+                <p class="section__sub">Dès 2 400 € HT — système complet clé en main. Diagnostic de votre situation offert avant démarrage.</p>
                 <ul>
                   <li>Acquisition optimisée</li>
                   <li>Automatisation leads n8n</li>
@@ -1425,7 +1424,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
                   <li>Tableau de bord de pilotage</li>
                 </ul>
                 <p class="price">2 400 &euro; HT · franchise TVA — système clé en main</p>
-                <a class="btn btn--primary js-tdah-open" href="#contact">Accelerer — audit inclus</a>
+                <a class="btn btn--primary js-tdah-open" href="#contact">Accélérer — diagnostic offert</a>
               </article>
               <article class="offer">
                 <span class="badge badge--ghost">Transformation totale</span>
@@ -1457,7 +1456,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
                   <path d="M9 14v6M23 14v6M16 20v4" stroke="currentColor" stroke-linecap="round" />
                   <rect x="10" y="22" width="12" height="5" rx="1.5" stroke="currentColor" />
                 </svg>
-                <h3>Systèmes &amp; Web</h3>
+                <h3>Votre site livre des leads</h3>
                 <ul>
                   <li>Site ou landing premium</li>
                   <li>Livraison cadrée</li>
@@ -1472,7 +1471,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
                   <circle cx="24" cy="22" r="2.5" stroke="currentColor" />
                   <path d="M10 11l4 3M18 17l4 3" stroke="currentColor" stroke-linecap="round" />
                 </svg>
-                <h3>Automatisation IA</h3>
+                <h3>Vos relances partent seules</h3>
                 <ul>
                   <li>Workflows n8n sur mesure</li>
                   <li>Moins de saisie manuelle</li>
@@ -1487,7 +1486,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
                   <circle cx="16" cy="10" r="2" stroke="currentColor" />
                   <circle cx="22" cy="12" r="2" stroke="currentColor" />
                 </svg>
-                <h3>Intelligence artificielle</h3>
+                <h3>Votre IA travaille 24h/7j</h3>
                 <ul>
                   <li>Chatbot métier + RAG</li>
                   <li>Agents utiles, pas gadget</li>
@@ -1500,7 +1499,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
                   <path d="M6 24V8l6 4 6-4 6 4v12" stroke="currentColor" stroke-linejoin="round" />
                   <path d="M12 16v8M18 12v12M24 16v8" stroke="currentColor" stroke-linecap="round" />
                 </svg>
-                <h3>Formations</h3>
+                <h3>Vous devenez autonome en 3h</h3>
                 <ul>
                   <li>Parcours court et concret</li>
                   <li>Exercices actionnables</li>
@@ -1620,7 +1619,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
             </div>
           </div>
         </section>
-<section class="section" id="preuves" data-reveal>
+<section class="section" id="preuves" data-reveal data-reveal>
           <div class="wrap">
             <span class="save-preuves__label">Preuves chiffrées</span>
             <h2 class="save-preuves__title">Où part votre temps ?<br />Et combien en récupère-t-on ?</h2>
@@ -1941,7 +1940,305 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
             
           </div>
         </section>
-      <section id="contact" data-reveal aria-label="Nous contacter">
+      
+<section id="formations" data-reveal aria-label="Formations Pinapp">
+
+<style id="formations-style">
+#formations{padding:5rem 0;position:relative;}
+.formations-intro{text-align:center;max-width:620px;margin:0 auto 3rem;}
+.formations-intro .section-eyebrow{display:block;margin-bottom:.5rem;}
+.formations-intro p{color:rgba(255,255,255,.65);font-size:1rem;margin:.75rem 0 0;}
+
+/* Onglets */
+.formations-tabs{display:flex;justify-content:center;gap:.5rem;margin-bottom:2.5rem;flex-wrap:wrap;}
+.formations-tab{padding:.45rem 1.1rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:40px;color:rgba(255,255,255,.6);font-size:.82rem;cursor:pointer;transition:all .2s ease;}
+.formations-tab.active,.formations-tab:hover{background:rgba(0,229,176,.12);border-color:rgba(0,229,176,.4);color:#00e5b0;}
+
+/* Grille packs principaux */
+.formations-packs{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.5rem;max-width:1000px;margin:0 auto 2rem;}
+.pack-card{background:rgba(255,255,255,.04);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:1.75rem;display:flex;flex-direction:column;gap:1rem;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;position:relative;overflow:hidden;}
+.pack-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.3);}
+.pack-card--featured{border-color:rgba(0,229,176,.3);background:rgba(0,229,176,.06);}
+.pack-card--featured::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#00e5b0,#9b6dff,#ff6b9d);}
+.pack-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.28rem .8rem;border-radius:40px;width:fit-content;}
+.pack-badge--green{background:rgba(0,229,176,.15);color:#00e5b0;border:1px solid rgba(0,229,176,.3);}
+.pack-badge--blue{background:rgba(125,212,252,.15);color:#7dd4fc;border:1px solid rgba(125,212,252,.3);}
+.pack-badge--violet{background:rgba(155,109,255,.15);color:#9b6dff;border:1px solid rgba(155,109,255,.3);}
+.pack-badge--orange{background:rgba(255,160,50,.15);color:#ffa032;border:1px solid rgba(255,160,50,.3);}
+.pack-title{font-size:1.3rem;font-weight:700;color:#fff;margin:0;}
+.pack-subtitle{font-size:.85rem;color:rgba(255,255,255,.55);margin:0;font-style:italic;}
+.pack-meta{display:flex;gap:1rem;font-size:.78rem;color:rgba(255,255,255,.5);}
+.pack-meta span{display:flex;align-items:center;gap:.3rem;}
+.pack-modules{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.4rem;}
+.pack-modules li{display:flex;align-items:flex-start;gap:.5rem;font-size:.82rem;color:rgba(255,255,255,.7);line-height:1.4;}
+.pack-modules li::before{content:'✦';color:var(--accent,#00e5b0);font-size:.65rem;margin-top:.2rem;flex-shrink:0;}
+.pack-result{background:rgba(0,229,176,.06);border:1px solid rgba(0,229,176,.15);border-radius:10px;padding:.65rem .9rem;font-size:.8rem;color:rgba(0,229,176,.9);font-weight:600;}
+.pack-result::before{content:'→ ';}
+.pack-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:1rem;border-top:1px solid rgba(255,255,255,.07);}
+.pack-price{font-size:1.5rem;font-weight:800;color:#fff;}
+.pack-price-note{font-size:.72rem;color:rgba(255,255,255,.4);display:block;margin-top:.1rem;}
+.pack-cta{padding:.6rem 1.2rem;border-radius:40px;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s;text-decoration:none;white-space:nowrap;}
+.pack-cta--primary{background:linear-gradient(135deg,#00e5b0,#00b4d8);color:#fff;border:none;box-shadow:0 4px 16px rgba(0,229,176,.25);}
+.pack-cta--ghost{background:transparent;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);}
+.pack-cta:hover{transform:scale(1.04);}
+
+/* Bundle */
+.formations-bundle{max-width:1000px;margin:0 auto 3rem;background:linear-gradient(135deg,rgba(0,229,176,.08),rgba(155,109,255,.08));border:1px solid rgba(0,229,176,.25);border-radius:20px;padding:1.75rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;}
+.bundle-left h3{color:#fff;font-size:1.2rem;margin:0 0 .4rem;}
+.bundle-left p{color:rgba(255,255,255,.6);font-size:.88rem;margin:0;}
+.bundle-savings{display:inline-block;background:rgba(255,200,50,.15);border:1px solid rgba(255,200,50,.3);color:#ffc832;font-size:.75rem;font-weight:700;padding:.25rem .7rem;border-radius:40px;margin-top:.5rem;}
+.bundle-right{display:flex;align-items:center;gap:1.25rem;}
+.bundle-price{text-align:right;}
+.bundle-price .original{font-size:.85rem;color:rgba(255,255,255,.35);text-decoration:line-through;}
+.bundle-price .final{font-size:1.8rem;font-weight:800;color:#fff;}
+.bundle-price .note{font-size:.72rem;color:rgba(255,255,255,.4);}
+
+/* Formations spécialisées */
+.formations-speciales{max-width:1000px;margin:0 auto 2rem;}
+.formations-speciales h3{font-size:1.1rem;color:rgba(255,255,255,.7);margin:0 0 1.25rem;font-weight:500;}
+.speciales-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;}
+.spec-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1.2rem;display:flex;flex-direction:column;gap:.6rem;transition:all .25s ease;}
+.spec-card:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);transform:translateY(-2px);}
+.spec-icon{font-size:1.4rem;}
+.spec-title{font-size:.92rem;font-weight:700;color:#fff;margin:0;}
+.spec-tool{font-size:.75rem;color:rgba(0,229,176,.8);font-weight:600;}
+.spec-duration{font-size:.75rem;color:rgba(255,255,255,.4);}
+.spec-price{font-size:1.1rem;font-weight:700;color:#fff;margin-top:auto;}
+.spec-cta{font-size:.75rem;color:rgba(0,229,176,.8);text-decoration:none;font-weight:600;}
+.spec-cta:hover{color:#00e5b0;}
+
+/* Réassurance TDAH */
+.formations-tdah-note{max-width:700px;margin:2rem auto 0;display:flex;align-items:center;gap:1rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:1.1rem 1.5rem;}
+.formations-tdah-note p{font-size:.88rem;color:rgba(255,255,255,.6);margin:0;line-height:1.5;}
+.formations-tdah-note strong{color:#00e5b0;}
+
+@media(max-width:768px){
+  .formations-packs{grid-template-columns:1fr;}
+  .formations-bundle{flex-direction:column;}
+  .bundle-right{width:100%;justify-content:space-between;}
+  .speciales-grid{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+
+  <div class="wrap">
+    <div class="formations-intro">
+      <span class="section-eyebrow">Devenez autonome. Rapidement.</span>
+      <h2>Des formations pensées pour <span class="accent">les cerveaux qui vont vite.</span></h2>
+      <p>Modulaires · Actionnables · Sans jargon · Avec résultats concrets le jour même.<br>
+      Conçues sur des études cognitives et comportementales.</p>
+    </div>
+
+    <!-- Onglets -->
+    <div class="formations-tabs" role="tablist">
+      <button class="formations-tab active" data-filter="all">Tous les programmes</button>
+      <button class="formations-tab" data-filter="debutant">Débutant</button>
+      <button class="formations-tab" data-filter="intermediaire">Intermédiaire</button>
+      <button class="formations-tab" data-filter="expert">Expert</button>
+      <button class="formations-tab" data-filter="outil">Par outil</button>
+    </div>
+
+    <!-- 3 packs principaux -->
+    <div class="formations-packs">
+
+      <!-- PACK 1 -->
+      <div class="pack-card" data-level="debutant">
+        <span class="pack-badge pack-badge--green">🟢 Niveau 1 — Débutant</span>
+        <div>
+          <h3 class="pack-title">IA Pour Tous</h3>
+          <p class="pack-subtitle">Comprendre et utiliser l'IA dès demain</p>
+        </div>
+        <div class="pack-meta">
+          <span>⏱ 3h30</span>
+          <span>📚 5 modules</span>
+          <span>🎯 Quiz + certificat</span>
+        </div>
+        <ul class="pack-modules">
+          <li>L'IA démystifiée — ce qu'elle fait vraiment (et ce qu'elle ne fait pas)</li>
+          <li>Claude, votre assistant de travail au quotidien</li>
+          <li>Automatiser les 10 tâches répétitives de votre métier</li>
+          <li>Créer 1 mois de contenu en 2h avec l'IA</li>
+          <li>Votre IA de poche — intégration dans votre journée</li>
+        </ul>
+        <div class="pack-result">À la fin : vous utilisez Claude chaque jour pour votre métier</div>
+        <div class="pack-footer">
+          <div>
+            <span class="pack-price">67 €</span>
+            <span class="pack-price-note">Accès à vie · Mises à jour incluses</span>
+          </div>
+          <a href="#contact" class="pack-cta pack-cta--ghost">Démarrer →</a>
+        </div>
+      </div>
+
+      <!-- PACK 2 -->
+      <div class="pack-card pack-card--featured" data-level="intermediaire">
+        <span class="pack-badge pack-badge--blue">🔵 Niveau 2 — Intermédiaire</span>
+        <div>
+          <h3 class="pack-title">Automatisations Pro</h3>
+          <p class="pack-subtitle">Construire son propre système automatisé</p>
+        </div>
+        <div class="pack-meta">
+          <span>⏱ 6h</span>
+          <span>📚 6 modules</span>
+          <span>🎯 Projets réels + coaching</span>
+        </div>
+        <ul class="pack-modules">
+          <li>Architecture d'un système digital — cartographier ses processus</li>
+          <li>n8n de zéro à premier workflow opérationnel</li>
+          <li>Claude API — votre IA qui travaille pour vous dans n8n</li>
+          <li>Connecter Gmail, Notion, Stripe, Calendly, Tally</li>
+          <li>Tableau de bord de pilotage automatisé</li>
+          <li>Maintenance, debug et évolution de vos workflows</li>
+        </ul>
+        <div class="pack-result">À la fin : votre système tourne seul pendant que vous travaillez</div>
+        <div class="pack-footer">
+          <div>
+            <span class="pack-price">197 €</span>
+            <span class="pack-price-note">6 mois mises à jour · Templates offerts</span>
+          </div>
+          <a href="#contact" class="pack-cta pack-cta--primary">Accéder →</a>
+        </div>
+      </div>
+
+      <!-- PACK 3 -->
+      <div class="pack-card" data-level="expert">
+        <span class="pack-badge pack-badge--violet">🟣 Niveau 3 — Expert</span>
+        <div>
+          <h3 class="pack-title">Système Complet</h3>
+          <p class="pack-subtitle">Construire un système de croissance autonome</p>
+        </div>
+        <div class="pack-meta">
+          <span>⏱ 12h</span>
+          <span>📚 7 modules</span>
+          <span>🎯 Session coaching 30 min</span>
+        </div>
+        <ul class="pack-modules">
+          <li>Stratégie système pour TPE — audit + roadmap 90 jours</li>
+          <li>Cursor — créer son site sans coder, de zéro à en ligne</li>
+          <li>Higgsfield — vidéos IA professionnelles (avec Michaël)</li>
+          <li>Pipeline client complet automatisé — lead → paiement → livraison</li>
+          <li>Contenu et présence en ligne sur pilote automatique</li>
+          <li>Revenus passifs et scalabilité — transformer ses compétences</li>
+          <li>IA et intelligence augmentée — s'aligner sur l'avenir maintenant</li>
+        </ul>
+        <div class="pack-result">À la fin : votre infrastructure génère des revenus pendant votre sommeil</div>
+        <div class="pack-footer">
+          <div>
+            <span class="pack-price">497 €</span>
+            <span class="pack-price-note">Accès vie entière · Coaching 1:1 inclus</span>
+          </div>
+          <a href="#contact" class="pack-cta pack-cta--ghost">Réserver →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bundle -->
+    <div class="formations-bundle">
+      <div class="bundle-left">
+        <h3>⚡ Bundle "Tout-en-1" — Les 3 packs + toutes les formations spécialisées</h3>
+        <p>Pack 1 + Pack 2 + Pack 3 + Claude Maîtrise + n8n Expert + Higgsfield + Cursor</p>
+        <span class="bundle-savings">Économie de 284 € · Le choix des travailleurs augmentés</span>
+      </div>
+      <div class="bundle-right">
+        <div class="bundle-price">
+          <span class="original">1 077 €</span>
+          <div class="final">797 €</div>
+          <span class="note">Accès vie entière à tout</span>
+        </div>
+        <a href="#contact" class="pack-cta pack-cta--primary" style="font-size:.9rem;padding:.75rem 1.5rem;">Je veux tout →</a>
+      </div>
+    </div>
+
+    <!-- Formations spécialisées -->
+    <div class="formations-speciales">
+      <h3>Formations spécialisées — Maîtriser chaque outil</h3>
+      <div class="speciales-grid">
+
+        <div class="spec-card" data-level="outil">
+          <span class="spec-icon">🤖</span>
+          <div>
+            <p class="spec-title">Claude Maîtrise Complète</p>
+            <p class="spec-tool">Outil : Claude</p>
+          </div>
+          <p style="font-size:.78rem;color:rgba(255,255,255,.5);margin:0;">50 templates de prompts · Chain of thought · Claude API · Cas d'usage par secteur</p>
+          <div class="spec-duration">⏱ 2h30 · 5 modules</div>
+          <div class="spec-price">127 €</div>
+          <a href="#contact" class="spec-cta">Accéder →</a>
+        </div>
+
+        <div class="spec-card" data-level="outil">
+          <span class="spec-icon">⚡</span>
+          <div>
+            <p class="spec-title">n8n Expert TPE</p>
+            <p class="spec-tool">Outil : n8n</p>
+          </div>
+          <p style="font-size:.78rem;color:rgba(255,255,255,.5);margin:0;">20 workflows prêts à l'emploi · WhatsApp Business · Gestion erreurs · Nœuds custom</p>
+          <div class="spec-duration">⏱ 3h · 6 modules</div>
+          <div class="spec-price">167 €</div>
+          <a href="#contact" class="spec-cta">Accéder →</a>
+        </div>
+
+        <div class="spec-card" data-level="outil">
+          <span class="spec-icon">🎬</span>
+          <div>
+            <p class="spec-title">Higgsfield & IA Créative</p>
+            <p class="spec-tool">Outil : Higgsfield · avec Michaël</p>
+          </div>
+          <p style="font-size:.78rem;color:rgba(255,255,255,.5);margin:0;">Vidéos IA pro · Animer des portraits · Fusion vidéo réelle + IA · Workflow de production</p>
+          <div class="spec-duration">⏱ 2h · 5 modules</div>
+          <div class="spec-price">117 €</div>
+          <a href="#contact" class="spec-cta">Accéder →</a>
+        </div>
+
+        <div class="spec-card" data-level="outil">
+          <span class="spec-icon">💻</span>
+          <div>
+            <p class="spec-title">Cursor & Sites Sans Code</p>
+            <p class="spec-tool">Outil : Cursor</p>
+          </div>
+          <p style="font-size:.78rem;color:rgba(255,255,255,.5);margin:0;">Landing page · Portfolio · Déploiement Hostinger · Connexion n8n · Maintenance autonome</p>
+          <div class="spec-duration">⏱ 2h30 · 5 modules</div>
+          <div class="spec-price">147 €</div>
+          <a href="#contact" class="spec-cta">Accéder →</a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Note TDAH -->
+    <div class="formations-tdah-note">
+      <span style="font-size:1.5rem;flex-shrink:0;">🧠</span>
+      <p>Toutes nos formations sont structurées pour les cerveaux qui vont vite. <strong>Maximum 8 minutes par module.</strong> Un concept. Un exemple. Un exercice. Un résultat concret. Basé sur la recherche en neurosciences cognitives et l'expérience terrain avec des profils neuroatypiques.</p>
+    </div>
+
+  </div>
+
+  <!-- JS Onglets formations -->
+  <script id="formations-tabs-js">
+  (function(){
+    var tabs = document.querySelectorAll('.formations-tab');
+    var cards = document.querySelectorAll('.pack-card, .spec-card');
+    tabs.forEach(function(tab){
+      tab.addEventListener('click', function(){
+        tabs.forEach(function(t){ t.classList.remove('active'); });
+        tab.classList.add('active');
+        var filter = tab.dataset.filter;
+        cards.forEach(function(card){
+          if(filter === 'all') {
+            card.style.display = '';
+          } else {
+            var level = card.dataset.level || '';
+            card.style.display = level === filter ? '' : 'none';
+          }
+        });
+      });
+    });
+  })();
+  </script>
+
+</section>
+
+<section id="contact" data-reveal aria-label="Nous contacter">
   <div class="wrap">
     <p class="section-eyebrow">Lançons votre projet</p>
     <h2>On vous répond <span class="accent">sous 24h.</span></h2>
