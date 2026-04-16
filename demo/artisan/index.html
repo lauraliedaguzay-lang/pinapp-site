@@ -1,238 +1,208 @@
-<!doctype html>
-<html lang="fr" data-theme="dark" data-pinapp-particles="force">
-  <head>
-    <script>
-      (function () {
-        var s = localStorage.getItem('pinapp-theme');
-        var d = window.matchMedia('(prefers-color-scheme:dark)').matches;
-        var m = s || 'nuit';
-        var t = m === 'nuit' ? 'dark' : 'light';
-        document.documentElement.setAttribute('data-mode', m);
-        document.documentElement.setAttribute('data-theme', t);
-        if (document.body) {
-          document.body.classList.add('mode-' + m);
-        }
-        document.addEventListener('DOMContentLoaded', function () {
-          document.body.classList.add('mode-' + m);
-        });
-      })();
-    </script>
-    <link rel="preload" as="image" href="../../assets/images/bg-dark-pandora-apple.png" fetchpriority="high" />
-    <link rel="preload" as="image" href="../../assets/images/bg-light-pandora-apple.png" />
-    <meta charset="UTF-8" />
-    <link rel="canonical" href="https://pinapp.fr/demo/artisan/" />
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Renov & Co — Artisan BTP Bordeaux — Démo Pinapp Studio</title>
+<meta name="description" content="Votre chantier entre de bonnes mains. — Artisan BTP à Bordeaux. Site créé par Pinapp Studio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--c1:#1a0f05;--c2:#d97706;--acc:#f59e0b;--ff:'Bebas Neue', Impact, sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:#fff;color:#111;overflow-x:hidden;}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.85rem 2rem;background:rgba(255,255,255,.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.06);}
+.nav-brand{font-family:var(--ff);font-size:1.1rem;font-weight:700;color:var(--c1);text-decoration:none;}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-size:.85rem;color:rgba(0,0,0,.65);text-decoration:none;font-weight:500;transition:color .2s;}
+.nav-links a:hover{color:var(--c2);}
+.nav-cta{background:var(--c2);color:#fff;padding:.55rem 1.25rem;border-radius:8px;text-decoration:none;font-size:.85rem;font-weight:600;transition:all .2s;}
+.nav-cta:hover{opacity:.9;transform:translateY(-1px);}
+/* HERO */
+.hero{min-height:100vh;position:relative;display:flex;align-items:flex-end;padding-bottom:5rem;overflow:hidden;padding-top:64px;}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1400&q=85&fit=crop') center/cover no-repeat;filter:brightness(.5) saturate(1.1);}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.3) 50%,rgba(0,0,0,.1) 100%);}
+.hero-content{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:0 2rem;width:100%;}
+.hero-eyebrow{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);font-weight:600;margin-bottom:1rem;}
+h1{font-family:var(--ff);font-size:clamp(2.5rem,6vw,5rem);font-weight:900;color:#fff;line-height:1.05;margin-bottom:1.25rem;}
+.hero-sub{font-size:1.1rem;color:rgba(255,255,255,.78);line-height:1.7;max-width:520px;margin-bottom:2rem;}
+.hero-cta{display:inline-flex;align-items:center;gap:.5rem;background:var(--c2);color:#fff;padding:.9rem 2rem;border-radius:10px;text-decoration:none;font-size:1rem;font-weight:700;transition:all .25s;box-shadow:0 4px 20px rgba(0,0,0,.3);}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.4);}
+/* SECTION */
+section{padding:5rem 0;}
+.wrap{max-width:1100px;margin:0 auto;padding:0 2rem;}
+.eyebrow{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--c2);font-weight:700;margin-bottom:.75rem;}
+h2{font-family:var(--ff);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:800;color:var(--c1);line-height:1.15;margin-bottom:1rem;}
+.section-desc{font-size:1rem;color:rgba(0,0,0,.62);line-height:1.75;max-width:560px;margin-bottom:3rem;}
+/* SERVICES */
+#services{background:#f9f9fb;}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+.service-card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:2rem;transition:all .3s;}
+.service-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.1);border-color:var(--c2);}
+.service-icon{font-size:2rem;margin-bottom:1rem;}
+.service-name{font-family:var(--ff);font-size:1.1rem;font-weight:700;color:var(--c1);margin-bottom:.5rem;}
+.service-desc{font-size:.88rem;color:rgba(0,0,0,.6);line-height:1.65;}
+.service-price{font-size:1.4rem;font-weight:800;color:var(--c2);margin-top:1rem;font-family:var(--ff);}
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.about-img{border-radius:20px;overflow:hidden;aspect-ratio:4/3;}
+.about-img img{width:100%;height:100%;object-fit:cover;}
+.about-text h2{margin-bottom:1rem;}
+.about-text p{font-size:.95rem;color:rgba(0,0,0,.65);line-height:1.8;margin-bottom:1.5rem;}
+/* CONTACT */
+#contact{background:var(--c1);color:#fff;}
+#contact h2{color:#fff;}
+#contact .eyebrow{color:var(--acc);}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+.contact-info p{font-size:.95rem;color:rgba(255,255,255,.65);line-height:1.8;margin-bottom:1.5rem;}
+.contact-detail{display:flex;align-items:center;gap:.65rem;font-size:.9rem;color:rgba(255,255,255,.8);margin-bottom:.75rem;}
+.contact-detail a{color:var(--acc);text-decoration:none;}
+.contact-form{display:flex;flex-direction:column;gap:.75rem;}
+input,textarea,select{width:100%;padding:.75rem 1rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;font-size:.9rem;color:#fff;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s;}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.4);}
+input:focus,textarea:focus{border-color:var(--acc);}
+textarea{min-height:100px;resize:vertical;}
+.form-btn{background:var(--acc);color:var(--c1);padding:.85rem;border-radius:8px;border:none;font-size:.95rem;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s;}
+.form-btn:hover{opacity:.9;transform:translateY(-1px);}
+/* FOOTER */
+footer{background:#111;color:rgba(255,255,255,.5);padding:2rem 0;text-align:center;font-size:.8rem;}
+footer a{color:rgba(0,229,176,.6);text-decoration:none;}
+/* BADGE DEMO */
+.demo-badge{position:fixed;bottom:1.25rem;right:1.25rem;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:.6rem 1rem;font-size:.72rem;color:rgba(255,255,255,.6);z-index:9999;display:flex;align-items:center;gap:.5rem;}
+.demo-badge a{color:rgba(0,229,176,.8);text-decoration:none;font-weight:600;}
+/* MOBILE */
+@media(max-width:768px){
+  nav{padding:.75rem 1.25rem;}
+  .nav-links{display:none;}
+  .services-grid,.about-grid,.contact-grid{grid-template-columns:1fr;gap:2rem;}
+  section{padding:3.5rem 0;}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-brand" href="#">Renov & Co</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">Demander un devis</a>
+</nav>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Renov &amp; Co — Artisan BTP Île-de-France — Démo Pinapp Studio</title>
-    <meta name="description" content="Vitrine type artisan BTP · Pinapp Studio — niveau Mémoire &amp; Présence" />
-    <meta name="robots" content="noindex, nofollow" />
-    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
-    <link rel="stylesheet" href="../../assets/css/pinapp-global.css" />
-    <link rel="stylesheet" href="../../assets/css/demo-sector.css" />
-    <script src="../../assets/js/demo-photo-packs.js"></script>
-    <script>
-      window.PINAPP_DEMO_SITE = {
-        feature: 'calculateur-artisan',
-        nom: 'Renov & Co',
-        slogan: 'Votre chantier entre',
-        sousSlogan: 'de bonnes mains.',
-        zone: 'Île-de-France',
-        secteur: 'Artisan BTP',
-        accent: '#E8760A',
-        accentDark: '#C45A00',
-        fond: '#111111',
-        texte: '#F4F2EE',
-        typo: 'SF Pro',
-        style: 'bold-tech',
-        cta: 'Demander un devis',
-        services: [
-          { nom: 'Urgences', prix: 'Intervention sous 2h', description: 'Plomberie, électricité, serrurerie. 7j/7.' },
-          { nom: 'Rénovation', prix: 'Devis offert', description: 'Salle de bain, cuisine, pièce complète.' },
-          { nom: 'Entretien', prix: 'À partir de 80€', description: 'Contrats annuels. Interventions planifiées.' },
-        ],
-        confiance: ['RGE certifié', 'Assurance décennale', 'Devis offert sous 24h', "10 ans d'expérience"],
-        avis: 'Rapide, propre, honnête. Je recommande sans hésiter.',
-        avisAuteur: 'Marie T.',
-        q1: { label: "Type d'intervention ?", options: ['Urgence', 'Rénovation', 'Entretien'] },
-        q2: { label: 'Votre code postal ?', options: ['75', '77', '78', 'Autre Île-de-France'] },
-        q3: { label: 'Délai ?', options: ["Urgent — aujourd'hui", 'Cette semaine', 'Ce mois'] },
-        confirmation: 'Renov & Co vous répond par message sous 2 h.',
-        metaTitle: 'Renov & Co — Artisan BTP Île-de-France',
-        metaDesc: 'Vitrine type artisan BTP · Pinapp Studio — niveau Mémoire & Présence',
-        h1Hidden: 'Artisan RGE Île-de-France — Rénovation urgence entretien',
-      };
-      Object.assign(window.PINAPP_DEMO_SITE, window.PINAPP_DEMO_PHOTO_PACKS.artisan);
-    </script>
-    <script src="../../assets/js/demo-sector.js" defer></script>
-    <script src="../../assets/js/demo-features.js" defer></script>
-    <link rel="stylesheet" href="../../assets/css/pandora-dance.css" />
-    <link rel="stylesheet" href="../../assets/css/ios-glass.css" />
-    <link rel="stylesheet" href="../../assets/css/apple-finish.css" />
-    <link rel="stylesheet" href="../../assets/css/pinapp-modern-biolume.css" />
-    <link rel="stylesheet" href="../../assets/css/pinapp-master-v3.css" />
-    <link rel="stylesheet" href="../../assets/css/pinapp-master-v4.css" />
-  </head>
-  <body class="demo-sector-page">
-    <canvas id="particles" aria-hidden="true"></canvas>
-    <div id="pandora-loader" class="pinapp-cinema-loader" aria-hidden="true">
-      <div class="pinapp-cinema-loader__aurora" aria-hidden="true"></div>
-      <div class="pinapp-cinema-loader__video-wrap">
-        <video
-          class="pinapp-cinema-loader__video"
-          autoplay
-          muted
-          playsinline
-          loop
-          preload="metadata"
-          poster="/assets/images/bg-pandora-nuit.png">
-          <source src="/assets/video/pinapp-loader-intro.webm" type="video/webm" />
-          <source src="/assets/video/pinapp-loader-intro.mp4" type="video/mp4" />
-        </video>
-        <div class="pinapp-cinema-loader__veil" aria-hidden="true"></div>
-        <div class="pinapp-cinema-loader__hud" aria-hidden="true">
-          <span class="pinapp-cinema-loader__corner pinapp-cinema-loader__corner--tl"></span>
-          <span class="pinapp-cinema-loader__corner pinapp-cinema-loader__corner--tr"></span>
-          <span class="pinapp-cinema-loader__corner pinapp-cinema-loader__corner--bl"></span>
-          <span class="pinapp-cinema-loader__corner pinapp-cinema-loader__corner--br"></span>
-          <div class="pinapp-cinema-loader__voice" aria-hidden="true">
-            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-          </div>
-        </div>
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Artisan BTP · Bordeaux</p>
+    <h1>Votre chantier entre de bonnes mains.</h1>
+    <p class="hero-sub">Renov & Co intervient en Gironde pour vos travaux de rénovation, maçonnerie et second œuvre.</p>
+    <a href="#contact" class="hero-cta">Demander un devis →</a>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <p class="eyebrow">Ce qu'on vous propose</p>
+    <h2>Nos services.</h2>
+    <p class="section-desc">Des prestations pensées pour vous, à des tarifs clairs. Réservez en ligne, payez à la prestation.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">⭐</div>
+        <div class="service-name">Devis gratuit sous 48h</div>
+        <div class="service-desc">Prestation complète avec suivi personnalisé. Réservation en ligne disponible 24h/24.</div>
+        <div class="service-price">À partir de 0€</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">✨</div>
+        <div class="service-name">Rénovation complète</div>
+        <div class="service-desc">Formule premium. Résultat garanti ou remboursé. Consultation incluse.</div>
+        <div class="service-price">À partir de 2 500€</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🏆</div>
+        <div class="service-name">Chantier clé en main</div>
+        <div class="service-desc">Notre offre signature. Pour ceux qui veulent le meilleur. Sur mesure.</div>
+        <div class="service-price">À partir de Sur devis</div>
       </div>
     </div>
-    <script>
-      (function () {
-        function hideLoader() {
-          var l = document.getElementById('pandora-loader');
-          if (l && l.parentNode) {
-            var _pinappV = l.querySelector('video');
-            if (_pinappV)
-              try {
-                _pinappV.pause();
-              } catch (_e) {}
-            l.style.opacity = '0';
-            setTimeout(function () {
-              if (l.parentNode) l.remove();
-            }, 400);
-          }
-        }
-        window.addEventListener('load', hideLoader);
-        setTimeout(hideLoader, 2000);
-      })();
-    </script>
-    <div class="aurora-mobile" aria-hidden="true">
-      <div class="aurora-orb aurora-orb-1"></div>
-      <div class="aurora-orb aurora-orb-2"></div>
-      <div class="aurora-orb aurora-orb-3"></div>
-      <div class="aurora-orb aurora-orb-4"></div>
-    </div>
-    <div class="pandora-shapes" aria-hidden="true">
-      <div class="pandora-shape pandora-shape-1"></div>
-      <div class="pandora-shape pandora-shape-2"></div>
-      <div class="pandora-shape pandora-shape-3"></div>
-      <div class="pandora-shape pandora-shape-4"></div>
-    </div>
-    <div class="holo-grid" aria-hidden="true"></div>
-    <div class="noise" aria-hidden="true"></div>
-    <div class="jour-spores" aria-hidden="true">
-      <span class="jour-spore" style="left: 12%; top: 75%; --dur: 22s; --delay: -4s; --dx: 18px; --dy: -90px"></span
-      ><span class="jour-spore" style="left: 28%; top: 60%; --dur: 28s; --delay: -11s; --dx: -12px; --dy: -75px"></span
-      ><span class="jour-spore" style="left: 45%; top: 82%; --dur: 19s; --delay: -7s; --dx: 25px; --dy: -60px"></span
-      ><span class="jour-spore" style="left: 62%; top: 70%; --dur: 32s; --delay: -2s; --dx: -20px; --dy: -85px"></span
-      ><span class="jour-spore" style="left: 78%; top: 65%; --dur: 24s; --delay: -15s; --dx: 14px; --dy: -70px"></span
-      ><span
-        class="jour-spore jour-spore-teal"
-        style="left: 20%; top: 85%; --dur: 26s; --delay: -18s; --dx: 10px; --dy: -65px"></span
-      ><span
-        class="jour-spore jour-spore-teal"
-        style="left: 55%; top: 88%; --dur: 30s; --delay: -5s; --dx: -15px; --dy: -95px"></span>
-    </div>
-    <a href="#main-demo" class="demo-skip">Aller au contenu</a>
-    <div class="demo-live-banner" role="banner">
-      <span class="live-dot" aria-hidden="true"></span>
-      Pinapp Studio — Finition niveau Mémoire &amp; Présence · scénario de présentation
-    </div>
+  </div>
+</section>
 
-    <main id="main-demo">
-      <section class="hero" aria-label="Accroche">
-        <div class="hero-content">
-          <p class="hero-label"><span id="heroSecteur"></span> · <span id="heroZone"></span></p>
-          <h1 class="hero-title" id="heroSlogan"></h1>
-          <p class="hero-sub" id="heroSous"></p>
-          <button type="button" class="btn-hero" id="btnBooking"></button>
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-img">
+        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80&fit=crop" alt="Renov & Co — Artisan BTP Bordeaux" loading="lazy">
+      </div>
+      <div class="about-text">
+        <p class="eyebrow">Notre histoire</p>
+        <h2>L'expertise,<br>le soin du détail.</h2>
+        <p>Renov & Co intervient en Gironde pour vos travaux de rénovation, maçonnerie et second œuvre. Nous mettons un point d'honneur à offrir une expérience irréprochable à chaque client. La qualité n'est pas une option — c'est notre standard.</p>
+        <p>Prise de rendez-vous en ligne, paiement sécurisé, rappels automatiques. Tout est pensé pour que vous vous concentriez sur ce qui compte : votre temps.</p>
+        <a href="#contact" style="display:inline-flex;align-items:center;gap:.4rem;color:var(--c2);font-weight:700;text-decoration:none;font-size:.9rem;border-bottom:2px solid var(--c2);padding-bottom:2px;">Demander un devis →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <p class="eyebrow">Nous trouver</p>
+        <h2>Prenez contact.</h2>
+        <p>Réponse garantie sous 24h. Devis gratuit pour toute première demande.</p>
+        <div class="contact-detail">📍 <span>Bordeaux, Gironde</span></div>
+        <div class="contact-detail">📞 <a href="tel:0556000000">05 56 00 00 00</a></div>
+        <div class="contact-detail">📧 <a href="mailto:contact@renovco.fr">contact@renovco.fr</a></div>
+        <div style="margin-top:1.5rem;padding:1rem;background:rgba(255,255,255,.06);border-radius:10px;font-size:.82rem;color:rgba(255,255,255,.55);">
+          💬 Notre assistant IA répond aux questions courantes 24h/24. Pour tout le reste, on vous répond par message sous 2h.
         </div>
-      </section>
+      </div>
+      <div>
+        <form class="contact-form" onsubmit="event.preventDefault();this.innerHTML='<p style=\'color:#00e5b0;font-size:1rem;padding:1rem;text-align:center;\'>✅ Message envoyé — Réponse sous 24h.</p>';">
+          <input type="text" placeholder="Votre prénom et nom" required>
+          <input type="email" placeholder="Votre email" required>
+          <input type="tel" placeholder="Votre téléphone">
+          <textarea placeholder="Votre demande..."></textarea>
+          <button type="submit" class="form-btn">Demander un devis →</button>
+          <p style="font-size:.7rem;color:rgba(255,255,255,.35);text-align:center;">Vos données sont utilisées uniquement pour vous répondre · RGPD</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <section class="services-section" aria-label="Prestations">
-        <p class="services-title">Nos prestations</p>
-        <p class="services-subtitle">Faites défiler ou swipez</p>
-        <div class="swipe-container" id="servicesSwipe"></div>
-        <div class="swipe-dots" id="servicesDots"></div>
-      </section>
+<footer>
+  <p>© 2026 Renov & Co · Artisan BTP · Bordeaux</p>
+  <p style="margin-top:.4rem;">Site créé & automatisé par <a href="https://pinapp.fr">Pinapp Studio</a></p>
+</footer>
 
-      <section class="section" aria-label="Feature interactive">
-        <div id="demo-feature" class="demo-feature-section"></div>
-      </section>
-      <section class="preuve-section" aria-label="Témoignage">
-        <div style="max-width: 560px">
-          <p class="preuve-avis" id="preuveAvis"></p>
-          <p class="preuve-auteur" id="preuveAuteur"></p>
-          <p class="demo-label">Citation type · scénario de présentation</p>
-          <div class="badges"></div>
-        </div>
-      </section>
+<div class="demo-badge">
+  <span>Démo Pinapp Studio</span>
+  <a href="https://pinapp.fr">pinapp.fr</a>
+</div>
 
-      <section class="booking-section" id="booking" aria-label="Réservation">
-        <p class="booking-title" id="bookingTitle">Demande de contact</p>
-        <p class="booking-sub">Quelques secondes suffisent.</p>
-        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-        <div class="questions-wrapper">
-          <div class="question active" id="q1">
-            <p class="question-label" id="l1"></p>
-            <div class="pills" id="pills1"></div>
-          </div>
-          <div class="question" id="q2">
-            <p class="question-label" id="l2"></p>
-            <div class="pills" id="pills2"></div>
-          </div>
-          <div class="question" id="q3">
-            <p class="question-label" id="l3"></p>
-            <div class="pills" id="pills3"></div>
-          </div>
-          <div class="question" id="qfin">
-            <div class="confirmation">
-              <svg class="check-circle" id="checkCircle" viewBox="0 0 56 56" fill="none" aria-hidden="true">
-                <circle cx="28" cy="28" r="26" stroke="#39E075" stroke-width="2" />
-                <polyline
-                  points="16,28 24,36 40,20"
-                  stroke="#39E075"
-                  stroke-width="2.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round" />
-              </svg>
-              <p class="confirm-text" id="confirmText"></p>
-              <p class="confirm-sub">Vous serez contacté(e) sous 24h.</p>
-              <p class="demo-label" style="margin-top: 8px">Vitrine : ce formulaire ne transmet aucune donnée.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <span><span id="footNom"></span> · <span id="footZone"></span></span>
-      <span style="display: flex; align-items: center; gap: 12px">
-        <a class="pinapp-back" href="../../index.html#onboarding">Pinapp Studio</a>
-        <span class="footer-demo">Scénario</span>
-      </span>
-    </footer>
-
-    <script src="../../assets/js/pinapp-particles.js"></script>
-    <script src="../../assets/js/pandora-night.js" defer></script>
-    <script src="../../assets/js/cursor.js" defer></script>
-    <script src="../../assets/js/intelligence.js" defer></script>
-    <script src="../../assets/js/scroll-cinema.js" defer></script>
-    <script src="../../assets/js/pinapp-master-v3.js" defer></script>
-    <script src="../../assets/js/pinapp-master-v4.js" defer></script>
-  </body>
+<script>
+// Scroll animations
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
+      obs.unobserve(e.target);
+    }
+  });
+}, {threshold:0.1});
+document.querySelectorAll('.service-card,.about-grid,.contact-grid').forEach(el => {
+  el.style.opacity='0';
+  el.style.transform='translateY(24px)';
+  el.style.transition='opacity .6s ease,transform .6s ease';
+  obs.observe(el);
+});
+</script>
+</body>
 </html>
