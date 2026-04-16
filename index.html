@@ -853,6 +853,64 @@ section.is-visible h2{opacity:1;transform:none}
 @media(max-width:768px){section[id]:not(#top){opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}section[id].is-visible{opacity:1;transform:none}}
 }
 .scroll-progress-bar{position:fixed;top:0;left:0;height:2.5px;width:0%;background:linear-gradient(90deg,#00E5B0,#9B6DFF,#FF6B9D);z-index:9999;box-shadow:0 0 8px rgba(0,229,176,.5);transition:width .1s linear}
+</style><style id="burger-apple-style">
+.drawer{position:fixed!important;inset:0!important;width:100%!important;height:100dvh!important;background:rgba(6,10,20,.97)!important;backdrop-filter:blur(24px) saturate(1.8)!important;-webkit-backdrop-filter:blur(24px) saturate(1.8)!important;z-index:200!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;opacity:0;pointer-events:none;transform:translateY(-12px);transition:opacity .35s cubic-bezier(.4,0,.2,1),transform .35s cubic-bezier(.4,0,.2,1)!important;padding:0!important}
+.drawer.open{opacity:1!important;pointer-events:all!important;transform:none!important}
+.drawer__panel{display:flex!important;flex-direction:column!important;align-items:center!important;gap:0!important;width:100%!important;padding:0 2rem!important}
+.drawer__panel a{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif!important;font-size:clamp(1.6rem,5vw,2.2rem)!important;font-weight:600!important;letter-spacing:-.02em!important;color:rgba(255,255,255,.92)!important;text-decoration:none!important;padding:.65rem 0!important;border-bottom:1px solid rgba(255,255,255,.06)!important;width:100%!important;max-width:480px!important;text-align:center!important;transition:color .2s ease,transform .2s ease!important;opacity:0;transform:translateY(16px)}
+.drawer.open .drawer__panel a{opacity:1!important;transform:none!important}
+.drawer.open .drawer__panel a:nth-child(1){transition-delay:.06s!important}
+.drawer.open .drawer__panel a:nth-child(2){transition-delay:.11s!important}
+.drawer.open .drawer__panel a:nth-child(3){transition-delay:.16s!important}
+.drawer.open .drawer__panel a:nth-child(4){transition-delay:.21s!important}
+.drawer.open .drawer__panel a:nth-child(5){transition-delay:.26s!important}
+.drawer.open .drawer__panel a:nth-child(6){transition-delay:.31s!important}
+.drawer__panel a:hover{color:#00E5B0!important;transform:translateY(-2px)!important}
+.drawer__panel a:last-child{color:#00E5B0!important;font-size:clamp(1rem,3vw,1.2rem)!important;font-weight:700!important;letter-spacing:.05em!important;text-transform:uppercase!important;border:1.5px solid rgba(0,229,176,.4)!important;border-radius:40px!important;padding:.75rem 2.5rem!important;margin-top:1.5rem!important;width:auto!important;transition-delay:.36s!important}
+.drawer__panel a:last-child:hover{background:rgba(0,229,176,.1)!important;border-color:#00E5B0!important}
+.nav__burger{position:relative!important;z-index:300!important;width:40px!important;height:40px!important;display:flex!important;align-items:center!important;justify-content:center!important;background:none!important;border:none!important;cursor:pointer!important;padding:0!important}
+.nav__burger span{position:absolute!important;width:22px!important;height:1.5px!important;background:currentColor!important;border-radius:2px!important;transition:transform .3s cubic-bezier(.4,0,.2,1),opacity .2s ease!important;left:50%!important;transform-origin:center!important}
+.nav__burger span:nth-child(1){transform:translateX(-50%) translateY(-5px)!important}
+.nav__burger span:nth-child(2){transform:translateX(-50%)!important}
+.nav__burger span:nth-child(3){transform:translateX(-50%) translateY(5px)!important}
+.nav__burger.is-open span:nth-child(1){transform:translateX(-50%) rotate(45deg)!important}
+.nav__burger.is-open span:nth-child(2){opacity:0!important;transform:translateX(-50%) scaleX(0)!important}
+.nav__burger.is-open span:nth-child(3){transform:translateX(-50%) rotate(-45deg)!important}
+.drawer__close-area{position:absolute;inset:0;z-index:-1}
+</style><style id="video-section-style">
+.section-video{padding:5rem 0 6rem;position:relative;overflow:hidden;background:transparent}
+.section-video .video-wrap{max-width:1100px;margin:0 auto;padding:0 1.5rem;display:flex;flex-direction:column;align-items:center;text-align:center}
+.video-label{font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#00E5B0;margin-bottom:1rem;opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease}
+.section-video.is-visible .video-label{opacity:1;transform:none}
+.video-title{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',Georgia,sans-serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:700;letter-spacing:-.03em;color:#F0FAFA;margin-bottom:.75rem;line-height:1.1;opacity:0;transform:translateY(16px);transition:opacity .6s ease .1s,transform .6s ease .1s}
+.section-video.is-visible .video-title{opacity:1;transform:none}
+.video-accent{background:linear-gradient(100deg,#00E5B0,#9B6DFF,#FF6B9D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.video-sub{font-size:1rem;color:rgba(240,250,250,.55);margin-bottom:2.5rem;opacity:0;transition:opacity .5s ease .2s}
+.section-video.is-visible .video-sub{opacity:1}
+.video-player{width:100%;max-width:900px;aspect-ratio:16/9;border-radius:18px;overflow:hidden;position:relative;box-shadow:0 0 0 1px rgba(0,229,176,.15),0 32px 64px rgba(0,0,0,.5),0 0 80px rgba(0,229,176,.06);opacity:0;transform:translateY(24px) scale(.98);transition:opacity .7s ease .3s,transform .7s cubic-bezier(.4,0,.2,1) .3s}
+.section-video.is-visible .video-player{opacity:1;transform:none}
+.video-player:hover{box-shadow:0 0 0 1px rgba(0,229,176,.3),0 32px 80px rgba(0,0,0,.6),0 0 100px rgba(0,229,176,.1)}
+.video-placeholder{position:absolute;inset:0;background:#050d18;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.video-bg-cosmos{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 30% 40%,rgba(0,229,176,.06) 0%,transparent 60%),radial-gradient(ellipse 50% 50% at 75% 60%,rgba(155,109,255,.05) 0%,transparent 60%),radial-gradient(ellipse 40% 40% at 50% 20%,rgba(255,107,157,.04) 0%,transparent 60%);animation:cosmos-breathe 8s ease-in-out infinite alternate}
+@keyframes cosmos-breathe{0%{opacity:.7}100%{opacity:1}}
+.video-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:1.5rem}
+.video-badge-prod{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,229,176,.85);background:rgba(0,229,176,.08);border:1px solid rgba(0,229,176,.2);border-radius:40px;padding:.35rem .9rem}
+.video-prod-dot{width:6px;height:6px;border-radius:50%;background:#00E5B0;animation:prod-pulse 2s ease-in-out infinite}
+@keyframes prod-pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,229,176,.4)}50%{box-shadow:0 0 0 6px rgba(0,229,176,0)}}
+.video-play-btn{width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.1);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1.5px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;transition:background .25s ease,transform .25s ease,border-color .25s ease;outline:none}
+.video-play-btn:hover,.video-play-btn:focus{background:rgba(0,229,176,.2);border-color:rgba(0,229,176,.5);transform:scale(1.08)}
+.video-play-btn svg{margin-left:3px}
+.video-meta{display:flex;align-items:center;gap:.5rem;font-size:.75rem;color:rgba(255,255,255,.35);letter-spacing:.04em}
+.video-scanlines{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px);pointer-events:none;z-index:1}
+.video-corner{position:absolute;width:18px;height:18px;z-index:3}
+.video-corner--tl{top:12px;left:12px;border-top:1.5px solid rgba(0,229,176,.4);border-left:1.5px solid rgba(0,229,176,.4)}
+.video-corner--tr{top:12px;right:12px;border-top:1.5px solid rgba(0,229,176,.4);border-right:1.5px solid rgba(0,229,176,.4)}
+.video-corner--bl{bottom:12px;left:12px;border-bottom:1.5px solid rgba(0,229,176,.4);border-left:1.5px solid rgba(0,229,176,.4)}
+.video-corner--br{bottom:12px;right:12px;border-bottom:1.5px solid rgba(0,229,176,.4);border-right:1.5px solid rgba(0,229,176,.4)}
+.video-note{margin-top:1.5rem;font-size:.82rem;color:rgba(240,250,250,.35);opacity:0;transition:opacity .5s ease .5s}
+.section-video.is-visible .video-note{opacity:1}
+.video-note a{color:#00E5B0;text-decoration:none;font-weight:600}
+@media(max-width:768px){.video-player{border-radius:12px}.video-play-btn{width:56px;height:56px}}
 </style></head>
   <body>
     <div class="bg-light-veil" aria-hidden="true">
@@ -975,6 +1033,34 @@ section.is-visible h2{opacity:1;transform:none}
             </div>
           </div>
         </section>
+<section id="video-presentation" class="section-video" aria-label="Vidéo de présentation Pinapp Studio">
+  <div class="video-wrap">
+    <div class="video-label">Notre travail en images</div>
+    <h2 class="video-title">Voir avant de <span class="video-accent">décider.</span></h2>
+    <p class="video-sub">90 secondes. Le système, l'image, le résultat.</p>
+    <div class="video-player" id="videoPlayer">
+      <video id="mainVideo" preload="none" playsinline style="display:none;width:100%;height:100%;object-fit:cover;">
+        <source src="" type="video/mp4" />
+      </video>
+      <div class="video-placeholder" id="videoPlaceholder">
+        <div class="video-bg-cosmos"></div>
+        <div class="video-content">
+          <div class="video-badge-prod"><span class="video-prod-dot"></span>En production avec Micha</div>
+          <div class="video-play-btn" id="videoPlayBtn" tabindex="0" role="button" aria-label="Lancer la vidéo">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M8 5.5L22 14L8 22.5V5.5Z" fill="currentColor"/></svg>
+          </div>
+          <div class="video-meta"><span>Pinapp Studio × Micha</span><span class="video-dot-sep">·</span><span>2026</span></div>
+        </div>
+        <div class="video-scanlines" aria-hidden="true"></div>
+        <div class="video-corner video-corner--tl" aria-hidden="true"></div>
+        <div class="video-corner video-corner--tr" aria-hidden="true"></div>
+        <div class="video-corner video-corner--bl" aria-hidden="true"></div>
+        <div class="video-corner video-corner--br" aria-hidden="true"></div>
+      </div>
+    </div>
+    <p class="video-note">Bientôt disponible — <a href="#contact">Premier échange offert en attendant →</a></p>
+  </div>
+</section>
 <section class="section" id="engagements" data-reveal>
           <div class="wrap">
             <header class="section__head">
@@ -1801,6 +1887,18 @@ obs.observe(el);
 document.querySelectorAll('.bar-label,[class*="bar-val"],.chart-num').forEach(function(el){
 var m=el.textContent.match(/(\d+)/);if(m){el.dataset.count=m[1];el.dataset.suffix=el.textContent.replace(m[1],'').trim();el.textContent='0'+(el.dataset.suffix||'');obs.observe(el);}
 });
+})();
+</script><script id="burger-apple-js">
+(function(){
+var burger=document.querySelector('.nav__burger'),drawer=document.querySelector('.drawer');
+if(!burger||!drawer)return;
+var ca=document.createElement('div');ca.className='drawer__close-area';drawer.appendChild(ca);
+function open(){drawer.classList.add('open');burger.classList.add('is-open');burger.setAttribute('aria-expanded','true');drawer.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
+function close(){drawer.classList.remove('open');burger.classList.remove('is-open');burger.setAttribute('aria-expanded','false');drawer.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+burger.addEventListener('click',function(){drawer.classList.contains('open')?close():open();});
+ca.addEventListener('click',close);
+document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',close);});
 })();
 </script></body>
 </html>
