@@ -906,43 +906,130 @@
 .drawer__panel a:hover{color:#00E5B0;background:rgba(0,229,176,.07)}
 .drawer__panel a:last-child{margin-top:1.25rem;color:#00E5B0!important;border:1px solid rgba(0,229,176,.4);padding:.65rem 2.5rem;border-radius:40px;font-size:clamp(1rem,2.5vw,1.1rem)!important;letter-spacing:.04em;text-transform:uppercase;font-weight:700}
 .drawer__panel a:last-child:hover{background:rgba(0,229,176,.12)!important;border-color:rgba(0,229,176,.7)}
-</style><style id="anim-fix">
-/* Fix critique : animations visibles par défaut — révèlent au scroll */
-/* Empêche la page blanche au chargement */
-.card, .offer, .douleur, article:not(footer article),
-section h2, .badge, [class*="eyebrow"] {
-  opacity: 1 !important;
-  transform: none !important;
-  transition: none !important;
+</style><style id="pinapp-fx">
+/* ════════════════════════════════
+   SHIMMER CONSTRUISONS
+   ════════════════════════════════ */
+.hero__gradient {
+  background: linear-gradient(
+    100deg,
+    #00E5B0 0%,
+    #9B6DFF 28%,
+    #FF6B9D 52%,
+    #7FFFD4 76%,
+    #00E5B0 100%
+  ) !important;
+  background-size: 300% auto !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  animation: construisons-shimmer 3.5s linear infinite !important;
+  display: inline-block;
 }
-/* Re-activer les animations SEULEMENT après que JS ait chargé */
+@keyframes construisons-shimmer {
+  0%   { background-position: 0%   center; }
+  100% { background-position: 300% center; }
+}
+
+/* ════════════════════════════════
+   BOUTONS HERO — supprimer tdah-breathe
+   Remplacer par hover subtil uniquement
+   ════════════════════════════════ */
+#top .btn,
+#top a.btn,
+.hero__ctas a,
+.hero__ctas .btn {
+  animation: none !important;
+}
+/* CTA principal — glow teal au hover uniquement */
+.hero__ctas a:first-child,
+.hero__ctas .btn--primary,
+.hero__ctas .btn:first-child {
+  transition: transform 0.25s cubic-bezier(.34,1.56,.64,1),
+              box-shadow 0.25s ease !important;
+}
+.hero__ctas a:first-child:hover,
+.hero__ctas .btn--primary:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 28px rgba(0,229,176,0.35) !important;
+}
+/* Boutons ghost — hover simplifié */
+.hero__ctas a:not(:first-child),
+.hero__ctas .btn--ghost {
+  transition: color 0.2s ease,
+              border-color 0.2s ease,
+              background 0.2s ease !important;
+}
+.hero__ctas a:not(:first-child):hover,
+.hero__ctas .btn--ghost:hover {
+  border-color: rgba(0,229,176,0.5) !important;
+  color: #00E5B0 !important;
+  background: rgba(0,229,176,0.06) !important;
+}
+
+/* ════════════════════════════════
+   ANIMATIONS SCROLL — progressive enhancement
+   Visible par défaut, animent au scroll
+   ════════════════════════════════ */
+.card, .offer, .douleur,
+article:not(footer article),
+section:not(#top) h2 {
+  opacity: 1;
+  transform: none;
+}
 .js-ready .card:not(.is-visible),
 .js-ready .offer:not(.is-visible),
 .js-ready .douleur:not(.is-visible),
-.js-ready article:not(.is-visible):not(footer article),
-.js-ready section:not(#top) h2:not(.is-visible) {
+.js-ready article:not(.is-visible):not(footer article) {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity .55s cubic-bezier(.4,0,.2,1), transform .55s cubic-bezier(.4,0,.2,1);
+  transform: translateY(24px);
+  transition: opacity .5s cubic-bezier(.4,0,.2,1),
+              transform .5s cubic-bezier(.4,0,.2,1);
 }
 .js-ready .card.is-visible,
 .js-ready .offer.is-visible,
 .js-ready .douleur.is-visible,
-.js-ready article.is-visible,
-.js-ready section h2.is-visible {
+.js-ready article.is-visible {
   opacity: 1 !important;
   transform: none !important;
 }
+/* H2 slide depuis gauche au scroll */
+.js-ready section:not(#top) h2 {
+  opacity: 0;
+  transform: translateX(-14px);
+  transition: opacity .55s cubic-bezier(.4,0,.2,1) .05s,
+              transform .55s cubic-bezier(.4,0,.2,1) .05s;
+}
+.js-ready section.is-visible h2,
+.js-ready h2.is-visible {
+  opacity: 1 !important;
+  transform: none !important;
+}
+/* Hover cards */
+.card:hover, .offer:hover, .douleur:hover {
+  border-color: rgba(0,229,176,.35) !important;
+  box-shadow: 0 6px 24px rgba(0,229,176,.10) !important;
+  transform: translateY(-3px) !important;
+  transition: all .25s ease !important;
+}
 
-/* Fix gros blanc hero — supprimer padding-bottom excessif */
-#top { padding-bottom: 0 !important; min-height: auto !important; }
-#top .scroll-hint { margin-top: 1rem; }
+/* ════════════════════════════════
+   BARRE SCROLL PROGRESS
+   ════════════════════════════════ */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, #00E5B0, #9B6DFF, #FF6B9D);
+  z-index: 9999;
+  box-shadow: 0 0 6px rgba(0,229,176,.5);
+  transition: width .1s linear;
+}
 
-/* Section vidéo collée immédiatement sous le hero */
-#video-showreel { margin-top: 0 !important; }
-
-/* Supprimer ancienne section vidéo presentation si elle existe */
-#video-presentation { display: none !important; }
+/* Fix gros blanc hero */
+#top { min-height: 100svh; }
+#video-showreel, #video-presentation { display: block !important; }
 </style></head>
   <body>
     <div class="bg-light-veil" aria-hidden="true">
@@ -1962,22 +2049,28 @@ drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',clos
 document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
 drawer.addEventListener('click',function(e){if(e.target===drawer)close();});
 })();
-</script><script id="anim-ready-js">
+</script><script id="pinapp-scroll-js">
 (function(){
-  // Marquer le body comme prêt pour les animations
-  setTimeout(function(){
-    document.body.classList.add('js-ready');
-  }, 100);
+  // Barre progression
+  var bar = document.createElement('div');
+  bar.className = 'scroll-progress-bar';
+  document.body.prepend(bar);
+  window.addEventListener('scroll', function(){
+    var s = document.documentElement.scrollTop;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = max > 0 ? (s/max*100)+'%' : '0';
+  }, { passive:true });
 
-  // Observer qui ajoute is-visible
+  // Activer animations après chargement
+  setTimeout(function(){ document.body.classList.add('js-ready'); }, 80);
+
+  // IntersectionObserver
   if(!window.IntersectionObserver) {
-    // Fallback : tout visible
     document.querySelectorAll('.card,.offer,.douleur,article,h2').forEach(function(el){
       el.classList.add('is-visible');
     });
     return;
   }
-
   var obs = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
       if(e.isIntersecting){
@@ -1988,18 +2081,22 @@ drawer.addEventListener('click',function(e){if(e.target===drawer)close();});
   }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
 
   function observe(){
-    document.querySelectorAll('.card,.offer,.douleur,article:not(footer article),section:not(#top) h2').forEach(function(el,i){
-      var p = el.parentElement;
-      el.style.transitionDelay = (i % 4) * 0.08 + 's';
+    var els = document.querySelectorAll(
+      '.card,.offer,.douleur,article:not(footer article),section:not(#top) h2,section[id]:not(#top)'
+    );
+    var counters = {};
+    els.forEach(function(el){
+      var key = el.parentElement?.id || 'root';
+      counters[key] = (counters[key]||0);
+      el.style.transitionDelay = (counters[key]*0.08)+'s';
+      counters[key]++;
       obs.observe(el);
     });
   }
 
-  if(document.readyState === 'loading'){
+  if(document.readyState==='loading'){
     document.addEventListener('DOMContentLoaded', observe);
-  } else {
-    observe();
-  }
+  } else { observe(); }
 })();
 </script></body>
 </html>
