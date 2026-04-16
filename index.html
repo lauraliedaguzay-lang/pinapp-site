@@ -107,6 +107,76 @@
 <!doctype html>
 <html lang="fr" data-theme="dark">
   <head>
+<style id="pp-visibility-fix">
+/* ══ PINAPP — FIX VISIBILITÉ GLOBAL ══
+   Tous les éléments révèlent immédiatement.
+   L'animation IntersectionObserver reste en bonus si elle fonctionne.
+   Aucun contenu ne peut rester invisible. */
+
+/* Reset complet de toutes les classes reveal */
+.reveal,
+.anim-fade-hero,
+.anim-scale-hero,
+[class*="reveal"],
+.is-hidden,
+.card,
+.offer,
+.pack-card,
+.spec-card,
+.belief,
+article,
+.section-content,
+.douleur-card,
+.process-step,
+.crea-card,
+.crea-pack,
+.crea-formule,
+.c3-card,
+.soin-c,
+.studio-card,
+.formation-card,
+[class*="card"]:not(.n8n-node),
+.module-nav-item,
+.sb-frame,
+.shot-option {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+  animation-play-state: running !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease !important;
+}
+
+/* Section offres — forcer le contenu visible */
+#offres,
+#offres > *,
+#offres .wrap > * {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Section studio — image Micha visible */
+#studio img,
+#studio .studio-card,
+#studio [class*="studio"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Supprimer video-showreel */
+#video-showreel {
+  display: none !important;
+}
+
+/* Toutes les sections visibles */
+section {
+  visibility: visible !important;
+}
+
+/* Garantie finale : rien ne peut rester à opacity 0 par défaut */
+body * {
+  animation-fill-mode: forwards;
+}
+</style>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Pinapp — Systèmes digitaux, automatisation IA, design premium</title>
@@ -3850,6 +3920,26 @@ function cookieChoice(accept) {
   localStorage.setItem('pp_cookie_choice', accept ? 'yes' : 'no');
   document.getElementById('pp-cookies').classList.remove('visible');
 }
+</script>
+<script id="pp-visibility-js">
+(function(){
+  function makeVisible(){
+    // Forcer toutes les classes d'animation à leur état final
+    document.querySelectorAll('.reveal,[class*="reveal"],.is-hidden,.card,.offer,.pack-card,.spec-card,.belief,article').forEach(function(el){
+      el.classList.add('visible','is-visible','in-view');
+      el.style.opacity='1';
+      el.style.transform='none';
+      el.style.visibility='visible';
+    });
+  }
+  // Exécuter immédiatement, au DOMContentLoaded et au load
+  makeVisible();
+  document.addEventListener('DOMContentLoaded', makeVisible);
+  window.addEventListener('load', makeVisible);
+  // Et encore après 500ms pour les scripts tardifs
+  setTimeout(makeVisible, 500);
+  setTimeout(makeVisible, 1500);
+})();
 </script>
 </body>
 </html>
