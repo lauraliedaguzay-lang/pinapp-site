@@ -107,17 +107,7 @@
 <!doctype html>
 <html lang="fr" data-theme="dark">
   <head>
-<script id="pp-theme-init">
-(function(){
-  // Mode nuit par défaut — toujours
-  var saved = localStorage.getItem('pinapp-theme') || localStorage.getItem('theme') || 'dark';
-  // Si jamais l'utilisateur a choisi, on respecte. Sinon dark.
-  document.documentElement.setAttribute('data-theme', saved || 'dark');
-  if(!localStorage.getItem('pinapp-theme') && !localStorage.getItem('theme')) {
-    localStorage.setItem('pinapp-theme','dark');
-  }
-})();
-</script>
+<script id="pp-dark-init">(function(){try{["pinapp-vitrine-theme","ldr-theme","pandora-mode"].forEach(function(k){localStorage.removeItem(k)});}catch(e){}var s=null;try{s=localStorage.getItem("pinapp-theme")||localStorage.getItem("theme");}catch(e){}var t=(s==="light")?"light":"dark";document.documentElement.setAttribute("data-theme",t);try{localStorage.setItem("pinapp-theme",t);localStorage.setItem("theme",t);}catch(e){};})();</script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Pinapp — Systèmes digitaux, automatisation IA, design premium</title>
@@ -1118,16 +1108,6 @@ input:focus, select:focus, textarea:focus {
   window.addEventListener('load',buildSVG,{once:true});
 })();
 </script>
-<script id="force-dark-default">
-(function(){
-  // Forcer dark par défaut sauf si l'utilisateur a explicitement choisi light
-  var stored = localStorage.getItem('theme');
-  if(!stored || stored === 'dark') {
-    document.documentElement.setAttribute('data-theme','dark');
-    localStorage.setItem('theme','dark');
-  }
-})();
-</script>
 
 
 <style id="pp-drawer-css">
@@ -1322,7 +1302,7 @@ body>*:not(#pc):not(#ow){position:relative;z-index:1;}
           <a class="nav__logo" href="/" aria-label="Pinapp — Accueil" style="display:flex;align-items:center;gap:.5rem;text-decoration:none;">
   <img src="/assets/images/pinapp-logo.png" 
        alt="Logo Pinapp" 
-       height="44" style="height:44px;width:auto;display:block;filter:drop-shadow(0 0 8px rgba(155,109,255,.3));"
+       height="56" style="height:56px;width:auto;display:block;filter:drop-shadow(0 0 8px rgba(155,109,255,.3));"
        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
   <span style="display:none;align-items:center;gap:.25rem;font-size:1.05rem;font-weight:700;letter-spacing:-.02em;background:linear-gradient(100deg,#00E5B0,#9B6DFF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Pinapp <span style="font-size:.7em;opacity:.7;-webkit-text-fill-color:rgba(255,255,255,.5);color:rgba(255,255,255,.5);">Inc.</span></span>
 </a>
@@ -3070,113 +3050,7 @@ drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',clos
     if(e.target===drawer) close();
   });
 })();
-</script><script id="pandora-bg-js">
-window.addEventListener('load', function() {
-  var isLight = function(){ return document.documentElement.dataset.theme === 'light'; };
-  var canvas = document.getElementById('pc');
-  var oceanEl = document.getElementById('ow');
-  if(!canvas) return;
-  var ctx = canvas.getContext('2d');
-  var W=0, H=0, pts=[], aurora=[], frame=0, raf;
-
-  function resize(){
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize, {passive:true});
-
-  // Particules bioluminescentes Pandora
-  var PC = ['rgba(0,229,176,','rgba(155,109,255,','rgba(255,107,157,','rgba(127,255,212,','rgba(80,180,255,'];
-  for(var i=0;i<90;i++){
-    var c=PC[i%PC.length];
-    pts.push({
-      x:Math.random()*window.innerWidth, y:Math.random()*window.innerHeight,
-      r:Math.random()*1.6+0.4,
-      vx:(Math.random()-.5)*.16, vy:(Math.random()-.5)*.11,
-      col:c, ph:Math.random()*6.28,
-      fr:Math.random()*.009+.003,
-      mo:Math.random()*.5+.15
-    });
-  }
-
-  // Aurora boréale — 3 bandes
-  var AC=[['rgba(0,229,176,','rgba(155,109,255,'],['rgba(155,109,255,','rgba(255,107,157,'],['rgba(0,180,255,','rgba(0,229,176,']];
-  for(var j=0;j<3;j++){
-    aurora.push({
-      ry:.12+j*.22, amp:55+j*28, wl:.0028-j*.0004,
-      sp:.0007+j*.0003, ph:j*2.09, cols:AC[j], th:85+j*22
-    });
-  }
-
-  function tick(){
-    if(isLight()){
-      ctx.clearRect(0,0,W,H);
-      canvas.style.opacity='0';
-      oceanEl.style.display='block';
-      raf=requestAnimationFrame(tick); frame++; return;
-    }
-    canvas.style.opacity='1';
-    oceanEl.style.display='none';
-    ctx.clearRect(0,0,W,H);
-
-    // Aurora
-    aurora.forEach(function(a){
-      var g=ctx.createLinearGradient(0,0,W,0);
-      g.addColorStop(0,a.cols[0]+'0)');
-      g.addColorStop(.25,a.cols[0]+'.05)');
-      g.addColorStop(.5,a.cols[1]+'.08)');
-      g.addColorStop(.75,a.cols[0]+'.05)');
-      g.addColorStop(1,a.cols[1]+'0)');
-      ctx.beginPath();
-      ctx.moveTo(0,H*a.ry);
-      for(var x=0;x<=W;x+=3){
-        ctx.lineTo(x, H*a.ry + Math.sin(x*a.wl+frame*a.sp+a.ph)*a.amp);
-      }
-      for(var x2=W;x2>=0;x2-=3){
-        ctx.lineTo(x2, H*a.ry + Math.sin(x2*a.wl+frame*a.sp+a.ph)*a.amp + a.th);
-      }
-      ctx.closePath(); ctx.fillStyle=g; ctx.fill();
-    });
-
-    // Particules
-    pts.forEach(function(p){
-      p.x+=p.vx; p.y+=p.vy;
-      if(p.x<-5)p.x=W+5; if(p.x>W+5)p.x=-5;
-      if(p.y<-5)p.y=H+5; if(p.y>H+5)p.y=-5;
-      var op=p.mo*(.5+.5*Math.sin(frame*p.fr+p.ph));
-      var g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*7);
-      g.addColorStop(0,p.col+op+')');
-      g.addColorStop(.4,p.col+(op*.35)+')');
-      g.addColorStop(1,p.col+'0)');
-      ctx.beginPath(); ctx.arc(p.x,p.y,p.r*7,0,6.28); ctx.fillStyle=g; ctx.fill();
-      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,6.28);
-      ctx.fillStyle=p.col+Math.min(1,op*2)+')'; ctx.fill();
-    });
-
-    frame++;
-    raf=requestAnimationFrame(tick);
-  }
-
-  // Attendre un frame pour que le layout soit stable
-  requestAnimationFrame(function(){
-    resize();
-    tick();
-  });
-
-  // Observer changement de thème
-  new MutationObserver(function(){
-    resize();
-  }).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
-
-  // Reduced motion
-  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){
-    cancelAnimationFrame(raf);
-    canvas.style.display='none';
-  }
-});
 </script>
-
 <!-- ══ MODALS VALEURS ══ -->
 <div id="modal-ethique" class="valeur-modal" role="dialog" aria-modal="true" aria-label="Notre éthique" hidden>
   <div class="valeur-modal__backdrop"></div>
@@ -3536,121 +3410,6 @@ cite { font-size: .72rem; color: rgba(255,255,255,.35); font-style: italic; marg
 
   document.readyState==='loading' ? document.addEventListener('DOMContentLoaded', attach) : attach();
   window.addEventListener('load', function(){ attach(); setTimeout(attach,500); });
-})();
-</script>
-<script id="theme-ocean-patch">
-(function(){
-  function apply(theme){
-    var ow=document.getElementById('ow');
-    var pc=document.getElementById('pc');
-    var bg=document.getElementById('bg-canvas');
-    if(theme==='light'){
-      if(ow) ow.style.display='none';
-      if(pc) {pc.style.opacity='0';pc.style.pointerEvents='none';}
-      if(bg) {bg.style.opacity='0';bg.style.pointerEvents='none';}
-    } else {
-      if(ow) ow.style.display='block';
-      if(pc) {pc.style.opacity='1';pc.style.pointerEvents='';}
-      if(bg) {bg.style.opacity='1';bg.style.pointerEvents='';}
-    }
-  }
-  apply(document.documentElement.dataset.theme||'dark');
-  new MutationObserver(function(m){m.forEach(function(x){if(x.attributeName==='data-theme')apply(document.documentElement.dataset.theme);});}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
-  window.addEventListener('load',function(){
-    document.querySelectorAll('[id*="themeToggle"],[class*="theme-toggle"],[aria-label*="thème"],[aria-label*="theme"],[class*="themeBtn"]').forEach(function(b){b.addEventListener('click',function(){setTimeout(function(){apply(document.documentElement.dataset.theme);},50);});});
-  });
-})();
-</script>
-<script id="ldr-light-mode">
-(function(){
-  // High by the Beach — Lana Del Rey
-  // 3 couleurs. 0 animation. Chaleur Malibu.
-  var FOND = 'linear-gradient(175deg,#f8f3e8 0%,#f0e8d5 35%,#e8dcc5 65%,#f0e6d0 100%)';
-  var FOND_BG = '#f5f0e4';
-  var TXT = '#2a2018';
-  var TXT_DIM = 'rgba(42,32,24,0.65)';
-  var ACCENT = '#a06828';
-  var CARD_BG = 'rgba(255,252,244,0.88)';
-  var CARD_BORDER = 'rgba(200,175,140,0.25)';
-  var NAV_BG = 'rgba(250,246,236,0.94)';
-
-  var active = false;
-
-  function on(){
-    if(active) return; active = true;
-    // Body
-    document.body.style.setProperty('background', FOND, 'important');
-    document.body.style.setProperty('background-color', FOND_BG, 'important');
-    document.body.style.setProperty('color', TXT, 'important');
-    // Cacher fond nuit
-    ['bg-canvas','pc','ow','w1','w2','w3','w4','oc','ldr-grain','ldr-halo'].forEach(function(id){
-      var el=document.getElementById(id);
-      if(el){el.style.setProperty('opacity','0','important');el.style.setProperty('display','none','important');}
-    });
-    document.querySelectorAll('canvas').forEach(function(c){c.style.setProperty('opacity','0','important');});
-    // Halo soleil simple — 1 seul
-    var halo = document.getElementById('ldr-halo-simple');
-    if(!halo){
-      halo = document.createElement('div');
-      halo.id = 'ldr-halo-simple';
-      halo.style.cssText = 'position:fixed;top:0;left:0;right:0;height:55vh;pointer-events:none;z-index:0;background:radial-gradient(ellipse 100% 80% at 50% -10%,rgba(255,248,220,0.9) 0%,rgba(255,240,195,0.4) 40%,transparent 70%);';
-      document.body.appendChild(halo);
-    }
-    halo.style.setProperty('opacity','1','important');
-    // Nav
-    document.querySelectorAll('nav,.nav,#siteNav').forEach(function(el){
-      el.style.setProperty('background',NAV_BG,'important');
-      el.style.setProperty('border-bottom','1px solid rgba(200,175,130,0.2)','important');
-    });
-    // Titres
-    document.querySelectorAll('h1,h2,h3').forEach(function(el){
-      el.style.setProperty('color',TXT,'important');
-      el.style.setProperty('text-shadow','none','important');
-    });
-    // Texte
-    document.querySelectorAll('p:not(.construisons-svg-wrap p),li,.section-sub').forEach(function(el){
-      el.style.setProperty('color',TXT_DIM,'important');
-    });
-    // Cards
-    document.querySelectorAll('.card,.offer,article,.belief,.pack-card,.spec-card,.studio-card').forEach(function(el){
-      el.style.setProperty('background',CARD_BG,'important');
-      el.style.setProperty('border','1px solid '+CARD_BORDER,'important');
-      el.style.setProperty('backdrop-filter','blur(8px)','important');
-    });
-    // CTA primaire
-    document.querySelectorAll('.btn--primary,a.btn--primary').forEach(function(el){
-      el.style.setProperty('background','linear-gradient(135deg,#b06828,#8a4e18)','important');
-      el.style.setProperty('color','#faf5ec','important');
-    });
-    // Footer
-    var ft = document.querySelector('footer');
-    if(ft) ft.style.setProperty('background','rgba(235,220,190,0.4)','important');
-  }
-
-  function off(){
-    if(!active) return; active = false;
-    document.body.style.removeProperty('background');
-    document.body.style.removeProperty('background-color');
-    document.body.style.removeProperty('color');
-    ['bg-canvas','pc','ow'].forEach(function(id){
-      var el=document.getElementById(id);
-      if(el){el.style.removeProperty('opacity');el.style.removeProperty('display');}
-    });
-    document.querySelectorAll('canvas').forEach(function(c){c.style.removeProperty('opacity');});
-    var halo=document.getElementById('ldr-halo-simple');
-    if(halo) halo.style.opacity='0';
-    document.querySelectorAll('nav,.nav,#siteNav,h1,h2,h3,.card,.offer,article,.belief,.pack-card,.spec-card,.studio-card,.btn--primary,a.btn--primary,footer').forEach(function(el){
-      ['background','border','color','text-shadow','backdrop-filter'].forEach(function(p){el.style.removeProperty(p);});
-    });
-  }
-
-  function check(){
-    document.documentElement.dataset.theme === 'light' ? on() : off();
-  }
-
-  new MutationObserver(check).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
-  window.addEventListener('load',function(){check();setTimeout(check,300);},{once:true});
-  if(document.readyState!=='loading') check(); else document.addEventListener('DOMContentLoaded',check,{once:true});
 })();
 </script>
 <script id="pp-hamburger-fix">
