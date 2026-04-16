@@ -1027,61 +1027,6 @@ input:focus, select:focus, textarea:focus {
   border-radius: 0 2px 2px 0 !important;
   box-shadow: 0 0 12px rgba(0,229,176,0.6), 0 0 24px rgba(155,109,255,0.3) !important;
 }
-</style><style id="hero-shimmer">
-/* ── CONSTRUISONS — shimmer cyan→violet→rose→aqua ── */
-.hero__gradient {
-  background: linear-gradient(
-    100deg,
-    #00E5B0 0%,
-    #9B6DFF 28%,
-    #FF6B9D 52%,
-    #7FFFD4 72%,
-    #00E5B0 100%
-  ) !important;
-  background-size: 280% auto !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
-  color: transparent !important;
-  animation: pandora-shimmer 3.5s linear infinite !important;
-  display: inline-block !important;
-}
-@keyframes pandora-shimmer {
-  0%   { background-position: 0%   center; }
-  100% { background-position: 280% center; }
-}
-/* ── BOUTONS HERO — cohérence Apple ── */
-/* CTA principal — violet plein */
-.hero__ctas a:first-child,
-a.btn--primary, .btn--primary {
-  background: linear-gradient(135deg, #7c3aed, #5b21b6) !important;
-  border: none !important;
-  color: #fff !important;
-  border-radius: 40px !important;
-  padding: .7rem 1.5rem !important;
-  font-weight: 600 !important;
-  box-shadow: 0 4px 20px rgba(124,58,237,.35) !important;
-  transition: transform .2s ease, box-shadow .2s ease !important;
-}
-/* CTAs secondaires — glass pill cohérents */
-.hero__ctas a:not(:first-child),
-a[href*="demos"], a[href*="formations"],
-.btn--ghost, .btn:not(.btn--primary):not([type="submit"]) {
-  background: rgba(255,255,255,.07) !important;
-  border: 1px solid rgba(255,255,255,.2) !important;
-  color: rgba(255,255,255,.88) !important;
-  border-radius: 40px !important;
-  padding: .7rem 1.5rem !important;
-  font-weight: 500 !important;
-  backdrop-filter: blur(8px) !important;
-  transition: background .2s ease, border-color .2s ease !important;
-}
-.hero__ctas a:not(:first-child):hover,
-a[href*="demos"]:hover, a[href*="formations"]:hover {
-  background: rgba(255,255,255,.13) !important;
-  border-color: rgba(0,229,176,.4) !important;
-  color: #fff !important;
-}
 </style><style id="ocean-light-fix">
 /* ══ FOND OCÉAN AVATAR 2 — surface lumineuse ══ */
 html[data-theme="light"] body{
@@ -1198,6 +1143,29 @@ html[data-theme="light"] .pack-card,html[data-theme="light"] .spec-card{
   border:1px solid rgba(255,255,255,.22)!important;
   backdrop-filter:blur(14px)!important;
 }
+</style>
+<script id="hero-shimmer-js">
+(function(){
+  function go(){
+    var g=document.querySelector('.hero__gradient');if(!g)return;
+    if(!document.getElementById('_skf')){var s=document.createElement('style');s.id='_skf';s.textContent='@keyframes pandora-shimmer{0%{background-position:0% center}100%{background-position:280% center}}';document.head.appendChild(s);}
+    g.style.setProperty('background','linear-gradient(100deg,#00E5B0 0%,#9B6DFF 28%,#FF6B9D 52%,#7FFFD4 72%,#00E5B0 100%)','important');
+    g.style.setProperty('background-size','280% auto','important');
+    g.style.setProperty('-webkit-background-clip','text','important');
+    g.style.setProperty('-webkit-text-fill-color','transparent','important');
+    g.style.setProperty('background-clip','text','important');
+    g.style.setProperty('color','transparent','important');
+    g.style.setProperty('animation','pandora-shimmer 3.5s linear infinite','important');
+    g.style.setProperty('display','inline-block','important');
+  }
+  document.readyState==='loading'?document.addEventListener('DOMContentLoaded',go):go();
+  window.addEventListener('load',function(){go();setTimeout(go,400);setTimeout(go,1200);});
+})();
+</script>
+<style id="prevente-style">
+.prevente-badge{display:inline-flex;align-items:center;gap:.3rem;font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.22rem .7rem;border-radius:40px;background:rgba(255,160,50,.12);color:#ffa032;border:1px solid rgba(255,160,50,.3);margin-bottom:.4rem;}
+.formations-prevente-note{text-align:center;margin:0 auto 1.75rem;font-size:.84rem;color:rgba(255,255,255,.55);background:rgba(255,160,50,.05);border:1px solid rgba(255,160,50,.15);border-radius:12px;padding:.7rem 1.2rem;max-width:600px;}
+.formations-prevente-note strong{color:#ffa032;}
 </style>
 </head>
   <body>
@@ -1348,6 +1316,7 @@ body>*:not(#pc):not(#ow){position:relative;z-index:1;}
             <a href="#contact">Contact</a>
             <a href="#formations">Formations</a>
             <a href="#studio">L'équipe</a>
+            <a href="https://lauraliedaguzay-lang.github.io/memoireetpresence/" target="_blank" rel="noopener" style="color:rgba(155,109,255,.9);border-color:rgba(155,109,255,.3) !important;">Mémoire &amp; Présence ↗</a>
             <a href="#contact" style="margin-top:.75rem;color:var(--accent,#00e5d4);font-weight:700;border-top:1px solid rgba(255,255,255,.1);padding-top:.75rem;">Premier échange offert →</a>
           </div>
         </div>
@@ -1393,7 +1362,7 @@ body>*:not(#pc):not(#ow){position:relative;z-index:1;}
           </div>
         </section>
 
-<section id="video-showreel" style="display:none!important;">
+<section id="video-showreel">
 <div style="max-width:900px;margin:0 auto;padding:3rem 1.25rem 2rem;display:flex;flex-direction:column;align-items:center;gap:1.25rem;">
 
 <div id="showreelPlayer" style="position:relative;width:100%;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#050d18;box-shadow:0 0 0 1px rgba(0,229,176,.15),0 24px 80px rgba(0,0,0,.7),0 0 60px rgba(0,229,176,.06);transition:box-shadow .4s ease;">
@@ -1555,7 +1524,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
               
             </div>
           </div>
-        </section>
+        <div style="text-align:center;margin-top:1.75rem;padding-bottom:.5rem;"><a href="#offres" style="display:inline-block;padding:.65rem 1.5rem;background:linear-gradient(135deg,#00e5b0,#00b4d8);border-radius:40px;color:#fff;text-decoration:none;font-size:.88rem;font-weight:600;">Voir nos solutions →</a></div></section>
 
 
 <section id="pourquoi" aria-label="Pourquoi maintenant">
@@ -1595,7 +1564,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
       <p style="font-size:.95rem;color:rgba(255,255,255,.75);margin:0;line-height:1.6;">Le marché du travail se réorganise <strong style="color:#00e5b0;">maintenant</strong> — pas dans 5 ans. <br>Les TPE qui agissent en 2026 construisent une avance que leurs concurrents mettront des années à combler.</p>
     </div>
   </div>
-</section>
+<div style="text-align:center;margin-top:1.75rem;padding-bottom:.5rem;"><a href="#offres" style="display:inline-block;padding:.65rem 1.5rem;background:rgba(255,255,255,.1);border-radius:40px;color:#fff;text-decoration:none;font-size:.88rem;font-weight:600;">Découvrir les offres →</a></div></section>
 
 
 <section class="section" id="offres" data-reveal>
@@ -1616,7 +1585,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
                   <li>Campagne visibilité initiale</li>
                 </ul>
                 <p class="price">1 290 &euro; HT · franchise TVA — vitrine cle en main</p>
-                <a class="btn btn--outline-violet js-tdah-open" href="#contact">Demarrer — reponse 24 h</a>
+                <a class="btn btn--outline-violet js-tdah-open" href="#contact">Démarrer — réponse 24h</a>
               </article>
               <article class="offer offer--featured">
                 <span class="badge badge--teal">Le plus complet</span>
@@ -1714,7 +1683,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
               </article>
             </div>
           </div>
-        </section>
+        <div style="text-align:center;margin-top:1.75rem;padding-bottom:.5rem;"><a href="#offres" style="display:inline-block;padding:.65rem 1.5rem;background:rgba(255,255,255,.1);border-radius:40px;color:#fff;text-decoration:none;font-size:.88rem;font-weight:600;">Voir les offres →</a></div></section>
 <section class="section" id="demos" data-reveal style="display:none;">
           <div class="wrap">
             <header class="section__head">
@@ -1904,7 +1873,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
             </div>
             
           </div>
-        </section>
+        <div style="text-align:center;margin-top:1.75rem;padding-bottom:.5rem;"><a href="#contact" style="display:inline-block;padding:.65rem 1.5rem;background:linear-gradient(135deg,#00e5b0,#00b4d8);border-radius:40px;color:#fff;text-decoration:none;font-size:.88rem;font-weight:600;">Lancer mon projet →</a></div></section>
 
       
 <section id="formations" data-reveal aria-label="Formations Pinapp">
@@ -2031,7 +2000,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
             <span class="pack-price">67 €</span>
             <span class="pack-price-note">Accès à vie · Mises à jour incluses</span>
           </div>
-          <a href="#contact" class="pack-cta pack-cta--ghost">Démarrer →</a>
+          <a href="#contact" class="pack-cta pack-cta--ghost">Liste d'attente →</a>
         </div>
       </div>
 
@@ -2061,7 +2030,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
             <span class="pack-price">197 €</span>
             <span class="pack-price-note">6 mois mises à jour · Templates offerts</span>
           </div>
-          <a href="#contact" class="pack-cta pack-cta--primary">Accéder →</a>
+          <a href="#contact" class="pack-cta pack-cta--primary">Liste d'attente →</a>
         </div>
       </div>
 
@@ -2092,7 +2061,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
             <span class="pack-price">497 €</span>
             <span class="pack-price-note">Accès vie entière · Coaching 1:1 inclus</span>
           </div>
-          <a href="#contact" class="pack-cta pack-cta--ghost">Réserver →</a>
+          <a href="#contact" class="pack-cta pack-cta--ghost">Liste d'attente →</a>
         </div>
       </div>
 
@@ -2111,7 +2080,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
           <div class="final">797 €</div>
           <span class="note">Accès vie entière à tout</span>
         </div>
-        <a href="#contact" class="pack-cta pack-cta--primary" style="font-size:.9rem;padding:.75rem 1.5rem;">Je veux tout →</a>
+        <a href="#contact" class="pack-cta pack-cta--primary" style="font-size:.9rem;padding:.75rem 1.5rem;">Liste d'attente →</a>
       </div>
     </div>
 
@@ -2129,7 +2098,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
           <p style="font-size:.78rem;color:rgba(255,255,255,.5);margin:0;">50 templates de prompts · Chain of thought · Claude API · Cas d'usage par secteur</p>
           <div class="spec-duration">⏱ 2h30 · 5 modules</div>
           <div class="spec-price">127 €</div>
-          <a href="#contact" class="spec-cta">Accéder →</a>
+          <a href="#contact" class="spec-cta">Liste d'attente →</a>
         </div>
 
         <div class="spec-card" data-level="outil">
@@ -2141,7 +2110,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
           <p style="font-size:.78rem;color:rgba(255,255,255,.5);margin:0;">20 workflows prêts à l'emploi · WhatsApp Business · Gestion erreurs · Nœuds custom</p>
           <div class="spec-duration">⏱ 3h · 6 modules</div>
           <div class="spec-price">167 €</div>
-          <a href="#contact" class="spec-cta">Accéder →</a>
+          <a href="#contact" class="spec-cta">Liste d'attente →</a>
         </div>
 
         <div class="spec-card" data-level="outil">
@@ -2153,7 +2122,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
           <p style="font-size:.78rem;color:rgba(255,255,255,.5);margin:0;">Vidéos IA pro · Animer des portraits · Fusion vidéo réelle + IA · Workflow de production</p>
           <div class="spec-duration">⏱ 2h · 5 modules</div>
           <div class="spec-price">117 €</div>
-          <a href="#contact" class="spec-cta">Accéder →</a>
+          <a href="#contact" class="spec-cta">Liste d'attente →</a>
         </div>
 
         <div class="spec-card" data-level="outil">
@@ -2165,7 +2134,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
           <p style="font-size:.78rem;color:rgba(255,255,255,.5);margin:0;">Landing page · Portfolio · Déploiement Hostinger · Connexion n8n · Maintenance autonome</p>
           <div class="spec-duration">⏱ 2h30 · 5 modules</div>
           <div class="spec-price">147 €</div>
-          <a href="#contact" class="spec-cta">Accéder →</a>
+          <a href="#contact" class="spec-cta">Liste d'attente →</a>
         </div>
 
       </div>
@@ -2593,9 +2562,19 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
         </div>
       
 <!-- Auralis RH teaser -->
-<div class="auralis-teaser" style="margin-top:2rem;padding:1rem 1.5rem;background:rgba(155,109,255,.06);border:1px solid rgba(155,109,255,.2);border-radius:14px;text-align:center;">
-  <p style="font-size:.78rem;color:rgba(155,109,255,.8);font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin:0 0 .3rem;">Bientôt disponible</p>
-  <p style="font-size:.88rem;color:rgba(255,255,255,.65);margin:0;"><strong style="color:rgba(155,109,255,.9);">Auralis RH</strong> — L'IA qui prend soin des équipes. Anti-burnout. Modulaire. Humain.</p>
+
+
+<div style="margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,.07);text-align:center;">
+  <p style="font-size:.72rem;color:rgba(255,255,255,.35);letter-spacing:.06em;text-transform:uppercase;margin:0 0 .75rem;">Nos autres services</p>
+  <div style="display:flex;justify-content:center;gap:1.25rem;flex-wrap:wrap;">
+    <a href="https://lauraliedaguzay-lang.github.io/memoireetpresence/" target="_blank" rel="noopener"
+       style="display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem;color:rgba(155,109,255,.8);text-decoration:none;padding:.4rem .9rem;background:rgba(155,109,255,.08);border:1px solid rgba(155,109,255,.2);border-radius:40px;transition:all .2s;">
+      🕯️ Mémoire &amp; Présence
+    </a>
+    <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem;color:rgba(255,160,50,.6);padding:.4rem .9rem;background:rgba(255,160,50,.05);border:1px solid rgba(255,160,50,.15);border-radius:40px;">
+      ⚡ Auralis RH — Bientôt
+    </span>
+  </div>
 </div>
 </footer>
     </div>
@@ -3345,6 +3324,23 @@ cite { font-size: .72rem; color: rgba(255,255,255,.35); font-style: italic; marg
       });
     });
   });
+})();
+</script>
+<script id="burger-fixed-js">
+(function(){
+  var t=document.querySelector('.nav__toggle');
+  var d=document.getElementById('navDrawer')||document.querySelector('.drawer');
+  if(!t||!d)return;
+  t.addEventListener('click',function(){
+    var o=t.getAttribute('aria-expanded')==='true';
+    t.setAttribute('aria-expanded',o?'false':'true');
+    d.classList[o?'remove':'add']('is-open');
+    document.body.style.overflow=o?'':'hidden';
+  });
+  d.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){t.setAttribute('aria-expanded','false');d.classList.remove('is-open');document.body.style.overflow='';});
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){t.setAttribute('aria-expanded','false');d.classList.remove('is-open');document.body.style.overflow='';}});
 })();
 </script>
 </body>
