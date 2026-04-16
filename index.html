@@ -833,6 +833,26 @@
 [data-theme='light'] .caustics span:nth-child(2){background:radial-gradient(circle,rgba(125,212,252,.18) 0%,rgba(0,150,200,.06) 55%,transparent 72%)!important;filter:blur(85px)!important;animation-duration:24s!important}
 [data-theme='light'] .caustics span:nth-child(3){background:radial-gradient(circle,rgba(200,245,255,.12) 0%,transparent 68%)!important;filter:blur(65px)!important;animation-duration:15s!important}
 [data-theme='light'] .card,[data-theme='light'] article,[data-theme='light'] .offer,[data-theme='light'] .douleur{background:rgba(0,180,220,.07)!important;border:1px solid rgba(0,229,212,.15)!important;backdrop-filter:blur(14px)!important;-webkit-backdrop-filter:blur(14px)!important}
+</style><style id="pandora-animations">
+@media (prefers-reduced-motion: no-preference) {
+.hero__gradient{background:linear-gradient(100deg,#00E5B0 0%,#9B6DFF 30%,#FF6B9D 55%,#7FFFD4 75%,#00E5B0 100%);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:pandora-shimmer 3.5s linear infinite;display:inline-block}
+@keyframes pandora-shimmer{0%{background-position:0% center}100%{background-position:300% center}}
+h1 .word{display:inline-block;opacity:0;transform:translateY(22px);animation:word-in .55s cubic-bezier(.22,1,.36,1) forwards}
+h1 .word:nth-child(1){animation-delay:.05s}h1 .word:nth-child(2){animation-delay:.13s}h1 .word:nth-child(3){animation-delay:.21s}h1 .word:nth-child(4){animation-delay:.29s}h1 .word:nth-child(5){animation-delay:.37s}h1 .word:nth-child(6){animation-delay:.45s}h1 .word:nth-child(7){animation-delay:.53s}h1 .word:nth-child(8){animation-delay:.61s}h1 .word:nth-child(9){animation-delay:.69s}h1 .word:nth-child(10){animation-delay:.77s}
+@keyframes word-in{to{opacity:1;transform:none}}
+.card,.offer,.douleur,article:not(footer article),.engagement__card{opacity:0;transform:translateY(28px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1),border-color .3s ease,box-shadow .3s ease}
+.card.is-visible,.offer.is-visible,.douleur.is-visible,article.is-visible,.engagement__card.is-visible{opacity:1;transform:none}
+.card:hover,.offer:hover,.douleur:hover{border-color:rgba(0,229,176,.45)!important;box-shadow:0 8px 32px rgba(0,229,176,.12),0 0 0 1px rgba(0,229,176,.2)!important;transform:translateY(-4px)!important}
+#engagements .card,#engagements article{transform:translateY(32px) rotateX(6deg);opacity:0;transform-origin:top center;transition:opacity .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1)}
+#engagements .card.is-visible,#engagements article.is-visible{opacity:1;transform:none}
+.btn--primary::after,a.btn:first-child::after{content:'';position:absolute;inset:0;border-radius:inherit;background:radial-gradient(circle at 50% 120%,rgba(0,229,176,.35) 0%,transparent 65%);animation:cta-aura 2.5s ease-in-out infinite;pointer-events:none}
+.btn--primary,a.btn:first-child{position:relative;overflow:hidden}
+@keyframes cta-aura{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.04)}}
+section h2{opacity:0;transform:translateX(-16px);transition:opacity .6s cubic-bezier(.4,0,.2,1) .1s,transform .6s cubic-bezier(.4,0,.2,1) .1s}
+section.is-visible h2{opacity:1;transform:none}
+@media(max-width:768px){section[id]:not(#top){opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}section[id].is-visible{opacity:1;transform:none}}
+}
+.scroll-progress-bar{position:fixed;top:0;left:0;height:2.5px;width:0%;background:linear-gradient(90deg,#00E5B0,#9B6DFF,#FF6B9D);z-index:9999;box-shadow:0 0 8px rgba(0,229,176,.5);transition:width .1s linear}
 </style></head>
   <body>
     <div class="bg-light-veil" aria-hidden="true">
@@ -1757,5 +1777,30 @@
         }
       })();
     </script>
-  </body>
+  <script id="pandora-anim-js">
+(function(){
+var bar=document.createElement('div');bar.className='scroll-progress-bar';document.body.prepend(bar);
+window.addEventListener('scroll',function(){var s=document.documentElement.scrollTop,h2=document.documentElement.scrollHeight-window.innerHeight;bar.style.width=h2>0?(s/h2*100)+'%':'0';},{passive:true});
+if(!('IntersectionObserver' in window))return;
+var stagger=new WeakMap();
+var obs=new IntersectionObserver(function(entries){
+entries.forEach(function(e){
+if(!e.isIntersecting)return;
+var el=e.target;el.classList.add('is-visible');
+if(el.dataset.count){var t=parseInt(el.dataset.count),dur=1400,cur=0,inc=t/(dur/16);var id=setInterval(function(){cur=Math.min(cur+inc,t);el.textContent=Math.round(cur)+(el.dataset.suffix||'');if(cur>=t)clearInterval(id);},16);}
+obs.unobserve(el);
+});
+},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+['section[id]','.card','.offer','.douleur','article','section h2'].forEach(function(sel){
+document.querySelectorAll(sel).forEach(function(el,i){
+var p=el.parentElement,idx=stagger.get(p)||0;stagger.set(p,idx+1);
+if(!el.style.transitionDelay)el.style.transitionDelay=(idx*0.09)+'s';
+obs.observe(el);
+});
+});
+document.querySelectorAll('.bar-label,[class*="bar-val"],.chart-num').forEach(function(el){
+var m=el.textContent.match(/(\d+)/);if(m){el.dataset.count=m[1];el.dataset.suffix=el.textContent.replace(m[1],'').trim();el.textContent='0'+(el.dataset.suffix||'');obs.observe(el);}
+});
+})();
+</script></body>
 </html>
