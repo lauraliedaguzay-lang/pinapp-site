@@ -1,3 +1,109 @@
+
+
+<style id="studio-style">
+#studio { padding: 5rem 0; }
+.studio-duo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.studio-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem 1.5rem;
+  background: rgba(255,255,255,.04);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.07);
+  text-align: center;
+  transition: transform .3s cubic-bezier(.4,0,.2,1), box-shadow .3s ease;
+}
+.studio-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.1);
+}
+.studio-photo-wrap {
+  position: relative;
+  width: 140px; height: 140px;
+}
+.studio-photo {
+  width: 140px; height: 140px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  border: 2px solid rgba(255,255,255,.15);
+}
+.studio-photo-placeholder {
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  border: 2px solid rgba(255,255,255,.15);
+}
+.studio-photo-placeholder--lauralie {
+  background: linear-gradient(135deg, #00e5b0, #9b6dff);
+}
+.studio-photo-placeholder--micha {
+  background: linear-gradient(135deg, #9b6dff, #ff6b9d);
+}
+.studio-initials { opacity: .9; }
+.studio-glow {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  animation: studio-glow-pulse 3s ease-in-out infinite;
+  pointer-events: none;
+}
+.studio-glow--teal  { box-shadow: 0 0 24px rgba(0,229,176,.25), 0 0 48px rgba(0,229,176,.10); }
+.studio-glow--violet { box-shadow: 0 0 24px rgba(155,109,255,.25), 0 0 48px rgba(155,109,255,.10); }
+@keyframes studio-glow-pulse {
+  0%,100% { opacity: .6; }
+  50%      { opacity: 1; }
+}
+.studio-info { display: flex; flex-direction: column; align-items: center; gap: .5rem; }
+.studio-info h3 { font-size: 1.35rem; font-weight: 700; color: white; margin: 0; }
+.studio-role { font-size: .82rem; color: rgba(0,229,176,.9); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; margin: 0; }
+.studio-bio { font-size: .9rem; color: rgba(255,255,255,.65); line-height: 1.6; margin: 0; max-width: 280px; }
+.studio-tags { display: flex; flex-wrap: wrap; gap: .4rem; justify-content: center; margin-top: .5rem; }
+.studio-tags span {
+  font-size: .72rem;
+  padding: .25rem .75rem;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 40px;
+  color: rgba(255,255,255,.7);
+  backdrop-filter: blur(8px);
+}
+.studio-tdah {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 2.5rem auto 0;
+  padding: 1.25rem 1.75rem;
+  background: rgba(0,229,176,.06);
+  border: 1px solid rgba(0,229,176,.2);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+}
+.studio-tdah__icon { font-size: 1.5rem; flex-shrink: 0; }
+.studio-tdah p { font-size: .92rem; color: rgba(255,255,255,.75); font-style: italic; margin: 0; line-height: 1.5; }
+@media (max-width: 768px) {
+  .studio-duo { grid-template-columns: 1fr; }
+  .studio-photo-wrap, .studio-photo, .studio-photo-placeholder { width: 120px; height: 120px; }
+}
+</style>
+
 <!doctype html>
 <html lang="fr" data-theme="dark">
   <head>
@@ -179,141 +285,7 @@
         margin-bottom: 0.75rem;
       }
     </style>
-    <style id="pandora-audit-fix">
-      /* Aiguilleur hero */
-      .hero-2026__aiguilleur {
-        margin-top: 2rem;
-      }
-      .hero-2026__aiguilleur-label {
-        font-size: 0.72rem;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--text-dim);
-        margin-bottom: 0.75rem;
-      }
-      .hero-2026__aiguilleur-btns {
-        display: flex;
-        gap: 0.75rem;
-        flex-wrap: wrap;
-      }
-      .aiguilleur-btn {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.15rem;
-        padding: 0.75rem 1rem;
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        background: var(--bg-card);
-        text-decoration: none;
-        transition: all var(--t);
-        min-width: 130px;
-      }
-      .aiguilleur-btn:hover {
-        border-color: var(--border-accent);
-        background: var(--bg-card-hover);
-        transform: translateY(-2px);
-      }
-      .aiguilleur-btn__icon {
-        font-size: 1.2rem;
-      }
-      .aiguilleur-btn__label {
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: var(--text);
-      }
-      .aiguilleur-btn__sub {
-        font-size: 0.7rem;
-        color: var(--text-muted);
-      }
-
-      /* Card meta (delai + garantie) */
-      .card-2026__meta {
-        display: flex;
-        flex-direction: column;
-        gap: 0.3rem;
-        margin-bottom: 0.75rem;
-      }
-      .card-2026__delai {
-        font-size: 0.75rem;
-        color: var(--text-muted);
-      }
-      .card-2026__garantie {
-        font-size: 0.75rem;
-        color: var(--accent);
-        font-weight: 600;
-      }
-      .card-2026__price-why {
-        display: block;
-        font-size: 0.68rem;
-        color: var(--text-dim);
-        margin-top: 0.15rem;
-        font-style: italic;
-      }
-      .card-2026__roi-line {
-        font-size: 0.8rem;
-        color: var(--accent);
-        background: var(--accent-glow);
-        border-radius: var(--radius-sm);
-        padding: 0.5rem 0.75rem;
-        margin-bottom: 0.75rem;
-        line-height: 1.5;
-      }
-
-      /* Bouton WhatsApp Micha */
-      .btn-micha-whatsapp {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-top: 1rem;
-        padding: 0.65rem 1.1rem;
-        border-radius: var(--radius-sm);
-        background: #25d366;
-        color: #fff;
-        font-size: 0.85rem;
-        font-weight: 600;
-        text-decoration: none;
-        transition:
-          opacity var(--t),
-          box-shadow var(--t);
-      }
-      .btn-micha-whatsapp:hover {
-        opacity: 0.88;
-        box-shadow: 0 0 20px rgba(37, 211, 102, 0.3);
-      }
-
-      /* Formations extras */
-      .formations-2026__coming-soon {
-        font-size: 0.875rem;
-        color: var(--accent);
-        background: var(--accent-glow);
-        border: 1px solid var(--border-accent);
-        border-radius: var(--radius);
-        padding: 0.75rem 1rem;
-        margin-bottom: 1.5rem;
-        text-align: center;
-      }
-      .formations-2026__roi {
-        font-size: 0.78rem;
-        color: var(--accent);
-        background: var(--accent-glow);
-        border-radius: var(--radius-sm);
-        padding: 0.4rem 0.65rem;
-        margin-bottom: 0.65rem;
-        line-height: 1.5;
-      }
-      .formations-2026__delai-f {
-        font-size: 0.72rem;
-        color: var(--text-muted);
-        margin-bottom: 0.3rem;
-      }
-      .formations-2026__garantie-f {
-        font-size: 0.72rem;
-        color: var(--accent);
-        font-weight: 600;
-        margin-bottom: 0.75rem;
-      }
-    </style>
+    <!-- style dupliqué supprimé -->
     <style id="pandora-tdah">
       /* TDAH : F-pattern, modale, friction reduite */
       .card p,
@@ -556,276 +528,8 @@
         }
       }
     </style>
-    <style id="pandora-audit-fix">
-      /* Aiguilleur hero */
-      .hero-2026__aiguilleur {
-        margin-top: 2rem;
-      }
-      .hero-2026__aiguilleur-label {
-        font-size: 0.72rem;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--text-dim);
-        margin-bottom: 0.75rem;
-      }
-      .hero-2026__aiguilleur-btns {
-        display: flex;
-        gap: 0.75rem;
-        flex-wrap: wrap;
-      }
-      .aiguilleur-btn {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.15rem;
-        padding: 0.75rem 1rem;
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        background: var(--bg-card);
-        text-decoration: none;
-        transition: all var(--t);
-        min-width: 130px;
-      }
-      .aiguilleur-btn:hover {
-        border-color: var(--border-accent);
-        background: var(--bg-card-hover);
-        transform: translateY(-2px);
-      }
-      .aiguilleur-btn__icon {
-        font-size: 1.2rem;
-      }
-      .aiguilleur-btn__label {
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: var(--text);
-      }
-      .aiguilleur-btn__sub {
-        font-size: 0.7rem;
-        color: var(--text-muted);
-      }
-
-      /* Card meta (delai + garantie) */
-      .card-2026__meta {
-        display: flex;
-        flex-direction: column;
-        gap: 0.3rem;
-        margin-bottom: 0.75rem;
-      }
-      .card-2026__delai {
-        font-size: 0.75rem;
-        color: var(--text-muted);
-      }
-      .card-2026__garantie {
-        font-size: 0.75rem;
-        color: var(--accent);
-        font-weight: 600;
-      }
-      .card-2026__price-why {
-        display: block;
-        font-size: 0.68rem;
-        color: var(--text-dim);
-        margin-top: 0.15rem;
-        font-style: italic;
-      }
-      .card-2026__roi-line {
-        font-size: 0.8rem;
-        color: var(--accent);
-        background: var(--accent-glow);
-        border-radius: var(--radius-sm);
-        padding: 0.5rem 0.75rem;
-        margin-bottom: 0.75rem;
-        line-height: 1.5;
-      }
-
-      /* Bouton WhatsApp Micha */
-      .btn-micha-whatsapp {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-top: 1rem;
-        padding: 0.65rem 1.1rem;
-        border-radius: var(--radius-sm);
-        background: #25d366;
-        color: #fff;
-        font-size: 0.85rem;
-        font-weight: 600;
-        text-decoration: none;
-        transition:
-          opacity var(--t),
-          box-shadow var(--t);
-      }
-      .btn-micha-whatsapp:hover {
-        opacity: 0.88;
-        box-shadow: 0 0 20px rgba(37, 211, 102, 0.3);
-      }
-
-      /* Formations extras */
-      .formations-2026__coming-soon {
-        font-size: 0.875rem;
-        color: var(--accent);
-        background: var(--accent-glow);
-        border: 1px solid var(--border-accent);
-        border-radius: var(--radius);
-        padding: 0.75rem 1rem;
-        margin-bottom: 1.5rem;
-        text-align: center;
-      }
-      .formations-2026__roi {
-        font-size: 0.78rem;
-        color: var(--accent);
-        background: var(--accent-glow);
-        border-radius: var(--radius-sm);
-        padding: 0.4rem 0.65rem;
-        margin-bottom: 0.65rem;
-        line-height: 1.5;
-      }
-      .formations-2026__delai-f {
-        font-size: 0.72rem;
-        color: var(--text-muted);
-        margin-bottom: 0.3rem;
-      }
-      .formations-2026__garantie-f {
-        font-size: 0.72rem;
-        color: var(--accent);
-        font-weight: 600;
-        margin-bottom: 0.75rem;
-      }
-    </style>
-    <style id="pandora-audit-fix">
-      /* Aiguilleur hero */
-      .hero-2026__aiguilleur {
-        margin-top: 2rem;
-      }
-      .hero-2026__aiguilleur-label {
-        font-size: 0.72rem;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--text-dim);
-        margin-bottom: 0.75rem;
-      }
-      .hero-2026__aiguilleur-btns {
-        display: flex;
-        gap: 0.75rem;
-        flex-wrap: wrap;
-      }
-      .aiguilleur-btn {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.15rem;
-        padding: 0.75rem 1rem;
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        background: var(--bg-card);
-        text-decoration: none;
-        transition: all var(--t);
-        min-width: 130px;
-      }
-      .aiguilleur-btn:hover {
-        border-color: var(--border-accent);
-        background: var(--bg-card-hover);
-        transform: translateY(-2px);
-      }
-      .aiguilleur-btn__icon {
-        font-size: 1.2rem;
-      }
-      .aiguilleur-btn__label {
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: var(--text);
-      }
-      .aiguilleur-btn__sub {
-        font-size: 0.7rem;
-        color: var(--text-muted);
-      }
-
-      /* Card meta (delai + garantie) */
-      .card-2026__meta {
-        display: flex;
-        flex-direction: column;
-        gap: 0.3rem;
-        margin-bottom: 0.75rem;
-      }
-      .card-2026__delai {
-        font-size: 0.75rem;
-        color: var(--text-muted);
-      }
-      .card-2026__garantie {
-        font-size: 0.75rem;
-        color: var(--accent);
-        font-weight: 600;
-      }
-      .card-2026__price-why {
-        display: block;
-        font-size: 0.68rem;
-        color: var(--text-dim);
-        margin-top: 0.15rem;
-        font-style: italic;
-      }
-      .card-2026__roi-line {
-        font-size: 0.8rem;
-        color: var(--accent);
-        background: var(--accent-glow);
-        border-radius: var(--radius-sm);
-        padding: 0.5rem 0.75rem;
-        margin-bottom: 0.75rem;
-        line-height: 1.5;
-      }
-
-      /* Bouton WhatsApp Micha */
-      .btn-micha-whatsapp {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-top: 1rem;
-        padding: 0.65rem 1.1rem;
-        border-radius: var(--radius-sm);
-        background: #25d366;
-        color: #fff;
-        font-size: 0.85rem;
-        font-weight: 600;
-        text-decoration: none;
-        transition:
-          opacity var(--t),
-          box-shadow var(--t);
-      }
-      .btn-micha-whatsapp:hover {
-        opacity: 0.88;
-        box-shadow: 0 0 20px rgba(37, 211, 102, 0.3);
-      }
-
-      /* Formations extras */
-      .formations-2026__coming-soon {
-        font-size: 0.875rem;
-        color: var(--accent);
-        background: var(--accent-glow);
-        border: 1px solid var(--border-accent);
-        border-radius: var(--radius);
-        padding: 0.75rem 1rem;
-        margin-bottom: 1.5rem;
-        text-align: center;
-      }
-      .formations-2026__roi {
-        font-size: 0.78rem;
-        color: var(--accent);
-        background: var(--accent-glow);
-        border-radius: var(--radius-sm);
-        padding: 0.4rem 0.65rem;
-        margin-bottom: 0.65rem;
-        line-height: 1.5;
-      }
-      .formations-2026__delai-f {
-        font-size: 0.72rem;
-        color: var(--text-muted);
-        margin-bottom: 0.3rem;
-      }
-      .formations-2026__garantie-f {
-        font-size: 0.72rem;
-        color: var(--accent);
-        font-weight: 600;
-        margin-bottom: 0.75rem;
-      }
-    </style>
+    <!-- style dupliqué supprimé -->
+    <!-- style dupliqué supprimé -->
   <style id="burger-apple-style">
 .drawer{position:fixed!important;inset:0!important;width:100%!important;height:100dvh!important;background:rgba(6,10,20,.97)!important;backdrop-filter:blur(24px) saturate(1.8)!important;-webkit-backdrop-filter:blur(24px) saturate(1.8)!important;z-index:200!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;opacity:0;pointer-events:none;transform:translateY(-12px);transition:opacity .35s cubic-bezier(.4,0,.2,1),transform .35s cubic-bezier(.4,0,.2,1)!important;padding:0!important}
 .drawer.open{opacity:1!important;pointer-events:all!important;transform:none!important}
@@ -1330,32 +1034,74 @@ input:focus, select:focus, textarea:focus {
   <svg class="wv" id="w1" viewBox="0 0 1440 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,100 C180,160 360,40 540,100 C720,160 900,40 1080,100 C1260,160 1380,100 1440,100 L1440,200 L0,200Z" fill="rgba(0,180,160,0.13)"/></svg>
   <svg class="wv" id="w2" viewBox="0 0 1440 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,120 C240,60 480,160 720,120 C960,80 1200,160 1440,120 L1440,200 L0,200Z" fill="rgba(0,210,190,0.09)"/></svg>
   <svg class="wv" id="w3" viewBox="0 0 1440 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,140 C360,100 720,180 1080,140 C1260,120 1380,150 1440,140 L1440,200 L0,200Z" fill="rgba(125,212,252,0.07)"/></svg>
-  <div id="oc"></div>
+  <svg class="wv" id="w4" viewBox="0 0 1440 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,60 C360,20 720,100 1080,60 C1260,40 1380,70 1440,60 L1440,200 L0,200Z" fill="rgba(180,240,245,0.10)"/></svg>
+    <div id="oc"></div>
 </div>
 <style id="bg-sys">
 #pc{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;}
 #ow{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;display:none;overflow:hidden;}
-.wv{position:absolute;bottom:0;left:0;width:200%;height:40%;}
+.wv{position:absolute;bottom:-2%;left:0;width:200%;min-height:55%;}
 #w1{animation:wv1 16s ease-in-out infinite alternate;will-change:transform;}
 #w2{animation:wv2 11s ease-in-out infinite alternate-reverse;left:-20%;will-change:transform;}
 #w3{animation:wv3 7s ease-in-out infinite alternate;left:5%;will-change:transform;}
+#w4{position:absolute;top:0;left:0;width:200%;height:55%;animation:wv4 20s ease-in-out infinite alternate-reverse;opacity:.6;}
 #oc{position:absolute;inset:0;background:
-  radial-gradient(ellipse 55% 40% at 18% 25%,rgba(0,229,176,.12) 0%,transparent 65%),
-  radial-gradient(ellipse 45% 35% at 82% 55%,rgba(125,212,252,.09) 0%,transparent 65%),
-  radial-gradient(ellipse 35% 28% at 50% 80%,rgba(0,180,220,.07) 0%,transparent 65%);
+  radial-gradient(ellipse 55% 40% at 18% 25%,rgba(0,229,176,.18) 0%,transparent 65%),
+  radial-gradient(ellipse 45% 35% at 82% 55%,rgba(125,212,252,.14) 0%,transparent 65%),
+  radial-gradient(ellipse 35% 28% at 50% 80%,rgba(0,200,240,.10) 0%,transparent 65%);
   animation:oc-drift 22s ease-in-out infinite alternate;will-change:transform;}
-@keyframes wv1{0%{transform:translateX(0) scaleY(1)}100%{transform:translateX(-14%) scaleY(1.1)}}
-@keyframes wv2{0%{transform:translateX(0) scaleY(.9)}100%{transform:translateX(11%) scaleY(1.05)}}
-@keyframes wv3{0%{transform:translateX(0) scaleY(1)}100%{transform:translateX(-7%) scaleY(1.15)}}
+@keyframes wv1{0%{transform:translateX(0) scaleY(1)}100%{transform:translateX(-14%) scaleY(1.12)}}
+@keyframes wv2{0%{transform:translateX(0) scaleY(.88)}100%{transform:translateX(11%) scaleY(1.08)}}
+@keyframes wv3{0%{transform:translateX(0) scaleY(1)}100%{transform:translateX(-7%) scaleY(1.18)}}
+@keyframes wv4{0%{transform:translateX(0) scaleY(1)}100%{transform:translateX(9%) scaleY(.92)}}
 @keyframes oc-drift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(2%,3%) scale(1.05)}}
-html[data-theme="dark"] body{background:linear-gradient(175deg,#0D0A1A 0%,#13072e 45%,#0a0d1e 100%)!important;}
-html[data-theme="light"] body,html[data-theme="light"] .page{background:linear-gradient(180deg,#0d5a75 0%,#083d55 18%,#061a2e 55%,#030e1a 100%)!important;}
-html[data-theme="light"] h1,html[data-theme="light"] h2,html[data-theme="light"] h3{color:#e0f7ff!important;}
-html[data-theme="light"] p,html[data-theme="light"] li{color:rgba(180,240,255,.75)!important;}
-html[data-theme="light"] nav{background:rgba(4,18,36,.88)!important;border-bottom:1px solid rgba(0,229,176,.15)!important;}
-html[data-theme="light"] .card,html[data-theme="light"] .offer,html[data-theme="light"] article{background:rgba(0,180,220,.07)!important;border:1px solid rgba(0,229,176,.14)!important;backdrop-filter:blur(12px)!important;}
+
+/* ── MODE NUIT PANDORA ── */
+html[data-theme="dark"] body,html:not([data-theme]) body{
+  background:linear-gradient(175deg,#0D0A1A 0%,#130828 40%,#0a0d1e 100%)!important;}
+html[data-theme="dark"] #pc{opacity:1!important;}
+html[data-theme="dark"] #ow{display:none!important;}
+
+/* ── MODE CLAIR AVATAR 2 — SURFACE LUMINEUSE ── */
+html[data-theme="light"] body,html[data-theme="light"] .page{
+  background:linear-gradient(
+    180deg,
+    #7ecad0 0%,
+    #4ba8b5 12%,
+    #2a7f8c 28%,
+    #1a5f6e 45%,
+    #0f3d4a 65%,
+    #082530 85%,
+    #041520 100%
+  )!important;
+}
+html[data-theme="light"] #pc{opacity:0!important;}
+html[data-theme="light"] #ow{display:block!important;}
+
+/* Textes lisibles sur fond océan */
+html[data-theme="light"] h1,html[data-theme="light"] h2,html[data-theme="light"] h3{color:#fff!important;text-shadow:0 2px 8px rgba(0,0,0,.3)!important;}
+html[data-theme="light"] p,html[data-theme="light"] li{color:rgba(255,255,255,.85)!important;}
+html[data-theme="light"] nav{background:rgba(0,80,100,.75)!important;border-bottom:1px solid rgba(255,255,255,.2)!important;backdrop-filter:blur(20px)!important;}
+html[data-theme="light"] .card,html[data-theme="light"] .offer,html[data-theme="light"] article{
+  background:rgba(255,255,255,.12)!important;
+  border:1px solid rgba(255,255,255,.2)!important;
+  backdrop-filter:blur(16px)!important;}
+
+/* Lumière de surface — reflets blancs en haut */
+html[data-theme="light"] body::before{
+  content:'';position:fixed;top:0;left:0;right:0;height:35vh;
+  background:radial-gradient(ellipse 100% 100% at 50% 0%,rgba(255,255,255,.25) 0%,transparent 70%);
+  pointer-events:none;z-index:0;}
+
+/* Vagues plus visibles */
+html[data-theme="light"] .wv path{opacity:.9!important;}
+html[data-theme="light"] #w1 path{fill:rgba(0,180,200,.25)!important;}
+html[data-theme="light"] #w2 path{fill:rgba(0,210,220,.20)!important;}
+html[data-theme="light"] #w3 path{fill:rgba(125,220,230,.15)!important;}
+html[data-theme="light"] #w4 path{fill:rgba(180,240,245,.10)!important;}
+
 body>*:not(#pc):not(#ow){position:relative;z-index:1;}
-@media(prefers-reduced-motion:reduce){#w1,#w2,#w3,#oc,#pc{animation:none!important;}}
+@media(prefers-reduced-motion:reduce){#w1,#w2,#w3,#w4,#oc{animation:none!important;}}
 </style>
 
 
@@ -1439,6 +1185,7 @@ body>*:not(#pc):not(#ow){position:relative;z-index:1;}
             <a href="#systemes">Systèmes</a>
             <a href="#demos">Réalisations</a>
             <a href="#contact">Contact</a>
+            <a href="#studio">L'équipe</a>
             <a href="#contact" style="margin-top:.75rem;color:var(--accent,#00e5d4);font-weight:700;border-top:1px solid rgba(255,255,255,.1);padding-top:.75rem;">Premier échange offert →</a>
           </div>
         </div>
@@ -1664,7 +1411,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
                   <li>Organisation des demandes</li>
                   <li>Campagne visibilité initiale</li>
                 </ul>
-                <p class="price">1 290 &euro; HT + TVA art. 293 B CGI — vitrine cle en main</p>
+                <p class="price">1 290 &euro; HT · franchise TVA — vitrine cle en main</p>
                 <a class="btn btn--outline-violet js-tdah-open" href="#contact">Demarrer — reponse 24 h</a>
               </article>
               <article class="offer offer--featured">
@@ -1677,7 +1424,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
                   <li>Contenus multi-formats</li>
                   <li>Tableau de bord de pilotage</li>
                 </ul>
-                <p class="price">2 400 &euro; HT + TVA art. 293 B CGI — système clé en main</p>
+                <p class="price">2 400 &euro; HT · franchise TVA — système clé en main</p>
                 <a class="btn btn--primary js-tdah-open" href="#contact">Accelerer — audit inclus</a>
               </article>
               <article class="offer">
@@ -1691,7 +1438,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
                   <li>Suivi et optimisation continue</li>
                   <li>Formations incluses</li>
                 </ul>
-                <p class="price">3 900 &euro; HT + TVA art. 293 B CGI — duo clé en main</p>
+                <p class="price">3 900 &euro; HT · franchise TVA — duo clé en main</p>
                 <a class="btn btn--ghost js-tdah-open" href="#contact">Transformer — un seul interlocuteur duo</a>
               </article>
             </div>
@@ -2194,7 +1941,218 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
             
           </div>
         </section>
-      </main>
+      <section id="contact" data-reveal aria-label="Nous contacter">
+  <div class="wrap">
+    <p class="section-eyebrow">Lançons votre projet</p>
+    <h2>On vous répond <span class="accent">sous 24h.</span></h2>
+    <p class="section-sub" style="max-width:460px;margin:.75rem auto 2rem;font-size:.95rem;opacity:.7;">Dites-nous l'essentiel. Claude analyse votre situation avant même qu'on vous réponde.</p>
+
+    <form id="contactForm" class="contact-form" novalidate>
+      <!-- Étape 1 : Vous -->
+      <div class="cf-step" data-step="1">
+        <p class="cf-step-label">1 / 4 — Vous</p>
+        <div class="cf-row">
+          <label class="cf-label" for="cf-prenom">Prénom *</label>
+          <input class="cf-input" type="text" id="cf-prenom" name="prenom" placeholder="Votre prénom" required autocomplete="given-name" />
+        </div>
+        <div class="cf-row">
+          <label class="cf-label" for="cf-email">Email *</label>
+          <input class="cf-input" type="email" id="cf-email" name="email" placeholder="votre@email.fr" required autocomplete="email" />
+        </div>
+        <div class="cf-row">
+          <label class="cf-label" for="cf-url">Votre site actuel</label>
+          <input class="cf-input" type="url" id="cf-url" name="url_site" placeholder="https://monsite.fr (si existant)" autocomplete="url" />
+        </div>
+        <button type="button" class="cf-next btn btn--primary" data-to="2">Suivant →</button>
+      </div>
+
+      <!-- Étape 2 : Votre activité -->
+      <div class="cf-step" data-step="2" hidden>
+        <p class="cf-step-label">2 / 4 — Votre activité</p>
+        <div class="cf-row">
+          <label class="cf-label">Votre secteur *</label>
+          <div class="cf-pills" id="cf-secteur">
+            <button type="button" class="cf-pill" data-val="Restauration / Hôtellerie">🍽 Restauration</button>
+            <button type="button" class="cf-pill" data-val="Santé / Bien-être">💆 Santé</button>
+            <button type="button" class="cf-pill" data-val="Artisan / Commerce local">🔨 Artisan</button>
+            <button type="button" class="cf-pill" data-val="Freelance / Conseil">💼 Freelance</button>
+            <button type="button" class="cf-pill" data-val="E-commerce">🛍 E-commerce</button>
+            <button type="button" class="cf-pill" data-val="Immobilier">🏠 Immobilier</button>
+            <button type="button" class="cf-pill" data-val="Autre">✦ Autre</button>
+          </div>
+          <input type="hidden" id="cf-secteur-val" name="secteur" />
+        </div>
+        <div class="cf-row">
+          <label class="cf-label" for="cf-besoin">Votre besoin principal *</label>
+          <div class="cf-pills" id="cf-besoin">
+            <button type="button" class="cf-pill" data-val="Un site vitrine premium">🌐 Site vitrine</button>
+            <button type="button" class="cf-pill" data-val="Automatisations et IA">🤖 Automatisations</button>
+            <button type="button" class="cf-pill" data-val="Vidéo et image de marque">🎬 Vidéo / Image</button>
+            <button type="button" class="cf-pill" data-val="Système complet (site + IA + vidéo)">⚡ Tout le système</button>
+          </div>
+          <input type="hidden" id="cf-besoin-val" name="besoin" />
+        </div>
+        <div class="cf-nav-btns">
+          <button type="button" class="cf-back" data-to="1">← Retour</button>
+          <button type="button" class="cf-next btn btn--primary" data-to="3">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- Étape 3 : Votre problème + budget -->
+      <div class="cf-step" data-step="3" hidden>
+        <p class="cf-step-label">3 / 4 — Votre situation</p>
+        <div class="cf-row">
+          <label class="cf-label" for="cf-probleme">Votre plus grand problème aujourd'hui *</label>
+          <textarea class="cf-input cf-textarea" id="cf-probleme" name="probleme" placeholder="Ex: Mon site date de 2018, je n'ai aucune automatisation, les relances me prennent 2h par semaine..." rows="3" required></textarea>
+        </div>
+        <div class="cf-row">
+          <label class="cf-label">Budget envisagé *</label>
+          <div class="cf-pills" id="cf-budget">
+            <button type="button" class="cf-pill" data-val="Moins de 1 500€">- 1 500€</button>
+            <button type="button" class="cf-pill" data-val="1 500€ – 3 000€">1 500 – 3 000€</button>
+            <button type="button" class="cf-pill" data-val="3 000€ – 5 000€">3 000 – 5 000€</button>
+            <button type="button" class="cf-pill" data-val="+ 5 000€">+ 5 000€</button>
+          </div>
+          <input type="hidden" id="cf-budget-val" name="budget" />
+        </div>
+        <div class="cf-row">
+          <label class="cf-label">Délai souhaité *</label>
+          <div class="cf-pills" id="cf-delai">
+            <button type="button" class="cf-pill" data-val="Urgent (- 1 mois)">🔥 Urgent</button>
+            <button type="button" class="cf-pill" data-val="1 à 2 mois">1-2 mois</button>
+            <button type="button" class="cf-pill" data-val="3 mois et +">3 mois+</button>
+          </div>
+          <input type="hidden" id="cf-delai-val" name="delai" />
+        </div>
+        <div class="cf-nav-btns">
+          <button type="button" class="cf-back" data-to="2">← Retour</button>
+          <button type="button" class="cf-next btn btn--primary" data-to="4">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- Étape 4 : Confirmation -->
+      <div class="cf-step" data-step="4" hidden>
+        <p class="cf-step-label">4 / 4 — Dernière chose</p>
+        <div class="cf-row">
+          <label class="cf-label" for="cf-message">Quelque chose à ajouter ? (optionnel)</label>
+          <textarea class="cf-input cf-textarea" id="cf-message" name="message" placeholder="Un contexte particulier, une contrainte, une question..." rows="3"></textarea>
+        </div>
+        <div class="cf-row cf-rgpd">
+          <label class="cf-checkbox-label">
+            <input type="checkbox" id="cf-rgpd" name="rgpd" required />
+            <span>J'accepte que mes données soient utilisées pour me contacter — <a href="/mentions-legales" style="color:var(--accent,#00e5b0);">politique de confidentialité</a>.</span>
+          </label>
+        </div>
+        <div class="cf-nav-btns">
+          <button type="button" class="cf-back" data-to="3">← Retour</button>
+          <button type="submit" class="btn btn--primary cf-submit">Envoyer ma demande →</button>
+        </div>
+      </div>
+
+      <!-- Confirmation -->
+      <div class="cf-success" hidden>
+        <div class="cf-success__icon">✓</div>
+        <h3>Message envoyé !</h3>
+        <p>Claude analyse votre dossier. Vous recevrez une réponse personnalisée sous 24h.</p>
+        <p style="font-size:.8rem;opacity:.5;margin-top:.5rem;">Une copie a été envoyée à votre email.</p>
+      </div>
+
+    </form>
+
+    <p class="contact-email-backup">Contact direct : <a href="mailto:contact@pinapp.fr">contact@pinapp.fr</a></p>
+  </div>
+
+  <style id="contact-style">
+  .contact-form{max-width:520px;margin:0 auto;background:rgba(255,255,255,.04);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:2rem;box-shadow:inset 0 1px 0 rgba(255,255,255,.07);}
+  .cf-step-label{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(0,229,176,.8);font-weight:600;margin:0 0 1.25rem;}
+  .cf-label{display:block;font-size:.82rem;font-weight:600;color:rgba(255,255,255,.7);margin-bottom:.4rem;letter-spacing:.02em;}
+  .cf-row{margin-bottom:1.25rem;}
+  .cf-input{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:.7rem 1rem;color:#fff;font-size:.95rem;transition:border-color .2s,box-shadow .2s;box-sizing:border-box;}
+  .cf-input:focus{border-color:rgba(0,229,176,.5);box-shadow:0 0 0 3px rgba(0,229,176,.1);outline:none;}
+  .cf-textarea{resize:vertical;min-height:80px;font-family:inherit;}
+  .cf-pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.5rem;}
+  .cf-pill{padding:.45rem 1rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:40px;color:rgba(255,255,255,.75);font-size:.82rem;cursor:pointer;transition:all .2s ease;white-space:nowrap;}
+  .cf-pill:hover,.cf-pill.active{background:rgba(0,229,176,.12);border-color:rgba(0,229,176,.4);color:#00e5b0;}
+  .cf-nav-btns{display:flex;gap:.75rem;justify-content:space-between;align-items:center;margin-top:1.5rem;}
+  .cf-back{background:none;border:none;color:rgba(255,255,255,.5);font-size:.85rem;cursor:pointer;padding:.5rem;transition:color .2s;}
+  .cf-back:hover{color:rgba(255,255,255,.8);}
+  .cf-checkbox-label{display:flex;align-items:flex-start;gap:.6rem;font-size:.8rem;color:rgba(255,255,255,.55);cursor:pointer;line-height:1.4;}
+  .cf-checkbox-label input{margin-top:2px;flex-shrink:0;accent-color:#00e5b0;}
+  .cf-rgpd{background:rgba(255,255,255,.03);padding:.75rem;border-radius:8px;border:1px solid rgba(255,255,255,.06);}
+  .cf-success{text-align:center;padding:2rem;}
+  .cf-success__icon{font-size:2.5rem;color:#00e5b0;margin-bottom:.75rem;}
+  .cf-success h3{color:#fff;margin:0 0 .5rem;}
+  .cf-success p{color:rgba(255,255,255,.65);}
+  .contact-email-backup{text-align:center;font-size:.82rem;color:rgba(255,255,255,.35);margin-top:1.25rem;}
+  .contact-email-backup a{color:rgba(0,229,176,.7);text-decoration:none;}
+  </style>
+
+  <script id="contact-form-js">
+  (function(){
+    var form = document.getElementById('contactForm');
+    if(!form) return;
+
+    // Pills toggle
+    form.querySelectorAll('.cf-pills').forEach(function(group){
+      var hiddenInput = form.querySelector('input[type="hidden"][id="cf-'+group.id.replace('cf-','')+'-val"]');
+      group.querySelectorAll('.cf-pill').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          group.querySelectorAll('.cf-pill').forEach(function(b){ b.classList.remove('active'); });
+          btn.classList.add('active');
+          if(hiddenInput) hiddenInput.value = btn.dataset.val;
+        });
+      });
+    });
+
+    // Navigation étapes
+    form.querySelectorAll('.cf-next').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var to = parseInt(btn.dataset.to);
+        // Validation basique étape courante
+        var curStep = form.querySelector('.cf-step:not([hidden])');
+        var required = curStep.querySelectorAll('[required]');
+        var valid = true;
+        required.forEach(function(el){ if(!el.value.trim()){ valid=false; el.style.borderColor='rgba(255,100,100,.5)'; } else { el.style.borderColor=''; } });
+        if(!valid) return;
+        form.querySelectorAll('.cf-step').forEach(function(s){ s.hidden=true; });
+        form.querySelector('.cf-step[data-step="'+to+'"]').hidden = false;
+        form.closest('.contact-form')?.scrollIntoView({behavior:'smooth',block:'nearest'});
+      });
+    });
+    form.querySelectorAll('.cf-back').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var to = parseInt(btn.dataset.to);
+        form.querySelectorAll('.cf-step').forEach(function(s){ s.hidden=true; });
+        form.querySelector('.cf-step[data-step="'+to+'"]').hidden = false;
+      });
+    });
+
+    // Submit
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var fd = new FormData(form);
+      var payload = {};
+      fd.forEach(function(v,k){ payload[k]=v; });
+
+      // Envoyer vers webhook n8n (à configurer) ou mailto fallback
+      var webhookUrl = 'https://n8n.pinapp.fr/webhook/contact'; // À configurer
+      fetch(webhookUrl, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(payload)
+      }).catch(function(){
+        // Fallback mailto si webhook indispo
+        var body = Object.entries(payload).map(function(e){ return e[0]+': '+e[1]; }).join('%0A');
+        window.location.href = 'mailto:contact@pinapp.fr?subject=Nouveau%20contact%20Pinapp&body='+body;
+      });
+
+      // Afficher confirmation
+      form.querySelectorAll('.cf-step').forEach(function(s){ s.hidden=true; });
+      form.querySelector('.cf-success').hidden = false;
+    });
+  })();
+  </script>
+</section></main>
 
       <footer class="footer">
         <div class="wrap">
@@ -2204,7 +2162,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
             <a href="/legal/mentions-legales.html">Mentions légales</a>
             <a href="/legal/cgv.html">CGV</a>
             <a href="mailto:contact@pinapp.fr">contact@pinapp.fr</a>
-            <a href="/histoire.html">Notre histoire</a>
+            
             <a href="https://www.linkedin.com/in/lauralie-daguzay-4a4542197/" rel="noopener noreferrer" target="_blank"
               >LinkedIn</a
             >
