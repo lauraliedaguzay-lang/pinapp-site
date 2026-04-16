@@ -1210,6 +1210,119 @@ section a.btn:hover, section button.btn:hover {
   box-shadow: 0 8px 24px rgba(0,0,0,.25) !important;
 }
 
+</style><style id="glass-apple">
+/* ── GLASSMORPHISM APPLE STYLE ── */
+
+/* Nav glassmorphism */
+nav, .nav {
+  background: rgba(10, 10, 20, 0.72) !important;
+  backdrop-filter: blur(20px) saturate(1.8) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.8) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.05) !important;
+}
+
+/* Cards glass premium */
+.card, .offer, .douleur, article:not(footer article),
+.engagement__card, [class*="card"]:not(nav):not(.nav__drawer) {
+  background: rgba(255,255,255,0.04) !important;
+  backdrop-filter: blur(16px) saturate(1.4) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(1.4) !important;
+  border: 1px solid rgba(255,255,255,0.09) !important;
+  border-radius: 16px !important;
+  box-shadow:
+    0 4px 24px rgba(0,0,0,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.08) !important;
+  transition: all 0.3s cubic-bezier(.4,0,.2,1) !important;
+}
+.card:hover, .offer:hover, .douleur:hover {
+  background: rgba(255,255,255,0.07) !important;
+  border-color: rgba(0,229,176,0.25) !important;
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.3),
+    0 0 0 1px rgba(0,229,176,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.12) !important;
+  transform: translateY(-3px) !important;
+}
+
+/* Section Offres — card highlighted */
+.offer.is-featured, .offer--featured, #offres .offer:nth-child(2) {
+  background: rgba(0,229,176,0.07) !important;
+  border-color: rgba(0,229,176,0.3) !important;
+  box-shadow:
+    0 0 0 1px rgba(0,229,176,0.2),
+    0 12px 40px rgba(0,229,176,0.08),
+    inset 0 1px 0 rgba(0,229,176,0.15) !important;
+}
+
+/* Formulaire contact glass */
+form, .contact-form, [class*="form"] {
+  background: rgba(255,255,255,0.03) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255,255,255,0.07) !important;
+  border-radius: 20px !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06) !important;
+}
+
+/* Inputs glass */
+input, select, textarea {
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  border-radius: 10px !important;
+  color: white !important;
+  backdrop-filter: blur(8px) !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: rgba(0,229,176,0.5) !important;
+  box-shadow: 0 0 0 3px rgba(0,229,176,0.12) !important;
+  outline: none !important;
+}
+
+/* Badges et pills glass */
+.badge, [class*="badge"], [class*="eyebrow"], [class*="label"]:not(label) {
+  background: rgba(255,255,255,0.07) !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  border-radius: 40px !important;
+}
+
+/* Boutons ghost glass */
+.btn--ghost, .btn:not(.btn--primary):not(a.btn:first-child) {
+  background: rgba(255,255,255,0.06) !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255,255,255,0.15) !important;
+  border-radius: 40px !important;
+}
+.btn--ghost:hover {
+  background: rgba(255,255,255,0.11) !important;
+  border-color: rgba(255,255,255,0.25) !important;
+}
+
+/* Section preuves — graphiques glass */
+#preuves .card, #preuves [class*="chart"], #preuves article {
+  background: rgba(255,255,255,0.03) !important;
+  backdrop-filter: blur(20px) saturate(1.6) !important;
+  border: 1px solid rgba(255,255,255,0.07) !important;
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.07) !important;
+}
+
+/* Drawer burger glass déjà fait — renforcer */
+.drawer {
+  background: rgba(6,8,20,0.94) !important;
+  backdrop-filter: blur(28px) saturate(2) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(2) !important;
+}
+
+/* Scroll progress bar — Apple Dynamic Island style */
+.scroll-progress-bar {
+  height: 3px !important;
+  border-radius: 0 2px 2px 0 !important;
+  box-shadow: 0 0 12px rgba(0,229,176,0.6), 0 0 24px rgba(155,109,255,0.3) !important;
+}
 </style></head>
   <body>
 <canvas id="pc" aria-hidden="true"></canvas>
@@ -1255,7 +1368,7 @@ body>*:not(#pc):not(#ow){position:relative;z-index:1;}
       <span class="bg-light-veil__pulse bg-light-veil__pulse--b"></span>
       <span class="bg-light-veil__pulse bg-light-veil__pulse--c"></span>
     </div>
-    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+    <canvas id="bg-canvas" style="position:fixed!important;top:0!important;left:0!important;z-index:-1!important;pointer-events:none!important;width:100%!important;height:100%!important;" aria-hidden="true"></canvas>
     <div class="bg-rays" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
     <a class="skip" href="#contenu">Aller au contenu</a>
     <div class="ellipses" aria-hidden="true">
