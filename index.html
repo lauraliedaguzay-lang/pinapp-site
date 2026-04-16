@@ -1035,54 +1035,7 @@ input:focus, select:focus, textarea:focus {
 .formations-prevente-note strong{color:#ffa032;}
 </style>
 
-<style id="ocean-light-fix">
-/* MODE CLAIR — AVATAR 2 SURFACE EAU LUMINEUSE */
-html[data-theme="light"] body{
-  background:linear-gradient(180deg,#a8e6ef 0%,#5bc5d4 12%,#2a8a9a 28%,#0d4a5c 50%,#061825 80%,#03101a 100%)!important;
-  color:#fff!important;
-}
-/* Halo soleil */
-html[data-theme="light"] .page::before{
-  content:'';position:fixed;top:0;left:0;right:0;height:50vh;
-  background:radial-gradient(ellipse 90% 60% at 50% -10%,rgba(255,255,255,.45) 0%,rgba(168,230,239,.2) 40%,transparent 70%);
-  pointer-events:none;z-index:0;animation:surf-halo 7s ease-in-out infinite alternate;
-}
-@keyframes surf-halo{0%{opacity:.75;transform:scaleY(1)}100%{opacity:1;transform:scaleY(1.05)}}
-/* Rayons soleil diagonaux */
-html[data-theme="light"] .page::after{
-  content:'';position:fixed;inset:0;
-  background:repeating-linear-gradient(-22deg,transparent 0%,transparent 4%,rgba(255,255,255,.03) 4%,rgba(255,255,255,.03) 5%,transparent 5%,transparent 11%,rgba(255,255,255,.02) 11%,rgba(255,255,255,.02) 12%);
-  pointer-events:none;z-index:0;animation:sun-rays 12s ease-in-out infinite alternate;
-}
-@keyframes sun-rays{0%{opacity:.5;transform:rotate(0)}100%{opacity:1;transform:rotate(1.5deg)}}
-/* Vagues */
-html[data-theme="light"] #ow{display:block!important;opacity:1!important;}
-html[data-theme="light"] #w1{animation:wv1 16s ease-in-out infinite alternate!important;}
-html[data-theme="light"] #w2{animation:wv2 11s ease-in-out infinite alternate-reverse!important;}
-html[data-theme="light"] #w3{animation:wv3 7s ease-in-out infinite alternate!important;}
-html[data-theme="light"] #w1 path{fill:rgba(0,160,190,.28)!important;}
-html[data-theme="light"] #w2 path{fill:rgba(0,200,215,.22)!important;}
-html[data-theme="light"] #w3 path{fill:rgba(125,220,230,.16)!important;}
-/* Caustics */
-html[data-theme="light"] #oc{
-  background:radial-gradient(ellipse 50% 35% at 15% 30%,rgba(255,255,255,.22) 0%,transparent 60%),
-  radial-gradient(ellipse 40% 28% at 80% 55%,rgba(168,230,239,.25) 0%,transparent 60%),
-  radial-gradient(ellipse 30% 22% at 50% 75%,rgba(255,255,255,.15) 0%,transparent 60%)!important;
-  animation:oc-drift 22s ease-in-out infinite alternate!important;
-}
-/* Canvas Pandora off */
-html[data-theme="light"] #pc{opacity:0!important;}
-/* Textes */
-html[data-theme="light"] h1,html[data-theme="light"] h2,html[data-theme="light"] h3{color:#fff!important;text-shadow:0 2px 16px rgba(0,40,60,.4)!important;}
-html[data-theme="light"] p,html[data-theme="light"] li,html[data-theme="light"] span:not(.accent){color:rgba(255,255,255,.9)!important;}
-/* Nav */
-html[data-theme="light"] nav,html[data-theme="light"] .nav{background:rgba(0,50,80,.82)!important;border-bottom:1px solid rgba(255,255,255,.25)!important;backdrop-filter:blur(20px)!important;}
-/* Cards */
-html[data-theme="light"] .card,html[data-theme="light"] .offer,html[data-theme="light"] article,
-html[data-theme="light"] .belief,html[data-theme="light"] .pack-card,html[data-theme="light"] .spec-card{
-  background:rgba(255,255,255,.15)!important;border:1px solid rgba(255,255,255,.28)!important;backdrop-filter:blur(14px)!important;
-}
-</style>
+
 <style id="construisons-svg-style">
 /* SVG construisons — immunisé contre tout CSS externe */
 .construisons-svg-wrap {
@@ -1241,7 +1194,300 @@ html[data-theme="light"] .belief,html[data-theme="light"] .pack-card,html[data-t
     setTimeout(buildSVG, 600);
   });
 })();
-</script></head>
+</script><style id="ocean-light-fix">
+/* ══ HIGH BY THE BEACH — MODE CLAIR COMPLET ══ */
+/* Toutes les règles avec !important pour battre style.css Hostinger */
+
+/* ── FOND PRINCIPAL : dégradé Malibu ── */
+html[data-theme="light"] body {
+  background: linear-gradient(
+    180deg,
+    #faf7f2 0%,
+    #eef4fa 8%,
+    #dde8f2 18%,
+    #cfdde8 32%,
+    #d8ccb4 55%,
+    #e8d8b8 72%,
+    #f4ead8 88%,
+    #faf2e4 100%
+  ) !important;
+  color: #2e2824 !important;
+}
+
+/* ── CANVAS PANDORA — off ── */
+html[data-theme="light"] #pc { opacity: 0 !important; pointer-events: none !important; }
+html[data-theme="light"] #bg-canvas { opacity: 0 !important; }
+
+/* ── VAGUES — off (remplacées par les nouvelles) ── */
+html[data-theme="light"] #ow { display: none !important; }
+
+/* ── HALOS DE LUMIÈRE MALIBU ── */
+html[data-theme="light"] body::before {
+  content: '' !important;
+  position: fixed !important;
+  inset: 0 !important;
+  background:
+    /* Soleil en surface — halo blanc surexposé */
+    radial-gradient(ellipse 90% 50% at 50% -8%, rgba(255,255,255,.95) 0%, rgba(255,255,255,.4) 30%, transparent 65%),
+    /* Reflet doré centre-droit */
+    radial-gradient(ellipse 55% 40% at 80% 25%, rgba(220,185,130,.22) 0%, transparent 55%),
+    /* Lueur piscine bleue à gauche */
+    radial-gradient(ellipse 50% 35% at 5% 35%, rgba(180,215,235,.2) 0%, transparent 55%),
+    /* Chaleur sable en bas */
+    radial-gradient(ellipse 80% 45% at 50% 105%, rgba(230,195,140,.3) 0%, transparent 60%)
+  !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+  animation: ldb-halos 9s ease-in-out infinite alternate !important;
+}
+@keyframes ldb-halos {
+  0%   { opacity: .75; transform: scale(1) translateY(0); }
+  100% { opacity: 1;   transform: scale(1.02) translateY(-8px); }
+}
+
+/* ── GRAIN PHOTO — texture brume Malibu ── */
+html[data-theme="light"] body::after {
+  content: '' !important;
+  position: fixed !important; inset: 0 !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.055'/%3E%3C/svg%3E") !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  mix-blend-mode: multiply !important;
+  opacity: .55 !important;
+}
+
+/* ── RAYONS SOLEIL DIAGONAUX — très doux ── */
+html[data-theme="light"] .page::before {
+  content: '' !important;
+  position: fixed !important; inset: 0 !important;
+  background: repeating-linear-gradient(
+    -28deg,
+    transparent 0%,
+    transparent 6%,
+    rgba(255,248,235,.035) 6%,
+    rgba(255,248,235,.035) 7%,
+    transparent 7%,
+    transparent 14%,
+    rgba(230,210,175,.025) 14%,
+    rgba(230,210,175,.025) 15%
+  ) !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  animation: ldb-rays 16s ease-in-out infinite alternate !important;
+}
+@keyframes ldb-rays {
+  0%   { opacity: .5; transform: rotate(0deg) translateX(0); }
+  100% { opacity: 1;  transform: rotate(1.5deg) translateX(8px); }
+}
+
+/* ── VAGUES SVG MALIBU — crème et sable ── */
+html[data-theme="light"] .page::after {
+  content: '' !important;
+  position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important;
+  height: 35vh !important;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 200' preserveAspectRatio='none'%3E%3Cpath fill='rgba(200,175,130,0.12)' d='M0,80 C200,140 400,20 600,80 C800,140 1000,20 1200,80 C1320,120 1400,100 1440,80 L1440,200 L0,200 Z'/%3E%3C/svg%3E") bottom/100% auto no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 200' preserveAspectRatio='none'%3E%3Cpath fill='rgba(170,200,220,0.1)' d='M0,120 C300,60 500,160 720,100 C940,40 1100,140 1440,100 L1440,200 L0,200 Z'/%3E%3C/svg%3E") bottom/120% auto no-repeat
+  !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  animation: ldb-waves 18s ease-in-out infinite alternate !important;
+}
+@keyframes ldb-waves {
+  0%   { transform: translateX(0) scaleY(1); opacity: .6; }
+  100% { transform: translateX(-3%) scaleY(1.15); opacity: 1; }
+}
+
+/* ── NAVIGATION ── */
+html[data-theme="light"] nav,
+html[data-theme="light"] .nav,
+html[data-theme="light"] .site-nav,
+html[data-theme="light"] #siteNav {
+  background: rgba(250,245,235,.88) !important;
+  border-bottom: 1px solid rgba(200,180,145,.2) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+}
+
+/* ── TEXTES ── */
+html[data-theme="light"] h1,
+html[data-theme="light"] h2,
+html[data-theme="light"] h3 {
+  color: #2e2824 !important;
+  text-shadow: 0 1px 6px rgba(200,175,130,.15) !important;
+}
+html[data-theme="light"] p,
+html[data-theme="light"] li,
+html[data-theme="light"] .section-sub {
+  color: rgba(46,40,36,.72) !important;
+}
+html[data-theme="light"] .section-eyebrow,
+html[data-theme="light"] [class*="eyebrow"],
+html[data-theme="light"] .badge {
+  color: #a07840 !important;
+  border-color: rgba(160,120,64,.3) !important;
+  background: rgba(232,208,160,.15) !important;
+}
+html[data-theme="light"] .accent,
+html[data-theme="light"] .hero__gradient {
+  color: #b06030 !important;
+}
+
+/* ── CARDS ── */
+html[data-theme="light"] .card,
+html[data-theme="light"] .offer,
+html[data-theme="light"] article,
+html[data-theme="light"] .belief,
+html[data-theme="light"] .pack-card,
+html[data-theme="light"] .spec-card,
+html[data-theme="light"] .studio-card,
+html[data-theme="light"] [class*="card"] {
+  background: rgba(255,252,245,.75) !important;
+  border: 1px solid rgba(200,180,148,.25) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  box-shadow: 0 4px 20px rgba(180,150,100,.08) !important;
+}
+html[data-theme="light"] .card:hover,
+html[data-theme="light"] .offer:hover,
+html[data-theme="light"] .belief:hover {
+  box-shadow: 0 12px 36px rgba(180,150,100,.15) !important;
+  border-color: rgba(200,165,110,.4) !important;
+}
+
+/* ── BOUTONS PRIMAIRES ── */
+html[data-theme="light"] .btn--primary,
+html[data-theme="light"] .btn-primary,
+html[data-theme="light"] a.btn--primary {
+  background: linear-gradient(135deg, #c8783c, #a05830) !important;
+  color: #faf5ec !important;
+  border: none !important;
+  box-shadow: 0 4px 16px rgba(180,100,40,.25) !important;
+}
+html[data-theme="light"] .btn--primary:hover {
+  box-shadow: 0 8px 28px rgba(180,100,40,.35) !important;
+}
+
+/* ── BOUTONS SECONDAIRES ── */
+html[data-theme="light"] .hero__ctas a:not(:first-child),
+html[data-theme="light"] .btn--ghost,
+html[data-theme="light"] a[href*="demos"],
+html[data-theme="light"] a[href*="formations"] {
+  background: rgba(255,252,245,.6) !important;
+  border: 1px solid rgba(200,175,135,.4) !important;
+  color: #7a5828 !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+/* ── TICKER ── */
+html[data-theme="light"] .ticker,
+html[data-theme="light"] [class*="ticker"] {
+  background: rgba(200,165,110,.12) !important;
+  border-top: 1px solid rgba(200,165,110,.2) !important;
+  border-bottom: 1px solid rgba(200,165,110,.2) !important;
+}
+html[data-theme="light"] .ticker__item,
+html[data-theme="light"] [class*="ticker"] span {
+  color: #8a6030 !important;
+}
+
+/* ── DRAWER / MENU MOBILE ── */
+html[data-theme="light"] .drawer,
+html[data-theme="light"] #navDrawer {
+  background: rgba(248,243,232,.97) !important;
+  border-left: 1px solid rgba(200,180,145,.2) !important;
+}
+html[data-theme="light"] .drawer a {
+  color: #3c3228 !important;
+}
+
+/* ── FORMULAIRE ── */
+html[data-theme="light"] input,
+html[data-theme="light"] select,
+html[data-theme="light"] textarea {
+  background: rgba(255,252,245,.85) !important;
+  border-color: rgba(200,175,135,.3) !important;
+  color: #2e2824 !important;
+}
+html[data-theme="light"] input:focus,
+html[data-theme="light"] select:focus {
+  border-color: rgba(180,120,55,.5) !important;
+  box-shadow: 0 0 0 3px rgba(180,120,55,.1) !important;
+}
+
+/* ── FOOTER ── */
+html[data-theme="light"] footer {
+  background: rgba(232,215,185,.3) !important;
+  border-top: 1px solid rgba(200,175,130,.2) !important;
+}
+
+/* ── MODALS VALEURS ── */
+html[data-theme="light"] .valeur-modal__panel {
+  background: linear-gradient(160deg, rgba(250,245,232,.98), rgba(240,232,215,.98)) !important;
+  border: 1px solid rgba(200,175,130,.2) !important;
+}
+html[data-theme="light"] .stat-number { color: #b06030 !important; }
+html[data-theme="light"] .valeur-modal__stat {
+  background: rgba(200,165,110,.08) !important;
+  border-color: rgba(200,165,110,.2) !important;
+}
+html[data-theme="light"] .valeur-modal__cta {
+  background: linear-gradient(135deg, #c8783c, #a05830) !important;
+}
+html[data-theme="light"] .valeur-modal__title { color: #2e2824 !important; }
+html[data-theme="light"] .valeur-modal__content p { color: rgba(46,40,36,.7) !important; }
+
+/* ── SECTIONS stats/chiffres ── */
+html[data-theme="light"] [style*="color:#00e5b0"],
+html[data-theme="light"] [style*="color: #00e5b0"] {
+  color: #b06030 !important;
+}
+html[data-theme="light"] [style*="color:rgba(0,229,176"] {
+  color: rgba(176,96,48,.8) !important;
+}
+
+/* ── SECTION PORTFOLIO TABS ── */
+html[data-theme="light"] .pt-btn {
+  background: rgba(255,252,245,.7) !important;
+  border-color: rgba(200,175,130,.25) !important;
+  color: rgba(46,40,36,.6) !important;
+}
+html[data-theme="light"] .pt-btn.on,
+html[data-theme="light"] .pt-btn:hover {
+  background: rgba(200,165,110,.15) !important;
+  border-color: rgba(180,120,55,.4) !important;
+  color: #a06030 !important;
+}
+
+/* ── SECTION STUDIO ── */
+html[data-theme="light"] .studio-card {
+  background: rgba(255,252,245,.8) !important;
+  border-color: rgba(200,175,130,.2) !important;
+}
+html[data-theme="light"] .studio-info h3 { color: #2e2824 !important; }
+html[data-theme="light"] .studio-role { color: #a06030 !important; }
+html[data-theme="light"] .studio-bio { color: rgba(46,40,36,.65) !important; }
+
+/* ── SECTION MÉMOIRE & PRÉSENCE ── */
+html[data-theme="light"] .mp-link-section {
+  background: linear-gradient(135deg, rgba(240,235,220,.9), rgba(232,225,205,.9)) !important;
+  border-top-color: rgba(180,160,120,.2) !important;
+}
+
+/* ── TOGGLE THÈME ── */
+html[data-theme="light"] [id*="themeToggle"],
+html[data-theme="light"] [class*="theme-toggle"],
+html[data-theme="light"] [class*="themeToggle"] {
+  background: rgba(255,248,230,.8) !important;
+  border-color: rgba(200,165,110,.3) !important;
+  color: #8a5820 !important;
+}
+
+/* ── JS THEME SWITCH — forcer les bons éléments ── */
+html[data-theme="light"] #bg-canvas { opacity: 0 !important; }
+html[data-theme="light"] #ow { display: none !important; }
+html[data-theme="light"] #pc { opacity: 0 !important; }
+</style></head>
   <body>
 <canvas id="pc" aria-hidden="true"></canvas>
 <div id="ow" aria-hidden="true">
@@ -3483,44 +3729,7 @@ cite { font-size: .72rem; color: rgba(255,255,255,.35); font-style: italic; marg
 </style>
 
 
-<script id="theme-ocean-patch">
-(function(){
-  function applyTheme(theme){
-    var ow = document.getElementById('ow');
-    var pc = document.getElementById('pc');
-    if(!ow) return;
-    if(theme === 'light'){
-      ow.style.display = 'block';
-      ow.style.opacity = '1';
-      if(pc) pc.style.opacity = '0';
-    } else {
-      ow.style.display = 'none';
-      if(pc) pc.style.opacity = '1';
-    }
-  }
-  // Appliquer immédiatement
-  applyTheme(document.documentElement.dataset.theme || 'dark');
-  // Observer les changements
-  new MutationObserver(function(muts){
-    muts.forEach(function(m){
-      if(m.attributeName === 'data-theme'){
-        applyTheme(document.documentElement.dataset.theme);
-      }
-    });
-  }).observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
-  // Hook sur le bouton toggle
-  window.addEventListener('load', function(){
-    var toggles = document.querySelectorAll('[id*="themeToggle"],[id*="theme-toggle"],[class*="theme"],[aria-label*="thème"],[aria-label*="theme"]');
-    toggles.forEach(function(btn){
-      btn.addEventListener('click', function(){
-        setTimeout(function(){
-          applyTheme(document.documentElement.dataset.theme || 'dark');
-        }, 50);
-      });
-    });
-  });
-})();
-</script>
+
 <script id="burger-fixed-js">
 (function(){
   var t=document.querySelector('.nav__toggle');
@@ -3587,6 +3796,29 @@ cite { font-size: .72rem; color: rgba(255,255,255,.35); font-style: italic; marg
 
   document.readyState==='loading' ? document.addEventListener('DOMContentLoaded', attach) : attach();
   window.addEventListener('load', function(){ attach(); setTimeout(attach,500); });
+})();
+</script>
+<script id="theme-ocean-patch">
+(function(){
+  function apply(theme){
+    var ow=document.getElementById('ow');
+    var pc=document.getElementById('pc');
+    var bg=document.getElementById('bg-canvas');
+    if(theme==='light'){
+      if(ow) ow.style.display='none';
+      if(pc) {pc.style.opacity='0';pc.style.pointerEvents='none';}
+      if(bg) {bg.style.opacity='0';bg.style.pointerEvents='none';}
+    } else {
+      if(ow) ow.style.display='block';
+      if(pc) {pc.style.opacity='1';pc.style.pointerEvents='';}
+      if(bg) {bg.style.opacity='1';bg.style.pointerEvents='';}
+    }
+  }
+  apply(document.documentElement.dataset.theme||'dark');
+  new MutationObserver(function(m){m.forEach(function(x){if(x.attributeName==='data-theme')apply(document.documentElement.dataset.theme);});}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  window.addEventListener('load',function(){
+    document.querySelectorAll('[id*="themeToggle"],[class*="theme-toggle"],[aria-label*="thème"],[aria-label*="theme"],[class*="themeBtn"]').forEach(function(b){b.addEventListener('click',function(){setTimeout(function(){apply(document.documentElement.dataset.theme);},50);});});
+  });
 })();
 </script>
 </body>
