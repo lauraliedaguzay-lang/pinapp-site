@@ -1356,6 +1356,44 @@ html[data-theme="light"] footer { background: rgba(5,10,20,.55) !important; back
 .c3-card .card-body{position:relative;z-index:1;}
 .c3-card__overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,9,18,.92) 0%,rgba(5,9,18,.4) 60%,transparent 100%);z-index:0;pointer-events:none;}
 </style>
+<style id="pp-mobile-construisons">
+/* construisons — visible sur TOUS les écrans */
+.hero__gradient, .word.hero__gradient {
+  background: linear-gradient(100deg,#00E5B0 0%,#9B6DFF 28%,#FF6B9D 52%,#7FFFD4 76%,#00E5B0 100%) !important;
+  background-size: 280% auto !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  color: transparent !important;
+  animation: pandora-shimmer 3.5s linear infinite !important;
+  animation-duration: 3.5s !important;
+  animation-play-state: running !important;
+  display: inline !important;
+}
+/* Sur mobile — ne pas casser le mot */
+@media (max-width: 480px) {
+  .hero__gradient, .word.hero__gradient {
+    display: inline !important;
+    white-space: normal !important;
+  }
+  h1 {
+    font-size: clamp(2rem, 9vw, 3.5rem) !important;
+    line-height: 1.1 !important;
+  }
+}
+/* Keyframe de secours */
+@keyframes pandora-shimmer {
+  0%   { background-position: 0%   center; }
+  100% { background-position: 280% center; }
+}
+/* ANTI prefers-reduced-motion Hostinger */
+@media (prefers-reduced-motion: reduce) {
+  .hero__gradient, .word.hero__gradient {
+    animation: pandora-shimmer 3.5s linear infinite !important;
+    animation-duration: 3.5s !important;
+  }
+}
+</style>
 </head>
   <body>
 <canvas id="pc" aria-hidden="true"></canvas>
@@ -1444,7 +1482,14 @@ body>*:not(#pc):not(#ow){position:relative;z-index:1;}
     <div class="page">
       <header class="nav" id="siteNav">
         <div class="nav__inner">
-          <a class="nav__logo" href="/">Pinapp <span class="nav__logo__inc">Inc.</span></a>
+          <a class="nav__logo" href="/" aria-label="Pinapp — Accueil" style="display:flex;align-items:center;gap:.5rem;text-decoration:none;">
+  <img src="/assets/images/pinapp-logo.png" 
+       alt="Logo Pinapp" 
+       height="32" 
+       style="height:32px;width:auto;display:block;filter:drop-shadow(0 0 8px rgba(155,109,255,.3));"
+       onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+  <span style="display:none;align-items:center;gap:.25rem;font-size:1.05rem;font-weight:700;letter-spacing:-.02em;background:linear-gradient(100deg,#00E5B0,#9B6DFF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Pinapp <span style="font-size:.7em;opacity:.7;-webkit-text-fill-color:rgba(255,255,255,.5);color:rgba(255,255,255,.5);">Inc.</span></span>
+</a>
           <ul class="nav__links" role="list">
             <li><a href="#apropos">Constat</a></li>
             <li><a href="#preuves">Preuves</a></li>
@@ -1843,7 +1888,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.75rem;">
     <div style="font-size:.83rem;color:rgba(255,255,255,.78);display:flex;gap:.5rem;align-items:flex-start;"><span style="color:#00e5b0;flex-shrink:0;">→</span>Seul duo IA + image/vidéo sous un contrat</div>
     <div style="font-size:.83rem;color:rgba(255,255,255,.78);display:flex;gap:.5rem;align-items:flex-start;"><span style="color:#00e5b0;flex-shrink:0;">→</span>Stack 100% européen · RGPD natif</div>
-    <div style="font-size:.83rem;color:rgba(255,255,255,.78);display:flex;gap:.5rem;align-items:flex-start;"><span style="color:#00e5b0;flex-shrink:0;">→</span>Zéro appel · Zéro sous-traitant · Zéro surprise</div>
+    <div style="font-size:.83rem;color:rgba(255,255,255,.78);display:flex;gap:.5rem;align-items:flex-start;"><span style="color:#00e5b0;flex-shrink:0;">→</span>Tout par message · Zéro sous-traitant · Zéro surprise</div>
     <div style="font-size:.83rem;color:rgba(255,255,255,.78);display:flex;gap:.5rem;align-items:flex-start;"><span style="color:#00e5b0;flex-shrink:0;">→</span>Livraison site en 7 jours chrono · garantie écrite</div>
     <div style="font-size:.83rem;color:rgba(255,255,255,.78);display:flex;gap:.5rem;align-items:flex-start;"><span style="color:#00e5b0;flex-shrink:0;">→</span>Mémoire &amp; Présence : seuls en Nouvelle-Aquitaine</div>
     <div style="font-size:.83rem;color:rgba(255,255,255,.78);display:flex;gap:.5rem;align-items:flex-start;"><span style="color:#00e5b0;flex-shrink:0;">→</span>Paiement sur livrable · Remboursement 30 jours</div>
@@ -1859,7 +1904,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
     <header class="section__head">
       <p class="section__eyebrow">De la question à la livraison</p>
       <h2 id="process-h2">Comment ça marche.</h2>
-      <p class="section__desc" style="color:rgba(255,255,255,.65);">Pas d'appel. Pas de dossier. Tout par écrit — pour que vous gardiez la main.</p>
+      <p class="section__desc" style="color:rgba(255,255,255,.65);">Tout par écrit. Pas de dossier. Tout par écrit — pour que vous gardiez la main.</p>
     </header>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.25rem;margin-top:2rem;">
       <div style="background:rgba(0,229,176,.06);border:1px solid rgba(0,229,176,.18);border-radius:14px;padding:1.5rem;">
@@ -1896,7 +1941,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
   <div style="display:flex;align-items:center;gap:.4rem;background:rgba(0,229,176,.07);border:1px solid rgba(0,229,176,.18);border-radius:40px;padding:.35rem 1rem;font-size:.75rem;color:rgba(0,229,176,.9);font-weight:600;">✓ Satisfait ou remboursé 30 jours</div>
   <div style="display:flex;align-items:center;gap:.4rem;background:rgba(0,229,176,.07);border:1px solid rgba(0,229,176,.18);border-radius:40px;padding:.35rem 1rem;font-size:.75rem;color:rgba(0,229,176,.9);font-weight:600;">✓ Diagnostic offert · Zéro engagement</div>
   <div style="display:flex;align-items:center;gap:.4rem;background:rgba(0,229,176,.07);border:1px solid rgba(0,229,176,.18);border-radius:40px;padding:.35rem 1rem;font-size:.75rem;color:rgba(0,229,176,.9);font-weight:600;">✓ Prix HT · TVA non applicable art. 293 B CGI</div>
-  <div style="display:flex;align-items:center;gap:.4rem;background:rgba(0,229,176,.07);border:1px solid rgba(0,229,176,.18);border-radius:40px;padding:.35rem 1rem;font-size:.75rem;color:rgba(0,229,176,.9);font-weight:600;">✓ Zéro appel · Tout par écrit</div>
+  <div style="display:flex;align-items:center;gap:.4rem;background:rgba(0,229,176,.07);border:1px solid rgba(0,229,176,.18);border-radius:40px;padding:.35rem 1rem;font-size:.75rem;color:rgba(0,229,176,.9);font-weight:600;">✓ Tout par message · Tout par écrit</div>
 </div>
           <div class="offers-wrap">
             <header class="section__head wrap">
@@ -1950,7 +1995,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
 <div class="offres-garanties" style="display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;margin-top:2rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.07);">
   <span style="display:flex;align-items:center;gap:.4rem;font-size:.78rem;color:rgba(255,255,255,.6);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);padding:.35rem .85rem;border-radius:40px;">✅ Paiement sur livrable uniquement</span>
   <span style="display:flex;align-items:center;gap:.4rem;font-size:.78rem;color:rgba(255,255,255,.6);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);padding:.35rem .85rem;border-radius:40px;">🔄 Satisfait ou remboursé 30 jours</span>
-  <span style="display:flex;align-items:center;gap:.4rem;font-size:.78rem;color:rgba(255,255,255,.6);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);padding:.35rem .85rem;border-radius:40px;">📝 Zéro appel — tout par écrit</span>
+  <span style="display:flex;align-items:center;gap:.4rem;font-size:.78rem;color:rgba(255,255,255,.6);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);padding:.35rem .85rem;border-radius:40px;">📝 Tout par message — tout par écrit</span>
   <span style="display:flex;align-items:center;gap:.4rem;font-size:.78rem;color:rgba(255,255,255,.6);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);padding:.35rem .85rem;border-radius:40px;">🚀 Livraison site : 7 jours</span>
   <span style="display:flex;align-items:center;gap:.4rem;font-size:.78rem;color:rgba(255,255,255,.6);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);padding:.35rem .85rem;border-radius:40px;">💶 Prix HT · TVA non applicable art. 293 B CGI</span>
 </div>
@@ -3880,6 +3925,47 @@ cite { font-size: .72rem; color: rgba(255,255,255,.35); font-style: italic; marg
     initHamburger();
     setTimeout(initHamburger, 300);
   }
+})();
+</script>
+<script id="pp-ux-anim">
+(function(){
+  // Fade-up sur entrée viewport — léger, non intrusif
+  const style = document.createElement('style');
+  style.textContent = `
+    .pp-fadein { opacity:0; transform:translateY(18px); transition:opacity .55s ease, transform .55s ease; }
+    .pp-fadein.visible { opacity:1; transform:none; }
+    /* Scroll indicator rebond */
+    @keyframes pp-bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+    .scroll-bob,[class*="scroll"],[class*="défiler"],[aria-label*="Défiler"]{animation:pp-bob 2s ease-in-out infinite;}
+    /* Hover cartes démos */
+    #demos a:hover { box-shadow:0 12px 40px rgba(0,229,176,.18)!important; }
+    /* Badge garantie */
+    .pp-badge-garanti {
+      display:inline-flex;align-items:center;gap:.4rem;
+      background:linear-gradient(135deg,rgba(0,229,176,.12),rgba(155,109,255,.08));
+      border:1px solid rgba(0,229,176,.3);border-radius:40px;
+      padding:.3rem .85rem;font-size:.72rem;font-weight:700;
+      color:rgba(0,229,176,.9);letter-spacing:.06em;text-transform:uppercase;
+    }
+  `;
+  document.head.appendChild(style);
+
+  // Observer
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  },{threshold:.12});
+
+  function initAnim(){
+    document.querySelectorAll('section h2, section h3, section p.section__desc, .belief, .card, .offer, #process > .wrap > div > div > div, #demos a').forEach(el=>{
+      if(!el.classList.contains('pp-fadein')){
+        el.classList.add('pp-fadein');
+        obs.observe(el);
+      }
+    });
+  }
+
+  document.readyState==='loading'?document.addEventListener('DOMContentLoaded',initAnim):initAnim();
+  setTimeout(initAnim, 800);
 })();
 </script>
 </body>
