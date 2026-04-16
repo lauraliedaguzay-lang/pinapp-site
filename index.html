@@ -1117,64 +1117,129 @@ input:focus, select:focus, textarea:focus {
   }
 })();
 </script>
+
 <style id="pp-theme-fix">
-/* ─── MODE NUIT — textes nets, halos réduits ─── */
-html[data-theme="dark"] h1,
-html[data-theme="dark"] .hero__title,
-html[data-theme="dark"] .word {
+
+/* ═══════════════════════════════════════════
+   MODE NUIT — textes blancs nets, halos réduits
+   ═══════════════════════════════════════════ */
+html[data-theme="dark"] .word,
+html[data-theme="dark"] h1 .word,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3 {
   color: #ffffff !important;
   text-shadow: none !important;
 }
 html[data-theme="dark"] .hero p,
-html[data-theme="dark"] .hero__subtitle,
-html[data-theme="dark"] .subtitle {
-  color: rgba(255,255,255,.86) !important;
-  text-shadow: none !important;
+html[data-theme="dark"] p.subtitle,
+html[data-theme="dark"] .section__desc,
+html[data-theme="dark"] .hero__desc {
+  color: rgba(255,255,255,.84) !important;
 }
-/* Réduire les halos sur les blobs de fond nuit */
 html[data-theme="dark"] .bg-rays,
-html[data-theme="dark"] .ellipses {
-  opacity: .55 !important;
+html[data-theme="dark"] .ellipses { opacity:.5 !important; }
+
+/* ═══════════════════════════════════════════
+   MODE JOUR — Pandora aquatique lumineux
+   Fond gardé mais BEAUCOUP plus clair
+   Textes foncés pour contraste net
+   ═══════════════════════════════════════════ */
+
+/* Fond : retirer le noir, laisser l'image Pandora Jour briller */
+html[data-theme="light"] body::before {
+  animation: pp-jour-bright 18s ease-in-out infinite alternate !important;
+}
+@keyframes pp-jour-bright {
+  0%   { filter: blur(4px) brightness(1.8) saturate(1.6) hue-rotate(-4deg); }
+  50%  { filter: blur(4px) brightness(1.95) saturate(1.7) hue-rotate(0deg); }
+  100% { filter: blur(4px) brightness(1.75) saturate(1.55) hue-rotate(-6deg); }
 }
 
-/* ─── MODE JOUR — Pandora plus lumineux et vivant ─── */
-/* Réduire le blur du fond pour que les effets soient visibles */
-html[data-theme="light"] body::before {
-  animation: pandora-jour-drift-light 22s ease-in-out infinite alternate !important;
-}
-@keyframes pandora-jour-drift-light {
-  0%   { filter: blur(8px) hue-rotate(-6deg) brightness(0.92) saturate(1.25); }
-  50%  { filter: blur(8px) hue-rotate(-2deg) brightness(0.96) saturate(1.3); }
-  100% { filter: blur(8px) hue-rotate(-8deg) brightness(0.9)  saturate(1.22); }
-}
-/* Shapes Pandora jour — plus opaques et visibles */
-html[data-theme="light"] .pandora-shape-1 { opacity: .85 !important; filter: blur(45px) !important; }
-html[data-theme="light"] .pandora-shape-2 { opacity: .75 !important; filter: blur(40px) !important; }
-html[data-theme="light"] .pandora-shape-3 { opacity: .7  !important; filter: blur(40px) !important; }
-html[data-theme="light"] .pandora-shape-4 { opacity: .65 !important; filter: blur(38px) !important; }
-/* Spores Pandora jour — légèrement plus brillantes */
-html[data-theme="light"] .jour-spore {
-  background: rgba(60,210,170,.65) !important;
-  box-shadow: 0 0 8px rgba(60,210,170,.5), 0 0 18px rgba(99,102,241,.25) !important;
-}
-/* Grille holo — légèrement plus visible */
-html[data-theme="light"] .holo-grid {
-  background-image:
-    linear-gradient(rgba(0,180,216,.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,180,216,.07) 1px, transparent 1px) !important;
-}
-/* Textes mode jour — meilleur contraste */
+/* Textes : foncés et lisibles sur fond clair */
 html[data-theme="light"] h1,
-html[data-theme="light"] .hero__title,
+html[data-theme="light"] h2,
+html[data-theme="light"] h3,
 html[data-theme="light"] .word {
-  color: #f0f4ff !important;
-  text-shadow: 0 0 40px rgba(79,195,247,.2) !important;
+  color: #0a1a2e !important;
+  text-shadow: none !important;
 }
 html[data-theme="light"] .hero p,
-html[data-theme="light"] .hero__subtitle,
-html[data-theme="light"] .subtitle {
-  color: rgba(224,240,255,.82) !important;
+html[data-theme="light"] p.subtitle,
+html[data-theme="light"] .section__desc,
+html[data-theme="light"] .hero__desc {
+  color: rgba(10,26,46,.82) !important;
 }
+
+/* Nav mode jour — fond très légèrement translucide clair */
+html[data-theme="light"] nav,
+html[data-theme="light"] header,
+html[data-theme="light"] .nav {
+  background: rgba(255,255,255,.18) !important;
+  border-bottom-color: rgba(0,0,0,.08) !important;
+  backdrop-filter: blur(20px) !important;
+}
+html[data-theme="light"] .nav__logo,
+html[data-theme="light"] [class*="logo"] {
+  color: #0a1a2e !important;
+}
+
+/* Cartes et sections mode jour */
+html[data-theme="light"] .card,
+html[data-theme="light"] .belief,
+html[data-theme="light"] .offer,
+html[data-theme="light"] article {
+  background: rgba(255,255,255,.22) !important;
+  border-color: rgba(0,0,0,.12) !important;
+  backdrop-filter: blur(12px) !important;
+}
+html[data-theme="light"] .card h3,
+html[data-theme="light"] .belief strong,
+html[data-theme="light"] article h3 {
+  color: #0a1a2e !important;
+}
+html[data-theme="light"] .card p,
+html[data-theme="light"] .belief p,
+html[data-theme="light"] article p {
+  color: rgba(10,26,46,.72) !important;
+}
+
+/* Shapes Pandora jour — bien visibles */
+html[data-theme="light"] .pandora-shape-1 { opacity:.9 !important; }
+html[data-theme="light"] .pandora-shape-2 { opacity:.8 !important; }
+html[data-theme="light"] .pandora-shape-3 { opacity:.75 !important; }
+html[data-theme="light"] .pandora-shape-4 { opacity:.7 !important; }
+
+/* Spores bioluminescentes plus vives */
+html[data-theme="light"] .jour-spore {
+  background: rgba(0,229,176,.8) !important;
+  box-shadow: 0 0 10px rgba(0,229,176,.6), 0 0 24px rgba(99,102,241,.3) !important;
+}
+
+/* Grille holo visible */
+html[data-theme="light"] .holo-grid {
+  opacity: .6 !important;
+}
+
+/* ═══ WHATSAPP SAV — restauré dans nav ═══ */
+.nav-whatsapp {
+  display:inline-flex !important;
+  align-items:center;
+  gap:.35rem;
+  font-size:.72rem;
+  color:rgba(0,229,176,.85) !important;
+  background:rgba(0,229,176,.08) !important;
+  border:1px solid rgba(0,229,176,.25) !important;
+  padding:.28rem .75rem !important;
+  border-radius:40px !important;
+  text-decoration:none !important;
+  flex-shrink:0 !important;
+  font-weight:600 !important;
+  transition:all .2s !important;
+}
+.nav-whatsapp:hover {
+  background:rgba(0,229,176,.15) !important;
+}
+
 </style>
 </head>
   <body>
@@ -1305,7 +1370,7 @@ body>*:not(#pc):not(#ow){position:relative;z-index:1;}
                   d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
               </svg>
             </button>
-            <button
+            <a href="https://wa.me/33786173715" target="_blank" rel="noopener" class="nav-whatsapp" title="WhatsApp SAV — réponse sous 2h"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>SAV</a><button
               type="button"
               class="nav__toggle"
               id="navToggle"
@@ -1455,7 +1520,7 @@ body>*:not(#pc):not(#ow){position:relative;z-index:1;}
 </div>
 </section>
 
-<section id="video-showreel">
+<section id="video-showreel" style="display:none!important;height:0!important;overflow:hidden!important;">
 <div style="max-width:900px;margin:0 auto;padding:3rem 1.25rem 2rem;display:flex;flex-direction:column;align-items:center;gap:1.25rem;">
 
 <div id="showreelPlayer" style="position:relative;width:100%;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#050d18;box-shadow:0 0 0 1px rgba(0,229,176,.15),0 24px 80px rgba(0,0,0,.7),0 0 60px rgba(0,229,176,.06);transition:box-shadow .4s ease;">
@@ -2305,7 +2370,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
 <div class="wrap">
 <p class="section-eyebrow">Nos réalisations</p>
 <h2>Ce qu'on a <span class="accent">déjà construit.</span></h2>
-<p style="text-align:center;max-width:480px;margin:.6rem auto 2rem;opacity:.55;font-size:.9rem;">Sites · Automatisations · Vidéos IA · Images de marque · Déplacement France entière</p>
+<p style="text-align:center;max-width:480px;margin:.6rem auto 2rem;opacity:.55;font-size:.9rem;">Sites · Automatisations · Vidéos IA · Images de marque · Déplacement Nouvelle-Aquitaine</p>
 <div class="pt" role="tablist">
 <button class="pt-btn on" data-p="lauralie">🌐 Sites &amp; Systèmes — Lauralie</button>
 <button class="pt-btn" data-p="micha-video">🎬 Vidéo — Michaël</button>
@@ -2341,7 +2406,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
 
 <!-- Panel Micha Vidéo — 8 encarts -->
 <div class="pp" id="pp-micha-video">
-<p class="port-note" style="margin-bottom:1.25rem;color:rgba(155,109,255,.6);">📍 Michaël se déplace partout en France · Belgique · Suisse</p>
+<p class="port-note" style="margin-bottom:1.25rem;color:rgba(155,109,255,.6);">📍 Michaël se déplace partout en France ·  · </p>
 <div class="c3w"><div class="c3" id="c3mv">
 <div class="c3-card"><div class="c3-vis" style="width:100%;height:190px;background:linear-gradient(135deg,#0f0f1a 0%,#1e1e3c 50%,#4a3878 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;flex-shrink:0;">
     <span style="font-size:2.2rem;filter:drop-shadow(0 0 12px rgba(255,255,255,.2));">💍</span>
@@ -2381,7 +2446,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
 
 <!-- Panel Micha Photo — 6 encarts -->
 <div class="pp" id="pp-micha-photo">
-<p class="port-note" style="margin-bottom:1.25rem;color:rgba(255,107,157,.5);">📍 Michaël se déplace partout en France · Belgique · Suisse</p>
+<p class="port-note" style="margin-bottom:1.25rem;color:rgba(255,107,157,.5);">📍 Michaël se déplace partout en France ·  · </p>
 <div class="c3w"><div class="c3" id="c3mp">
 <div class="c3-card"><div class="c3-vis" style="width:100%;height:190px;background:linear-gradient(135deg,#0f0f1a 0%,#1e1e3c 50%,#4a3878 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;flex-shrink:0;">
     <span style="font-size:2.2rem;filter:drop-shadow(0 0 12px rgba(255,255,255,.2));">💍</span>
@@ -2998,7 +3063,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
 <footer class="footer">
         <div class="wrap">
           <div class="footer__logo">Pinapp Inc.</div>
-          <p class="footer__tag">Systèmes digitaux · Nouvelle-Aquitaine · France entière</p>
+          <p class="footer__tag">Systèmes digitaux · Nouvelle-Aquitaine · Nouvelle-Aquitaine</p>
           <nav class="footer__links" aria-label="Liens pied de page">
             <a href="/legal/mentions-legales.html">Mentions légales</a>
             <a href="/legal/cgv.html">CGV</a>
