@@ -1066,135 +1066,7 @@ input:focus, select:focus, textarea:focus {
   100% { background-position: 300% center; }
 }
 </style>
-<script id="construisons-svg-js">
-(function(){
-  // Créer un canvas offscreen pour mesurer le texte
-  function buildSVG() {
-    var h1 = document.querySelector('.hero__title, .hero h1, [class*="hero"] h1');
-    if (!h1) return;
-    
-    // Trouver le span construisons
-    var spans = Array.from(h1.querySelectorAll('span,em,strong'));
-    var target = spans.find(s => s.textContent.trim().toLowerCase() === 'construisons');
-    
-    if (!target) {
-      // Chercher dans le texte complet
-      var words = Array.from(h1.querySelectorAll('.word, span'));
-      target = words.find(w => w.textContent.trim().toLowerCase() === 'construisons');
-    }
-    
-    if (!target) return;
-    
-    // Créer le SVG gradient animé
-    var uid = 'grad-' + Math.random().toString(36).slice(2);
-    var svgNS = 'http://www.w3.org/2000/svg';
-    
-    var svg = document.createElementNS(svgNS, 'svg');
-    svg.setAttribute('viewBox', '0 0 600 100');
-    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-    svg.setAttribute('aria-hidden', 'true');
-    svg.style.cssText = 'width:auto;height:1em;display:inline-block;vertical-align:baseline;overflow:visible;max-width:100%;';
-    
-    var defs = document.createElementNS(svgNS, 'defs');
-    
-    var grad = document.createElementNS(svgNS, 'linearGradient');
-    grad.setAttribute('id', uid);
-    grad.setAttribute('x1', '0%'); grad.setAttribute('y1', '0%');
-    grad.setAttribute('x2', '100%'); grad.setAttribute('y2', '0%');
-    
-    // 5 stops pour l'effet arc-en-ciel
-    var stops = [
-      {offset:'0%',   color:'#00E5B0'},
-      {offset:'25%',  color:'#9B6DFF'},
-      {offset:'50%',  color:'#FF6B9D'},
-      {offset:'75%',  color:'#7FFFD4'},
-      {offset:'100%', color:'#00E5B0'}
-    ];
-    stops.forEach(function(s) {
-      var stop = document.createElementNS(svgNS, 'stop');
-      stop.setAttribute('offset', s.offset);
-      stop.setAttribute('stop-color', s.color);
-      grad.appendChild(stop);
-    });
-    
-    defs.appendChild(grad);
-    svg.appendChild(defs);
-    
-    var text = document.createElementNS(svgNS, 'text');
-    text.setAttribute('x', '0');
-    text.setAttribute('y', '85');
-    text.setAttribute('font-size', '100');
-    text.setAttribute('font-weight', '900');
-    text.setAttribute('font-family', 'inherit');
-    text.setAttribute('fill', 'url(#' + uid + ')');
-    text.textContent = 'construisons';
-    
-    svg.appendChild(text);
-    
-    // Wrapper
-    var wrap = document.createElement('span');
-    wrap.className = 'construisons-svg-wrap';
-    wrap.setAttribute('aria-hidden', 'true');
-    wrap.appendChild(svg);
-    
-    // Remplacer le contenu du span
-    target.innerHTML = '';
-    target.appendChild(wrap);
-    // Texte accessible masqué
-    var sr = document.createElement('span');
-    sr.style.cssText = 'position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);';
-    sr.textContent = 'construisons';
-    target.appendChild(sr);
-    
-    // Animer le gradient avec RAF — indestructible
-    var pos = 0;
-    var colors = [
-      [0,229,176],   // teal
-      [155,109,255], // violet
-      [255,107,157], // rose
-      [127,255,212], // aqua
-      [0,229,176]    // teal (repeat)
-    ];
-    
-    function lerp(a, b, t) { return a + (b-a)*t; }
-    function getColor(t) {
-      // t de 0 à 1
-      var segments = colors.length - 1;
-      var seg = Math.min(Math.floor(t * segments), segments-1);
-      var local = (t * segments) - seg;
-      var from = colors[seg], to = colors[seg+1];
-      return [
-        Math.round(lerp(from[0],to[0],local)),
-        Math.round(lerp(from[1],to[1],local)),
-        Math.round(lerp(from[2],to[2],local))
-      ];
-    }
-    
-    function animate() {
-      pos = (pos + 0.004) % 1;
-      // Décaler tout le gradient
-      var stopsEl = grad.querySelectorAll('stop');
-      stopsEl.forEach(function(stop, i) {
-        var t = ((pos + i/4) % 1);
-        var c = getColor(t);
-        stop.setAttribute('stop-color', 'rgb('+c[0]+','+c[1]+','+c[2]+')');
-      });
-      requestAnimationFrame(animate);
-    }
-    animate();
-  }
-  
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', buildSVG);
-  } else {
-    buildSVG();
-  }
-  window.addEventListener('load', function() {
-    setTimeout(buildSVG, 100);
-    setTimeout(buildSVG, 600);
-  });
-})();
-</script><style id="ocean-light-fix">
+<style id="ocean-light-fix">
 /* ══ HIGH BY THE BEACH — MODE CLAIR COMPLET ══ */
 /* Toutes les règles avec !important pour battre style.css Hostinger */
 
@@ -1487,7 +1359,58 @@ html[data-theme="light"] [class*="themeToggle"] {
 html[data-theme="light"] #bg-canvas { opacity: 0 !important; }
 html[data-theme="light"] #ow { display: none !important; }
 html[data-theme="light"] #pc { opacity: 0 !important; }
-</style></head>
+</style><script id="construisons-svg-js">
+(function(){
+  var built = false;
+  function buildSVG(){
+    if(built) return;
+    var target = document.querySelector('.hero__gradient');
+    if(!target) return;
+    // Déjà fait ?
+    if(target.dataset.built) return;
+    target.dataset.built = '1';
+    built = true;
+    // Vider
+    target.innerHTML = '';
+    // Keyframe
+    if(!document.getElementById('_skf')){
+      var s=document.createElement('style');s.id='_skf';
+      s.textContent='@keyframes ps{0%{background-position:0% center}100%{background-position:300% center}}';
+      document.head.appendChild(s);
+    }
+    // Texte visible avec gradient animé via CSS inline — simple et fiable
+    var span = document.createElement('span');
+    span.textContent = 'construisons';
+    span.style.setProperty('background','linear-gradient(100deg,#00E5B0 0%,#9B6DFF 28%,#FF6B9D 52%,#7FFFD4 72%,#00E5B0 100%)','important');
+    span.style.setProperty('background-size','300% auto','important');
+    span.style.setProperty('-webkit-background-clip','text','important');
+    span.style.setProperty('-webkit-text-fill-color','transparent','important');
+    span.style.setProperty('background-clip','text','important');
+    span.style.setProperty('color','transparent','important');
+    span.style.setProperty('animation','ps 3s linear infinite','important');
+    span.style.setProperty('display','inline','important');
+    target.appendChild(span);
+  }
+  // Une seule exécution, au bon moment
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',buildSVG,{once:true});
+  } else {
+    buildSVG();
+  }
+  window.addEventListener('load',buildSVG,{once:true});
+})();
+</script>
+<script id="force-dark-default">
+(function(){
+  // Forcer dark par défaut sauf si l'utilisateur a explicitement choisi light
+  var stored = localStorage.getItem('theme');
+  if(!stored || stored === 'dark') {
+    document.documentElement.setAttribute('data-theme','dark');
+    localStorage.setItem('theme','dark');
+  }
+})();
+</script>
+</head>
   <body>
 <canvas id="pc" aria-hidden="true"></canvas>
 <div id="ow" aria-hidden="true">
@@ -2543,11 +2466,11 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
 <!-- Panel Lauralie — 5 encarts -->
 <div class="pp on" id="pp-lauralie">
 <div class="c3w"><div class="c3" id="c3l">
-<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&q=80&fit=crop" alt="Site restauration" loading="lazy"><div class="c3-info"><p class="c3-tag">Site vitrine</p><p class="c3-title">Restaurant gastronomique</p><p class="c3-desc">Réservations auto · Menu dynamique · SEO local</p><a href="#contact" class="c3-link">Voir le démo →</a></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80&fit=crop" alt="Cabinet santé" loading="lazy"><div class="c3-info"><p class="c3-tag">Site + Automatisation</p><p class="c3-title">Cabinet naturopathie</p><p class="c3-desc">Prise de RDV · Relances n8n · Formulaire qualifié</p><a href="#contact" class="c3-link">Voir le démo →</a></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&q=80&fit=crop" alt="Artisan" loading="lazy"><div class="c3-info"><p class="c3-tag">Site vitrine</p><p class="c3-title">Artisan menuisier</p><p class="c3-desc">Portfolio projets · Devis auto · Galerie dynamique</p><a href="#contact" class="c3-link">Voir le démo →</a></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&q=80&fit=crop" alt="Freelance" loading="lazy"><div class="c3-info"><p class="c3-tag">Site + IA</p><p class="c3-title">Consultant freelance</p><p class="c3-desc">Lead magnet · Newsletter auto · Tunnel de vente</p><a href="#contact" class="c3-link">Voir le démo →</a></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=600&q=80&fit=crop" alt="Institut beauté" loading="lazy"><div class="c3-info"><p class="c3-tag">Site Premium</p><p class="c3-title">Institut beauté</p><p class="c3-desc">Espace client · Réservations · Galerie soins</p><a href="#contact" class="c3-link">Voir le démo →</a></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Site restauration" loading="lazy"><div class="c3-info"><p class="c3-tag">Site vitrine</p><p class="c3-title">Restaurant gastronomique</p><p class="c3-desc">Réservations auto · Menu dynamique · SEO local</p><a href="#contact" class="c3-link">Voir le démo →</a></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/3985163/pexels-photo-3985163.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cabinet santé" loading="lazy"><div class="c3-info"><p class="c3-tag">Site + Automatisation</p><p class="c3-title">Cabinet naturopathie</p><p class="c3-desc">Prise de RDV · Relances n8n · Formulaire qualifié</p><a href="#contact" class="c3-link">Voir le démo →</a></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Artisan" loading="lazy"><div class="c3-info"><p class="c3-tag">Site vitrine</p><p class="c3-title">Artisan menuisier</p><p class="c3-desc">Portfolio projets · Devis auto · Galerie dynamique</p><a href="#contact" class="c3-link">Voir le démo →</a></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Freelance" loading="lazy"><div class="c3-info"><p class="c3-tag">Site + IA</p><p class="c3-title">Consultant freelance</p><p class="c3-desc">Lead magnet · Newsletter auto · Tunnel de vente</p><a href="#contact" class="c3-link">Voir le démo →</a></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/3764013/pexels-photo-3764013.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Institut beauté" loading="lazy"><div class="c3-info"><p class="c3-tag">Site Premium</p><p class="c3-title">Institut beauté</p><p class="c3-desc">Espace client · Réservations · Galerie soins</p><a href="#contact" class="c3-link">Voir le démo →</a></div></div>
 </div></div>
 <div class="c3-nav" id="nl"><button class="c3-btn" data-d="-1">←</button><div class="c3-dots" id="dl"></div><button class="c3-btn" data-d="1">→</button></div>
 </div>
@@ -2556,14 +2479,14 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
 <div class="pp" id="pp-micha-video">
 <p class="port-note" style="margin-bottom:1.25rem;color:rgba(155,109,255,.6);">📍 Michaël se déplace partout en France · Belgique · Suisse</p>
 <div class="c3w"><div class="c3" id="c3mv">
-<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80&fit=crop" alt="Mariage" loading="lazy"><div class="c3-info"><p class="c3-tag v">Mariage</p><p class="c3-title">Film de mariage cinématique</p><p class="c3-desc">Captation · Montage · Livraison 4K · Drone · Highlights</p><a href="#contact" class="c3-link v">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=600&q=80&fit=crop" alt="Portrait IA" loading="lazy"><div class="c3-info"><p class="c3-tag v">IA Créative · Higgsfield</p><p class="c3-title">Vidéo produit IA</p><p class="c3-desc">Animation portrait · Rendu premium · Multi-formats</p><a href="#contact" class="c3-link v">Demander un devis →</a></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80&fit=crop" alt="Événement corporate" loading="lazy"><div class="c3-info"><p class="c3-tag v">Corporate</p><p class="c3-title">Film d'entreprise</p><p class="c3-desc">Présentation · Équipes · Produits · Storytelling de marque</p><a href="#contact" class="c3-link v">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=600&q=80&fit=crop" alt="Institutionnel" loading="lazy"><div class="c3-info"><p class="c3-tag v">Image de marque</p><p class="c3-title">Vidéo institutionnelle</p><p class="c3-desc">Scénario · Tournage · Motion design · Diffusion multi-plateformes</p><a href="#contact" class="c3-link v">Demander un devis →</a></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=600&q=80&fit=crop" alt="Gala événement" loading="lazy"><div class="c3-info"><p class="c3-tag v">Événementiel</p><p class="c3-title">Gala & soirée de prestige</p><p class="c3-desc">Captation live · Montage express · Diffusion J+48</p><a href="#contact" class="c3-link v">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?w=600&q=80&fit=crop" alt="Contenu social" loading="lazy"><div class="c3-info"><p class="c3-tag v">Social Media</p><p class="c3-title">Contenu social & Reels</p><p class="c3-desc">Short-form · Instagram · TikTok · LinkedIn · Formats multiples</p><a href="#contact" class="c3-link v">Demander un devis →</a></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&q=80&fit=crop" alt="PACS couple" loading="lazy"><div class="c3-info"><p class="c3-tag v">Couple & PACS</p><p class="c3-title">Film de cérémonie</p><p class="c3-desc">PACS · Fiançailles · Anniversaire de mariage · Mémoire</p><a href="#contact" class="c3-link v">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=600&q=80&fit=crop" alt="Plateau tournage" loading="lazy"><div class="c3-info"><p class="c3-tag v">Production</p><p class="c3-title">Plateau de tournage</p><p class="c3-desc">Direction photo · Éclairage · Scénario · Production complète</p><a href="#contact" class="c3-link v">Demander un devis →</a></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/1444442/pexels-photo-1444442.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mariage" loading="lazy"><div class="c3-info"><p class="c3-tag v">Mariage</p><p class="c3-title">Film de mariage cinématique</p><p class="c3-desc">Captation · Montage · Livraison 4K · Drone · Highlights</p><a href="#contact" class="c3-link v">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Portrait IA" loading="lazy"><div class="c3-info"><p class="c3-tag v">IA Créative · Higgsfield</p><p class="c3-title">Vidéo produit IA</p><p class="c3-desc">Animation portrait · Rendu premium · Multi-formats</p><a href="#contact" class="c3-link v">Demander un devis →</a></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Événement corporate" loading="lazy"><div class="c3-info"><p class="c3-tag v">Corporate</p><p class="c3-title">Film d'entreprise</p><p class="c3-desc">Présentation · Équipes · Produits · Storytelling de marque</p><a href="#contact" class="c3-link v">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Institutionnel" loading="lazy"><div class="c3-info"><p class="c3-tag v">Image de marque</p><p class="c3-title">Vidéo institutionnelle</p><p class="c3-desc">Scénario · Tournage · Motion design · Diffusion multi-plateformes</p><a href="#contact" class="c3-link v">Demander un devis →</a></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/1540406/pexels-photo-1540406.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Gala événement" loading="lazy"><div class="c3-info"><p class="c3-tag v">Événementiel</p><p class="c3-title">Gala & soirée de prestige</p><p class="c3-desc">Captation live · Montage express · Diffusion J+48</p><a href="#contact" class="c3-link v">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/3799832/pexels-photo-3799832.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Contenu social" loading="lazy"><div class="c3-info"><p class="c3-tag v">Social Media</p><p class="c3-title">Contenu social & Reels</p><p class="c3-desc">Short-form · Instagram · TikTok · LinkedIn · Formats multiples</p><a href="#contact" class="c3-link v">Demander un devis →</a></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/1024975/pexels-photo-1024975.jpeg?auto=compress&cs=tinysrgb&w=600" alt="PACS couple" loading="lazy"><div class="c3-info"><p class="c3-tag v">Couple & PACS</p><p class="c3-title">Film de cérémonie</p><p class="c3-desc">PACS · Fiançailles · Anniversaire de mariage · Mémoire</p><a href="#contact" class="c3-link v">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/3379942/pexels-photo-3379942.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Plateau tournage" loading="lazy"><div class="c3-info"><p class="c3-tag v">Production</p><p class="c3-title">Plateau de tournage</p><p class="c3-desc">Direction photo · Éclairage · Scénario · Production complète</p><a href="#contact" class="c3-link v">Demander un devis →</a></div></div>
 </div></div>
 <div class="c3-nav" id="nmv"><button class="c3-btn vm" data-d="-1">←</button><div class="c3-dots vm" id="dmv"></div><button class="c3-btn vm" data-d="1">→</button></div>
 </div>
@@ -2572,12 +2495,12 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
 <div class="pp" id="pp-micha-photo">
 <p class="port-note" style="margin-bottom:1.25rem;color:rgba(255,107,157,.5);">📍 Michaël se déplace partout en France · Belgique · Suisse</p>
 <div class="c3w"><div class="c3" id="c3mp">
-<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80&fit=crop" alt="Photo mariage" loading="lazy"><div class="c3-info"><p class="c3-tag vp">Photo mariage</p><p class="c3-title">Reportage nuptial</p><p class="c3-desc">Préparatifs · Cérémonie · Cocktail · Soirée · 500+ clichés livrés</p><a href="#contact" class="c3-link vp">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80&fit=crop" alt="Portrait pro" loading="lazy"><div class="c3-info"><p class="c3-tag vp">Portrait pro</p><p class="c3-title">Portrait professionnel</p><p class="c3-desc">LinkedIn · Site web · Presse · Direction artistique · Retouche pro</p><a href="#contact" class="c3-link vp">Demander un devis →</a></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80&fit=crop" alt="Événement photo" loading="lazy"><div class="c3-info"><p class="c3-tag vp">Événementiel</p><p class="c3-title">Reportage d'événement</p><p class="c3-desc">Gala · Conférence · Séminaire · 200–600 images · Galerie privée</p><a href="#contact" class="c3-link vp">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80&fit=crop" alt="Photo produit" loading="lazy"><div class="c3-info"><p class="c3-tag vp">Photo produit</p><p class="c3-title">Packshots & produits</p><p class="c3-desc">E-commerce · Catalogue · Publicité · Studio ou en situation</p><a href="#contact" class="c3-link vp">Demander un devis →</a></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&q=80&fit=crop" alt="Photo corporate team" loading="lazy"><div class="c3-info"><p class="c3-tag vp">Corporate</p><p class="c3-title">Photo d'équipe & team</p><p class="c3-desc">Direction photo · Ambiance bureau · Portraits individuels et groupe</p><a href="#contact" class="c3-link vp">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
-<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80&fit=crop" alt="Portrait IA" loading="lazy"><div class="c3-info"><p class="c3-tag vp">Portrait IA · Higgsfield</p><p class="c3-title">Portrait IA animé</p><p class="c3-desc">Transformation photo → portrait animé premium · Higgsfield</p><a href="#contact" class="c3-link vp">Demander un devis →</a></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/1444442/pexels-photo-1444442.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Photo mariage" loading="lazy"><div class="c3-info"><p class="c3-tag vp">Photo mariage</p><p class="c3-title">Reportage nuptial</p><p class="c3-desc">Préparatifs · Cérémonie · Cocktail · Soirée · 500+ clichés livrés</p><a href="#contact" class="c3-link vp">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Portrait pro" loading="lazy"><div class="c3-info"><p class="c3-tag vp">Portrait pro</p><p class="c3-title">Portrait professionnel</p><p class="c3-desc">LinkedIn · Site web · Presse · Direction artistique · Retouche pro</p><a href="#contact" class="c3-link vp">Demander un devis →</a></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Événement photo" loading="lazy"><div class="c3-info"><p class="c3-tag vp">Événementiel</p><p class="c3-title">Reportage d'événement</p><p class="c3-desc">Gala · Conférence · Séminaire · 200–600 images · Galerie privée</p><a href="#contact" class="c3-link vp">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/1667088/pexels-photo-1667088.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Photo produit" loading="lazy"><div class="c3-info"><p class="c3-tag vp">Photo produit</p><p class="c3-title">Packshots & produits</p><p class="c3-desc">E-commerce · Catalogue · Publicité · Studio ou en situation</p><a href="#contact" class="c3-link vp">Demander un devis →</a></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Photo corporate team" loading="lazy"><div class="c3-info"><p class="c3-tag vp">Corporate</p><p class="c3-title">Photo d'équipe & team</p><p class="c3-desc">Direction photo · Ambiance bureau · Portraits individuels et groupe</p><a href="#contact" class="c3-link vp">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.pexels.com/photos/3762800/pexels-photo-3762800.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Portrait IA" loading="lazy"><div class="c3-info"><p class="c3-tag vp">Portrait IA · Higgsfield</p><p class="c3-title">Portrait IA animé</p><p class="c3-desc">Transformation photo → portrait animé premium · Higgsfield</p><a href="#contact" class="c3-link vp">Demander un devis →</a></div></div>
 </div></div>
 <div class="c3-nav" id="nmp"><button class="c3-btn" style="border-color:rgba(255,107,157,.2);color:rgba(255,107,157,.5);" data-d="-1">←</button><div class="c3-dots" id="dmp"></div><button class="c3-btn" style="border-color:rgba(255,107,157,.2);color:rgba(255,107,157,.5);" data-d="1">→</button></div>
 </div>
