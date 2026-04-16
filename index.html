@@ -1118,128 +1118,137 @@ input:focus, select:focus, textarea:focus {
 })();
 </script>
 
-<style id="pp-theme-fix">
 
-/* ═══════════════════════════════════════════
-   MODE NUIT — textes blancs nets, halos réduits
-   ═══════════════════════════════════════════ */
+<style id="pp-theme-fix">
+/* ══ MODE NUIT — textes nets ══ */
 html[data-theme="dark"] .word,
 html[data-theme="dark"] h1 .word,
 html[data-theme="dark"] h2,
 html[data-theme="dark"] h3 {
-  color: #ffffff !important;
-  text-shadow: none !important;
+  color:#fff!important;text-shadow:none!important;
 }
 html[data-theme="dark"] .hero p,
 html[data-theme="dark"] p.subtitle,
-html[data-theme="dark"] .section__desc,
-html[data-theme="dark"] .hero__desc {
-  color: rgba(255,255,255,.84) !important;
+html[data-theme="dark"] .section__desc {
+  color:rgba(255,255,255,.84)!important;
 }
 html[data-theme="dark"] .bg-rays,
-html[data-theme="dark"] .ellipses { opacity:.5 !important; }
+html[data-theme="dark"] .ellipses{opacity:.45!important;}
 
-/* ═══════════════════════════════════════════
-   MODE JOUR — Pandora aquatique lumineux
-   Fond gardé mais BEAUCOUP plus clair
-   Textes foncés pour contraste net
-   ═══════════════════════════════════════════ */
+/* ══ MODE CLAIR — WOW PANDORA AQUATIQUE ══ */
 
-/* Fond : retirer le noir, laisser l'image Pandora Jour briller */
-html[data-theme="light"] body::before {
-  animation: pp-jour-bright 18s ease-in-out infinite alternate !important;
+/* Fond : image Pandora Jour révélée, lumineuse, saturée */
+html[data-theme="light"] body::before{
+  animation:pp-jour-wow 20s ease-in-out infinite alternate!important;
 }
-@keyframes pp-jour-bright {
-  0%   { filter: blur(4px) brightness(1.8) saturate(1.6) hue-rotate(-4deg); }
-  50%  { filter: blur(4px) brightness(1.95) saturate(1.7) hue-rotate(0deg); }
-  100% { filter: blur(4px) brightness(1.75) saturate(1.55) hue-rotate(-6deg); }
+@keyframes pp-jour-wow{
+  0%  {filter:blur(0px) brightness(2.2) saturate(2.0) hue-rotate(-4deg);}
+  40% {filter:blur(0px) brightness(2.4) saturate(2.2) hue-rotate(0deg);}
+  100%{filter:blur(0px) brightness(2.1) saturate(1.9) hue-rotate(-6deg);}
 }
 
-/* Textes : foncés et lisibles sur fond clair */
+/* Textes : très foncés, ultra-lisibles */
 html[data-theme="light"] h1,
 html[data-theme="light"] h2,
 html[data-theme="light"] h3,
-html[data-theme="light"] .word {
-  color: #0a1a2e !important;
-  text-shadow: none !important;
+html[data-theme="light"] .word{
+  color:#031520!important;
+  text-shadow:0 1px 0 rgba(255,255,255,.4)!important;
 }
 html[data-theme="light"] .hero p,
 html[data-theme="light"] p.subtitle,
 html[data-theme="light"] .section__desc,
-html[data-theme="light"] .hero__desc {
-  color: rgba(10,26,46,.82) !important;
+html[data-theme="light"] .hero__desc{
+  color:rgba(3,21,32,.78)!important;
 }
 
-/* Nav mode jour — fond très légèrement translucide clair */
+/* Nav mode clair — glass premium */
 html[data-theme="light"] nav,
 html[data-theme="light"] header,
-html[data-theme="light"] .nav {
-  background: rgba(255,255,255,.18) !important;
-  border-bottom-color: rgba(0,0,0,.08) !important;
-  backdrop-filter: blur(20px) !important;
+html[data-theme="light"] .nav{
+  background:rgba(255,255,255,.22)!important;
+  border-bottom:1px solid rgba(255,255,255,.35)!important;
+  backdrop-filter:blur(24px) saturate(1.8)!important;
+  -webkit-backdrop-filter:blur(24px) saturate(1.8)!important;
+  box-shadow:0 2px 32px rgba(0,180,180,.12)!important;
 }
 html[data-theme="light"] .nav__logo,
-html[data-theme="light"] [class*="logo"] {
-  color: #0a1a2e !important;
-}
+html[data-theme="light"] [class*="logo"]{color:#031520!important;}
 
-/* Cartes et sections mode jour */
+/* Cartes — verre dépoli premium avec reflet cyan */
 html[data-theme="light"] .card,
 html[data-theme="light"] .belief,
 html[data-theme="light"] .offer,
-html[data-theme="light"] article {
-  background: rgba(255,255,255,.22) !important;
-  border-color: rgba(0,0,0,.12) !important;
-  backdrop-filter: blur(12px) !important;
+html[data-theme="light"] article,
+html[data-theme="light"] [class*="pack"]{
+  background:rgba(255,255,255,.28)!important;
+  border:1px solid rgba(255,255,255,.55)!important;
+  backdrop-filter:blur(16px) saturate(1.6)!important;
+  -webkit-backdrop-filter:blur(16px) saturate(1.6)!important;
+  box-shadow:0 4px 32px rgba(0,180,180,.14),inset 0 1px 0 rgba(255,255,255,.6)!important;
 }
 html[data-theme="light"] .card h3,
 html[data-theme="light"] .belief strong,
-html[data-theme="light"] article h3 {
-  color: #0a1a2e !important;
-}
+html[data-theme="light"] article h3{color:#031520!important;font-weight:700!important;}
 html[data-theme="light"] .card p,
 html[data-theme="light"] .belief p,
-html[data-theme="light"] article p {
-  color: rgba(10,26,46,.72) !important;
+html[data-theme="light"] article p{color:rgba(3,21,32,.7)!important;}
+
+/* Shapes Pandora — très visibles */
+html[data-theme="light"] .pandora-shape-1{opacity:.95!important;filter:blur(30px)!important;}
+html[data-theme="light"] .pandora-shape-2{opacity:.88!important;filter:blur(28px)!important;}
+html[data-theme="light"] .pandora-shape-3{opacity:.82!important;filter:blur(26px)!important;}
+html[data-theme="light"] .pandora-shape-4{opacity:.78!important;filter:blur(24px)!important;}
+
+/* Spores bioluminescentes éclatantes */
+html[data-theme="light"] .jour-spore{
+  background:rgba(0,229,176,.9)!important;
+  box-shadow:0 0 12px rgba(0,229,176,.7),0 0 28px rgba(99,102,241,.4)!important;
 }
 
-/* Shapes Pandora jour — bien visibles */
-html[data-theme="light"] .pandora-shape-1 { opacity:.9 !important; }
-html[data-theme="light"] .pandora-shape-2 { opacity:.8 !important; }
-html[data-theme="light"] .pandora-shape-3 { opacity:.75 !important; }
-html[data-theme="light"] .pandora-shape-4 { opacity:.7 !important; }
+/* Grille holographique bien visible */
+html[data-theme="light"] .holo-grid{opacity:.5!important;}
 
-/* Spores bioluminescentes plus vives */
-html[data-theme="light"] .jour-spore {
-  background: rgba(0,229,176,.8) !important;
-  box-shadow: 0 0 10px rgba(0,229,176,.6), 0 0 24px rgba(99,102,241,.3) !important;
+/* Badges, tags, chips — lisibles */
+html[data-theme="light"] .badge,
+html[data-theme="light"] [class*="tag"],
+html[data-theme="light"] [class*="chip"],
+html[data-theme="light"] [class*="eyebrow"]{
+  color:rgba(3,21,32,.65)!important;
+  border-color:rgba(3,21,32,.2)!important;
 }
 
-/* Grille holo visible */
-html[data-theme="light"] .holo-grid {
-  opacity: .6 !important;
+/* Stats (24h / 0€ / 30j) */
+html[data-theme="light"] [class*="stat"] .number,
+html[data-theme="light"] .proof-number,
+html[data-theme="light"] [class*="counter"]{
+  color:#031520!important;
 }
 
-/* ═══ WHATSAPP SAV — restauré dans nav ═══ */
-.nav-whatsapp {
-  display:inline-flex !important;
-  align-items:center;
-  gap:.35rem;
-  font-size:.72rem;
-  color:rgba(0,229,176,.85) !important;
-  background:rgba(0,229,176,.08) !important;
-  border:1px solid rgba(0,229,176,.25) !important;
-  padding:.28rem .75rem !important;
-  border-radius:40px !important;
-  text-decoration:none !important;
-  flex-shrink:0 !important;
-  font-weight:600 !important;
-  transition:all .2s !important;
+/* CTA principal mode clair */
+html[data-theme="light"] .btn--primary,
+html[data-theme="light"] a.btn--primary{
+  background:linear-gradient(135deg,#0a4a6b,#0d7a6e)!important;
+  color:#fff!important;
+  box-shadow:0 4px 24px rgba(0,100,120,.35)!important;
 }
-.nav-whatsapp:hover {
-  background:rgba(0,229,176,.15) !important;
+html[data-theme="light"] .btn--primary:hover,
+html[data-theme="light"] a.btn--primary:hover{
+  box-shadow:0 8px 36px rgba(0,100,120,.5)!important;
+  transform:translateY(-2px)!important;
 }
 
+/* WhatsApp SAV */
+.nav-whatsapp{
+  display:inline-flex!important;align-items:center;gap:.35rem;
+  font-size:.72rem;color:rgba(0,229,176,.85)!important;
+  background:rgba(0,229,176,.08)!important;
+  border:1px solid rgba(0,229,176,.25)!important;
+  padding:.28rem .75rem!important;border-radius:40px!important;
+  text-decoration:none!important;flex-shrink:0!important;
+  font-weight:600!important;transition:all .2s!important;
+}
+.nav-whatsapp:hover{background:rgba(0,229,176,.16)!important;}
 </style>
 </head>
   <body>
@@ -1722,10 +1731,31 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
       <p style="font-size:.95rem;color:rgba(255,255,255,.75);margin:0;line-height:1.6;">Le marché du travail se réorganise <strong style="color:#00e5b0;">maintenant</strong> — pas dans 5 ans. <br>Les TPE qui agissent en 2026 construisent une avance que leurs concurrents mettront des années à combler.</p>
     </div>
   </div>
-<div style="text-align:center;margin-top:1.75rem;padding-bottom:.5rem;"><a href="#offres" style="display:inline-block;padding:.65rem 1.5rem;background:rgba(255,255,255,.1);border-radius:40px;color:#fff;text-decoration:none;font-size:.88rem;font-weight:600;">Découvrir les offres →</a></div></section>
+<div style="text-align:center;margin-top:1.75rem;padding-bottom:.5rem;"><a href="#offres" style="display:inline-block;padding:.65rem 1.5rem;background:rgba(255,255,255,.1);border-radius:40px;color:#fff;text-decoration:none;font-size:.88rem;font-weight:600;">Découvrir les offres →</a></div>
+<div class="pp-diff" style="margin-top:2rem;padding:1.5rem;background:rgba(155,109,255,.06);border:1px solid rgba(155,109,255,.18);border-radius:16px;">
+  <div style="font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(155,109,255,.8);font-weight:700;margin-bottom:1rem;">Ce que personne d'autre ne propose</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.75rem;">
+    <div style="font-size:.83rem;color:rgba(255,255,255,.78);display:flex;gap:.5rem;align-items:flex-start;"><span style="color:#00e5b0;flex-shrink:0;">→</span>Seul duo IA + image/vidéo sous un contrat</div>
+    <div style="font-size:.83rem;color:rgba(255,255,255,.78);display:flex;gap:.5rem;align-items:flex-start;"><span style="color:#00e5b0;flex-shrink:0;">→</span>Stack 100% européen · RGPD natif</div>
+    <div style="font-size:.83rem;color:rgba(255,255,255,.78);display:flex;gap:.5rem;align-items:flex-start;"><span style="color:#00e5b0;flex-shrink:0;">→</span>Zéro appel · Zéro sous-traitant · Zéro surprise</div>
+    <div style="font-size:.83rem;color:rgba(255,255,255,.78);display:flex;gap:.5rem;align-items:flex-start;"><span style="color:#00e5b0;flex-shrink:0;">→</span>Livraison site en 7 jours chrono · garantie écrite</div>
+    <div style="font-size:.83rem;color:rgba(255,255,255,.78);display:flex;gap:.5rem;align-items:flex-start;"><span style="color:#00e5b0;flex-shrink:0;">→</span>Mémoire &amp; Présence : seuls en Nouvelle-Aquitaine</div>
+    <div style="font-size:.83rem;color:rgba(255,255,255,.78);display:flex;gap:.5rem;align-items:flex-start;"><span style="color:#00e5b0;flex-shrink:0;">→</span>Paiement sur livrable · Remboursement 30 jours</div>
+  </div>
+</div>
+</section>
 
 
 <section class="section" id="offres" data-reveal>
+
+<!-- GARANTIES GLOBALES -->
+<div class="pp-garanties" style="display:flex;flex-wrap:wrap;gap:.65rem;justify-content:center;margin:2rem 0 1rem;padding:0 1rem;">
+  <div style="display:flex;align-items:center;gap:.4rem;background:rgba(0,229,176,.07);border:1px solid rgba(0,229,176,.18);border-radius:40px;padding:.35rem 1rem;font-size:.75rem;color:rgba(0,229,176,.9);font-weight:600;">✓ Paiement sur livrable</div>
+  <div style="display:flex;align-items:center;gap:.4rem;background:rgba(0,229,176,.07);border:1px solid rgba(0,229,176,.18);border-radius:40px;padding:.35rem 1rem;font-size:.75rem;color:rgba(0,229,176,.9);font-weight:600;">✓ Satisfait ou remboursé 30 jours</div>
+  <div style="display:flex;align-items:center;gap:.4rem;background:rgba(0,229,176,.07);border:1px solid rgba(0,229,176,.18);border-radius:40px;padding:.35rem 1rem;font-size:.75rem;color:rgba(0,229,176,.9);font-weight:600;">✓ Diagnostic offert · Zéro engagement</div>
+  <div style="display:flex;align-items:center;gap:.4rem;background:rgba(0,229,176,.07);border:1px solid rgba(0,229,176,.18);border-radius:40px;padding:.35rem 1rem;font-size:.75rem;color:rgba(0,229,176,.9);font-weight:600;">✓ Prix HT · TVA non applicable art. 293 B CGI</div>
+  <div style="display:flex;align-items:center;gap:.4rem;background:rgba(0,229,176,.07);border:1px solid rgba(0,229,176,.18);border-radius:40px;padding:.35rem 1rem;font-size:.75rem;color:rgba(0,229,176,.9);font-weight:600;">✓ Zéro appel · Tout par écrit</div>
+</div>
           <div class="offers-wrap">
             <header class="section__head wrap">
               <h2>Nos <span class="accent">offres</span></h2>
@@ -2031,7 +2061,26 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
             </div>
             
           </div>
-        <div style="text-align:center;margin-top:1.75rem;padding-bottom:.5rem;"><a href="#contact" style="display:inline-block;padding:.65rem 1.5rem;background:linear-gradient(135deg,#00e5b0,#00b4d8);border-radius:40px;color:#fff;text-decoration:none;font-size:.88rem;font-weight:600;">Lancer mon projet →</a></div></section>
+        <div style="text-align:center;margin-top:1.75rem;padding-bottom:.5rem;"><a href="#contact" style="display:inline-block;padding:.65rem 1.5rem;background:linear-gradient(135deg,#00e5b0,#00b4d8);border-radius:40px;color:#fff;text-decoration:none;font-size:.88rem;font-weight:600;">Lancer mon projet →</a></div>
+<div class="pp-roi-stats" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1.5rem 0;padding:0 .5rem;">
+  <div style="background:rgba(0,229,176,.06);border:1px solid rgba(0,229,176,.2);border-radius:14px;padding:1.25rem;text-align:center;">
+    <div style="font-size:2.2rem;font-weight:800;color:#00e5b0;line-height:1;margin-bottom:.4rem;">7j</div>
+    <div style="font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);">Délai livraison site vitrine</div>
+  </div>
+  <div style="background:rgba(0,229,176,.06);border:1px solid rgba(0,229,176,.2);border-radius:14px;padding:1.25rem;text-align:center;">
+    <div style="font-size:2.2rem;font-weight:800;color:#00e5b0;line-height:1;margin-bottom:.4rem;">5h</div>
+    <div style="font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);">Libérées / semaine · Auto RDV</div>
+  </div>
+  <div style="background:rgba(0,229,176,.06);border:1px solid rgba(0,229,176,.2);border-radius:14px;padding:1.25rem;text-align:center;">
+    <div style="font-size:2.2rem;font-weight:800;color:#00e5b0;line-height:1;margin-bottom:.4rem;">0€</div>
+    <div style="font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);">Diagnostic · Zéro engagement</div>
+  </div>
+  <div style="background:rgba(0,229,176,.06);border:1px solid rgba(0,229,176,.2);border-radius:14px;padding:1.25rem;text-align:center;">
+    <div style="font-size:2.2rem;font-weight:800;color:#00e5b0;line-height:1;margin-bottom:.4rem;">30j</div>
+    <div style="font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);">Satisfait ou remboursé</div>
+  </div>
+</div>
+</section>
 
       
 <section id="formations" data-reveal aria-label="Formations Pinapp">
