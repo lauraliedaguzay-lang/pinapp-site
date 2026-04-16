@@ -1256,6 +1256,7 @@ body>*:not(#pc):not(#ow){position:relative;z-index:1;}
             <a href="#preuves">Réalisations</a>
             <a href="#contact">Contact</a>
             <a href="#formations">Formations</a>
+            <a href="#portfolio">Réalisations</a>
             <a href="#studio">L'équipe</a>
             <a href="https://lauraliedaguzay-lang.github.io/memoireetpresence/" target="_blank" rel="noopener" style="color:rgba(155,109,255,.9);border-color:rgba(155,109,255,.3) !important;">Mémoire &amp; Présence ↗</a>
             <a href="#contact" style="margin-top:.75rem;color:var(--accent,#00e5d4);font-weight:700;border-top:1px solid rgba(255,255,255,.1);padding-top:.75rem;">Premier échange offert →</a>
@@ -2117,6 +2118,94 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
 </main>
 
       
+<section id="portfolio">
+<style id="port-css">
+#portfolio{padding:5rem 0;overflow:hidden;}
+.pt{display:flex;justify-content:center;gap:.5rem;margin-bottom:2.5rem;flex-wrap:wrap;}
+.pt-btn{padding:.42rem 1.15rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:40px;color:rgba(255,255,255,.6);font-size:.78rem;cursor:pointer;transition:all .2s;font-family:inherit;}
+.pt-btn.on,.pt-btn:hover{background:rgba(0,229,176,.1);border-color:rgba(0,229,176,.35);color:#00e5b0;}
+.pp{display:none;}.pp.on{display:block;}
+.c3w{perspective:1100px;height:420px;display:flex;align-items:center;justify-content:center;}
+.c3{position:relative;width:290px;height:370px;transform-style:preserve-3d;}
+.c3-card{position:absolute;width:270px;height:350px;left:10px;top:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:18px;overflow:hidden;cursor:pointer;transition:box-shadow .3s,border-color .3s,transform .65s cubic-bezier(.4,0,.2,1),opacity .65s;backface-visibility:hidden;}
+.c3-card.cur{box-shadow:0 16px 48px rgba(0,229,176,.2),0 0 0 2px rgba(0,229,176,.28);border-color:rgba(0,229,176,.35);}
+.c3-card.cur-m{box-shadow:0 16px 48px rgba(155,109,255,.2),0 0 0 2px rgba(155,109,255,.28);border-color:rgba(155,109,255,.35);}
+.c3-img{width:100%;height:190px;object-fit:cover;display:block;filter:brightness(.82);transition:filter .4s;}
+.c3-card.cur .c3-img,.c3-card.cur-m .c3-img{filter:brightness(.92);}
+.c3-info{padding:.9rem 1.1rem;}
+.c3-tag{font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(0,229,176,.8);margin-bottom:.28rem;}
+.c3-tag.v{color:rgba(155,109,255,.85);}.c3-tag.vp{color:rgba(255,107,157,.85);}
+.c3-title{font-size:.95rem;font-weight:700;color:#fff;margin-bottom:.2rem;}
+.c3-desc{font-size:.76rem;color:rgba(255,255,255,.52);line-height:1.5;}
+.c3-link{font-size:.72rem;color:rgba(0,229,176,.7);font-weight:600;display:block;margin-top:.55rem;text-decoration:none;}
+.c3-link.v{color:rgba(155,109,255,.7);}.c3-link.vp{color:rgba(255,107,157,.7);}
+.c3-deplace{display:inline-flex;align-items:center;gap:.3rem;margin-top:.4rem;font-size:.65rem;color:rgba(155,109,255,.6);background:rgba(155,109,255,.08);padding:.18rem .55rem;border-radius:40px;}
+.c3-nav{display:flex;align-items:center;justify-content:center;gap:1.1rem;margin-top:1.5rem;}
+.c3-btn{width:38px;height:38px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:50%;color:rgba(255,255,255,.65);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:inherit;padding:0;}
+.c3-btn:hover{background:rgba(0,229,176,.1);border-color:rgba(0,229,176,.3);color:#00e5b0;}
+.c3-btn.vm:hover{background:rgba(155,109,255,.1);border-color:rgba(155,109,255,.3);color:#9b6dff;}
+.c3-dots{display:flex;gap:.38rem;align-items:center;flex-wrap:wrap;justify-content:center;max-width:180px;}
+.c3-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.2);cursor:pointer;transition:all .22s;border:none;padding:0;}
+.c3-dot.on{background:#00e5b0;width:14px;border-radius:3px;}
+.c3-dot.vm.on{background:#9b6dff;}
+.port-note{text-align:center;margin-top:1.5rem;font-size:.75rem;color:rgba(255,255,255,.3);}
+@media(max-width:600px){.c3w{height:340px;perspective:750px;}.c3{width:250px;height:320px;}.c3-card{width:230px;height:300px;}.c3-img{height:155px;}}
+</style>
+<div class="wrap">
+<p class="section-eyebrow">Nos réalisations</p>
+<h2>Ce qu'on a <span class="accent">déjà construit.</span></h2>
+<p style="text-align:center;max-width:480px;margin:.6rem auto 2rem;opacity:.55;font-size:.9rem;">Sites · Automatisations · Vidéos IA · Images de marque · Déplacement France entière</p>
+<div class="pt" role="tablist">
+<button class="pt-btn on" data-p="lauralie">🌐 Sites &amp; Systèmes — Lauralie</button>
+<button class="pt-btn" data-p="micha-video">🎬 Vidéo — Michaël</button>
+<button class="pt-btn" data-p="micha-photo">📸 Photo — Michaël</button>
+</div>
+
+<!-- Panel Lauralie — 5 encarts -->
+<div class="pp on" id="pp-lauralie">
+<div class="c3w"><div class="c3" id="c3l">
+<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&q=80&fit=crop" alt="Site restauration" loading="lazy"><div class="c3-info"><p class="c3-tag">Site vitrine</p><p class="c3-title">Restaurant gastronomique</p><p class="c3-desc">Réservations auto · Menu dynamique · SEO local</p><a href="#contact" class="c3-link">Voir le démo →</a></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80&fit=crop" alt="Cabinet santé" loading="lazy"><div class="c3-info"><p class="c3-tag">Site + Automatisation</p><p class="c3-title">Cabinet naturopathie</p><p class="c3-desc">Prise de RDV · Relances n8n · Formulaire qualifié</p><a href="#contact" class="c3-link">Voir le démo →</a></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&q=80&fit=crop" alt="Artisan" loading="lazy"><div class="c3-info"><p class="c3-tag">Site vitrine</p><p class="c3-title">Artisan menuisier</p><p class="c3-desc">Portfolio projets · Devis auto · Galerie dynamique</p><a href="#contact" class="c3-link">Voir le démo →</a></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&q=80&fit=crop" alt="Freelance" loading="lazy"><div class="c3-info"><p class="c3-tag">Site + IA</p><p class="c3-title">Consultant freelance</p><p class="c3-desc">Lead magnet · Newsletter auto · Tunnel de vente</p><a href="#contact" class="c3-link">Voir le démo →</a></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=600&q=80&fit=crop" alt="Institut beauté" loading="lazy"><div class="c3-info"><p class="c3-tag">Site Premium</p><p class="c3-title">Institut beauté</p><p class="c3-desc">Espace client · Réservations · Galerie soins</p><a href="#contact" class="c3-link">Voir le démo →</a></div></div>
+</div></div>
+<div class="c3-nav" id="nl"><button class="c3-btn" data-d="-1">←</button><div class="c3-dots" id="dl"></div><button class="c3-btn" data-d="1">→</button></div>
+</div>
+
+<!-- Panel Micha Vidéo — 8 encarts -->
+<div class="pp" id="pp-micha-video">
+<p class="port-note" style="margin-bottom:1.25rem;color:rgba(155,109,255,.6);">📍 Michaël se déplace partout en France · Belgique · Suisse</p>
+<div class="c3w"><div class="c3" id="c3mv">
+<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80&fit=crop" alt="Mariage" loading="lazy"><div class="c3-info"><p class="c3-tag v">Mariage</p><p class="c3-title">Film de mariage cinématique</p><p class="c3-desc">Captation · Montage · Livraison 4K · Drone · Highlights</p><a href="#contact" class="c3-link v">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=600&q=80&fit=crop" alt="Portrait IA" loading="lazy"><div class="c3-info"><p class="c3-tag v">IA Créative · Higgsfield</p><p class="c3-title">Vidéo produit IA</p><p class="c3-desc">Animation portrait · Rendu premium · Multi-formats</p><a href="#contact" class="c3-link v">Demander un devis →</a></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80&fit=crop" alt="Événement corporate" loading="lazy"><div class="c3-info"><p class="c3-tag v">Corporate</p><p class="c3-title">Film d'entreprise</p><p class="c3-desc">Présentation · Équipes · Produits · Storytelling de marque</p><a href="#contact" class="c3-link v">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=600&q=80&fit=crop" alt="Institutionnel" loading="lazy"><div class="c3-info"><p class="c3-tag v">Image de marque</p><p class="c3-title">Vidéo institutionnelle</p><p class="c3-desc">Scénario · Tournage · Motion design · Diffusion multi-plateformes</p><a href="#contact" class="c3-link v">Demander un devis →</a></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=600&q=80&fit=crop" alt="Gala événement" loading="lazy"><div class="c3-info"><p class="c3-tag v">Événementiel</p><p class="c3-title">Gala & soirée de prestige</p><p class="c3-desc">Captation live · Montage express · Diffusion J+48</p><a href="#contact" class="c3-link v">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?w=600&q=80&fit=crop" alt="Contenu social" loading="lazy"><div class="c3-info"><p class="c3-tag v">Social Media</p><p class="c3-title">Contenu social & Reels</p><p class="c3-desc">Short-form · Instagram · TikTok · LinkedIn · Formats multiples</p><a href="#contact" class="c3-link v">Demander un devis →</a></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&q=80&fit=crop" alt="PACS couple" loading="lazy"><div class="c3-info"><p class="c3-tag v">Couple & PACS</p><p class="c3-title">Film de cérémonie</p><p class="c3-desc">PACS · Fiançailles · Anniversaire de mariage · Mémoire</p><a href="#contact" class="c3-link v">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=600&q=80&fit=crop" alt="Plateau tournage" loading="lazy"><div class="c3-info"><p class="c3-tag v">Production</p><p class="c3-title">Plateau de tournage</p><p class="c3-desc">Direction photo · Éclairage · Scénario · Production complète</p><a href="#contact" class="c3-link v">Demander un devis →</a></div></div>
+</div></div>
+<div class="c3-nav" id="nmv"><button class="c3-btn vm" data-d="-1">←</button><div class="c3-dots vm" id="dmv"></div><button class="c3-btn vm" data-d="1">→</button></div>
+</div>
+
+<!-- Panel Micha Photo — 6 encarts -->
+<div class="pp" id="pp-micha-photo">
+<p class="port-note" style="margin-bottom:1.25rem;color:rgba(255,107,157,.5);">📍 Michaël se déplace partout en France · Belgique · Suisse</p>
+<div class="c3w"><div class="c3" id="c3mp">
+<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80&fit=crop" alt="Photo mariage" loading="lazy"><div class="c3-info"><p class="c3-tag vp">Photo mariage</p><p class="c3-title">Reportage nuptial</p><p class="c3-desc">Préparatifs · Cérémonie · Cocktail · Soirée · 500+ clichés livrés</p><a href="#contact" class="c3-link vp">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80&fit=crop" alt="Portrait pro" loading="lazy"><div class="c3-info"><p class="c3-tag vp">Portrait pro</p><p class="c3-title">Portrait professionnel</p><p class="c3-desc">LinkedIn · Site web · Presse · Direction artistique · Retouche pro</p><a href="#contact" class="c3-link vp">Demander un devis →</a></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80&fit=crop" alt="Événement photo" loading="lazy"><div class="c3-info"><p class="c3-tag vp">Événementiel</p><p class="c3-title">Reportage d'événement</p><p class="c3-desc">Gala · Conférence · Séminaire · 200–600 images · Galerie privée</p><a href="#contact" class="c3-link vp">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80&fit=crop" alt="Photo produit" loading="lazy"><div class="c3-info"><p class="c3-tag vp">Photo produit</p><p class="c3-title">Packshots & produits</p><p class="c3-desc">E-commerce · Catalogue · Publicité · Studio ou en situation</p><a href="#contact" class="c3-link vp">Demander un devis →</a></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&q=80&fit=crop" alt="Photo corporate team" loading="lazy"><div class="c3-info"><p class="c3-tag vp">Corporate</p><p class="c3-title">Photo d'équipe & team</p><p class="c3-desc">Direction photo · Ambiance bureau · Portraits individuels et groupe</p><a href="#contact" class="c3-link vp">Demander un devis →</a><span class="c3-deplace">📍 Déplacement France</span></div></div>
+<div class="c3-card"><img class="c3-img" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80&fit=crop" alt="Portrait IA" loading="lazy"><div class="c3-info"><p class="c3-tag vp">Portrait IA · Higgsfield</p><p class="c3-title">Portrait IA animé</p><p class="c3-desc">Transformation photo → portrait animé premium · Higgsfield</p><a href="#contact" class="c3-link vp">Demander un devis →</a></div></div>
+</div></div>
+<div class="c3-nav" id="nmp"><button class="c3-btn" style="border-color:rgba(255,107,157,.2);color:rgba(255,107,157,.5);" data-d="-1">←</button><div class="c3-dots" id="dmp"></div><button class="c3-btn" style="border-color:rgba(255,107,157,.2);color:rgba(255,107,157,.5);" data-d="1">→</button></div>
+</div>
+
+</div>
+<script id="c3-js">(function(){function mk(ci,ni,di,cls){var car=document.getElementById(ci),nav=document.getElementById(ni),dots=document.getElementById(di);if(!car||!nav)return;var items=Array.from(car.querySelectorAll('.c3-card')),N=items.length,cur=0,theta=2*Math.PI/N,radius=Math.max(210,N*42);dots.innerHTML='';items.forEach((_,i)=>{var d=document.createElement('button');d.className='c3-dot'+(cls?' '+cls:'')+(i===0?' on':'');d.style.cssText='border:none;padding:0;cursor:pointer;';d.addEventListener('click',()=>go(i));dots.appendChild(d);});function pos(){items.forEach((item,i)=>{var a=theta*(i-cur),x=Math.sin(a)*radius,z=Math.cos(a)*radius-radius,sc=0.68+0.32*((Math.cos(a)+1)/2),op=0.28+0.72*((Math.cos(a)+1)/2);item.style.transform='translateX('+x+'px) translateZ('+z+'px) scale('+sc+')';item.style.opacity=op;item.style.zIndex=Math.round(sc*100);item.classList.toggle('cur',!cls&&i===cur);item.classList.toggle('cur-m',cls==='vm'&&i===cur);});dots.querySelectorAll('.c3-dot').forEach((d,i)=>d.classList.toggle('on',i===cur));}function go(i){cur=((i%N)+N)%N;pos();}nav.querySelectorAll('.c3-btn').forEach(b=>b.addEventListener('click',()=>go(cur+parseInt(b.dataset.d))));items.forEach((_,i)=>items[i].addEventListener('click',()=>go(i)));var tx=0;car.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});car.addEventListener('touchend',e=>{var dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>40)go(cur+(dx<0?1:-1));},{passive:true});pos();}document.querySelectorAll('.pt-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.pt-btn').forEach(b=>b.classList.remove('on'));document.querySelectorAll('.pp').forEach(p=>p.classList.remove('on'));btn.classList.add('on');document.getElementById('pp-'+btn.dataset.p)?.classList.add('on');});});window.addEventListener('load',()=>{mk('c3l','nl','dl','');mk('c3mv','nmv','dmv','vm');mk('c3mp','nmp','dmp','');});}());</script>
+</section>
 <section id="studio" aria-label="L'équipe Pinapp">
 <style id="studio-section-style">
 #studio{padding:5rem 0;}
