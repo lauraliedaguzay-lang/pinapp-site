@@ -11,9 +11,9 @@ Créer une **base de données** (tableau complet) avec les propriétés suivante
 | **Email** | Email | — |
 | **Téléphone** | Texte | — |
 | **Secteur** | Select | Aligner sur les **35 secteurs** du formulaire diagnostic (même libellés que le `<select>` secteur du site). |
-| **Besoin** | Multi-select | `Site`, `Automatisation`, `IA`, `Vidéo`, `Formation`, `M&P`, `Pack`, `Autre` (adapter aux cases « intérêts » du formulaire). |
+| **Besoin** | Multi-select | `Site`, `Automatisation` (alias interne **Auto**), `IA`, `Vidéo`, `Formation`, `M&P`, `Pack`, `Autre` — aligner sur les cases « intérêts » du formulaire diagnostic. |
 | **Budget** | Select | `<1K`, `1-3K`, `3-5K`, `5-10K`, `10K+`, `NSP` |
-| **Statut** | Select | `Nouveau`, `Contacté`, `Devis envoyé`, `Signé`, `Perdu`, `En attente` (émojis optionnels dans le libellé affiché). |
+| **Statut** | Select | `Nouveau`, `Contacté`, `Devis envoyé`, `Signé`, `Perdu`, `En attente` — variante lisible avec emojis : `🆕 Nouveau`, `📞 Contacté`, `📋 Devis envoyé`, `✅ Signé`, `❌ Perdu`, `💤 En attente` (même valeurs logiques pour n8n si vous mappez sans emoji). |
 | **Source** | Select | `Site`, `LinkedIn`, `Bouche-à-oreille`, `Google`, `Autre` |
 | **Acquisition** | Select ou Texte | Valeurs typiques : `direct`, `qr`, `utm`, … — alimenté par le champ JSON **`acquisition_source`** du webhook diagnostic (ex. `qr` si URL `?source=qr`). |
 | **Date contact** | Date | Date de première prise de contact ou de création de la fiche. |

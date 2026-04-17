@@ -1,6 +1,8 @@
 PINAPP — Séquences email (corps texte pour n8n / Gmail)
 =======================================================
 
+Vue d’ensemble + checklist onboarding + QR : voir docs/studio/PINAPP-PROCESS-BUSINESS-COMPLETS.md
+
 Chaque fichier .txt : première ligne = OBJET: … puis corps du message (UTF-8).
 
 Les versions HTML « premium » (dark/light) restent dans /emails/ (01–06) pour les envois HTML si besoin.
