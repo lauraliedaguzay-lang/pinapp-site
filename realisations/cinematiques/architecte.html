@@ -1,331 +1,936 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Atelier Rivage — Architecture d'exception · Démo Pinapp</title>
-<meta name="description" content="Démonstration immersive pour cabinet d'architecture. Créé par Pinapp, studio digital à Bordeaux.">
-<meta name="robots" content="noindex">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%;overflow:hidden;background:#0c0c0a;font-family:'Outfit',sans-serif;color:#fff;cursor:default}
-::selection{background:#C8A87A;color:#fff}
-img{display:block}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atelier Rivage — Architecture résidentielle · Démo Pinapp</title>
+    <meta
+      name="description"
+      content="Cabinet d'architecture — expérience immersive. Créé par Pinapp, studio digital à Bordeaux." />
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href="https://pinapp.fr/realisations/cinematiques/architecte.html" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Outfit:wght@200;300;400&display=swap"
+      rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #0c0c0a;
+        --bg-light: #f0ece4;
+        --gold: #c8a87a;
+        --white: #ffffff;
+        --muted: rgba(255, 255, 255, 0.45);
+        --text-dark: #2c2a26;
+        --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        overflow-x: hidden;
+      }
+      html.lenis,
+      html.lenis body {
+        height: auto;
+      }
+      html.has-custom-cursor,
+      html.has-custom-cursor body {
+        cursor: none;
+      }
+      body {
+        font-family: 'Outfit', system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--white);
+        font-weight: 300;
+        line-height: 1.55;
+        overflow-x: hidden;
+      }
+      @media (max-width: 767px) {
+        html.has-custom-cursor,
+        html.has-custom-cursor body {
+          cursor: auto;
+        }
+      }
 
-/* === SLIDES === */
-.slide{position:fixed;inset:0;opacity:0;visibility:hidden;transition:opacity 1.4s cubic-bezier(.4,0,.2,1),visibility 0s 1.4s;overflow:hidden;z-index:1}
-.slide.active{opacity:1;visibility:visible;transition:opacity 1.4s cubic-bezier(.4,0,.2,1),visibility 0s 0s;z-index:2}
-.slide__img{position:absolute;inset:-8%;width:116%;height:116%;object-fit:cover;will-change:transform;filter:brightness(.45) saturate(.85);transition:transform .12s ease-out}
-.slide.active .slide__img{animation:kenburns 20s ease-in-out alternate infinite}
-@keyframes kenburns{0%{transform:scale(1.04)}100%{transform:scale(1.12) translate(-0.5%,-0.3%)}}
-.slide__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,12,10,.2) 0%,transparent 35%,transparent 55%,rgba(12,12,10,.92) 100%)}
-.slide__vignette{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 30%,rgba(12,12,10,.45) 100%);pointer-events:none}
+      .cursor-dot,
+      .cursor-circle {
+        pointer-events: none;
+        position: fixed;
+        border-radius: 50%;
+        left: 0;
+        top: 0;
+        z-index: 9999;
+        transition:
+          width 0.4s,
+          height 0.4s,
+          border-color 0.4s,
+          opacity 0.3s;
+        mix-blend-mode: difference;
+      }
+      .cursor-dot {
+        width: 6px;
+        height: 6px;
+        margin: -3px 0 0 -3px;
+        background: var(--gold);
+        z-index: 9999;
+      }
+      .cursor-circle {
+        width: 40px;
+        height: 40px;
+        margin: -20px 0 0 -20px;
+        border: 1px solid rgba(200, 168, 122, 0.3);
+        z-index: 9998;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .cursor-circle__label {
+        position: absolute;
+        font-size: 0.5rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--gold);
+        opacity: 0;
+        transition: opacity 0.25s ease;
+        pointer-events: none;
+      }
+      html.has-custom-cursor .cursor-circle.is-img .cursor-circle__label {
+        opacity: 1;
+      }
+      html.has-custom-cursor .cursor-circle.is-link {
+        width: 70px;
+        height: 70px;
+        margin: -35px 0 0 -35px;
+        border-color: rgba(200, 168, 122, 0.6);
+      }
+      html.has-custom-cursor .cursor-circle.is-img {
+        width: 90px;
+        height: 90px;
+        margin: -45px 0 0 -45px;
+        border-color: rgba(200, 168, 122, 0.55);
+      }
+      html.has-custom-cursor .cursor-dot.is-hidden {
+        opacity: 0;
+      }
+      html:not(.has-custom-cursor) .cursor-dot,
+      html:not(.has-custom-cursor) .cursor-circle {
+        display: none !important;
+      }
+      @media (max-width: 767px) {
+        .cursor-dot,
+        .cursor-circle {
+          display: none !important;
+        }
+      }
 
-/* === NAV === */
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.6rem 3.2rem;display:flex;justify-content:space-between;align-items:center;transition:background .5s,padding .5s}
-.nav.scrolled{background:rgba(12,12,10,.7);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);padding:1rem 3.2rem}
-.nav__logo{font-family:'Cormorant Garamond',serif;font-size:1.35rem;letter-spacing:.17em;font-weight:300;color:#fff;text-decoration:none}
-.nav__links{display:flex;gap:2.4rem}
-.nav__links a{color:rgba(255,255,255,.38);text-decoration:none;font-size:.56rem;letter-spacing:.17em;text-transform:uppercase;font-weight:300;transition:color .35s}
-.nav__links a:hover{color:#C8A87A}
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.5rem clamp(1.25rem, 4vw, 3.5rem);
+        mix-blend-mode: difference;
+        color: #fff;
+      }
+      .nav__logo {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(1rem, 2.5vw, 1.35rem);
+        font-weight: 300;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: inherit;
+        text-decoration: none;
+      }
+      .nav__links {
+        display: flex;
+        gap: clamp(1.25rem, 3vw, 2.5rem);
+      }
+      .nav__links a {
+        font-size: 0.55rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.85);
+        text-decoration: none;
+        font-weight: 300;
+        transition: color 0.35s ease;
+      }
+      .nav__links a:hover {
+        color: var(--gold);
+      }
+      @media (max-width: 767px) {
+        .nav__links {
+          display: none;
+        }
+      }
 
-/* === CONTENT BOTTOM === */
-.content{position:fixed;bottom:0;left:0;right:0;z-index:50;padding:0 4rem 4.5rem;pointer-events:none}
-.content>*{pointer-events:all}
-.eyebrow{font-size:.48rem;letter-spacing:.38em;text-transform:uppercase;color:#C8A87A;margin-bottom:1.1rem;opacity:0;transform:translateY(12px);transition:all .7s ease}
-.eyebrow.show{opacity:1;transform:none}
-.title{font-family:'Cormorant Garamond',serif;font-weight:300;line-height:1.05;text-shadow:0 2px 50px rgba(0,0,0,.35);opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(.4,0,.2,1) .1s}
-.title.show{opacity:1;transform:none}
-.title--hero{font-size:clamp(2.6rem,6.5vw,5.2rem)}
-.title--project{font-size:clamp(1.9rem,4.5vw,3.2rem)}
-.title em{font-style:italic;color:#e8d5b8}
-.subtitle{font-size:.8rem;color:rgba(255,255,255,.48);margin-top:.55rem;font-weight:200;opacity:0;transform:translateY(10px);transition:all .6s ease .2s}
-.subtitle.show{opacity:1;transform:none}
+      .hero {
+        position: relative;
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        overflow: hidden;
+      }
+      .hero__bg-scroll {
+        position: absolute;
+        inset: -12% 0 -12% 0;
+        will-change: transform;
+      }
+      .hero__bg-mouse {
+        position: absolute;
+        inset: 0;
+        background-image: url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920&q=90');
+        background-size: cover;
+        background-position: center;
+        will-change: transform;
+      }
+      .hero__overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(12, 12, 10, 0.35) 0%, transparent 40%, rgba(12, 12, 10, 0.88) 100%);
+        pointer-events: none;
+      }
+      .hero__content {
+        position: relative;
+        z-index: 2;
+        padding: 0 clamp(1.5rem, 5vw, 4rem) clamp(3rem, 8vh, 5rem);
+        max-width: 56rem;
+      }
+      .hero__eyebrow {
+        font-size: 0.5rem;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 1rem;
+      }
+      .hero__title {
+        font-family: 'Cormorant Garamond', serif;
+        font-weight: 300;
+        font-size: clamp(2.75rem, 8vw, 5.5rem);
+        line-height: 1.02;
+        text-shadow: 0 4px 60px rgba(0, 0, 0, 0.45);
+      }
+      .hero__title em {
+        font-style: italic;
+        color: #e8d5b8;
+      }
+      .hero__scroll {
+        margin-top: 2.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        opacity: 0.55;
+      }
+      .hero__scroll span {
+        font-size: 0.48rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.35);
+      }
+      .hero__scroll svg {
+        animation: bob 2.4s ease-in-out infinite;
+      }
+      @keyframes bob {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(6px);
+        }
+      }
 
-/* === THUMBS === */
-.thumbs{display:flex;gap:.55rem;margin-top:2.2rem;align-items:flex-end}
-.thumb{width:68px;height:44px;border-radius:4px;overflow:hidden;cursor:pointer;border:2px solid rgba(255,255,255,.07);transition:all .55s cubic-bezier(.4,0,.2,1);opacity:.35;flex-shrink:0}
-.thumb.active{width:118px;height:72px;border-color:#C8A87A;opacity:1}
-.thumb img{width:100%;height:100%;object-fit:cover;transition:filter .4s}
-.thumb:not(.active) img{filter:brightness(.45) saturate(.35)}
-.thumb:hover:not(.active){opacity:.6}
+      .section-line {
+        height: 1px;
+        background: var(--gold);
+        transform-origin: left center;
+        margin: 0 auto 3rem;
+        max-width: 6rem;
+      }
 
-/* === ARROWS === */
-.arrows{display:flex;gap:.5rem;margin-top:1.1rem;align-items:center}
-.arrow{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:rgba(255,255,255,.5);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.8rem;transition:all .3s;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
-.arrow:hover{border-color:#C8A87A;color:#C8A87A;background:rgba(200,168,122,.06)}
-.counter{font-size:.46rem;color:rgba(255,255,255,.18);margin-left:.6rem;letter-spacing:.12em;font-variant-numeric:tabular-nums}
+      .intro {
+        padding: clamp(6rem, 18vw, 12rem) clamp(1.5rem, 5vw, 4rem);
+        text-align: center;
+        max-width: 52rem;
+        margin: 0 auto;
+      }
+      .intro__quote {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(1.65rem, 4vw, 2.5rem);
+        font-weight: 300;
+        font-style: italic;
+        line-height: 1.35;
+        margin-bottom: 1.5rem;
+      }
+      .intro__sub {
+        font-size: 0.85rem;
+        color: var(--muted);
+        font-weight: 200;
+      }
 
-/* === DOTS === */
-.dots{position:fixed;right:1.4rem;top:50%;transform:translateY(-50%);z-index:80;display:flex;flex-direction:column;gap:.45rem}
-.dot{width:3px;height:7px;border-radius:1.5px;background:rgba(255,255,255,.1);cursor:pointer;transition:all .5s cubic-bezier(.4,0,.2,1)}
-.dot.active{height:20px;background:#C8A87A}
-.dot:hover:not(.active){background:rgba(255,255,255,.25)}
+      .project {
+        position: relative;
+        padding: clamp(4rem, 12vw, 8rem) clamp(1.5rem, 5vw, 4rem);
+      }
+      .project__grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(2rem, 5vw, 4rem);
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .project__grid--reverse {
+        direction: rtl;
+      }
+      .project__grid--reverse > * {
+        direction: ltr;
+      }
+      .project__num {
+        font-size: 0.55rem;
+        letter-spacing: 0.35em;
+        color: var(--gold);
+        margin-bottom: 0.75rem;
+      }
+      .project__title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(2rem, 4.5vw, 3.25rem);
+        font-weight: 300;
+        line-height: 1.08;
+        margin-bottom: 0.75rem;
+      }
+      .project__loc {
+        font-size: 0.65rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 1rem;
+      }
+      .project__desc {
+        font-size: 0.95rem;
+        color: var(--muted);
+        font-weight: 200;
+        max-width: 32rem;
+      }
+      .project-figure {
+        position: relative;
+        overflow: hidden;
+        border-radius: 2px;
+        will-change: transform;
+      }
+      .project-figure__parallax {
+        will-change: transform;
+      }
+      .project-figure__inner {
+        overflow: hidden;
+        line-height: 0;
+      }
+      .project-img {
+        width: 100%;
+        height: auto;
+        min-height: 320px;
+        object-fit: cover;
+        display: block;
+        clip-path: inset(100% 0 0 0);
+        transform: scale(1.15);
+        transform-origin: center center;
+        will-change: transform, clip-path;
+      }
+      .project--full .project-figure {
+        max-width: 100%;
+      }
+      .project--full .project-img {
+        min-height: 70vh;
+      }
+      .project--full .project__overlay-text {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: clamp(2rem, 5vw, 4rem);
+        background: linear-gradient(180deg, transparent, rgba(12, 12, 10, 0.92));
+        z-index: 3;
+      }
+      @media (max-width: 767px) {
+        .project__grid,
+        .project__grid--reverse {
+          grid-template-columns: 1fr;
+          direction: ltr;
+        }
+        .project__grid--reverse > * {
+          direction: ltr;
+        }
+      }
 
-/* === NUMBER === */
-.slide-num{position:fixed;top:50%;right:3rem;transform:translateY(-50%);writing-mode:vertical-rl;font-size:.46rem;letter-spacing:.2em;color:rgba(255,255,255,.12);text-transform:uppercase;z-index:60;transition:opacity .4s}
+      .cta {
+        background: var(--bg-light);
+        color: var(--text-dark);
+        padding: clamp(5rem, 14vw, 10rem) clamp(1.5rem, 5vw, 4rem);
+        text-align: center;
+      }
+      .cta h2 {
+        font-family: 'Cormorant Garamond', serif;
+        font-weight: 300;
+        font-size: clamp(2rem, 5vw, 3rem);
+        line-height: 1.15;
+        margin-bottom: 2rem;
+        color: var(--text-dark);
+      }
+      .cta .btn-magnetic {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem 2rem;
+        border: 1px solid rgba(44, 42, 38, 0.2);
+        background: transparent;
+        color: var(--text-dark);
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.65rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        cursor: pointer;
+        border-radius: 100px;
+        text-decoration: none;
+        transition:
+          border-color 0.35s ease,
+          color 0.35s ease;
+      }
+      .cta .btn-magnetic:hover {
+        border-color: var(--gold);
+        color: var(--text-dark);
+      }
 
-/* === SCROLL HINT === */
-.scroll-hint{margin-top:2.4rem;display:flex;align-items:center;gap:.55rem}
-.scroll-hint svg{opacity:.3;animation:bob 2.5s ease-in-out infinite}
-.scroll-hint span{font-size:.46rem;letter-spacing:.12em;color:rgba(255,255,255,.22);text-transform:uppercase}
-@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+      .footer {
+        padding: 3rem clamp(1.5rem, 5vw, 4rem);
+        text-align: center;
+        font-size: 0.55rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.28);
+      }
 
-/* === BADGE === */
-.badge{position:fixed;bottom:.9rem;right:1.4rem;z-index:90;display:flex;align-items:center;gap:.4rem;padding:.32rem .8rem;background:rgba(12,12,10,.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.05);border-radius:100px;text-decoration:none;transition:border-color .3s}
-.badge:hover{border-color:rgba(200,168,122,.25)}
-.badge__dot{width:4px;height:4px;border-radius:50%;background:#6BAF8D;animation:pulse 2.5s infinite}
-.badge__text{font-size:.42rem;color:rgba(255,255,255,.22);letter-spacing:.1em;text-transform:uppercase}
-@keyframes pulse{0%,100%{opacity:.3}50%{opacity:.8}}
+      .pinapp-badge {
+        position: fixed;
+        bottom: 1.25rem;
+        right: 1.25rem;
+        z-index: 9500;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.4rem 0.9rem;
+        background: rgba(12, 12, 10, 0.55);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 100px;
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.55);
+        font-size: 0.42rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        transition: border-color 0.3s ease;
+      }
+      .pinapp-badge:hover {
+        border-color: rgba(200, 168, 122, 0.35);
+      }
+      .pinapp-badge__dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #6baf8d;
+        animation: pulse 2.5s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 0.35;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
 
-/* === RESPONSIVE === */
-@media(max-width:768px){
-  .nav{padding:1rem 1.4rem}
-  .nav__links{display:none}
-  .content{padding:0 1.6rem 3rem}
-  .title--hero{font-size:2.4rem}
-  .title--project{font-size:1.7rem}
-  .thumb{width:48px;height:32px}
-  .thumb.active{width:82px;height:52px}
-  .slide-num{display:none}
-  .dots{right:.8rem}
-}
-@media (prefers-reduced-motion:reduce){
-  .slide.active .slide__img{animation:none}
-}
-</style>
-</head>
-<body>
+      .char {
+        display: inline-block;
+        opacity: 0;
+        transform: translateY(100%);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .char {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+        .project-img {
+          clip-path: inset(0) !important;
+          transform: none !important;
+        }
+        .hero__scroll svg {
+          animation: none !important;
+        }
+        .pinapp-badge__dot {
+          animation: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+    <div class="cursor-circle" id="cursorCircle" aria-hidden="true">
+      <span class="cursor-circle__label">Voir</span>
+    </div>
 
-<!-- NAV -->
-<nav class="nav" id="nav">
-  <a href="https://pinapp.fr" class="nav__logo">Atelier Rivage</a>
-  <div class="nav__links">
-    <a href="#">Villas</a>
-    <a href="#">L'atelier</a>
-    <a href="#">Contact</a>
-  </div>
-</nav>
+    <header class="nav">
+      <a class="nav__logo" href="#hero">Atelier Rivage</a>
+      <nav class="nav__links" aria-label="Navigation">
+        <a href="#projets">Projets</a>
+        <a href="#intro">Manifeste</a>
+        <a href="#cta">Contact</a>
+      </nav>
+    </header>
 
-<!-- SLIDES -->
-<div id="slides"></div>
+    <main id="main">
+      <section class="hero" id="hero">
+        <div class="hero__bg-scroll" id="heroBgScroll">
+          <div class="hero__bg-mouse" id="heroBgMouse"></div>
+        </div>
+        <div class="hero__overlay"></div>
+        <div class="hero__content">
+          <p class="hero__eyebrow">Architecture résidentielle</p>
+          <h1 class="hero__title js-split-wrap">
+            <span class="js-split">Entrez dans nos </span><em class="js-split">créations.</em>
+          </h1>
+          <div class="hero__scroll" aria-hidden="true">
+            <svg width="20" height="32" viewBox="0 0 20 32" fill="none">
+              <rect x="1" y="1" width="18" height="30" rx="9" stroke="rgba(255,255,255,0.25)" stroke-width="1.2" />
+              <circle cx="10" cy="10" r="2" fill="rgba(255,255,255,0.45)" />
+            </svg>
+            <span>Scroll</span>
+          </div>
+        </div>
+      </section>
 
-<!-- SLIDE NUMBER -->
-<div class="slide-num" id="slideNum">01 / 06</div>
+      <section class="intro" id="intro">
+        <div class="section-line" data-line></div>
+        <h2 class="intro__quote js-split">Chaque espace que nous concevons est une émotion qui prend forme.</h2>
+        <p class="intro__sub">
+          Atelier Rivage — maîtrise d'œuvre et architecture mandataire sur la façade atlantique depuis 2009.
+        </p>
+      </section>
 
-<!-- CONTENT -->
-<div class="content">
-  <p class="eyebrow" id="eyebrow">Architecture résidentielle · Bordeaux & Littoral atlantique</p>
-  <h1 class="title title--hero" id="title">Entrez dans<br>nos <em>créations.</em></h1>
-  <p class="subtitle" id="subtitle">Naviguez à travers nos villas d'exception</p>
+      <section class="project" id="projets" data-section>
+        <div class="project__grid">
+          <div class="project-figure cursor-magnetic-zone" data-img-hover>
+            <div class="project-figure__parallax" data-parallax-y>
+              <div class="project-figure__inner">
+                <img
+                  class="project-img"
+                  src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920&q=85"
+                  alt="Villa Lumière — architecture contemporaine"
+                  width="1920"
+                  height="1280"
+                  loading="lazy" />
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="project__num">01</p>
+            <h2 class="project__title js-split">Villa Lumière</h2>
+            <p class="project__loc">Cap Ferret · 480 m² SDP</p>
+            <p class="project__desc">
+              Résidence secondaire : plan en L ouvert sur l'océan, piscine miroir, cèdre rouge et béton ciré intérieur /
+              extérieur.
+            </p>
+          </div>
+        </div>
+      </section>
 
-  <div class="thumbs" id="thumbs"></div>
+      <section class="project" data-section>
+        <div class="project__grid project__grid--reverse">
+          <div>
+            <p class="project__num">02</p>
+            <h2 class="project__title js-split">Les Jardins suspendus</h2>
+            <p class="project__loc">Biarritz · 350 m²</p>
+            <p class="project__desc">
+              Dalles en porte-à-faux, garde-corps vitrés structuraux et jardinières filtrantes face à la côte basque.
+            </p>
+          </div>
+          <div class="project-figure cursor-magnetic-zone" data-img-hover>
+            <div class="project-figure__parallax" data-parallax-y>
+              <div class="project-figure__inner">
+                <img
+                  class="project-img"
+                  src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=85"
+                  alt="Les Jardins suspendus"
+                  width="1920"
+                  height="1280"
+                  loading="lazy" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-  <div class="arrows">
-    <button class="arrow" id="prev" aria-label="Projet précédent">&#8592;</button>
-    <button class="arrow" id="next" aria-label="Projet suivant">&#8594;</button>
-    <span class="counter" id="counter">01 / 06</span>
-  </div>
+      <section class="project project--full" data-section>
+        <div class="project-figure cursor-magnetic-zone" data-img-hover>
+          <div class="project-figure__parallax" data-parallax-y>
+            <div class="project-figure__inner">
+              <img
+                class="project-img"
+                src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=85"
+                alt="Maison Pierre"
+                width="1920"
+                height="1280"
+                loading="lazy" />
+            </div>
+          </div>
+          <div class="project__overlay-text">
+            <p class="project__num">03</p>
+            <h2 class="project__title js-split">Maison Pierre</h2>
+            <p class="project__loc">Saint-Émilion · 420 m²</p>
+            <p class="project__desc">
+              Chai réhabilité : pierre blonde, acier noir, plancher chauffant sur dalle existante.
+            </p>
+          </div>
+        </div>
+      </section>
 
-  <div class="scroll-hint" id="scrollHint">
-    <svg width="18" height="28" viewBox="0 0 18 28" fill="none"><rect x="1" y="1" width="16" height="26" rx="8" stroke="rgba(255,255,255,.25)" stroke-width="1.2"/><circle cx="9" cy="9" r="1.8" fill="rgba(255,255,255,.4)"><animate attributeName="cy" values="8;18;8" dur="2.2s" repeatCount="indefinite"/></circle></svg>
-    <span>Scroll ou cliquez</span>
-  </div>
-</div>
+      <section class="project" data-section>
+        <div class="project__grid">
+          <div class="project-figure cursor-magnetic-zone" data-img-hover>
+            <div class="project-figure__parallax" data-parallax-y>
+              <div class="project-figure__inner">
+                <img
+                  class="project-img"
+                  src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=1920&q=85"
+                  alt="Villa Éclipse"
+                  width="1920"
+                  height="1280"
+                  loading="lazy" />
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="project__num">04</p>
+            <h2 class="project__title js-split">Villa Éclipse</h2>
+            <p class="project__loc">Arcachon · 290 m²</p>
+            <p class="project__desc">
+              Maison passive ciblée : brise-soleil, piscine aux sels, toiture végétalisée et récupération des eaux de
+              pluie.
+            </p>
+          </div>
+        </div>
+      </section>
 
-<!-- DOTS -->
-<div class="dots" id="dots"></div>
+      <section class="project" data-section>
+        <div class="project__grid project__grid--reverse">
+          <div>
+            <p class="project__num">05</p>
+            <h2 class="project__title js-split">L'intérieur</h2>
+            <p class="project__loc">Bordeaux · 260 m²</p>
+            <p class="project__desc">
+              Réunion de deux lots : poutres mixtes acier-bois, verrière zénithale motorisée, acoustique sur mesure.
+            </p>
+          </div>
+          <div class="project-figure cursor-magnetic-zone" data-img-hover>
+            <div class="project-figure__parallax" data-parallax-y>
+              <div class="project-figure__inner">
+                <img
+                  class="project-img"
+                  src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=85"
+                  alt="L'intérieur"
+                  width="1920"
+                  height="1280"
+                  loading="lazy" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-<!-- BADGE -->
-<a href="https://pinapp.fr" target="_blank" rel="noopener" class="badge">
-  <span class="badge__dot"></span>
-  <span class="badge__text">Créé par Pinapp</span>
-</a>
+      <section class="project project--full" data-section>
+        <div class="project-figure cursor-magnetic-zone" data-img-hover>
+          <div class="project-figure__parallax" data-parallax-y>
+            <div class="project-figure__inner">
+              <img
+                class="project-img"
+                src="https://images.unsplash.com/photo-1574739782594-db4ead022697?w=1920&q=85"
+                alt="Horizon bleu"
+                width="1920"
+                height="1280"
+                loading="lazy" />
+            </div>
+          </div>
+          <div class="project__overlay-text">
+            <p class="project__num">06</p>
+            <h2 class="project__title js-split">Horizon bleu</h2>
+            <p class="project__loc">Hossegor · 310 m²</p>
+            <p class="project__desc">
+              Ossature bois PEFC, façade ventilée, piscine miroir chauffée géothermie passive.
+            </p>
+          </div>
+        </div>
+      </section>
 
-<script>
-/* ======= DATA ======= */
-var DATA = [
-  {t:"Villa Lumière", l:"Cap Ferret · 480 m²", d:"Piscine à débordement face à l'Atlantique. Béton blanc, bois de cèdre et baies vitrées plein sud.", i:"photo-1613490493576-7fde63acd811"},
-  {t:"Les Jardins Suspendus", l:"Biarritz · 350 m²", d:"Terrasses végétalisées en cascade surplombant la côte basque.", i:"photo-1512917774080-9991f1c4c750"},
-  {t:"Maison Pierre", l:"Saint-Émilion · 420 m²", d:"Chai réhabilité en résidence contemporaine. Pierre blonde et acier noir.", i:"photo-1600596542815-ffad4c1539a9"},
-  {t:"Villa Éclipse", l:"Arcachon · 290 m²", d:"Infinity pool surplombant le Bassin. Architecture bioclimatique.", i:"photo-1582268611958-ebfd161ef9cf"},
-  {t:"L'Intérieur", l:"Bordeaux · 260 m²", d:"Double hauteur, verrière zénithale, béton ciré. Lumière naturelle absolue.", i:"photo-1600607687939-ce8a6c25118c"},
-  {t:"Horizon Bleu", l:"Hossegor · 310 m²", d:"Face à l'océan. Bois flotté, lin et pierre. Une maison qui respire.", i:"photo-1574739782594-db4ead022697"}
-];
+      <section class="cta" id="cta">
+        <div class="section-line" data-line style="background: rgba(44, 42, 38, 0.25); margin-bottom: 2.5rem"></div>
+        <h2 class="js-split">Votre villa vous attend.</h2>
+        <a class="btn-magnetic magnetic" href="https://pinapp.fr" target="_blank" rel="noopener noreferrer"
+          >Prendre rendez-vous →</a
+        >
+      </section>
 
-var cur = 0;
-var slidesEl = document.getElementById('slides');
-var thumbsEl = document.getElementById('thumbs');
-var dotsEl = document.getElementById('dots');
-var titleEl = document.getElementById('title');
-var subtitleEl = document.getElementById('subtitle');
-var eyebrowEl = document.getElementById('eyebrow');
-var counterEl = document.getElementById('counter');
-var slideNumEl = document.getElementById('slideNum');
-var scrollHintEl = document.getElementById('scrollHint');
-var nav = document.getElementById('nav');
+      <footer class="footer">© 2026 Atelier Rivage · Créé par Pinapp</footer>
+    </main>
 
-/* ======= BUILD SLIDES ======= */
-DATA.forEach(function(d, i) {
-  /* Slide */
-  var s = document.createElement('div');
-  s.className = 'slide' + (i === 0 ? ' active' : '');
-  var img = document.createElement('img');
-  img.className = 'slide__img';
-  img.src = 'https://images.unsplash.com/' + d.i + '?w=1920&q=85';
-  img.alt = d.t;
-  if (i > 0) img.loading = 'lazy';
-  s.appendChild(img);
-  var ov = document.createElement('div'); ov.className = 'slide__overlay'; s.appendChild(ov);
-  var vi = document.createElement('div'); vi.className = 'slide__vignette'; s.appendChild(vi);
-  slidesEl.appendChild(s);
+    <a class="pinapp-badge magnetic" href="https://pinapp.fr" target="_blank" rel="noopener noreferrer">
+      <span class="pinapp-badge__dot" aria-hidden="true"></span>
+      <span>Créé par Pinapp</span>
+    </a>
 
-  /* Thumb */
-  var th = document.createElement('div');
-  th.className = 'thumb' + (i === 0 ? ' active' : '');
-  var ti = document.createElement('img');
-  ti.src = 'https://images.unsplash.com/' + d.i + '?w=300&q=60';
-  ti.alt = d.t;
-  ti.loading = 'lazy';
-  th.appendChild(ti);
-  th.addEventListener('click', function() { goTo(i); });
-  thumbsEl.appendChild(th);
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" crossorigin="anonymous"></script>
+    <script>
+      (function () {
+        var prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var isMobile = window.matchMedia('(max-width: 767px)').matches;
 
-  /* Dot */
-  var dot = document.createElement('div');
-  dot.className = 'dot' + (i === 0 ? ' active' : '');
-  dot.addEventListener('click', function() { goTo(i); });
-  dotsEl.appendChild(dot);
-});
+        function splitText(element) {
+          if (!element || element.dataset.splitDone) return;
+          var text = element.textContent;
+          element.textContent = '';
+          for (var i = 0; i < text.length; i++) {
+            var c = text.charAt(i);
+            var span = document.createElement('span');
+            span.className = 'char';
+            span.style.display = 'inline-block';
+            span.style.opacity = prefersReduce ? '1' : '0';
+            span.style.transform = prefersReduce ? 'none' : 'translateY(100%)';
+            if (c === ' ') {
+              span.innerHTML = '&nbsp;';
+            } else {
+              span.textContent = c;
+            }
+            element.appendChild(span);
+          }
+          element.dataset.splitDone = '1';
+        }
 
-var slides = document.querySelectorAll('.slide');
-var thumbs = thumbsEl.children;
-var dots = dotsEl.children;
+        document.querySelectorAll('.js-split').forEach(splitText);
+        document.querySelectorAll('.js-split-wrap .js-split').forEach(splitText);
 
-/* ======= SHOW TEXT ======= */
-function showText() {
-  eyebrowEl.classList.add('show');
-  titleEl.classList.add('show');
-  subtitleEl.classList.add('show');
-}
-function hideText(cb) {
-  eyebrowEl.classList.remove('show');
-  titleEl.classList.remove('show');
-  subtitleEl.classList.remove('show');
-  setTimeout(cb, 400);
-}
+        gsap.registerPlugin(ScrollTrigger);
 
-/* Show initial text */
-setTimeout(showText, 300);
+        var lenis = null;
+        if (!prefersReduce && typeof Lenis !== 'undefined') {
+          lenis = new Lenis({
+            duration: 1.2,
+            easing: function (t) {
+              return Math.min(1, 1.001 - Math.pow(2, -10 * t));
+            },
+            smoothWheel: true,
+          });
+          lenis.on('scroll', ScrollTrigger.update);
+          gsap.ticker.add(function (time) {
+            lenis.raf(time * 1000);
+          });
+          gsap.ticker.lagSmoothing(0);
+        }
 
-/* ======= NAVIGATION ======= */
-function goTo(n) {
-  if (n === cur) return;
-  hideText(function() {
-    slides[cur].classList.remove('active');
-    thumbs[cur].classList.remove('active');
-    dots[cur].classList.remove('active');
+        if (!prefersReduce) {
+          document.querySelectorAll('.js-split').forEach(function (el) {
+            var chars = el.querySelectorAll('.char');
+            if (!chars.length) return;
+            gsap.to(chars, {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              stagger: 0.02,
+              ease: 'power3.out',
+              scrollTrigger: { trigger: el, start: 'top 85%' },
+            });
+          });
+        }
 
-    cur = n;
+        var heroBgMouse = document.getElementById('heroBgMouse');
+        var heroBgScroll = document.getElementById('heroBgScroll');
+        if (!prefersReduce && heroBgMouse && heroBgScroll) {
+          var mx = 0.5,
+            my = 0.5;
+          document.addEventListener(
+            'mousemove',
+            function (e) {
+              mx = e.clientX / window.innerWidth;
+              my = e.clientY / window.innerHeight;
+              var px = (mx - 0.5) * 28;
+              var py = (my - 0.5) * 22;
+              gsap.to(heroBgMouse, { x: px, y: py, duration: 0.9, ease: 'power3.out' });
+            },
+            { passive: true },
+          );
+          gsap.to(heroBgScroll, {
+            y: '-8%',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: '#hero',
+              start: 'top top',
+              end: 'bottom top',
+              scrub: 1,
+            },
+          });
+        }
 
-    slides[cur].classList.add('active');
-    thumbs[cur].classList.add('active');
-    dots[cur].classList.add('active');
+        document.querySelectorAll('[data-line]').forEach(function (line) {
+          if (prefersReduce) return;
+          gsap.from(line, {
+            scaleX: 0,
+            transformOrigin: 'left center',
+            duration: 1.5,
+            ease: 'power3.inOut',
+            scrollTrigger: { trigger: line, start: 'top 85%' },
+          });
+        });
 
-    if (cur === 0) {
-      titleEl.className = 'title title--hero';
-      titleEl.innerHTML = 'Entrez dans<br>nos <em>créations.</em>';
-      subtitleEl.textContent = "Naviguez à travers nos villas d'exception";
-      eyebrowEl.style.display = 'block';
-      scrollHintEl.style.display = 'flex';
-    } else {
-      titleEl.className = 'title title--project';
-      titleEl.textContent = DATA[cur].t;
-      subtitleEl.textContent = DATA[cur].l + ' — ' + DATA[cur].d;
-      eyebrowEl.style.display = 'none';
-      scrollHintEl.style.display = 'none';
-    }
+        document.querySelectorAll('[data-section]').forEach(function (section) {
+          var img = section.querySelector('.project-img');
+          var parallaxEl = section.querySelector('[data-parallax-y]');
+          if (!img) return;
+          if (!prefersReduce) {
+            gsap.fromTo(
+              img,
+              { clipPath: 'inset(100% 0 0 0)', scale: 1.15 },
+              {
+                clipPath: 'inset(0% 0 0 0)',
+                scale: 1,
+                duration: 1.2,
+                ease: 'power4.inOut',
+                scrollTrigger: {
+                  trigger: img.closest('.project-figure') || section,
+                  start: 'top 80%',
+                  once: true,
+                },
+              },
+            );
+          }
+          if (parallaxEl && !prefersReduce) {
+            gsap.to(parallaxEl, {
+              y: -80,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: section,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 1,
+              },
+            });
+          }
+        });
 
-    counterEl.textContent = String(cur + 1).padStart(2, '0') + ' / ' + String(DATA.length).padStart(2, '0');
-    slideNumEl.textContent = String(cur + 1).padStart(2, '0') + ' / ' + String(DATA.length).padStart(2, '0');
+        var customCursor = !isMobile && !prefersReduce;
+        if (customCursor) {
+          document.documentElement.classList.add('has-custom-cursor');
+        }
+        var cursorDot = document.getElementById('cursorDot');
+        var cursorCircle = document.getElementById('cursorCircle');
+        var dotX = 0,
+          dotY = 0,
+          circX = 0,
+          circY = 0,
+          mouseX = 0,
+          mouseY = 0;
+        var cursorRaf = null;
+        function tickCursor() {
+          if (!customCursor || !cursorDot || !cursorCircle) return;
+          dotX = mouseX;
+          dotY = mouseY;
+          circX += (mouseX - circX) * 0.12;
+          circY += (mouseY - circY) * 0.12;
+          cursorDot.style.transform = 'translate(' + dotX + 'px,' + dotY + 'px)';
+          cursorCircle.style.transform = 'translate(' + circX + 'px,' + circY + 'px)';
+          cursorRaf = requestAnimationFrame(tickCursor);
+        }
+        if (customCursor && cursorDot && cursorCircle) {
+          document.addEventListener(
+            'mousemove',
+            function (e) {
+              mouseX = e.clientX;
+              mouseY = e.clientY;
+            },
+            { passive: true },
+          );
+          tickCursor();
+        }
 
-    slides.forEach(function (sl) {
-      var im = sl.querySelector('.slide__img');
-      if (im) im.style.transform = '';
-    });
-    if (cur > 0) nav.classList.add('scrolled');
-    else nav.classList.remove('scrolled');
+        function setCursorMode(mode) {
+          if (!cursorCircle || !cursorDot) return;
+          cursorCircle.classList.remove('is-link', 'is-img');
+          cursorDot.classList.remove('is-hidden');
+          if (mode === 'link') {
+            cursorCircle.classList.add('is-link');
+            cursorDot.classList.add('is-hidden');
+          } else if (mode === 'img') {
+            cursorCircle.classList.add('is-img');
+            cursorDot.classList.add('is-hidden');
+          }
+        }
 
-    setTimeout(showText, 100);
-  });
-}
+        document.querySelectorAll('a, button, .magnetic').forEach(function (el) {
+          el.addEventListener('mouseenter', function () {
+            if (!customCursor) return;
+            var isImgZone = el.closest('[data-img-hover]');
+            setCursorMode(isImgZone ? 'img' : 'link');
+          });
+          el.addEventListener('mouseleave', function () {
+            if (!customCursor) return;
+            setCursorMode('default');
+          });
+        });
+        document.querySelectorAll('[data-img-hover]').forEach(function (zone) {
+          zone.addEventListener('mouseenter', function () {
+            if (!customCursor) return;
+            setCursorMode('img');
+          });
+          zone.addEventListener('mouseleave', function () {
+            if (!customCursor) return;
+            setCursorMode('default');
+          });
+        });
 
-document.getElementById('prev').addEventListener('click', function() {
-  goTo(cur > 0 ? cur - 1 : DATA.length - 1);
-});
-document.getElementById('next').addEventListener('click', function() {
-  goTo(cur < DATA.length - 1 ? cur + 1 : 0);
-});
+        if (!isMobile && !prefersReduce) {
+          document.querySelectorAll('.magnetic').forEach(function (btn) {
+            btn.addEventListener('mousemove', function (e) {
+              var rect = btn.getBoundingClientRect();
+              var x = e.clientX - rect.left - rect.width / 2;
+              var y = e.clientY - rect.top - rect.height / 2;
+              gsap.to(btn, { x: x * 0.2, y: y * 0.2, duration: 0.3, ease: 'power2.out' });
+            });
+            btn.addEventListener('mouseleave', function () {
+              gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.5)' });
+            });
+          });
+        }
 
-/* ======= PARALLAX SOURIS (override Ken Burns pendant le mouvement) ======= */
-var mx = 0.5,
-  my = 0.5,
-  raf,
-  lastMouseMove = 0;
-var parallaxIdleMs = 120;
-function updateParallax() {
-  var img = slides[cur] && slides[cur].querySelector('.slide__img');
-  if (img) {
-    if (Date.now() - lastMouseMove < parallaxIdleMs) {
-      var x = (mx - 0.5) * -18;
-      var y = (my - 0.5) * -10;
-      img.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(1.06)';
-    } else {
-      img.style.transform = '';
-    }
-  }
-  raf = requestAnimationFrame(updateParallax);
-}
-document.addEventListener('mousemove', function (e) {
-  lastMouseMove = Date.now();
-  mx = e.clientX / window.innerWidth;
-  my = e.clientY / window.innerHeight;
-});
-raf = requestAnimationFrame(updateParallax);
-
-/* ======= KEYBOARD ======= */
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(cur < DATA.length - 1 ? cur + 1 : 0); }
-  if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(cur > 0 ? cur - 1 : DATA.length - 1); }
-});
-
-/* ======= SCROLL WHEEL ======= */
-var scrollThrottle = false;
-document.addEventListener('wheel', function(e) {
-  if (scrollThrottle) return;
-  scrollThrottle = true;
-  setTimeout(function() { scrollThrottle = false; }, 800);
-  if (e.deltaY > 0) goTo(cur < DATA.length - 1 ? cur + 1 : 0);
-  else goTo(cur > 0 ? cur - 1 : DATA.length - 1);
-}, { passive: true });
-
-/* ======= TOUCH SWIPE ======= */
-var touchY = 0;
-document.addEventListener('touchstart', function(e) { touchY = e.touches[0].clientY; }, { passive: true });
-document.addEventListener('touchend', function(e) {
-  var diff = e.changedTouches[0].clientY - touchY;
-  if (Math.abs(diff) > 40) {
-    if (diff < 0) goTo(cur < DATA.length - 1 ? cur + 1 : 0);
-    else goTo(cur > 0 ? cur - 1 : DATA.length - 1);
-  }
-}, { passive: true });
-
-/* ======= REDUCED MOTION ======= */
-if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  cancelAnimationFrame(raf);
-}
-</script>
-</body>
+        window.addEventListener(
+          'resize',
+          function () {
+            ScrollTrigger.refresh();
+          },
+          { passive: true },
+        );
+        ScrollTrigger.refresh();
+      })();
+    </script>
+  </body>
 </html>
