@@ -1,0 +1,1017 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href="https://pinapp.fr/realisations/cinematiques/architecte.html" />
+    <title>Atelier Rivage — Architecture d'exception · Démo Pinapp</title>
+    <meta
+      name="description"
+      content="Démonstration de site immersif pour cabinet d'architecture. Créé par Pinapp, studio digital à Bordeaux."
+    />
+    <meta name="robots" content="noindex" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Outfit:wght@200;300;400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --gold: #c8a87a;
+        --cream: #f0ece4;
+        --muted: rgba(255, 255, 255, 0.5);
+        --vx: 50%;
+        --vy: 50%;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: 'Outfit', system-ui, sans-serif;
+        background: #0a0a08;
+        color: #fff;
+        overflow-x: hidden;
+      }
+      ::selection {
+        background: var(--gold);
+        color: #fff;
+      }
+
+      /* ——— Nav ——— */
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.5rem clamp(1.25rem, 4vw, 3rem);
+        transition: background 0.45s ease, backdrop-filter 0.45s ease, border-color 0.45s ease;
+      }
+      .nav.is-scrolled {
+        background: rgba(10, 10, 8, 0.45);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .nav-logo {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+        font-weight: 300;
+        letter-spacing: 0.18em;
+        color: #fff;
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        gap: clamp(1.25rem, 3vw, 2.5rem);
+      }
+      .nav-links a {
+        font-size: 0.58rem;
+        font-weight: 300;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.4);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      .nav-links a:hover {
+        color: var(--gold);
+      }
+
+      /* ——— Three canvas ——— */
+      #particles-canvas {
+        position: fixed;
+        inset: 0;
+        z-index: 4;
+        pointer-events: none;
+        opacity: 0.85;
+      }
+
+      /* ——— Scenes ——— */
+      .scene {
+        position: relative;
+        min-height: 100vh;
+        min-height: 100dvh;
+        overflow: hidden;
+        isolation: isolate;
+      }
+      .scene-inner {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+      .scene-media {
+        position: absolute;
+        width: 115%;
+        height: 115%;
+        left: -7.5%;
+        top: -7.5%;
+        will-change: transform;
+      }
+      .scene-zoom {
+        width: 100%;
+        height: 100%;
+        will-change: transform, opacity;
+      }
+      .scene-ken {
+        width: 100%;
+        height: 100%;
+      }
+      .scene-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        filter: brightness(0.55) saturate(0.88);
+        transform-origin: center center;
+        will-change: transform;
+      }
+      @keyframes ken {
+        0% {
+          transform: scale(1.02);
+        }
+        100% {
+          transform: scale(1.1);
+        }
+      }
+      body:not(.reduce-motion) .scene-ken {
+        animation: ken 20s ease-in-out infinite alternate;
+        transform-origin: center center;
+      }
+
+      .scene-gradient {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        background: linear-gradient(180deg, rgba(10, 10, 8, 0.15) 0%, transparent 35%, transparent 45%, rgba(10, 10, 8, 0.92) 100%);
+        pointer-events: none;
+      }
+      .scene-vignette {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        pointer-events: none;
+        background: radial-gradient(
+          ellipse 85% 75% at var(--vx) var(--vy),
+          transparent 0%,
+          transparent 22%,
+          rgba(10, 10, 8, 0.55) 100%
+        );
+        transition: background 0.12s ease-out;
+      }
+
+      .scene-num {
+        position: absolute;
+        top: 50%;
+        right: clamp(3.5rem, 8vw, 5rem);
+        z-index: 12;
+        transform: translateY(-50%) rotate(-90deg);
+        transform-origin: center;
+        font-size: 0.55rem;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .scene-copy {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 15;
+        padding: 0 clamp(1.5rem, 4vw, 4rem) clamp(2.5rem, 6vh, 4.5rem);
+        max-width: 52rem;
+      }
+      .eyebrow {
+        font-size: 0.5rem;
+        font-weight: 300;
+        letter-spacing: 0.38em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
+      }
+      .hero-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-weight: 300;
+        font-size: clamp(2.4rem, 7vw, 5.5rem);
+        line-height: 1.05;
+        text-shadow: 0 4px 48px rgba(0, 0, 0, 0.5);
+      }
+      .hero-title em {
+        font-style: italic;
+        color: #e8d5b8;
+      }
+      .proj-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-weight: 300;
+        font-size: clamp(1.85rem, 4.5vw, 3.25rem);
+        line-height: 1.08;
+        text-shadow: 0 4px 40px rgba(0, 0, 0, 0.5);
+      }
+      .proj-title em {
+        font-style: italic;
+        color: #e8d5b8;
+      }
+      .subtitle {
+        margin-top: 0.75rem;
+        font-size: 0.82rem;
+        font-weight: 200;
+        color: var(--muted);
+        max-width: 28rem;
+        line-height: 1.55;
+        text-shadow: 0 2px 20px rgba(0, 0, 0, 0.45);
+      }
+      .proj-meta {
+        margin-top: 0.65rem;
+        font-size: 0.6rem;
+        font-weight: 300;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+      .proj-desc {
+        margin-top: 0.55rem;
+        font-size: 0.8rem;
+        font-weight: 200;
+        color: var(--muted);
+        max-width: 32rem;
+        line-height: 1.6;
+      }
+      .hero-villa {
+        margin-top: 1.75rem;
+        padding-top: 1.25rem;
+        border-top: 1px solid rgba(200, 168, 122, 0.25);
+      }
+
+      .scroll-hint {
+        margin-top: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        opacity: 0.45;
+        animation: breathe 3.2s ease-in-out infinite;
+      }
+      @keyframes breathe {
+        0%,
+        100% {
+          opacity: 0.28;
+        }
+        50% {
+          opacity: 0.55;
+        }
+      }
+      .scroll-hint span {
+        font-size: 0.55rem;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .mouse-ico {
+        width: 22px;
+        height: 34px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 12px;
+        position: relative;
+      }
+      .mouse-ico::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 7px;
+        width: 3px;
+        height: 6px;
+        margin-left: -1.5px;
+        border-radius: 2px;
+        background: var(--gold);
+        animation: wheel 2s ease-in-out infinite;
+      }
+      @keyframes wheel {
+        0% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(10px);
+          opacity: 0.2;
+        }
+      }
+
+      /* ——— Side dots ——— */
+      .dots {
+        position: fixed;
+        right: 1.25rem;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 90;
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+      }
+      .dots button {
+        border: none;
+        padding: 0;
+        width: 3px;
+        border-radius: 2px;
+        background: rgba(255, 255, 255, 0.14);
+        cursor: pointer;
+        transition: height 0.45s cubic-bezier(0.16, 1, 0.3, 1), background 0.35s ease;
+        height: 8px;
+        font-size: 0;
+        color: transparent;
+      }
+      .dots button.is-active {
+        height: 20px;
+        background: var(--gold);
+      }
+
+      /* ——— Thumbs ——— */
+      .thumbs {
+        position: fixed;
+        left: 50%;
+        bottom: 1.25rem;
+        transform: translateX(-50%);
+        z-index: 90;
+        display: flex;
+        align-items: flex-end;
+        gap: 0.5rem;
+        max-width: calc(100vw - 2rem);
+        overflow-x: auto;
+        padding: 0.25rem 0.35rem;
+        scrollbar-width: none;
+      }
+      .thumbs::-webkit-scrollbar {
+        display: none;
+      }
+      .thumbs button {
+        flex-shrink: 0;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+        padding: 0;
+        cursor: pointer;
+        background: #111;
+        transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1), height 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease,
+          border-color 0.35s ease, filter 0.35s ease;
+        width: 70px;
+        height: 46px;
+        opacity: 0.45;
+        filter: saturate(0.35) brightness(0.55);
+      }
+      .thumbs button.is-active {
+        width: 120px;
+        height: 75px;
+        opacity: 1;
+        border-color: var(--gold);
+        filter: none;
+      }
+      .thumbs button img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* ——— CTA ——— */
+      .cta {
+        position: relative;
+        z-index: 20;
+        min-height: 52vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: clamp(3rem, 8vw, 5rem) 1.5rem;
+        background: var(--cream);
+        color: #1a1814;
+      }
+      .cta h2 {
+        font-family: 'Cormorant Garamond', serif;
+        font-weight: 300;
+        font-size: clamp(2rem, 5vw, 3.25rem);
+        line-height: 1.15;
+        max-width: 18ch;
+      }
+      .cta h2 em {
+        font-style: italic;
+        color: #9a7b52;
+      }
+      .cta p {
+        margin-top: 1rem;
+        font-size: 0.95rem;
+        font-weight: 300;
+        color: rgba(26, 24, 20, 0.55);
+      }
+      .cta-btn {
+        margin-top: 2rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.95rem 1.85rem;
+        background: var(--gold);
+        color: #fff;
+        font-size: 0.72rem;
+        font-weight: 400;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        text-decoration: none;
+        border-radius: 100px;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .cta-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 40px rgba(200, 168, 122, 0.35);
+      }
+      .cta-foot {
+        margin-top: 2.5rem;
+        font-size: 0.65rem;
+        letter-spacing: 0.12em;
+        color: rgba(26, 24, 20, 0.35);
+      }
+
+      /* ——— Pinapp badge ——— */
+      .pinapp-badge {
+        position: fixed;
+        bottom: 1rem;
+        right: 1rem;
+        z-index: 120;
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.38rem 0.85rem;
+        background: rgba(10, 10, 8, 0.52);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 100px;
+        text-decoration: none;
+        color: inherit;
+      }
+      .pinapp-badge span:last-child {
+        font-size: 0.45rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.28);
+      }
+      .pinapp-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #6baf8d;
+        animation: breathe 3s ease-in-out infinite;
+      }
+
+      @media (max-width: 767px) {
+        .nav-links {
+          display: none;
+        }
+        .scene-num {
+          display: none;
+        }
+        .thumbs button {
+          width: 50px;
+          height: 35px;
+        }
+        .thumbs button.is-active {
+          width: 90px;
+          height: 55px;
+        }
+        .dots {
+          right: 0.65rem;
+        }
+      }
+
+        @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .scene-ken,
+        .scroll-hint,
+        .pinapp-dot,
+        .mouse-ico::after {
+          animation: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="particles-canvas" aria-hidden="true"></canvas>
+
+    <header class="nav" id="nav">
+      <a class="nav-logo" href="#scene-0">Atelier Rivage</a>
+      <nav class="nav-links" aria-label="Navigation principale">
+        <a href="#">Villas</a>
+        <a href="#">Studio</a>
+        <a href="#">Contact</a>
+      </nav>
+    </header>
+
+    <div class="dots" id="dots" role="navigation" aria-label="Sections du parcours"></div>
+    <div class="thumbs" id="thumbs" aria-label="Aperçu des projets"></div>
+
+    <main id="main">
+      <!-- Scene 0 — Hero + Villa Lumière -->
+      <section class="scene" id="scene-0" data-scene="0">
+        <div class="scene-inner">
+          <div class="scene-media" data-parallax>
+            <div class="scene-zoom">
+              <div class="scene-ken">
+                <img
+                  src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920&q=90&auto=format&fm=webp"
+                  alt=""
+                  width="1920"
+                  height="1080"
+                  fetchpriority="high"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="scene-gradient"></div>
+          <div class="scene-vignette"></div>
+          <div class="scene-num">01 / 06</div>
+          <div class="scene-copy">
+            <p class="eyebrow">Architecture résidentielle · Bordeaux &amp; littoral</p>
+            <h1 class="hero-title">Entrez dans nos <em>créations.</em></h1>
+            <p class="subtitle">Scrollez pour voyager à travers nos villas</p>
+            <div class="hero-villa">
+              <h2 class="proj-title">Villa Lumière</h2>
+              <p class="proj-meta">Cap Ferret · 480 m²</p>
+              <p class="proj-desc">Piscine à débordement face à l'Atlantique. Béton blanc, bois de cèdre.</p>
+            </div>
+            <div class="scroll-hint" aria-hidden="true">
+              <div class="mouse-ico"></div>
+              <span>Scroll</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Scene 1 -->
+      <section class="scene" id="scene-1" data-scene="1">
+        <div class="scene-inner">
+          <div class="scene-media" data-parallax>
+            <div class="scene-zoom">
+              <div class="scene-ken">
+                <img
+                  src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=90&auto=format&fm=webp"
+                  alt=""
+                  width="1920"
+                  height="1080"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="scene-gradient"></div>
+          <div class="scene-vignette"></div>
+          <div class="scene-num">02 / 06</div>
+          <div class="scene-copy">
+            <h2 class="proj-title">Les Jardins <em>suspendus</em></h2>
+            <p class="proj-meta">Biarritz · 350 m²</p>
+            <p class="proj-desc">Terrasses végétalisées en cascade sur la côte basque.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Scene 2 -->
+      <section class="scene" id="scene-2" data-scene="2">
+        <div class="scene-inner">
+          <div class="scene-media" data-parallax>
+            <div class="scene-zoom">
+              <div class="scene-ken">
+                <img
+                  src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=90&auto=format&fm=webp"
+                  alt=""
+                  width="1920"
+                  height="1080"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="scene-gradient"></div>
+          <div class="scene-vignette"></div>
+          <div class="scene-num">03 / 06</div>
+          <div class="scene-copy">
+            <h2 class="proj-title">Maison Pierre</h2>
+            <p class="proj-meta">Saint-Émilion · 420 m²</p>
+            <p class="proj-desc">Chai réhabilité. Pierre blonde et acier noir.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Scene 3 -->
+      <section class="scene" id="scene-3" data-scene="3">
+        <div class="scene-inner">
+          <div class="scene-media" data-parallax>
+            <div class="scene-zoom">
+              <div class="scene-ken">
+                <img
+                  src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=1920&q=90&auto=format&fm=webp"
+                  alt=""
+                  width="1920"
+                  height="1080"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="scene-gradient"></div>
+          <div class="scene-vignette"></div>
+          <div class="scene-num">04 / 06</div>
+          <div class="scene-copy">
+            <h2 class="proj-title">Villa <em>Éclipse</em></h2>
+            <p class="proj-meta">Arcachon · 290 m²</p>
+            <p class="proj-desc">Infinity pool surplombant le Bassin. Architecture bioclimatique.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Scene 4 -->
+      <section class="scene" id="scene-4" data-scene="4">
+        <div class="scene-inner">
+          <div class="scene-media" data-parallax>
+            <div class="scene-zoom">
+              <div class="scene-ken">
+                <img
+                  src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=90&auto=format&fm=webp"
+                  alt=""
+                  width="1920"
+                  height="1080"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="scene-gradient"></div>
+          <div class="scene-vignette"></div>
+          <div class="scene-num">05 / 06</div>
+          <div class="scene-copy">
+            <h2 class="proj-title">L'intérieur</h2>
+            <p class="proj-meta">Bordeaux · 260 m²</p>
+            <p class="proj-desc">Double hauteur, verrière zénithale, béton ciré.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Scene 5 -->
+      <section class="scene" id="scene-5" data-scene="5">
+        <div class="scene-inner">
+          <div class="scene-media" data-parallax>
+            <div class="scene-zoom">
+              <div class="scene-ken">
+                <img
+                  src="https://images.unsplash.com/photo-1574739782594-db4ead022697?w=1920&q=90&auto=format&fm=webp"
+                  alt=""
+                  width="1920"
+                  height="1080"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="scene-gradient"></div>
+          <div class="scene-vignette"></div>
+          <div class="scene-num">06 / 06</div>
+          <div class="scene-copy">
+            <h2 class="proj-title">Horizon <em>bleu</em></h2>
+            <p class="proj-meta">Hossegor · 310 m²</p>
+            <p class="proj-desc">Face à l'océan. Bois flotté, lin et pierre.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta" id="cta" aria-labelledby="cta-title">
+        <h2 id="cta-title">Votre villa <em>vous attend.</em></h2>
+        <p>Du rêve au plan, du plan à la réalité.</p>
+        <a class="cta-btn" href="https://pinapp.fr/diagnostic/">Prendre rendez-vous →</a>
+        <p class="cta-foot">© 2026 Atelier Rivage · Créé par Pinapp</p>
+      </section>
+    </main>
+
+    <a class="pinapp-badge" href="https://pinapp.fr" target="_blank" rel="noopener noreferrer">
+      <span class="pinapp-dot"></span>
+      <span>Créé par Pinapp</span>
+    </a>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous"></script>
+
+    <script>
+      (function () {
+        var prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var isMobile = window.matchMedia('(max-width: 767px)').matches;
+        if (prefersReduce) document.body.classList.add('reduce-motion');
+
+        var scenes = Array.prototype.slice.call(document.querySelectorAll('.scene'));
+        var nav = document.getElementById('nav');
+        var dotsWrap = document.getElementById('dots');
+        var thumbsWrap = document.getElementById('thumbs');
+        var thumbSrc = [
+          'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=200&q=70&auto=format&fm=webp',
+          'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=200&q=70&auto=format&fm=webp',
+          'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=200&q=70&auto=format&fm=webp',
+          'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=200&q=70&auto=format&fm=webp',
+          'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=200&q=70&auto=format&fm=webp',
+          'https://images.unsplash.com/photo-1574739782594-db4ead022697?w=200&q=70&auto=format&fm=webp',
+        ];
+
+        function scrollToScene(i) {
+          var el = document.getElementById('scene-' + i);
+          if (el) el.scrollIntoView({ behavior: prefersReduce ? 'auto' : 'smooth', block: 'start' });
+        }
+
+        for (var d = 0; d < 6; d++) {
+          (function (idx) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.setAttribute('aria-label', 'Aller à la section ' + (idx + 1));
+            b.className = 'is-active';
+            if (idx > 0) b.classList.remove('is-active');
+            b.addEventListener('click', function () {
+              scrollToScene(idx);
+            });
+            dotsWrap.appendChild(b);
+          })(d);
+        }
+
+        thumbSrc.forEach(function (src, idx) {
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.setAttribute('aria-label', 'Projet ' + (idx + 1));
+          b.innerHTML = '<img src="' + src + '" alt="" loading="lazy" width="120" height="75" />';
+          if (idx === 0) b.classList.add('is-active');
+          b.addEventListener('click', function () {
+            scrollToScene(idx);
+          });
+          thumbsWrap.appendChild(b);
+        });
+
+        var dotBtns = dotsWrap.querySelectorAll('button');
+        var thumbBtns = thumbsWrap.querySelectorAll('button');
+
+        function setActiveNav(i) {
+          dotBtns.forEach(function (b, j) {
+            b.classList.toggle('is-active', j === i);
+          });
+          thumbBtns.forEach(function (b, j) {
+            b.classList.toggle('is-active', j === i);
+          });
+        }
+
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+          gsap.registerPlugin(ScrollTrigger);
+
+          scenes.forEach(function (scene, i) {
+            var zoomWrap = scene.querySelector('.scene-zoom');
+            var copy = scene.querySelector('.scene-copy');
+
+            if (zoomWrap && !prefersReduce) {
+              gsap.fromTo(
+                zoomWrap,
+                { scale: 1, opacity: 1 },
+                {
+                  scale: 1.3,
+                  opacity: 0,
+                  ease: 'none',
+                  scrollTrigger: {
+                    trigger: scene,
+                    start: 'bottom bottom',
+                    end: 'bottom top',
+                    scrub: true,
+                  },
+                },
+              );
+            }
+
+            if (copy && i > 0) {
+              gsap.fromTo(
+                copy.children,
+                { opacity: 0, y: 36 },
+                {
+                  opacity: 1,
+                  y: 0,
+                  duration: 0.85,
+                  stagger: 0.08,
+                  ease: 'power3.out',
+                  scrollTrigger: {
+                    trigger: scene,
+                    start: 'top 82%',
+                    end: 'top 35%',
+                    toggleActions: 'play none none reverse',
+                  },
+                },
+              );
+            }
+
+            ScrollTrigger.create({
+              trigger: scene,
+              start: 'top 55%',
+              end: 'bottom 45%',
+              onEnter: function () {
+                setActiveNav(i);
+              },
+              onEnterBack: function () {
+                setActiveNav(i);
+              },
+            });
+          });
+
+          ScrollTrigger.create({
+            trigger: '#cta',
+            start: 'top 60%',
+            onEnter: function () {
+              dotBtns.forEach(function (b) {
+                b.classList.remove('is-active');
+              });
+              thumbBtns.forEach(function (b) {
+                b.classList.remove('is-active');
+              });
+            },
+            onLeaveBack: function () {
+              setActiveNav(5);
+            },
+          });
+
+          ScrollTrigger.refresh();
+        } else {
+          setActiveNav(0);
+          if ('IntersectionObserver' in window) {
+            var obs = new IntersectionObserver(
+              function (ents) {
+                ents.forEach(function (en) {
+                  if (!en.isIntersecting) return;
+                  var id = en.target.getAttribute('data-scene');
+                  if (id != null) setActiveNav(parseInt(id, 10));
+                });
+              },
+              { threshold: 0.45 },
+            );
+            scenes.forEach(function (s) {
+              obs.observe(s);
+            });
+          }
+        }
+
+        function onScrollNav() {
+          nav.classList.toggle('is-scrolled', window.scrollY > 48);
+        }
+        window.addEventListener('scroll', onScrollNav, { passive: true });
+        onScrollNav();
+
+        /* ——— Vignette + parallax (throttled rAF) ——— */
+        var tx = 0.5,
+          ty = 0.5;
+        var parallaxEls = document.querySelectorAll('[data-parallax]');
+
+        function tickParallax() {
+          if (prefersReduce || isMobile) return;
+          var lx = tx * 100,
+            ly = ty * 100;
+          document.documentElement.style.setProperty('--vx', lx + '%');
+          document.documentElement.style.setProperty('--vy', ly + '%');
+          var px = (tx - 0.5) * -18;
+          var py = (ty - 0.5) * -11;
+          parallaxEls.forEach(function (el) {
+            el.style.transform = 'translate3d(' + px + 'px,' + py + 'px,0)';
+          });
+        }
+
+        var parallaxTicking = false;
+        if (!prefersReduce && !isMobile) {
+          window.addEventListener(
+            'mousemove',
+            function (e) {
+              tx = e.clientX / window.innerWidth;
+              ty = e.clientY / window.innerHeight;
+              if (parallaxTicking) return;
+              parallaxTicking = true;
+              requestAnimationFrame(function () {
+                parallaxTicking = false;
+                tickParallax();
+              });
+            },
+            { passive: true },
+          );
+        } else {
+          document.documentElement.style.setProperty('--vx', '50%');
+          document.documentElement.style.setProperty('--vy', '50%');
+        }
+
+        /* ——— Touch swipe ——— */
+        var t0 = 0,
+          x0 = 0;
+        window.addEventListener(
+          'touchstart',
+          function (e) {
+            if (!e.touches || !e.touches[0]) return;
+            t0 = Date.now();
+            x0 = e.touches[0].clientX;
+          },
+          { passive: true },
+        );
+        window.addEventListener(
+          'touchend',
+          function (e) {
+            if (!e.changedTouches || !e.changedTouches[0]) return;
+            var dx = e.changedTouches[0].clientX - x0;
+            if (Math.abs(dx) < 55 || Date.now() - t0 > 700) return;
+            var mid = window.innerHeight * 0.5;
+            var cur = 0;
+            scenes.forEach(function (s, idx) {
+              var r = s.getBoundingClientRect();
+              if (r.top <= mid && r.bottom >= mid) cur = idx;
+            });
+            if (dx < 0 && cur < scenes.length - 1) scrollToScene(cur + 1);
+            if (dx > 0 && cur > 0) scrollToScene(cur - 1);
+          },
+          { passive: true },
+        );
+
+        /* ——— Three.js particles ——— */
+        if (!prefersReduce && !isMobile && typeof THREE !== 'undefined') {
+          try {
+            var canvas = document.getElementById('particles-canvas');
+            var renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: false, powerPreference: 'low-power' });
+            var w = window.innerWidth;
+            var h = window.innerHeight;
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+            renderer.setSize(w, h, false);
+            var scene3 = new THREE.Scene();
+            var cam = new THREE.PerspectiveCamera(55, w / h, 0.1, 100);
+            cam.position.z = 4;
+            var geo = new THREE.BufferGeometry();
+            var count = 200;
+            var pos = new Float32Array(count * 3);
+            for (var p = 0; p < count; p++) {
+              pos[p * 3] = (Math.random() - 0.5) * 10;
+              pos[p * 3 + 1] = (Math.random() - 0.5) * 8;
+              pos[p * 3 + 2] = (Math.random() - 0.5) * 4;
+            }
+            geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+            var mat = new THREE.PointsMaterial({
+              color: 0xc8a87a,
+              size: 0.04,
+              transparent: true,
+              opacity: 0.2,
+              depthWrite: false,
+              sizeAttenuation: true,
+            });
+            var pts = new THREE.Points(geo, mat);
+            scene3.add(pts);
+            var tAnim = 0;
+            function loop() {
+              requestAnimationFrame(loop);
+              tAnim += 0.0022;
+              pts.rotation.y = Math.sin(tAnim * 0.4) * 0.08;
+              var arr = geo.attributes.position.array;
+              for (var k = 0; k < count; k++) {
+                arr[k * 3 + 1] += 0.0012;
+                if (arr[k * 3 + 1] > 5) arr[k * 3 + 1] = -4;
+              }
+              geo.attributes.position.needsUpdate = true;
+              renderer.render(scene3, cam);
+            }
+            loop();
+            window.addEventListener(
+              'resize',
+              function () {
+                var nw = window.innerWidth,
+                  nh = window.innerHeight;
+                renderer.setSize(nw, nh, false);
+                cam.aspect = nw / nh;
+                cam.updateProjectionMatrix();
+              },
+              { passive: true },
+            );
+          } catch (err) {
+            /* silencieux */
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>
