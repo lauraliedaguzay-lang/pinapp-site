@@ -78,7 +78,7 @@ window.PinappConfig = {
 
   /* ─── CONTACT ──────────────────────────────────────── */
   email: 'lauralie.daguzay@pinapp.fr',
-  whatsapp: 'https://wa.me/33XXXXXXXXX', // PINAPP_TODO — remplacer 33XXXXXXXXX par le n° international sans espaces
+  whatsapp: 'https://wa.me/33659882015',
 
   /* ─── BRANDING ─────────────────────────────────────── */
   siteUrl: 'https://pinapp.fr',

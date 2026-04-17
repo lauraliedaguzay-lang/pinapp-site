@@ -870,4 +870,12 @@
   initCarousel('carouselMicha');
   initContact();
   initContactGlowChoices();
+
+  if (!document.querySelector('script[data-pinapp-cookies-banner]')) {
+    var cbs = document.createElement('script');
+    cbs.src = '/assets/js/pinapp-cookies-banner.js?v=1';
+    cbs.defer = true;
+    cbs.setAttribute('data-pinapp-cookies-banner', '1');
+    document.body.appendChild(cbs);
+  }
 })();

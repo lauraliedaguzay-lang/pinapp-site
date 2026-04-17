@@ -369,4 +369,12 @@ document.addEventListener('DOMContentLoaded', function () {
     // Nombre aléatoire de "personnes vues aujourd'hui"
     el.textContent = Math.floor(Math.random() * 40 + 20);
   });
+
+  if (!document.querySelector('script[data-pinapp-cookies-banner]')) {
+    var cbs = document.createElement('script');
+    cbs.src = '/assets/js/pinapp-cookies-banner.js?v=1';
+    cbs.defer = true;
+    cbs.setAttribute('data-pinapp-cookies-banner', '1');
+    document.body.appendChild(cbs);
+  }
 });

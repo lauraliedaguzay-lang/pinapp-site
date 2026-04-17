@@ -2321,11 +2321,11 @@ $mentionsBody = @'
           <h2 style="font-size:22px;margin-bottom:16px;">Éditeur du site</h2>
           <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:24px;">
             Pinapp Inc.<br/>
-            <!-- ⚠️ [LAURALIE] À COMPLÉTER : adresse siège social -->
-            Siège social : [À compléter après immatriculation]<br/>
-            SIRET : [À compléter après immatriculation]<br/>
+            Siège social : 49 Avenue Edmond Rostand, 33700 Mérignac, France<br/>
+            SIRET : 523 884 898 00017<br/>
             Email : contact@pinapp.fr<br/>
-            Directrice de publication : Lauralie [À compléter]
+            Téléphone : 06 59 88 20 15<br/>
+            Directrice de publication : Lauralie Daguzay
           </p>
           <h2 style="font-size:22px;margin-bottom:16px;">Hébergement</h2>
           <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:24px;">
