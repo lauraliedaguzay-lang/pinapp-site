@@ -1,0 +1,72 @@
+/**
+ * Pinapp — accessibilité WCAG 2.1 AA & perf (CLS, focus, mouvement réduit)
+ * Chargé via @import depuis style.css et pinapp-global.css
+ */
+
+/* ── Skip link (premier focus clavier) ── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  background: #7b4fe8;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  z-index: 100000;
+  font-size: 0.875rem;
+  border-radius: 0 0 8px 0;
+  transition: top 0.2s;
+  text-decoration: none;
+  font-weight: 500;
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 0;
+  outline: 2px solid #00e5b0;
+  outline-offset: 2px;
+}
+
+/* Ancre « skip » héritée (index) — même comportement que .skip-link */
+a.skip {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  background: #7b4fe8;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  z-index: 100000;
+  font-size: 0.875rem;
+  border-radius: 0 0 8px 0;
+  transition: top 0.2s;
+  text-decoration: none;
+  font-weight: 500;
+}
+a.skip:focus,
+a.skip:focus-visible {
+  top: 0;
+  outline: 2px solid #00e5b0;
+  outline-offset: 2px;
+}
+
+/* ── Focus visible global ── */
+:where(a, button, input, textarea, select, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 2px solid var(--accent, #00e5b0);
+  outline-offset: 2px;
+}
+
+/* ── Lisibilité : violet #7B4FE8 trop bas sur fond très sombre (#050A14) ── */
+.pinapp-readable-violet,
+a.pinapp-readable-violet {
+  color: #9b6dff !important;
+}
+
+/* ── Mouvement réduit ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

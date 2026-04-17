@@ -649,6 +649,7 @@
 
   /* ── INIT ── */
   document.addEventListener('DOMContentLoaded', function () {
+    if (typeof window.pinappA11yBootstrapRun === 'function') window.pinappA11yBootstrapRun();
     initCookieConsent();
     initCinemaLoader();
     initSignatureUx();
