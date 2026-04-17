@@ -43,16 +43,16 @@ Après import, remplacez le nœud HTTP email de W11 par Gmail / SMTP n8n si vous
 
 Le front envoie un JSON `POST` (ou `multipart/form-data` avec champ `payload` + fichier) vers `window.__PINAPP__.WEBHOOK_DIAGNOSTIC` ou `WEBHOOK_N8N`. Champs utiles : `vous`, `entreprise`, `besoin`, `message_libre`, `meta`, `telegram_digest` (texte prêt pour Telegram), `submittedAt`, `source`.
 
-## Kits prompts — Stripe → n8n (à créer dans n8n)
+## Kit Prompt Artisan — Stripe → n8n (19,90 € TTC)
 
-À brancher quand les **Payment Links** Stripe des trois paliers sont en ligne (Essentiel **29 €**, Complet **49 €**, Pro **149 €** TTC) et la page de confirmation pointe vers `https://pinapp.fr/merci-kit/`.
+À brancher quand le **Payment Link** Stripe du kit est en ligne (**19,90 €** TTC, paiement unique) et que la page de confirmation Stripe pointe vers `https://pinapp.fr/merci-kit/`.
 
-1. **Stripe** : Développeurs → Webhooks → Ajouter l’endpoint → URL du webhook n8n (production). Événement : `checkout.session.completed` — distinguer le produit via **metadata** (`tier: essentiel|complet|pro`) ou via le **Price ID** / ligne de panier.
+1. **Stripe** : Développeurs → Webhooks → Ajouter l’endpoint → URL du webhook n8n (production). Événement : `checkout.session.completed`.
 2. **n8n** : Webhook (POST) → valider la signature Stripe (secret du webhook) → extraire `customer_email`, `customer_details.name`.
-3. **Email** : envoyer le message avec les bons livrables (PDF Essentiel vs Complet vs Pro, lien Notion si Complet/Pro, instructions calendrier si Pro).
-4. **Telegram** (optionnel) : « Vente Kit prompts — {tier} — {nom} — {montant} € » vers `TELEGRAM_CHAT_LAURALIE`.
-5. **CRM** : ligne Notion ou Google Sheet (nom, email, date, palier, montant).
+3. **Email** : envoyer le message avec les livrables (PDF + lien Notion du kit), d’après le modèle `emails/sequences/C1-kit-prompts-immediat.txt`.
+4. **Telegram** (optionnel) : « Vente Kit Prompts — {nom} — 19,90 € » vers `TELEGRAM_CHAT_LAURALIE`.
+5. **CRM** : ligne Notion ou Google Sheet (nom, email, date, produit, montant).
 
-Le site : objet `STRIPE_KIT_LINKS` dans `formations/kit-prompts/index.html` (script en bas) ; livrables dans `merci-kit/index.html` (PDF + script `NOTION_KIT`).
+Le site : variable `STRIPE_KIT_PAYMENT_LINK` dans `formations/kit-prompts/index.html` (script en bas) ; livrables dans `merci-kit/index.html` (PDF + script `NOTION_KIT`).
 
-**Stripe (dashboard)** : créer / maintenir **3 Payment Links** distincts pour **29 €**, **49 €** et **149 €** TTC (Kit Essentiel / Complet / Pro) — les montants ne sont pas versionnés dans le dépôt ; à aligner sur `pinapp.fr`.
+**Stripe (dashboard)** : un produit « Kit Prompt Artisan — 50 prompts IA », un prix **19,90 €** TTC, un **lien de paiement** — coller l’URL dans `STRIPE_KIT_PAYMENT_LINK`. Guide pas à pas : `docs/stripe-kit-prompt-artisan-setup.md`.
