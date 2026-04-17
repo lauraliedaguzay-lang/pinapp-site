@@ -1,0 +1,87 @@
+{
+  "name": "Pinapp Monitoring 24/7",
+  "meta": {
+    "description": "À importer dans n8n. Brancher les credentials Telegram (Bot + Chat ID). Compléter les nœuds HTTP pour sitemap et le rapport quotidien."
+  },
+  "nodes": [
+    {
+      "id": "cron-5",
+      "name": "Cron 5min",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [0, 0],
+      "parameters": {
+        "rule": {
+          "interval": [{ "field": "minutes", "minutesInterval": 5 }]
+        }
+      }
+    },
+    {
+      "id": "http-home",
+      "name": "Check Homepage",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [260, 0],
+      "parameters": {
+        "url": "https://pinapp.fr",
+        "method": "HEAD",
+        "options": { "timeout": 5000 }
+      }
+    },
+    {
+      "id": "if-down",
+      "name": "If not 200",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [520, 0],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "a",
+              "leftValue": "={{ $json.statusCode }}",
+              "rightValue": 200,
+              "operator": { "type": "number", "operation": "notEquals" }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "tg-down",
+      "name": "Alert Telegram DOWN",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [780, -120],
+      "parameters": {
+        "operation": "sendMessage",
+        "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
+        "text": "=🚨 PINAPP DOWN\nStatus: {{ $json.statusCode }}\nHeure: {{ $now.format('HH:mm') }}\n\nVérifie https://pinapp.fr"
+      }
+    },
+    {
+      "id": "noop-ok",
+      "name": "OK",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [780, 120],
+      "parameters": {}
+    }
+  ],
+  "connections": {
+    "Cron 5min": {
+      "main": [[{ "node": "Check Homepage", "type": "main", "index": 0 }]]
+    },
+    "Check Homepage": {
+      "main": [[{ "node": "If not 200", "type": "main", "index": 0 }]]
+    },
+    "If not 200": {
+      "main": [
+        [{ "node": "Alert Telegram DOWN", "type": "main", "index": 0 }],
+        [{ "node": "OK", "type": "main", "index": 0 }]
+      ]
+    }
+  }
+}

@@ -7,20 +7,33 @@
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 
+  var PARRAINAGE_HTML =
+    '<p class="pinapp-footer-parrainage" style="font-size:0.75rem;color:rgba(232,244,248,0.4);margin-top:1rem;">' +
+    '🍍 Parrainage — Recommandez un client, recevez 10% sur votre prochaine prestation. ' +
+    '<a href="mailto:contact@pinapp.fr?subject=Parrainage" style="color:#00E5B0;">En savoir plus</a></p>';
+
   function injectFooterSav() {
     var foot =
       document.querySelector('footer#contact') ||
       document.querySelector('footer.footer') ||
       document.querySelector('footer.site-footer') ||
       document.querySelector('body > footer');
-    if (!foot || foot.querySelector('.pinapp-support-sav')) return;
-    var wrap = document.createElement('div');
-    wrap.className = 'pinapp-support-sav';
-    wrap.innerHTML =
-      '<p class="pinapp-support-sav__label">Support &amp; SAV</p>' +
-      '<p class="pinapp-support-sav__body">Un souci ? Nous répondons sous 24h → ' +
-      '<a href="mailto:contact@pinapp.fr">contact@pinapp.fr</a></p>';
-    foot.appendChild(wrap);
+    if (!foot) return;
+    if (!foot.querySelector('.pinapp-support-sav')) {
+      var wrap = document.createElement('div');
+      wrap.className = 'pinapp-support-sav';
+      wrap.innerHTML =
+        '<p class="pinapp-support-sav__label">Support &amp; SAV</p>' +
+        '<p class="pinapp-support-sav__body">Un souci ? Nous répondons sous 24h → ' +
+        '<a href="mailto:contact@pinapp.fr">contact@pinapp.fr</a></p>';
+      foot.appendChild(wrap);
+    }
+    if (!foot.querySelector('.pinapp-footer-parrainage')) {
+      var par = document.createElement('div');
+      par.className = 'pinapp-footer-parrainage-wrap';
+      par.innerHTML = PARRAINAGE_HTML;
+      foot.appendChild(par);
+    }
   }
 
   function initScrollReveal() {

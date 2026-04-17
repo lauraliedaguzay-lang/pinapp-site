@@ -377,4 +377,16 @@ document.addEventListener('DOMContentLoaded', function () {
     cbs.setAttribute('data-pinapp-cookies-banner', '1');
     document.body.appendChild(cbs);
   }
+
+  var parHtml =
+    '<p class="pinapp-footer-parrainage" style="font-size:0.75rem;color:rgba(232,244,248,0.4);margin-top:1rem;">' +
+    '🍍 Parrainage — Recommandez un client, recevez 10% sur votre prochaine prestation. ' +
+    '<a href="mailto:contact@pinapp.fr?subject=Parrainage" style="color:#00E5B0;">En savoir plus</a></p>';
+  document.querySelectorAll('footer').forEach(function (foot) {
+    if (foot.querySelector('.pinapp-footer-parrainage')) return;
+    var w = document.createElement('div');
+    w.className = 'pinapp-footer-parrainage-wrap';
+    w.innerHTML = parHtml;
+    foot.appendChild(w);
+  });
 });
