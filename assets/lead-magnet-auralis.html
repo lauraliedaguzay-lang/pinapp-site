@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>5 signaux que votre équipe va mal — Auralis RH · Pinapp</title>
+    <meta
+      name="description"
+      content="Guide Auralis RH : repérer le burnout dans l'équipe et réagir tôt. Par Pinapp." />
+    <link
+      rel="stylesheet"
+      href="https://fonts.bunny.net/css?family=cormorant-garamond:ital,wght@0,500;0,600;0,700;1,500&family=inter:300;400;500&display=swap" />
+    <style>
+      :root {
+        --bg: #050a14;
+        --teal: #00e5b0;
+        --teal-soft: rgba(0, 229, 176, 0.14);
+        --green: #34d399;
+        --green-deep: #059669;
+        --text: #e8f4f8;
+        --muted: rgba(232, 244, 248, 0.62);
+        --line: rgba(0, 229, 176, 0.18);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Inter, system-ui, sans-serif;
+        font-weight: 400;
+        background: #0a1220;
+        color: var(--text);
+        line-height: 1.55;
+        font-size: 11.5pt;
+      }
+      .toolbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+        justify-content: center;
+        padding: 0.85rem 1rem;
+        background: rgba(5, 10, 20, 0.92);
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(12px);
+      }
+      .toolbar button {
+        font-family: Inter, system-ui, sans-serif;
+        font-size: 0.88rem;
+        font-weight: 600;
+        padding: 0.55rem 1.15rem;
+        border-radius: 999px;
+        border: 1px solid rgba(0, 229, 176, 0.35);
+        background: linear-gradient(135deg, rgba(5, 150, 105, 0.35), rgba(0, 229, 176, 0.2));
+        color: var(--text);
+        cursor: pointer;
+      }
+      .toolbar button:hover {
+        border-color: var(--teal);
+      }
+      .toolbar span {
+        font-size: 0.75rem;
+        color: var(--muted);
+        max-width: 28rem;
+        text-align: center;
+      }
+      .sheet {
+        max-width: 210mm;
+        margin: 0 auto;
+        padding: 1rem 0 2rem;
+      }
+      .page {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0 auto 1.5rem;
+        padding: 22mm 18mm;
+        background: var(--bg);
+        border: 1px solid var(--line);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+        page-break-after: always;
+        position: relative;
+        overflow: hidden;
+      }
+      .page::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 80% 50% at 10% 0%, rgba(0, 229, 176, 0.08), transparent 55%),
+          radial-gradient(ellipse 60% 40% at 100% 100%, rgba(52, 211, 153, 0.06), transparent 50%);
+        pointer-events: none;
+      }
+      .page-inner {
+        position: relative;
+        z-index: 1;
+      }
+      .brand {
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 2rem;
+      }
+      h1,
+      h2,
+      .display {
+        font-family: 'Cormorant Garamond', Georgia, serif;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        line-height: 1.12;
+      }
+      h1 {
+        font-size: 2.35rem;
+        margin: 0 0 1rem;
+        text-wrap: balance;
+        color: var(--text);
+      }
+      .cover-accent {
+        display: inline-block;
+        width: 3rem;
+        height: 3px;
+        background: linear-gradient(90deg, var(--teal), var(--green));
+        border-radius: 2px;
+        margin-bottom: 1.25rem;
+      }
+      h2 {
+        font-size: 1.55rem;
+        margin: 0 0 1rem;
+        color: var(--teal);
+      }
+      p {
+        margin: 0 0 0.85rem;
+        color: var(--muted);
+      }
+      p.lead {
+        font-size: 1.05rem;
+        color: var(--text);
+      }
+      .signal {
+        margin-bottom: 1.35rem;
+        padding-left: 0.85rem;
+        border-left: 2px solid var(--green-deep);
+      }
+      .signal strong {
+        display: block;
+        font-size: 0.82rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--teal);
+        margin-bottom: 0.35rem;
+        font-family: Inter, system-ui, sans-serif;
+      }
+      .signal p {
+        margin: 0;
+        color: var(--muted);
+      }
+      .cta-box {
+        margin-top: 1.5rem;
+        padding: 1.25rem 1.1rem;
+        border-radius: 14px;
+        border: 1px solid var(--line);
+        background: var(--teal-soft);
+      }
+      .cta-box a {
+        display: inline-block;
+        margin-top: 0.75rem;
+        font-weight: 600;
+        color: var(--teal);
+        text-decoration: none;
+      }
+      .cta-box a:hover {
+        text-decoration: underline;
+      }
+      .footnote {
+        font-size: 0.68rem;
+        color: rgba(232, 244, 248, 0.45);
+        margin-top: 2rem;
+      }
+      @page {
+        size: A4 portrait;
+        margin: 14mm;
+      }
+      @media print {
+        body {
+          background: #fff;
+        }
+        .toolbar {
+          display: none !important;
+        }
+        .sheet {
+          padding: 0;
+          max-width: none;
+        }
+        .page {
+          margin: 0;
+          border: none;
+          box-shadow: none;
+          page-break-after: always;
+          min-height: auto;
+        }
+        .page:last-of-type {
+          page-break-after: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="toolbar no-print">
+      <button type="button" id="btnPrint">Télécharger en PDF</button>
+      <span>Utilise l’aperçu d’impression de votre navigateur, puis « Enregistrer au format PDF ».</span>
+    </div>
+
+    <div class="sheet">
+      <!-- Page 1 — Couverture -->
+      <article class="page" aria-label="Couverture">
+        <div class="page-inner">
+          <p class="brand">Pinapp · Auralis RH</p>
+          <div class="cover-accent" aria-hidden="true"></div>
+          <h1 class="display">
+            5 signaux que votre équipe va mal — et comment réagir avant qu’il soit trop tard
+          </h1>
+          <p class="lead" style="margin-top: 1.5rem">
+            Un guide court pour managers et équipes RH : repérer tôt les signaux faibles, ouvrir la conversation, agir
+            avec méthode.
+          </p>
+          <p class="footnote">Document interne de travail — ne constitue pas un avis médical ou psychologique.</p>
+        </div>
+      </article>
+
+      <!-- Page 2 — Intro -->
+      <article class="page" aria-label="Introduction">
+        <div class="page-inner">
+          <p class="brand">Introduction</p>
+          <h2>Pourquoi ce guide ?</h2>
+          <p class="lead">53&nbsp;% des professionnels RH sont épuisés. Et si votre équipe montrait déjà des signes&nbsp;?</p>
+          <p>
+            Ce guide liste cinq signaux fréquemment observés en entreprise. Ce n’est pas une checklist définitive : c’est
+            un point de départ pour observer, questionner avec bienveillance, ajuster — avant que les absences ou les
+            départs ne s’accélèrent.
+          </p>
+          <p class="footnote">
+            Le pourcentage ci-dessus est repris de votre argumentaire éditorial ; vérifiez la source la plus récente
+            avant diffusion publique grand public.
+          </p>
+        </div>
+      </article>
+
+      <!-- Page 3 — Signaux 1 & 2 -->
+      <article class="page" aria-label="Signaux 1 et 2">
+        <div class="page-inner">
+          <p class="brand">Les 5 signaux</p>
+          <h2>1 · 2</h2>
+          <div class="signal">
+            <strong>Signal 1 — L’absentéisme qui augmente sans raison médicale</strong>
+            <p>
+              Des arrêts courts, des retards en cascade, des « petits bobos » qui s’enchaînent. Souvent, ce n’est pas la
+              maladie qui explique tout : c’est la charge mentale qui cherche une soupape.
+            </p>
+          </div>
+          <div class="signal">
+            <strong>Signal 2 — Les réunions où plus personne ne parle</strong>
+            <p>
+              Le silence n’est pas toujours sérénité. Quand les idées se taisent et que seuls les plus confiants
+              prennent la parole, le collectif se referme — et les tensions montent en coulisse.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Page 4 — Signal 3 -->
+      <article class="page" aria-label="Signal 3">
+        <div class="page-inner">
+          <p class="brand">Les 5 signaux</p>
+          <h2>3</h2>
+          <div class="signal">
+            <strong>Signal 3 — Le turnover silencieux</strong>
+            <p>
+              Avant la démission, il y a souvent une désengagement progressive : moins d’initiative, moins de
+              collaboration, moins d’énergie sur les projets transverses. Ce sont des départs « mentaux » avant les
+              départs officiels.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Page 5 — Signal 4 -->
+      <article class="page" aria-label="Signal 4">
+        <div class="page-inner">
+          <p class="brand">Les 5 signaux</p>
+          <h2>4</h2>
+          <div class="signal">
+            <strong>Signal 4 — Les e-mails tardifs (productivité toxique)</strong>
+            <p>
+              Lorsque les échanges se déplacent systématiquement en soirée ou le week-end, la norme du « toujours
+              disponible » s’installe. Même sans l’exiger, l’organisation envoie un message : le repos peut attendre.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Page 6 — Signal 5 -->
+      <article class="page" aria-label="Signal 5">
+        <div class="page-inner">
+          <p class="brand">Les 5 signaux</p>
+          <h2>5</h2>
+          <div class="signal">
+            <strong>Signal 5 — Le « ça va » systématique</strong>
+            <p>
+              La réponse polie qui ferme la conversation. Quand personne n’ose dire « je tiens plus », les managers
+              perdent la visibilité sur la charge réelle — jusqu’au prochain clash ou épuisement visible.
+            </p>
+          </div>
+          <p style="margin-top: 1.5rem">
+            <strong style="color: var(--text)">Comment réagir ?</strong>
+            Ouvrir un espace d’écoute sans jugement, clarifier les priorités, redistribuer la charge, documenter les
+            décisions, et mesurer ce qui compte vraiment pour l’équipe — pas seulement le chiffre.
+          </p>
+        </div>
+      </article>
+
+      <!-- Page 7 — Solution + CTA -->
+      <article class="page" aria-label="Auralis RH">
+        <div class="page-inner">
+          <p class="brand">Auralis RH</p>
+          <h2>La suite avec Auralis RH</h2>
+          <p class="lead">
+            Auralis RH est pensé pour détecter ces signaux tôt : indicateurs de bien-être, alertes préventives,
+            suggestions d’actions concrètes — au service des équipes et des managers.
+          </p>
+          <div class="cta-box">
+            <p style="margin: 0; color: var(--text)">
+              Inscrivez-vous à la liste d’attente pour être informé(e) en priorité des prochaines étapes et accéder aux
+              premières démos.
+            </p>
+            <a href="https://pinapp.fr/auralis/">S’inscrire à la liste d’attente → pinapp.fr/auralis</a>
+          </div>
+          <p class="footnote" style="margin-top: 2rem">
+            Pinapp · Auralis RH — Bordeaux · Nouvelle-Aquitaine · pinapp.fr
+          </p>
+        </div>
+      </article>
+    </div>
+
+    <script>
+      document.getElementById('btnPrint').addEventListener('click', function () {
+        window.print();
+      });
+    </script>
+  </body>
+</html>
