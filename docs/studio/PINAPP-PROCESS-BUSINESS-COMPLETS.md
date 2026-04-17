@@ -8,17 +8,18 @@ Document de référence (avril 2026). Les **corps d’e-mails exploitables** pou
 
 ### Fichiers source (copier-coller dans n8n / Gmail)
 
-| Séquence                  | Fichiers                                                                          |
-| ------------------------- | --------------------------------------------------------------------------------- |
-| **A — Post-diagnostic**   | `emails/sequences/A1-post-diagnostic-immediat.txt` … `A4-post-diagnostic-j30.txt` |
-| **B — Onboarding client** | `emails/sequences/B1-onboarding-immediat.txt` … `B5-onboarding-j7.txt`            |
-| **C — Kit Prompts**       | `emails/sequences/C1-kit-prompts-immediat.txt`                                    |
+| Séquence | Fichiers |
+|----------|----------|
+| **A — Post-diagnostic** | `emails/sequences/A1-post-diagnostic-immediat.txt` … `A4-post-diagnostic-j30.txt` |
+| **B — Onboarding client** | `emails/sequences/B1-onboarding-immediat.txt` … `B5-onboarding-j7.txt` |
+| **C — Kit Prompts** | `emails/sequences/C1-kit-prompts-immediat.txt` |
 
 Détails workflow : `emails/sequences/README.txt`.
 
 **Rappels liens publics** (déjà utilisés dans les modèles) :
 
 - Réalisations / démos : `https://pinapp.fr/demo/`
+- Films IA (offre + page) : `https://pinapp.fr/realisations/films-ia/`
 - Article relance J+30 : `https://pinapp.fr/blog/automatisation-tpe/`
 - Formation IA (ex. e-mail kit) : `https://pinapp.fr/formations/ia-collegue/`
 
@@ -63,14 +64,14 @@ Le champ caché et la logique **existent déjà** dans `diagnostic/index.html` (
 
 ## 5. Index rapide dépôt
 
-| Besoin                | Emplacement                                          |
-| --------------------- | ---------------------------------------------------- |
-| Corps séquences A/B/C | `emails/sequences/*.txt`                             |
-| README séquences      | `emails/sequences/README.txt`                        |
-| Notion + n8n          | `docs/notion-crm-prospects.md`                       |
-| Checklist imprimable  | `docs/studio/CHECKLIST-ONBOARDING-CLIENT-pinapp.txt` |
-| QR diagnostic         | `tools/generate-qr.mjs` · `npm run qr:diagnostic`    |
-| Payload diagnostic    | `assets/js/diagnostic-native.js` (`buildPayload`)    |
+| Besoin | Emplacement |
+|--------|-------------|
+| Corps séquences A/B/C | `emails/sequences/*.txt` |
+| README séquences | `emails/sequences/README.txt` |
+| Notion + n8n | `docs/notion-crm-prospects.md` |
+| Checklist imprimable | `docs/studio/CHECKLIST-ONBOARDING-CLIENT-pinapp.txt` |
+| QR diagnostic | `tools/generate-qr.mjs` · `npm run qr:diagnostic` |
+| Payload diagnostic | `assets/js/diagnostic-native.js` (`buildPayload`) |
 
 ---
 
