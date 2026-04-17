@@ -64,6 +64,13 @@ html[data-theme='light'] {
   --focus: 0 0 0 0.125rem var(--accent), 0 0 0 0.25rem rgba(var(--accent-rgb), 0.35);
   --teal: var(--accent);
   --violet: var(--accent-2);
+  --pp-bg: #fafbfe;
+  --pp-card: #ffffff;
+  --pp-text: #0d1b3e;
+  --pp-muted: rgba(13, 27, 62, 0.6);
+  --pp-teal: #00b4a6;
+  --pp-violet: #5b4fe8;
+  --pp-border: rgba(91, 79, 232, 0.15);
 }
 
 *,
@@ -74,10 +81,12 @@ html[data-theme='light'] {
 
 html {
   scroll-behavior: auto;
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
+  overflow-x: hidden;
   font-family:
     -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Helvetica Neue', Helvetica,
     system-ui, sans-serif;
@@ -85,7 +94,6 @@ body {
   line-height: 1.8;
   background: var(--bg);
   color: var(--text);
-  overflow-x: hidden;
   transition:
     background-color 0.3s var(--ease),
     color 0.3s var(--ease);
@@ -703,8 +711,10 @@ html[data-theme='light'] .theme-btn__icon--moon {
 
 .hero {
   position: relative;
+  display: flex;
+  flex-direction: column;
   min-height: min(100svh, 56rem);
-  padding: 2.5rem 0 4rem;
+  padding: 2.5rem 0 2rem;
   overflow: hidden;
 }
 
@@ -900,6 +910,17 @@ html[data-theme='light'] .hero__gradient {
     color: var(--teal, #00e5b0) !important;
     animation: shimmer-simple 3s ease-in-out infinite !important;
   }
+}
+
+/* Mot « vivez. » toujours visible (repli si gradient / clip défaillants) */
+.hero h1 .word.hero__gradient,
+span.word.hero__gradient {
+  color: #00e5b0 !important;
+  -webkit-text-fill-color: #00e5b0 !important;
+  background: none !important;
+  background-image: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
 }
 
 .hero h1 .accent {
@@ -1201,6 +1222,8 @@ html[data-theme='light'] .btn--outline-violet {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   opacity: 0.72;
+  margin-top: auto;
+  padding-top: 1.25rem;
 }
 
 .scroll-hint svg {
