@@ -20,7 +20,7 @@ Créer une **base de données** (tableau complet) avec les propriétés suivante
 | **Prochain RDV** | Date | — |
 | **Montant devis** | Nombre | Format € (affichage devise dans Notion). |
 | **Notes** | Texte long | — |
-| **Priorité** | Select | `Chaud`, `Tiède`, `Froid` |
+| **Priorité** | Select | `🔥 Chaud`, `🟡 Tiède`, `❄️ Froid` (ou équivalent texte sans emoji pour exports n8n). |
 | **Assigné** | Select | `Lauralie`, `Michaël`, `Les deux` |
 
 ## Vues recommandées

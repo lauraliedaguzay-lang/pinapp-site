@@ -22,7 +22,7 @@ Détails workflow : `emails/sequences/README.txt`.
 - Article relance J+30 : `https://pinapp.fr/blog/automatisation-tpe/`
 - Formation IA (ex. e-mail kit) : `https://pinapp.fr/formations/ia-collegue/`
 
-Les **montants** mentionnés dans B4 (maintenance, formation, pack contenu) sont des **placeholders métier** : les aligner sur la grille tarifaire publiée (`/offres/`, formations) avant industrialisation dans n8n.
+Les **montants** dans B4 (maintenance, formation L3, pack contenu Michaël) sont donnés **en HT** avec mention TVA art. 293 B CGI : les ajuster sur chaque devis réel et sur la grille publiée (`/offres/`, `/formations/`) avant industrialisation dans n8n.
 
 ---
 
