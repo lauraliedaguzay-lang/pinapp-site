@@ -116,8 +116,12 @@
       content="Systèmes digitaux, automatisation IA et design premium. Lauralie &amp; Micha — nous avons étudié, testé, observé." />
     <link rel="canonical" href="https://pinapp.fr/" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="/style.css?v=20260438" />
-    <link rel="stylesheet" href="/assets/css/home-2026.css?v=20260438" />
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
+    <link
+      href="https://fonts.bunny.net/css?family=sora:wght@200;300&family=inter:300;400&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="/style.css?v=20260439" />
+    <link rel="stylesheet" href="/assets/css/home-2026.css?v=20260439" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://pinapp.fr/" />
     <meta property="og:title" content="Pinapp — Systèmes digitaux, automatisation IA, design premium" />
@@ -1228,7 +1232,301 @@ input:focus, select:focus, textarea:focus {
 </style>
 </head>
   <body>
-<canvas id="pc" aria-hidden="true"></canvas>
+    <script>
+      try {
+        if (/[?&]intro=0(?:&|$)/.test(window.location.search || '')) {
+          document.documentElement.classList.add('pp-intro-skip');
+        }
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      } catch (e) {}
+    </script>
+    <style id="pp-intro-css">
+      html.pp-intro-skip #pp-intro {
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+      }
+      #pp-intro {
+        position: fixed;
+        inset: 0;
+        z-index: 100001;
+        box-sizing: border-box;
+        padding: max(0.75rem, env(safe-area-inset-top, 0px)) max(0.75rem, env(safe-area-inset-right, 0px))
+          max(0.75rem, env(safe-area-inset-bottom, 0px)) max(0.75rem, env(safe-area-inset-left, 0px));
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: pp-bg-dark 0.4s 3.55s ease forwards, pp-out 0.6s 5.4s ease forwards;
+      }
+      @keyframes pp-bg-dark {
+        to {
+          background: #06090f;
+        }
+      }
+      @keyframes pp-out {
+        to {
+          opacity: 0;
+          pointer-events: none;
+        }
+      }
+      #pp-intro .ppf {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        opacity: 0;
+      }
+      #pp-intro .ppf1 {
+        animation: pps 0.55s 0s ease forwards, pph 0.22s 0.65s ease forwards;
+      }
+      #pp-intro .ppf2 {
+        animation: pps 0.55s 0.8s ease forwards, pph 0.22s 1.45s ease forwards;
+      }
+      #pp-intro .ppf3 {
+        animation: pps 0.55s 1.6s ease forwards, pph 0.22s 2.25s ease forwards;
+      }
+      #pp-intro .ppf4 {
+        animation: pps 0.55s 2.4s ease forwards, pph 0.22s 3.05s ease forwards;
+      }
+      #pp-intro .ppf5 {
+        animation: pps 0.55s 3.1s ease forwards, pph 0.22s 3.75s ease forwards;
+      }
+      #pp-intro .ppf6 {
+        animation: pps-logo 0.8s 3.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      @keyframes pps {
+        from {
+          opacity: 0;
+          transform: scale(0.93);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      @keyframes pph {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+          transform: scale(1.04);
+        }
+      }
+      @keyframes pps-logo {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      #pp-intro .ppw {
+        font-family: 'Sora', 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-weight: 200;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        line-height: 1;
+        margin: 0;
+      }
+      #pp-intro .ppwl {
+        font-size: clamp(4.5rem, 15vw, 10rem);
+      }
+      #pp-intro .ppwm {
+        font-size: clamp(2.2rem, 8vw, 5.5rem);
+      }
+      #pp-intro .ppws {
+        font-size: clamp(1.5rem, 5.5vw, 3.8rem);
+      }
+      #pp-intro .ppc1 {
+        background: linear-gradient(90deg, #009e7d, #00e5b0);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+      }
+      #pp-intro .ppc2 {
+        background: linear-gradient(90deg, #5c2db0, #9b6dff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+      }
+      #pp-intro .ppc3 {
+        background: linear-gradient(90deg, #c03060, #ff6b9d);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+      }
+      #pp-intro .ppc4 {
+        background: linear-gradient(90deg, #12093a, #3d1a70);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+      }
+      #pp-intro .ppc5 {
+        background: linear-gradient(90deg, #1e5438, #40916c);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+      }
+      #pp-intro .ppsub {
+        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-size: 0.68rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(0, 0, 0, 0.28);
+        font-weight: 300;
+        margin: 0.9rem 0 0;
+      }
+      #pp-intro .pp-logo-img {
+        display: block;
+        height: clamp(80px, 16vw, 140px);
+        width: auto;
+        margin-inline: auto;
+        object-fit: contain;
+        animation: pp-logo-in 0.9s 3.95s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+        filter: drop-shadow(0 0 24px rgba(0, 229, 176, 0.28)) drop-shadow(0 0 48px rgba(0, 229, 176, 0.1));
+      }
+      @keyframes pp-logo-in {
+        from {
+          transform: scale(0.75);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      #pp-intro .pp-tag {
+        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        font-size: clamp(0.7rem, 2vw, 0.88rem);
+        font-weight: 300;
+        letter-spacing: 0.1em;
+        color: rgba(245, 245, 247, 0.35);
+        margin: 1.5rem 0 0;
+        text-wrap: balance;
+        animation: pp-tag-in 0.5s 4.6s ease backwards;
+      }
+      @keyframes pp-tag-in {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      #pp-intro .pp-pandora {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(ellipse 70% 60% at 50% 40%, rgba(0, 229, 176, 0.06) 0%, transparent 60%),
+          radial-gradient(ellipse 50% 50% at 20% 80%, rgba(124, 58, 237, 0.05) 0%, transparent 60%);
+        opacity: 0;
+        animation: pp-pandora-in 0.8s 3.55s ease forwards;
+      }
+      @keyframes pp-pandora-in {
+        to {
+          opacity: 1;
+        }
+      }
+      #pp-intro .pp-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 1.5px;
+        background: linear-gradient(90deg, #00e5b0, #7c3aed, #ff6b9d, #00e5b0);
+        background-size: 300% auto;
+        animation: pp-bw 5.4s linear forwards;
+      }
+      @keyframes pp-bw {
+        from {
+          width: 0;
+        }
+        to {
+          width: 100%;
+        }
+      }
+    </style>
+    <div
+      id="pp-intro"
+      role="dialog"
+      aria-modal="true"
+      aria-busy="true"
+      aria-label="Pinapp — séquence d'accueil">
+      <div class="pp-pandora" aria-hidden="true"></div>
+      <div class="ppf ppf1" aria-hidden="true">
+        <p class="ppw ppwl ppc1">IA</p>
+        <p class="ppsub">Intelligence artificielle</p>
+      </div>
+      <div class="ppf ppf2" aria-hidden="true">
+        <p class="ppw ppwm ppc2">Automatisation</p>
+        <p class="ppsub">Vos process, sans effort</p>
+      </div>
+      <div class="ppf ppf3" aria-hidden="true">
+        <p class="ppw ppws ppc3">Web &amp; Design</p>
+        <p class="ppsub">Sites qui convertissent</p>
+      </div>
+      <div class="ppf ppf4" aria-hidden="true">
+        <p class="ppw ppws ppc4">Formations</p>
+        <p class="ppsub">Prenez le contrôle de vos outils</p>
+      </div>
+      <div class="ppf ppf5" aria-hidden="true">
+        <p class="ppw ppws ppc5">Mémoire &amp; Présence</p>
+        <p class="ppsub">Hommages numériques · avec Michaël</p>
+      </div>
+      <div class="ppf ppf6">
+        <img
+          class="pp-logo-img"
+          src="/assets/images/pinapp-logo.png"
+          width="140"
+          height="168"
+          alt="Pinapp — logo ananas"
+          decoding="async"
+          fetchpriority="high" />
+        <p class="pp-tag">Ce que vos concurrents n'ont pas encore.</p>
+      </div>
+      <div class="pp-bar" aria-hidden="true"></div>
+    </div>
+    <script id="pp-intro-run">
+      (function () {
+        if (document.documentElement.classList.contains('pp-intro-skip')) {
+          var skip = document.getElementById('pp-intro');
+          var css = document.getElementById('pp-intro-css');
+          var run = document.getElementById('pp-intro-run');
+          if (skip) skip.remove();
+          if (css) css.remove();
+          if (run) run.remove();
+          return;
+        }
+        document.body.style.overflow = 'hidden';
+        window.setTimeout(function () {
+          document.body.style.overflow = '';
+          window.scrollTo(0, 0);
+          if (document.documentElement) document.documentElement.scrollTop = 0;
+          var el = document.getElementById('pp-intro');
+          if (el) el.remove();
+          var c = document.getElementById('pp-intro-css');
+          if (c) c.remove();
+          var r = document.getElementById('pp-intro-run');
+          if (r) r.remove();
+          window.dispatchEvent(new Event('resize'));
+        }, 6100);
+      })();
+    </script>
+    <canvas id="pc" aria-hidden="true"></canvas>
 <div id="ow" aria-hidden="true">
   <svg class="wv" id="w1" viewBox="0 0 1440 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,100 C180,160 360,40 540,100 C720,160 900,40 1080,100 C1260,160 1380,100 1440,100 L1440,200 L0,200Z" fill="rgba(0,180,160,0.13)"/></svg>
   <svg class="wv" id="w2" viewBox="0 0 1440 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,120 C240,60 480,160 720,120 C960,80 1200,160 1440,120 L1440,200 L0,200Z" fill="rgba(0,210,190,0.09)"/></svg>
@@ -1261,25 +1559,9 @@ html[data-theme="dark"] body,html:not([data-theme]) body{
 html[data-theme="dark"] #pc{opacity:1!important;}
 html[data-theme="dark"] #ow{display:none!important;}
 
-/* ── MODE CLAIR AVATAR 2 — SURFACE LUMINEUSE ── */
-html[data-theme="light"] body,html[data-theme="light"] .page{background:linear-gradient(180deg,#a8e6ef 0%,#5bc5d4 12%,#2a8a9a 28%,#0d4a5c 50%,#061825 80%,#03101a 100%)!important;}
+/* ── MODE CLAIR — vagues #ow (fond + textes : bloc « MODE JOUR » plus bas) ── */
 html[data-theme="light"] #pc{opacity:0!important;}
 html[data-theme="light"] #ow{display:block!important;}
-
-/* Textes lisibles sur fond océan */
-html[data-theme="light"] h1,html[data-theme="light"] h2,html[data-theme="light"] h3{color:#fff!important;text-shadow:0 2px 8px rgba(0,0,0,.3)!important;}
-html[data-theme="light"] p,html[data-theme="light"] li{color:rgba(255,255,255,.85)!important;}
-html[data-theme="light"] nav{background:rgba(0,80,100,.75)!important;border-bottom:1px solid rgba(255,255,255,.2)!important;backdrop-filter:blur(20px)!important;}
-html[data-theme="light"] .card,html[data-theme="light"] .offer,html[data-theme="light"] article{
-  background:rgba(255,255,255,.12)!important;
-  border:1px solid rgba(255,255,255,.2)!important;
-  backdrop-filter:blur(16px)!important;}
-
-/* Lumière de surface — reflets blancs en haut */
-html[data-theme="light"] body::before{
-  content:'';position:fixed;top:0;left:0;right:0;height:35vh;
-  background:radial-gradient(ellipse 100% 100% at 50% 0%,rgba(255,255,255,.25) 0%,transparent 70%);
-  pointer-events:none;z-index:0;}
 
 /* Vagues plus visibles */
 html[data-theme="light"] .wv path{opacity:.9!important;}
@@ -1291,11 +1573,6 @@ html[data-theme="light"] #w4 path{fill:rgba(180,240,245,.10)!important;}
 body>*:not(#pc):not(#ow){position:relative;z-index:1;}
 @media(prefers-reduced-motion:reduce){#w1,#w2,#w3,#w4,#oc{animation:none!important;}}
 </style>
-
-
-</div>
-
-
 
     <div class="bg-light-veil" aria-hidden="true">
       <span class="bg-light-veil__pulse"></span>
@@ -2842,7 +3119,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
 </div></footer>
     </div>
 
-    <script src="/script.js?v=20260438" defer></script>
+    <script src="/script.js?v=20260439" defer></script>
     <script src="/assets/js/pandora-fx.js?v=1" defer></script>
     <!-- Pandora TDAH : modale Tally -->
     <div class="tdah-modal-overlay" id="tallyModal" role="dialog" aria-modal="true" aria-labelledby="tdahModalTitle">
@@ -3602,11 +3879,22 @@ html[data-theme="dark"] .section__desc, html[data-theme="dark"] .hero p {
    Accents : halos teal + violet en pure CSS
    ═══════════════════════════════════════════════ */
 
-/* 1. Body fond crème unifié — écrase Hostinger fond-jour:#060d1f */
+/* 1. Body — dégradé océan lisible (haut clair → profondeur) */
 html[data-theme="light"] body,
 html[data-theme="light"] body.js-ready,
 html[data-theme="light"] body.mode-jour {
-  background-color: #eef4f3 !important;
+  background: linear-gradient(
+    185deg,
+    #e8f7fb 0%,
+    #c4e8f2 18%,
+    #7ec4d4 42%,
+    #3d87a0 68%,
+    #174a5a 88%,
+    #0a2229 100%
+  ) !important;
+}
+html[data-theme="light"] .page {
+  background: transparent !important;
 }
 
 /* 2. Masquer le body::before Pandora teal — source du problème */
@@ -3616,14 +3904,15 @@ html[data-theme="light"] body::before {
   visibility: hidden !important;
 }
 
-/* 3. Hero : fond gradient "Aube Pandora" — teal très pâle → violet pâle → crème */
+/* 3. Hero — plaque lumineuse + contraste pour titres */
 html[data-theme="light"] section#top,
 html[data-theme="light"] #top {
   background:
-    radial-gradient(ellipse 70% 60% at 85% 15%, rgba(0,229,176,.18) 0%, transparent 55%),
-    radial-gradient(ellipse 55% 55% at 15% 75%, rgba(155,109,255,.14) 0%, transparent 55%),
-    radial-gradient(ellipse 45% 50% at 55% 90%, rgba(0,180,216,.10) 0%, transparent 50%),
-    linear-gradient(160deg, #eef8f6 0%, #f2eeff 50%, #faf8ef 100%) !important;
+    radial-gradient(ellipse 90% 75% at 10% 5%, rgba(255, 255, 255, 0.72) 0%, transparent 58%),
+    radial-gradient(ellipse 70% 60% at 88% 12%, rgba(0, 180, 170, 0.2) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 50% at 18% 88%, rgba(155, 109, 255, 0.12) 0%, transparent 55%),
+    linear-gradient(168deg, #f5fcfe 0%, #e2f5f9 42%, #ccecf4 100%) !important;
+  box-shadow: inset 0 -1px 0 rgba(12, 72, 82, 0.08);
 }
 
 /* 4. Nav : cohérente avec fond crème */
@@ -3657,8 +3946,35 @@ html[data-theme="light"] h1 .word:not(.hero__gradient) {
 html[data-theme="light"] .hero p,
 html[data-theme="light"] .hero__desc,
 html[data-theme="light"] .subtitle {
-  color: rgba(10,37,32,.65) !important;
-  -webkit-text-fill-color: rgba(10,37,32,.65) !important;
+  color: rgba(10, 37, 32, 0.72) !important;
+  -webkit-text-fill-color: rgba(10, 37, 32, 0.72) !important;
+}
+
+html[data-theme="light"] .hero__eyebrow {
+  color: rgba(8, 52, 58, 0.78) !important;
+  -webkit-text-fill-color: rgba(8, 52, 58, 0.78) !important;
+}
+
+html[data-theme="light"] .hero h1 {
+  color: #063a42 !important;
+  -webkit-text-fill-color: #063a42 !important;
+}
+
+html[data-theme="light"] h1 .word.hero__gradient {
+  background-image: linear-gradient(
+    105deg,
+    #006b5c 0%,
+    #4c1d95 30%,
+    #9a1a52 52%,
+    #0b6b7a 78%,
+    #006b5c 100%
+  ) !important;
+  background-size: 240% auto !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.55));
 }
 
 /* 7. CTA primary : violet au lieu de orange */
@@ -3736,7 +4052,9 @@ html[data-theme="light"] footer * {
 /* 14. Mobile : hero fond cohérent */
 @media (max-width: 768px) {
   html[data-theme="light"] section#top {
-    background: linear-gradient(160deg, #eef8f6 0%, #f2eeff 60%, #faf8ef 100%) !important;
+    background:
+      radial-gradient(ellipse 95% 80% at 50% 0%, rgba(255, 255, 255, 0.65) 0%, transparent 55%),
+      linear-gradient(168deg, #f2fbfd 0%, #dff4f8 55%, #c8eaf2 100%) !important;
   }
 }
 
