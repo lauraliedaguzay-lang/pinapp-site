@@ -6,7 +6,10 @@
   if (window.__PINAPP_AWWARDS__) return;
   window.__PINAPP_AWWARDS__ = true;
 
-  var V = '20260418';
+  var V = '20260419';
+  /* Lenis retiré : sur pinapp.fr il bloquait le scroll (classes lenis jamais actives / conflits RAF).
+     ScrollTrigger fonctionne avec le défilement natif du navigateur. */
+  var USE_LENIS = false;
   var prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var isMobile = window.matchMedia('(max-width: 767px)').matches;
   /* Desktop : curseur custom (sans exiger hover:hover — évite tablettes / trackpad mal détectés) */
@@ -125,36 +128,28 @@
     }
     gsap.registerPlugin(ScrollTrigger);
 
-    /* Lenis : RAF navigateur (timestamp ms) — le ticker GSAP ne fournit pas le même temps → scrollY bloqué à 0 */
-    var lenis = null;
-    var lenisRafId = null;
-    function stopLenisRaf() {
-      if (lenisRafId != null) {
-        cancelAnimationFrame(lenisRafId);
-        lenisRafId = null;
-      }
-    }
-    if (!prefersReduce && typeof Lenis !== 'undefined') {
+    /* Garantir scroll natif (aucun état Lenis / overflow bloqué) */
+    document.documentElement.classList.remove('lenis', 'lenis-smooth');
+    document.documentElement.style.overflowY = '';
+    document.documentElement.style.overflow = '';
+    document.body.style.overflowY = '';
+    document.body.style.overflow = '';
+
+    if (USE_LENIS && !prefersReduce && typeof Lenis !== 'undefined') {
       try {
-        lenis = new Lenis({
-          duration: 1.2,
-          easing: function (t) {
-            return Math.min(1, 1.001 - Math.pow(2, -10 * t));
-          },
-          smoothWheel: true,
-        });
+        var lenis = new Lenis({ duration: 1.2, smoothWheel: true });
         document.documentElement.classList.add('lenis', 'lenis-smooth');
-        lenis.on('scroll', ScrollTrigger.update);
-        function lenisRaf(time) {
-          if (lenis) lenis.raf(time);
-          lenisRafId = requestAnimationFrame(lenisRaf);
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
         }
-        lenisRafId = requestAnimationFrame(lenisRaf);
+        requestAnimationFrame(raf);
+        lenis.on('scroll', ScrollTrigger.update);
       } catch (e) {
-        console.warn('[pinapp-awwards] Lenis indisponible, scroll natif', e);
-        lenis = null;
-        stopLenisRaf();
+        console.warn('[pinapp-awwards] Lenis failed, using native scroll', e);
         document.documentElement.classList.remove('lenis', 'lenis-smooth');
+        document.documentElement.style.overflow = 'auto';
+        document.body.style.overflow = 'auto';
       }
     }
 
@@ -336,9 +331,7 @@
       loadScript(
         'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',
         function () {
-          loadScript('https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js', function () {
-            whenDomReady(initAfterLibs);
-          });
+          whenDomReady(initAfterLibs);
         },
       );
     });

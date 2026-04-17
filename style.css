@@ -723,7 +723,7 @@ html[data-theme='light'] .theme-btn__icon--moon {
   flex-direction: column;
   min-height: min(100svh, 56rem);
   /* Moins d’air sous le hero (évite le « trou » visuel avant la ligne / confiance) */
-  padding: 2.5rem 0 0.75rem;
+  padding: 2.5rem 0 0.5rem;
   overflow: hidden;
 }
 
@@ -1235,8 +1235,9 @@ html[data-theme='light'] .btn--outline-violet {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   opacity: 0.72;
-  margin-top: auto;
-  padding-top: 1.25rem;
+  /* margin-top: auto créait un grand vide entre les CTA et le contenu sous le hero */
+  margin-top: 1.75rem;
+  padding-top: 0.35rem;
 }
 
 .scroll-hint svg {
@@ -2899,6 +2900,19 @@ html[data-theme='dark'] .save-chart-card {
     transform: none !important;
     opacity: 0.3 !important;
   }
+}
+
+/* Skip link : hors flux (évite bande visible + réserve de place) */
+.skip-link {
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+  z-index: 99999;
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 0 !important;
+  left: 0 !important;
 }
 
 /* SEO : titre masqué visuellement, lu par les lecteurs d’écran */
