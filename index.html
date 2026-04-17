@@ -30,6 +30,20 @@
     <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
     <link rel="dns-prefetch" href="https://fonts.bunny.net" />
     <link rel="canonical" href="https://pinapp.fr/" />
+    <link rel="prefetch" href="/offres/" />
+    <link rel="prefetch" href="/demo/" />
+    <style>
+      /* Critique above-the-fold : fond + base typo avant chargement CSS complet */
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: #080d18;
+        color: #e8f4f8;
+        font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+    </style>
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:site_name" content="Pinapp" />
@@ -1683,10 +1697,12 @@
 <link rel="apple-touch-icon" href="/assets/images/pinapp-icon.png" />
 
     <script defer data-domain="pinapp.fr" src="https://plausible.io/js/script.js"></script>
+    <link rel="dns-prefetch" href="https://plausible.io" />
 </head>
   <body>
-    <h1 class="sr-only">Pinapp — Agence automatisation IA, sites web premium et vidéo à Bordeaux, Nouvelle-Aquitaine</h1>
     <a href="#main" class="skip-link">Aller au contenu principal</a>
+
+    <p class="sr-only">Pinapp — Agence automatisation IA, sites web premium et vidéo à Bordeaux, Nouvelle-Aquitaine</p>
     <script>
       try {
         if (/[?&]intro=0(?:&|$)/.test(window.location.search || '')) {
@@ -3636,7 +3652,8 @@
                   onerror="
                     this.style.display = 'none';
                     this.nextElementSibling.style.display = 'flex';
-                  " / decoding="async">
+                  "
+                  decoding="async" />
                 <div class="studio-avatar" style="display: none; background: linear-gradient(135deg, #9b6dff, #ff6b9d)">
                   M
                 </div>
@@ -4107,7 +4124,7 @@
 
     <script src="/assets/js/pinapp-universal.js?v=1" defer></script>
     <script src="/assets/js/pinapp-a11y-bootstrap.js" defer></script>
-    <script src="/script.js?v=20260440" defer></script>
+    <script src="/script.min.js?v=20260440" defer></script>
     <script src="/assets/js/pandora-fx.js?v=1" defer></script>
     <script src="/assets/js/pinapp-burger-nuclear.js?v=1" defer></script>
     <!-- Pandora TDAH : modale Tally -->

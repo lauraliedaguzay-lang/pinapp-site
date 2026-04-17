@@ -3,7 +3,7 @@
 
 :root {
   --accent: #00e5b0;
-  --accent-2: #b388ff;
+  --accent-2: #9b6dff;
   --accent-3: #7fffea;
   --accent-4: #e040fb;
   --accent-glow: rgba(0, 229, 176, 0.22);
@@ -15,7 +15,7 @@
   --bg-card-hover: rgba(255, 255, 255, 0.09);
   --text: #f0f8ff;
   --text-muted: rgba(240, 248, 255, 0.72);
-  --text-dim: rgba(240, 248, 255, 0.4);
+  --text-dim: rgba(240, 248, 255, 0.45);
   --border: rgba(179, 136, 255, 0.08);
   --border-accent: rgba(0, 229, 176, 0.28);
   --radius-sm: 8px;
@@ -42,7 +42,7 @@
   --bg-card-hover: rgba(10, 60, 65, 0.72);
   --text: #e8fffd;
   --text-muted: rgba(232, 255, 253, 0.55);
-  --text-dim: rgba(232, 255, 253, 0.32);
+  --text-dim: rgba(232, 255, 253, 0.38);
   --border: rgba(196, 181, 253, 0.12);
   --border-accent: rgba(127, 255, 234, 0.28);
 }
@@ -56,6 +56,16 @@
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Accueil — réserve LCP / limite CLS sur le hero */
+section.hero#top {
+  min-height: 100dvh;
+  min-height: 100svh;
+  background-color: var(--bg);
+}
+section.hero#top .hero__inner > h1 {
+  min-height: clamp(6.5rem, 22vw, 11rem);
 }
 body.home-2026 {
   font-family: var(--font-apple);
