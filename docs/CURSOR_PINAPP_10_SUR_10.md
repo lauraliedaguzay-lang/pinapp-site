@@ -28,6 +28,23 @@ Chaque démo réutilise les **mêmes effets signature** (voir ci-dessous), avec 
 
 ---
 
+## Classes utilitaires sur pinapp.fr (`pp-*`)
+
+Incluses via `/assets/css/pinapp-awwards.css` + `/assets/js/pinapp-awwards.js` (chargement CDN GSAP → ScrollTrigger → Lenis dans le JS).
+
+| Classe | Effet |
+|--------|--------|
+| `pp-split` | Titres texte seuls (h1–h3 sans enfants riches) : split lettres + apparition au scroll. |
+| `pp-reveal` | Conteneur reveal (clip + scale) — images/vidéos ou `.pp-reveal__target`. |
+| `pp-parallax` | Bloc défilé avec translation scrub (souvent autour d’une image). |
+| `pp-magnetic` | CTA / bouton magnétique (desktop). |
+| `pp-line` | Ligne 1px dorée, `scaleX` au scroll. |
+| `pp-fade` | Carte / bloc : fade + translate au scroll (auto sur `.pp-testi-card`, `.pp-pnk-card`, démos `#demos`). |
+
+**Note :** `realisations/cinematiques/architecte.html` n’embarque pas ce bundle (GSAP/Lenis déjà dans la démo).
+
+---
+
 ## Stack technique (ordre CDN obligatoire)
 
 1. **GSAP** 3.12.x — `https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js`  
