@@ -1433,3 +1433,65 @@ body:hover #cursor {
     font-size: 0.8rem;
   }
 }
+
+/* ── construisons : fix iOS ── */
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+  .hero__gradient,
+  .shimmer-2026,
+  span.word.hero__gradient {
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: #00e5b0 !important;
+    color: #00e5b0 !important;
+    animation: pp-pulse-teal 3s ease-in-out infinite !important;
+    -webkit-transform: translateZ(0) !important;
+    transform: translateZ(0) !important;
+  }
+}
+@keyframes pp-pulse-teal {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.65;
+  }
+}
+
+.hero__gradient,
+.shimmer-2026 {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: background-position;
+  isolation: isolate;
+}
+
+.btn-2026,
+.hero-2026__ctas a,
+[class*='btn-2026'] {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease,
+    opacity 200ms ease !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+.anim-scale-hero,
+.hero-2026__ctas {
+  opacity: 1 !important;
+  transform: none !important;
+}
+@media (hover: none) and (pointer: coarse) {
+  .btn-2026:hover,
+  [class*='btn-2026']:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+  .btn-2026:active {
+    opacity: 0.8 !important;
+    transform: scale(0.97) translateZ(0) !important;
+  }
+}

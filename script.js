@@ -471,6 +471,7 @@
   }
 
   function initHeroWords() {
+    if (/iPhone|iPad|iPod/.test(navigator.userAgent)) return;
     var words = document.querySelectorAll('.hero h1 .word');
     words.forEach(function (w, idx) {
       w.style.animationDelay = idx * 80 + 'ms';

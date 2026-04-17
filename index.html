@@ -1953,6 +1953,12 @@
           text-wrap: balance;
         }
       }
+      #pp-intro {
+        position: fixed !important;
+        inset: 0 !important;
+        z-index: 99999 !important;
+        background: #050a14 !important;
+      }
     </style>
     <div id="pp-intro" role="dialog" aria-modal="true" aria-busy="true" aria-label="Pinapp — séquence d'accueil">
       <div class="pp-pandora" aria-hidden="true"></div>
@@ -1992,15 +1998,17 @@
     <script id="pp-intro-run">
       (function () {
         if (document.documentElement.classList.contains('pp-intro-skip')) {
-          var skip = document.getElementById('pp-intro');
-          var css = document.getElementById('pp-intro-css');
-          var run = document.getElementById('pp-intro-run');
-          if (skip) skip.remove();
-          if (css) css.remove();
-          if (run) run.remove();
-          try {
-            window.dispatchEvent(new CustomEvent('pp-pinapp-intro-done'));
-          } catch (e0) {}
+          window.setTimeout(function () {
+            var skip = document.getElementById('pp-intro');
+            var css = document.getElementById('pp-intro-css');
+            var run = document.getElementById('pp-intro-run');
+            if (skip) skip.remove();
+            if (css) css.remove();
+            if (run) run.remove();
+            try {
+              window.dispatchEvent(new CustomEvent('pp-pinapp-intro-done'));
+            } catch (e0) {}
+          }, 6100);
           return;
         }
         document.body.style.overflow = 'hidden';
@@ -8677,6 +8685,7 @@
     </script>
     <script id="pp-construisons-js">
       (function () {
+        if (/iPhone|iPad|iPod/.test(navigator.userAgent)) return;
         // Injecter le keyframe
         var st = document.createElement('style');
         st.id = 'pp-cs-kf';
