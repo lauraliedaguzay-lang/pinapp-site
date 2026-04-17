@@ -13,7 +13,8 @@ param([switch] $NoBrowser)
 
 $ErrorActionPreference = 'Continue'
 $env:Path = [Environment]::GetEnvironmentVariable('Path', 'Machine') + ';' + [Environment]::GetEnvironmentVariable('Path', 'User')
-Set-Location -LiteralPath $PSScriptRoot
+$PinappRepoRoot = Split-Path $PSScriptRoot -Parent
+Set-Location -LiteralPath $PinappRepoRoot
 
 $ownerRepo = 'lauraliedaguzay-lang/pinapp-site'
 $secretsUrl = 'https://github.com/' + $ownerRepo + '/settings/secrets/actions'
@@ -23,7 +24,7 @@ $hpanelDns = 'https://hpanel.hostinger.com/'
 
 Write-Host ''
 Write-Host '=== pinapp-dormir : build local ===' -ForegroundColor Cyan
-& .\pinapp.ps1 ship
+& (Join-Path $PinappRepoRoot 'pinapp.ps1') ship
 if (-not $?) {
     Write-Host 'ship a echoue — corrige avant de dormir.' -ForegroundColor Red
     exit 1

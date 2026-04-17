@@ -29,9 +29,10 @@ if (-not $PSScriptRoot) {
     Write-Error 'Lance ce script comme fichier : .\pinapp-tout.ps1'
 }
 $env:Path = [System.Environment]::GetEnvironmentVariable('Path', 'Machine') + ';' + [System.Environment]::GetEnvironmentVariable('Path', 'User')
-Set-Location -LiteralPath $PSScriptRoot
+$PinappRepoRoot = Split-Path $PSScriptRoot -Parent
+Set-Location -LiteralPath $PinappRepoRoot
 
-$pinapp = Join-Path $PSScriptRoot 'pinapp.ps1'
+$pinapp = Join-Path $PinappRepoRoot 'pinapp.ps1'
 $deployFr = Join-Path $PSScriptRoot 'deploy-pinapp-fr.ps1'
 
 Write-Host '=== 1/6 git pull ===' -ForegroundColor Cyan

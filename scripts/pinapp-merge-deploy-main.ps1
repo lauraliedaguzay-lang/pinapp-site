@@ -13,7 +13,8 @@ $ErrorActionPreference = 'Stop'
 if (-not $PSScriptRoot) {
     Write-Error 'Lance comme fichier .ps1'
 }
-Set-Location -LiteralPath $PSScriptRoot
+$PinappRepoRoot = Split-Path $PSScriptRoot -Parent
+Set-Location -LiteralPath $PinappRepoRoot
 $feature = git branch --show-current
 if (-not $feature) {
     Write-Error 'Branche courante inconnue'

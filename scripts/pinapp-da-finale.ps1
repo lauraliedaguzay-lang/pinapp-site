@@ -22,7 +22,8 @@
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
-$Root = $PSScriptRoot
+$Root = Split-Path $PSScriptRoot -Parent
+Set-Location -LiteralPath $Root
 
 Write-Host ""
 Write-Host "══════════════════════════════════════════════════" -ForegroundColor Magenta

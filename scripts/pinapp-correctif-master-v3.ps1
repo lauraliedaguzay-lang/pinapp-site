@@ -7,7 +7,8 @@
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
-$Root = $PSScriptRoot
+$Root = Split-Path $PSScriptRoot -Parent
+Set-Location -LiteralPath $Root
 
 function Write-Step { param($n, $t) Write-Host "▶ $n $t" -ForegroundColor Cyan }
 function Write-OK   { param($t) Write-Host "   ✓ $t" -ForegroundColor Gray }

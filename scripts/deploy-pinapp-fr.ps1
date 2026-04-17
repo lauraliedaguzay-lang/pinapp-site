@@ -11,7 +11,8 @@
   .\deploy-pinapp-fr.ps1
 #>
 $ErrorActionPreference = 'Stop'
-Set-Location -LiteralPath $PSScriptRoot
+$PinappRepoRoot = Split-Path $PSScriptRoot -Parent
+Set-Location -LiteralPath $PinappRepoRoot
 foreach ($p in @(
         (Join-Path $env:USERPROFILE '.pinapp-fr-env.ps1'),
         (Join-Path $env:USERPROFILE '.pinapp-secrets.ps1')
@@ -26,4 +27,4 @@ if (Test-Path -LiteralPath $tesClefs) {
     Write-Host ('Chargement : ' + $tesClefs) -ForegroundColor DarkGray
     . $tesClefs
 }
-& .\pinapp.ps1 fr-auto
+& (Join-Path $PinappRepoRoot 'pinapp.ps1') fr-auto

@@ -14,7 +14,7 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
-$ROOT     = Split-Path -Parent $MyInvocation.MyCommand.Path
+$ROOT     = Split-Path $PSScriptRoot -Parent
 $CSS_DIR  = Join-Path $ROOT "assets\css"
 $JS_DIR   = Join-Path $ROOT "assets\js"
 $CSS_FILE = Join-Path $CSS_DIR "home-2026.css"

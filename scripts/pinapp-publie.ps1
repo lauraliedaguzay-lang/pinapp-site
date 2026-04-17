@@ -46,7 +46,8 @@ if (-not $PSScriptRoot) {
 $env:Path =
     [System.Environment]::GetEnvironmentVariable('Path', 'Machine') + ';' +
     [System.Environment]::GetEnvironmentVariable('Path', 'User')
-Set-Location -LiteralPath $PSScriptRoot
+$PinappRepoRoot = Split-Path $PSScriptRoot -Parent
+Set-Location -LiteralPath $PinappRepoRoot
 
 function Invoke-NpmStep {
     param([Parameter(Mandatory = $true)][string] $Step)

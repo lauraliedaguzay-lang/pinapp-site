@@ -13,7 +13,8 @@
   .\deploy-pinapp-fr-api.ps1
 #>
 $ErrorActionPreference = 'Stop'
-Set-Location -LiteralPath $PSScriptRoot
+$PinappRepoRoot = Split-Path $PSScriptRoot -Parent
+Set-Location -LiteralPath $PinappRepoRoot
 
 $repo = 'lauraliedaguzay-lang/pinapp-site'
 $wfFile = 'pinapp-fr-api.yml'

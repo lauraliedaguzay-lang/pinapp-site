@@ -37,7 +37,8 @@ $ErrorActionPreference = 'Continue'
 if (-not $PSScriptRoot) {
     Write-Error 'Lance ce fichier comme .ps1'
 }
-Set-Location -LiteralPath $PSScriptRoot
+$PinappRepoRoot = Split-Path $PSScriptRoot -Parent
+Set-Location -LiteralPath $PinappRepoRoot
 $env:Path = [Environment]::GetEnvironmentVariable('Path', 'Machine') + ';' + [Environment]::GetEnvironmentVariable('Path', 'User')
 $env:GIT_TERMINAL_PROMPT = '0'
 
@@ -59,7 +60,7 @@ function Import-PinappOptionalPath {
     if (-not $Path) { return }
     $full = $Path
     if (-not [System.IO.Path]::IsPathRooted($full)) {
-        $full = Join-Path $PSScriptRoot $Path
+        $full = Join-Path $PinappRepoRoot $Path
     }
     if (Test-Path -LiteralPath $full) {
         $null = Import-PinappDotSource -Path $full
@@ -72,7 +73,7 @@ Write-Host '=== pinapp-relie-tout : liens config ===' -ForegroundColor Cyan
 # 1) Stack n8n / Anthropic / URLs (optionnel)
 $stackCandidates = @(
     (Join-Path $env:USERPROFILE 'pinapp-stack.ps1'),
-    (Join-Path $PSScriptRoot 'pinapp-stack.local.ps1')
+    (Join-Path $PinappRepoRoot 'pinapp-stack.local.ps1')
 )
 foreach ($s in $stackCandidates) {
     if (Test-Path -LiteralPath $s) {
@@ -85,7 +86,7 @@ foreach ($s in $stackCandidates) {
 Import-PinappOptionalPath -Path $ConfigFile
 $deployCandidates = @(
     (Join-Path $env:USERPROFILE 'pinapp-fr-deploy.ps1'),
-    (Join-Path $PSScriptRoot 'pinapp-fr-deploy.local.ps1')
+    (Join-Path $PinappRepoRoot 'pinapp-fr-deploy.local.ps1')
 )
 foreach ($d in $deployCandidates) {
     if (Test-Path -LiteralPath $d) {

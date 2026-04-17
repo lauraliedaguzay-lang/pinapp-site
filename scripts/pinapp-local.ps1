@@ -24,12 +24,12 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$Root = $PSScriptRoot
-Set-Location -LiteralPath $Root
+$PinappRepoRoot = Split-Path $PSScriptRoot -Parent
+Set-Location -LiteralPath $PinappRepoRoot
 
-$vite = Join-Path $Root 'tools\dev-vite.ps1'
-$pinapp = Join-Path $Root 'pinapp.ps1'
-$prScript = Join-Path $Root 'pinapp-pr.ps1'
+$vite = Join-Path $PinappRepoRoot 'tools\dev-vite.ps1'
+$pinapp = Join-Path $PinappRepoRoot 'pinapp.ps1'
+$prScript = Join-Path $PSScriptRoot 'pinapp-pr.ps1'
 
 switch ($Action) {
     'install' {

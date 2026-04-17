@@ -13,7 +13,7 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
-$ROOT   = Split-Path -Parent $MyInvocation.MyCommand.Path
+$ROOT   = Split-Path $PSScriptRoot -Parent
 $INDEX  = Join-Path $ROOT "index.html"
 $DATE   = Get-Date -Format "yyyyMMdd-HHmm"
 $BACKUP = Join-Path $ROOT "index.tdah-backup.$DATE.html"

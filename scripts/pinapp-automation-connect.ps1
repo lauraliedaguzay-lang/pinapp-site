@@ -26,7 +26,8 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
-$Root = $PSScriptRoot
+$Root = Split-Path $PSScriptRoot -Parent
+Set-Location -LiteralPath $Root
 $ConfigPath = Join-Path $Root 'assets\js\config.js'
 $LocalPath = Join-Path $Root 'pinapp-automation.local.ps1'
 

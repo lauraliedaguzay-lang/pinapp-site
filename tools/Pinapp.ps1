@@ -275,7 +275,7 @@ switch ($Command) {
         exit $LASTEXITCODE
     }
     'local' {
-        $pl = Join-Path $RepoRoot 'pinapp-local.ps1'
+        $pl = Join-Path $RepoRoot 'scripts\pinapp-local.ps1'
         if (-not (Test-Path -LiteralPath $pl)) {
             Write-Error ('Introuvable : ' + $pl)
         }
@@ -295,7 +295,7 @@ switch ($Command) {
         exit $LASTEXITCODE
     }
     'pr' {
-        $prScript = Join-Path $RepoRoot 'pinapp-pr.ps1'
+        $prScript = Join-Path $RepoRoot 'scripts\pinapp-pr.ps1'
         if (-not (Test-Path -LiteralPath $prScript)) {
             Write-Error ('Introuvable : ' + $prScript)
         }
@@ -588,56 +588,56 @@ $env:HOSTINGER_API_TOKEN = "COLLE_JETON_API_HOSTINGER"
         Start-Process $GitHubRepoUrl
     }
     'tout' {
-        $toutScript = Join-Path $RepoRoot 'pinapp-tout.ps1'
+        $toutScript = Join-Path $RepoRoot 'scripts\pinapp-tout.ps1'
         if (-not (Test-Path -LiteralPath $toutScript)) {
             Write-Error ('Introuvable : ' + $toutScript)
         }
         & $toutScript
     }
     'dormir' {
-        $dormirScript = Join-Path $RepoRoot 'pinapp-dormir.ps1'
+        $dormirScript = Join-Path $RepoRoot 'scripts\pinapp-dormir.ps1'
         if (-not (Test-Path -LiteralPath $dormirScript)) {
             Write-Error ('Introuvable : ' + $dormirScript)
         }
         & $dormirScript
     }
     'applique' {
-        $appliqueScript = Join-Path $RepoRoot 'pinapp-applique-tout.ps1'
+        $appliqueScript = Join-Path $RepoRoot 'scripts\pinapp-applique-tout.ps1'
         if (-not (Test-Path -LiteralPath $appliqueScript)) {
             Write-Error ('Introuvable : ' + $appliqueScript)
         }
         & $appliqueScript
     }
     'orchestrate' {
-        $orchScript = Join-Path $RepoRoot 'pinapp-orchestrate.ps1'
+        $orchScript = Join-Path $RepoRoot 'scripts\pinapp-orchestrate.ps1'
         if (-not (Test-Path -LiteralPath $orchScript)) {
             Write-Error ('Introuvable : ' + $orchScript)
         }
         & $orchScript
     }
     'relie' {
-        $relieScript = Join-Path $RepoRoot 'pinapp-relie-tout.ps1'
+        $relieScript = Join-Path $RepoRoot 'scripts\pinapp-relie-tout.ps1'
         if (-not (Test-Path -LiteralPath $relieScript)) {
             Write-Error ('Introuvable : ' + $relieScript)
         }
         & $relieScript
     }
     'merge-deploy' {
-        $mergeScript = Join-Path $RepoRoot 'pinapp-merge-deploy-main.ps1'
+        $mergeScript = Join-Path $RepoRoot 'scripts\pinapp-merge-deploy-main.ps1'
         if (-not (Test-Path -LiteralPath $mergeScript)) {
             Write-Error ('Introuvable : ' + $mergeScript)
         }
         & $mergeScript
     }
     'publie' {
-        $publieScript = Join-Path $RepoRoot 'pinapp-publie.ps1'
+        $publieScript = Join-Path $RepoRoot 'scripts\pinapp-publie.ps1'
         if (-not (Test-Path -LiteralPath $publieScript)) {
             Write-Error ('Introuvable : ' + $publieScript)
         }
         & $publieScript
     }
     'auto' {
-        $relieScript = Join-Path $RepoRoot 'pinapp-relie-tout.ps1'
+        $relieScript = Join-Path $RepoRoot 'scripts\pinapp-relie-tout.ps1'
         if (-not (Test-Path -LiteralPath $relieScript)) {
             Write-Error ('Introuvable : ' + $relieScript)
         }

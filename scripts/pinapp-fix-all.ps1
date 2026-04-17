@@ -17,7 +17,8 @@ param()
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
-$Root = $PSScriptRoot
+$Root = Split-Path $PSScriptRoot -Parent
+Set-Location -LiteralPath $Root
 $Tools = Join-Path $Root 'tools'
 $WebhookFrom = 'REPLACE_WEBHOOK_PINAPP'
 $WebhookTo = 'WEBHOOK_URL_FINALE'

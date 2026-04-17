@@ -35,7 +35,8 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-Set-Location -LiteralPath $PSScriptRoot
+$PinappRepoRoot = Split-Path $PSScriptRoot -Parent
+Set-Location -LiteralPath $PinappRepoRoot
 
 function Get-PinappGitHubSlug {
     $url = (& git remote get-url origin 2>$null).Trim()

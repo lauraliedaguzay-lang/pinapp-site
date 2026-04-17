@@ -42,7 +42,8 @@ $ErrorActionPreference = 'Continue'
 if (-not $PSScriptRoot) {
     Write-Error 'Lance ce fichier comme .ps1'
 }
-Set-Location -LiteralPath $PSScriptRoot
+$PinappRepoRoot = Split-Path $PSScriptRoot -Parent
+Set-Location -LiteralPath $PinappRepoRoot
 $env:Path = [Environment]::GetEnvironmentVariable('Path', 'Machine') + ';' + [Environment]::GetEnvironmentVariable('Path', 'User')
 
 $applique = Join-Path $PSScriptRoot 'pinapp-applique-tout.ps1'

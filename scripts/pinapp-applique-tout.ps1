@@ -31,15 +31,16 @@ $env:Path = [Environment]::GetEnvironmentVariable('Path', 'Machine') + ';' + [En
 if (-not $PSScriptRoot) {
     Write-Error 'Lance ce fichier comme .ps1'
 }
-Set-Location -LiteralPath $PSScriptRoot
-$pinapp = Join-Path $PSScriptRoot 'pinapp.ps1'
+$PinappRepoRoot = Split-Path $PSScriptRoot -Parent
+Set-Location -LiteralPath $PinappRepoRoot
+$pinapp = Join-Path $PinappRepoRoot 'pinapp.ps1'
 
 function Import-PinappConfigFile {
     param([string] $Path)
     if (-not $Path) { return $false }
     $full = $Path
     if (-not [System.IO.Path]::IsPathRooted($full)) {
-        $full = Join-Path $PSScriptRoot $Path
+        $full = Join-Path $PinappRepoRoot $Path
     }
     if (-not (Test-Path -LiteralPath $full)) {
         return $false
@@ -66,7 +67,7 @@ if ($ConfigFile) {
 } else {
     $candidates = @(
         (Join-Path $env:USERPROFILE 'pinapp-fr-deploy.ps1')
-        (Join-Path $PSScriptRoot 'pinapp-fr-deploy.local.ps1')
+        (Join-Path $PinappRepoRoot 'pinapp-fr-deploy.local.ps1')
     )
     foreach ($c in $candidates) {
         if (Import-PinappConfigFile -Path $c) {
@@ -76,7 +77,7 @@ if ($ConfigFile) {
     }
     if (-not $loaded) {
         Write-Host 'Aucun fichier deploy local. Cree :' -ForegroundColor Yellow
-        Write-Host ('  ' + (Join-Path $PSScriptRoot 'pinapp-fr-deploy.local.ps1')) -ForegroundColor White
+        Write-Host ('  ' + (Join-Path $PinappRepoRoot 'pinapp-fr-deploy.local.ps1')) -ForegroundColor White
         $ex = Join-Path $PSScriptRoot 'pinapp-fr-deploy.EXAMPLE.ps1'
         Write-Host ('  (copie ' + $ex + ' et colle les valeurs de ton doc)') -ForegroundColor DarkGray
     }

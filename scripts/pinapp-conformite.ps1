@@ -11,7 +11,8 @@ param(
   [switch]$Audit
 )
 $ErrorActionPreference = 'Stop'
-$Root = $PSScriptRoot
+$Root = Split-Path $PSScriptRoot -Parent
+Set-Location -LiteralPath $Root
 Set-Location $Root
 $node = Get-Command node -ErrorAction SilentlyContinue
 if (-not $node) {

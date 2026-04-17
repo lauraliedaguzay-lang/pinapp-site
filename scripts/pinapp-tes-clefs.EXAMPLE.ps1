@@ -1,13 +1,13 @@
 # =============================================================================
 # FICHIER MODELE — a toi de completer
 #
-# 1) Copie ce fichier vers :  pinapp-tes-clefs.ps1  (meme dossier = racine du depot)
-#    Exemple PowerShell :
-#      Copy-Item .\pinapp-tes-clefs.EXAMPLE.ps1 .\pinapp-tes-clefs.ps1
+# 1) Copie ce fichier vers :  scripts/pinapp-tes-clefs.ps1  (meme dossier scripts/)
+#    Exemple PowerShell (depuis la racine du depot) :
+#      Copy-Item .\scripts\pinapp-tes-clefs.EXAMPLE.ps1 .\scripts\pinapp-tes-clefs.ps1
 #
 # 2) Remplace chaque COLLE_... par ta vraie valeur (hors chat, jamais dans Git).
 #
-# 3) Lance :  .\pinapp-relie-tout.ps1   ou   .\pinapp.ps1 relie   ou   .\deploy-pinapp-fr.ps1
+# 3) Lance :  .\scripts\pinapp-relie-tout.ps1   ou   .\pinapp.ps1 relie   ou   .\scripts\deploy-pinapp-fr.ps1
 #
 # pinapp-tes-clefs.ps1 est ignore par Git (.gitignore) — ne le committe pas.
 # =============================================================================
