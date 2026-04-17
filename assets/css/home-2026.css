@@ -440,6 +440,50 @@ body:hover #cursor {
   }
 }
 
+/* ── Shimmer hero : fix iOS Safari + repli mobile lisible ── */
+.shimmer-2026,
+.hero__gradient,
+.hero h1 .word.hero__gradient,
+.hero__gradient .pp-hero-grad-text {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  isolation: isolate;
+  will-change: opacity;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .shimmer-2026::before,
+  .hero__gradient::before {
+    display: none !important;
+    content: none !important;
+  }
+}
+
+@keyframes shimmer-simple-ios {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+  .shimmer-2026,
+  .hero__gradient,
+  .hero h1 .word.hero__gradient,
+  .hero__gradient .pp-hero-grad-text {
+    background: none !important;
+    background-image: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: var(--accent, #00e5b0) !important;
+    color: var(--accent, #00e5b0) !important;
+    animation: shimmer-simple-ios 3s ease-in-out infinite !important;
+  }
+}
+
 .hero-2026__baseline {
   font-family: var(--font-apple-serif);
   font-size: clamp(1rem, 2.5vw, 1.3rem);

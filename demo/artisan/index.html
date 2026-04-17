@@ -1,208 +1,569 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Renov & Co — Artisan BTP Bordeaux — Démo Pinapp Studio</title>
-<meta name="description" content="Votre chantier entre de bonnes mains. — Artisan BTP à Bordeaux. Site créé par Pinapp Studio.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
-:root{--c1:#1a0f05;--c2:#d97706;--acc:#f59e0b;--ff:'Bebas Neue', Impact, sans-serif;}
-*{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{font-family:'Inter',sans-serif;background:#fff;color:#111;overflow-x:hidden;}
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.85rem 2rem;background:rgba(255,255,255,.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.06);}
-.nav-brand{font-family:var(--ff);font-size:1.1rem;font-weight:700;color:var(--c1);text-decoration:none;}
-.nav-links{display:flex;gap:2rem;list-style:none;}
-.nav-links a{font-size:.85rem;color:rgba(0,0,0,.65);text-decoration:none;font-weight:500;transition:color .2s;}
-.nav-links a:hover{color:var(--c2);}
-.nav-cta{background:var(--c2);color:#fff;padding:.55rem 1.25rem;border-radius:8px;text-decoration:none;font-size:.85rem;font-weight:600;transition:all .2s;}
-.nav-cta:hover{opacity:.9;transform:translateY(-1px);}
-/* HERO */
-.hero{min-height:100vh;position:relative;display:flex;align-items:flex-end;padding-bottom:5rem;overflow:hidden;padding-top:64px;}
-.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1400&q=85&fit=crop') center/cover no-repeat;filter:brightness(.5) saturate(1.1);}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.3) 50%,rgba(0,0,0,.1) 100%);}
-.hero-content{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:0 2rem;width:100%;}
-.hero-eyebrow{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);font-weight:600;margin-bottom:1rem;}
-h1{font-family:var(--ff);font-size:clamp(2.5rem,6vw,5rem);font-weight:900;color:#fff;line-height:1.05;margin-bottom:1.25rem;}
-.hero-sub{font-size:1.1rem;color:rgba(255,255,255,.78);line-height:1.7;max-width:520px;margin-bottom:2rem;}
-.hero-cta{display:inline-flex;align-items:center;gap:.5rem;background:var(--c2);color:#fff;padding:.9rem 2rem;border-radius:10px;text-decoration:none;font-size:1rem;font-weight:700;transition:all .25s;box-shadow:0 4px 20px rgba(0,0,0,.3);}
-.hero-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.4);}
-/* SECTION */
-section{padding:5rem 0;}
-.wrap{max-width:1100px;margin:0 auto;padding:0 2rem;}
-.eyebrow{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--c2);font-weight:700;margin-bottom:.75rem;}
-h2{font-family:var(--ff);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:800;color:var(--c1);line-height:1.15;margin-bottom:1rem;}
-.section-desc{font-size:1rem;color:rgba(0,0,0,.62);line-height:1.75;max-width:560px;margin-bottom:3rem;}
-/* SERVICES */
-#services{background:#f9f9fb;}
-.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
-.service-card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:2rem;transition:all .3s;}
-.service-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.1);border-color:var(--c2);}
-.service-icon{font-size:2rem;margin-bottom:1rem;}
-.service-name{font-family:var(--ff);font-size:1.1rem;font-weight:700;color:var(--c1);margin-bottom:.5rem;}
-.service-desc{font-size:.88rem;color:rgba(0,0,0,.6);line-height:1.65;}
-.service-price{font-size:1.4rem;font-weight:800;color:var(--c2);margin-top:1rem;font-family:var(--ff);}
-/* ABOUT */
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
-.about-img{border-radius:20px;overflow:hidden;aspect-ratio:4/3;}
-.about-img img{width:100%;height:100%;object-fit:cover;}
-.about-text h2{margin-bottom:1rem;}
-.about-text p{font-size:.95rem;color:rgba(0,0,0,.65);line-height:1.8;margin-bottom:1.5rem;}
-/* CONTACT */
-#contact{background:var(--c1);color:#fff;}
-#contact h2{color:#fff;}
-#contact .eyebrow{color:var(--acc);}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
-.contact-info p{font-size:.95rem;color:rgba(255,255,255,.65);line-height:1.8;margin-bottom:1.5rem;}
-.contact-detail{display:flex;align-items:center;gap:.65rem;font-size:.9rem;color:rgba(255,255,255,.8);margin-bottom:.75rem;}
-.contact-detail a{color:var(--acc);text-decoration:none;}
-.contact-form{display:flex;flex-direction:column;gap:.75rem;}
-input,textarea,select{width:100%;padding:.75rem 1rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;font-size:.9rem;color:#fff;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s;}
-input::placeholder,textarea::placeholder{color:rgba(255,255,255,.4);}
-input:focus,textarea:focus{border-color:var(--acc);}
-textarea{min-height:100px;resize:vertical;}
-.form-btn{background:var(--acc);color:var(--c1);padding:.85rem;border-radius:8px;border:none;font-size:.95rem;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s;}
-.form-btn:hover{opacity:.9;transform:translateY(-1px);}
-/* FOOTER */
-footer{background:#111;color:rgba(255,255,255,.5);padding:2rem 0;text-align:center;font-size:.8rem;}
-footer a{color:rgba(0,229,176,.6);text-decoration:none;}
-/* BADGE DEMO */
-.demo-badge{position:fixed;bottom:1.25rem;right:1.25rem;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:.6rem 1rem;font-size:.72rem;color:rgba(255,255,255,.6);z-index:9999;display:flex;align-items:center;gap:.5rem;}
-.demo-badge a{color:rgba(0,229,176,.8);text-decoration:none;font-weight:600;}
-/* MOBILE */
-@media(max-width:768px){
-  nav{padding:.75rem 1.25rem;}
-  .nav-links{display:none;}
-  .services-grid,.about-grid,.contact-grid{grid-template-columns:1fr;gap:2rem;}
-  section{padding:3.5rem 0;}
-}
-</style>
-</head>
-<body>
-<nav>
-  <a class="nav-brand" href="#">Renov & Co</a>
-  <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#about">À propos</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a class="nav-cta" href="#contact">Demander un devis</a>
-</nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Renov & Co — Artisan BTP Bordeaux — Démo Pinapp Studio</title>
+    <meta
+      name="description"
+      content="Votre chantier entre de bonnes mains. — Artisan BTP à Bordeaux. Site créé par Pinapp Studio." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600&display=swap"
+      rel="stylesheet" />
+    <style>
+      :root {
+        --c1: #1a0f05;
+        --c2: #d97706;
+        --acc: #f59e0b;
+        --ff: 'Bebas Neue', Impact, sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        background: #fff;
+        color: #111;
+        overflow-x: hidden;
+      }
+      /* NAV */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.85rem 2rem;
+        background: rgba(255, 255, 255, 0.96);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      }
+      .nav-brand {
+        font-family: var(--ff);
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--c1);
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.85rem;
+        color: rgba(0, 0, 0, 0.65);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--c2);
+      }
+      .nav-cta {
+        background: var(--c2);
+        color: #fff;
+        padding: 0.55rem 1.25rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 600;
+        transition: all 0.2s;
+      }
+      .nav-cta:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+      }
+      /* HERO */
+      .hero {
+        min-height: 100vh;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        padding-bottom: 5rem;
+        overflow: hidden;
+        padding-top: 64px;
+      }
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        background: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1400&q=85&fit=crop')
+          center/cover no-repeat;
+        filter: brightness(0.5) saturate(1.1);
+      }
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.1) 100%);
+      }
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        width: 100%;
+      }
+      .hero-eyebrow {
+        font-size: 0.72rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--acc);
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+      h1 {
+        font-family: var(--ff);
+        font-size: clamp(2.5rem, 6vw, 5rem);
+        font-weight: 900;
+        color: #fff;
+        line-height: 1.05;
+        margin-bottom: 1.25rem;
+      }
+      .hero-sub {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.78);
+        line-height: 1.7;
+        max-width: 520px;
+        margin-bottom: 2rem;
+      }
+      .hero-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--c2);
+        color: #fff;
+        padding: 0.9rem 2rem;
+        border-radius: 10px;
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 700;
+        transition: all 0.25s;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      }
+      .hero-cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+      }
+      /* SECTION */
+      section {
+        padding: 5rem 0;
+      }
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+      .eyebrow {
+        font-size: 0.7rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--c2);
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+      }
+      h2 {
+        font-family: var(--ff);
+        font-size: clamp(1.8rem, 3.5vw, 3rem);
+        font-weight: 800;
+        color: var(--c1);
+        line-height: 1.15;
+        margin-bottom: 1rem;
+      }
+      .section-desc {
+        font-size: 1rem;
+        color: rgba(0, 0, 0, 0.62);
+        line-height: 1.75;
+        max-width: 560px;
+        margin-bottom: 3rem;
+      }
+      /* SERVICES */
+      #services {
+        background: #f9f9fb;
+      }
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+      }
+      .service-card {
+        background: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 16px;
+        padding: 2rem;
+        transition: all 0.3s;
+      }
+      .service-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+        border-color: var(--c2);
+      }
+      .service-icon {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+      .service-name {
+        font-family: var(--ff);
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--c1);
+        margin-bottom: 0.5rem;
+      }
+      .service-desc {
+        font-size: 0.88rem;
+        color: rgba(0, 0, 0, 0.6);
+        line-height: 1.65;
+      }
+      .service-price {
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: var(--c2);
+        margin-top: 1rem;
+        font-family: var(--ff);
+      }
+      /* ABOUT */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+      }
+      .about-img {
+        border-radius: 20px;
+        overflow: hidden;
+        aspect-ratio: 4/3;
+      }
+      .about-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .about-text h2 {
+        margin-bottom: 1rem;
+      }
+      .about-text p {
+        font-size: 0.95rem;
+        color: rgba(0, 0, 0, 0.65);
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+      }
+      /* CONTACT */
+      #contact {
+        background: var(--c1);
+        color: #fff;
+      }
+      #contact h2 {
+        color: #fff;
+      }
+      #contact .eyebrow {
+        color: var(--acc);
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: start;
+      }
+      .contact-info p {
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.65);
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+      }
+      .contact-detail {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 0.75rem;
+      }
+      .contact-detail a {
+        color: var(--acc);
+        text-decoration: none;
+      }
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      input,
+      textarea,
+      select {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 8px;
+        font-size: 0.9rem;
+        color: #fff;
+        font-family: 'Inter', sans-serif;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      input::placeholder,
+      textarea::placeholder {
+        color: rgba(255, 255, 255, 0.4);
+      }
+      input:focus,
+      textarea:focus {
+        border-color: var(--acc);
+      }
+      textarea {
+        min-height: 100px;
+        resize: vertical;
+      }
+      .form-btn {
+        background: var(--acc);
+        color: var(--c1);
+        padding: 0.85rem;
+        border-radius: 8px;
+        border: none;
+        font-size: 0.95rem;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: 'Inter', sans-serif;
+        transition: all 0.2s;
+      }
+      .form-btn:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+      }
+      /* FOOTER */
+      footer {
+        background: #111;
+        color: rgba(255, 255, 255, 0.5);
+        padding: 2rem 0;
+        text-align: center;
+        font-size: 0.8rem;
+      }
+      footer a {
+        color: rgba(0, 229, 176, 0.6);
+        text-decoration: none;
+      }
+      /* BADGE DEMO */
+      .demo-badge {
+        position: fixed;
+        bottom: 1.25rem;
+        right: 1.25rem;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 0.6rem 1rem;
+        font-size: 0.72rem;
+        color: rgba(255, 255, 255, 0.6);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .demo-badge a {
+        color: rgba(0, 229, 176, 0.8);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      /* MOBILE */
+      @media (max-width: 768px) {
+        nav {
+          padding: 0.75rem 1.25rem;
+        }
+        .nav-links {
+          display: none;
+        }
+        .services-grid,
+        .about-grid,
+        .contact-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        section {
+          padding: 3.5rem 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a class="nav-brand" href="#">Renov & Co</a>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">À propos</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a class="nav-cta" href="#contact">Demander un devis</a>
+    </nav>
 
-<section class="hero" id="top">
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <p class="hero-eyebrow">Artisan BTP · Bordeaux</p>
-    <h1>Votre chantier entre de bonnes mains.</h1>
-    <p class="hero-sub">Renov & Co intervient en Gironde pour vos travaux de rénovation, maçonnerie et second œuvre.</p>
-    <a href="#contact" class="hero-cta">Demander un devis →</a>
-  </div>
-</section>
+    <section class="hero" id="top">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <p class="hero-eyebrow">Artisan BTP · Bordeaux</p>
+        <h1>Votre chantier entre de bonnes mains.</h1>
+        <p class="hero-sub">
+          Renov & Co intervient en Gironde pour vos travaux de rénovation, maçonnerie et second œuvre.
+        </p>
+        <a href="#contact" class="hero-cta">Demander un devis →</a>
+      </div>
+    </section>
 
-<section id="services">
-  <div class="wrap">
-    <p class="eyebrow">Ce qu'on vous propose</p>
-    <h2>Nos services.</h2>
-    <p class="section-desc">Des prestations pensées pour vous, à des tarifs clairs. Réservez en ligne, payez à la prestation.</p>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">⭐</div>
-        <div class="service-name">Devis gratuit sous 48h</div>
-        <div class="service-desc">Prestation complète avec suivi personnalisé. Réservation en ligne disponible 24h/24.</div>
-        <div class="service-price">À partir de 0€</div>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">✨</div>
-        <div class="service-name">Rénovation complète</div>
-        <div class="service-desc">Formule premium. Résultat garanti ou remboursé. Consultation incluse.</div>
-        <div class="service-price">À partir de 2 500€</div>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🏆</div>
-        <div class="service-name">Chantier clé en main</div>
-        <div class="service-desc">Notre offre signature. Pour ceux qui veulent le meilleur. Sur mesure.</div>
-        <div class="service-price">À partir de Sur devis</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="about">
-  <div class="wrap">
-    <div class="about-grid">
-      <div class="about-img">
-        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80&fit=crop" alt="Renov & Co — Artisan BTP Bordeaux" loading="lazy">
-      </div>
-      <div class="about-text">
-        <p class="eyebrow">Notre histoire</p>
-        <h2>L'expertise,<br>le soin du détail.</h2>
-        <p>Renov & Co intervient en Gironde pour vos travaux de rénovation, maçonnerie et second œuvre. Nous mettons un point d'honneur à offrir une expérience irréprochable à chaque client. La qualité n'est pas une option — c'est notre standard.</p>
-        <p>Prise de rendez-vous en ligne, paiement sécurisé, rappels automatiques. Tout est pensé pour que vous vous concentriez sur ce qui compte : votre temps.</p>
-        <a href="#contact" style="display:inline-flex;align-items:center;gap:.4rem;color:var(--c2);font-weight:700;text-decoration:none;font-size:.9rem;border-bottom:2px solid var(--c2);padding-bottom:2px;">Demander un devis →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="contact">
-  <div class="wrap">
-    <div class="contact-grid">
-      <div class="contact-info">
-        <p class="eyebrow">Nous trouver</p>
-        <h2>Prenez contact.</h2>
-        <p>Réponse garantie sous 24h. Devis gratuit pour toute première demande.</p>
-        <div class="contact-detail">📍 <span>Bordeaux, Gironde</span></div>
-        <div class="contact-detail">📞 <a href="tel:0556000000">05 56 00 00 00</a></div>
-        <div class="contact-detail">📧 <a href="mailto:contact@renovco.fr">contact@renovco.fr</a></div>
-        <div style="margin-top:1.5rem;padding:1rem;background:rgba(255,255,255,.06);border-radius:10px;font-size:.82rem;color:rgba(255,255,255,.55);">
-          💬 Notre assistant IA répond aux questions courantes 24h/24. Pour tout le reste, on vous répond par message sous 2h.
+    <section id="services">
+      <div class="wrap">
+        <p class="eyebrow">Ce qu'on vous propose</p>
+        <h2>Nos services.</h2>
+        <p class="section-desc">
+          Des prestations pensées pour vous, à des tarifs clairs. Réservez en ligne, payez à la prestation.
+        </p>
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-icon">⭐</div>
+            <div class="service-name">Devis gratuit sous 48h</div>
+            <div class="service-desc">
+              Prestation complète avec suivi personnalisé. Réservation en ligne disponible 24h/24.
+            </div>
+            <div class="service-price">À partir de 0€</div>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">✨</div>
+            <div class="service-name">Rénovation complète</div>
+            <div class="service-desc">Formule premium. Résultat garanti ou remboursé. Consultation incluse.</div>
+            <div class="service-price">À partir de 2 500€</div>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">🏆</div>
+            <div class="service-name">Chantier clé en main</div>
+            <div class="service-desc">Notre offre signature. Pour ceux qui veulent le meilleur. Sur mesure.</div>
+            <div class="service-price">À partir de Sur devis</div>
+          </div>
         </div>
       </div>
-      <div>
-        <form class="contact-form" onsubmit="event.preventDefault();this.innerHTML='<p style=\'color:#00e5b0;font-size:1rem;padding:1rem;text-align:center;\'>✅ Message envoyé — Réponse sous 24h.</p>';">
-          <input type="text" placeholder="Votre prénom et nom" required>
-          <input type="email" placeholder="Votre email" required>
-          <input type="tel" placeholder="Votre téléphone">
-          <textarea placeholder="Votre demande..."></textarea>
-          <button type="submit" class="form-btn">Demander un devis →</button>
-          <p style="font-size:.7rem;color:rgba(255,255,255,.35);text-align:center;">Vos données sont utilisées uniquement pour vous répondre · RGPD</p>
-        </form>
+    </section>
+
+    <section id="about">
+      <div class="wrap">
+        <div class="about-grid">
+          <div class="about-img">
+            <img
+              src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80&fit=crop"
+              alt="Renov & Co — Artisan BTP Bordeaux"
+              loading="lazy" />
+          </div>
+          <div class="about-text">
+            <p class="eyebrow">Notre histoire</p>
+            <h2>L'expertise,<br />le soin du détail.</h2>
+            <p>
+              Renov & Co intervient en Gironde pour vos travaux de rénovation, maçonnerie et second œuvre. Nous mettons
+              un point d'honneur à offrir une expérience irréprochable à chaque client. La qualité n'est pas une option
+              — c'est notre standard.
+            </p>
+            <p>
+              Prise de rendez-vous en ligne, paiement sécurisé, rappels automatiques. Tout est pensé pour que vous vous
+              concentriez sur ce qui compte : votre temps.
+            </p>
+            <a
+              href="#contact"
+              style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+                color: var(--c2);
+                font-weight: 700;
+                text-decoration: none;
+                font-size: 0.9rem;
+                border-bottom: 2px solid var(--c2);
+                padding-bottom: 2px;
+              "
+              >Demander un devis →</a
+            >
+          </div>
+        </div>
       </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="contact-grid">
+          <div class="contact-info">
+            <p class="eyebrow">Nous trouver</p>
+            <h2>Prenez contact.</h2>
+            <p>Réponse garantie sous 24h. Devis gratuit pour toute première demande.</p>
+            <div class="contact-detail">📍 <span>Bordeaux, Gironde</span></div>
+            <div class="contact-detail">📞 <a href="tel:0556000000">05 56 00 00 00</a></div>
+            <div class="contact-detail">📧 <a href="mailto:contact@renovco.fr">contact@renovco.fr</a></div>
+            <div
+              style="
+                margin-top: 1.5rem;
+                padding: 1rem;
+                background: rgba(255, 255, 255, 0.06);
+                border-radius: 10px;
+                font-size: 0.82rem;
+                color: rgba(255, 255, 255, 0.55);
+              ">
+              💬 Notre assistant IA répond aux questions courantes 24h/24. Pour tout le reste, on vous répond par
+              message sous 2h.
+            </div>
+          </div>
+          <div>
+            <form
+              class="contact-form"
+              onsubmit="
+                event.preventDefault();
+                this.innerHTML =
+                  '<p style=\'color:#00e5b0;font-size:1rem;padding:1rem;text-align:center;\'>✅ Message envoyé — Réponse sous 24h.</p>';
+              ">
+              <input type="text" placeholder="Votre prénom et nom" required />
+              <input type="email" placeholder="Votre email" required />
+              <input type="tel" placeholder="Votre téléphone" />
+              <textarea placeholder="Votre demande..."></textarea>
+              <button type="submit" class="form-btn">Demander un devis →</button>
+              <p style="font-size: 0.7rem; color: rgba(255, 255, 255, 0.35); text-align: center">
+                Vos données sont utilisées uniquement pour vous répondre · RGPD
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2026 Renov & Co · Artisan BTP · Bordeaux</p>
+      <p style="margin-top: 0.4rem">Site créé & automatisé par <a href="https://pinapp.fr">Pinapp Studio</a></p>
+    </footer>
+
+    <div class="demo-badge">
+      <span>Démo Pinapp Studio</span>
+      <a href="https://pinapp.fr">pinapp.fr</a>
     </div>
-  </div>
-</section>
 
-<footer>
-  <p>© 2026 Renov & Co · Artisan BTP · Bordeaux</p>
-  <p style="margin-top:.4rem;">Site créé & automatisé par <a href="https://pinapp.fr">Pinapp Studio</a></p>
-</footer>
-
-<div class="demo-badge">
-  <span>Démo Pinapp Studio</span>
-  <a href="https://pinapp.fr">pinapp.fr</a>
-</div>
-
-<script>
-// Scroll animations
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if(e.isIntersecting){
-      e.target.style.opacity='1';
-      e.target.style.transform='translateY(0)';
-      obs.unobserve(e.target);
-    }
-  });
-}, {threshold:0.1});
-document.querySelectorAll('.service-card,.about-grid,.contact-grid').forEach(el => {
-  el.style.opacity='0';
-  el.style.transform='translateY(24px)';
-  el.style.transition='opacity .6s ease,transform .6s ease';
-  obs.observe(el);
-});
-</script>
-</body>
+    <script>
+      // Scroll animations
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.style.opacity = '1';
+              e.target.style.transform = 'translateY(0)';
+              obs.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document.querySelectorAll('.service-card,.about-grid,.contact-grid').forEach((el) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(24px)';
+        el.style.transition = 'opacity .6s ease,transform .6s ease';
+        obs.observe(el);
+      });
+    </script>
+  </body>
 </html>

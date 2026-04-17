@@ -1,12 +1,11 @@
 /**
- * Collez ici les IDs de vos formulaires Tally (formulaire → Share → Intégration :
- * l’ID est le segment d’URL après https://tally.so/embed/ ).
+ * Formulaire Tally « Diagnostic Pinapp » : après publication, l’ID est le segment d’URL
+ * (ex. tally.so/r/XXXXX → XXXXX, ou embed tally.so/embed/XXXXX).
  *
- * Laissez une clé vide ('') pour réutiliser le formulaire `default` sur les onglets
- * Système / Image / Duo.
+ * Alias : `window.__PINAPP_TALLY__` pointe sur le même objet que `PINAPP_TALLY_DIAGNOSTIC`.
+ * Laissez une clé vide ('') pour réutiliser le formulaire `default` sur les onglets.
  *
- * Exemple d’ID : segment alphanumérique après /embed/ dans l’URL Tally.
- * Remplissage en PowerShell : .\tools\pinapp-diagnostic-tally.ps1 -Default VOTRE_ID
+ * Remplissage : .\tools\pinapp-diagnostic-tally.ps1 -Default VOTRE_ID
  */
 window.PINAPP_TALLY_DIAGNOSTIC = {
   default: '',
@@ -14,3 +13,4 @@ window.PINAPP_TALLY_DIAGNOSTIC = {
   image: '',
   duo: '',
 };
+window.__PINAPP_TALLY__ = window.PINAPP_TALLY_DIAGNOSTIC;

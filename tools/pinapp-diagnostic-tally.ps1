@@ -116,6 +116,7 @@ window.PINAPP_TALLY_DIAGNOSTIC = {
   image: '$im',
   duo: '$du',
 };
+window.__PINAPP_TALLY__ = window.PINAPP_TALLY_DIAGNOSTIC;
 "@
     $dir = Split-Path -Parent $FilePath
     if (-not (Test-Path -LiteralPath $dir)) {

@@ -8,58 +8,13 @@
     <link rel="canonical" href="https://pinapp.fr/diagnostic/" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/assets/css/pinapp-global.css" />
+    <link rel="stylesheet" href="/assets/css/diagnostic-native.css" />
     <script src="/assets/js/theme.js"></script>
-    <style>
-      .diag-tally-tabs {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-bottom: 16px;
-      }
-      .diag-tally-tab {
-        flex: 1 1 auto;
-        min-width: 140px;
-        padding: 10px 14px;
-        font-size: 13px;
-        line-height: 1.35;
-        text-align: center;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 10px;
-        background: rgba(255, 255, 255, 0.04);
-        color: var(--text-muted, #9aa4b2);
-        cursor: pointer;
-        transition:
-          border-color 0.2s,
-          color 0.2s,
-          background 0.2s;
-      }
-      .diag-tally-tab:hover:not(:disabled) {
-        border-color: rgba(0, 229, 176, 0.35);
-        color: var(--text-primary, #fff);
-      }
-      .diag-tally-tab:disabled {
-        cursor: not-allowed;
-        opacity: 0.45;
-      }
-      .diagnostic-tally-tab--active {
-        border-color: rgba(0, 229, 176, 0.55);
-        color: var(--accent, #00e5b0);
-        background: rgba(0, 229, 176, 0.08);
-      }
-      .diag-tally-ph {
-        padding: 16px;
-        border-radius: 10px;
-        background: rgba(255, 255, 255, 0.04);
-        font-size: 14px;
-        line-height: 1.6;
-        color: var(--text-muted, #9aa4b2);
-        margin-bottom: 16px;
-      }
-      .diag-tally-ph code {
-        font-size: 12px;
-        color: var(--accent, #00e5b0);
-      }
-    </style>
+    <script>
+      window.__PINAPP__ = Object.assign({}, window.__PINAPP__ || {}, {
+        WEBHOOK_N8N: '',
+      });
+    </script>
     <link rel="stylesheet" href="../assets/css/pinapp-master-v3.css" />
     <link rel="stylesheet" href="../assets/css/pinapp-master-v4.css" />
   </head>
@@ -235,11 +190,8 @@
               "
               class="anim-up"
               data-delay="200">
-              Indiquez en une phrase si votre besoin est plutôt
-              <strong style="color: var(--text-primary)">système &amp; automatisation</strong>,
-              <strong style="color: var(--text-primary)">image &amp; identité</strong>, ou
-              <strong style="color: var(--text-primary)">les deux</strong> — nous structurons la réponse en conséquence.
-              Pour monter en autonomie avant un projet, voir aussi les
+              Quelques questions courtes, puis vos coordonnées : nous structurons la réponse en fonction de vos
+              réponses. Pour monter en autonomie avant un projet, voir aussi les
               <a href="/offres/formation/" style="color: var(--accent)">formations</a>.
             </p>
             <div class="card anim-scale" style="padding: 40px; text-align: left" data-delay="240">
@@ -253,50 +205,130 @@
                 ">
                 Formulaire de diagnostic
               </div>
-              <p style="font-size: 13px; color: var(--text-muted); margin: -12px 0 16px; line-height: 1.55">
-                Choisissez la filière la plus proche : chaque onglet charge le formulaire Tally correspondant (ou le
-                formulaire unique tant que les IDs secondaires sont vides). Configuration :
-                <code style="font-size: 12px; color: var(--accent)">assets/js/diagnostic-tally.ids.js</code>
+              <p style="font-size: 13px; color: var(--text-muted); margin: -12px 0 20px; line-height: 1.55">
+                Formulaire Pinapp (sans iframe tiers). Envoi sécurisé vers votre workflow n8n si
+                <code style="font-size: 12px; color: var(--accent)">WEBHOOK_N8N</code> est renseigné en tête de page ;
+                sinon ouverture de votre messagerie avec le récapitulatif.
               </p>
-              <div id="diagnostic-tally-placeholder" class="diag-tally-ph" hidden>
-                Ouvrez
-                <code>assets/js/diagnostic-tally.ids.js</code>, renseignez au moins <code>default</code> avec l’ID Tally
-                (segment après <code>/embed/</code>), enregistrez et rafraîchissez la page.
+
+              <div class="pp-diag" id="ppDiag" data-native-diagnostic>
+                <div class="pp-diag__progress" aria-hidden="true">
+                  <div class="pp-diag__bar" id="ppBar" style="width: 0%"></div>
+                </div>
+                <p id="ppDiagErr" class="pp-diag__err" role="alert" aria-live="polite" aria-hidden="true"></p>
+
+                <div class="pp-diag__step active" data-step="1" role="region" aria-labelledby="pp-diag-q1">
+                  <p class="pp-diag__q" id="pp-diag-q1">Vous avez besoin de ?</p>
+                  <p class="pp-diag__sub">Choisissez ce qui vous parle le plus.</p>
+                  <div class="pp-diag__pills" data-field="besoin">
+                    <button type="button" class="pp-diag__pill" data-value="Automatisation" aria-pressed="false">
+                      Automatisation
+                    </button>
+                    <button type="button" class="pp-diag__pill" data-value="Site premium" aria-pressed="false">
+                      Site premium
+                    </button>
+                    <button type="button" class="pp-diag__pill" data-value="Systeme IA" aria-pressed="false">
+                      Système IA
+                    </button>
+                    <button type="button" class="pp-diag__pill" data-value="Je ne sais pas encore" aria-pressed="false">
+                      Je ne sais pas encore
+                    </button>
+                  </div>
+                </div>
+
+                <div class="pp-diag__step" data-step="2" role="region" aria-labelledby="pp-diag-q2">
+                  <p class="pp-diag__q" id="pp-diag-q2">Votre structure ?</p>
+                  <p class="pp-diag__sub">Pour adapter notre proposition.</p>
+                  <div class="pp-diag__pills" data-field="structure">
+                    <button type="button" class="pp-diag__pill" data-value="Indépendant" aria-pressed="false">
+                      Indépendant
+                    </button>
+                    <button type="button" class="pp-diag__pill" data-value="PME" aria-pressed="false">PME</button>
+                    <button type="button" class="pp-diag__pill" data-value="Startup" aria-pressed="false">
+                      Startup
+                    </button>
+                    <button type="button" class="pp-diag__pill" data-value="Grand compte" aria-pressed="false">
+                      Grand compte
+                    </button>
+                  </div>
+                </div>
+
+                <div class="pp-diag__step" data-step="3" role="region" aria-labelledby="pp-diag-q3">
+                  <p class="pp-diag__q" id="pp-diag-q3">Votre délai idéal ?</p>
+                  <p class="pp-diag__sub">Aucune mauvaise réponse.</p>
+                  <div class="pp-diag__pills" data-field="delai">
+                    <button
+                      type="button"
+                      class="pp-diag__pill"
+                      data-value="Urgent moins de 2 semaines"
+                      aria-pressed="false">
+                      Urgent — moins de 2 semaines
+                    </button>
+                    <button type="button" class="pp-diag__pill" data-value="Rapide 1 mois" aria-pressed="false">
+                      Rapide (1 mois)
+                    </button>
+                    <button type="button" class="pp-diag__pill" data-value="Serein plus de 2 mois" aria-pressed="false">
+                      Serein (+2 mois)
+                    </button>
+                  </div>
+                </div>
+
+                <div class="pp-diag__step" data-step="4" role="region" aria-labelledby="pp-diag-q4">
+                  <p class="pp-diag__q" id="pp-diag-q4">Une idée du budget ?</p>
+                  <p class="pp-diag__sub">Indicatif HT, sans engagement.</p>
+                  <div class="pp-diag__pills" data-field="budget">
+                    <button type="button" class="pp-diag__pill" data-value="moins-1000" aria-pressed="false">
+                      &lt; 1 000 €
+                    </button>
+                    <button type="button" class="pp-diag__pill" data-value="1000-3000" aria-pressed="false">
+                      1 000 – 3 000 €
+                    </button>
+                    <button type="button" class="pp-diag__pill" data-value="3000-plus" aria-pressed="false">
+                      3 000 € +
+                    </button>
+                    <button type="button" class="pp-diag__pill" data-value="A definir" aria-pressed="false">
+                      À définir ensemble
+                    </button>
+                  </div>
+                </div>
+
+                <div class="pp-diag__step" data-step="5" role="region" aria-labelledby="pp-diag-q5">
+                  <p class="pp-diag__q" id="pp-diag-q5">Comment vous joindre ?</p>
+                  <p class="pp-diag__sub">Réponse sous 24 h. Zéro spam.</p>
+                  <label class="pp-diag__label" for="ppNom">Prénom</label>
+                  <input
+                    class="pp-diag__input"
+                    type="text"
+                    id="ppNom"
+                    name="prenom"
+                    autocomplete="given-name"
+                    required />
+                  <label class="pp-diag__label" for="ppEmail">E-mail</label>
+                  <input class="pp-diag__input" type="email" id="ppEmail" name="email" autocomplete="email" required />
+                  <label class="pp-diag__label" for="ppTel">Téléphone (optionnel)</label>
+                  <input class="pp-diag__input" type="tel" id="ppTel" name="tel" autocomplete="tel" />
+                  <label class="pp-diag__label" for="ppMsg">Message (optionnel)</label>
+                  <textarea class="pp-diag__input" id="ppMsg" name="message" rows="3"></textarea>
+                  <button type="button" class="pp-diag__send" id="ppSend">Envoyer mon diagnostic →</button>
+                  <p class="pp-diag__rgpd">
+                    Données utilisées uniquement pour répondre à votre demande.
+                    <a href="/legal/confidentialite.html">Politique de confidentialité</a>
+                  </p>
+                </div>
+
+                <div class="pp-diag__step" data-step="done" role="status" aria-live="polite">
+                  <div class="pp-diag__done">
+                    <svg class="pp-diag__check" viewBox="0 0 64 64" aria-hidden="true">
+                      <circle cx="32" cy="32" r="30" />
+                      <path d="M20 34l8 8 16-18" />
+                    </svg>
+                    <p class="pp-diag__q">Merci !</p>
+                    <p class="pp-diag__sub">
+                      Nous revenons vers vous sous 24 h avec un diagnostic concret. Vérifiez vos spams si besoin.
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div class="diag-tally-tabs" role="tablist" aria-label="Filière du diagnostic">
-                <button
-                  type="button"
-                  role="tab"
-                  class="diag-tally-tab diagnostic-tally-tab--active"
-                  aria-selected="true"
-                  data-diagnostic-tally-tab="systeme">
-                  Système &amp; automatisation
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  class="diag-tally-tab"
-                  aria-selected="false"
-                  data-diagnostic-tally-tab="image">
-                  Image &amp; identité
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  class="diag-tally-tab"
-                  aria-selected="false"
-                  data-diagnostic-tally-tab="duo">
-                  Projet duo
-                </button>
-              </div>
-              <iframe
-                id="diagnostic-tally-iframe"
-                loading="lazy"
-                width="100%"
-                height="420"
-                title="Diagnostic Pinapp Studio"
-                hidden
-                style="border: none; background: transparent; display: block; width: 100%"></iframe>
             </div>
             <div
               style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px"
@@ -367,8 +399,7 @@
 
     <script src="/assets/js/particles.js" defer></script>
     <script src="/assets/js/main.js" defer></script>
-    <script src="/assets/js/diagnostic-tally.ids.js"></script>
-    <script src="/assets/js/diagnostic-tally.js" defer></script>
+    <script src="/assets/js/diagnostic-native.js" defer></script>
     <script src="../assets/js/pinapp-master-v3.js" defer></script>
     <script src="../assets/js/pinapp-master-v4.js" defer></script>
   </body>

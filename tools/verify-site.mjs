@@ -17,6 +17,7 @@ const required = [
   'SECURITY.md',
   '.well-known/security.txt',
   'assets/variables.css',
+  'assets/css/pinapp-ux-premium.css',
   'assets/images/og-pinapp-share.png',
   'assets/js/auralis-config.js',
   'auralis/index.html',

@@ -1,0 +1,128 @@
+/**
+ * Pinapp — couche UX premium (jour & nuit)
+ * Complète style.css / home-2026 : accessibilité, tactile, scroll, cohérence Apple-like.
+ * Chargé en dernier dans <head> pour s’appliquer après les blocs inline.
+ */
+
+/* Scrollbars / contrôles natifs cohérents avec le thème */
+html[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+/* Défilement ancré : seulement si l’utilisateur n’a pas demandé moins de mouvement */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Ancres : éviter le recouvrement par la nav fixe (hauteur ~56px + encoche) */
+.page #contenu > section[id] {
+  scroll-margin-top: calc(4.25rem + env(safe-area-inset-top, 0px));
+}
+
+.page > footer#contact {
+  scroll-margin-top: calc(4.25rem + env(safe-area-inset-top, 0px));
+}
+
+/* Un seul style de focus anneau (évite outline + box-shadow doublon des blocs inline) */
+:focus-visible {
+  outline: none !important;
+}
+
+/* Sélection de texte — discret, lisible jour & nuit */
+::selection {
+  background: color-mix(in srgb, var(--accent) 32%, transparent);
+  color: var(--text);
+}
+
+html[data-theme='light'] ::selection {
+  background: color-mix(in srgb, var(--accent) 26%, #ffffff);
+  color: #0a2520;
+}
+
+/* Halo tactile iOS / Android — discret, marque */
+a,
+button,
+[role='button'],
+.btn,
+.nav__toggle,
+.theme-btn,
+input[type='checkbox'],
+input[type='radio'] {
+  -webkit-tap-highlight-color: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+/* Lisibilité typographique (SF / système) */
+body {
+  text-rendering: optimizeLegibility;
+}
+
+/* Focus clavier : renfort contraste en mode jour (double anneau léger) */
+html[data-theme='light'] :focus-visible {
+  box-shadow:
+    var(--focus),
+    0 0 0 1px rgba(6, 58, 66, 0.14);
+}
+
+/* Lien « Aller au contenu » au-dessus de toute la chrome */
+.skip:focus,
+.skip:focus-visible {
+  position: fixed !important;
+  top: max(0.5rem, env(safe-area-inset-top, 0px)) !important;
+  left: max(0.5rem, env(safe-area-inset-left, 0px)) !important;
+  right: auto !important;
+  z-index: 250000 !important;
+  clip: auto !important;
+  clip-path: none !important;
+  width: auto !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+/* Cibles tactiles minimales (WCAG 2.5.5) — sans toucher au desktop souris */
+@media (pointer: coarse) {
+  .nav__toggle,
+  .theme-btn {
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .drawer__panel a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* Windows / contraste élevé : focus lisible sans dépendre des couleurs du thème */
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 3px solid CanvasText !important;
+    outline-offset: 3px !important;
+    box-shadow: none !important;
+  }
+
+  .skip:focus,
+  .skip:focus-visible {
+    outline: 3px solid CanvasText !important;
+  }
+}
+
+/* Retour haptique visuel léger au clic (souris / trackpad uniquement) */
+@media (hover: hover) and (pointer: fine) {
+  .btn:active,
+  a.btn:active,
+  button.btn:active {
+    transform: translateY(1px);
+    transition: transform 0.1s var(--ease, cubic-bezier(0.4, 0, 0.2, 1));
+  }
+}

@@ -5,7 +5,10 @@
 (function () {
   var PLACEHOLDER = 'TALLY_FORM_ID';
   var BUILTIN = { default: PLACEHOLDER, systeme: '', image: '', duo: '' };
-  var U = (typeof window !== 'undefined' && window.PINAPP_TALLY_DIAGNOSTIC) || {};
+  var U =
+    (typeof window !== 'undefined' &&
+      (window.PINAPP_TALLY_DIAGNOSTIC || window.__PINAPP_TALLY__)) ||
+    {};
 
   function pick(k) {
     var v = U[k];

@@ -17,9 +17,27 @@
     );
   }
 
+  function readStoredTheme() {
+    var s =
+      localStorage.getItem('pinapp-theme') ||
+      localStorage.getItem('theme') ||
+      localStorage.getItem('pinapp-vitrine-theme');
+    if (!s) return 'dark';
+    var v = String(s).toLowerCase();
+    if (v === 'light' || v === 'jour') return 'light';
+    return 'dark';
+  }
+
+  function persistTheme(scheme) {
+    try {
+      localStorage.setItem('pinapp-theme', scheme);
+      localStorage.setItem('theme', scheme);
+      localStorage.removeItem('pinapp-vitrine-theme');
+    } catch (e) {}
+  }
+
   function initTheme() {
-    var stored = localStorage.getItem('pinapp-vitrine-theme');
-    var scheme = stored === 'light' ? 'light' : 'dark';
+    var scheme = readStoredTheme();
     html.setAttribute('data-theme', scheme);
     document.body.classList.toggle('day', scheme === 'light');
     var btn = document.getElementById('themeToggle');
@@ -29,7 +47,7 @@
       var next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
       html.setAttribute('data-theme', next);
       document.body.classList.toggle('day', next === 'light');
-      localStorage.setItem('pinapp-vitrine-theme', next);
+      persistTheme(next);
       setThemeAria(btn, next === 'light');
       window.dispatchEvent(new Event('resize'));
     });
@@ -287,7 +305,7 @@
       ctx.globalCompositeOperation = light ? 'soft-light' : 'lighter';
       for (i = 0; i < flares.length; i++) {
         f = flares[i];
-        t = now / 1000 * f.spd + f.phase;
+        t = (now / 1000) * f.spd + f.phase;
         cx = f.x + Math.sin(t) * w * 0.1;
         cy = f.y + Math.cos(t * 0.85) * h * 0.08;
         var g = ctx.createRadialGradient(cx, cy, 0, cx, cy, f.r);
@@ -296,8 +314,14 @@
           g.addColorStop(0.45, 'rgba(127,255,234,' + (light ? 0.05 : 0.04) + ')');
           g.addColorStop(1, 'rgba(0,0,0,0)');
         } else {
-          g.addColorStop(0, 'rgba(232,248,255,' + (0.05 + 0.02 * Math.sin(elapsed / 3500 + f.phase)) + ')');
-          g.addColorStop(0.42, 'rgba(179,136,255,' + (0.045 + 0.015 * Math.sin(elapsed / 4200 + f.phase)) + ')');
+          g.addColorStop(
+            0,
+            'rgba(232,248,255,' + (0.05 + 0.02 * Math.sin(elapsed / 3500 + f.phase)) + ')',
+          );
+          g.addColorStop(
+            0.42,
+            'rgba(179,136,255,' + (0.045 + 0.015 * Math.sin(elapsed / 4200 + f.phase)) + ')',
+          );
           g.addColorStop(1, 'rgba(0,0,0,0)');
         }
         ctx.fillStyle = g;
@@ -819,7 +843,9 @@
         if (Array.isArray(v)) {
           lines.push(displayKey + ' : ' + v.join(', '));
         } else {
-          var sample = panel.querySelector('[name="' + k.replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"]');
+          var sample = panel.querySelector(
+            '[name="' + k.replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"]',
+          );
           if (!sample && k.indexOf(' ') === -1) sample = panel.querySelector('#' + k);
           if (sample && sample.id) {
             var lk = labelForField(panel, sample);

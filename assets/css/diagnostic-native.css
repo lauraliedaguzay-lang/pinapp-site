@@ -1,0 +1,187 @@
+/* Formulaire diagnostic natif — /diagnostic/ (tokens pinapp-global) */
+.pp-diag {
+  max-width: 620px;
+  margin: 0 auto;
+  font-family: var(--font-sans, Inter, -apple-system, system-ui, sans-serif);
+}
+.pp-diag__step {
+  display: none;
+  animation: pp-diag-fade 0.4s ease;
+}
+.pp-diag__step.active {
+  display: block;
+}
+@keyframes pp-diag-fade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.pp-diag__progress {
+  height: 3px;
+  background: rgba(0, 229, 204, 0.15);
+  border-radius: 100px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+.pp-diag__bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-3, #7fffea), var(--accent, #00e5cc));
+  border-radius: 100px;
+  transition: width 0.45s var(--ease, cubic-bezier(0.25, 0.1, 0.25, 1));
+}
+.pp-diag__q {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text, #f0f8ff);
+  margin: 0 0 0.35rem;
+  text-wrap: balance;
+}
+.pp-diag__sub {
+  font-size: 0.875rem;
+  color: var(--text-muted, rgba(240, 248, 255, 0.55));
+  margin: 0 0 1.25rem;
+  line-height: 1.5;
+}
+.pp-diag__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+.pp-diag__pill {
+  border: 1px solid var(--card-border-2, rgba(0, 229, 176, 0.18));
+  border-radius: 100px;
+  padding: 0.55rem 1.1rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--text, #f0f8ff);
+  background: transparent;
+  transition:
+    border-color 0.2s,
+    color 0.2s,
+    background 0.2s;
+  font-family: inherit;
+}
+.pp-diag__pill:hover {
+  border-color: var(--accent, #00e5cc);
+  color: var(--accent, #00e5cc);
+}
+.pp-diag__pill:focus-visible {
+  outline: 2px solid var(--accent-2, #b388ff);
+  outline-offset: 2px;
+}
+.pp-diag__pill.selected {
+  background: var(--btn-cta-bg, rgba(91, 60, 180, 0.85));
+  border-color: var(--btn-cta-bd, rgba(179, 136, 255, 0.35));
+  color: var(--nacre, #e8f4f8);
+}
+.pp-diag__input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--card-border, rgba(255, 255, 255, 0.09));
+  border-radius: var(--radius-sm, 12px);
+  background: var(--bg-card-2, rgba(255, 255, 255, 0.06));
+  color: var(--text, #f0f8ff);
+  font-size: 0.875rem;
+  font-family: inherit;
+  margin-bottom: 0.65rem;
+  box-sizing: border-box;
+}
+.pp-diag__input:focus {
+  outline: none;
+  border-color: var(--accent, #00e5cc);
+}
+.pp-diag__input::placeholder {
+  color: var(--text-soft, rgba(240, 248, 255, 0.35));
+}
+textarea.pp-diag__input {
+  min-height: 88px;
+  resize: vertical;
+}
+.pp-diag__label {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted, rgba(240, 248, 255, 0.55));
+  margin-bottom: 0.25rem;
+}
+.pp-diag__send {
+  background: var(--btn-cta-bg, rgba(91, 60, 180, 0.85));
+  color: var(--nacre, #e8f4f8);
+  border: 1px solid var(--btn-cta-bd, rgba(179, 136, 255, 0.3));
+  border-radius: 100px;
+  padding: 0.75rem 1.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  font-family: inherit;
+  margin-top: 0.35rem;
+}
+.pp-diag__send:hover {
+  opacity: 0.9;
+}
+.pp-diag__send:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.pp-diag__done {
+  text-align: center;
+  padding: 1.5rem 0 0.5rem;
+}
+.pp-diag__check {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1rem;
+  display: block;
+}
+.pp-diag__check circle {
+  stroke: var(--accent, #00e5cc);
+  fill: none;
+  stroke-width: 2;
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  animation: pp-diag-circle 0.55s ease forwards;
+}
+.pp-diag__check path {
+  stroke: var(--accent, #00e5cc);
+  fill: none;
+  stroke-width: 2;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: pp-diag-tick 0.28s ease forwards 0.55s;
+}
+@keyframes pp-diag-circle {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes pp-diag-tick {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.pp-diag__rgpd {
+  font-size: 0.6875rem;
+  color: var(--text-muted, rgba(240, 248, 255, 0.45));
+  margin-top: 1.25rem;
+  text-align: center;
+  line-height: 1.45;
+}
+.pp-diag__rgpd a {
+  color: var(--accent, #00e5cc);
+}
+.pp-diag__err {
+  display: none;
+  font-size: 0.8125rem;
+  color: #ffb4b4;
+  margin-bottom: 0.75rem;
+}
+.pp-diag__err[aria-hidden='false'] {
+  display: block;
+}
