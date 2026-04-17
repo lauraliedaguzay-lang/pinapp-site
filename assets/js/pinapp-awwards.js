@@ -6,10 +6,27 @@
   if (window.__PINAPP_AWWARDS__) return;
   window.__PINAPP_AWWARDS__ = true;
 
-  var V = '20260419';
+  var V = '20260420';
   /* Lenis retiré : sur pinapp.fr il bloquait le scroll (classes lenis jamais actives / conflits RAF).
      ScrollTrigger fonctionne avec le défilement natif du navigateur. */
   var USE_LENIS = false;
+
+  /* Dès le chargement du script : retirer tout verrou scroll (intro, modales, ancien Lenis) */
+  try {
+    var _de = document.documentElement;
+    var _bd = document.body;
+    if (_de) {
+      _de.classList.remove('lenis', 'lenis-smooth');
+      _de.style.removeProperty('overflow');
+      _de.style.removeProperty('overflow-y');
+      _de.style.removeProperty('overflow-x');
+    }
+    if (_bd) {
+      _bd.style.removeProperty('overflow');
+      _bd.style.removeProperty('overflow-y');
+      _bd.style.removeProperty('overflow-x');
+    }
+  } catch (_eUnlock) {}
   var prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var isMobile = window.matchMedia('(max-width: 767px)').matches;
   /* Desktop : curseur custom (sans exiger hover:hover — évite tablettes / trackpad mal détectés) */
@@ -130,10 +147,14 @@
 
     /* Garantir scroll natif (aucun état Lenis / overflow bloqué) */
     document.documentElement.classList.remove('lenis', 'lenis-smooth');
-    document.documentElement.style.overflowY = '';
-    document.documentElement.style.overflow = '';
-    document.body.style.overflowY = '';
-    document.body.style.overflow = '';
+    try {
+      document.documentElement.style.removeProperty('overflow');
+      document.documentElement.style.removeProperty('overflow-y');
+      document.documentElement.style.removeProperty('overflow-x');
+      document.body.style.removeProperty('overflow');
+      document.body.style.removeProperty('overflow-y');
+      document.body.style.removeProperty('overflow-x');
+    } catch (_eClr) {}
 
     if (USE_LENIS && !prefersReduce && typeof Lenis !== 'undefined') {
       try {
