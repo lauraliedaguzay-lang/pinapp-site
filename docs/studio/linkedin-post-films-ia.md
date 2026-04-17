@@ -23,7 +23,7 @@ Vous dans un western.
 Votre équipe dans un film d'action.
 Votre marque dans un univers sur-mesure.
 
-À partir de 350 € HT.
+À partir de 350€.
 
 Le futur du contenu, c'est maintenant.
 
