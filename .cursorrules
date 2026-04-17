@@ -136,6 +136,13 @@
 7. Veille hebdo → Claude API → Buffer → Newsletter Notion
 8. Maintenance mensuel → rapport clients + relance impayés + export comptable
 
+## PROTOCOLE GIT & FICHIERS (sécurité — agent / Cursor)
+- **Avant une série de modifications** : depuis `main` propre, créer une branche de sauvegarde puis revenir sur `main` :
+  `git checkout -b backup-avant-modifications` → `git add -A && git commit -m "backup: état avant modifications"` (si rien à committer : `git commit --allow-empty -m "backup: état avant modifications"`) → `git checkout main`. Pour inspecter l’état sauvegardé : `git checkout backup-avant-modifications`. Si le nom existe déjà : `backup-avant-modif-YYYYMMDD`.
+- **Ne jamais** supprimer un fichier du dépôt sans instruction explicite de l’utilisateur.
+- **Ne jamais** réécrire tout un fichier quand un **patch ciblé** suffit ; préférer des modifications minimales (diff court).
+- **Après modification majeure** : vérification dans le navigateur sur les pages concernées.
+
 ## RÈGLES ABSOLUES
 INTERDIT :
 - Frameworks JS (React, Vue, etc.)
@@ -147,6 +154,8 @@ INTERDIT :
 - CDN externes sauf Bunny Fonts
 - Mention : mort · deuil · décès · funérailles (M&P)
 - Prix TTC sans mention TVA
+- Supprimer des fichiers sans instruction explicite utilisateur
+- Remplacer entièrement un fichier par une réécriture complète sans nécessité (préférer patch partiel)
 
 OBLIGATOIRE :
 - Vanilla JS · Custom properties · WebP final · Lazy-load
