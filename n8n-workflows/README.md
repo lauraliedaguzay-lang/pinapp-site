@@ -26,3 +26,15 @@ Jour 1 : W1 + W5 (contacts entrants)
 Jour 2 : W2 + W3 (devis + formations)
 Jour 3 : W4 + W6 (livraison + contenu)
 Semaine 2 : W7 + W8 (maintenance + Auralis)
+
+## Approbation mobile (Telegram) — modèles W9–W11
+
+| Fichier | Rôle |
+| --- | --- |
+| `W9-diagnostic-telegram-approval.json` | Webhook diagnostic → Telegram Lauralie (HTTP Bot API) + note pour brancher **Wait** puis email client. |
+| `W10-mp-micha-telegram-approval.json` | Webhook contact Mémoire & Présence → Telegram Micha + note Wait / email. |
+| `W11-auralis-lead-magnet-auto.json` | Lead magnet Auralis → envoi email HTTP (sans étape d’approbation). |
+
+**Variables d’environnement** (Hostinger / n8n) : `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_LAURALIE`, `TELEGRAM_CHAT_MICHA`, `LEAD_FROM`, `LEAD_MAGNET_MAIL_API` (optionnel), clé Resend ou autre selon le nœud final. **Aucun secret dans le dépôt.**
+
+Après import, remplacez le nœud HTTP email de W11 par Gmail / SMTP n8n si vous préférez les credentials intégrés.

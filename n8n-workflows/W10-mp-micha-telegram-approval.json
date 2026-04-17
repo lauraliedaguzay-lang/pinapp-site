@@ -1,0 +1,74 @@
+{
+  "name": "🌿 W10 — Contact M&P → Telegram Micha → pause approbation → email famille",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "mp-contact-approval",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "w10-webhook",
+      "name": "Webhook M&P",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "mp-contact-approval"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            { "id": "b1", "name": "prenom", "value": "={{ $json.body?.prenom || $json.prenom }}", "type": "string" },
+            { "id": "b2", "name": "email", "value": "={{ $json.body?.email || $json.email }}", "type": "string" },
+            { "id": "b3", "name": "message", "value": "={{ $json.body?.message || $json.message }}", "type": "string" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "w10-set",
+      "name": "Normaliser M&P",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.telegram.org/bot{{$env.TELEGRAM_BOT_TOKEN}}/sendMessage",
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ chat_id: String($env.TELEGRAM_CHAT_MICHA), parse_mode: 'HTML', text: '<b>Mémoire & Présence</b> — nouvelle demande\\nPrénom: ' + $json.prenom + '\\nEmail: ' + $json.email + '\\nMessage: ' + $json.message + '\\n\\n<i>Ajoutez Wait + email famille après validation.</i>' }) }}",
+        "options": {}
+      },
+      "id": "w10-tg",
+      "name": "HTTP — Telegram Micha",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "content": "## Variables\n- `TELEGRAM_BOT_TOKEN` (même bot ou bot dédié M&P)\n- `TELEGRAM_CHAT_MICHA`\n\nEnchaînez comme W9 : Wait (webhook) puis Gmail / modèle accusé famille.",
+        "height": 280,
+        "width": 380
+      },
+      "id": "w10-note",
+      "name": "NOTE",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [900, 200]
+    }
+  ],
+  "connections": {
+    "Webhook M&P": {
+      "main": [[{ "node": "Normaliser M&P", "type": "main", "index": 0 }]]
+    },
+    "Normaliser M&P": {
+      "main": [[{ "node": "HTTP — Telegram Micha", "type": "main", "index": 0 }]]
+    }
+  },
+  "meta": { "templateCredsSetupCompleted": false },
+  "pinData": {}
+}

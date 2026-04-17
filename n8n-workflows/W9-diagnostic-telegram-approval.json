@@ -1,0 +1,74 @@
+{
+  "name": "🔷 W9 — Diagnostic → Telegram (Lauralie) → pause approbation → email client",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "diagnostic-approval",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "w9-webhook",
+      "name": "Webhook formulaire",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "diagnostic-approval"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            { "id": "a1", "name": "nom", "value": "={{ $json.body?.nom || $json.nom }}", "type": "string" },
+            { "id": "a2", "name": "email", "value": "={{ $json.body?.email || $json.email }}", "type": "string" },
+            { "id": "a3", "name": "resume", "value": "={{ $json.body?.besoin || $json.besoin || $json.message }}", "type": "string" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "w9-set",
+      "name": "Normaliser champs",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.telegram.org/bot{{$env.TELEGRAM_BOT_TOKEN}}/sendMessage",
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ chat_id: String($env.TELEGRAM_CHAT_LAURALIE), parse_mode: 'HTML', text: '<b>Nouveau diagnostic</b>\\nNom: ' + $json.nom + '\\nEmail: ' + $json.email + '\\nRésumé: ' + $json.resume + '\\n\\n<i>Ajoutez Wait (webhook) puis Gmail client.</i>' }) }}",
+        "options": {}
+      },
+      "id": "w9-tg",
+      "name": "HTTP — Telegram Lauralie",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "content": "## Approbation mobile\n1. Ajoutez un nœud **Wait** (resume: webhook) après ce message.\n2. Dans Telegram, utilisez des **callback buttons** ou un second webhook \"approve\" qui appelle l’URL de resume n8n.\n3. Branchez **Gmail** (ou SMTP) vers le client uniquement après approbation.\n\nVariables d’environnement (aucun secret dans le repo) :\n- `TELEGRAM_BOT_TOKEN`\n- `TELEGRAM_CHAT_LAURALIE` (id numérique du chat)\n- credentials Gmail OAuth2 dans n8n",
+        "height": 360,
+        "width": 420
+      },
+      "id": "w9-note",
+      "name": "NOTE — Wait + email",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [880, 160]
+    }
+  ],
+  "connections": {
+    "Webhook formulaire": {
+      "main": [[{ "node": "Normaliser champs", "type": "main", "index": 0 }]]
+    },
+    "Normaliser champs": {
+      "main": [[{ "node": "HTTP — Telegram Lauralie", "type": "main", "index": 0 }]]
+    }
+  },
+  "meta": { "templateCredsSetupCompleted": false },
+  "pinData": {}
+}
