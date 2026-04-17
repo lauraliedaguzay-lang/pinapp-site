@@ -2,7 +2,7 @@
 
 **Adresse prestataire (à jour site / avril 2026)** : 49 Avenue Edmond Rostand, 33700 Mérignac, France · **Tél.** 06 59 88 20 15 · **IBAN/BIC** : à compléter par vous avant envoi.
 
-**Juridique** : harmoniser le libellé « Pinapp Inc. » / forme sociale avec vos mentions légales et votre conseil avant envoi de contrats signés.
+**Juridique** : harmoniser le libellé prestataire (**Pinapp Inc.** / **micro-entreprise** / adresse) avec vos mentions légales et votre conseil avant envoi de contrats signés.
 
 ---
 
@@ -15,9 +15,9 @@
 
 PINAPP
 Lauralie Daguzay
-49 Avenue Edmond Rostand, 33700 Mérignac, France
+[Adresse]
 SIRET : 523 884 898 00017
-contact@pinapp.fr · pinapp.fr · 06 59 88 20 15
+contact@pinapp.fr · pinapp.fr
 
                                     DEVIS N° [ANNÉE]-[NUMÉRO]
                                     Date : [JJ/MM/AAAA]
@@ -94,6 +94,8 @@ Pinapp — pinapp.fr — SIRET 523 884 898 00017
 TVA non applicable, art. 293 B du CGI
 ```
 
+*Remplacer `[Adresse]` par l’adresse professionnelle publiée sur le site (ex. 49 Avenue Edmond Rostand, 33700 Mérignac) avant envoi.*
+
 ---
 
 ## Template contrat de prestation
@@ -105,9 +107,9 @@ TVA non applicable, art. 293 B du CGI
 
 ENTRE :
 
-Pinapp Inc.
+PINAPP, micro-entreprise
 Représentée par Mme Lauralie Daguzay
-49 Avenue Edmond Rostand, 33700 Mérignac, France
+[Adresse]
 SIRET : 523 884 898 00017
 Ci-après "le Prestataire"
 
@@ -228,10 +230,12 @@ Signature :                          Signature :
 (précédée de "Lu et approuvé")       (précédée de "Lu et approuvé")
 ```
 
+*Remplacer `[Adresse]` comme pour le devis. Vérifier que la désignation du prestataire (micro-entreprise / société) correspond à la réalité juridique et aux mentions légales en vigueur.*
+
 ---
 
 ## CGV (version web)
 
-La version publiée du site est **`/legal/cgv.html`** (dépôt : `legal/cgv.html`). Elle reprend les 16 articles du modèle ci-dessus, avec date de mise à jour, coordonnées complètes, une mention Stripe lorsque applicable, et un article **17 — IA et transparence (EU AI Act)**.
+La version publiée du site est **`/legal/cgv.html`** (dépôt : `legal/cgv.html`). Elle reprend les **16 articles** du modèle Pinapp (devis, commande, prix, paiement, délais, garantie, PI, obligations, modifications, maintenance, données, responsabilité, force majeure, litiges, droit de rétractation), avec **date de mise à jour**, coordonnées complètes, une mention **paiement carte (Stripe)** lorsque proposé sur devis, une précision **conservation des données** (art. 12), et un article **17 — IA et transparence (EU AI Act)**.
 
 Pour une copie texte « brut » des CGV hors site, copier depuis le navigateur sur la page CGV ou exporter depuis le HTML source.
