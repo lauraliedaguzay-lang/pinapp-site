@@ -16,7 +16,7 @@ Workflow n8n suggéré :
   - Déclencheur webhook diagnostic → email A1 + création Notion (voir docs/notion-crm-prospects.md)
   - Wait / If non contacté → A2 (J+2), A3 (J+7), A4 (J+30)
   - Déclencheur devis signé → B1…B5
-  - Déclencheur achat kit (Stripe 19,90 € TTC) → C1 — voir docs/stripe-kit-prompt-artisan-setup.md
+  - Déclencheur achat kit (Stripe 29 / 49 / 149 € TTC selon palier) → C1 — voir docs/stripe-kit-prompt-artisan-setup.md
 
 QR diagnostic (impression) : assets/images/qr-diagnostic.svg et .png
 URL cible : https://pinapp.fr/diagnostic/?source=qr

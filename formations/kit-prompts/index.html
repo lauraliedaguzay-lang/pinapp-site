@@ -304,26 +304,25 @@
           <div class="container" style="max-width: 920px">
             <span class="label">Ce que vous obtenez</span>
             <h2 style="font-size: clamp(28px, 4vw, 44px); letter-spacing: -0.03em; margin: 12px 0 24px; text-wrap: balance">
-              Tout le kit v1.0 — un seul prix
+              Ce que contient chaque palier
             </h2>
             <p style="color: var(--text-muted); margin: -12px 0 20px; max-width: 42em; line-height: 1.65">
-              Un produit numérique : <strong>19,90&nbsp;€ TTC</strong>, téléchargement après paiement Stripe, page de
-              confirmation <a href="/merci-kit/" style="color: var(--accent)">merci-kit</a>.
+              Produits numériques : paiement <strong>Stripe</strong> (trois liens), puis page
+              <a href="/merci-kit/" style="color: var(--accent)">merci-kit</a> + e-mail automatique avec les accès.
             </p>
             <ul class="checklist" style="columns: 1; gap: 10px">
-              <li><strong>50 prompts</strong> testés et optimisés pour la vie réelle des TPE</li>
+              <li><strong>Kit Essentiel (29&nbsp;€ TTC)</strong> : 20 prompts — rédaction, réseaux &amp; gestion</li>
               <li>
-                <strong>7 catégories</strong> : rédaction commerciale, réseaux sociaux, gestion quotidienne, relation
-                client, stratégie, IA avancée, sectoriels
+                <strong>Kit Complet (49&nbsp;€ TTC)</strong> : 50 prompts, <strong>7 catégories</strong> (rédaction,
+                réseaux, gestion, relation client, stratégie, IA avancée, sectoriels), <strong>PDF</strong> + espace
+                <strong>Notion</strong> duplicable, mises à jour 1 an
               </li>
-              <li><strong>Format copier-coller</strong> direct dans ChatGPT ou Claude</li>
               <li>
-                Chaque prompt avec <strong>objectif</strong>, cible, temps gagné, consignes, <strong>astuce</strong> quand
-                utile — et une structure pensée pour un résultat exploitable tout de suite
+                <strong>Kit Pro (149&nbsp;€ TTC)</strong> : tout le Complet + <strong>1 h de formation live</strong> +
+                canevas <strong>assistant IA</strong> personnalisé pour votre métier
               </li>
-              <li><strong>PDF</strong> ~80 pages, design premium, charte Pinapp</li>
-              <li><strong>Notion</strong> : espace avec tous les prompts dupliquables</li>
-              <li><strong>Mises à jour gratuites</strong> pendant 1 an sur le contenu numérique</li>
+              <li><strong>Format copier-coller</strong> dans ChatGPT ou Claude, avec objectif, cible, temps gagné, astuces</li>
+              <li><strong>Garantie</strong> : satisfait ou remboursé 7 jours (voir section Garantie)</li>
             </ul>
           </div>
         </section>
@@ -487,14 +486,20 @@ Calcule :
         </section>
 
         <section class="snap-section" id="cta-final" style="justify-content: center">
-          <div class="container" style="max-width: 800px; text-align: center">
+          <div class="container" style="max-width: 900px; text-align: center">
             <h2 style="font-size: clamp(26px, 4vw, 40px); letter-spacing: -0.03em; margin-bottom: 12px; text-wrap: balance">
-              50 prompts. 19,90&nbsp;€. Téléchargement immédiat.
+              Trois kits · 149 · 49 · 29&nbsp;€ TTC
             </h2>
-            <p style="color: var(--text-muted); margin-bottom: 24px">TTC · Kit v1.0 · avril 2026</p>
+            <p style="color: var(--text-muted); margin-bottom: 24px">TVA non applicable art.&nbsp;293&nbsp;B CGI · v1.0 · avril 2026</p>
             <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 12px">
-              <a class="btn btn--primary" href="https://buy.stripe.com/REMPLACER_KIT_1990" data-pinapp-stripe-kit
-                >Acheter maintenant →</a
+              <a class="btn btn--ghost" data-pinapp-kit-tier="pro" href="mailto:contact@pinapp.fr?subject=Kit%20Pro%20149%20%E2%82%AC%20TTC"
+                >Kit Pro 149&nbsp;€ →</a
+              >
+              <a class="btn btn--primary" data-pinapp-kit-tier="complet" href="mailto:contact@pinapp.fr?subject=Kit%20Complet%2049%20%E2%82%AC%20TTC"
+                >Kit Complet 49&nbsp;€ →</a
+              >
+              <a class="btn btn--ghost" data-pinapp-kit-tier="essentiel" href="mailto:contact@pinapp.fr?subject=Kit%20Essentiel%2029%20%E2%82%AC%20TTC"
+                >Kit Essentiel 29&nbsp;€ →</a
               >
             </div>
             <p style="font-size: 13px; color: var(--text-muted)">
@@ -547,16 +552,23 @@ Calcule :
     <script src="../../assets/js/pinapp-master-v3.js" defer></script>
     <script src="../../assets/js/pinapp-master-v4.js" defer></script>
     <script>
-      /* Stripe Payment Link (mode Live) — remplacer REMPLACER_KIT_1990 par l’URL du lien de paiement */
+      /* Trois Payment Links Stripe (mode Live) — remplacer les REMPLACER_* par les URLs buy.stripe.com */
       (function () {
-        var STRIPE_KIT_PAYMENT_LINK = 'https://buy.stripe.com/REMPLACER_KIT_1990';
-        var mailFallback =
-          'mailto:contact@pinapp.fr?subject=Commande%20Kit%20Prompt%20Artisan%20%E2%80%94%2019%2C90%20%E2%82%AC%20TTC';
-        document.querySelectorAll('a[data-pinapp-stripe-kit]').forEach(function (a) {
+        var STRIPE_KIT_LINKS = {
+          pro: 'https://buy.stripe.com/REMPLACER_KIT_PRO',
+          complet: 'https://buy.stripe.com/REMPLACER_KIT_COMPLET',
+          essentiel: 'https://buy.stripe.com/REMPLACER_KIT_ESSENTIEL',
+        };
+        var mailByTier = {
+          pro: 'mailto:contact@pinapp.fr?subject=Commande%20Kit%20Pro%20prompts%20%E2%80%94%20149%20%E2%82%AC%20TTC',
+          complet: 'mailto:contact@pinapp.fr?subject=Commande%20Kit%20Complet%20prompts%20%E2%80%94%2049%20%E2%82%AC%20TTC',
+          essentiel: 'mailto:contact@pinapp.fr?subject=Commande%20Kit%20Essentiel%20prompts%20%E2%80%94%2029%20%E2%82%AC%20TTC',
+        };
+        document.querySelectorAll('a[data-pinapp-kit-tier]').forEach(function (a) {
+          var tier = a.getAttribute('data-pinapp-kit-tier');
+          var raw = tier && STRIPE_KIT_LINKS[tier] ? STRIPE_KIT_LINKS[tier] : '';
           var url =
-            STRIPE_KIT_PAYMENT_LINK && STRIPE_KIT_PAYMENT_LINK.indexOf('REMPLACER') === -1
-              ? STRIPE_KIT_PAYMENT_LINK
-              : mailFallback;
+            raw && raw.indexOf('REMPLACER') === -1 ? raw : tier && mailByTier[tier] ? mailByTier[tier] : 'mailto:contact@pinapp.fr?subject=Kits%20prompts%20Pinapp';
           a.setAttribute('href', url);
           if (url.indexOf('mailto:') === 0) {
             a.removeAttribute('target');
