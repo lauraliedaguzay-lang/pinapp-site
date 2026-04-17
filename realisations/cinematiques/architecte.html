@@ -1,2359 +1,309 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="canonical" href="https://pinapp.fr/realisations/cinematiques/architecte.html" />
-    <title>Atelier Rivage × Pinapp — démo immersive architecture</title>
-    <meta
-      name="description"
-      content="Maquette Pinapp Studio : parcours scroll narratif, motion et performance — même exigence que pour un site vitrine ou une plateforme livrée par Pinapp. Identité Atelier Rivage fictive." />
-    <meta name="robots" content="noindex" />
-    <meta name="theme-color" content="#020807" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
-    <link rel="dns-prefetch" href="https://images.unsplash.com" />
-    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=JetBrains+Mono:wght@300;400;500&family=Space+Grotesk:wght@300;400;500&display=swap"
-      rel="stylesheet" />
-    <style>
-      :root {
-        --gold: #c8a87a;
-        --cream: #f0ece4;
-        --muted: rgba(255, 255, 255, 0.52);
-        --vx: 50%;
-        --vy: 50%;
-        --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
-        --shadow-gold: 0 18px 56px rgba(200, 168, 122, 0.22);
-        --shadow-pinapp: 0 18px 56px rgba(0, 229, 204, 0.28);
-        --pinapp-teal: #00e5cc;
-        --pinapp-teal-dim: rgba(0, 229, 204, 0.55);
-        --pinapp-violet: #8b6bff;
-        --pinapp-grid: rgba(0, 229, 204, 0.06);
-        --surface: #020807;
-      }
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-      html {
-        scroll-behavior: smooth;
-      }
-      @media (prefers-reduced-motion: reduce) {
-        html {
-          scroll-behavior: auto;
-        }
-      }
-      body {
-        font-family: 'Space Grotesk', system-ui, sans-serif;
-        background: var(--surface);
-        color: #f2fffc;
-        overflow-x: hidden;
-      }
-      body::before {
-        content: '';
-        position: fixed;
-        inset: 0;
-        z-index: 3;
-        pointer-events: none;
-        opacity: 0.45;
-        background-image:
-          linear-gradient(var(--pinapp-grid) 1px, transparent 1px),
-          linear-gradient(90deg, var(--pinapp-grid) 1px, transparent 1px);
-        background-size: 48px 48px;
-        mask-image: radial-gradient(ellipse 75% 65% at 50% 40%, #000 0%, transparent 72%);
-      }
-      body::after {
-        content: '';
-        position: fixed;
-        inset: -30% -20%;
-        z-index: 2;
-        pointer-events: none;
-        opacity: 0.35;
-        background:
-          radial-gradient(ellipse 50% 40% at 20% 30%, rgba(0, 229, 204, 0.14) 0%, transparent 55%),
-          radial-gradient(ellipse 45% 50% at 85% 70%, rgba(139, 107, 255, 0.12) 0%, transparent 50%);
-        animation: pinapp-aurora 18s ease-in-out infinite alternate;
-      }
-      @keyframes pinapp-aurora {
-        0% {
-          transform: translate(0, 0) scale(1);
-        }
-        100% {
-          transform: translate(3%, -2%) scale(1.06);
-        }
-      }
-      /* Grain par scène (au-dessus de la photo, sous les overlays) */
-      .scene-inner::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-        pointer-events: none;
-        opacity: 0.05;
-        mix-blend-mode: overlay;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-        background-size: 200px 200px;
-      }
-      .visually-hidden {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
-      }
-      .skip-link {
-        position: fixed;
-        top: 0;
-        left: 50%;
-        z-index: 200;
-        padding: 0.65rem 1.1rem;
-        background: var(--pinapp-teal);
-        color: #020807;
-        font-size: 0.7rem;
-        font-weight: 500;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        text-decoration: none;
-        border-radius: 0 0 8px 8px;
-        transform: translate(-50%, -120%);
-        transition: transform 0.25s ease;
-      }
-      .skip-link:focus {
-        transform: translate(-50%, 0);
-        outline: 2px solid #fff;
-        outline-offset: 2px;
-      }
-      :focus-visible {
-        outline: 2px solid var(--pinapp-teal);
-        outline-offset: 3px;
-      }
-      .nav a:focus-visible,
-      .pinapp-badge:focus-visible {
-        outline-offset: 4px;
-      }
-      .cta-btn:focus-visible {
-        outline-color: var(--pinapp-teal);
-      }
-      ::selection {
-        background: rgba(0, 229, 204, 0.35);
-        color: #fff;
-      }
-
-      /* ——— Progression scroll ——— */
-      .scroll-progress {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        z-index: 199;
-        pointer-events: none;
-        background: rgba(0, 229, 204, 0.08);
-      }
-      .scroll-progress-bar {
-        height: 100%;
-        width: 100%;
-        transform-origin: 0 50%;
-        transform: scaleX(0);
-        background: linear-gradient(90deg, #062e2a, var(--pinapp-teal) 35%, #5fffd9 70%, var(--pinapp-violet));
-        will-change: transform;
-        box-shadow: 0 0 24px rgba(0, 229, 204, 0.55);
-      }
-
-      /* ——— Curseur custom (desktop) ——— */
-      .cursor-dot,
-      .cursor-ring {
-        position: fixed;
-        left: 0;
-        top: 0;
-        pointer-events: none;
-        z-index: 198;
-        opacity: 0;
-        transition: opacity 0.35s ease;
-      }
-      .cursor-dot.is-ready,
-      .cursor-ring.is-ready {
-        opacity: 1;
-      }
-      .cursor-dot {
-        width: 5px;
-        height: 5px;
-        margin: -2.5px 0 0 -2.5px;
-        border-radius: 50%;
-        background: var(--pinapp-teal);
-        box-shadow: 0 0 12px rgba(0, 229, 204, 0.9);
-        mix-blend-mode: normal;
-      }
-      .cursor-ring {
-        width: 40px;
-        height: 40px;
-        margin: -20px 0 0 -20px;
-        border-radius: 50%;
-        border: 1px solid rgba(0, 229, 204, 0.45);
-        transition:
-          border-color 0.25s ease,
-          width 0.35s ease,
-          height 0.35s ease,
-          margin 0.35s ease,
-          opacity 0.35s ease;
-      }
-      .cursor-ring.is-press {
-        width: 28px;
-        height: 28px;
-        margin: -14px 0 0 -14px;
-        border-color: rgba(0, 229, 204, 0.9);
-      }
-      .cursor-ring.is-hover:not(.is-press) {
-        width: 52px;
-        height: 52px;
-        margin: -26px 0 0 -26px;
-        border-color: rgba(139, 107, 255, 0.55);
-        background: rgba(0, 229, 204, 0.05);
-      }
-      html.has-custom-cursor body {
-        cursor: none;
-      }
-      html.has-custom-cursor a,
-      html.has-custom-cursor button,
-      html.has-custom-cursor [role='button'],
-      html.has-custom-cursor .nav-burger,
-      html.has-custom-cursor .dots button,
-      html.has-custom-cursor .thumbs button,
-      html.has-custom-cursor .cta-btn {
-        cursor: none;
-      }
-
-      /* ——— Nav ——— */
-      .nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 100;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: calc(1.25rem + env(safe-area-inset-top, 0px)) clamp(1.25rem, 4vw, 3rem) 1.25rem;
-        transition:
-          background 0.45s ease,
-          backdrop-filter 0.45s ease,
-          border-color 0.45s ease;
-      }
-      .nav.is-scrolled {
-        background: rgba(2, 8, 7, 0.72);
-        backdrop-filter: blur(22px) saturate(1.35);
-        -webkit-backdrop-filter: blur(22px) saturate(1.35);
-        border-bottom: 1px solid rgba(0, 229, 204, 0.18);
-        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.45);
-      }
-      .nav-logo {
-        position: relative;
-        font-family: 'Space Grotesk', system-ui, sans-serif;
-        font-size: clamp(0.95rem, 2.2vw, 1.2rem);
-        font-weight: 500;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-        color: #fff;
-        text-decoration: none;
-      }
-      .nav-logo span {
-        display: block;
-        font-size: 0.45rem;
-        font-weight: 400;
-        letter-spacing: 0.42em;
-        color: var(--pinapp-teal-dim);
-        margin-bottom: 0.2rem;
-        font-family: 'JetBrains Mono', ui-monospace, monospace;
-      }
-      .nav-logo::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: -5px;
-        width: 100%;
-        height: 1px;
-        background: linear-gradient(90deg, var(--pinapp-teal), rgba(0, 229, 204, 0));
-        transform: scaleX(0);
-        transform-origin: left center;
-        transition: transform 0.55s var(--ease-premium);
-      }
-      .nav-logo:hover::after,
-      .nav-logo:focus-visible::after {
-        transform: scaleX(1);
-      }
-      .nav-links {
-        display: flex;
-        gap: clamp(1.25rem, 3vw, 2.5rem);
-      }
-      .nav-links a {
-        font-family: 'JetBrains Mono', ui-monospace, monospace;
-        font-size: 0.52rem;
-        font-weight: 400;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: rgba(0, 229, 204, 0.45);
-        text-decoration: none;
-        transition:
-          color 0.3s ease,
-          text-shadow 0.3s ease;
-      }
-      .nav-links a:hover {
-        color: var(--pinapp-teal);
-        text-shadow: 0 0 18px rgba(0, 229, 204, 0.45);
-      }
-
-      /* ——— Menu plein écran (mobile) ——— */
-      .nav-burger {
-        display: none;
-        width: 48px;
-        height: 48px;
-        flex-shrink: 0;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        gap: 6px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.04);
-        color: #fff;
-        cursor: pointer;
-        z-index: 101;
-        transition:
-          border-color 0.3s ease,
-          background 0.3s ease;
-      }
-      .nav-burger:hover {
-        border-color: rgba(0, 229, 204, 0.45);
-        background: rgba(0, 229, 204, 0.08);
-      }
-      .burger-line {
-        display: block;
-        width: 20px;
-        height: 1px;
-        background: currentColor;
-        transition:
-          transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-          opacity 0.25s ease;
-      }
-      .nav-burger.is-open .burger-line:nth-child(1) {
-        transform: translateY(7px) rotate(45deg);
-      }
-      .nav-burger.is-open .burger-line:nth-child(2) {
-        opacity: 0;
-        transform: scaleX(0);
-      }
-      .nav-burger.is-open .burger-line:nth-child(3) {
-        transform: translateY(-7px) rotate(-45deg);
-      }
-
-      .nav-menu {
-        position: fixed;
-        inset: 0;
-        z-index: 150;
-        display: grid;
-        align-content: stretch;
-        justify-items: stretch;
-        visibility: hidden;
-        opacity: 0;
-        pointer-events: none;
-        transition:
-          opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-          visibility 0.4s;
-      }
-      .nav-menu.is-open {
-        visibility: visible;
-        opacity: 1;
-        pointer-events: auto;
-      }
-      .nav-menu-bg {
-        position: absolute;
-        inset: 0;
-        background:
-          radial-gradient(ellipse 120% 80% at 50% 0%, rgba(0, 229, 204, 0.1) 0%, transparent 55%), rgba(6, 6, 5, 0.94);
-        backdrop-filter: blur(28px) saturate(1.2);
-        -webkit-backdrop-filter: blur(28px) saturate(1.2);
-      }
-      .nav-menu-panel {
-        position: relative;
-        z-index: 2;
-        display: flex;
-        flex-direction: column;
-        min-height: 100dvh;
-        padding: calc(1.25rem + env(safe-area-inset-top, 0px)) clamp(1.25rem, 5vw, 2.5rem)
-          calc(2rem + env(safe-area-inset-bottom, 0px));
-        pointer-events: none;
-      }
-      .nav-menu-top,
-      .nav-menu-nav,
-      .nav-menu-tag {
-        pointer-events: auto;
-      }
-      .nav-menu-top {
-        display: flex;
-        justify-content: flex-end;
-        margin-bottom: 2rem;
-      }
-      .nav-menu-close {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        background: rgba(255, 255, 255, 0.05);
-        color: #fff;
-        font-size: 1.35rem;
-        font-weight: 200;
-        line-height: 1;
-        cursor: pointer;
-        transition:
-          border-color 0.3s ease,
-          color 0.3s ease;
-      }
-      .nav-menu-close:hover {
-        border-color: var(--pinapp-teal);
-        color: var(--pinapp-teal);
-      }
-      .nav-menu-nav {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 0.15rem;
-      }
-      .nav-menu-link {
-        display: flex;
-        align-items: baseline;
-        gap: 1rem;
-        padding: 0.65rem 0;
-        font-family: 'Cormorant Garamond', serif;
-        font-size: clamp(2.1rem, 9vw, 3.25rem);
-        font-weight: 300;
-        color: rgba(255, 255, 255, 0.92);
-        text-decoration: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-        transition:
-          color 0.35s ease,
-          padding-left 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-      .nav-menu-link:last-of-type {
-        border-bottom: none;
-      }
-      .nav-menu-link:hover,
-      .nav-menu-link:focus-visible {
-        color: var(--pinapp-teal);
-        padding-left: 0.35rem;
-      }
-      .nav-menu-idx {
-        font-family: 'JetBrains Mono', ui-monospace, monospace;
-        font-size: 0.52rem;
-        font-weight: 400;
-        letter-spacing: 0.35em;
-        color: rgba(0, 229, 204, 0.45);
-        min-width: 2.5rem;
-      }
-      .nav-menu-tag {
-        margin-top: auto;
-        padding-top: 2rem;
-        font-size: 0.55rem;
-        letter-spacing: 0.28em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.28);
-      }
-      body.menu-open {
-        overflow: hidden;
-        touch-action: none;
-      }
-
-      /* ——— Three canvas ——— */
-      #particles-canvas {
-        position: fixed;
-        inset: 0;
-        z-index: 4;
-        pointer-events: none;
-        opacity: 0.85;
-      }
-
-      /* ——— Scenes ——— */
-      .scene {
-        position: relative;
-        min-height: 100vh;
-        min-height: 100dvh;
-        overflow: hidden;
-        isolation: isolate;
-        scroll-margin-top: 0.35rem;
-      }
-      .scene-inner {
-        position: absolute;
-        inset: 0;
-        overflow: hidden;
-      }
-      .scene-media {
-        position: absolute;
-        width: 115%;
-        height: 115%;
-        left: -7.5%;
-        top: -7.5%;
-        will-change: transform;
-      }
-      .scene-zoom {
-        width: 100%;
-        height: 100%;
-        will-change: transform, opacity;
-      }
-      .scene-ken {
-        width: 100%;
-        height: 100%;
-      }
-      .scene-media img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-        filter: brightness(0.58) saturate(0.93) contrast(1.03);
-        transform-origin: center center;
-        will-change: transform;
-      }
-      @keyframes ken {
-        0% {
-          transform: scale(1.02);
-        }
-        100% {
-          transform: scale(1.1);
-        }
-      }
-      body:not(.reduce-motion) .scene-ken {
-        animation: ken 20s ease-in-out infinite alternate;
-        transform-origin: center center;
-      }
-
-      .scene-gradient {
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-        background: linear-gradient(
-          180deg,
-          rgba(2, 8, 7, 0.55) 0%,
-          transparent 32%,
-          transparent 42%,
-          rgba(2, 8, 7, 0.88) 78%,
-          rgba(0, 40, 36, 0.55) 100%
-        );
-        pointer-events: none;
-      }
-      .scene-vignette {
-        position: absolute;
-        inset: 0;
-        z-index: 3;
-        pointer-events: none;
-        background: radial-gradient(
-          ellipse 85% 75% at var(--vx) var(--vy),
-          transparent 0%,
-          transparent 22%,
-          rgba(10, 10, 8, 0.55) 100%
-        );
-        transition: background 0.12s ease-out;
-      }
-
-      .scene-num {
-        position: absolute;
-        top: 50%;
-        right: clamp(3.5rem, 8vw, 5rem);
-        z-index: 12;
-        transform: translateY(-50%) rotate(-90deg);
-        transform-origin: center;
-        font-family: 'JetBrains Mono', ui-monospace, monospace;
-        font-size: 0.5rem;
-        font-weight: 400;
-        letter-spacing: 0.38em;
-        text-transform: uppercase;
-        color: rgba(0, 229, 204, 0.5);
-        font-variant-numeric: tabular-nums;
-      }
-
-      .scene-copy {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 15;
-        padding: 0 clamp(1.5rem, 4vw, 4rem) clamp(2.5rem, 6vh, 4.5rem);
-        max-width: 52rem;
-      }
-      .eyebrow {
-        font-family: 'JetBrains Mono', ui-monospace, monospace;
-        font-size: 0.48rem;
-        font-weight: 500;
-        letter-spacing: 0.42em;
-        text-transform: uppercase;
-        color: var(--pinapp-teal);
-        margin-bottom: 1rem;
-        text-shadow: 0 0 24px rgba(0, 229, 204, 0.35);
-      }
-      .hero-title {
-        font-family: 'Space Grotesk', system-ui, sans-serif;
-        font-weight: 400;
-        font-size: clamp(2.65rem, 8.5vw, 6rem);
-        line-height: 0.98;
-        letter-spacing: -0.03em;
-        text-shadow: 0 4px 48px rgba(0, 0, 0, 0.55);
-      }
-      .hero-title em {
-        font-family: 'Cormorant Garamond', Georgia, serif;
-        font-style: italic;
-        font-weight: 300;
-        letter-spacing: 0;
-      }
-      @supports ((-webkit-background-clip: text) or (background-clip: text)) {
-        .hero-title {
-          background: linear-gradient(115deg, #fff 0%, #b8fff4 38%, #79ffe8 62%, #c4b5ff 100%);
-          -webkit-background-clip: text;
-          background-clip: text;
-          color: transparent;
-        }
-        .hero-title em {
-          background: linear-gradient(115deg, #fff8e7 0%, #ffe6c8 50%, var(--pinapp-teal) 100%);
-          -webkit-background-clip: text;
-          background-clip: text;
-          color: transparent;
-        }
-      }
-      .pinapp-pitch {
-        margin-top: 1.25rem;
-        padding: 0.85rem 1rem;
-        max-width: 32rem;
-        font-size: 0.78rem;
-        font-weight: 400;
-        line-height: 1.55;
-        color: rgba(230, 255, 250, 0.88);
-        border-left: 2px solid var(--pinapp-teal);
-        background: linear-gradient(90deg, rgba(0, 229, 204, 0.12) 0%, transparent 100%);
-        border-radius: 0 10px 10px 0;
-      }
-      .pinapp-pitch strong {
-        color: var(--pinapp-teal);
-        font-weight: 500;
-      }
-      .proj-title {
-        font-family: 'Space Grotesk', system-ui, sans-serif;
-        font-weight: 400;
-        font-size: clamp(1.95rem, 4.8vw, 3.4rem);
-        line-height: 1.06;
-        letter-spacing: -0.02em;
-        text-shadow: 0 4px 40px rgba(0, 0, 0, 0.5);
-      }
-      .proj-title em {
-        font-style: italic;
-        color: rgba(184, 255, 244, 0.88);
-      }
-      .scene[data-scene]:not([data-scene='0']) .proj-title {
-        padding-left: 1rem;
-        margin-left: -1rem;
-        border-left: 2px solid rgba(0, 229, 204, 0.55);
-      }
-      .subtitle {
-        margin-top: 0.75rem;
-        font-size: 0.82rem;
-        font-weight: 200;
-        color: var(--muted);
-        max-width: 28rem;
-        line-height: 1.55;
-        text-shadow: 0 2px 20px rgba(0, 0, 0, 0.45);
-      }
-      .proj-meta {
-        margin-top: 0.65rem;
-        font-family: 'JetBrains Mono', ui-monospace, monospace;
-        font-size: 0.55rem;
-        font-weight: 400;
-        letter-spacing: 0.24em;
-        text-transform: uppercase;
-        color: var(--pinapp-teal-dim);
-      }
-      .proj-desc {
-        margin-top: 0.55rem;
-        font-size: 0.8rem;
-        font-weight: 200;
-        color: var(--muted);
-        max-width: 32rem;
-        line-height: 1.6;
-      }
-      .proj-specs {
-        margin-top: 0.5rem;
-        font-size: 0.62rem;
-        font-weight: 300;
-        letter-spacing: 0.06em;
-        color: rgba(255, 255, 255, 0.38);
-        line-height: 1.65;
-        max-width: 34rem;
-      }
-      .studio-line {
-        margin-top: 0.5rem;
-        font-size: 0.62rem;
-        font-weight: 300;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.42);
-        max-width: 36rem;
-        line-height: 1.7;
-      }
-      .studio-line strong {
-        font-weight: 500;
-        color: var(--pinapp-teal);
-      }
-      .photo-credit {
-        margin-top: 0.75rem;
-        font-size: 0.52rem;
-        font-weight: 300;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.28);
-      }
-      .hero-villa {
-        margin-top: 1.75rem;
-        padding-top: 1.25rem;
-        border-top: 1px solid rgba(0, 229, 204, 0.22);
-      }
-
-      .scroll-hint {
-        margin-top: 2rem;
-        display: flex;
-        align-items: center;
-        gap: 0.65rem;
-        opacity: 0.45;
-        animation: breathe 3.2s ease-in-out infinite;
-      }
-      @keyframes breathe {
-        0%,
-        100% {
-          opacity: 0.28;
-        }
-        50% {
-          opacity: 0.55;
-        }
-      }
-      .scroll-hint span {
-        font-family: 'JetBrains Mono', ui-monospace, monospace;
-        font-size: 0.5rem;
-        font-weight: 400;
-        letter-spacing: 0.28em;
-        text-transform: uppercase;
-        color: rgba(0, 229, 204, 0.42);
-      }
-      .mouse-ico {
-        width: 22px;
-        height: 34px;
-        border: 1px solid rgba(0, 229, 204, 0.35);
-        border-radius: 12px;
-        position: relative;
-      }
-      .mouse-ico::after {
-        content: '';
-        position: absolute;
-        left: 50%;
-        top: 7px;
-        width: 3px;
-        height: 6px;
-        margin-left: -1.5px;
-        border-radius: 2px;
-        background: var(--pinapp-teal);
-        animation: wheel 2s ease-in-out infinite;
-      }
-      @keyframes wheel {
-        0% {
-          transform: translateY(0);
-          opacity: 1;
-        }
-        100% {
-          transform: translateY(10px);
-          opacity: 0.2;
-        }
-      }
-
-      /* ——— Side dots ——— */
-      .dots {
-        position: fixed;
-        right: calc(0.75rem + env(safe-area-inset-right, 0px));
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 90;
-        display: flex;
-        flex-direction: column;
-        gap: 0.2rem;
-        align-items: center;
-      }
-      .dots button {
-        border: none;
-        padding: 0;
-        width: 44px;
-        height: 44px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        font-size: 0;
-        color: transparent;
-        background: transparent;
-      }
-      .dots-bar {
-        display: block;
-        width: 3px;
-        height: 8px;
-        border-radius: 2px;
-        background: rgba(0, 229, 204, 0.2);
-        transition:
-          height 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-          background 0.35s ease;
-        pointer-events: none;
-      }
-      .dots button.is-active .dots-bar {
-        height: 22px;
-        background: var(--pinapp-teal);
-        box-shadow: 0 0 16px rgba(0, 229, 204, 0.65);
-      }
-
-      /* ——— Thumbs ——— */
-      .thumbs {
-        position: fixed;
-        left: 50%;
-        bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
-        transform: translateX(-50%);
-        z-index: 90;
-        display: flex;
-        align-items: flex-end;
-        gap: 0.5rem;
-        max-width: calc(100vw - 2rem);
-        overflow-x: auto;
-        padding: 0.25rem 0.35rem;
-        scrollbar-width: none;
-      }
-      .thumbs::-webkit-scrollbar {
-        display: none;
-      }
-      .thumbs button {
-        flex-shrink: 0;
-        border: 2px solid rgba(255, 255, 255, 0.1);
-        border-radius: 4px;
-        overflow: hidden;
-        padding: 0;
-        cursor: pointer;
-        background: #111;
-        transition:
-          width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-          height 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-          opacity 0.35s ease,
-          border-color 0.35s ease,
-          filter 0.35s ease;
-        width: 70px;
-        height: 46px;
-        opacity: 0.45;
-        filter: saturate(0.35) brightness(0.55);
-      }
-      .thumbs button.is-active {
-        width: 120px;
-        height: 75px;
-        opacity: 1;
-        border-color: var(--pinapp-teal);
-        filter: none;
-        box-shadow:
-          0 0 0 1px rgba(0, 229, 204, 0.35),
-          0 12px 40px rgba(0, 229, 204, 0.2),
-          0 4px 24px rgba(0, 0, 0, 0.4);
-      }
-      .thumbs button img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-      }
-
-      /* ——— CTA ——— */
-      .cta {
-        position: relative;
-        z-index: 20;
-        min-height: 58vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: clamp(3.5rem, 9vw, 6rem) clamp(1.25rem, 4vw, 2rem);
-        background:
-          radial-gradient(ellipse 90% 70% at 50% -10%, rgba(0, 229, 204, 0.14) 0%, transparent 52%),
-          radial-gradient(ellipse 60% 50% at 85% 20%, rgba(139, 107, 255, 0.06) 0%, transparent 45%),
-          linear-gradient(165deg, #ebe6dc 0%, var(--cream) 38%, #e4dfd4 100%);
-        color: #1a1814;
-      }
-      .cta::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-        pointer-events: none;
-        opacity: 0.5;
-        mix-blend-mode: multiply;
-      }
-      .cta-inner {
-        position: relative;
-        z-index: 1;
-        width: 100%;
-        max-width: 38rem;
-        margin: 0 auto;
-        padding: clamp(2rem, 5vw, 3.25rem) clamp(1.5rem, 4vw, 2.75rem);
-        border-radius: 28px;
-        background: rgba(255, 255, 255, 0.42);
-        backdrop-filter: blur(24px) saturate(1.2);
-        -webkit-backdrop-filter: blur(24px) saturate(1.2);
-        border: 1px solid rgba(255, 255, 255, 0.55);
-        box-shadow:
-          0 1px 0 rgba(255, 255, 255, 0.65) inset,
-          0 32px 64px rgba(26, 24, 20, 0.08),
-          0 2px 0 rgba(0, 229, 204, 0.12) inset;
-      }
-      .cta h2 {
-        font-family: 'Cormorant Garamond', serif;
-        font-weight: 300;
-        font-size: clamp(2.1rem, 5vw, 3.45rem);
-        line-height: 1.12;
-        max-width: 18ch;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      .cta h2 em {
-        font-style: italic;
-        color: #047a6c;
-      }
-      .cta p {
-        margin-top: 1rem;
-        font-size: 0.95rem;
-        font-weight: 300;
-        color: rgba(26, 24, 20, 0.52);
-        line-height: 1.55;
-      }
-      .cta-btn {
-        position: relative;
-        overflow: hidden;
-        margin-top: 2rem;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.35rem;
-        padding: 1rem 2rem;
-        background: linear-gradient(135deg, #053d38 0%, var(--pinapp-teal) 42%, #00b89a 100%);
-        color: #020807;
-        font-size: 0.7rem;
-        font-weight: 400;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        text-decoration: none;
-        border-radius: 100px;
-        border: 1px solid rgba(255, 255, 255, 0.35);
-        cursor: pointer;
-        transition:
-          transform 0.4s var(--ease-premium),
-          box-shadow 0.4s var(--ease-premium);
-      }
-      .cta-btn::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        left: -120%;
-        width: 80%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
-        transform: skewX(-18deg);
-        animation: cta-shine 5s var(--ease-premium) infinite;
-      }
-      @keyframes cta-shine {
-        0%,
-        70% {
-          transform: translateX(0) skewX(-18deg);
-          opacity: 0;
-        }
-        78% {
-          opacity: 1;
-        }
-        100% {
-          transform: translateX(320%) skewX(-18deg);
-          opacity: 0;
-        }
-      }
-      .cta-btn:hover {
-        transform: translateY(-3px);
-        box-shadow:
-          var(--shadow-pinapp),
-          0 8px 28px rgba(0, 229, 204, 0.15);
-      }
-      .cta-address {
-        margin-top: 1.75rem;
-        font-size: 0.72rem;
-        font-style: normal;
-        font-weight: 300;
-        line-height: 1.65;
-        color: rgba(26, 24, 20, 0.55);
-        max-width: 22rem;
-      }
-      .cta-contact {
-        margin-top: 0.65rem;
-        font-size: 0.72rem;
-        font-weight: 300;
-        color: rgba(26, 24, 20, 0.55);
-      }
-      .cta-contact a {
-        color: #047a6c;
-        text-decoration: none;
-        border-bottom: 1px solid rgba(0, 229, 204, 0.35);
-      }
-      .cta-contact a:hover {
-        border-bottom-color: var(--pinapp-teal);
-      }
-      .cta-note {
-        margin-top: 0.85rem;
-        font-size: 0.62rem;
-        letter-spacing: 0.06em;
-        color: rgba(26, 24, 20, 0.4);
-        max-width: 26rem;
-      }
-      .cta-legal {
-        margin-top: 2rem;
-        padding-top: 1.25rem;
-        border-top: 1px solid rgba(26, 24, 20, 0.1);
-        font-size: 0.55rem;
-        line-height: 1.6;
-        letter-spacing: 0.04em;
-        color: rgba(26, 24, 20, 0.38);
-        max-width: 32rem;
-      }
-      .cta-foot {
-        margin-top: 1.25rem;
-        font-size: 0.6rem;
-        letter-spacing: 0.1em;
-        color: rgba(26, 24, 20, 0.32);
-      }
-
-      /* ——— Intro cinéma ——— */
-      .intro-curtain {
-        position: fixed;
-        inset: 0;
-        z-index: 250;
-        display: grid;
-        place-items: center;
-        background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(0, 229, 204, 0.12) 0%, transparent 50%), #020807;
-        box-shadow: inset 0 0 120px rgba(0, 229, 204, 0.06);
-        pointer-events: auto;
-      }
-      .intro-curtain--done {
-        pointer-events: none;
-      }
-      .intro-curtain-inner {
-        text-align: center;
-        padding: 2rem;
-        max-width: 90vw;
-      }
-      .intro-curtain-kicker {
-        margin-bottom: 0.75rem;
-        font-family: 'JetBrains Mono', ui-monospace, monospace;
-        font-size: 0.48rem;
-        font-weight: 500;
-        letter-spacing: 0.5em;
-        text-transform: uppercase;
-        color: var(--pinapp-teal);
-      }
-      .intro-curtain-wordmark {
-        font-family: 'Space Grotesk', system-ui, sans-serif;
-        font-size: clamp(1.65rem, 5vw, 2.85rem);
-        font-weight: 500;
-        letter-spacing: 0.28em;
-        text-transform: uppercase;
-        color: #fff;
-        line-height: 1.2;
-      }
-      .intro-curtain-line {
-        width: min(200px, 42vw);
-        height: 1px;
-        margin: 1.75rem auto 0;
-        background: linear-gradient(90deg, transparent, var(--pinapp-teal), var(--pinapp-violet), transparent);
-        transform-origin: 50% 50%;
-      }
-      html.intro-active,
-      html.intro-active body {
-        overflow: hidden;
-        height: 100%;
-      }
-      html.intro-active .skip-link {
-        z-index: 260;
-      }
-
-      /* ——— Monogramme discret ——— */
-      .brand-mark {
-        position: fixed;
-        bottom: calc(5.25rem + env(safe-area-inset-bottom, 0px));
-        left: calc(1rem + env(safe-area-inset-left, 0px));
-        z-index: 88;
-        font-family: 'Cormorant Garamond', serif;
-        font-size: clamp(2.5rem, 6vw, 3.75rem);
-        font-weight: 300;
-        line-height: 1;
-        letter-spacing: 0.02em;
-        color: rgba(255, 255, 255, 0.09);
-        pointer-events: none;
-        user-select: none;
-      }
-
-      /* ——— Bandeau signal Pinapp (sous la nav) ——— */
-      .pinapp-ribbon {
-        position: fixed;
-        top: calc(4.65rem + env(safe-area-inset-top, 0px));
-        left: 0;
-        right: 0;
-        z-index: 99;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        gap: 0.65rem 1.25rem;
-        padding: 0.4rem 1rem;
-        font-family: 'JetBrains Mono', ui-monospace, monospace;
-        font-size: 0.48rem;
-        font-weight: 400;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: rgba(230, 255, 250, 0.82);
-        background: rgba(2, 8, 7, 0.78);
-        border-bottom: 1px solid rgba(0, 229, 204, 0.2);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        pointer-events: none;
-      }
-      .pinapp-ribbon strong {
-        color: var(--pinapp-teal);
-        font-weight: 500;
-      }
-      .pinapp-ribbon a {
-        pointer-events: auto;
-        color: var(--pinapp-teal);
-        text-decoration: none;
-        border-bottom: 1px solid rgba(0, 229, 204, 0.35);
-        transition: border-color 0.25s ease;
-      }
-      .pinapp-ribbon a:hover {
-        border-bottom-color: var(--pinapp-teal);
-      }
-
-      /* ——— Pinapp badge ——— */
-      .pinapp-badge {
-        position: fixed;
-        bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
-        right: calc(1rem + env(safe-area-inset-right, 0px));
-        z-index: 120;
-        display: flex;
-        align-items: center;
-        gap: 0.45rem;
-        padding: 0.42rem 0.95rem;
-        background: rgba(2, 8, 7, 0.75);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(0, 229, 204, 0.35);
-        border-radius: 100px;
-        text-decoration: none;
-        color: inherit;
-        box-shadow: 0 0 28px rgba(0, 229, 204, 0.12);
-      }
-      .pinapp-badge span:last-child {
-        font-family: 'JetBrains Mono', ui-monospace, monospace;
-        font-size: 0.42rem;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: rgba(0, 229, 204, 0.65);
-      }
-      .pinapp-dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--pinapp-teal);
-        box-shadow: 0 0 10px rgba(0, 229, 204, 0.75);
-        animation: breathe 3s ease-in-out infinite;
-      }
-
-      @media (max-width: 767px) {
-        .pinapp-ribbon {
-          display: none;
-        }
-        body::before {
-          opacity: 0.22;
-        }
-        .brand-mark {
-          display: none;
-        }
-        .scroll-progress,
-        .cursor-dot,
-        .cursor-ring {
-          display: none !important;
-        }
-        .nav-burger {
-          display: inline-flex;
-        }
-        .nav-links {
-          display: none;
-        }
-        .scene-num {
-          display: none;
-        }
-        .thumbs {
-          max-width: calc(100vw - 3.5rem - env(safe-area-inset-right, 0px));
-        }
-        .thumbs button {
-          width: 50px;
-          height: 35px;
-        }
-        .thumbs button.is-active {
-          width: 90px;
-          height: 55px;
-        }
-        .dots {
-          right: 0.65rem;
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        body::after {
-          animation: none !important;
-        }
-        .scene-inner::after {
-          opacity: 0 !important;
-        }
-        .scene-ken,
-        .scroll-hint,
-        .pinapp-dot,
-        .mouse-ico::after {
-          animation: none !important;
-        }
-        .burger-line,
-        .nav-menu {
-          transition: none !important;
-        }
-        .scroll-progress-bar {
-          transition: none !important;
-        }
-        .cta-btn::after {
-          animation: none !important;
-        }
-        html.has-custom-cursor body,
-        html.has-custom-cursor a,
-        html.has-custom-cursor button {
-          cursor: auto !important;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="intro-curtain" id="introCurtain" aria-hidden="true">
-      <div class="intro-curtain-inner">
-        <p class="intro-curtain-kicker">Pinapp Studio — prototype immersif</p>
-        <div class="intro-curtain-line" aria-hidden="true"></div>
-        <p class="intro-curtain-wordmark">Atelier Rivage</p>
-      </div>
-    </div>
-
-    <canvas id="particles-canvas" aria-hidden="true"></canvas>
-
-    <div class="scroll-progress" aria-hidden="true">
-      <div class="scroll-progress-bar" id="scrollProgressBar"></div>
-    </div>
-    <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
-    <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
-
-    <a class="skip-link" href="#scene-0">Aller au parcours</a>
-    <div id="scene-status" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
-    <div class="brand-mark" aria-hidden="true">AR</div>
-
-    <header class="nav" id="nav">
-      <a class="nav-logo" href="#scene-0"><span>Prototype · Pinapp Studio</span>Atelier Rivage</a>
-      <nav class="nav-links" aria-label="Navigation principale">
-        <a href="#scene-1">Réalisations</a>
-        <a href="#agence">L'agence</a>
-        <a href="#scene-4">Intérieurs</a>
-        <a href="#cta">Contact</a>
-      </nav>
-      <button
-        type="button"
-        class="nav-burger"
-        id="navBurger"
-        aria-controls="navMenuPanel"
-        aria-expanded="false"
-        aria-label="Ouvrir le menu">
-        <span class="burger-line" aria-hidden="true"></span>
-        <span class="burger-line" aria-hidden="true"></span>
-        <span class="burger-line" aria-hidden="true"></span>
-      </button>
-    </header>
-
-    <div class="pinapp-ribbon" role="region" aria-label="Maquette interactive Pinapp">
-      <span><strong>Pinapp</strong> — motion · scroll narratif · performance · accessibilité</span>
-      <a href="https://pinapp.fr/">Découvrir Pinapp →</a>
-    </div>
-
-    <div class="nav-menu" id="navMenuPanel" role="dialog" aria-modal="true" aria-label="Menu navigation">
-      <div class="nav-menu-bg" data-menu-close></div>
-      <div class="nav-menu-panel">
-        <div class="nav-menu-top">
-          <button type="button" class="nav-menu-close" data-menu-close aria-label="Fermer le menu">×</button>
-        </div>
-        <nav class="nav-menu-nav" aria-label="Navigation plein écran">
-          <a class="nav-menu-link" href="#scene-0"><span class="nav-menu-idx">01</span> Accueil</a>
-          <a class="nav-menu-link" href="#scene-1"><span class="nav-menu-idx">02</span> Réalisations</a>
-          <a class="nav-menu-link" href="#agence"><span class="nav-menu-idx">03</span> L'agence</a>
-          <a class="nav-menu-link" href="#cta"><span class="nav-menu-idx">04</span> Contact</a>
-        </nav>
-        <p class="nav-menu-tag">Identité fictive · démo technique Pinapp (web &amp; expérience)</p>
-      </div>
-    </div>
-
-    <div class="dots" id="dots" role="navigation" aria-label="Sections du parcours"></div>
-    <div class="thumbs" id="thumbs" aria-label="Aperçu des projets"></div>
-
-    <main id="main">
-      <!-- Scene 0 — Hero + Villa Lumière -->
-      <section class="scene" id="scene-0" data-scene="0" aria-label="Introduction et Villa Lumière" tabindex="-1">
-        <div class="scene-inner">
-          <div class="scene-media" data-parallax>
-            <div class="scene-zoom">
-              <div class="scene-ken">
-                <img
-                  src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920&q=90&auto=format&fm=webp"
-                  alt="Villa contemporaine avec piscine à débordement, bois et béton blanc, vue mer"
-                  width="1920"
-                  height="1080"
-                  fetchpriority="high"
-                  decoding="async" />
-              </div>
-            </div>
-          </div>
-          <div class="scene-gradient"></div>
-          <div class="scene-vignette"></div>
-          <div class="scene-num">01 / 06</div>
-          <div class="scene-copy">
-            <p class="eyebrow">Architecture &amp; réhabilitation patrimoniale · Bordeaux — depuis 2009</p>
-            <h1 class="hero-title">Entrez dans nos <em>créations.</em></h1>
-            <p class="subtitle">
-              Maisons neuves, extensions et réhabilitations haut de gamme sur la façade atlantique. Dossiers traités sur
-              MOEX ou entente directe, avec pilotage complet des corps d'état techniques.
-            </p>
-            <p class="pinapp-pitch">
-              <strong>Pinapp</strong> — ce parcours mêle narration scroll, motion et exigence front : la même approche
-              produit que pour une vitrine ou une plateforme sur mesure. Pas de gabarit figé : on pousse l’expérience
-              aussi loin que votre projet l’exige.
-            </p>
-            <p id="agence" class="studio-line" tabindex="-1">
-              <strong>12 collaborateurs</strong> · maîtrise d'œuvre &amp; architecte mandataire · fluides, structure
-              &amp; économiste intégrés · garantie d'achèvement sur appel d'offres restreint
-            </p>
-            <p class="photo-credit">Visuels illustratifs — banque Unsplash (libres de droits)</p>
-            <div class="hero-villa">
-              <h2 class="proj-title">Villa Lumière</h2>
-              <p class="proj-meta">Cap Ferret · 480 m² SDP</p>
-              <p class="proj-desc">
-                Résidence secondaire pour famille parisienne : plan en L ouvert sur l'océan, piscine miroir, cèdre rouge
-                du Canada et béton ciré intérieur / extérieur.
-              </p>
-              <p class="proj-specs">
-                MOEX 2019–2022 · permis avec déclaration préalable de surélévation · BET structure &amp; fluides
-                internes · OPC maison · réception marchés publics privatisés
-              </p>
-            </div>
-            <div class="scroll-hint" aria-hidden="true">
-              <div class="mouse-ico"></div>
-              <span>Scroll</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Scene 1 -->
-      <section class="scene" id="scene-1" data-scene="1" aria-label="Les Jardins suspendus" tabindex="-1">
-        <div class="scene-inner">
-          <div class="scene-media" data-parallax>
-            <div class="scene-zoom">
-              <div class="scene-ken">
-                <img
-                  src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=90&auto=format&fm=webp"
-                  alt="Maison contemporaine blanche à volumes cubiques, piscine et jardin paysager"
-                  width="1920"
-                  height="1080"
-                  loading="lazy"
-                  decoding="async" />
-              </div>
-            </div>
-          </div>
-          <div class="scene-gradient"></div>
-          <div class="scene-vignette"></div>
-          <div class="scene-num">02 / 06</div>
-          <div class="scene-copy">
-            <h2 class="proj-title">Les Jardins <em>suspendus</em></h2>
-            <p class="proj-meta">Biarritz · 348 m² Shon · SDP 312 m²</p>
-            <p class="proj-desc">
-              Programme de logements de standing : dalles en porte-à-faux, garde-corps vitrés structuraux et jardinières
-              filtrantes pour limiter les surtempératures côté falaise.
-            </p>
-            <p class="proj-specs">
-              Permis déposé 2019 · livraison mai 2021 · certification NF Habitat HQE niveau Excellent · paysagiste
-              mandataire Atelier Rivage
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Scene 2 -->
-      <section class="scene" id="scene-2" data-scene="2" aria-label="Maison Pierre" tabindex="-1">
-        <div class="scene-inner">
-          <div class="scene-media" data-parallax>
-            <div class="scene-zoom">
-              <div class="scene-ken">
-                <img
-                  src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=90&auto=format&fm=webp"
-                  alt="Maison en pierre claire et baies vitrées, architecture contemporaine"
-                  width="1920"
-                  height="1080"
-                  loading="lazy"
-                  decoding="async" />
-              </div>
-            </div>
-          </div>
-          <div class="scene-gradient"></div>
-          <div class="scene-vignette"></div>
-          <div class="scene-num">03 / 06</div>
-          <div class="scene-copy">
-            <h2 class="proj-title">Maison Pierre</h2>
-            <p class="proj-meta">Saint-Émilion · 410 m² utiles (chai réhabilité)</p>
-            <p class="proj-desc">
-              Conversion d'un chai en habitation : isolation intérieure chanvre-lin, plancher chauffant sur dalle
-              existante, acier thermolaqué et menuiseries à isolation renforcée pour les caves climatisées.
-            </p>
-            <p class="proj-specs">
-              ABF &amp; architecte des Bâtiments de France · diagnostic plomb &amp; charpente 2018 · OPC interne ·
-              chantier 14 mois · livraison hiver 2020
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Scene 3 -->
-      <section class="scene" id="scene-3" data-scene="3" aria-label="Villa Éclipse" tabindex="-1">
-        <div class="scene-inner">
-          <div class="scene-media" data-parallax>
-            <div class="scene-zoom">
-              <div class="scene-ken">
-                <img
-                  src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=1920&q=90&auto=format&fm=webp"
-                  alt="Villa avec piscine à débordement et végétation tropicale, architecture bioclimatique"
-                  width="1920"
-                  height="1080"
-                  loading="lazy"
-                  decoding="async" />
-              </div>
-            </div>
-          </div>
-          <div class="scene-gradient"></div>
-          <div class="scene-vignette"></div>
-          <div class="scene-num">04 / 06</div>
-          <div class="scene-copy">
-            <h2 class="proj-title">Villa <em>Éclipse</em></h2>
-            <p class="proj-meta">Arcachon · 288 m² Shon</p>
-            <p class="proj-desc">
-              Maison passive ciblée : brise-soleil orientés sud-ouest, piscine traitée aux sels, toiture végétalisée 140
-              m² et récupération des eaux de pluie pour l'arrosage du jardin méditerranéen.
-            </p>
-            <p class="proj-specs">
-              Étude thermique RT2012-20 % · étanchéité végétalisée garantie 10 ans · permis 2018 · réception été 2019
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Scene 4 -->
-      <section class="scene" id="scene-4" data-scene="4" aria-label="L'intérieur" tabindex="-1">
-        <div class="scene-inner">
-          <div class="scene-media" data-parallax>
-            <div class="scene-zoom">
-              <div class="scene-ken">
-                <img
-                  src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=90&auto=format&fm=webp"
-                  alt="Double hauteur sous verrière, salon contemporain béton ciré et mobilier design"
-                  width="1920"
-                  height="1080"
-                  loading="lazy"
-                  decoding="async" />
-              </div>
-            </div>
-          </div>
-          <div class="scene-gradient"></div>
-          <div class="scene-vignette"></div>
-          <div class="scene-num">05 / 06</div>
-          <div class="scene-copy">
-            <h2 class="proj-title">L'intérieur</h2>
-            <p class="proj-meta">Bordeaux · 255 m² carrez (appartement sur deux niveaux)</p>
-            <p class="proj-desc">
-              Réunion de deux lots : suppression des cloisons porteuses remplacées par poutres mixtes acier-bois,
-              verrière zénithale motorisée et traitement acoustique des murs périphériques pour la salle de musique.
-            </p>
-            <p class="proj-specs">
-              Copropriété 18 lots · AG 2022 · coordination syndic &amp; entreprises · DPE visé B après travaux ·
-              livraison clés fin 2023
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Scene 5 -->
-      <section class="scene" id="scene-5" data-scene="5" aria-label="Horizon bleu" tabindex="-1">
-        <div class="scene-inner">
-          <div class="scene-media" data-parallax>
-            <div class="scene-zoom">
-              <div class="scene-ken">
-                <img
-                  src="https://images.unsplash.com/photo-1574739782594-db4ead022697?w=1920&q=90&auto=format&fm=webp"
-                  alt="Piscine miroir face à l'océan, terrasse bois et architecture contemporaine"
-                  width="1920"
-                  height="1080"
-                  loading="lazy"
-                  decoding="async" />
-              </div>
-            </div>
-          </div>
-          <div class="scene-gradient"></div>
-          <div class="scene-vignette"></div>
-          <div class="scene-num">06 / 06</div>
-          <div class="scene-copy">
-            <h2 class="proj-title">Horizon <em>bleu</em></h2>
-            <p class="proj-meta">Hossegor · 305 m² Shon · première ligne dunaire (fictif)</p>
-            <p class="proj-desc">
-              Ossature bois PEFC, remplissage laine de bois et bardage grisé : la façade ventilée laisse respirer le mur
-              tout en résistant à la bise. Piscine miroir chauffée géothermie passive.
-            </p>
-            <p class="proj-specs">
-              Étude géotechnique littoral · PLU zone UV · consultation paysagiste Dune · chantier 2023–2024 · réception
-              Q2 2024
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section class="cta" id="cta" aria-labelledby="cta-title">
-        <div class="cta-inner">
-          <h2 id="cta-title">Votre villa <em>vous attend.</em></h2>
-          <p>
-            Études APS à PRO · chiffrage détaillé et planning maîtrisé jusqu'à la réception des ouvrages — même niveau
-            d'exigence que sur les projets présentés ci-dessus.
-          </p>
-          <a class="cta-btn" href="https://pinapp.fr/diagnostic/">Demander un créneau d'échange — 45 min →</a>
-          <address class="cta-address">
-            Atelier Rivage — bureau d'études (fictif)<br />
-            12 cours de l'Intendance, 33000 Bordeaux<br />
-            Permanences sur rendez-vous — accès PMR ascenseur B
-          </address>
-          <p class="cta-contact">
-            Tél.&nbsp;<a href="tel:+33556874219">+33 (0)5 56 87 42 19</a>
-            &nbsp;·&nbsp;
-            <a href="mailto:bureau@atelier-rivage.fr">bureau@atelier-rivage.fr</a>
-          </p>
-          <p class="cta-note">
-            Premier échange téléphonique sans engagement. Merci de joindre un extrait de cadastre ou de PLU pour
-            préparer la faisabilité sommaire.
-          </p>
-          <p class="cta-legal">
-            Atelier Rivage est une identité de démonstration pour présenter une expérience web immersive. Aucune
-            structure immatriculée ne porte ce nom. Numéro SIRET d'exemple : 832&nbsp;456&nbsp;789&nbsp;00012. Les
-            chantiers, adresses et métriques décrits sont fictifs ou illustratifs.
-          </p>
-          <p class="cta-foot">Maquette Pinapp Studio · Bordeaux · 2026</p>
-        </div>
-      </section>
-    </main>
-
-    <a class="pinapp-badge" href="https://pinapp.fr" target="_blank" rel="noopener noreferrer">
-      <span class="pinapp-dot"></span>
-      <span>Créé par Pinapp</span>
-    </a>
-
-    <!-- GSAP + Lenis avant Three.js : si WebGL / three échoue, le parcours (intro, scroll) reste fonctionnel -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
-      crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous"></script>
-
-    <script>
-      (function () {
-        var prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        var isMobile = window.matchMedia('(max-width: 767px)').matches;
-        if (prefersReduce) document.body.classList.add('reduce-motion');
-        var menuOpen = false;
-        var lenisRef = null;
-        var progressBarEl = document.getElementById('scrollProgressBar');
-        var customCursorEnabled = false;
-
-        var scenes = Array.prototype.slice.call(document.querySelectorAll('.scene'));
-        var nav = document.getElementById('nav');
-        var dotsWrap = document.getElementById('dots');
-        var thumbsWrap = document.getElementById('thumbs');
-        var statusEl = document.getElementById('scene-status');
-        var currentSceneIdx = 0;
-        var projectLabels = [
-          'Accueil — référence Villa Lumière',
-          'Les Jardins suspendus — Biarritz',
-          'Maison Pierre — Saint-Émilion',
-          'Villa Éclipse — Arcachon',
-          "L'intérieur — Bordeaux",
-          'Horizon bleu — Hossegor',
-        ];
-        var thumbSrc = [
-          'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=200&q=70&auto=format&fm=webp',
-          'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=200&q=70&auto=format&fm=webp',
-          'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=200&q=70&auto=format&fm=webp',
-          'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=200&q=70&auto=format&fm=webp',
-          'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=200&q=70&auto=format&fm=webp',
-          'https://images.unsplash.com/photo-1574739782594-db4ead022697?w=200&q=70&auto=format&fm=webp',
-        ];
-
-        function announceScene(i) {
-          if (!statusEl) return;
-          statusEl.textContent = projectLabels[i] + ' — ' + (i + 1) + ' sur 6';
-        }
-
-        function scrollToScene(i) {
-          var el = document.getElementById('scene-' + i);
-          if (!el) return;
-          function focusScene() {
-            try {
-              el.focus({ preventScroll: true });
-            } catch (err) {}
-          }
-          if (lenisRef && !prefersReduce) {
-            lenisRef.scrollTo(el, {
-              duration: 1.25,
-              onComplete: focusScene,
-            });
-          } else {
-            el.scrollIntoView({ behavior: prefersReduce ? 'auto' : 'smooth', block: 'start' });
-            if (prefersReduce) focusScene();
-            else setTimeout(focusScene, 480);
-          }
-        }
-
-        if (dotsWrap && thumbsWrap) {
-          for (var d = 0; d < 6; d++) {
-            (function (idx) {
-              var b = document.createElement('button');
-              b.type = 'button';
-              b.setAttribute('aria-label', 'Aller à : ' + projectLabels[idx]);
-              b.innerHTML = '<span class="dots-bar" aria-hidden="true"></span>';
-              b.className = 'is-active';
-              if (idx > 0) b.classList.remove('is-active');
-              b.addEventListener('click', function () {
-                scrollToScene(idx);
-              });
-              dotsWrap.appendChild(b);
-            })(d);
-          }
-
-          thumbSrc.forEach(function (src, idx) {
-            var b = document.createElement('button');
-            b.type = 'button';
-            b.setAttribute('aria-label', 'Afficher : ' + projectLabels[idx]);
-            b.innerHTML = '<img src="' + src + '" alt="" loading="lazy" width="120" height="75" />';
-            if (idx === 0) b.classList.add('is-active');
-            b.addEventListener('click', function () {
-              scrollToScene(idx);
-            });
-            thumbsWrap.appendChild(b);
-          });
-        }
-
-        var dotBtns = dotsWrap ? dotsWrap.querySelectorAll('button') : [];
-        var thumbBtns = thumbsWrap ? thumbsWrap.querySelectorAll('button') : [];
-
-        function isCtaInView() {
-          var c = document.getElementById('cta');
-          if (!c) return false;
-          var r = c.getBoundingClientRect();
-          return r.top < window.innerHeight * 0.62 && r.bottom > window.innerHeight * 0.12;
-        }
-
-        function goToCta() {
-          var cta = document.getElementById('cta');
-          if (!cta) return;
-          if (lenisRef && !prefersReduce) {
-            lenisRef.scrollTo(cta, { duration: 1.25 });
-          } else {
-            cta.scrollIntoView({ behavior: prefersReduce ? 'auto' : 'smooth', block: 'start' });
-          }
-          dotBtns.forEach(function (b) {
-            b.classList.remove('is-active');
-            b.removeAttribute('aria-current');
-          });
-          thumbBtns.forEach(function (b) {
-            b.classList.remove('is-active');
-            b.removeAttribute('aria-current');
-          });
-          if (statusEl) statusEl.textContent = 'Fin du parcours — contact et rendez-vous';
-        }
-
-        function setActiveNav(i) {
-          currentSceneIdx = i;
-          dotBtns.forEach(function (b, j) {
-            b.classList.toggle('is-active', j === i);
-            if (j === i) b.setAttribute('aria-current', 'true');
-            else b.removeAttribute('aria-current');
-          });
-          thumbBtns.forEach(function (b, j) {
-            b.classList.toggle('is-active', j === i);
-            if (j === i) b.setAttribute('aria-current', 'true');
-            else b.removeAttribute('aria-current');
-          });
-          announceScene(i);
-        }
-        announceScene(0);
-
-        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-          gsap.registerPlugin(ScrollTrigger);
-
-          scenes.forEach(function (scene, i) {
-            var zoomWrap = scene.querySelector('.scene-zoom');
-            var copy = scene.querySelector('.scene-copy');
-
-            if (zoomWrap && !prefersReduce) {
-              gsap.fromTo(
-                zoomWrap,
-                { scale: 1, opacity: 1 },
-                {
-                  scale: 1.3,
-                  opacity: 0,
-                  ease: 'none',
-                  scrollTrigger: {
-                    trigger: scene,
-                    start: 'bottom bottom',
-                    end: 'bottom top',
-                    scrub: true,
-                  },
-                },
-              );
-            }
-
-            if (copy && i > 0) {
-              gsap.fromTo(
-                copy.children,
-                { opacity: 0, y: 36 },
-                {
-                  opacity: 1,
-                  y: 0,
-                  duration: 0.85,
-                  stagger: 0.08,
-                  ease: 'power3.out',
-                  scrollTrigger: {
-                    trigger: scene,
-                    start: 'top 82%',
-                    end: 'top 35%',
-                    toggleActions: 'play none none reverse',
-                  },
-                },
-              );
-            }
-
-            ScrollTrigger.create({
-              trigger: scene,
-              start: 'top 55%',
-              end: 'bottom 45%',
-              onEnter: function () {
-                setActiveNav(i);
-              },
-              onEnterBack: function () {
-                setActiveNav(i);
-              },
-            });
-          });
-
-          ScrollTrigger.create({
-            trigger: '#cta',
-            start: 'top 60%',
-            onEnter: function () {
-              dotBtns.forEach(function (b) {
-                b.classList.remove('is-active');
-                b.removeAttribute('aria-current');
-              });
-              thumbBtns.forEach(function (b) {
-                b.classList.remove('is-active');
-                b.removeAttribute('aria-current');
-              });
-              if (statusEl) statusEl.textContent = 'Fin du parcours — contact et rendez-vous';
-            },
-            onLeaveBack: function () {
-              setActiveNav(5);
-            },
-          });
-
-          var ctaInnerEl = document.querySelector('#cta .cta-inner');
-          if (ctaInnerEl && !prefersReduce) {
-            gsap.from(ctaInnerEl.children, {
-              opacity: 0,
-              y: 34,
-              duration: 0.82,
-              stagger: 0.09,
-              ease: 'power3.out',
-              scrollTrigger: {
-                trigger: '#cta',
-                start: 'top 76%',
-                toggleActions: 'play none none reverse',
-              },
-            });
-          }
-
-          ScrollTrigger.refresh();
-          window.addEventListener(
-            'resize',
-            function () {
-              if (lenisRef) lenisRef.resize();
-              ScrollTrigger.refresh();
-            },
-            { passive: true },
-          );
-        } else {
-          setActiveNav(0);
-          if (statusEl) statusEl.textContent = projectLabels[0] + ' — 1 sur 6';
-          if ('IntersectionObserver' in window) {
-            var obs = new IntersectionObserver(
-              function (ents) {
-                ents.forEach(function (en) {
-                  if (!en.isIntersecting) return;
-                  var id = en.target.getAttribute('data-scene');
-                  if (id != null) setActiveNav(parseInt(id, 10));
-                });
-              },
-              { threshold: 0.45 },
-            );
-            scenes.forEach(function (s) {
-              obs.observe(s);
-            });
-          }
-        }
-
-        function updateScrollProgress(p) {
-          if (!progressBarEl) return;
-          var v = Math.min(1, Math.max(0, p));
-          progressBarEl.style.transform = 'scaleX(' + v + ')';
-        }
-
-        function onScrollNav() {
-          var y = window.scrollY || document.documentElement.scrollTop;
-          nav.classList.toggle('is-scrolled', y > 48);
-        }
-
-        function onWindowScrollCombined() {
-          onScrollNav();
-          if (!lenisRef) {
-            var doc = document.documentElement;
-            var t = window.scrollY || doc.scrollTop;
-            var max = doc.scrollHeight - window.innerHeight;
-            updateScrollProgress(max > 0 ? t / max : 0);
-          }
-        }
-        window.addEventListener('scroll', onWindowScrollCombined, { passive: true });
-        onWindowScrollCombined();
-
-        if (!prefersReduce && !isMobile && typeof Lenis !== 'undefined') {
-          lenisRef = new Lenis({
-            duration: 1.12,
-            smoothWheel: true,
-            wheelMultiplier: 1,
-            touchMultiplier: 1.2,
-          });
-          lenisRef.on('scroll', function (e) {
-            if (e && typeof e.progress === 'number') updateScrollProgress(e.progress);
-            onScrollNav();
-            if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.update();
-          });
-          if (typeof gsap !== 'undefined') {
-            gsap.ticker.add(function (time) {
-              lenisRef.raf(time * 1000);
-            });
-            gsap.ticker.lagSmoothing(0);
-          } else {
-            function lenisRafLoop(t) {
-              lenisRef.raf(t);
-              requestAnimationFrame(lenisRafLoop);
-            }
-            requestAnimationFrame(lenisRafLoop);
-          }
-          window.addEventListener(
-            'resize',
-            function () {
-              if (lenisRef) lenisRef.resize();
-            },
-            { passive: true },
-          );
-          if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
-        }
-
-        document.addEventListener(
-          'click',
-          function (e) {
-            if (!lenisRef || prefersReduce) return;
-            var a = e.target.closest && e.target.closest('a[href^="#"]');
-            if (!a) return;
-            var href = a.getAttribute('href');
-            if (!href || href === '#') return;
-            if (e.defaultPrevented) return;
-            if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-            var id = href.slice(1);
-            var target = document.getElementById(id);
-            if (!target) return;
-            e.preventDefault();
-            lenisRef.scrollTo(target, { duration: 1.05 });
-          },
-          true,
-        );
-
-        var cursorRing = document.getElementById('cursorRing');
-        var cursorDot = document.getElementById('cursorDot');
-        var ringX = 0,
-          ringY = 0,
-          mouseX = 0,
-          mouseY = 0,
-          cursorVisible = false;
-        if (!prefersReduce && !isMobile && cursorRing && cursorDot) {
-          document.documentElement.classList.add('has-custom-cursor');
-          customCursorEnabled = true;
-          function showCursors() {
-            cursorVisible = true;
-            cursorRing.classList.add('is-ready');
-            cursorDot.classList.add('is-ready');
-          }
-          window.addEventListener(
-            'mousemove',
-            function (e) {
-              mouseX = e.clientX;
-              mouseY = e.clientY;
-              cursorDot.style.left = mouseX + 'px';
-              cursorDot.style.top = mouseY + 'px';
-              var pe = document.elementFromPoint(mouseX, mouseY);
-              var hover =
-                pe &&
-                (pe.closest('a') || pe.closest('button') || pe.closest('[role="button"]') || pe.closest('.cta-btn'));
-              cursorRing.classList.toggle('is-hover', !!hover);
-              if (!cursorVisible) showCursors();
-            },
-            { passive: true },
-          );
-          document.documentElement.addEventListener(
-            'mouseleave',
-            function () {
-              cursorRing.classList.remove('is-ready');
-              cursorDot.classList.remove('is-ready');
-              cursorVisible = false;
-            },
-            { passive: true },
-          );
-          window.addEventListener(
-            'mousedown',
-            function () {
-              cursorRing.classList.add('is-press');
-            },
-            true,
-          );
-          window.addEventListener(
-            'mouseup',
-            function () {
-              cursorRing.classList.remove('is-press');
-            },
-            true,
-          );
-          function cursorLoop() {
-            ringX += (mouseX - ringX) * 0.16;
-            ringY += (mouseY - ringY) * 0.16;
-            cursorRing.style.left = ringX + 'px';
-            cursorRing.style.top = ringY + 'px';
-            requestAnimationFrame(cursorLoop);
-          }
-          cursorLoop();
-        }
-
-        /* ——— Menu plein écran ——— */
-        var bodyEl = document.body;
-        var navMenuPanelEl = document.getElementById('navMenuPanel');
-        var navBurger = document.getElementById('navBurger');
-        var menuCloseEls = navMenuPanelEl ? navMenuPanelEl.querySelectorAll('[data-menu-close]') : [];
-        var menuCloseBtn = navMenuPanelEl ? navMenuPanelEl.querySelector('.nav-menu-close') : null;
-        var menuLinks = navMenuPanelEl ? navMenuPanelEl.querySelectorAll('.nav-menu-link') : [];
-        var navMenuEl = navMenuPanelEl ? navMenuPanelEl.querySelector('.nav-menu-nav') : null;
-
-        function menuFocusables() {
-          if (!navMenuPanelEl) return [];
-          return Array.prototype.slice.call(navMenuPanelEl.querySelectorAll('button, a[href]')).filter(function (el) {
-            return !el.hasAttribute('disabled');
-          });
-        }
-
-        function openMenu() {
-          if (!navMenuPanelEl || !navBurger || menuOpen) return;
-          menuOpen = true;
-          if (customCursorEnabled) document.documentElement.classList.remove('has-custom-cursor');
-          bodyEl.classList.add('menu-open');
-          navMenuPanelEl.classList.add('is-open');
-          navBurger.classList.add('is-open');
-          navBurger.setAttribute('aria-expanded', 'true');
-          navBurger.setAttribute('aria-label', 'Fermer le menu');
-          if (menuLinks.length && typeof gsap !== 'undefined' && !prefersReduce) {
-            gsap.set(menuLinks, { y: 40, opacity: 0 });
-            gsap.to(menuLinks, {
-              y: 0,
-              opacity: 1,
-              duration: 0.55,
-              stagger: 0.09,
-              ease: 'power3.out',
-              delay: 0.06,
-            });
-          } else {
-            for (var mi = 0; mi < menuLinks.length; mi++) {
-              menuLinks[mi].style.opacity = '1';
-              menuLinks[mi].style.transform = 'none';
-            }
-          }
-          window.setTimeout(
-            function () {
-              if (menuCloseBtn) menuCloseBtn.focus();
-            },
-            prefersReduce ? 0 : 120,
-          );
-        }
-
-        function closeMenu() {
-          if (!navMenuPanelEl || !navBurger || !menuOpen) return;
-          menuOpen = false;
-          bodyEl.classList.remove('menu-open');
-          navBurger.classList.remove('is-open');
-          navBurger.setAttribute('aria-expanded', 'false');
-          navBurger.setAttribute('aria-label', 'Ouvrir le menu');
-
-          function hideOverlay() {
-            navMenuPanelEl.classList.remove('is-open');
-            for (var mi = 0; mi < menuLinks.length; mi++) {
-              menuLinks[mi].style.opacity = '';
-              menuLinks[mi].style.transform = '';
-            }
-            navBurger.focus();
-            if (customCursorEnabled) document.documentElement.classList.add('has-custom-cursor');
-          }
-
-          if (typeof gsap !== 'undefined' && !prefersReduce && menuLinks.length) {
-            gsap.to(menuLinks, {
-              y: 24,
-              opacity: 0,
-              duration: 0.28,
-              stagger: { each: 0.035, from: 'end' },
-              ease: 'power2.in',
-              onComplete: hideOverlay,
-            });
-          } else {
-            hideOverlay();
-          }
-        }
-
-        window.addEventListener(
-          'resize',
-          function () {
-            if (!window.matchMedia('(max-width: 767px)').matches && menuOpen) closeMenu();
-          },
-          { passive: true },
-        );
-
-        if (navBurger && navMenuPanelEl) {
-          navBurger.addEventListener('click', function () {
-            if (menuOpen) closeMenu();
-            else openMenu();
-          });
-          menuCloseEls.forEach(function (el) {
-            el.addEventListener('click', function (e) {
-              if (e.target.closest('a')) return;
-              closeMenu();
-            });
-          });
-          if (navMenuEl) {
-            navMenuEl.addEventListener('click', function (e) {
-              var a = e.target.closest('a[href^="#"]');
-              if (!a) return;
-              closeMenu();
-            });
-          }
-        }
-
-        document.addEventListener(
-          'keydown',
-          function (e) {
-            var tag = (e.target && e.target.tagName) || '';
-            if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
-
-            if (menuOpen) {
-              if (e.key === 'Escape') {
-                e.preventDefault();
-                closeMenu();
-                return;
-              }
-              if (e.key === 'Tab' && navMenuPanelEl) {
-                var f = menuFocusables();
-                if (f.length) {
-                  var first = f[0],
-                    last = f[f.length - 1];
-                  if (e.shiftKey && document.activeElement === first) {
-                    e.preventDefault();
-                    last.focus();
-                  } else if (!e.shiftKey && document.activeElement === last) {
-                    e.preventDefault();
-                    first.focus();
-                  }
-                }
-                return;
-              }
-              if (
-                e.key === 'Home' ||
-                e.key === 'End' ||
-                e.key === 'ArrowDown' ||
-                e.key === 'PageDown' ||
-                e.key === 'ArrowUp' ||
-                e.key === 'PageUp'
-              ) {
-                return;
-              }
-              return;
-            }
-
-            if (e.key === 'Home') {
-              e.preventDefault();
-              scrollToScene(0);
-            } else if (e.key === 'End') {
-              e.preventDefault();
-              goToCta();
-            } else if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-              e.preventDefault();
-              if (isCtaInView()) return;
-              if (currentSceneIdx < scenes.length - 1) scrollToScene(currentSceneIdx + 1);
-              else goToCta();
-            } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-              e.preventDefault();
-              if (isCtaInView()) {
-                scrollToScene(5);
-                return;
-              }
-              if (currentSceneIdx > 0) scrollToScene(currentSceneIdx - 1);
-            }
-          },
-          { passive: false },
-        );
-
-        /* ——— Vignette + parallax (throttled rAF) ——— */
-        var tx = 0.5,
-          ty = 0.5;
-        var parallaxEls = document.querySelectorAll('[data-parallax]');
-
-        function tickParallax() {
-          if (prefersReduce || isMobile) return;
-          var lx = tx * 100,
-            ly = ty * 100;
-          document.documentElement.style.setProperty('--vx', lx + '%');
-          document.documentElement.style.setProperty('--vy', ly + '%');
-          var px = (tx - 0.5) * -18;
-          var py = (ty - 0.5) * -11;
-          parallaxEls.forEach(function (el) {
-            el.style.transform = 'translate3d(' + px + 'px,' + py + 'px,0)';
-          });
-        }
-
-        var parallaxTicking = false;
-        if (!prefersReduce && !isMobile) {
-          window.addEventListener(
-            'mousemove',
-            function (e) {
-              tx = e.clientX / window.innerWidth;
-              ty = e.clientY / window.innerHeight;
-              if (parallaxTicking) return;
-              parallaxTicking = true;
-              requestAnimationFrame(function () {
-                parallaxTicking = false;
-                tickParallax();
-              });
-            },
-            { passive: true },
-          );
-        } else {
-          document.documentElement.style.setProperty('--vx', '50%');
-          document.documentElement.style.setProperty('--vy', '50%');
-        }
-
-        /* ——— Intro plein écran (toujours sauf GSAP absent ; mobile = version courte) ——— */
-        var introCurtain = document.getElementById('introCurtain');
-        function finishIntroNav() {
-          document.documentElement.classList.remove('intro-active');
-          if (lenisRef && typeof lenisRef.start === 'function') lenisRef.start();
-          if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
-        }
-        if (introCurtain) {
-          if (typeof gsap === 'undefined') {
-            introCurtain.remove();
-            finishIntroNav();
-          } else if (prefersReduce) {
-            document.documentElement.classList.add('intro-active');
-            if (lenisRef && typeof lenisRef.stop === 'function') lenisRef.stop();
-            gsap.delayedCall(0.55, function () {
-              gsap.to(introCurtain, {
-                autoAlpha: 0,
-                duration: 0.45,
-                ease: 'power1.out',
-                onComplete: function () {
-                  if (introCurtain.parentNode) introCurtain.remove();
-                  finishIntroNav();
-                },
-              });
-            });
-          } else {
-            document.documentElement.classList.add('intro-active');
-            if (lenisRef && typeof lenisRef.stop === 'function') lenisRef.stop();
-            var dK = isMobile ? 0.38 : 0.55;
-            var dLine = isMobile ? 0.55 : 0.88;
-            var dWord = isMobile ? 0.52 : 0.78;
-            var dPause = isMobile ? 0.22 : 0.38;
-            var dOut = isMobile ? 0.5 : 0.68;
-            gsap.set('.intro-curtain-line', { scaleX: 0, transformOrigin: '50% 50%' });
-            gsap
-              .timeline({
-                defaults: { ease: 'power3.out' },
-                onComplete: function () {
-                  if (introCurtain.parentNode) introCurtain.remove();
-                  finishIntroNav();
-                },
-              })
-              .from('.intro-curtain-kicker', { opacity: 0, y: isMobile ? 6 : 10, duration: dK })
-              .to(
-                '.intro-curtain-line',
-                { scaleX: 1, duration: dLine, ease: 'power2.inOut' },
-                '-=' + (isMobile ? 0.15 : 0.22),
-              )
-              .from(
-                '.intro-curtain-wordmark',
-                { opacity: 0, y: isMobile ? 16 : 28, duration: dWord },
-                '-=' + (isMobile ? 0.42 : 0.58),
-              )
-              .to({}, { duration: dPause })
-              .to(introCurtain, { opacity: 0, duration: dOut, ease: 'power2.inOut' });
-          }
-        }
-
-        /* ——— Touch swipe ——— */
-        var t0 = 0,
-          x0 = 0;
-        window.addEventListener(
-          'touchstart',
-          function (e) {
-            if (!e.touches || !e.touches[0]) return;
-            t0 = Date.now();
-            x0 = e.touches[0].clientX;
-          },
-          { passive: true },
-        );
-        window.addEventListener(
-          'touchend',
-          function (e) {
-            if (!e.changedTouches || !e.changedTouches[0]) return;
-            var dx = e.changedTouches[0].clientX - x0;
-            if (Math.abs(dx) < 55 || Date.now() - t0 > 700) return;
-            var mid = window.innerHeight * 0.5;
-            var cur = 0;
-            scenes.forEach(function (s, idx) {
-              var r = s.getBoundingClientRect();
-              if (r.top <= mid && r.bottom >= mid) cur = idx;
-            });
-            if (dx < 0 && cur < scenes.length - 1) scrollToScene(cur + 1);
-            if (dx > 0 && cur > 0) scrollToScene(cur - 1);
-          },
-          { passive: true },
-        );
-
-        /* ——— Three.js particles ——— */
-        if (!prefersReduce && !isMobile && typeof THREE !== 'undefined') {
-          try {
-            var canvas = document.getElementById('particles-canvas');
-            var renderer = new THREE.WebGLRenderer({
-              canvas: canvas,
-              alpha: true,
-              antialias: false,
-              powerPreference: 'low-power',
-            });
-            var w = window.innerWidth;
-            var h = window.innerHeight;
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
-            renderer.setSize(w, h, false);
-            var scene3 = new THREE.Scene();
-            var cam = new THREE.PerspectiveCamera(55, w / h, 0.1, 100);
-            cam.position.z = 4;
-            var geo = new THREE.BufferGeometry();
-            var count = 260;
-            var pos = new Float32Array(count * 3);
-            for (var p = 0; p < count; p++) {
-              pos[p * 3] = (Math.random() - 0.5) * 10;
-              pos[p * 3 + 1] = (Math.random() - 0.5) * 8;
-              pos[p * 3 + 2] = (Math.random() - 0.5) * 4;
-            }
-            geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-            var mat = new THREE.PointsMaterial({
-              color: 0x00e5cc,
-              size: 0.042,
-              transparent: true,
-              opacity: 0.28,
-              depthWrite: false,
-              sizeAttenuation: true,
-            });
-            var pts = new THREE.Points(geo, mat);
-            scene3.add(pts);
-            var tAnim = 0;
-            var threeRunning = true;
-            document.addEventListener('visibilitychange', function () {
-              threeRunning = document.visibilityState === 'visible';
-            });
-            function loop() {
-              requestAnimationFrame(loop);
-              if (!threeRunning) return;
-              tAnim += 0.0022;
-              pts.rotation.y = Math.sin(tAnim * 0.4) * 0.08;
-              var arr = geo.attributes.position.array;
-              for (var k = 0; k < count; k++) {
-                arr[k * 3 + 1] += 0.0012;
-                if (arr[k * 3 + 1] > 5) arr[k * 3 + 1] = -4;
-              }
-              geo.attributes.position.needsUpdate = true;
-              renderer.render(scene3, cam);
-            }
-            loop();
-            window.addEventListener(
-              'resize',
-              function () {
-                var nw = window.innerWidth,
-                  nh = window.innerHeight;
-                renderer.setSize(nw, nh, false);
-                cam.aspect = nw / nh;
-                cam.updateProjectionMatrix();
-              },
-              { passive: true },
-            );
-          } catch (err) {
-            /* silencieux */
-          }
-        }
-      })();
-    </script>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Atelier Rivage — Architecture d'exception · Démo Pinapp</title>
+<meta name="description" content="Démonstration immersive pour cabinet d'architecture. Créé par Pinapp, studio digital à Bordeaux.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden;background:#0c0c0a;font-family:'Outfit',sans-serif;color:#fff;cursor:default}
+::selection{background:#C8A87A;color:#fff}
+img{display:block}
+
+/* === SLIDES === */
+.slide{position:fixed;inset:0;opacity:0;visibility:hidden;transition:opacity 1.4s cubic-bezier(.4,0,.2,1),visibility 0s 1.4s;overflow:hidden;z-index:1}
+.slide.active{opacity:1;visibility:visible;transition:opacity 1.4s cubic-bezier(.4,0,.2,1),visibility 0s 0s;z-index:2}
+.slide__img{position:absolute;inset:-8%;width:116%;height:116%;object-fit:cover;will-change:transform;filter:brightness(.45) saturate(.85);transition:transform .12s ease-out}
+.slide__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,12,10,.2) 0%,transparent 35%,transparent 55%,rgba(12,12,10,.92) 100%)}
+.slide__vignette{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 30%,rgba(12,12,10,.45) 100%);pointer-events:none}
+
+/* === NAV === */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.6rem 3.2rem;display:flex;justify-content:space-between;align-items:center;transition:background .5s,padding .5s}
+.nav.scrolled{background:rgba(12,12,10,.7);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);padding:1rem 3.2rem}
+.nav__logo{font-family:'Cormorant Garamond',serif;font-size:1.35rem;letter-spacing:.17em;font-weight:300;color:#fff;text-decoration:none}
+.nav__links{display:flex;gap:2.4rem}
+.nav__links a{color:rgba(255,255,255,.38);text-decoration:none;font-size:.56rem;letter-spacing:.17em;text-transform:uppercase;font-weight:300;transition:color .35s}
+.nav__links a:hover{color:#C8A87A}
+
+/* === CONTENT BOTTOM === */
+.content{position:fixed;bottom:0;left:0;right:0;z-index:50;padding:0 4rem 4.5rem;pointer-events:none}
+.content>*{pointer-events:all}
+.eyebrow{font-size:.48rem;letter-spacing:.38em;text-transform:uppercase;color:#C8A87A;margin-bottom:1.1rem;opacity:0;transform:translateY(12px);transition:all .7s ease}
+.eyebrow.show{opacity:1;transform:none}
+.title{font-family:'Cormorant Garamond',serif;font-weight:300;line-height:1.05;text-shadow:0 2px 50px rgba(0,0,0,.35);opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(.4,0,.2,1) .1s}
+.title.show{opacity:1;transform:none}
+.title--hero{font-size:clamp(2.6rem,6.5vw,5.2rem)}
+.title--project{font-size:clamp(1.9rem,4.5vw,3.2rem)}
+.title em{font-style:italic;color:#e8d5b8}
+.subtitle{font-size:.8rem;color:rgba(255,255,255,.48);margin-top:.55rem;font-weight:200;opacity:0;transform:translateY(10px);transition:all .6s ease .2s}
+.subtitle.show{opacity:1;transform:none}
+
+/* === THUMBS === */
+.thumbs{display:flex;gap:.55rem;margin-top:2.2rem;align-items:flex-end}
+.thumb{width:68px;height:44px;border-radius:4px;overflow:hidden;cursor:pointer;border:2px solid rgba(255,255,255,.07);transition:all .55s cubic-bezier(.4,0,.2,1);opacity:.35;flex-shrink:0}
+.thumb.active{width:118px;height:72px;border-color:#C8A87A;opacity:1}
+.thumb img{width:100%;height:100%;object-fit:cover;transition:filter .4s}
+.thumb:not(.active) img{filter:brightness(.45) saturate(.35)}
+.thumb:hover:not(.active){opacity:.6}
+
+/* === ARROWS === */
+.arrows{display:flex;gap:.5rem;margin-top:1.1rem;align-items:center}
+.arrow{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:rgba(255,255,255,.5);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.8rem;transition:all .3s;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.arrow:hover{border-color:#C8A87A;color:#C8A87A;background:rgba(200,168,122,.06)}
+.counter{font-size:.46rem;color:rgba(255,255,255,.18);margin-left:.6rem;letter-spacing:.12em;font-variant-numeric:tabular-nums}
+
+/* === DOTS === */
+.dots{position:fixed;right:1.4rem;top:50%;transform:translateY(-50%);z-index:80;display:flex;flex-direction:column;gap:.45rem}
+.dot{width:3px;height:7px;border-radius:1.5px;background:rgba(255,255,255,.1);cursor:pointer;transition:all .5s cubic-bezier(.4,0,.2,1)}
+.dot.active{height:20px;background:#C8A87A}
+.dot:hover:not(.active){background:rgba(255,255,255,.25)}
+
+/* === NUMBER === */
+.slide-num{position:fixed;top:50%;right:3rem;transform:translateY(-50%);writing-mode:vertical-rl;font-size:.46rem;letter-spacing:.2em;color:rgba(255,255,255,.12);text-transform:uppercase;z-index:60;transition:opacity .4s}
+
+/* === SCROLL HINT === */
+.scroll-hint{margin-top:2.4rem;display:flex;align-items:center;gap:.55rem}
+.scroll-hint svg{opacity:.3;animation:bob 2.5s ease-in-out infinite}
+.scroll-hint span{font-size:.46rem;letter-spacing:.12em;color:rgba(255,255,255,.22);text-transform:uppercase}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+/* === BADGE === */
+.badge{position:fixed;bottom:.9rem;right:1.4rem;z-index:90;display:flex;align-items:center;gap:.4rem;padding:.32rem .8rem;background:rgba(12,12,10,.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.05);border-radius:100px;text-decoration:none;transition:border-color .3s}
+.badge:hover{border-color:rgba(200,168,122,.25)}
+.badge__dot{width:4px;height:4px;border-radius:50%;background:#6BAF8D;animation:pulse 2.5s infinite}
+.badge__text{font-size:.42rem;color:rgba(255,255,255,.22);letter-spacing:.1em;text-transform:uppercase}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:.8}}
+
+/* === RESPONSIVE === */
+@media(max-width:768px){
+  .nav{padding:1rem 1.4rem}
+  .nav__links{display:none}
+  .content{padding:0 1.6rem 3rem}
+  .title--hero{font-size:2.4rem}
+  .title--project{font-size:1.7rem}
+  .thumb{width:48px;height:32px}
+  .thumb.active{width:82px;height:52px}
+  .slide-num{display:none}
+  .dots{right:.8rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="https://pinapp.fr" class="nav__logo">Atelier Rivage</a>
+  <div class="nav__links">
+    <a href="#">Villas</a>
+    <a href="#">L'atelier</a>
+    <a href="#">Contact</a>
+  </div>
+</nav>
+
+<!-- SLIDES -->
+<div id="slides"></div>
+
+<!-- SLIDE NUMBER -->
+<div class="slide-num" id="slideNum">01 / 06</div>
+
+<!-- CONTENT -->
+<div class="content">
+  <p class="eyebrow" id="eyebrow">Architecture résidentielle · Bordeaux & Littoral atlantique</p>
+  <h1 class="title title--hero" id="title">Entrez dans<br>nos <em>créations.</em></h1>
+  <p class="subtitle" id="subtitle">Naviguez à travers nos villas d'exception</p>
+
+  <div class="thumbs" id="thumbs"></div>
+
+  <div class="arrows">
+    <button class="arrow" id="prev" aria-label="Projet précédent">&#8592;</button>
+    <button class="arrow" id="next" aria-label="Projet suivant">&#8594;</button>
+    <span class="counter" id="counter">01 / 06</span>
+  </div>
+
+  <div class="scroll-hint" id="scrollHint">
+    <svg width="18" height="28" viewBox="0 0 18 28" fill="none"><rect x="1" y="1" width="16" height="26" rx="8" stroke="rgba(255,255,255,.25)" stroke-width="1.2"/><circle cx="9" cy="9" r="1.8" fill="rgba(255,255,255,.4)"><animate attributeName="cy" values="8;18;8" dur="2.2s" repeatCount="indefinite"/></circle></svg>
+    <span>Scroll ou cliquez</span>
+  </div>
+</div>
+
+<!-- DOTS -->
+<div class="dots" id="dots"></div>
+
+<!-- BADGE -->
+<a href="https://pinapp.fr" target="_blank" rel="noopener" class="badge">
+  <span class="badge__dot"></span>
+  <span class="badge__text">Créé par Pinapp</span>
+</a>
+
+<script>
+/* ======= DATA ======= */
+var DATA = [
+  {t:"Villa Lumière", l:"Cap Ferret · 480 m²", d:"Piscine à débordement face à l'Atlantique. Béton blanc, bois de cèdre et baies vitrées plein sud.", i:"photo-1613490493576-7fde63acd811"},
+  {t:"Les Jardins Suspendus", l:"Biarritz · 350 m²", d:"Terrasses végétalisées en cascade surplombant la côte basque.", i:"photo-1512917774080-9991f1c4c750"},
+  {t:"Maison Pierre", l:"Saint-Émilion · 420 m²", d:"Chai réhabilité en résidence contemporaine. Pierre blonde et acier noir.", i:"photo-1600596542815-ffad4c1539a9"},
+  {t:"Villa Éclipse", l:"Arcachon · 290 m²", d:"Infinity pool surplombant le Bassin. Architecture bioclimatique.", i:"photo-1582268611958-ebfd161ef9cf"},
+  {t:"L'Intérieur", l:"Bordeaux · 260 m²", d:"Double hauteur, verrière zénithale, béton ciré. Lumière naturelle absolue.", i:"photo-1600607687939-ce8a6c25118c"},
+  {t:"Horizon Bleu", l:"Hossegor · 310 m²", d:"Face à l'océan. Bois flotté, lin et pierre. Une maison qui respire.", i:"photo-1574739782594-db4ead022697"}
+];
+
+var cur = 0;
+var slidesEl = document.getElementById('slides');
+var thumbsEl = document.getElementById('thumbs');
+var dotsEl = document.getElementById('dots');
+var titleEl = document.getElementById('title');
+var subtitleEl = document.getElementById('subtitle');
+var eyebrowEl = document.getElementById('eyebrow');
+var counterEl = document.getElementById('counter');
+var slideNumEl = document.getElementById('slideNum');
+var scrollHintEl = document.getElementById('scrollHint');
+
+/* ======= BUILD SLIDES ======= */
+DATA.forEach(function(d, i) {
+  /* Slide */
+  var s = document.createElement('div');
+  s.className = 'slide' + (i === 0 ? ' active' : '');
+  var img = document.createElement('img');
+  img.className = 'slide__img';
+  img.src = 'https://images.unsplash.com/' + d.i + '?w=1920&q=85';
+  img.alt = d.t;
+  if (i > 0) img.loading = 'lazy';
+  s.appendChild(img);
+  var ov = document.createElement('div'); ov.className = 'slide__overlay'; s.appendChild(ov);
+  var vi = document.createElement('div'); vi.className = 'slide__vignette'; s.appendChild(vi);
+  slidesEl.appendChild(s);
+
+  /* Thumb */
+  var th = document.createElement('div');
+  th.className = 'thumb' + (i === 0 ? ' active' : '');
+  var ti = document.createElement('img');
+  ti.src = 'https://images.unsplash.com/' + d.i + '?w=300&q=60';
+  ti.alt = d.t;
+  ti.loading = 'lazy';
+  th.appendChild(ti);
+  th.addEventListener('click', function() { goTo(i); });
+  thumbsEl.appendChild(th);
+
+  /* Dot */
+  var dot = document.createElement('div');
+  dot.className = 'dot' + (i === 0 ? ' active' : '');
+  dot.addEventListener('click', function() { goTo(i); });
+  dotsEl.appendChild(dot);
+});
+
+var slides = document.querySelectorAll('.slide');
+var thumbs = thumbsEl.children;
+var dots = dotsEl.children;
+
+/* ======= SHOW TEXT ======= */
+function showText() {
+  eyebrowEl.classList.add('show');
+  titleEl.classList.add('show');
+  subtitleEl.classList.add('show');
+}
+function hideText(cb) {
+  eyebrowEl.classList.remove('show');
+  titleEl.classList.remove('show');
+  subtitleEl.classList.remove('show');
+  setTimeout(cb, 400);
+}
+
+/* Show initial text */
+setTimeout(showText, 300);
+
+/* ======= NAVIGATION ======= */
+function goTo(n) {
+  if (n === cur) return;
+  hideText(function() {
+    slides[cur].classList.remove('active');
+    thumbs[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+
+    cur = n;
+
+    slides[cur].classList.add('active');
+    thumbs[cur].classList.add('active');
+    dots[cur].classList.add('active');
+
+    if (cur === 0) {
+      titleEl.className = 'title title--hero';
+      titleEl.innerHTML = 'Entrez dans<br>nos <em>créations.</em>';
+      subtitleEl.textContent = "Naviguez à travers nos villas d'exception";
+      eyebrowEl.style.display = 'block';
+      scrollHintEl.style.display = 'flex';
+    } else {
+      titleEl.className = 'title title--project';
+      titleEl.textContent = DATA[cur].t;
+      subtitleEl.textContent = DATA[cur].l + ' — ' + DATA[cur].d;
+      eyebrowEl.style.display = 'none';
+      scrollHintEl.style.display = 'none';
+    }
+
+    counterEl.textContent = String(cur + 1).padStart(2, '0') + ' / ' + String(DATA.length).padStart(2, '0');
+    slideNumEl.textContent = String(cur + 1).padStart(2, '0') + ' / ' + String(DATA.length).padStart(2, '0');
+
+    setTimeout(showText, 100);
+  });
+}
+
+document.getElementById('prev').addEventListener('click', function() {
+  goTo(cur > 0 ? cur - 1 : DATA.length - 1);
+});
+document.getElementById('next').addEventListener('click', function() {
+  goTo(cur < DATA.length - 1 ? cur + 1 : 0);
+});
+
+/* ======= PARALLAX SOURIS ======= */
+var mx = 0, my = 0, raf;
+function updateParallax() {
+  var img = slides[cur].querySelector('.slide__img');
+  if (img) {
+    var x = (mx - 0.5) * -18;
+    var y = (my - 0.5) * -10;
+    img.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(1.06)';
+  }
+  raf = requestAnimationFrame(updateParallax);
+}
+document.addEventListener('mousemove', function(e) {
+  mx = e.clientX / window.innerWidth;
+  my = e.clientY / window.innerHeight;
+});
+raf = requestAnimationFrame(updateParallax);
+
+/* ======= KEYBOARD ======= */
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(cur < DATA.length - 1 ? cur + 1 : 0); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(cur > 0 ? cur - 1 : DATA.length - 1); }
+});
+
+/* ======= SCROLL WHEEL ======= */
+var scrollThrottle = false;
+document.addEventListener('wheel', function(e) {
+  if (scrollThrottle) return;
+  scrollThrottle = true;
+  setTimeout(function() { scrollThrottle = false; }, 1200);
+  if (e.deltaY > 0) goTo(cur < DATA.length - 1 ? cur + 1 : 0);
+  else goTo(cur > 0 ? cur - 1 : DATA.length - 1);
+}, { passive: true });
+
+/* ======= TOUCH SWIPE ======= */
+var touchY = 0;
+document.addEventListener('touchstart', function(e) { touchY = e.touches[0].clientY; }, { passive: true });
+document.addEventListener('touchend', function(e) {
+  var diff = e.changedTouches[0].clientY - touchY;
+  if (Math.abs(diff) > 40) {
+    if (diff < 0) goTo(cur < DATA.length - 1 ? cur + 1 : 0);
+    else goTo(cur > 0 ? cur - 1 : DATA.length - 1);
+  }
+}, { passive: true });
+
+/* ======= REDUCED MOTION ======= */
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  cancelAnimationFrame(raf);
+}
+</script>
+</body>
 </html>
