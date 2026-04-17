@@ -28,10 +28,16 @@
   var secteurFilter = document.getElementById('secteur_filter');
   var outilsAutre = document.getElementById('outils_autre');
   var outilsAutreWrap = document.getElementById('outils_autre_wrap');
+  var filmExtraWrap = document.getElementById('film_ia_extra_wrap');
+  var filmCadeauWrap = document.getElementById('film_ia_cadeau_wrap');
+  var cbFilmIa = document.getElementById('interest_film_ia');
+  var cbFilmCadeau = document.getElementById('interest_film_ia_cadeau');
 
   var currentStep = 0;
   var maxStep = 4;
   var FILE_MAX = 5 * 1024 * 1024;
+  var VAL_FILM_IA = 'Film IA — me mettre en scène dans un univers cinématique';
+  var VAL_FILM_CADEAU = 'Film IA cadeau — offrir un film à un proche';
 
   function setErr(msg) {
     if (!errEl) return;
@@ -111,6 +117,23 @@
       var oa = form.querySelector('input[name="outils_num"][value="Autre"]');
       if (oa && oa.checked && !val(outilsAutre))
         return 'Merci de préciser le champ « Autre » pour les outils numériques.';
+      if (filmIaAnyChecked()) {
+        if (!val(document.getElementById('film_ia_personnes')))
+          return 'Indiquez le nombre de personnes pour le Film IA.';
+        if (!form.querySelectorAll('input[name="film_ia_univers"]:checked').length)
+          return 'Choisissez au moins un univers pour le Film IA.';
+        if (!form.querySelector('input[name="film_ia_pour"]:checked'))
+          return 'Indiquez à quoi sert votre Film IA (champ « C’est pour ? »).';
+        if (!form.querySelector('input[name="film_ia_duree"]:checked'))
+          return 'Choisissez une durée souhaitée pour le Film IA.';
+        if (filmCadeauChecked()) {
+          if (!val(document.getElementById('film_ia_destinataire')))
+            return 'Indiquez le destinataire du Film IA cadeau.';
+          if (!val(document.getElementById('film_ia_occasion'))) return 'Indiquez l’occasion du Film IA cadeau.';
+          if (!val(document.getElementById('film_ia_livraison')))
+            return 'Indiquez la date souhaitée de livraison pour le Film IA cadeau.';
+        }
+      }
     }
     if (step === 3) {
       var f = fichier && fichier.files[0] ? fichier.files[0] : null;
@@ -129,6 +152,41 @@
       out.push(c.value);
     });
     return out;
+  }
+
+  function selectedFilmUnivers() {
+    var out = [];
+    form.querySelectorAll('input[name="film_ia_univers"]:checked').forEach(function (c) {
+      out.push(c.value);
+    });
+    return out;
+  }
+
+  function filmIaAnyChecked() {
+    return (cbFilmIa && cbFilmIa.checked) || (cbFilmCadeau && cbFilmCadeau.checked);
+  }
+
+  function filmCadeauChecked() {
+    return cbFilmCadeau && cbFilmCadeau.checked;
+  }
+
+  function syncFilmIaPanels() {
+    var any = filmIaAnyChecked();
+    var cad = filmCadeauChecked();
+    if (filmExtraWrap) filmExtraWrap.hidden = !any;
+    if (filmCadeauWrap) filmCadeauWrap.hidden = !cad;
+    var selP = document.getElementById('film_ia_personnes');
+    if (selP) selP.required = any;
+    var pourFirst = form.querySelector('input[name="film_ia_pour"]');
+    var dureeFirst = form.querySelector('input[name="film_ia_duree"]');
+    if (pourFirst) pourFirst.required = any;
+    if (dureeFirst) dureeFirst.required = any;
+    var dDest = document.getElementById('film_ia_destinataire');
+    var dOcc = document.getElementById('film_ia_occasion');
+    var dLiv = document.getElementById('film_ia_livraison');
+    if (dDest) dDest.required = cad;
+    if (dOcc) dOcc.required = cad;
+    if (dLiv) dLiv.required = cad;
   }
 
   function selectedOutilsNum() {
@@ -179,6 +237,30 @@
 
   function buildPayload() {
     var interets = selectedInterets();
+    var fiPerso = interets.indexOf(VAL_FILM_IA) !== -1;
+    var fiCadeau = interets.indexOf(VAL_FILM_CADEAU) !== -1;
+    var filmIaObj = null;
+    if (fiPerso || fiCadeau) {
+      filmIaObj = {
+        type_perso: fiPerso,
+        type_cadeau: fiCadeau,
+        personnes: val(document.getElementById('film_ia_personnes')) || null,
+        univers: selectedFilmUnivers(),
+        pour: (function () {
+          var r = form.querySelector('input[name="film_ia_pour"]:checked');
+          return r ? r.value : null;
+        })(),
+        duree: (function () {
+          var r = form.querySelector('input[name="film_ia_duree"]:checked');
+          return r ? r.value : null;
+        })(),
+      };
+      if (fiCadeau) {
+        filmIaObj.destinataire = val(document.getElementById('film_ia_destinataire')) || null;
+        filmIaObj.occasion = val(document.getElementById('film_ia_occasion')) || null;
+        filmIaObj.livraison_souhaitee = val(document.getElementById('film_ia_livraison')) || null;
+      }
+    }
     return {
       source: 'pinapp.fr/diagnostic',
       acquisition_source: acquisitionSource(),
@@ -217,6 +299,7 @@
           return r ? r.value : null;
         })(),
         creneau_contact: val(document.getElementById('creneau_contact')) || null,
+        film_ia: filmIaObj,
       },
       message_libre: val(messageLibre) || null,
       meta: {
@@ -282,6 +365,42 @@
     );
   }
 
+  function formatTelegramFilmIa(p) {
+    var fi = p.besoin && p.besoin.film_ia;
+    if (!fi) return '';
+    var v = p.vous;
+    var e = p.entreprise;
+    var types = [];
+    if (fi.type_perso) types.push('Film IA perso');
+    if (fi.type_cadeau) types.push('Film IA cadeau');
+    var uni = (fi.univers || []).join(', ') || '—';
+    var msg = p.message_libre || '—';
+    var ent = e && e.nom && String(e.nom).trim() ? e.nom : '—';
+    var lines = [];
+    lines.push('🎬 NOUVEAU DIAGNOSTIC — FILM IA');
+    lines.push('');
+    lines.push('👤 ' + v.prenom + ' ' + v.nom);
+    lines.push('📧 ' + v.email + ' · 📱 ' + v.telephone);
+    lines.push('🏢 ' + ent);
+    lines.push('');
+    lines.push('🎬 Type : ' + (types.length ? types.join(' / ') : '—'));
+    lines.push('👥 Personnes : ' + (fi.personnes || '—'));
+    lines.push('🌍 Univers : ' + uni);
+    lines.push('🎯 Pour : ' + (fi.pour || '—'));
+    lines.push('⏱ Durée : ' + (fi.duree || '—'));
+    if (fi.type_cadeau) {
+      lines.push('🎁 Destinataire : ' + (fi.destinataire || '—'));
+      lines.push('📅 Livraison souhaitée : ' + (fi.livraison_souhaitee || '—'));
+      if (fi.occasion) lines.push('🎊 Occasion : ' + fi.occasion);
+    }
+    lines.push('');
+    lines.push('💬 Message libre :');
+    lines.push(msg);
+    lines.push('');
+    lines.push('→ Rappeler sous 24h · Envoyer le guide photos');
+    return lines.join('\n');
+  }
+
   function escapeHtml(s) {
     return String(s)
       .replace(/&/g, '&amp;')
@@ -315,6 +434,18 @@
     row('Ville', p.entreprise.ville);
     row('Département', p.entreprise.departement || '—');
     row('Intérêts', (p.besoin.interets || []).join(', '));
+    if (p.besoin.film_ia) {
+      var fi = p.besoin.film_ia;
+      row('Film IA — personnes', fi.personnes || '—');
+      row('Film IA — univers', (fi.univers || []).join(', ') || '—');
+      row('Film IA — pour', fi.pour || '—');
+      row('Film IA — durée', fi.duree || '—');
+      if (fi.type_cadeau) {
+        row('Film IA cadeau — destinataire', fi.destinataire || '—');
+        row('Film IA cadeau — occasion', fi.occasion || '—');
+        row('Film IA cadeau — livraison', fi.livraison_souhaitee || '—');
+      }
+    }
     row('Problème principal', p.besoin.probleme || '—');
     row('Budget', p.besoin.budget || '—');
     row('Délai', p.besoin.delai || '—');
@@ -328,11 +459,13 @@
 
   function mailtoBody(p) {
     var tg = p.telegram_digest || formatTelegram(p);
+    var filmTg = p.telegram_film_ia ? '\n\n--- Telegram Film IA ---\n' + p.telegram_film_ia : '';
     return (
       '=== DIAGNOSTIC PINAPP ===\n\n' +
       JSON.stringify(p, null, 2) +
       '\n\n--- Format Telegram ---\n' +
-      tg
+      tg +
+      filmTg
     );
   }
 
@@ -502,8 +635,10 @@
       var on = autre && autre.checked;
       if (interestAutreWrap) interestAutreWrap.hidden = !on;
       if (interestAutre) interestAutre.required = !!on;
+      syncFilmIaPanels();
     });
   });
+  syncFilmIaPanels();
 
   if (messageLibre && charCount) {
     function updCount() {
@@ -523,6 +658,19 @@
       } else setErr('');
     });
   }
+
+  try {
+    var uq = new URLSearchParams(window.location.search);
+    var bq = String(uq.get('besoin') || '').trim();
+    if (bq === 'film-ia' && cbFilmIa) {
+      cbFilmIa.checked = true;
+      syncFilmIaPanels();
+    }
+    if (bq === 'film-ia-cadeau' && cbFilmCadeau) {
+      cbFilmCadeau.checked = true;
+      syncFilmIaPanels();
+    }
+  } catch (_uq) {}
 
   slideTo(0);
 })();

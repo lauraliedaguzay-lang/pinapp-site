@@ -513,7 +513,7 @@
                         <!-- Étape 3 -->
                         <div class="pp-form-step-wrap" aria-hidden="true">
                           <div class="pp-form-step">
-                            <h2 class="pp-form-title">Ce qu’on peut faire pour vous</h2>
+                            <h2 class="pp-form-title">Votre besoin</h2>
                             <p class="pp-form-sub">Cochez tout ce qui correspond à votre recherche (au moins une case).</p>
                             <div class="pp-field">
                               <span class="pp-field-label">Qu’est-ce qui vous intéresse ? <span class="req">*</span></span>
@@ -534,24 +534,148 @@
                                   ><input type="checkbox" name="interets" value="Vidéo / Photo professionnelle" /> Vidéo /
                                   Photo professionnelle</label
                                 >
+                                <label class="pp-form-check"
+                                  ><input
+                                    type="checkbox"
+                                    name="interets"
+                                    id="interest_film_ia"
+                                    value="Film IA — me mettre en scène dans un univers cinématique" />
+                                  Film IA — me mettre en scène dans un univers cinématique</label
+                                >
+                                <label class="pp-form-check"
+                                  ><input
+                                    type="checkbox"
+                                    name="interets"
+                                    id="interest_film_ia_cadeau"
+                                    value="Film IA cadeau — offrir un film à un proche" />
+                                  Film IA cadeau — offrir un film à un proche</label
+                                >
                                 <label class="pp-form-check"><input type="checkbox" name="interets" value="Formation" /> Formation</label>
-                                <label class="pp-form-check"
-                                  ><input type="checkbox" name="interets" value="Film IA (clip / court-métrage)" /> Film IA (clip /
-                                  court-métrage)</label
-                                >
-                                <label class="pp-form-check"
-                                  ><input type="checkbox" name="interets" value="Film IA cadeau" /> Film IA cadeau</label
-                                >
-                                <label class="pp-form-check"
-                                  ><input type="checkbox" name="interets" value="Pack complet (site + auto + vidéo)" /> Pack complet
-                                  (site + auto + vidéo)</label
-                                >
+                                <label class="pp-form-check"><input type="checkbox" name="interets" value="Pack complet" /> Pack complet</label>
                                 <label class="pp-form-check"><input type="checkbox" name="interets" value="Autre" /> Autre</label>
                               </div>
                             </div>
                             <div class="pp-field" id="interest_autre_wrap" hidden>
                               <label for="interest_autre">Précisez « Autre »</label>
                               <input id="interest_autre" name="interest_autre" type="text" />
+                            </div>
+
+                            <div id="film_ia_extra_wrap" class="pp-film-ia-extra" hidden>
+                              <h3 class="pp-film-ia-subtitle">Votre projet Film IA</h3>
+                              <div class="pp-field">
+                                <label for="film_ia_personnes">Combien de personnes à mettre en scène ? <span class="req">*</span></label>
+                                <select id="film_ia_personnes" name="film_ia_personnes">
+                                  <option value="">—</option>
+                                  <option value="1 personne">1 personne</option>
+                                  <option value="2 personnes">2 personnes</option>
+                                  <option value="3 personnes">3 personnes</option>
+                                  <option value="Plus de 3 (nous contacter)">Plus de 3 (nous contacter)</option>
+                                </select>
+                              </div>
+                              <fieldset class="pp-field pp-field--fieldset">
+                                <legend class="pp-field-label">Quel univers vous attire ? <span class="req">*</span> (plusieurs choix possibles)</legend>
+                                <div class="pp-form-checkboxes" role="group" aria-label="Univers Film IA">
+                                  <label class="pp-form-check"
+                                    ><input type="checkbox" name="film_ia_univers" value="Science-fiction (Star Wars, Matrix, Interstellar…)" />
+                                    Science-fiction (Star Wars, Matrix, Interstellar…)</label
+                                  >
+                                  <label class="pp-form-check"><input type="checkbox" name="film_ia_univers" value="Action / Aventure" /> Action / Aventure</label>
+                                  <label class="pp-form-check"
+                                    ><input type="checkbox" name="film_ia_univers" value="Horreur (Resident Evil, Zombie…)" /> Horreur
+                                    (Resident Evil, Zombie…)</label
+                                  >
+                                  <label class="pp-form-check"
+                                    ><input type="checkbox" name="film_ia_univers" value="Western (Walker, Django…)" /> Western (Walker,
+                                    Django…)</label
+                                  >
+                                  <label class="pp-form-check"
+                                    ><input type="checkbox" name="film_ia_univers" value="Fantaisie / Médiéval" /> Fantaisie / Médiéval</label
+                                  >
+                                  <label class="pp-form-check"><input type="checkbox" name="film_ia_univers" value="Super-héros" /> Super-héros</label>
+                                  <label class="pp-form-check"
+                                    ><input type="checkbox" name="film_ia_univers" value="Film noir / Thriller" /> Film noir / Thriller</label
+                                  >
+                                  <label class="pp-form-check"><input type="checkbox" name="film_ia_univers" value="Comédie" /> Comédie</label>
+                                  <label class="pp-form-check"
+                                    ><input type="checkbox" name="film_ia_univers" value="Univers sur-mesure (décrivez dans le champ libre)" />
+                                    Univers sur-mesure (décrivez dans le champ libre)</label
+                                  >
+                                </div>
+                              </fieldset>
+                              <fieldset class="pp-field pp-field--fieldset">
+                                <legend class="pp-field-label">C’est pour ? <span class="req">*</span></legend>
+                                <div class="pp-form-checkboxes" role="radiogroup" aria-label="Objectif Film IA">
+                                  <label class="pp-form-check"
+                                    ><input type="radio" name="film_ia_pour" value="Ma marque / mes réseaux pro" /> Ma marque / mes réseaux
+                                    pro</label
+                                  >
+                                  <label class="pp-form-check"
+                                    ><input type="radio" name="film_ia_pour" value="Un événement (lancement, soirée, salon)" /> Un événement
+                                    (lancement, soirée, salon)</label
+                                  >
+                                  <label class="pp-form-check"
+                                    ><input type="radio" name="film_ia_pour" value="Un cadeau (anniversaire, mariage, départ, EVG/EVJF)" /> Un
+                                    cadeau (anniversaire, mariage, départ, EVG/EVJF)</label
+                                  >
+                                  <label class="pp-form-check"
+                                    ><input type="radio" name="film_ia_pour" value="Du fun / personnel" /> Du fun / personnel</label
+                                  >
+                                  <label class="pp-form-check"><input type="radio" name="film_ia_pour" value="Autre (objectif)" /> Autre</label>
+                                </div>
+                              </fieldset>
+                              <fieldset class="pp-field pp-field--fieldset">
+                                <legend class="pp-field-label">Durée souhaitée ? <span class="req">*</span></legend>
+                                <div class="pp-form-checkboxes" role="radiogroup" aria-label="Durée Film IA">
+                                  <label class="pp-form-check"
+                                    ><input type="radio" name="film_ia_duree" value="Clip 30s-1min (à partir de 1 000€)" /> Clip 30s-1min (à
+                                    partir de 1 000€)</label
+                                  >
+                                  <label class="pp-form-check"
+                                    ><input type="radio" name="film_ia_duree" value="Court-métrage 1min30-3min (à partir de 2 000€)" />
+                                    Court-métrage 1min30-3min (à partir de 2 000€)</label
+                                  >
+                                  <label class="pp-form-check"
+                                    ><input type="radio" name="film_ia_duree" value="Film 3-5min (à partir de 3 500€)" /> Film 3-5min (à partir
+                                    de 3 500€)</label
+                                  >
+                                  <label class="pp-form-check"
+                                    ><input type="radio" name="film_ia_duree" value="Je ne sais pas encore" /> Je ne sais pas encore</label
+                                  >
+                                </div>
+                              </fieldset>
+                              <div class="pp-film-ia-info" role="note">
+                                <strong>Info pratique</strong>
+                                <p>
+                                  📸 Pour réaliser votre film, nous aurons besoin de <strong>10 photos</strong> de chaque personne à mettre en
+                                  scène (visage de face, de profil, différentes expressions). On vous envoie un guide détaillé après votre
+                                  diagnostic.
+                                </p>
+                              </div>
+                            </div>
+
+                            <div id="film_ia_cadeau_wrap" class="pp-film-ia-cadeau" hidden>
+                              <h3 class="pp-film-ia-subtitle">Film IA cadeau</h3>
+                              <div class="pp-field">
+                                <label for="film_ia_destinataire">Qui est le destinataire ? <span class="req">*</span></label>
+                                <input
+                                  id="film_ia_destinataire"
+                                  name="film_ia_destinataire"
+                                  type="text"
+                                  autocomplete="name"
+                                  placeholder="Prénom du destinataire" />
+                              </div>
+                              <div class="pp-field">
+                                <label for="film_ia_occasion">L’occasion ? <span class="req">*</span></label>
+                                <input
+                                  id="film_ia_occasion"
+                                  name="film_ia_occasion"
+                                  type="text"
+                                  placeholder="Anniversaire, mariage, départ…" />
+                              </div>
+                              <div class="pp-field">
+                                <label for="film_ia_livraison">Date souhaitée de livraison ? <span class="req">*</span></label>
+                                <input id="film_ia_livraison" name="film_ia_livraison" type="date" />
+                              </div>
                             </div>
                             <div class="pp-field">
                               <label for="probleme">Quel est votre plus gros problème aujourd’hui ?</label>
