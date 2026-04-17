@@ -38,3 +38,7 @@ Semaine 2 : W7 + W8 (maintenance + Auralis)
 **Variables d’environnement** (Hostinger / n8n) : `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_LAURALIE`, `TELEGRAM_CHAT_MICHA`, `LEAD_FROM`, `LEAD_MAGNET_MAIL_API` (optionnel), clé Resend ou autre selon le nœud final. **Aucun secret dans le dépôt.**
 
 Après import, remplacez le nœud HTTP email de W11 par Gmail / SMTP n8n si vous préférez les credentials intégrés.
+
+## Formulaire `/diagnostic/` (site statique)
+
+Le front envoie un JSON `POST` (ou `multipart/form-data` avec champ `payload` + fichier) vers `window.__PINAPP__.WEBHOOK_DIAGNOSTIC` ou `WEBHOOK_N8N`. Champs utiles : `vous`, `entreprise`, `besoin`, `message_libre`, `meta`, `telegram_digest` (texte prêt pour Telegram), `submittedAt`, `source`.

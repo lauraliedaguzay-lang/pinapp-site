@@ -23,13 +23,17 @@
     <!-- /PINAPP_SEO_MANAGED -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Diagnostic offert 30 min — Pinapp</title>
-    <meta name="description" content="Décrivez votre besoin en 2 min. Réponse sous 24h avec diagnostic concret. Aucun engagement. Pinapp Inc." />
+    <meta
+      name="description"
+      content="Diagnostic offert : formulaire premium en 5 étapes. Réponse sous 24h, diagnostic 30 min. Aucun engagement. Pinapp Inc." />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/assets/css/pinapp-global.css" />
     <link rel="stylesheet" href="/assets/css/diagnostic-native.css" />
     <script src="/assets/js/theme.js"></script>
     <script>
       window.__PINAPP__ = Object.assign({}, window.__PINAPP__ || {}, {
+        /** URL webhook n8n (diagnostic complet). Prioritaire sur WEBHOOK_N8N. */
+        WEBHOOK_DIAGNOSTIC: '',
         WEBHOOK_N8N: '',
       });
     </script>
@@ -185,7 +189,7 @@
     <main id="main">
       <div class="snap-container">
         <section class="snap-section" id="diag-hero" style="justify-content: center; text-align: center">
-          <div class="container" style="max-width: 700px; margin: 0 auto">
+          <div class="container" style="max-width: 720px; margin: 0 auto">
             <span class="label anim-fade">Premier échange offert</span>
             <h1
               style="font-size: clamp(36px, 6vw, 72px); letter-spacing: -0.04em; margin-bottom: 24px"
@@ -197,8 +201,8 @@
               style="font-size: 17px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.6"
               class="anim-up"
               data-delay="180">
-              Décrivez votre besoin par écrit. Nous vous répondons sous 24h avec un diagnostic et une proposition
-              concrète. Aucun engagement.
+              Formulaire premium en 5 étapes — nous collectons le contexte utile pour un diagnostic gratuit de 30
+              minutes. Réponse sous 24 h. Aucun engagement.
             </p>
             <p
               style="
@@ -212,146 +216,341 @@
               "
               class="anim-up"
               data-delay="200">
-              Quelques questions courtes, puis vos coordonnées : nous structurons la réponse en fonction de vos
-              réponses. Pour monter en autonomie avant un projet, voir aussi les
-              <a href="/offres/formation/" style="color: var(--accent)">formations</a>.
+              Pour monter en autonomie avant un projet, voir aussi les
+              <a href="/offres/formation/" style="color: var(--accent)">formations</a> et le
+              <a href="/formations/kit-prompts/" style="color: var(--accent)">Kit prompts 19,90 €</a>.
             </p>
-            <div class="card anim-scale" style="padding: 40px; text-align: left" data-delay="240">
+            <div class="card anim-scale" style="padding: clamp(20px, 4vw, 40px); text-align: left" data-delay="240">
               <div
                 style="
                   font-size: 11px;
                   letter-spacing: 0.14em;
                   text-transform: uppercase;
                   color: var(--accent);
-                  margin-bottom: 24px;
+                  margin-bottom: 12px;
                 ">
                 Formulaire de diagnostic
               </div>
-              <p style="font-size: 13px; color: var(--text-muted); margin: -12px 0 20px; line-height: 1.55">
-                Quelques questions courtes, puis vos coordonnées : nous vous répondons sous 24 h avec une proposition
-                claire. Si l’envoi en ligne est momentanément indisponible, votre messagerie s’ouvre avec le
-                récapitulatif pré-rempli.
+              <p style="font-size: 13px; color: var(--text-muted); margin: 0 0 20px; line-height: 1.55">
+                Si le webhook n8n n’est pas configuré, votre messagerie s’ouvre avec le récapitulatif pré-rempli (les
+                pièces jointes ne passent pas par mailto — nous vous dirons comment les envoyer).
               </p>
 
-              <div class="pp-diag" id="ppDiag" data-native-diagnostic>
-                <div class="pp-diag__progress" aria-hidden="true">
-                  <div class="pp-diag__bar" id="ppBar" style="width: 0%"></div>
-                </div>
-                <p id="ppDiagErr" class="pp-diag__err" role="alert" aria-live="polite" aria-hidden="true"></p>
-
-                <div class="pp-diag__step active" data-step="1" role="region" aria-labelledby="pp-diag-q1">
-                  <p class="pp-diag__q" id="pp-diag-q1">Vous avez besoin de ?</p>
-                  <p class="pp-diag__sub">Choisissez ce qui vous parle le plus.</p>
-                  <div class="pp-diag__pills" data-field="besoin">
-                    <button type="button" class="pp-diag__pill" data-value="Automatisation" aria-pressed="false">
-                      Automatisation
-                    </button>
-                    <button type="button" class="pp-diag__pill" data-value="Site premium" aria-pressed="false">
-                      Site premium
-                    </button>
-                    <button type="button" class="pp-diag__pill" data-value="Systeme IA" aria-pressed="false">
-                      Système IA
-                    </button>
-                    <button type="button" class="pp-diag__pill" data-value="Je ne sais pas encore" aria-pressed="false">
-                      Je ne sais pas encore
-                    </button>
+              <div class="pp-form-shell" id="diagFormShell">
+                <div class="pp-form-inner" id="diagFormInner">
+                  <div class="pp-form-progress" id="diagProgress" aria-label="Progression">
+                    <div class="pp-form-progress-bar active"></div>
+                    <div class="pp-form-progress-bar"></div>
+                    <div class="pp-form-progress-bar"></div>
+                    <div class="pp-form-progress-bar"></div>
+                    <div class="pp-form-progress-bar"></div>
                   </div>
+                  <p id="diagFormErr" class="pp-form-err" role="alert" aria-live="polite" aria-hidden="true"></p>
+
+                  <form class="pp-form" id="diagnosticForm" novalidate>
+                    <div class="pp-form-slider">
+                      <div class="pp-form-track" id="diagTrack">
+                        <!-- Étape 1 -->
+                        <div class="pp-form-step-wrap" aria-hidden="false">
+                          <div class="pp-form-step">
+                            <h2 class="pp-form-title">Parlons de vous</h2>
+                            <p class="pp-form-sub">Les informations pour vous recontacter et cadrer l’échange.</p>
+                            <div class="pp-form-grid-2">
+                              <div class="pp-field pp-field--half">
+                                <label for="prenom">Prénom <span class="req">*</span></label>
+                                <input id="prenom" name="prenom" type="text" autocomplete="given-name" required />
+                              </div>
+                              <div class="pp-field pp-field--half">
+                                <label for="nom">Nom <span class="req">*</span></label>
+                                <input id="nom" name="nom" type="text" autocomplete="family-name" required />
+                              </div>
+                            </div>
+                            <div class="pp-field">
+                              <label for="email">E-mail professionnel <span class="req">*</span></label>
+                              <input id="email" name="email" type="email" autocomplete="email" required />
+                            </div>
+                            <div class="pp-field">
+                              <label for="telephone">Téléphone <span class="req">*</span></label>
+                              <input
+                                id="telephone"
+                                name="telephone"
+                                type="tel"
+                                autocomplete="tel"
+                                placeholder="06 12 34 56 78"
+                                required />
+                            </div>
+                            <div class="pp-field">
+                              <label for="role">Fonction / rôle</label>
+                              <input
+                                id="role"
+                                name="role"
+                                type="text"
+                                autocomplete="organization-title"
+                                placeholder="Gérant, Fondateur, Directeur…" />
+                              <p class="optional">Facultatif</p>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Étape 2 -->
+                        <div class="pp-form-step-wrap" aria-hidden="true">
+                          <div class="pp-form-step">
+                            <h2 class="pp-form-title">Votre activité</h2>
+                            <p class="pp-form-sub">Pour contextualiser votre diagnostic.</p>
+                            <div class="pp-field">
+                              <label for="entreprise">Nom de l’entreprise <span class="req">*</span></label>
+                              <input id="entreprise" name="entreprise" type="text" autocomplete="organization" required />
+                            </div>
+                            <div class="pp-field">
+                              <label for="siret">SIRET</label>
+                              <input
+                                id="siret"
+                                name="siret"
+                                type="text"
+                                inputmode="numeric"
+                                pattern="[0-9\\s]*"
+                                maxlength="17"
+                                placeholder="123 456 789 00012" />
+                              <p class="optional">Facultatif — nous permet de personnaliser votre diagnostic</p>
+                            </div>
+                            <div class="pp-field">
+                              <label for="secteur">Secteur d’activité <span class="req">*</span></label>
+                              <select id="secteur" name="secteur" required>
+                                <option value="" disabled selected>Choisir…</option>
+                                <option>Restaurant / Hôtellerie</option>
+                                <option>Artisan / BTP</option>
+                                <option>Commerce / Boutique</option>
+                                <option>Coach / Consultant</option>
+                                <option>Beauté / Bien-être</option>
+                                <option>Santé / Paramédical</option>
+                                <option>Juridique / Comptabilité</option>
+                                <option>Formation / Éducation</option>
+                                <option>Immobilier</option>
+                                <option value="Autre">Autre</option>
+                              </select>
+                            </div>
+                            <div class="pp-field" id="secteur_autre_wrap" hidden>
+                              <label for="secteur_autre">Précisez votre secteur <span class="req">*</span></label>
+                              <input id="secteur_autre" name="secteur_autre" type="text" />
+                            </div>
+                            <div class="pp-field">
+                              <label for="effectif">Nombre de salariés</label>
+                              <select id="effectif" name="effectif">
+                                <option value="">—</option>
+                                <option>Solo / Indépendant</option>
+                                <option>2–5</option>
+                                <option>6–10</option>
+                                <option>11–50</option>
+                                <option>50+</option>
+                              </select>
+                            </div>
+                            <div class="pp-field">
+                              <label for="site_web">Site web actuel</label>
+                              <input
+                                id="site_web"
+                                name="site_web"
+                                type="url"
+                                inputmode="url"
+                                placeholder="https://votresite.fr" />
+                            </div>
+                            <div class="pp-field">
+                              <label for="ville">Ville / commune <span class="req">*</span></label>
+                              <input id="ville" name="ville" type="text" autocomplete="address-level2" required />
+                            </div>
+                            <div class="pp-field">
+                              <label for="departement">Département (Nouvelle-Aquitaine)</label>
+                              <select id="departement" name="departement">
+                                <option value="">—</option>
+                                <option value="16 — Charente">16 — Charente</option>
+                                <option value="17 — Charente-Maritime">17 — Charente-Maritime</option>
+                                <option value="19 — Corrèze">19 — Corrèze</option>
+                                <option value="23 — Creuse">23 — Creuse</option>
+                                <option value="24 — Dordogne">24 — Dordogne</option>
+                                <option value="33 — Gironde">33 — Gironde</option>
+                                <option value="40 — Landes">40 — Landes</option>
+                                <option value="47 — Lot-et-Garonne">47 — Lot-et-Garonne</option>
+                                <option value="64 — Pyrénées-Atlantiques">64 — Pyrénées-Atlantiques</option>
+                                <option value="79 — Deux-Sèvres">79 — Deux-Sèvres</option>
+                                <option value="86 — Vienne">86 — Vienne</option>
+                                <option value="87 — Haute-Vienne">87 — Haute-Vienne</option>
+                                <option value="Autre">Autre région</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Étape 3 -->
+                        <div class="pp-form-step-wrap" aria-hidden="true">
+                          <div class="pp-form-step">
+                            <h2 class="pp-form-title">Ce qu’on peut faire pour vous</h2>
+                            <p class="pp-form-sub">Cochez tout ce qui correspond à votre recherche (au moins une case).</p>
+                            <div class="pp-field">
+                              <span class="pp-field-label">Qu’est-ce qui vous intéresse ? <span class="req">*</span></span>
+                              <div class="pp-form-checkboxes" role="group" aria-label="Intérêts">
+                                <label class="pp-form-check"
+                                  ><input type="checkbox" name="interets" value="Site web / Landing page" /> Site web /
+                                  Landing page</label
+                                >
+                                <label class="pp-form-check"
+                                  ><input type="checkbox" name="interets" value="Automatisation (relances, devis, CRM)" />
+                                  Automatisation (relances, devis, CRM)</label
+                                >
+                                <label class="pp-form-check"
+                                  ><input type="checkbox" name="interets" value="Intelligence artificielle (chatbot, assistant)" />
+                                  Intelligence artificielle (chatbot, assistant)</label
+                                >
+                                <label class="pp-form-check"
+                                  ><input type="checkbox" name="interets" value="Vidéo / Photo professionnelle" /> Vidéo /
+                                  Photo professionnelle</label
+                                >
+                                <label class="pp-form-check"><input type="checkbox" name="interets" value="Formation" /> Formation</label>
+                                <label class="pp-form-check"
+                                  ><input type="checkbox" name="interets" value="Mémoire & Présence (hommage numérique)" />
+                                  Mémoire &amp; Présence (hommage numérique)</label
+                                >
+                                <label class="pp-form-check"
+                                  ><input type="checkbox" name="interets" value="Pack complet (site + auto + vidéo)" /> Pack complet
+                                  (site + auto + vidéo)</label
+                                >
+                                <label class="pp-form-check"><input type="checkbox" name="interets" value="Autre" /> Autre</label>
+                              </div>
+                            </div>
+                            <div class="pp-field" id="interest_autre_wrap" hidden>
+                              <label for="interest_autre">Précisez « Autre »</label>
+                              <input id="interest_autre" name="interest_autre" type="text" />
+                            </div>
+                            <div class="pp-field">
+                              <label for="probleme">Quel est votre plus gros problème aujourd’hui ?</label>
+                              <select id="probleme" name="probleme">
+                                <option value="">—</option>
+                                <option>Je n’ai pas de site ou il est obsolète</option>
+                                <option>Je perds du temps sur des tâches répétitives</option>
+                                <option>Je n’arrive pas à trouver de nouveaux clients</option>
+                                <option>Je ne suis pas visible sur Google</option>
+                                <option>J’ai besoin de vidéos/photos pro</option>
+                                <option>Je veux automatiser mais je ne sais pas comment</option>
+                                <option>Autre</option>
+                              </select>
+                            </div>
+                            <div class="pp-field">
+                              <label for="budget">Budget envisagé</label>
+                              <select id="budget" name="budget">
+                                <option value="">—</option>
+                                <option>Moins de 1 000 €</option>
+                                <option>1 000 - 3 000 €</option>
+                                <option>3 000 - 5 000 €</option>
+                                <option>5 000 - 10 000 €</option>
+                                <option>Plus de 10 000 €</option>
+                                <option>Je ne sais pas encore</option>
+                              </select>
+                              <p class="optional">Indicatif, sans engagement</p>
+                            </div>
+                            <div class="pp-field">
+                              <label for="delai">Délai souhaité</label>
+                              <select id="delai" name="delai">
+                                <option value="">—</option>
+                                <option>Urgent (&lt; 2 semaines)</option>
+                                <option>Normal (1-2 mois)</option>
+                                <option>Pas pressé (3+ mois)</option>
+                                <option>Juste pour info / exploration</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Étape 4 -->
+                        <div class="pp-form-step-wrap" aria-hidden="true">
+                          <div class="pp-form-step">
+                            <h2 class="pp-form-title">Quelque chose à ajouter ?</h2>
+                            <p class="pp-form-sub">Tout texte utile : contexte, contraintes, idées.</p>
+                            <div class="pp-field">
+                              <label for="message_libre">Message libre</label>
+                              <div class="pp-form-textarea-wrap">
+                                <textarea
+                                  id="message_libre"
+                                  name="message_libre"
+                                  rows="6"
+                                  maxlength="2000"
+                                  placeholder="Décrivez votre projet, vos contraintes, vos idées... Tout ce qui peut nous aider à mieux comprendre votre situation. Pas besoin d’être structuré, on lit tout."></textarea>
+                                <span class="pp-form-count" id="charCount">0 / 2000</span>
+                              </div>
+                            </div>
+                            <div class="pp-field">
+                              <label for="fichier">Fichier joint</label>
+                              <input
+                                class="pp-file-input"
+                                id="fichier"
+                                name="fichier"
+                                type="file"
+                                accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.pptx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/jpeg,image/png,application/vnd.openxmlformats-officedocument.presentationml.presentation" />
+                              <p class="optional">Vous pouvez joindre un document (devis existant, brief, logo…) — max 5 Mo</p>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Étape 5 -->
+                        <div class="pp-form-step-wrap" aria-hidden="true">
+                          <div class="pp-form-step">
+                            <h2 class="pp-form-title">Presque fini !</h2>
+                            <p class="pp-form-sub">Vérifiez le récapitulatif puis validez le consentement.</p>
+                            <dl class="pp-form-recap" id="diagRecap"></dl>
+                            <p style="margin-bottom: 1rem">
+                              <button type="button" class="pp-form-btn pp-form-btn--prev" id="diagBtnEdit">← Modifier</button>
+                            </p>
+                            <div class="pp-field">
+                              <label for="connu_pinapp">Comment avez-vous connu Pinapp ?</label>
+                              <select id="connu_pinapp" name="connu_pinapp">
+                                <option value="">—</option>
+                                <option>Google</option>
+                                <option>LinkedIn</option>
+                                <option>Bouche à oreille</option>
+                                <option>Réseaux sociaux</option>
+                                <option>Autre</option>
+                              </select>
+                            </div>
+                            <div class="pp-field">
+                              <label class="pp-form-check pp-form-check--rgpd">
+                                <input type="checkbox" id="rgpd_consent" name="rgpd_consent" value="1" required />
+                                <span
+                                  >J’accepte que Pinapp utilise ces informations pour me recontacter dans le cadre de mon
+                                  diagnostic. <strong>Mes données ne sont jamais revendues.</strong>
+                                  <a href="/legal/confidentialite.html" target="_blank" rel="noopener">Politique de confidentialité</a
+                                  >.</span
+                                >
+                              </label>
+                            </div>
+                            <div class="pp-form-nav pp-form-nav--end" style="margin-top: 1.5rem">
+                              <button type="button" class="pp-form-btn pp-form-btn--next pp-form-btn--submit" id="diagBtnSubmit">
+                                Envoyer mon diagnostic →
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="pp-form-nav">
+                      <button type="button" class="pp-form-btn pp-form-btn--prev" id="diagBtnPrev" style="visibility: hidden">
+                        ← Retour
+                      </button>
+                      <button type="button" class="pp-form-btn pp-form-btn--next" id="diagBtnNext">Suivant →</button>
+                    </div>
+                  </form>
                 </div>
 
-                <div class="pp-diag__step" data-step="2" role="region" aria-labelledby="pp-diag-q2">
-                  <p class="pp-diag__q" id="pp-diag-q2">Votre structure ?</p>
-                  <p class="pp-diag__sub">Pour adapter notre proposition.</p>
-                  <div class="pp-diag__pills" data-field="structure">
-                    <button type="button" class="pp-diag__pill" data-value="Indépendant" aria-pressed="false">
-                      Indépendant
-                    </button>
-                    <button type="button" class="pp-diag__pill" data-value="PME" aria-pressed="false">PME</button>
-                    <button type="button" class="pp-diag__pill" data-value="Startup" aria-pressed="false">
-                      Startup
-                    </button>
-                    <button type="button" class="pp-diag__pill" data-value="Grand compte" aria-pressed="false">
-                      Grand compte
-                    </button>
-                  </div>
-                </div>
-
-                <div class="pp-diag__step" data-step="3" role="region" aria-labelledby="pp-diag-q3">
-                  <p class="pp-diag__q" id="pp-diag-q3">Votre délai idéal ?</p>
-                  <p class="pp-diag__sub">Aucune mauvaise réponse.</p>
-                  <div class="pp-diag__pills" data-field="delai">
-                    <button
-                      type="button"
-                      class="pp-diag__pill"
-                      data-value="Urgent moins de 2 semaines"
-                      aria-pressed="false">
-                      Urgent — moins de 2 semaines
-                    </button>
-                    <button type="button" class="pp-diag__pill" data-value="Rapide 1 mois" aria-pressed="false">
-                      Rapide (1 mois)
-                    </button>
-                    <button type="button" class="pp-diag__pill" data-value="Serein plus de 2 mois" aria-pressed="false">
-                      Serein (+2 mois)
-                    </button>
-                  </div>
-                </div>
-
-                <div class="pp-diag__step" data-step="4" role="region" aria-labelledby="pp-diag-q4">
-                  <p class="pp-diag__q" id="pp-diag-q4">Une idée du budget ?</p>
-                  <p class="pp-diag__sub">Indicatif HT, sans engagement.</p>
-                  <div class="pp-diag__pills" data-field="budget">
-                    <button type="button" class="pp-diag__pill" data-value="moins-1000" aria-pressed="false">
-                      &lt; 1 000 €
-                    </button>
-                    <button type="button" class="pp-diag__pill" data-value="1000-3000" aria-pressed="false">
-                      1 000 – 3 000 €
-                    </button>
-                    <button type="button" class="pp-diag__pill" data-value="3000-plus" aria-pressed="false">
-                      3 000 € +
-                    </button>
-                    <button type="button" class="pp-diag__pill" data-value="A definir" aria-pressed="false">
-                      À définir ensemble
-                    </button>
-                  </div>
-                </div>
-
-                <div class="pp-diag__step" data-step="5" role="region" aria-labelledby="pp-diag-q5">
-                  <p class="pp-diag__q" id="pp-diag-q5">Comment vous joindre ?</p>
-                  <p class="pp-diag__sub">Réponse sous 24 h. Zéro spam.</p>
-                  <label class="pp-diag__label" for="ppNom">Prénom</label>
-                  <input
-                    class="pp-diag__input"
-                    type="text"
-                    id="ppNom"
-                    name="prenom"
-                    autocomplete="given-name"
-                    required />
-                  <label class="pp-diag__label" for="ppEmail">E-mail</label>
-                  <input class="pp-diag__input" type="email" id="ppEmail" name="email" autocomplete="email" required />
-                  <label class="pp-diag__label" for="ppTel">Téléphone (optionnel)</label>
-                  <input class="pp-diag__input" type="tel" id="ppTel" name="tel" autocomplete="tel" />
-                  <label class="pp-diag__label" for="ppMsg">Message (optionnel)</label>
-                  <textarea class="pp-diag__input" id="ppMsg" name="message" rows="3"></textarea>
-                  <button type="button" class="pp-diag__send" id="ppSend">Envoyer mon diagnostic →</button>
-                  <p class="pp-diag__rgpd">
-                    Données utilisées uniquement pour répondre à votre demande.
-                    <a href="/legal/confidentialite.html">Politique de confidentialité</a>
+                <div class="pp-form-thanks" id="diagThanks" role="status" aria-live="polite">
+                  <svg class="pp-diag__check" viewBox="0 0 64 64" aria-hidden="true" style="margin: 0 auto 1rem">
+                    <circle cx="32" cy="32" r="30" />
+                    <path d="M20 34l8 8 16-18" />
+                  </svg>
+                  <h2>Merci <span id="diagThanksName"></span> !</h2>
+                  <p>
+                    Nous avons bien reçu votre demande. Lauralie ou Michaël vous recontacte sous 24h pour planifier votre
+                    diagnostic gratuit de 30 minutes.
                   </p>
-                </div>
-
-                <div class="pp-diag__step" data-step="done" role="status" aria-live="polite">
-                  <div class="pp-diag__done">
-                    <svg class="pp-diag__check" viewBox="0 0 64 64" aria-hidden="true">
-                      <circle cx="32" cy="32" r="30" />
-                      <path d="M20 34l8 8 16-18" />
-                    </svg>
-                    <p class="pp-diag__q">Merci !</p>
-                    <p class="pp-diag__sub">
-                      Nous revenons vers vous sous 24 h avec un diagnostic concret. Vérifiez vos spams si besoin.
-                    </p>
+                  <p style="font-size: 0.9rem; color: var(--pp-muted)">En attendant, vous pouvez :</p>
+                  <div class="pp-form-thanks-links">
+                    <a href="/demo/">→ Voir nos réalisations</a>
+                    <a href="/formations/kit-prompts/">→ Découvrir le Kit Prompts IA — 19,90€</a>
                   </div>
                 </div>
               </div>
-            </div>
             <div
               style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px"
               class="anim-up"
