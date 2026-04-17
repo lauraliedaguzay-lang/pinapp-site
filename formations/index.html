@@ -1,8 +1,7 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
-    <!-- PINAPP_SEO_MANAGED -->
     <meta name="robots" content="index, follow" />
     <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
     <link rel="dns-prefetch" href="https://fonts.bunny.net" />
@@ -10,34 +9,265 @@
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:site_name" content="Pinapp Inc." />
-    <meta property="og:title" content="Index — Pinapp" />
-    <meta property="og:description" content="Formations Pinapp : IA, automatisation et efficacité au quotidien." />
+    <meta property="og:title" content="Formations interactives · Lauralie &amp; Michaël · Pinapp" />
+    <meta
+      property="og:description"
+      content="Formations présentiel : site, automatisation, IA, image, vidéo. Packs duo. Kits prompts dès 29 € TTC." />
     <meta property="og:url" content="https://pinapp.fr/formations/" />
     <meta property="og:image" content="https://pinapp.fr/assets/images/og-pinapp-share.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Index — Pinapp" />
-    <meta name="twitter:description" content="Formations Pinapp : IA, automatisation et efficacité au quotidien." />
-    <meta name="twitter:image" content="https://pinapp.fr/assets/images/og-pinapp-share.png" />
-    <!-- /PINAPP_SEO_MANAGED -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>Index — Pinapp</title>
-    <meta name="description" content="Formations Pinapp : IA, automatisation et efficacité au quotidien." />
-    <meta http-equiv="refresh" content="0; url=../offres/formation/" />
-    <script>
-      location.replace('../offres/formation/');
-    </script>
+    <title>Formations interactives · Lauralie &amp; Michaël · Pinapp</title>
+    <meta
+      name="description"
+      content="Formations interactives Pinapp : tech, automatisation, IA avec Lauralie ; image, vidéo, contenu avec Michaël. Packs combinés. Tarifs HT, TVA art. 293 B." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/pinapp-global.css" />
+    <link rel="stylesheet" href="/assets/css/formations-presentiel.css" />
+    <script src="/assets/js/theme.js"></script>
     <link rel="stylesheet" href="../assets/css/pinapp-master-v3.css" />
     <link rel="stylesheet" href="../assets/css/pinapp-master-v4.css" />
   </head>
   <body>
-    <a class="skip-link" href="#contenu-principal">Aller au contenu</a>
+    <div id="cursor" aria-hidden="true"></div>
+    <div id="cursor-trail" aria-hidden="true"></div>
+    <canvas id="canvas-pandora" aria-hidden="true"></canvas>
+    <div class="caustics" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <div class="water-surface" aria-hidden="true"></div>
+    <div class="water-reflets" aria-hidden="true"></div>
+    <a class="skip-link" href="#main">Aller au contenu</a>
 
-    <p id="contenu-principal">
-      Redirection vers les <a href="../offres/formation/">formations Pinapp Studio</a> ·
-      <a href="/formations/kit-prompts/">Kits prompts dès 29 €</a>…
-    </p>
+    <nav class="nav" id="nav" aria-label="Navigation principale">
+      <div class="nav__inner">
+        <a class="nav__logo" href="/">Pinapp <span>Inc.</span></a>
+        <ul class="nav__menu" role="list">
+          <li class="nav__item">
+            <a class="nav__link" href="/offres/"
+              >Pinapp Studio
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" /></svg
+            ></a>
+            <div class="nav__dropdown">
+              <span class="nav__dropdown-label">Pinapp Studio</span>
+              <a href="/offres/">Offres & tarifs</a>
+              <a href="/blog/">Blog</a>
+              <a href="/realisations/">Réalisations</a>
+              <a href="/formations/">Formations présentiel</a>
+              <a href="/offres/formation/">Formations en ligne</a>
+              <a href="/formations/kit-prompts/">Kits prompts dès 29 €</a>
+              <a href="/a-propos/">Notre studio</a>
+              <a href="/pourquoi-pinapp/">Pourquoi Pinapp</a>
+              <a href="/comment-ca-marche/">Comment ça marche</a>
+              <a href="/votre-projet/">Votre projet</a>
+              <a href="/confiance/">Confiance</a>
+              <a href="/faq/">FAQ</a>
+              <a href="/expertise-ia/">IA &amp; systèmes</a>
+              <a href="/formation-gratuite/">Formation IA gratuite</a>
+              <a href="/univers/">Univers créatif</a>
+              <a href="/client/">Espace client</a>
+            </div>
+          </li>
+          <li class="nav__item">
+            <a class="nav__link" href="/auralis/">Auralis RH</a>
+          </li>
+          <li class="nav__item">
+            <a class="nav__link" href="https://memoireetpresence.fr/">Mémoire &amp; Présence</a>
+          </li>
+        </ul>
+        <div class="nav__actions">
+          <button class="nav__theme" id="theme-toggle" aria-label="Mode jour Avatar 2">◐</button>
+          <a class="nav__cta" href="/diagnostic/">Premier échange offert</a>
+          <button class="nav__burger" aria-label="Ouvrir le menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+      <div class="nav__drawer" role="dialog" aria-label="Menu principal">
+        <div class="nav__drawer-section">
+          <span class="nav__drawer-label">Pinapp Studio</span>
+          <a href="/formations/">Formations présentiel</a>
+          <a href="/offres/formation/">Formations en ligne</a>
+          <a href="/formations/kit-prompts/">Kits prompts dès 29 €</a>
+          <a href="/diagnostic/">Diagnostic</a>
+        </div>
+        <a href="/diagnostic/" class="btn btn--primary" style="margin-top: 8px">Réserver une formation</a>
+      </div>
+    </nav>
+
+    <main id="main" class="fmt-main container">
+      <header class="fmt-hero">
+        <span class="label">Pinapp Studio</span>
+        <h1 style="font-size: clamp(32px, 5vw, 56px); letter-spacing: -0.04em; margin: 12px 0 16px; text-wrap: balance">
+          Formations <span class="shimmer">interactives</span>
+        </h1>
+        <p style="font-size: 18px; color: var(--text-muted); line-height: 1.65; max-width: 38em; margin: 0 auto 20px">
+          <strong>Lauralie</strong> — tech, automatisation, IA · <strong>Michaël</strong> — vidéo, image, direction
+          artistique. Demi-journées et journées sur votre terrain, livrables concrets à la clé.
+        </p>
+        <p style="font-size: 14px; color: var(--text-soft); margin-bottom: 24px">
+          Tarifs formations présentiel en <strong>€ HT</strong> · TVA non applicable, art.&nbsp;293&nbsp;B&nbsp;CGI ·
+          <a href="/formations/kit-prompts/" style="color: var(--accent)">Kits prompts</a> en € TTC (palier séparé).
+        </p>
+        <a class="btn btn--primary" href="/diagnostic/">Réserver ma formation →</a>
+      </header>
+
+      <section aria-labelledby="t-lauralie">
+        <h2 id="t-lauralie" class="fmt-col-title" style="text-align: center; margin-bottom: 8px">Formations Lauralie</h2>
+        <p style="text-align: center; color: var(--text-muted); margin: 0 0 24px; font-size: 15px">
+          Tech · automatisation · IA — demi-journée 3 h 30 · <strong>550 € HT</strong> chacune
+        </p>
+        <div class="fmt-columns">
+          <div>
+            <article class="fmt-card">
+              <h3>L1 — Mon site qui travaille tout seul</h3>
+              <p class="fmt-meta">3 h 30 · 550 € HT</p>
+              <p>
+                Diagnostic live sur votre site, atelier message + pitch IA, construction d&apos;une page ou amélioration
+                live, autonomie (modifs seul + enregistrement).
+              </p>
+              <a href="/formations/site-autonome/" class="btn btn--ghost" style="width: 100%; justify-content: center"
+                >Voir le programme →</a
+              >
+            </article>
+            <article class="fmt-card">
+              <h3>L2 — L&apos;automatisation qui change la vie</h3>
+              <p class="fmt-meta">3 h 30 · 550 € HT</p>
+              <p>
+                Audit du temps perdu, démos n8n (SMS, avis Google, devis), vous construisez votre premier workflow, plan
+                d&apos;automatisation 30 jours.
+              </p>
+              <a href="/formations/automatisation/" class="btn btn--ghost" style="width: 100%; justify-content: center"
+                >Voir le programme →</a
+              >
+            </article>
+            <article class="fmt-card">
+              <h3>L3 — L&apos;IA, mon nouveau collègue</h3>
+              <p class="fmt-meta">3 h 30 · 550 € HT</p>
+              <p>
+                Démystification sur votre métier, atelier prompts (Kit Prompt Artisan), assistant IA métier déployé,
+                plan IA personnel.
+              </p>
+              <a href="/formations/ia-collegue/" class="btn btn--ghost" style="width: 100%; justify-content: center"
+                >Voir le programme →</a
+              >
+            </article>
+          </div>
+          <div>
+            <h2 class="fmt-col-title" id="t-micha" style="font-size: 22px; margin-bottom: 12px">Formations Michaël</h2>
+            <p style="color: var(--text-muted); margin: 0 0 20px; font-size: 15px">
+              Vidéo · image · contenu — sur site ou studio mobile
+            </p>
+            <article class="fmt-card">
+              <h3>M1 — Filmer comme un pro avec son téléphone</h3>
+              <p class="fmt-meta">3 h 30 · 550 € HT</p>
+              <p>
+                Bases cadrage &amp; lumière, photo produit rapide, Reels + stories + montage CapCut, kit matériel &amp;
+                checklist.
+              </p>
+              <a href="/formations/filmer-telephone/" class="btn btn--ghost" style="width: 100%; justify-content: center"
+                >Voir le programme →</a
+              >
+            </article>
+            <article class="fmt-card">
+              <h3>M2 — Contenu pro pour mes réseaux</h3>
+              <p class="fmt-meta">Journée 6 h · 1 200 € HT</p>
+              <p>
+                Identité visuelle express (Canva), shooting dirigé sur place, retouche &amp; montage, calendrier éditorial
+                + programmation.
+              </p>
+              <a href="/formations/contenu-reseaux/" class="btn btn--ghost" style="width: 100%; justify-content: center"
+                >Voir le programme →</a
+              >
+            </article>
+            <article class="fmt-card">
+              <h3>M&amp;P — Hommage numérique (familles &amp; partenaires)</h3>
+              <p class="fmt-meta">2 h familles · partenariat pro sur devis</p>
+              <p>
+                Parcours famille : souvenirs, page d&apos;hommage, QR, autonomie. Professionnels de l&apos;accompagnement
+                : formation partenariat via <a href="https://memoireetpresence.fr/" target="_blank" rel="noopener" style="color: var(--accent)">Mémoire &amp; Présence</a>.
+              </p>
+              <a href="https://memoireetpresence.fr/" class="btn btn--ghost" style="width: 100%; justify-content: center" target="_blank" rel="noopener"
+                >memoireetpresence.fr ↗</a
+              >
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section style="max-width: 920px; margin: 0 auto 48px" aria-labelledby="t-kits">
+        <h2 id="t-kits" class="fmt-col-title" style="text-align: center">Kits prompts (numérique)</h2>
+        <p style="text-align: center; color: var(--text-muted); margin-bottom: 20px">
+          Trois paliers TTC — livraison PDF / Notion · paiement Stripe
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px">
+          <div class="fmt-card" style="margin: 0; text-align: center">
+            <strong>Kit Pro</strong>
+            <p class="fmt-meta">149 € TTC</p>
+          </div>
+          <div class="fmt-card" style="margin: 0; text-align: center; border-color: rgba(0, 229, 176, 0.25)">
+            <strong>Kit Complet</strong>
+            <p class="fmt-meta">49 € TTC · best-seller</p>
+          </div>
+          <div class="fmt-card" style="margin: 0; text-align: center">
+            <strong>Kit Essentiel</strong>
+            <p class="fmt-meta">29 € TTC</p>
+          </div>
+        </div>
+        <p style="text-align: center; margin-top: 16px">
+          <a href="/formations/kit-prompts/" class="btn btn--primary">Page kits &amp; aperçu gratuit →</a>
+        </p>
+      </section>
+
+      <section style="max-width: 920px; margin: 0 auto 56px" aria-labelledby="t-packs">
+        <h2 id="t-packs" class="fmt-col-title" style="text-align: center">Packs combinés Lauralie + Michaël</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px">
+          <article class="fmt-card" style="margin: 0">
+            <span class="fmt-badge">Intensif 2 jours</span>
+            <h3>Lancement digital complet</h3>
+            <p class="fmt-meta">2 jours · 2 800 € HT</p>
+            <p>
+              Jour 1 Lauralie : diagnostic, site, formulaire, automatisation &amp; IA. Jour 2 Michaël : shooting,
+              montage, calendrier réseaux. Livrable : site + 3 automatisations + assistant IA + médias + calendrier 1
+              mois + replays.
+            </p>
+          </article>
+          <article class="fmt-card" style="margin: 0; border-color: rgba(179, 136, 255, 0.22)">
+            <span class="fmt-badge" style="background: rgba(179, 136, 255, 0.15); color: var(--accent-2)">Meilleure valeur</span>
+            <h3>Transformation 30 jours</h3>
+            <p class="fmt-meta">6 sessions sur 30 j · 4 200 € HT</p>
+            <p>
+              Alternance Lauralie / Micha sur 4 semaines (site, shooting, automatisations, montage, IA, bilan commun).
+              Parcours complet pour une transformation mesurable.
+            </p>
+          </article>
+        </div>
+        <p style="text-align: center; margin-top: 20px">
+          <a class="btn btn--primary" href="/diagnostic/">Parler de mon pack →</a>
+        </p>
+      </section>
+    </main>
+
+    <footer style="padding: 48px 0">
+      <div class="container">
+        <div class="footer__brand">Pinapp <span>Inc.</span></div>
+        <p class="footer__tagline">Connecter. Construire. Transmettre.</p>
+        <nav class="footer__links" aria-label="Footer">
+          <a href="/">Accueil</a>
+          <a href="/formations/">Formations présentiel</a>
+          <a href="/offres/formation/">Formations en ligne</a>
+          <a href="/formations/kit-prompts/">Kits prompts</a>
+          <a href="/diagnostic/">Diagnostic</a>
+          <a href="/legal/cgv.html">CGV</a>
+          <a href="mailto:contact@pinapp.fr">contact@pinapp.fr</a>
+        </nav>
+        <p class="footer__legal">
+          © 2026 Pinapp Inc. · SIRET 523 884 898 00017 — TVA non applicable art. 293 B CGI
+        </p>
+      </div>
+    </footer>
+
+    <script src="/assets/js/particles.js" defer></script>
+    <script src="/assets/js/main.js" defer></script>
     <script src="../assets/js/pinapp-master-v3.js" defer></script>
     <script src="../assets/js/pinapp-master-v4.js" defer></script>
   </body>

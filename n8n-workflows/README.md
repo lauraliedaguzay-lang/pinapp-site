@@ -54,3 +54,5 @@ Le front envoie un JSON `POST` (ou `multipart/form-data` avec champ `payload` + 
 5. **CRM** : ligne Notion ou Google Sheet (nom, email, date, palier, montant).
 
 Le site : objet `STRIPE_KIT_LINKS` dans `formations/kit-prompts/index.html` (script en bas) ; livrables dans `merci-kit/index.html` (PDF + script `NOTION_KIT`).
+
+**Stripe (dashboard)** : créer / maintenir **3 Payment Links** distincts pour **29 €**, **49 €** et **149 €** TTC (Kit Essentiel / Complet / Pro) — les montants ne sont pas versionnés dans le dépôt ; à aligner sur `pinapp.fr`.
