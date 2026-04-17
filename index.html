@@ -116,8 +116,8 @@
       content="Systèmes digitaux, automatisation IA et design premium. Lauralie &amp; Micha — nous avons étudié, testé, observé." />
     <link rel="canonical" href="https://pinapp.fr/" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="/style.css?v=20260416" />
-    <link rel="stylesheet" href="/assets/css/home-2026.css?v=20260416" />
+    <link rel="stylesheet" href="/style.css?v=20260438" />
+    <link rel="stylesheet" href="/assets/css/home-2026.css?v=20260438" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://pinapp.fr/" />
     <meta property="og:title" content="Pinapp — Systèmes digitaux, automatisation IA, design premium" />
@@ -409,6 +409,20 @@
         border: none;
         border-radius: 8px;
         background: transparent;
+      }
+
+      .tdah-fallback {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+      }
+
+      .tdah-fallback__hint {
+        margin: 0;
+        font-size: 0.8125rem;
+        line-height: 1.5;
+        color: var(--muted);
       }
 
       .tdah-steps {
@@ -1110,7 +1124,7 @@ input:focus, select:focus, textarea:focus {
 </script>
 
 
-<style id="pp-nav-logo-fix">html #siteNav,html header.nav{min-height:72px!important;padding:0.5rem 1.5rem!important;align-items:center!important;}.nav__logo img{height:80px!important;width:auto!important;display:block!important;}</style>
+<style id="pp-nav-logo-fix">html #siteNav,html header.nav{min-height:56px!important;padding:0.5rem 1.5rem!important;align-items:center!important;}.nav__logo .nav__logo-img,.nav__logo img{height:32px!important;max-height:32px!important;width:auto!important;display:block!important;}</style>
 <style id="pp-drawer-css">
 /* ── DRAWER MOBILE ── */
 #navDrawer {
@@ -1300,13 +1314,25 @@ body>*:not(#pc):not(#ow){position:relative;z-index:1;}
     <div class="page">
       <header class="nav" id="siteNav">
         <div class="nav__inner">
-          <a class="nav__logo" href="/" aria-label="Pinapp — Accueil" style="display:flex;align-items:center;gap:.5rem;text-decoration:none;">
-  <img src="/assets/images/pinapp-logo.png" 
-       alt="Logo Pinapp" 
-       height="80" style="height:80px;width:auto;display:block;max-height:80px;filter:drop-shadow(0 0 12px rgba(155,109,255,.4))"
-       onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-  <span style="display:none;align-items:center;gap:.25rem;font-size:1.05rem;font-weight:700;letter-spacing:-.02em;background:linear-gradient(100deg,#00E5B0,#9B6DFF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Pinapp <span style="font-size:.7em;opacity:.7;-webkit-text-fill-color:rgba(255,255,255,.5);color:rgba(255,255,255,.5);">Inc.</span></span>
-</a>
+          <a class="nav__logo" href="/" aria-label="Pinapp — Accueil" style="display:flex;align-items:center;gap:0.5rem;text-decoration:none;">
+            <img
+              class="nav__logo-img"
+              src="/assets/images/pinapp-logo.png"
+              alt=""
+              width="27"
+              height="32"
+              decoding="async"
+              style="width:auto;display:block;filter:drop-shadow(0 0 10px rgba(155,109,255,.35))"
+              onerror="this.style.display='none';var f=this.nextElementSibling;var t=f?f.nextElementSibling:null;if(f)f.style.display='flex';if(t)t.style.display='none';" />
+            <span
+              class="nav__logo-fallback"
+              style="display:none;align-items:center;font-size:1.05rem;font-weight:700;letter-spacing:-0.02em;background:linear-gradient(100deg,#00e5b0,#9b6dff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;"
+              >Pinapp</span>
+            <span
+              class="nav__logo-text"
+              style="font-size:1.05rem;font-weight:700;letter-spacing:-0.02em;color:rgba(240,248,255,.95)"
+              >Pinapp <span style="opacity:0.85">Inc.</span></span>
+          </a>
           <ul class="nav__links" role="list">
             <li><a href="#apropos">Constat</a></li>
             <li><a href="#preuves">Preuves</a></li>
@@ -2775,7 +2801,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
 <footer class="footer">
         <div class="wrap">
           <div class="footer__logo">Pinapp Inc.</div>
-          <p class="footer__tag">Systèmes digitaux · Nouvelle-Aquitaine · Nouvelle-Aquitaine</p>
+          <p class="footer__tag">Systèmes digitaux · Nouvelle-Aquitaine</p>
           <div class="pp-spore pp-spore-1"></div>
 <div class="pp-spore pp-spore-2"></div>
 <div class="pp-spore pp-spore-3"></div>
@@ -2790,7 +2816,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
             >
             <span class="section__sub"></span>
           </nav>
-          <small>© 2026 Pinapp — Tous droits réservés</small>
+          <small>© 2026 Pinapp — SIRET 523 884 898 00017 — Tous droits réservés</small>
         </div>
       
 <!-- Auralis RH teaser -->
@@ -2816,7 +2842,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
 </div></footer>
     </div>
 
-    <script src="/script.js?v=20260416" defer></script>
+    <script src="/script.js?v=20260438" defer></script>
     <script src="/assets/js/pandora-fx.js?v=1" defer></script>
     <!-- Pandora TDAH : modale Tally -->
     <div class="tdah-modal-overlay" id="tallyModal" role="dialog" aria-modal="true" aria-labelledby="tdahModalTitle">
@@ -2826,7 +2852,10 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
         </button>
         <div class="tdah-modal__header">
           <h2 class="tdah-modal__title" id="tdahModalTitle">Obtenir une reponse sous 24 h</h2>
-          <p class="tdah-modal__sub">Deux minutes — meme onglet. Pas de page perdue.</p>
+          <p class="tdah-modal__sub">
+            Écrivez-nous en un clic — réponse sous 24 h. Vous pouvez aussi faire défiler jusqu’à la section Contact sur
+            cette page.
+          </p>
         </div>
         <div class="tdah-steps" aria-hidden="true">
           <div class="tdah-step active" id="tdahStep1"></div>
@@ -2834,11 +2863,18 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
           <div class="tdah-step" id="tdahStep3"></div>
         </div>
         <div class="tdah-modal__body">
-          <iframe
-            src="https://tally.so/embed/PINAPP-DIAGNOSTIC?alignLeft=1&amp;hideTitle=1&amp;transparentBackground=1&amp;dynamicHeight=1"
-            loading="lazy"
-            id="tdahTallyFrame"
-            title="Formulaire Pinapp Studio — premier echange"></iframe>
+          <div id="tdahContactFallback" class="tdah-fallback">
+            <a
+              class="btn btn--primary"
+              href="mailto:contact@pinapp.fr?subject=Diagnostic%20Pinapp"
+              >Demander un diagnostic → contact@pinapp.fr</a
+            >
+            <p class="tdah-fallback__hint">
+              Objet du mail prérempli. Décrivez votre besoin en quelques lignes — nous préparons votre dossier sans vous
+              faire répéter.
+            </p>
+            <a class="btn btn--ghost" href="#contact">Aller au formulaire détaillé sur la page</a>
+          </div>
           <div class="tdah-confirm" id="tdahTallyConfirm" role="status" aria-live="polite" hidden>
             <div class="tdah-confirm__icon" aria-hidden="true">&#10003;</div>
             <h3 class="tdah-confirm__title">Message bien envoye</h3>
@@ -2852,7 +2888,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
       class="btn btn--primary tdah-sticky-cta js-tdah-open"
       id="tdahStickyCta"
       aria-controls="tallyModal"
-      >Demander une reponse — 2 min</a
+      >Demander une réponse — 24 h</a
     >
     <script>
       (function () {
@@ -2860,7 +2896,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
         var overlay = document.getElementById('tallyModal');
         var closeBtn = document.getElementById('tdahModalClose');
         var confirmEl = document.getElementById('tdahTallyConfirm');
-        var frame = document.getElementById('tdahTallyFrame');
+        var fallback = document.getElementById('tdahContactFallback');
         var sticky = document.getElementById('tdahStickyCta');
 
         function resetSteps() {
@@ -2877,12 +2913,16 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
           if (!overlay) return;
           overlay.classList.add('is-open');
           document.body.style.overflow = 'hidden';
-          if (frame) frame.style.display = '';
+          if (fallback) fallback.hidden = false;
           if (confirmEl) {
             confirmEl.classList.remove('is-visible');
             confirmEl.hidden = true;
           }
           resetSteps();
+          setTimeout(function () {
+            var s2 = document.getElementById('tdahStep2');
+            if (s2) s2.classList.add('active');
+          }, 120);
           if (closeBtn)
             setTimeout(function () {
               closeBtn.focus();
@@ -2893,7 +2933,7 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
           if (!overlay) return;
           overlay.classList.remove('is-open');
           document.body.style.overflow = '';
-          if (frame) frame.style.display = '';
+          if (fallback) fallback.hidden = false;
           if (confirmEl) {
             confirmEl.classList.remove('is-visible');
             confirmEl.hidden = true;
@@ -2909,23 +2949,6 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
         if (closeBtn) closeBtn.addEventListener('click', closeModal);
         document.addEventListener('keydown', function (ev) {
           if (ev.key === 'Escape' && overlay && overlay.classList.contains('is-open')) closeModal();
-        });
-
-        window.addEventListener('message', function (ev) {
-          if (!ev.data || ev.data.type !== 'tally-form-submitted') return;
-          if (frame) frame.style.display = 'none';
-          if (confirmEl) {
-            confirmEl.hidden = false;
-            confirmEl.classList.add('is-visible');
-          }
-          ['tdahStep1', 'tdahStep2', 'tdahStep3'].forEach(function (id) {
-            var s = document.getElementById(id);
-            if (s) {
-              s.classList.remove('active');
-              s.classList.add('done');
-            }
-          });
-          setTimeout(closeModal, 3000);
         });
 
         document.querySelectorAll('a.js-tdah-open[href="#contact"]').forEach(function (el) {
@@ -2946,10 +2969,10 @@ video.play();video.style.opacity='1';ph.style.opacity='0';ph.style.pointerEvents
           sticky.style.transition = 'opacity 0.25s ease';
         }
 
-        if (frame) {
-          frame.addEventListener('load', function () {
-            var s2 = document.getElementById('tdahStep2');
-            if (s2) s2.classList.add('active');
+        var toContact = document.querySelector('.tdah-fallback a[href="#contact"]');
+        if (toContact) {
+          toContact.addEventListener('click', function () {
+            closeModal();
           });
         }
       })();
