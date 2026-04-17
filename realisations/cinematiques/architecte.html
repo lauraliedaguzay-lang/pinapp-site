@@ -18,6 +18,8 @@ img{display:block}
 .slide{position:fixed;inset:0;opacity:0;visibility:hidden;transition:opacity 1.4s cubic-bezier(.4,0,.2,1),visibility 0s 1.4s;overflow:hidden;z-index:1}
 .slide.active{opacity:1;visibility:visible;transition:opacity 1.4s cubic-bezier(.4,0,.2,1),visibility 0s 0s;z-index:2}
 .slide__img{position:absolute;inset:-8%;width:116%;height:116%;object-fit:cover;will-change:transform;filter:brightness(.45) saturate(.85);transition:transform .12s ease-out}
+.slide.active .slide__img{animation:kenburns 20s ease-in-out alternate infinite}
+@keyframes kenburns{0%{transform:scale(1.04)}100%{transform:scale(1.12) translate(-0.5%,-0.3%)}}
 .slide__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,12,10,.2) 0%,transparent 35%,transparent 55%,rgba(12,12,10,.92) 100%)}
 .slide__vignette{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 30%,rgba(12,12,10,.45) 100%);pointer-events:none}
 
@@ -90,6 +92,9 @@ img{display:block}
   .slide-num{display:none}
   .dots{right:.8rem}
 }
+@media (prefers-reduced-motion:reduce){
+  .slide.active .slide__img{animation:none}
+}
 </style>
 </head>
 <body>
@@ -160,6 +165,7 @@ var eyebrowEl = document.getElementById('eyebrow');
 var counterEl = document.getElementById('counter');
 var slideNumEl = document.getElementById('slideNum');
 var scrollHintEl = document.getElementById('scrollHint');
+var nav = document.getElementById('nav');
 
 /* ======= BUILD SLIDES ======= */
 DATA.forEach(function(d, i) {
@@ -245,6 +251,13 @@ function goTo(n) {
     counterEl.textContent = String(cur + 1).padStart(2, '0') + ' / ' + String(DATA.length).padStart(2, '0');
     slideNumEl.textContent = String(cur + 1).padStart(2, '0') + ' / ' + String(DATA.length).padStart(2, '0');
 
+    slides.forEach(function (sl) {
+      var im = sl.querySelector('.slide__img');
+      if (im) im.style.transform = '';
+    });
+    if (cur > 0) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+
     setTimeout(showText, 100);
   });
 }
@@ -256,18 +269,27 @@ document.getElementById('next').addEventListener('click', function() {
   goTo(cur < DATA.length - 1 ? cur + 1 : 0);
 });
 
-/* ======= PARALLAX SOURIS ======= */
-var mx = 0, my = 0, raf;
+/* ======= PARALLAX SOURIS (override Ken Burns pendant le mouvement) ======= */
+var mx = 0.5,
+  my = 0.5,
+  raf,
+  lastMouseMove = 0;
+var parallaxIdleMs = 120;
 function updateParallax() {
-  var img = slides[cur].querySelector('.slide__img');
+  var img = slides[cur] && slides[cur].querySelector('.slide__img');
   if (img) {
-    var x = (mx - 0.5) * -18;
-    var y = (my - 0.5) * -10;
-    img.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(1.06)';
+    if (Date.now() - lastMouseMove < parallaxIdleMs) {
+      var x = (mx - 0.5) * -18;
+      var y = (my - 0.5) * -10;
+      img.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(1.06)';
+    } else {
+      img.style.transform = '';
+    }
   }
   raf = requestAnimationFrame(updateParallax);
 }
-document.addEventListener('mousemove', function(e) {
+document.addEventListener('mousemove', function (e) {
+  lastMouseMove = Date.now();
   mx = e.clientX / window.innerWidth;
   my = e.clientY / window.innerHeight;
 });
@@ -284,7 +306,7 @@ var scrollThrottle = false;
 document.addEventListener('wheel', function(e) {
   if (scrollThrottle) return;
   scrollThrottle = true;
-  setTimeout(function() { scrollThrottle = false; }, 1200);
+  setTimeout(function() { scrollThrottle = false; }, 800);
   if (e.deltaY > 0) goTo(cur < DATA.length - 1 ? cur + 1 : 0);
   else goTo(cur > 0 ? cur - 1 : DATA.length - 1);
 }, { passive: true });
