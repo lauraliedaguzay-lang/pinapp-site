@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="canonical" href="https://pinapp.fr/realisations/cinematiques/architecte.html" />
-    <title>Atelier Rivage — Démo Pinapp · UX avr. 2026</title>
+    <title>Atelier Rivage — architecture &amp; villas · Sud-Ouest</title>
     <meta
       name="description"
-      content="Démonstration de site immersif pour cabinet d'architecture. Créé par Pinapp, studio digital à Bordeaux."
+      content="Atelier Rivage — maison d'architecture (fictive) : parcours immersif calibré sur les standards des sites vitrine haut de gamme. Maquette Pinapp, sans revendication de distinction."
     />
     <meta name="robots" content="noindex" />
     <meta name="theme-color" content="#0a0a08" />
@@ -17,6 +17,7 @@
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
     <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Outfit:wght@200;300;400&display=swap"
       rel="stylesheet"
@@ -49,6 +50,18 @@
         background: #0a0a08;
         color: #fff;
         overflow-x: hidden;
+      }
+      /* Grain par scène (au-dessus de la photo, sous les overlays) */
+      .scene-inner::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        opacity: 0.05;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        background-size: 200px 200px;
       }
       .visually-hidden {
         position: absolute;
@@ -99,6 +112,76 @@
         color: #fff;
       }
 
+      /* ——— Progression scroll ——— */
+      .scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        z-index: 199;
+        pointer-events: none;
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .scroll-progress-bar {
+        height: 100%;
+        width: 100%;
+        transform-origin: 0 50%;
+        transform: scaleX(0);
+        background: linear-gradient(90deg, #a88b5c, var(--gold), #e8d5b8);
+        will-change: transform;
+      }
+
+      /* ——— Curseur custom (desktop) ——— */
+      .cursor-dot,
+      .cursor-ring {
+        position: fixed;
+        left: 0;
+        top: 0;
+        pointer-events: none;
+        z-index: 198;
+        opacity: 0;
+        transition: opacity 0.35s ease;
+      }
+      .cursor-dot.is-ready,
+      .cursor-ring.is-ready {
+        opacity: 1;
+      }
+      .cursor-dot {
+        width: 5px;
+        height: 5px;
+        margin: -2.5px 0 0 -2.5px;
+        border-radius: 50%;
+        background: var(--gold);
+        mix-blend-mode: normal;
+      }
+      .cursor-ring {
+        width: 40px;
+        height: 40px;
+        margin: -20px 0 0 -20px;
+        border-radius: 50%;
+        border: 1px solid rgba(200, 168, 122, 0.45);
+        transition: border-color 0.25s ease, width 0.35s ease, height 0.35s ease, margin 0.35s ease, opacity 0.35s ease;
+      }
+      .cursor-ring.is-press {
+        width: 28px;
+        height: 28px;
+        margin: -14px 0 0 -14px;
+        border-color: rgba(200, 168, 122, 0.85);
+      }
+      html.has-custom-cursor body {
+        cursor: none;
+      }
+      html.has-custom-cursor a,
+      html.has-custom-cursor button,
+      html.has-custom-cursor [role='button'],
+      html.has-custom-cursor .nav-burger,
+      html.has-custom-cursor .dots button,
+      html.has-custom-cursor .thumbs button,
+      html.has-custom-cursor .cta-btn {
+        cursor: none;
+      }
+
       /* ——— Nav ——— */
       .nav {
         position: fixed;
@@ -141,6 +224,156 @@
       }
       .nav-links a:hover {
         color: var(--gold);
+      }
+
+      /* ——— Menu plein écran (mobile) ——— */
+      .nav-burger {
+        display: none;
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.04);
+        color: #fff;
+        cursor: pointer;
+        z-index: 101;
+        transition: border-color 0.3s ease, background 0.3s ease;
+      }
+      .nav-burger:hover {
+        border-color: rgba(200, 168, 122, 0.45);
+        background: rgba(200, 168, 122, 0.08);
+      }
+      .burger-line {
+        display: block;
+        width: 20px;
+        height: 1px;
+        background: currentColor;
+        transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+      }
+      .nav-burger.is-open .burger-line:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      .nav-burger.is-open .burger-line:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+      .nav-burger.is-open .burger-line:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
+      .nav-menu {
+        position: fixed;
+        inset: 0;
+        z-index: 150;
+        display: grid;
+        align-content: stretch;
+        justify-items: stretch;
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s;
+      }
+      .nav-menu.is-open {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .nav-menu-bg {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 120% 80% at 50% 0%, rgba(200, 168, 122, 0.08) 0%, transparent 55%),
+          rgba(6, 6, 5, 0.94);
+        backdrop-filter: blur(28px) saturate(1.2);
+        -webkit-backdrop-filter: blur(28px) saturate(1.2);
+      }
+      .nav-menu-panel {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        min-height: 100dvh;
+        padding: calc(1.25rem + env(safe-area-inset-top, 0px)) clamp(1.25rem, 5vw, 2.5rem) calc(2rem + env(safe-area-inset-bottom, 0px));
+        pointer-events: none;
+      }
+      .nav-menu-top,
+      .nav-menu-nav,
+      .nav-menu-tag {
+        pointer-events: auto;
+      }
+      .nav-menu-top {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 2rem;
+      }
+      .nav-menu-close {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.05);
+        color: #fff;
+        font-size: 1.35rem;
+        font-weight: 200;
+        line-height: 1;
+        cursor: pointer;
+        transition: border-color 0.3s ease, color 0.3s ease;
+      }
+      .nav-menu-close:hover {
+        border-color: var(--gold);
+        color: var(--gold);
+      }
+      .nav-menu-nav {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 0.15rem;
+      }
+      .nav-menu-link {
+        display: flex;
+        align-items: baseline;
+        gap: 1rem;
+        padding: 0.65rem 0;
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(2.1rem, 9vw, 3.25rem);
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.92);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        transition: color 0.35s ease, padding-left 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .nav-menu-link:last-of-type {
+        border-bottom: none;
+      }
+      .nav-menu-link:hover,
+      .nav-menu-link:focus-visible {
+        color: var(--gold);
+        padding-left: 0.35rem;
+      }
+      .nav-menu-idx {
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.55rem;
+        font-weight: 300;
+        letter-spacing: 0.35em;
+        color: rgba(200, 168, 122, 0.55);
+        min-width: 2.5rem;
+      }
+      .nav-menu-tag {
+        margin-top: auto;
+        padding-top: 2rem;
+        font-size: 0.55rem;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.28);
+      }
+      body.menu-open {
+        overflow: hidden;
+        touch-action: none;
       }
 
       /* ——— Three canvas ——— */
@@ -289,17 +522,6 @@
         line-height: 1.55;
         text-shadow: 0 2px 20px rgba(0, 0, 0, 0.45);
       }
-      .keyboard-hint {
-        margin-top: 0.85rem;
-        font-size: 0.58rem;
-        font-weight: 300;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: rgba(200, 168, 122, 0.65);
-        max-width: 32rem;
-        line-height: 1.5;
-        text-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
-      }
       .proj-meta {
         margin-top: 0.65rem;
         font-size: 0.6rem;
@@ -315,6 +537,37 @@
         color: var(--muted);
         max-width: 32rem;
         line-height: 1.6;
+      }
+      .proj-specs {
+        margin-top: 0.5rem;
+        font-size: 0.62rem;
+        font-weight: 300;
+        letter-spacing: 0.06em;
+        color: rgba(255, 255, 255, 0.38);
+        line-height: 1.65;
+        max-width: 34rem;
+      }
+      .studio-line {
+        margin-top: 0.5rem;
+        font-size: 0.62rem;
+        font-weight: 300;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.42);
+        max-width: 36rem;
+        line-height: 1.7;
+      }
+      .studio-line strong {
+        font-weight: 400;
+        color: rgba(200, 168, 122, 0.75);
+      }
+      .photo-credit {
+        margin-top: 0.75rem;
+        font-size: 0.52rem;
+        font-weight: 300;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.28);
       }
       .hero-villa {
         margin-top: 1.75rem;
@@ -514,11 +767,51 @@
         transform: translateY(-2px);
         box-shadow: 0 12px 40px rgba(200, 168, 122, 0.35);
       }
+      .cta-address {
+        margin-top: 1.75rem;
+        font-size: 0.72rem;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 1.65;
+        color: rgba(26, 24, 20, 0.55);
+        max-width: 22rem;
+      }
+      .cta-contact {
+        margin-top: 0.65rem;
+        font-size: 0.72rem;
+        font-weight: 300;
+        color: rgba(26, 24, 20, 0.55);
+      }
+      .cta-contact a {
+        color: #7a5f3d;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(122, 95, 61, 0.35);
+      }
+      .cta-contact a:hover {
+        border-bottom-color: #7a5f3d;
+      }
+      .cta-note {
+        margin-top: 0.85rem;
+        font-size: 0.62rem;
+        letter-spacing: 0.06em;
+        color: rgba(26, 24, 20, 0.4);
+        max-width: 26rem;
+      }
+      .cta-legal {
+        margin-top: 2rem;
+        padding-top: 1.25rem;
+        border-top: 1px solid rgba(26, 24, 20, 0.1);
+        font-size: 0.55rem;
+        line-height: 1.6;
+        letter-spacing: 0.04em;
+        color: rgba(26, 24, 20, 0.38);
+        max-width: 32rem;
+      }
       .cta-foot {
-        margin-top: 2.5rem;
-        font-size: 0.65rem;
-        letter-spacing: 0.12em;
-        color: rgba(26, 24, 20, 0.35);
+        margin-top: 1.25rem;
+        font-size: 0.6rem;
+        letter-spacing: 0.1em;
+        color: rgba(26, 24, 20, 0.32);
       }
 
       /* ——— Pinapp badge ——— */
@@ -554,6 +847,14 @@
       }
 
       @media (max-width: 767px) {
+        .scroll-progress,
+        .cursor-dot,
+        .cursor-ring {
+          display: none !important;
+        }
+        .nav-burger {
+          display: inline-flex;
+        }
         .nav-links {
           display: none;
         }
@@ -577,11 +878,26 @@
       }
 
       @media (prefers-reduced-motion: reduce) {
+        .scene-inner::after {
+          opacity: 0 !important;
+        }
         .scene-ken,
         .scroll-hint,
         .pinapp-dot,
         .mouse-ico::after {
           animation: none !important;
+        }
+        .burger-line,
+        .nav-menu {
+          transition: none !important;
+        }
+        .scroll-progress-bar {
+          transition: none !important;
+        }
+        html.has-custom-cursor body,
+        html.has-custom-cursor a,
+        html.has-custom-cursor button {
+          cursor: auto !important;
         }
       }
     </style>
@@ -589,17 +905,52 @@
   <body>
     <canvas id="particles-canvas" aria-hidden="true"></canvas>
 
+    <div class="scroll-progress" aria-hidden="true">
+      <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+    </div>
+    <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+    <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
     <a class="skip-link" href="#scene-0">Aller au parcours</a>
     <div id="scene-status" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
 
     <header class="nav" id="nav">
       <a class="nav-logo" href="#scene-0">Atelier Rivage</a>
       <nav class="nav-links" aria-label="Navigation principale">
-        <a href="#scene-0">Villas</a>
-        <a href="#scene-4">Studio</a>
+        <a href="#scene-1">Réalisations</a>
+        <a href="#agence">L'agence</a>
+        <a href="#scene-4">Intérieurs</a>
         <a href="#cta">Contact</a>
       </nav>
+      <button
+        type="button"
+        class="nav-burger"
+        id="navBurger"
+        aria-controls="navMenuPanel"
+        aria-expanded="false"
+        aria-label="Ouvrir le menu"
+      >
+        <span class="burger-line" aria-hidden="true"></span>
+        <span class="burger-line" aria-hidden="true"></span>
+        <span class="burger-line" aria-hidden="true"></span>
+      </button>
     </header>
+
+    <div class="nav-menu" id="navMenuPanel" role="dialog" aria-modal="true" aria-label="Menu navigation">
+      <div class="nav-menu-bg" data-menu-close></div>
+      <div class="nav-menu-panel">
+        <div class="nav-menu-top">
+          <button type="button" class="nav-menu-close" data-menu-close aria-label="Fermer le menu">×</button>
+        </div>
+        <nav class="nav-menu-nav" aria-label="Navigation plein écran">
+          <a class="nav-menu-link" href="#scene-0"><span class="nav-menu-idx">01</span> Accueil</a>
+          <a class="nav-menu-link" href="#scene-1"><span class="nav-menu-idx">02</span> Réalisations</a>
+          <a class="nav-menu-link" href="#agence"><span class="nav-menu-idx">03</span> L'agence</a>
+          <a class="nav-menu-link" href="#cta"><span class="nav-menu-idx">04</span> Contact</a>
+        </nav>
+        <p class="nav-menu-tag">Identité fictive · parcours type showcase agence — démo Pinapp</p>
+      </div>
+    </div>
 
     <div class="dots" id="dots" role="navigation" aria-label="Sections du parcours"></div>
     <div class="thumbs" id="thumbs" aria-label="Aperçu des projets"></div>
@@ -613,7 +964,7 @@
               <div class="scene-ken">
                 <img
                   src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920&q=90&auto=format&fm=webp"
-                  alt=""
+                  alt="Villa contemporaine avec piscine à débordement, bois et béton blanc, vue mer"
                   width="1920"
                   height="1080"
                   fetchpriority="high"
@@ -626,19 +977,28 @@
           <div class="scene-vignette"></div>
           <div class="scene-num">01 / 06</div>
           <div class="scene-copy">
-            <p class="eyebrow">Architecture résidentielle · Bordeaux &amp; littoral</p>
+            <p class="eyebrow">Architecture &amp; réhabilitation patrimoniale · Bordeaux — depuis 2009</p>
             <h1 class="hero-title">Entrez dans nos <em>créations.</em></h1>
-            <p class="subtitle">Scrollez pour voyager à travers nos villas</p>
-            <p class="keyboard-hint" aria-hidden="true">
-              Mise à jour UX · <strong style="font-weight: 400; color: rgba(255, 255, 255, 0.65)">Tab</strong> lien
-              d’évitement · <strong style="font-weight: 400; color: rgba(255, 255, 255, 0.65)">↑ ↓</strong> ou
-              <strong style="font-weight: 400; color: rgba(255, 255, 255, 0.65)">Home</strong> /
-              <strong style="font-weight: 400; color: rgba(255, 255, 255, 0.65)">Fin</strong> parcours
+            <p class="subtitle">
+              Maisons neuves, extensions et réhabilitations haut de gamme sur la façade atlantique. Dossiers traités
+              sur MOEX ou entente directe, avec pilotage complet des corps d'état techniques.
             </p>
+            <p id="agence" class="studio-line" tabindex="-1">
+              <strong>12 collaborateurs</strong> · maîtrise d'œuvre &amp; architecte mandataire · fluides, structure
+              &amp; économiste intégrés · garantie d'achèvement sur appel d'offres restreint
+            </p>
+            <p class="photo-credit">Visuels illustratifs — banque Unsplash (libres de droits)</p>
             <div class="hero-villa">
               <h2 class="proj-title">Villa Lumière</h2>
-              <p class="proj-meta">Cap Ferret · 480 m²</p>
-              <p class="proj-desc">Piscine à débordement face à l'Atlantique. Béton blanc, bois de cèdre.</p>
+              <p class="proj-meta">Cap Ferret · 480 m² SDP</p>
+              <p class="proj-desc">
+                Résidence secondaire pour famille parisienne : plan en L ouvert sur l'océan, piscine miroir, cèdre
+                rouge du Canada et béton ciré intérieur / extérieur.
+              </p>
+              <p class="proj-specs">
+                MOEX 2019–2022 · permis avec déclaration préalable de surélévation · BET structure &amp; fluides
+                internes · OPC maison · réception marchés publics privatisés
+              </p>
             </div>
             <div class="scroll-hint" aria-hidden="true">
               <div class="mouse-ico"></div>
@@ -656,7 +1016,7 @@
               <div class="scene-ken">
                 <img
                   src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=90&auto=format&fm=webp"
-                  alt=""
+                  alt="Maison contemporaine blanche à volumes cubiques, piscine et jardin paysager"
                   width="1920"
                   height="1080"
                   loading="lazy"
@@ -670,8 +1030,15 @@
           <div class="scene-num">02 / 06</div>
           <div class="scene-copy">
             <h2 class="proj-title">Les Jardins <em>suspendus</em></h2>
-            <p class="proj-meta">Biarritz · 350 m²</p>
-            <p class="proj-desc">Terrasses végétalisées en cascade sur la côte basque.</p>
+            <p class="proj-meta">Biarritz · 348 m² Shon · SDP 312 m²</p>
+            <p class="proj-desc">
+              Programme de logements de standing : dalles en porte-à-faux, garde-corps vitrés structuraux et
+              jardinières filtrantes pour limiter les surtempératures côté falaise.
+            </p>
+            <p class="proj-specs">
+              Permis déposé 2019 · livraison mai 2021 · certification NF Habitat HQE niveau Excellent · paysagiste
+              mandataire Atelier Rivage
+            </p>
           </div>
         </div>
       </section>
@@ -684,7 +1051,7 @@
               <div class="scene-ken">
                 <img
                   src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=90&auto=format&fm=webp"
-                  alt=""
+                  alt="Maison en pierre claire et baies vitrées, architecture contemporaine"
                   width="1920"
                   height="1080"
                   loading="lazy"
@@ -698,8 +1065,15 @@
           <div class="scene-num">03 / 06</div>
           <div class="scene-copy">
             <h2 class="proj-title">Maison Pierre</h2>
-            <p class="proj-meta">Saint-Émilion · 420 m²</p>
-            <p class="proj-desc">Chai réhabilité. Pierre blonde et acier noir.</p>
+            <p class="proj-meta">Saint-Émilion · 410 m² utiles (chai réhabilité)</p>
+            <p class="proj-desc">
+              Conversion d'un chai en habitation : isolation intérieure chanvre-lin, plancher chauffant sur dalle
+              existante, acier thermolaqué et menuiseries à isolation renforcée pour les caves climatisées.
+            </p>
+            <p class="proj-specs">
+              ABF &amp; architecte des Bâtiments de France · diagnostic plomb &amp; charpente 2018 · OPC interne ·
+              chantier 14 mois · livraison hiver 2020
+            </p>
           </div>
         </div>
       </section>
@@ -712,7 +1086,7 @@
               <div class="scene-ken">
                 <img
                   src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=1920&q=90&auto=format&fm=webp"
-                  alt=""
+                  alt="Villa avec piscine à débordement et végétation tropicale, architecture bioclimatique"
                   width="1920"
                   height="1080"
                   loading="lazy"
@@ -726,8 +1100,14 @@
           <div class="scene-num">04 / 06</div>
           <div class="scene-copy">
             <h2 class="proj-title">Villa <em>Éclipse</em></h2>
-            <p class="proj-meta">Arcachon · 290 m²</p>
-            <p class="proj-desc">Infinity pool surplombant le Bassin. Architecture bioclimatique.</p>
+            <p class="proj-meta">Arcachon · 288 m² Shon</p>
+            <p class="proj-desc">
+              Maison passive ciblée : brise-soleil orientés sud-ouest, piscine traitée aux sels, toiture végétalisée
+              140 m² et récupération des eaux de pluie pour l'arrosage du jardin méditerranéen.
+            </p>
+            <p class="proj-specs">
+              Étude thermique RT2012-20 % · étanchéité végétalisée garantie 10 ans · permis 2018 · réception été 2019
+            </p>
           </div>
         </div>
       </section>
@@ -740,7 +1120,7 @@
               <div class="scene-ken">
                 <img
                   src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=90&auto=format&fm=webp"
-                  alt=""
+                  alt="Double hauteur sous verrière, salon contemporain béton ciré et mobilier design"
                   width="1920"
                   height="1080"
                   loading="lazy"
@@ -754,8 +1134,15 @@
           <div class="scene-num">05 / 06</div>
           <div class="scene-copy">
             <h2 class="proj-title">L'intérieur</h2>
-            <p class="proj-meta">Bordeaux · 260 m²</p>
-            <p class="proj-desc">Double hauteur, verrière zénithale, béton ciré.</p>
+            <p class="proj-meta">Bordeaux · 255 m² carrez (appartement sur deux niveaux)</p>
+            <p class="proj-desc">
+              Réunion de deux lots : suppression des cloisons porteuses remplacées par poutres mixtes acier-bois,
+              verrière zénithale motorisée et traitement acoustique des murs périphériques pour la salle de musique.
+            </p>
+            <p class="proj-specs">
+              Copropriété 18 lots · AG 2022 · coordination syndic &amp; entreprises · DPE visé B après travaux ·
+              livraison clés fin 2023
+            </p>
           </div>
         </div>
       </section>
@@ -768,7 +1155,7 @@
               <div class="scene-ken">
                 <img
                   src="https://images.unsplash.com/photo-1574739782594-db4ead022697?w=1920&q=90&auto=format&fm=webp"
-                  alt=""
+                  alt="Piscine miroir face à l'océan, terrasse bois et architecture contemporaine"
                   width="1920"
                   height="1080"
                   loading="lazy"
@@ -782,17 +1169,43 @@
           <div class="scene-num">06 / 06</div>
           <div class="scene-copy">
             <h2 class="proj-title">Horizon <em>bleu</em></h2>
-            <p class="proj-meta">Hossegor · 310 m²</p>
-            <p class="proj-desc">Face à l'océan. Bois flotté, lin et pierre.</p>
+            <p class="proj-meta">Hossegor · 305 m² Shon · première ligne dunaire (fictif)</p>
+            <p class="proj-desc">
+              Ossature bois PEFC, remplissage laine de bois et bardage grisé : la façade ventilée laisse respirer le
+              mur tout en résistant à la bise. Piscine miroir chauffée géothermie passive.
+            </p>
+            <p class="proj-specs">
+              Étude géotechnique littoral · PLU zone UV · consultation paysagiste Dune · chantier 2023–2024 ·
+              réception Q2 2024
+            </p>
           </div>
         </div>
       </section>
 
       <section class="cta" id="cta" aria-labelledby="cta-title">
         <h2 id="cta-title">Votre villa <em>vous attend.</em></h2>
-        <p>Du rêve au plan, du plan à la réalité.</p>
-        <a class="cta-btn" href="https://pinapp.fr/diagnostic/">Prendre rendez-vous →</a>
-        <p class="cta-foot">© 2026 Atelier Rivage · Créé par Pinapp</p>
+        <p>Études APS à PRO · chiffrage détaillé et planning maîtrisé jusqu'à la réception des ouvrages.</p>
+        <a class="cta-btn" href="https://pinapp.fr/diagnostic/">Demander un créneau d'échange — 45 min →</a>
+        <address class="cta-address">
+          Atelier Rivage — bureau d'études (fictif)<br />
+          12 cours de l'Intendance, 33000 Bordeaux<br />
+          Permanences sur rendez-vous — accès PMR ascenseur B
+        </address>
+        <p class="cta-contact">
+          Tél.&nbsp;<a href="tel:+33556874219">+33 (0)5 56 87 42 19</a>
+          &nbsp;·&nbsp;
+          <a href="mailto:bureau@atelier-rivage.fr">bureau@atelier-rivage.fr</a>
+        </p>
+        <p class="cta-note">
+          Premier échange téléphonique sans engagement. Merci de joindre un extrait de cadastre ou de PLU pour
+          préparer la faisabilité sommaire.
+        </p>
+        <p class="cta-legal">
+          Atelier Rivage est une identité de démonstration pour présenter une expérience web immersive. Aucune
+          structure immatriculée ne porte ce nom. Numéro SIRET d'exemple : 832&nbsp;456&nbsp;789&nbsp;00012. Les
+          chantiers, adresses et métriques décrits sont fictifs ou illustratifs.
+        </p>
+        <p class="cta-foot">Maquette Pinapp Studio · Bordeaux · 2026</p>
       </section>
     </main>
 
@@ -804,12 +1217,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" crossorigin="anonymous"></script>
 
     <script>
       (function () {
         var prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         var isMobile = window.matchMedia('(max-width: 767px)').matches;
         if (prefersReduce) document.body.classList.add('reduce-motion');
+        var menuOpen = false;
+        var lenisRef = null;
+        var progressBarEl = document.getElementById('scrollProgressBar');
+        var customCursorEnabled = false;
 
         var scenes = Array.prototype.slice.call(document.querySelectorAll('.scene'));
         var nav = document.getElementById('nav');
@@ -818,12 +1236,12 @@
         var statusEl = document.getElementById('scene-status');
         var currentSceneIdx = 0;
         var projectLabels = [
-          'Introduction et Villa Lumière',
-          'Les Jardins suspendus',
-          'Maison Pierre',
-          'Villa Éclipse',
-          "L'intérieur",
-          'Horizon bleu',
+          'Accueil — référence Villa Lumière',
+          'Les Jardins suspendus — Biarritz',
+          'Maison Pierre — Saint-Émilion',
+          'Villa Éclipse — Arcachon',
+          "L'intérieur — Bordeaux",
+          'Horizon bleu — Hossegor',
         ];
         var thumbSrc = [
           'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=200&q=70&auto=format&fm=webp',
@@ -842,14 +1260,21 @@
         function scrollToScene(i) {
           var el = document.getElementById('scene-' + i);
           if (!el) return;
-          el.scrollIntoView({ behavior: prefersReduce ? 'auto' : 'smooth', block: 'start' });
           function focusScene() {
             try {
               el.focus({ preventScroll: true });
             } catch (err) {}
           }
-          if (prefersReduce) focusScene();
-          else setTimeout(focusScene, 480);
+          if (lenisRef && !prefersReduce) {
+            lenisRef.scrollTo(el, {
+              duration: 1.25,
+              onComplete: focusScene,
+            });
+          } else {
+            el.scrollIntoView({ behavior: prefersReduce ? 'auto' : 'smooth', block: 'start' });
+            if (prefersReduce) focusScene();
+            else setTimeout(focusScene, 480);
+          }
         }
 
         for (var d = 0; d < 6; d++) {
@@ -892,7 +1317,11 @@
         function goToCta() {
           var cta = document.getElementById('cta');
           if (!cta) return;
-          cta.scrollIntoView({ behavior: prefersReduce ? 'auto' : 'smooth', block: 'start' });
+          if (lenisRef && !prefersReduce) {
+            lenisRef.scrollTo(cta, { duration: 1.25 });
+          } else {
+            cta.scrollIntoView({ behavior: prefersReduce ? 'auto' : 'smooth', block: 'start' });
+          }
           dotBtns.forEach(function (b) {
             b.classList.remove('is-active');
             b.removeAttribute('aria-current');
@@ -1001,6 +1430,7 @@
           window.addEventListener(
             'resize',
             function () {
+              if (lenisRef) lenisRef.resize();
               ScrollTrigger.refresh();
             },
             { passive: true },
@@ -1025,17 +1455,280 @@
           }
         }
 
-        function onScrollNav() {
-          nav.classList.toggle('is-scrolled', window.scrollY > 48);
+        function updateScrollProgress(p) {
+          if (!progressBarEl) return;
+          var v = Math.min(1, Math.max(0, p));
+          progressBarEl.style.transform = 'scaleX(' + v + ')';
         }
-        window.addEventListener('scroll', onScrollNav, { passive: true });
-        onScrollNav();
+
+        function onScrollNav() {
+          var y = window.scrollY || document.documentElement.scrollTop;
+          nav.classList.toggle('is-scrolled', y > 48);
+        }
+
+        function onWindowScrollCombined() {
+          onScrollNav();
+          if (!lenisRef) {
+            var doc = document.documentElement;
+            var t = window.scrollY || doc.scrollTop;
+            var max = doc.scrollHeight - window.innerHeight;
+            updateScrollProgress(max > 0 ? t / max : 0);
+          }
+        }
+        window.addEventListener('scroll', onWindowScrollCombined, { passive: true });
+        onWindowScrollCombined();
+
+        if (!prefersReduce && !isMobile && typeof Lenis !== 'undefined') {
+          lenisRef = new Lenis({
+            duration: 1.12,
+            smoothWheel: true,
+            wheelMultiplier: 1,
+            touchMultiplier: 1.2,
+          });
+          lenisRef.on('scroll', function (e) {
+            if (e && typeof e.progress === 'number') updateScrollProgress(e.progress);
+            onScrollNav();
+            if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.update();
+          });
+          if (typeof gsap !== 'undefined') {
+            gsap.ticker.add(function (time) {
+              lenisRef.raf(time * 1000);
+            });
+            gsap.ticker.lagSmoothing(0);
+          } else {
+            function lenisRafLoop(t) {
+              lenisRef.raf(t);
+              requestAnimationFrame(lenisRafLoop);
+            }
+            requestAnimationFrame(lenisRafLoop);
+          }
+          window.addEventListener(
+            'resize',
+            function () {
+              if (lenisRef) lenisRef.resize();
+            },
+            { passive: true },
+          );
+          if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+        }
+
+        document.addEventListener(
+          'click',
+          function (e) {
+            if (!lenisRef || prefersReduce) return;
+            var a = e.target.closest && e.target.closest('a[href^="#"]');
+            if (!a) return;
+            var href = a.getAttribute('href');
+            if (!href || href === '#') return;
+            if (e.defaultPrevented) return;
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+            var id = href.slice(1);
+            var target = document.getElementById(id);
+            if (!target) return;
+            e.preventDefault();
+            lenisRef.scrollTo(target, { duration: 1.05 });
+          },
+          true,
+        );
+
+        var cursorRing = document.getElementById('cursorRing');
+        var cursorDot = document.getElementById('cursorDot');
+        var ringX = 0,
+          ringY = 0,
+          mouseX = 0,
+          mouseY = 0,
+          cursorVisible = false;
+        if (!prefersReduce && !isMobile && cursorRing && cursorDot) {
+          document.documentElement.classList.add('has-custom-cursor');
+          customCursorEnabled = true;
+          function showCursors() {
+            cursorVisible = true;
+            cursorRing.classList.add('is-ready');
+            cursorDot.classList.add('is-ready');
+          }
+          window.addEventListener(
+            'mousemove',
+            function (e) {
+              mouseX = e.clientX;
+              mouseY = e.clientY;
+              cursorDot.style.left = mouseX + 'px';
+              cursorDot.style.top = mouseY + 'px';
+              if (!cursorVisible) showCursors();
+            },
+            { passive: true },
+          );
+          document.documentElement.addEventListener(
+            'mouseleave',
+            function () {
+              cursorRing.classList.remove('is-ready');
+              cursorDot.classList.remove('is-ready');
+              cursorVisible = false;
+            },
+            { passive: true },
+          );
+          window.addEventListener(
+            'mousedown',
+            function () {
+              cursorRing.classList.add('is-press');
+            },
+            true,
+          );
+          window.addEventListener(
+            'mouseup',
+            function () {
+              cursorRing.classList.remove('is-press');
+            },
+            true,
+          );
+          function cursorLoop() {
+            ringX += (mouseX - ringX) * 0.16;
+            ringY += (mouseY - ringY) * 0.16;
+            cursorRing.style.left = ringX + 'px';
+            cursorRing.style.top = ringY + 'px';
+            requestAnimationFrame(cursorLoop);
+          }
+          cursorLoop();
+        }
+
+        /* ——— Menu plein écran ——— */
+        var bodyEl = document.body;
+        var navMenuPanelEl = document.getElementById('navMenuPanel');
+        var navBurger = document.getElementById('navBurger');
+        var menuCloseEls = navMenuPanelEl ? navMenuPanelEl.querySelectorAll('[data-menu-close]') : [];
+        var menuCloseBtn = navMenuPanelEl ? navMenuPanelEl.querySelector('.nav-menu-close') : null;
+        var menuLinks = navMenuPanelEl ? navMenuPanelEl.querySelectorAll('.nav-menu-link') : [];
+        var navMenuEl = navMenuPanelEl ? navMenuPanelEl.querySelector('.nav-menu-nav') : null;
+
+        function menuFocusables() {
+          if (!navMenuPanelEl) return [];
+          return Array.prototype.slice.call(navMenuPanelEl.querySelectorAll('button, a[href]')).filter(function (el) {
+            return !el.hasAttribute('disabled');
+          });
+        }
+
+        function openMenu() {
+          if (!navMenuPanelEl || !navBurger || menuOpen) return;
+          menuOpen = true;
+          if (customCursorEnabled) document.documentElement.classList.remove('has-custom-cursor');
+          bodyEl.classList.add('menu-open');
+          navMenuPanelEl.classList.add('is-open');
+          navBurger.classList.add('is-open');
+          navBurger.setAttribute('aria-expanded', 'true');
+          navBurger.setAttribute('aria-label', 'Fermer le menu');
+          if (menuLinks.length && typeof gsap !== 'undefined' && !prefersReduce) {
+            gsap.set(menuLinks, { y: 40, opacity: 0 });
+            gsap.to(menuLinks, {
+              y: 0,
+              opacity: 1,
+              duration: 0.55,
+              stagger: 0.09,
+              ease: 'power3.out',
+              delay: 0.06,
+            });
+          } else {
+            for (var mi = 0; mi < menuLinks.length; mi++) {
+              menuLinks[mi].style.opacity = '1';
+              menuLinks[mi].style.transform = 'none';
+            }
+          }
+          window.setTimeout(function () {
+            if (menuCloseBtn) menuCloseBtn.focus();
+          }, prefersReduce ? 0 : 120);
+        }
+
+        function closeMenu() {
+          if (!navMenuPanelEl || !navBurger || !menuOpen) return;
+          menuOpen = false;
+          bodyEl.classList.remove('menu-open');
+          navBurger.classList.remove('is-open');
+          navBurger.setAttribute('aria-expanded', 'false');
+          navBurger.setAttribute('aria-label', 'Ouvrir le menu');
+
+          function hideOverlay() {
+            navMenuPanelEl.classList.remove('is-open');
+            for (var mi = 0; mi < menuLinks.length; mi++) {
+              menuLinks[mi].style.opacity = '';
+              menuLinks[mi].style.transform = '';
+            }
+            navBurger.focus();
+            if (customCursorEnabled) document.documentElement.classList.add('has-custom-cursor');
+          }
+
+          if (typeof gsap !== 'undefined' && !prefersReduce && menuLinks.length) {
+            gsap.to(menuLinks, {
+              y: 24,
+              opacity: 0,
+              duration: 0.28,
+              stagger: { each: 0.035, from: 'end' },
+              ease: 'power2.in',
+              onComplete: hideOverlay,
+            });
+          } else {
+            hideOverlay();
+          }
+        }
+
+        window.addEventListener(
+          'resize',
+          function () {
+            if (!window.matchMedia('(max-width: 767px)').matches && menuOpen) closeMenu();
+          },
+          { passive: true },
+        );
+
+        if (navBurger && navMenuPanelEl) {
+          navBurger.addEventListener('click', function () {
+            if (menuOpen) closeMenu();
+            else openMenu();
+          });
+          menuCloseEls.forEach(function (el) {
+            el.addEventListener('click', function (e) {
+              if (e.target.closest('a')) return;
+              closeMenu();
+            });
+          });
+          if (navMenuEl) {
+            navMenuEl.addEventListener('click', function (e) {
+              var a = e.target.closest('a[href^="#"]');
+              if (!a) return;
+              closeMenu();
+            });
+          }
+        }
 
         document.addEventListener(
           'keydown',
           function (e) {
             var tag = (e.target && e.target.tagName) || '';
             if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+
+            if (menuOpen) {
+              if (e.key === 'Escape') {
+                e.preventDefault();
+                closeMenu();
+                return;
+              }
+              if (e.key === 'Tab' && navMenuPanelEl) {
+                var f = menuFocusables();
+                if (f.length) {
+                  var first = f[0],
+                    last = f[f.length - 1];
+                  if (e.shiftKey && document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                  } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                  }
+                }
+                return;
+              }
+              if (e.key === 'Home' || e.key === 'End' || e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === 'ArrowUp' || e.key === 'PageUp') {
+                return;
+              }
+              return;
+            }
+
             if (e.key === 'Home') {
               e.preventDefault();
               scrollToScene(0);
