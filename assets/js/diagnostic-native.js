@@ -166,10 +166,22 @@
     });
   }
 
+  function acquisitionSource() {
+    var el = document.getElementById('ppSource');
+    if (el && String(el.value || '').trim()) return String(el.value).trim();
+    try {
+      var q = new URLSearchParams(window.location.search);
+      return String(q.get('source') || q.get('utm_source') || '').trim() || 'direct';
+    } catch (_e) {
+      return 'direct';
+    }
+  }
+
   function buildPayload() {
     var interets = selectedInterets();
     return {
       source: 'pinapp.fr/diagnostic',
+      acquisition_source: acquisitionSource(),
       submittedAt: new Date().toISOString(),
       vous: {
         prenom: val(document.getElementById('prenom')),
@@ -225,7 +237,10 @@
     var msg = p.message_libre || '—';
     var sec = e.secteur_libelle || e.secteur || '—';
     return (
-      '🔔 NOUVEAU DIAGNOSTIC\n\n' +
+      '🔔 NOUVEAU DIAGNOSTIC\n' +
+      '📣 Source acquisition : ' +
+      (p.acquisition_source || '—') +
+      '\n\n' +
       '👤 ' +
       v.prenom +
       ' ' +
@@ -282,6 +297,7 @@
     function row(label, val) {
       html += '<dt>' + escapeHtml(label) + '</dt><dd>' + escapeHtml(val || '—') + '</dd>';
     }
+    row('Source acquisition', p.acquisition_source || '—');
     row('Identité', p.vous.prenom + ' ' + p.vous.nom);
     row('E-mail', p.vous.email);
     row('Téléphone', p.vous.telephone);

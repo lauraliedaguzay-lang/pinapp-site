@@ -250,6 +250,17 @@
                   <p id="diagFormErr" class="pp-form-err" role="alert" aria-live="polite" aria-hidden="true"></p>
 
                   <form class="pp-form" id="diagnosticForm" novalidate>
+                    <input type="hidden" name="source" id="ppSource" value="" />
+                    <script>
+                      (function () {
+                        try {
+                          var q = new URLSearchParams(window.location.search);
+                          var v = q.get('source') || q.get('utm_source') || '';
+                          var el = document.getElementById('ppSource');
+                          if (el) el.value = v;
+                        } catch (_e) {}
+                      })();
+                    </script>
                     <div class="pp-form-slider">
                       <div class="pp-form-track" id="diagTrack">
                         <!-- Étape 1 -->
