@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="canonical" href="https://pinapp.fr/realisations/cinematiques/architecte.html" />
-    <title>Atelier Rivage — architecture &amp; villas · Sud-Ouest</title>
+    <title>Atelier Rivage × Pinapp — démo immersive architecture</title>
     <meta
       name="description"
-      content="Atelier Rivage — démonstration immersive (fictif) : scroll cinématique, matière photographique et parcours type agence d'architecture premium. Maquette Pinapp Studio." />
+      content="Maquette Pinapp Studio : parcours scroll narratif, motion et performance — même exigence que pour un site vitrine ou une plateforme livrée par Pinapp. Identité Atelier Rivage fictive." />
     <meta name="robots" content="noindex" />
-    <meta name="theme-color" content="#0a0a08" />
+    <meta name="theme-color" content="#020807" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
@@ -18,17 +18,23 @@
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Outfit:wght@200;300;400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=JetBrains+Mono:wght@300;400;500&family=Space+Grotesk:wght@300;400;500&display=swap"
       rel="stylesheet" />
     <style>
       :root {
         --gold: #c8a87a;
         --cream: #f0ece4;
-        --muted: rgba(255, 255, 255, 0.5);
+        --muted: rgba(255, 255, 255, 0.52);
         --vx: 50%;
         --vy: 50%;
         --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
         --shadow-gold: 0 18px 56px rgba(200, 168, 122, 0.22);
+        --shadow-pinapp: 0 18px 56px rgba(0, 229, 204, 0.28);
+        --pinapp-teal: #00e5cc;
+        --pinapp-teal-dim: rgba(0, 229, 204, 0.55);
+        --pinapp-violet: #8b6bff;
+        --pinapp-grid: rgba(0, 229, 204, 0.06);
+        --surface: #020807;
       }
       *,
       *::before,
@@ -46,10 +52,43 @@
         }
       }
       body {
-        font-family: 'Outfit', system-ui, sans-serif;
-        background: #0a0a08;
-        color: #fff;
+        font-family: 'Space Grotesk', system-ui, sans-serif;
+        background: var(--surface);
+        color: #f2fffc;
         overflow-x: hidden;
+      }
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: 3;
+        pointer-events: none;
+        opacity: 0.45;
+        background-image:
+          linear-gradient(var(--pinapp-grid) 1px, transparent 1px),
+          linear-gradient(90deg, var(--pinapp-grid) 1px, transparent 1px);
+        background-size: 48px 48px;
+        mask-image: radial-gradient(ellipse 75% 65% at 50% 40%, #000 0%, transparent 72%);
+      }
+      body::after {
+        content: '';
+        position: fixed;
+        inset: -30% -20%;
+        z-index: 2;
+        pointer-events: none;
+        opacity: 0.35;
+        background:
+          radial-gradient(ellipse 50% 40% at 20% 30%, rgba(0, 229, 204, 0.14) 0%, transparent 55%),
+          radial-gradient(ellipse 45% 50% at 85% 70%, rgba(139, 107, 255, 0.12) 0%, transparent 50%);
+        animation: pinapp-aurora 18s ease-in-out infinite alternate;
+      }
+      @keyframes pinapp-aurora {
+        0% {
+          transform: translate(0, 0) scale(1);
+        }
+        100% {
+          transform: translate(3%, -2%) scale(1.06);
+        }
       }
       /* Grain par scène (au-dessus de la photo, sous les overlays) */
       .scene-inner::after {
@@ -80,8 +119,8 @@
         left: 50%;
         z-index: 200;
         padding: 0.65rem 1.1rem;
-        background: var(--gold);
-        color: #0a0a08;
+        background: var(--pinapp-teal);
+        color: #020807;
         font-size: 0.7rem;
         font-weight: 500;
         letter-spacing: 0.12em;
@@ -97,7 +136,7 @@
         outline-offset: 2px;
       }
       :focus-visible {
-        outline: 2px solid var(--gold);
+        outline: 2px solid var(--pinapp-teal);
         outline-offset: 3px;
       }
       .nav a:focus-visible,
@@ -105,10 +144,10 @@
         outline-offset: 4px;
       }
       .cta-btn:focus-visible {
-        outline-color: #1a1814;
+        outline-color: var(--pinapp-teal);
       }
       ::selection {
-        background: var(--gold);
+        background: rgba(0, 229, 204, 0.35);
         color: #fff;
       }
 
@@ -118,19 +157,19 @@
         top: 0;
         left: 0;
         right: 0;
-        height: 2px;
+        height: 3px;
         z-index: 199;
         pointer-events: none;
-        background: rgba(255, 255, 255, 0.06);
+        background: rgba(0, 229, 204, 0.08);
       }
       .scroll-progress-bar {
         height: 100%;
         width: 100%;
         transform-origin: 0 50%;
         transform: scaleX(0);
-        background: linear-gradient(90deg, #8f734d, var(--gold) 40%, #f2e6d4 85%, #fff8ee);
+        background: linear-gradient(90deg, #062e2a, var(--pinapp-teal) 35%, #5fffd9 70%, var(--pinapp-violet));
         will-change: transform;
-        box-shadow: 0 0 20px rgba(200, 168, 122, 0.35);
+        box-shadow: 0 0 24px rgba(0, 229, 204, 0.55);
       }
 
       /* ——— Curseur custom (desktop) ——— */
@@ -153,7 +192,8 @@
         height: 5px;
         margin: -2.5px 0 0 -2.5px;
         border-radius: 50%;
-        background: var(--gold);
+        background: var(--pinapp-teal);
+        box-shadow: 0 0 12px rgba(0, 229, 204, 0.9);
         mix-blend-mode: normal;
       }
       .cursor-ring {
@@ -161,7 +201,7 @@
         height: 40px;
         margin: -20px 0 0 -20px;
         border-radius: 50%;
-        border: 1px solid rgba(200, 168, 122, 0.45);
+        border: 1px solid rgba(0, 229, 204, 0.45);
         transition:
           border-color 0.25s ease,
           width 0.35s ease,
@@ -173,14 +213,14 @@
         width: 28px;
         height: 28px;
         margin: -14px 0 0 -14px;
-        border-color: rgba(200, 168, 122, 0.85);
+        border-color: rgba(0, 229, 204, 0.9);
       }
       .cursor-ring.is-hover:not(.is-press) {
         width: 52px;
         height: 52px;
         margin: -26px 0 0 -26px;
-        border-color: rgba(200, 168, 122, 0.55);
-        background: rgba(200, 168, 122, 0.04);
+        border-color: rgba(139, 107, 255, 0.55);
+        background: rgba(0, 229, 204, 0.05);
       }
       html.has-custom-cursor body {
         cursor: none;
@@ -212,20 +252,30 @@
           border-color 0.45s ease;
       }
       .nav.is-scrolled {
-        background: rgba(10, 10, 8, 0.52);
-        backdrop-filter: blur(20px) saturate(1.15);
-        -webkit-backdrop-filter: blur(20px) saturate(1.15);
-        border-bottom: 1px solid rgba(200, 168, 122, 0.12);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+        background: rgba(2, 8, 7, 0.72);
+        backdrop-filter: blur(22px) saturate(1.35);
+        -webkit-backdrop-filter: blur(22px) saturate(1.35);
+        border-bottom: 1px solid rgba(0, 229, 204, 0.18);
+        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.45);
       }
       .nav-logo {
         position: relative;
-        font-family: 'Cormorant Garamond', serif;
-        font-size: clamp(1.15rem, 2.5vw, 1.45rem);
-        font-weight: 300;
-        letter-spacing: 0.18em;
+        font-family: 'Space Grotesk', system-ui, sans-serif;
+        font-size: clamp(0.95rem, 2.2vw, 1.2rem);
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
         color: #fff;
         text-decoration: none;
+      }
+      .nav-logo span {
+        display: block;
+        font-size: 0.45rem;
+        font-weight: 400;
+        letter-spacing: 0.42em;
+        color: var(--pinapp-teal-dim);
+        margin-bottom: 0.2rem;
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
       }
       .nav-logo::after {
         content: '';
@@ -234,7 +284,7 @@
         bottom: -5px;
         width: 100%;
         height: 1px;
-        background: linear-gradient(90deg, var(--gold), rgba(200, 168, 122, 0));
+        background: linear-gradient(90deg, var(--pinapp-teal), rgba(0, 229, 204, 0));
         transform: scaleX(0);
         transform-origin: left center;
         transition: transform 0.55s var(--ease-premium);
@@ -248,16 +298,20 @@
         gap: clamp(1.25rem, 3vw, 2.5rem);
       }
       .nav-links a {
-        font-size: 0.58rem;
-        font-weight: 300;
-        letter-spacing: 0.18em;
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 0.52rem;
+        font-weight: 400;
+        letter-spacing: 0.2em;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.4);
+        color: rgba(0, 229, 204, 0.45);
         text-decoration: none;
-        transition: color 0.3s ease;
+        transition:
+          color 0.3s ease,
+          text-shadow 0.3s ease;
       }
       .nav-links a:hover {
-        color: var(--gold);
+        color: var(--pinapp-teal);
+        text-shadow: 0 0 18px rgba(0, 229, 204, 0.45);
       }
 
       /* ——— Menu plein écran (mobile) ——— */
@@ -281,8 +335,8 @@
           background 0.3s ease;
       }
       .nav-burger:hover {
-        border-color: rgba(200, 168, 122, 0.45);
-        background: rgba(200, 168, 122, 0.08);
+        border-color: rgba(0, 229, 204, 0.45);
+        background: rgba(0, 229, 204, 0.08);
       }
       .burger-line {
         display: block;
@@ -327,8 +381,7 @@
         position: absolute;
         inset: 0;
         background:
-          radial-gradient(ellipse 120% 80% at 50% 0%, rgba(200, 168, 122, 0.08) 0%, transparent 55%),
-          rgba(6, 6, 5, 0.94);
+          radial-gradient(ellipse 120% 80% at 50% 0%, rgba(0, 229, 204, 0.1) 0%, transparent 55%), rgba(6, 6, 5, 0.94);
         backdrop-filter: blur(28px) saturate(1.2);
         -webkit-backdrop-filter: blur(28px) saturate(1.2);
       }
@@ -368,8 +421,8 @@
           color 0.3s ease;
       }
       .nav-menu-close:hover {
-        border-color: var(--gold);
-        color: var(--gold);
+        border-color: var(--pinapp-teal);
+        color: var(--pinapp-teal);
       }
       .nav-menu-nav {
         flex: 1;
@@ -398,15 +451,15 @@
       }
       .nav-menu-link:hover,
       .nav-menu-link:focus-visible {
-        color: var(--gold);
+        color: var(--pinapp-teal);
         padding-left: 0.35rem;
       }
       .nav-menu-idx {
-        font-family: 'Outfit', sans-serif;
-        font-size: 0.55rem;
-        font-weight: 300;
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 0.52rem;
+        font-weight: 400;
         letter-spacing: 0.35em;
-        color: rgba(200, 168, 122, 0.55);
+        color: rgba(0, 229, 204, 0.45);
         min-width: 2.5rem;
       }
       .nav-menu-tag {
@@ -490,10 +543,11 @@
         z-index: 2;
         background: linear-gradient(
           180deg,
-          rgba(10, 10, 8, 0.15) 0%,
-          transparent 35%,
-          transparent 45%,
-          rgba(10, 10, 8, 0.92) 100%
+          rgba(2, 8, 7, 0.55) 0%,
+          transparent 32%,
+          transparent 42%,
+          rgba(2, 8, 7, 0.88) 78%,
+          rgba(0, 40, 36, 0.55) 100%
         );
         pointer-events: none;
       }
@@ -518,10 +572,12 @@
         z-index: 12;
         transform: translateY(-50%) rotate(-90deg);
         transform-origin: center;
-        font-size: 0.55rem;
-        letter-spacing: 0.35em;
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 0.5rem;
+        font-weight: 400;
+        letter-spacing: 0.38em;
         text-transform: uppercase;
-        color: var(--muted);
+        color: rgba(0, 229, 204, 0.5);
         font-variant-numeric: tabular-nums;
       }
 
@@ -535,54 +591,75 @@
         max-width: 52rem;
       }
       .eyebrow {
-        font-size: 0.5rem;
-        font-weight: 300;
-        letter-spacing: 0.38em;
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 0.48rem;
+        font-weight: 500;
+        letter-spacing: 0.42em;
         text-transform: uppercase;
-        color: var(--gold);
+        color: var(--pinapp-teal);
         margin-bottom: 1rem;
-        text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
+        text-shadow: 0 0 24px rgba(0, 229, 204, 0.35);
       }
       .hero-title {
-        font-family: 'Cormorant Garamond', serif;
-        font-weight: 300;
-        font-size: clamp(2.4rem, 7vw, 5.5rem);
-        line-height: 1.05;
-        text-shadow: 0 4px 48px rgba(0, 0, 0, 0.5);
+        font-family: 'Space Grotesk', system-ui, sans-serif;
+        font-weight: 400;
+        font-size: clamp(2.65rem, 8.5vw, 6rem);
+        line-height: 0.98;
+        letter-spacing: -0.03em;
+        text-shadow: 0 4px 48px rgba(0, 0, 0, 0.55);
       }
       .hero-title em {
+        font-family: 'Cormorant Garamond', Georgia, serif;
         font-style: italic;
-        color: #e8d5b8;
+        font-weight: 300;
+        letter-spacing: 0;
       }
       @supports ((-webkit-background-clip: text) or (background-clip: text)) {
         .hero-title {
-          background: linear-gradient(128deg, #fff 12%, #ede4d6 42%, #c8a87a 88%);
+          background: linear-gradient(115deg, #fff 0%, #b8fff4 38%, #79ffe8 62%, #c4b5ff 100%);
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
         }
         .hero-title em {
-          background: linear-gradient(128deg, #fff 0%, #f5ebd8 55%, #dcc9a8 100%);
+          background: linear-gradient(115deg, #fff8e7 0%, #ffe6c8 50%, var(--pinapp-teal) 100%);
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
         }
       }
+      .pinapp-pitch {
+        margin-top: 1.25rem;
+        padding: 0.85rem 1rem;
+        max-width: 32rem;
+        font-size: 0.78rem;
+        font-weight: 400;
+        line-height: 1.55;
+        color: rgba(230, 255, 250, 0.88);
+        border-left: 2px solid var(--pinapp-teal);
+        background: linear-gradient(90deg, rgba(0, 229, 204, 0.12) 0%, transparent 100%);
+        border-radius: 0 10px 10px 0;
+      }
+      .pinapp-pitch strong {
+        color: var(--pinapp-teal);
+        font-weight: 500;
+      }
       .proj-title {
-        font-family: 'Cormorant Garamond', serif;
-        font-weight: 300;
-        font-size: clamp(1.85rem, 4.5vw, 3.25rem);
-        line-height: 1.08;
+        font-family: 'Space Grotesk', system-ui, sans-serif;
+        font-weight: 400;
+        font-size: clamp(1.95rem, 4.8vw, 3.4rem);
+        line-height: 1.06;
+        letter-spacing: -0.02em;
         text-shadow: 0 4px 40px rgba(0, 0, 0, 0.5);
       }
       .proj-title em {
         font-style: italic;
-        color: #e8d5b8;
+        color: rgba(184, 255, 244, 0.88);
       }
       .scene[data-scene]:not([data-scene='0']) .proj-title {
         padding-left: 1rem;
         margin-left: -1rem;
-        border-left: 2px solid rgba(200, 168, 122, 0.4);
+        border-left: 2px solid rgba(0, 229, 204, 0.55);
       }
       .subtitle {
         margin-top: 0.75rem;
@@ -595,11 +672,12 @@
       }
       .proj-meta {
         margin-top: 0.65rem;
-        font-size: 0.6rem;
-        font-weight: 300;
-        letter-spacing: 0.22em;
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 0.55rem;
+        font-weight: 400;
+        letter-spacing: 0.24em;
         text-transform: uppercase;
-        color: var(--gold);
+        color: var(--pinapp-teal-dim);
       }
       .proj-desc {
         margin-top: 0.55rem;
@@ -629,8 +707,8 @@
         line-height: 1.7;
       }
       .studio-line strong {
-        font-weight: 400;
-        color: rgba(200, 168, 122, 0.75);
+        font-weight: 500;
+        color: var(--pinapp-teal);
       }
       .photo-credit {
         margin-top: 0.75rem;
@@ -643,7 +721,7 @@
       .hero-villa {
         margin-top: 1.75rem;
         padding-top: 1.25rem;
-        border-top: 1px solid rgba(200, 168, 122, 0.25);
+        border-top: 1px solid rgba(0, 229, 204, 0.22);
       }
 
       .scroll-hint {
@@ -664,15 +742,17 @@
         }
       }
       .scroll-hint span {
-        font-size: 0.55rem;
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 0.5rem;
+        font-weight: 400;
         letter-spacing: 0.28em;
         text-transform: uppercase;
-        color: var(--muted);
+        color: rgba(0, 229, 204, 0.42);
       }
       .mouse-ico {
         width: 22px;
         height: 34px;
-        border: 1px solid rgba(255, 255, 255, 0.25);
+        border: 1px solid rgba(0, 229, 204, 0.35);
         border-radius: 12px;
         position: relative;
       }
@@ -685,7 +765,7 @@
         height: 6px;
         margin-left: -1.5px;
         border-radius: 2px;
-        background: var(--gold);
+        background: var(--pinapp-teal);
         animation: wheel 2s ease-in-out infinite;
       }
       @keyframes wheel {
@@ -729,7 +809,7 @@
         width: 3px;
         height: 8px;
         border-radius: 2px;
-        background: rgba(255, 255, 255, 0.14);
+        background: rgba(0, 229, 204, 0.2);
         transition:
           height 0.45s cubic-bezier(0.16, 1, 0.3, 1),
           background 0.35s ease;
@@ -737,8 +817,8 @@
       }
       .dots button.is-active .dots-bar {
         height: 22px;
-        background: var(--gold);
-        box-shadow: 0 0 14px rgba(200, 168, 122, 0.55);
+        background: var(--pinapp-teal);
+        box-shadow: 0 0 16px rgba(0, 229, 204, 0.65);
       }
 
       /* ——— Thumbs ——— */
@@ -782,11 +862,12 @@
         width: 120px;
         height: 75px;
         opacity: 1;
-        border-color: var(--gold);
+        border-color: var(--pinapp-teal);
         filter: none;
         box-shadow:
-          var(--shadow-gold),
-          0 4px 24px rgba(0, 0, 0, 0.35);
+          0 0 0 1px rgba(0, 229, 204, 0.35),
+          0 12px 40px rgba(0, 229, 204, 0.2),
+          0 4px 24px rgba(0, 0, 0, 0.4);
       }
       .thumbs button img {
         width: 100%;
@@ -807,7 +888,8 @@
         text-align: center;
         padding: clamp(3.5rem, 9vw, 6rem) clamp(1.25rem, 4vw, 2rem);
         background:
-          radial-gradient(ellipse 90% 70% at 50% -10%, rgba(200, 168, 122, 0.18) 0%, transparent 55%),
+          radial-gradient(ellipse 90% 70% at 50% -10%, rgba(0, 229, 204, 0.14) 0%, transparent 52%),
+          radial-gradient(ellipse 60% 50% at 85% 20%, rgba(139, 107, 255, 0.06) 0%, transparent 45%),
           linear-gradient(165deg, #ebe6dc 0%, var(--cream) 38%, #e4dfd4 100%);
         color: #1a1814;
       }
@@ -835,7 +917,7 @@
         box-shadow:
           0 1px 0 rgba(255, 255, 255, 0.65) inset,
           0 32px 64px rgba(26, 24, 20, 0.08),
-          0 2px 0 rgba(200, 168, 122, 0.15) inset;
+          0 2px 0 rgba(0, 229, 204, 0.12) inset;
       }
       .cta h2 {
         font-family: 'Cormorant Garamond', serif;
@@ -848,7 +930,7 @@
       }
       .cta h2 em {
         font-style: italic;
-        color: #8a6b45;
+        color: #047a6c;
       }
       .cta p {
         margin-top: 1rem;
@@ -865,15 +947,15 @@
         align-items: center;
         gap: 0.35rem;
         padding: 1rem 2rem;
-        background: linear-gradient(135deg, #d4b78a 0%, var(--gold) 45%, #a88b5c 100%);
-        color: #fff;
+        background: linear-gradient(135deg, #053d38 0%, var(--pinapp-teal) 42%, #00b89a 100%);
+        color: #020807;
         font-size: 0.7rem;
         font-weight: 400;
         letter-spacing: 0.16em;
         text-transform: uppercase;
         text-decoration: none;
         border-radius: 100px;
-        border: 1px solid rgba(255, 255, 255, 0.22);
+        border: 1px solid rgba(255, 255, 255, 0.35);
         cursor: pointer;
         transition:
           transform 0.4s var(--ease-premium),
@@ -906,8 +988,8 @@
       .cta-btn:hover {
         transform: translateY(-3px);
         box-shadow:
-          var(--shadow-gold),
-          0 8px 28px rgba(26, 24, 20, 0.12);
+          var(--shadow-pinapp),
+          0 8px 28px rgba(0, 229, 204, 0.15);
       }
       .cta-address {
         margin-top: 1.75rem;
@@ -925,12 +1007,12 @@
         color: rgba(26, 24, 20, 0.55);
       }
       .cta-contact a {
-        color: #7a5f3d;
+        color: #047a6c;
         text-decoration: none;
-        border-bottom: 1px solid rgba(122, 95, 61, 0.35);
+        border-bottom: 1px solid rgba(0, 229, 204, 0.35);
       }
       .cta-contact a:hover {
-        border-bottom-color: #7a5f3d;
+        border-bottom-color: var(--pinapp-teal);
       }
       .cta-note {
         margin-top: 0.85rem;
@@ -963,7 +1045,8 @@
         z-index: 250;
         display: grid;
         place-items: center;
-        background: #0a0a08;
+        background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(0, 229, 204, 0.12) 0%, transparent 50%), #020807;
+        box-shadow: inset 0 0 120px rgba(0, 229, 204, 0.06);
         pointer-events: auto;
       }
       .intro-curtain--done {
@@ -976,18 +1059,18 @@
       }
       .intro-curtain-kicker {
         margin-bottom: 0.75rem;
-        font-family: 'Outfit', system-ui, sans-serif;
-        font-size: 0.5rem;
-        font-weight: 300;
-        letter-spacing: 0.48em;
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 0.48rem;
+        font-weight: 500;
+        letter-spacing: 0.5em;
         text-transform: uppercase;
-        color: rgba(200, 168, 122, 0.9);
+        color: var(--pinapp-teal);
       }
       .intro-curtain-wordmark {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: clamp(1.85rem, 5.5vw, 3.25rem);
-        font-weight: 300;
-        letter-spacing: 0.32em;
+        font-family: 'Space Grotesk', system-ui, sans-serif;
+        font-size: clamp(1.65rem, 5vw, 2.85rem);
+        font-weight: 500;
+        letter-spacing: 0.28em;
         text-transform: uppercase;
         color: #fff;
         line-height: 1.2;
@@ -996,7 +1079,7 @@
         width: min(200px, 42vw);
         height: 1px;
         margin: 1.75rem auto 0;
-        background: linear-gradient(90deg, transparent, rgba(200, 168, 122, 0.85), transparent);
+        background: linear-gradient(90deg, transparent, var(--pinapp-teal), var(--pinapp-violet), transparent);
         transform-origin: 50% 50%;
       }
       html.intro-active,
@@ -1019,9 +1102,49 @@
         font-weight: 300;
         line-height: 1;
         letter-spacing: 0.02em;
-        color: rgba(255, 255, 255, 0.035);
+        color: rgba(255, 255, 255, 0.09);
         pointer-events: none;
         user-select: none;
+      }
+
+      /* ——— Bandeau signal Pinapp (sous la nav) ——— */
+      .pinapp-ribbon {
+        position: fixed;
+        top: calc(4.65rem + env(safe-area-inset-top, 0px));
+        left: 0;
+        right: 0;
+        z-index: 99;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 0.65rem 1.25rem;
+        padding: 0.4rem 1rem;
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 0.48rem;
+        font-weight: 400;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(230, 255, 250, 0.82);
+        background: rgba(2, 8, 7, 0.78);
+        border-bottom: 1px solid rgba(0, 229, 204, 0.2);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        pointer-events: none;
+      }
+      .pinapp-ribbon strong {
+        color: var(--pinapp-teal);
+        font-weight: 500;
+      }
+      .pinapp-ribbon a {
+        pointer-events: auto;
+        color: var(--pinapp-teal);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(0, 229, 204, 0.35);
+        transition: border-color 0.25s ease;
+      }
+      .pinapp-ribbon a:hover {
+        border-bottom-color: var(--pinapp-teal);
       }
 
       /* ——— Pinapp badge ——— */
@@ -1033,30 +1156,39 @@
         display: flex;
         align-items: center;
         gap: 0.45rem;
-        padding: 0.38rem 0.85rem;
-        background: rgba(10, 10, 8, 0.52);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        border: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 0.42rem 0.95rem;
+        background: rgba(2, 8, 7, 0.75);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(0, 229, 204, 0.35);
         border-radius: 100px;
         text-decoration: none;
         color: inherit;
+        box-shadow: 0 0 28px rgba(0, 229, 204, 0.12);
       }
       .pinapp-badge span:last-child {
-        font-size: 0.45rem;
-        letter-spacing: 0.1em;
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 0.42rem;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.28);
+        color: rgba(0, 229, 204, 0.65);
       }
       .pinapp-dot {
-        width: 5px;
-        height: 5px;
+        width: 6px;
+        height: 6px;
         border-radius: 50%;
-        background: #6baf8d;
+        background: var(--pinapp-teal);
+        box-shadow: 0 0 10px rgba(0, 229, 204, 0.75);
         animation: breathe 3s ease-in-out infinite;
       }
 
       @media (max-width: 767px) {
+        .pinapp-ribbon {
+          display: none;
+        }
+        body::before {
+          opacity: 0.22;
+        }
         .brand-mark {
           display: none;
         }
@@ -1091,6 +1223,9 @@
       }
 
       @media (prefers-reduced-motion: reduce) {
+        body::after {
+          animation: none !important;
+        }
         .scene-inner::after {
           opacity: 0 !important;
         }
@@ -1121,7 +1256,7 @@
   <body>
     <div class="intro-curtain" id="introCurtain" aria-hidden="true">
       <div class="intro-curtain-inner">
-        <p class="intro-curtain-kicker">Architecture — Sud-Ouest</p>
+        <p class="intro-curtain-kicker">Pinapp Studio — prototype immersif</p>
         <div class="intro-curtain-line" aria-hidden="true"></div>
         <p class="intro-curtain-wordmark">Atelier Rivage</p>
       </div>
@@ -1140,7 +1275,7 @@
     <div class="brand-mark" aria-hidden="true">AR</div>
 
     <header class="nav" id="nav">
-      <a class="nav-logo" href="#scene-0">Atelier Rivage</a>
+      <a class="nav-logo" href="#scene-0"><span>Prototype · Pinapp Studio</span>Atelier Rivage</a>
       <nav class="nav-links" aria-label="Navigation principale">
         <a href="#scene-1">Réalisations</a>
         <a href="#agence">L'agence</a>
@@ -1160,6 +1295,11 @@
       </button>
     </header>
 
+    <div class="pinapp-ribbon" role="region" aria-label="Maquette interactive Pinapp">
+      <span><strong>Pinapp</strong> — motion · scroll narratif · performance · accessibilité</span>
+      <a href="https://pinapp.fr/">Découvrir Pinapp →</a>
+    </div>
+
     <div class="nav-menu" id="navMenuPanel" role="dialog" aria-modal="true" aria-label="Menu navigation">
       <div class="nav-menu-bg" data-menu-close></div>
       <div class="nav-menu-panel">
@@ -1172,7 +1312,7 @@
           <a class="nav-menu-link" href="#agence"><span class="nav-menu-idx">03</span> L'agence</a>
           <a class="nav-menu-link" href="#cta"><span class="nav-menu-idx">04</span> Contact</a>
         </nav>
-        <p class="nav-menu-tag">Identité fictive · parcours type showcase agence — démo Pinapp</p>
+        <p class="nav-menu-tag">Identité fictive · démo technique Pinapp (web &amp; expérience)</p>
       </div>
     </div>
 
@@ -1205,6 +1345,11 @@
             <p class="subtitle">
               Maisons neuves, extensions et réhabilitations haut de gamme sur la façade atlantique. Dossiers traités sur
               MOEX ou entente directe, avec pilotage complet des corps d'état techniques.
+            </p>
+            <p class="pinapp-pitch">
+              <strong>Pinapp</strong> — ce parcours mêle narration scroll, motion et exigence front : la même approche
+              produit que pour une vitrine ou une plateforme sur mesure. Pas de gabarit figé : on pousse l’expérience
+              aussi loin que votre projet l’exige.
             </p>
             <p id="agence" class="studio-line" tabindex="-1">
               <strong>12 collaborateurs</strong> · maîtrise d'œuvre &amp; architecte mandataire · fluides, structure
@@ -1437,12 +1582,13 @@
       <span>Créé par Pinapp</span>
     </a>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous"></script>
+    <!-- GSAP + Lenis avant Three.js : si WebGL / three échoue, le parcours (intro, scroll) reste fonctionnel -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
       crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous"></script>
 
     <script>
       (function () {
@@ -1502,35 +1648,37 @@
           }
         }
 
-        for (var d = 0; d < 6; d++) {
-          (function (idx) {
+        if (dotsWrap && thumbsWrap) {
+          for (var d = 0; d < 6; d++) {
+            (function (idx) {
+              var b = document.createElement('button');
+              b.type = 'button';
+              b.setAttribute('aria-label', 'Aller à : ' + projectLabels[idx]);
+              b.innerHTML = '<span class="dots-bar" aria-hidden="true"></span>';
+              b.className = 'is-active';
+              if (idx > 0) b.classList.remove('is-active');
+              b.addEventListener('click', function () {
+                scrollToScene(idx);
+              });
+              dotsWrap.appendChild(b);
+            })(d);
+          }
+
+          thumbSrc.forEach(function (src, idx) {
             var b = document.createElement('button');
             b.type = 'button';
-            b.setAttribute('aria-label', 'Aller à : ' + projectLabels[idx]);
-            b.innerHTML = '<span class="dots-bar" aria-hidden="true"></span>';
-            b.className = 'is-active';
-            if (idx > 0) b.classList.remove('is-active');
+            b.setAttribute('aria-label', 'Afficher : ' + projectLabels[idx]);
+            b.innerHTML = '<img src="' + src + '" alt="" loading="lazy" width="120" height="75" />';
+            if (idx === 0) b.classList.add('is-active');
             b.addEventListener('click', function () {
               scrollToScene(idx);
             });
-            dotsWrap.appendChild(b);
-          })(d);
+            thumbsWrap.appendChild(b);
+          });
         }
 
-        thumbSrc.forEach(function (src, idx) {
-          var b = document.createElement('button');
-          b.type = 'button';
-          b.setAttribute('aria-label', 'Afficher : ' + projectLabels[idx]);
-          b.innerHTML = '<img src="' + src + '" alt="" loading="lazy" width="120" height="75" />';
-          if (idx === 0) b.classList.add('is-active');
-          b.addEventListener('click', function () {
-            scrollToScene(idx);
-          });
-          thumbsWrap.appendChild(b);
-        });
-
-        var dotBtns = dotsWrap.querySelectorAll('button');
-        var thumbBtns = thumbsWrap.querySelectorAll('button');
+        var dotBtns = dotsWrap ? dotsWrap.querySelectorAll('button') : [];
+        var thumbBtns = thumbsWrap ? thumbsWrap.querySelectorAll('button') : [];
 
         function isCtaInView() {
           var c = document.getElementById('cta');
@@ -2047,7 +2195,7 @@
           document.documentElement.style.setProperty('--vy', '50%');
         }
 
-        /* ——— Intro plein écran ——— */
+        /* ——— Intro plein écran (toujours sauf GSAP absent ; mobile = version courte) ——— */
         var introCurtain = document.getElementById('introCurtain');
         function finishIntroNav() {
           document.documentElement.classList.remove('intro-active');
@@ -2055,12 +2203,31 @@
           if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
         }
         if (introCurtain) {
-          if (prefersReduce || isMobile || typeof gsap === 'undefined') {
+          if (typeof gsap === 'undefined') {
             introCurtain.remove();
             finishIntroNav();
+          } else if (prefersReduce) {
+            document.documentElement.classList.add('intro-active');
+            if (lenisRef && typeof lenisRef.stop === 'function') lenisRef.stop();
+            gsap.delayedCall(0.55, function () {
+              gsap.to(introCurtain, {
+                autoAlpha: 0,
+                duration: 0.45,
+                ease: 'power1.out',
+                onComplete: function () {
+                  if (introCurtain.parentNode) introCurtain.remove();
+                  finishIntroNav();
+                },
+              });
+            });
           } else {
             document.documentElement.classList.add('intro-active');
             if (lenisRef && typeof lenisRef.stop === 'function') lenisRef.stop();
+            var dK = isMobile ? 0.38 : 0.55;
+            var dLine = isMobile ? 0.55 : 0.88;
+            var dWord = isMobile ? 0.52 : 0.78;
+            var dPause = isMobile ? 0.22 : 0.38;
+            var dOut = isMobile ? 0.5 : 0.68;
             gsap.set('.intro-curtain-line', { scaleX: 0, transformOrigin: '50% 50%' });
             gsap
               .timeline({
@@ -2070,11 +2237,19 @@
                   finishIntroNav();
                 },
               })
-              .from('.intro-curtain-kicker', { opacity: 0, y: 10, duration: 0.55 })
-              .to('.intro-curtain-line', { scaleX: 1, duration: 0.88, ease: 'power2.inOut' }, '-=0.22')
-              .from('.intro-curtain-wordmark', { opacity: 0, y: 28, duration: 0.78 }, '-=0.58')
-              .to({}, { duration: 0.38 })
-              .to(introCurtain, { opacity: 0, duration: 0.68, ease: 'power2.inOut' });
+              .from('.intro-curtain-kicker', { opacity: 0, y: isMobile ? 6 : 10, duration: dK })
+              .to(
+                '.intro-curtain-line',
+                { scaleX: 1, duration: dLine, ease: 'power2.inOut' },
+                '-=' + (isMobile ? 0.15 : 0.22),
+              )
+              .from(
+                '.intro-curtain-wordmark',
+                { opacity: 0, y: isMobile ? 16 : 28, duration: dWord },
+                '-=' + (isMobile ? 0.42 : 0.58),
+              )
+              .to({}, { duration: dPause })
+              .to(introCurtain, { opacity: 0, duration: dOut, ease: 'power2.inOut' });
           }
         }
 
@@ -2126,7 +2301,7 @@
             var cam = new THREE.PerspectiveCamera(55, w / h, 0.1, 100);
             cam.position.z = 4;
             var geo = new THREE.BufferGeometry();
-            var count = 200;
+            var count = 260;
             var pos = new Float32Array(count * 3);
             for (var p = 0; p < count; p++) {
               pos[p * 3] = (Math.random() - 0.5) * 10;
@@ -2135,10 +2310,10 @@
             }
             geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
             var mat = new THREE.PointsMaterial({
-              color: 0xd4b896,
+              color: 0x00e5cc,
               size: 0.042,
               transparent: true,
-              opacity: 0.24,
+              opacity: 0.28,
               depthWrite: false,
               sizeAttenuation: true,
             });
