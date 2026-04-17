@@ -97,3 +97,24 @@
   s.setAttribute('data-pinapp-neuro-calm-ui', '1');
   document.head.appendChild(s);
 })();
+
+(function loadPinappUniversal() {
+  if (window.__PINAPP_UNIVERSAL__) return;
+  window.__PINAPP_UNIVERSAL__ = true;
+  if (document.querySelector('script[data-pinapp-universal]')) return;
+  var scripts = document.getElementsByTagName('script');
+  var url = '';
+  for (var i = scripts.length - 1; i >= 0; i--) {
+    var src = scripts[i].src || '';
+    if (/\/theme\.js(\?|$)/i.test(src) || src.endsWith('theme.js')) {
+      url = src.replace(/theme\.js(\?[^#]*)?/i, 'pinapp-universal.js$1');
+      break;
+    }
+  }
+  if (!url) url = '/assets/js/pinapp-universal.js?v=1';
+  var s = document.createElement('script');
+  s.src = url;
+  s.defer = true;
+  s.setAttribute('data-pinapp-universal', '1');
+  document.head.appendChild(s);
+})();

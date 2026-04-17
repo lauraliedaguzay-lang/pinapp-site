@@ -57,7 +57,7 @@
     var nav = document.getElementById('siteNav');
     var toggle = document.getElementById('navToggle');
     var drawer = document.getElementById('navDrawer');
-    if (!nav || !toggle || !drawer) return;
+    if (!toggle || !drawer) return;
 
     var focusableSel =
       'a[href], button:not([disabled]), input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])';
@@ -105,14 +105,16 @@
       }
     });
 
-    window.addEventListener(
-      'scroll',
-      function () {
-        if (window.scrollY > 50) nav.classList.add('nav--scrolled');
-        else nav.classList.remove('nav--scrolled');
-      },
-      { passive: true },
-    );
+    if (nav) {
+      window.addEventListener(
+        'scroll',
+        function () {
+          if (window.scrollY > 50) nav.classList.add('nav--scrolled');
+          else nav.classList.remove('nav--scrolled');
+        },
+        { passive: true },
+      );
+    }
   }
 
   function initReveal() {
