@@ -23,7 +23,10 @@ const TRUST = `        <section class="section pp-trust-wrap" aria-label="Confia
 
 const needle = '        </section>\n\n        <section class="section" id="home-presentation"';
 if (!t.includes('pp-trust-wrap') && t.includes(needle)) {
-  t = t.replace(needle, `        </section>\n\n${TRUST}        <section class="section" id="home-presentation"`);
+  t = t.replace(
+    needle,
+    `        </section>\n\n${TRUST}        <section class="section" id="home-presentation"`,
+  );
 }
 
 const start = t.indexOf('<section class="section" id="home-presentation"');

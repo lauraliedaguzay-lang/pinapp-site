@@ -70,7 +70,13 @@ export async function runHealthCheck() {
     results.push(check);
     if (!check.ok) errors.push(check);
     if (check.ok && check.duration > 3000) {
-      errors.push({ url: check.url, status: check.status, duration: check.duration, ok: false, error: 'slow' });
+      errors.push({
+        url: check.url,
+        status: check.status,
+        duration: check.duration,
+        ok: false,
+        error: 'slow',
+      });
     }
   }
 
@@ -87,7 +93,9 @@ export async function runHealthCheck() {
     totalPages: PAGES.length,
     pagesOk: results.filter((r) => r.ok).length,
     pagesDown: errors.length,
-    avgDuration: Math.round(results.reduce((a, r) => a + r.duration, 0) / Math.max(results.length, 1)),
+    avgDuration: Math.round(
+      results.reduce((a, r) => a + r.duration, 0) / Math.max(results.length, 1),
+    ),
     errors,
   };
 }

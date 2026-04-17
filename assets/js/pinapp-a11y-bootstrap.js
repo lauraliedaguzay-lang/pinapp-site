@@ -39,7 +39,11 @@
       return;
     }
     var first = document.body && document.body.firstElementChild;
-    if (first && first.tagName === 'A' && (first.classList.contains('skip-link') || first.classList.contains('skip'))) {
+    if (
+      first &&
+      first.tagName === 'A' &&
+      (first.classList.contains('skip-link') || first.classList.contains('skip'))
+    ) {
       first.classList.add('skip-link');
       first.classList.remove('skip');
       first.setAttribute('href', href);

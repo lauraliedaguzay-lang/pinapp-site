@@ -6,7 +6,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const fp = path.join(__dirname, '../index.html');
 let s = fs.readFileSync(fp, 'utf8');
 
-const marker = '        </section>\n\n        \n        <section class="section" id="home-services"';
+const marker =
+  '        </section>\n\n        \n        <section class="section" id="home-services"';
 if (!s.includes(marker)) {
   throw new Error('hero/home-services marker not found');
 }
@@ -27,7 +28,7 @@ const cards = [1, 2, 3, 4, 5]
                 <p style="margin: 0.5rem 0.65rem 0.65rem; font-size: 0.72rem; color: rgba(232,244,248,0.5)">Démo ` +
       n +
       `</p>
-              </div>`
+              </div>`,
   )
   .join('');
 

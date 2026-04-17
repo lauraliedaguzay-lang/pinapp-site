@@ -79,7 +79,8 @@ const ModeToggle = {
     const meta = document.getElementById('pinapp-theme-color');
     if (meta) meta.setAttribute('content', '#080d18');
     document.body.dispatchEvent(new Event('modeChange'));
-    if (typeof window.PinappSyncPpThemeToggleIcons === 'function') window.PinappSyncPpThemeToggleIcons();
+    if (typeof window.PinappSyncPpThemeToggleIcons === 'function')
+      window.PinappSyncPpThemeToggleIcons();
     // Canvas aurora : visible
     const canvas = document.getElementById('pandora-canvas');
     if (canvas) {
@@ -105,7 +106,8 @@ const ModeToggle = {
     const meta = document.getElementById('pinapp-theme-color');
     if (meta) meta.setAttribute('content', '#0a2a2e');
     document.body.dispatchEvent(new Event('modeChange'));
-    if (typeof window.PinappSyncPpThemeToggleIcons === 'function') window.PinappSyncPpThemeToggleIcons();
+    if (typeof window.PinappSyncPpThemeToggleIcons === 'function')
+      window.PinappSyncPpThemeToggleIcons();
     // Canvas aurora : masqué en jour
     const canvas = document.getElementById('pandora-canvas');
     if (canvas) {

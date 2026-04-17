@@ -83,7 +83,8 @@
       btn.setAttribute('data-pp-injected', 'drawer');
       btn.setAttribute('data-pp-drawer', '1');
       btn.setAttribute('aria-label', 'Changer de thème');
-      var ref = panel.querySelector('a') || panel.querySelector('.nav-links') || panel.firstElementChild;
+      var ref =
+        panel.querySelector('a') || panel.querySelector('.nav-links') || panel.firstElementChild;
       panel.insertBefore(btn, ref || null);
     });
   }

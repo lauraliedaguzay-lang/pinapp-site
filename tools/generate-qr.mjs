@@ -71,7 +71,10 @@ const logoGroup =
 const close = svgCore.lastIndexOf('</svg>');
 if (close === -1) throw new Error('QR SVG : balise fermante manquante');
 const merged =
-  '<?xml version="1.0" encoding="UTF-8"?>\n' + svgCore.slice(0, close) + logoGroup + svgCore.slice(close);
+  '<?xml version="1.0" encoding="UTF-8"?>\n' +
+  svgCore.slice(0, close) +
+  logoGroup +
+  svgCore.slice(close);
 
 fs.writeFileSync(outSvg, merged, 'utf8');
 console.log('Écrit :', path.relative(root, outSvg));

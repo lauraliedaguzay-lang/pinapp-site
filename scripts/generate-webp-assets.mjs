@@ -14,6 +14,13 @@ for (const f of files) {
   if (st.size < MIN) continue;
   const out = path.join(dir, f.replace(/\.png$/i, '.webp'));
   await sharp(p).webp({ quality: 86 }).toFile(out);
-  console.log('webp', f, '→', path.basename(out), Math.round(st.size / 1024) + 'KB →', Math.round(fs.statSync(out).size / 1024) + 'KB');
+  console.log(
+    'webp',
+    f,
+    '→',
+    path.basename(out),
+    Math.round(st.size / 1024) + 'KB →',
+    Math.round(fs.statSync(out).size / 1024) + 'KB',
+  );
 }
 console.log('done');

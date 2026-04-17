@@ -11,8 +11,7 @@ const ROOT = process.cwd();
 
 const SKIP_DIR = new Set(['node_modules', '.git', '_site']);
 const SKIP_FILE = (name) =>
-  /backup|archived|legacy|tdah-backup/i.test(name) ||
-  name === 'og-image.html';
+  /backup|archived|legacy|tdah-backup/i.test(name) || name === 'og-image.html';
 
 function walk(dir, out = []) {
   for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -39,10 +38,7 @@ function canonicalFromRel(relPosix) {
 
 /** Contenu d’attributs meta / OG / Twitter */
 function escAttr(s) {
-  return s
-    .replace(/&/g, '&amp;')
-    .replace(/"/g, '&quot;')
-    .replace(/</g, '&lt;');
+  return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 }
 
 /** Contenu de <title> (texte, pas d’échappement des guillemets) */
@@ -132,9 +128,7 @@ const DEMO_FOLDER_TITLE = {
 };
 
 function humanizeDemoSlug(slug) {
-  return slug
-    .replace(/-/g, ' ')
-    .replace(/\b\w/g, (c) => c.toUpperCase());
+  return slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 function fallbackMeta(relPosix) {
@@ -322,10 +316,7 @@ function replaceDesc(html, desc) {
 function replaceJsonLdRoot(html) {
   const re = /<script\s+type=["']application\/ld\+json["']>[\s\S]*?<\/script>/i;
   if (!re.test(html)) return html;
-  return html.replace(
-    re,
-    `<script type="application/ld+json">\n      ${JSONLD}\n    </script>`,
-  );
+  return html.replace(re, `<script type="application/ld+json">\n      ${JSONLD}\n    </script>`);
 }
 
 function ensureViewport(html) {
@@ -372,7 +363,10 @@ function fixImages(html) {
     if (!/\balt\s*=/i.test(attrs)) {
       attrs += isLogo ? ' alt="Pinapp Inc. — Agence digitale Bordeaux"' : ' alt=""';
     } else if (isLogo && /alt=["']\s*["']|alt=["']["']/i.test(attrs)) {
-      attrs = attrs.replace(/\balt=["'][^"']*["']/i, 'alt="Pinapp Inc. — Agence digitale Bordeaux"');
+      attrs = attrs.replace(
+        /\balt=["'][^"']*["']/i,
+        'alt="Pinapp Inc. — Agence digitale Bordeaux"',
+      );
     }
     const close = selfClose ? ' />' : '>';
     return `<img${attrs}${close}`;

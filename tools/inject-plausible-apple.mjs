@@ -9,8 +9,7 @@ import { fileURLToPath } from 'url';
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PLAUSIBLE =
   '    <script defer data-domain="pinapp.fr" src="https://plausible.io/js/script.js"></script>\n';
-const APPLE =
-  '    <link rel="apple-touch-icon" href="/assets/images/pinapp-icon.png" />\n';
+const APPLE = '    <link rel="apple-touch-icon" href="/assets/images/pinapp-icon.png" />\n';
 
 function walk(dir, acc = []) {
   for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {

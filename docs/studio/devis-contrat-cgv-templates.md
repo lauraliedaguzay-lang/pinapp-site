@@ -94,7 +94,7 @@ Pinapp — pinapp.fr — SIRET 523 884 898 00017
 TVA non applicable, art. 293 B du CGI
 ```
 
-*Remplacer `[Adresse]` par l’adresse professionnelle publiée sur le site (ex. 49 Avenue Edmond Rostand, 33700 Mérignac) avant envoi.*
+_Remplacer `[Adresse]` par l’adresse professionnelle publiée sur le site (ex. 49 Avenue Edmond Rostand, 33700 Mérignac) avant envoi._
 
 ---
 
@@ -161,7 +161,7 @@ TVA non applicable, article 293 B du CGI.
 • 70% à la livraison et validation finale : [MONTANT] €
 
 Paiement par virement bancaire sous 15 jours à réception de la facture.
-En cas de retard : pénalités de 3 fois le taux d'intérêt légal + 
+En cas de retard : pénalités de 3 fois le taux d'intérêt légal +
 indemnité forfaitaire de recouvrement de 40 €.
 
 ───────────────────────────────────────────
@@ -230,7 +230,7 @@ Signature :                          Signature :
 (précédée de "Lu et approuvé")       (précédée de "Lu et approuvé")
 ```
 
-*Remplacer `[Adresse]` comme pour le devis. Vérifier que la désignation du prestataire (micro-entreprise / société) correspond à la réalité juridique et aux mentions légales en vigueur.*
+_Remplacer `[Adresse]` comme pour le devis. Vérifier que la désignation du prestataire (micro-entreprise / société) correspond à la réalité juridique et aux mentions légales en vigueur._
 
 ---
 

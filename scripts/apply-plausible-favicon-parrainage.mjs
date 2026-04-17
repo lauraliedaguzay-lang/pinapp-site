@@ -22,7 +22,8 @@ const PARRAINAGE_DEMO = `      <p style="font-size:0.75rem;color:rgba(232,244,24
         <a href="mailto:contact@pinapp.fr?subject=Parrainage" style="color:#00E5B0;">En savoir plus</a>
       </p>`;
 
-const OLD_RECOMMANDEZ = /<p[^>]*>\s*Recommandez un client → 10&nbsp;% sur votre prochaine prestation\s*<\/p>/gi;
+const OLD_RECOMMANDEZ =
+  /<p[^>]*>\s*Recommandez un client → 10&nbsp;% sur votre prochaine prestation\s*<\/p>/gi;
 
 function walkHtml(dir, out = []) {
   for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -36,7 +37,10 @@ function walkHtml(dir, out = []) {
 
 function ensureHeadTags(html) {
   let h = html;
-  h = h.replace(/\s*<script defer data-domain="pinapp\.fr" src="https:\/\/plausible\.io\/js\/script\.js"><\/script>\s*/gi, '\n');
+  h = h.replace(
+    /\s*<script defer data-domain="pinapp\.fr" src="https:\/\/plausible\.io\/js\/script\.js"><\/script>\s*/gi,
+    '\n',
+  );
   const headClose = h.toLowerCase().lastIndexOf('</head>');
   if (headClose === -1) return h;
   const insert = `\n    ${PLAUSIBLE}\n`;
@@ -56,7 +60,10 @@ function ensureHeadTags(html) {
     const fi = h.search(/<link\s+rel=["']icon["'][^>]*href=["']\/favicon\.svg["'][^>]*>/i);
     if (fi !== -1) {
       const end = h.indexOf('>', fi) + 1;
-      h = h.slice(0, end) + `\n    <link rel="apple-touch-icon" href="/assets/images/pinapp-icon.png" />` + h.slice(end);
+      h =
+        h.slice(0, end) +
+        `\n    <link rel="apple-touch-icon" href="/assets/images/pinapp-icon.png" />` +
+        h.slice(end);
     } else {
       const headClose2 = h.toLowerCase().lastIndexOf('</head>');
       if (headClose2 !== -1) {

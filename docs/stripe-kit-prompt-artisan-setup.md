@@ -2,11 +2,11 @@
 
 Ce guide complète la configuration **côté Stripe et n8n**. Après paiement, les liens de paiement peuvent rediriger vers `https://pinapp.fr/merci-kit/`. Sur le site, les boutons utilisent l’objet `STRIPE_KIT_LINKS` dans `formations/kit-prompts/index.html` (attribut `data-pinapp-kit-tier` : `pro` | `complet` | `essentiel`).
 
-| Palier     | Prix TTC | Contenu résumé                                      |
-| ---------- | -------- | --------------------------------------------------- |
-| Essentiel  | 29 €     | 20 prompts (rédaction + réseaux + gestion)         |
-| Complet    | 49 €     | 50 prompts, 7 catégories, PDF + Notion, MAJ 1 an   |
-| Pro        | 149 €    | Complet + 1 h formation live + assistant IA perso |
+| Palier    | Prix TTC | Contenu résumé                                    |
+| --------- | -------- | ------------------------------------------------- |
+| Essentiel | 29 €     | 20 prompts (rédaction + réseaux + gestion)        |
+| Complet   | 49 €     | 50 prompts, 7 catégories, PDF + Notion, MAJ 1 an  |
+| Pro       | 149 €    | Complet + 1 h formation live + assistant IA perso |
 
 TVA non applicable art. 293 B CGI — prix affichés TTC comme sur l’étiquette client.
 
@@ -33,7 +33,7 @@ Pour chaque palier : **Produits** → **Ajouter un produit**, puis un **prix** e
 3. **Kit Pro — 50 prompts + live + assistant** — **149,00 €** TTC  
    Description : tout le Complet + 1 h de formation live + mise en forme assistant IA métier.
 
-*(Optionnel : une image par produit — couverture PDF.)*
+_(Optionnel : une image par produit — couverture PDF.)_
 
 ---
 
@@ -48,9 +48,9 @@ Pour chaque palier : **Produits** → **Ajouter un produit**, puis un **prix** e
 
 Dans `formations/kit-prompts/index.html`, script en bas de page : remplir `STRIPE_KIT_LINKS` :
 
-- `pro` → URL du lien 149 €  
-- `complet` → URL du lien 49 €  
-- `essentiel` → URL du lien 29 €  
+- `pro` → URL du lien 149 €
+- `complet` → URL du lien 49 €
+- `essentiel` → URL du lien 29 €
 
 Tant qu’une URL contient encore `REMPLACER`, le bouton de ce palier bascule en **mailto** pré-rempli vers contact@pinapp.fr.
 
@@ -78,12 +78,12 @@ Fichier : `merci-kit/index.html`
 
 ## 6. Références dépôt
 
-| Élément        | Chemin                              |
-| -------------- | ----------------------------------- |
-| Page de vente  | `formations/kit-prompts/index.html` |
-| Page merci     | `merci-kit/index.html`              |
+| Élément           | Chemin                                         |
+| ----------------- | ---------------------------------------------- |
+| Page de vente     | `formations/kit-prompts/index.html`            |
+| Page merci        | `merci-kit/index.html`                         |
 | E-mail post-achat | `emails/sequences/C1-kit-prompts-immediat.txt` |
-| Workflows n8n  | `n8n-workflows/README.md`           |
+| Workflows n8n     | `n8n-workflows/README.md`                      |
 
 ---
 

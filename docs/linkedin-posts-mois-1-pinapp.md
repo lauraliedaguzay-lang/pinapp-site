@@ -52,10 +52,10 @@ Chaque semaine.
 
 On lui a mis en place un système simple :
 
-1. Le client prend rdv → confirmation automatique  
-2. J-1 → rappel automatique  
-3. Après la prestation → demande d'avis Google automatique  
-4. Pas venu depuis 2 mois → message de relance automatique  
+1. Le client prend rdv → confirmation automatique
+2. J-1 → rappel automatique
+3. Après la prestation → demande d'avis Google automatique
+4. Pas venu depuis 2 mois → message de relance automatique
 
 Temps passé par le patron maintenant : 0 minute.
 
@@ -76,17 +76,17 @@ Si vous faites encore vos relances à la main :
 
 AVANT :
 
-- Site fait sur Wix en 2019  
-- Pas responsive  
-- 0 visiteur par mois  
-- « Je comprends rien à Internet »  
+- Site fait sur Wix en 2019
+- Pas responsive
+- 0 visiteur par mois
+- « Je comprends rien à Internet »
 
 APRÈS :
 
-- Site sur-mesure, mode jour/nuit  
-- 100 % responsive  
-- SEO optimisé, visible sur Google  
-- Formation incluse, le client est autonome  
+- Site sur-mesure, mode jour/nuit
+- 100 % responsive
+- SEO optimisé, visible sur Google
+- Formation incluse, le client est autonome
 
 Le coût ? Moins qu'un mois de pub Google Ads qui ne convertit pas.
 
@@ -122,7 +122,7 @@ On a :
 → Du code propre  
 → Des systèmes qui tournent  
 → Une caméra 4K  
-→ Et l'envie de faire du travail dont on est fiers  
+→ Et l'envie de faire du travail dont on est fiers
 
 Pinapp c'est ça.
 
@@ -140,21 +140,21 @@ Et on construit la même chose pour vous.
 
 ## Lead magnet — tunnel (Auralis RH)
 
-1. Post LinkedIn sur le burnout / le bien-être équipe → lien vers le PDF (`/assets/lead-magnet-auralis.html` ou page d’atterrissage avec iframe + capture email).  
-2. Téléchargement derrière email (formulaire Tally / n8n — à brancher).  
-3. **Séquence n8n (ex. W3) :**  
-   - **J0 :** envoi du PDF  
-   - **J3 :** « Vous avez lu le guide ? Voici un cas concret… »  
-   - **J7 :** « Auralis RH sort bientôt. Soyez prévenu(e) en premier. »  
+1. Post LinkedIn sur le burnout / le bien-être équipe → lien vers le PDF (`/assets/lead-magnet-auralis.html` ou page d’atterrissage avec iframe + capture email).
+2. Téléchargement derrière email (formulaire Tally / n8n — à brancher).
+3. **Séquence n8n (ex. W3) :**
+   - **J0 :** envoi du PDF
+   - **J3 :** « Vous avez lu le guide ? Voici un cas concret… »
+   - **J7 :** « Auralis RH sort bientôt. Soyez prévenu(e) en premier. »
    - **J14 :** « Diagnostic gratuit de vos outils RH — 30 min » → https://pinapp.fr/diagnostic/
 
 ---
 
 ## Calendrier — mois 1
 
-| Semaine | Post LinkedIn        | Action site / ops        |
-| ------- | -------------------- | ------------------------ |
-| S1      | Post 1 — Lancement   | Indexation, corrections  |
-| S2      | Post 2 — Automatisation | n8n + formulaire      |
-| S3      | Post 3 — Avant/après | Témoignages (déjà amorcés sur l’accueil) |
-| S4      | Post 4 — Humain      | Lead magnet Auralis (HTML livré) |
+| Semaine | Post LinkedIn           | Action site / ops                        |
+| ------- | ----------------------- | ---------------------------------------- |
+| S1      | Post 1 — Lancement      | Indexation, corrections                  |
+| S2      | Post 2 — Automatisation | n8n + formulaire                         |
+| S3      | Post 3 — Avant/après    | Témoignages (déjà amorcés sur l’accueil) |
+| S4      | Post 4 — Humain         | Lead magnet Auralis (HTML livré)         |
