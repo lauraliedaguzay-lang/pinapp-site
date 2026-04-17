@@ -426,7 +426,6 @@
       form.appendChild(hint);
       form.addEventListener('submit', function (e) {
         e.preventDefault();
-        if (window.console && console.log) console.log('[Pinapp vitrine] Formulaire (non envoyé)');
         btn.textContent = 'Bien reçu (vitrine)';
         btn.disabled = true;
       });
@@ -556,8 +555,6 @@
         window.setTimeout(function () {
           circle.classList.add('animate');
         }, 100);
-        if (window.console && console.log)
-          console.log('[Pinapp vitrine] Réponses questionnaire :', answers);
       }
     }, 400);
   }

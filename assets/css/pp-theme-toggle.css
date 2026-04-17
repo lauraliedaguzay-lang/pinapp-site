@@ -1,0 +1,80 @@
+/* Pinapp — bouton thème jour/nuit (.pp-theme-toggle) + tokens --pp-* (complément) */
+
+.pp-theme-toggle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 229, 204, 0.2);
+  background: transparent;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    border-color 0.3s,
+    background 0.3s,
+    transform 0.3s;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  padding: 0;
+  color: inherit;
+}
+
+.pp-theme-toggle:hover {
+  border-color: #00e5b0;
+  background: rgba(0, 229, 204, 0.08);
+  transform: rotate(30deg);
+}
+
+.pp-theme-toggle:focus-visible {
+  outline: 2px solid rgba(0, 229, 176, 0.65);
+  outline-offset: 2px;
+}
+
+.pp-theme-toggle[data-pp-drawer] {
+  margin-bottom: 0.75rem;
+}
+
+:root,
+[data-theme='dark'] {
+  --pp-bg: #050a14;
+  --pp-card: #0a1628;
+  --pp-text: #e8f4f8;
+  --pp-muted: rgba(232, 244, 248, 0.6);
+}
+
+[data-theme='light'] {
+  --pp-bg: #fafbfe;
+  --pp-card: #ffffff;
+  --pp-text: #0d1b3e;
+  --pp-muted: rgba(13, 27, 62, 0.6);
+  --pp-teal: #00b4a6;
+  --pp-violet: #5b4fe8;
+  --pp-border: rgba(91, 79, 232, 0.15);
+  --pp-shadow: 0 2px 20px rgba(13, 27, 62, 0.08);
+}
+
+[data-theme='light'] body {
+  background: var(--pp-bg);
+  color: var(--pp-text);
+}
+
+[data-theme='light'] nav,
+[data-theme='light'] [class*='nav'] {
+  background: rgba(250, 251, 254, 0.9);
+  border-color: rgba(91, 79, 232, 0.1);
+}
+
+[data-theme='light'] .hero__gradient,
+[data-theme='light'] .shimmer-2026 {
+  color: #00b4a6 !important;
+  -webkit-text-fill-color: #00b4a6 !important;
+}
+
+/* Ancien bouton SVG (grille) masqué lorsque le bouton rond est injecté à côté */
+.nav-trailing:has(> .pp-theme-toggle) > .mode-toggle,
+.nav-trailing:has(.pp-theme-toggle) > .mode-toggle {
+  display: none !important;
+}

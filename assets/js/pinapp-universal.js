@@ -94,3 +94,13 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
   else run();
 })();
+
+(function loadPinappPpThemeToggleUniversal() {
+  if (document.querySelector('script[data-pinapp-pp-theme-toggle]')) return;
+  if (document.querySelector('script[src*="pp-theme-toggle.js"]')) return;
+  var s = document.createElement('script');
+  s.src = '/assets/js/pp-theme-toggle.js?v=1';
+  s.defer = true;
+  s.setAttribute('data-pinapp-pp-theme-toggle', '1');
+  document.head.appendChild(s);
+})();

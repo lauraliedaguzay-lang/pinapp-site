@@ -24,6 +24,10 @@
         t === 'dark' ? 'Passer en mode jour Avatar 2' : 'Passer en mode nuit Pandora',
       );
     }
+    document.querySelectorAll('.pp-theme-toggle').forEach(function (btn) {
+      btn.textContent = t === 'dark' ? '☀️' : '🌙';
+      btn.setAttribute('aria-label', 'Changer de thème');
+    });
     // Déclencher event pour particles.js
     document.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme: t } }));
   }
@@ -37,6 +41,20 @@
       document.documentElement.setAttribute('data-pinapp-calm', '1');
     }
   } catch (e) {}
+  if (!h.dataset.ppThemeThemeJsDeleg) {
+    h.dataset.ppThemeThemeJsDeleg = '1';
+    document.addEventListener(
+      'click',
+      function (e) {
+        var t = e.target.closest && e.target.closest('.pp-theme-toggle');
+        if (!t) return;
+        if (window.PinappModeToggle) return;
+        e.preventDefault();
+        toggle();
+      },
+      true,
+    );
+  }
   document.addEventListener('DOMContentLoaded', function () {
     var b = document.getElementById('theme-toggle');
     if (b) b.addEventListener('click', toggle);

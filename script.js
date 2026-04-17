@@ -40,16 +40,43 @@
     var scheme = readStoredTheme();
     html.setAttribute('data-theme', scheme);
     document.body.classList.toggle('day', scheme === 'light');
-    var btn = document.getElementById('themeToggle');
-    setThemeAria(btn, scheme === 'light');
-    if (!btn) return;
-    btn.addEventListener('click', function () {
+    var legacy = document.getElementById('themeToggle') || document.getElementById('ppTheme');
+    setThemeAria(legacy, scheme === 'light');
+
+    function applyClick() {
       var next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
       html.setAttribute('data-theme', next);
       document.body.classList.toggle('day', next === 'light');
       persistTheme(next);
-      setThemeAria(btn, next === 'light');
+      setThemeAria(legacy, next === 'light');
+      document.querySelectorAll('.pp-theme-toggle').forEach(function (b) {
+        b.textContent = next === 'dark' ? '☀️' : '🌙';
+      });
       window.dispatchEvent(new Event('resize'));
+      try {
+        document.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme: next } }));
+      } catch (e) {}
+    }
+
+    if (!html.dataset.ppThemeScriptDeleg) {
+      html.dataset.ppThemeScriptDeleg = '1';
+      document.addEventListener(
+        'click',
+        function (e) {
+          var t = e.target.closest && e.target.closest('.pp-theme-toggle');
+          if (!t) return;
+          if (window.PinappModeToggle) return;
+          e.preventDefault();
+          applyClick();
+        },
+        true,
+      );
+    }
+
+    if (legacy) legacy.addEventListener('click', applyClick);
+
+    document.querySelectorAll('.pp-theme-toggle').forEach(function (b) {
+      b.textContent = scheme === 'dark' ? '☀️' : '🌙';
     });
   }
 

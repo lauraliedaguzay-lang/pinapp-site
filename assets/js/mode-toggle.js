@@ -31,6 +31,14 @@ const ModeToggle = {
       });
     }
 
+    window.setTimeout(() => {
+      document.querySelectorAll('.pp-theme-toggle').forEach((b) => {
+        if (b.dataset.mtBound === '1') return;
+        b.dataset.mtBound = '1';
+        b.addEventListener('click', () => this.toggle());
+      });
+    }, 0);
+
     window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change', () => {
       if (!localStorage.getItem('pinapp-theme') && !localStorage.getItem('pinapp-mode')) {
         this.setNuit(false);
@@ -71,6 +79,7 @@ const ModeToggle = {
     const meta = document.getElementById('pinapp-theme-color');
     if (meta) meta.setAttribute('content', '#080d18');
     document.body.dispatchEvent(new Event('modeChange'));
+    if (typeof window.PinappSyncPpThemeToggleIcons === 'function') window.PinappSyncPpThemeToggleIcons();
     // Canvas aurora : visible
     const canvas = document.getElementById('pandora-canvas');
     if (canvas) {
@@ -96,6 +105,7 @@ const ModeToggle = {
     const meta = document.getElementById('pinapp-theme-color');
     if (meta) meta.setAttribute('content', '#0a2a2e');
     document.body.dispatchEvent(new Event('modeChange'));
+    if (typeof window.PinappSyncPpThemeToggleIcons === 'function') window.PinappSyncPpThemeToggleIcons();
     // Canvas aurora : masqué en jour
     const canvas = document.getElementById('pandora-canvas');
     if (canvas) {
@@ -109,6 +119,8 @@ const ModeToggle = {
     setTimeout(() => document.body.classList.remove('mode-switching'), 500);
   },
 };
+
+window.PinappModeToggle = ModeToggle;
 
 document.readyState === 'loading'
   ? document.addEventListener('DOMContentLoaded', () => ModeToggle.init())

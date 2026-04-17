@@ -100,3 +100,22 @@
   s.setAttribute('data-pinapp-futur-ambient', '1');
   document.head.appendChild(s);
 })();
+
+(function loadPinappPpThemeToggleInit() {
+  if (document.querySelector('script[data-pinapp-pp-theme-toggle]')) return;
+  if (document.querySelector('script[src*="pp-theme-toggle.js"]')) return;
+  var scripts = document.getElementsByTagName('script');
+  var url = '/assets/js/pp-theme-toggle.js?v=1';
+  for (var i = scripts.length - 1; i >= 0; i--) {
+    var src = scripts[i].src || '';
+    if (src.indexOf('theme-init.js') !== -1) {
+      url = src.replace(/theme-init\.js(\?[^#]*)?/i, 'pp-theme-toggle.js$1');
+      break;
+    }
+  }
+  var s2 = document.createElement('script');
+  s2.src = url;
+  s2.defer = true;
+  s2.setAttribute('data-pinapp-pp-theme-toggle', '1');
+  document.head.appendChild(s2);
+})();
