@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="canonical" href="https://pinapp.fr/demo/atelier-rivage/" />
+<meta name="description" content="Atelier Rivage — démo vitrine architecture résidentielle d'exception · Pinapp Studio." />
+<title>Atelier Rivage — Architecture d'exception</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Outfit:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden;background:#0a0a08;font-family:'Outfit',sans-serif;color:#fff}
+::selection{background:#C8A87A;color:#fff}
+
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s cubic-bezier(0.16,1,0.3,1);overflow:hidden}
+.slide.active{opacity:1}
+.slide img{position:absolute;width:115%;height:115%;top:-7.5%;left:-7.5%;object-fit:cover;filter:brightness(0.5) saturate(0.85);transition:transform 0.15s ease-out;animation:ken 25s ease-in-out alternate infinite}
+@keyframes ken{0%{transform:scale(1.02)}100%{transform:scale(1.12) translate(-1%,-0.5%)}}
+
+.vignette{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 25%,rgba(10,10,8,0.5) 100%)}
+.gradient{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,8,0.25) 0%,transparent 30%,transparent 50%,rgba(10,10,8,0.9) 100%)}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;letter-spacing:0.18em;font-weight:300;color:#fff;text-decoration:none}
+.nav-links{display:flex;gap:2.5rem;align-items:center}
+.nav-links a{color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:300;transition:color 0.3s}
+.nav-links a:hover{color:#C8A87A}
+.nav-links a.nav-back-demo{color:rgba(200,168,122,0.85)}
+
+.content{position:fixed;bottom:0;left:0;right:0;z-index:20;padding:0 4rem 4.5rem}
+.eyebrow{font-size:0.5rem;letter-spacing:0.4em;text-transform:uppercase;color:#C8A87A;margin-bottom:1.2rem}
+.title{font-family:'Cormorant Garamond',serif;font-weight:300;line-height:1.05;text-shadow:0 2px 50px rgba(0,0,0,0.4);transition:all 0.6s cubic-bezier(0.16,1,0.3,1)}
+.title-hero{font-size:clamp(2.8rem,7vw,5.5rem)}
+.title-project{font-size:clamp(2rem,5vw,3.5rem)}
+.title em{font-style:italic;color:#e8d5b8}
+.subtitle{font-size:0.82rem;color:rgba(255,255,255,0.5);margin-top:0.6rem;font-weight:200}
+
+.thumbs{display:flex;gap:0.6rem;margin-top:2.5rem;align-items:flex-end}
+.thumb{width:75px;height:50px;border-radius:5px;overflow:hidden;cursor:pointer;border:2px solid rgba(255,255,255,0.08);transition:all 0.5s cubic-bezier(0.16,1,0.3,1);opacity:0.4;flex-shrink:0}
+.thumb.active{width:130px;height:80px;border-color:#C8A87A;opacity:1}
+.thumb img{width:100%;height:100%;object-fit:cover;transition:filter 0.3s}
+.thumb:not(.active) img{filter:brightness(0.5) saturate(0.4)}
+.thumb:hover{opacity:0.8}
+.thumb-label{position:absolute;bottom:3px;left:5px;font-size:0.38rem;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,0.6);letter-spacing:0.05em}
+
+.arrows{display:flex;gap:0.6rem;margin-top:1.2rem;align-items:center}
+.arrow{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.9rem;transition:all 0.3s;backdrop-filter:blur(8px)}
+.arrow:hover{border-color:#C8A87A;background:rgba(200,168,122,0.1)}
+.counter{font-size:0.5rem;color:rgba(255,255,255,0.2);margin-left:0.5rem;letter-spacing:0.12em;font-variant-numeric:tabular-nums}
+
+.dots{position:fixed;right:1.5rem;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:0.5rem}
+.dot{width:3px;height:8px;border:none;padding:0;border-radius:2px;background:rgba(255,255,255,0.12);cursor:pointer;transition:all 0.5s cubic-bezier(0.16,1,0.3,1);font-size:0;color:transparent}
+.dot.active{height:22px;background:#C8A87A}
+
+.scroll-hint{margin-top:2.5rem;display:flex;align-items:center;gap:0.6rem;opacity:0.35;animation:breathe 3s infinite}
+@keyframes breathe{0%,100%{opacity:0.2}50%{opacity:0.5}}
+
+.badge{position:fixed;bottom:1rem;right:1.5rem;z-index:50;display:flex;align-items:center;gap:0.4rem;padding:0.35rem 0.8rem;background:rgba(10,10,8,0.5);backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,0.06);border-radius:100px;text-decoration:none}
+.badge-dot{width:4px;height:4px;border-radius:50%;background:#6BAF8D;animation:breathe 3s infinite}
+.badge-text{font-size:0.45rem;color:rgba(255,255,255,0.25);letter-spacing:0.1em;text-transform:uppercase}
+
+@media(max-width:768px){
+  .content{padding:0 1.5rem 3rem}
+  .title-hero{font-size:2.5rem}
+  .title-project{font-size:1.8rem}
+  .nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  .thumbs{gap:0.4rem}
+  .thumb{width:50px;height:35px}
+  .thumb.active{width:90px;height:55px}
+}
+@media (prefers-reduced-motion: reduce) {
+  .slide img { animation: none; }
+  .slide { transition: opacity 0.35s ease; }
+  .thumb, .dot, .title { transition-duration: 0.2s; }
+  .badge-dot, .scroll-hint { animation: none; opacity: 0.35; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="#" class="nav-logo">Atelier Rivage</a>
+  <div class="nav-links">
+    <a class="nav-back-demo" href="../">Démos</a>
+    <a href="#">Villas</a>
+    <a href="#">Studio</a>
+    <a href="#">Contact</a>
+  </div>
+</nav>
+
+<div id="slides">
+  <div class="slide active" data-i="0">
+    <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920&q=90" alt="Villa Lumière">
+    <div class="vignette"></div><div class="gradient"></div>
+  </div>
+  <div class="slide" data-i="1">
+    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=90" alt="Les Jardins">
+    <div class="vignette"></div><div class="gradient"></div>
+  </div>
+  <div class="slide" data-i="2">
+    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=90" alt="Maison Pierre">
+    <div class="vignette"></div><div class="gradient"></div>
+  </div>
+  <div class="slide" data-i="3">
+    <img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=1920&q=90" alt="Villa Éclipse">
+    <div class="vignette"></div><div class="gradient"></div>
+  </div>
+  <div class="slide" data-i="4">
+    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=90" alt="L'Intérieur">
+    <div class="vignette"></div><div class="gradient"></div>
+  </div>
+  <div class="slide" data-i="5">
+    <img src="https://images.unsplash.com/photo-1574739782594-db4ead022697?w=1920&q=90" alt="Horizon Bleu">
+    <div class="vignette"></div><div class="gradient"></div>
+  </div>
+</div>
+
+<div class="content" id="content">
+  <div class="eyebrow" id="eyebrow">Architecture résidentielle · Bordeaux &amp; Littoral</div>
+  <h1 class="title title-hero" id="title">Entrez dans<br>nos <em>créations.</em></h1>
+  <p class="subtitle" id="subtitle">Naviguez à travers nos villas d'exception</p>
+
+  <div class="thumbs" id="thumbs"></div>
+  <div class="arrows">
+    <button type="button" class="arrow" id="prev" aria-label="Diapositive précédente">←</button>
+    <button type="button" class="arrow" id="next" aria-label="Diapositive suivante">→</button>
+    <span class="counter" id="counter">01 / 06</span>
+  </div>
+</div>
+
+<div class="dots" id="dots" role="navigation" aria-label="Projets"></div>
+
+<a href="https://pinapp.fr" target="_blank" rel="noopener noreferrer" class="badge">
+  <span class="badge-dot"></span>
+  <span class="badge-text">Créé par Pinapp</span>
+</a>
+
+<script>
+var data=[
+  {t:"Villa Lumière",l:"Cap Ferret · 480m²",d:"Piscine à débordement face à l'Atlantique",img:"https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=400&q=70"},
+  {t:"Les Jardins",l:"Biarritz · 350m²",d:"Terrasses végétalisées surplombant la côte",img:"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400&q=70"},
+  {t:"Maison Pierre",l:"Saint-Émilion · 420m²",d:"Pierre blonde et acier noir",img:"https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&q=70"},
+  {t:"Villa Éclipse",l:"Arcachon · 290m²",d:"Infinity pool sur le Bassin",img:"https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=400&q=70"},
+  {t:"L'Intérieur",l:"Bordeaux · 260m²",d:"Double hauteur et verrière zénithale",img:"https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=70"},
+  {t:"Horizon Bleu",l:"Hossegor · 310m²",d:"Face à l'océan, bois flotté et pierre",img:"https://images.unsplash.com/photo-1574739782594-db4ead022697?w=400&q=70"}
+];
+
+var cur=0;
+var slides=document.querySelectorAll('.slide');
+var title=document.getElementById('title');
+var subtitle=document.getElementById('subtitle');
+var eyebrow=document.getElementById('eyebrow');
+var counter=document.getElementById('counter');
+var thumbsEl=document.getElementById('thumbs');
+var dotsEl=document.getElementById('dots');
+
+data.forEach(function(d,i){
+  var th=document.createElement('div');
+  th.className='thumb'+(i===0?' active':'');
+  th.style.position='relative';
+  th.setAttribute('role','button');
+  th.setAttribute('tabindex','0');
+  th.setAttribute('aria-label',d.t);
+  th.innerHTML='<img src="'+d.img+'" alt=""><span class="thumb-label">'+d.t+'</span>';
+  th.onclick=function(){goTo(i)};
+  th.onkeydown=function(e){if(e.key==='Enter'||e.key===' ') { e.preventDefault(); goTo(i); }};
+  thumbsEl.appendChild(th);
+});
+
+data.forEach(function(d,i){
+  var dot=document.createElement('button');
+  dot.type='button';
+  dot.className='dot'+(i===0?' active':'');
+  dot.setAttribute('aria-label',d.t);
+  dot.setAttribute('aria-selected',i===0?'true':'false');
+  dot.onclick=function(){goTo(i)};
+  dotsEl.appendChild(dot);
+});
+
+function goTo(n){
+  if(n===cur)return;
+  slides[cur].classList.remove('active');
+  thumbsEl.children[cur].classList.remove('active');
+  dotsEl.children[cur].classList.remove('active');
+  dotsEl.children[cur].setAttribute('aria-selected','false');
+  cur=n;
+  slides[cur].classList.add('active');
+  thumbsEl.children[cur].classList.add('active');
+  dotsEl.children[cur].classList.add('active');
+  dotsEl.children[cur].setAttribute('aria-selected','true');
+
+  if(cur===0){
+    title.className='title title-hero';
+    title.innerHTML='Entrez dans<br>nos <em>créations.</em>';
+    subtitle.textContent='Naviguez à travers nos villas d\'exception';
+    eyebrow.style.display='block';
+  }else{
+    title.className='title title-project';
+    title.innerHTML=data[cur].t;
+    subtitle.textContent=data[cur].l+' — '+data[cur].d;
+    eyebrow.style.display='none';
+  }
+  counter.textContent=String(cur+1).padStart(2,'0')+' / '+String(data.length).padStart(2,'0');
+}
+
+document.getElementById('prev').onclick=function(){goTo(cur>0?cur-1:data.length-1)};
+document.getElementById('next').onclick=function(){goTo(cur<data.length-1?cur+1:0)};
+
+document.addEventListener('mousemove',function(e){
+  var x=(e.clientX/window.innerWidth-0.5)*-20;
+  var y=(e.clientY/window.innerHeight-0.5)*-12;
+  var img=slides[cur].querySelector('img');
+  if(img)img.style.transform='translate('+x+'px,'+y+'px) scale(1.08)';
+});
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key===' ') { e.preventDefault(); goTo(cur<data.length-1?cur+1:0); }
+  if(e.key==='ArrowLeft')goTo(cur>0?cur-1:data.length-1);
+});
+
+var touchX=0;
+document.addEventListener('touchstart',function(e){touchX=e.touches[0].clientX},{passive:true});
+document.addEventListener('touchend',function(e){
+  var diff=e.changedTouches[0].clientX-touchX;
+  if(Math.abs(diff)>50){diff<0?goTo(cur<data.length-1?cur+1:0):goTo(cur>0?cur-1:data.length-1)}
+},{passive:true});
+</script>
+</body>
+</html>
