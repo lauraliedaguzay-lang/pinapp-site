@@ -1,44 +1,42 @@
 /**
- * PINAPP — Auto-réparation (notifications / actions à brancher dans n8n)
- * n8n : `const { autoRepair } = await import('./tools/auto-repair.js');`
+ * PINAPP — Auto-réparation (ESM)
+ * Node 18+ : node tools/auto-repair.js  (nécessite un résumé health-check en JSON sur stdin — optionnel)
  */
 
-const REPAIRS = {
+export const REPAIRS = {
   async handle404(page) {
-    console.log('[AUTO-REPAIR] Page 404 détectée : ' + page);
-    return { action: 'notify', message: 'Page 404 : ' + page + ' — vérifier le fichier' };
+    console.log(`[AUTO-REPAIR] Page 404 détectée : ${page}`);
+    return { action: 'notify', message: `Page 404 : ${page} — vérifier le fichier` };
   },
 
   async handleSlow(page, duration) {
-    console.log('[AUTO-REPAIR] Page lente : ' + page + ' (' + duration + 'ms)');
-    return { action: 'notify', message: 'Page lente : ' + page + ' — ' + duration + 'ms' };
+    console.log(`[AUTO-REPAIR] Page lente : ${page} (${duration}ms)`);
+    return { action: 'notify', message: `Page lente : ${page} — ${duration}ms` };
   },
 
   async handleSSL() {
-    console.log('[AUTO-REPAIR] CRITIQUE : SSL / connexion HTTPS');
-    return { action: 'critical', message: 'SSL ou HTTPS — vérifier le certificat sur Hostinger' };
+    console.log('[AUTO-REPAIR] ⚠️ CRITIQUE : SSL expiré ou invalide');
+    return { action: 'critical', message: 'SSL expiré — renouveler immédiatement sur Hostinger' };
   },
 
   async handleContentMissing(missing) {
-    console.log('[AUTO-REPAIR] Contenu manquant : ' + missing.join(', '));
+    console.log(`[AUTO-REPAIR] Contenu manquant : ${missing.join(', ')}`);
     return {
       action: 'critical',
-      message: "Contenu manquant sur l'accueil : " + missing.join(', ') + ' — vérifier le déploiement',
+      message: `Contenu manquant sur l'accueil : ${missing.join(', ')} — vérifier le déploiement`,
     };
   },
 };
 
-async function autoRepair(healthResult) {
+export async function autoRepair(healthResult) {
   const actions = [];
-  const errs = healthResult.errors || [];
 
-  for (let i = 0; i < errs.length; i++) {
-    const error = errs[i];
+  for (const error of healthResult.errors || []) {
     if (error.status === 404) {
       actions.push(await REPAIRS.handle404(error.url));
-    } else if (error.duration > 3000) {
+    } else if (error.duration > 3000 || error.error === 'slow') {
       actions.push(await REPAIRS.handleSlow(error.url, error.duration));
-    } else if (error.error && String(error.error).toLowerCase().includes('ssl')) {
+    } else if (error.error && String(error.error).includes('SSL')) {
       actions.push(await REPAIRS.handleSSL());
     } else if (error.missing) {
       actions.push(await REPAIRS.handleContentMissing(error.missing));
@@ -48,4 +46,4 @@ async function autoRepair(healthResult) {
   return actions;
 }
 
-export { autoRepair, REPAIRS };
+export default { autoRepair, REPAIRS };

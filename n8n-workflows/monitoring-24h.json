@@ -1,7 +1,7 @@
 {
   "name": "Pinapp Monitoring 24/7",
   "meta": {
-    "description": "À importer dans n8n. Brancher les credentials Telegram (Bot + Chat ID). Compléter les nœuds HTTP pour sitemap et le rapport quotidien."
+    "description": "Importer dans n8n. Configurer credentials Telegram (Bot + Chat ID). Renseigner TELEGRAM_CHAT_ID dans les nœuds ou via credentials. Vérifications : accueil + sitemap. Compléter avec UptimeRobot (gratuit) en filet externe."
   },
   "nodes": [
     {
@@ -23,14 +23,14 @@
       "typeVersion": 4,
       "position": [260, 0],
       "parameters": {
-        "url": "https://pinapp.fr",
+        "url": "https://pinapp.fr/",
         "method": "HEAD",
         "options": { "timeout": 5000 }
       }
     },
     {
-      "id": "if-down",
-      "name": "If not 200",
+      "id": "if-home",
+      "name": "If home not 200",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [520, 0],
@@ -50,15 +50,60 @@
       }
     },
     {
-      "id": "tg-down",
-      "name": "Alert Telegram DOWN",
+      "id": "tg-home-down",
+      "name": "Telegram HOME down",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
-      "position": [780, -120],
+      "position": [780, -160],
       "parameters": {
         "operation": "sendMessage",
         "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
-        "text": "=🚨 PINAPP DOWN\nStatus: {{ $json.statusCode }}\nHeure: {{ $now.format('HH:mm') }}\n\nVérifie https://pinapp.fr"
+        "text": "=🚨 PINAPP DOWN — homepage\nStatus: {{ $json.statusCode }}\nHeure: {{ $now.toFormat('HH:mm') }}\nhttps://pinapp.fr/"
+      }
+    },
+    {
+      "id": "http-sitemap",
+      "name": "Check sitemap",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [780, 120],
+      "parameters": {
+        "url": "https://pinapp.fr/sitemap.xml",
+        "method": "GET",
+        "options": { "timeout": 8000 }
+      }
+    },
+    {
+      "id": "if-sitemap",
+      "name": "If sitemap not 200",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1040, 120],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "b",
+              "leftValue": "={{ $json.statusCode }}",
+              "rightValue": 200,
+              "operator": { "type": "number", "operation": "notEquals" }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "tg-sitemap-down",
+      "name": "Telegram SITEMAP down",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [1300, 40],
+      "parameters": {
+        "operation": "sendMessage",
+        "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
+        "text": "=🚨 PINAPP DOWN — sitemap.xml\nStatus: {{ $json.statusCode }}\nHeure: {{ $now.toFormat('HH:mm') }}"
       }
     },
     {
@@ -66,7 +111,7 @@
       "name": "OK",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
-      "position": [780, 120],
+      "position": [1300, 200],
       "parameters": {}
     }
   ],
@@ -75,11 +120,20 @@
       "main": [[{ "node": "Check Homepage", "type": "main", "index": 0 }]]
     },
     "Check Homepage": {
-      "main": [[{ "node": "If not 200", "type": "main", "index": 0 }]]
+      "main": [[{ "node": "If home not 200", "type": "main", "index": 0 }]]
     },
-    "If not 200": {
+    "If home not 200": {
       "main": [
-        [{ "node": "Alert Telegram DOWN", "type": "main", "index": 0 }],
+        [{ "node": "Telegram HOME down", "type": "main", "index": 0 }],
+        [{ "node": "Check sitemap", "type": "main", "index": 0 }]
+      ]
+    },
+    "Check sitemap": {
+      "main": [[{ "node": "If sitemap not 200", "type": "main", "index": 0 }]]
+    },
+    "If sitemap not 200": {
+      "main": [
+        [{ "node": "Telegram SITEMAP down", "type": "main", "index": 0 }],
         [{ "node": "OK", "type": "main", "index": 0 }]
       ]
     }
