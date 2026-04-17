@@ -8,7 +8,8 @@ import { fileURLToPath } from 'url';
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 
-const SKIP_RE = /([/\\]auralis[/\\])|([/\\]legal[/\\])|([/\\]emails[/\\])/;
+const SKIP_RE =
+  /([/\\]auralis[/\\])|([/\\]legal[/\\])|([/\\]emails[/\\])|lead-magnet-auralis\.html|index\.(backup|tdah-backup|legacy)|index-home-2026-archived/i;
 
 const CURSOR =
   '<div class="pp-cursor-dot" aria-hidden="true"></div>\n<div class="pp-cursor-circle" aria-hidden="true"></div>\n';
