@@ -1,0 +1,216 @@
+/* Auralis RH — MVP (pages demo / survey / dashboard / onboarding / login) */
+:root {
+  --auralis-bg: #050a14;
+  --auralis-card: rgba(255, 255, 255, 0.04);
+  --auralis-border: rgba(0, 229, 176, 0.14);
+  --auralis-teal: #00e5b0;
+  --auralis-green: #28a745;
+  --auralis-orange: #e6a23c;
+  --auralis-red: #dc3545;
+  --auralis-text: #e8f4f8;
+  --auralis-muted: rgba(232, 244, 248, 0.55);
+  --auralis-violet: #7b4fe8;
+  --auralis-radius: 16px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body.auralis-mvp {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  background: var(--auralis-bg);
+  color: var(--auralis-text);
+  line-height: 1.55;
+}
+
+body.auralis-mvp--light {
+  --auralis-bg: #fafbfe;
+  --auralis-card: #ffffff;
+  --auralis-border: rgba(0, 180, 166, 0.2);
+  --auralis-text: #0d1b3e;
+  --auralis-muted: rgba(13, 27, 62, 0.55);
+}
+
+.auralis-mvp h1,
+.auralis-mvp h2,
+.auralis-mvp h3 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.auralis-mvp a {
+  color: var(--auralis-teal);
+}
+
+.auralis-mvp a:hover {
+  text-decoration: underline;
+}
+
+.auralis-wrap {
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 4rem;
+}
+
+.auralis-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0 1.5rem;
+  border-bottom: 1px solid var(--auralis-border);
+  margin-bottom: 2rem;
+}
+
+.auralis-nav a {
+  text-decoration: none;
+  font-size: 0.875rem;
+  color: var(--auralis-muted);
+}
+
+.auralis-nav a[aria-current='page'] {
+  color: var(--auralis-teal);
+}
+
+.auralis-card {
+  background: var(--auralis-card);
+  border: 1px solid var(--auralis-border);
+  border-radius: var(--auralis-radius);
+  padding: 1.5rem;
+  backdrop-filter: blur(12px);
+}
+
+.auralis-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .auralis-grid--2 {
+    grid-template-columns: 1fr 1fr;
+  }
+  .auralis-grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.auralis-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.35rem;
+  border-radius: 100px;
+  border: none;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: inherit;
+  background: var(--auralis-violet);
+  color: #fff;
+}
+
+.auralis-btn:hover {
+  filter: brightness(1.06);
+  text-decoration: none;
+}
+
+.auralis-btn--ghost {
+  background: transparent;
+  color: var(--auralis-teal);
+  border: 1px solid var(--auralis-border);
+}
+
+.auralis-ring-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.auralis-ring-wrap svg {
+  display: block;
+}
+
+.auralis-muted {
+  color: var(--auralis-muted);
+  font-size: 0.875rem;
+}
+
+.auralis-alert {
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  font-size: 0.875rem;
+  border: 1px solid rgba(0, 229, 176, 0.18);
+  background: rgba(0, 229, 176, 0.06);
+}
+
+.auralis-alert--warn {
+  border-color: rgba(230, 162, 60, 0.35);
+  background: rgba(230, 162, 60, 0.08);
+}
+
+.auralis-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.auralis-table th,
+.auralis-table td {
+  text-align: left;
+  padding: 0.6rem 0.5rem;
+  border-bottom: 1px solid var(--auralis-border);
+}
+
+.auralis-emoji-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+
+.auralis-emoji-btn {
+  font-size: 2.75rem;
+  line-height: 1;
+  padding: 0.5rem 0.65rem;
+  border-radius: 16px;
+  border: 2px solid transparent;
+  background: rgba(0, 229, 176, 0.08);
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.auralis-emoji-btn:hover {
+  transform: scale(1.06);
+  border-color: rgba(0, 229, 176, 0.35);
+}
+
+.auralis-emoji-btn:focus-visible {
+  outline: 2px solid var(--auralis-teal);
+  outline-offset: 3px;
+}
+
+#confetti-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+}

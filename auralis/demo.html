@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+    <title>Démo Auralis RH — tableau de bord fictif · Pinapp</title>
+    <meta
+      name="description"
+      content="Démonstration interactive d'Auralis RH : score d'équipe, tendances et alertes (données fictives)." />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/images/pinapp-icon.png" />
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
+    <link
+      href="https://fonts.bunny.net/css?family=cormorant-garamond:700|inter:400;500;600"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <script defer data-domain="pinapp.fr" src="https://plausible.io/js/script.js"></script>
+  </head>
+  <body class="auralis-mvp">
+    <div class="auralis-wrap">
+      <nav class="auralis-nav" aria-label="Auralis MVP">
+        <strong style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.25rem">Auralis RH</strong>
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem">
+          <a href="index.html">Présentation</a>
+          <a href="demo.html" aria-current="page">Démo</a>
+          <a href="survey.html">Sondage</a>
+          <a href="dashboard.html?token=demo-token-mvp">Dashboard</a>
+          <a href="onboarding.html">Onboarding</a>
+          <a href="login.html">Connexion</a>
+        </div>
+      </nav>
+
+      <header style="margin-bottom: 2rem">
+        <p class="auralis-muted" style="margin: 0 0 0.5rem; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.7rem">
+          Données fictives · MVP
+        </p>
+        <h1 style="margin: 0; font-size: clamp(1.75rem, 4vw, 2.5rem)">Tableau de bord bien-être</h1>
+        <p class="auralis-muted" style="margin: 0.75rem 0 0; max-width: 42rem">
+          Aperçu de ce que voit un manager : score agrégé, tendance sur 30 jours et alertes — sans données nominatives.
+        </p>
+      </header>
+
+      <div class="auralis-grid auralis-grid--2" style="margin-bottom: 1.25rem">
+        <div class="auralis-card auralis-ring-wrap">
+          <p style="margin: 0; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--auralis-teal)">
+            Score équipe
+          </p>
+          <svg width="140" height="140" viewBox="0 0 100 100" aria-hidden="true">
+            <circle cx="50" cy="50" r="36" fill="none" stroke="rgba(0,229,176,0.15)" stroke-width="4" />
+            <circle
+              id="demo-ring"
+              cx="50"
+              cy="50"
+              r="36"
+              fill="none"
+              stroke="#28a745"
+              stroke-width="4"
+              stroke-dasharray="226"
+              stroke-dashoffset="226"
+              stroke-linecap="round"
+              transform="rotate(-90 50 50)" />
+            <text
+              id="demo-ring-label"
+              x="50"
+              y="52"
+              text-anchor="middle"
+              dominant-baseline="middle"
+              font-family="Inter, system-ui, sans-serif"
+              font-size="22"
+              font-weight="600"
+              fill="currentColor">
+              0
+            </text>
+            <text
+              x="50"
+              y="68"
+              text-anchor="middle"
+              font-family="Inter, system-ui, sans-serif"
+              font-size="9"
+              fill="var(--auralis-muted)">
+              / 100
+            </text>
+          </svg>
+          <p class="auralis-muted" style="margin: 0; text-align: center">Objectif : rester au-dessus de 70</p>
+        </div>
+        <div class="auralis-card">
+          <h2 style="margin: 0 0 1rem; font-size: 1.35rem">Aujourd'hui</h2>
+          <p style="margin: 0; font-size: 2rem; font-weight: 600"><span id="demo-replies">12</span> / 15</p>
+          <p class="auralis-muted" style="margin: 0.35rem 0 0">Réponses au micro-sondage · <span id="demo-rate">80</span> %</p>
+          <div style="margin-top: 1.25rem; height: 6px; background: rgba(0, 229, 176, 0.12); border-radius: 100px; overflow: hidden">
+            <div id="demo-rate-bar" style="height: 100%; width: 0%; background: var(--auralis-teal); border-radius: 100px"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="auralis-card" style="margin-bottom: 1.25rem">
+        <h2 style="margin: 0 0 1rem; font-size: 1.35rem">Tendance 30 jours (agrégé)</h2>
+        <div style="position: relative; height: min(280px, 48vw); width: 100%">
+          <canvas id="demo-chart" aria-label="Graphique tendance 30 jours"></canvas>
+        </div>
+      </div>
+
+      <div class="auralis-card" style="margin-bottom: 1.5rem">
+        <h2 style="margin: 0 0 1rem; font-size: 1.35rem">Alertes (exemples)</h2>
+        <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.65rem">
+          <li class="auralis-alert auralis-alert--warn">Score bas lundi → point d'équipe informel recommandé</li>
+          <li class="auralis-alert">Une personne n'a pas répondu depuis 3 jours (anonymisé en production)</li>
+          <li class="auralis-alert">Tendance stable cette semaine ↗️</li>
+        </ul>
+      </div>
+
+      <div style="text-align: center">
+        <a class="auralis-btn" href="../diagnostic/index.html?projet=auralis">Lancer Auralis pour mon équipe — dès 49 €/mois</a>
+        <p class="auralis-muted" style="margin: 1rem 0 0; font-size: 0.8rem">
+          Starter 1–10 pers. 49 € · Business 11–50 pers. 99 € · Enterprise sur devis
+        </p>
+      </div>
+    </div>
+
+    <script src="../assets/vendor/chart.umd.min.js"></script>
+    <script>
+      (function () {
+        var score = 72;
+        var circumference = 2 * Math.PI * 36;
+        var ring = document.getElementById('demo-ring');
+        var label = document.getElementById('demo-ring-label');
+        if (ring) {
+          ring.setAttribute('stroke-dasharray', String(Math.round(circumference)));
+          if (score >= 70) ring.setAttribute('stroke', '#28a745');
+          else if (score >= 50) ring.setAttribute('stroke', '#e6a23c');
+          else ring.setAttribute('stroke', '#dc3545');
+          requestAnimationFrame(function () {
+            ring.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(0.45,0.05,0.55,0.95)';
+            ring.style.strokeDashoffset = String(circumference * (1 - score / 100));
+          });
+        }
+        if (label) label.textContent = String(score);
+
+        var rate = 80;
+        var bar = document.getElementById('demo-rate-bar');
+        if (bar) {
+          requestAnimationFrame(function () {
+            bar.style.transition = 'width 0.9s ease';
+            bar.style.width = rate + '%';
+          });
+        }
+
+        var days = [];
+        var values = [];
+        for (var i = 29; i >= 0; i--) {
+          days.push('J-' + i);
+          values.push(Math.round(60 + Math.random() * 25));
+        }
+        var ctx = document.getElementById('demo-chart');
+        if (ctx && typeof Chart !== 'undefined') {
+          var tc = getComputedStyle(document.body).color || '#e8f4f8';
+          new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: days,
+              datasets: [
+                {
+                  label: 'Indice agrégé',
+                  data: values,
+                  borderColor: '#00e5b0',
+                  backgroundColor: 'rgba(0, 229, 176, 0.12)',
+                  fill: true,
+                  tension: 0.35,
+                  pointRadius: 0,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: { legend: { labels: { color: tc } } },
+              scales: {
+                x: { ticks: { color: tc, maxTicksLimit: 6 }, grid: { color: 'rgba(0,229,176,0.06)' } },
+                y: { min: 40, max: 100, ticks: { color: tc }, grid: { color: 'rgba(0,229,176,0.06)' } },
+              },
+            },
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>

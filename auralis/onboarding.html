@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Créer une équipe — Auralis RH · Pinapp</title>
+    <meta name="description" content="Onboarding Auralis RH — MVP." />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/images/pinapp-icon.png" />
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
+    <link href="https://fonts.bunny.net/css?family=cormorant-garamond:700|inter:400;500" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <script defer data-domain="pinapp.fr" src="https://plausible.io/js/script.js"></script>
+  </head>
+  <body class="auralis-mvp">
+    <div class="auralis-wrap" style="max-width: 560px">
+      <nav class="auralis-nav" aria-label="Auralis MVP">
+        <strong style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.25rem">Auralis RH</strong>
+        <a href="index.html">← Accueil produit</a>
+      </nav>
+
+      <main class="auralis-card">
+        <h1 style="margin: 0 0 0.5rem; font-size: 1.75rem">Créer votre équipe</h1>
+        <p class="auralis-muted" style="margin: 0 0 1.25rem">
+          Étape prévue en v2 : enregistrement autonome. Pour le MVP, contactez Pinapp pour une mise en place pilotée.
+        </p>
+        <form id="onboard-form" style="display: flex; flex-direction: column; gap: 1rem">
+          <div>
+            <label for="team" class="auralis-muted" style="display: block; margin-bottom: 0.35rem">Nom de l’équipe</label>
+            <input
+              id="team"
+              type="text"
+              autocomplete="organization"
+              style="
+                width: 100%;
+                padding: 0.65rem 0.75rem;
+                border-radius: 12px;
+                border: 1px solid var(--auralis-border);
+                background: rgba(0, 0, 0, 0.2);
+                color: inherit;
+              " />
+          </div>
+          <div>
+            <label for="manager" class="auralis-muted" style="display: block; margin-bottom: 0.35rem">Email manager</label>
+            <input
+              id="manager"
+              type="email"
+              autocomplete="email"
+              style="
+                width: 100%;
+                padding: 0.65rem 0.75rem;
+                border-radius: 12px;
+                border: 1px solid var(--auralis-border);
+                background: rgba(0, 0, 0, 0.2);
+                color: inherit;
+              " />
+          </div>
+          <div>
+            <label for="members" class="auralis-muted" style="display: block; margin-bottom: 0.35rem"
+              >Emails des membres (un par ligne)</label
+            >
+            <textarea
+              id="members"
+              rows="4"
+              style="
+                width: 100%;
+                padding: 0.65rem 0.75rem;
+                border-radius: 12px;
+                border: 1px solid var(--auralis-border);
+                background: rgba(0, 0, 0, 0.2);
+                color: inherit;
+                font-family: inherit;
+              "></textarea>
+          </div>
+          <button type="submit" class="auralis-btn">Enregistrer (bientôt)</button>
+        </form>
+      </main>
+    </div>
+    <script>
+      document.getElementById('onboard-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        alert("Fonctionnalité à brancher sur n8n + Google Sheets — contactez Pinapp pour le pilote.");
+      });
+    </script>
+  </body>
+</html>

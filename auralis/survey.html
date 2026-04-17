@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Micro-sondage — Auralis RH · Pinapp</title>
+    <meta name="description" content="Micro-sondage bien-être anonyme — une question par jour." />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/images/pinapp-icon.png" />
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
+    <link href="https://fonts.bunny.net/css?family=cormorant-garamond:700|inter:400;500" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <script defer data-domain="pinapp.fr" src="https://plausible.io/js/script.js"></script>
+  </head>
+  <body class="auralis-mvp auralis-mvp--light">
+    <canvas id="confetti-canvas" width="800" height="600" aria-hidden="true"></canvas>
+    <div class="auralis-wrap" style="max-width: 520px; padding-top: 2rem">
+      <nav class="auralis-nav" aria-label="Auralis MVP" style="border-bottom-color: rgba(0, 180, 166, 0.2)">
+        <strong style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.15rem">Auralis RH</strong>
+        <a href="demo.html">← Démo</a>
+      </nav>
+
+      <main class="auralis-card" id="survey-panel" style="text-align: center">
+        <h1 style="margin: 0 0 0.5rem; font-size: 1.75rem">Comment vous sentez-vous aujourd'hui ?</h1>
+        <p class="auralis-muted" style="margin: 0 0 1.5rem">Réponse anonyme · un clic suffit</p>
+
+        <div class="auralis-emoji-row" role="group" aria-label="Niveau ressenti de 1 à 5">
+          <button type="button" class="auralis-emoji-btn" data-score="1" aria-label="Très mal">😫</button>
+          <button type="button" class="auralis-emoji-btn" data-score="2" aria-label="Plutôt mal">😟</button>
+          <button type="button" class="auralis-emoji-btn" data-score="3" aria-label="Neutre">😐</button>
+          <button type="button" class="auralis-emoji-btn" data-score="4" aria-label="Plutôt bien">🙂</button>
+          <button type="button" class="auralis-emoji-btn" data-score="5" aria-label="Très bien">😊</button>
+        </div>
+
+        <label for="word" class="auralis-muted" style="display: block; text-align: left; margin-bottom: 0.35rem"
+          >Un mot ? (optionnel)</label
+        >
+        <textarea
+          id="word"
+          rows="2"
+          maxlength="200"
+          placeholder="Ex. : chargé, motivé, fatigué…"
+          style="
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 180, 166, 0.25);
+            padding: 0.65rem 0.75rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+            resize: vertical;
+          "></textarea>
+
+        <p class="auralis-muted" style="margin: 1rem 0 0; font-size: 0.8rem">
+          En production : chaque employé reçoit un lien unique avec jeton. Configurez l’URL webhook n8n ci-dessous ou
+          via <code>?webhook=</code> dans l’URL (tests uniquement).
+        </p>
+      </main>
+
+      <section id="survey-thanks" class="auralis-card" style="display: none; text-align: center; margin-top: 1.25rem">
+        <h2 style="margin: 0 0 0.5rem; font-size: 1.5rem">Merci !</h2>
+        <p class="auralis-muted" style="margin: 0">À demain.</p>
+      </section>
+    </div>
+
+    <script>
+      (function () {
+        /** Remplacez par l’URL du webhook n8n (POST JSON). Laisser vide = mode démo sans envoi. */
+        var DEFAULT_WEBHOOK = '';
+
+        function getWebhook() {
+          var q = new URLSearchParams(window.location.search).get('webhook');
+          return (q && q.trim()) || DEFAULT_WEBHOOK;
+        }
+
+        function burstConfetti() {
+          var c = document.getElementById('confetti-canvas');
+          if (!c || !c.getContext) return;
+          var ctx = c.getContext('2d');
+          var w = (c.width = window.innerWidth);
+          var h = (c.height = window.innerHeight);
+          var parts = [];
+          for (var i = 0; i < 48; i++) {
+            parts.push({
+              x: w * 0.5 + (Math.random() - 0.5) * 120,
+              y: h * 0.35,
+              vx: (Math.random() - 0.5) * 6,
+              vy: -Math.random() * 8 - 2,
+              g: 0.18 + Math.random() * 0.08,
+              life: 55 + Math.random() * 30,
+              hue: 150 + Math.random() * 80,
+            });
+          }
+          var t0 = performance.now();
+          function frame(t) {
+            var dt = t - t0;
+            ctx.clearRect(0, 0, w, h);
+            parts.forEach(function (p) {
+              if (dt > p.life) return;
+              p.vy += p.g;
+              p.x += p.vx;
+              p.y += p.vy;
+              ctx.fillStyle = 'hsla(' + p.hue + ',80%,55%,' + (1 - dt / p.life) * 0.9 + ')';
+              ctx.fillRect(p.x, p.y, 4, 4);
+            });
+            if (dt < 900) requestAnimationFrame(frame);
+          }
+          requestAnimationFrame(frame);
+        }
+
+        function showThanks() {
+          document.getElementById('survey-panel').style.display = 'none';
+          document.getElementById('survey-thanks').style.display = 'block';
+        }
+
+        function sendScore(score) {
+          var webhook = getWebhook();
+          var payload = {
+            source: 'auralis-survey-mvp',
+            score: score,
+            word: (document.getElementById('word') && document.getElementById('word').value.trim()) || null,
+            ts: new Date().toISOString(),
+            path: location.pathname,
+          };
+          if (!webhook) {
+            console.info('[Auralis] Webhook non configuré — payload', payload);
+            burstConfetti();
+            showThanks();
+            return;
+          }
+          fetch(webhook, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+            mode: 'cors',
+          })
+            .then(function () {
+              burstConfetti();
+              showThanks();
+            })
+            .catch(function (e) {
+              console.warn(e);
+              burstConfetti();
+              showThanks();
+            });
+        }
+
+        document.querySelectorAll('.auralis-emoji-btn').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var s = Number(btn.getAttribute('data-score'));
+            sendScore(s);
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

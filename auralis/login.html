@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Connexion manager — Auralis RH · Pinapp</title>
+    <meta name="description" content="Magic link — MVP Auralis RH." />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/images/pinapp-icon.png" />
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
+    <link href="https://fonts.bunny.net/css?family=cormorant-garamond:700|inter:400;500" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <script defer data-domain="pinapp.fr" src="https://plausible.io/js/script.js"></script>
+  </head>
+  <body class="auralis-mvp">
+    <div class="auralis-wrap" style="max-width: 420px">
+      <nav class="auralis-nav" aria-label="Auralis MVP">
+        <strong style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.25rem">Auralis RH</strong>
+        <a href="index.html">← Accueil produit</a>
+      </nav>
+
+      <main class="auralis-card">
+        <h1 style="margin: 0 0 0.5rem; font-size: 1.65rem">Espace manager</h1>
+        <p class="auralis-muted" style="margin: 0 0 1.25rem">
+          MVP : connexion par magic link (email). Le tableau de bord s’ouvre avec un jeton dans l’URL après validation.
+        </p>
+        <form id="login-form" style="display: flex; flex-direction: column; gap: 0.75rem">
+          <label for="email" class="auralis-muted">Adresse email professionnelle</label>
+          <input
+            id="email"
+            type="email"
+            required
+            autocomplete="email"
+            placeholder="vous@entreprise.fr"
+            style="
+              width: 100%;
+              padding: 0.65rem 0.75rem;
+              border-radius: 12px;
+              border: 1px solid var(--auralis-border);
+              background: rgba(0, 0, 0, 0.2);
+              color: inherit;
+            " />
+          <button type="submit" class="auralis-btn">Recevoir le lien</button>
+        </form>
+        <p class="auralis-muted" style="margin: 1rem 0 0; font-size: 0.8rem">
+          Démo immédiate du dashboard :
+          <a href="dashboard.html?token=demo-token-mvp">ouvrir avec jeton de démonstration</a>
+        </p>
+      </main>
+    </div>
+    <script>
+      document.getElementById('login-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        alert("Envoi du magic link : à brancher sur n8n + base contacts (MVP semaine 2–3).");
+      });
+    </script>
+  </body>
+</html>
