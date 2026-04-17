@@ -82,9 +82,9 @@
     <link
       href="https://fonts.bunny.net/css?family=sora:wght@200;300&family=inter:300;400&family=cormorant-garamond:ital,wght@0,500;0,600;1,500;1,600&display=swap"
       rel="stylesheet" />
-    <link rel="stylesheet" href="/style.css?v=20260440" />
-    <link rel="stylesheet" href="/assets/css/home-2026.css?v=20260440" />
-    <link rel="stylesheet" href="/assets/css/pinapp-awwards.css?v=20260217" />
+    <link rel="stylesheet" href="/style.css?v=20260441" />
+    <link rel="stylesheet" href="/assets/css/home-2026.css?v=20260441" />
+    <link rel="stylesheet" href="/assets/css/pinapp-awwards.css?v=20260418" />
 
     <script type="application/ld+json">
       {
@@ -1701,6 +1701,10 @@
   </head>
   <body>
     <a href="#main" class="skip-link">Aller au contenu principal</a>
+    <div class="pp-cursor-dot" id="pp-cursor-dot" aria-hidden="true"></div>
+    <div class="pp-cursor-circle" id="pp-cursor-circle" aria-hidden="true">
+      <span class="pp-cursor-circle__label">Voir</span>
+    </div>
 
     <p class="sr-only">Pinapp — Agence automatisation IA, sites web premium et vidéo à Bordeaux, Nouvelle-Aquitaine</p>
     <script>
@@ -2260,7 +2264,8 @@
       }
 
       /* Ne pas cibler #pp-intro : sinon position:relative + z-index:1 écrase le fixed plein écran (spécificité > #pp-intro). */
-      body > *:not(#pc):not(#ow):not(#pp-intro) {
+      /* Exclure skip-link / sr-only : sinon position:relative casse le hors-flux (lien visible + faux vide en haut) */
+      body > *:not(#pc):not(#ow):not(#pp-intro):not(.skip-link):not(.sr-only):not(.pp-cursor-dot):not(.pp-cursor-circle) {
         position: relative;
         z-index: 1;
       }
@@ -4330,7 +4335,7 @@
     <script src="/script.min.js?v=20260440" defer></script>
     <script src="/assets/js/pandora-fx.js?v=1" defer></script>
     <script src="/assets/js/pinapp-burger-nuclear.js?v=1" defer></script>
-    <script src="/assets/js/pinapp-awwards.js?v=20260217" defer></script>
+    <script src="/assets/js/pinapp-awwards.js?v=20260418" defer></script>
     <!-- Pandora TDAH : modale Tally -->
     <div class="tdah-modal-overlay" id="tallyModal" role="dialog" aria-modal="true" aria-labelledby="tdahModalTitle">
       <div class="tdah-modal">

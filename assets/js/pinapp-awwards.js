@@ -6,11 +6,11 @@
   if (window.__PINAPP_AWWARDS__) return;
   window.__PINAPP_AWWARDS__ = true;
 
-  var V = '20260217';
+  var V = '20260418';
   var prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var isMobile = window.matchMedia('(max-width: 767px)').matches;
-  var customCursorOn =
-    !prefersReduce && !isMobile && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  /* Desktop : curseur custom (sans exiger hover:hover — évite tablettes / trackpad mal détectés) */
+  var customCursorOn = !prefersReduce && !isMobile && window.matchMedia('(pointer: fine)').matches;
 
   function loadScript(src, onload) {
     var s = document.createElement('script');
@@ -25,21 +25,31 @@
   }
 
   function ensureCursorDom() {
-    if (document.getElementById('pp-cursor-dot')) return;
-    var dot = document.createElement('div');
-    dot.id = 'pp-cursor-dot';
-    dot.className = 'pp-cursor-dot';
-    dot.setAttribute('aria-hidden', 'true');
-    var ring = document.createElement('div');
-    ring.id = 'pp-cursor-circle';
-    ring.className = 'pp-cursor-circle';
-    ring.setAttribute('aria-hidden', 'true');
+    var dot = document.getElementById('pp-cursor-dot') || document.querySelector('.pp-cursor-dot');
+    var ring = document.getElementById('pp-cursor-circle') || document.querySelector('.pp-cursor-circle');
+    if (dot && ring) {
+      if (!ring.querySelector('.pp-cursor-circle__label')) {
+        var lab0 = document.createElement('span');
+        lab0.className = 'pp-cursor-circle__label';
+        lab0.textContent = 'Voir';
+        ring.appendChild(lab0);
+      }
+      return;
+    }
+    var dotN = document.createElement('div');
+    dotN.id = 'pp-cursor-dot';
+    dotN.className = 'pp-cursor-dot';
+    dotN.setAttribute('aria-hidden', 'true');
+    var ringN = document.createElement('div');
+    ringN.id = 'pp-cursor-circle';
+    ringN.className = 'pp-cursor-circle';
+    ringN.setAttribute('aria-hidden', 'true');
     var lab = document.createElement('span');
     lab.className = 'pp-cursor-circle__label';
     lab.textContent = 'Voir';
-    ring.appendChild(lab);
-    document.body.appendChild(dot);
-    document.body.appendChild(ring);
+    ringN.appendChild(lab);
+    document.body.appendChild(dotN);
+    document.body.appendChild(ringN);
   }
 
   function splitText(el) {
@@ -115,20 +125,37 @@
     }
     gsap.registerPlugin(ScrollTrigger);
 
+    /* Lenis : RAF navigateur (timestamp ms) — le ticker GSAP ne fournit pas le même temps → scrollY bloqué à 0 */
     var lenis = null;
+    var lenisRafId = null;
+    function stopLenisRaf() {
+      if (lenisRafId != null) {
+        cancelAnimationFrame(lenisRafId);
+        lenisRafId = null;
+      }
+    }
     if (!prefersReduce && typeof Lenis !== 'undefined') {
-      lenis = new Lenis({
-        duration: 1.2,
-        easing: function (t) {
-          return Math.min(1, 1.001 - Math.pow(2, -10 * t));
-        },
-        smoothWheel: true,
-      });
-      lenis.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add(function (time) {
-        lenis.raf(time * 1000);
-      });
-      gsap.ticker.lagSmoothing(0);
+      try {
+        lenis = new Lenis({
+          duration: 1.2,
+          easing: function (t) {
+            return Math.min(1, 1.001 - Math.pow(2, -10 * t));
+          },
+          smoothWheel: true,
+        });
+        document.documentElement.classList.add('lenis', 'lenis-smooth');
+        lenis.on('scroll', ScrollTrigger.update);
+        function lenisRaf(time) {
+          if (lenis) lenis.raf(time);
+          lenisRafId = requestAnimationFrame(lenisRaf);
+        }
+        lenisRafId = requestAnimationFrame(lenisRaf);
+      } catch (e) {
+        console.warn('[pinapp-awwards] Lenis indisponible, scroll natif', e);
+        lenis = null;
+        stopLenisRaf();
+        document.documentElement.classList.remove('lenis', 'lenis-smooth');
+      }
     }
 
     wrapPortfolioCards();
@@ -299,17 +326,18 @@
     ScrollTrigger.refresh();
   }
 
+  function whenDomReady(fn) {
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);
+    else fn();
+  }
+
   function boot() {
     loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js', function () {
       loadScript(
         'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',
         function () {
           loadScript('https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js', function () {
-            if (document.readyState === 'loading') {
-              document.addEventListener('DOMContentLoaded', initAfterLibs);
-            } else {
-              initAfterLibs();
-            }
+            whenDomReady(initAfterLibs);
           });
         },
       );
