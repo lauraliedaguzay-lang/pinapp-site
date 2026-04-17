@@ -1,0 +1,170 @@
+/**
+ * Pinapp.fr — couche Awwwards (CURSOR_PINAPP_10_SUR_10)
+ * Curseur .pp-cursor-*, split .char, reveal, lignes, fade, parallax
+ */
+
+/* --- Curseur (desktop + hover fine) --- */
+html[data-pinapp-awwards='on'],
+html[data-pinapp-awwards='on'] body {
+  cursor: none;
+}
+
+html[data-pinapp-awwards='on'] #heroCursor {
+  display: none !important;
+}
+
+.pp-cursor-dot,
+.pp-cursor-circle {
+  pointer-events: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  z-index: 100000;
+  transition:
+    width 0.35s,
+    height 0.35s,
+    margin 0.35s,
+    border-color 0.35s,
+    opacity 0.25s;
+  mix-blend-mode: difference;
+}
+
+.pp-cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: #c8a87a;
+}
+
+.pp-cursor-circle {
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border: 1px solid rgba(200, 168, 122, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pp-cursor-circle__label {
+  position: absolute;
+  font-size: 0.5rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #c8a87a;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  font-family: system-ui, sans-serif;
+}
+
+html[data-pinapp-awwards='on'] .pp-cursor-circle.is-link {
+  width: 70px;
+  height: 70px;
+  margin: -35px 0 0 -35px;
+  border-color: rgba(200, 168, 122, 0.55);
+}
+
+html[data-pinapp-awwards='on'] .pp-cursor-circle.is-media {
+  width: 90px;
+  height: 90px;
+  margin: -45px 0 0 -45px;
+  border-color: rgba(200, 168, 122, 0.55);
+}
+
+html[data-pinapp-awwards='on'] .pp-cursor-circle.is-media .pp-cursor-circle__label {
+  opacity: 1;
+}
+
+html[data-pinapp-awwards='on'] .pp-cursor-dot.is-off {
+  opacity: 0;
+}
+
+@media (max-width: 767px), (prefers-reduced-motion: reduce) {
+  html[data-pinapp-awwards='on'],
+  html[data-pinapp-awwards='on'] body {
+    cursor: auto;
+  }
+  .pp-cursor-dot,
+  .pp-cursor-circle {
+    display: none !important;
+  }
+}
+
+/* --- Split text --- */
+.pp-split .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pp-split .char {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* --- Image / bloc reveal --- */
+.pp-reveal {
+  overflow: hidden;
+}
+
+.pp-reveal > img,
+.pp-reveal > video,
+.pp-reveal .pp-parallax > img,
+.pp-reveal .pp-parallax > video,
+.pp-reveal__target {
+  clip-path: inset(100% 0 0 0);
+  transform: scale(1.12);
+  transform-origin: center center;
+  will-change: transform, clip-path;
+}
+
+.pp-reveal.pp-reveal__target {
+  clip-path: inset(100% 0 0 0);
+  transform: scale(1.05);
+  transform-origin: center center;
+  will-change: transform, clip-path;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pp-reveal > img,
+  .pp-reveal > video,
+  .pp-reveal .pp-parallax > img,
+  .pp-reveal .pp-parallax > video,
+  .pp-reveal__target,
+  .pp-reveal.pp-reveal__target {
+    clip-path: inset(0) !important;
+    transform: none !important;
+  }
+}
+
+/* --- Ligne décorative --- */
+.pp-line {
+  height: 1px;
+  width: min(100%, 8rem);
+  margin: 0 auto;
+  background: #c8a87a;
+  transform-origin: left center;
+  opacity: 0.85;
+}
+
+/* --- Fade cartes --- */
+.pp-fade {
+  opacity: 0;
+  transform: translateY(22px);
+  will-change: opacity, transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pp-fade {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* --- Parallax cible --- */
+.pp-parallax {
+  will-change: transform;
+}
