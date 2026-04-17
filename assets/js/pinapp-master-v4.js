@@ -2,44 +2,8 @@
 (function () {
   'use strict';
 
-  /* ── BURGER ── */
-  function initBurger() {
-    var b = document.querySelector('.nav__burger');
-    var d = document.querySelector('.nav__drawer');
-    if (!b || !d) return;
-    b.style.display = 'flex';
-    function open(v) {
-      d.classList.toggle('open', v);
-      b.classList.toggle('open', v);
-      b.setAttribute('aria-expanded', v);
-      document.body.style.overflow = v ? 'hidden' : '';
-      var s = b.querySelectorAll('span');
-      if (v) {
-        s[0] && (s[0].style.transform = 'rotate(45deg) translate(5px,5px)');
-        s[1] && (s[1].style.opacity = '0');
-        s[2] && (s[2].style.transform = 'rotate(-45deg) translate(5px,-5px)');
-      } else {
-        [s[0], s[1], s[2]].forEach(function (x) {
-          if (x) {
-            x.style.transform = '';
-            x.style.opacity = '1';
-          }
-        });
-      }
-    }
-    b.addEventListener('click', function () {
-      open(!d.classList.contains('open'));
-    });
-    d.querySelectorAll('a').forEach(function (a) {
-      a.addEventListener('click', function () {
-        open(false);
-      });
-    });
-    document.addEventListener('click', function (e) {
-      if (d.classList.contains('open') && !d.contains(e.target) && !b.contains(e.target))
-        open(false);
-    });
-  }
+  /* ── BURGER : délégué à /assets/js/main.js (évite double toggle avec ce fichier) ── */
+  function initBurger() {}
 
   /* ── EMOJIS → SVG ── */
   var SVGS = {
