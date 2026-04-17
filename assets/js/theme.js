@@ -1,4 +1,4 @@
-﻿/* Pinapp Inc. — Theme · Nuit par défaut (1re visite) · sync pinapp-mode (pages Pandora) */
+﻿/* Pinapp — Theme · Nuit par défaut (1re visite) · sync pinapp-mode (pages Pandora) */
 (function () {
   var K = 'pinapp-theme',
     h = document.documentElement;

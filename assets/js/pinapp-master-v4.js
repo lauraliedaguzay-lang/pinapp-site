@@ -49,7 +49,7 @@
       { t: "Le problème n'est plus<br/>le manque d'outils.", d: 4400 },
       { t: "C'est le manque de structure.", d: 6400 },
       { t: 'Nous construisons la structure.<br/>Vous récoltez.', d: 8200 },
-      { t: 'Pinapp Inc.', d: 10000 },
+      { t: 'Pinapp', d: 10000 },
     ];
     var timers = [];
     function show(l) {

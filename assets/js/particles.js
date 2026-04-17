@@ -1,4 +1,4 @@
-﻿/* Pinapp Inc. — Canvas Pandora V2 · Nuit · 80pt · 4 couleurs · liaisons · halo */
+﻿/* Pinapp — Canvas Pandora V2 · Nuit · 80pt · 4 couleurs · liaisons · halo */
 (function () {
   var canvas = document.getElementById('canvas-pandora');
   if (!canvas) return;

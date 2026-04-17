@@ -1,4 +1,4 @@
-﻿/* Pinapp Inc. — Main JS V2 */
+﻿/* Pinapp — Main JS V2 */
 document.addEventListener('DOMContentLoaded', function () {
   function pinappNeuroCalm() {
     return (
