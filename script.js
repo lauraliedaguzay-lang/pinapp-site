@@ -47,10 +47,15 @@
     function setOpen(open) {
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       toggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+      toggle.classList.toggle('is-open', open);
+      toggle.classList.toggle('open', open);
       drawer.classList.toggle('is-open', open);
+      drawer.classList.toggle('open', open);
       drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+      document.body.style.overflow = open ? 'hidden' : '';
       if (open) {
-        var first = drawer.querySelector(focusableSel);
+        var panel = drawer.querySelector('.drawer__panel');
+        var first = panel ? panel.querySelector(focusableSel) : null;
         if (first) first.focus();
       } else {
         toggle.focus();
@@ -60,6 +65,13 @@
     toggle.addEventListener('click', function () {
       setOpen(toggle.getAttribute('aria-expanded') !== 'true');
     });
+
+    var backdrop = drawer.querySelector('.nav-drawer-backdrop');
+    if (backdrop) {
+      backdrop.addEventListener('click', function () {
+        setOpen(false);
+      });
+    }
 
     drawer.querySelectorAll('a').forEach(function (a) {
       a.addEventListener('click', function () {
