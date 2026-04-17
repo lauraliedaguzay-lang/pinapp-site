@@ -34,7 +34,7 @@
     html.setAttribute('data-mode', next === 'light' ? 'jour' : 'nuit');
     syncIcons();
     var meta = document.getElementById('pinapp-theme-color');
-    if (meta) meta.setAttribute('content', next === 'light' ? '#0a2a2e' : '#080d18');
+    if (meta) meta.setAttribute('content', next === 'light' ? '#f7f5f0' : '#080d18');
     try {
       document.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme: next } }));
     } catch (e) {}
@@ -83,8 +83,7 @@
       btn.setAttribute('data-pp-injected', 'drawer');
       btn.setAttribute('data-pp-drawer', '1');
       btn.setAttribute('aria-label', 'Changer de thème');
-      var ref =
-        panel.querySelector('a') || panel.querySelector('.nav-links') || panel.firstElementChild;
+      var ref = panel.querySelector('a') || panel.querySelector('.nav-links') || panel.firstElementChild;
       panel.insertBefore(btn, ref || null);
     });
   }

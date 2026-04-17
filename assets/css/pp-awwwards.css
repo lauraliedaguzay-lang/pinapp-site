@@ -1,0 +1,249 @@
+/**
+ * Pinapp — couche UX premium (GSAP / Lenis / curseur)
+ * Identité : teal #00E5B0, violet #5B4FE8, cosmos nuit inchangé en base.
+ */
+
+/* ── Variables (nuit = aligné identité existante) ── */
+:root,
+html[data-theme='dark'],
+html:not([data-theme]) {
+  --pp-bg: #080d18;
+  --pp-card: rgba(255, 255, 255, 0.04);
+  --pp-text: #e8f4f8;
+  --pp-muted: rgba(232, 244, 248, 0.5);
+  --pp-teal: #00e5b0;
+  --pp-violet: #5b4fe8;
+  --pp-border: rgba(0, 229, 176, 0.08);
+  --pp-glass: rgba(15, 20, 40, 0.5);
+  --pp-shadow: rgba(0, 0, 0, 0.25);
+}
+
+/* Mode jour — thème crème (couche additive, ne supprime pas le dark) */
+html[data-theme='light'] {
+  --pp-bg: #f7f5f0;
+  --pp-card: #ffffff;
+  --pp-text: #1a1e2c;
+  --pp-muted: rgba(26, 30, 44, 0.52);
+  --pp-teal: #00b89c;
+  --pp-violet: #4a3fd4;
+  --pp-border: rgba(0, 184, 156, 0.14);
+  --pp-glass: rgba(255, 255, 255, 0.72);
+  --pp-shadow: rgba(0, 0, 0, 0.06);
+}
+
+html[data-theme='light'] body.pp-aww-body {
+  background: var(--pp-bg);
+  color: var(--pp-text);
+  transition:
+    background 0.6s ease,
+    color 0.45s ease;
+}
+
+html[data-theme='light'] .hero {
+  background: linear-gradient(135deg, #f7f5f0 0%, #ede8e0 45%, #f0edf5 100%);
+}
+
+html[data-theme='light'] .hero .hero__eyebrow,
+html[data-theme='light'] .hero .hero__baseline,
+html[data-theme='light'] .hero .hero__lead,
+html[data-theme='light'] .hero .hero__micro {
+  color: var(--pp-muted);
+}
+
+html[data-theme='light'] .hero h1 .word {
+  color: var(--pp-text);
+}
+
+html[data-theme='light'] .hero h1 .hero__gradient {
+  color: var(--pp-teal);
+  -webkit-text-fill-color: var(--pp-teal);
+}
+
+html[data-theme='light'] .pp-trust-wrap {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+html[data-theme='light'] .nav {
+  background: rgba(247, 245, 240, 0.88) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom-color: var(--pp-border) !important;
+}
+
+html[data-theme='light'] .nav__logo-text {
+  color: var(--pp-text) !important;
+}
+
+html[data-theme='light'] .pp-svc-card,
+html[data-theme='light'] .studio-card {
+  background: var(--pp-card) !important;
+  border: 1px solid var(--pp-border) !important;
+  box-shadow: 0 4px 24px var(--pp-shadow);
+}
+
+/* Curseur custom — desktop fin */
+@media (min-width: 769px) and (pointer: fine) {
+  html.pp-custom-cursor {
+    cursor: none;
+  }
+
+  html.pp-custom-cursor a:focus-visible,
+  html.pp-custom-cursor button:focus-visible,
+  html.pp-custom-cursor input:focus-visible,
+  html.pp-custom-cursor textarea:focus-visible,
+  html.pp-custom-cursor select:focus-visible {
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 768px), (pointer: coarse) {
+  .pp-cursor-dot,
+  .pp-cursor-circle {
+    display: none !important;
+  }
+}
+
+.pp-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--pp-teal);
+  pointer-events: none;
+  transition:
+    opacity 0.3s,
+    transform 0.15s linear;
+  will-change: transform;
+}
+
+.pp-cursor-circle {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99998;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--pp-teal) 28%, transparent);
+  pointer-events: none;
+  transition:
+    width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s,
+    opacity 0.3s;
+  will-change: transform, width, height;
+}
+
+/* Split chars */
+.pp-split {
+  overflow: hidden;
+}
+
+.pp-split .pp-char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* Reveal clip */
+.pp-reveal {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0s;
+}
+
+.pp-reveal img,
+.pp-reveal video {
+  transform: scale(1.12);
+  transition: transform 1.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.pp-reveal.revealed {
+  clip-path: inset(0% 0 0 0);
+  transition: clip-path 1.15s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.pp-reveal.revealed img,
+.pp-reveal.revealed video {
+  transform: scale(1);
+}
+
+/* Parallax parent */
+.pp-parallax-wrap {
+  overflow: hidden;
+}
+
+/* Fade scroll */
+.pp-fade {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.78s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.78s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pp-fade.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Ligne teal */
+.pp-line {
+  width: 100%;
+  max-width: 200px;
+  height: 1px;
+  margin: 0 auto;
+  background: linear-gradient(90deg, transparent, var(--pp-teal), transparent);
+  transform: scaleX(0);
+  transform-origin: center;
+  pointer-events: none;
+}
+
+.pp-line--spaced {
+  margin: 2rem auto;
+}
+
+/* Magnétique : éviter conflit avec transform CSS existants sur .btn */
+.pp-magnetic {
+  position: relative;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  .pp-char {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .pp-reveal {
+    clip-path: none !important;
+  }
+
+  .pp-reveal img,
+  .pp-reveal video {
+    transform: none !important;
+  }
+
+  .pp-fade {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .pp-line {
+    transform: scaleX(1) !important;
+  }
+
+  .pp-cursor-dot,
+  .pp-cursor-circle {
+    display: none !important;
+  }
+
+  html.pp-custom-cursor {
+    cursor: auto !important;
+  }
+}
