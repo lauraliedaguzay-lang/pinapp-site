@@ -11,8 +11,12 @@
       content="Démonstration de site immersif pour cabinet d'architecture. Créé par Pinapp, studio digital à Bordeaux."
     />
     <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#0a0a08" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Outfit:wght@200;300;400&display=swap"
       rel="stylesheet"
@@ -35,11 +39,60 @@
       html {
         scroll-behavior: smooth;
       }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
       body {
         font-family: 'Outfit', system-ui, sans-serif;
         background: #0a0a08;
         color: #fff;
         overflow-x: hidden;
+      }
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+      .skip-link {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        z-index: 200;
+        padding: 0.65rem 1.1rem;
+        background: var(--gold);
+        color: #0a0a08;
+        font-size: 0.7rem;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        text-decoration: none;
+        border-radius: 0 0 8px 8px;
+        transform: translate(-50%, -120%);
+        transition: transform 0.25s ease;
+      }
+      .skip-link:focus {
+        transform: translate(-50%, 0);
+        outline: 2px solid #fff;
+        outline-offset: 2px;
+      }
+      :focus-visible {
+        outline: 2px solid var(--gold);
+        outline-offset: 3px;
+      }
+      .nav a:focus-visible,
+      .pinapp-badge:focus-visible {
+        outline-offset: 4px;
+      }
+      .cta-btn:focus-visible {
+        outline-color: #1a1814;
       }
       ::selection {
         background: var(--gold);
@@ -56,7 +109,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 1.5rem clamp(1.25rem, 4vw, 3rem);
+        padding: calc(1.25rem + env(safe-area-inset-top, 0px)) clamp(1.25rem, 4vw, 3rem) 1.25rem;
         transition: background 0.45s ease, backdrop-filter 0.45s ease, border-color 0.45s ease;
       }
       .nav.is-scrolled {
@@ -106,6 +159,7 @@
         min-height: 100dvh;
         overflow: hidden;
         isolation: isolate;
+        scroll-margin-top: 0.35rem;
       }
       .scene-inner {
         position: absolute;
@@ -313,27 +367,38 @@
       /* ——— Side dots ——— */
       .dots {
         position: fixed;
-        right: 1.25rem;
+        right: calc(0.75rem + env(safe-area-inset-right, 0px));
         top: 50%;
         transform: translateY(-50%);
         z-index: 90;
         display: flex;
         flex-direction: column;
-        gap: 0.45rem;
+        gap: 0.2rem;
+        align-items: center;
       }
       .dots button {
         border: none;
         padding: 0;
-        width: 3px;
-        border-radius: 2px;
-        background: rgba(255, 255, 255, 0.14);
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         cursor: pointer;
-        transition: height 0.45s cubic-bezier(0.16, 1, 0.3, 1), background 0.35s ease;
-        height: 8px;
         font-size: 0;
         color: transparent;
+        background: transparent;
       }
-      .dots button.is-active {
+      .dots-bar {
+        display: block;
+        width: 3px;
+        height: 8px;
+        border-radius: 2px;
+        background: rgba(255, 255, 255, 0.14);
+        transition: height 0.45s cubic-bezier(0.16, 1, 0.3, 1), background 0.35s ease;
+        pointer-events: none;
+      }
+      .dots button.is-active .dots-bar {
         height: 20px;
         background: var(--gold);
       }
@@ -342,7 +407,7 @@
       .thumbs {
         position: fixed;
         left: 50%;
-        bottom: 1.25rem;
+        bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
         transform: translateX(-50%);
         z-index: 90;
         display: flex;
@@ -448,8 +513,8 @@
       /* ——— Pinapp badge ——— */
       .pinapp-badge {
         position: fixed;
-        bottom: 1rem;
-        right: 1rem;
+        bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+        right: calc(1rem + env(safe-area-inset-right, 0px));
         z-index: 120;
         display: flex;
         align-items: center;
@@ -484,6 +549,9 @@
         .scene-num {
           display: none;
         }
+        .thumbs {
+          max-width: calc(100vw - 3.5rem - env(safe-area-inset-right, 0px));
+        }
         .thumbs button {
           width: 50px;
           height: 35px;
@@ -497,10 +565,7 @@
         }
       }
 
-        @media (prefers-reduced-motion: reduce) {
-        html {
-          scroll-behavior: auto;
-        }
+      @media (prefers-reduced-motion: reduce) {
         .scene-ken,
         .scroll-hint,
         .pinapp-dot,
@@ -513,12 +578,15 @@
   <body>
     <canvas id="particles-canvas" aria-hidden="true"></canvas>
 
+    <a class="skip-link" href="#scene-0">Aller au parcours</a>
+    <div id="scene-status" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
+
     <header class="nav" id="nav">
       <a class="nav-logo" href="#scene-0">Atelier Rivage</a>
       <nav class="nav-links" aria-label="Navigation principale">
-        <a href="#">Villas</a>
-        <a href="#">Studio</a>
-        <a href="#">Contact</a>
+        <a href="#scene-0">Villas</a>
+        <a href="#scene-4">Studio</a>
+        <a href="#cta">Contact</a>
       </nav>
     </header>
 
@@ -527,7 +595,7 @@
 
     <main id="main">
       <!-- Scene 0 — Hero + Villa Lumière -->
-      <section class="scene" id="scene-0" data-scene="0">
+      <section class="scene" id="scene-0" data-scene="0" aria-label="Introduction et Villa Lumière" tabindex="-1">
         <div class="scene-inner">
           <div class="scene-media" data-parallax>
             <div class="scene-zoom">
@@ -564,7 +632,7 @@
       </section>
 
       <!-- Scene 1 -->
-      <section class="scene" id="scene-1" data-scene="1">
+      <section class="scene" id="scene-1" data-scene="1" aria-label="Les Jardins suspendus" tabindex="-1">
         <div class="scene-inner">
           <div class="scene-media" data-parallax>
             <div class="scene-zoom">
@@ -592,7 +660,7 @@
       </section>
 
       <!-- Scene 2 -->
-      <section class="scene" id="scene-2" data-scene="2">
+      <section class="scene" id="scene-2" data-scene="2" aria-label="Maison Pierre" tabindex="-1">
         <div class="scene-inner">
           <div class="scene-media" data-parallax>
             <div class="scene-zoom">
@@ -620,7 +688,7 @@
       </section>
 
       <!-- Scene 3 -->
-      <section class="scene" id="scene-3" data-scene="3">
+      <section class="scene" id="scene-3" data-scene="3" aria-label="Villa Éclipse" tabindex="-1">
         <div class="scene-inner">
           <div class="scene-media" data-parallax>
             <div class="scene-zoom">
@@ -648,7 +716,7 @@
       </section>
 
       <!-- Scene 4 -->
-      <section class="scene" id="scene-4" data-scene="4">
+      <section class="scene" id="scene-4" data-scene="4" aria-label="L'intérieur" tabindex="-1">
         <div class="scene-inner">
           <div class="scene-media" data-parallax>
             <div class="scene-zoom">
@@ -676,7 +744,7 @@
       </section>
 
       <!-- Scene 5 -->
-      <section class="scene" id="scene-5" data-scene="5">
+      <section class="scene" id="scene-5" data-scene="5" aria-label="Horizon bleu" tabindex="-1">
         <div class="scene-inner">
           <div class="scene-media" data-parallax>
             <div class="scene-zoom">
@@ -730,6 +798,16 @@
         var nav = document.getElementById('nav');
         var dotsWrap = document.getElementById('dots');
         var thumbsWrap = document.getElementById('thumbs');
+        var statusEl = document.getElementById('scene-status');
+        var currentSceneIdx = 0;
+        var projectLabels = [
+          'Introduction et Villa Lumière',
+          'Les Jardins suspendus',
+          'Maison Pierre',
+          'Villa Éclipse',
+          "L'intérieur",
+          'Horizon bleu',
+        ];
         var thumbSrc = [
           'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=200&q=70&auto=format&fm=webp',
           'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=200&q=70&auto=format&fm=webp',
@@ -739,16 +817,30 @@
           'https://images.unsplash.com/photo-1574739782594-db4ead022697?w=200&q=70&auto=format&fm=webp',
         ];
 
+        function announceScene(i) {
+          if (!statusEl) return;
+          statusEl.textContent = projectLabels[i] + ' — ' + (i + 1) + ' sur 6';
+        }
+
         function scrollToScene(i) {
           var el = document.getElementById('scene-' + i);
-          if (el) el.scrollIntoView({ behavior: prefersReduce ? 'auto' : 'smooth', block: 'start' });
+          if (!el) return;
+          el.scrollIntoView({ behavior: prefersReduce ? 'auto' : 'smooth', block: 'start' });
+          function focusScene() {
+            try {
+              el.focus({ preventScroll: true });
+            } catch (err) {}
+          }
+          if (prefersReduce) focusScene();
+          else setTimeout(focusScene, 480);
         }
 
         for (var d = 0; d < 6; d++) {
           (function (idx) {
             var b = document.createElement('button');
             b.type = 'button';
-            b.setAttribute('aria-label', 'Aller à la section ' + (idx + 1));
+            b.setAttribute('aria-label', 'Aller à : ' + projectLabels[idx]);
+            b.innerHTML = '<span class="dots-bar" aria-hidden="true"></span>';
             b.className = 'is-active';
             if (idx > 0) b.classList.remove('is-active');
             b.addEventListener('click', function () {
@@ -761,7 +853,7 @@
         thumbSrc.forEach(function (src, idx) {
           var b = document.createElement('button');
           b.type = 'button';
-          b.setAttribute('aria-label', 'Projet ' + (idx + 1));
+          b.setAttribute('aria-label', 'Afficher : ' + projectLabels[idx]);
           b.innerHTML = '<img src="' + src + '" alt="" loading="lazy" width="120" height="75" />';
           if (idx === 0) b.classList.add('is-active');
           b.addEventListener('click', function () {
@@ -773,14 +865,43 @@
         var dotBtns = dotsWrap.querySelectorAll('button');
         var thumbBtns = thumbsWrap.querySelectorAll('button');
 
+        function isCtaInView() {
+          var c = document.getElementById('cta');
+          if (!c) return false;
+          var r = c.getBoundingClientRect();
+          return r.top < window.innerHeight * 0.62 && r.bottom > window.innerHeight * 0.12;
+        }
+
+        function goToCta() {
+          var cta = document.getElementById('cta');
+          if (!cta) return;
+          cta.scrollIntoView({ behavior: prefersReduce ? 'auto' : 'smooth', block: 'start' });
+          dotBtns.forEach(function (b) {
+            b.classList.remove('is-active');
+            b.removeAttribute('aria-current');
+          });
+          thumbBtns.forEach(function (b) {
+            b.classList.remove('is-active');
+            b.removeAttribute('aria-current');
+          });
+          if (statusEl) statusEl.textContent = 'Fin du parcours — contact et rendez-vous';
+        }
+
         function setActiveNav(i) {
+          currentSceneIdx = i;
           dotBtns.forEach(function (b, j) {
             b.classList.toggle('is-active', j === i);
+            if (j === i) b.setAttribute('aria-current', 'true');
+            else b.removeAttribute('aria-current');
           });
           thumbBtns.forEach(function (b, j) {
             b.classList.toggle('is-active', j === i);
+            if (j === i) b.setAttribute('aria-current', 'true');
+            else b.removeAttribute('aria-current');
           });
+          announceScene(i);
         }
+        announceScene(0);
 
         if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
           gsap.registerPlugin(ScrollTrigger);
@@ -846,10 +967,13 @@
             onEnter: function () {
               dotBtns.forEach(function (b) {
                 b.classList.remove('is-active');
+                b.removeAttribute('aria-current');
               });
               thumbBtns.forEach(function (b) {
                 b.classList.remove('is-active');
+                b.removeAttribute('aria-current');
               });
+              if (statusEl) statusEl.textContent = 'Fin du parcours — contact et rendez-vous';
             },
             onLeaveBack: function () {
               setActiveNav(5);
@@ -857,8 +981,16 @@
           });
 
           ScrollTrigger.refresh();
+          window.addEventListener(
+            'resize',
+            function () {
+              ScrollTrigger.refresh();
+            },
+            { passive: true },
+          );
         } else {
           setActiveNav(0);
+          if (statusEl) statusEl.textContent = projectLabels[0] + ' — 1 sur 6';
           if ('IntersectionObserver' in window) {
             var obs = new IntersectionObserver(
               function (ents) {
@@ -881,6 +1013,34 @@
         }
         window.addEventListener('scroll', onScrollNav, { passive: true });
         onScrollNav();
+
+        document.addEventListener(
+          'keydown',
+          function (e) {
+            var tag = (e.target && e.target.tagName) || '';
+            if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+            if (e.key === 'Home') {
+              e.preventDefault();
+              scrollToScene(0);
+            } else if (e.key === 'End') {
+              e.preventDefault();
+              goToCta();
+            } else if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+              e.preventDefault();
+              if (isCtaInView()) return;
+              if (currentSceneIdx < scenes.length - 1) scrollToScene(currentSceneIdx + 1);
+              else goToCta();
+            } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+              e.preventDefault();
+              if (isCtaInView()) {
+                scrollToScene(5);
+                return;
+              }
+              if (currentSceneIdx > 0) scrollToScene(currentSceneIdx - 1);
+            }
+          },
+          { passive: false },
+        );
 
         /* ——— Vignette + parallax (throttled rAF) ——— */
         var tx = 0.5,
@@ -983,8 +1143,13 @@
             var pts = new THREE.Points(geo, mat);
             scene3.add(pts);
             var tAnim = 0;
+            var threeRunning = true;
+            document.addEventListener('visibilitychange', function () {
+              threeRunning = document.visibilityState === 'visible';
+            });
             function loop() {
               requestAnimationFrame(loop);
+              if (!threeRunning) return;
               tAnim += 0.0022;
               pts.rotation.y = Math.sin(tAnim * 0.4) * 0.08;
               var arr = geo.attributes.position.array;
