@@ -307,25 +307,77 @@
                                 name="siret"
                                 type="text"
                                 inputmode="numeric"
-                                pattern="[0-9\\s]*"
+                                pattern="[0-9\s]*"
                                 maxlength="17"
                                 placeholder="123 456 789 00012" />
                               <p class="optional">Facultatif — nous permet de personnaliser votre diagnostic</p>
                             </div>
                             <div class="pp-field">
+                              <label for="secteur_filter">Filtrer les secteurs</label>
+                              <input
+                                id="secteur_filter"
+                                type="search"
+                                autocomplete="off"
+                                placeholder="Tapez pour affiner la liste (ex. coiffeur, BTP…)" />
+                              <p class="optional">Astuce : le menu déroulant ci-dessous se réduit selon votre recherche.</p>
+                            </div>
+                            <div class="pp-field">
                               <label for="secteur">Secteur d’activité <span class="req">*</span></label>
                               <select id="secteur" name="secteur" required>
                                 <option value="" disabled selected>Choisir…</option>
-                                <option>Restaurant / Hôtellerie</option>
-                                <option>Artisan / BTP</option>
-                                <option>Commerce / Boutique</option>
-                                <option>Coach / Consultant</option>
-                                <option>Beauté / Bien-être</option>
-                                <option>Santé / Paramédical</option>
-                                <option>Juridique / Comptabilité</option>
-                                <option>Formation / Éducation</option>
-                                <option>Immobilier</option>
-                                <option value="Autre">Autre</option>
+                                <optgroup label="ALIMENTATION &amp; RESTAURATION">
+                                  <option>Restaurant / Traiteur</option>
+                                  <option>Boulangerie / Pâtisserie</option>
+                                  <option>Bar / Café / Salon de thé</option>
+                                  <option>Caviste / Épicerie fine</option>
+                                  <option>Food truck / Dark kitchen</option>
+                                </optgroup>
+                                <optgroup label="ARTISANAT &amp; BTP">
+                                  <option>Artisan BTP / Rénovation</option>
+                                  <option>Plombier / Électricien / Chauffagiste</option>
+                                  <option>Menuisier / Charpentier</option>
+                                  <option>Paysagiste / Jardinier</option>
+                                  <option>Artisan d’art / Créateur</option>
+                                </optgroup>
+                                <optgroup label="BEAUTÉ &amp; BIEN-ÊTRE">
+                                  <option>Coiffeur / Barbier</option>
+                                  <option>Institut beauté / Esthéticienne</option>
+                                  <option>Spa / Massage / Sophrologie</option>
+                                  <option>Tatoueur / Perceur</option>
+                                </optgroup>
+                                <optgroup label="SANTÉ &amp; PARAMÉDICAL">
+                                  <option>Médecin / Dentiste / Kiné</option>
+                                  <option>Ostéopathe / Naturopathe</option>
+                                  <option>Infirmier(ère) libéral(e)</option>
+                                  <option>Vétérinaire</option>
+                                  <option>Pharmacie</option>
+                                </optgroup>
+                                <optgroup label="SERVICES AUX ENTREPRISES">
+                                  <option>Coach / Consultant</option>
+                                  <option>Comptable / Expert-comptable</option>
+                                  <option>Avocat / Juriste / Notaire</option>
+                                  <option>Agent immobilier</option>
+                                  <option>Photographe / Vidéaste</option>
+                                  <option>Agence de communication</option>
+                                </optgroup>
+                                <optgroup label="COMMERCE &amp; E-COMMERCE">
+                                  <option>Boutique / Commerce de détail</option>
+                                  <option>E-commerce / Vente en ligne</option>
+                                  <option>Fleuriste</option>
+                                  <option>Bijouterie / Horlogerie</option>
+                                </optgroup>
+                                <optgroup label="FORMATION &amp; ÉDUCATION">
+                                  <option>Formateur indépendant</option>
+                                  <option>Auto-école</option>
+                                  <option>Soutien scolaire / Cours particuliers</option>
+                                </optgroup>
+                                <optgroup label="SPORT &amp; LOISIRS">
+                                  <option>Coach sportif / Salle de sport</option>
+                                  <option>Activités de plein air / Tourisme</option>
+                                </optgroup>
+                                <optgroup label="AUTRE">
+                                  <option value="Autre (précisez)">Autre (précisez)</option>
+                                </optgroup>
                               </select>
                             </div>
                             <div class="pp-field" id="secteur_autre_wrap" hidden>
@@ -344,6 +396,18 @@
                               </select>
                             </div>
                             <div class="pp-field">
+                              <label for="chiffre_affaires">Chiffre d’affaires annuel</label>
+                              <select id="chiffre_affaires" name="chiffre_affaires">
+                                <option value="">—</option>
+                                <option>Moins de 30 000 €</option>
+                                <option>30 000 - 80 000 €</option>
+                                <option>80 000 - 200 000 €</option>
+                                <option>200 000 - 500 000 €</option>
+                                <option>Plus de 500 000 €</option>
+                                <option>Je préfère ne pas répondre</option>
+                              </select>
+                            </div>
+                            <div class="pp-field">
                               <label for="site_web">Site web actuel</label>
                               <input
                                 id="site_web"
@@ -351,6 +415,58 @@
                                 type="url"
                                 inputmode="url"
                                 placeholder="https://votresite.fr" />
+                            </div>
+                            <div class="pp-field">
+                              <label for="reseaux_sociaux">Réseaux sociaux</label>
+                              <input
+                                id="reseaux_sociaux"
+                                name="reseaux_sociaux"
+                                type="text"
+                                placeholder="@votrecompte ou lien" />
+                            </div>
+                            <div class="pp-field">
+                              <label for="google_my_business">Google My Business</label>
+                              <select id="google_my_business" name="google_my_business">
+                                <option value="">—</option>
+                                <option>Oui, j&apos;ai une fiche</option>
+                                <option>Non, pas encore</option>
+                                <option>Je ne sais pas ce que c&apos;est</option>
+                              </select>
+                            </div>
+                            <div class="pp-field">
+                              <span class="pp-field-label">Utilisez-vous déjà des outils numériques ?</span>
+                              <div class="pp-form-checkboxes" role="group" aria-label="Outils numériques">
+                                <label class="pp-form-check"
+                                  ><input type="checkbox" name="outils_num" value="Agenda en ligne (Calendly, etc.)" />
+                                  Agenda en ligne (Calendly, etc.)</label
+                                >
+                                <label class="pp-form-check"
+                                  ><input type="checkbox" name="outils_num" value="CRM (HubSpot, Notion, etc.)" /> CRM (HubSpot,
+                                  Notion, etc.)</label
+                                >
+                                <label class="pp-form-check"
+                                  ><input type="checkbox" name="outils_num" value="Facturation (Henrri, Pennylane, etc.)" />
+                                  Facturation (Henrri, Pennylane, etc.)</label
+                                >
+                                <label class="pp-form-check"
+                                  ><input type="checkbox" name="outils_num" value="Réseaux sociaux (Instagram, LinkedIn, etc.)" />
+                                  Réseaux sociaux (Instagram, LinkedIn, etc.)</label
+                                >
+                                <label class="pp-form-check"
+                                  ><input type="checkbox" name="outils_num" value="Newsletter (Mailchimp, Brevo, etc.)" /> Newsletter
+                                  (Mailchimp, Brevo, etc.)</label
+                                >
+                                <label class="pp-form-check"
+                                  ><input type="checkbox" name="outils_num" value="IA (ChatGPT, Claude, etc.)" /> IA (ChatGPT, Claude,
+                                  etc.)</label
+                                >
+                                <label class="pp-form-check"><input type="checkbox" name="outils_num" value="Aucun" /> Aucun</label>
+                                <label class="pp-form-check"><input type="checkbox" name="outils_num" value="Autre" /> Autre</label>
+                              </div>
+                              <div id="outils_autre_wrap" hidden style="margin-top: 0.75rem">
+                                <label for="outils_autre">Précisez « Autre » (outils)</label>
+                                <input id="outils_autre" name="outils_autre" type="text" />
+                              </div>
                             </div>
                             <div class="pp-field">
                               <label for="ville">Ville / commune <span class="req">*</span></label>
@@ -451,6 +567,34 @@
                                 <option>Normal (1-2 mois)</option>
                                 <option>Pas pressé (3+ mois)</option>
                                 <option>Juste pour info / exploration</option>
+                              </select>
+                            </div>
+                            <fieldset class="pp-field" style="border: none; margin: 0; padding: 0">
+                              <legend class="pp-field-label">
+                                Comment préférez-vous être contacté ? <span class="req">*</span>
+                              </legend>
+                              <div class="pp-form-checkboxes" role="radiogroup" aria-label="Préférence de contact">
+                                <label class="pp-form-check"
+                                  ><input type="radio" name="contact_pref" value="Par téléphone" required /> Par téléphone</label
+                                >
+                                <label class="pp-form-check"><input type="radio" name="contact_pref" value="Par email" /> Par email</label>
+                                <label class="pp-form-check"
+                                  ><input type="radio" name="contact_pref" value="Par WhatsApp" /> Par WhatsApp</label
+                                >
+                                <label class="pp-form-check"
+                                  ><input type="radio" name="contact_pref" value="Peu importe" /> Peu importe</label
+                                >
+                              </div>
+                            </fieldset>
+                            <div class="pp-field">
+                              <label for="creneau_contact">Meilleur créneau pour vous joindre</label>
+                              <select id="creneau_contact" name="creneau_contact">
+                                <option value="">—</option>
+                                <option>Matin (9h-12h)</option>
+                                <option>Midi (12h-14h)</option>
+                                <option>Après-midi (14h-17h)</option>
+                                <option>Soir (17h-19h)</option>
+                                <option>Peu importe</option>
                               </select>
                             </div>
                           </div>

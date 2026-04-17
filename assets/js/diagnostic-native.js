@@ -25,6 +25,9 @@
   var fichier = document.getElementById('fichier');
   var interestAutreWrap = document.getElementById('interest_autre_wrap');
   var interestAutre = document.getElementById('interest_autre');
+  var secteurFilter = document.getElementById('secteur_filter');
+  var outilsAutre = document.getElementById('outils_autre');
+  var outilsAutreWrap = document.getElementById('outils_autre_wrap');
 
   var currentStep = 0;
   var maxStep = 4;
@@ -69,7 +72,9 @@
     if (btnNext) btnNext.style.display = currentStep === maxStep ? 'none' : 'inline-flex';
     if (btnSubmit) btnSubmit.style.display = currentStep === maxStep ? 'inline-flex' : 'none';
     if (currentStep === maxStep) buildRecap();
-    var focusable = form.querySelector('.pp-form-step-wrap[aria-hidden="false"] input, .pp-form-step-wrap[aria-hidden="false"] select, .pp-form-step-wrap[aria-hidden="false"] textarea, .pp-form-step-wrap[aria-hidden="false"] button');
+    var focusable = form.querySelector(
+      '.pp-form-step-wrap[aria-hidden="false"] input:not([type="hidden"]), .pp-form-step-wrap[aria-hidden="false"] select, .pp-form-step-wrap[aria-hidden="false"] textarea, .pp-form-step-wrap[aria-hidden="false"] button',
+    );
     if (focusable) focusable.focus();
   }
 
@@ -90,7 +95,8 @@
       if (!val(document.getElementById('entreprise'))) return 'Merci d’indiquer le nom de l’entreprise.';
       var s = val(secteur);
       if (!s) return 'Merci de choisir un secteur d’activité.';
-      if (s === 'Autre' && !val(secteurAutre)) return 'Merci de préciser votre secteur (champ « Autre »).';
+      if (s === 'Autre (précisez)' && !val(secteurAutre))
+        return 'Merci de préciser votre secteur (champ « Autre (précisez) »).';
       if (!val(document.getElementById('ville'))) return 'Merci d’indiquer votre ville ou commune.';
       var siret = val(document.getElementById('siret'));
       if (siret && !/^[0-9\s]+$/.test(siret)) return 'Le SIRET ne doit contenir que des chiffres et des espaces.';
@@ -100,6 +106,11 @@
       if (!boxes.length) return 'Cochez au moins une option dans « Qu’est-ce qui vous intéresse ? ».';
       var autre = form.querySelector('input[name="interets"][value="Autre"]');
       if (autre && autre.checked && !val(interestAutre)) return 'Merci de préciser votre besoin dans le champ « Autre ».';
+      if (!form.querySelector('input[name="contact_pref"]:checked'))
+        return 'Merci d’indiquer comment vous préférez être contacté.';
+      var oa = form.querySelector('input[name="outils_num"][value="Autre"]');
+      if (oa && oa.checked && !val(outilsAutre))
+        return 'Merci de préciser le champ « Autre » pour les outils numériques.';
     }
     if (step === 3) {
       var f = fichier && fichier.files[0] ? fichier.files[0] : null;
@@ -120,6 +131,41 @@
     return out;
   }
 
+  function selectedOutilsNum() {
+    var out = [];
+    form.querySelectorAll('input[name="outils_num"]:checked').forEach(function (c) {
+      out.push(c.value);
+    });
+    return out;
+  }
+
+  function secteurLabel() {
+    var s = val(secteur);
+    if (!s) return '';
+    if (s === 'Autre (précisez)') return val(secteurAutre) || 'Autre (précisez)';
+    return s;
+  }
+
+  function applySecteurFilter() {
+    if (!secteur || !secteurFilter) return;
+    var q = String(secteurFilter.value || '')
+      .toLowerCase()
+      .trim();
+    secteur.querySelectorAll('optgroup').forEach(function (og) {
+      var glabel = String(og.label || '').toLowerCase();
+      var groupHit = q && glabel.indexOf(q) !== -1;
+      og.querySelectorAll('option').forEach(function (opt) {
+        var t = String(opt.textContent || '').toLowerCase();
+        var match = !q || groupHit || t.indexOf(q) !== -1 || glabel.indexOf(q) !== -1;
+        if (opt.disabled && opt.value === '') {
+          opt.hidden = false;
+          return;
+        }
+        opt.hidden = !match && !opt.selected;
+      });
+    });
+  }
+
   function buildPayload() {
     var interets = selectedInterets();
     return {
@@ -136,9 +182,15 @@
         nom: val(document.getElementById('entreprise')),
         siret: val(document.getElementById('siret')) || null,
         secteur: val(secteur),
-        secteur_autre: val(secteur) === 'Autre' ? val(secteurAutre) : null,
+        secteur_libelle: secteurLabel(),
+        secteur_autre: val(secteur) === 'Autre (précisez)' ? val(secteurAutre) : null,
         effectif: val(document.getElementById('effectif')) || null,
+        chiffre_affaires: val(document.getElementById('chiffre_affaires')) || null,
         site_web: val(document.getElementById('site_web')) || null,
+        reseaux_sociaux: val(document.getElementById('reseaux_sociaux')) || null,
+        google_my_business: val(document.getElementById('google_my_business')) || null,
+        outils_numeriques: selectedOutilsNum(),
+        outils_autre: val(outilsAutre) || null,
         ville: val(document.getElementById('ville')),
         departement: val(document.getElementById('departement')) || null,
       },
@@ -148,6 +200,11 @@
         probleme: val(document.getElementById('probleme')) || null,
         budget: val(document.getElementById('budget')) || null,
         delai: val(document.getElementById('delai')) || null,
+        contact_pref: (function () {
+          var r = form.querySelector('input[name="contact_pref"]:checked');
+          return r ? r.value : null;
+        })(),
+        creneau_contact: val(document.getElementById('creneau_contact')) || null,
       },
       message_libre: val(messageLibre) || null,
       meta: {
@@ -163,8 +220,10 @@
     var e = p.entreprise;
     var b = p.besoin;
     var inter = (b.interets || []).join(', ');
+    var outils = (e.outils_numeriques || []).join(', ');
     var siretLine = e.siret ? e.siret : '—';
     var msg = p.message_libre || '—';
+    var sec = e.secteur_libelle || e.secteur || '—';
     return (
       '🔔 NOUVEAU DIAGNOSTIC\n\n' +
       '👤 ' +
@@ -178,18 +237,30 @@
       '\n🏢 ' +
       e.nom +
       ' — ' +
-      (e.secteur === 'Autre' ? e.secteur_autre || 'Autre' : e.secteur) +
+      sec +
       '\n📍 ' +
       e.ville +
       (e.departement ? ' (' + e.departement + ')' : '') +
       '\n🔢 SIRET : ' +
       siretLine +
+      '\n📊 CA : ' +
+      (e.chiffre_affaires || '—') +
+      '\n🌐 Réseaux : ' +
+      (e.reseaux_sociaux || '—') +
+      '\n🗺 Google Business : ' +
+      (e.google_my_business || '—') +
+      '\n🛠 Outils : ' +
+      (outils || '—') +
       '\n\n📋 Besoin : ' +
       inter +
       '\n💰 Budget : ' +
       (b.budget || '—') +
       '\n⏰ Délai : ' +
       (b.delai || '—') +
+      '\n📞 Contact : ' +
+      (b.contact_pref || '—') +
+      '\n🕐 Créneau : ' +
+      (b.creneau_contact || '—') +
       '\n\n💬 Message libre :\n' +
       msg +
       '\n\n→ Répondre sous 24h'
@@ -217,15 +288,22 @@
     row('Fonction', p.vous.role || '—');
     row('Entreprise', p.entreprise.nom);
     row('SIRET', p.entreprise.siret || '—');
-    row('Secteur', p.entreprise.secteur === 'Autre' ? p.entreprise.secteur_autre || 'Autre' : p.entreprise.secteur);
+    row('Secteur', p.entreprise.secteur_libelle || p.entreprise.secteur || '—');
     row('Effectif', p.entreprise.effectif || '—');
+    row('Chiffre d’affaires', p.entreprise.chiffre_affaires || '—');
     row('Site web', p.entreprise.site_web || '—');
+    row('Réseaux sociaux', p.entreprise.reseaux_sociaux || '—');
+    row('Google My Business', p.entreprise.google_my_business || '—');
+    row('Outils numériques', (p.entreprise.outils_numeriques || []).join(', ') || '—');
+    row('Précision outils « Autre »', p.entreprise.outils_autre || '—');
     row('Ville', p.entreprise.ville);
     row('Département', p.entreprise.departement || '—');
     row('Intérêts', (p.besoin.interets || []).join(', '));
     row('Problème principal', p.besoin.probleme || '—');
     row('Budget', p.besoin.budget || '—');
     row('Délai', p.besoin.delai || '—');
+    row('Contact préféré', p.besoin.contact_pref || '—');
+    row('Créneau contact', p.besoin.creneau_contact || '—');
     row('Message libre', p.message_libre || '—');
     row('Connaissance Pinapp', p.meta.connu_pinapp || '—');
     row('Fichier', p.meta.fichier_nom || '—');
@@ -369,11 +447,38 @@
 
   if (secteur && secteurAutreWrap) {
     secteur.addEventListener('change', function () {
-      var show = secteur.value === 'Autre';
+      var show = secteur.value === 'Autre (précisez)';
       secteurAutreWrap.hidden = !show;
-      secteurAutre.required = show;
+      if (secteurAutre) secteurAutre.required = show;
     });
   }
+
+  if (secteurFilter) {
+    secteurFilter.addEventListener('input', applySecteurFilter);
+    secteurFilter.addEventListener('search', function () {
+      if (secteurFilter.value === '') applySecteurFilter();
+    });
+  }
+  applySecteurFilter();
+
+  form.querySelectorAll('input[name="outils_num"]').forEach(function (cb) {
+    cb.addEventListener('change', function () {
+      var aucun = form.querySelector('input[name="outils_num"][value="Aucun"]');
+      var autreO = form.querySelector('input[name="outils_num"][value="Autre"]');
+      if (aucun && aucun.checked) {
+        form.querySelectorAll('input[name="outils_num"]').forEach(function (x) {
+          if (x !== aucun) x.checked = false;
+        });
+      } else if (cb.checked && cb !== aucun && aucun) {
+        aucun.checked = false;
+      }
+      if (outilsAutreWrap) {
+        var on = autreO && autreO.checked;
+        outilsAutreWrap.hidden = !on;
+        if (outilsAutre) outilsAutre.required = !!on;
+      }
+    });
+  });
 
   form.querySelectorAll('input[name="interets"]').forEach(function (cb) {
     cb.addEventListener('change', function () {
