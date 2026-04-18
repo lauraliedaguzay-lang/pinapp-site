@@ -1,0 +1,232 @@
+/* PINAPP — SYSTÈME D'ENCARTS MÉDIAS V8 (Vimeo + placeholders)
+   Quand iframe[src] active, le placeholder se masque automatiquement. */
+
+.pp-media {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 229, 176, 0.12),
+    rgba(155, 109, 255, 0.12),
+    rgba(255, 107, 157, 0.08)
+  );
+  border: 1px solid rgba(0, 229, 176, 0.18);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+}
+.pp-media::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 30% 30%, rgba(0, 229, 176, 0.15), transparent 65%),
+    radial-gradient(ellipse 60% 50% at 70% 70%, rgba(155, 109, 255, 0.12), transparent 65%);
+}
+.pp-media__placeholder {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 32px;
+  font-family: var(--pp-font, -apple-system, sans-serif);
+}
+.pp-media__placeholder-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+  opacity: 0.7;
+}
+.pp-media__placeholder-label {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(240, 248, 255, 0.55);
+  font-weight: 500;
+  margin: 0;
+}
+.pp-media__placeholder-hint {
+  font-size: 11px;
+  color: rgba(240, 248, 255, 0.35);
+  margin: 6px 0 0;
+  font-style: italic;
+}
+/* Quand iframe[src*="vimeo"] OU img[src] présents, masquer placeholder */
+.pp-media:has(iframe[src*='vimeo']) .pp-media__placeholder,
+.pp-media:has(img[src]) .pp-media__placeholder {
+  display: none;
+}
+.pp-media:has(iframe),
+.pp-media:has(img[src]) {
+  background: #08090e;
+  border-color: rgba(240, 248, 255, 0.08);
+}
+.pp-media iframe,
+.pp-media img {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  object-fit: cover;
+}
+
+/* Ratios */
+.pp-media--16-9 {
+  aspect-ratio: 16/9;
+}
+.pp-media--9-16 {
+  aspect-ratio: 9/16;
+}
+.pp-media--4-3 {
+  aspect-ratio: 4/3;
+}
+.pp-media--3-2 {
+  aspect-ratio: 3/2;
+}
+.pp-media--1-1 {
+  aspect-ratio: 1/1;
+}
+.pp-media--9-10 {
+  aspect-ratio: 9/10;
+}
+
+/* Hero background */
+.hero-v6 {
+  position: relative;
+}
+.hero-v6__bg-video {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+.hero-v6__bg-video iframe,
+.hero-v6__bg-video .pp-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  border: none;
+  border-radius: 0;
+  opacity: 0.35;
+  filter: saturate(0.8) brightness(0.6);
+}
+.hero-v6__bg-video .pp-media {
+  aspect-ratio: unset;
+}
+.hero-v6__bg-video::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(8, 9, 14, 0.5) 0%, rgba(8, 9, 14, 0.85) 100%);
+  pointer-events: none;
+}
+.hero-v6 > *:not(.hero-v6__bg-video) {
+  position: relative;
+  z-index: 2;
+}
+
+/* Atelier card media */
+.atelier-v6__card-media {
+  margin-top: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(240, 248, 255, 0.1);
+}
+.atelier-v6__card-media .pp-media {
+  border: none;
+  border-radius: 0;
+}
+
+/* Section Avant/Après */
+.avant-apres {
+  padding: var(--pp-s-10, 80px) var(--pp-s-5, 24px);
+}
+.avant-apres__container {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+.avant-apres__eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: rgba(240, 248, 255, 0.5);
+  margin: 0 0 12px;
+}
+.avant-apres__title {
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: #f0f8ff;
+  margin: 0 0 16px;
+}
+.avant-apres__subtitle {
+  font-size: 16px;
+  color: rgba(240, 248, 255, 0.65);
+  max-width: 600px;
+  margin: 0 auto 56px;
+  line-height: 1.6;
+}
+.avant-apres__compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  text-align: left;
+}
+.avant-apres__side h3 {
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+}
+.avant-apres__side--avant h3 {
+  color: rgba(255, 107, 157, 0.85);
+}
+.avant-apres__side--apres h3 {
+  color: #00e5b0;
+}
+.avant-apres__side .pp-media {
+  aspect-ratio: 3/2;
+}
+@media (max-width: 720px) {
+  .avant-apres__compare {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Footer signature */
+.pp-footer__signature {
+  margin: 24px auto 16px;
+  width: 240px;
+  height: 135px;
+}
+.pp-footer__signature .pp-media {
+  height: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Univers mockups */
+.univers-teaser__card-mockup {
+  margin: 0 0 16px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.univers-teaser__card-mockup .pp-media {
+  aspect-ratio: 4/3;
+  border-radius: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-v6__bg-video iframe {
+    display: none;
+  }
+}
