@@ -270,10 +270,11 @@ html[data-theme='light'] .studio-card {
   will-change: transform, opacity;
 }
 
-/* Reveal clip */
+/* Reveal clip — état initial ; animation pilotée par GSAP (pp-awwwards-effects.js) */
 .pp-reveal {
-  clip-path: inset(100% 0 0 0);
-  transition: clip-path 0s;
+  clip-path: inset(12% 0% 12% 0%);
+  opacity: 0.3;
+  transition: none;
 }
 
 .pp-reveal img,
@@ -284,8 +285,8 @@ html[data-theme='light'] .studio-card {
 }
 
 .pp-reveal.revealed {
-  clip-path: inset(0% 0 0 0);
-  transition: clip-path 1.15s cubic-bezier(0.77, 0, 0.175, 1);
+  clip-path: inset(0% 0% 0% 0%);
+  opacity: 1;
 }
 
 .pp-reveal.revealed img,
@@ -298,13 +299,11 @@ html[data-theme='light'] .studio-card {
   overflow: hidden;
 }
 
-/* Fade scroll */
+/* Fade scroll — état initial ; animation pilotée par GSAP */
 .pp-fade {
   opacity: 0;
-  transform: translateY(28px);
-  transition:
-    opacity 0.78s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.78s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(40px);
+  transition: none;
 }
 
 .pp-fade.visible {
