@@ -246,13 +246,13 @@ const SEO_BLOCK_TMPL = (canonical, title, desc) => `<!-- PINAPP_SEO_MANAGED -->
     <meta property="og:title" content="${escAttr(title)}" />
     <meta property="og:description" content="${escAttr(desc)}" />
     <meta property="og:url" content="${canonical}" />
-    <meta property="og:image" content="https://pinapp.fr/assets/images/og-pinapp-share.png" />
+    <meta property="og:image" content="https://pinapp.fr/assets/images/og-pinapp-share.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${escAttr(title)}" />
     <meta name="twitter:description" content="${escAttr(desc)}" />
-    <meta name="twitter:image" content="https://pinapp.fr/assets/images/og-pinapp-share.png" />
+    <meta name="twitter:image" content="https://pinapp.fr/assets/images/og-pinapp-share.jpg" />
     <!-- /PINAPP_SEO_MANAGED -->`;
 
 const JSONLD = `{

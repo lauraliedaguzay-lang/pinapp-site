@@ -21,7 +21,7 @@ const required = [
   'assets/css/pinapp-apple-polish.css',
   'assets/js/pinapp-universal.js',
   'engagements/charge-mentale.html',
-  'assets/images/og-pinapp-share.png',
+  'assets/images/og-pinapp-share.jpg',
   'assets/js/auralis-config.js',
   'auralis/index.html',
 ];

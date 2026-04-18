@@ -66,7 +66,7 @@ Détails techniques : `assets/video/README.txt`.
 | `assets/images/pinapp-logo.png`           | Logo header / footer                      |
 | `assets/images/bg-pandora-nuit.png`       | Fond nuit, poster du loader               |
 | `assets/images/bg-pandora-jour.png`       | Fond jour                                 |
-| `assets/images/og-pinapp-share.png`       | Aperçu lien (Open Graph) — beaucoup pages |
+| `assets/images/og-pinapp-share.jpg`       | Aperçu lien (Open Graph) — beaucoup pages |
 | `assets/images/bg-dark-pandora-apple.png` | Variante Apple / certaines pages          |
 
 **Remplacer une image :** garder le **même nom de fichier** et écraser le fichier → aucune modification HTML nécessaire.
@@ -123,7 +123,7 @@ Les pages sous `demo/artisan/`, `demo/restaurant/`, etc. chargent des visuels vi
 ## 7. Fonds d’écran & partage réseaux
 
 - Fonds : §3.
-- **Image de partage** (`og:image`) : souvent `https://pinapp.fr/assets/images/og-pinapp-share.png` dans les `<meta>` — remplacer le **fichier** ou mettre à jour l’URL dans chaque page concernée si vous utilisez un autre nom.
+- **Image de partage** (`og:image`) : souvent `https://pinapp.fr/assets/images/og-pinapp-share.jpg` dans les `<meta>` — remplacer le **fichier** ou mettre à jour l’URL dans chaque page concernée si vous utilisez un autre nom.
 
 ---
 
