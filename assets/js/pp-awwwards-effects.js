@@ -88,7 +88,7 @@
 
   function initPreloader(onDone) {
     var pl = document.getElementById('pp-preloader');
-    if (pl && pl.classList.contains('pp-preloader--aura-lite')) {
+    if (!pl) {
       if (typeof onDone === 'function') onDone();
       return;
     }
@@ -563,35 +563,26 @@
   }
 
   function runPreloaderGate() {
-    var pl = document.getElementById('pp-preloader');
-    if (!pl) {
-      startSite();
+    /* Intro voile + lentille : assets/js/preloader.js émet pp:preloader:done */
+    var introEl = document.getElementById('pp-intro');
+    if (introEl && !document.documentElement.classList.contains('pp-intro-skip')) {
+      window.addEventListener(
+        'pp:preloader:done',
+        function onVeilIntroDone() {
+          window.removeEventListener('pp:preloader:done', onVeilIntroDone);
+          try {
+            document.body.classList.add('pp-loaded');
+          } catch (eB) {}
+          startSite();
+        },
+        { once: true }
+      );
       return;
     }
 
-    /* Préchargeur AURA léger : pas de canvas cosmos — attente événement pp:preloader:done (assets/js/preloader.js) */
-    if (pl.classList.contains('pp-preloader--aura-lite')) {
-      function wireAuraPreloaderDone() {
-        window.addEventListener(
-          'pp:preloader:done',
-          function onAuraPreDone() {
-            window.removeEventListener('pp:preloader:done', onAuraPreDone);
-            try {
-              document.body.classList.add('pp-loaded');
-            } catch (eB) {}
-            startSite();
-          },
-          { once: true }
-        );
-      }
-      if (!document.documentElement.classList.contains('pp-intro-skip') && document.getElementById('pp-intro')) {
-        window.addEventListener('pp-pinapp-intro-done', function onIntroForAura() {
-          window.removeEventListener('pp-pinapp-intro-done', onIntroForAura);
-          window.setTimeout(wireAuraPreloaderDone, 0);
-        });
-      } else {
-        wireAuraPreloaderDone();
-      }
+    var pl = document.getElementById('pp-preloader');
+    if (!pl) {
+      startSite();
       return;
     }
 
@@ -889,6 +880,11 @@
 
           if (el.getAttribute('data-pp-split') === '1') {
             console.log('[pp] split[' + i + '] SKIPPED (data-pp-split)');
+            return;
+          }
+
+          if (el.id === 'aura-hero-title') {
+            console.log('[pp] split[' + i + '] SKIPPED (aura hero — intro / splits.js)');
             return;
           }
 

@@ -1,87 +1,141 @@
 /**
- * Pinapp — préchargeur AURA (léger, max 1200 ms, safety)
- * Émet `pp:preloader:done` à la fermeture. Compatible avec #pp-intro (attente fin intro).
+ * Pinapp — intro « Le voile qui s'ouvre » (2,5 s) : lentille centrale + voile.
+ * Émet `pp:intro:title-reveal` puis `pp:preloader:done` (compat. Lenis / aura / traces).
  */
 (function () {
-  var PRELOADER_MAX = 1200;
-  var el = document.getElementById('pp-preloader');
-  if (!el || !el.classList.contains('pp-preloader--aura-lite')) return;
+  var INTRO_DURATION = 2500;
+  var LENS_GROW_START = 300;
+  var LENS_GROW_END = 2000;
+  var TITLE_REVEAL_AT = 1200;
+  var SAFETY_TIMEOUT = 3500;
+
+  var intro = document.getElementById('pp-intro');
+  function emitDoneSoon() {
+    window.setTimeout(function () {
+      try {
+        document.dispatchEvent(new CustomEvent('pp:preloader:done'));
+      } catch (eEv) {}
+    }, 0);
+  }
+
+  if (document.documentElement.classList.contains('pp-intro-skip')) {
+    if (intro && intro.parentNode) intro.remove();
+    try {
+      document.documentElement.classList.remove('pp-intro-active');
+    } catch (eSk2) {}
+    try {
+      sessionStorage.setItem('pp-intro-last-complete', String(Date.now()));
+    } catch (eSkS) {}
+    emitDoneSoon();
+    return;
+  }
+  if (!intro) {
+    emitDoneSoon();
+    return;
+  }
 
   var reduced = false;
   try {
     reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   } catch (eRm) {}
 
+  var root = document.documentElement;
   var killed = false;
-  var safetyId = null;
+  var startTime = null;
+
+  function targetSize() {
+    var w = window.innerWidth || 1024;
+    var h = window.innerHeight || 768;
+    return Math.sqrt(w * w + h * h);
+  }
 
   function kill() {
     if (killed) return;
     killed = true;
-    if (safetyId) {
-      clearTimeout(safetyId);
-      safetyId = null;
-    }
-    el.classList.add('pp-preloader--out');
+    intro.classList.add('is-done');
     try {
-      document.body.classList.remove('pp-preloader-active');
-    } catch (eBody) {}
+      document.documentElement.classList.remove('pp-intro-active');
+    } catch (eRm) {}
     window.setTimeout(function () {
-      if (el.parentNode) el.remove();
+      if (intro.parentNode) intro.remove();
       try {
-        document.dispatchEvent(new CustomEvent('pp:preloader:done'));
-      } catch (eEv) {}
-    }, 560);
-  }
-
-  function arm() {
-    try {
-      document.body.classList.add('pp-preloader-active');
-    } catch (e) {}
-    safetyId = window.setTimeout(kill, PRELOADER_MAX);
-    if (document.readyState === 'complete') {
-      window.setTimeout(kill, 380);
-    } else {
-      window.addEventListener(
-        'load',
-        function () {
-          window.setTimeout(kill, 200);
-        },
-        { once: true }
-      );
-    }
+        document.body.style.overflow = '';
+      } catch (eOb2) {}
+      try {
+        sessionStorage.setItem('pp-intro-last-complete', String(Date.now()));
+      } catch (eSkS2) {}
+      emitDoneSoon();
+    }, 500);
   }
 
   if (reduced) {
     try {
-      el.remove();
-    } catch (eR) {}
-    try {
-      document.dispatchEvent(new CustomEvent('pp:preloader:done'));
-    } catch (eR2) {}
+      root.style.setProperty('--pp-intro-lens-size', '9999px');
+    } catch (e2) {}
+    window.setTimeout(function () {
+      try {
+        document.dispatchEvent(new CustomEvent('pp:intro:title-reveal'));
+      } catch (e3) {}
+    }, 0);
+    window.setTimeout(function () {
+      try {
+        document.documentElement.classList.remove('pp-intro-active');
+      } catch (eRm2) {}
+    }, 0);
+    window.setTimeout(kill, 400);
     return;
   }
 
-  function startWhenReady() {
-    var intro = document.getElementById('pp-intro');
-    var skipIntro = document.documentElement.classList.contains('pp-intro-skip');
-    if (intro && !skipIntro) {
-      window.addEventListener(
-        'pp-pinapp-intro-done',
-        function onIntro() {
-          window.removeEventListener('pp-pinapp-intro-done', onIntro);
-          arm();
-        },
-        { once: true }
-      );
+  function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function animate(ts) {
+    if (killed) return;
+    if (startTime === null) startTime = ts;
+    var elapsed = ts - startTime;
+
+    if (elapsed >= LENS_GROW_START && elapsed <= LENS_GROW_END) {
+      var t = (elapsed - LENS_GROW_START) / (LENS_GROW_END - LENS_GROW_START);
+      var eased = easeOutCubic(Math.min(1, Math.max(0, t)));
+      var size = 80 + (targetSize() - 80) * eased;
+      try {
+        root.style.setProperty('--pp-intro-lens-size', size + 'px');
+      } catch (e4) {}
+    } else if (elapsed > LENS_GROW_END) {
+      try {
+        root.style.setProperty('--pp-intro-lens-size', targetSize() + 'px');
+      } catch (e5) {}
+    }
+
+    if (elapsed >= TITLE_REVEAL_AT && intro.dataset.titleRevealed !== 'true') {
+      intro.dataset.titleRevealed = 'true';
+      try {
+        document.dispatchEvent(new CustomEvent('pp:intro:title-reveal'));
+      } catch (e6) {}
+    }
+
+    if (elapsed >= INTRO_DURATION) {
+      kill();
       return;
     }
-    arm();
+
+    window.requestAnimationFrame(animate);
+  }
+
+  window.setTimeout(kill, SAFETY_TIMEOUT);
+
+  try {
+    document.body.style.overflow = 'hidden';
+  } catch (eOb) {}
+
+  function startAnim() {
+    window.requestAnimationFrame(animate);
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', startWhenReady);
+    document.addEventListener('DOMContentLoaded', startAnim);
   } else {
-    startWhenReady();
+    startAnim();
   }
 })();

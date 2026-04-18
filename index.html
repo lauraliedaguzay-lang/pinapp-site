@@ -34,10 +34,10 @@
     <link rel="stylesheet" href="/assets/css/aura-fonts.css?v=20260419" />
     <link rel="stylesheet" href="/assets/css/tokens.css?v=20260218" />
     <link rel="stylesheet" href="/assets/css/base.css?v=20260218" />
-    <link rel="stylesheet" href="/assets/css/aura.css?v=20260218" />
+    <link rel="stylesheet" href="/assets/css/aura.css?v=20260420" />
     <link rel="stylesheet" href="/assets/css/traces.css?v=20260218" />
     <link rel="stylesheet" href="/assets/css/sections.css?v=20260218" />
-    <script src="/assets/js/preloader.js?v=20260218" defer></script>
+    <script src="/assets/js/preloader.js?v=20260420" defer></script>
     <link rel="canonical" href="https://pinapp.fr/" />
     <meta name="theme-color" content="#0a0612" />
     <meta name="apple-mobile-web-app-title" content="Pinapp" />
@@ -1667,13 +1667,9 @@
 <noscript><link rel="stylesheet" href="/assets/css/pp-awwwards.css?v=20260471" /></noscript>
 </head>
   <body class="aura-stage">
-    <div id="pp-preloader" class="pp-preloader pp-preloader--aura-lite" aria-hidden="true">
-      <div class="pp-preloader-lite__pulse" aria-hidden="true"></div>
-      <div class="pp-preloader-lite__marquee" aria-hidden="true">
-        <span class="pp-preloader-lite__marquee-inner"
-          >PINAPP · RÉVÈLE · L'INVISIBLE · PINAPP · RÉVÈLE · L'INVISIBLE · PINAPP · RÉVÈLE · L'INVISIBLE ·
-        </span>
-      </div>
+    <div id="pp-intro" class="pp-intro" aria-hidden="true" role="presentation">
+      <div class="pp-intro__veil"></div>
+      <div class="pp-intro__lens" aria-hidden="true"></div>
     </div>
     <div class="aura-lattice" aria-hidden="true"></div>
     <a href="#main" class="skip-link">Aller au contenu principal</a>
@@ -1704,379 +1700,6 @@
           if (document.body) document.body.scrollTop = 0;
         }
       } catch (e) {}
-    </script>
-    <style id="pp-intro-css">
-      html.pp-intro-skip #pp-intro {
-        display: none !important;
-        visibility: hidden !important;
-        pointer-events: none !important;
-      }
-      #pp-intro {
-        position: fixed !important;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
-        min-height: 100vh;
-        min-height: 100dvh;
-        min-height: -webkit-fill-available;
-        /* Au-dessus du burger nav (100011) et du drawer (100010) pendant la séquence */
-        z-index: 100020 !important;
-        box-sizing: border-box;
-        padding: max(0.75rem, env(safe-area-inset-top, 0px)) max(0.75rem, env(safe-area-inset-right, 0px))
-          max(0.75rem, env(safe-area-inset-bottom, 0px)) max(0.75rem, env(safe-area-inset-left, 0px));
-        background: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        animation:
-          pp-bg-dark 0.4s 3.55s ease forwards,
-          pp-out 0.6s 5.4s ease forwards;
-      }
-      /* Pendant l’intro : pas d’animation du titre hero (sinon tout est fini « en haut » avant la fin du volet) */
-      html.pp-intro-active #top.hero h1 .word {
-        animation: none !important;
-        opacity: 0 !important;
-        transform: none !important;
-      }
-      html.pp-intro-active #top .scroll-hint {
-        opacity: 0 !important;
-        animation: none !important;
-        pointer-events: none;
-      }
-      html.pp-intro-active #tdahStickyCta {
-        visibility: hidden !important;
-        pointer-events: none !important;
-      }
-      @keyframes pp-bg-dark {
-        to {
-          background: #06090f;
-        }
-      }
-      @keyframes pp-out {
-        to {
-          opacity: 0;
-          pointer-events: none;
-        }
-      }
-      #pp-intro .ppf {
-        position: absolute;
-        inset: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        opacity: 0;
-      }
-      #pp-intro .ppf1 {
-        animation:
-          pps 0.55s 0s ease forwards,
-          pph 0.22s 0.65s ease forwards;
-      }
-      #pp-intro .ppf2 {
-        animation:
-          pps 0.55s 0.8s ease forwards,
-          pph 0.22s 1.45s ease forwards;
-      }
-      #pp-intro .ppf3 {
-        animation:
-          pps 0.55s 1.6s ease forwards,
-          pph 0.22s 2.25s ease forwards;
-      }
-      #pp-intro .ppf4 {
-        animation:
-          pps 0.55s 2.4s ease forwards,
-          pph 0.22s 3.05s ease forwards;
-      }
-      #pp-intro .ppf5 {
-        animation:
-          pps 0.55s 3.1s ease forwards,
-          pph 0.22s 3.75s ease forwards;
-      }
-      #pp-intro .ppf6 {
-        animation: pps-logo 0.8s 3.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      }
-      @keyframes pps {
-        from {
-          opacity: 0;
-          transform: scale(0.93);
-        }
-        to {
-          opacity: 1;
-          transform: scale(1);
-        }
-      }
-      @keyframes pph {
-        from {
-          opacity: 1;
-        }
-        to {
-          opacity: 0;
-          transform: scale(1.04);
-        }
-      }
-      @keyframes pps-logo {
-        from {
-          opacity: 0;
-          transform: scale(0.9);
-        }
-        to {
-          opacity: 1;
-          transform: scale(1);
-        }
-      }
-      #pp-intro .ppw {
-        font-family: 'Sora', 'Inter', ui-sans-serif, system-ui, sans-serif;
-        font-weight: 200;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        line-height: 1;
-        margin: 0;
-      }
-      #pp-intro .ppwl {
-        font-size: clamp(4.5rem, 15vw, 10rem);
-      }
-      #pp-intro .ppwm {
-        font-size: clamp(2.2rem, 8vw, 5.5rem);
-      }
-      #pp-intro .ppws {
-        font-size: clamp(1.5rem, 5.5vw, 3.8rem);
-      }
-      #pp-intro .ppc1 {
-        background: linear-gradient(90deg, #009e7d, #00e5b0);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        -webkit-text-fill-color: transparent;
-      }
-      #pp-intro .ppc2 {
-        background: linear-gradient(90deg, #5c2db0, #9b6dff);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        -webkit-text-fill-color: transparent;
-      }
-      #pp-intro .ppc3 {
-        background: linear-gradient(90deg, #c03060, #ff6b9d);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        -webkit-text-fill-color: transparent;
-      }
-      #pp-intro .ppc4 {
-        background: linear-gradient(90deg, #12093a, #3d1a70);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        -webkit-text-fill-color: transparent;
-      }
-      #pp-intro .ppc5 {
-        background: linear-gradient(90deg, #1e5438, #40916c);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        -webkit-text-fill-color: transparent;
-      }
-      #pp-intro .ppsub {
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
-        font-size: 0.68rem;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-        color: rgba(0, 0, 0, 0.28);
-        font-weight: 300;
-        margin: 0.9rem 0 0;
-      }
-      #pp-intro .pp-logo-img {
-        display: block;
-        height: clamp(80px, 16vw, 140px);
-        width: auto;
-        margin-inline: auto;
-        object-fit: contain;
-        animation: pp-logo-in 0.9s 3.95s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
-        filter: drop-shadow(0 0 24px rgba(0, 229, 176, 0.28)) drop-shadow(0 0 48px rgba(0, 229, 176, 0.1));
-      }
-      @keyframes pp-logo-in {
-        from {
-          transform: scale(0.75);
-          opacity: 0;
-        }
-        to {
-          transform: scale(1);
-          opacity: 1;
-        }
-      }
-      #pp-intro .pp-tag {
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
-        font-size: clamp(0.7rem, 2vw, 0.88rem);
-        font-weight: 300;
-        letter-spacing: 0.1em;
-        color: rgba(245, 245, 247, 0.35);
-        margin: 1.5rem 0 0;
-        text-wrap: balance;
-        animation: pp-tag-in 0.5s 4.6s ease backwards;
-      }
-      @keyframes pp-tag-in {
-        from {
-          opacity: 0;
-          transform: translateY(8px);
-        }
-        to {
-          opacity: 1;
-          transform: none;
-        }
-      }
-      #pp-intro .pp-pandora {
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        background:
-          radial-gradient(ellipse 70% 60% at 50% 40%, rgba(0, 229, 176, 0.06) 0%, transparent 60%),
-          radial-gradient(ellipse 50% 50% at 20% 80%, rgba(124, 58, 237, 0.05) 0%, transparent 60%);
-        opacity: 0;
-        animation: pp-pandora-in 0.8s 3.55s ease forwards;
-      }
-      @keyframes pp-pandora-in {
-        to {
-          opacity: 1;
-        }
-      }
-      #pp-intro .pp-bar {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        height: 1.5px;
-        background: linear-gradient(90deg, #00e5b0, #7c3aed, #ff6b9d, #00e5b0);
-        background-size: 300% auto;
-        animation: pp-bw 5.4s linear forwards;
-      }
-      @keyframes pp-bw {
-        from {
-          width: 0;
-        }
-        to {
-          width: 100%;
-        }
-      }
-
-      /* Intro — petits viewports & encoches */
-      @media (max-width: 32.5rem) {
-        #pp-intro {
-          padding-left: max(0.55rem, env(safe-area-inset-left, 0px));
-          padding-right: max(0.55rem, env(safe-area-inset-right, 0px));
-        }
-        #pp-intro .ppwl {
-          font-size: clamp(2.1rem, 12.5vw, 10rem);
-          letter-spacing: 0.09em;
-        }
-        #pp-intro .ppwm {
-          font-size: clamp(1.35rem, 6.2vw, 5.5rem);
-        }
-        #pp-intro .ppws {
-          font-size: clamp(1.05rem, 4.6vw, 3.8rem);
-        }
-        #pp-intro .ppsub {
-          font-size: clamp(0.52rem, 2.1vw, 0.68rem);
-          letter-spacing: 0.12em;
-          padding: 0 0.4rem;
-          text-wrap: balance;
-        }
-        #pp-intro .pp-logo-img {
-          height: clamp(52px, 21vw, 120px);
-        }
-        #pp-intro .pp-tag {
-          font-size: clamp(0.62rem, 2.6vw, 0.82rem);
-          padding: 0 0.65rem;
-          text-wrap: balance;
-        }
-      }
-      #pp-intro {
-        position: fixed !important;
-        inset: 0 !important;
-        z-index: 99999 !important;
-        background: #050a14 !important;
-      }
-    </style>
-    <div id="pp-intro" role="dialog" aria-modal="true" aria-busy="true" aria-label="Pinapp — séquence d'accueil">
-      <div class="pp-pandora" aria-hidden="true"></div>
-      <div class="ppf ppf1" aria-hidden="true">
-        <p class="ppw ppwl ppc1">IA</p>
-        <p class="ppsub">Intelligence artificielle</p>
-      </div>
-      <div class="ppf ppf2" aria-hidden="true">
-        <p class="ppw ppwm ppc2">Automatisation</p>
-        <p class="ppsub">Vos process, sans effort</p>
-      </div>
-      <div class="ppf ppf3" aria-hidden="true">
-        <p class="ppw ppws ppc3">Web &amp; Design</p>
-        <p class="ppsub">Sites qui convertissent</p>
-      </div>
-      <div class="ppf ppf4" aria-hidden="true">
-        <p class="ppw ppws ppc4">Formations</p>
-        <p class="ppsub">Prenez le contrôle de vos outils</p>
-      </div>
-      <div class="ppf ppf5" aria-hidden="true">
-        <p class="ppw ppws ppc5">Mémoire &amp; Présence</p>
-        <p class="ppsub">Hommages numériques · avec Michaël</p>
-      </div>
-      <div class="ppf ppf6">
-        <img
-          class="pp-logo-img"
-          src="/assets/images/pinapp-logo.png"
-          width="140"
-          height="168"
-          alt="Pinapp — logo ananas"
-          loading="eager"
-          decoding="async"
-          fetchpriority="high"   />
-        <p class="pp-tag">Ce que vos concurrents n'ont pas encore.</p>
-      </div>
-      <div class="pp-bar" aria-hidden="true"></div>
-    </div>
-    <script id="pp-intro-run">
-      (function () {
-        if (document.documentElement.classList.contains('pp-intro-skip')) {
-          window.setTimeout(function () {
-            var skip = document.getElementById('pp-intro');
-            var css = document.getElementById('pp-intro-css');
-            var run = document.getElementById('pp-intro-run');
-            if (skip) skip.remove();
-            if (css) css.remove();
-            if (run) run.remove();
-            try {
-              window.dispatchEvent(new CustomEvent('pp-pinapp-intro-done'));
-            } catch (e0) {}
-          }, 6100);
-          return;
-        }
-        document.body.style.overflow = 'hidden';
-        window.scrollTo(0, 0);
-        window.setTimeout(function () {
-          document.documentElement.classList.remove('pp-intro-active');
-          try {
-            void document.documentElement.offsetHeight;
-          } catch (e2) {}
-          document.body.style.overflow = '';
-          window.scrollTo(0, 0);
-          if (document.documentElement) document.documentElement.scrollTop = 0;
-          if (document.body) document.body.scrollTop = 0;
-          var el = document.getElementById('pp-intro');
-          if (el) el.remove();
-          var c = document.getElementById('pp-intro-css');
-          if (c) c.remove();
-          var r = document.getElementById('pp-intro-run');
-          if (r) r.remove();
-          try {
-            window.dispatchEvent(new CustomEvent('pp-pinapp-intro-done'));
-          } catch (e3) {}
-          try {
-            sessionStorage.setItem('pp-intro-last-complete', String(Date.now()));
-          } catch (eS) {}
-          window.dispatchEvent(new Event('resize'));
-        }, 6100);
-      })();
     </script>
     <canvas id="pc" aria-hidden="true"></canvas>
     <div id="ow" aria-hidden="true">
@@ -2240,7 +1863,7 @@
       }
 
       /* Ne pas cibler #pp-intro : sinon position:relative + z-index:1 écrase le fixed plein écran (spécificité > #pp-intro). */
-      body > *:not(#pc):not(#ow):not(#pp-intro):not(#pp-preloader):not(#pp-cosmos-stars):not(.skip-link):not(
+      body > *:not(#pc):not(#ow):not(#pp-intro):not(#pp-cosmos-stars):not(.skip-link):not(
           #pp-cursor-dot):not(#pp-cursor-circle)
         ) {
         position: relative;
@@ -3524,7 +3147,9 @@
             <p class="eyebrow" style="font-family: var(--pp-font-mono); font-size: var(--pp-fs-tag); letter-spacing: 0.22em; text-transform: uppercase; color: var(--pp-purple-bright); margin: 0 0 var(--pp-space-2)">
               Studio · Bordeaux · RH augmentés
             </p>
-            <h1 class="pp-aura-hero__title pp-split">Révéler les auras invisibles de l'entreprise.</h1>
+            <h1 id="aura-hero-title" class="pp-aura-hero__title pp-split">
+              Révéler les auras invisibles de l'entreprise.
+            </h1>
             <p class="pp-aura-hero__lead">
               Pinapp conçoit des outils qui rendent visible le vivant : présences, mémoires, signaux — pour que chaque organisation
               retrouve sa présence réelle.
@@ -3715,12 +3340,12 @@
     <script src="/assets/vendor/gsap.min.js?v=3.12.5" defer></script>
     <script src="/assets/vendor/ScrollTrigger.min.js?v=3.12.5" defer></script>
     <script src="/assets/vendor/lenis.min.js?v=1.1.18" defer></script>
-    <script src="/assets/js/splits.js?v=20260218" defer></script>
+    <script src="/assets/js/splits.js?v=20260420" defer></script>
     <script src="/assets/js/aura.js?v=20260218" defer></script>
     <script src="/assets/js/traces.js?v=20260218" defer></script>
     <script src="/assets/js/sound.js?v=20260218" defer></script>
     <script src="/assets/js/lenis-init.js?v=20260218" defer></script>
-    <script src="/assets/js/pp-awwwards-effects.js?v=20260471" defer></script>
+    <script src="/assets/js/pp-awwwards-effects.js?v=20260420" defer></script>
     <!-- Pandora TDAH : modale Tally -->
     <div class="tdah-modal-overlay" id="tallyModal" role="dialog" aria-modal="true" aria-labelledby="tdahModalTitle">
       <div class="tdah-modal">

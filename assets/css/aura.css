@@ -98,3 +98,87 @@ body.aura-stage--muted .aura-lens-glow {
     );
   }
 }
+
+/* ── Intro chargement : « Le voile qui s'ouvre » (lentille + voile) ── */
+.pp-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100020;
+  pointer-events: none;
+  opacity: 0;
+  padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0)
+    env(safe-area-inset-left, 0);
+  box-sizing: border-box;
+  animation: pp-intro-fade-in 300ms ease-out forwards;
+}
+
+.pp-intro.is-done {
+  opacity: 0;
+  transition: opacity 500ms var(--pp-ease);
+  pointer-events: none;
+}
+
+@keyframes pp-intro-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.pp-intro__veil {
+  position: absolute;
+  inset: 0;
+  background: var(--pp-bg-deep);
+  backdrop-filter: blur(24px) saturate(0.3);
+  -webkit-backdrop-filter: blur(24px) saturate(0.3);
+  mask-image: radial-gradient(
+    circle var(--pp-intro-lens-size, 80px) at 50% 50%,
+    transparent 0%,
+    transparent 35%,
+    black 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle var(--pp-intro-lens-size, 80px) at 50% 50%,
+    transparent 0%,
+    transparent 35%,
+    black 100%
+  );
+  transform: translateZ(0);
+}
+
+.pp-intro__lens {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--pp-intro-lens-size, 80px) * 2.5);
+  height: calc(var(--pp-intro-lens-size, 80px) * 2.5);
+  transform: translate(-50%, -50%) translateZ(0);
+  background: radial-gradient(
+    circle,
+    rgba(166, 127, 255, 0.35) 0%,
+    rgba(139, 95, 255, 0.15) 30%,
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pp-intro {
+    animation: none;
+    opacity: 1;
+    transition: opacity 200ms;
+  }
+
+  .pp-intro.is-done {
+    opacity: 0;
+  }
+}
+
+/* Titre AURA : masqué tant que l'intro voile est active (le trou révèle le décor, pas le texte brut) */
+html.pp-intro-active #aura-hero-title {
+  opacity: 0;
+  visibility: hidden;
+}
