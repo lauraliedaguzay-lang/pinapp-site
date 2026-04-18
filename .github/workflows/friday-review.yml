@@ -1,0 +1,74 @@
+name: '🍾 Bilan vendredi'
+
+on:
+  schedule:
+    - cron: '0 16 * * 5' # vendredi ~17–18h Europe/Paris
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Data
+        id: d
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          SINCE="$(date -d '7 days ago' -u +%Y-%m-%dT%H:%M:%SZ)"
+          C="$(curl -sS -H "Authorization: Bearer ${GH_TOKEN}" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/commits?since=${SINCE}&per_page=100" | jq 'length')"
+          echo "commits=${C}" >> "$GITHUB_OUTPUT"
+
+      - name: Claude review
+        id: claude
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          set -euo pipefail
+          PROMPT="Vendredi 18h. Bilan Pinapp. ${{ steps.d.outputs.commits }} commits cette semaine.
+
+          Message Telegram :
+          🍾 BILAN SEMAINE
+
+          ✅ CE QUI A ÉTÉ FAIT [basé sur nb commits, encourageant]
+
+          ❌ CE QUI RESTE [rappeler les tâches en cours : photos, vidéos Micha, LinkedIn, Hostinger]
+
+          📊 ADMIN
+          [Rappels : prochaine déclaration URSSAF, factures à envoyer, relances]
+
+          💡 IDÉE SEMAINE PROCHAINE [1 suggestion business]
+
+          🏆 NOTE : X/10 [honnête mais bienveillant]
+
+          🍍 Bon week-end Lauralie & Michaël !
+
+          Si peu de commits = pas de jugement. Si beaucoup = féliciter."
+
+          BODY="$(jq -n --arg p "$PROMPT" '{model:"claude-sonnet-4-20250514",max_tokens:1500,messages:[{role:"user",content:$p}]}')"
+          RESPONSE="$(curl -sS https://api.anthropic.com/v1/messages \
+            -H "x-api-key: ${ANTHROPIC_API_KEY}" \
+            -H "anthropic-version: 2023-06-01" \
+            -H "content-type: application/json" \
+            -d "$BODY")"
+          MSG="$(echo "$RESPONSE" | jq -r '.content[0].text // "Bon week-end !"' | head -c 4000)"
+          {
+            echo 'msg<<EOFMSG'
+            printf '%s\n' "$MSG"
+            echo 'EOFMSG'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Send
+        env:
+          TELEGRAM_BOT_TOKEN_PINAPP: ${{ secrets.TELEGRAM_BOT_TOKEN_PINAPP }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          MSG: ${{ steps.claude.outputs.msg }}
+        run: |
+          set -euo pipefail
+          curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN_PINAPP}/sendMessage" \
+            -d "chat_id=${TELEGRAM_CHAT_ID}" \
+            --data-urlencode "text=${MSG}"

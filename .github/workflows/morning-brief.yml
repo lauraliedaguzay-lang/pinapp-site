@@ -1,0 +1,141 @@
+name: '☀️ Briefing du matin'
+
+on:
+  schedule:
+    - cron: '0 6 * * *' # ~7–8h Europe/Paris (UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: read
+  actions: read
+
+jobs:
+  brief:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Collect data
+        id: data
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          SINCE="$(date -d '24 hours ago' -u +%Y-%m-%dT%H:%M:%SZ)"
+          COMMITS="$(curl -sS -H "Authorization: Bearer ${GH_TOKEN}" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/commits?since=${SINCE}&per_page=100" | jq 'length')"
+          DEPLOY="$(curl -sS -H "Authorization: Bearer ${GH_TOKEN}" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/runs?per_page=1" | jq -r '.workflow_runs[0].conclusion // "aucun"')"
+          ISSUES="$(curl -sS -H "Authorization: Bearer ${GH_TOKEN}" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/issues?state=open&per_page=100" | jq 'length')"
+          DOW="$(date +%u)"
+          DATE="$(TZ=Europe/Paris date '+%A %d %B %Y')"
+          {
+            echo "commits=${COMMITS}"
+            echo "deploy=${DEPLOY}"
+            echo "issues=${ISSUES}"
+            echo "dow=${DOW}"
+            echo "date=${DATE}"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Claude briefing
+        id: claude
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          set -euo pipefail
+          read -r -d '' PROMPT <<'PROMPT_EOF' || true
+          Tu es le DIRECTEUR GÉNÉRAL IA de Pinapp Inc., studio digital à Bordeaux.
+          Tu diriges Lauralie (dev, IA, automatisation) et Michaël (graphiste, vidéaste, films IA).
+          Ils sont TDAH : instructions ULTRA concrètes, max 3 tâches/jour, temps estimé pour chaque.
+
+          DONNÉES DU JOUR :
+          - Date : ${{ steps.data.outputs.date }}
+          - Jour : ${{ steps.data.outputs.dow }} (1=lun 5=ven 6=sam 7=dim)
+          - Commits 24h : ${{ steps.data.outputs.commits }}
+          - Deploy : ${{ steps.data.outputs.deploy }}
+          - Issues : ${{ steps.data.outputs.issues }}
+
+          CONTEXTE BUSINESS :
+          - pinapp.fr en ligne (5 démos cinématiques + 13 sectorielles)
+          - Page Qui sommes-nous créée avec 21 sites Lauralie + 9 catégories Michaël
+          - Michaël doit uploader ses vidéos Vimeo (clips, séminaires, FX, 3D, logos, photos IA, anniversaires, mariage)
+          - Photos pro à faire
+          - Vidéo de présentation à tourner
+          - Hostinger expire le 9 mai 2026
+          - Posts LinkedIn à publier
+          - Auralis RH en développement
+          - Mémoire & Présence à lancer
+          - Tarifs : Sites 2500-8000€ / Auto 1200-6500€ / Vidéo 650-2800€ / Films IA 1000-3500€
+          - SIRET : 523 884 898 00017
+
+          ADMIN & RH À GÉRER :
+          - Suivi devis et factures
+          - Relances clients impayés
+          - Déclarations URSSAF/TVA
+          - Mise à jour CGV si besoin
+          - Suivi prospects (CRM Notion)
+
+          GÉNÈRE CE MESSAGE TELEGRAM (max 2000 car) :
+
+          ☀️ BRIEFING [date]
+
+          🎯 PRIORITÉ N°1 (la seule chose à faire si vous ne faites rien d'autre)
+          [Tâche — temps — pourquoi — étapes 1-2-3]
+
+          📋 LAURALIE (max 3)
+          ☐ [Tâche — temps — étapes concrètes]
+          ☐ [Tâche]
+          ☐ [Tâche]
+
+          📋 MICHAËL (max 3)
+          ☐ [Tâche — temps — étapes concrètes]
+          ☐ [Tâche]
+          ☐ [Tâche]
+
+          📊 ADMIN / COMPTA
+          [Rappels : URSSAF, factures, relances — avec dates limites si applicable]
+
+          ⚠️ ALERTES
+          [Deadlines, urgences, trucs qui vont péter si on s'en occupe pas]
+
+          💰 OBJECTIF REVENUS
+          [Suggestion concrète pour gagner de l'argent cette semaine]
+
+          💡 IDÉE DU JOUR
+          [1 idée business actionnable]
+
+          🍍 Score : X/10
+
+          RÈGLES :
+          - Weekend = repos sauf urgence
+          - Vendredi = bilan pas nouvelles tâches
+          - Chaque tâche = verbe d'action + lieu/outil + temps
+          - Si deadline proche (< 7 jours) = ⚠️ URGENT
+          - Toujours rappeler Hostinger si < 30 jours
+          PROMPT_EOF
+
+          BODY="$(jq -n --arg p "$PROMPT" '{model:"claude-sonnet-4-20250514",max_tokens:2000,messages:[{role:"user",content:$p}]}')"
+          RESPONSE="$(curl -sS https://api.anthropic.com/v1/messages \
+            -H "x-api-key: ${ANTHROPIC_API_KEY}" \
+            -H "anthropic-version: 2023-06-01" \
+            -H "content-type: application/json" \
+            -d "$BODY")"
+          MSG="$(echo "$RESPONSE" | jq -r '.content[0].text // "Erreur API Claude"' | head -c 4000)"
+          {
+            echo 'msg<<EOFMSG'
+            printf '%s\n' "$MSG"
+            echo 'EOFMSG'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Send Telegram
+        env:
+          TELEGRAM_BOT_TOKEN_PINAPP: ${{ secrets.TELEGRAM_BOT_TOKEN_PINAPP }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          MSG: ${{ steps.claude.outputs.msg }}
+        run: |
+          set -euo pipefail
+          curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN_PINAPP}/sendMessage" \
+            -d "chat_id=${TELEGRAM_CHAT_ID}" \
+            --data-urlencode "text=${MSG}"

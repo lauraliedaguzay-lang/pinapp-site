@@ -1,0 +1,83 @@
+name: '📱 Post LinkedIn'
+
+on:
+  schedule:
+    - cron: '0 8 * * 3' # mercredi ~9–10h Europe/Paris (UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Claude post
+        id: claude
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          set -euo pipefail
+          read -r -d '' PROMPT <<'PROMPT_EOF' || true
+          Génère un post LinkedIn PRÊT À PUBLIER pour Pinapp (studio digital Bordeaux).
+          Lauralie = dev IA. Michaël = graphiste vidéaste.
+          Services : sites premium (2500-8000€), automatisation n8n, films IA (1000-3500€), formations.
+          Audience : artisans, commerçants, TPE, indépendants Bordeaux/Nouvelle-Aquitaine.
+
+          Le post :
+          - Français, 150-250 mots
+          - Hook accrocheur ligne 1 (question ou stat choc)
+          - Storytelling court (coulisses, avant/après, cas client fictif réaliste)
+          - CTA clair à la fin
+          - 3-5 hashtags
+          - PAS de ton corporate, parler comme un humain
+
+          Thèmes (alterne chaque semaine) :
+          1. Coulisses création site cinématique
+          2. Film IA : 10 photos → court-métrage
+          3. Automatisation qui fait gagner du temps
+          4. Conseil business concret pour TPE
+          5. Avant/après transformation digitale
+
+          Format Telegram :
+
+          📱 POST LINKEDIN — copie-colle et publie
+
+          ═══════════════
+          [LE POST COMPLET]
+          ═══════════════
+
+          📸 IMAGE SUGGÉRÉE : [quelle image/screenshot utiliser]
+
+          🎯 ÉTAPES :
+          1. Copie le texte
+          2. Va sur linkedin.com/feed
+          3. Colle le texte
+          4. Ajoute l image suggérée
+          5. Publie
+          ⏱️ 3 minutes
+          PROMPT_EOF
+
+          BODY="$(jq -n --arg p "$PROMPT" '{model:"claude-sonnet-4-20250514",max_tokens:1500,messages:[{role:"user",content:$p}]}')"
+          RESPONSE="$(curl -sS https://api.anthropic.com/v1/messages \
+            -H "x-api-key: ${ANTHROPIC_API_KEY}" \
+            -H "anthropic-version: 2023-06-01" \
+            -H "content-type: application/json" \
+            -d "$BODY")"
+          MSG="$(echo "$RESPONSE" | jq -r '.content[0].text // "Erreur"' | head -c 4000)"
+          {
+            echo 'msg<<EOFMSG'
+            printf '%s\n' "$MSG"
+            echo 'EOFMSG'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Send
+        env:
+          TELEGRAM_BOT_TOKEN_PINAPP: ${{ secrets.TELEGRAM_BOT_TOKEN_PINAPP }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          MSG: ${{ steps.claude.outputs.msg }}
+        run: |
+          set -euo pipefail
+          curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN_PINAPP}/sendMessage" \
+            -d "chat_id=${TELEGRAM_CHAT_ID}" \
+            --data-urlencode "text=${MSG}"

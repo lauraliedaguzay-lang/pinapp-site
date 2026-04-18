@@ -1,0 +1,45 @@
+name: '🔍 Surveillance'
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping
+        id: ping
+        run: |
+          set -euo pipefail
+          S="$(curl -sS -L -o /dev/null -w '%{http_code}' https://pinapp.fr --max-time 15 || echo '000')"
+          echo "status=${S}" >> "$GITHUB_OUTPUT"
+
+      - name: Alert down
+        if: steps.ping.outputs.status != '200'
+        env:
+          TELEGRAM_BOT_TOKEN_PINAPP: ${{ secrets.TELEGRAM_BOT_TOKEN_PINAPP }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          set -euo pipefail
+          MSG="🔴 ALERTE — pinapp.fr DOWN
+
+          Code : ${{ steps.ping.outputs.status }}
+          Heure : $(TZ=Europe/Paris date '+%H:%M')
+
+          🛠️ FAIS ÇA MAINTENANT :
+          1. Va sur hpanel.hostinger.com
+          2. Clique sur Sites web → pinapp.fr
+          3. Si erreur serveur → redémarre
+          4. Si DNS → vérifie nameservers
+          5. Si rien ne marche → support Hostinger chat
+
+          ⚠️ Hostinger expire le 9 mai. Si c'est la cause → RENOUVELER."
+
+          curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN_PINAPP}/sendMessage" \
+            -d "chat_id=${TELEGRAM_CHAT_ID}" \
+            --data-urlencode "text=${MSG}"

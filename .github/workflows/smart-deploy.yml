@@ -1,0 +1,76 @@
+name: '🚀 Deploy intelligent'
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Changes
+        id: ch
+        run: |
+          set -euo pipefail
+          if git rev-parse HEAD~1 >/dev/null 2>&1; then
+            FILES="$(git diff --name-only HEAD~1 HEAD | head -20 | tr '\n' ', ')"
+          else
+            FILES="(premier commit ou historique insuffisant)"
+          fi
+          SUBJECT="$(git log -1 --pretty=%s)"
+          {
+            echo "files=${FILES}"
+            echo "msg<<EOFMSG"
+            printf '%s\n' "${SUBJECT}"
+            echo "EOFMSG"
+            echo "sha=${GITHUB_SHA:0:7}"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Claude analyze
+        id: claude
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          COMMIT_MSG: ${{ steps.ch.outputs.msg }}
+          FILES: ${{ steps.ch.outputs.files }}
+          SHA_SHORT: ${{ steps.ch.outputs.sha }}
+        run: |
+          set -euo pipefail
+          PROMPT="Push sur pinapp-site. Commit: ${COMMIT_MSG}. Fichiers: ${FILES}. SHA: ${SHA_SHORT}.
+
+          Message Telegram COURT :
+          🚀 DEPLOY [${SHA_SHORT}]
+          📝 [résumé 1 ligne]
+          ✅ VÉRIFIER : [URL exacte à tester + quoi regarder]
+          ⏭️ PROCHAINE ÉTAPE : [quoi faire maintenant]
+          Si CSS/JS modifié → rappeler Ctrl+Shift+R"
+
+          BODY="$(jq -n --arg p "$PROMPT" '{model:"claude-sonnet-4-20250514",max_tokens:500,messages:[{role:"user",content:$p}]}')"
+          RESPONSE="$(curl -sS https://api.anthropic.com/v1/messages \
+            -H "x-api-key: ${ANTHROPIC_API_KEY}" \
+            -H "anthropic-version: 2023-06-01" \
+            -H "content-type: application/json" \
+            -d "$BODY")"
+          MSG="$(echo "$RESPONSE" | jq -r '.content[0].text // "🚀 Deploy OK"' | head -c 2000)"
+          {
+            echo 'msg<<EOFMSG'
+            printf '%s\n' "$MSG"
+            echo 'EOFMSG'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Send
+        env:
+          TELEGRAM_BOT_TOKEN_PINAPP: ${{ secrets.TELEGRAM_BOT_TOKEN_PINAPP }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          MSG: ${{ steps.claude.outputs.msg }}
+        run: |
+          set -euo pipefail
+          curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN_PINAPP}/sendMessage" \
+            -d "chat_id=${TELEGRAM_CHAT_ID}" \
+            --data-urlencode "text=${MSG}"

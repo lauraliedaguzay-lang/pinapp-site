@@ -1,0 +1,88 @@
+name: '📋 Plan de la semaine'
+
+on:
+  schedule:
+    - cron: '0 7 * * 1' # lundi ~8–9h Europe/Paris
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Claude weekly
+        id: claude
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          set -euo pipefail
+          read -r -d '' PROMPT <<'PROMPT_EOF' || true
+          Tu es le DG IA de Pinapp Inc. C'est LUNDI MATIN.
+
+          Contexte Pinapp (studio digital Bordeaux, 2 cofondateurs TDAH) :
+          Lauralie = dev + IA + auto. Michaël = graphiste + vidéaste + films IA.
+          Site en ligne, 21 démos, films IA sur Vimeo.
+          À faire : photos pro, vidéo présentation, uploads Micha, LinkedIn, renouveler Hostinger 9 mai.
+          Admin : URSSAF, factures, CGV, CRM Notion.
+
+          GÉNÈRE le plan semaine Telegram :
+
+          📋 PLAN SEMAINE [dates lun-ven]
+
+          🏆 OBJECTIF SEMAINE (1 seul, mesurable)
+
+          LUNDI
+          🔵 Lauralie : [1 tâche max — action concrète — outil — temps]
+          🟣 Michaël : [1 tâche max]
+          📊 Admin : [si applicable]
+
+          MARDI
+          🔵 Lauralie : [tâche]
+          🟣 Michaël : [tâche]
+
+          MERCREDI
+          🔵 Lauralie : [tâche]
+          🟣 Michaël : [tâche]
+          📱 LinkedIn : post à publier (sera envoyé mercredi 10h)
+
+          JEUDI
+          🔵 Lauralie : [tâche]
+          🟣 Michaël : [tâche]
+
+          VENDREDI
+          📊 Bilan semaine (envoyé automatiquement à 18h)
+          🔵 Lauralie : [tâche légère ou admin]
+          🟣 Michaël : [tâche créative ou fun]
+
+          ⚠️ DEADLINES CETTE SEMAINE
+
+          💰 OBJECTIF CA : [suggestion réaliste]
+
+          RÈGLES : 1 tâche/personne/jour MAX. Concrètes. Faisables en 2-3h.
+          PROMPT_EOF
+
+          BODY="$(jq -n --arg p "$PROMPT" '{model:"claude-sonnet-4-20250514",max_tokens:2000,messages:[{role:"user",content:$p}]}')"
+          RESPONSE="$(curl -sS https://api.anthropic.com/v1/messages \
+            -H "x-api-key: ${ANTHROPIC_API_KEY}" \
+            -H "anthropic-version: 2023-06-01" \
+            -H "content-type: application/json" \
+            -d "$BODY")"
+          MSG="$(echo "$RESPONSE" | jq -r '.content[0].text // "Erreur"' | head -c 4000)"
+          {
+            echo 'msg<<EOFMSG'
+            printf '%s\n' "$MSG"
+            echo 'EOFMSG'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Send Telegram
+        env:
+          TELEGRAM_BOT_TOKEN_PINAPP: ${{ secrets.TELEGRAM_BOT_TOKEN_PINAPP }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          MSG: ${{ steps.claude.outputs.msg }}
+        run: |
+          set -euo pipefail
+          curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN_PINAPP}/sendMessage" \
+            -d "chat_id=${TELEGRAM_CHAT_ID}" \
+            --data-urlencode "text=${MSG}"
