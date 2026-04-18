@@ -64,6 +64,32 @@ html.lenis body {
   z-index: 0;
 }
 
+/* Canvas étoiles lointaines — conservé après le preloader, sous le contenu (nuit) */
+#pp-cosmos-stars {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+#pp-cosmos-stars.pp-cosmos-stars--visible {
+  opacity: 1;
+}
+
+html[data-theme='light'] #pp-cosmos-stars {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #pp-cosmos-stars {
+    display: none !important;
+  }
+}
+
 #pp-preloader-words {
   position: absolute;
   inset: 0;

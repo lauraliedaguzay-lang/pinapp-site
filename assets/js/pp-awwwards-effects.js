@@ -102,58 +102,193 @@
     }
     sizeCanvas();
 
-    var cx = canvas.width / 2;
-    var cy = canvas.height / 2;
-    var particles = [];
-    var phase = 1;
-    var startTime = Date.now();
-    var rafId = 0;
-    var explodeAt = 3.2;
-    var totalEnd = 4;
+    var w = canvas.width;
+    var h = canvas.height;
+    var cx = w / 2;
+    var cy = h / 2;
 
-    for (var i = 0; i < 200; i++) {
+    var stars = [];
+    var si;
+    for (si = 0; si < 400; si++) {
+      stars.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        size: Math.random() * 1 + 0.3,
+        alpha: Math.random() * 0.4 + 0.1,
+        twinkleSpeed: Math.random() * 0.02 + 0.005,
+        twinklePhase: Math.random() * Math.PI * 2,
+        layer: 0,
+        color: '#ffffff',
+      });
+    }
+    for (si = 0; si < 150; si++) {
+      stars.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        size: Math.random() * 1.5 + 0.5,
+        alpha: Math.random() * 0.6 + 0.2,
+        twinkleSpeed: Math.random() * 0.03 + 0.01,
+        twinklePhase: Math.random() * Math.PI * 2,
+        layer: 1,
+        color: '#ffffff',
+      });
+    }
+    for (si = 0; si < 50; si++) {
+      stars.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        size: Math.random() * 2.5 + 1,
+        alpha: Math.random() * 0.8 + 0.2,
+        twinkleSpeed: Math.random() * 0.05 + 0.02,
+        twinklePhase: Math.random() * Math.PI * 2,
+        layer: 2,
+        hasCross: Math.random() > 0.6,
+        color: Math.random() > 0.7 ? '#00E5B0' : Math.random() > 0.5 ? '#5B4FE8' : '#ffffff',
+        vx: 0,
+        vy: 0,
+      });
+    }
+
+    function pickVortexColor() {
+      var r = Math.random();
+      if (r < 0.4) return '#00E5B0';
+      if (r < 0.7) return '#5B4FE8';
+      if (r < 0.85) return '#ffffff';
+      if (r < 0.95) return '#85B7EB';
+      return '#ED93B1';
+    }
+
+    var particles = [];
+    var pi;
+    for (pi = 0; pi < 200; pi++) {
       particles.push({
         angle: Math.random() * Math.PI * 2,
-        speed: Math.random() * 0.03 + 0.015,
-        size: Math.random() * 2.5 + 0.5,
+        speed: (Math.random() * 0.018 + 0.008) * 0.55,
+        size: Math.random() * 1 + 0.5,
         orbit: Math.random() * 120 + 20,
-        color: Math.random() > 0.5 ? '#00E5B0' : '#5B4FE8',
-        alpha: Math.random() * 0.7 + 0.3,
+        color: pickVortexColor(),
+        alpha: Math.random() * 0.65 + 0.25,
         yFactor: Math.random() * 0.4 + 0.3,
         trail: [],
         x: cx,
         y: cy,
       });
-      if (Math.random() > 0.85) particles[i].color = '#ffffff';
     }
 
-    function animate() {
-      var elapsed = (Date.now() - startTime) / 1000;
-      if (elapsed >= explodeAt && phase < 3) phase = 3;
-      if (elapsed >= totalEnd) phase = 4;
+    var phase = 1;
+    var startTime = Date.now();
+    var rafId = 0;
+    var explodeAt = 3.15;
+    var totalEnd = 4.05;
+    var bgOpacity = 0;
+    var cosmosLoopId = 0;
+    var preloaderFinished = false;
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    function vortexSpeedMul(elapsed) {
+      if (elapsed < 0.5) return 0;
+      if (elapsed < 1) return 0.55;
+      if (elapsed < 1.5) return 0.72;
+      return 0.95;
+    }
+
+    function drawNebulaAndBg(t) {
+      ctx.fillStyle = '#050A14';
+      ctx.fillRect(0, 0, w, h);
+      var fade = Math.min(1, t / 0.5) * bgOpacity;
+      if (fade <= 0) return;
+      var nebula = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.min(w, h) * 0.5);
+      nebula.addColorStop(0, 'rgba(91, 79, 232, 0.12)');
+      nebula.addColorStop(0.4, 'rgba(91, 79, 232, 0.04)');
+      nebula.addColorStop(0.7, 'rgba(0, 229, 176, 0.02)');
+      nebula.addColorStop(1, 'transparent');
+      ctx.globalAlpha = fade;
+      ctx.fillStyle = nebula;
+      ctx.fillRect(0, 0, w, h);
+      ctx.globalAlpha = 1;
+    }
+
+    function drawStars(elapsed, time) {
+      var explode = phase === 3;
+      var iaBoost = elapsed >= 1.5 && elapsed < 2 && !explode;
+      var logoBoost = elapsed >= 2.5 && elapsed < 3.1 && !explode;
+
+      stars.forEach(function (s) {
+        if (explode && s.layer === 2) {
+          if (!s.vx && !s.vy) {
+            var ang = Math.random() * Math.PI * 2;
+            var sp = 2 + Math.random() * 4;
+            s.vx = Math.cos(ang) * sp;
+            s.vy = Math.sin(ang) * sp;
+          }
+          s.x += s.vx;
+          s.y += s.vy;
+          s.alpha *= 0.92;
+          if (s.alpha < 0.02) return;
+        }
+
+        var twinkle = Math.sin(time * s.twinkleSpeed + s.twinklePhase) * 0.5 + 0.5;
+        var alpha = s.alpha * (0.5 + twinkle * 0.5);
+        if (s.layer === 2 && iaBoost) alpha *= 1.35;
+        if (s.layer === 2 && logoBoost) alpha = Math.min(1, alpha * 1.5);
+        if (explode && s.layer === 0) alpha *= 0.85;
+
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fillStyle = s.color || '#ffffff';
+        ctx.globalAlpha = Math.min(1, alpha);
+        ctx.fill();
+
+        if (s.layer === 2 && !explode) {
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.size * 3, 0, Math.PI * 2);
+          ctx.fillStyle = s.color || '#ffffff';
+          ctx.globalAlpha = Math.min(0.35, alpha * 0.12);
+          ctx.fill();
+        }
+
+        if (s.hasCross && twinkle > 0.7 && s.layer === 2 && !explode) {
+          ctx.globalAlpha = Math.min(0.45, alpha * 0.3);
+          ctx.strokeStyle = s.color || '#ffffff';
+          ctx.lineWidth = 0.5;
+          ctx.beginPath();
+          ctx.moveTo(s.x - s.size * 4, s.y);
+          ctx.lineTo(s.x + s.size * 4, s.y);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(s.x, s.y - s.size * 4);
+          ctx.lineTo(s.x, s.y + s.size * 4);
+          ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+      });
+    }
+
+    function drawParticles(elapsed, time) {
+      if (elapsed < 0.5) return;
+      var mul = vortexSpeedMul(elapsed);
+      if (phase === 3) mul *= 1.15;
 
       particles.forEach(function (p) {
-        p.angle += p.speed;
+        p.angle += p.speed * mul;
         if (phase <= 2) {
           p.x = cx + Math.cos(p.angle) * p.orbit;
           p.y = cy + Math.sin(p.angle * 1.5) * p.orbit * p.yFactor;
         } else if (phase === 3) {
-          p.orbit += 6;
-          p.alpha = Math.max(0, p.alpha - 0.015);
+          p.orbit += 5.5;
+          p.alpha = Math.max(0, p.alpha - 0.014);
           p.x = cx + Math.cos(p.angle) * p.orbit;
           p.y = cy + Math.sin(p.angle) * p.orbit;
         }
 
-        p.trail.push({ x: p.x, y: p.y });
-        if (p.trail.length > 6) p.trail.shift();
+        p.trail.push({ x: p.x, y: p.y, a: p.alpha });
+        if (p.trail.length > 10) p.trail.shift();
 
         p.trail.forEach(function (t, idx) {
+          var ratio = idx / Math.max(1, p.trail.length);
           ctx.beginPath();
-          ctx.arc(t.x, t.y, p.size * (idx / Math.max(1, p.trail.length)), 0, Math.PI * 2);
+          ctx.arc(t.x, t.y, p.size * ratio * 1.1, 0, Math.PI * 2);
           ctx.fillStyle = p.color;
-          ctx.globalAlpha = p.alpha * (idx / Math.max(1, p.trail.length)) * 0.2;
+          ctx.globalAlpha = t.a * ratio * 0.18;
           ctx.fill();
         });
 
@@ -162,14 +297,121 @@
         ctx.fillStyle = p.color;
         ctx.globalAlpha = p.alpha;
         ctx.fill();
+        if (p.alpha > 0.12) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size * 2.2, 0, Math.PI * 2);
+          ctx.globalAlpha = p.alpha * (p.color === '#ffffff' ? 0.14 : 0.08);
+          ctx.fillStyle = p.color === '#00E5B0' ? '#00E5B0' : p.color === '#5B4FE8' ? '#5B4FE8' : '#ffffff';
+          ctx.fill();
+        }
         ctx.globalAlpha = 1;
       });
+    }
+
+    function animate() {
+      var elapsed = (Date.now() - startTime) / 1000;
+      var time = elapsed;
+      w = canvas.width;
+      h = canvas.height;
+      cx = w / 2;
+      cy = h / 2;
+
+      if (elapsed < 0.5) {
+        bgOpacity = elapsed / 0.5;
+      } else {
+        bgOpacity = 1;
+      }
+
+      if (elapsed >= explodeAt && phase < 3) phase = 3;
+      if (elapsed >= totalEnd) phase = 4;
+
+      ctx.clearRect(0, 0, w, h);
+      drawNebulaAndBg(elapsed);
+      drawStars(elapsed, time);
+      drawParticles(elapsed, time);
 
       if (phase < 4) {
         rafId = window.requestAnimationFrame(animate);
       }
     }
     animate();
+
+    function repositionAllStars() {
+      stars.forEach(function (s) {
+        s.x = Math.random() * canvas.width;
+        s.y = Math.random() * canvas.height;
+        if (s.layer === 2) {
+          s.vx = 0;
+          s.vy = 0;
+        }
+      });
+    }
+
+    function mountCosmosStarfield() {
+      if (preloaderFinished) return;
+      preloaderFinished = true;
+      if (rafId) window.cancelAnimationFrame(rafId);
+      rafId = 0;
+
+      try {
+        canvas.removeAttribute('width');
+        canvas.removeAttribute('height');
+        canvas.id = 'pp-cosmos-stars';
+        canvas.className = 'pp-cosmos-stars';
+        canvas.setAttribute('aria-hidden', 'true');
+        if (pl.contains(canvas)) pl.removeChild(canvas);
+        var pcBg = document.getElementById('pc');
+        if (pcBg && pcBg.parentNode) {
+          if (pcBg.nextSibling) {
+            pcBg.parentNode.insertBefore(canvas, pcBg.nextSibling);
+          } else {
+            pcBg.parentNode.appendChild(canvas);
+          }
+        } else {
+          document.body.insertBefore(canvas, document.body.firstChild);
+        }
+        sizeCanvas();
+        repositionAllStars();
+        canvas.classList.add('pp-cosmos-stars--visible');
+
+        function cosmosOnlyLoop() {
+          if (document.documentElement.getAttribute('data-theme') === 'light') {
+            canvas.style.display = 'none';
+            cosmosLoopId = 0;
+            return;
+          }
+          var w2 = canvas.width;
+          var h2 = canvas.height;
+          var cx2 = w2 / 2;
+          var cy2 = h2 / 2;
+          var t = Date.now() / 1000;
+          ctx.clearRect(0, 0, w2, h2);
+          var nebula2 = ctx.createRadialGradient(cx2, cy2, 0, cx2, cy2, Math.min(w2, h2) * 0.48);
+          nebula2.addColorStop(0, 'rgba(91, 79, 232, 0.07)');
+          nebula2.addColorStop(0.42, 'rgba(91, 79, 232, 0.025)');
+          nebula2.addColorStop(0.72, 'rgba(0, 229, 176, 0.018)');
+          nebula2.addColorStop(1, 'rgba(0, 0, 0, 0)');
+          ctx.fillStyle = nebula2;
+          ctx.fillRect(0, 0, w2, h2);
+
+          stars.forEach(function (s) {
+            if (s.layer !== 0) return;
+            var tw = Math.sin(t * s.twinkleSpeed + s.twinklePhase) * 0.5 + 0.5;
+            var al = s.alpha * (0.5 + tw * 0.5);
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+            ctx.fillStyle = '#ffffff';
+            ctx.globalAlpha = Math.min(1, al * 0.95);
+            ctx.fill();
+            ctx.globalAlpha = 1;
+          });
+          cosmosLoopId = window.requestAnimationFrame(cosmosOnlyLoop);
+        }
+        cosmosOnlyLoop();
+      } catch (eM) {
+        console.warn('[pp] cosmos starfield mount', eM);
+      }
+    }
 
     var logo = document.getElementById('pp-preloader-logo');
     var wordsWrap = document.getElementById('pp-preloader-words');
@@ -198,29 +440,41 @@
         });
       });
 
+      var iaWord = document.querySelector('.pp-intro-word--ia');
+      if (iaWord) {
+        g.to(iaWord, {
+          scale: 1.06,
+          duration: 0.32,
+          ease: 'sine.inOut',
+          repeat: 2,
+          yoyo: true,
+          delay: 1.55,
+        });
+      }
+
       if (wordsWrap) {
         g.to(wordsWrap, {
           opacity: 0,
-          duration: 0.3,
-          delay: 2.4,
+          duration: 0.35,
+          delay: 2.65,
         });
       }
 
       g.to(logo, {
         opacity: 1,
         scale: 1,
-        duration: 0.8,
+        duration: 0.75,
         ease: 'elastic.out(1, 0.5)',
-        delay: 2.5,
+        delay: 2.75,
       });
 
       g.to('#pp-preloader', {
         opacity: 0,
-        duration: 0.8,
+        duration: 0.55,
         ease: 'power2.inOut',
-        delay: 3.2,
+        delay: 3.5,
         onComplete: function () {
-          if (rafId) window.cancelAnimationFrame(rafId);
+          mountCosmosStarfield();
           pl.style.display = 'none';
           document.body.classList.remove('pp-preloader-active');
           document.body.classList.add('pp-loaded');
@@ -232,7 +486,7 @@
       });
     } else {
       window.setTimeout(function () {
-        if (rafId) window.cancelAnimationFrame(rafId);
+        mountCosmosStarfield();
         pl.style.display = 'none';
         document.body.classList.remove('pp-preloader-active');
         document.body.classList.add('pp-loaded');
@@ -240,7 +494,7 @@
           sessionStorage.setItem('pp-preloader-done', '1');
         } catch (e3) {}
         if (typeof onDone === 'function') onDone();
-      }, 4000);
+      }, 4100);
     }
 
     window.addEventListener(
@@ -249,6 +503,7 @@
         sizeCanvas();
         cx = canvas.width / 2;
         cy = canvas.height / 2;
+        repositionAllStars();
       },
       { passive: true }
     );
