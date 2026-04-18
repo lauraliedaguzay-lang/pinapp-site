@@ -25,10 +25,11 @@ Validate & Score (nœud Code)
    - `SLACK_WEBHOOK_URL` : URL Incoming Webhook Slack.
 4. Ouvrir le nœud **Create Notion Lead** et aligner `propertyValues` sur les **noms et types** réels des propriétés Notion (le JSON du dépôt est un modèle).
 5. Activer le workflow, puis copier l’URL publique du webhook.
-6. Coller l’URL dans `index.html` :
+6. Coller l’URL dans `index.html` (bloc `<head>` existant, à côté de `window.__PINAPP__`) :
 
 ```html
 <script>
+  window.__PINAPP__ = Object.assign({}, window.__PINAPP__ || {}, { /* … */ });
   window.PINAPP_WEBHOOK_URL = 'https://votre-instance.app.n8n.cloud/webhook/pinapp-diagnostic';
 </script>
 ```
