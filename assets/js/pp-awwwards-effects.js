@@ -245,23 +245,17 @@
     if (!root || root.hasAttribute('data-awww-skip')) return;
 
     document
-      .querySelectorAll('.pp-trust-bar, .atelier-v6__card, .pp-testi-card, .studio-card, .pp-pnk-card')
+      .querySelectorAll('.pp-trust-bar, .atelier-v6__card, .pp-testi-card, .pp-pnk-card')
       .forEach(function (el) {
         el.classList.add('pp-fade');
       });
 
-    document.querySelectorAll('#demos a[href^="/demo/"]').forEach(function (el) {
+    document.querySelectorAll('.univers-teaser__card[href]').forEach(function (el) {
       el.classList.add('pp-reveal');
     });
 
-    document.querySelectorAll('.atelier-v6__card, .studio-card').forEach(function (el) {
+    document.querySelectorAll('.atelier-v6__card').forEach(function (el) {
       el.classList.add('pp-reveal');
-    });
-
-    document.querySelectorAll('#studio .studio-photo').forEach(function (img) {
-      img.classList.add('pp-parallax');
-      var w = img.closest('.studio-photo-wrap');
-      if (w) w.classList.add('pp-parallax-wrap');
     });
 
     document.querySelectorAll('main h2').forEach(function (h2) {
