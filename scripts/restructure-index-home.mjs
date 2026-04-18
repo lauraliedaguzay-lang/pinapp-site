@@ -33,7 +33,7 @@ html = html.slice(0, creaStart) + html.slice(mpStart);
 
 const ctaNeedle = 'id="diagnostic"';
 const ctaPos = html.indexOf(ctaNeedle);
-if (ctaPos === -1) throw new Error('cta-diagnostic-final not found');
+if (ctaPos === -1) throw new Error('diagnostic section id not found');
 const insertAt = html.lastIndexOf('<section', ctaPos);
 if (insertAt === -1) throw new Error('cta section start not found');
 html = html.slice(0, insertAt) + presBlock.trim() + '\n\n' + html.slice(insertAt);

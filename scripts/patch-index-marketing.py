@@ -27,7 +27,7 @@ if "pp-trust-wrap" not in t and needle in t:
 
 # 2) Extraire home-presentation et retirer de son emplacement actuel
 start = t.find('<section class="section" id="home-presentation"')
-svc = '<section class="section" id="home-services"'
+svc = '<section class="atelier-v6" id="atelier"'
 end = t.find(svc)
 if start == -1 or end == -1 or start >= end:
     raise SystemExit("home-presentation / home-services introuvables")

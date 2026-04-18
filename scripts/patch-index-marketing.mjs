@@ -30,7 +30,7 @@ if (!t.includes('pp-trust-wrap') && t.includes(needle)) {
 }
 
 const start = t.indexOf('<section class="section" id="home-presentation"');
-const svc = '<section class="section" id="home-services"';
+const svc = '<section class="atelier-v6" id="atelier"';
 const end = t.indexOf(svc);
 if (start === -1 || end === -1 || start >= end) {
   console.error('skip extract: home-presentation or home-services');

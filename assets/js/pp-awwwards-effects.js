@@ -244,15 +244,17 @@
     var root = document.querySelector('main') || document.getElementById('main');
     if (!root || root.hasAttribute('data-awww-skip')) return;
 
-    document.querySelectorAll('.pp-trust-bar, .pp-svc-card, .pp-testi-card, .studio-card, .pp-pnk-card').forEach(function (el) {
-      el.classList.add('pp-fade');
-    });
+    document
+      .querySelectorAll('.pp-trust-bar, .atelier-v6__card, .pp-testi-card, .studio-card, .pp-pnk-card')
+      .forEach(function (el) {
+        el.classList.add('pp-fade');
+      });
 
     document.querySelectorAll('#demos a[href^="/demo/"]').forEach(function (el) {
       el.classList.add('pp-reveal');
     });
 
-    document.querySelectorAll('.pp-svc-card, .studio-card').forEach(function (el) {
+    document.querySelectorAll('.atelier-v6__card, .studio-card').forEach(function (el) {
       el.classList.add('pp-reveal');
     });
 
