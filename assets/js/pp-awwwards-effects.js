@@ -41,35 +41,42 @@
   }
 
   /* ── Lazy iframes (IntersectionObserver) — sauf .pp-iframe-eager ── */
+  function activateLazyIframe(iframe) {
+    var url = iframe.getAttribute('data-src');
+    if (!url) return;
+    iframe.setAttribute('src', url);
+    iframe.removeAttribute('data-src');
+  }
+
   function initLazyIframes() {
     var lazyIframes = document.querySelectorAll('iframe[data-src]');
     if (!lazyIframes.length) return;
-
-    function activate(iframe) {
-      var url = iframe.getAttribute('data-src');
-      if (!url) return;
-      iframe.setAttribute('src', url);
-      iframe.removeAttribute('data-src');
-    }
 
     if ('IntersectionObserver' in window) {
       var iframeObs = new IntersectionObserver(
         function (entries) {
           entries.forEach(function (entry) {
             if (entry.isIntersecting) {
-              activate(entry.target);
+              activateLazyIframe(entry.target);
               iframeObs.unobserve(entry.target);
             }
           });
         },
-        { rootMargin: '200px' }
+        { root: null, rootMargin: '400px 0px 400px 0px', threshold: 0.01 }
       );
       lazyIframes.forEach(function (iframe) {
         iframeObs.observe(iframe);
       });
     } else {
-      lazyIframes.forEach(activate);
+      lazyIframes.forEach(activateLazyIframe);
     }
+  }
+
+  /** Force src sur tout iframe encore en data-src (filet si IO ne tire pas) */
+  function forceActivateAllLazyIframes() {
+    document.querySelectorAll('iframe[data-src]').forEach(function (f) {
+      activateLazyIframe(f);
+    });
   }
 
   /* ── Préchargeur vortex (sessionStorage uniquement — indépendant de #pp-intro) ── */
@@ -779,6 +786,7 @@
           try {
             document.body.classList.add('pp-loaded');
           } catch (e) {}
+          window.setTimeout(forceActivateAllLazyIframes, 2000);
           console.log('[pp] boot END (reduced motion)');
           return;
         }
@@ -808,6 +816,7 @@
           try {
             document.body.classList.add('pp-loaded');
           } catch (e2) {}
+          window.setTimeout(forceActivateAllLazyIframes, 2000);
           console.log('[pp] boot END (no GSAP)');
           return;
         }
@@ -876,8 +885,12 @@
         });
         console.log('[pp] Total .pp-word:', document.querySelectorAll('.pp-word').length);
 
-        /* ── 4. Reveal (clip + opacité ; .revealed garde le zoom img/vidéo du CSS) ── */
+        /* ── 4. Reveal (clip + opacité) — pas de clip sur blocs avec iframe (sinon contenu invisible / artefacts) ── */
         document.querySelectorAll('.pp-reveal').forEach(function (el) {
+          if (el.querySelector('iframe')) {
+            el.classList.add('revealed');
+            return;
+          }
           gsap.set(el, { clipPath: 'inset(12% 0% 12% 0%)', opacity: 0.3 });
           gsap.to(el, {
             clipPath: 'inset(0% 0% 0% 0%)',
@@ -960,6 +973,9 @@
         try {
           document.body.classList.add('pp-loaded');
         } catch (e3) {}
+        window.setTimeout(function () {
+          forceActivateAllLazyIframes();
+        }, 2000);
         console.log('[pp] boot END');
       } catch (eBoot) {
         console.error('[pp] boot core EXCEPTION:', eBoot && eBoot.message, eBoot);
