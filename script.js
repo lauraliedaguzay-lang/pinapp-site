@@ -470,6 +470,52 @@
     el.setAttribute('aria-label', text);
   }
 
+  function initHeroV6Fx() {
+    if (prefersReduced.matches) return;
+    document.querySelectorAll('[data-magnetic]').forEach(function (el) {
+      el.addEventListener(
+        'mousemove',
+        function (e) {
+          var r = el.getBoundingClientRect();
+          var dx = e.clientX - (r.left + r.width / 2);
+          var dy = e.clientY - (r.top + r.height / 2);
+          el.style.transform = 'translate(' + dx * 0.18 + 'px, ' + dy * 0.28 + 'px)';
+        },
+        { passive: true },
+      );
+      el.addEventListener('mouseleave', function () {
+        el.style.transform = '';
+      });
+    });
+    document.querySelectorAll('[data-bloom]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var bloom = document.createElement('div');
+        bloom.className = 'pp-bloom';
+        var r = el.getBoundingClientRect();
+        bloom.style.left = r.left + r.width / 2 + 'px';
+        bloom.style.top = r.top + r.height / 2 + 'px';
+        document.body.appendChild(bloom);
+        window.setTimeout(function () {
+          bloom.remove();
+        }, 2400);
+      });
+    });
+    document.addEventListener('keydown', function (e) {
+      if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) {
+        e.preventDefault();
+        var d = document.getElementById('diagnostic');
+        if (d) {
+          d.scrollIntoView({ behavior: 'auto', block: 'center' });
+          try {
+            d.focus({ preventScroll: true });
+          } catch (err) {
+            d.focus();
+          }
+        }
+      }
+    });
+  }
+
   function initCursorHalo() {
     var layer = document.getElementById('heroCursor');
     var hero = document.querySelector('.hero');
@@ -865,6 +911,7 @@
   initHeroWords();
   initHeroTypewriter();
   initCursorHalo();
+  initHeroV6Fx();
   initChatDemo();
   initCarousel('carouselLaura');
   initCarousel('carouselMicha');
