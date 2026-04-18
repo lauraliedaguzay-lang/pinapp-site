@@ -85,24 +85,36 @@
     });
   }
 
-  /* ── Lenis + ScrollTrigger ── */
+  /* ── Lenis + ScrollTrigger (raf navigateur — scrollY correct) ── */
   function initLenis() {
-    if (reduceMotion || !LenisCtor || !gsap || !ScrollTrigger) return;
-    try {
-      var lenis = new LenisCtor({
-        duration: 1.2,
-        easing: function (t) {
-          return Math.min(1, 1.001 - Math.pow(2, -10 * t));
-        },
-        smoothWheel: true,
-      });
-      lenis.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add(function (time) {
-        lenis.raf(time * 1000);
-      });
-      gsap.ticker.lagSmoothing(0);
-      window.__PINAPP_LENIS__ = lenis;
-    } catch (e) {}
+    if (reduceMotion) return;
+    function startLenis() {
+      try {
+        var LenisGlobal = window.Lenis;
+        if (!LenisGlobal) return;
+        var lenis = new LenisGlobal({ duration: 1.2, smoothWheel: true });
+        document.documentElement.classList.add('lenis', 'lenis-smooth');
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+        if (typeof ScrollTrigger !== 'undefined') {
+          lenis.on('scroll', ScrollTrigger.update);
+        }
+        window.__PINAPP_LENIS__ = lenis;
+      } catch (e) {
+        console.warn('Lenis failed, fallback natif', e);
+        document.documentElement.style.overflow = 'auto';
+        document.body.style.overflow = 'auto';
+        document.documentElement.classList.remove('lenis', 'lenis-smooth');
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', startLenis);
+    } else {
+      startLenis();
+    }
   }
 
   /* ── Text split (h2 / titres uniquement, pas d’enfants éléments) ── */
@@ -271,6 +283,7 @@
     var sections = root.querySelectorAll(':scope > section');
     var list = Array.prototype.slice.call(sections);
     for (var i = 0; i < list.length - 1; i++) {
+      if (i === 0 && list[0].classList && list[0].classList.contains('hero-v6')) continue;
       var line = document.createElement('div');
       line.className = 'pp-line pp-line--spaced';
       line.setAttribute('aria-hidden', 'true');
