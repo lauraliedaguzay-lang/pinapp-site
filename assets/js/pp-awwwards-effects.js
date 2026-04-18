@@ -33,6 +33,7 @@
   function startSite() {
     if (siteStarted) return;
     siteStarted = true;
+    console.log('[pp] startSite — readyState:', document.readyState);
     gsap = gsapRef();
     ScrollTrigger = stRef();
 
@@ -679,214 +680,263 @@
   }
 
   function boot() {
-    console.log('[pp] boot() start');
-    gsap = gsapRef();
-    ScrollTrigger = stRef();
+    console.log('[pp] boot START');
 
-    autoMarkup();
-    initLazyIframes();
-    console.log('[pp] autoMarkup + lazy iframes OK');
-
-    /* ── 1. Lenis (synchrone — boot() arrive après DOMContentLoaded si préchargeur) ── */
-    if (!reduceMotion) {
+    function runBootCore() {
       try {
-        var LenisGlobal = window.Lenis;
-        if (!LenisGlobal) {
-          console.warn('[pp] Lenis constructor missing (window.Lenis)');
+        console.log('[pp] boot core — readyState:', document.readyState);
+        gsap = gsapRef();
+        ScrollTrigger = stRef();
+
+        autoMarkup();
+        initLazyIframes();
+        console.log('[pp] autoMarkup + lazy iframes OK');
+
+        /* ── Lenis ── */
+        if (!reduceMotion) {
+          console.log('[pp] Lenis typeof:', typeof Lenis, 'window.Lenis:', typeof window.Lenis);
+          try {
+            var LenisGlobal = typeof Lenis !== 'undefined' ? Lenis : window.Lenis;
+            if (!LenisGlobal) {
+              console.warn('[pp] Lenis constructor missing');
+            } else {
+              var lenis = new LenisGlobal({ duration: 1.2, smoothWheel: true });
+              document.documentElement.classList.add('lenis', 'lenis-smooth');
+              function raf(time) {
+                lenis.raf(time);
+                window.requestAnimationFrame(raf);
+              }
+              window.requestAnimationFrame(raf);
+              if (typeof ScrollTrigger !== 'undefined' && ScrollTrigger) {
+                lenis.on('scroll', ScrollTrigger.update);
+              }
+              window.__PINAPP_LENIS__ = lenis;
+              console.log('[pp] Lenis OK');
+            }
+          } catch (eLenis) {
+            console.error('[pp] Lenis FAILED:', eLenis && eLenis.message, eLenis);
+            document.documentElement.style.overflow = 'auto';
+            document.body.style.overflow = 'auto';
+            document.documentElement.classList.remove('lenis', 'lenis-smooth');
+          }
         } else {
-          var lenis = new LenisGlobal({ duration: 1.2, smoothWheel: true });
-          document.documentElement.classList.add('lenis', 'lenis-smooth');
-          function raf(time) {
-            lenis.raf(time);
-            window.requestAnimationFrame(raf);
-          }
-          window.requestAnimationFrame(raf);
-          if (typeof ScrollTrigger !== 'undefined' && ScrollTrigger) {
-            lenis.on('scroll', ScrollTrigger.update);
-          }
-          window.__PINAPP_LENIS__ = lenis;
-          console.log('[pp] Lenis OK');
+          console.log('[pp] Lenis skipped (prefers-reduced-motion)');
         }
-      } catch (eLenis) {
-        console.warn('[pp] Lenis failed, using native scroll', eLenis);
-        document.documentElement.style.overflow = 'auto';
-        document.body.style.overflow = 'auto';
-        document.documentElement.classList.remove('lenis', 'lenis-smooth');
-      }
-    } else {
-      console.log('[pp] Lenis skipped (prefers-reduced-motion)');
-    }
 
-    if (reduceMotion) {
-      document.querySelectorAll('.pp-reveal').forEach(function (el) {
-        el.classList.add('revealed');
-      });
-      document.querySelectorAll('.pp-fade').forEach(function (el) {
-        el.classList.add('visible');
-      });
-      document.querySelectorAll('.pp-line').forEach(function (line) {
-        line.style.transform = 'scaleX(1)';
-      });
-      initCursor();
-      initMagnetic();
-      try {
-        document.body.classList.add('pp-loaded');
-      } catch (e) {}
-      console.log('[pp] boot() complete (reduced motion)');
-      return;
-    }
-
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || !gsap || !ScrollTrigger) {
-      console.error('[pp] GSAP or ScrollTrigger missing!');
-      document.querySelectorAll('.pp-reveal').forEach(function (el) {
-        el.classList.add('revealed');
-      });
-      document.querySelectorAll('.pp-fade').forEach(function (el) {
-        el.classList.add('visible');
-      });
-      document.querySelectorAll('.pp-line').forEach(function (line) {
-        line.style.transform = 'scaleX(1)';
-      });
-      initCursor();
-      initMagnetic();
-      try {
-        document.body.classList.add('pp-loaded');
-      } catch (e2) {}
-      return;
-    }
-
-    try {
-      gsap.registerPlugin(ScrollTrigger);
-      console.log('[pp] ScrollTrigger registered');
-    } catch (eReg) {
-      console.warn('[pp] registerPlugin', eReg);
-    }
-
-    /* ── 3. Text split (.pp-split) ── */
-    document.querySelectorAll('.pp-split').forEach(function (el) {
-      if (el.querySelector('.pp-word')) return;
-      if (el.getAttribute('data-pp-split') === '1') return;
-      var hasElements = false;
-      for (var i = 0; i < el.childNodes.length; i++) {
-        if (el.childNodes[i].nodeType === 1) {
-          hasElements = true;
-          break;
-        }
-      }
-      if (hasElements) return;
-
-      var text = (el.textContent || '').trim();
-      if (!text) return;
-      var words = text.split(/\s+/).filter(Boolean);
-      if (!words.length) return;
-
-      el.innerHTML = words
-        .map(function (w) {
-          return (
-            '<span class="pp-word" style="display:inline-block;opacity:0;transform:translateY(30px)">' +
-            w +
-            '</span>'
-          );
-        })
-        .join(' ');
-      el.setAttribute('data-pp-split', '1');
-
-      gsap.to(el.querySelectorAll('.pp-word'), {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: 'power3.out',
-        stagger: 0.08,
-        scrollTrigger: { trigger: el, start: 'top 85%', once: true },
-      });
-    });
-    console.log('[pp] Split words total: ' + document.querySelectorAll('.pp-word').length);
-
-    /* ── 4. Reveal (clip + opacité ; .revealed garde le zoom img/vidéo du CSS) ── */
-    document.querySelectorAll('.pp-reveal').forEach(function (el) {
-      gsap.set(el, { clipPath: 'inset(12% 0% 12% 0%)', opacity: 0.3 });
-      gsap.to(el, {
-        clipPath: 'inset(0% 0% 0% 0%)',
-        opacity: 1,
-        duration: 1.2,
-        ease: 'power4.out',
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 85%',
-          once: true,
-          onEnter: function () {
+        if (reduceMotion) {
+          document.querySelectorAll('.pp-reveal').forEach(function (el) {
             el.classList.add('revealed');
-          },
-        },
-      });
-    });
+          });
+          document.querySelectorAll('.pp-fade').forEach(function (el) {
+            el.classList.add('visible');
+          });
+          document.querySelectorAll('.pp-line').forEach(function (line) {
+            line.style.transform = 'scaleX(1)';
+          });
+          initCursor();
+          initMagnetic();
+          try {
+            document.body.classList.add('pp-loaded');
+          } catch (e) {}
+          console.log('[pp] boot END (reduced motion)');
+          return;
+        }
 
-    /* ── 5. Fade ── */
-    document.querySelectorAll('.pp-fade').forEach(function (el) {
-      gsap.set(el, { opacity: 0, y: 40 });
-      gsap.to(el, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: 'power2.out',
-        scrollTrigger: { trigger: el, start: 'top 90%', once: true },
-      });
-    });
+        console.log(
+          '[pp] gsap typeof:',
+          typeof gsap,
+          'ST typeof:',
+          typeof ScrollTrigger,
+          'window.gsap:',
+          typeof window.gsap
+        );
 
-    /* ── 6. Lines ── */
-    document.querySelectorAll('.pp-line').forEach(function (el) {
-      gsap.set(el, { scaleX: 0 });
-      gsap.to(el, {
-        scaleX: 1,
-        duration: 1.5,
-        ease: 'power4.out',
-        scrollTrigger: { trigger: el, start: 'top 85%', once: true },
-      });
-    });
+        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || !gsap || !ScrollTrigger) {
+          console.error('[pp] GSAP or ScrollTrigger missing!');
+          document.querySelectorAll('.pp-reveal').forEach(function (el) {
+            el.classList.add('revealed');
+          });
+          document.querySelectorAll('.pp-fade').forEach(function (el) {
+            el.classList.add('visible');
+          });
+          document.querySelectorAll('.pp-line').forEach(function (line) {
+            line.style.transform = 'scaleX(1)';
+          });
+          initCursor();
+          initMagnetic();
+          try {
+            document.body.classList.add('pp-loaded');
+          } catch (e2) {}
+          console.log('[pp] boot END (no GSAP)');
+          return;
+        }
 
-    /* ── 7. Parallax ([data-parallax] + .pp-parallax) ── */
-    document.querySelectorAll('[data-parallax]').forEach(function (el) {
-      var speed = parseFloat(el.getAttribute('data-parallax') || '0.1');
-      if (isNaN(speed)) speed = 0.1;
-      gsap.to(el, {
-        y: -100 * speed,
-        ease: 'none',
-        scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 1 },
-      });
-    });
-    document.querySelectorAll('.pp-parallax').forEach(function (img) {
-      var par = img.parentElement;
-      if (!par) return;
-      if (!par.classList.contains('pp-parallax-wrap')) {
-        par.classList.add('pp-parallax-wrap');
+        if (typeof gsap !== 'undefined') {
+          try {
+            gsap.registerPlugin(ScrollTrigger);
+            console.log('[pp] registerPlugin OK');
+          } catch (eReg) {
+            console.error('[pp] registerPlugin FAILED:', eReg && eReg.message, eReg);
+          }
+        }
+
+        /* ── Text split (.pp-split) — logs détaillés ── */
+        var splits = document.querySelectorAll('.pp-split');
+        console.log('[pp] .pp-split elements:', splits.length);
+        splits.forEach(function (el, i) {
+          var hasWords = el.querySelector('.pp-word');
+          var hasKids = false;
+          for (var ni = 0; ni < el.childNodes.length; ni++) {
+            if (el.childNodes[ni].nodeType === 1) {
+              hasKids = true;
+              break;
+            }
+          }
+          var text = (el.textContent || '').trim();
+          console.log('[pp] split[' + i + ']:', {
+            hasWords: !!hasWords,
+            hasKids: hasKids,
+            textLen: text.length,
+            first20: text.substring(0, 20),
+          });
+
+          if (hasWords || hasKids || !text) {
+            console.log('[pp] split[' + i + '] SKIPPED');
+            return;
+          }
+
+          if (el.getAttribute('data-pp-split') === '1') {
+            console.log('[pp] split[' + i + '] SKIPPED (data-pp-split)');
+            return;
+          }
+
+          el.innerHTML = text
+            .split(/\s+/)
+            .map(function (w) {
+              return (
+                '<span class="pp-word" style="display:inline-block;opacity:0;transform:translateY(30px);">' +
+                w +
+                ' </span>'
+              );
+            })
+            .join('');
+          el.setAttribute('data-pp-split', '1');
+          var wc = el.querySelectorAll('.pp-word').length;
+          console.log('[pp] split[' + i + '] DONE:', wc, 'words');
+
+          gsap.to(el.querySelectorAll('.pp-word'), {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            ease: 'power3.out',
+            stagger: 0.08,
+            scrollTrigger: { trigger: el, start: 'top 85%', once: true },
+          });
+        });
+        console.log('[pp] Total .pp-word:', document.querySelectorAll('.pp-word').length);
+
+        /* ── 4. Reveal (clip + opacité ; .revealed garde le zoom img/vidéo du CSS) ── */
+        document.querySelectorAll('.pp-reveal').forEach(function (el) {
+          gsap.set(el, { clipPath: 'inset(12% 0% 12% 0%)', opacity: 0.3 });
+          gsap.to(el, {
+            clipPath: 'inset(0% 0% 0% 0%)',
+            opacity: 1,
+            duration: 1.2,
+            ease: 'power4.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              once: true,
+              onEnter: function () {
+                el.classList.add('revealed');
+              },
+            },
+          });
+        });
+
+        /* ── 5. Fade ── */
+        document.querySelectorAll('.pp-fade').forEach(function (el) {
+          gsap.set(el, { opacity: 0, y: 40 });
+          gsap.to(el, {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power2.out',
+            scrollTrigger: { trigger: el, start: 'top 90%', once: true },
+          });
+        });
+
+        /* ── 6. Lines ── */
+        document.querySelectorAll('.pp-line').forEach(function (el) {
+          gsap.set(el, { scaleX: 0 });
+          gsap.to(el, {
+            scaleX: 1,
+            duration: 1.5,
+            ease: 'power4.out',
+            scrollTrigger: { trigger: el, start: 'top 85%', once: true },
+          });
+        });
+
+        /* ── 7. Parallax ([data-parallax] + .pp-parallax) ── */
+        document.querySelectorAll('[data-parallax]').forEach(function (el) {
+          var speed = parseFloat(el.getAttribute('data-parallax') || '0.1');
+          if (isNaN(speed)) speed = 0.1;
+          gsap.to(el, {
+            y: -100 * speed,
+            ease: 'none',
+            scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 1 },
+          });
+        });
+        document.querySelectorAll('.pp-parallax').forEach(function (img) {
+          var par = img.parentElement;
+          if (!par) return;
+          if (!par.classList.contains('pp-parallax-wrap')) {
+            par.classList.add('pp-parallax-wrap');
+          }
+          gsap.to(img, {
+            y: -36,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: par,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1.4,
+            },
+          });
+        });
+
+        console.log('[pp] All scroll animations initialized');
+
+        initCursor();
+        initMagnetic();
+
+        try {
+          ScrollTrigger.refresh();
+        } catch (eRf) {
+          console.warn('[pp] ScrollTrigger.refresh', eRf);
+        }
+
+        try {
+          document.body.classList.add('pp-loaded');
+        } catch (e3) {}
+        console.log('[pp] boot END');
+      } catch (eBoot) {
+        console.error('[pp] boot core EXCEPTION:', eBoot && eBoot.message, eBoot);
+        try {
+          document.body.classList.add('pp-loaded');
+        } catch (e4) {}
       }
-      gsap.to(img, {
-        y: -36,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: par,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1.4,
-        },
-      });
-    });
-
-    console.log('[pp] All scroll animations initialized');
-
-    initCursor();
-    initMagnetic();
-
-    try {
-      ScrollTrigger.refresh();
-    } catch (eRf) {
-      console.warn('[pp] ScrollTrigger.refresh', eRf);
     }
 
-    try {
-      document.body.classList.add('pp-loaded');
-    } catch (e3) {}
-    console.log('[pp] boot() complete');
+    if (document.readyState === 'loading') {
+      console.log('[pp] boot deferred until DOMContentLoaded');
+      document.addEventListener('DOMContentLoaded', function onDom() {
+        document.removeEventListener('DOMContentLoaded', onDom);
+        runBootCore();
+      });
+    } else {
+      runBootCore();
+    }
   }
 
   if (document.readyState === 'loading') {
