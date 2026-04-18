@@ -36,8 +36,8 @@
     console.log('[pp] startSite — readyState:', document.readyState);
     gsap = gsapRef();
     ScrollTrigger = stRef();
-
-    boot();
+    /* Stabiliser le DOM après la timeline GSAP du preloader */
+    window.setTimeout(boot, 100);
   }
 
   /* ── Lazy iframes (IntersectionObserver) — sauf .pp-iframe-eager ── */
