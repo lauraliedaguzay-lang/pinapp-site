@@ -157,10 +157,38 @@ body.pp-preloader-active {
   clip-path: inset(0);
 }
 
-/* Cartes Films IA accueil : fond sombre derrière l’iframe (évite bande blanche Vimeo) */
+/* Cartes Films IA accueil : fond cosmos + léger zoom sur l’iframe (masque bandes claires du player Vimeo) */
 .pp-home-film-ia__frame {
-  background: var(--pp-bg, #050a14);
+  position: relative;
+  background-color: var(--pp-bg, #050a14);
+  background-image: radial-gradient(
+    ellipse 85% 70% at 50% 45%,
+    rgba(91, 79, 232, 0.12) 0%,
+    rgba(5, 10, 20, 0.98) 62%,
+    var(--pp-bg, #050a14) 100%
+  );
   overflow: hidden;
+  isolation: isolate;
+}
+
+.pp-home-film-ia__frame > iframe.pp-home-film-ia__embed {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 108%;
+  height: 108%;
+  min-width: 100%;
+  min-height: 100%;
+  max-width: none;
+  max-height: none;
+  border: 0;
+  transform: translate(-50%, -50%) scale(1.04);
+  transform-origin: center center;
+}
+
+/* Carte colonne : même fond que le site sous le titre */
+.pp-home-film-ia__card {
+  background: var(--pp-bg, #050a14);
 }
 
 html[data-theme='light'] body.pp-aww-body {
