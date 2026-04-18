@@ -1,0 +1,186 @@
+{
+  "name": "Pinapp — Diagnostic Lead Pipeline",
+  "meta": {
+    "description": "Importer dans n8n Cloud. Webhook POST JSON (formulaire pinapp.fr). Variables : NOTION_DB_LEADS_ID, SLACK_WEBHOOK_URL. Credentials : Notion OAuth2, Gmail (ou SMTP). Après activation, coller l’URL webhook dans index.html (PINAPP_WEBHOOK_URL)."
+  },
+  "nodes": [
+    {
+      "id": "wh-diag",
+      "name": "Webhook Diagnostic",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "pinapp-diagnostic",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "code-validate",
+      "name": "Validate & Score",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 300],
+      "parameters": {
+        "jsCode": "const item = $input.first().json;\nconst data = item.body && typeof item.body === 'object' ? item.body : item;\n\nif (data.website && String(data.website).trim() !== '') {\n  return [{ json: { _phase: 'spam', _received_at: new Date().toISOString() } }];\n}\n\nconst required = ['prenom', 'nom', 'email', 'secteur', 'budget', 'description', 'rgpd'];\nconst missing = required.filter((f) => !data[f] || (typeof data[f] === 'string' && !String(data[f]).trim()));\nif (missing.length) {\n  return [{ json: { _phase: 'invalid', _error: 'missing_fields', _missing: missing } }];\n}\n\nconst email = String(data.email || '');\nif (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) {\n  return [{ json: { _phase: 'invalid', _error: 'invalid_email' } }];\n}\n\nconst projets = Array.isArray(data.projet) ? data.projet : data.projet ? [data.projet] : [];\nif (!projets.length) {\n  return [{ json: { _phase: 'invalid', _error: 'missing_projet' } }];\n}\n\nlet score = 0;\nconst budget = String(data.budget || '');\nif (/gt25k/.test(budget)) score += 40;\nelse if (/10k-25k/.test(budget)) score += 30;\nelse if (/5k-10k/.test(budget)) score += 20;\nelse if (/2k-5k/.test(budget)) score += 10;\n\nif (data.urgence === 'asap') score += 25;\nelse if (data.urgence === '1-3m') score += 15;\nelse if (data.urgence === '3-6m') score += 5;\n\nif (projets.length >= 3) score += 25;\nelse if (projets.length === 2) score += 15;\nelse if (projets.length === 1) score += 5;\n\nif (data.description && String(data.description).length > 300) score += 10;\nif (data.entreprise) score += 5;\nif (data.telephone) score += 5;\nif (data.site_actuel) score += 5;\n\nlet tier = 'cold';\nif (score >= 75) tier = 'hot';\nelse if (score >= 45) tier = 'warm';\n\nconst slackEmoji = tier === 'hot' ? '🔥' : tier === 'warm' ? '⚡' : '❄️';\n\nconst payload = {\n  ...data,\n  projet: projets,\n  _phase: 'lead',\n  _server_score: score,\n  _tier: tier,\n  _projets_str: projets.join(', '),\n  _received_at: new Date().toISOString(),\n  _slack_emoji: slackEmoji,\n};\n\nreturn [{ json: payload }];"
+      }
+    },
+    {
+      "id": "if-spam",
+      "name": "Is spam?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [720, 300],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "spam",
+              "leftValue": "={{ $json._phase }}",
+              "rightValue": "spam",
+              "operator": { "type": "string", "operation": "equals" }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "if-invalid",
+      "name": "Is invalid?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [960, 420],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "inv",
+              "leftValue": "={{ $json._phase }}",
+              "rightValue": "invalid",
+              "operator": { "type": "string", "operation": "equals" }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "notion-lead",
+      "name": "Create Notion Lead",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [1180, 200],
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "create",
+        "databaseId": "={{ $env.NOTION_DB_LEADS_ID }}",
+        "title": "={{ $json.prenom }} {{ $json.nom }} — {{ $json.secteur }}",
+        "propertiesUi": {
+          "propertyValues": [
+            { "key": "Email|email", "emailValue": "={{ $json.email }}" },
+            { "key": "Téléphone|phone_number", "phoneValue": "={{ $json.telephone || '' }}" },
+            { "key": "Entreprise|rich_text", "textContent": "={{ $json.entreprise || '' }}" },
+            { "key": "Secteur|select", "selectValue": "={{ $json.secteur }}" },
+            { "key": "Projets|multi_select", "multiSelectValue": "={{ $json._projets_str }}" },
+            { "key": "Budget|select", "selectValue": "={{ $json.budget }}" },
+            { "key": "Urgence|select", "selectValue": "={{ $json.urgence || 'non-precise' }}" },
+            { "key": "Score|number", "numberValue": "={{ $json._server_score }}" },
+            { "key": "Tier|select", "selectValue": "={{ $json._tier }}" },
+            { "key": "Source|select", "selectValue": "={{ $json.source || 'non-precise' }}" },
+            { "key": "Description|rich_text", "textContent": "={{ $json.description }}" },
+            { "key": "Statut|select", "selectValue": "Nouveau" }
+          ]
+        },
+        "options": {}
+      },
+      "notesInFlow": true,
+      "notes": "Mapper les propertyValues aux noms/types exacts de la base Notion (voir docs/LEAD_FLOW.md)."
+    },
+    {
+      "id": "gmail-confirm",
+      "name": "Email confirmation prospect",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 1,
+      "position": [1400, 200],
+      "parameters": {
+        "operation": "send",
+        "toList": "={{ $('Validate & Score').item.json.email }}",
+        "subject": "=Bien reçu, {{ $('Validate & Score').item.json.prenom }} — on revient sous 24h · Pinapp",
+        "message": "=Bonjour {{ $('Validate & Score').item.json.prenom }},\n\nNous avons bien reçu votre demande. Nous revenons vers vous sous 24h ouvrées à {{ $('Validate & Score').item.json.email }}.\n\nRécap : secteur {{ $('Validate & Score').item.json.secteur }} · projets {{ $('Validate & Score').item.json._projets_str }} · budget {{ $('Validate & Score').item.json.budget }}.\n\nEn attendant : https://pinapp.fr/realisations/ et https://pinapp.fr/#formations\n\nLauralie & Michaël — Pinapp\ncontact@pinapp.fr"
+      }
+    },
+    {
+      "id": "http-slack",
+      "name": "Slack Notif",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1620, 200],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.SLACK_WEBHOOK_URL }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ text: $('Validate & Score').item.json._slack_emoji + ' Nouveau lead Pinapp — ' + $('Validate & Score').item.json._tier + ' (' + $('Validate & Score').item.json._server_score + '/100)\\n' + $('Validate & Score').item.json.prenom + ' ' + $('Validate & Score').item.json.nom + ' · ' + $('Validate & Score').item.json.email }) }}",
+        "options": { "timeout": 10000 }
+      }
+    },
+    {
+      "id": "resp-ok",
+      "name": "Webhook OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1840, 200],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ success: true, message: 'Reçu, on revient sous 24h', reference: $('Validate & Score').item.json._received_at }) }}"
+      }
+    },
+    {
+      "id": "resp-spam",
+      "name": "Webhook OK silent",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [960, 120],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\"success\":true,\"message\":\"Reçu\"}"
+      }
+    },
+    {
+      "id": "resp-err",
+      "name": "Webhook Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1180, 520],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ success: false, error: $json._error || 'invalid_data' }) }}",
+        "options": { "responseCode": 400 }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook Diagnostic": { "main": [[{ "node": "Validate & Score", "type": "main", "index": 0 }]] },
+    "Validate & Score": { "main": [[{ "node": "Is spam?", "type": "main", "index": 0 }]] },
+    "Is spam?": {
+      "main": [
+        [{ "node": "Webhook OK silent", "type": "main", "index": 0 }],
+        [{ "node": "Is invalid?", "type": "main", "index": 0 }]
+      ]
+    },
+    "Is invalid?": {
+      "main": [
+        [{ "node": "Webhook Error", "type": "main", "index": 0 }],
+        [{ "node": "Create Notion Lead", "type": "main", "index": 0 }]
+      ]
+    },
+    "Create Notion Lead": { "main": [[{ "node": "Email confirmation prospect", "type": "main", "index": 0 }]] },
+    "Email confirmation prospect": { "main": [[{ "node": "Slack Notif", "type": "main", "index": 0 }]] },
+    "Slack Notif": { "main": [[{ "node": "Webhook OK", "type": "main", "index": 0 }]] }
+  }
+}
