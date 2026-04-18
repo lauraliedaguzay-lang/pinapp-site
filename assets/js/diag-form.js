@@ -1,5 +1,5 @@
 /* PINAPP DIAGNOSTIC FORM · v1.0
-   Validation client + soumission webhook n8n + tracking Plausible.
+   Validation client + soumission Web3Forms (ou PINAPP_WEBHOOK_URL) + tracking Plausible.
 */
 (function () {
   var cfg = window.__PINAPP__ || {};
@@ -104,6 +104,21 @@
 
     var data = collectPayload();
 
+    var clientScoreForTrack =
+      data._meta && typeof data._meta.client_score !== 'undefined' ? data._meta.client_score : '';
+
+    if (window.PINAPP_WEB3FORMS_KEY) {
+      data.access_key = window.PINAPP_WEB3FORMS_KEY;
+      data.from_name = 'Pinapp Diagnostic — ' + (data.prenom || 'Lead');
+      data.subject =
+        '[Pinapp] Nouveau lead — ' + (data.secteur || 'projet') + ' — ' + (data.budget || 'budget non précisé');
+      data.replyto = data.email;
+      data._meta_json = JSON.stringify(data._meta || {});
+      delete data._meta;
+      data.projets_resume = Array.isArray(data.projet) ? data.projet.join(', ') : data.projet;
+      delete data.projet;
+    }
+
     setLoading(true);
     setStatus(null);
 
@@ -124,7 +139,7 @@
         trackPlausible('Diagnostic Submit', {
           secteur: data.secteur,
           budget: data.budget,
-          score: String(data._meta.client_score),
+          score: String(clientScoreForTrack),
         });
         form.reset();
         window.setTimeout(function () {
