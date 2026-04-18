@@ -414,12 +414,61 @@
       }
     }
 
+    var safetyTimeoutId = null;
+    var preloaderSealed = false;
+
+    function sealPreloader(reason) {
+      if (preloaderSealed) return;
+      preloaderSealed = true;
+      if (safetyTimeoutId !== null) {
+        try {
+          window.clearTimeout(safetyTimeoutId);
+        } catch (eClear) {}
+        safetyTimeoutId = null;
+      }
+      if (rafId) {
+        try {
+          window.cancelAnimationFrame(rafId);
+        } catch (eRaf) {}
+        rafId = 0;
+      }
+      phase = 4;
+      try {
+        mountCosmosStarfield();
+      } catch (eMount) {
+        console.warn('[pp] seal mountCosmosStarfield', eMount);
+      }
+      if (pl) {
+        pl.style.opacity = '1';
+        pl.style.display = 'none';
+      }
+      try {
+        document.body.classList.remove('pp-preloader-active');
+        document.body.classList.add('pp-loaded');
+      } catch (eBody) {}
+      try {
+        sessionStorage.setItem('pp-preloader-done', '1');
+      } catch (eS) {}
+      if (typeof onDone === 'function') onDone();
+      if (reason) {
+        console.warn('[pp] preloader sealed:', reason);
+      }
+    }
+
+    safetyTimeoutId = window.setTimeout(function () {
+      if (!preloaderSealed) {
+        console.warn('[pp] SAFETY: preloader forced close after 6s');
+        sealPreloader('safety-6s');
+      }
+    }, 6000);
+
     var logo = document.getElementById('pp-preloader-logo');
     var wordsWrap = document.getElementById('pp-preloader-words');
 
     if (g && logo) {
-      g.set(logo, { opacity: 0, scale: 0.5 });
-      document.querySelectorAll('.pp-intro-word').forEach(function (word) {
+      try {
+        g.set(logo, { opacity: 0, scale: 0.5 });
+        document.querySelectorAll('.pp-intro-word').forEach(function (word) {
         var delay = parseInt(word.getAttribute('data-delay'), 10) || 0;
         g.fromTo(
           word,
@@ -439,62 +488,54 @@
           ease: 'power2.in',
           delay: delay / 1000 + 0.4,
         });
-      });
-
-      var iaWord = document.querySelector('.pp-intro-word--ia');
-      if (iaWord) {
-        g.to(iaWord, {
-          scale: 1.06,
-          duration: 0.32,
-          ease: 'sine.inOut',
-          repeat: 2,
-          yoyo: true,
-          delay: 1.55,
         });
-      }
 
-      if (wordsWrap) {
-        g.to(wordsWrap, {
+        var iaWord = document.querySelector('.pp-intro-word--ia');
+        if (iaWord) {
+          g.to(iaWord, {
+            scale: 1.06,
+            duration: 0.32,
+            ease: 'sine.inOut',
+            repeat: 2,
+            yoyo: true,
+            delay: 1.55,
+          });
+        }
+
+        if (wordsWrap) {
+          g.to(wordsWrap, {
+            opacity: 0,
+            duration: 0.35,
+            delay: 2.65,
+          });
+        }
+
+        g.to(logo, {
+          opacity: 1,
+          scale: 1,
+          duration: 0.75,
+          ease: 'elastic.out(1, 0.5)',
+          delay: 2.75,
+        });
+
+        g.to('#pp-preloader', {
           opacity: 0,
-          duration: 0.35,
-          delay: 2.65,
+          duration: 0.55,
+          ease: 'power2.inOut',
+          delay: 3.5,
+          onComplete: function () {
+            sealPreloader('gsap-timeline');
+          },
         });
+      } catch (eGsap) {
+        console.error('[pp] GSAP preloader timeline failed:', eGsap && eGsap.message, eGsap);
+        window.setTimeout(function () {
+          sealPreloader('gsap-error-fallback');
+        }, 0);
       }
-
-      g.to(logo, {
-        opacity: 1,
-        scale: 1,
-        duration: 0.75,
-        ease: 'elastic.out(1, 0.5)',
-        delay: 2.75,
-      });
-
-      g.to('#pp-preloader', {
-        opacity: 0,
-        duration: 0.55,
-        ease: 'power2.inOut',
-        delay: 3.5,
-        onComplete: function () {
-          mountCosmosStarfield();
-          pl.style.display = 'none';
-          document.body.classList.remove('pp-preloader-active');
-          document.body.classList.add('pp-loaded');
-          try {
-            sessionStorage.setItem('pp-preloader-done', '1');
-          } catch (e2) {}
-          if (typeof onDone === 'function') onDone();
-        },
-      });
     } else {
       window.setTimeout(function () {
-        mountCosmosStarfield();
-        pl.style.display = 'none';
-        document.body.classList.remove('pp-preloader-active');
-        document.body.classList.add('pp-loaded');
-        try {
-          sessionStorage.setItem('pp-preloader-done', '1');
-        } catch (e3) {}
-        if (typeof onDone === 'function') onDone();
+        sealPreloader('no-gsap-or-logo');
       }, 4100);
     }
 
