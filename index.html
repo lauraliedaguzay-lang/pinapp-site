@@ -1654,12 +1654,21 @@
     <meta name="google-site-verification" content="7MEyZVj4FpSUEpmXxl3BFCWukmlQg_z6Slx7jh3chtg" />
     <script defer data-domain="pinapp.fr" src="https://plausible.io/js/script.js"></script>
     <link rel="dns-prefetch" href="https://plausible.io" />
-<link rel="stylesheet" href="/assets/css/pp-awwwards.css?v=20260460" />
+<link rel="stylesheet" href="/assets/css/pp-awwwards.css?v=20260418" media="print" onload="this.media='all'" />
+<noscript><link rel="stylesheet" href="/assets/css/pp-awwwards.css?v=20260418" /></noscript>
 </head>
   <body>
+    <div id="pp-preloader" aria-hidden="true">
+      <canvas id="pp-vortex" width="300" height="150"></canvas>
+      <div id="pp-preloader-logo">
+        <img src="/assets/images/pinapp-logo.png" alt="" width="80" height="80" decoding="async" />
+      </div>
+    </div>
     <a href="#main" class="skip-link">Aller au contenu principal</a>
     <div id="pp-cursor-dot" class="pp-cursor-dot" aria-hidden="true"></div>
-    <div id="pp-cursor-circle" class="pp-cursor-circle" aria-hidden="true"></div>
+    <div id="pp-cursor-circle" class="pp-cursor-circle" aria-hidden="true">
+      <span class="pp-cursor-circle__label" aria-hidden="true">Voir</span>
+    </div>
 
     <p class="sr-only">Pinapp — Agence automatisation IA, sites web premium et vidéo à Bordeaux, Nouvelle-Aquitaine</p>
     <script>
@@ -2219,7 +2228,9 @@
       }
 
       /* Ne pas cibler #pp-intro : sinon position:relative + z-index:1 écrase le fixed plein écran (spécificité > #pp-intro). */
-      body > *:not(#pc):not(#ow):not(#pp-intro):not(.skip-link):not(#pp-cursor-dot):not(#pp-cursor-circle) {
+      body > *:not(#pc):not(#ow):not(#pp-intro):not(#pp-preloader):not(.skip-link):not(#pp-cursor-dot):not(
+          #pp-cursor-circle
+        ) {
         position: relative;
         z-index: 1;
       }
@@ -2362,7 +2373,7 @@
       </header>
 
       <main id="main">
-        <section class="hero-v6" id="top" aria-labelledby="hero-title">
+        <section class="hero-v6" id="top" aria-labelledby="hero-title" data-parallax="0.04">
           <div class="hero-v6__container">
             <p class="hero-v6__eyebrow anim-stage" style="--stage-delay: 0.4s">— DUO FONDATEUR · BORDEAUX —</p>
             <h1 id="hero-title" class="hero-v6__title">
@@ -2403,7 +2414,7 @@
           </div>
         </section>
 
-        <section class="pp-video-hero pp-fade" style="max-width: 1000px; margin: 0 auto; padding: 3rem 1.5rem">
+        <section class="pp-video-hero pp-fade" data-parallax="0.05" style="max-width: 1000px; margin: 0 auto; padding: 3rem 1.5rem">
           <div
             style="
               aspect-ratio: 16/9;
@@ -2457,6 +2468,7 @@
           </h2>
           <div class="pp-reveal" style="max-width: 960px; margin: 0 auto; border-radius: 16px; overflow: hidden; aspect-ratio: 16/9; position: relative">
             <iframe
+              class="pp-iframe-eager"
               src="https://player.vimeo.com/video/1184294871?dnt=1&amp;autoplay=0&amp;loop=1&amp;muted=1&amp;title=0&amp;byline=0&amp;portrait=0"
               style="width: 100%; height: 100%; border: none"
               title="Star Wars — teaser IA Pinapp"
@@ -2491,7 +2503,7 @@
             class="pp-reveal pp-home-rivage"
             style="max-width: 960px; margin: 0 auto; border-radius: 16px; overflow: hidden; aspect-ratio: 16/10; position: relative; border: 1px solid rgba(0, 229, 176, 0.08)">
             <iframe
-              src="/realisations/cinematiques/architecte.html"
+              data-src="/realisations/cinematiques/architecte.html"
               style="width: 100%; height: 100%; border: none; pointer-events: none"
               title="Aperçu démo Atelier Rivage"
               loading="lazy"
@@ -2556,7 +2568,7 @@
               <div style="min-width: 260px; border-radius: 12px; overflow: hidden; scroll-snap-align: start; flex-shrink: 0" class="pp-reveal">
                 <div style="aspect-ratio: 9/16; position: relative">
                   <iframe
-                    src="https://player.vimeo.com/video/1184294831?dnt=1&amp;autoplay=0&amp;loop=1&amp;muted=1&amp;title=0&amp;byline=0&amp;portrait=0"
+                    data-src="https://player.vimeo.com/video/1184294831?dnt=1&amp;autoplay=0&amp;loop=1&amp;muted=1&amp;title=0&amp;byline=0&amp;portrait=0"
                     style="width: 100%; height: 100%; border: none"
                     title="Star Wars — film IA complet"
                     allow="autoplay; fullscreen; picture-in-picture"
@@ -2580,7 +2592,7 @@
               <div style="min-width: 260px; border-radius: 12px; overflow: hidden; scroll-snap-align: start; flex-shrink: 0" class="pp-reveal">
                 <div style="aspect-ratio: 9/16; position: relative">
                   <iframe
-                    src="https://player.vimeo.com/video/1184294901?dnt=1&amp;autoplay=0&amp;loop=1&amp;muted=1&amp;title=0&amp;byline=0&amp;portrait=0"
+                    data-src="https://player.vimeo.com/video/1184294901?dnt=1&amp;autoplay=0&amp;loop=1&amp;muted=1&amp;title=0&amp;byline=0&amp;portrait=0"
                     style="width: 100%; height: 100%; border: none"
                     title="Walker — film IA"
                     allow="autoplay; fullscreen; picture-in-picture"
@@ -2604,7 +2616,7 @@
               <div style="min-width: 260px; border-radius: 12px; overflow: hidden; scroll-snap-align: start; flex-shrink: 0" class="pp-reveal">
                 <div style="aspect-ratio: 9/16; position: relative">
                   <iframe
-                    src="https://player.vimeo.com/video/1184294810?dnt=1&amp;autoplay=0&amp;loop=1&amp;muted=1&amp;title=0&amp;byline=0&amp;portrait=0"
+                    data-src="https://player.vimeo.com/video/1184294810?dnt=1&amp;autoplay=0&amp;loop=1&amp;muted=1&amp;title=0&amp;byline=0&amp;portrait=0"
                     style="width: 100%; height: 100%; border: none"
                     title="Resident Evil — film IA"
                     allow="autoplay; fullscreen; picture-in-picture"
@@ -2677,7 +2689,7 @@
                 style="text-decoration: none; border-radius: 12px; overflow: hidden; border: 1px solid rgba(0, 229, 176, 0.06)">
                 <div style="aspect-ratio: 16/10; overflow: hidden">
                   <iframe
-                    src="/realisations/cinematiques/restaurant.html"
+                    data-src="/realisations/cinematiques/restaurant.html"
                     style="width: 100%; height: 100%; border: none; pointer-events: none"
                     title="Démo restaurant"
                     loading="lazy"
@@ -2696,7 +2708,7 @@
                 style="text-decoration: none; border-radius: 12px; overflow: hidden; border: 1px solid rgba(0, 229, 176, 0.06)">
                 <div style="aspect-ratio: 16/10; overflow: hidden">
                   <iframe
-                    src="/realisations/cinematiques/joaillerie.html"
+                    data-src="/realisations/cinematiques/joaillerie.html"
                     style="width: 100%; height: 100%; border: none; pointer-events: none"
                     title="Démo joaillerie"
                     loading="lazy"
@@ -2715,7 +2727,7 @@
                 style="text-decoration: none; border-radius: 12px; overflow: hidden; border: 1px solid rgba(0, 229, 176, 0.06)">
                 <div style="aspect-ratio: 16/10; overflow: hidden">
                   <iframe
-                    src="/realisations/cinematiques/hotel.html"
+                    data-src="/realisations/cinematiques/hotel.html"
                     style="width: 100%; height: 100%; border: none; pointer-events: none"
                     title="Démo hôtel"
                     loading="lazy"
@@ -2734,7 +2746,7 @@
                 style="text-decoration: none; border-radius: 12px; overflow: hidden; border: 1px solid rgba(0, 229, 176, 0.06)">
                 <div style="aspect-ratio: 16/10; overflow: hidden">
                   <iframe
-                    src="/realisations/cinematiques/domaine.html"
+                    data-src="/realisations/cinematiques/domaine.html"
                     style="width: 100%; height: 100%; border: none; pointer-events: none"
                     title="Démo domaine viticole"
                     loading="lazy"
@@ -3556,7 +3568,7 @@
     <script src="/assets/vendor/gsap.min.js?v=3.12.5" defer></script>
     <script src="/assets/vendor/ScrollTrigger.min.js?v=3.12.5" defer></script>
     <script src="/assets/vendor/lenis.min.js?v=1.1.18" defer></script>
-    <script src="/assets/js/pp-awwwards-effects.js?v=20260460" defer></script>
+    <script src="/assets/js/pp-awwwards-effects.js?v=20260418" defer></script>
     <!-- Pandora TDAH : modale Tally -->
     <div class="tdah-modal-overlay" id="tallyModal" role="dialog" aria-modal="true" aria-labelledby="tdahModalTitle">
       <div class="tdah-modal">
