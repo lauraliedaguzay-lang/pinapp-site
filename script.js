@@ -500,6 +500,26 @@
         }, 2400);
       });
     });
+    function setRadialGlowVars(el, e) {
+      var r = el.getBoundingClientRect();
+      var x = ((e.clientX - r.left) / r.width) * 100;
+      var y = ((e.clientY - r.top) / r.height) * 100;
+      el.style.setProperty('--mx', x + '%');
+      el.style.setProperty('--my', y + '%');
+    }
+    document.querySelectorAll('.hero-v6__cta-primary, .diag-v6__submit, .cta-magnetic').forEach(function (el) {
+      el.addEventListener(
+        'mousemove',
+        function (e) {
+          setRadialGlowVars(el, e);
+        },
+        { passive: true },
+      );
+      el.addEventListener('mouseleave', function () {
+        el.style.removeProperty('--mx');
+        el.style.removeProperty('--my');
+      });
+    });
     document.addEventListener('keydown', function (e) {
       if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) {
         e.preventDefault();
