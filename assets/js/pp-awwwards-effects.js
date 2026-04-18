@@ -82,7 +82,7 @@
     }
   }
 
-  /* ── Préchargeur vortex (sessionStorage, pas si intro plein écran active) ── */
+  /* ── Préchargeur vortex (sessionStorage uniquement — indépendant de #pp-intro) ── */
   function hidePreloaderImmediate() {
     var pl = document.getElementById('pp-preloader');
     if (pl) pl.style.display = 'none';
@@ -255,14 +255,6 @@
       }
     } catch (e) {}
 
-    /* Intro plein écran : ne pas empiler deux overlays */
-    if (!document.documentElement.classList.contains('pp-intro-skip')) {
-      pl.style.display = 'none';
-      document.body.classList.add('pp-loaded');
-      startSite();
-      return;
-    }
-
     document.body.classList.add('pp-preloader-active');
     initPreloader(function () {
       document.body.classList.remove('pp-preloader-active');
@@ -358,11 +350,19 @@
   }
 
   /* ── Text split par mots ── */
+  function splitHasElementChildren(el) {
+    for (var c = el.firstChild; c; c = c.nextSibling) {
+      if (c.nodeType === 1) return true;
+    }
+    return false;
+  }
+
   function initSplit() {
     if (!gsap || !ScrollTrigger || reduceMotion) return;
     document.querySelectorAll('.pp-split').forEach(function (el) {
-      if (el.querySelector('*')) return;
+      if (el.querySelector('.pp-word')) return;
       if (el.getAttribute('data-pp-split') === '1') return;
+      if (splitHasElementChildren(el)) return;
       var text = el.textContent;
       if (!text || !text.trim()) return;
       var words = text.trim().split(/\s+/).filter(Boolean);
@@ -540,7 +540,8 @@
       if (h2.closest('.tdah-modal')) return;
       if (h2.classList.contains('pp-form-title')) return;
       if (h2.classList.contains('no-pp-split')) return;
-      if (h2.querySelector('*')) return;
+      if (h2.querySelector('.pp-word')) return;
+      if (splitHasElementChildren(h2)) return;
       if (!h2.textContent || h2.textContent.trim().length < 4) return;
       h2.classList.add('pp-split');
     });
@@ -578,6 +579,9 @@
         ScrollTrigger.refresh();
       } catch (e) {}
     }
+    try {
+      document.body.classList.add('pp-loaded');
+    } catch (e) {}
   }
 
   if (document.readyState === 'loading') {
