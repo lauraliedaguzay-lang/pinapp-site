@@ -12,7 +12,9 @@ Fichiers `.woff2` servis depuis `/assets/fonts/` (même origine que pinapp.fr,
   latins sont partagés entre les deux graisses, comportement identique au CSS
   officiel).
 
-Déclarations : `/assets/css/fonts.css` (`font-display: swap`).
+Déclarations : `/assets/css/aura-fonts.css` (`font-display: swap`).
+Le fichier `/assets/css/fonts.css` reste réservé aux variables `--font-apple-*`
+(import global) ; ne pas y mélanger les @font-face AURA.
 
 Préchargement critique (home) : `fraunces-italic-latin.woff2` +
 `general-sans-500.woff2`.
