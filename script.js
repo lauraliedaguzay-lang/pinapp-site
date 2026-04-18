@@ -506,10 +506,11 @@
         var d = document.getElementById('diagnostic');
         if (d) {
           d.scrollIntoView({ behavior: 'auto', block: 'center' });
+          var focusTarget = document.getElementById('diag-title') || d;
           try {
-            d.focus({ preventScroll: true });
+            focusTarget.focus({ preventScroll: true });
           } catch (err) {
-            d.focus();
+            focusTarget.focus();
           }
         }
       }

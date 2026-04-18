@@ -65,6 +65,7 @@
     <script>
       window.__PINAPP__ = Object.assign({}, window.__PINAPP__ || {}, {
         WEBHOOK_N8N: '',
+        WEBHOOK_DIAGNOSTIC: '',
       });
     </script>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -73,7 +74,7 @@
       href="https://fonts.bunny.net/css?family=sora:wght@200;300&family=inter:300;400&family=cormorant-garamond:ital,wght@0,500;0,600;1,500;1,600&display=swap"
       rel="stylesheet" />
     <link rel="stylesheet" href="/style.css?v=20260441" />
-    <link rel="stylesheet" href="/assets/css/home-2026.css?v=20260443" />
+    <link rel="stylesheet" href="/assets/css/home-2026.css?v=20260444" />
     
     
     
@@ -2930,55 +2931,6 @@
           </div>
         </section>
 
-        <section class="pp-garanties" aria-labelledby="garanties-title">
-          <div class="pp-container">
-            <p class="pp-eyebrow">— CE QU'ON GARANTIT —</p>
-            <h2 id="garanties-title">Des preuves. Pas des promesses.</h2>
-            <p class="pp-subtitle">
-              Duo fondé en 2025. Nos premiers clients bénéficient d'un tarif de lancement et d'une garantie 30 jours
-              satisfait ou remboursé.
-            </p>
-            <div class="pp-garanties-grid">
-              <div class="pp-garantie-item">
-                <span class="pp-check">✓</span>
-                <h3>Stack souverain européen</h3>
-                <p>
-                  HTML/CSS/JS vanilla · Hostinger France · n8n open-source · Plausible zéro cookie tiers. Aucun GAFAM
-                  dans vos données.
-                </p>
-              </div>
-              <div class="pp-garantie-item">
-                <span class="pp-check">✓</span>
-                <h3>Performance mesurable</h3>
-                <p>
-                  Lighthouse 95+ garanti sur chaque projet livré. Core Web Vitals dans le vert. Code consultable sur
-                  GitHub public.
-                </p>
-              </div>
-              <div class="pp-garantie-item">
-                <span class="pp-check">✓</span>
-                <h3>Satisfait ou remboursé 30 jours</h3>
-                <p>
-                  Si le livrable ne correspond pas au brief validé ensemble, remboursement intégral sans justification.
-                  Garantie écrite au contrat.
-                </p>
-              </div>
-              <div class="pp-garantie-item">
-                <span class="pp-check">✓</span>
-                <h3>Offre lancement — 10 premiers clients</h3>
-                <p>
-                  −30% sur tous nos forfaits pour les 10 premiers projets signés en 2026. Contrat + devis + factures
-                  pinapp.fr standards.
-                </p>
-              </div>
-            </div>
-            <p class="pp-disclaimer-lancement">
-              <em>Les témoignages clients apparaîtront sur cette page au fur et à mesure de nos livraisons.</em>
-            </p>
-          </div>
-        </section>
-
-
         <section class="section" id="apropos" data-reveal aria-labelledby="pourquoi-pinapp-h2">
           <style id="pourquoi-cas-style">
             #cas-etudes {
@@ -3694,40 +3646,242 @@
           </div>
         </section>
 
-      <section
-        id="diagnostic"
-        tabindex="-1"
-        aria-labelledby="cta-final-h2"
-        style="
-          min-height: 100dvh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 3rem 1.25rem;
-          background: linear-gradient(
-            125deg,
-            rgba(109, 40, 217, 0.28) 0%,
-            rgba(8, 13, 24, 0.94) 45%,
-            rgba(0, 229, 176, 0.14) 100%
-          );
-        ">
-        <div class="wrap" style="text-align: center; max-width: 38rem">
-          <h2 id="cta-final-h2" class="save-preuves__title" style="text-wrap: balance; margin-bottom: 1rem">
-            On commence quand vous voulez.
-          </h2>
-          <p style="font-size: 1.05rem; line-height: 1.6; color: rgba(240, 248, 255, 0.72); margin: 0 0 1.75rem">
-            30 minutes. Un diagnostic concret. Zéro engagement. Zéro bullshit.
+      <section class="diag-v6" id="diagnostic" tabindex="-1" aria-labelledby="diag-title">
+        <div class="diag-v6__container">
+          <div class="diag-v6__header">
+            <p class="diag-v6__eyebrow">— DIAGNOSTIC GRATUIT —</p>
+            <h2 id="diag-title" class="diag-v6__title" tabindex="-1">Décrivez votre projet. On revient sous 24h.</h2>
+            <p class="diag-v6__subtitle">
+              Plus vous nous donnez de contexte, plus notre retour est précis. Aucun engagement, aucune relance commerciale agressive.
+            </p>
+          </div>
+
+          <form class="diag-form" id="diag-form" novalidate aria-describedby="diag-form-status">
+            <fieldset class="diag-form__group">
+              <legend class="diag-form__legend">Vous</legend>
+              <div class="diag-form__row">
+                <div class="diag-form__field">
+                  <label for="diag-prenom">Prénom <span aria-hidden="true">*</span><span class="sr-only"> (obligatoire)</span></label>
+                  <input type="text" id="diag-prenom" name="prenom" required minlength="2" autocomplete="given-name" />
+                </div>
+                <div class="diag-form__field">
+                  <label for="diag-nom">Nom <span aria-hidden="true">*</span><span class="sr-only"> (obligatoire)</span></label>
+                  <input type="text" id="diag-nom" name="nom" required minlength="2" autocomplete="family-name" />
+                </div>
+              </div>
+              <div class="diag-form__row">
+                <div class="diag-form__field">
+                  <label for="diag-email">Email <span aria-hidden="true">*</span><span class="sr-only"> (obligatoire)</span></label>
+                  <input type="email" id="diag-email" name="email" required autocomplete="email" placeholder="vous@exemple.fr" />
+                </div>
+                <div class="diag-form__field">
+                  <label for="diag-entreprise">Entreprise</label>
+                  <input type="text" id="diag-entreprise" name="entreprise" autocomplete="organization" />
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="diag-form__group">
+              <legend class="diag-form__legend">Votre activité</legend>
+              <div class="diag-form__field">
+                <label for="diag-secteur">Secteur d'activité <span aria-hidden="true">*</span></label>
+                <select id="diag-secteur" name="secteur" required>
+                  <option value="">— Sélectionner —</option>
+                  <option value="restaurant">Restaurant / Café / Bar</option>
+                  <option value="coiffeur">Coiffeur / Esthétique / Beauté</option>
+                  <option value="coach">Coach sportif / Bien-être</option>
+                  <option value="photographe">Photographe / Vidéaste</option>
+                  <option value="avocat">Avocat / Notaire / Juridique</option>
+                  <option value="architecte">Architecte / Design</option>
+                  <option value="therapeute">Thérapeute / Médical / Paramédical</option>
+                  <option value="artisan">Artisan / Bâtiment / Métiers manuels</option>
+                  <option value="commerce">Commerce / Boutique</option>
+                  <option value="conseil">Conseil / Services B2B</option>
+                  <option value="formation">Formation / Éducation</option>
+                  <option value="immobilier">Immobilier</option>
+                  <option value="associatif">Associatif / ESS</option>
+                  <option value="autre">Autre — précisez dans la description</option>
+                </select>
+              </div>
+              <fieldset class="diag-form__field diag-form__multi">
+                <legend>Type de projet <span aria-hidden="true">*</span><span class="sr-only"> (au moins une option)</span></legend>
+                <label class="diag-form__check"><input type="checkbox" name="projet" value="site" /> Site web</label>
+                <label class="diag-form__check"><input type="checkbox" name="projet" value="auto" /> Automatisation n8n</label>
+                <label class="diag-form__check"><input type="checkbox" name="projet" value="ia" /> IA appliquée (chatbot, agent)</label>
+                <label class="diag-form__check"><input type="checkbox" name="projet" value="video" /> Vidéo / Image / Branding</label>
+                <label class="diag-form__check"><input type="checkbox" name="projet" value="conseil" /> Conseil / Audit</label>
+                <label class="diag-form__check"><input type="checkbox" name="projet" value="formation" /> Formation IA / n8n</label>
+              </fieldset>
+              <div class="diag-form__field">
+                <label for="diag-budget">Budget approximatif <span aria-hidden="true">*</span></label>
+                <select id="diag-budget" name="budget" required>
+                  <option value="">— Sélectionner —</option>
+                  <option value="lt2k">Moins de 2 000 €</option>
+                  <option value="2k-5k">2 000 – 5 000 €</option>
+                  <option value="5k-10k">5 000 – 10 000 €</option>
+                  <option value="10k-25k">10 000 – 25 000 €</option>
+                  <option value="gt25k">25 000 € et plus</option>
+                  <option value="unknown">Je ne sais pas encore</option>
+                </select>
+              </div>
+            </fieldset>
+
+            <fieldset class="diag-form__group">
+              <legend class="diag-form__legend">Votre projet</legend>
+              <div class="diag-form__field">
+                <label for="diag-description">Décrivez votre besoin <span aria-hidden="true">*</span></label>
+                <textarea
+                  id="diag-description"
+                  name="description"
+                  required
+                  minlength="30"
+                  maxlength="2000"
+                  rows="6"
+                  placeholder="Quel problème résoudre ? Qu'avez-vous déjà essayé ? Quels sont vos objectifs ?"
+                  aria-describedby="diag-desc-hint"></textarea>
+                <span class="diag-form__hint" id="diag-desc-hint">Min. 30 caractères · max. 2000</span>
+              </div>
+            </fieldset>
+
+            <details class="diag-form__expandable">
+              <summary>Précisions optionnelles (recommandé pour gagner du temps)</summary>
+              <div class="diag-form__expandable-inner">
+                <div class="diag-form__row">
+                  <div class="diag-form__field">
+                    <label for="diag-tel">Téléphone</label>
+                    <input type="tel" id="diag-tel" name="telephone" autocomplete="tel" placeholder="06 12 34 56 78" />
+                  </div>
+                  <div class="diag-form__field">
+                    <label for="diag-site">Site web actuel</label>
+                    <input type="url" id="diag-site" name="site_actuel" placeholder="https://..." />
+                  </div>
+                </div>
+                <div class="diag-form__row">
+                  <div class="diag-form__field">
+                    <label for="diag-taille">Taille de l'équipe</label>
+                    <select id="diag-taille" name="taille_equipe">
+                      <option value="">— Non renseigné —</option>
+                      <option value="solo">Solo</option>
+                      <option value="2-5">2 à 5</option>
+                      <option value="6-20">6 à 20</option>
+                      <option value="20-50">20 à 50</option>
+                      <option value="50+">50 et plus</option>
+                    </select>
+                  </div>
+                  <div class="diag-form__field">
+                    <label for="diag-urgence">Urgence</label>
+                    <select id="diag-urgence" name="urgence">
+                      <option value="">— Non renseigné —</option>
+                      <option value="asap">ASAP — semaine prochaine</option>
+                      <option value="1-3m">Dans 1 à 3 mois</option>
+                      <option value="3-6m">Dans 3 à 6 mois</option>
+                      <option value="explore">Je découvre, pas pressé</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="diag-form__field">
+                  <label for="diag-source">Comment nous avez-vous trouvés ?</label>
+                  <select id="diag-source" name="source">
+                    <option value="">— Non renseigné —</option>
+                    <option value="google">Recherche Google</option>
+                    <option value="linkedin">LinkedIn</option>
+                    <option value="bao">Bouche à oreille</option>
+                    <option value="memoire">Mémoire &amp; Présence</option>
+                    <option value="article">Article / Blog</option>
+                    <option value="autre">Autre</option>
+                  </select>
+                </div>
+                <div class="diag-form__field">
+                  <label for="diag-objectifs">Objectifs business (3 ans)</label>
+                  <textarea id="diag-objectifs" name="objectifs" rows="3" maxlength="1000" placeholder="Optionnel — où voulez-vous être dans 3 ans ?"></textarea>
+                </div>
+                <div class="diag-form__field">
+                  <label for="diag-contraintes">Contraintes connues</label>
+                  <textarea id="diag-contraintes" name="contraintes" rows="2" maxlength="500" placeholder="Optionnel — RGPD, accessibilité, budget figé, deadline..."></textarea>
+                </div>
+              </div>
+            </details>
+
+            <div class="diag-form__honeypot" aria-hidden="true">
+              <label for="diag-website-hp">Ne pas remplir</label>
+              <input type="text" id="diag-website-hp" name="website" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div class="diag-form__consents">
+              <label class="diag-form__check">
+                <input type="checkbox" name="rgpd" value="yes" required />
+                <span
+                  >J'accepte que Pinapp traite mes données pour répondre à ma demande, conformément à notre
+                  <a href="/legal/confidentialite.html" target="_blank" rel="noopener noreferrer">politique de confidentialité</a>
+                  et au RGPD. <span aria-hidden="true">*</span></span
+                >
+              </label>
+              <label class="diag-form__check">
+                <input type="checkbox" name="newsletter" value="yes" />
+                <span>Je souhaite recevoir occasionnellement des conseils Pinapp (max 1 email par mois, désabonnement en 1 clic).</span>
+              </label>
+            </div>
+
+            <div class="diag-form__submit-wrap">
+              <button type="submit" class="diag-form__submit" id="diag-submit">
+                <span class="diag-form__submit-label">Envoyer mon diagnostic</span>
+                <span class="diag-form__submit-loader" aria-hidden="true"></span>
+              </button>
+              <p class="diag-form__guarantee">
+                Réponse sous 24h · Vos données traitées en UE (hébergement n8n / outils configurés par Pinapp) · Aucune relance commerciale agressive
+              </p>
+            </div>
+
+            <div class="diag-form__status" id="diag-form-status" role="status" aria-live="polite"></div>
+          </form>
+
+          <div class="diag-v6__after" style="text-align: center; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid rgba(240, 248, 255, 0.08)">
+            <p style="margin: 0 0 1rem; font-size: 1rem; color: rgba(240, 248, 255, 0.72)">Préférez un créneau visio 30 min ?</p>
+            <a class="btn btn--primary" href="/diagnostic/">Réserver un diagnostic gratuit →</a>
+            <p style="margin: 1rem 0 0; font-size: 0.9rem">
+              <a href="mailto:contact@pinapp.fr" style="color: #7fffea; font-weight: 600; text-decoration: none">contact@pinapp.fr</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="pp-garanties" aria-labelledby="garanties-title">
+        <div class="pp-container">
+          <p class="pp-eyebrow">— CE QU'ON GARANTIT —</p>
+          <h2 id="garanties-title">Des preuves. Pas des promesses.</h2>
+          <p class="pp-subtitle">
+            Duo fondé en 2025. Nos premiers clients bénéficient d'un tarif de lancement et d'une garantie 30 jours satisfait ou remboursé.
           </p>
-          <a
-            class="btn btn--primary"
-            href="/diagnostic/"
-            style="display: inline-flex; margin-bottom: 1rem"
-            >Réserver mon diagnostic gratuit →</a
-          >
-          <p style="margin: 0; font-size: 0.9rem">
-            <a href="mailto:contact@pinapp.fr" style="color: #7fffea; font-weight: 600; text-decoration: none"
-              >Ou écrivez-nous → contact@pinapp.fr</a
-            >
+          <div class="pp-garanties-grid">
+            <div class="pp-garantie-item">
+              <span class="pp-check">✓</span>
+              <h3>Stack souverain européen</h3>
+              <p>
+                HTML/CSS/JS vanilla · Hostinger France · n8n open-source · Plausible zéro cookie tiers. Aucun GAFAM dans vos données.
+              </p>
+            </div>
+            <div class="pp-garantie-item">
+              <span class="pp-check">✓</span>
+              <h3>Performance mesurable</h3>
+              <p>Lighthouse 95+ garanti sur chaque projet livré. Core Web Vitals dans le vert. Code consultable sur GitHub public.</p>
+            </div>
+            <div class="pp-garantie-item">
+              <span class="pp-check">✓</span>
+              <h3>Satisfait ou remboursé 30 jours</h3>
+              <p>
+                Si le livrable ne correspond pas au brief validé ensemble, remboursement intégral sans justification. Garantie écrite au contrat.
+              </p>
+            </div>
+            <div class="pp-garantie-item">
+              <span class="pp-check">✓</span>
+              <h3>Offre lancement — 10 premiers clients</h3>
+              <p>
+                −30% sur tous nos forfaits pour les 10 premiers projets signés en 2026. Contrat + devis + factures pinapp.fr standards.
+              </p>
+            </div>
+          </div>
+          <p class="pp-disclaimer-lancement">
+            <em>Les témoignages clients apparaîtront sur cette page au fur et à mesure de nos livraisons.</em>
           </p>
         </div>
       </section>
@@ -3888,7 +4042,12 @@
 
     <script src="/assets/js/pinapp-universal.js?v=1" defer></script>
     <script src="/assets/js/pinapp-a11y-bootstrap.js" defer></script>
-    <script src="/script.js?v=20260442" defer></script>
+    <script>
+      window.PINAPP_WEBHOOK_URL =
+        'https://REMPLACER-PAR-URL-N8N-CLOUD.app.n8n.cloud/webhook/pinapp-diagnostic';
+    </script>
+    <script src="/script.js?v=20260443" defer></script>
+    <script src="/assets/js/diag-form.js?v=1" defer></script>
     <script src="/assets/js/pinapp-burger-nuclear.js?v=1" defer></script>
     <script src="/assets/vendor/gsap.min.js?v=3.12.5" defer></script>
     <script src="/assets/vendor/ScrollTrigger.min.js?v=3.12.5" defer></script>
