@@ -1,0 +1,70 @@
+/* PINAPP SIGNATURE GRAPHIQUE · v1.0
+   Fond #08090e + halo radial multicolore qui respire 10s + champ particules.
+   À appliquer sur le body de toutes les pages.
+*/
+@import url('./tokens.css');
+
+body {
+  background: var(--pp-bg);
+  color: var(--pp-white);
+  font-family: var(--pp-font);
+  position: relative;
+}
+
+/* Halo radial respirant en background du body */
+body::before {
+  content: '';
+  position: fixed;
+  inset: -10vw;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse 60% 50% at 22% 18%, rgba(0, 229, 176, 0.12), transparent 65%),
+    radial-gradient(ellipse 55% 45% at 82% 32%, rgba(155, 109, 255, 0.14), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 50% 88%, rgba(255, 107, 157, 0.08), transparent 65%);
+  filter: blur(12px);
+  animation: pp-halo-breathe 10s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes pp-halo-breathe {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translate3d(2vw, -1vw, 0) scale(1.04);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(-1vw, 1vw, 0) scale(0.98);
+    opacity: 0.9;
+  }
+}
+
+/* Vignette radiale pour profondeur */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.45) 100%);
+  pointer-events: none;
+}
+
+/* Canvas particules 3D */
+#pp-particules {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    animation: none;
+  }
+  #pp-particules {
+    display: none;
+  }
+}

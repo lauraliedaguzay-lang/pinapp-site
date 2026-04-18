@@ -31,7 +31,7 @@ if (creaStart === -1 || mpStart === -1 || mpStart < creaStart) {
 }
 html = html.slice(0, creaStart) + html.slice(mpStart);
 
-const ctaNeedle = 'id="cta-diagnostic-final"';
+const ctaNeedle = 'id="diagnostic"';
 const ctaPos = html.indexOf(ctaNeedle);
 if (ctaPos === -1) throw new Error('cta-diagnostic-final not found');
 const insertAt = html.lastIndexOf('<section', ctaPos);
