@@ -111,7 +111,7 @@ for (const full of walkHtml(ROOT)) {
   html = fixImgsAlt(html);
   html = fixBlankTargets(html);
   html = fixSrOnlyH1(html);
-  html = html.replace(/src="\/script\.js(\?[^"]*)?"/g, 'src="/script.min.js$1"');
+  html = html.replace(/src="\/script\.min\.js(\?[^"]*)?"/g, 'src="/script.js$1"');
   if (html !== orig) {
     fs.writeFileSync(full, html, 'utf8');
     n++;
