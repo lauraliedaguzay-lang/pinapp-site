@@ -119,6 +119,8 @@
     var phase = 1;
     var startTime = Date.now();
     var rafId = 0;
+    var explodeAt = 3.2;
+    var totalEnd = 4;
 
     for (var i = 0; i < 200; i++) {
       particles.push({
@@ -138,9 +140,8 @@
 
     function animate() {
       var elapsed = (Date.now() - startTime) / 1000;
-      if (elapsed > 1.2 && phase === 1) phase = 2;
-      if (elapsed > 2.5 && phase === 2) phase = 3;
-      if (elapsed > 3.5 && phase === 3) phase = 4;
+      if (elapsed >= explodeAt && phase < 3) phase = 3;
+      if (elapsed >= totalEnd) phase = 4;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -181,19 +182,54 @@
     }
     animate();
 
-    if (g) {
-      g.to('#pp-preloader-logo', {
+    var logo = document.getElementById('pp-preloader-logo');
+    var wordsWrap = document.getElementById('pp-preloader-words');
+
+    if (g && logo) {
+      g.set(logo, { opacity: 0, scale: 0.5 });
+      document.querySelectorAll('.pp-intro-word').forEach(function (word) {
+        var delay = parseInt(word.getAttribute('data-delay'), 10) || 0;
+        g.fromTo(
+          word,
+          { opacity: 0, scale: 0.92 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.4,
+            ease: 'power2.out',
+            delay: delay / 1000,
+          }
+        );
+        g.to(word, {
+          opacity: 0,
+          scale: 0.95,
+          duration: 0.3,
+          ease: 'power2.in',
+          delay: delay / 1000 + 0.4,
+        });
+      });
+
+      if (wordsWrap) {
+        g.to(wordsWrap, {
+          opacity: 0,
+          duration: 0.3,
+          delay: 2.4,
+        });
+      }
+
+      g.to(logo, {
         opacity: 1,
         scale: 1,
         duration: 0.8,
         ease: 'elastic.out(1, 0.5)',
-        delay: 1.3,
+        delay: 2.5,
       });
+
       g.to('#pp-preloader', {
         opacity: 0,
         duration: 0.8,
         ease: 'power2.inOut',
-        delay: 3.5,
+        delay: 3.2,
         onComplete: function () {
           if (rafId) window.cancelAnimationFrame(rafId);
           pl.style.display = 'none';
@@ -215,7 +251,7 @@
           sessionStorage.setItem('pp-preloader-done', '1');
         } catch (e3) {}
         if (typeof onDone === 'function') onDone();
-      }, 3800);
+      }, 4000);
     }
 
     window.addEventListener(
@@ -255,11 +291,22 @@
       }
     } catch (e) {}
 
-    document.body.classList.add('pp-preloader-active');
-    initPreloader(function () {
-      document.body.classList.remove('pp-preloader-active');
-      startSite();
-    });
+    function beginPreloader() {
+      document.body.classList.add('pp-preloader-active');
+      initPreloader(function () {
+        document.body.classList.remove('pp-preloader-active');
+        startSite();
+      });
+    }
+
+    if (!document.documentElement.classList.contains('pp-intro-skip') && document.getElementById('pp-intro')) {
+      window.addEventListener('pp-pinapp-intro-done', function onIntroDone() {
+        window.removeEventListener('pp-pinapp-intro-done', onIntroDone);
+        window.setTimeout(beginPreloader, 0);
+      });
+    } else {
+      beginPreloader();
+    }
   }
 
   /* ── Curseur (pointer fin) ── */
