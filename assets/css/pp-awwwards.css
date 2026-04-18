@@ -150,6 +150,19 @@ body.pp-preloader-active {
   overflow: hidden !important;
 }
 
+/* Fond canvas particules — ne pas déborder sur le contenu */
+#pc {
+  overflow: hidden;
+  contain: paint;
+  clip-path: inset(0);
+}
+
+/* Cartes Films IA accueil : fond sombre derrière l’iframe (évite bande blanche Vimeo) */
+.pp-home-film-ia__frame {
+  background: var(--pp-bg, #050a14);
+  overflow: hidden;
+}
+
 html[data-theme='light'] body.pp-aww-body {
   background: var(--pp-bg);
   color: var(--pp-text);

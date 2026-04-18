@@ -1580,6 +1580,7 @@ span.word.hero__gradient,
   padding: var(--pp-s-9) var(--pp-s-5) var(--pp-s-8);
   position: relative;
   overflow: hidden;
+  contain: paint;
 }
 .hero-v6__container {
   max-width: 920px;
@@ -1914,10 +1915,14 @@ span.word.hero__gradient,
   height: 28px;
   border-radius: 50%;
   background: var(--orb-color);
-  box-shadow: 0 0 24px var(--orb-color), 0 0 48px var(--orb-color);
+  /* Halo contenu dans la carte (évite « cercles géants » sur toute la page) */
+  box-shadow: 0 0 10px color-mix(in srgb, var(--orb-color) 45%, transparent);
   opacity: 0.85;
   animation: pp-orb-pulse 3.6s ease-in-out infinite;
   margin-bottom: var(--pp-s-5);
+  position: relative;
+  z-index: 0;
+  contain: paint;
 }
 @keyframes pp-orb-pulse {
   0%,
