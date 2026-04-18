@@ -236,6 +236,6 @@ _Remplacer `[Adresse]` comme pour le devis. Vérifier que la désignation du pre
 
 ## CGV (version web)
 
-La version publiée du site est **`/legal/cgv.html`** (dépôt : `legal/cgv.html`). Elle reprend les **16 articles** du modèle Pinapp (devis, commande, prix, paiement, délais, garantie, PI, obligations, modifications, maintenance, données, responsabilité, force majeure, litiges, droit de rétractation), avec **date de mise à jour**, coordonnées complètes, une mention **paiement carte (Stripe)** lorsque proposé sur devis, une précision **conservation des données** (art. 12), et un article **17 — IA et transparence (EU AI Act)**.
+La version publiée du site est **`/cgv/`** (dépôt : `legal/cgv.html`). Elle reprend les **16 articles** du modèle Pinapp (devis, commande, prix, paiement, délais, garantie, PI, obligations, modifications, maintenance, données, responsabilité, force majeure, litiges, droit de rétractation), avec **date de mise à jour**, coordonnées complètes, une mention **paiement carte (Stripe)** lorsque proposé sur devis, une précision **conservation des données** (art. 12), et un article **17 — IA et transparence (EU AI Act)**.
 
 Pour une copie texte « brut » des CGV hors site, copier depuis le navigateur sur la page CGV ou exporter depuis le HTML source.

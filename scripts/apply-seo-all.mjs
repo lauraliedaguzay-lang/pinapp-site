@@ -379,9 +379,9 @@ const FOOTER_SNIPPET = `<a href="/">Accueil</a>
           <a href="/auralis/">Auralis RH</a>
           <a href="/diagnostic/">Diagnostic</a>
           <a href="/faq/">FAQ</a>
-          <a href="/legal/mentions-legales.html">Mentions légales</a>
-          <a href="/legal/cgv.html">CGV</a>
-          <a href="/legal/confidentialite.html">Confidentialité</a>`;
+          <a href="/mentions-legales/">Mentions légales</a>
+          <a href="/cgv/">CGV</a>
+          <a href="/confidentialite/">Confidentialité</a>`;
 
 function ensureFooterLinks(html) {
   const navRe = /(<nav\s+class=["']footer__links["'][^>]*>)([\s\S]*?)(<\/nav>)/i;
@@ -390,11 +390,11 @@ function ensureFooterLinks(html) {
   const [, open, body, close] = m;
   const adds = [];
   if (!body.includes('href="/faq/"')) adds.push('<a href="/faq/">FAQ</a>');
-  if (!body.includes('href="/legal/mentions-legales.html"'))
-    adds.push('<a href="/legal/mentions-legales.html">Mentions légales</a>');
-  if (!body.includes('href="/legal/cgv.html"')) adds.push('<a href="/legal/cgv.html">CGV</a>');
-  if (!body.includes('href="/legal/confidentialite.html"'))
-    adds.push('<a href="/legal/confidentialite.html">Confidentialité</a>');
+  if (!body.includes('href="/mentions-legales/"'))
+    adds.push('<a href="/mentions-legales/">Mentions légales</a>');
+  if (!body.includes('href="/cgv/"')) adds.push('<a href="/cgv/">CGV</a>');
+  if (!body.includes('href="/confidentialite/"'))
+    adds.push('<a href="/confidentialite/">Confidentialité</a>');
   if (!adds.length) return html;
   const inject = adds.map((a) => `\n          ${a}`).join('');
   return html.replace(navRe, `${open}${body}${inject}\n        ${close}`);

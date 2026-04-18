@@ -1350,8 +1350,8 @@ $body
         <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
         <a href="mailto:contact@pinapp.fr">contact@pinapp.fr</a>
         <a href="/legal/mentions.html">Mentions légales</a>
-        <a href="/legal/cgv.html">CGV</a>
-        <a href="/legal/confidentialite.html">Confidentialité</a>
+        <a href="/cgv/">CGV</a>
+        <a href="/confidentialite/">Confidentialité</a>
         <a href="/engagements/">Nos engagements</a>
         <a href="https://memoireetpresence.fr" target="_blank" rel="noopener">🌿 Mémoire & Présence</a>
       </nav>
@@ -2374,7 +2374,7 @@ $cgvBody = @'
 '@
 
 $cgvHtml = Get-Shell -title "CGV — Pinapp Inc." -desc "Conditions générales de vente Pinapp Inc." -body $cgvBody
-Set-Content -Path "$Root/legal/cgv.html" -Value $cgvHtml -Encoding UTF8
+Set-Content -Path "$Root/cgv/" -Value $cgvHtml -Encoding UTF8
 
 $confBody = @'
   <div class="snap-container">
@@ -2399,7 +2399,7 @@ $confBody = @'
 '@
 
 $confHtml = Get-Shell -title "Confidentialité — Pinapp Inc." -desc "Politique de confidentialité Pinapp Inc. RGPD." -body $confBody
-Set-Content -Path "$Root/legal/confidentialite.html" -Value $confHtml -Encoding UTF8
+Set-Content -Path "$Root/confidentialite/" -Value $confHtml -Encoding UTF8
 Write-OK "legal/ (mentions + cgv + confidentialite)"
 
 # ==============================================================================

@@ -16,7 +16,7 @@ export const PAGES = [
   '/demo/restaurant/',
   '/demo/barbier/',
   '/demo/coach/',
-  '/legal/mentions-legales.html',
+  '/mentions-legales/',
   '/sitemap.xml',
   '/robots.txt',
 ];

@@ -778,8 +778,8 @@ $body
         <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
         <a href="mailto:contact@pinapp.fr">contact@pinapp.fr</a>
         <a href="/legal/mentions.html">Mentions légales</a>
-        <a href="/legal/cgv.html">CGV</a>
-        <a href="/legal/confidentialite.html">Confidentialité</a>
+        <a href="/cgv/">CGV</a>
+        <a href="/confidentialite/">Confidentialité</a>
         <a href="/engagements/">Nos engagements</a>
         <a href="https://memoireetpresence.fr" target="_blank" rel="noopener">🌿 Mémoire & Présence</a>
       </nav>

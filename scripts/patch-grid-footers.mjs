@@ -22,9 +22,9 @@ const OLD = `          aria-label="Liens footer">
             >LinkedIn</a
           >
           <a href="mailto:lauralie.daguzay@pinapp.fr">Contact</a>
-          <a href="../legal/mentions-legales.html">Mentions légales</a>
-          <a href="../legal/cgv.html">CGV</a>
-          <a href="../legal/confidentialite.html">Confidentialité</a>
+          <a href="../mentions-legales/">Mentions légales</a>
+          <a href="../cgv/">CGV</a>
+          <a href="../confidentialite/">Confidentialité</a>
         </nav>`;
 
 const NEW = `          aria-label="Liens footer">
@@ -34,9 +34,9 @@ const NEW = `          aria-label="Liens footer">
           <a href="../auralis/index.html">Auralis</a>
           <a href="../diagnostic/index.html">Diagnostic</a>
           <a href="../faq/index.html">FAQ</a>
-          <a href="../legal/mentions-legales.html">Mentions légales</a>
-          <a href="../legal/cgv.html">CGV</a>
-          <a href="../legal/confidentialite.html">Confidentialité</a>
+          <a href="../mentions-legales/">Mentions légales</a>
+          <a href="../cgv/">CGV</a>
+          <a href="../confidentialite/">Confidentialité</a>
           <a href="https://linkedin.com/in/lauralie-daguzay-4a4542197/" rel="noopener noreferrer" target="_blank"
             >LinkedIn</a
           >

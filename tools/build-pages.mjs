@@ -188,8 +188,8 @@ ${mainInner}
       </div>
       <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;">
         <a href="${u('/legal/mentions.html')}">Mentions légales</a>
-        <a href="${u('/legal/cgv.html')}">CGV</a>
-        <a href="${u('/legal/confidentialite.html')}">Confidentialité</a>
+        <a href="${u('/cgv/')}">CGV</a>
+        <a href="${u('/confidentialite/')}">Confidentialité</a>
         <a href="${u('/legal/accessibilite.html')}">Accessibilité</a>
         <a href="${u('/legal/ethique.html')}">Éthique</a>
       </div>
@@ -298,7 +298,7 @@ const pages = [
         <div style="background:var(--bg-card);border-radius:var(--radius-card);padding:var(--space-3);border:1px solid rgba(57,224,117,0.2);">
           <p style="font-size:14px;opacity:0.7;"><strong style="color:var(--accent-green);">Garantie :</strong> Si ma réponse écrite ne vous apporte rien de concret, je vous offre un template de votre secteur.</p>
         </div>
-        <p style="font-size:var(--text-legal);opacity:0.4;margin-top:var(--space-4);">Vos informations sont utilisées uniquement pour organiser ce rendez-vous. Aucun démarchage ultérieur sans votre accord. <a href="/legal/confidentialite.html" style="text-decoration:underline;">Politique de confidentialité</a></p>
+        <p style="font-size:var(--text-legal);opacity:0.4;margin-top:var(--space-4);">Vos informations sont utilisées uniquement pour organiser ce rendez-vous. Aucun démarchage ultérieur sans votre accord. <a href="/confidentialite/" style="text-decoration:underline;">Politique de confidentialité</a></p>
       </div>
     </section>`,
   },
@@ -776,7 +776,7 @@ const pages = [
           <div style="display:flex;flex-direction:column;gap:var(--space-2);">
             <a href="#" style="font-size:14px;color:var(--accent-teal);">Devis signé</a>
             <a href="#" style="font-size:14px;color:var(--accent-teal);">Facture acompte</a>
-            <a href="/legal/cgv.html" style="font-size:14px;color:var(--accent-teal);">CGV</a>
+            <a href="/cgv/" style="font-size:14px;color:var(--accent-teal);">CGV</a>
           </div>
         </div>
         <div class="card">
