@@ -1,76 +1,102 @@
-/* PINAPP DESIGN TOKENS · v1.0
-   Variables centralisées : couleurs, espacements, typo, motion.
-   À importer EN PREMIER dans tous les CSS, avant tout autre import.
-*/
+/* ============================================
+   PINAPP — DESIGN TOKENS v1 (AURA + TRACES)
+   ============================================ */
+
 :root {
-  /* — COULEURS — */
-  --pp-bg: #08090e;
-  --pp-bg-soft: #0c0e15;
-  --pp-surface: rgba(10, 11, 18, 0.55);
-  --pp-border: rgba(240, 248, 255, 0.07);
-  --pp-border-strong: rgba(240, 248, 255, 0.14);
+  /* --- PALETTE PRIMAIRE --- */
+  --pp-bg: #0a0612;
+  --pp-bg-elevated: #120a1e;
+  --pp-bg-deep: #050308;
 
-  --pp-cyan: #00e5b0;
-  --pp-violet: #9b6dff;
-  --pp-rose: #ff6b9d;
-  --pp-aqua: #7fffd4;
-  --pp-white: #f0f8ff;
-  --pp-mute: rgba(240, 248, 255, 0.6);
-  --pp-mute-soft: rgba(240, 248, 255, 0.35);
+  --pp-purple-deep: #3d2869;
+  --pp-purple: #6b3ec7;
+  --pp-purple-bright: #8b5fff;
+  --pp-blue: #4a7fe6;
+  --pp-blue-bright: #5b9fff;
+  --pp-blue-deep: #1e3a7a;
 
-  /* — TYPO — */
-  --pp-font: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Helvetica Neue', system-ui, sans-serif;
+  /* --- PALETTE AURA --- */
+  --pp-aura-core: #a67fff;
+  --pp-aura-mid: #7b5fe8;
+  --pp-aura-edge: #4a7fe6;
+  --pp-aura-glow: 0 0 60px rgba(139, 95, 255, 0.35);
 
-  /* — ÉCHELLE TYPO — */
-  --pp-text-xs: 11px;
-  --pp-text-sm: 13px;
-  --pp-text-base: 15px;
-  --pp-text-md: 17px;
-  --pp-text-lg: 22px;
-  --pp-text-xl: 32px;
-  --pp-text-2xl: 48px;
-  --pp-text-3xl: 64px;
-  --pp-text-hero: 92px;
-  --pp-text-hero-mobile: 48px;
+  /* --- TEXTE --- */
+  --pp-text: #f4f0ff;
+  --pp-text-muted: rgba(244, 240, 255, 0.72);
+  --pp-text-dim: rgba(244, 240, 255, 0.42);
+  --pp-text-faint: rgba(244, 240, 255, 0.22);
 
-  /* — ESPACEMENTS (échelle 4pt) — */
-  --pp-s-1: 4px;
-  --pp-s-2: 8px;
-  --pp-s-3: 12px;
-  --pp-s-4: 16px;
-  --pp-s-5: 24px;
-  --pp-s-6: 32px;
-  --pp-s-7: 48px;
-  --pp-s-8: 64px;
-  --pp-s-9: 96px;
-  --pp-s-10: 128px;
+  /* --- BORDURES --- */
+  --pp-border: rgba(139, 95, 255, 0.14);
+  --pp-border-strong: rgba(139, 95, 255, 0.32);
 
-  /* — RADIUS — */
-  --pp-r-sm: 8px;
-  --pp-r-md: 14px;
-  --pp-r-lg: 18px;
-  --pp-r-xl: 24px;
-  --pp-r-pill: 999px;
+  /* --- FONTS --- */
+  --pp-font-display: 'Fraunces', 'Cormorant Garamond', Georgia, serif;
+  --pp-font-body: 'General Sans', system-ui, -apple-system, sans-serif;
+  --pp-font-mono: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, monospace;
 
-  /* — SHADOWS — */
-  --pp-shadow-soft: 0 6px 24px -6px rgba(0, 0, 0, 0.35);
-  --pp-shadow-mid: 0 14px 48px -12px rgba(0, 0, 0, 0.55);
-  --pp-shadow-glow-cyan: 0 0 32px -4px rgba(0, 229, 176, 0.45);
+  /* --- ÉCHELLE TYPO --- */
+  --pp-fs-hero: clamp(3rem, 8vw, 7.5rem);
+  --pp-fs-h1: clamp(2.25rem, 5vw, 4rem);
+  --pp-fs-h2: clamp(1.75rem, 3.5vw, 2.75rem);
+  --pp-fs-h3: clamp(1.25rem, 2.5vw, 1.75rem);
+  --pp-fs-body: clamp(0.95rem, 1.1vw, 1.0625rem);
+  --pp-fs-small: 0.8125rem;
+  --pp-fs-tag: 0.6875rem;
 
-  /* — MOTION — */
-  --pp-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --pp-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --pp-dur-fast: 180ms;
-  --pp-dur-mid: 380ms;
-  --pp-dur-slow: 720ms;
-  --pp-dur-cinema: 3500ms;
+  /* --- ESPACEMENTS --- */
+  --pp-space-1: 0.5rem;
+  --pp-space-2: 1rem;
+  --pp-space-3: 1.5rem;
+  --pp-space-4: 2rem;
+  --pp-space-6: 3rem;
+  --pp-space-8: 4rem;
+  --pp-space-12: 6rem;
+  --pp-space-16: 8rem;
+  --pp-space-24: 12rem;
+
+  /* --- GRILLE ANANAS --- */
+  --pp-lattice-size: 48px;
+  --pp-lattice-stroke: 1px;
+  --pp-lattice-color: rgba(139, 95, 255, 0.07);
+  --pp-lattice-color-revealed: rgba(139, 95, 255, 0.22);
+
+  /* --- LENTILLE --- */
+  --pp-lens-size: 280px;
+  --pp-lens-blur-outside: 10px;
+  --pp-lens-desaturate: 0.6;
+  --pp-lens-transition: 120ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  --pp-lens-x: 50%;
+  --pp-lens-y: 50%;
+
+  /* --- VIEWPORT FOCUS (mobile) --- */
+  --pp-mobile-focus-top: 30vh;
+  --pp-mobile-focus-bottom: 70vh;
+  --pp-mobile-fade: 12vh;
+
+  /* --- TRACES --- */
+  --pp-star-size: 5px;
+  --pp-star-core: #f4f0ff;
+  --pp-star-glow: var(--pp-purple-bright);
+  --pp-star-trail-ms: 2400;
+
+  /* --- RAYONS, OMBRES, TRANSITIONS --- */
+  --pp-radius-sm: 6px;
+  --pp-radius-md: 12px;
+  --pp-radius-lg: 20px;
+  --pp-radius-pill: 999px;
+  --pp-shadow-soft: 0 8px 32px rgba(10, 6, 18, 0.6);
+  --pp-shadow-deep: 0 24px 60px rgba(10, 6, 18, 0.85);
+  --pp-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --pp-ease-slow: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --pp-gyro-x: 0px;
 }
 
 @media (prefers-reduced-motion: reduce) {
   :root {
-    --pp-dur-fast: 0ms;
-    --pp-dur-mid: 0ms;
-    --pp-dur-slow: 0ms;
-    --pp-dur-cinema: 0ms;
+    --pp-lens-transition: 0ms;
+    --pp-star-trail-ms: 0;
   }
 }

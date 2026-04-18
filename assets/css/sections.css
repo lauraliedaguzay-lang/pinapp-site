@@ -1,0 +1,286 @@
+/* PINAPP — sections AURA (home V1) */
+@import url('./tokens.css');
+
+.pp-aura-home {
+  position: relative;
+  z-index: 7;
+  margin-top: var(--pp-space-12);
+  padding-bottom: var(--pp-space-12);
+}
+
+.pp-aura-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--pp-space-2) var(--pp-space-4);
+  background: rgba(10, 6, 18, 0.55);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border-bottom: 1px solid var(--pp-border);
+}
+
+.pp-aura-nav__brand {
+  font-family: var(--pp-font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+}
+
+.pp-aura-nav__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pp-space-3);
+  align-items: center;
+}
+
+.pp-aura-nav__links a {
+  font-family: var(--pp-font-mono);
+  font-size: var(--pp-fs-tag);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pp-text-muted);
+  text-decoration: none;
+  transition: color 0.2s var(--pp-ease);
+}
+
+.pp-aura-nav__links a:hover {
+  color: var(--pp-text);
+}
+
+@media (max-width: 768px) {
+  .pp-aura-nav__links {
+    display: none;
+  }
+}
+
+.pp-aura-nav--inline {
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+  margin: 0 auto var(--pp-space-8);
+  max-width: 72rem;
+  border-radius: var(--pp-radius-lg);
+}
+
+.pp-aura-hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--pp-space-16) var(--pp-space-4) var(--pp-space-8);
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.pp-aura-hero__title {
+  font-family: var(--pp-font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: var(--pp-fs-hero);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  margin: 0;
+  max-width: 16ch;
+}
+
+.pp-aura-hero__lead {
+  margin-top: var(--pp-space-3);
+  max-width: 46ch;
+  color: var(--pp-text-muted);
+}
+
+.pp-aura-hero__cta {
+  margin-top: var(--pp-space-6);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pp-space-2);
+}
+
+.pp-aura-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.65rem 1.35rem;
+  border-radius: var(--pp-radius-pill);
+  font-family: var(--pp-font-mono);
+  font-size: var(--pp-fs-tag);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--pp-border-strong);
+  background: rgba(139, 95, 255, 0.15);
+  color: var(--pp-text);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    background 0.25s var(--pp-ease),
+    border-color 0.25s var(--pp-ease);
+}
+
+.pp-aura-btn:hover {
+  background: rgba(139, 95, 255, 0.28);
+}
+
+.pp-aura-btn--ghost {
+  background: transparent;
+  border-color: var(--pp-border);
+}
+
+.pp-aura-scroll-hint {
+  margin-top: var(--pp-space-8);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--pp-font-mono);
+  font-size: var(--pp-fs-tag);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--pp-text-faint);
+}
+
+.pp-aura-scroll-hint__line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(180deg, var(--pp-purple-bright), transparent);
+  opacity: 0.5;
+}
+
+.pp-aura-section {
+  padding: var(--pp-space-12) var(--pp-space-4);
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.pp-aura-section--tall {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+}
+
+.pp-aura-manifest {
+  font-family: var(--pp-font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.75rem, 5vw, 3rem);
+  line-height: 1.15;
+  color: var(--pp-text);
+  margin: 0;
+}
+
+.pp-aura-tools {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: var(--pp-space-12) var(--pp-space-4);
+}
+
+.pp-aura-tools__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--pp-space-4);
+}
+
+@media (max-width: 768px) {
+  .pp-aura-tools__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pp-aura-tool-card {
+  display: block;
+  padding: var(--pp-space-6);
+  background: var(--pp-bg-elevated);
+  border: 1px solid var(--pp-border);
+  border-radius: var(--pp-radius-lg);
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+  transition:
+    border-color 0.35s var(--pp-ease),
+    transform 0.35s var(--pp-ease);
+}
+
+.pp-aura-tool-card:hover {
+  border-color: var(--pp-border-strong);
+  transform: translateY(-2px);
+}
+
+.pp-aura-tool-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at calc(var(--pp-lens-x) + var(--pp-gyro-x, 0px)) var(--pp-lens-y),
+    rgba(139, 95, 255, 0.12) 0%,
+    transparent 55%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s var(--pp-ease);
+}
+
+.pp-aura-tool-card:hover::after {
+  opacity: 1;
+}
+
+.pp-aura-tool-card__tag {
+  font-family: var(--pp-font-mono);
+  font-size: var(--pp-fs-tag);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--pp-purple-bright);
+}
+
+.pp-aura-tool-card__name {
+  font-family: var(--pp-font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: var(--pp-fs-h2);
+  margin: var(--pp-space-2) 0;
+}
+
+.pp-aura-tool-card__desc {
+  color: var(--pp-text-muted);
+  margin: 0 0 var(--pp-space-4);
+}
+
+.pp-aura-tool-card__cta {
+  font-family: var(--pp-font-mono);
+  font-size: var(--pp-fs-tag);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pp-text);
+}
+
+.pp-aura-footer {
+  padding: var(--pp-space-8) var(--pp-space-4);
+  border-top: 1px solid var(--pp-border);
+  max-width: 72rem;
+  margin: 0 auto;
+  font-size: var(--pp-fs-small);
+  color: var(--pp-text-muted);
+}
+
+.pp-aura-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pp-space-2);
+  margin-bottom: var(--pp-space-3);
+}
+
+.pp-aura-footer a {
+  color: var(--pp-text-muted);
+  text-decoration: none;
+}
+
+.pp-aura-footer a:hover {
+  color: var(--pp-text);
+}

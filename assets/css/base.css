@@ -1,0 +1,159 @@
+/* PINAPP — base AURA (reset minimal + typo + grain) */
+@import url('./tokens.css');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.pp-lenis-smooth {
+    scroll-behavior: smooth;
+  }
+}
+
+body.aura-stage {
+  margin: 0;
+  min-height: 100svh;
+  background: var(--pp-bg);
+  color: var(--pp-text);
+  font-family: var(--pp-font-body);
+  font-size: var(--pp-fs-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+.aura-lattice::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aura-lattice::after {
+    display: none;
+  }
+}
+
+main {
+  position: relative;
+  z-index: 6;
+}
+
+a {
+  color: inherit;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--pp-purple-bright);
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- Préchargeur léger AURA (remplace l’ancien cosmos sur cette branche) --- */
+#pp-preloader.pp-preloader--aura-lite {
+  position: fixed;
+  inset: 0;
+  z-index: 100050;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pp-space-4);
+  background: var(--pp-bg-deep);
+  transition: opacity 0.55s var(--pp-ease-slow), visibility 0.55s step-end;
+}
+
+#pp-preloader.pp-preloader--aura-lite.pp-preloader--out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.pp-preloader-lite__pulse {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--pp-aura-core) 0%, var(--pp-purple-bright) 55%, transparent 70%);
+  box-shadow: var(--pp-aura-glow);
+  animation: pp-aura-pulse 1.25s ease-in-out infinite;
+}
+
+@keyframes pp-aura-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pp-preloader-lite__pulse {
+    animation: none;
+  }
+}
+
+.pp-preloader-lite__marquee {
+  width: min(92vw, 28rem);
+  overflow: hidden;
+  font-family: var(--pp-font-mono);
+  font-size: var(--pp-fs-tag);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pp-text-dim);
+  border-top: 1px solid var(--pp-border);
+  border-bottom: 1px solid var(--pp-border);
+  padding: 0.35rem 0;
+}
+
+.pp-preloader-lite__marquee-inner {
+  display: inline-block;
+  white-space: nowrap;
+  animation: pp-preloader-marquee 18s linear infinite;
+}
+
+@keyframes pp-preloader-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pp-preloader-lite__marquee-inner {
+    animation: none;
+  }
+}
+
+body.pp-preloader-active {
+  overflow: hidden !important;
+}

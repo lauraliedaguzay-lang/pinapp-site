@@ -1,0 +1,100 @@
+/* PINAPP — lentille AURA + grille ananas */
+@import url('./tokens.css');
+
+body.aura-stage {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Calque dédié : évite le conflit avec body::before / ::after (signature-graphique.css) */
+.aura-lattice {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image:
+    linear-gradient(45deg, var(--pp-lattice-color) 0 var(--pp-lattice-stroke), transparent var(--pp-lattice-stroke)),
+    linear-gradient(-45deg, var(--pp-lattice-color) 0 var(--pp-lattice-stroke), transparent var(--pp-lattice-stroke));
+  background-size: var(--pp-lattice-size) var(--pp-lattice-size);
+  opacity: 1;
+  transition: opacity 0.4s var(--pp-ease);
+}
+
+body.aura-stage.aura-lens-active .aura-lattice {
+  opacity: 1.15;
+}
+
+.aura-veil {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  backdrop-filter: blur(var(--pp-lens-blur-outside)) saturate(var(--pp-lens-desaturate));
+  -webkit-backdrop-filter: blur(var(--pp-lens-blur-outside)) saturate(var(--pp-lens-desaturate));
+  background: rgba(10, 6, 18, 0.3);
+  mask-image: radial-gradient(
+    circle var(--pp-lens-size) at calc(var(--pp-lens-x) + var(--pp-gyro-x, 0px)) var(--pp-lens-y),
+    transparent 0%,
+    transparent 38%,
+    black 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle var(--pp-lens-size) at calc(var(--pp-lens-x) + var(--pp-gyro-x, 0px)) var(--pp-lens-y),
+    transparent 0%,
+    transparent 38%,
+    black 100%
+  );
+}
+
+.aura-lens-glow {
+  position: fixed;
+  left: calc(var(--pp-lens-x) + var(--pp-gyro-x, 0px));
+  top: var(--pp-lens-y);
+  width: calc(var(--pp-lens-size) * 2);
+  height: calc(var(--pp-lens-size) * 2);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 3;
+  background: radial-gradient(
+    circle,
+    rgba(166, 127, 255, 0.2) 0%,
+    rgba(139, 95, 255, 0.08) 35%,
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+}
+
+body.aura-stage--muted .aura-veil,
+body.aura-stage--muted .aura-lens-glow {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aura-veil,
+  .aura-lens-glow {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1024px), (pointer: coarse) {
+  .aura-lens-glow {
+    display: none;
+  }
+
+  .aura-veil {
+    mask-image: linear-gradient(
+      to bottom,
+      black 0,
+      transparent var(--pp-mobile-focus-top),
+      transparent var(--pp-mobile-focus-bottom),
+      black 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      black 0,
+      transparent var(--pp-mobile-focus-top),
+      transparent var(--pp-mobile-focus-bottom),
+      black 100%
+    );
+  }
+}
