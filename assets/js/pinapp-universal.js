@@ -109,6 +109,13 @@
       cbs.setAttribute('data-pinapp-cookies-banner', '1');
       document.body.appendChild(cbs);
     }
+    if (!document.querySelector('script[data-pinapp-chatbot]')) {
+      var ch = document.createElement('script');
+      ch.src = '/assets/js/pp-chatbot.js?v=20260460';
+      ch.defer = true;
+      ch.setAttribute('data-pinapp-chatbot', '1');
+      document.body.appendChild(ch);
+    }
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);

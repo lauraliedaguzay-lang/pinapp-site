@@ -947,6 +947,14 @@
     document.body.appendChild(cbs);
   }
 
+  if (!document.querySelector('script[data-pinapp-chatbot]')) {
+    var ch = document.createElement('script');
+    ch.src = '/assets/js/pp-chatbot.js?v=20260460';
+    ch.defer = true;
+    ch.setAttribute('data-pinapp-chatbot', '1');
+    document.body.appendChild(ch);
+  }
+
   var parHtml =
     '<p class="pinapp-footer-parrainage" style="font-size:0.75rem;color:rgba(232,244,248,0.4);margin-top:1rem;">' +
     '🍍 Parrainage — Recommandez un client, recevez 10% sur votre prochaine prestation. ' +
