@@ -62,8 +62,8 @@ Fichiers nominatifs du brief (à déposer par l’équipe ; **actuellement** le 
 | 4 | 340–440 | M&P (lien GitHub Pages), **Auralis** `/auralis/`, newsletter |
 | 5 | 440–520 | Preuves / stats comparatives + badges crédibilité |
 | 6 | 520–660 | « Voyez votre métier », carte planète / univers, manifeste, `/univers/` |
-| 7 | 660–800 | **Encart Réalisations** (2 liens vérifiés + teaser — voir §5) |
-| 8 | 800–920 | Contact, FAQ 5, formulaire diagnostic, Cal.com, footer légal |
+| 7 | 660–800 | **Réalisations** : grille projets + `data-vimeo-id` sur extraits (lightbox étape 5) + liens vérifiés |
+| 8 | 800–920 | Contact, FAQ 5, formulaire diagnostic, 3 CTAs (Cal.com, univers, formations), footer légal |
 
 Les ancres `#s1`… du menu actuel devront être **réalignées** sur les ids des chapitres V2.4 (ex. `#chapitre-7-realisations`) — à définir à l’implémentation.
 
