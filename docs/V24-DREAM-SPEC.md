@@ -62,7 +62,7 @@ Fichiers nominatifs du brief (à déposer par l’équipe ; **actuellement** le 
 | 4 | 340–440 | M&P (lien GitHub Pages), **Auralis** `/auralis/`, newsletter |
 | 5 | 440–520 | Preuves / stats comparatives + badges crédibilité |
 | 6 | 520–660 | « Voyez votre métier », carte planète / univers, manifeste, `/univers/` |
-| 7 | 660–800 | **Encart Réalisations** (5 projets — voir §5) |
+| 7 | 660–800 | **Encart Réalisations** (2 liens vérifiés + teaser — voir §5) |
 | 8 | 800–920 | Contact, FAQ 5, formulaire diagnostic, Cal.com, footer légal |
 
 Les ancres `#s1`… du menu actuel devront être **réalignées** sur les ids des chapitres V2.4 (ex. `#chapitre-7-realisations`) — à définir à l’implémentation.
@@ -71,18 +71,17 @@ Les ancres `#s1`… du menu actuel devront être **réalignées** sur les ids de
 
 ## 5. Encart Réalisations (chapitre 7) — vérité dépôt (audit 2026-04-19)
 
+**Décision produit (V2.4)** : sur la home, afficher **uniquement** les preuves dont l’URL existe dans le dépôt :
+
+- **Atelier Rivage** → `/demo/atelier-rivage/`
+- **Films IA** → `/realisations/films-ia/`
+
+Sous les cartes : mention honnête du type **« 3 autres projets en cours de production »** (pas de `href` inventé, pas de stub dossier).
+
 **Existant sous `/demo/…/`** (dossiers avec `index.html`) :  
 atelier-rivage, artisan, avocat, barbier, boulangerie, cils, coach, coiffeur, estheticienne, ongles, restaurant, sur-mesure, tatoueuse, trainer.
 
-**Absents** (pas de `/demo/maison-aurelie/`, `/demo/maison-celeste/`, `/demo/domaine-eclipse/`, `/demo/star-wars-ia/` dans ce repo) :
-
-| Projet briefé | Statut | Action proposée |
-|-----------------|--------|------------------|
-| Atelier Rivage | OK | `/demo/atelier-rivage/` |
-| Maison Aurélie | Pas de démo | Lien `/realisations/` ou réal dédiée si créée ; sinon carte « Bientôt » sans URL fausse |
-| Maison Céleste | Idem | Idem |
-| Domaine Éclipse | Idem | Idem |
-| Star Wars 100 % IA | Pas de `/demo/star-wars-ia/` | **`/realisations/films-ia/`** (déjà utilisé sur la planète actuelle) |
+**Absents** (pas de `/demo/maison-aurelie/`, `/demo/maison-celeste/`, `/demo/domaine-eclipse/`, `/demo/star-wars-ia/` dans ce repo) : les trois autres projets du brief initial restent en **teaser** jusqu’à livraison des pages.
 
 **Règle** : aucune carte avec `href` vers une URL non listée dans le dépôt ou validée manuellement.
 
