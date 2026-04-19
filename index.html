@@ -24,8 +24,8 @@
     <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preload" href="/assets/fonts/geist-sans-500.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/assets/css/tokens-voyage.css?v=20260425" />
-    <link rel="stylesheet" href="/assets/css/voyage.css?v=20260425" />
+    <link rel="stylesheet" href="/assets/css/tokens-voyage.css?v=20260426" />
+    <link rel="stylesheet" href="/assets/css/voyage.css?v=20260426" />
     <script>
       window.__PINAPP__ = Object.assign({}, window.__PINAPP__ || {}, {
         WEBHOOK_N8N: '',
@@ -102,7 +102,7 @@
             <img src="/assets/images/voyage/01-seuil-desktop.png" alt="" width="1920" height="1080" fetchpriority="high" decoding="async" />
           </picture>
             <video class="lieu-bg-video" muted playsinline loop preload="metadata" aria-hidden="true">
-              <source src="" type="video/mp4" />
+              <source src="/assets/video/voyage/01-main-hologramme.mp4" type="video/mp4" />
             </video>
           </div>
         </div>
@@ -113,6 +113,18 @@
           <p class="body-lg reveal">
             Sites, automatisation n8n, IA et production vidéo sur mesure. Par Lauralie &amp; Michaël, basés à Bordeaux.
           </p>
+          <button
+            type="button"
+            class="holo-circle reveal"
+            id="holo-presentation-trigger"
+            aria-haspopup="dialog"
+            aria-controls="presentation-modal"
+            aria-label="Vidéo de présentation du duo : en production. Ouvrir le message."
+          >
+            <span class="holo-circle__pulse" aria-hidden="true"></span>
+            <span class="holo-circle__ring" aria-hidden="true"></span>
+            <span class="holo-circle__badge">En production</span>
+          </button>
           <p style="margin-top: var(--s-8); display: flex; flex-wrap: wrap; gap: var(--s-4)" class="reveal">
             <a class="btn btn-primary" href="#s6">Diagnostic gratuit</a>
             <a class="btn btn-secondary" href="/univers/">Découvrir nos univers →</a>
@@ -417,6 +429,36 @@
       </section>
     </main>
 
+    <dialog class="holo-modal" id="presentation-modal" aria-labelledby="presentation-modal-title">
+      <article class="holo-modal__inner">
+        <header class="holo-modal__header">
+          <span class="holo-modal__tag">Bientôt</span>
+          <h2 id="presentation-modal-title">Notre vidéo de présentation arrive.</h2>
+        </header>
+        <p class="holo-modal__body">
+          Lauralie et Michaël préparent une vidéo courte pour vous raconter Pinapp en quelques minutes : notre façon de travailler,
+          nos projets, notre studio à Bordeaux.
+        </p>
+        <p class="holo-modal__body holo-modal__body--muted">
+          En attendant, découvrez nos réalisations ou réservez un appel de 30 minutes — on répond sous 24 h.
+        </p>
+        <div class="holo-modal__actions">
+          <a href="#s3" class="holo-modal__btn-holo" data-close-modal="presentation-modal">Voir nos réalisations</a>
+          <a
+            href="https://cal.com/lauralie-daguzay-hdglzw/diagnostic"
+            class="btn btn-primary"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-close-modal="presentation-modal"
+            >Réserver un appel</a
+          >
+        </div>
+        <button type="button" class="holo-modal__close" aria-label="Fermer la fenêtre" data-close-modal="presentation-modal">
+          <span class="holo-modal__close-x" aria-hidden="true"></span>
+        </button>
+      </article>
+    </dialog>
+
     <footer class="voyage-footer">
       <div class="voyage-footer__grid">
         <p><strong>Pinapp</strong> — 49 Av. Edmond Rostand, 33700 Mérignac</p>
@@ -456,7 +498,7 @@
     <script src="/assets/js/voyage-particles.js?v=20260424"></script>
     <script src="/assets/js/voyage-bg-video.js?v=20260424"></script>
     <script src="/assets/js/forms-voyage.js?v=20260424"></script>
-    <script src="/assets/js/voyage.js?v=20260425"></script>
+    <script src="/assets/js/voyage.js?v=20260426"></script>
     <script>
       (function () {
         var nav = document.getElementById('voyage-nav');

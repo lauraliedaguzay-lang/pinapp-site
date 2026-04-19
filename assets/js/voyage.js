@@ -172,6 +172,82 @@
     });
   }
 
+  function initPresentationModal() {
+    var trigger = document.getElementById('holo-presentation-trigger');
+    var modal = document.getElementById('presentation-modal');
+    if (!trigger || !modal) return;
+
+    var supportsDialog =
+      typeof modal.showModal === 'function' && typeof modal.close === 'function';
+
+    function openModal() {
+      if (supportsDialog) {
+        try {
+          modal.showModal();
+        } catch (e) {
+          return;
+        }
+      } else {
+        modal.setAttribute('open', '');
+        modal.style.display = 'block';
+      }
+      document.body.classList.add('is-modal-open');
+      var first = modal.querySelector('.holo-modal__actions a, .holo-modal__close');
+      if (first) {
+        window.requestAnimationFrame(function () {
+          first.focus();
+        });
+      }
+    }
+
+    function closeModal() {
+      if (supportsDialog && modal.open) {
+        try {
+          modal.close();
+        } catch (e2) {}
+      } else {
+        modal.removeAttribute('open');
+        modal.style.display = '';
+      }
+      document.body.classList.remove('is-modal-open');
+      trigger.focus();
+    }
+
+    trigger.addEventListener('click', function () {
+      openModal();
+    });
+    trigger.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openModal();
+      }
+    });
+
+    modal.addEventListener('click', function (e) {
+      var closer = e.target.closest('[data-close-modal]');
+      if (closer) {
+        closeModal();
+        return;
+      }
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    modal.addEventListener('cancel', function () {
+      document.body.classList.remove('is-modal-open');
+      trigger.focus();
+    });
+
+    if (!supportsDialog) {
+      document.addEventListener('keydown', function onKey(e) {
+        if (e.key === 'Escape' && modal.hasAttribute('open')) {
+          closeModal();
+        }
+      });
+    }
+  }
+
   function initPlanetPanel() {
     var panel = document.getElementById('voyage-real-panel');
     if (!panel) return;
@@ -342,6 +418,7 @@
     initFloatingContact();
     initStats();
     initPlanetPanel();
+    initPresentationModal();
 
     if (!reduced && !root.classList.contains('voyage-sober')) {
       window.requestAnimationFrame(function () {
