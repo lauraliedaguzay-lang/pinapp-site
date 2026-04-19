@@ -58,7 +58,7 @@
 |--------|------------|
 | **LCP / poids** (22 images + GSAP) | WebP, eager seulement scène 1, lazy le reste, budgets cibles du master |
 | **A11y** (scroll captif, motion) | `prefers-reduced-motion`, **Mode sobre** (navigation ancres), focus visible |
-| **Maintenance** (monolithe scroll) | Page `voyage/` dédiée d’abord ; code découpé (`voyage.css`, `voyage.js`, `particles.js`) |
+| **Maintenance** (monolithe scroll) | Page `voyage/` dédiée d’abord ; code découpé (`voyage.css`, `voyage.js`, `voyage-particles.js` — ne pas écraser `particles.js` Pandora) |
 
 ---
 

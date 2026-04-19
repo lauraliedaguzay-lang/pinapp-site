@@ -12,7 +12,7 @@
 | 1 | OK | 22 PNG Pollinations via `pinapp-generate-voyage-images.ps1` |
 | 2 | OK | `assets/css/tokens-voyage.css`, Geist woff2 ×4 (jsDelivr fontsource), `assets/images/ananas-filigrane.svg` |
 | 3–4 | OK | `voyage/index.html` + `assets/css/voyage.css` |
-| 5 | Partiel | `voyage.js` (Lenis+ScrollTrigger basique, reveals, stats, planet panel), `particles.js` (2D simplifié) |
+| 5 | Partiel | `voyage.js` (Lenis+ScrollTrigger basique, reveals, stats, planet panel), `voyage-particles.js` (2D MVP — `particles.js` Pandora inchangé pour le reste du site) |
 | 6 | Partiel | `config-voyage.js`, `forms-voyage.js`, `.env.example` (restauré + clés n8n), `README-CONFIG-V2.md` |
 | 7 | Non exécuté ici | **Lighthouse** : à lancer en local / CI (`npx lighthouse https://…/voyage/`). |
 | 8 | Non fait | Pages légales inchangées (liens depuis footer voyage). |
@@ -22,7 +22,7 @@
 
 - `voyage/index.html`
 - `assets/css/tokens-voyage.css`, `assets/css/voyage.css`
-- `assets/js/voyage.js`, `particles.js`, `config-voyage.js`, `forms-voyage.js`
+- `assets/js/voyage.js`, `voyage-particles.js`, `config-voyage.js`, `forms-voyage.js`
 - `assets/fonts/geist-sans-400|500|600|700.woff2`
 - `assets/images/voyage/*.png` (×22)
 - `assets/images/ananas-filigrane.svg`
