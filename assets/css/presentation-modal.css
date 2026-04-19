@@ -1,0 +1,104 @@
+/* Modale native — vidéo de présentation (accueil voyage) */
+
+#presentation-modal {
+  border: none;
+  padding: 0;
+  margin: auto;
+  max-width: calc(100vw - 24px);
+  width: min(1120px, calc(100vw - 24px));
+  background: transparent;
+  color: var(--text-primary, #fff);
+}
+
+#presentation-modal::backdrop {
+  background: rgba(5, 11, 20, 0.88);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+}
+
+.presentation-modal__shell {
+  position: relative;
+  padding: 48px 12px 12px;
+}
+
+.presentation-modal__close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 80;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(62, 245, 224, 0.35);
+  background: rgba(8, 13, 24, 0.75);
+  color: var(--text-primary, #fff);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: border-color var(--d-short, 300ms) ease, background var(--d-short, 300ms) ease;
+}
+
+.presentation-modal__close:hover,
+.presentation-modal__close:focus-visible {
+  border-color: rgba(62, 245, 224, 0.7);
+  background: rgba(15, 26, 46, 0.9);
+  outline: none;
+}
+
+/* Déclencheur « holo » — scène 1 */
+.voyage-presentation-trigger {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-3, 12px);
+  margin-top: var(--s-8, 32px);
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.85));
+  cursor: pointer;
+  touch-action: manipulation;
+  font: inherit;
+}
+
+.voyage-presentation-trigger:focus-visible {
+  outline: 2px solid var(--cyan-glow, #3ef5e0);
+  outline-offset: 4px;
+  border-radius: var(--r-md, 12px);
+}
+
+.voyage-presentation-trigger__ring {
+  width: clamp(56px, 12vw, 88px);
+  height: clamp(56px, 12vw, 88px);
+  border-radius: 50%;
+  border: 2px solid rgba(62, 245, 224, 0.55);
+  box-shadow:
+    0 0 0 1px rgba(166, 127, 255, 0.2) inset,
+    0 0 32px rgba(62, 245, 224, 0.25);
+  background: radial-gradient(circle at 35% 30%, rgba(62, 245, 224, 0.18), transparent 55%);
+  transform: translateZ(0);
+  transition: transform var(--d-short, 300ms) var(--ease, ease), box-shadow var(--d-short, 300ms) ease;
+}
+
+.voyage-presentation-trigger:hover .voyage-presentation-trigger__ring,
+.voyage-presentation-trigger:focus-visible .voyage-presentation-trigger__ring {
+  transform: scale(1.05) translateZ(0);
+  box-shadow:
+    0 0 0 1px rgba(166, 127, 255, 0.28) inset,
+    0 0 44px rgba(62, 245, 224, 0.38);
+}
+
+.voyage-presentation-trigger__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cyan-soft, #75f7e6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .voyage-presentation-trigger__ring {
+    transition: none;
+  }
+}

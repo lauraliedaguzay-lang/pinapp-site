@@ -1,0 +1,400 @@
+/* ═══════════════════════════════════════════════════════════════
+   PRESENTATION VIDEO — Widget bande-annonce Pinapp (~46s)
+   Typographique · 9 scènes · aucune dépendance
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --v24-cosmos-night: var(--bg-void, #080d18);
+}
+
+/* Tokens locaux widget — fallback si absents globaux */
+:root {
+  --pv-black: var(--v24-cosmos-night, #080d18);
+  --pv-white: #fcfcf9;
+  --pv-white-pure: #ffffff;
+  --pv-cyan: #4dd0e1;
+  --pv-magenta: #e94695;
+  --pv-ink: #0b1220;
+  --pv-grain-opacity: 0.05;
+  --pv-fade: 480ms;
+  --pv-sand-duration: 1200ms;
+  --pv-font:
+    "Geist", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif;
+}
+
+.pv-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-width: 1280px;
+  margin: 0 auto;
+  background: var(--pv-black);
+  color: var(--pv-white);
+  overflow: hidden;
+  border-radius: 12px;
+  font-family: var(--pv-font);
+  user-select: none;
+  isolation: isolate;
+  transform: translateZ(0);
+}
+
+/* Grain cinématique permanent */
+.pv-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'>\
+<filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2'/></filter>\
+<rect width='100%' height='100%' filter='url(%23n)' opacity='0.4'/></svg>");
+  opacity: var(--pv-grain-opacity);
+  mix-blend-mode: overlay;
+  z-index: 50;
+}
+
+/* ─── Scène de base ─── */
+.pv-scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  opacity: 0;
+  transition:
+    opacity var(--pv-fade) cubic-bezier(0.4, 0, 0.2, 1),
+    background var(--pv-fade) ease;
+  padding: clamp(24px, 6%, 96px);
+  text-align: center;
+}
+
+.pv-scene.is-active {
+  opacity: 1;
+}
+
+.pv-scene--white {
+  background: var(--pv-white);
+  color: var(--pv-ink);
+}
+
+.pv-scene--black {
+  background: var(--pv-black);
+  color: var(--pv-white);
+}
+
+/* ─── Typographie cinéma ─── */
+.pv-line {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  opacity: 0;
+  filter: blur(14px);
+  transform: translateY(10px);
+  transition:
+    opacity var(--pv-sand-duration) cubic-bezier(0.22, 0.61, 0.36, 1),
+    filter var(--pv-sand-duration) cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform var(--pv-sand-duration) cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.pv-scene.is-active .pv-line {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+.pv-line--m {
+  font-size: clamp(28px, 4.2vw, 64px);
+}
+
+.pv-line--l {
+  font-size: clamp(36px, 5.8vw, 92px);
+}
+
+.pv-line--xl {
+  font-size: clamp(44px, 7.2vw, 120px);
+}
+
+.pv-line--punch {
+  font-size: clamp(48px, 8vw, 140px);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+}
+
+.pv-line--accent {
+  color: var(--pv-cyan);
+}
+
+.pv-line--dim {
+  opacity: 0.7;
+}
+
+/* ─── Scène 1 : Logo pulse ─── */
+.pv-logo {
+  width: clamp(80px, 12vw, 140px);
+  height: clamp(80px, 12vw, 140px);
+  border-radius: 50%;
+  border: 1.5px solid var(--pv-cyan);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: clamp(18px, 2vw, 28px);
+  color: var(--pv-cyan);
+  opacity: 0;
+  transform: scale(0.8);
+  transition:
+    opacity var(--pv-fade) ease,
+    transform 800ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  box-shadow:
+    0 0 0 0 rgba(77, 208, 225, 0.4),
+    inset 0 0 20px rgba(77, 208, 225, 0.15);
+  animation: pv-pulse 2400ms ease-in-out infinite;
+}
+
+.pv-scene.is-active .pv-logo {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@keyframes pv-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 0 rgba(77, 208, 225, 0.4),
+      inset 0 0 20px rgba(77, 208, 225, 0.15);
+  }
+  50% {
+    box-shadow:
+      0 0 0 24px rgba(77, 208, 225, 0),
+      inset 0 0 28px rgba(77, 208, 225, 0.25);
+  }
+}
+
+/* ─── Scène 4 : Interfaces abstraites ─── */
+.pv-workflow {
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.pv-workflow svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ─── Scène 6 : Particules Pandora ─── */
+.pv-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--pv-fade) ease;
+}
+
+.pv-scene.is-active .pv-particles {
+  opacity: 1;
+}
+
+.pv-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  box-shadow: 0 0 6px currentColor;
+  animation: pv-drift linear infinite;
+}
+
+@keyframes pv-drift {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--tx), var(--ty));
+    opacity: 0;
+  }
+}
+
+/* ─── Scène 9 : URL finale ─── */
+.pv-finale-url {
+  font-size: clamp(32px, 4.8vw, 72px);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin-top: 32px;
+  color: var(--pv-white);
+}
+
+.pv-finale-baseline {
+  font-size: clamp(14px, 1.4vw, 20px);
+  font-weight: 400;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  margin-top: 24px;
+  color: var(--pv-cyan);
+  opacity: 0.85;
+}
+
+/* ─── Transitions flashs (élément réservé storyboard) ─── */
+.pv-flash {
+  position: absolute;
+  inset: 0;
+  background: var(--pv-white-pure);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 40;
+  transition: opacity 120ms ease;
+}
+
+.pv-flash.is-flash {
+  opacity: 1;
+  transition: opacity 40ms ease;
+}
+
+/* ─── Contrôles ─── */
+.pv-controls {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: rgba(8, 13, 24, 0.7);
+  backdrop-filter: blur(10px) saturate(160%);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  border-radius: 999px;
+  opacity: 0;
+  transition: opacity 320ms ease;
+  z-index: 60;
+}
+
+.pv-stage:hover .pv-controls,
+.pv-stage:focus-within .pv-controls,
+.pv-stage.is-paused .pv-controls {
+  opacity: 1;
+}
+
+.pv-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: var(--pv-white);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  flex-shrink: 0;
+  transition: background 200ms ease, border-color 200ms ease;
+  touch-action: manipulation;
+}
+
+.pv-btn:hover,
+.pv-btn:focus-visible {
+  background: rgba(77, 208, 225, 0.12);
+  border-color: rgba(77, 208, 225, 0.6);
+  outline: none;
+}
+
+.pv-timeline {
+  flex: 1;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  touch-action: manipulation;
+}
+
+.pv-timeline__fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: var(--pv-cyan);
+  width: 0;
+  transition: width 120ms linear;
+}
+
+.pv-time {
+  color: var(--pv-white);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.8;
+  min-width: 72px;
+  text-align: right;
+}
+
+/* ─── Big play overlay (au repos) ─── */
+.pv-play-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(8, 13, 24, 0.55);
+  backdrop-filter: blur(4px) saturate(140%);
+  -webkit-backdrop-filter: blur(4px) saturate(140%);
+  cursor: pointer;
+  z-index: 70;
+  transition: opacity 320ms ease;
+  touch-action: manipulation;
+}
+
+.pv-stage.is-playing .pv-play-overlay {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pv-play-overlay__btn {
+  width: clamp(72px, 10vw, 120px);
+  height: clamp(72px, 10vw, 120px);
+  border-radius: 50%;
+  background: rgba(77, 208, 225, 0.12);
+  border: 1.5px solid rgba(77, 208, 225, 0.7);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pv-white);
+  font-size: clamp(20px, 3vw, 36px);
+  transition: transform 320ms ease, background 320ms ease;
+}
+
+.pv-play-overlay:hover .pv-play-overlay__btn {
+  transform: scale(1.06);
+  background: rgba(77, 208, 225, 0.2);
+}
+
+/* ─── Reduced motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  .pv-line {
+    transition-duration: 200ms;
+    filter: none;
+    transform: none;
+  }
+
+  .pv-logo {
+    animation: none;
+  }
+
+  .pv-particle {
+    animation: none;
+  }
+
+  .pv-scene {
+    transition-duration: 200ms;
+  }
+}
