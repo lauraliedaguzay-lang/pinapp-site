@@ -217,14 +217,17 @@ textarea::placeholder {
 
 .reveal {
   opacity: 0;
-  filter: blur(24px);
+  filter: blur(36px);
+  transform: translateY(60px);
   transition:
-    opacity var(--d-long) var(--ease),
-    filter var(--d-long) var(--ease);
+    opacity 1.2s var(--ease),
+    filter 1.2s var(--ease),
+    transform 1.2s var(--ease);
 }
 .reveal.is-revealed {
   opacity: 1;
   filter: blur(0);
+  transform: translateY(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -245,13 +248,13 @@ textarea::placeholder {
 @media (max-width: 767px) {
   .reveal {
     filter: none;
-    transform: scale(0.98);
+    transform: translateY(24px);
     transition:
       opacity var(--d-med) var(--ease),
       transform var(--d-med) var(--ease);
   }
   .reveal.is-revealed {
-    transform: scale(1);
+    transform: translateY(0);
   }
 }
 
