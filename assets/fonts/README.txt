@@ -1,10 +1,23 @@
-﻿FONTS — PINAPP (2026)
-=====================
+﻿FONTS — PINAPP AURA (self-host)
+================================
 
-Typographie du site : pile système Apple uniquement (SF Pro via -apple-system /
-BlinkMacSystemFont). Aucun chargement de fichiers woff2 pour le rendu principal.
+Fichiers `.woff2` servis depuis `/assets/fonts/` (même origine que pinapp.fr,
+équivalent self-host « Bunny » une fois le dépôt déployé sur l’hébergement).
 
-Réglages : assets/css/fonts.css — importé par assets/variables.css
+- **Fraunces** : italique (variable 300–600) + normal (300–700), 3 sous-ensembles
+  (viet / latin-ext / latin) — Google Fonts, licence SIL OFL 1.1.
+- **General Sans** : 400, 500, 600 — Fontshare (usage vitrine ; conserver la
+  licence dans le dossier projet).
+- **JetBrains Mono** : 400 et 500 — Google Fonts, SIL OFL 1.1 (les fichiers
+  latins sont partagés entre les deux graisses, comportement identique au CSS
+  officiel).
 
-Les anciens fichiers woff2 (Clash Display, Inter) peuvent rester sur disque pour
-archives locales ; ils ne sont plus référencés par le CSS livré.
+Déclarations : `/assets/css/aura-fonts.css` (`font-display: swap`).
+Le fichier `/assets/css/fonts.css` reste réservé aux variables `--font-apple-*`
+(import global) ; ne pas y mélanger les @font-face AURA.
+
+Préchargement critique (home) : `fraunces-italic-latin.woff2` +
+`general-sans-500.woff2`.
+
+Anciens fichiers (Clash Display, Inter) : archives locales, non utilisés par
+le bundle AURA.

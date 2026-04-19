@@ -1,0 +1,89 @@
+/* PINAPP — constellation TRACES */
+@import url('./tokens.css');
+
+.traces-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  mix-blend-mode: screen;
+}
+
+.traces-export-btn {
+  position: fixed;
+  bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
+  right: max(1rem, env(safe-area-inset-right, 0px));
+  z-index: 20;
+  min-height: 44px;
+  padding: 0.75rem 1.25rem;
+  font-family: var(--pp-font-mono);
+  font-size: var(--pp-fs-tag);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pp-text);
+  background: rgba(18, 10, 30, 0.72);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  border: 1px solid var(--pp-border);
+  border-radius: var(--pp-radius-pill);
+  cursor: pointer;
+  touch-action: manipulation;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.4s var(--pp-ease),
+    transform 0.4s var(--pp-ease),
+    border-color 0.2s var(--pp-ease);
+}
+
+.traces-export-btn.is-ready {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.traces-export-btn:hover {
+  border-color: var(--pp-border-strong);
+}
+
+.traces-export-btn::before {
+  content: '';
+  display: inline-block;
+  width: 0.35em;
+  height: 0.35em;
+  margin-right: 0.45em;
+  border-radius: 1px;
+  background: var(--pp-purple-bright);
+  transform: rotate(45deg);
+  vertical-align: middle;
+}
+
+.traces-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(5, 3, 8, 0.9);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.traces-modal.is-open {
+  display: flex;
+}
+
+.traces-modal__inner {
+  max-width: 720px;
+  width: 100%;
+  text-align: center;
+}
+
+.traces-modal canvas {
+  width: 100%;
+  height: auto;
+  max-height: 60vh;
+  border-radius: var(--pp-radius-lg);
+  background: var(--pp-bg-deep);
+}

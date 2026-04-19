@@ -87,8 +87,12 @@
   }
 
   function initPreloader(onDone) {
-    var canvas = document.getElementById('pp-vortex');
     var pl = document.getElementById('pp-preloader');
+    if (!pl) {
+      if (typeof onDone === 'function') onDone();
+      return;
+    }
+    var canvas = document.getElementById('pp-vortex');
     if (!canvas || !canvas.getContext || !pl) {
       hidePreloaderImmediate();
       if (typeof onDone === 'function') onDone();
@@ -559,6 +563,23 @@
   }
 
   function runPreloaderGate() {
+    /* Intro voile + lentille : assets/js/preloader.js émet pp:preloader:done */
+    var introEl = document.getElementById('pp-intro');
+    if (introEl && !document.documentElement.classList.contains('pp-intro-skip')) {
+      window.addEventListener(
+        'pp:preloader:done',
+        function onVeilIntroDone() {
+          window.removeEventListener('pp:preloader:done', onVeilIntroDone);
+          try {
+            document.body.classList.add('pp-loaded');
+          } catch (eB) {}
+          startSite();
+        },
+        { once: true }
+      );
+      return;
+    }
+
     var pl = document.getElementById('pp-preloader');
     if (!pl) {
       startSite();
@@ -740,16 +761,16 @@
         initLazyIframes();
         console.log('[pp] autoMarkup + lazy iframes OK');
 
-        /* ── Lenis ── */
-        if (!reduceMotion) {
+        /* ── Lenis (initialisé par assets/js/lenis-init.js si présent ; sinon repli) ── */
+        if (!reduceMotion && !window.__PINAPP_LENIS__) {
           console.log('[pp] Lenis typeof:', typeof Lenis, 'window.Lenis:', typeof window.Lenis);
           try {
             var LenisGlobal = typeof Lenis !== 'undefined' ? Lenis : window.Lenis;
             if (!LenisGlobal) {
               console.warn('[pp] Lenis constructor missing');
             } else {
-              var lenis = new LenisGlobal({ duration: 1.2, smoothWheel: true });
-              document.documentElement.classList.add('lenis', 'lenis-smooth');
+              var lenis = new LenisGlobal({ lerp: 0.1, smoothWheel: true });
+              document.documentElement.classList.add('lenis', 'lenis-smooth', 'pp-lenis-smooth');
               function raf(time) {
                 lenis.raf(time);
                 window.requestAnimationFrame(raf);
@@ -759,16 +780,18 @@
                 lenis.on('scroll', ScrollTrigger.update);
               }
               window.__PINAPP_LENIS__ = lenis;
-              console.log('[pp] Lenis OK');
+              console.log('[pp] Lenis OK (fallback boot)');
             }
           } catch (eLenis) {
             console.error('[pp] Lenis FAILED:', eLenis && eLenis.message, eLenis);
             document.documentElement.style.overflow = 'auto';
             document.body.style.overflow = 'auto';
-            document.documentElement.classList.remove('lenis', 'lenis-smooth');
+            document.documentElement.classList.remove('lenis', 'lenis-smooth', 'pp-lenis-smooth');
           }
-        } else {
+        } else if (reduceMotion) {
           console.log('[pp] Lenis skipped (prefers-reduced-motion)');
+        } else {
+          console.log('[pp] Lenis already initialised (lenis-init.js)');
         }
 
         if (reduceMotion) {
@@ -857,6 +880,11 @@
 
           if (el.getAttribute('data-pp-split') === '1') {
             console.log('[pp] split[' + i + '] SKIPPED (data-pp-split)');
+            return;
+          }
+
+          if (el.id === 'aura-hero-title') {
+            console.log('[pp] split[' + i + '] SKIPPED (aura hero — intro / splits.js)');
             return;
           }
 

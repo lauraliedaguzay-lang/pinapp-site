@@ -2,6 +2,38 @@
 # Portée : tout le dépôt pinapp-site
 # Cerveau stratégique : Claude | Générateur : Cursor | Déploiement : Hostinger SFTP
 
+## PINAPP.FR vs SITES CLIENTS — immersion & scroll (doctrine prioritaire)
+
+**Distinction critique** : deux types de livrables, règles opposées.
+
+### pinapp.fr (vaisseau-amiral Pinapp)
+
+La **vitrine pinapp.fr** peut assumer un **voyage cinématique scroll-driven** (ex. refonte V2 type Passengers / plan-séquence) : parallax multi-couches, sections pinnées (ScrollTrigger), Canvas particules, cross-fade, blur-reveal sur le contenu, hero plein écran cinéma, accents biolumi (cyan / violet / magenta).
+
+**Obligatoire sur pinapp.fr malgré l’immersion** :
+
+- `prefers-reduced-motion: reduce` → désactiver les animations lourdes (CSS + JS).
+- **Mode sobre** : bouton visible (ex. menu hamburger) qui coupe le scroll narratif et restaure une navigation classique par ancres.
+- **Textes marketing dans le HTML** (jamais uniquement dans le Canvas) — SEO.
+- **Perf** : budget global cible raisonnable (ex. ≤ ~2 Mo assets critiques page d’accueil), LCP cible ≤ 1,5 s desktop / ≤ 2,5 s mobile 4G, Lighthouse ≥ 90 (perf / a11y / SEO) objectifs.
+- **`.low-perf`** si `navigator.hardwareConcurrency < 4` : réduire particules, désactiver blur coûteux.
+- Pas de secrets / pas de frameworks interdits par ailleurs dans ce fichier.
+
+### Sites clients Pinapp (démos métier, vitrines livrées, M&P, etc.)
+
+**Règle sobre inchangée** : pas de parallax décoratif gratuit, pas de scroll narratif imposé type one-pager « spectacle » si ce n’est pas le brief client. Navigation classique, marque **client** au centre, conversion > immersion. Se référer à `.cursor/rules/pinapp-zero-scroll.mdc` pour le volume de scroll et le comportement technique du scroll **sur ces sites**.
+
+### Principe de décision
+
+> Avant une animation scroll-driven ou une parallax décorative : **c’est la home pinapp.fr (vitrine) ou un site / démo client ?**
+>
+> - **pinapp.fr** → immersion cinéma **assumée** si le chantier le prévoit (ex. `PINAPP_CURSOR_V2_MASTER.md`).
+> - **Site client** → sobriété **assumée** ; la règle « zéro scroll / pas de parallax décorative » du dépôt s’applique pleinement.
+
+### Abrogation ciblée
+
+Toute consigne générique du dépôt du type « zéro scroll » ou « pas de parallax sur le scroll » **ne s’applique pas** à la **page d’accueil pinapp.fr** lorsqu’elle est explicitement en mode **voyage cinématique V2** (documenté dans `PINAPP_CURSOR_V2_MASTER.md` et validé sur la branche de refonte). Elle **continue de s’appliquer** à tous les **sites et démos clients** sauf brief contraire écrit.
+
 ## ENTITÉ LÉGALE
 - Pinapp Inc. = maison mère
 - Pinapp Studio (pinapp.fr) = agence B2B premium — seul revenu actuel
