@@ -117,5 +117,7 @@
   document.addEventListener('DOMContentLoaded', function () {
     bindForm('form-diagnostic', 'diagnostic', 'pinapp_voyage_diag_ts');
     bindForm('form-newsletter', 'newsletter', 'pinapp_voyage_nl_ts');
+    bindForm('form-diagnostic-rapide', 'diagnostic', 'pinapp_voyage_diag_ts');
+    bindForm('form-newsletter-rapide', 'newsletter', 'pinapp_voyage_nl_ts');
   });
 })();
