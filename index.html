@@ -26,6 +26,8 @@
     <link rel="preload" href="/assets/fonts/geist-sans-500.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/assets/css/tokens-voyage.css?v=20260430" />
     <link rel="stylesheet" href="/assets/css/voyage.css?v=20260430" />
+    <link rel="stylesheet" href="/assets/css/presentation-modal.css?v=20260430" />
+    <link rel="stylesheet" href="/assets/css/presentation-video.css?v=20260430" />
     <link rel="stylesheet" href="/assets/css/transitions.css?v=20260430" />
     <link rel="stylesheet" href="/assets/css/vimeo-lightbox.css?v=20260430" />
     <script>
@@ -127,7 +129,7 @@
             id="holo-presentation-trigger"
             aria-haspopup="dialog"
             aria-controls="presentation-modal"
-            aria-label="Vidéo de présentation du duo : en production. Ouvrir le message."
+            aria-label="Ouvrir la vidéo de présentation Pinapp (environ 46 secondes)."
           >
             <span class="holo-circle__pulse" aria-hidden="true"></span>
             <span class="holo-circle__ring" aria-hidden="true"></span>
@@ -584,36 +586,110 @@
       </div>
     </dialog>
 
-    <dialog class="holo-modal" id="presentation-modal" aria-labelledby="presentation-modal-title">
-      <article class="holo-modal__inner">
-        <header class="holo-modal__header">
-          <span class="holo-modal__tag">Bientôt</span>
-          <h2 id="presentation-modal-title">Notre vidéo de présentation arrive.</h2>
-        </header>
-        <p class="holo-modal__body">
-          Lauralie et Michaël préparent une vidéo courte pour vous raconter Pinapp en quelques minutes : notre façon de travailler,
-          nos projets, notre studio à Bordeaux.
-        </p>
-        <p class="holo-modal__body holo-modal__body--muted">
-          En attendant, découvrez nos réalisations ou réservez un appel de 30 minutes — on répond sous 24 h.
-        </p>
-        <div class="holo-modal__actions">
-          <a href="#s7" class="holo-modal__btn-holo" data-close-modal="presentation-modal">Voir nos réalisations</a>
-          <a
-            href="https://cal.com/lauralie-daguzay-hdglzw/diagnostic"
-            class="btn btn-primary"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-close-modal="presentation-modal"
-            >Réserver un appel</a
-          >
-        </div>
-        <button type="button" class="holo-modal__close" aria-label="Fermer la fenêtre" data-close-modal="presentation-modal">
-          <span class="holo-modal__close-x" aria-hidden="true"></span>
+    <dialog id="presentation-modal" aria-labelledby="presentation-modal-title">
+      <div class="presentation-modal__shell">
+        <h2 id="presentation-modal-title" class="sr-only">Vidéo de présentation Pinapp</h2>
+        <button type="button" class="presentation-modal__close" id="presentation-modal-close" aria-label="Fermer">
+          ×
         </button>
-      </article>
-    </dialog>
+        <div class="pv-stage" data-pv-stage aria-label="Vidéo de présentation Pinapp">
+          <audio data-pv-audio preload="none"></audio>
 
+          <div class="pv-scene pv-scene--black is-active" data-scene="1">
+            <div class="pv-logo">PINAPP</div>
+          </div>
+
+          <div class="pv-scene pv-scene--white" data-scene="2">
+            <p class="pv-line pv-line--xl">Bienvenue.</p>
+          </div>
+
+          <div class="pv-scene pv-scene--white" data-scene="3">
+            <p class="pv-line pv-line--l">
+              Vous êtes sur le point d'entrer<br />
+              dans un système différent.
+            </p>
+          </div>
+
+          <div class="pv-scene pv-scene--black" data-scene="4">
+            <div class="pv-workflow" aria-hidden="true">
+              <svg viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <linearGradient id="pv-wf-grad" x1="0%" x2="100%">
+                    <stop offset="0%" stop-color="#4DD0E1" stop-opacity="0" />
+                    <stop offset="50%" stop-color="#4DD0E1" stop-opacity="0.6" />
+                    <stop offset="100%" stop-color="#4DD0E1" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+                <g stroke="url(#pv-wf-grad)" stroke-width="1.5" fill="none">
+                  <circle cx="200" cy="360" r="36" />
+                  <circle cx="500" cy="240" r="24" />
+                  <circle cx="500" cy="480" r="24" />
+                  <circle cx="800" cy="360" r="36" />
+                  <circle cx="1080" cy="360" r="24" />
+                  <path
+                    d="M 236 360 L 476 240 M 236 360 L 476 480
+                   M 524 240 L 764 360 M 524 480 L 764 360
+                   M 836 360 L 1056 360"
+                  />
+                </g>
+              </svg>
+            </div>
+            <p class="pv-line pv-line--m" style="position: relative; z-index: 1">
+              Ici, vos outils travaillent.<br />
+              Vos process s'exécutent.<br />
+              <span class="pv-line--accent">Vous, vous décidez.</span>
+            </p>
+          </div>
+
+          <div class="pv-scene pv-scene--white" data-scene="5">
+            <p class="pv-line pv-line--l">Le problème n'est plus<br />le manque d'outils.</p>
+          </div>
+
+          <div class="pv-scene pv-scene--black" data-scene="6">
+            <div class="pv-particles" data-pv-particles aria-hidden="true"></div>
+          </div>
+
+          <div class="pv-scene pv-scene--black" data-scene="7">
+            <p class="pv-line pv-line--punch">
+              C'est le manque<br />
+              <span class="pv-line--accent">de structure.</span>
+            </p>
+          </div>
+
+          <div class="pv-scene pv-scene--white" data-scene="8">
+            <p class="pv-line pv-line--l">Nous construisons la structure.</p>
+            <p class="pv-line pv-line--m pv-line--dim" style="margin-top: 24px">Ça tourne.</p>
+          </div>
+
+          <div class="pv-scene pv-scene--black" data-scene="9">
+            <div class="pv-logo">PINAPP</div>
+            <p class="pv-finale-url">pinapp.fr</p>
+            <p class="pv-finale-baseline">Connecter · Construire · Transmettre</p>
+          </div>
+
+          <div class="pv-flash" aria-hidden="true"></div>
+
+          <div
+            class="pv-play-overlay"
+            data-pv-overlay
+            role="button"
+            aria-label="Lancer la vidéo de présentation"
+            tabindex="0"
+          >
+            <span class="pv-play-overlay__btn" aria-hidden="true">▶</span>
+          </div>
+
+          <div class="pv-controls">
+            <button class="pv-btn" data-pv-play type="button" aria-label="Lecture ou pause">▶</button>
+            <button class="pv-btn" data-pv-restart type="button" aria-label="Recommencer">↻</button>
+            <div class="pv-timeline" data-pv-timeline>
+              <div class="pv-timeline__fill" data-pv-fill></div>
+            </div>
+            <span class="pv-time" data-pv-time>0:00 / 0:46</span>
+          </div>
+        </div>
+      </div>
+    </dialog>
     <footer class="voyage-footer">
       <div class="voyage-footer__grid">
         <p><strong>Pinapp</strong> — 49 Av. Edmond Rostand, 33700 Mérignac</p>
@@ -646,6 +722,7 @@
       }
     </style>
 
+    <script src="/assets/js/presentation-video.js?v=20260430"></script>
     <script src="/assets/js/config-voyage.js?v=20260424"></script>
     <script src="/assets/vendor/gsap.min.js?v=3.12.5"></script>
     <script src="/assets/vendor/ScrollTrigger.min.js?v=3.12.5"></script>
@@ -656,7 +733,7 @@
     <script src="/assets/js/voyage-bg-video.js?v=20260430"></script>
     <script src="/assets/js/forms-voyage.js?v=20260424"></script>
     <script src="/assets/js/voyage-vimeo-lightbox.js?v=20260430"></script>
-    <script src="/assets/js/voyage.js?v=20260430"></script>
+    <script src="/assets/js/voyage.js?v=20260431"></script>
     <script>
       (function () {
         var nav = document.getElementById('voyage-nav');

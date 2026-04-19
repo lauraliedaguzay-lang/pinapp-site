@@ -197,10 +197,23 @@
     var modal = document.getElementById('presentation-modal');
     if (!trigger || !modal) return;
 
+    var stage = modal.querySelector('[data-pv-stage]');
+    var closeBtn = document.getElementById('presentation-modal-close');
+    var lastOpener = trigger;
+
     var supportsDialog =
       typeof modal.showModal === 'function' && typeof modal.close === 'function';
 
-    function openModal() {
+    function resetStage() {
+      if (stage && typeof stage.__pvReset === 'function') {
+        try {
+          stage.__pvReset();
+        } catch (eR) {}
+      }
+    }
+
+    function openModal(opener) {
+      lastOpener = opener || trigger;
       if (supportsDialog) {
         try {
           modal.showModal();
@@ -212,15 +225,19 @@
         modal.style.display = 'block';
       }
       document.body.classList.add('is-modal-open');
-      var first = modal.querySelector('.holo-modal__actions a, .holo-modal__close');
+      resetStage();
+      var first = closeBtn || modal.querySelector('[data-pv-overlay], button, a');
       if (first) {
         window.requestAnimationFrame(function () {
-          first.focus();
+          try {
+            first.focus();
+          } catch (eF) {}
         });
       }
     }
 
     function closeModal() {
+      resetStage();
       if (supportsDialog && modal.open) {
         try {
           modal.close();
@@ -230,34 +247,53 @@
         modal.style.display = '';
       }
       document.body.classList.remove('is-modal-open');
-      trigger.focus();
+      if (lastOpener && typeof lastOpener.focus === 'function') {
+        try {
+          lastOpener.focus();
+        } catch (e3) {}
+      }
     }
 
-    trigger.addEventListener('click', function () {
-      openModal();
-    });
-    trigger.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openModal();
-      }
-    });
+    function bindOpener(el) {
+      if (!el) return;
+      el.addEventListener('click', function () {
+        openModal(el);
+      });
+      el.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openModal(el);
+        }
+      });
+    }
+
+    bindOpener(trigger);
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function () {
+        closeModal();
+      });
+    }
 
     modal.addEventListener('click', function (e) {
-      var closer = e.target.closest('[data-close-modal]');
-      if (closer) {
-        closeModal();
-        return;
-      }
       if (e.target === modal) {
         closeModal();
       }
     });
 
     modal.addEventListener('cancel', function () {
-      document.body.classList.remove('is-modal-open');
-      trigger.focus();
+      closeModal();
     });
+
+    var overlay = stage && stage.querySelector('[data-pv-overlay]');
+    if (overlay) {
+      overlay.addEventListener('keydown', function (e) {
+        if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault();
+          overlay.click();
+        }
+      });
+    }
 
     if (!supportsDialog) {
       document.addEventListener('keydown', function onKey(e) {
