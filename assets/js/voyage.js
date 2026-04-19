@@ -227,6 +227,16 @@
     } catch (e) {}
   }
 
+  function getVoyageBgMotionTarget(sec) {
+    var stack = sec.querySelector('.voyage-scene__media-stack');
+    if (stack && stack.classList.contains('has-video')) {
+      var vid = stack.querySelector('.lieu-bg-video');
+      if (vid) return vid;
+    }
+    var im = sec.querySelector('.voyage-scene__bg img');
+    return im || null;
+  }
+
   function initScroll() {
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
     if (reduced || root.classList.contains('voyage-sober')) return;
@@ -239,7 +249,7 @@
     } catch (e) {}
 
     document.querySelectorAll('.voyage-scene').forEach(function (sec, idx) {
-      var img = sec.querySelector('.voyage-scene__bg img');
+      var img = getVoyageBgMotionTarget(sec);
       var veil = sec.querySelector('.voyage-scene__veil');
       var inner = sec.querySelector('.voyage-scene__inner');
 

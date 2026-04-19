@@ -63,11 +63,20 @@ Plan-séquence scrollable : une timeline GSAP unique pilote caméra (translate/s
 
 **Aucun son** : pas de fichier audio, pas de Web Audio, pas de toggle dans l’UI. Immersion uniquement visuelle (scroll, particules, sous-titres, profondeur), sur le modèle pages type Apple / Stripe / wearebrand.
 
+## V2.4 — Vidéos Runway (muettes, style Apple)
+
+Chaque section `.voyage-scene` inclut une pile `.voyage-scene__media-stack` : `<picture>` (fallback) + `<video class="lieu-bg-video" muted playsinline loop preload="metadata">` avec `<source src="">` vide jusqu’à livraison des MP4.
+
+- **`assets/js/voyage-bg-video.js`** : si `source[src]` est non vide → classe `has-video` sur la pile (la vidéo remplace l’image) ; lecture / pause via `IntersectionObserver` (seuil 50 %), respect du mode sobre.
+- **`assets/js/voyage.js`** : le zoom ScrollTrigger cible la vidéo si `has-video`, sinon l’image.
+- **Fichiers vidéo** : à placer sous `/assets/video/voyage/` (ex. `lieu-01.mp4` …) puis renseigner les `src` dans le HTML.
+
 ## Fichiers clés
 
 - `index.html` — shell voyage + toggle + 8 `.lieu`.
 - `services/index.html` — mode rapide canonique.
 - `assets/js/voyage.js` — timeline + Lenis + ScrollTrigger.
 - `assets/js/voyage-tooltips.js`.
+- `assets/js/voyage-bg-video.js` (V2.4).
 - `assets/css/tokens-voyage.css`, `assets/css/voyage.css`.
 - `assets/svg/*` — objets lieu 3.
