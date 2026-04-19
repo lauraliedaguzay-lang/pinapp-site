@@ -4,7 +4,7 @@
 
 Tu es Cursor sur le dépôt `lauraliedaguzay-lang/pinapp-site`. Tu as accès au terminal, au navigateur, à la génération d’images (selon ton environnement), et à Git.
 
-- **Branche dédiée** : `refonte-passengers-v2` (ne pas pousser sur `main` sans validation humaine).
+- **Branche** : utiliser la branche courante (`git branch --show-current`) ou créer une branche dédiée si tu es sur `main` (ex. `refonte-passengers-v2`). Ne pas pousser sur `main` sans validation humaine.
 - **Commit** après chaque phase avec un message explicite.
 - **Ne pas inventer** prix, offres ni textes légaux : les extraire du site / du repo existant.
 - **Stack** : HTML / CSS / JS vanilla + GSAP + ScrollTrigger + Lenis + Canvas 2D. Zéro framework React/Vue/etc.
@@ -22,7 +22,7 @@ Tu es Cursor sur le dépôt `lauraliedaguzay-lang/pinapp-site`. Tu as accès au 
 | **Cible** | TPE / PME francophones (Bordeaux et au-delà) |
 | **Objectif** | Dépasser la barre de perception **wearebrand.io** sur cette cible, avec un voyage cinéma type *Passengers* (intérieur vaisseau) + plan-séquence continu (*1917*). |
 | **Perf** | Budget global cible ≤ ~2 Mo assets critiques page d’accueil ; LCP ≤ 1,5 s desktop / ≤ 2,5 s mobile 4G ; Lighthouse ≥ 90 (perf / a11y / SEO) objectifs. |
-| **Police** | **Geist** (Vercel, open source) — self-host `woff2` dans `/assets/fonts/` (400, 500, 600, 700). Vérifier la licence Vercel avant livraison. |
+| **Police** | **Geist** (Vercel) — self-host `woff2` dans `/assets/fonts/` (400, 500, 600, 700). Licence **OFL (SIL Open Font License)** : OK self-host commercial. |
 | **Images** | 22 fichiers attendus sous `/assets/images/voyage/` (nomenclature ci-dessous). |
 | **Mémoire & Présence** | Site **externe** uniquement : pas de contenu M&P détaillé sur pinapp.fr ; teaser + lien `memoireetpresence.fr` (ou URL GitHub Pages officielle). |
 | **Hébergement** | Hostinger + dépôt GitHub (workflow existant du repo). |
@@ -126,10 +126,10 @@ Coller / adapter le bloc CSS Geist + `:root` fourni dans ta spec (couleurs void 
 
 ### Phase 0 — Audit repo *(obligatoire)*
 
-- `git fetch` puis `git checkout -b refonte-passengers-v2`.
+- `git fetch` ; si tu es sur `main`, `git checkout -b refonte-passengers-v2` (sinon rester sur `git branch --show-current`).
 - Lire `index.html`, CSS/JS globaux, workflows déploiement, pages légales.
 - Lister textes et **prix HT** à réutiliser tels quels.
-- Commit : `chore(v2): phase 0 — audit branche refonte-passengers-v2`.
+- Commit : `chore(v2): phase 0 — audit repo (branche courante)`.
 
 ### Phase 0.5 — Imprégnation visuelle & technique *(10 min — OBLIGATOIRE)*
 
@@ -181,7 +181,7 @@ Utiliser la recherche web avec des requêtes du type : *Passengers 2016 Avalon i
 - *Canvas 2D bioluminescent particles performance*  
 - *Lenis smooth scroll vanilla integration*  
 - *CSS clip-path expand transition cinematic*  
-- *Geist font self-host license Vercel*
+- *Geist font OFL self-host*
 
 #### Livrable Phase 0.5
 
@@ -228,7 +228,7 @@ Commit : `assets(v2): phase 1 — images voyage (png/webp)`.
 
 ### Phase 5 — JS (Lenis, GSAP, particules, split texte)
 
-- `voyage.js` + `particles.js` ; pas de parallax décoratif interdit par les règles internes du repo si en conflit — **documenter** dans le rapport ou adapter (ex. uniquement `transform`/`opacity` sur layers dédiés, pas sur fond critique).
+- `voyage.js` + `particles.js` : sur **pinapp.fr** le voyage V2 **assume** scroll-driven + parallax + particules (voir `.cursorrules` section *PINAPP.FR vs SITES CLIENTS*). Toujours : `prefers-reduced-motion`, mode sobre, `.low-perf`, textes en HTML.
 - Commit : `feat(v2): phase 5 — JS scroll particules`.
 
 ### Phase 6 — Formulaires + config + parrainage
@@ -248,7 +248,7 @@ Commit : `assets(v2): phase 1 — images voyage (png/webp)`.
 
 ### Phase 9 — Push + PR + rapport
 
-- `git push -u origin refonte-passengers-v2`.
+- `git push -u origin <branche-courante>` (obtenir le nom avec `git branch --show-current`).
 - Ouvrir une **PR** vers `main` (draft) avec résumé et risques.
 - Créer **`RAPPORT-REFONTE-V2.md`** : durée, fichiers touchés, scores Lighthouse, URL PR, variables env à remplir, `/demo/atelier-rivage/` non régression mentionnée.
 

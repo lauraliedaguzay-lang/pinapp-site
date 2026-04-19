@@ -1,11 +1,17 @@
 ---
-description: Pinapp — zéro scroll animé + volume de défilement minimal (web critique, mobile très peu)
+description: Pinapp — zéro scroll animé + volume minimal (sites clients) ; exception pinapp.fr voyage V2
 alwaysApply: true
 ---
 
 # Règle « zéro scroll » (Pinapp)
 
-Complète `.cursorrules`. **Priorité critique** : ne pas la contourner sauf demande explicite de l’utilisateur.
+Complète `.cursorrules`.
+
+## Exception — pinapp.fr (vaisseau-amiral, voyage cinématique)
+
+Sur la **page d’accueil pinapp.fr** lorsqu’elle est en refonte **voyage cinématique V2** (voir `PINAPP_CURSOR_V2_MASTER.md` + section **PINAPP.FR vs SITES CLIENTS** dans `.cursorrules`) : le scroll narratif, le pin de sections, la parallax multi-couches et les particules Canvas **sont autorisés** comme vitrine. **Toujours** : `prefers-reduced-motion`, **mode sobre** utilisateur, textes dans le HTML, budgets perf / Lighthouse comme dans `.cursorrules`.
+
+Pour **tout le reste du dépôt** (démos client, pages internes, etc.), la règle ci-dessous reste **prioritaire** : ne pas la contourner sauf demande explicite de l’utilisateur.
 
 ## Volume de défilement (UX) — critique
 
