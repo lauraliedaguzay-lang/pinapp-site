@@ -122,7 +122,7 @@
       } catch (e2) {}
     }
 
-    function emitChapter(idx, sec, progress) {
+    function emitChapter(idx, sec, progress, previousIndex) {
       if (idx === lastEmitted) return;
       lastEmitted = idx;
       try {
@@ -131,12 +131,33 @@
             detail: {
               chapter: chapters[idx] ? chapters[idx].id : idx + 1,
               index: idx,
+              previousIndex: typeof previousIndex === 'number' ? previousIndex : -1,
               section: sec,
               progress: progress,
             },
           })
         );
       } catch (e3) {}
+    }
+
+    function emitVideoSwapRequest(idx, previousIndex, incomingEl, outgoingEl, commit) {
+      var detail = {
+        chapter: chapters[idx] ? chapters[idx].id : idx + 1,
+        index: idx,
+        previousIndex: typeof previousIndex === 'number' ? previousIndex : -1,
+        incomingEl: incomingEl,
+        outgoingEl: outgoingEl,
+        commit: typeof commit === 'function' ? commit : null,
+        claimed: false,
+      };
+      try {
+        document.dispatchEvent(
+          new CustomEvent('pinapp:voyagechaptervideoswaprequest', {
+            detail: detail,
+          })
+        );
+      } catch (e3b) {}
+      return detail;
     }
 
     function swapTracks() {
@@ -146,12 +167,23 @@
       setActiveVisual(active);
     }
 
-    function loadChapterFile(file, onDone) {
+    function loadChapterFile(file, idx, prevChapter, onDone) {
       applySrc(standby, file);
       function onReady() {
-        activeFile = file;
-        swapTracks();
-        if (onDone) onDone();
+        var incomingEl = standby;
+        var outgoingEl = active;
+        var committed = false;
+        function commitSwap() {
+          if (committed) return;
+          committed = true;
+          activeFile = file;
+          swapTracks();
+          if (onDone) onDone();
+        }
+        var swapDetail = emitVideoSwapRequest(idx, prevChapter, incomingEl, outgoingEl, commitSwap);
+        if (!swapDetail.claimed) {
+          commitSwap();
+        }
       }
       function onErr() {
         activeFile = '';
@@ -174,10 +206,11 @@
       var file = sec.getAttribute('data-video') || ch.src;
 
       if (idx !== currentChapter) {
+        var prevChapter = currentChapter;
         currentChapter = idx;
-        emitChapter(idx, sec, p);
+        emitChapter(idx, sec, p, prevChapter);
         if (file !== activeFile) {
-          loadChapterFile(file, function () {
+          loadChapterFile(file, idx, prevChapter, function () {
             try {
               var d = active.duration;
               if (isFinite(d) && d > 0) active.currentTime = safeTime(p * d, d);

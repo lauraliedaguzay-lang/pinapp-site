@@ -144,6 +144,14 @@
       if (raf) cancelAnimationFrame(raf);
     };
 
+    self.boost = function () {
+      if (!parts.length || w < 2) return;
+      self.morphBurst();
+      window.setTimeout(function () {
+        spawn();
+      }, 220);
+    };
+
     window.addEventListener(
       'resize',
       function () {
@@ -178,4 +186,18 @@
       sys.start();
     });
   });
+
+  window.pinappParticleBoost = function () {
+    try {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (document.documentElement.classList.contains('voyage-sober')) return;
+    } catch (e0) {
+      return;
+    }
+    document.querySelectorAll('.particles-canvas').forEach(function (cv) {
+      var sys = cv._voyageParticleSystem;
+      if (!sys || typeof sys.boost !== 'function') return;
+      sys.boost();
+    });
+  };
 })();

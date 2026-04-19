@@ -1,0 +1,70 @@
+/* Pinapp V2.4 — transitions cinéma 6 couches (sous #voyage-cinema, tokens --v24-*) */
+html.voyage-v24-cinema .cinema {
+  isolation: isolate;
+}
+
+.voyage-cinema-fx-leak,
+.voyage-cinema-fx-bridge {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  will-change: opacity, filter;
+  transform: translateZ(0);
+}
+
+.voyage-cinema-fx-leak {
+  z-index: var(--v24-fx-leak-z);
+  background-image: var(--v24-light-leak-gradient);
+  mix-blend-mode: screen;
+}
+
+.voyage-cinema-fx-bridge {
+  z-index: var(--v24-fx-bridge-z);
+  background-image: var(--v24-bridge-active, var(--v24-bridge-gradient));
+  mix-blend-mode: screen;
+}
+
+/* Texte « sable » — courte impulsion sur titres de section au cut vidéo */
+@keyframes voyage-sand-form {
+  0% {
+    letter-spacing: 0.32em;
+    filter: blur(6px);
+    opacity: 0.35;
+  }
+  55% {
+    letter-spacing: -0.02em;
+    filter: blur(0);
+    opacity: 1;
+  }
+  100% {
+    letter-spacing: -0.03em;
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+.voyage-sand-burst {
+  color: var(--v24-sand-fill);
+  text-shadow: var(--v24-sand-shadow);
+  animation: voyage-sand-form var(--v24-sand-form-max) var(--ease) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .voyage-sand-burst {
+    animation: none;
+    letter-spacing: inherit;
+    filter: none;
+    opacity: 1;
+  }
+
+  .voyage-cinema-fx-leak,
+  .voyage-cinema-fx-bridge {
+    display: none;
+  }
+}
+
+html.voyage-sober .voyage-cinema-fx-leak,
+html.voyage-sober .voyage-cinema-fx-bridge {
+  display: none !important;
+}
