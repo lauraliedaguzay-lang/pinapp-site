@@ -142,6 +142,76 @@
   overflow: clip;
   isolation: isolate;
 }
+
+/* Hauteurs chapitres V2.4 (~920vh total) — data-chapter sur .voyage-scene */
+.voyage-scene[data-chapter='1'] {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+.voyage-scene[data-chapter='2'] {
+  min-height: 120vh;
+  min-height: 120svh;
+}
+.voyage-scene[data-chapter='3'] {
+  min-height: 120vh;
+  min-height: 120svh;
+}
+.voyage-scene[data-chapter='4'],
+.voyage-scene[data-chapter='5'] {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+.voyage-scene[data-chapter='6'] {
+  min-height: 140vh;
+  min-height: 140svh;
+}
+.voyage-scene[data-chapter='7'] {
+  min-height: 140vh;
+  min-height: 140svh;
+}
+.voyage-scene[data-chapter='8'] {
+  min-height: 120vh;
+  min-height: 120svh;
+}
+
+/* Couche cinéma plein écran : masque les fonds vidéo par section (scrub centralisé) */
+html.voyage-v24-cinema .voyage-scene__bg {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--d-short) var(--ease);
+}
+
+html.voyage-sober #voyage-cinema {
+  display: none !important;
+}
+
+.cinema {
+  position: fixed;
+  inset: 0;
+  z-index: var(--v24-cinema-z);
+  pointer-events: none;
+  overflow: hidden;
+}
+.cinema[hidden] {
+  display: none !important;
+}
+.cinema__track {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--d-med) var(--ease);
+}
+.cinema__track.is-active {
+  opacity: 1;
+}
+.chapter__content {
+  position: relative;
+  z-index: var(--v24-chapter-content-z);
+  width: 100%;
+}
 .particles-canvas {
   position: absolute;
   inset: 0;

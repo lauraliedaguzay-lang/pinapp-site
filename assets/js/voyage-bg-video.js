@@ -26,6 +26,12 @@
     if (reducedMotion()) return;
 
     document.querySelectorAll('.lieu-bg-video').forEach(function (video) {
+      if (
+        document.documentElement.classList.contains('voyage-v24-cinema') &&
+        video.closest('#voyage-main section.voyage-scene[data-chapter]')
+      ) {
+        return;
+      }
       var stack = video.closest('.voyage-scene__media-stack');
       var url = sourceUrl(video);
       setStackState(stack, !!url);

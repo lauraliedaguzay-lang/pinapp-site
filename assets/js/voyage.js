@@ -45,12 +45,32 @@
       btn.setAttribute('aria-pressed', on ? 'true' : 'false');
       if (on) {
         killVoyageScroll();
+        var cinema = document.getElementById('voyage-cinema');
+        if (cinema) {
+          cinema.hidden = true;
+          cinema.querySelectorAll('video').forEach(function (v) {
+            try {
+              v.pause();
+            } catch (e0) {}
+          });
+        }
+        root.classList.remove('voyage-v24-cinema');
         document.querySelectorAll('.reveal').forEach(function (r) {
           r.classList.add('is-revealed');
         });
       } else {
+        if (!reduced && document.querySelector('#voyage-main section[data-chapter="8"]')) {
+          var cinema2 = document.getElementById('voyage-cinema');
+          if (cinema2) {
+            cinema2.hidden = false;
+            root.classList.add('voyage-v24-cinema');
+          }
+        }
         window.requestAnimationFrame(function () {
           bootMotion();
+          try {
+            window.dispatchEvent(new Event('scroll'));
+          } catch (e1) {}
         });
       }
     });
