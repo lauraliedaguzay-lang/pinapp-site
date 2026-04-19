@@ -184,7 +184,7 @@
           title +
           '</strong><br /><a href="' +
           href +
-          '" style="color:#fff;margin-top:0.35rem;display:inline-block">' +
+          '" style="color:var(--text-primary);margin-top:0.35rem;display:inline-block">' +
           (href.indexOf('http') === 0 ? 'Ouvrir ↗' : 'Voir →') +
           '</a>';
         plausible('realisation_clicked', { name: c.getAttribute('data-realisation') || title });
