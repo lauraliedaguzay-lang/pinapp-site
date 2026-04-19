@@ -69,7 +69,7 @@ Coller / adapter le bloc CSS Geist + `:root` fourni dans ta spec (couleurs void 
 │   ├── js/
 │   │   ├── vendor/               ← gsap, ScrollTrigger, Lenis (copies locales)
 │   │   ├── voyage.js
-│   │   ├── particles.js
+│   │   ├── voyage-particles.js
 │   │   ├── forms-voyage.js
 │   │   └── config-voyage.js
 │   ├── fonts/                    ← geist-*.woff2
@@ -228,7 +228,7 @@ Commit : `assets(v2): phase 1 — images voyage (png/webp)`.
 
 ### Phase 5 — JS (Lenis, GSAP, particules, split texte)
 
-- `voyage.js` + `particles.js` : sur **pinapp.fr** le voyage V2 **assume** scroll-driven + parallax + particules (voir `.cursorrules` section *PINAPP.FR vs SITES CLIENTS*). Toujours : `prefers-reduced-motion`, mode sobre, `.low-perf`, textes en HTML.
+- `voyage.js` + `voyage-particles.js` (ne pas réutiliser `particles.js` = canvas Pandora du reste du site) : sur **pinapp.fr** le voyage V2 **assume** scroll-driven + parallax + particules (voir `.cursorrules`). Toujours : `prefers-reduced-motion`, mode sobre, `.low-perf`, textes en HTML.
 - Commit : `feat(v2): phase 5 — JS scroll particules`.
 
 ### Phase 6 — Formulaires + config + parrainage
