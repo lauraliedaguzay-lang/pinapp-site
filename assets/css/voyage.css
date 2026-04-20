@@ -199,6 +199,19 @@ html.voyage-sober #voyage-cinema {
   overflow: hidden;
 }
 
+/* V2.6 — cinéma derrière le contenu, pas de double stack vidéo (évite noir si seul le layer compte) */
+html.voyage-v24-cinema:not(.voyage-sober) #voyage-cinema.cinema {
+  z-index: 0 !important;
+}
+html.voyage-v24-cinema:not(.voyage-sober) #voyage-main {
+  position: relative;
+  z-index: 2;
+  background: transparent !important;
+}
+html.voyage-v24-cinema:not(.voyage-sober) .voyage-scene__media-stack {
+  display: none !important;
+}
+
 /* Quand le scrubber active le cinéma : forcer une boîte viewport (évite offset 0×0 si [hidden] / UA). */
 html.voyage-v24-cinema #voyage-cinema.cinema:not([hidden]) {
   display: block !important;

@@ -4,6 +4,34 @@
  */
 (function () {
   var VIDEO_BASE = '/assets/video/voyage/';
+  /** Frame-0 JPEG fallbacks (générés via tools/pinapp-poster-gen.ps1) — évite fond noir si decode lent */
+  var CINEMA_POSTER = {
+    '01-main-hologramme.mp4': '/assets/img/voyage/01-main-poster.jpg',
+    '02-couloir-passengers.mp4': '/assets/img/voyage/02-couloir-poster.jpg',
+    '03-hublot-cosmos.mp4': '/assets/img/voyage/03-hublot-poster.jpg',
+    '04-constellation-mp.mp4': '/assets/img/voyage/04-constellation-poster.jpg',
+    '05-sortie-vaisseau.mp4': '/assets/img/voyage/05-sortie-poster.jpg',
+    '06-balade-cosmos.mp4': '/assets/img/voyage/06-balade-poster.jpg',
+    '07-tourbillon-etoiles.mp4': '/assets/img/voyage/07-tourbillon-poster.jpg',
+    '08-atterrissage-sable.mp4': '/assets/img/voyage/08-sable-poster.jpg',
+  };
+
+  function cinemaPlay(video, label) {
+    try {
+      var p = video.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(function (err) {
+          try {
+            console.error('[cinema] play failed', label || '', video.currentSrc || video.src, err);
+          } catch (e2) {}
+        });
+      }
+    } catch (e) {
+      try {
+        console.error('[cinema] play threw', label || '', video.currentSrc || video.src, e);
+      } catch (e2) {}
+    }
+  }
 
   /** Playback windows: scroll % [s0,s1) → video time [t0,t1] seconds */
   function timelineSegments() {
@@ -140,10 +168,32 @@
     trackB.playsInline = true;
     trackA.setAttribute('playsinline', '');
     trackB.setAttribute('playsinline', '');
-    trackA.removeAttribute('loop');
-    trackB.removeAttribute('loop');
+    trackA.loop = true;
+    trackB.loop = true;
+    trackA.setAttribute('loop', '');
+    trackB.setAttribute('loop', '');
     trackA.preload = 'auto';
     trackB.preload = 'auto';
+
+    function logCinemaError(v, tag) {
+      v.addEventListener(
+        'error',
+        function () {
+          var err = v.error;
+          try {
+            console.error(
+              '[cinema] media error',
+              tag,
+              v.currentSrc || v.src,
+              err ? 'code ' + err.code + ' ' + (err.message || '') : 'unknown'
+            );
+          } catch (e0) {}
+        },
+        { passive: true }
+      );
+    }
+    logCinemaError(trackA, 'cinema-track-a');
+    logCinemaError(trackB, 'cinema-track-b');
 
     try {
       window.__PINAPP_V24_CHAPTERS__ = chaptersMeta();
@@ -168,8 +218,12 @@
       } catch (e) {}
       video.src = url;
       try {
+        video.poster = CINEMA_POSTER[file] || '';
+      } catch (eP) {}
+      try {
         video.load();
       } catch (e2) {}
+      cinemaPlay(video, 'after applySrc ' + file);
     }
 
     function emitChapter(idx, progress, previousIndex) {
@@ -372,9 +426,7 @@
       currentChapter = 0;
       setActiveVisual(active);
       function tryPlay() {
-        try {
-          active.play().catch(function () {});
-        } catch (eP) {}
+        cinemaPlay(active, 'bootstrap');
       }
       function onLoaded() {
         try {
@@ -458,9 +510,7 @@
         try {
           a.load();
         } catch (e1) {}
-        try {
-          a.play().catch(function () {});
-        } catch (e2) {}
+        cinemaPlay(a, 'forceCinemaFallback');
         a.classList.add('is-active');
       }
     } catch (e3) {}
