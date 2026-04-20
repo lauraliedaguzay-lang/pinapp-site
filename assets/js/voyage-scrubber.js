@@ -131,6 +131,56 @@
     return a + (b - a) * t;
   }
 
+  /** Cinéma lecture continue, sans ScrollTrigger (prefers-reduced-motion / accessibilité). */
+  function initScrubberReducedMotion(cinema, trackA, trackB, mainEl) {
+    var segs = timelineSegments();
+    var first = segs[0];
+    document.documentElement.classList.add('voyage-v24-cinema');
+    try {
+      if (document.body) document.body.classList.add('voyage-v24-cinema');
+    } catch (eB) {}
+    cinema.hidden = false;
+    cinema.removeAttribute('hidden');
+    try {
+      cinema.style.display = 'block';
+    } catch (eD) {}
+    trackA.muted = true;
+    trackB.muted = true;
+    trackA.playsInline = true;
+    trackB.playsInline = true;
+    trackA.loop = true;
+    trackB.loop = true;
+    trackA.classList.add('is-active');
+    trackB.classList.remove('is-active');
+    try {
+      trackB.style.opacity = '0';
+      trackA.style.opacity = '1';
+    } catch (eO) {}
+    try {
+      trackA.src = VIDEO_BASE + first.file;
+      trackA.poster = CINEMA_POSTER[first.file] || '';
+      trackA.load();
+    } catch (eL) {}
+    trackA.addEventListener(
+      'loadeddata',
+      function onLd() {
+        try {
+          trackA.currentTime = 0;
+        } catch (eT) {}
+        cinemaPlay(trackA, 'reduced-motion-loop');
+      },
+      { once: true }
+    );
+    try {
+      console.info('[cinema-scrub]', {
+        reducedMotion: true,
+        tracksFound: 2,
+        scrubActive: false,
+        mode: 'autoplay-loop',
+      });
+    } catch (eI) {}
+  }
+
   function initScrubber() {
     var cinema = document.getElementById('voyage-cinema');
     var trackA = document.getElementById('cinema-track-a');
@@ -145,6 +195,11 @@
           main: !!mainEl,
         });
       } catch (e0) {}
+      return;
+    }
+
+    if (reducedMotion()) {
+      initScrubberReducedMotion(cinema, trackA, trackB, mainEl);
       return;
     }
 
@@ -455,9 +510,17 @@
         trigger: mainEl,
         start: 'top top',
         end: 'bottom bottom',
-        scrub: true,
+        scrub: 1,
         onUpdate: refresh,
       });
+      try {
+        console.info('[cinema-scrub]', {
+          reducedMotion: false,
+          tracksFound: 2,
+          scrubActive: true,
+          mode: 'scroll-sync-segments',
+        });
+      } catch (eLog) {}
       window.addEventListener('scroll', refresh, { passive: true });
       window.addEventListener('resize', function () {
         try {
@@ -466,6 +529,14 @@
         refresh();
       });
     } else {
+      try {
+        console.info('[cinema-scrub]', {
+          reducedMotion: false,
+          tracksFound: 2,
+          scrubActive: true,
+          mode: 'scroll-sync-legacy-raf',
+        });
+      } catch (eLg) {}
       var raf = 0;
       function legacyTick() {
         raf = 0;
