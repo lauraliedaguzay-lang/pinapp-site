@@ -1,6 +1,6 @@
 /* Pinapp voyage — V2 layout + V2.3 (Aladdin shell) + V2.4 prep (vidéos muettes) */
 /* Pinapp — page voyage V2 (layout scènes + nav + formulaires) */
-@import url('/assets/css/lightshafts.css?v=20260610');
+@import url('/assets/css/lightshafts.css?v=20260630');
 .voyage-skip {
   position: absolute;
   left: -9999px;
@@ -19,6 +19,32 @@
   color: var(--cyan-glow);
   z-index: 200000;
   border-radius: var(--r-md);
+  outline: 2px solid var(--cyan-glow);
+  outline-offset: 2px;
+}
+
+/* V4.0 — focus visible global (WCAG AA) sur la page voyage */
+.voyage-page *:focus-visible {
+  outline: 2px solid var(--cyan-glow);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.skip-to-main {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 200001;
+  padding: var(--s-3) var(--s-6);
+  background: var(--black-night);
+  color: var(--ivory-text, #f4e4c1);
+  font-size: 0.875rem;
+  text-decoration: none;
+  border-radius: var(--r-md);
+}
+.skip-to-main:focus {
+  left: var(--s-4);
+  top: var(--s-4);
   outline: 2px solid var(--cyan-glow);
   outline-offset: 2px;
 }
@@ -271,8 +297,18 @@ figure.pilote.glass-card .pilote__photo {
   }
 }
 
-/* Couche cinéma plein écran : masque les fonds vidéo par section (scrub centralisé) */
-html.voyage-v24-cinema .voyage-scene__bg {
+/* V4.0 — fonds vidéo par scène : pas de masquage par la couche cinéma */
+html.voyage-v40-per-scene .voyage-scene__bg {
+  opacity: 1;
+  pointer-events: none;
+}
+
+html.voyage-v40-per-scene #voyage-cinema.cinema {
+  display: none !important;
+}
+
+/* V2.5 legacy : cinéma scrub (désactivé si .voyage-v40-per-scene sur <html>) */
+html.voyage-v24-cinema:not(.voyage-v40-per-scene) .voyage-scene__bg {
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--d-short) var(--ease);
@@ -291,16 +327,50 @@ html.voyage-sober #voyage-cinema {
 }
 
 /* V2.6 — cinéma derrière le contenu, pas de double stack vidéo (évite noir si seul le layer compte) */
-html.voyage-v24-cinema:not(.voyage-sober) #voyage-cinema.cinema {
+html.voyage-v24-cinema:not(.voyage-v40-per-scene):not(.voyage-sober) #voyage-cinema.cinema {
   z-index: 0 !important;
 }
-html.voyage-v24-cinema:not(.voyage-sober) #voyage-main {
+html.voyage-v24-cinema:not(.voyage-v40-per-scene):not(.voyage-sober) #voyage-main {
   position: relative;
   z-index: 2;
   background: transparent !important;
 }
-html.voyage-v24-cinema:not(.voyage-sober) .voyage-scene__media-stack {
+html.voyage-v24-cinema:not(.voyage-v40-per-scene):not(.voyage-sober) .voyage-scene__media-stack {
   display: none !important;
+}
+
+/* V4.0 — lisibilité sur la pile média (sous le voile existant) */
+html.voyage-v40-per-scene .voyage-scene__media-stack {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+html.voyage-v40-per-scene .voyage-scene__media-stack::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 20, 37, 0.3) 0%,
+    rgba(10, 20, 37, 0.72) 100%
+  );
+}
+
+/* V4.1 — lisibilité plate type brief Magic (pinapp.fr vidéos seules) */
+html.voyage-v41-magic-media.voyage-v40-per-scene .voyage-scene__media-stack::after {
+  background: rgba(10, 20, 37, 0.55);
+}
+html.voyage-v40-per-scene .voyage-scene__media-stack picture,
+html.voyage-v40-per-scene .voyage-scene__media-stack .lieu-bg-video {
+  z-index: 0;
+}
+html.voyage-v40-per-scene .voyage-scene__media-stack .lieu-bg-video,
+html.voyage-v40-per-scene .voyage-scene__media-stack img {
+  opacity: 1;
 }
 
 /* Quand le scrubber active le cinéma : forcer une boîte viewport (évite offset 0×0 si [hidden] / UA). */
@@ -395,7 +465,7 @@ html.voyage-v24-cinema #voyage-cinema.cinema:not([hidden]) {
 }
 .voyage-scene__inner {
   position: relative;
-  z-index: 3;
+  z-index: 4;
   width: 100%;
   max-width: 72rem;
   padding: max(var(--s-16), var(--space-cinema-sm)) max(var(--s-6), clamp(1.5rem, 5vw, 4rem))
@@ -2232,7 +2302,7 @@ html.voyage-sober .voyage-constel__orbit--c {
   object-fit: cover;
   z-index: 0;
 }
-html.voyage-v24-cinema:not(.voyage-sober) .voyage-manifeste__video {
+html.voyage-v24-cinema:not(.voyage-v40-per-scene):not(.voyage-sober) .voyage-manifeste__video {
   display: none !important;
 }
 .voyage-manifeste__overlay {
@@ -2287,7 +2357,7 @@ html.voyage-v24-cinema:not(.voyage-sober) .voyage-manifeste__video {
   opacity: 0;
   pointer-events: none;
   z-index: 100049;
-  transition: opacity 400ms ease;
+  transition: opacity 800ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .chapter-transition-overlay.active {

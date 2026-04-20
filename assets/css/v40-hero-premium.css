@@ -1,0 +1,199 @@
+/* V4.0 — hero before/after + circular teaser (vanilla, Magic-style spec) */
+.hero-beforeafter {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  max-width: 480px;
+  margin: var(--space-cinema-sm, 1.5rem) 0 var(--space-cinema-md, 2rem);
+  padding: 1rem 1.5rem;
+  background: rgba(10, 20, 37, 0.5);
+  backdrop-filter: blur(10px) saturate(160%);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  border-radius: 16px;
+  border: 1px solid rgba(244, 228, 193, 0.1);
+}
+
+.beforeafter-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.beforeafter-label {
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ivory-muted, rgba(244, 228, 193, 0.55));
+}
+
+.beforeafter-after .beforeafter-label {
+  color: var(--cyan-glow);
+}
+
+.beforeafter-chart {
+  width: 100%;
+  height: 40px;
+  display: block;
+}
+
+.beforeafter-desc {
+  font-size: 11px;
+  color: var(--ivory-muted, rgba(244, 228, 193, 0.55));
+  text-align: center;
+}
+
+.beforeafter-arrow {
+  color: var(--gold-primary);
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+@media (max-width: 560px) {
+  .hero-beforeafter {
+    max-width: 100%;
+  }
+}
+
+.hero-teaser {
+  --hero-teaser-size: clamp(180px, 42vw, 240px);
+  position: relative;
+  width: var(--hero-teaser-size);
+  height: var(--hero-teaser-size);
+  border-radius: 50%;
+  overflow: visible;
+  margin-top: var(--space-cinema-md, 2rem);
+  cursor: pointer;
+  box-shadow:
+    0 0 0 2px rgba(62, 245, 224, 0.3),
+    0 0 60px rgba(62, 245, 224, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  transition:
+    transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-teaser:hover {
+  transform: scale(1.05);
+  box-shadow:
+    0 0 0 2px rgba(62, 245, 224, 0.45),
+    0 0 80px rgba(62, 245, 224, 0.2),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.hero-teaser:focus-visible {
+  outline: 2px solid var(--cyan-glow);
+  outline-offset: 4px;
+}
+
+.hero-teaser__clip {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.hero-teaser-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-teaser-beam {
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  z-index: 1;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    var(--cyan-glow) 28deg,
+    var(--gold-primary) 52deg,
+    transparent 88deg,
+    transparent 360deg
+  );
+  animation: v40-hero-teaser-beam-rotate 4s linear infinite;
+  mask: radial-gradient(circle, transparent 62%, black 64%);
+  -webkit-mask: radial-gradient(circle, transparent 62%, black 64%);
+  pointer-events: none;
+}
+
+@keyframes v40-hero-teaser-beam-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hero-teaser-ring {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 50%;
+  border: 1px dashed rgba(230, 185, 115, 0.4);
+  animation: v40-teaser-ring-rotate 40s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes v40-teaser-ring-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hero-teaser-unmute {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 3;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  border-radius: 50%;
+  background: rgba(10, 20, 37, 0.82);
+  backdrop-filter: blur(10px) saturate(160%);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  border: 1px solid rgba(62, 245, 224, 0.3);
+  color: var(--cyan-glow);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 300ms ease, color 300ms ease, border-color 300ms ease;
+  touch-action: manipulation;
+}
+
+.hero-teaser-unmute:hover {
+  background: rgba(62, 245, 224, 0.25);
+  color: var(--black-night, #050a14);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-teaser-ring {
+    animation: none;
+  }
+  .hero-teaser-beam {
+    animation: none;
+    opacity: 0.45;
+  }
+  .hero-teaser:hover {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .hero-teaser-unmute {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(10, 20, 37, 0.95);
+  }
+  .hero-beforeafter {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(10, 20, 37, 0.88);
+  }
+}
