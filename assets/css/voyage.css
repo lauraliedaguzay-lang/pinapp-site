@@ -1995,3 +1995,223 @@ html.voyage-page body.is-modal-open {
   }
 }
 
+/* V2.6 — #s2 pilotes (portraits pleine colonne) */
+.voyage-pilotes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-8);
+  margin-top: var(--s-10);
+  width: 100%;
+}
+@media (max-width: 720px) {
+  .voyage-pilotes {
+    grid-template-columns: 1fr;
+  }
+}
+.pilote {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+.pilote__photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: var(--r-md);
+  background: var(--bg-deep);
+}
+.pilote__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(60%) contrast(1.1) brightness(0.85);
+  transition:
+    filter var(--d-med) var(--ease),
+    transform var(--d-med) var(--ease);
+}
+.pilote:hover .pilote__photo img,
+.pilote:focus-within .pilote__photo img {
+  filter: grayscale(0%) contrast(1.05) brightness(1);
+}
+.pilote__photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(62, 245, 224, 0);
+  pointer-events: none;
+  transition: background var(--d-med) var(--ease);
+}
+.pilote:hover .pilote__photo::after,
+.pilote:focus-within .pilote__photo::after {
+  background: rgba(62, 245, 224, 0.08);
+}
+.pilote__placeholder {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--s-6);
+  background: linear-gradient(160deg, rgba(26, 43, 64, 0.96) 0%, rgba(10, 20, 37, 0.98) 100%);
+}
+.pilote__placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.08;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+.pilote__placeholder--visible {
+  display: flex;
+}
+.pilote__placeholder-text {
+  position: relative;
+  z-index: 1;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  line-height: 1.5;
+  max-width: 14rem;
+}
+.pilote__cap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+.pilote-name {
+  font-family: 'Geist', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--v26-warm-gold);
+  letter-spacing: -0.02em;
+}
+.pilote-role {
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: rgba(62, 245, 224, 0.7);
+}
+
+/* V2.6 — #s4 constellation SVG */
+.voyage-constel {
+  margin: var(--s-12) auto;
+  max-width: min(100%, 800px);
+  display: flex;
+  justify-content: center;
+}
+.voyage-constel__svg {
+  width: 100%;
+  height: auto;
+  max-height: min(56vh, 520px);
+}
+.voyage-constel__planet {
+  cursor: pointer;
+  outline: none;
+}
+.voyage-constel__orbit {
+  transform-origin: center;
+  transform-box: fill-box;
+  transition:
+    transform var(--d-med) var(--ease),
+    filter var(--d-med) var(--ease);
+  filter: drop-shadow(0 0 0 transparent);
+}
+.voyage-constel__orbit--a {
+  animation: constel-spin-a 60s linear infinite;
+}
+.voyage-constel__orbit--b {
+  animation: constel-spin-b 75s linear infinite;
+}
+.voyage-constel__orbit--c {
+  animation: constel-spin-c 45s linear infinite;
+}
+@keyframes constel-spin-a {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes constel-spin-b {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes constel-spin-c {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.voyage-constel__planet:hover .voyage-constel__orbit,
+.voyage-constel__planet:focus-visible .voyage-constel__orbit {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 18px rgba(62, 245, 224, 0.35));
+}
+@media (prefers-reduced-motion: reduce) {
+  .voyage-constel__orbit--a,
+  .voyage-constel__orbit--b,
+  .voyage-constel__orbit--c {
+    animation: none;
+  }
+}
+html.voyage-sober .voyage-constel__orbit--a,
+html.voyage-sober .voyage-constel__orbit--b,
+html.voyage-sober .voyage-constel__orbit--c {
+  animation: none;
+}
+
+/* V2.6 — #s6 manifeste (vidéo locale + overlay) */
+.voyage-manifeste {
+  position: relative;
+  margin-top: var(--s-12);
+  min-height: min(72vh, 520px);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  isolation: isolate;
+}
+.voyage-manifeste__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+html.voyage-v24-cinema:not(.voyage-sober) .voyage-manifeste__video {
+  display: none !important;
+}
+.voyage-manifeste__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(10, 20, 37, 0.5);
+  pointer-events: none;
+}
+.voyage-manifeste__content {
+  position: relative;
+  z-index: 2;
+  padding: var(--s-12) var(--s-6) var(--s-16);
+  text-align: center;
+  max-width: 44rem;
+  margin: 0 auto;
+}
+#voyage-s6-manifest {
+  font-style: italic;
+}
+.manifest-word {
+  display: inline-block;
+  margin-right: 0.28em;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pilote__photo img {
+    filter: grayscale(35%) contrast(1.05) brightness(0.92);
+  }
+  .pilote:hover .pilote__photo img {
+    filter: grayscale(0%) contrast(1.05) brightness(1);
+  }
+}
+
