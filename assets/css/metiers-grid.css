@@ -1,0 +1,41 @@
+/* Pinapp V3.0 Phase 3.5 — #s3 métiers 2×2 */
+
+.metiers-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 2rem);
+  max-width: 900px;
+  margin: var(--space-cinema-md) auto 0;
+}
+
+.metier {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.metier-icon {
+  width: 48px;
+  height: 48px;
+  stroke: var(--gold-primary);
+  stroke-width: 1.5;
+  fill: none;
+}
+
+.metier .h-3-metier {
+  font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+  font-weight: 600;
+  color: var(--ivory-text);
+  margin: 0;
+}
+
+.metier .body-lg {
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .metiers-grid {
+    grid-template-columns: 1fr;
+  }
+}
