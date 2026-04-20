@@ -1854,4 +1854,35 @@ html.voyage-page body.is-modal-open {
   border: 0;
 }
 
+/* P3 — sand reveal H2 (canvas overlay) */
+#voyage-main section.voyage-scene > .chapter__content h2.h-1.sand-text {
+  position: relative;
+}
+#voyage-main section.voyage-scene > .chapter__content h2.h-1.sand-text--ready {
+  color: transparent;
+  text-shadow: none;
+}
+#voyage-main section.voyage-scene > .chapter__content h2.h-1.sand-text--ready .sand-text__wrap {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+#voyage-main section.voyage-scene > .chapter__content h2.h-1.sand-text--settled {
+  color: inherit;
+}
+@media (prefers-reduced-motion: reduce) {
+  #voyage-main section.voyage-scene > .chapter__content h2.h-1.sand-text--ready {
+    color: inherit;
+    animation: sand-fade-in 0.4s var(--ease-out) both;
+  }
+  @keyframes sand-fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
 

@@ -1,21 +1,53 @@
 /**
- * Pinapp V2.5 — scroll-scrub cinéma (double-buffer .cinema__track), 9 chapitres (sans prélude 00, sans lune 08).
+ * Pinapp V2.5 — cinema scrub: GSAP ScrollTrigger scrub + global scroll % → time + crossfade.
+ * Nine chapters, eight MP4 files (ch5 and ch5b share 05-sortie-vaisseau.mp4).
  */
 (function () {
   var VIDEO_BASE = '/assets/video/voyage/';
 
-  function chaptersV25() {
+  /** Playback windows: scroll % [s0,s1) → video time [t0,t1] seconds */
+  function timelineSegments() {
     return [
-      { id: 1, src: '01-main-hologramme.mp4', start: 0, end: 100, duration: 10, label: 'Intro' },
-      { id: 2, src: '02-couloir-passengers.mp4', start: 100, end: 220, duration: 10, label: 'Duo' },
-      { id: 3, src: '03-hublot-cosmos.mp4', start: 220, end: 340, duration: 10, label: 'Métiers' },
-      { id: 4, src: '04-constellation-mp.mp4', start: 340, end: 460, duration: 10, label: 'Constellation' },
-      { id: 5, src: '05-sortie-vaisseau.mp4', start: 460, end: 560, duration: 10, label: 'Preuves' },
-      { id: 6, src: '05-sortie-vaisseau.mp4', start: 560, end: 660, duration: 8, label: 'Automation n8n' },
-      { id: 7, src: '06-balade-cosmos.mp4', start: 660, end: 780, duration: 10, label: 'Manifeste' },
-      { id: 8, src: '07-tourbillon-etoiles.mp4', start: 780, end: 900, duration: 10, label: 'Réalisations' },
-      { id: 9, src: '08-atterrissage-sable.mp4', start: 900, end: 1000, duration: 10, label: 'Contact' },
+      { ch: 0, s0: 0, s1: 12, t0: 0, t1: 3, file: '01-main-hologramme.mp4' },
+      { ch: 1, s0: 14, s1: 26, t0: 0, t1: 4, file: '02-couloir-passengers.mp4' },
+      { ch: 2, s0: 28, s1: 40, t0: 0, t1: 6, file: '03-hublot-cosmos.mp4' },
+      { ch: 3, s0: 42, s1: 54, t0: 0, t1: 3.5, file: '04-constellation-mp.mp4' },
+      { ch: 4, s0: 56, s1: 66, t0: 0, t1: 4, file: '05-sortie-vaisseau.mp4' },
+      { ch: 5, s0: 66, s1: 76, t0: 4, t1: 8, file: '05-sortie-vaisseau.mp4' },
+      { ch: 6, s0: 78, s1: 88, t0: 0, t1: 5, file: '06-balade-cosmos.mp4' },
+      { ch: 7, s0: 90, s1: 96, t0: 0, t1: 4, file: '07-tourbillon-etoiles.mp4' },
+      { ch: 8, s0: 98, s1: 100, t0: 0, t1: 3, file: '08-atterrissage-sable.mp4' },
     ];
+  }
+
+  function transitions() {
+    return [
+      { from: 0, to: 1, s0: 12, s1: 14 },
+      { from: 1, to: 2, s0: 26, s1: 28 },
+      { from: 2, to: 3, s0: 40, s1: 42 },
+      { from: 3, to: 4, s0: 54, s1: 56 },
+      { from: 4, to: 5, s0: 66, s1: 66 },
+      { from: 5, to: 6, s0: 76, s1: 78 },
+      { from: 6, to: 7, s0: 88, s1: 90 },
+      { from: 7, to: 8, s0: 96, s1: 98 },
+    ];
+  }
+
+  function chaptersMeta() {
+    var segs = timelineSegments();
+    var list = [];
+    var i;
+    for (i = 0; i < segs.length; i++) {
+      list.push({
+        id: i + 1,
+        src: segs[i].file,
+        start: segs[i].s0 * 10,
+        end: segs[i].s1 * 10,
+        duration: 10,
+        label: String(i + 1),
+      });
+    }
+    return list;
   }
 
   function reducedMotion() {
@@ -30,40 +62,10 @@
     return document.documentElement.classList.contains('voyage-sober');
   }
 
-  function sectionList() {
-    return Array.prototype.slice
-      .call(document.querySelectorAll('#voyage-main section.voyage-scene[data-chapter]'))
-      .filter(function (el) {
-        return !el.hidden;
-      })
-      .sort(function (a, b) {
-        return Number(a.getAttribute('data-chapter')) - Number(b.getAttribute('data-chapter'));
-      });
-  }
-
-  function pickActiveSection(sections) {
-    var y = window.innerHeight * 0.45;
-    var bestI = 0;
-    var bestScore = -1e9;
-    for (var i = 0; i < sections.length; i++) {
-      var r = sections[i].getBoundingClientRect();
-      var overlap = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
-      if (overlap > bestScore) {
-        bestScore = overlap;
-        bestI = i;
-      }
-      if (r.top <= y && r.bottom >= y) {
-        return { index: i, el: sections[i] };
-      }
-    }
-    return { index: bestI, el: sections[bestI] };
-  }
-
-  function progressInSection(sec) {
-    var r = sec.getBoundingClientRect();
-    var total = r.height || 1;
-    var seen = Math.min(Math.max(-r.top, 0), total);
-    return seen / total;
+  function pinProgressPct() {
+    var max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    var y = window.scrollY || window.pageYOffset || 0;
+    return Math.min(100, Math.max(0, (y / max) * 100));
   }
 
   function safeTime(v, d) {
@@ -72,25 +74,44 @@
     return Math.min(Math.max(v, 0), d - 0.04);
   }
 
-  function resolveVideoFile(sec, ch) {
-    var raw = (sec && sec.getAttribute('data-video')) || '';
-    raw = String(raw || '').trim();
-    if (!raw && ch && ch.src) raw = String(ch.src).trim();
-    return raw;
+  function findPlaySegment(pct, segs) {
+    var i;
+    for (i = 0; i < segs.length; i++) {
+      if (pct >= segs[i].s0 && pct < segs[i].s1) return { seg: segs[i], index: i };
+    }
+    if (pct >= 100 && segs.length) {
+      var last = segs[segs.length - 1];
+      return { seg: last, index: segs.length - 1 };
+    }
+    return { seg: segs[0], index: 0 };
   }
 
-  function initScrubberWithChapters(chapters) {
-    try {
-      window.__PINAPP_V24_CHAPTERS__ = chapters;
-    } catch (e0) {}
+  function findTransition(pct, trans) {
+    var j;
+    for (j = 0; j < trans.length; j++) {
+      var tr = trans[j];
+      if (tr.s1 > tr.s0) {
+        if (pct >= tr.s0 && pct < tr.s1) return { tr: tr, index: j };
+      } else if (pct === tr.s0) {
+        return { tr: tr, index: j };
+      }
+    }
+    return null;
+  }
 
+  function lerp(a, b, t) {
+    return a + (b - a) * t;
+  }
+
+  function initScrubber() {
     var cinema = document.getElementById('voyage-cinema');
     var trackA = document.getElementById('cinema-track-a');
     var trackB = document.getElementById('cinema-track-b');
-    if (!cinema || !trackA || !trackB) return;
+    var mainEl = document.getElementById('voyage-main');
+    if (!cinema || !trackA || !trackB || !mainEl) return;
 
-    var sections = sectionList();
-    if (sections.length < chapters.length) return;
+    var segs = timelineSegments();
+    var trans = transitions();
 
     document.documentElement.classList.add('voyage-v24-cinema');
     cinema.hidden = false;
@@ -108,45 +129,21 @@
     trackA.preload = 'auto';
     trackB.preload = 'auto';
 
+    try {
+      window.__PINAPP_V24_CHAPTERS__ = chaptersMeta();
+    } catch (e0) {}
+
     var active = trackA;
     var standby = trackB;
     var currentChapter = -1;
     var activeFile = '';
-    var raf = 0;
     var lastEmitted = -1;
+    var lastSwapPair = '';
 
     function setActiveVisual(which) {
       trackA.classList.toggle('is-active', which === trackA);
       trackB.classList.toggle('is-active', which === trackB);
     }
-
-    (function bootstrapFirstClip() {
-      var firstSec = sections[0];
-      var firstCh = chapters[0];
-      var firstFile = resolveVideoFile(firstSec, firstCh);
-      if (!firstFile) return;
-      applySrc(active, firstFile);
-      activeFile = firstFile;
-      currentChapter = 0;
-      setActiveVisual(active);
-      function tryPlay() {
-        try {
-          active.play().catch(function () {});
-        } catch (eP) {}
-      }
-      if (active.readyState >= 2) {
-        tryPlay();
-      } else {
-        active.addEventListener(
-          'loadeddata',
-          function onFirstLoaded() {
-            active.removeEventListener('loadeddata', onFirstLoaded);
-            tryPlay();
-          },
-          { once: true }
-        );
-      }
-    })();
 
     function applySrc(video, file) {
       var url = VIDEO_BASE + file;
@@ -159,14 +156,15 @@
       } catch (e2) {}
     }
 
-    function emitChapter(idx, sec, progress, previousIndex) {
+    function emitChapter(idx, progress, previousIndex) {
       if (idx === lastEmitted) return;
       lastEmitted = idx;
+      var sec = document.querySelector('#voyage-main section.voyage-scene[data-chapter="' + (idx + 1) + '"]');
       try {
         document.dispatchEvent(
           new CustomEvent('pinapp:chapterchange', {
             detail: {
-              chapter: chapters[idx] ? chapters[idx].id : idx + 1,
+              chapter: idx + 1,
               index: idx,
               previousIndex: typeof previousIndex === 'number' ? previousIndex : -1,
               section: sec,
@@ -179,7 +177,7 @@
 
     function emitVideoSwapRequest(idx, previousIndex, incomingEl, outgoingEl, commit) {
       var detail = {
-        chapter: chapters[idx] ? chapters[idx].id : idx + 1,
+        chapter: idx + 1,
         index: idx,
         previousIndex: typeof previousIndex === 'number' ? previousIndex : -1,
         incomingEl: incomingEl,
@@ -230,87 +228,197 @@
       standby.addEventListener('error', onErr, { once: true });
     }
 
-    function tick() {
-      raf = 0;
-      if (reducedMotion() || soberMode()) return;
-      var picked = pickActiveSection(sections);
-      var idx = picked.index;
-      var sec = picked.el;
-      var ch = chapters[idx];
-      var p = progressInSection(sec);
-      if (!ch) return;
+    function ensureFileForChapter(chIdx, file, prevIdx, cb) {
+      if (file === activeFile) {
+        if (cb) cb();
+        return;
+      }
+      loadChapterFile(file, chIdx, prevIdx, cb);
+    }
 
-      var file = resolveVideoFile(sec, ch);
+    function setCrossfade(u) {
+      u = Math.min(1, Math.max(0, u));
+      try {
+        active.style.opacity = String(u);
+        standby.style.opacity = String(1 - u);
+      } catch (e) {}
+    }
 
-      if (idx !== currentChapter) {
-        var prevChapter = currentChapter;
-        currentChapter = idx;
-        emitChapter(idx, sec, p, prevChapter);
-        if (file !== activeFile) {
-          loadChapterFile(file, idx, prevChapter, function () {
-            try {
-              var d = active.duration;
-              if (isFinite(d) && d > 0) active.currentTime = safeTime(p * d, d);
-            } catch (e4) {}
-            var nextCh = chapters[idx + 1];
-            if (!nextCh) return;
-            var nextSec = sections[idx + 1];
-            var nextFile = nextSec ? resolveVideoFile(nextSec, nextCh) : nextCh.src;
-            if (!nextFile || nextFile === file) return;
-            standby.removeAttribute('data-preload-src');
-            standby.setAttribute('data-preload-src', nextFile);
-            applySrc(standby, nextFile);
-            try {
-              standby.load();
-            } catch (e5) {}
-          });
-          return;
+    function clearCrossfade() {
+      try {
+        active.style.opacity = '';
+        standby.style.opacity = '';
+      } catch (e2) {}
+    }
+
+    function preloadNext(fromCh) {
+      var next = segs[fromCh + 1];
+      if (!next) return;
+      if (standby.getAttribute('data-preload-src') === next.file) return;
+      standby.setAttribute('data-preload-src', next.file);
+      applySrc(standby, next.file);
+      try {
+        standby.load();
+      } catch (e4) {}
+    }
+
+    function tickFromProgress(pct) {
+      var tr = findTransition(pct, trans);
+      var prevCh = currentChapter;
+
+      if (tr && tr.tr.s1 > tr.tr.s0) {
+        var trLo = tr.tr;
+        var u = (pct - trLo.s0) / (trLo.s1 - trLo.s0);
+        var fromSeg = segs[trLo.from];
+        var toSeg = segs[trLo.to];
+        var pairKey = trLo.from + '-' + trLo.to;
+
+        if (currentChapter !== trLo.to) {
+          currentChapter = trLo.to;
+          emitChapter(currentChapter, u, prevCh);
         }
-        var nextCh2 = chapters[idx + 1];
-        if (nextCh2) {
-          var nextSec2 = sections[idx + 1];
-          var nextFile2 = nextSec2 ? resolveVideoFile(nextSec2, nextCh2) : nextCh2.src;
-          if (nextFile2 && nextFile2 !== file && standby.getAttribute('data-preload-src') !== nextFile2) {
-            standby.setAttribute('data-preload-src', nextFile2);
-            applySrc(standby, nextFile2);
-            try {
-              standby.load();
-            } catch (e5b) {}
+
+        if (fromSeg.file !== toSeg.file) {
+          if (lastSwapPair !== pairKey) {
+            lastSwapPair = pairKey;
+            ensureFileForChapter(trLo.to, toSeg.file, trLo.from, function () {
+              var dA = active.duration;
+              var dB = standby.duration;
+              try {
+                active.currentTime = safeTime(fromSeg.t1, isFinite(dA) ? dA : 10);
+              } catch (e5) {}
+              try {
+                standby.currentTime = safeTime(toSeg.t0, isFinite(dB) ? dB : 10);
+              } catch (e6) {}
+            });
           }
+          var dOut = active.duration;
+          var dIn = standby.duration;
+          try {
+            active.currentTime = safeTime(lerp(fromSeg.t1, fromSeg.t0, u), isFinite(dOut) ? dOut : 10);
+          } catch (e7) {}
+          try {
+            standby.currentTime = safeTime(lerp(toSeg.t0, toSeg.t1, u), isFinite(dIn) ? dIn : 10);
+          } catch (e8) {}
+          setCrossfade(u);
+        } else {
+          clearCrossfade();
+          lastSwapPair = '';
+          ensureFileForChapter(trLo.from, fromSeg.file, -1, function () {
+            var d = active.duration;
+            var tMid = lerp(fromSeg.t1, toSeg.t0, u);
+            try {
+              active.currentTime = safeTime(tMid, isFinite(d) ? d : 10);
+            } catch (e9) {}
+          });
         }
+        return;
       }
 
-      try {
-        var d2 = active.duration;
-        if (isFinite(d2) && d2 > 0) {
-          active.currentTime = safeTime(p * d2, d2);
-        }
-      } catch (e6) {}
+      lastSwapPair = '';
+      clearCrossfade();
+
+      var play = findPlaySegment(pct, segs);
+      var seg = play.seg;
+      var chIdx = play.index;
+      var span = Math.max(0.0001, seg.s1 - seg.s0);
+      var local = (pct - seg.s0) / span;
+      local = Math.min(1, Math.max(0, local));
+
+      if (chIdx !== currentChapter) {
+        var prev = currentChapter;
+        currentChapter = chIdx;
+        emitChapter(chIdx, local, prev);
+        ensureFileForChapter(chIdx, seg.file, prev, function () {
+          var d = active.duration;
+          try {
+            active.currentTime = safeTime(lerp(seg.t0, seg.t1, local), isFinite(d) ? d : 10);
+          } catch (e10) {}
+        });
+      } else {
+        ensureFileForChapter(chIdx, seg.file, -1, function () {
+          var d2 = active.duration;
+          try {
+            active.currentTime = safeTime(lerp(seg.t0, seg.t1, local), isFinite(d2) ? d2 : 10);
+          } catch (e11) {}
+        });
+      }
+
+      if (segs[chIdx + 1]) {
+        preloadNext(chIdx);
+      }
     }
 
-    function onScroll() {
-      if (raf) return;
-      raf = window.requestAnimationFrame(tick);
+    (function bootstrap() {
+      var first = segs[0];
+      applySrc(active, first.file);
+      activeFile = first.file;
+      currentChapter = 0;
+      setActiveVisual(active);
+      function tryPlay() {
+        try {
+          active.play().catch(function () {});
+        } catch (eP) {}
+      }
+      function onLoaded() {
+        try {
+          active.currentTime = safeTime(first.t0, active.duration || 10);
+        } catch (eL) {}
+        tryPlay();
+      }
+      if (active.readyState >= 2) {
+        onLoaded();
+      } else {
+        active.addEventListener('loadeddata', onLoaded, { once: true });
+      }
+      preloadNext(0);
+    })();
+
+    function refresh() {
+      tickFromProgress(pinProgressPct());
+    }
+    try {
+      window.__PINAPP_V25_SCRUB_REFRESH__ = refresh;
+    } catch (eW) {}
+
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+      ScrollTrigger.create({
+        trigger: mainEl,
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: true,
+        onUpdate: refresh,
+      });
+      window.addEventListener('scroll', refresh, { passive: true });
+      window.addEventListener('resize', function () {
+        try {
+          ScrollTrigger.refresh();
+        } catch (eR) {}
+        refresh();
+      });
+    } else {
+      var raf = 0;
+      function legacyTick() {
+        raf = 0;
+        tickFromProgress(pinProgressPct());
+      }
+      window.addEventListener(
+        'scroll',
+        function () {
+          if (!raf) raf = window.requestAnimationFrame(legacyTick);
+        },
+        { passive: true }
+      );
+      window.addEventListener('resize', legacyTick, { passive: true });
+      legacyTick();
     }
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
-
-    var io = new IntersectionObserver(
-      function () {
-        onScroll();
-      },
-      { root: null, threshold: [0, 0.1, 0.25, 0.5, 0.75, 1], rootMargin: '0px 0px -1px 0px' }
-    );
-    sections.forEach(function (s) {
-      io.observe(s);
-    });
-
-    tick();
+    refresh();
   }
 
   document.addEventListener('DOMContentLoaded', function () {
     if (reducedMotion() || soberMode()) return;
-    initScrubberWithChapters(chaptersV25());
+    initScrubber();
   });
 })();

@@ -316,6 +316,11 @@
         try {
           if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.update();
         } catch (e2) {}
+        try {
+          if (typeof window.__PINAPP_V25_SCRUB_REFRESH__ === 'function') {
+            window.__PINAPP_V25_SCRUB_REFRESH__();
+          }
+        } catch (e2b) {}
       });
       if (typeof gsap !== 'undefined' && gsap.ticker) {
         gsap.ticker.add(function (time) {
@@ -354,6 +359,7 @@
     } catch (e) {}
 
     document.querySelectorAll('.voyage-scene').forEach(function (sec, idx) {
+      if (sec.id === 's7' && document.getElementById('voyage-spiral-real')) return;
       var img = getVoyageBgMotionTarget(sec);
       var veil = sec.querySelector('.voyage-scene__veil');
       var inner = sec.querySelector('.voyage-scene__inner');

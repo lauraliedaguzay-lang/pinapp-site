@@ -1,7 +1,25 @@
 /* Encart #s5b — workflow n8n (tokens --v24-auto-*) */
 
 .voyage-scene--automation {
-  background: linear-gradient(180deg, var(--v24-auto-bg-a) 0%, var(--v24-auto-bg-b) 50%, var(--v24-auto-bg-a) 100%);
+  background: var(--v24-auto-bg-warm), linear-gradient(180deg, var(--v24-auto-bg-a) 0%, var(--v24-auto-bg-b) 100%);
+  background-blend-mode: normal, multiply;
+  position: relative;
+}
+
+.voyage-scene--automation::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--v24-auto-grain-opacity);
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23g)' opacity='0.4'/%3E%3C/svg%3E");
+  z-index: 0;
+}
+
+.voyage-scene--automation .chapter__content {
+  position: relative;
+  z-index: 1;
 }
 
 .voyage-scene--automation .label--honey {
@@ -242,5 +260,102 @@
 
   .auto-node__circle {
     transition: none;
+  }
+}
+
+/* P8 — SVG cinéma workflow */
+.auto-cine {
+  position: relative;
+  margin-top: var(--s-10);
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 220px;
+  padding: var(--s-6) var(--s-4);
+  border-radius: var(--r-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(10, 20, 37, 0.42);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  transform: translateZ(0);
+}
+
+.auto-cine__particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.auto-cine__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 220px;
+  color: rgba(255, 255, 255, 0.88);
+  position: relative;
+  z-index: 1;
+}
+
+.auto-cine__node {
+  cursor: default;
+}
+
+.auto-cine__node-hit {
+  fill: transparent;
+  stroke: none;
+}
+
+.auto-cine__node-ring {
+  fill: rgba(10, 20, 37, 0.55);
+  stroke: rgba(255, 255, 255, 0.14);
+  stroke-width: 1.2;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition:
+    stroke var(--d-short) var(--ease),
+    filter var(--d-short) var(--ease);
+}
+
+.auto-cine__node.is-lit .auto-cine__node-ring {
+  stroke: rgba(77, 208, 225, 0.55);
+  filter: drop-shadow(0 0 12px rgba(62, 245, 224, 0.22));
+}
+
+.auto-cine__node.is-hover .auto-cine__node-ring {
+  stroke: rgba(232, 184, 100, 0.55);
+}
+
+.auto-cine__tip {
+  fill: rgba(255, 255, 255, 0.78);
+  font-family: Geist, system-ui, sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity var(--d-short) var(--ease);
+}
+
+.auto-cine__node.is-hover .auto-cine__tip,
+.auto-cine__node.is-lit .auto-cine__tip {
+  opacity: 1;
+}
+
+html.voyage-sober .auto-cine__particles,
+html.low-perf .auto-cine__particles {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .auto-cine {
+    padding: var(--s-4) var(--s-2);
+    overflow-x: auto;
+  }
+
+  .auto-cine__svg {
+    min-width: 720px;
   }
 }
