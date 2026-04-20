@@ -15,9 +15,10 @@
     { id: 3, src: '03-hublot-cosmos.mp4', start: 220, end: 340, duration: 10, label: 'Métiers' },
     { id: 4, src: '04-constellation-mp.mp4', start: 340, end: 440, duration: 10, label: 'Constellation' },
     { id: 5, src: '05-sortie-vaisseau.mp4', start: 440, end: 520, duration: 10, label: 'Preuves' },
-    { id: 6, src: '06-balade-cosmos.mp4', start: 520, end: 660, duration: 10, label: 'M&P · Auralis' },
-    { id: 7, src: '07-tourbillon-etoiles.mp4', start: 660, end: 800, duration: 10, label: 'Réalisations' },
-    { id: 8, src: '08-lune-finale.mp4', start: 800, end: 920, duration: 10, label: 'Contact' },
+    { id: 6, src: '05-sortie-vaisseau.mp4', start: 520, end: 600, duration: 8, label: 'Automation n8n' },
+    { id: 7, src: '06-balade-cosmos.mp4', start: 600, end: 720, duration: 10, label: 'Manifeste' },
+    { id: 8, src: '07-tourbillon-etoiles.mp4', start: 720, end: 860, duration: 10, label: 'Réalisations' },
+    { id: 9, src: '08-lune-finale.mp4', start: 860, end: 980, duration: 10, label: 'Contact' },
   ];
 
   try {
@@ -82,7 +83,7 @@
     if (!cinema || !trackA || !trackB) return;
 
     var sections = sectionList();
-    if (sections.length < 8) return;
+    if (sections.length < 9) return;
 
     document.documentElement.classList.add('voyage-v24-cinema');
     cinema.hidden = false;

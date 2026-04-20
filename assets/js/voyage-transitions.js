@@ -19,6 +19,14 @@
     return document.documentElement.classList.contains('voyage-v24-cinema');
   }
 
+  function chapterIdForIndex(idx) {
+    try {
+      var list = window.__PINAPP_V24_CHAPTERS__;
+      if (list && list[idx] && typeof list[idx].id === 'number') return list[idx].id;
+    } catch (e0) {}
+    return idx + 1;
+  }
+
   function bridgeVarName(prevIdx, nextIdx) {
     var a = Math.min(prevIdx, nextIdx) + 1;
     var b = Math.max(prevIdx, nextIdx) + 1;
@@ -63,7 +71,11 @@
 
     d.claimed = true;
 
-    var sec = d.index >= 0 ? document.querySelector('#voyage-main section.voyage-scene[data-chapter="' + (d.index + 1) + '"]') : null;
+    var chNum = chapterIdForIndex(d.index);
+    var sec =
+      d.index >= 0
+        ? document.querySelector('#voyage-main section.voyage-scene[data-chapter="' + chNum + '"]')
+        : null;
     var sandEl = pickSandTarget(sec);
     var bridgeName = bridgeVarName(prevI, nextI);
     var bridgeGrad = readCssVar(bridgeName, readCssVar('--v24-bridge-gradient', 'none'));
