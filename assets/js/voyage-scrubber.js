@@ -108,15 +108,31 @@
     var trackA = document.getElementById('cinema-track-a');
     var trackB = document.getElementById('cinema-track-b');
     var mainEl = document.getElementById('voyage-main');
-    if (!cinema || !trackA || !trackB || !mainEl) return;
+    if (!cinema || !trackA || !trackB || !mainEl) {
+      try {
+        console.error('[voyage-scrubber] missing DOM nodes', {
+          cinema: !!cinema,
+          trackA: !!trackA,
+          trackB: !!trackB,
+          main: !!mainEl,
+        });
+      } catch (e0) {}
+      return;
+    }
 
     var segs = timelineSegments();
     var trans = transitions();
 
     document.documentElement.classList.add('voyage-v24-cinema');
+    try {
+      if (document.body) document.body.classList.add('voyage-v24-cinema');
+    } catch (eBody) {}
     cinema.hidden = false;
     cinema.removeAttribute('hidden');
     cinema.setAttribute('aria-hidden', 'true');
+    try {
+      cinema.style.display = 'block';
+    } catch (eDisp) {}
 
     trackA.muted = true;
     trackB.muted = true;
@@ -418,7 +434,58 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    if (reducedMotion() || soberMode()) return;
-    initScrubber();
+    // legacy listener (kept for safety)
   });
+
+  function forceCinemaFallback() {
+    try {
+      document.documentElement.classList.add('voyage-v24-cinema');
+    } catch (e0) {}
+    try {
+      var cinema = document.getElementById('voyage-cinema');
+      var a = document.getElementById('cinema-track-a');
+      if (cinema) {
+        cinema.hidden = false;
+        cinema.removeAttribute('hidden');
+        cinema.setAttribute('aria-hidden', 'true');
+      }
+      if (a && !a.src) {
+        a.muted = true;
+        a.playsInline = true;
+        a.setAttribute('playsinline', '');
+        a.preload = 'auto';
+        a.src = VIDEO_BASE + '01-main-hologramme.mp4';
+        try {
+          a.load();
+        } catch (e1) {}
+        try {
+          a.play().catch(function () {});
+        } catch (e2) {}
+        a.classList.add('is-active');
+      }
+    } catch (e3) {}
+  }
+
+  function boot() {
+    if (soberMode()) return;
+    try {
+      initScrubber();
+      // If something external removed the class, keep the layer alive.
+      if (!document.documentElement.classList.contains('voyage-v24-cinema')) {
+        document.documentElement.classList.add('voyage-v24-cinema');
+      }
+    } catch (e) {
+      try {
+        console.error('[voyage-scrubber] initScrubber threw', e);
+      } catch (e2) {}
+      forceCinemaFallback();
+    }
+  }
+
+  // Ensure boot runs even if this script loads after DOMContentLoaded.
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    window.setTimeout(boot, 0);
+  }
 })();
