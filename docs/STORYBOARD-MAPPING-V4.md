@@ -1,5 +1,7 @@
 # Storyboard V4.0 — fond vidéo par scène (référence)
 
+> **V5.0** : voir `docs/STORYBOARD-MAPPING-V5.md` (vidéos `pinapp.fr` absolues, overlay 0.55, transitions 800 ms).
+
 Document de vérité après **V4.0** : chaque section affiche **sa** vidéo dans `.voyage-scene__media-stack` (lecture en boucle, muette). Le scrubber central `voyage-scrubber.js` **n’est plus chargé** sur `index.html` ; la couche `#voyage-cinema` reste dans le DOM mais est **masquée** en CSS lorsque `html` porte la classe `voyage-v40-per-scene`.
 
 ## Règle d’affichage
