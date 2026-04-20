@@ -1,0 +1,85 @@
+/**
+ * V2.5 — LUT « cold gold Interstellar » + grain + vignette (voyage uniquement).
+ */
+
+body.voyage-page {
+  position: relative;
+}
+
+/* Grain film (SVG bruit) + vignette — désactivé en mode sobre / perf / reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  body.voyage-page:not(.voyage-sober):not(.low-perf)::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: var(--v24-lut-grain-opacity);
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+    background-size: 220px 220px;
+  }
+
+  body.voyage-page:not(.voyage-sober):not(.low-perf)::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 50% 45%, transparent 55%, var(--v24-lut-vignette) 100%);
+  }
+}
+
+html.voyage-sober body.voyage-page::before,
+html.voyage-sober body.voyage-page::after,
+html.low-perf body.voyage-page::before,
+html.low-perf body.voyage-page::after {
+  content: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.voyage-page::before,
+  body.voyage-page::after {
+    content: none !important;
+  }
+}
+
+/* Fonds vidéo par chapitre (sections) — mode sobre ou hors cinéma centralisé */
+html.voyage-page .voyage-scene video.lieu-bg-video {
+  filter: var(--v24-lut-filter-neutral);
+}
+
+html.voyage-page #s1 .lieu-bg-video,
+html.voyage-page #s3 .lieu-bg-video,
+html.voyage-page #s6 .lieu-bg-video {
+  filter: var(--v24-lut-filter-neutral);
+}
+
+html.voyage-page #s2 .lieu-bg-video,
+html.voyage-page #s4 .lieu-bg-video,
+html.voyage-page #s7 .lieu-bg-video {
+  filter: var(--v24-lut-filter-warm);
+}
+
+html.voyage-page #s5 .lieu-bg-video,
+html.voyage-page #s5b .lieu-bg-video,
+html.voyage-page #s8 .lieu-bg-video {
+  filter: var(--v24-lut-filter-cool);
+}
+
+/* Piste cinéma plein écran (scroll scrub) */
+html.voyage-v24-cinema #voyage-cinema .cinema__track {
+  filter: var(--v24-lut-filter-neutral);
+}
+
+html.voyage-sober.voyage-page .voyage-scene video.lieu-bg-video,
+html.voyage-sober.voyage-page #voyage-cinema .cinema__track {
+  filter: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.voyage-page .voyage-scene video.lieu-bg-video,
+  html.voyage-page #voyage-cinema .cinema__track {
+    filter: none;
+  }
+}

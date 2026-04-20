@@ -1,7 +1,7 @@
 ﻿#Requires -Version 5.1
 <#
 .SYNOPSIS
-  PowerShell Windows natif — pousse les MP4 voyage (00 + 01–08) vers assets/video/voyage/ puis commit + push (branche V2.4 DREAM).
+  PowerShell Windows natif — pousse les MP4 voyage (01–08) vers assets/video/voyage/ puis commit + push (branche V2.4 DREAM).
 .DESCRIPTION
   Pas de bash / WSL. git add uniquement assets/video/voyage/*.mp4 (jamais git add -A).
   Journal : tools/logs/commit-mp4-yyyy-MM-dd-HHmmss.log
@@ -18,7 +18,6 @@ $MaxFileBytes = 100MB
 $WarnFileBytes = 50MB
 
 $mp4Expected = @(
-    '00-seedance-intro.mp4',
     '01-main-hologramme.mp4',
     '02-couloir-passengers.mp4',
     '03-hublot-cosmos.mp4',
@@ -26,8 +25,7 @@ $mp4Expected = @(
     '05-sortie-vaisseau.mp4',
     '06-balade-cosmos.mp4',
     '07-tourbillon-etoiles.mp4',
-    '08-lune-finale.mp4',
-    '09-atterrissage-sable.mp4'
+    '08-atterrissage-sable.mp4'
 )
 
 function Read-YesNo {

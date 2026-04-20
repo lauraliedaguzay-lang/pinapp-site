@@ -31,7 +31,6 @@ if ($currentBranch -eq "cursor/v24-step5-transitions-lightbox-df83") {
 Write-Host "`n-- Diagnostic MP4 Higgsfield --" -ForegroundColor Cyan
 
 $mp4Expected = @(
-    "00-seedance-intro.mp4",
     "01-main-hologramme.mp4",
     "02-couloir-passengers.mp4",
     "03-hublot-cosmos.mp4",
@@ -39,8 +38,7 @@ $mp4Expected = @(
     "05-sortie-vaisseau.mp4",
     "06-balade-cosmos.mp4",
     "07-tourbillon-etoiles.mp4",
-    "08-lune-finale.mp4",
-    "09-atterrissage-sable.mp4"
+    "08-atterrissage-sable.mp4"
 )
 
 $videoDir = "assets/video/voyage"

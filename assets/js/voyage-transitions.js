@@ -71,13 +71,12 @@
 
     d.claimed = true;
 
-    /* s8a → s8b : dust settle + crossfade (~1000 ms) */
-    if (prevI === 9 && nextI === 10) {
+    /* s7 → s8 : dust settle + crossfade (~1000 ms) */
+    if (prevI === 7 && nextI === 8) {
       var dust = document.querySelector('.voyage-cinema-fx-dust');
-      var secDust = document.getElementById('s8b') || null;
+      var secDust = document.getElementById('s8') || null;
       var sandElDust = pickSandTarget(secDust);
-      var bridgeNameD = bridgeVarName(prevI, nextI);
-      var bridgeGradD = readCssVar(bridgeNameD, readCssVar('--v24-bridge-gradient', 'none'));
+      var bridgeGradD = readCssVar('--v24-bridge-cut-8-9-sand', readCssVar(bridgeVarName(prevI, nextI), readCssVar('--v24-bridge-gradient', 'none')));
       var bridgeD = document.querySelector('.voyage-cinema-fx-bridge');
       if (bridgeD) bridgeD.style.setProperty('--v24-bridge-active', bridgeGradD);
 

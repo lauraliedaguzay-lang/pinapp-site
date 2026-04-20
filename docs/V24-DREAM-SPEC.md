@@ -35,7 +35,7 @@ Fichiers nominatifs du brief (à déposer par l’équipe ; **actuellement** le 
 | 5 | `05-sortie-vaisseau.mp4` | Stats / preuves |
 | 6 | `06-balade-cosmos.mp4` | Univers + manifeste |
 | 7 | `07-tourbillon-etoiles.mp4` | **Encart Réalisations** |
-| 8 | `08-lune-finale.mp4` | FAQ + formulaire + footer |
+| 8 | `08-atterrissage-sable.mp4` | Contact + FAQ + footer (V2.5 : fichier unique, plus de scène lune) |
 
 **Scrub** : une timeline ScrollTrigger (ou équivalent) pilote `video.currentTime` en fonction du scroll sur la plage du chapitre ; double-buffer + transitions décrites au §3.
 
