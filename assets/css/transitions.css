@@ -5,6 +5,8 @@ html.voyage-v24-cinema .cinema {
 
 .voyage-cinema-fx-leak,
 .voyage-cinema-fx-bridge,
+.voyage-cinema-fx-flash,
+.voyage-bridge-canvas,
 .voyage-cinema-fx-dust {
   position: absolute;
   inset: 0;
@@ -12,6 +14,21 @@ html.voyage-v24-cinema .cinema {
   opacity: 0;
   will-change: opacity, filter;
   transform: translateZ(0);
+}
+
+.voyage-cinema-fx-flash {
+  z-index: var(--v24-fx-flash-z);
+  background: radial-gradient(circle at 50% 45%, rgba(244, 228, 193, 0.95) 0%, rgba(244, 228, 193, 0.35) 42%, transparent 68%);
+  mix-blend-mode: screen;
+}
+
+.voyage-bridge-canvas {
+  z-index: var(--v24-fx-bridge-canvas-z);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  mix-blend-mode: screen;
 }
 
 .voyage-cinema-fx-dust {
@@ -80,6 +97,8 @@ html.voyage-v24-cinema .cinema {
 
   .voyage-cinema-fx-leak,
   .voyage-cinema-fx-bridge,
+  .voyage-cinema-fx-flash,
+  .voyage-bridge-canvas,
   .voyage-cinema-fx-dust {
     display: none;
   }
@@ -87,6 +106,9 @@ html.voyage-v24-cinema .cinema {
 
 html.voyage-sober .voyage-cinema-fx-leak,
 html.voyage-sober .voyage-cinema-fx-bridge,
+html.voyage-sober .voyage-cinema-fx-flash,
+html.voyage-sober .voyage-bridge-canvas,
 html.voyage-sober .voyage-cinema-fx-dust {
   display: none !important;
 }
+
