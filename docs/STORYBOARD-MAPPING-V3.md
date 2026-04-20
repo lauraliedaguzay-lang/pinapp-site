@@ -11,15 +11,17 @@ Quand `html.voyage-v24-cinema` est actif **sans** `voyage-sober`, les fonds **pa
 
 | Chapitre | `#` | `data-chapter` | Fichier MP4 | Scroll global (approx.) | Fenêtre temps dans le fichier (s) | Intention storyboard Lauralie | Statut contenu |
 |----------|-----|----------------|-------------|-------------------------|-------------------------------------|--------------------------------|-----------------|
-| 0 | `s1` | 1 | `01-main-hologramme.mp4` | 0 % → 12 % | **t0 0 → t1 3** (les 3 premières secondes au hero) | Main + hologramme (doigt qui touche), graphique avant/après | À valider dans le fichier local |
-| 1 | `s2` | 2 | `02-couloir-passengers.mp4` | 14 % → 26 % | 0 → 4 | Couloir Passengers en fond | À valider |
-| 2 | `s3` | 3 | `03-hublot-cosmos.mp4` | 28 % → 40 % | 0 → 6 | Hublot cockpit cosmos, 4 métiers type widget Apple | À valider |
-| 3 | `s4` | 4 | `04-constellation-mp.mp4` | 42 % → 54 % | 0 → 3,5 | Constellation, widget M&P / Auralis / newsletter | À valider |
-| 4 | `s5` | 5 | `05-sortie-vaisseau.mp4` | 56 % → 66 % | 0 → 4 | Vaisseau / sortie, « courant » | À valider |
-| 5 | `s5b` | 6 | `05-sortie-vaisseau.mp4` (même fichier) | 66 % → 76 % | **4 → 8** | Suite même décor : bloc N8N / automatisations (storyboard : même bande que le vaisseau) | À valider |
-| 6 | `s6` | 7 | `06-balade-cosmos.mp4` | 78 % → 88 % | 0 → 5 | Balade cosmos, manifeste « digital human » | À valider |
-| 7 | `s7` | 8 | `07-tourbillon-etoiles.mp4` | 90 % → 96 % | 0 → 4 | Tourbillon étoiles + réalisations | À valider |
-| 8 | `s8` | 9 | `08-atterrissage-sable.mp4` | 98 % → 100 % | 0 → 3 | Atterrissage sable doré | À valider |
+| 0 | `s1` | 1 | `01-main-hologramme.mp4` | 0 % → 12 % | **t0 0 → t1 3** (les 3 premières secondes au hero) | Main + hologramme (doigt qui touche), graphique avant/après | ✅ aligné |
+| 1 | `s2` | 2 | `02-couloir-passengers.mp4` | 14 % → 26 % | 0 → 4 | Couloir Passengers en fond | ✅ aligné |
+| 2 | `s3` | 3 | `03-hublot-cosmos.mp4` | 28 % → 40 % | 0 → 6 | Hublot cockpit cosmos, 4 métiers type widget Apple | ✅ aligné |
+| 3 | `s4` | 4 | `04-constellation-mp.mp4` | 42 % → 54 % | 0 → 3,5 | Constellation, widget M&P / Auralis / newsletter | ✅ aligné |
+| 4 | `s5` | 5 | `05-sortie-vaisseau.mp4` | 56 % → 66 % | 0 → 4 | Vaisseau / sortie, « courant » | ✅ aligné |
+| 5 | `s5b` | 6 | `05-sortie-vaisseau.mp4` (même fichier) | 66 % → 76 % | **4 → 8** | Suite même décor : bloc N8N / automatisations (storyboard : même bande que le vaisseau) | ✅ aligné |
+| 6 | `s6` | 7 | `06-balade-cosmos.mp4` | 78 % → 88 % | 0 → 5 | Balade cosmos, manifeste « digital human » | ✅ aligné |
+| 7 | `s7` | 8 | `07-tourbillon-etoiles.mp4` | 90 % → 96 % | 0 → 4 | Tourbillon étoiles + réalisations | ✅ aligné |
+| 8 | `s8` | 9 | `08-atterrissage-sable.mp4` | 98 % → 100 % | 0 → 3 | Atterrissage sable doré | ✅ aligné |
+
+**Validation contenu** : chemin A (visionnage local des 8 MP4) — **verdict A · 8/8 OK** — Lauralie, 2026-04-20. Aucun ajustement `t0/t1` ni regénération de rush requis côté intention storyboard.
 
 Les pourcentages **12–14 %, 26–28 %**, etc. sont des **zones de transition** (crossfade) entre deux chapitres — voir `transitions()` dans le même fichier.
 
