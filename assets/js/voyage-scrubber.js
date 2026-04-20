@@ -16,6 +16,18 @@
     '08-atterrissage-sable.mp4': '/assets/img/voyage/08-sable-poster.jpg',
   };
 
+  /** Optional AV1 WebM (généré via tools/pinapp-perf-gen.ps1) — si absent, le navigateur prend le MP4. */
+  var CINEMA_WEBM = {
+    '01-main-hologramme.mp4': '01-main.webm',
+    '02-couloir-passengers.mp4': '02-couloir.webm',
+    '03-hublot-cosmos.mp4': '03-hublot.webm',
+    '04-constellation-mp.mp4': '04-constellation.webm',
+    '05-sortie-vaisseau.mp4': '05-sortie.webm',
+    '06-balade-cosmos.mp4': '06-balade.webm',
+    '07-tourbillon-etoiles.mp4': '07-tourbillon.webm',
+    '08-atterrissage-sable.mp4': '08-sable.webm',
+  };
+
   function cinemaPlay(video, label) {
     try {
       var p = video.play();
@@ -157,7 +169,19 @@
       trackA.style.opacity = '1';
     } catch (eO) {}
     try {
-      trackA.src = VIDEO_BASE + first.file;
+      trackA.removeAttribute('src');
+      trackA.innerHTML = '';
+      var w0 = CINEMA_WEBM[first.file];
+      if (w0) {
+        var sw0 = document.createElement('source');
+        sw0.src = VIDEO_BASE + w0;
+        sw0.type = 'video/webm';
+        trackA.appendChild(sw0);
+      }
+      var sm0 = document.createElement('source');
+      sm0.src = VIDEO_BASE + first.file;
+      sm0.type = 'video/mp4';
+      trackA.appendChild(sm0);
       trackA.poster = CINEMA_POSTER[first.file] || '';
       trackA.load();
     } catch (eL) {}
@@ -271,7 +295,19 @@
       try {
         video.pause();
       } catch (e) {}
-      video.src = url;
+      video.removeAttribute('src');
+      video.innerHTML = '';
+      var wv = CINEMA_WEBM[file];
+      if (wv) {
+        var sw = document.createElement('source');
+        sw.src = VIDEO_BASE + wv;
+        sw.type = 'video/webm';
+        video.appendChild(sw);
+      }
+      var sm = document.createElement('source');
+      sm.src = url;
+      sm.type = 'video/mp4';
+      video.appendChild(sm);
       try {
         video.poster = CINEMA_POSTER[file] || '';
       } catch (eP) {}
@@ -572,12 +608,28 @@
         cinema.removeAttribute('hidden');
         cinema.setAttribute('aria-hidden', 'true');
       }
-      if (a && !a.src) {
+      if (a && !a.querySelector('source')) {
         a.muted = true;
         a.playsInline = true;
         a.setAttribute('playsinline', '');
         a.preload = 'auto';
-        a.src = VIDEO_BASE + '01-main-hologramme.mp4';
+        var ffb = '01-main-hologramme.mp4';
+        a.removeAttribute('src');
+        a.innerHTML = '';
+        var wfb = CINEMA_WEBM[ffb];
+        if (wfb) {
+          var swfb = document.createElement('source');
+          swfb.src = VIDEO_BASE + wfb;
+          swfb.type = 'video/webm';
+          a.appendChild(swfb);
+        }
+        var smfb = document.createElement('source');
+        smfb.src = VIDEO_BASE + ffb;
+        smfb.type = 'video/mp4';
+        a.appendChild(smfb);
+        try {
+          a.poster = CINEMA_POSTER[ffb] || '';
+        } catch (eP0) {}
         try {
           a.load();
         } catch (e1) {}
