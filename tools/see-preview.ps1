@@ -1,4 +1,4 @@
-#Requires -Version 5.1
+﻿#Requires -Version 5.1
 <#
 .SYNOPSIS
   Ouvre la preview Netlify PR #39 (V2.4 DREAM) dans le navigateur par défaut.
