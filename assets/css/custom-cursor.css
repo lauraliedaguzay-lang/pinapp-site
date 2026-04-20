@@ -1,0 +1,79 @@
+/* Pinapp V3.0 Phase 2 — custom cursor (desktop, motion ok) */
+#cursor-ring,
+#cursor-label {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html.voyage-page:not(.voyage-sober) body:not(.voyage-cursor-off) #cursor-ring,
+  html.voyage-page:not(.voyage-sober) body:not(.voyage-cursor-off) #cursor-label {
+    display: block;
+  }
+
+  html.voyage-page:not(.voyage-sober) body:not(.voyage-cursor-off) {
+    cursor: none;
+  }
+}
+
+#cursor-ring {
+  position: fixed;
+  width: 24px;
+  height: 24px;
+  border: 1.5px solid var(--cyan-glow);
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 100001;
+  mix-blend-mode: difference;
+  box-sizing: border-box;
+  transition:
+    width 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    height 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 300ms ease;
+}
+
+#cursor-ring.hover-view {
+  width: 80px;
+  height: 80px;
+  border-color: var(--gold-primary);
+}
+
+#cursor-label {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 4px 10px;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ivory-text);
+  background: rgba(10, 20, 37, 0.82);
+  border-radius: 20px;
+  pointer-events: none;
+  z-index: 100002;
+  opacity: 0;
+  white-space: nowrap;
+  transform: translate(16px, 16px);
+  transition: opacity 200ms ease;
+  font-family: var(--font-body);
+}
+
+#cursor-label.is-on {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
+  html.voyage-page body {
+    cursor: auto !important;
+  }
+  #cursor-ring,
+  #cursor-label {
+    display: none !important;
+  }
+}
+
+html.voyage-sober #cursor-ring,
+html.voyage-sober #cursor-label {
+  display: none !important;
+}

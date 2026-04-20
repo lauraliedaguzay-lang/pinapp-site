@@ -28,26 +28,67 @@
   font-display: swap;
 }
 
+/* Fraunces (SIL OFL) — italique cinéma V3.0 — self-host existant */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/assets/fonts/fraunces-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/assets/fonts/fraunces-italic-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
 :root {
   --bg-void: #050b14;
   --bg-deep: #0a1425;
   --bg-elevated: #0f1a2e;
+  /* V2.6 « monastique » — tri-chrome cinéma (or · cyan rare · ivoire) */
+  --v26-warm-gold: #e6b973;
+  --v26-ivory: #f4e4c1;
+  --v26-cta-primary: var(--v26-warm-gold);
+  --v26-cta-primary-text: #0a1425;
+
+  /* V3.0 Phase 1 — cadre cinéma (aliases + espacements) */
+  --black-night: #0a1425;
+  --black-deeper: #050a15;
+  --gold-primary: #e6b973;
+  --gold-light: #ffd99f;
+  --gold-deep: #b89968;
+  --cyan-bright: #62ffe8;
+  --ivory-text: #f4e4c1;
+  --ivory-muted: rgba(244, 228, 193, 0.7);
+  --red-sacred: #8b1e3f;
+  --font-body: 'Geist', system-ui, sans-serif;
+  --font-accent: 'Fraunces', Georgia, serif;
+  --space-cinema-xs: 0.75rem;
+  --space-cinema-sm: 1.5rem;
+  --space-cinema-md: clamp(3rem, 6vw, 5rem);
+  --space-cinema-lg: clamp(6rem, 12vw, 10rem);
+  --space-cinema-xl: clamp(10rem, 20vw, 16rem);
   /* V2.3 Aladdin — overlay image + calibrage glows (~50 % vs V2.1) */
   --voyage-overlay-dark: rgba(0, 0, 0, 0.45);
   --voyage-overlay-heavy: rgba(0, 0, 0, 0.5);
   --particles-density-base: 50;
   --cyan-glow: #3ef5e0;
-  --cyan-soft: #75f7e6;
-  --violet-glow: #a67fff;
-  --magenta-rare: #ff5fa8;
-  --amber-warm: #e8a661;
-  --amber-deep: #8b5a2b;
-  --text-primary: rgba(255, 255, 255, 1);
-  --text-secondary: rgba(255, 255, 255, 0.72);
-  --text-muted: rgba(255, 255, 255, 0.48);
-  --text-whisper: rgba(255, 255, 255, 0.28);
+  --cyan-soft: rgba(62, 245, 224, 0.72);
+  --violet-glow: rgba(230, 185, 115, 0.55);
+  --magenta-rare: var(--v26-warm-gold);
+  --amber-warm: #e6b973;
+  --amber-deep: #b89968;
+  --text-primary: var(--v26-ivory);
+  --text-secondary: rgba(244, 228, 193, 0.82);
+  --text-muted: rgba(244, 228, 193, 0.48);
+  --text-whisper: rgba(244, 228, 193, 0.28);
   --success: var(--cyan-glow);
-  --error: var(--magenta-rare);
+  --error: #c17a5c;
   --warning: var(--amber-warm);
   --s-1: 4px;
   --s-2: 8px;
@@ -63,8 +104,9 @@
   --r-md: 12px;
   --r-lg: 24px;
   --r-full: 999px;
-  --glow-cyan: 0 0 28px rgba(62, 245, 224, 0.18);
-  --glow-magenta: 0 0 28px rgba(255, 95, 168, 0.16);
+  --glow-cyan: 0 0 28px rgba(62, 245, 224, 0.14);
+  --glow-magenta: 0 0 24px rgba(230, 185, 115, 0.2);
+  --glow-gold: 0 0 24px rgba(230, 185, 115, 0.22);
   --shadow-depth: 0 24px 48px rgba(0, 0, 0, 0.45);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in: cubic-bezier(0, 0.55, 0.45, 1);
@@ -79,9 +121,9 @@
   --v24-bridge-blur: 2px;
   --v24-bridge-gradient: radial-gradient(
     circle at 50% 42%,
-    rgba(62, 245, 224, 0.32) 0%,
-    rgba(166, 127, 255, 0.24) 42%,
-    rgba(255, 95, 168, 0.12) 68%,
+    rgba(62, 245, 224, 0.22) 0%,
+    rgba(230, 185, 115, 0.2) 42%,
+    rgba(244, 228, 193, 0.08) 68%,
     transparent 78%
   );
   --v24-bridge-timing: 250ms;
@@ -153,20 +195,20 @@
   );
   --v24-bridge-cut-2-3: radial-gradient(
     circle at 50% 45%,
-    rgba(62, 245, 224, 0.22) 0%,
-    rgba(166, 127, 255, 0.18) 50%,
+    rgba(62, 245, 224, 0.2) 0%,
+    rgba(230, 185, 115, 0.16) 50%,
     transparent 72%
   );
   --v24-bridge-cut-3-4: radial-gradient(
     circle at 50% 45%,
-    rgba(166, 127, 255, 0.2) 0%,
-    rgba(62, 245, 224, 0.16) 48%,
+    rgba(230, 185, 115, 0.18) 0%,
+    rgba(62, 245, 224, 0.14) 48%,
     transparent 72%
   );
   --v24-bridge-cut-4-5: radial-gradient(
     circle at 50% 45%,
-    rgba(255, 95, 168, 0.14) 0%,
-    rgba(62, 245, 224, 0.18) 55%,
+    rgba(230, 185, 115, 0.16) 0%,
+    rgba(62, 245, 224, 0.16) 55%,
     transparent 72%
   );
   --v24-bridge-cut-5-6: radial-gradient(
@@ -177,26 +219,26 @@
   );
   --v24-bridge-cut-6-7: radial-gradient(
     circle at 50% 45%,
-    rgba(232, 166, 97, 0.18) 0%,
-    rgba(166, 127, 255, 0.16) 50%,
+    rgba(232, 166, 97, 0.16) 0%,
+    rgba(62, 245, 224, 0.12) 50%,
     transparent 72%
   );
   --v24-bridge-cut-7-8: radial-gradient(
     circle at 50% 45%,
-    rgba(166, 127, 255, 0.2) 0%,
-    rgba(62, 245, 224, 0.14) 52%,
+    rgba(230, 185, 115, 0.18) 0%,
+    rgba(62, 245, 224, 0.12) 52%,
     transparent 72%
   );
   --v24-bridge-cut-8-9: radial-gradient(
     circle at 50% 45%,
-    rgba(62, 245, 224, 0.18) 0%,
-    rgba(255, 95, 168, 0.1) 48%,
+    rgba(62, 245, 224, 0.16) 0%,
+    rgba(230, 185, 115, 0.12) 48%,
     transparent 72%
   );
   --v24-bridge-cut-9-10: radial-gradient(
     circle at 50% 45%,
-    rgba(255, 95, 168, 0.12) 0%,
-    rgba(62, 245, 224, 0.16) 52%,
+    rgba(230, 185, 115, 0.12) 0%,
+    rgba(62, 245, 224, 0.14) 52%,
     transparent 72%
   );
   /* Tourbillon → atterrissage sable (contact) */
@@ -212,8 +254,8 @@
   --v24-auto-honey: #e8b864;
   --v24-auto-honey-soft: rgba(232, 184, 100, 0.85);
   --v24-auto-cyan-node: rgba(77, 208, 225, 1);
-  --v24-auto-violet-node: rgba(154, 123, 214, 1);
-  --v24-auto-magenta-node: rgba(233, 70, 149, 1);
+  --v24-auto-violet-node: rgba(184, 153, 104, 1);
+  --v24-auto-magenta-node: rgba(230, 185, 115, 1);
   --v24-auto-flow-dash: rgba(77, 208, 225, 0.3);
   --v24-auto-bg-a: #0a1425;
   --v24-auto-bg-b: #141b38;
@@ -236,7 +278,7 @@
 }
 
 html.voyage-page {
-  font-family: 'Geist', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   background: var(--bg-deep);
   color: var(--text-primary);
   scroll-behavior: auto;
@@ -317,9 +359,9 @@ html.voyage-page body {
 }
 
 .btn-primary {
-  background: var(--magenta-rare);
-  color: var(--bg-void);
-  box-shadow: var(--glow-magenta);
+  background: var(--v26-cta-primary);
+  color: var(--v26-cta-primary-text);
+  box-shadow: var(--glow-gold);
 }
 .btn-primary:hover {
   transform: scale(1.02);
@@ -348,7 +390,7 @@ textarea {
   border: none;
   border-bottom: 1px solid rgba(62, 245, 224, 0.28);
   padding: var(--s-4) 0;
-  color: #fff;
+  color: var(--v26-ivory);
   font: 1rem/1.5 'Geist', sans-serif;
   width: 100%;
   outline: none;
@@ -361,7 +403,7 @@ textarea:focus {
 }
 input::placeholder,
 textarea::placeholder {
-  color: rgba(255, 255, 255, 0.32);
+  color: rgba(244, 228, 193, 0.35);
 }
 
 .honeypot {

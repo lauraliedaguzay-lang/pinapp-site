@@ -1,0 +1,151 @@
+/* Pinapp V3.0 Phase 3.1 — #s7 œuvre split + WebGL stage + fallback grille */
+
+.oeuvre-split {
+  display: grid;
+  grid-template-columns: min(380px, 100%) 1fr;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+  width: 100%;
+  max-width: 100%;
+}
+
+.oeuvre-panel {
+  position: sticky;
+  top: calc(var(--space-cinema-md) + 2rem);
+  padding: var(--space-cinema-md);
+}
+
+.oeuvre-intro {
+  margin-top: var(--s-4);
+}
+
+.oeuvre-list {
+  margin: var(--space-cinema-sm) 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.oeuvre-list-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 12px;
+  color: var(--ivory-text);
+  text-decoration: none;
+  border: 1px solid transparent;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background 300ms ease,
+    transform 300ms ease,
+    border-color 300ms ease;
+  touch-action: manipulation;
+}
+
+.oeuvre-list-item:hover,
+.oeuvre-list-item:focus-visible,
+.oeuvre-list-item.is-active {
+  background: rgba(62, 245, 224, 0.08);
+  transform: translateX(4px);
+  border-color: rgba(62, 245, 224, 0.12);
+}
+
+.oeuvre-list-item::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold-primary);
+  flex-shrink: 0;
+}
+
+.oeuvre-list-item__sub {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 0.15rem;
+}
+
+.oeuvre-more {
+  margin-top: var(--s-6);
+}
+
+.oeuvre-stage-wrap {
+  position: relative;
+  min-height: min(100svh, 900px);
+}
+
+.oeuvre-stage {
+  position: relative;
+  width: 100%;
+  height: min(100svh, 900px);
+  min-height: 520px;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+#tourbillon-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.oeuvre-fallback {
+  display: none;
+  padding: var(--s-4);
+}
+
+.oeuvre-fallback.is-visible {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-4);
+}
+
+.oeuvre-fallback-card {
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(10, 20, 37, 0.55);
+}
+
+.oeuvre-fallback-card img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+
+.oeuvre-fallback-card__cap {
+  padding: var(--s-3);
+}
+
+.oeuvre-fallback-card__cap a {
+  color: var(--cyan-soft);
+}
+
+@media (max-width: 900px) {
+  .oeuvre-split {
+    grid-template-columns: 1fr;
+  }
+  .oeuvre-panel {
+    position: relative;
+    top: 0;
+  }
+  .oeuvre-stage {
+    height: 70svh;
+    min-height: 420px;
+  }
+}
+
+html.voyage-sober .oeuvre-stage {
+  display: none;
+}
+
+html.voyage-sober .oeuvre-fallback.is-visible {
+  display: grid;
+}

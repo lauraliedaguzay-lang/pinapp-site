@@ -1,0 +1,78 @@
+/* Pinapp V3.0 Phase 1 — glass cards (cinema frame) */
+.glass-card,
+.voyage-card.glass-card {
+  backdrop-filter: blur(24px) saturate(180%) brightness(1.1);
+  -webkit-backdrop-filter: blur(24px) saturate(180%) brightness(1.1);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.02) 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 30px 60px -15px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  transition:
+    transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.glass-card:hover,
+.voyage-card.glass-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: rgba(62, 245, 224, 0.3);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 40px 80px -15px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(62, 245, 224, 0.2);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass-card,
+  .voyage-card.glass-card {
+    background: var(--black-night);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: 1px solid rgba(230, 185, 115, 0.15);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-card,
+  .voyage-card.glass-card {
+    transition: none;
+  }
+  .glass-card:hover,
+  .voyage-card.glass-card:hover {
+    transform: none;
+  }
+}
+
+html.voyage-sober .glass-card,
+html.voyage-sober .voyage-card.glass-card {
+  background: rgba(15, 26, 46, 0.92);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+}
+
+html.voyage-sober .glass-card:hover,
+html.voyage-sober .voyage-card.glass-card:hover {
+  transform: none;
+}
+
+@media (hover: none) {
+  .glass-card:hover,
+  .voyage-card.glass-card:hover {
+    transform: none;
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 30px 60px -15px rgba(0, 0, 0, 0.5),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  }
+}
