@@ -34,4 +34,20 @@ Le tableau fenêtres temps / scroll % de `docs/STORYBOARD-MAPPING-V3.md` reste v
 
 ---
 
-*V4.0 livré — Magic MCP : non utilisé dans l’agent cloud ; équivalents vanilla alignés sur le brief Magic (teaser, before/after, n8n spark, engagements, constellation labels).*
+## Polish Magic MCP (commits polish v40.p1–p5)
+
+Agent cloud : **pas d’appel MCP** ; équivalents **vanilla** calés sur les briefs Inspiration Search + SVG Icon Search (et patterns publics type border-beam / glass widget).
+
+| Zone | Tool Magic visé (plan Free) | Référence obtenue (brief) | Livré vanilla |
+|------|------------------------------|---------------------------|---------------|
+| Hero teaser ring | Inspiration Search | Circular player + rotating border beam (type MagicUI Border Beam) | `conic-gradient` + `mask` radial + `.hero-teaser__clip` (`v40-hero-premium.css`) |
+| 4 icônes métiers | SVG Icon Search | globe + orbit · network nodes · neural · aperture | Inline SVG monoline stroke 1.5 (`index.html` #s3) |
+| 3 icônes engagements | SVG Icon Search | shield check · lock/heart · hands sparkle | Inline SVG monoline (`index.html` #s6) |
+| n8n flow polish | Inspiration Search | Particle on curved path, sequential nodes | `easeOutCubic`, trail `<circle>`, pulse stroke, delay (`n8n-flow-spark.js`, `v40-n8n-spark.css`) |
+| Glass card polish | Inspiration Search | visionOS / Control Center glass depth | Multi-layer `box-shadow` + blur stack (`glass-card.css`) |
+
+**Cache** : `index.html` assets `?v=20260640` après polish.
+
+---
+
+*V4.0 livré — polish p1–p5 : vanilla aligné sur le brief Magic (agent cloud sans MCP).*
