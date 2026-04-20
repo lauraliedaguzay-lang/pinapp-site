@@ -1,5 +1,6 @@
 /* Pinapp voyage — V2 layout + V2.3 (Aladdin shell) + V2.4 prep (vidéos muettes) */
 /* Pinapp — page voyage V2 (layout scènes + nav + formulaires) */
+@import url('/assets/css/lightshafts.css?v=20260520');
 .voyage-skip {
   position: absolute;
   left: -9999px;
@@ -182,6 +183,55 @@ html.voyage-sober .voyage-hero-intro .voyage-hero-block {
   justify-content: center;
   overflow: clip;
   isolation: isolate;
+  padding-block: var(--space-cinema-lg);
+}
+
+.scene-subtitle {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-primary);
+  opacity: 0.7;
+  margin: 0 0 1.5rem 0;
+  display: block;
+}
+
+.manifesto-text {
+  font-family: var(--font-accent);
+  font-style: italic;
+}
+
+.auto-stats.glass-card {
+  padding: var(--s-6);
+}
+
+.end-credits {
+  font-family: var(--font-accent);
+  font-style: italic;
+  text-align: center;
+  padding: var(--space-cinema-lg) var(--space-cinema-sm);
+  opacity: 0.6;
+  color: var(--ivory-muted);
+}
+.end-credits p {
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin: 0.4rem 0;
+}
+.end-credits strong {
+  color: var(--gold-primary);
+  font-weight: 500;
+}
+
+/* Glass + portraits : clip contenu */
+figure.pilote.glass-card {
+  overflow: hidden;
+}
+figure.pilote.glass-card .pilote__photo {
+  border-radius: 16px;
 }
 
 /* Hauteurs chapitres V2.5 — 9 chapitres (data-chapter sur .voyage-scene) */
@@ -348,7 +398,8 @@ html.voyage-v24-cinema #voyage-cinema.cinema:not([hidden]) {
   z-index: 3;
   width: 100%;
   max-width: 72rem;
-  padding: var(--s-16) var(--s-6) var(--s-24);
+  padding: max(var(--s-16), var(--space-cinema-sm)) max(var(--s-6), clamp(1.5rem, 5vw, 4rem))
+    max(var(--s-24), var(--space-cinema-sm));
 }
 .voyage-scene--duo .voyage-scene__inner {
   max-width: 56rem;
@@ -2214,4 +2265,3 @@ html.voyage-v24-cinema:not(.voyage-sober) .voyage-manifeste__video {
     filter: grayscale(0%) contrast(1.05) brightness(1);
   }
 }
-
