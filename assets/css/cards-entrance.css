@@ -1,0 +1,38 @@
+/* Pinapp V3.0 Phase 2 — glass cards “flying carpet” at load only (no scroll reveal) */
+@keyframes glass-card-arrive {
+  from {
+    transform: perspective(1200px) rotate3d(1, 0.3, 0, 15deg) translateY(60px);
+    opacity: 0.2;
+  }
+  to {
+    transform: perspective(1200px) rotate3d(0, 0, 0, 0deg) translateY(0);
+    opacity: 1;
+  }
+}
+
+.voyage-page .glass-card {
+  animation: glass-card-arrive 800ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.voyage-page .glass-card:nth-child(1) {
+  animation-delay: 100ms;
+}
+.voyage-page .glass-card:nth-child(2) {
+  animation-delay: 200ms;
+}
+.voyage-page .glass-card:nth-child(3) {
+  animation-delay: 300ms;
+}
+.voyage-page .glass-card:nth-child(4) {
+  animation-delay: 400ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .voyage-page .glass-card {
+    animation: none;
+  }
+}
+
+html.voyage-sober .voyage-page .glass-card {
+  animation: none;
+}
