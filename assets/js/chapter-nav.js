@@ -2,8 +2,9 @@
  * Pinapp V3.0 Phase 2 — chapter jumps: breath + match-cut + view transition + marker + skip dots.
  */
 (function () {
-  var IDS = ['s1', 's2', 's3', 's4', 's5', 's5b', 's6', 's7', 's8'];
+  var IDS = ['s0', 's1', 's2', 's3', 's4', 's5', 's5b', 's6', 's7', 's8'];
   var MARKERS = {
+    s0: '— Ouverture —',
     s1: '— Prologue —',
     s2: '— Rencontre —',
     s3: '— Les outils —',
@@ -15,7 +16,7 @@
     s8: '— Atterrissage —',
   };
 
-  var currentId = 's1';
+  var currentId = 's0';
 
   function reducedMotion() {
     try {
@@ -82,7 +83,7 @@
   }
 
   function normalizeHash(hash) {
-    if (!hash || hash === '#') return 's1';
+    if (!hash || hash === '#') return 's0';
     var h = hash.replace(/^#/, '');
     if (IDS.indexOf(h) >= 0) return h;
     if (h === 'form-diagnostic') return 's8';
@@ -94,10 +95,10 @@
     if (IDS.indexOf(h) >= 0) return h;
     if (h === 'form-diagnostic') return 's8';
     var el = document.getElementById(h);
-    if (!el) return 's1';
+    if (!el) return 's0';
     var sec = el.closest && el.closest('section.voyage-scene[id]');
     if (sec && sec.id) return sec.id;
-    return 's1';
+    return 's0';
   }
 
   function showMarker(label) {
@@ -129,15 +130,15 @@
         ov.classList.add('active');
         setTimeout(function () {
           run();
-          setTimeout(function () {
-            ov.classList.remove('active');
-            setTimeout(function () {
-              try {
-                ov.remove();
-              } catch (e2) {}
-            }, 400);
-          }, 200);
-        }, 400);
+      setTimeout(function () {
+        ov.classList.remove('active');
+        setTimeout(function () {
+          try {
+            ov.remove();
+          } catch (e2) {}
+        }, 800);
+      }, 400);
+    }, 800);
       });
       return;
     }

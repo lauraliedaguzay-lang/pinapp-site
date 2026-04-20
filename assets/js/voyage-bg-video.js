@@ -26,8 +26,10 @@
     if (reducedMotion()) return;
 
     document.querySelectorAll('.lieu-bg-video').forEach(function (video) {
+      if (video.hasAttribute('data-lazy-video')) return;
       if (
         document.documentElement.classList.contains('voyage-v24-cinema') &&
+        !document.documentElement.classList.contains('voyage-v40-per-scene') &&
         video.closest('#voyage-main section.voyage-scene[data-chapter]')
       ) {
         return;

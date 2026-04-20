@@ -352,13 +352,44 @@
     }
   }
 
+  function cubicX(u, x1, x2) {
+    return 3 * (1 - u) * (1 - u) * u * x1 + 3 * (1 - u) * u * u * x2 + u * u * u;
+  }
+  function cubicY(u, y1, y2) {
+    return 3 * (1 - u) * (1 - u) * u * y1 + 3 * (1 - u) * u * u * y2 + u * u * u;
+  }
+  /** Y for progress t along cubic-bezier(0.22, 1, 0.36, 1) — binary search on u. */
+  function easeV50Scroll(t) {
+    var x1 = 0.22;
+    var y1 = 1;
+    var x2 = 0.36;
+    var y2 = 1;
+    if (t <= 0) return 0;
+    if (t >= 1) return 1;
+    var lo = 0;
+    var hi = 1;
+    var u;
+    for (var i = 0; i < 14; i++) {
+      u = (lo + hi) * 0.5;
+      if (cubicX(u, x1, x2) < t) lo = u;
+      else hi = u;
+    }
+    u = (lo + hi) * 0.5;
+    return cubicY(u, y1, y2);
+  }
+
   function initLenis() {
     if (reduced) return;
     if (root.classList.contains('voyage-sober')) return;
     if (!mqDesktop.matches) return;
     if (typeof Lenis === 'undefined') return;
     try {
-      var lenis = new Lenis({ lerp: 0.12, smoothWheel: true });
+      var lenis = new Lenis({
+        lerp: 0.12,
+        smoothWheel: true,
+        duration: 1.2,
+        easing: easeV50Scroll,
+      });
       window.__VOYAGE_LENIS__ = lenis;
       lenis.on('scroll', function () {
         try {
@@ -406,6 +437,7 @@
       ScrollTrigger.normalizeScroll(true);
     } catch (e) {}
 
+    var perScene = root.classList.contains('voyage-v40-per-scene');
     document.querySelectorAll('.voyage-scene').forEach(function (sec, idx) {
       if (sec.id === 's7' && document.getElementById('voyage-spiral-real')) return;
       var img = getVoyageBgMotionTarget(sec);
@@ -426,6 +458,13 @@
       });
 
       if (root.classList.contains('low-perf')) {
+        return;
+      }
+
+      if (perScene && sec.id !== 's7') {
+        return;
+      }
+      if (sec.id === 's0') {
         return;
       }
 

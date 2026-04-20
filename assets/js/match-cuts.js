@@ -50,6 +50,7 @@
   /** Scene-specific anchor hints (percent of viewport). */
   function anchorFor(id) {
     var map = {
+      s0: '#s0 .ouverture-scroll-cue',
       s1: '#holo-presentation-trigger',
       s2: '#s2 .pilote:first-of-type',
       s3: '#s3 .voyage-scene__inner',

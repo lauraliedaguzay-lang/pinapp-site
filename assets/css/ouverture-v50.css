@@ -1,0 +1,140 @@
+/* V5.0 — scène 0 Ouverture (avant hero) */
+.voyage-scene--ouverture {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: clip;
+}
+
+.voyage-scene--ouverture .voyage-scene__inner--centered {
+  text-align: center;
+  z-index: 4;
+  position: relative;
+  max-width: 36rem;
+  padding-inline: var(--space-cinema-sm, 1.25rem);
+}
+
+.ouverture-logo {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 2.5rem;
+}
+
+.pinapp-logo-pulse .logo-dot {
+  transform-origin: center;
+  animation: v50-logo-pulse 2.4s ease-in-out infinite;
+}
+
+.pinapp-logo-pulse .logo-ring-1 {
+  transform-origin: center;
+  animation: v50-logo-ring-expand 2.4s ease-out infinite;
+}
+
+.pinapp-logo-pulse .logo-ring-2 {
+  transform-origin: center;
+  animation: v50-logo-ring-expand 2.4s ease-out infinite 0.4s;
+}
+
+@keyframes v50-logo-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(2);
+    opacity: 0.8;
+  }
+}
+
+@keyframes v50-logo-ring-expand {
+  0% {
+    transform: scale(0.3);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.ouverture-eyebrow {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: 12px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--ivory-muted);
+  margin: 0 0 1.5rem;
+}
+
+.ouverture-title {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  color: var(--ivory-text);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0 0 1rem;
+}
+
+.ouverture-subtitle {
+  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+  color: var(--ivory-muted);
+  max-width: 28rem;
+  margin: 0 auto 3rem;
+  letter-spacing: 0.02em;
+  line-height: 1.55;
+}
+
+.ouverture-scroll-cue {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  min-width: 48px;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: none;
+  color: var(--cyan-glow);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  cursor: pointer;
+  touch-action: manipulation;
+  animation: v50-scroll-cue-bounce 2s ease-in-out infinite;
+}
+
+.ouverture-scroll-cue:hover {
+  opacity: 0.85;
+}
+
+.ouverture-scroll-cue:focus-visible {
+  outline: 2px solid var(--cyan-glow);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@keyframes v50-scroll-cue-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pinapp-logo-pulse .logo-dot,
+  .pinapp-logo-pulse .logo-ring-1,
+  .pinapp-logo-pulse .logo-ring-2,
+  .ouverture-scroll-cue {
+    animation: none;
+  }
+}
