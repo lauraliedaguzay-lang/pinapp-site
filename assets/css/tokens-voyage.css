@@ -28,6 +28,24 @@
   font-display: swap;
 }
 
+/* Fraunces (SIL OFL) — italique cinéma V3.0 — self-host existant */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/assets/fonts/fraunces-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/assets/fonts/fraunces-italic-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
 :root {
   --bg-void: #050b14;
   --bg-deep: #0a1425;
@@ -37,6 +55,24 @@
   --v26-ivory: #f4e4c1;
   --v26-cta-primary: var(--v26-warm-gold);
   --v26-cta-primary-text: #0a1425;
+
+  /* V3.0 Phase 1 — cadre cinéma (aliases + espacements) */
+  --black-night: #0a1425;
+  --black-deeper: #050a15;
+  --gold-primary: #e6b973;
+  --gold-light: #ffd99f;
+  --gold-deep: #b89968;
+  --cyan-bright: #62ffe8;
+  --ivory-text: #f4e4c1;
+  --ivory-muted: rgba(244, 228, 193, 0.7);
+  --red-sacred: #8b1e3f;
+  --font-body: 'Geist', system-ui, sans-serif;
+  --font-accent: 'Fraunces', Georgia, serif;
+  --space-cinema-xs: 0.75rem;
+  --space-cinema-sm: 1.5rem;
+  --space-cinema-md: clamp(3rem, 6vw, 5rem);
+  --space-cinema-lg: clamp(6rem, 12vw, 10rem);
+  --space-cinema-xl: clamp(10rem, 20vw, 16rem);
   /* V2.3 Aladdin — overlay image + calibrage glows (~50 % vs V2.1) */
   --voyage-overlay-dark: rgba(0, 0, 0, 0.45);
   --voyage-overlay-heavy: rgba(0, 0, 0, 0.5);
@@ -242,7 +278,7 @@
 }
 
 html.voyage-page {
-  font-family: 'Geist', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   background: var(--bg-deep);
   color: var(--text-primary);
   scroll-behavior: auto;
