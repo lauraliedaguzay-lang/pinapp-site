@@ -20,6 +20,18 @@ Serveur local sur `http://127.0.0.1:8899/` pour prévisualiser la branche V2.4 D
 
 ---
 
+## pinapp-v24-finition.ps1
+
+Workflow **V24 finition** en une passe : MP4 Higgsfield (`01`…`08` ou `hf_*.mp4` mappés), photos équipe vers `assets/img/team/lauralie.jpg` et `michael.jpg`, **deux commits** ciblés (jamais `git add -A`), **un seul** `git push` à la fin, sonde **HEAD** sur le MP4 `01` sur la preview Netlify (max **5 min**), ouverture du navigateur. Journal : **`tools/logs/finition-yyyy-MM-dd-HHmmss.log`**.
+
+```powershell
+.\tools\pinapp-v24-finition.ps1
+```
+
+Pour **MP4 seulement** sans photos, utiliser plutôt `commit-mp4-voyage.ps1`.
+
+---
+
 ## commit-mp4-voyage.ps1
 
 PowerShell **Windows natif** (pas bash, pas WSL). Trouve les 8 MP4, les copie dans `assets/video/voyage/`, puis **`git add` uniquement** `assets/video/voyage/*.mp4`, commit et push sur `cursor/v24-step5-transitions-lightbox-df83`, attend le redeploy Netlify (HEAD, max **5 min**), ouvre la preview.
