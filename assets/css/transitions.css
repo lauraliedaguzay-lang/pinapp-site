@@ -4,13 +4,33 @@ html.voyage-v24-cinema .cinema {
 }
 
 .voyage-cinema-fx-leak,
-.voyage-cinema-fx-bridge {
+.voyage-cinema-fx-bridge,
+.voyage-cinema-fx-dust {
   position: absolute;
   inset: 0;
   pointer-events: none;
   opacity: 0;
   will-change: opacity, filter;
   transform: translateZ(0);
+}
+
+.voyage-cinema-fx-dust {
+  z-index: var(--v24-fx-dust-z);
+  background-image: repeating-linear-gradient(
+    105deg,
+    transparent 0,
+    transparent 3px,
+    rgba(230, 185, 115, 0.12) 3px,
+    rgba(230, 185, 115, 0.12) 5px
+  );
+  mix-blend-mode: screen;
+  transform: translateZ(0) translateY(-12%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .voyage-cinema-fx-dust {
+    display: none;
+  }
 }
 
 .voyage-cinema-fx-leak {
@@ -59,12 +79,14 @@ html.voyage-v24-cinema .cinema {
   }
 
   .voyage-cinema-fx-leak,
-  .voyage-cinema-fx-bridge {
+  .voyage-cinema-fx-bridge,
+  .voyage-cinema-fx-dust {
     display: none;
   }
 }
 
 html.voyage-sober .voyage-cinema-fx-leak,
-html.voyage-sober .voyage-cinema-fx-bridge {
+html.voyage-sober .voyage-cinema-fx-bridge,
+html.voyage-sober .voyage-cinema-fx-dust {
   display: none !important;
 }

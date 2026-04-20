@@ -71,6 +71,69 @@
 
     d.claimed = true;
 
+    /* s8a → s8b : dust settle + crossfade (~1000 ms) */
+    if (prevI === 9 && nextI === 10) {
+      var dust = document.querySelector('.voyage-cinema-fx-dust');
+      var secDust = document.getElementById('s8b') || null;
+      var sandElDust = pickSandTarget(secDust);
+      var bridgeNameD = bridgeVarName(prevI, nextI);
+      var bridgeGradD = readCssVar(bridgeNameD, readCssVar('--v24-bridge-gradient', 'none'));
+      var bridgeD = document.querySelector('.voyage-cinema-fx-bridge');
+      if (bridgeD) bridgeD.style.setProperty('--v24-bridge-active', bridgeGradD);
+
+      gsap.set(incoming, { opacity: 0, filter: 'none' });
+      gsap.set(outgoing, { opacity: 1, filter: 'none' });
+      if (dust) gsap.set(dust, { opacity: 0, y: '-10%' });
+
+      var tlD = gsap.timeline({
+        defaults: { ease: 'power2.inOut' },
+        onComplete: function () {
+          try {
+            gsap.set([incoming, outgoing], { clearProps: 'opacity,filter' });
+          } catch (e2) {}
+          if (dust) {
+            try {
+              gsap.set(dust, { opacity: 0, clearProps: 'y' });
+            } catch (eD) {}
+          }
+          if (bridgeD) {
+            try {
+              bridgeD.style.removeProperty('--v24-bridge-active');
+            } catch (eBr) {}
+          }
+          if (sandElDust) sandElDust.classList.remove('voyage-sand-burst');
+          try {
+            d.commit();
+          } catch (e3) {}
+        },
+      });
+
+      var dur = 1;
+      if (dust) {
+        tlD.fromTo(dust, { opacity: 0 }, { opacity: 0.5, duration: dur * 0.35 }, 0);
+        tlD.to(dust, { y: '8%', duration: dur, ease: 'power1.in' }, 0);
+        tlD.to(dust, { opacity: 0, duration: dur * 0.4 }, '>-0.35');
+      }
+      if (bridgeD) {
+        tlD.fromTo(bridgeD, { opacity: 0 }, { opacity: 0.45, duration: 0.35 }, 0.05);
+        tlD.to(bridgeD, { opacity: 0, duration: 0.4 }, '>-0.2');
+      }
+      tlD.to(outgoing, { opacity: 0, duration: dur, ease: 'power1.inOut' }, 0);
+      tlD.to(incoming, { opacity: 1, duration: dur, ease: 'power1.inOut' }, 0.08);
+      tlD.add(function () {
+        particleBoost();
+      }, 0.15);
+      tlD.add(function () {
+        if (sandElDust) {
+          sandElDust.classList.add('voyage-sand-burst');
+          window.setTimeout(function () {
+            sandElDust.classList.remove('voyage-sand-burst');
+          }, 1100);
+        }
+      }, 0.2);
+      return;
+    }
+
     var chNum = chapterIdForIndex(d.index);
     var sec =
       d.index >= 0

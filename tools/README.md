@@ -34,7 +34,7 @@ Pour **MP4 seulement** sans photos, utiliser plutôt `commit-mp4-voyage.ps1`.
 
 ## commit-mp4-voyage.ps1
 
-PowerShell **Windows natif** (pas bash, pas WSL). Trouve les MP4 voyage (**00-seedance-intro** + **01–08**), les copie dans `assets/video/voyage/`, puis **`git add` uniquement** `assets/video/voyage/*.mp4`, commit et push sur `cursor/v24-step5-transitions-lightbox-df83`, attend le redeploy Netlify (HEAD, max **5 min**), ouvre la preview.
+PowerShell **Windows natif** (pas bash, pas WSL). Trouve les MP4 voyage (**00-seedance-intro** + **01–09**), les copie dans `assets/video/voyage/`, puis **`git add` uniquement** `assets/video/voyage/*.mp4`, commit et push sur `cursor/v24-step5-transitions-lightbox-df83`, attend le redeploy Netlify (HEAD, max **5 min**), ouvre la preview.
 
 ### Usage
 

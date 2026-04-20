@@ -1,37 +1,47 @@
 /**
- * Pinapp V2.4 — scroll-scrub cinéma (double-buffer .cinema__track) + prélude 00.
- * Pas de CDN. Événement `pinapp:chapterchange` pour transitions (étape 5).
+ * Pinapp V2.4 — scroll-scrub cinéma (double-buffer .cinema__track) + prélude 00 + s8a/s8b.
+ * Si 08-lune-finale.mp4 est absent (HEAD), #s8a est masqué et un seul chapitre contact (09) couvre 92–100 %.
  */
 (function () {
   var VIDEO_BASE = '/assets/video/voyage/';
 
-  /**
-   * Plages vh (spec §4) — duration = secondes indicatives pour metadata ;
-   * start/end servent au debug / futures extensions.
-   */
-  var chapters = [
-    { id: 1, src: '00-seedance-intro.mp4', start: 0, end: 80, duration: 10, label: 'Prélude' },
-    { id: 2, src: '01-main-hologramme.mp4', start: 80, end: 180, duration: 10, label: 'Intro' },
-    { id: 3, src: '02-couloir-passengers.mp4', start: 180, end: 300, duration: 10, label: 'Duo' },
-    { id: 4, src: '03-hublot-cosmos.mp4', start: 300, end: 420, duration: 10, label: 'Métiers' },
-    { id: 5, src: '04-constellation-mp.mp4', start: 420, end: 520, duration: 10, label: 'Constellation' },
-    { id: 6, src: '05-sortie-vaisseau.mp4', start: 520, end: 600, duration: 10, label: 'Preuves' },
-    { id: 7, src: '05-sortie-vaisseau.mp4', start: 600, end: 680, duration: 8, label: 'Automation n8n' },
-    { id: 8, src: '06-balade-cosmos.mp4', start: 680, end: 800, duration: 10, label: 'Manifeste' },
-    { id: 9, src: '07-tourbillon-etoiles.mp4', start: 800, end: 940, duration: 10, label: 'Réalisations' },
-    {
-      id: 10,
-      src: '07-tourbillon-etoiles.mp4',
-      start: 940,
-      end: 1060,
-      duration: 10,
-      label: 'Contact',
-    },
-  ];
+  function chaptersFull() {
+    return [
+      { id: 1, src: '00-seedance-intro.mp4', start: 0, end: 80, duration: 10, label: 'Prélude' },
+      { id: 2, src: '01-main-hologramme.mp4', start: 80, end: 180, duration: 10, label: 'Intro' },
+      { id: 3, src: '02-couloir-passengers.mp4', start: 180, end: 300, duration: 10, label: 'Duo' },
+      { id: 4, src: '03-hublot-cosmos.mp4', start: 300, end: 420, duration: 10, label: 'Métiers' },
+      { id: 5, src: '04-constellation-mp.mp4', start: 420, end: 520, duration: 10, label: 'Constellation' },
+      { id: 6, src: '05-sortie-vaisseau.mp4', start: 520, end: 600, duration: 10, label: 'Preuves' },
+      { id: 7, src: '05-sortie-vaisseau.mp4', start: 600, end: 680, duration: 8, label: 'Automation n8n' },
+      { id: 8, src: '06-balade-cosmos.mp4', start: 680, end: 800, duration: 10, label: 'Manifeste' },
+      { id: 9, src: '07-tourbillon-etoiles.mp4', start: 800, end: 920, duration: 10, label: 'Réalisations' },
+      { id: 10, src: '08-lune-finale.mp4', start: 920, end: 960, duration: 5, label: 'Lune' },
+      { id: 11, src: '09-atterrissage-sable.mp4', start: 960, end: 1060, duration: 5, label: 'Atterrissage' },
+    ];
+  }
 
-  try {
-    window.__PINAPP_V24_CHAPTERS__ = chapters;
-  } catch (e0) {}
+  function chaptersNoLune() {
+    return [
+      { id: 1, src: '00-seedance-intro.mp4', start: 0, end: 80, duration: 10, label: 'Prélude' },
+      { id: 2, src: '01-main-hologramme.mp4', start: 80, end: 180, duration: 10, label: 'Intro' },
+      { id: 3, src: '02-couloir-passengers.mp4', start: 180, end: 300, duration: 10, label: 'Duo' },
+      { id: 4, src: '03-hublot-cosmos.mp4', start: 300, end: 420, duration: 10, label: 'Métiers' },
+      { id: 5, src: '04-constellation-mp.mp4', start: 420, end: 520, duration: 10, label: 'Constellation' },
+      { id: 6, src: '05-sortie-vaisseau.mp4', start: 520, end: 600, duration: 10, label: 'Preuves' },
+      { id: 7, src: '05-sortie-vaisseau.mp4', start: 600, end: 680, duration: 8, label: 'Automation n8n' },
+      { id: 8, src: '06-balade-cosmos.mp4', start: 680, end: 800, duration: 10, label: 'Manifeste' },
+      { id: 9, src: '07-tourbillon-etoiles.mp4', start: 800, end: 920, duration: 10, label: 'Réalisations' },
+      {
+        id: 10,
+        src: '09-atterrissage-sable.mp4',
+        start: 920,
+        end: 1060,
+        duration: 10,
+        label: 'Contact',
+      },
+    ];
+  }
 
   function reducedMotion() {
     try {
@@ -46,9 +56,16 @@
   }
 
   function sectionList() {
-    return Array.prototype.slice.call(document.querySelectorAll('#voyage-main section.voyage-scene[data-chapter]')).sort(function (a, b) {
-      return Number(a.getAttribute('data-chapter')) - Number(b.getAttribute('data-chapter'));
-    });
+    return Array.prototype.slice
+      .call(document.querySelectorAll('#voyage-main section.voyage-scene[data-chapter]'))
+      .filter(function (el) {
+        if (el.hidden) return false;
+        if (el.classList.contains('voyage-s8a--skip')) return false;
+        return true;
+      })
+      .sort(function (a, b) {
+        return Number(a.getAttribute('data-chapter')) - Number(b.getAttribute('data-chapter'));
+      });
   }
 
   function pickActiveSection(sections) {
@@ -82,17 +99,34 @@
     return Math.min(Math.max(v, 0), d - 0.04);
   }
 
-  /** Fichier servi par le cinéma (08 pas encore généré → 07). */
   function resolveEffectiveVideoFile(sec, ch) {
     var raw = (sec && sec.getAttribute('data-video')) || '';
     raw = String(raw || '').trim();
     if (!raw && ch && ch.src) raw = String(ch.src).trim();
-    if (raw === '08-lune-finale.mp4') return '07-tourbillon-etoiles.mp4';
+    try {
+      if (window.__PINAPP_V24_LUNE_OK__ === false && raw === '08-lune-finale.mp4') {
+        return '09-atterrissage-sable.mp4';
+      }
+    } catch (e0) {}
+    if (raw === '08-lune-finale.mp4') return raw;
     return raw;
   }
 
-  document.addEventListener('DOMContentLoaded', function () {
-    if (reducedMotion() || soberMode()) return;
+  function headMp4Ok(filename) {
+    var url = VIDEO_BASE + filename;
+    return fetch(url, { method: 'HEAD', cache: 'no-store' })
+      .then(function (r) {
+        return !!(r && r.ok);
+      })
+      .catch(function () {
+        return false;
+      });
+  }
+
+  function initScrubberWithChapters(chapters) {
+    try {
+      window.__PINAPP_V24_CHAPTERS__ = chapters;
+    } catch (e0) {}
 
     var cinema = document.getElementById('voyage-cinema');
     var trackA = document.getElementById('cinema-track-a');
@@ -100,7 +134,7 @@
     if (!cinema || !trackA || !trackB) return;
 
     var sections = sectionList();
-    if (sections.length < 10) return;
+    if (sections.length < chapters.length) return;
 
     document.documentElement.classList.add('voyage-v24-cinema');
     cinema.hidden = false;
@@ -130,7 +164,6 @@
       trackB.classList.toggle('is-active', which === trackB);
     }
 
-    /* Premier plan : src + lecture tout de suite (évite écran noir tant que le scroll n'a pas bougé). */
     (function bootstrapFirstClip() {
       var firstSec = sections[0];
       var firstCh = chapters[0];
@@ -318,5 +351,26 @@
     });
 
     tick();
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    if (reducedMotion() || soberMode()) return;
+
+    headMp4Ok('08-lune-finale.mp4').then(function (hasLune) {
+      try {
+        window.__PINAPP_V24_LUNE_OK__ = hasLune;
+      } catch (e) {}
+      if (!hasLune) {
+        var s8a = document.getElementById('s8a');
+        if (s8a) {
+          s8a.hidden = true;
+          s8a.setAttribute('aria-hidden', 'true');
+          s8a.classList.add('voyage-s8a--skip');
+        }
+        initScrubberWithChapters(chaptersNoLune());
+      } else {
+        initScrubberWithChapters(chaptersFull());
+      }
+    });
   });
 })();

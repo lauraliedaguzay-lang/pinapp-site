@@ -23,7 +23,8 @@ $mp4Expected = @(
     '05-sortie-vaisseau.mp4',
     '06-balade-cosmos.mp4',
     '07-tourbillon-etoiles.mp4',
-    '08-lune-finale.mp4'
+    '08-lune-finale.mp4',
+    '09-atterrissage-sable.mp4'
 )
 
 function Read-YesNo {

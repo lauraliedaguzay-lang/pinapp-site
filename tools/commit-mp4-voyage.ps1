@@ -26,7 +26,8 @@ $mp4Expected = @(
     '05-sortie-vaisseau.mp4',
     '06-balade-cosmos.mp4',
     '07-tourbillon-etoiles.mp4',
-    '08-lune-finale.mp4'
+    '08-lune-finale.mp4',
+    '09-atterrissage-sable.mp4'
 )
 
 function Read-YesNo {
@@ -218,7 +219,7 @@ try {
             Write-Host $line
             Write-Log $line 'White'
         }
-        if (-not (Read-YesNo "Accepter ce mapping hf_ -> 00..08 ? (Y/N)")) {
+        if (-not (Read-YesNo "Accepter ce mapping hf_ -> 00..09 ? (Y/N)")) {
             Write-Log 'Annule : mapping hf refuse.' 'Yellow'
             exit 0
         }
