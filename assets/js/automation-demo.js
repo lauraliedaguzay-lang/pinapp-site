@@ -3,11 +3,9 @@
  */
 (function () {
   var root = document.getElementById('automation-demo');
-  if (!root) return;
-
-  var path = root.querySelector('[data-auto-path]');
-  var canvas = root.querySelector('[data-auto-particle-canvas]');
-  var nodes = root.querySelectorAll('[data-auto-node]');
+  var path = root ? root.querySelector('[data-auto-path]') : null;
+  var canvas = root ? root.querySelector('[data-auto-particle-canvas]') : null;
+  var nodes = root ? root.querySelectorAll('[data-auto-node]') : [];
   var btn = document.querySelector('[data-auto-simulate]');
   var statusEl = document.querySelector('[data-auto-status]');
   var timerEl = document.querySelector('[data-auto-timer]');
@@ -48,7 +46,7 @@
   }
 
   function resizeCanvas() {
-    if (!canvas || !canvas.getContext) return null;
+    if (!root || !canvas || !canvas.getContext) return null;
     var ctx = canvas.getContext('2d');
     if (!ctx) return null;
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -80,7 +78,7 @@
   }
 
   function drawParticles() {
-    if (noFx() || !particles.length || !path) return;
+    if (!root || noFx() || !particles.length || !path) return;
     var dim = resizeCanvas();
     if (!dim) return;
     var ctx = dim.ctx;
@@ -311,6 +309,10 @@
   }
 
   function boot() {
+    if (!path) {
+      runStatsCount();
+      return;
+    }
     if (path) {
       try {
         pathLen = path.getTotalLength();
