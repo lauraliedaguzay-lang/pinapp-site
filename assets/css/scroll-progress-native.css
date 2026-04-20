@@ -1,0 +1,49 @@
+/* Pinapp V3.0 Phase 3.8 — indicateur vertical scroll-driven (CSS natif) */
+
+.scroll-progress {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  z-index: 9992;
+  pointer-events: none;
+}
+
+.scroll-progress::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--gold-primary), var(--cyan-glow));
+  transform-origin: top center;
+  transform: scaleY(0);
+  animation: fill-on-scroll linear forwards;
+  animation-timeline: scroll(root block);
+  -webkit-animation-timeline: scroll(root block);
+}
+
+@keyframes fill-on-scroll {
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@supports not (animation-timeline: scroll()) {
+  .scroll-progress::before {
+    opacity: 0.35;
+    transform: scaleY(1);
+    animation: none;
+    -webkit-animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress {
+    display: none;
+  }
+}
+
+html.voyage-sober .scroll-progress {
+  display: none;
+}

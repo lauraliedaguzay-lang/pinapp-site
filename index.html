@@ -25,19 +25,26 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preload" href="/assets/fonts/geist-sans-500.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/fraunces-italic-latin.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/assets/css/tokens-voyage.css?v=20260530" />
-    <link rel="stylesheet" href="/assets/css/voyage.css?v=20260530" />
-    <link rel="stylesheet" href="/assets/css/glass-card.css?v=20260530" />
-    <link rel="stylesheet" href="/assets/css/cards-entrance.css?v=20260530" />
-    <link rel="stylesheet" href="/assets/css/custom-cursor.css?v=20260530" />
-    <link rel="stylesheet" href="/assets/css/voyage-spiral.css?v=20260510" />
-    <link rel="stylesheet" href="/assets/css/voyage-lut.css?v=20260510" />
+    <link rel="stylesheet" href="/assets/css/tokens-voyage.css?v=20260610" />
+    <link rel="stylesheet" href="/assets/css/voyage.css?v=20260610" />
+    <link rel="stylesheet" href="/assets/css/glass-card.css?v=20260610" />
+    <link rel="stylesheet" href="/assets/css/cards-entrance.css?v=20260610" />
+    <link rel="stylesheet" href="/assets/css/custom-cursor.css?v=20260610" />
+    <link rel="stylesheet" href="/assets/css/oeuvre-tourbillon.css?v=20260610" />
+    <link rel="stylesheet" href="/assets/css/pilotes-grid.css?v=20260610" />
+    <link rel="stylesheet" href="/assets/css/metiers-grid.css?v=20260610" />
+    <link rel="stylesheet" href="/assets/css/constellation-drift.css?v=20260610" />
+    <link rel="stylesheet" href="/assets/css/manifeste-wow.css?v=20260610" />
+    <link rel="stylesheet" href="/assets/css/voyage-content-visibility.css?v=20260610" />
+    <link rel="stylesheet" href="/assets/css/scroll-progress-native.css?v=20260610" />
+    <link rel="stylesheet" href="/assets/css/voyage-spiral.css?v=20260610" />
+    <link rel="stylesheet" href="/assets/css/voyage-lut.css?v=20260610" />
     <link rel="stylesheet" href="/assets/css/presentation-modal.css?v=20260433" />
     <link rel="stylesheet" href="/assets/css/presentation-video.css?v=20260433" />
-    <link rel="stylesheet" href="/assets/css/transitions.css?v=20260510" />
-    <link rel="stylesheet" href="/assets/css/voyage-breath.css?v=20260510" />
+    <link rel="stylesheet" href="/assets/css/transitions.css?v=20260610" />
+    <link rel="stylesheet" href="/assets/css/voyage-breath.css?v=20260610" />
     <link rel="stylesheet" href="/assets/css/vimeo-lightbox.css?v=20260433" />
-    <link rel="stylesheet" href="/assets/css/automation.css?v=20260510" />
+    <link rel="stylesheet" href="/assets/css/automation.css?v=20260610" />
     <script>
       window.__PINAPP__ = Object.assign({}, window.__PINAPP__ || {}, {
         WEBHOOK_N8N: '',
@@ -67,6 +74,7 @@
     </script>
   </head>
   <body class="voyage voyage-page">
+    <div class="scroll-progress" aria-hidden="true"></div>
     <div id="voyage-chapter-breath" class="voyage-chapter-breath" aria-hidden="true" hidden></div>
     <!-- TODO P7 : décommenter <video> dans #holo-presentation-trigger quand assets/video/presentation/pinapp-presentation-46s.mp4 sera dans le dépôt -->
     <a class="voyage-skip" href="#s1">Aller au voyage</a>
@@ -158,6 +166,7 @@
             <img src="/assets/images/voyage/01-seuil-desktop.png" alt="" width="1920" height="1080" fetchpriority="high" decoding="async" />
           </picture>
             <video class="lieu-bg-video" muted playsinline loop preload="metadata" aria-hidden="true">
+              <source src="/assets/video/voyage/01-main.webm" type="video/webm; codecs=av01.0.08M.08" />
               <source src="/assets/video/voyage/01-main-hologramme.mp4" type="video/mp4" />
             </video>
           </div>
@@ -228,6 +237,7 @@
             <img src="/assets/images/voyage/02-corridor-desktop.png" alt="" width="1920" height="1080" loading="lazy" decoding="async" />
           </picture>
             <video class="lieu-bg-video" muted playsinline loop preload="metadata" aria-hidden="true">
+              <source src="/assets/video/voyage/02-couloir.webm" type="video/webm; codecs=av01.0.08M.08" />
               <source src="/assets/video/voyage/02-couloir-passengers.mp4" type="video/mp4" />
             </video>
           </div>
@@ -237,7 +247,7 @@
           <p class="label reveal">— QUI SOMMES-NOUS —</p>
           <p class="scene-subtitle reveal">— Rencontre —</p>
           <h2 id="voyage-duo-title" class="h-1 reveal">Les pilotes du vaisseau.</h2>
-          <div class="voyage-pilotes">
+          <div class="pilotes-grid voyage-pilotes">
             <figure class="pilote glass-card reveal">
               <div class="pilote__photo">
                 <img
@@ -245,7 +255,7 @@
                   alt="Lauralie Daguzay"
                   width="640"
                   height="853"
-                  loading="lazy"
+                  loading="eager"
                   decoding="async"
                   onerror="this.style.display='none';var p=this.nextElementSibling;if(p)p.classList.add('pilote__placeholder--visible');"
                 />
@@ -254,13 +264,15 @@
                 </div>
               </div>
               <figcaption class="pilote__cap">
+                <span class="pilote-role" style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.7; color: var(--gold-primary)"
+                  >Co-fondatrice</span
+                >
                 <span class="pilote-name">Lauralie Daguzay</span>
-                <span class="pilote-role">Co-fondatrice · Sites, automatisation, IA</span>
+                <span class="pilote-role">Sites, Automatisation, IA · Bordelaise · Outils qui servent vraiment.</span>
               </figcaption>
-              <p class="body-lg" style="font-size: 0.95rem; margin-top: var(--s-2)">
-                Stratégie digitale, développement vanilla, agents IA. Bordelaise, outils qui servent vraiment.
+              <p style="margin-top: var(--s-3)">
+                <a class="btn-tertiary" href="https://www.linkedin.com/in/lauraliedaguzay" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
               </p>
-              <p style="margin-top: var(--s-3)"><a class="btn-tertiary" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></p>
             </figure>
             <figure class="pilote glass-card reveal">
               <div class="pilote__photo">
@@ -269,23 +281,23 @@
                   alt="Michaël Bouilhac"
                   width="640"
                   height="853"
-                  loading="lazy"
+                  loading="eager"
                   decoding="async"
-                  onerror="this.style.display='none';var p=this.nextElementSibling;if(p)p.classList.add('pilote__placeholder--visible');"
+                  onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22640%22%20height%3D%22853%22%20viewBox%3D%220%200%20640%20853%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%231A2B40%22%2F%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%230A1425%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22url(%23g)%22%2F%3E%3Ctext%20x%3D%22320%22%20y%3D%22440%22%20text-anchor%3D%22middle%22%20fill%3D%22%23E6B973%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2222%22%20font-variant%3D%22small-caps%22%3EPortrait%20%C3%A0%20venir%3C%2Ftext%3E%3C%2Fsvg%3E';"
                 />
                 <div class="pilote__placeholder" aria-hidden="true">
                   <span class="pilote__placeholder-text">Portrait à venir · photo en cours</span>
                 </div>
               </div>
               <figcaption class="pilote__cap">
+                <span class="pilote-role" style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.7; color: var(--gold-primary)"
+                  >Co-fondateur</span
+                >
                 <span class="pilote-name">Michaël Bouilhac</span>
-                <span class="pilote-role">Co-fondateur · Vidéo, image, production</span>
+                <span class="pilote-role">Vidéo, Image, Production · Nouvelle-Aquitaine · L'œil du duo.</span>
               </figcaption>
-              <p class="body-lg" style="font-size: 0.95rem; margin-top: var(--s-2)">
-                Vidéaste en Nouvelle-Aquitaine. Captation, montage, IA générative créative. L'œil du duo.
-              </p>
               <p style="margin-top: var(--s-3)">
-                <a class="btn-tertiary" href="mailto:bouilhacmichael@gmail.com">bouilhacmichael@gmail.com</a>
+                <a class="btn-tertiary" href="mailto:bouilhacmichael@gmail.com">Email ↗</a>
               </p>
             </figure>
           </div>
@@ -313,6 +325,7 @@
             <img src="/assets/images/voyage/02-corridor-desktop.png" alt="" width="1920" height="1080" loading="lazy" decoding="async" />
           </picture>
             <video class="lieu-bg-video" muted playsinline loop preload="metadata" aria-hidden="true">
+              <source src="/assets/video/voyage/03-hublot.webm" type="video/webm; codecs=av01.0.08M.08" />
               <source src="/assets/video/voyage/03-hublot-cosmos.mp4" type="video/mp4" />
             </video>
           </div>
@@ -325,91 +338,41 @@
           <h3 id="voyage-s3-planete-lead" class="h-2 reveal" style="margin-top: var(--s-10); text-align: center; max-width: 28rem; margin-left: auto; margin-right: auto">
             Chaque point : une réalisation ou un univers démo.
           </h3>
-          <div class="voyage-planet voyage-planet-hub voyage-planet--s3" role="application" aria-label="Carte interactive des réalisations et démos">
-            <div class="voyage-planet-hub__motion reveal">
-              <svg
-                class="voyage-planet-hub__svg"
-                width="400"
-                height="400"
-                viewBox="0 0 400 400"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <defs>
-                  <radialGradient id="vg-s3" cx="40%" cy="35%">
-                    <stop offset="0%" stop-color="#3ef5e0" stop-opacity="0.32" />
-                    <stop offset="55%" stop-color="#e6b973" stop-opacity="0.2" />
-                    <stop offset="100%" stop-color="#050b14" stop-opacity="0" />
-                  </radialGradient>
-                </defs>
-                <circle cx="200" cy="200" r="160" fill="url(#vg-s3)" opacity="0.9" />
-                <circle
-                  class="region region--cyan"
-                  tabindex="0"
-                  role="button"
-                  cx="200"
-                  cy="120"
-                  r="22"
-                  fill="rgba(62,245,224,0.35)"
-                  stroke="#3ef5e0"
-                  data-realisation="walker-film-ia"
-                  data-title="Walker (Film IA)"
-                  data-href="/realisations/films-ia/"
-                  aria-label="Walker, film IA : ouvrir Films IA"
-                />
-                <circle
-                  class="region region--violet"
-                  tabindex="0"
-                  role="button"
-                  cx="120"
-                  cy="220"
-                  r="22"
-                  fill="rgba(230,185,115,0.28)"
-                  stroke="#c9a06a"
-                  data-realisation="atelier-rivage"
-                  data-title="Atelier Rivage"
-                  data-href="/demo/atelier-rivage/"
-                  aria-label="Atelier Rivage : ouvrir la démo vitrine"
-                />
-                <circle
-                  class="region region--pink"
-                  tabindex="0"
-                  role="button"
-                  cx="280"
-                  cy="210"
-                  r="22"
-                  fill="rgba(184,153,104,0.3)"
-                  stroke="#b89968"
-                  data-realisation="cinematique"
-                  data-title="Réalisations cinéma"
-                  data-href="/realisations/"
-                  aria-label="Réalisations cinéma : ouvrir la galerie"
-                />
-                <circle
-                  class="region region--amber"
-                  tabindex="0"
-                  role="button"
-                  cx="200"
-                  cy="280"
-                  r="22"
-                  fill="rgba(232,166,97,0.3)"
-                  stroke="#e8a661"
-                  data-realisation="univers"
-                  data-title="13 univers"
-                  data-href="/univers/"
-                  aria-label="13 univers : ouvrir les vitrines démo"
-                />
+          <div class="metiers-grid reveal" role="list">
+            <article class="metier glass-card" data-cursor="view">
+              <svg class="metier-icon" viewBox="0 0 48 48" aria-hidden="true">
+                <circle cx="24" cy="24" r="10" />
+                <path d="M12 32c4-8 20-8 24 0" />
               </svg>
-            </div>
-            <div
-              id="voyage-s3-planete-panel"
-              class="voyage-real-panel voyage-planet-hub__panel reveal"
-              data-planete-panel
-              data-planete-default="Choisissez une région."
-              aria-live="polite"
-            >
-              Choisissez une région.
-            </div>
+              <h3 class="h-3-metier">Sites</h3>
+              <p class="body-lg">Sites premium qui vivent et se regardent en silence.</p>
+            </article>
+            <article class="metier glass-card">
+              <svg class="metier-icon" viewBox="0 0 48 48" aria-hidden="true">
+                <circle cx="14" cy="24" r="4" />
+                <circle cx="34" cy="16" r="4" />
+                <circle cx="34" cy="32" r="4" />
+                <path d="M18 24h8M26 20l8-6M26 28l8 6" />
+              </svg>
+              <h3 class="h-3-metier">Automatisation n8n</h3>
+              <p class="body-lg">Vos outils travaillent pendant que vous vivez.</p>
+            </article>
+            <article class="metier glass-card">
+              <svg class="metier-icon" viewBox="0 0 48 48" aria-hidden="true">
+                <path d="M24 10c6 4 10 12 10 20a10 10 0 01-20 0c0-8 4-16 10-20z" />
+                <path d="M18 22h12M24 16v12" />
+              </svg>
+              <h3 class="h-3-metier">IA</h3>
+              <p class="body-lg">Des agents qui comprennent votre métier vraiment.</p>
+            </article>
+            <article class="metier glass-card">
+              <svg class="metier-icon" viewBox="0 0 48 48" aria-hidden="true">
+                <circle cx="24" cy="24" r="14" />
+                <circle cx="24" cy="24" r="6" />
+              </svg>
+              <h3 class="h-3-metier">Vidéo</h3>
+              <p class="body-lg">Image et film IA par Michaël, cinéma ou vitrine.</p>
+            </article>
           </div>
           <p class="label reveal" style="margin-top: var(--s-12)">— FORMATIONS —</p>
           <p class="body-lg reveal" style="font-size: 0.95rem">
@@ -436,6 +399,7 @@
             <img src="/assets/images/voyage/04-pod-voie-lactee-desktop-v2.png" alt="" width="1920" height="1080" loading="lazy" decoding="async" />
           </picture>
             <video class="lieu-bg-video" muted playsinline loop preload="metadata" aria-hidden="true">
+              <source src="/assets/video/voyage/04-constellation.webm" type="video/webm; codecs=av01.0.08M.08" />
               <source src="/assets/video/voyage/04-constellation-mp.mp4" type="video/mp4" />
             </video>
           </div>
@@ -473,7 +437,7 @@
                 </radialGradient>
               </defs>
               <path
-                class="voyage-constel__edge"
+                class="voyage-constel__edge voyage-constel__edge--drift"
                 data-constel-path="ab"
                 d="M 150 150 L 450 150"
                 fill="none"
@@ -484,7 +448,7 @@
                 stroke-dashoffset="320"
               />
               <path
-                class="voyage-constel__edge"
+                class="voyage-constel__edge voyage-constel__edge--drift"
                 data-constel-path="bc"
                 d="M 450 150 L 300 300"
                 fill="none"
@@ -495,7 +459,7 @@
                 stroke-dashoffset="320"
               />
               <path
-                class="voyage-constel__edge"
+                class="voyage-constel__edge voyage-constel__edge--drift"
                 data-constel-path="ca"
                 d="M 300 300 L 150 150"
                 fill="none"
@@ -565,6 +529,7 @@
             <img src="/assets/images/voyage/04-pod-voie-lactee-desktop-v2.png" alt="" width="1920" height="1080" loading="lazy" decoding="async" />
           </picture>
             <video class="lieu-bg-video" muted playsinline loop preload="metadata" aria-hidden="true">
+              <source src="/assets/video/voyage/05-sortie.webm" type="video/webm; codecs=av01.0.08M.08" />
               <source src="/assets/video/voyage/05-sortie-vaisseau.mp4" type="video/mp4" />
             </video>
           </div>
@@ -649,6 +614,7 @@
               <img src="/assets/images/voyage/04-pod-voie-lactee-desktop-v2.png" alt="" width="1920" height="1080" loading="lazy" decoding="async" />
             </picture>
             <video class="lieu-bg-video" muted playsinline loop preload="metadata" aria-hidden="true">
+              <source src="/assets/video/voyage/05-sortie.webm" type="video/webm; codecs=av01.0.08M.08" />
               <source src="/assets/video/voyage/05-sortie-vaisseau.mp4" type="video/mp4" />
             </video>
           </div>
@@ -769,6 +735,7 @@
             <img src="/assets/images/voyage/03-cockpit-planete-desktop-v2.png" alt="" width="1920" height="1080" loading="lazy" decoding="async" />
           </picture>
             <video class="lieu-bg-video" muted playsinline loop preload="metadata" aria-hidden="true">
+              <source src="/assets/video/voyage/06-balade.webm" type="video/webm; codecs=av01.0.08M.08" />
               <source src="/assets/video/voyage/06-balade-cosmos.mp4" type="video/mp4" />
             </video>
           </div>
@@ -788,13 +755,14 @@
               poster="/assets/img/voyage/06-balade-poster.jpg"
               aria-hidden="true"
             >
+              <source src="/assets/video/voyage/06-balade.webm" type="video/webm; codecs=av01.0.08M.08" />
               <source src="/assets/video/voyage/06-balade-cosmos.mp4" type="video/mp4" />
             </video>
             <div class="voyage-manifeste__overlay" aria-hidden="true"></div>
             <div class="voyage-manifeste__content">
               <p class="label reveal">— POURQUOI PINAPP —</p>
               <p class="scene-subtitle reveal">— Le manifeste —</p>
-              <h2 id="voyage-s6-manifest" class="h-hero manifesto-text reveal" data-manifest-words>Parce qu'on veut<br />rendre le digital humain.</h2>
+              <h2 id="voyage-s6-manifest" class="h-hero manifesto-text manifesto-text--wow reveal" data-manifest-words>Parce qu'on veut<br />rendre le digital humain.</h2>
               <p class="body-lg reveal" style="margin: var(--s-6) auto 0; max-width: 36rem">
                 Treize vitrines à parcourir : chaque univers est une promesse de clarté, de rythme et de soin — comme un studio qui assume chaque détail.
               </p>
@@ -821,113 +789,28 @@
             <img src="/assets/images/voyage/03-cockpit-planete-desktop-v2.png" alt="" width="1920" height="1080" loading="lazy" decoding="async" />
           </picture>
             <video class="lieu-bg-video" muted playsinline loop preload="metadata" aria-hidden="true">
+              <source src="/assets/video/voyage/07-tourbillon.webm" type="video/webm; codecs=av01.0.08M.08" />
               <source src="/assets/video/voyage/07-tourbillon-etoiles.mp4" type="video/mp4" />
             </video>
           </div>
         </div>
         <div class="voyage-scene__veil" aria-hidden="true"></div>
         <div class="chapter__content voyage-scene__inner">
-          <p class="scene-subtitle reveal">— L'œuvre —</p>
-          <h2 id="voyage-s7-title" class="h-1 reveal">Réalisations</h2>
-          <p class="body-lg reveal">
-            Extraits cinéma et vitrines : ce qui est en ligne, ce qui se regarde en silence, et ce qu’on prépare encore avec le même exigence.
-          </p>
-          <div class="voyage-spiral reveal" id="voyage-spiral-real" aria-label="Sélection en spirale">
-            <div class="voyage-spiral__stage">
-              <div class="voyage-spiral__grain" aria-hidden="true"></div>
-              <canvas class="voyage-spiral__canvas" aria-hidden="true"></canvas>
-              <svg class="voyage-spiral__svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(62,245,224,0.08)" stroke-width="0.35" />
-              </svg>
-              <div class="voyage-spiral__nodes">
-                <article class="voyage-spiral__card voyage-spiral__card--center" data-spiral-index="0">
-                  <a class="voyage-spiral__card-inner" href="/demo/atelier-rivage/">
-                    <div class="voyage-spiral__mock" aria-hidden="true"></div>
-                    <span class="voyage-spiral__name">Atelier Rivage</span>
-                    <span class="voyage-spiral__meta">Démo vitrine</span>
-                  </a>
-                </article>
-                <article class="voyage-spiral__card" data-spiral-index="1">
-                  <div class="voyage-spiral__card-inner">
-                    <div class="voyage-spiral__frame-wrap">
-                      <iframe
-                        title="Aperçu Vimeo Walker"
-                        data-src="https://player.vimeo.com/video/1184294762?dnt=1&autoplay=0&muted=1&loop=0&title=0&byline=0&portrait=0"
-                        loading="lazy"
-                        allow="fullscreen; picture-in-picture"
-                        referrerpolicy="strict-origin-when-cross-origin"
-                      ></iframe>
-                    </div>
-                    <span class="voyage-spiral__name">Walker</span>
-                    <span class="voyage-spiral__meta">Film IA</span>
-                    <button type="button" class="btn btn-tertiary" style="margin-top: var(--s-3)" data-vimeo-id="1184294762">Plein écran</button>
-                  </div>
-                </article>
-                <article class="voyage-spiral__card" data-spiral-index="2">
-                  <div class="voyage-spiral__card-inner">
-                    <div class="voyage-spiral__frame-wrap">
-                      <iframe
-                        title="Aperçu Vimeo Star Wars"
-                        data-src="https://player.vimeo.com/video/1184294810?dnt=1&autoplay=0&muted=1&loop=0&title=0&byline=0&portrait=0"
-                        loading="lazy"
-                        allow="fullscreen; picture-in-picture"
-                        referrerpolicy="strict-origin-when-cross-origin"
-                      ></iframe>
-                    </div>
-                    <span class="voyage-spiral__name">Star Wars — The Power of Female Unity</span>
-                    <span class="voyage-spiral__meta">Film IA · extrait</span>
-                    <button type="button" class="btn btn-tertiary" style="margin-top: var(--s-3)" data-vimeo-id="1184294810">Plein écran</button>
-                  </div>
-                </article>
-                <article class="voyage-spiral__card" data-spiral-index="3">
-                  <div class="voyage-spiral__card-inner">
-                    <div class="voyage-spiral__frame-wrap">
-                      <iframe
-                        title="Aperçu Vimeo Resident Evil"
-                        data-src="https://player.vimeo.com/video/1184294871?dnt=1&autoplay=0&muted=1&loop=0&title=0&byline=0&portrait=0"
-                        loading="lazy"
-                        allow="fullscreen; picture-in-picture"
-                        referrerpolicy="strict-origin-when-cross-origin"
-                      ></iframe>
-                    </div>
-                    <span class="voyage-spiral__name">Resident Evil</span>
-                    <span class="voyage-spiral__meta">Film IA · extrait</span>
-                    <button type="button" class="btn btn-tertiary" style="margin-top: var(--s-3)" data-vimeo-id="1184294871">Plein écran</button>
-                  </div>
-                </article>
-                <article class="voyage-spiral__card" data-spiral-index="4">
-                  <div class="voyage-spiral__card-inner">
-                    <div class="voyage-spiral__frame-wrap">
-                      <iframe
-                        title="Aperçu Vimeo Mémoire &amp; Présence"
-                        data-src="https://player.vimeo.com/video/1184294901?dnt=1&autoplay=0&muted=1&loop=0&title=0&byline=0&portrait=0"
-                        loading="lazy"
-                        allow="fullscreen; picture-in-picture"
-                        referrerpolicy="strict-origin-when-cross-origin"
-                      ></iframe>
-                    </div>
-                    <span class="voyage-spiral__name">Mémoire &amp; Présence — clip</span>
-                    <span class="voyage-spiral__meta">Projet à part</span>
-                    <button type="button" class="btn btn-tertiary" style="margin-top: var(--s-3)" data-vimeo-id="1184294901">Plein écran</button>
-                  </div>
-                </article>
-                <article class="voyage-spiral__card" data-spiral-index="5">
-                  <div class="voyage-spiral__card-inner">
-                    <div class="voyage-spiral__frame-wrap">
-                      <iframe
-                        title="Aperçu Vimeo film IA"
-                        data-src="https://player.vimeo.com/video/1184294831?dnt=1&autoplay=0&muted=1&loop=0&title=0&byline=0&portrait=0"
-                        loading="lazy"
-                        allow="fullscreen; picture-in-picture"
-                        referrerpolicy="strict-origin-when-cross-origin"
-                      ></iframe>
-                    </div>
-                    <span class="voyage-spiral__name">Extrait cinéma</span>
-                    <span class="voyage-spiral__meta">Film IA</span>
-                    <button type="button" class="btn btn-tertiary" style="margin-top: var(--s-3)" data-vimeo-id="1184294831">Plein écran</button>
-                  </div>
-                </article>
+          <div class="oeuvre-split reveal" data-tourbillon-root>
+            <aside class="oeuvre-panel glass-card" aria-label="Liste des réalisations">
+              <p class="scene-subtitle reveal">— L'œuvre —</p>
+              <h2 id="voyage-s7-title" class="h-1 reveal">Réalisations</h2>
+              <p class="body-lg oeuvre-intro reveal">
+                Extraits cinéma et vitrines : ce qui est en ligne, ce qui se regarde en silence, et ce qu’on prépare encore avec le même exigence.
+              </p>
+              <nav id="oeuvre-list-mount" class="oeuvre-list" aria-label="Projets"></nav>
+              <a class="btn btn-secondary oeuvre-more" href="/realisations/films-ia/">Autres extraits ↗</a>
+            </aside>
+            <div class="oeuvre-stage-wrap">
+              <div class="oeuvre-stage" data-cursor="view">
+                <canvas id="tourbillon-canvas"></canvas>
               </div>
+              <div class="oeuvre-fallback" aria-label="Aperçus statiques"></div>
             </div>
           </div>
           <p class="voyage-encart-realisations__teaser" role="status" style="margin-top: var(--s-8)">
@@ -955,6 +838,7 @@
               <img src="/assets/images/voyage/06-bridge-lune-desktop-v1.png" alt="" width="1920" height="1080" loading="lazy" decoding="async" />
             </picture>
             <video class="lieu-bg-video" muted playsinline loop preload="metadata" aria-hidden="true">
+              <source src="/assets/video/voyage/08-sable.webm" type="video/webm; codecs=av01.0.08M.08" />
               <source src="/assets/video/voyage/08-atterrissage-sable.mp4" type="video/mp4" />
             </video>
           </div>
@@ -1175,25 +1059,25 @@
     <script src="/assets/vendor/gsap.min.js?v=3.12.5"></script>
     <script src="/assets/vendor/ScrollTrigger.min.js?v=3.12.5"></script>
     <script src="/assets/vendor/lenis.min.js?v=1.1.18"></script>
-    <script src="/assets/js/voyage-particles.js?v=20260510"></script>
-    <script src="/assets/js/voyage-sand-reveal.js?v=20260510"></script>
-    <script src="/assets/js/voyage-scrubber.js?v=20260530"></script>
-    <script src="/assets/js/voyage-chapter-breath.js?v=20260510"></script>
-    <script src="/assets/js/voyage-transitions.js?v=20260510"></script>
-    <script src="/assets/js/voyage-bg-video.js?v=20260510"></script>
+    <script src="/assets/js/voyage-particles.js?v=20260610"></script>
+    <script src="/assets/js/voyage-sand-reveal.js?v=20260610"></script>
+    <script src="/assets/js/voyage-scrubber.js?v=20260610"></script>
+    <script src="/assets/js/voyage-chapter-breath.js?v=20260610"></script>
+    <script src="/assets/js/voyage-transitions.js?v=20260610"></script>
+    <script src="/assets/js/voyage-bg-video.js?v=20260610"></script>
     <script src="/assets/js/forms-voyage.js?v=20260424"></script>
-    <script src="/assets/js/voyage-vimeo-lightbox.js?v=20260510"></script>
-    <script src="/assets/js/voyage-realisations-tourbillon.js?v=20260510"></script>
-    <script src="/assets/js/automation-demo.js?v=20260510"></script>
-    <script src="/assets/js/voyage-planete-realisations.js?v=20260510"></script>
-    <script src="/assets/js/voyage-s4-s6-cinema.js?v=20260510"></script>
-    <script src="/assets/js/voyage.js?v=20260530"></script>
-    <script src="/assets/js/match-cuts.js?v=20260530" defer></script>
-    <script src="/assets/js/chapter-nav.js?v=20260530" defer></script>
-    <script src="/assets/js/magnetic-cursor.js?v=20260530" defer></script>
-    <script src="/assets/js/custom-cursor.js?v=20260530" defer></script>
-    <script src="/assets/js/cursor-trail.js?v=20260530" defer></script>
-    <script src="/assets/js/film-grain.js?v=20260520" defer></script>
+    <script src="/assets/js/voyage-vimeo-lightbox.js?v=20260610"></script>
+    <script src="/assets/js/automation-demo.js?v=20260610"></script>
+    <script src="/assets/js/voyage-planete-realisations.js?v=20260610"></script>
+    <script src="/assets/js/voyage-s4-s6-cinema.js?v=20260610"></script>
+    <script src="/assets/js/voyage.js?v=20260610"></script>
+    <script type="module" src="/assets/js/tourbillon-webgl.js?v=20260610"></script>
+    <script src="/assets/js/match-cuts.js?v=20260610" defer></script>
+    <script src="/assets/js/chapter-nav.js?v=20260610" defer></script>
+    <script src="/assets/js/magnetic-cursor.js?v=20260610" defer></script>
+    <script src="/assets/js/custom-cursor.js?v=20260610" defer></script>
+    <script src="/assets/js/cursor-trail.js?v=20260610" defer></script>
+    <script src="/assets/js/film-grain.js?v=20260610" defer></script>
     <script>
       (function () {
         var nav = document.getElementById('voyage-nav');
