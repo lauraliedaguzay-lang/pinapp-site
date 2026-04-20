@@ -67,7 +67,7 @@
         } catch (eC2) {}
         if (!reduced && document.querySelector('#voyage-main section[data-chapter="9"]')) {
           var cinema2 = document.getElementById('voyage-cinema');
-          if (cinema2) {
+          if (cinema2 && !root.classList.contains('voyage-v40-per-scene')) {
             cinema2.hidden = false;
             root.classList.add('voyage-v24-cinema');
           }
@@ -316,6 +316,8 @@
     }
 
     bindOpener(trigger);
+    var teaser = document.querySelector('.hero-teaser');
+    bindOpener(teaser);
 
     if (closeBtn) {
       closeBtn.addEventListener('click', function () {
@@ -406,8 +408,10 @@
       ScrollTrigger.normalizeScroll(true);
     } catch (e) {}
 
+    var v40PerScene = root.classList.contains('voyage-v40-per-scene');
     document.querySelectorAll('.voyage-scene').forEach(function (sec, idx) {
       if (sec.id === 's7' && document.getElementById('voyage-spiral-real')) return;
+      if (v40PerScene && sec.id !== 's7') return;
       var img = getVoyageBgMotionTarget(sec);
       var veil = sec.querySelector('.voyage-scene__veil');
       var inner = sec.querySelector('.voyage-scene__inner');
