@@ -62,7 +62,7 @@
   width: var(--hero-teaser-size);
   height: var(--hero-teaser-size);
   border-radius: 50%;
-  overflow: hidden;
+  overflow: visible;
   margin-top: var(--space-cinema-md, 2rem);
   cursor: pointer;
   box-shadow:
@@ -87,6 +87,14 @@
   outline-offset: 4px;
 }
 
+.hero-teaser__clip {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 0;
+}
+
 .hero-teaser-video {
   width: 100%;
   height: 100%;
@@ -94,9 +102,35 @@
   display: block;
 }
 
+.hero-teaser-beam {
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  z-index: 1;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    var(--cyan-glow) 28deg,
+    var(--gold-primary) 52deg,
+    transparent 88deg,
+    transparent 360deg
+  );
+  animation: v40-hero-teaser-beam-rotate 4s linear infinite;
+  mask: radial-gradient(circle, transparent 62%, black 64%);
+  -webkit-mask: radial-gradient(circle, transparent 62%, black 64%);
+  pointer-events: none;
+}
+
+@keyframes v40-hero-teaser-beam-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .hero-teaser-ring {
   position: absolute;
   inset: 0;
+  z-index: 2;
   border-radius: 50%;
   border: 1px dashed rgba(230, 185, 115, 0.4);
   animation: v40-teaser-ring-rotate 40s linear infinite;
@@ -113,6 +147,7 @@
   position: absolute;
   bottom: 10px;
   right: 10px;
+  z-index: 3;
   width: 32px;
   height: 32px;
   min-width: 32px;
@@ -140,6 +175,10 @@
 @media (prefers-reduced-motion: reduce) {
   .hero-teaser-ring {
     animation: none;
+  }
+  .hero-teaser-beam {
+    animation: none;
+    opacity: 0.45;
   }
   .hero-teaser:hover {
     transform: none;
