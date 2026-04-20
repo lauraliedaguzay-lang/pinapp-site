@@ -24,6 +24,7 @@
   fill: rgba(62, 245, 224, 0.35);
   stroke: var(--cyan-glow);
   filter: drop-shadow(0 0 12px rgba(62, 245, 224, 0.55));
+  animation: n8n-node-pulse 420ms ease-in-out;
 }
 
 .n8n-path {
@@ -33,9 +34,29 @@
   stroke-dasharray: 4 6;
 }
 
+@keyframes n8n-node-pulse {
+  0%,
+  100% {
+    stroke-width: 1.5;
+  }
+  50% {
+    stroke-width: 2.35;
+  }
+}
+
+.n8n-spark-trail {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.n8n-spark-trail.is-running {
+  opacity: 1;
+}
+
 .n8n-spark {
   opacity: 0;
-  filter: drop-shadow(0 0 10px rgba(62, 245, 224, 0.75));
+  filter:
+    drop-shadow(0 0 12px rgba(62, 245, 224, 0.85)) drop-shadow(0 0 22px rgba(62, 245, 224, 0.45));
   pointer-events: none;
 }
 
@@ -66,7 +87,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .n8n-spark {
+  .n8n-spark,
+  .n8n-spark-trail {
     opacity: 0 !important;
+  }
+  .n8n-node.is-active {
+    animation: none;
   }
 }
