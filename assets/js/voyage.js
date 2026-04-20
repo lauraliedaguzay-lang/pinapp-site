@@ -44,6 +44,9 @@
       var on = root.classList.toggle('voyage-sober');
       btn.setAttribute('aria-pressed', on ? 'true' : 'false');
       if (on) {
+        try {
+          document.body.classList.add('voyage-cursor-off');
+        } catch (eC) {}
         killVoyageScroll();
         var cinema = document.getElementById('voyage-cinema');
         if (cinema) {
@@ -59,6 +62,9 @@
           r.classList.add('is-revealed');
         });
       } else {
+        try {
+          document.body.classList.remove('voyage-cursor-off');
+        } catch (eC2) {}
         if (!reduced && document.querySelector('#voyage-main section[data-chapter="9"]')) {
           var cinema2 = document.getElementById('voyage-cinema');
           if (cinema2) {
