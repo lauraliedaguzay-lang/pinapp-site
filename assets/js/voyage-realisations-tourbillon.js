@@ -26,6 +26,8 @@
     return document.documentElement.classList.contains('voyage-sober');
   }
 
+  // Note: we do NOT disable the spiral on low-perf; it should still animate
+  // (manual scroll driver fallback if ScrollTrigger isn't usable).
   function lowPerf() {
     return document.documentElement.classList.contains('low-perf');
   }
@@ -155,6 +157,34 @@
     });
   }
 
+  function clamp01(v) {
+    return Math.min(1, Math.max(0, v));
+  }
+
+  function manualProgressForSection(sec) {
+    if (!sec) return 0;
+    var r = sec.getBoundingClientRect();
+    var vh = window.innerHeight || 1;
+    var total = Math.max(1, r.height - vh);
+    var seen = Math.min(Math.max(-r.top, 0), total);
+    return clamp01(seen / total);
+  }
+
+  function initManualScrollDriver(sec) {
+    var raf = 0;
+    function tick() {
+      raf = 0;
+      placeCards(manualProgressForSection(sec));
+    }
+    function onScroll() {
+      if (raf) return;
+      raf = window.requestAnimationFrame(tick);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    tick();
+  }
+
   function initMotion() {
     resizeCanvas();
     placeCards(0);
@@ -193,8 +223,13 @@
     );
 
     var s7 = document.getElementById('s7');
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || !s7) {
+    if (!s7) {
       initStatic();
+      return;
+    }
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+      // Still animate (no pin) if GSAP/ScrollTrigger not available for any reason.
+      initManualScrollDriver(s7);
       return;
     }
 

@@ -1,12 +1,21 @@
 /* Encart #s5b — workflow n8n (tokens --v24-auto-*) */
 
 .voyage-scene--automation {
-  background: var(--v24-auto-bg-warm), linear-gradient(180deg, var(--v24-auto-bg-a) 0%, var(--v24-auto-bg-b) 100%);
-  background-blend-mode: normal, multiply;
   position: relative;
 }
 
 .voyage-scene--automation::before {
+  /* Warm plate must render ABOVE the scene media stack (z=0). */
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: var(--v24-auto-bg-warm);
+  opacity: 0.92;
+}
+
+.voyage-scene--automation::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -14,12 +23,23 @@
   opacity: var(--v24-auto-grain-opacity);
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23g)' opacity='0.4'/%3E%3C/svg%3E");
-  z-index: 0;
+  z-index: 2;
+}
+
+.voyage-scene--automation .voyage-scene__veil {
+  /* Let the warm workflow plate show through (keep cinematic depth). */
+  opacity: 0.35;
+  background: linear-gradient(
+    180deg,
+    rgba(5, 11, 20, 0.28) 0%,
+    rgba(5, 11, 20, 0.12) 40%,
+    rgba(5, 11, 20, 0.42) 100%
+  );
 }
 
 .voyage-scene--automation .chapter__content {
   position: relative;
-  z-index: 1;
+  z-index: 3;
 }
 
 .voyage-scene--automation .label--honey {
