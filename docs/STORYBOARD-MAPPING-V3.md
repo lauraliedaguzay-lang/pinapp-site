@@ -1,5 +1,7 @@
 # Storyboard V3.0 — mapping cinéma (référence figée)
 
+> **V4.0** : voir `docs/STORYBOARD-MAPPING-V4.md` pour le mode fond vidéo **par scène** (sans scrubber central).
+
 Document de vérité : **chapitre HTML ↔ fichier vidéo ↔ fenêtre temps scrubber ↔ intention storyboard**.  
 Implémentation : `assets/js/voyage-scrubber.js` → `timelineSegments()` + `transitions()`.
 
