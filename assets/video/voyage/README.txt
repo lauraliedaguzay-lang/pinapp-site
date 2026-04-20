@@ -1,7 +1,8 @@
 V2.4 DREAM — clips chapitres (sans audio page)
 ===============================================
-Placer ici les 8 fichiers MP4, noms exacts :
+Placer ici les fichiers MP4, noms exacts :
 
+  00-seedance-intro.mp4   (prélude IMAX / sable or — section #s0)
   01-main-hologramme.mp4
   02-couloir-passengers.mp4
   03-hublot-cosmos.mp4

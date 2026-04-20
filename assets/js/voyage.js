@@ -59,7 +59,7 @@
           r.classList.add('is-revealed');
         });
       } else {
-        if (!reduced && document.querySelector('#voyage-main section[data-chapter="9"]')) {
+        if (!reduced && document.querySelector('#voyage-main section[data-chapter="10"]')) {
           var cinema2 = document.getElementById('voyage-cinema');
           if (cinema2) {
             cinema2.hidden = false;

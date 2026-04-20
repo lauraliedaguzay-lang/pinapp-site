@@ -31,6 +31,7 @@ if ($currentBranch -eq "cursor/v24-step5-transitions-lightbox-df83") {
 Write-Host "`n-- Diagnostic MP4 Higgsfield --" -ForegroundColor Cyan
 
 $mp4Expected = @(
+    "00-seedance-intro.mp4",
     "01-main-hologramme.mp4",
     "02-couloir-passengers.mp4",
     "03-hublot-cosmos.mp4",
@@ -54,8 +55,9 @@ foreach ($f in $mp4Expected) {
     else { $missing += $f }
 }
 
-$mp4Color = if ($found -eq 8) { "Green" } else { "Yellow" }
-Write-Host ("MP4 presents : {0} / 8" -f $found) -ForegroundColor $mp4Color
+$mp4Need = $mp4Expected.Count
+$mp4Color = if ($found -eq $mp4Need) { "Green" } else { "Yellow" }
+Write-Host ("MP4 presents : {0} / {1}" -f $found, $mp4Need) -ForegroundColor $mp4Color
 
 if ($missing.Count -gt 0) {
     Write-Host "Manquants :" -ForegroundColor Yellow

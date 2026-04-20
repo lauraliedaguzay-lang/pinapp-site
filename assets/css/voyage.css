@@ -143,34 +143,29 @@
   isolation: isolate;
 }
 
-/* Hauteurs chapitres V2.4 (~920vh total) — data-chapter sur .voyage-scene */
-.voyage-scene[data-chapter='1'] {
-  min-height: 100vh;
-  min-height: 100svh;
-}
+/* Hauteurs chapitres V2.4 + prélude 00 — data-chapter sur .voyage-scene */
+.voyage-scene[data-chapter='1'],
 .voyage-scene[data-chapter='2'] {
-  min-height: 120vh;
-  min-height: 120svh;
-}
-.voyage-scene[data-chapter='3'] {
-  min-height: 120vh;
-  min-height: 120svh;
-}
-.voyage-scene[data-chapter='4'],
-.voyage-scene[data-chapter='5'],
-.voyage-scene[data-chapter='6'] {
   min-height: 100vh;
   min-height: 100svh;
 }
+.voyage-scene[data-chapter='3'],
+.voyage-scene[data-chapter='4'] {
+  min-height: 120vh;
+  min-height: 120svh;
+}
+.voyage-scene[data-chapter='5'],
+.voyage-scene[data-chapter='6'],
 .voyage-scene[data-chapter='7'] {
-  min-height: 140vh;
-  min-height: 140svh;
+  min-height: 100vh;
+  min-height: 100svh;
 }
-.voyage-scene[data-chapter='8'] {
-  min-height: 140vh;
-  min-height: 140svh;
-}
+.voyage-scene[data-chapter='8'],
 .voyage-scene[data-chapter='9'] {
+  min-height: 140vh;
+  min-height: 140svh;
+}
+.voyage-scene[data-chapter='10'] {
   min-height: 120vh;
   min-height: 120svh;
 }
@@ -187,6 +182,19 @@
     min-height: 100vh;
     min-height: 100svh;
   }
+}
+
+/* Prélude #s0 — plein cadre, pas de texte (ciné uniquement) */
+.voyage-scene--prelude .voyage-scene__inner--prelude {
+  display: none;
+}
+.voyage-scene__veil--prelude {
+  background: linear-gradient(
+    180deg,
+    rgba(10, 20, 37, 0.2) 0%,
+    rgba(10, 20, 37, 0.45) 45%,
+    rgba(10, 20, 37, 0.55) 100%
+  );
 }
 
 /* Couche cinéma plein écran : masque les fonds vidéo par section (scrub centralisé) */

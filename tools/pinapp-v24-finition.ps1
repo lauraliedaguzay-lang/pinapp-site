@@ -15,6 +15,7 @@ $TeamDir = 'assets/img/team'
 $WarnTotalBytes = 100MB
 
 $mp4Expected = @(
+    '00-seedance-intro.mp4',
     '01-main-hologramme.mp4',
     '02-couloir-passengers.mp4',
     '03-hublot-cosmos.mp4',

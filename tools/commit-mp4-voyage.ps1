@@ -1,7 +1,7 @@
 ﻿#Requires -Version 5.1
 <#
 .SYNOPSIS
-  PowerShell Windows natif — pousse les 8 MP4 Higgsfield vers assets/video/voyage/ puis commit + push (branche V2.4 DREAM).
+  PowerShell Windows natif — pousse les MP4 voyage (00 + 01–08) vers assets/video/voyage/ puis commit + push (branche V2.4 DREAM).
 .DESCRIPTION
   Pas de bash / WSL. git add uniquement assets/video/voyage/*.mp4 (jamais git add -A).
   Journal : tools/logs/commit-mp4-yyyy-MM-dd-HHmmss.log
@@ -18,6 +18,7 @@ $MaxFileBytes = 100MB
 $WarnFileBytes = 50MB
 
 $mp4Expected = @(
+    '00-seedance-intro.mp4',
     '01-main-hologramme.mp4',
     '02-couloir-passengers.mp4',
     '03-hublot-cosmos.mp4',
@@ -217,7 +218,7 @@ try {
             Write-Host $line
             Write-Log $line 'White'
         }
-        if (-not (Read-YesNo "Accepter ce mapping hf_ -> 01..08 ? (Y/N)")) {
+        if (-not (Read-YesNo "Accepter ce mapping hf_ -> 00..08 ? (Y/N)")) {
             Write-Log 'Annule : mapping hf refuse.' 'Yellow'
             exit 0
         }
@@ -265,7 +266,7 @@ try {
     }
 
     if ($presentCount -eq 0) {
-        Write-Log "[X] Aucun des 8 MP4 presents dans $VideoDir." 'Red'
+        Write-Log "[X] Aucun des MP4 attendus (00 + 01-08) presents dans $VideoDir." 'Red'
         exit 1
     }
 
@@ -311,7 +312,7 @@ try {
         exit 0
     }
 
-    $commitMsg = 'chore(v24): add 8 Higgsfield MP4 to assets/video/voyage/'
+    $commitMsg = 'chore(v24): add voyage MP4 (00 + 01-08) to assets/video/voyage/'
     $exitCommit = Invoke-GitLines @('commit', '-m', $commitMsg)
     if ($exitCommit -ne 0) {
         Write-Log "[!] git commit a echoue (code $exitCommit). Verifie le message Git ci-dessus." 'Yellow'

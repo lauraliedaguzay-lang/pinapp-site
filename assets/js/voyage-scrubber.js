@@ -1,5 +1,5 @@
 /**
- * Pinapp V2.4 — scroll-scrub cinéma 8 chapitres (double-buffer .cinema__track).
+ * Pinapp V2.4 — scroll-scrub cinéma (double-buffer .cinema__track) + prélude 00.
  * Pas de CDN. Événement `pinapp:chapterchange` pour transitions (étape 5).
  */
 (function () {
@@ -10,19 +10,20 @@
    * start/end servent au debug / futures extensions.
    */
   var chapters = [
-    { id: 1, src: '01-main-hologramme.mp4', start: 0, end: 100, duration: 10, label: 'Intro' },
-    { id: 2, src: '02-couloir-passengers.mp4', start: 100, end: 220, duration: 10, label: 'Duo' },
-    { id: 3, src: '03-hublot-cosmos.mp4', start: 220, end: 340, duration: 10, label: 'Métiers' },
-    { id: 4, src: '04-constellation-mp.mp4', start: 340, end: 440, duration: 10, label: 'Constellation' },
-    { id: 5, src: '05-sortie-vaisseau.mp4', start: 440, end: 520, duration: 10, label: 'Preuves' },
-    { id: 6, src: '05-sortie-vaisseau.mp4', start: 520, end: 600, duration: 8, label: 'Automation n8n' },
-    { id: 7, src: '06-balade-cosmos.mp4', start: 600, end: 720, duration: 10, label: 'Manifeste' },
-    { id: 8, src: '07-tourbillon-etoiles.mp4', start: 720, end: 860, duration: 10, label: 'Réalisations' },
+    { id: 1, src: '00-seedance-intro.mp4', start: 0, end: 80, duration: 10, label: 'Prélude' },
+    { id: 2, src: '01-main-hologramme.mp4', start: 80, end: 180, duration: 10, label: 'Intro' },
+    { id: 3, src: '02-couloir-passengers.mp4', start: 180, end: 300, duration: 10, label: 'Duo' },
+    { id: 4, src: '03-hublot-cosmos.mp4', start: 300, end: 420, duration: 10, label: 'Métiers' },
+    { id: 5, src: '04-constellation-mp.mp4', start: 420, end: 520, duration: 10, label: 'Constellation' },
+    { id: 6, src: '05-sortie-vaisseau.mp4', start: 520, end: 600, duration: 10, label: 'Preuves' },
+    { id: 7, src: '05-sortie-vaisseau.mp4', start: 600, end: 680, duration: 8, label: 'Automation n8n' },
+    { id: 8, src: '06-balade-cosmos.mp4', start: 680, end: 800, duration: 10, label: 'Manifeste' },
+    { id: 9, src: '07-tourbillon-etoiles.mp4', start: 800, end: 940, duration: 10, label: 'Réalisations' },
     {
-      id: 9,
+      id: 10,
       src: '07-tourbillon-etoiles.mp4',
-      start: 860,
-      end: 980,
+      start: 940,
+      end: 1060,
       duration: 10,
       label: 'Contact',
     },
@@ -99,7 +100,7 @@
     if (!cinema || !trackA || !trackB) return;
 
     var sections = sectionList();
-    if (sections.length < 9) return;
+    if (sections.length < 10) return;
 
     document.documentElement.classList.add('voyage-v24-cinema');
     cinema.hidden = false;

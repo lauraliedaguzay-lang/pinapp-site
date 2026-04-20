@@ -24,8 +24,8 @@
     <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preload" href="/assets/fonts/geist-sans-500.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/assets/css/tokens-voyage.css?v=20260435" />
-    <link rel="stylesheet" href="/assets/css/voyage.css?v=20260435" />
+    <link rel="stylesheet" href="/assets/css/tokens-voyage.css?v=20260436" />
+    <link rel="stylesheet" href="/assets/css/voyage.css?v=20260436" />
     <link rel="stylesheet" href="/assets/css/presentation-modal.css?v=20260433" />
     <link rel="stylesheet" href="/assets/css/presentation-video.css?v=20260433" />
     <link rel="stylesheet" href="/assets/css/transitions.css?v=20260433" />
@@ -60,7 +60,7 @@
     </script>
   </head>
   <body>
-    <a class="voyage-skip" href="#s1">Aller au voyage</a>
+    <a class="voyage-skip" href="#s0">Aller au voyage</a>
 
     <div class="voyage-topbar">
       <button type="button" class="voyage-icon-btn" id="voyage-nav-open" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="voyage-nav">
@@ -103,8 +103,33 @@
         <div class="voyage-cinema-fx-bridge" aria-hidden="true"></div>
         <div class="voyage-cinema-fx-leak" aria-hidden="true"></div>
       </div>
+      <!-- Prélude ciné (Seedance IMAX — fichier 00-seedance-intro.mp4 dans assets/video/voyage/) -->
+      <section
+        id="s0"
+        class="voyage-scene voyage-scene--prelude"
+        data-scene="0"
+        data-chapter="1"
+        data-video="00-seedance-intro.mp4"
+        aria-label="Ouverture cinématique"
+      >
+        <canvas class="particles-canvas" data-scene="0" data-density="100" aria-hidden="true"></canvas>
+        <div class="voyage-scene__bg">
+          <div class="voyage-scene__media-stack">
+            <picture>
+              <source media="(max-width: 767px)" srcset="/assets/images/voyage/01-seuil-mobile.png" />
+              <img src="/assets/images/voyage/01-seuil-desktop.png" alt="" width="1920" height="1080" fetchpriority="high" decoding="async" />
+            </picture>
+            <video class="lieu-bg-video" muted playsinline loop preload="metadata" aria-hidden="true">
+              <source src="/assets/video/voyage/00-seedance-intro.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+        <div class="voyage-scene__veil voyage-scene__veil--prelude" aria-hidden="true"></div>
+        <div class="chapter__content voyage-scene__inner voyage-scene__inner--prelude" aria-hidden="true"></div>
+        <div class="voyage-scroll-hint voyage-scroll-hint--prelude" aria-hidden="true">Scroll</div>
+      </section>
       <!-- Chapitre 1 -->
-      <section id="s1" class="voyage-scene" data-scene="1" data-chapter="1" data-video="01-main-hologramme.mp4" aria-labelledby="voyage-s1-title">
+      <section id="s1" class="voyage-scene" data-scene="1" data-chapter="2" data-video="01-main-hologramme.mp4" aria-labelledby="voyage-s1-title">
         <canvas class="particles-canvas" data-scene="1" data-density="220" aria-hidden="true"></canvas>
         <div class="voyage-scene__bg">
           <div class="voyage-scene__media-stack">
@@ -154,7 +179,7 @@
       </section>
 
       <!-- Chapitre 2 -->
-      <section id="s2" class="voyage-scene voyage-scene--duo" data-scene="1b" data-chapter="2" data-video="02-couloir-passengers.mp4" aria-labelledby="voyage-duo-title">
+      <section id="s2" class="voyage-scene voyage-scene--duo" data-scene="1b" data-chapter="3" data-video="02-couloir-passengers.mp4" aria-labelledby="voyage-duo-title">
         <canvas class="particles-canvas" data-scene="1b" data-density="180" aria-hidden="true"></canvas>
         <div class="voyage-scene__bg">
           <div class="voyage-scene__media-stack">
@@ -228,7 +253,7 @@
       </section>
 
       <!-- Chapitre 3 -->
-      <section id="s3" class="voyage-scene" data-scene="2" data-chapter="3" data-video="03-hublot-cosmos.mp4" aria-labelledby="voyage-s2-title">
+      <section id="s3" class="voyage-scene" data-scene="2" data-chapter="4" data-video="03-hublot-cosmos.mp4" aria-labelledby="voyage-s2-title">
         <canvas class="particles-canvas" data-scene="2" data-density="260" aria-hidden="true"></canvas>
         <div class="voyage-scene__bg">
           <div class="voyage-scene__media-stack">
@@ -275,7 +300,7 @@
       </section>
 
       <!-- Chapitre 4 — Constellation M&amp;P · Auralis · newsletter -->
-      <section id="s4" class="voyage-scene" data-scene="3" data-chapter="4" data-video="04-constellation-mp.mp4" aria-labelledby="voyage-s4-constellation-title">
+      <section id="s4" class="voyage-scene" data-scene="3" data-chapter="5" data-video="04-constellation-mp.mp4" aria-labelledby="voyage-s4-constellation-title">
         <canvas class="particles-canvas" data-scene="3" data-density="320" aria-hidden="true"></canvas>
         <div class="voyage-scene__bg">
           <div class="voyage-scene__media-stack">
@@ -332,7 +357,7 @@
       </section>
 
       <!-- Chapitre 5 — Preuves -->
-      <section id="s5" class="voyage-scene" data-scene="4" data-chapter="5" data-video="05-sortie-vaisseau.mp4" aria-labelledby="voyage-s4-title">
+      <section id="s5" class="voyage-scene" data-scene="4" data-chapter="6" data-video="05-sortie-vaisseau.mp4" aria-labelledby="voyage-s4-title">
         <canvas class="particles-canvas" data-scene="4" data-density="340" aria-hidden="true"></canvas>
         <div class="voyage-scene__bg">
           <div class="voyage-scene__media-stack">
@@ -411,7 +436,7 @@
         id="s5b"
         class="voyage-scene voyage-scene--automation"
         data-scene="4b"
-        data-chapter="6"
+        data-chapter="7"
         data-video="05-sortie-vaisseau.mp4"
         aria-labelledby="voyage-s5b-title"
       >
@@ -515,7 +540,7 @@
       </section>
 
       <!-- Chapitre 6 — Univers · planète · manifeste -->
-      <section id="s6" class="voyage-scene" data-scene="5" data-chapter="7" data-video="06-balade-cosmos.mp4" aria-labelledby="voyage-s6-univers-title voyage-s6-manifest">
+      <section id="s6" class="voyage-scene" data-scene="5" data-chapter="8" data-video="06-balade-cosmos.mp4" aria-labelledby="voyage-s6-univers-title voyage-s6-manifest">
         <canvas class="particles-canvas" data-scene="5" data-density="380" aria-hidden="true"></canvas>
         <div class="voyage-scene__bg">
           <div class="voyage-scene__media-stack">
@@ -561,7 +586,7 @@
       </section>
 
       <!-- Chapitre 7 — Réalisations (aperçus Vimeo préparés — lightbox étape 5) -->
-      <section id="s7" class="voyage-scene" data-scene="6" data-chapter="8" data-video="07-tourbillon-etoiles.mp4" aria-labelledby="voyage-s7-title">
+      <section id="s7" class="voyage-scene" data-scene="6" data-chapter="9" data-video="07-tourbillon-etoiles.mp4" aria-labelledby="voyage-s7-title">
         <canvas class="particles-canvas" data-scene="6" data-density="200" aria-hidden="true"></canvas>
         <div class="voyage-scene__bg">
           <div class="voyage-scene__media-stack">
@@ -662,7 +687,7 @@
       </section>
 
       <!-- Chapitre 8 — Manifeste + contact -->
-      <section id="s8" class="voyage-scene" data-scene="8" data-chapter="9" data-video="08-lune-finale.mp4" aria-labelledby="voyage-s8-contact">
+      <section id="s8" class="voyage-scene" data-scene="8" data-chapter="10" data-video="08-lune-finale.mp4" aria-labelledby="voyage-s8-contact">
         <canvas class="particles-canvas" data-scene="8" data-density="200" aria-hidden="true"></canvas>
         <div class="voyage-scene__bg">
           <div class="voyage-scene__media-stack">
@@ -866,13 +891,13 @@
     <script src="/assets/vendor/ScrollTrigger.min.js?v=3.12.5"></script>
     <script src="/assets/vendor/lenis.min.js?v=1.1.18"></script>
     <script src="/assets/js/voyage-particles.js?v=20260433"></script>
-    <script src="/assets/js/voyage-scrubber.js?v=20260435"></script>
+    <script src="/assets/js/voyage-scrubber.js?v=20260436"></script>
     <script src="/assets/js/voyage-transitions.js?v=20260433"></script>
     <script src="/assets/js/voyage-bg-video.js?v=20260433"></script>
     <script src="/assets/js/forms-voyage.js?v=20260424"></script>
     <script src="/assets/js/voyage-vimeo-lightbox.js?v=20260433"></script>
     <script src="/assets/js/automation-demo.js?v=20260433"></script>
-    <script src="/assets/js/voyage.js?v=20260435"></script>
+    <script src="/assets/js/voyage.js?v=20260436"></script>
     <script>
       (function () {
         var nav = document.getElementById('voyage-nav');
