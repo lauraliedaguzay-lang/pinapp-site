@@ -481,13 +481,98 @@ html.voyage-v24-cinema #voyage-cinema.cinema:not([hidden]) {
   height: auto;
   display: block;
 }
+.voyage-planet-hub {
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: var(--s-8);
+}
+.voyage-planet-hub__motion {
+  transform-origin: 50% 50%;
+}
+.voyage-planet-hub__svg {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  display: block;
+  margin: 0 auto;
+  transform-origin: 50% 50%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  #s3 .voyage-planet-hub__motion.is-revealed .voyage-planet-hub__svg {
+    animation: voyage-planet-s3-in 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+@keyframes voyage-planet-s3-in {
+  from {
+    opacity: 0.85;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #s3 .voyage-planet-hub__motion.is-revealed .voyage-planet-hub__svg {
+    animation: none;
+  }
+}
+.voyage-planet-hub__panel {
+  margin-top: var(--s-5);
+}
 .voyage-planet .region {
   cursor: pointer;
-  transition: filter var(--d-short) var(--ease);
+  transform: scale(1);
+  transform-box: fill-box;
+  transform-origin: center;
+  outline: none;
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.35s var(--ease);
+  touch-action: manipulation;
 }
-.voyage-planet .region:hover,
-.voyage-planet .region:focus {
-  filter: drop-shadow(0 0 12px rgba(62, 245, 224, 0.65));
+.voyage-planet .region--cyan {
+  filter: drop-shadow(0 0 8px rgba(62, 245, 224, 0.35));
+}
+.voyage-planet .region--violet {
+  filter: drop-shadow(0 0 8px rgba(166, 127, 255, 0.35));
+}
+.voyage-planet .region--pink {
+  filter: drop-shadow(0 0 8px rgba(255, 95, 168, 0.32));
+}
+.voyage-planet .region--amber {
+  filter: drop-shadow(0 0 8px rgba(232, 166, 97, 0.38));
+}
+.voyage-planet .region--cyan:hover,
+.voyage-planet .region--cyan:focus-visible {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 18px rgba(62, 245, 224, 0.72));
+}
+.voyage-planet .region--violet:hover,
+.voyage-planet .region--violet:focus-visible {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 18px rgba(166, 127, 255, 0.65));
+}
+.voyage-planet .region--pink:hover,
+.voyage-planet .region--pink:focus-visible {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 18px rgba(255, 95, 168, 0.62));
+}
+.voyage-planet .region--amber:hover,
+.voyage-planet .region--amber:focus-visible {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 18px rgba(232, 166, 97, 0.68));
+}
+@media (prefers-reduced-motion: reduce) {
+  .voyage-planet .region {
+    transition: none;
+  }
+  .voyage-planet .region:hover,
+  .voyage-planet .region:focus-visible {
+    transform: none;
+  }
 }
 .voyage-real-panel {
   margin-top: var(--s-4);

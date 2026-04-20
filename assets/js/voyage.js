@@ -304,33 +304,6 @@
     }
   }
 
-  function initPlanetPanel() {
-    var panel = document.getElementById('voyage-real-panel');
-    if (!panel) return;
-    document.querySelectorAll('.voyage-planet .region').forEach(function (c) {
-      function show() {
-        var title = c.getAttribute('data-title') || '';
-        var href = c.getAttribute('data-href') || '#';
-        panel.innerHTML =
-          '<strong style="color:var(--cyan-glow)">' +
-          title +
-          '</strong><br /><a href="' +
-          href +
-          '" style="color:var(--text-primary);margin-top:0.35rem;display:inline-block">' +
-          (href.indexOf('http') === 0 ? 'Ouvrir ↗' : 'Voir →') +
-          '</a>';
-        plausible('realisation_clicked', { name: c.getAttribute('data-realisation') || title });
-      }
-      c.addEventListener('click', show);
-      c.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          show();
-        }
-      });
-    });
-  }
-
   function initLenis() {
     if (reduced) return;
     if (root.classList.contains('voyage-sober')) return;
@@ -473,7 +446,6 @@
     initCookieBanner();
     initFloatingContact();
     initStats();
-    initPlanetPanel();
     initPresentationModal();
 
     if (!reduced && !root.classList.contains('voyage-sober')) {
