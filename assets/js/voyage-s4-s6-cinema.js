@@ -19,6 +19,10 @@
     if (!root) return;
     var paths = root.querySelectorAll('[data-constel-path]');
     if (!paths.length) return;
+    paths = Array.prototype.filter.call(paths, function (p) {
+      return !p.classList || !p.classList.contains('voyage-constel__edge--drift');
+    });
+    if (!paths.length) return;
 
     function tracePaths() {
       paths.forEach(function (p) {
@@ -113,6 +117,36 @@
           console.error('[manifeste] local video play threw', e);
         } catch (e2) {}
       }
+    }
+
+    var wow = h2.classList.contains('manifesto-text--wow');
+    if (wow) {
+      if (reducedMotion() || sober()) {
+        h2.classList.add('is-revealed');
+        return;
+      }
+      var wSpans = wrapWords(h2);
+      if (!wSpans.length) return;
+      wSpans.forEach(function (w, i) {
+        w.style.transitionDelay = String(i * 100) + 'ms';
+      });
+      if ('IntersectionObserver' in window) {
+        var ioW = new IntersectionObserver(
+          function (ents) {
+            ents.forEach(function (en) {
+              if (en.isIntersecting) {
+                h2.classList.add('is-revealed');
+                ioW.disconnect();
+              }
+            });
+          },
+          { threshold: 0.3 }
+        );
+        ioW.observe(h2);
+      } else {
+        h2.classList.add('is-revealed');
+      }
+      return;
     }
 
     if (reducedMotion() || sober() || typeof gsap === 'undefined') return;
