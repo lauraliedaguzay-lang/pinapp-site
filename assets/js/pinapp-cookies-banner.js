@@ -28,14 +28,8 @@
         localStorage.setItem(KEY, val);
       } catch (e) {}
     }
-    if (acc)
-      acc.addEventListener('click', function () {
-        close('ok');
-      });
-    if (rej)
-      rej.addEventListener('click', function () {
-        close('no');
-      });
+    if (acc) acc.addEventListener('click', function () { close('ok'); });
+    if (rej) rej.addEventListener('click', function () { close('no'); });
   }
 
   function init() {

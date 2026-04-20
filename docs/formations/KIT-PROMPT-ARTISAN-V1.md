@@ -247,6 +247,7 @@ L'annonce doit :
 
 ---
 
+
 # CATÉGORIE 2 — RÉSEAUX SOCIAUX
 
 ---
@@ -484,6 +485,7 @@ La légende doit :
 
 ---
 
+
 # CATÉGORIE 3 — GESTION QUOTIDIENNE
 
 ---
@@ -719,6 +721,7 @@ Le brief doit contenir :
 
 ---
 
+
 # CATÉGORIE 4 — RELATION CLIENT
 
 ---
@@ -907,6 +910,7 @@ Le message doit :
 ```
 
 ---
+
 
 # CATÉGORIE 5 — STRATÉGIE
 
@@ -1118,6 +1122,7 @@ PAS de "être plus visible sur les réseaux" → OUI "publier 2 posts/semaine su
 
 ---
 
+
 # CATÉGORIE 6 — IA AVANCÉE
 
 ---
@@ -1291,6 +1296,7 @@ La dernière intention doit TOUJOURS être : "Souhaitez-vous parler à un humain
 ```
 
 ---
+
 
 # CATÉGORIE 7 — SECTORIELS
 
@@ -1479,13 +1485,14 @@ Ton : conseiller de confiance, pas vendeur agressif.
 
 ---
 
+
 # BONUS — COMMENT UTILISER CE KIT
 
-1. **Copiez le prompt** tel quel dans ChatGPT ou Claude
-2. **Remplacez les [crochets]** par vos informations
-3. **Relisez et personnalisez** le résultat (l'IA donne une base, vous ajoutez votre touche)
-4. **Testez** différentes versions — relancez le même prompt 2-3 fois pour comparer
-5. **Sauvegardez** vos prompts préférés dans un dossier
+1. **Copiez le prompt** tel quel dans ChatGPT ou Claude  
+2. **Remplacez les [crochets]** par vos informations  
+3. **Relisez et personnalisez** le résultat (l'IA donne une base, vous ajoutez votre touche)  
+4. **Testez** différentes versions — relancez le même prompt 2-3 fois pour comparer  
+5. **Sauvegardez** vos prompts préférés dans un dossier  
 
 ---
 

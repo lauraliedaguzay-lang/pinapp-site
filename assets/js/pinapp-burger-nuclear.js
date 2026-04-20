@@ -26,8 +26,7 @@
       drawer.classList.toggle('is-open', open);
       drawer.classList.toggle('open', open);
       drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
-      if (open) document.body.style.setProperty('overflow', 'hidden');
-      else document.body.style.removeProperty('overflow');
+      document.body.style.overflow = open ? 'hidden' : '';
       if (open) {
         var panel = drawer.querySelector('.drawer__panel');
         var first = panel ? panel.querySelector(focusableSel) : null;

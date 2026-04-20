@@ -7,9 +7,7 @@ const htmlPath = path.join(__dirname, '../offres/sites/index.html');
 const repPath = path.join(__dirname, 'sites-main-replacement.html');
 let s = fs.readFileSync(htmlPath, 'utf8');
 const rep = fs.readFileSync(repPath, 'utf8');
-const start = s.indexOf(
-  '      <section class="section">\n        <div class="container" style="max-width: 700px">',
-);
+const start = s.indexOf('      <section class="section">\n        <div class="container" style="max-width: 700px">');
 const end = s.indexOf('\n    </main>');
 if (start === -1 || end === -1) {
   console.error('markers not found', start, end);

@@ -1,5 +1,4 @@
 @import url('/assets/css/pinapp-a11y-performance.css');
-@import url('/assets/css/pp-chatbot.css');
 @import url('/assets/css/pinapp-apple-polish.css');
 @import url('/assets/css/pp-theme-toggle.css');
 /* Pinapp — palette nuit / jour (alignée sauvegarde + .cursorrules), tokens optimisés */
@@ -10,13 +9,6 @@
   --text: #f0f8ff;
   --muted: rgba(240, 248, 255, 0.72);
   --nacre: #e8f4f8;
-  /* Tokens « pp » (couche Awwwards / diagnostics) */
-  --pp-teal: #00e5b0;
-  --pp-violet: #5b4fe8;
-  --pp-bg: #050a14;
-  --pp-card: var(--bg-card);
-  --pp-text: #e8f4f8;
-  --pp-muted: rgba(232, 244, 248, 0.5);
   --accent: #00e5b0;
   --accent-2: #b388ff;
   --accent-3: #7fffea;
@@ -24,7 +16,6 @@
   --accent-rgb: 0, 229, 176;
   --accent-2-rgb: 179, 136, 255;
   --border: rgba(179, 136, 255, 0.08);
-  --pp-border: rgba(0, 229, 176, 0.08);
   --card-border: rgba(179, 136, 255, 0.08);
   --separator: rgba(0, 229, 176, 0.06);
   --btn-cta-bg: rgba(91, 60, 180, 0.85);
@@ -723,8 +714,7 @@ html[data-theme='light'] .theme-btn__icon--moon {
   display: flex;
   flex-direction: column;
   min-height: min(100svh, 56rem);
-  /* Moins d’air sous le hero (évite le « trou » visuel avant la ligne / confiance) */
-  padding: 2.5rem 0 0.5rem;
+  padding: 2.5rem 0 2rem;
   overflow: hidden;
 }
 
@@ -1236,26 +1226,14 @@ html[data-theme='light'] .btn--outline-violet {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   opacity: 0.72;
-  /* margin-top: auto créait un grand vide entre les CTA et le contenu sous le hero */
-  margin-top: 1.75rem;
-  padding-top: 0.35rem;
+  margin-top: auto;
+  padding-top: 1.25rem;
 }
 
 .scroll-hint svg {
   width: 1.25rem;
   height: 1.25rem;
   animation: bounce 2s ease-in-out infinite;
-}
-
-/* Hero accueil : « Défiler » en overlay bas du bloc (plus de flex qui étire jusqu’au viewport) */
-#top.hero .scroll-hint {
-  position: absolute;
-  left: 50%;
-  right: auto;
-  bottom: max(0.5rem, env(safe-area-inset-bottom, 0px));
-  transform: translateX(-50%);
-  margin-top: 0;
-  padding-top: 0;
 }
 
 @keyframes bounce {
@@ -2912,20 +2890,6 @@ html[data-theme='dark'] .save-chart-card {
     transform: none !important;
     opacity: 0.3 !important;
   }
-}
-
-/* Skip link : hors flux (évite bande visible + réserve de place) */
-.skip-link {
-  position: absolute !important;
-  top: -9999px !important;
-  left: -9999px !important;
-  z-index: 99999;
-}
-.skip-link:focus,
-.skip-link:focus-visible {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
 }
 
 /* SEO : titre masqué visuellement, lu par les lecteurs d’écran */

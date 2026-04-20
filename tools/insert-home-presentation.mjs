@@ -6,10 +6,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const fp = path.join(__dirname, '../index.html');
 let s = fs.readFileSync(fp, 'utf8');
 
-const marker =
-  '        </section>\n\n        <section class="atelier-v6" id="atelier" aria-labelledby="atelier-title">\n          <div class="atelier-v6__container">';
+const marker = '        </section>\n\n        \n        <section class="section" id="home-services"';
 if (!s.includes(marker)) {
-  throw new Error('hero/atelier marker not found');
+  throw new Error('hero/home-services marker not found');
 }
 if (s.includes('id="home-presentation"')) {
   console.log('Already inserted, skip');
@@ -28,7 +27,7 @@ const cards = [1, 2, 3, 4, 5]
                 <p style="margin: 0.5rem 0.65rem 0.65rem; font-size: 0.72rem; color: rgba(232,244,248,0.5)">Démo ` +
       n +
       `</p>
-              </div>`,
+              </div>`
   )
   .join('');
 
@@ -149,8 +148,7 @@ const insert =
           </div>
         </section>
 
-        <section class="atelier-v6" id="atelier" aria-labelledby="atelier-title">
-          <div class="atelier-v6__container">`;
+        <section class="section" id="home-services"`;
 
 s = s.replace(marker, insert);
 fs.writeFileSync(fp, s);
