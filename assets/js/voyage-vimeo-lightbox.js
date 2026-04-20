@@ -79,6 +79,15 @@
       }, 60);
     }
 
+    function openFromAnywhere(id, opener) {
+      var clean = String(id || '').trim();
+      if (!clean) return;
+      openModal(clean, opener || null);
+    }
+    try {
+      window.PinappVimeoOpen = openFromAnywhere;
+    } catch (eG) {}
+
     document.addEventListener(
       'click',
       function (ev) {
@@ -86,8 +95,6 @@
         if (!t || !t.closest) return;
         var btn = t.closest('[data-vimeo-id]');
         if (!btn || !btn.getAttribute('data-vimeo-id')) return;
-        var s7 = document.getElementById('s7');
-        if (!s7 || !s7.contains(btn)) return;
         var id = btn.getAttribute('data-vimeo-id').trim();
         if (!id) return;
         ev.preventDefault();
