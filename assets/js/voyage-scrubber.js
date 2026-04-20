@@ -18,7 +18,14 @@
     { id: 6, src: '05-sortie-vaisseau.mp4', start: 520, end: 600, duration: 8, label: 'Automation n8n' },
     { id: 7, src: '06-balade-cosmos.mp4', start: 600, end: 720, duration: 10, label: 'Manifeste' },
     { id: 8, src: '07-tourbillon-etoiles.mp4', start: 720, end: 860, duration: 10, label: 'Réalisations' },
-    { id: 9, src: '08-lune-finale.mp4', start: 860, end: 980, duration: 10, label: 'Contact' },
+    {
+      id: 9,
+      src: '07-tourbillon-etoiles.mp4',
+      start: 860,
+      end: 980,
+      duration: 10,
+      label: 'Contact',
+    },
   ];
 
   try {
@@ -74,6 +81,15 @@
     return Math.min(Math.max(v, 0), d - 0.04);
   }
 
+  /** Fichier servi par le cinéma (08 pas encore généré → 07). */
+  function resolveEffectiveVideoFile(sec, ch) {
+    var raw = (sec && sec.getAttribute('data-video')) || '';
+    raw = String(raw || '').trim();
+    if (!raw && ch && ch.src) raw = String(ch.src).trim();
+    if (raw === '08-lune-finale.mp4') return '07-tourbillon-etoiles.mp4';
+    return raw;
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     if (reducedMotion() || soberMode()) return;
 
@@ -87,6 +103,7 @@
 
     document.documentElement.classList.add('voyage-v24-cinema');
     cinema.hidden = false;
+    cinema.removeAttribute('hidden');
     cinema.setAttribute('aria-hidden', 'true');
 
     trackA.muted = true;
@@ -111,6 +128,35 @@
       trackA.classList.toggle('is-active', which === trackA);
       trackB.classList.toggle('is-active', which === trackB);
     }
+
+    /* Premier plan : src + lecture tout de suite (évite écran noir tant que le scroll n'a pas bougé). */
+    (function bootstrapFirstClip() {
+      var firstSec = sections[0];
+      var firstCh = chapters[0];
+      var firstFile = resolveEffectiveVideoFile(firstSec, firstCh);
+      if (!firstFile) return;
+      applySrc(active, firstFile);
+      activeFile = firstFile;
+      currentChapter = 0;
+      setActiveVisual(active);
+      function tryPlay() {
+        try {
+          active.play().catch(function () {});
+        } catch (eP) {}
+      }
+      if (active.readyState >= 2) {
+        tryPlay();
+      } else {
+        active.addEventListener(
+          'loadeddata',
+          function onFirstLoaded() {
+            active.removeEventListener('loadeddata', onFirstLoaded);
+            tryPlay();
+          },
+          { once: true }
+        );
+      }
+    })();
 
     function applySrc(video, file) {
       var url = VIDEO_BASE + file;
@@ -204,7 +250,7 @@
       var p = progressInSection(sec);
       if (!ch) return;
 
-      var file = sec.getAttribute('data-video') || ch.src;
+      var file = resolveEffectiveVideoFile(sec, ch);
 
       if (idx !== currentChapter) {
         var prevChapter = currentChapter;
@@ -219,7 +265,7 @@
             var nextCh = chapters[idx + 1];
             if (!nextCh) return;
             var nextSec = sections[idx + 1];
-            var nextFile = nextSec ? nextSec.getAttribute('data-video') || nextCh.src : nextCh.src;
+            var nextFile = nextSec ? resolveEffectiveVideoFile(nextSec, nextCh) : nextCh.src;
             if (!nextFile || nextFile === file) return;
             standby.removeAttribute('data-preload-src');
             standby.setAttribute('data-preload-src', nextFile);
@@ -233,7 +279,7 @@
         var nextCh2 = chapters[idx + 1];
         if (nextCh2) {
           var nextSec2 = sections[idx + 1];
-          var nextFile2 = nextSec2 ? nextSec2.getAttribute('data-video') || nextCh2.src : nextCh2.src;
+          var nextFile2 = nextSec2 ? resolveEffectiveVideoFile(nextSec2, nextCh2) : nextCh2.src;
           if (nextFile2 && nextFile2 !== file && standby.getAttribute('data-preload-src') !== nextFile2) {
             standby.setAttribute('data-preload-src', nextFile2);
             applySrc(standby, nextFile2);

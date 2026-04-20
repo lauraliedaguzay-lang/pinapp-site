@@ -207,6 +207,23 @@ html.voyage-sober #voyage-cinema {
   pointer-events: none;
   overflow: hidden;
 }
+
+/* Quand le scrubber active le cinéma : forcer une boîte viewport (évite offset 0×0 si [hidden] / UA). */
+html.voyage-v24-cinema #voyage-cinema.cinema:not([hidden]) {
+  display: block !important;
+  width: 100vw;
+  width: 100dvw;
+  max-width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 100svh;
+}
+
+#voyage-main {
+  position: relative;
+  z-index: 1;
+}
+
 .cinema[hidden] {
   display: none !important;
 }
