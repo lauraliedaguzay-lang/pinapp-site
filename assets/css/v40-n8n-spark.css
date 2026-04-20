@@ -1,0 +1,72 @@
+/* V4.0 — N8N flow spark (vanilla SVG, Magic-style spec) */
+.n8n-flow {
+  position: relative;
+  max-width: 900px;
+  margin: var(--space-cinema-md, 2rem) auto;
+  padding: var(--space-cinema-sm, 1.25rem);
+}
+
+.n8n-canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.n8n-node {
+  fill: rgba(10, 20, 37, 0.75);
+  stroke: var(--gold-primary);
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 6px rgba(230, 185, 115, 0.35));
+  transition: fill 0.35s ease, stroke 0.35s ease, filter 0.35s ease;
+}
+
+.n8n-node.is-active {
+  fill: rgba(62, 245, 224, 0.35);
+  stroke: var(--cyan-glow);
+  filter: drop-shadow(0 0 12px rgba(62, 245, 224, 0.55));
+}
+
+.n8n-path {
+  fill: none;
+  stroke: rgba(244, 228, 193, 0.14);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 6;
+}
+
+.n8n-spark {
+  opacity: 0;
+  filter: drop-shadow(0 0 10px rgba(62, 245, 224, 0.75));
+  pointer-events: none;
+}
+
+.n8n-spark.is-running {
+  opacity: 1;
+}
+
+.n8n-trigger {
+  display: block;
+  margin: 1rem auto 0;
+  min-height: 48px;
+  padding: 10px 22px;
+  background: transparent;
+  border: 1px solid var(--cyan-glow);
+  color: var(--cyan-glow);
+  border-radius: 24px;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 300ms ease, color 300ms ease;
+  touch-action: manipulation;
+}
+
+.n8n-trigger:hover {
+  background: rgba(62, 245, 224, 0.15);
+  color: var(--ivory-text, #f4e4c1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .n8n-spark {
+    opacity: 0 !important;
+  }
+}

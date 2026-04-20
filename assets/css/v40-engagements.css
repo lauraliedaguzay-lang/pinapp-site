@@ -1,0 +1,46 @@
+/* V4.0 — trois engagements sous le manifeste (vanilla, Magic-style spec) */
+.engagements-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: var(--space-cinema-md, 2rem) auto 0;
+}
+
+.engagement {
+  text-align: center;
+}
+
+.engagement .engagement-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto var(--s-4);
+  stroke: var(--gold-primary);
+  fill: none;
+  stroke-width: 1.5;
+  transition: stroke 0.35s ease;
+}
+
+.engagement:hover .engagement-icon {
+  stroke: var(--cyan-glow);
+}
+
+.engagement .h-3-metier,
+.engagement h3 {
+  font-size: 1.25rem;
+  margin: 0 0 var(--s-3);
+  color: var(--ivory-text, #f4e4c1);
+}
+
+.engagement p {
+  font-size: 0.875rem;
+  color: var(--ivory-muted, rgba(244, 228, 193, 0.55));
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .engagements-grid {
+    grid-template-columns: 1fr;
+  }
+}
