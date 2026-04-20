@@ -67,14 +67,23 @@
     <!-- TODO P7 : décommenter <video> dans #holo-presentation-trigger quand assets/video/presentation/pinapp-presentation-46s.mp4 sera dans le dépôt -->
     <a class="voyage-skip" href="#s1">Aller au voyage</a>
 
-    <div class="voyage-topbar">
-      <button type="button" class="voyage-icon-btn" id="voyage-nav-open" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="voyage-nav">
-        ☰
-      </button>
-      <button type="button" class="voyage-icon-btn" id="voyage-sober-btn" aria-label="Mode sobre" aria-pressed="false" title="Désactive les effets cinéma">
-        ◎
-      </button>
-    </div>
+    <header class="voyage-site-header" aria-label="En-tête Pinapp">
+      <a class="voyage-site-header__brand" href="#s1" aria-label="Pinapp — accueil">Pinapp</a>
+      <nav class="voyage-site-header__nav" aria-label="Navigation rapide">
+        <a href="/univers/">Univers</a>
+        <a href="/auralis/">Auralis</a>
+        <a href="https://lauraliedaguzay-lang.github.io/memoireetpresence/" target="_blank" rel="noopener noreferrer">M&amp;P</a>
+        <a href="#form-diagnostic">Contact</a>
+      </nav>
+      <div class="voyage-site-header__actions">
+        <button type="button" class="voyage-icon-btn voyage-site-header__menu" id="voyage-nav-open" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="voyage-nav">
+          ☰
+        </button>
+        <button type="button" class="voyage-icon-btn" id="voyage-sober-btn" aria-label="Mode sobre" aria-pressed="false" title="Désactive les effets cinéma">
+          ◎
+        </button>
+      </div>
+    </header>
 
     <nav id="voyage-nav" class="voyage-nav" aria-label="Navigation voyage" hidden>
       <div class="voyage-nav__inner">
@@ -96,10 +105,6 @@
         <a href="/mentions-legales/">Mentions légales</a>
       </div>
     </nav>
-
-    <div id="voyage-floating-contact" class="voyage-floating-contact">
-      <a href="#form-diagnostic">Contact</a>
-    </div>
 
     <main id="voyage-main">
       <div id="voyage-cinema" class="cinema" aria-hidden="true" hidden>
@@ -147,14 +152,15 @@
         </div>
         <div class="voyage-scene__veil" aria-hidden="true"></div>
         <div class="chapter__content voyage-scene__inner">
-          <p class="label reveal">— DUO FONDATEUR · BORDEAUX —</p>
-          <h1 id="voyage-s1-title" class="h-hero reveal">Le digital qui travaille pendant que vous vivez.</h1>
-          <p class="body-lg reveal">
+          <div class="voyage-hero-intro" id="s1-hero-intro">
+          <p class="label voyage-hero-block">— DUO FONDATEUR · BORDEAUX —</p>
+          <h1 id="voyage-s1-title" class="h-hero voyage-hero-block">Le digital qui travaille pendant que vous vivez.</h1>
+          <p class="body-lg voyage-hero-block">
             Sites, automatisation n8n, IA et production vidéo sur mesure. Par Lauralie &amp; Michaël, basés à Bordeaux.
           </p>
           <button
             type="button"
-            class="holo-circle reveal"
+            class="holo-circle voyage-hero-block"
             id="holo-presentation-trigger"
             aria-haspopup="dialog"
             aria-controls="presentation-modal"
@@ -180,17 +186,12 @@
             <span class="holo-circle__sound-hint" aria-hidden="true">▶ Avec son</span>
             <span class="holo-circle__badge">Bande-annonce</span>
           </button>
-          <p style="margin-top: var(--s-8); display: flex; flex-wrap: wrap; gap: var(--s-4)" class="reveal">
+          <p style="margin-top: var(--s-8); display: flex; flex-wrap: wrap; gap: var(--s-4)" class="voyage-hero-block voyage-hero-block--ctas">
             <a class="btn btn-primary" href="#form-diagnostic">Diagnostic gratuit</a>
             <a class="btn btn-secondary" href="/univers/">Découvrir nos univers →</a>
           </p>
-          <div class="voyage-badges reveal">
-            <span class="voyage-badge">Dès 2 500 € HT</span>
-            <span class="voyage-badge">30 j satisfait ou remboursé</span>
-            <span class="voyage-badge">Plausible · zéro cookie tiers</span>
-            <span class="voyage-badge">Made in Bordeaux</span>
+          <p class="voyage-welcome-note voyage-hero-block">Bienvenue. On vous attendait.</p>
           </div>
-          <p class="voyage-welcome-note reveal">Bienvenue. On vous attendait.</p>
         </div>
         <img class="voyage-watermark" src="/assets/images/ananas-filigrane.svg" alt="" width="140" height="168" decoding="async" />
         <div class="voyage-scroll-hint" aria-hidden="true">Scroll</div>
@@ -974,13 +975,32 @@
           <a href="/cgv/">CGV</a>
         </p>
         <p><a href="/home-classic/">← Version classique (archive)</a></p>
+        <p class="voyage-footer__trust" aria-label="Engagements">
+          <span>Dès 2 500 € HT</span>
+          <span>30 j satisfait ou remboursé</span>
+          <span>Plausible · zéro cookie tiers</span>
+          <span>Made in Bordeaux</span>
+        </p>
+        <p class="voyage-footer__cookies">
+          <button type="button" class="voyage-footer__cookie-link" id="voyage-cookie-open" aria-haspopup="dialog" aria-controls="voyage-cookie-dialog">
+            Préférences cookies
+          </button>
+        </p>
       </div>
     </footer>
 
-    <div id="voyage-cookie" class="voyage-cookie" role="region" aria-label="Analytics">
-      <p style="margin: 0 0 var(--s-3)">Analyse de fréquentation avec Plausible (sans cookies tiers sur ce modèle).</p>
-      <button type="button" class="btn btn-secondary" id="voyage-cookie-ok">OK</button>
-    </div>
+    <dialog id="voyage-cookie-dialog" class="voyage-cookie-dialog" aria-labelledby="voyage-cookie-dialog-title">
+      <div class="voyage-cookie-dialog__inner">
+        <h2 id="voyage-cookie-dialog-title" class="voyage-cookie-dialog__title">Analytics</h2>
+        <p class="body-lg" style="font-size: 0.9rem; margin-top: var(--s-3)">
+          Analyse de fréquentation avec Plausible (sans cookies tiers sur ce modèle).
+        </p>
+        <div class="voyage-cookie-dialog__actions">
+          <button type="button" class="btn btn-primary" id="voyage-cookie-accept">Accepter</button>
+          <button type="button" class="btn btn-secondary" id="voyage-cookie-reject">Refuser</button>
+        </div>
+      </div>
+    </dialog>
 
     <style>
       .sr-only {

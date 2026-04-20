@@ -77,40 +77,82 @@
   }
 
   function initCookieBanner() {
+    var dlg = document.getElementById('voyage-cookie-dialog');
+    var openBtn = document.getElementById('voyage-cookie-open');
+    var accept = document.getElementById('voyage-cookie-accept');
+    var reject = document.getElementById('voyage-cookie-reject');
+
+    function closeDlg() {
+      if (!dlg) return;
+      try {
+        if (typeof dlg.close === 'function') dlg.close();
+      } catch (e) {}
+    }
+
+    function setChoice(val) {
+      try {
+        localStorage.setItem('pinapp_voyage_cookie_ok', val);
+      } catch (e2) {}
+      closeDlg();
+    }
+
+    if (openBtn && dlg) {
+      openBtn.addEventListener('click', function () {
+        try {
+          if (typeof dlg.showModal === 'function') dlg.showModal();
+        } catch (e) {}
+      });
+    }
+    if (accept) {
+      accept.addEventListener('click', function () {
+        setChoice('1');
+      });
+    }
+    if (reject) {
+      reject.addEventListener('click', function () {
+        setChoice('0');
+      });
+    }
+
     try {
       if (localStorage.getItem('pinapp_voyage_cookie_ok')) return;
     } catch (e) {
       return;
     }
-    var b = document.getElementById('voyage-cookie');
-    if (b) b.classList.add('is-visible');
-    var ok = document.getElementById('voyage-cookie-ok');
-    if (ok)
-      ok.addEventListener('click', function () {
-        try {
-          localStorage.setItem('pinapp_voyage_cookie_ok', '1');
-        } catch (e2) {}
-        b.classList.remove('is-visible');
-      });
+    if (dlg && typeof dlg.showModal === 'function') {
+      try {
+        dlg.showModal();
+      } catch (e3) {}
+    }
   }
 
-  function initFloatingContact() {
-    var el = document.getElementById('voyage-floating-contact');
-    if (!el) return;
-    var s2 = document.getElementById('s2');
-    if (!s2) {
-      el.classList.add('is-visible');
-      return;
+  function initHeroEntrance() {
+    var wrap = document.getElementById('s1-hero-intro');
+    if (!wrap) return;
+    if (reduced || root.classList.contains('voyage-sober')) return;
+    if (typeof gsap === 'undefined') return;
+
+    var blocks = wrap.querySelectorAll('.voyage-hero-block');
+    if (!blocks.length) return;
+
+    var order = [
+      wrap.querySelector('.label'),
+      document.getElementById('voyage-s1-title'),
+      wrap.querySelector('.body-lg'),
+      document.getElementById('holo-presentation-trigger'),
+      wrap.querySelector('.voyage-hero-block--ctas'),
+      wrap.querySelector('.voyage-welcome-note'),
+    ].filter(Boolean);
+
+    gsap.set(order, { autoAlpha: 0, y: 18 });
+    var tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
+    var head = order.slice(0, 3);
+    if (head.length) {
+      tl.to(head, { autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.06 }, 1.5);
     }
-    var io = new IntersectionObserver(
-      function (ents) {
-        ents.forEach(function (en) {
-          if (en.isIntersecting) el.classList.add('is-visible');
-        });
-      },
-      { rootMargin: '0px', threshold: 0.15 }
-    );
-    io.observe(s2);
+    if (order[3]) tl.to(order[3], { autoAlpha: 1, y: 0, duration: 0.75 }, 2.5);
+    if (order[4]) tl.to(order[4], { autoAlpha: 1, y: 0, duration: 0.75 }, 3);
+    if (order[5]) tl.to(order[5], { autoAlpha: 1, y: 0, duration: 0.65 }, 3.15);
   }
 
   function initRevealsFallback() {
@@ -450,9 +492,11 @@
   document.addEventListener('DOMContentLoaded', function () {
     initSober();
     initCookieBanner();
-    initFloatingContact();
     initStats();
     initPresentationModal();
+    window.requestAnimationFrame(function () {
+      initHeroEntrance();
+    });
 
     if (!reduced && !root.classList.contains('voyage-sober')) {
       window.requestAnimationFrame(function () {
