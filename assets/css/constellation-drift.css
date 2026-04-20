@@ -1,0 +1,26 @@
+/* Pinapp V3.0 Phase 3.3 — #s4 lignes constellation animées (CSS) */
+
+.voyage-constel__edge--drift {
+  animation: constel-line-drift 24s linear infinite;
+}
+
+@keyframes constel-line-drift {
+  from {
+    stroke-dashoffset: 320;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .voyage-constel__edge--drift {
+    animation: none;
+    stroke-dashoffset: 0 !important;
+  }
+}
+
+html.voyage-sober .voyage-constel__edge--drift {
+  animation: none;
+  stroke-dashoffset: 0 !important;
+}
