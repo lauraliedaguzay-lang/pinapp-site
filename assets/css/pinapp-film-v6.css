@@ -18,8 +18,22 @@ html.voyage-v60-film body.voyage-page {
   object-position: center center;
   z-index: 0;
   pointer-events: none;
-  will-change: opacity;
+  will-change: opacity, filter;
   transform: translateZ(0);
+  /* Chromatic aberration per scene (signature awwards #2)
+     Piloté par assets/js/film-chromatic.js via --film-hue-shift.
+     Subtile (±14° max) · respect règle AVATAR. */
+  filter: saturate(1.04) hue-rotate(var(--film-hue-shift, 0deg));
+  transition: filter 900ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .pinapp-film {
+    transition: none;
+    filter: saturate(1) hue-rotate(0deg);
+  }
+}
+html.voyage-sober .pinapp-film {
+  filter: saturate(0.85) hue-rotate(0deg);
 }
 
 .pinapp-film-overlay {
