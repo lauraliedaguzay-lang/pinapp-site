@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
   Concatène les 8 MP4 voyage en un seul film pinapp-film-v6 (MP4 + WebM) + posters + OG.
 .DESCRIPTION
