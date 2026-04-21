@@ -591,3 +591,61 @@ html.voyage-page.low-perf .reveal {
   display: block;
   text-align: inherit;
 }
+
+/* ── Morse STAY (easter egg M&P section s4) ─────────────────────
+   4 dots/dashes en bas-gauche · visible quand s4 est la section active
+   Tape "S T A Y" en morse · ZÉRO attribution visible */
+.morse-stay {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 800ms var(--ease),
+    transform 800ms var(--ease);
+  z-index: var(--z-tapestry, 10);
+  pointer-events: none;
+  will-change: opacity;
+}
+html[data-active-section="s4"] .morse-stay {
+  opacity: 0.55;
+  transform: translateY(0);
+}
+.morse-stay .dot,
+.morse-stay .dash {
+  background: rgba(62, 245, 224, 0.7);
+  border-radius: 999px;
+  animation: morse-blink 4s infinite ease-in-out;
+}
+.morse-stay .dot { width: 6px; height: 6px; }
+.morse-stay .dash { width: 16px; height: 6px; }
+.morse-stay .letter-gap { width: 8px; height: 6px; }
+@keyframes morse-blink {
+  0%, 45%, 100% { opacity: 0.35; }
+  20% { opacity: 1; }
+  60% { opacity: 0.6; }
+}
+@media (max-width: 767px) {
+  .morse-stay {
+    bottom: 1rem;
+    left: 1rem;
+    gap: 4px;
+  }
+  .morse-stay .dot { width: 5px; height: 5px; }
+  .morse-stay .dash { width: 12px; height: 5px; }
+  .morse-stay .letter-gap { width: 6px; height: 5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .morse-stay .dot,
+  .morse-stay .dash {
+    animation: none;
+    opacity: 0.6;
+  }
+}
+html.voyage-sober .morse-stay {
+  display: none;
+}
