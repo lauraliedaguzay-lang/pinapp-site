@@ -39,3 +39,7 @@ Scroll-driven storytelling type **apple.com/iphone-16-pro** (référence techniq
 ## Génération des assets
 
 PowerShell : **`tools/build-pinapp-film-v6.ps1`** (à lancer sur poste Lauralie avec les 8 MP4 sources).
+
+## SEO
+
+- `index.html` : `og:image` / `twitter:image` → `https://pinapp.fr/assets/images/og-pinapp-v6.jpg`.
