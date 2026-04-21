@@ -25,9 +25,10 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preload" href="/assets/fonts/geist-sans-500.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/fraunces-italic-latin.woff2" as="font" type="font/woff2" crossorigin />
-        <link rel="stylesheet" href="/assets/css/tokens-voyage.css?v=20260721" />
-    <link rel="preload" as="video" href="/assets/video/voyage/pinapp-film-v6.webm?v=20260721" type="video/webm" />
-    <link rel="preload" as="video" href="/assets/video/voyage/pinapp-film-v6.mp4?v=20260721" type="video/mp4" media="(prefers-reduced-data: no-preference)" />
+    <link rel="stylesheet" href="/assets/css/tokens-voyage.css?v=20260721" />
+    <!-- Preload video retiré (fix Bloc 1 Tier Orange #8) : 5 preloads simultanés (2 fonts + 2 videos + 1 poster)
+         saturaient la bande passante 4G et compromettaient le LCP. Le <video> utilise maintenant son propre
+         preload="metadata" (suffisant pour le scroll-scrub initial). Le poster ci-dessous reste le vrai LCP. -->
     <link rel="dns-prefetch" href="https://pinapp.fr" />
     <link rel="preload" as="image" href="/assets/img/voyage/film-posters/00-ouverture.jpg" />
 
@@ -990,23 +991,27 @@
       }
     </style>
 
-    <script src="/assets/js/presentation-video.js?v=20260430"></script>
-    <script src="/assets/js/config-voyage.js?v=20260424"></script>
-    <script src="/assets/vendor/gsap.min.js?v=3.12.5"></script>
-    <script src="/assets/vendor/ScrollTrigger.min.js?v=3.12.5"></script>
-    <script src="/assets/vendor/lenis.min.js?v=1.1.18"></script>
-    <script src="/assets/js/voyage-particles.js?v=20260721"></script>
-    <script src="/assets/js/voyage-sand-reveal.js?v=20260721"></script>
-    <script src="/assets/js/voyage-chapter-breath.js?v=20260721"></script>
-    <script src="/assets/js/voyage-transitions.js?v=20260721"></script>
-    <script src="/assets/js/ouverture-v50.js?v=20260721"></script>
-    <script src="/assets/js/forms-voyage.js?v=20260424"></script>
-    <script src="/assets/js/voyage-vimeo-lightbox.js?v=20260721"></script>
-    <script src="/assets/js/automation-demo.js?v=20260721"></script>
-    <script src="/assets/js/voyage-planete-realisations.js?v=20260721"></script>
-    <script src="/assets/js/voyage-s4-s6-cinema.js?v=20260721"></script>
-    <script src="/assets/js/voyage.js?v=20260721"></script>
-    <script src="/assets/js/pinapp-film-v6.js?v=20260721"></script>
+    <!-- Scripts — tous en defer (fix Bloc 1 Tier Orange #7)
+         defer préserve l'ordre d'exécution mais débloque le parsing HTML.
+         TTI mobile 4G attendu : -50% vs chargement bloquant.
+         Vendors (gsap → ScrollTrigger → lenis) gardent leur ordre via defer. -->
+    <script src="/assets/js/presentation-video.js?v=20260430" defer></script>
+    <script src="/assets/js/config-voyage.js?v=20260424" defer></script>
+    <script src="/assets/vendor/gsap.min.js?v=3.12.5" defer></script>
+    <script src="/assets/vendor/ScrollTrigger.min.js?v=3.12.5" defer></script>
+    <script src="/assets/vendor/lenis.min.js?v=1.1.18" defer></script>
+    <script src="/assets/js/voyage-particles.js?v=20260721" defer></script>
+    <script src="/assets/js/voyage-sand-reveal.js?v=20260721" defer></script>
+    <script src="/assets/js/voyage-chapter-breath.js?v=20260721" defer></script>
+    <script src="/assets/js/voyage-transitions.js?v=20260721" defer></script>
+    <script src="/assets/js/ouverture-v50.js?v=20260721" defer></script>
+    <script src="/assets/js/forms-voyage.js?v=20260424" defer></script>
+    <script src="/assets/js/voyage-vimeo-lightbox.js?v=20260721" defer></script>
+    <script src="/assets/js/automation-demo.js?v=20260721" defer></script>
+    <script src="/assets/js/voyage-planete-realisations.js?v=20260721" defer></script>
+    <script src="/assets/js/voyage-s4-s6-cinema.js?v=20260721" defer></script>
+    <script src="/assets/js/voyage.js?v=20260721" defer></script>
+    <script src="/assets/js/pinapp-film-v6.js?v=20260721" defer></script>
     <script type="module" src="/assets/js/tourbillon-webgl.js?v=20260721"></script>
     <script src="/assets/js/match-cuts.js?v=20260721" defer></script>
     <script src="/assets/js/chapter-nav.js?v=20260721" defer></script>

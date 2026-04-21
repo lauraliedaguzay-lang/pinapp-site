@@ -11,6 +11,24 @@
   var hc = typeof navigator.hardwareConcurrency === 'number' ? navigator.hardwareConcurrency : 8;
   if (hc < 4) root.classList.add('low-perf');
 
+  // ───────────────────────────────────────────────────────────
+  // GSAP safety net (fix Bloc 1 Tier Orange #9)
+  // Si GSAP ou ScrollTrigger ne charge pas (CDN bloqué, adblock,
+  // réseau très lent), force tous les .reveal et .voyage-hero-block
+  // à un état visible après 3s. Évite un écran « bleu sans rien ».
+  // ───────────────────────────────────────────────────────────
+  setTimeout(function () {
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') return;
+    if (root.classList.contains('voyage-sober')) return;
+    var els = document.querySelectorAll('.reveal, .voyage-hero-block, [data-stat-fill]');
+    for (var i = 0; i < els.length; i++) {
+      els[i].style.opacity = '1';
+      els[i].style.transform = 'none';
+      els[i].style.filter = 'none';
+    }
+    root.setAttribute('data-gsap-fallback', 'true');
+  }, 3000);
+
   var mqDesktop = window.matchMedia('(min-width: 1024px)');
 
   function plausible(name, props) {
