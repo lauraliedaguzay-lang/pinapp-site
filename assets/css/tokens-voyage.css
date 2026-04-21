@@ -785,3 +785,51 @@ html.voyage-sober #tourbillon-vertical,
 html.low-perf #tourbillon-vertical {
   display: none;
 }
+
+/* ── Language Switcher FR/EN (header) ──────────────────────────
+   Pill minimaliste "FR · EN" dans le header __actions */
+.lang-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 0.75rem;
+  font-family: 'Geist Mono', 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: var(--ivory-500);
+}
+.lang-switcher__btn {
+  background: transparent;
+  border: 0;
+  padding: 4px 6px;
+  color: inherit;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: inherit;
+  font: inherit;
+  transition: color 200ms ease;
+  border-radius: 3px;
+}
+.lang-switcher__btn:hover {
+  color: var(--ivory-800);
+}
+.lang-switcher__btn.is-active {
+  color: var(--gold-primary);
+}
+.lang-switcher__btn:focus-visible {
+  outline: 2px solid var(--cyan-glow);
+  outline-offset: 2px;
+}
+.lang-switcher__sep {
+  color: var(--ivory-300);
+  user-select: none;
+}
+@media (max-width: 767px) {
+  .lang-switcher {
+    margin-right: 0.5rem;
+    font-size: 0.625rem;
+  }
+  .lang-switcher__btn {
+    padding: 4px 4px;
+  }
+}
