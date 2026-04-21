@@ -20,19 +20,31 @@
     try {
       film.removeAttribute('src');
       film.remove();
+      var overlay = document.querySelector('.pinapp-film-overlay');
+      if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
     } catch (e3) {}
     return;
   }
 
   function kickstart() {
-    film
-      .play()
-      .catch(function () {})
-      .then(function () {
-        try {
-          film.pause();
-        } catch (e4) {}
-      });
+    var p;
+    try {
+      p = film.play();
+    } catch (e4a) {}
+    if (p && typeof p.then === 'function') {
+      p.then(
+        function () {
+          try {
+            film.pause();
+          } catch (e4) {}
+        },
+        function () {}
+      );
+    } else {
+      try {
+        film.pause();
+      } catch (e4b) {}
+    }
     document.removeEventListener('touchstart', kickstart);
     document.removeEventListener('click', kickstart);
   }
