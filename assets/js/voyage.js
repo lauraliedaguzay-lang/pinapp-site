@@ -11,6 +11,24 @@
   var hc = typeof navigator.hardwareConcurrency === 'number' ? navigator.hardwareConcurrency : 8;
   if (hc < 4) root.classList.add('low-perf');
 
+  // ───────────────────────────────────────────────────────────
+  // GSAP safety net (fix Bloc 1 Tier Orange #9)
+  // Si GSAP ou ScrollTrigger ne charge pas (CDN bloqué, adblock,
+  // réseau très lent), force tous les .reveal et .voyage-hero-block
+  // à un état visible après 3s. Évite un écran « bleu sans rien ».
+  // ───────────────────────────────────────────────────────────
+  setTimeout(function () {
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') return;
+    if (root.classList.contains('voyage-sober')) return;
+    var els = document.querySelectorAll('.reveal, .voyage-hero-block, [data-stat-fill]');
+    for (var i = 0; i < els.length; i++) {
+      els[i].style.opacity = '1';
+      els[i].style.transform = 'none';
+      els[i].style.filter = 'none';
+    }
+    root.setAttribute('data-gsap-fallback', 'true');
+  }, 3000);
+
   var mqDesktop = window.matchMedia('(min-width: 1024px)');
 
   function plausible(name, props) {
@@ -57,6 +75,15 @@
             } catch (e0) {}
           });
         }
+        var film = document.getElementById('pinapp-film');
+        if (film) {
+          try {
+            film.pause();
+          } catch (eF) {}
+          film.classList.add('is-hidden-sober');
+        }
+        var filmOv = document.querySelector('.pinapp-film-overlay');
+        if (filmOv) filmOv.classList.add('is-hidden-sober');
         root.classList.remove('voyage-v24-cinema');
         document.querySelectorAll('.reveal').forEach(function (r) {
           r.classList.add('is-revealed');
@@ -65,13 +92,26 @@
         try {
           document.body.classList.remove('voyage-cursor-off');
         } catch (eC2) {}
-        if (!reduced && document.querySelector('#voyage-main section[data-chapter="9"]')) {
+        if (
+          !reduced &&
+          !root.classList.contains('voyage-v60-film') &&
+          document.querySelector('#voyage-main section[data-chapter="9"]')
+        ) {
           var cinema2 = document.getElementById('voyage-cinema');
           if (cinema2) {
             cinema2.hidden = false;
             root.classList.add('voyage-v24-cinema');
           }
         }
+        var film2 = document.getElementById('pinapp-film');
+        if (film2) {
+          film2.classList.remove('is-hidden-sober');
+          try {
+            film2.play().catch(function () {});
+          } catch (eF2) {}
+        }
+        var filmOv2 = document.querySelector('.pinapp-film-overlay');
+        if (filmOv2) filmOv2.classList.remove('is-hidden-sober');
         window.requestAnimationFrame(function () {
           bootMotion();
           try {
@@ -436,6 +476,25 @@
     try {
       ScrollTrigger.normalizeScroll(true);
     } catch (e) {}
+
+    if (root.classList.contains('voyage-v60-film')) {
+      document.querySelectorAll('.voyage-scene').forEach(function (sec, idx) {
+        ScrollTrigger.create({
+          trigger: sec,
+          start: 'top 70%',
+          onEnter: function () {
+            plausible('scene_entered', { n: String(idx + 1) });
+            try {
+              window.dispatchEvent(
+                new CustomEvent('voyage:scene-active', { detail: { index: idx + 1, sectionId: sec.id || '' } })
+              );
+            } catch (e2) {}
+          },
+        });
+      });
+      ScrollTrigger.refresh();
+      return;
+    }
 
     var perScene = root.classList.contains('voyage-v40-per-scene');
     document.querySelectorAll('.voyage-scene').forEach(function (sec, idx) {

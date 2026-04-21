@@ -461,3 +461,375 @@ textarea::placeholder {
 html.voyage-page.low-perf .reveal {
   filter: none;
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   V7 — NEUTRAL-ON-FILM TOKEN SYSTEM
+   ──────────────────────────────────────────────────────────────────
+   Principe : le film scroll-scrubbé V6 est la star visuelle.
+   L'UI overlay doit s'effacer (ivoire + or rare + cyan signature rare).
+   Zéro couleur UI saturée ne doit concurrencer les couleurs du film.
+   Aligne avec la règle AVATAR : "si on remarque l'effet, c'est raté".
+   ═══════════════════════════════════════════════════════════════════ */
+:root {
+  /* ── Neutrals graduels (ivoire dérivé) ─────────────────────── */
+  --ivory-50: rgba(244, 228, 193, 0.04);
+  --ivory-100: rgba(244, 228, 193, 0.08);
+  --ivory-200: rgba(244, 228, 193, 0.16);
+  --ivory-300: rgba(244, 228, 193, 0.28);
+  --ivory-400: rgba(244, 228, 193, 0.42);
+  --ivory-500: rgba(244, 228, 193, 0.56);
+  --ivory-600: rgba(244, 228, 193, 0.72);
+  --ivory-700: rgba(244, 228, 193, 0.84);
+  --ivory-800: rgba(244, 228, 193, 0.94);
+  --ivory-900: #f4e4c1;
+
+  /* ── Textes sémantiques (au-dessus du film) ────────────────── */
+  --text-primary: var(--ivory-900);           /* titres, H1, CTA label */
+  --text-secondary: var(--ivory-700);         /* body, paragraphes */
+  --text-muted: var(--ivory-500);             /* labels, metadata */
+  --text-whisper: var(--ivory-300);           /* captions discrètes, tapestry */
+
+  /* ── Background OLED (fallback quand film masqué) ──────────── */
+  --bg-oled: #04040e;                         /* dossier-ultime ref */
+  --bg-void-elevated: #0a1425;
+  --bg-glass: rgba(10, 20, 37, 0.35);
+  --bg-glass-strong: rgba(10, 20, 37, 0.55);
+
+  /* ── Borders hairline ──────────────────────────────────────── */
+  --border-hairline: var(--ivory-100);        /* 8% ivoire */
+  --border-subtle: var(--ivory-200);          /* 16% pour hover */
+  --border-focus: var(--cyan-glow);           /* focus-visible */
+
+  /* ── Accents rares (pas d'UI saturée en continu) ───────────── */
+  --accent-primary: var(--gold-primary);      /* CTA principal seul */
+  --accent-primary-hover: var(--gold-light);
+  --accent-signature: var(--cyan-glow);       /* signature states : focus, scene-active, holo-circle */
+
+  /* ── Overlay film (pour lisibilité textes sur vidéo) ───────── */
+  --film-overlay-top: rgba(10, 20, 37, 0.25);
+  --film-overlay-mid: rgba(10, 20, 37, 0.45);
+  --film-overlay-bottom: rgba(10, 20, 37, 0.65);
+
+  /* ── Semantic states ───────────────────────────────────────── */
+  --state-success-bg: rgba(62, 245, 224, 0.08);
+  --state-success-border: rgba(62, 245, 224, 0.35);
+  --state-success-text: var(--cyan-glow);
+  --state-warning-bg: rgba(230, 185, 115, 0.1);
+  --state-warning-border: rgba(230, 185, 115, 0.4);
+  --state-warning-text: var(--gold-primary);
+  --state-error-bg: rgba(220, 92, 75, 0.12);
+  --state-error-border: rgba(220, 92, 75, 0.45);
+  --state-error-text: #ff8366;
+  --state-info-bg: rgba(120, 180, 255, 0.08);
+  --state-info-border: rgba(120, 180, 255, 0.3);
+  --state-info-text: #7fb4ff;
+
+  /* ── Beauty demos palette (ongles / cils Tier M) ────────────── */
+  --beauty-nude: #e8d4c5;
+  --beauty-rose: #d4899d;
+  --beauty-bordeaux: #5a1a2b;
+  --beauty-gold: #c9a875;
+  --beauty-ivory: #f4ede1;
+  --beauty-velvet: #2a1218;
+
+  /* ── Verticales produit (hues accessoires, pas core chrome) ── */
+  --vertical-auralis: #b8a4ff;                /* violet doux RH */
+  --vertical-mp: var(--gold-primary);         /* or core M&P */
+  --vertical-formation: var(--cyan-glow);     /* cyan pédagogie */
+
+  /* ── Elevation (glass layers) ──────────────────────────────── */
+  --elevation-0: none;
+  --elevation-1: 0 1px 2px rgba(0,0,0,0.15), 0 1px 4px rgba(0,0,0,0.1);
+  --elevation-2: 0 4px 12px rgba(0,0,0,0.2), 0 2px 6px rgba(0,0,0,0.12);
+  --elevation-3: 0 12px 32px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.15);
+  --elevation-glow-cyan: 0 0 24px rgba(62,245,224,0.25);
+  --elevation-glow-gold: 0 0 24px rgba(230,185,115,0.3);
+
+  /* ── z-index stack ─────────────────────────────────────────── */
+  --z-film: 0;
+  --z-film-overlay: 1;
+  --z-content: 2;
+  --z-chrome: 100;                            /* nav, header, CTAs fixed */
+  --z-tapestry: 10;                           /* morse STAY, etc */
+  --z-modal: 1000;
+  --z-tooltip: 2000;
+  --z-cursor: 100000;
+}
+
+/* ── Règle cohérence : ::selection signature biolumi ────────── */
+::selection {
+  background: rgba(62, 245, 224, 0.35);
+  color: var(--ivory-900);
+  text-shadow: 0 0 12px rgba(62, 245, 224, 0.4);
+}
+
+/* ── Scrollbar fine or→cyan (contextes hors Lenis) ──────────── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ivory-300) transparent;
+}
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold-primary), var(--cyan-glow));
+  border-radius: 999px;
+}
+
+/* ── Tapestry whisper (phrases italiques discrètes easter eggs) ─ */
+.tapestry-whisper {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: 0.75rem;
+  color: var(--text-whisper);
+  letter-spacing: 0.01em;
+  margin-top: var(--s-4);
+  display: block;
+  text-align: inherit;
+}
+
+/* ── Morse STAY (easter egg M&P section s4) ─────────────────────
+   4 dots/dashes en bas-gauche · visible quand s4 est la section active
+   Tape "S T A Y" en morse · ZÉRO attribution visible */
+.morse-stay {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 800ms var(--ease),
+    transform 800ms var(--ease);
+  z-index: var(--z-tapestry, 10);
+  pointer-events: none;
+  will-change: opacity;
+}
+html[data-active-section="s4"] .morse-stay {
+  opacity: 0.55;
+  transform: translateY(0);
+}
+.morse-stay .dot,
+.morse-stay .dash {
+  background: rgba(62, 245, 224, 0.7);
+  border-radius: 999px;
+  animation: morse-blink 4s infinite ease-in-out;
+}
+.morse-stay .dot { width: 6px; height: 6px; }
+.morse-stay .dash { width: 16px; height: 6px; }
+.morse-stay .letter-gap { width: 8px; height: 6px; }
+@keyframes morse-blink {
+  0%, 45%, 100% { opacity: 0.35; }
+  20% { opacity: 1; }
+  60% { opacity: 0.6; }
+}
+@media (max-width: 767px) {
+  .morse-stay {
+    bottom: 1rem;
+    left: 1rem;
+    gap: 4px;
+  }
+  .morse-stay .dot { width: 5px; height: 5px; }
+  .morse-stay .dash { width: 12px; height: 5px; }
+  .morse-stay .letter-gap { width: 6px; height: 5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .morse-stay .dot,
+  .morse-stay .dash {
+    animation: none;
+    opacity: 0.6;
+  }
+}
+html.voyage-sober .morse-stay {
+  display: none;
+}
+
+/* ── Scene Counter (signature awwards-worthy) ──────────────────
+   Format : "01 / 08" fixed top-right
+   Slot-machine animation au changement de scène */
+.scene-counter {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  font-family: 'Geist Mono', 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  color: var(--gold-primary);
+  opacity: 0.6;
+  z-index: var(--z-tapestry, 10);
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 400ms var(--ease);
+  mix-blend-mode: screen;
+}
+.scene-counter__current {
+  position: relative;
+  display: inline-block;
+  width: 1.4em;
+  height: 1em;
+  overflow: hidden;
+  vertical-align: baseline;
+}
+.scene-counter__num {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(0);
+  opacity: 1;
+  transition:
+    transform 600ms cubic-bezier(0.7, 0, 0.3, 1),
+    opacity 400ms ease-out;
+}
+.scene-counter__num--enter {
+  transform: translateY(100%);
+  opacity: 0;
+}
+.scene-counter__num--active {
+  transform: translateY(0);
+  opacity: 1;
+}
+.scene-counter__num--exit {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+.scene-counter__sep {
+  margin: 0 2px;
+  color: var(--ivory-400);
+}
+.scene-counter__total {
+  color: var(--ivory-500);
+}
+html[data-active-section] .scene-counter {
+  opacity: 0.85;
+}
+@media (max-width: 767px) {
+  .scene-counter {
+    top: 1rem;
+    right: 1rem;
+    font-size: 0.6875rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene-counter__num {
+    transition: none;
+  }
+}
+html.voyage-sober .scene-counter {
+  display: none;
+}
+
+/* ── Cursor Cinema Timecode (signature awwards #3) ─────────────
+   Micro-label sous le curseur qui affiche "MM:SS / MM:SS" en continu.
+   Signe que l'utilisateur est DANS un film. */
+#cursor-timecode {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: var(--z-cursor, 100000);
+  font-family: 'Geist Mono', 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+  color: rgba(244, 228, 193, 0.42);
+  mix-blend-mode: screen;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  will-change: transform;
+  user-select: none;
+  white-space: nowrap;
+}
+#cursor-timecode.is-visible {
+  opacity: 1;
+}
+@media (hover: none), (pointer: coarse) {
+  #cursor-timecode { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #cursor-timecode { display: none; }
+}
+html.voyage-sober #cursor-timecode {
+  display: none;
+}
+
+/* ── Tourbillon Vertical Ascendant (signature Aladdin) ──────────
+   Canvas fixed plein écran pour particules dorées qui montent à s6.
+   Inspiration "A Whole New World" — lanternes qui se lèvent. */
+#tourbillon-vertical {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: screen;
+  opacity: 0;
+  transition: opacity 1200ms var(--ease);
+  will-change: opacity;
+}
+#tourbillon-vertical.is-active {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  #tourbillon-vertical { display: none; }
+}
+html.voyage-sober #tourbillon-vertical,
+html.low-perf #tourbillon-vertical {
+  display: none;
+}
+
+/* ── Language Switcher FR/EN (header) ──────────────────────────
+   Pill minimaliste "FR · EN" dans le header __actions */
+.lang-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 0.75rem;
+  font-family: 'Geist Mono', 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: var(--ivory-500);
+}
+.lang-switcher__btn {
+  background: transparent;
+  border: 0;
+  padding: 4px 6px;
+  color: inherit;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: inherit;
+  font: inherit;
+  transition: color 200ms ease;
+  border-radius: 3px;
+}
+.lang-switcher__btn:hover {
+  color: var(--ivory-800);
+}
+.lang-switcher__btn.is-active {
+  color: var(--gold-primary);
+}
+.lang-switcher__btn:focus-visible {
+  outline: 2px solid var(--cyan-glow);
+  outline-offset: 2px;
+}
+.lang-switcher__sep {
+  color: var(--ivory-300);
+  user-select: none;
+}
+@media (max-width: 767px) {
+  .lang-switcher {
+    margin-right: 0.5rem;
+    font-size: 0.625rem;
+  }
+  .lang-switcher__btn {
+    padding: 4px 4px;
+  }
+}

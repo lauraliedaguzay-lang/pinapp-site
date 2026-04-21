@@ -91,3 +91,103 @@
     foundedAt: '2010',
   };
 })();
+
+/* ═══════════════════════════════════════════════════════════════════
+   PINAPP V7 — TAPESTRY EGGS (2026-04-21 additions)
+   ──────────────────────────────────────────────────────────────────
+   - JARVIS ambient banner (palette biolumi V7 · italique Fraunces)
+   - Morse STAY (s4 Mémoire & Présence · bottom-left fixed)
+   - data-active-section sur <html> (pour CSS contextuels)
+   Zéro attribution visible. Respect règle AVATAR.
+   ═══════════════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+
+  // ─── JARVIS ambient banner (devtools F12) ──────────────────────
+  try {
+    if (typeof console !== 'undefined' && console.log) {
+      console.log(' ');
+      console.log(
+        '%c J.A.R.V.I.S. systems online.',
+        'color:#3ef5e0;font:italic 14px/1.5 Fraunces,Georgia,serif;padding:4px 0;'
+      );
+      console.log(
+        '%c Just A Rather Very Intelligent System.',
+        'color:rgba(244,228,193,0.6);font:12px ui-monospace,Menlo,monospace;'
+      );
+      console.log(
+        '%c ✦',
+        'color:rgba(244,228,193,0.42);font:11px ui-monospace,Menlo,monospace;padding:2px 0 12px;'
+      );
+    }
+  } catch (e) {}
+
+  // ─── Morse STAY (s4 M&P bottom-left) ───────────────────────────
+  function injectMorseStay() {
+    if (document.querySelector('.morse-stay')) return;
+    var el = document.createElement('div');
+    el.className = 'morse-stay';
+    el.setAttribute('aria-hidden', 'true');
+    el.setAttribute('data-word', 'STAY');
+    // S T A Y  → . . .  |  -  |  . -  |  - . - -
+    var pattern = [
+      'dot', 'dot', 'dot',        // S
+      'letter-gap',
+      'dash',                     // T
+      'letter-gap',
+      'dot', 'dash',              // A
+      'letter-gap',
+      'dash', 'dot', 'dash', 'dash' // Y
+    ];
+    for (var i = 0; i < pattern.length; i++) {
+      var span = document.createElement('span');
+      span.className = pattern[i];
+      // stagger delay individuel pour effet ondulant
+      span.style.animationDelay = (i * 80) + 'ms';
+      el.appendChild(span);
+    }
+    document.body.appendChild(el);
+  }
+
+  // ─── data-active-section sur <html> ────────────────────────────
+  function setActive(id) {
+    if (!id) return;
+    document.documentElement.setAttribute('data-active-section', id);
+  }
+
+  // Listen voyage:scene-active (émis par voyage.js)
+  document.addEventListener('voyage:scene-active', function (e) {
+    if (e && e.detail && e.detail.sectionId) setActive(e.detail.sectionId);
+  });
+
+  // Fallback IntersectionObserver (si voyage.js ne charge pas)
+  function initSectionObserver() {
+    if (!('IntersectionObserver' in window)) return;
+    var sections = document.querySelectorAll('main section[id^="s"]');
+    if (!sections.length) return;
+    var top = null;
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting && (!top || en.intersectionRatio > top.intersectionRatio)) {
+            top = en;
+          }
+        });
+        if (top && top.target) setActive(top.target.id);
+      },
+      { rootMargin: '-20% 0px -60% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] }
+    );
+    sections.forEach(function (s) { io.observe(s); });
+  }
+
+  function boot() {
+    injectMorseStay();
+    initSectionObserver();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
