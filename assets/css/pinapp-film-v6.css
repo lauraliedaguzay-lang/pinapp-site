@@ -1,0 +1,161 @@
+/* ===================================================================
+   PINAPP FILM V6.0 · scroll-scrubbed single video
+   ===================================================================
+   Un seul <video id="pinapp-film"> fixed derriere toutes les sections.
+   Les 10 scenes scrollent par-dessus avec leurs widgets Apple glass.
+   JS (pinapp-film-v6.js) synchronise scrollY -> video.currentTime.
+   =================================================================== */
+
+/* ---------- FILM EN POSITION FIXED DERRIERE TOUT ---------- */
+.pinapp-film {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  object-fit: cover;
+  object-position: center center;
+  z-index: 0;
+  pointer-events: none;
+  will-change: opacity;
+  background-color: var(--black-night, #0A1425);
+}
+
+/* ---------- OVERLAY SOMBRE PAR-DESSUS LE FILM ---------- */
+.pinapp-film-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 20, 37, 0.35) 0%,
+    rgba(10, 20, 37, 0.55) 50%,
+    rgba(10, 20, 37, 0.70) 100%
+  );
+}
+
+/* ---------- LES SECTIONS SCROLLENT PAR-DESSUS ---------- */
+.voyage-scene {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10vh 5vw;
+  background: transparent !important;
+}
+
+/* Neutralise les vieilles regles de fond des scenes */
+.voyage-scene .voyage-scene__media-stack,
+.voyage-scene .lieu-bg-video,
+.voyage-scene .scene-bg-video,
+.voyage-scene > video,
+.voyage-scene > picture {
+  display: none !important;
+}
+
+/* ---------- WIDGETS APPLE GLASS RENFORCES ---------- */
+.glass-card,
+.voyage-scene__inner .glass-card,
+.apple-glass {
+  backdrop-filter: blur(32px) saturate(180%) brightness(1.02);
+  -webkit-backdrop-filter: blur(32px) saturate(180%) brightness(1.02);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.09) 0%,
+    rgba(255, 255, 255, 0.03) 40%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 24px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 30px 60px -15px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(10, 20, 37, 0.3);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.4s ease,
+              box-shadow 0.4s ease;
+}
+
+.glass-card:hover,
+.apple-glass:hover {
+  transform: translateY(-6px) scale(1.015);
+  border-color: rgba(62, 245, 224, 0.4);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 40px 80px -15px rgba(0, 0, 0, 0.7),
+    0 0 30px rgba(62, 245, 224, 0.15);
+}
+
+/* ---------- TEXT-SHADOW WCAG AA ---------- */
+.voyage-scene h1,
+.voyage-scene h2,
+.voyage-scene h3,
+.voyage-scene .voyage-section-title,
+.ouverture-title,
+.hero-title {
+  text-shadow:
+    0 1px 2px rgba(10, 20, 37, 0.6),
+    0 0 20px rgba(10, 20, 37, 0.4);
+}
+
+.voyage-scene p,
+.voyage-scene .voyage-eyebrow {
+  text-shadow: 0 1px 2px rgba(10, 20, 37, 0.5);
+}
+
+/* ---------- FALLBACK prefers-reduced-motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .pinapp-film { display: none; }
+  body { background: var(--black-night, #0A1425); }
+  .voyage-scene--ouverture { background: url('/assets/img/voyage/film-posters/00-ouverture.jpg') center/cover no-repeat !important; }
+  #s1.voyage-scene { background: url('/assets/img/voyage/film-posters/01-prologue.jpg') center/cover no-repeat !important; }
+  #s2.voyage-scene { background: url('/assets/img/voyage/film-posters/02-rencontre.jpg') center/cover no-repeat !important; }
+  #s3.voyage-scene { background: url('/assets/img/voyage/film-posters/03-outils.jpg') center/cover no-repeat !important; }
+  #s4.voyage-scene { background: url('/assets/img/voyage/film-posters/04-constellation.jpg') center/cover no-repeat !important; }
+  #s5.voyage-scene { background: url('/assets/img/voyage/film-posters/05-preuves.jpg') center/cover no-repeat !important; }
+  #s5b.voyage-scene { background: url('/assets/img/voyage/film-posters/05b-mecanisme.jpg') center/cover no-repeat !important; }
+  #s6.voyage-scene { background: url('/assets/img/voyage/film-posters/06-manifeste.jpg') center/cover no-repeat !important; }
+  #s7.voyage-scene { background: url('/assets/img/voyage/film-posters/07-oeuvre.jpg') center/cover no-repeat !important; }
+  #s8.voyage-scene { background: url('/assets/img/voyage/film-posters/08-atterrissage.jpg') center/cover no-repeat !important; }
+  .voyage-scene::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 20, 37, 0.65);
+    z-index: -1;
+  }
+}
+
+/* ---------- FALLBACK prefers-reduced-transparency ---------- */
+@media (prefers-reduced-transparency: reduce) {
+  .glass-card, .apple-glass {
+    background: rgba(10, 20, 37, 0.92);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* ---------- FALLBACK prefers-reduced-data ---------- */
+@media (prefers-reduced-data: reduce) {
+  .pinapp-film { display: none; }
+  body { background: var(--black-night, #0A1425); }
+}
+
+/* ---------- MOBILE / iOS SAFE AREA ---------- */
+@media (max-width: 768px) {
+  .pinapp-film { height: 100dvh; object-position: center center; }
+  .voyage-scene { padding: 8vh 4vw; }
+}
+
+/* ---------- FOCUS VISIBLE ---------- */
+.voyage-scene *:focus-visible {
+  outline: 2px solid var(--cyan-glow, #3EF5E0);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
