@@ -293,3 +293,43 @@ pinappI18n.detectLang();         // renvoie langue courante
 Si tout OK après tests : ouvrir PR `v60-recalibrate` → `main` et merger après review finale.
 
 — Session terminée proprement. 🌠
+
+---
+
+## 🔁 ADDENDUM 2 (matin — session continue)
+
+Après "ok je suis la continue" puis "tout avant de migrer" puis "tu fais tout", j'ai ajouté :
+
+### `1388408` — Cursor cinema timecode (signature awwards #3)
+Micro-label "MM:SS / MM:SS" sous le curseur, lit `window.__pinappFilm.getCurrentTime()`. Geist Mono 10px ivory 42% + mix-blend-mode screen. Désactivé touch/reduced-motion/sober. **Trinité awwards complète** (scene counter + chromatic + timecode).
+
+### `9555855` — Tourbillon vertical ascendant (signature Aladdin)
+Canvas fixed avec 60 particules dorées qui montent du bas à l'entrée de s6. Réplique "A Whole New World" lanterns. IntersectionObserver + gradient radial glow HSL or 42-54°. Désactivé voyage-sober/low-perf/reduced-motion.
+
+### `ebeabbd` — i18n activation minimale
+Switcher FR/EN pill Geist Mono dans header + i18n.js chargé + inline script de wiring. data-i18n posés sur hero H1, 4 spans manifesto, CTA Cal.com s8.
+
+### `5dd018e` — gitignore scratch
+.claude/, tmp-check-frames/, tmp-pdfs/ ajoutés à .gitignore.
+
+### `17f2412` — PR body template
+docs/PR-BODY-V7.md prêt à copier dans GitHub UI.
+
+### `b040c66` — Polish final (i18n expansion + glass-card tilt)
+- Nav header : 4 data-i18n posés (nav.universe/auralis/mp/contact)
+- Hero s0 : eyebrow + ouverture_title + ouverture_subtitle + scroll_cue
+- locales/{fr,en}.json enrichis avec 6 nouvelles clés
+- **Glass-card 3D tilt** (assets/js/glass-tilt.js, 78 lignes) : rotation 3D ±3° max sur mousemove, damping 0.7, transition 120ms reactive + 420ms retour. Style Stripe/Linear/Arc.
+
+---
+
+## 🏁 TOTAL FINAL : 19 commits métier sur v60-recalibrate
+
+Tous poussés sur `origin/v60-recalibrate`. **Aucun push sur main.**
+
+**`origin/main` = `8f9687c`** (V5 revert, prod stable intacte).
+**`origin/v60-recalibrate` = `b040c66`** (ou plus récent si HANDOVER lui-même est push).
+
+Pour merger : créer PR via https://github.com/lauraliedaguzay-lang/pinapp-site/pull/new/v60-recalibrate (body dans docs/PR-BODY-V7.md).
+
+*Session autonome complètement terminée. Site prêt à être testé + mergé après validation iPhone.* ✨
