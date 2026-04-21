@@ -2511,3 +2511,36 @@ html.voyage-sober #chapter-skip-nav,
 html.voyage-sober #chapter-marker {
   display: none !important;
 }
+
+/* ─────────────────────────────────────────────────────────────
+   Form inputs — iOS zoom prevention + touch target WCAG 2.2 AA
+   (fix Bloc 1 Tier Jaune #4)
+   Règle : tout input/select/textarea doit avoir font-size ≥ 16px
+   et min-height 48px pour ne pas déclencher le zoom iOS Safari
+   au focus et pour respecter les touch targets.
+   ───────────────────────────────────────────────────────────── */
+input[type='text'],
+input[type='email'],
+input[type='tel'],
+input[type='url'],
+input[type='search'],
+input[type='number'],
+input[type='password'],
+select,
+textarea {
+  font-size: 16px;
+  min-height: 48px;
+  padding-block: var(--s-3);
+  padding-inline: var(--s-4);
+  font-family: inherit;
+  color: inherit;
+}
+textarea {
+  min-height: 120px;
+  line-height: 1.55;
+  resize: vertical;
+}
+button[type='submit'],
+input[type='submit'] {
+  min-height: 48px;
+}
