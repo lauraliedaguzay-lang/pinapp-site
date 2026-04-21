@@ -1,3 +1,7 @@
+# Storyboard V5.0 — ARCHIVÉ
+
+> **V5 abandonnée au profit de V6** (`docs/STORYBOARD-MAPPING-V6.md`) : une seule vidéo concaténée + scroll-scrub sur `currentTime`, pour supprimer les discontinuités entre fonds par section et la pile de `<video>` masquées.
+
 # Storyboard V5.0 — Ouverture + vidéos pinapp.fr + vanilla (référence)
 
 Suite de la page **`index.html`** (voyage). La vérité runtime : sections `s0`–`s8`, `voyage.css`, scripts `voyage*.js`.
