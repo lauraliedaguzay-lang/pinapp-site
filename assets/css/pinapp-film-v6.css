@@ -1,0 +1,180 @@
+/**
+ * Pinapp V6.0 — un seul film fixed + sections par-dessus (scroll-scrub).
+ * html.voyage-v60-film sur la page voyage.
+ */
+
+html.voyage-v60-film body.voyage-page {
+  background: var(--black-night);
+}
+
+.pinapp-film {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  object-fit: cover;
+  object-position: center center;
+  z-index: 0;
+  pointer-events: none;
+  will-change: opacity;
+  transform: translateZ(0);
+}
+
+.pinapp-film-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 20, 37, 0.35) 0%,
+    rgba(10, 20, 37, 0.55) 50%,
+    rgba(10, 20, 37, 0.7) 100%
+  );
+}
+
+html.voyage-v60-film #voyage-main {
+  position: relative;
+  z-index: 2;
+  background: transparent;
+}
+
+html.voyage-v60-film .voyage-footer {
+  position: relative;
+  z-index: 2;
+}
+
+html.voyage-v60-film .voyage-scene {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  border: none;
+}
+
+html.voyage-v60-film .chapter__content,
+html.voyage-v60-film .voyage-scene__inner {
+  position: relative;
+  z-index: 2;
+}
+
+/* Lisibilité titres sur film */
+html.voyage-v60-film .ouverture-title,
+html.voyage-v60-film .h-hero,
+html.voyage-v60-film #voyage-main .voyage-scene .h-1 {
+  text-shadow:
+    0 1px 2px rgba(10, 20, 37, 0.6),
+    0 0 20px rgba(10, 20, 37, 0.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.voyage-v60-film .pinapp-film {
+    display: none !important;
+  }
+
+  html.voyage-v60-film .pinapp-film-overlay {
+    display: none;
+  }
+
+  html.voyage-v60-film .voyage-scene--ouverture {
+    background: url('/assets/img/voyage/film-posters/00-ouverture.jpg') center / cover no-repeat;
+  }
+  html.voyage-v60-film .voyage-scene--film-prologue {
+    background: url('/assets/img/voyage/film-posters/01-prologue.jpg') center / cover no-repeat;
+  }
+  html.voyage-v60-film .voyage-scene--film-rencontre {
+    background: url('/assets/img/voyage/film-posters/02-rencontre.jpg') center / cover no-repeat;
+  }
+  html.voyage-v60-film .voyage-scene--film-outils {
+    background: url('/assets/img/voyage/film-posters/03-outils.jpg') center / cover no-repeat;
+  }
+  html.voyage-v60-film .voyage-scene--film-constellation {
+    background: url('/assets/img/voyage/film-posters/04-constellation.jpg') center / cover no-repeat;
+  }
+  html.voyage-v60-film .voyage-scene--film-preuves {
+    background: url('/assets/img/voyage/film-posters/05-preuves.jpg') center / cover no-repeat;
+  }
+  html.voyage-v60-film .voyage-scene--film-mecanisme {
+    background: url('/assets/img/voyage/film-posters/06-mecanisme.jpg') center / cover no-repeat;
+  }
+  html.voyage-v60-film .voyage-scene--film-manifeste {
+    background: url('/assets/img/voyage/film-posters/07-manifeste.jpg') center / cover no-repeat;
+  }
+  html.voyage-v60-film .voyage-scene--film-oeuvre {
+    background: url('/assets/img/voyage/film-posters/08-oeuvre.jpg') center / cover no-repeat;
+  }
+  html.voyage-v60-film .voyage-scene--film-atterrissage {
+    background: url('/assets/img/voyage/film-posters/09-atterrissage.jpg') center / cover no-repeat;
+  }
+
+  html.voyage-v60-film .voyage-scene--ouverture,
+  html.voyage-v60-film .voyage-scene--film-prologue,
+  html.voyage-v60-film .voyage-scene--film-rencontre,
+  html.voyage-v60-film .voyage-scene--film-outils,
+  html.voyage-v60-film .voyage-scene--film-constellation,
+  html.voyage-v60-film .voyage-scene--film-preuves,
+  html.voyage-v60-film .voyage-scene--film-mecanisme,
+  html.voyage-v60-film .voyage-scene--film-manifeste,
+  html.voyage-v60-film .voyage-scene--film-oeuvre,
+  html.voyage-v60-film .voyage-scene--film-atterrissage {
+    position: relative;
+  }
+
+  html.voyage-v60-film .voyage-scene--ouverture::before,
+  html.voyage-v60-film .voyage-scene--film-prologue::before,
+  html.voyage-v60-film .voyage-scene--film-rencontre::before,
+  html.voyage-v60-film .voyage-scene--film-outils::before,
+  html.voyage-v60-film .voyage-scene--film-constellation::before,
+  html.voyage-v60-film .voyage-scene--film-preuves::before,
+  html.voyage-v60-film .voyage-scene--film-mecanisme::before,
+  html.voyage-v60-film .voyage-scene--film-manifeste::before,
+  html.voyage-v60-film .voyage-scene--film-oeuvre::before,
+  html.voyage-v60-film .voyage-scene--film-atterrissage::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 20, 37, 0.65);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  html.voyage-v60-film .voyage-scene--ouverture > *,
+  html.voyage-v60-film .voyage-scene--film-prologue > *,
+  html.voyage-v60-film .voyage-scene--film-rencontre > *,
+  html.voyage-v60-film .voyage-scene--film-outils > *,
+  html.voyage-v60-film .voyage-scene--film-constellation > *,
+  html.voyage-v60-film .voyage-scene--film-preuves > *,
+  html.voyage-v60-film .voyage-scene--film-mecanisme > *,
+  html.voyage-v60-film .voyage-scene--film-manifeste > *,
+  html.voyage-v60-film .voyage-scene--film-oeuvre > *,
+  html.voyage-v60-film .voyage-scene--film-atterrissage > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@media (prefers-reduced-data: reduce) {
+  html.voyage-v60-film .pinapp-film {
+    display: none !important;
+  }
+}
+
+html.voyage-sober.voyage-v60-film .pinapp-film,
+html.voyage-sober.voyage-v60-film .pinapp-film-overlay {
+  display: none !important;
+}
+
+html.voyage-v60-film .pinapp-film.is-hidden-sober,
+html.voyage-v60-film .pinapp-film-overlay.is-hidden-sober {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  html.voyage-v60-film .pinapp-film {
+    height: 100dvh;
+    object-position: center center;
+  }
+}
