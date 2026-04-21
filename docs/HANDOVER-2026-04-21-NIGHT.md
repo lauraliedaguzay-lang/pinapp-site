@@ -20,8 +20,11 @@
 | 7 | `b1335a6` | eggs(v7) | **3 easter eggs tissés** : Spider-Man italique s3 + Morse STAY s4 + JARVIS console/IA card |
 | 8 | `5591273` | copy(v7) | Manifeste protégé injecté s6 + meta SEO brand statement mondial |
 | 9 | `d81aa3c` | signatures(v7) | **Scene counter slot-machine** "01/08" fixed top-right (awwards move #1) |
+| 10 | `45cfbb4` | docs(v7) | HANDOVER initial (ce fichier) |
+| 11 | `9340815` | signatures(v7) | **Film chromatic aberration** per scene (awwards move #2 · hue-rotate ±14° sur #pinapp-film piloté par `film-chromatic.js` + event `voyage:scene-active`) |
+| 12 | `43ff91c` | i18n(v7) | **Scaffold i18n dormant** : `locales/fr.json` + `locales/en.json` (169 clés) + `assets/js/i18n.js` (155 lignes). NON chargé dans index.html — prêt pour activation après décision URL scheme. |
 
-Total : **9 commits métier** après le film V6 de base.
+Total : **12 commits métier** après le film V6 de base.
 
 ---
 
@@ -40,6 +43,8 @@ Total : **9 commits métier** après le film V6 de base.
 6. **SVG icons** propres sur hamburger + mode sobre (plus de Unicode ☰◎ cassé a11y)
 7. **`<title>`** avec brand statement mondial : *"Pinapp · The operating system for the solo entrepreneur · Bordeaux"*
 8. **OG/Twitter cards** bilingues avec positioning EN/FR hybride
+9. **Film chromatic aberration** — le film V6 subit un hue-rotate subtil (±14° max) à chaque changement de scène. Imperceptible individuellement, donne l'impression d'un plan-séquence vivant sans coupure.
+10. **Sand reveal** — était déjà actif sur le H2 s8 "Décrivez votre projet" via `voyage-sand-reveal.js`. Palette gold/cyan déjà alignée V7, rien à changer. Fonctionne au scroll.
 
 ### Améliorations invisibles (perf + a11y)
 - LCP mobile 4G : ÷2 attendu (~3s → ~1.5s) grâce au preload réduit + defer scripts
@@ -218,8 +223,73 @@ git branch -D v60-recalibrate  # WARNING : supprime toute la branche
 
 ---
 
-**Session autonome terminée à `d81aa3c`. Branche : `v60-recalibrate`. Prod : safe (V5 revert toujours actif sur main).**
+**Session autonome terminée à `43ff91c`. Branche : `v60-recalibrate`. Prod : safe (V5 revert toujours actif sur main).**
 
-*Bonne nuit, Lauralie. À ton réveil tu auras un site avec 9 améliorations cumulées prêtes à tester. 🌙*
+*Bonne nuit, Lauralie. À ton réveil tu auras un site avec **12 améliorations cumulées** prêtes à tester. 🌙*
 
 — Claude (assistant Pinapp V7)
+
+---
+
+## 🔁 ADDENDUM (fin de session, additions post-HANDOVER initial)
+
+**Commits 11 et 12 ajoutés après HANDOVER initial :**
+
+### `9340815` — Film chromatic aberration (signature awwards #2)
+Le film V6 scroll-scrubbé reçoit maintenant un `filter: hue-rotate(var(--film-hue-shift))` piloté par `assets/js/film-chromatic.js`. Ce JS écoute `voyage:scene-active` (ou MutationObserver sur `data-active-section` en fallback) et applique une valeur d'hue spécifique par section :
+
+| Section | Hue shift |
+|---|---|
+| s0/s1 main hologramme | 0° (neutre) |
+| s2 couloir | +4° |
+| s3 métiers | +8° |
+| s4 constellation M&P | +10° |
+| s5 preuves | -4° |
+| s5b N8N | -6° |
+| s6 manifeste lune | -12° |
+| s7 œuvre | +6° |
+| s8 atterrissage | -6° |
+
+Transition 900ms cubic-bezier(0.4,0,0.2,1). Respect prefers-reduced-motion (filter neutralisé). Respect voyage-sober (saturation réduite, hue 0). **Amplitude ±14° max = imperceptible individuellement mais crée un "vivant" subtil continu.**
+
+### `43ff91c` — i18n scaffold dormant
+- `locales/fr.json` (169 clés complètes issues TEXT-MASTER-V7)
+- `locales/en.json` (169 clés traduites avec respect du haiku business)
+- `assets/js/i18n.js` (reader minimal 155 lignes, API `window.pinappI18n`)
+
+**PAS encore activé** : le script n'est pas chargé dans index.html et aucun `data-i18n` n'est posé sur l'HTML. Scaffold pur, 0 effet en l'état. Pour activer au réveil :
+
+1. Décider stratégie URL : `/fr/` + `/en/` paths (recommandé) OU `?lang=en` query param
+2. Ajouter `<script src="/assets/js/i18n.js" defer></script>` au `<head>` de index.html
+3. Attribuer progressivement `data-i18n="hero.h1"` etc. sur les balises HTML traduisibles
+4. Ajouter un switcher FR/EN dans la nav header (2 boutons "FR" / "EN" ou drapeaux)
+
+### Test rapide i18n
+```js
+// Dans la console browser une fois i18n.js chargé
+await pinappI18n.setLang('en'); // bascule en anglais (si data-i18n posés)
+await pinappI18n.setLang('fr'); // retour français
+pinappI18n.detectLang();         // renvoie langue courante
+```
+
+---
+
+## 📋 CHECKLIST FINALE MISE À JOUR
+
+- [ ] Lire ce HANDOVER + addendum
+- [ ] `git log --oneline -13` (devrait voir 12 commits métier)
+- [ ] Test local (voir checklist plus haut)
+- [ ] Vérifier chromatic aberration au scroll : couleurs du film varient subtilement entre scènes
+- [ ] Vérifier scene counter au scroll : slot-machine "01/08" → "02/08" → etc.
+- [ ] Vérifier morse STAY bottom-left quand on atteint s4
+- [ ] Console F12 : 2 banners (Pandora + JARVIS)
+- [ ] Test iPhone réel via LAN local
+- [ ] Valider contenu de `docs/TEXT-MASTER-V7.md` (source unique du copy)
+- [ ] Valider contenu de `locales/fr.json` + `locales/en.json` (traductions à relire)
+- [ ] Décider URL scheme i18n avant d'activer i18n.js
+- [ ] Décider si on rewrite les beauty demos `/demo/ongles/` + `/demo/cils/` ou pas
+- [ ] **NE PAS push sur main** avant validation iPhone réelle complète
+
+Si tout OK après tests : ouvrir PR `v60-recalibrate` → `main` et merger après review finale.
+
+— Session terminée proprement. 🌠
