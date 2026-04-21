@@ -727,3 +727,37 @@ html[data-active-section] .scene-counter {
 html.voyage-sober .scene-counter {
   display: none;
 }
+
+/* ── Cursor Cinema Timecode (signature awwards #3) ─────────────
+   Micro-label sous le curseur qui affiche "MM:SS / MM:SS" en continu.
+   Signe que l'utilisateur est DANS un film. */
+#cursor-timecode {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: var(--z-cursor, 100000);
+  font-family: 'Geist Mono', 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+  color: rgba(244, 228, 193, 0.42);
+  mix-blend-mode: screen;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  will-change: transform;
+  user-select: none;
+  white-space: nowrap;
+}
+#cursor-timecode.is-visible {
+  opacity: 1;
+}
+@media (hover: none), (pointer: coarse) {
+  #cursor-timecode { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #cursor-timecode { display: none; }
+}
+html.voyage-sober #cursor-timecode {
+  display: none;
+}
