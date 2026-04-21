@@ -1,6 +1,5 @@
 /**
  * Pinapp V3.0 Phase 2 — chapter jumps: breath + match-cut + view transition + marker + skip dots.
- * V6.0 : inchangé pour le film unique — le scroll programmatique met à jour la cible du scrubber (`pinapp-film-v6.js`).
  */
 (function () {
   var IDS = ['s0', 's1', 's2', 's3', 's4', 's5', 's5b', 's6', 's7', 's8'];

@@ -57,15 +57,6 @@
             } catch (e0) {}
           });
         }
-        var film = document.getElementById('pinapp-film');
-        if (film) {
-          try {
-            film.pause();
-          } catch (eF) {}
-          film.classList.add('is-hidden-sober');
-        }
-        var filmOv = document.querySelector('.pinapp-film-overlay');
-        if (filmOv) filmOv.classList.add('is-hidden-sober');
         root.classList.remove('voyage-v24-cinema');
         document.querySelectorAll('.reveal').forEach(function (r) {
           r.classList.add('is-revealed');
@@ -74,26 +65,13 @@
         try {
           document.body.classList.remove('voyage-cursor-off');
         } catch (eC2) {}
-        if (
-          !reduced &&
-          !root.classList.contains('voyage-v60-film') &&
-          document.querySelector('#voyage-main section[data-chapter="9"]')
-        ) {
+        if (!reduced && document.querySelector('#voyage-main section[data-chapter="9"]')) {
           var cinema2 = document.getElementById('voyage-cinema');
           if (cinema2) {
             cinema2.hidden = false;
             root.classList.add('voyage-v24-cinema');
           }
         }
-        var film2 = document.getElementById('pinapp-film');
-        if (film2) {
-          film2.classList.remove('is-hidden-sober');
-          try {
-            film2.play().catch(function () {});
-          } catch (eF2) {}
-        }
-        var filmOv2 = document.querySelector('.pinapp-film-overlay');
-        if (filmOv2) filmOv2.classList.remove('is-hidden-sober');
         window.requestAnimationFrame(function () {
           bootMotion();
           try {
@@ -458,25 +436,6 @@
     try {
       ScrollTrigger.normalizeScroll(true);
     } catch (e) {}
-
-    if (root.classList.contains('voyage-v60-film')) {
-      document.querySelectorAll('.voyage-scene').forEach(function (sec, idx) {
-        ScrollTrigger.create({
-          trigger: sec,
-          start: 'top 70%',
-          onEnter: function () {
-            plausible('scene_entered', { n: String(idx + 1) });
-            try {
-              window.dispatchEvent(
-                new CustomEvent('voyage:scene-active', { detail: { index: idx + 1, sectionId: sec.id || '' } })
-              );
-            } catch (e2) {}
-          },
-        });
-      });
-      ScrollTrigger.refresh();
-      return;
-    }
 
     var perScene = root.classList.contains('voyage-v40-per-scene');
     document.querySelectorAll('.voyage-scene').forEach(function (sec, idx) {

@@ -1,6 +1,6 @@
 # Storyboard V3.0 — mapping cinéma (référence figée)
 
-> **Mise à jour** : le parcours **scrubber cinéma plein écran** (`voyage-v24-cinema` + `voyage-scrubber.js`) reste décrit ici pour l’historique. Le **film voyage actuel** (V6.0) est documenté dans **`docs/STORYBOARD-MAPPING-V6.md`** (une vidéo + scroll-scrub). V5 archivée : **`docs/STORYBOARD-MAPPING-V5-ARCHIVED.md`**.
+> **Mise à jour** : le parcours **scrubber cinéma plein écran** (`voyage-v24-cinema` + `voyage-scrubber.js`) reste décrit ici pour l’historique. Le **film voyage actuel** (V5.0) est en **vidéo par section** : voir **`docs/STORYBOARD-MAPPING-V5.md`**.
 
 Document de vérité : **chapitre HTML ↔ fichier vidéo ↔ fenêtre temps scrubber ↔ intention storyboard**.  
 Implémentation : `assets/js/voyage-scrubber.js` → `timelineSegments()` + `transitions()`.
