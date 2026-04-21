@@ -761,3 +761,27 @@ html.voyage-sober .scene-counter {
 html.voyage-sober #cursor-timecode {
   display: none;
 }
+
+/* ── Tourbillon Vertical Ascendant (signature Aladdin) ──────────
+   Canvas fixed plein écran pour particules dorées qui montent à s6.
+   Inspiration "A Whole New World" — lanternes qui se lèvent. */
+#tourbillon-vertical {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: screen;
+  opacity: 0;
+  transition: opacity 1200ms var(--ease);
+  will-change: opacity;
+}
+#tourbillon-vertical.is-active {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  #tourbillon-vertical { display: none; }
+}
+html.voyage-sober #tourbillon-vertical,
+html.low-perf #tourbillon-vertical {
+  display: none;
+}
