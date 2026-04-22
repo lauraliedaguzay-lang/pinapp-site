@@ -1,4 +1,4 @@
-# Pinapp Studio — site vitrine
+# Pinapp — site vitrine
 
 Site statique (HTML / CSS / JS) pour **pinapp.fr**.
 

@@ -1,4 +1,4 @@
-# Politique de sécurité — Pinapp Studio (site vitrine)
+# Politique de sécurité — Pinapp (site vitrine)
 
 ## Signaler une vulnérabilité
 
