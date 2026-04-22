@@ -26,6 +26,20 @@
     return;
   }
 
+  (function () {
+    var vid = document.getElementById('pinapp-film');
+    if (!vid) return;
+    var io = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      io.disconnect();
+      if (vid.dataset.src && !vid.src) {
+        vid.src = vid.dataset.src;
+      }
+      vid.play().catch(function () {});
+    }, { threshold: 0.1 });
+    io.observe(vid);
+  }());
+
   function kickstart() {
     var p;
     try {

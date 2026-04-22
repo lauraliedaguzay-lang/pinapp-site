@@ -27,10 +27,10 @@
     <link rel="preload" href="/assets/fonts/fraunces-italic-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/assets/css/tokens-voyage.css?v=20260721" />
     <!-- Preload video retiré (fix Bloc 1 Tier Orange #8) : 5 preloads simultanés (2 fonts + 2 videos + 1 poster)
-         saturaient la bande passante 4G et compromettaient le LCP. Le <video> utilise maintenant son propre
-         preload="metadata" (suffisant pour le scroll-scrub initial). Le poster ci-dessous reste le vrai LCP. -->
+         saturaient la bande passante 4G et compromettaient le LCP. Le <video> utilise preload="none" + data-src
+         (IntersectionObserver dans pinapp-film-v6.js). Le poster ci-dessous reste le vrai LCP. -->
     <link rel="dns-prefetch" href="https://pinapp.fr" />
-    <link rel="preload" as="image" href="/assets/img/voyage/film-posters/00-ouverture.jpg" />
+    <link rel="preload" as="image" fetchpriority="high" href="/assets/img/voyage/film-posters/00-ouverture.jpg" />
 
     <link rel="stylesheet" href="/assets/css/ouverture-v50.css?v=20260721" />
     <link rel="stylesheet" href="/assets/css/pinapp-film-v6.css?v=20260721" />
@@ -96,7 +96,8 @@
       class="pinapp-film"
       muted
       playsinline
-      preload="metadata"
+      preload="none"
+      data-src="/assets/video/voyage/pinapp-film-v6.webm"
       disablepictureinpicture
       aria-hidden="true"
       poster="/assets/img/voyage/film-posters/00-ouverture.jpg"
@@ -1003,34 +1004,63 @@
          Vendors (gsap → ScrollTrigger → lenis) gardent leur ordre via defer. -->
     <script src="/assets/js/presentation-video.js?v=20260430" defer></script>
     <script src="/assets/js/config-voyage.js?v=20260424" defer></script>
-    <script src="/assets/vendor/gsap.min.js?v=3.12.5" defer></script>
-    <script src="/assets/vendor/ScrollTrigger.min.js?v=3.12.5" defer></script>
-    <script src="/assets/vendor/lenis.min.js?v=1.1.18" defer></script>
-    <script src="/assets/js/voyage-particles.js?v=20260721" defer></script>
-    <script src="/assets/js/voyage-sand-reveal.js?v=20260721" defer></script>
-    <script src="/assets/js/voyage-chapter-breath.js?v=20260721" defer></script>
-    <script src="/assets/js/voyage-transitions.js?v=20260721" defer></script>
-    <script src="/assets/js/ouverture-v50.js?v=20260721" defer></script>
+    <script>
+(function () {
+  if (!window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    return;
+  }
+
+  function load(src, isModule, cb) {
+    var s = document.createElement('script');
+    s.src = src;
+    if (isModule) s.type = 'module';
+    s.onload = s.onerror = cb || function () {};
+    document.head.appendChild(s);
+  }
+
+  // GSAP trio : séquentiel strict (chaque lib attend la précédente)
+  load('/assets/vendor/gsap.min.js?v=3.12.5', false, function () {
+    load('/assets/vendor/ScrollTrigger.min.js?v=3.12.5', false, function () {
+      load('/assets/vendor/lenis.min.js?v=1.1.18', false, function () {
+
+        // Tout le reste en parallèle — GSAP est garanti chargé
+        var rest = [
+          { src: '/assets/js/voyage-particles.js?v=20260721' },
+          { src: '/assets/js/voyage-sand-reveal.js?v=20260721' },
+          { src: '/assets/js/voyage-chapter-breath.js?v=20260721' },
+          { src: '/assets/js/voyage-transitions.js?v=20260721' },
+          { src: '/assets/js/ouverture-v50.js?v=20260721' },
+          { src: '/assets/js/voyage-vimeo-lightbox.js?v=20260721' },
+          { src: '/assets/js/automation-demo.js?v=20260721' },
+          { src: '/assets/js/voyage-planete-realisations.js?v=20260721' },
+          { src: '/assets/js/voyage-s4-s6-cinema.js?v=20260721' },
+          { src: '/assets/js/voyage.js?v=20260721' },
+          { src: '/assets/js/pinapp-film-v6.js?v=20260721' },
+          { src: '/assets/js/tourbillon-webgl.js?v=20260721', module: true },
+          { src: '/assets/js/match-cuts.js?v=20260721' },
+          { src: '/assets/js/magnetic-cursor.js?v=20260721' },
+          { src: '/assets/js/custom-cursor.js?v=20260721' },
+          { src: '/assets/js/cursor-trail.js?v=20260721' },
+          { src: '/assets/js/film-grain.js?v=20260721' },
+          { src: '/assets/js/easter-eggs.js?v=20260721' },
+          { src: '/assets/js/scene-counter.js?v=20260721' },
+          { src: '/assets/js/film-chromatic.js?v=20260721' },
+          { src: '/assets/js/cursor-timecode.js?v=20260721' },
+          { src: '/assets/js/tourbillon-vertical.js?v=20260721' },
+          { src: '/assets/js/glass-tilt.js?v=20260721' }
+        ];
+
+        rest.forEach(function (item) {
+          load(item.src, item.module || false, null);
+        });
+
+      });
+    });
+  });
+})();
+    </script>
     <script src="/assets/js/forms-voyage.js?v=20260424" defer></script>
-    <script src="/assets/js/voyage-vimeo-lightbox.js?v=20260721" defer></script>
-    <script src="/assets/js/automation-demo.js?v=20260721" defer></script>
-    <script src="/assets/js/voyage-planete-realisations.js?v=20260721" defer></script>
-    <script src="/assets/js/voyage-s4-s6-cinema.js?v=20260721" defer></script>
-    <script src="/assets/js/voyage.js?v=20260721" defer></script>
-    <script src="/assets/js/pinapp-film-v6.js?v=20260721" defer></script>
-    <script type="module" src="/assets/js/tourbillon-webgl.js?v=20260721"></script>
-    <script src="/assets/js/match-cuts.js?v=20260721" defer></script>
     <script src="/assets/js/chapter-nav.js?v=20260721" defer></script>
-    <script src="/assets/js/magnetic-cursor.js?v=20260721" defer></script>
-    <script src="/assets/js/custom-cursor.js?v=20260721" defer></script>
-    <script src="/assets/js/cursor-trail.js?v=20260721" defer></script>
-    <script src="/assets/js/film-grain.js?v=20260721" defer></script>
-    <script src="/assets/js/easter-eggs.js?v=20260721" defer></script>
-    <script src="/assets/js/scene-counter.js?v=20260721" defer></script>
-    <script src="/assets/js/film-chromatic.js?v=20260721" defer></script>
-    <script src="/assets/js/cursor-timecode.js?v=20260721" defer></script>
-    <script src="/assets/js/tourbillon-vertical.js?v=20260721" defer></script>
-    <script src="/assets/js/glass-tilt.js?v=20260721" defer></script>
     <script src="/assets/js/i18n.js?v=20260721" defer></script>
     <script>
       // Lang switcher FR/EN wiring (attend que i18n.js soit chargé)
@@ -1090,6 +1120,6 @@
         });
       })();
     </script>
-    <script defer data-domain="pinapp.fr" src="https://plausible.io/js/script.js"></script>
+    <script defer fetchpriority="low" data-domain="pinapp.fr" src="https://plausible.io/js/script.js"></script>
   </body>
 </html>
