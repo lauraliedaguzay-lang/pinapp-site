@@ -20,7 +20,7 @@ Chaque scène = un `<section>` plein écran avec image background + overlay text
 
 | # | ID | Image background | Texte H2 | Texte body | CTA |
 |---|---|---|---|---|---|
-| 1 | `pod-eveil` | `scene-1-pod-eveil-16x9.webp` | **« Le digital qui travaille pendant que vous vivez. »** | « Sites, automatisation n8n, IA et vidéo à Bordeaux. Par Lauralie & Michaël. » | `[Décrire mon projet]` `[Voir nos réalisations]` |
+| 1 | `atrium-eveil` | `scene-1-atrium-eveil-16x9.webp` | **« Le digital qui travaille pendant que vous vivez. »** | « Sites, automatisation n8n, IA et vidéo à Bordeaux. Par Lauralie & Michaël. » | `[Décrire mon projet]` `[Voir nos réalisations]` |
 | 2 | `corridor` | `scene-2-corridor-16x9.webp` | **« Quatre métiers. Un seul système. »** | 4 cartes face-à-face : Sites · n8n · IA · Vidéo (avec micro-description ligne) | `[Voir un métier en détail →]` |
 | 3 | `cockpit-pandora` | `scene-3-cockpit-pandora-16x9.webp` | **« Voyez votre métier, conçu par Pinapp. »** | « Des sites que vos concurrents ne pourront pas copier. » + grille 3-4 réalisations en vignettes orbitales | `[Voir toutes les réalisations →]` |
 | 4 | `lounge-voie-lactee` | `scene-4-lounge-voie-lactee-16x9.webp` | **« Des preuves. Des souvenirs aussi. »** | Bloc gauche : stats MILO chiffrées avant/après. Bloc droit : « Mémoire & Présence — pour ceux qu'on n'oublie pas. » avec étoiles | `[MILO]` `[M&P]` |
@@ -65,8 +65,8 @@ Hosting : Netlify statique, zéro CDN externe, tout auto-hébergé
 ```
 assets/images/v9-hero/
 ├── ASSETS-README.md
-├── scene-1-pod-eveil-16x9.png   (206 Ko, 1376×768)
-├── scene-1-pod-eveil-16x9.webp  (143 Ko)
+├── scene-1-atrium-eveil-16x9.png   (206 Ko, 1376×768)
+├── scene-1-atrium-eveil-16x9.webp  (143 Ko)
 ├── scene-2-corridor-16x9.png    (219 Ko)
 ├── scene-2-corridor-16x9.webp   (182 Ko)
 ├── scene-3-cockpit-pandora-16x9.png   (304 Ko)
@@ -143,7 +143,7 @@ assets/images/v9-hero/
 - Skip-to-content link
 - Meta OG : regénérer image OG depuis scène 3 (cockpit + Pandora — la plus signature) — **amendement Sofiane**
 - Sitemap + robots.txt à jour
-- Lazy-load images sauf la 1ère (preload scene-1 pour LCP)
+- Lazy-load images sauf la 1ère (preload `scene-1-atrium-eveil` pour LCP)
 - Audit Lighthouse mobile, viser ≥ 90 sur tous les axes
 
 ### Phase 5 — Deploy preview + audit final (≈ 20h)
@@ -170,7 +170,7 @@ Pas de versions 9:16 dédiées pour l'instant. À la place, focal points calibr�
   object-fit: cover;
 }
 
-.scene-1-pod-eveil img       { object-position: 50% 50%; }   /* dôme centré */
+.scene-1-atrium-eveil img       { object-position: 50% 50%; }   /* dôme centré */
 .scene-2-corridor img        { object-position: 65% 50%; }   /* hublots droite */
 .scene-3-cockpit-pandora img { object-position: 50% 60%; }   /* dashboard bas */
 .scene-4-lounge-voie-lactee img { object-position: 50% 30%; } /* dôme étoiles haut */
