@@ -38,7 +38,6 @@
     <link rel="stylesheet" href="/assets/css/voyage.css?v=20260721" />
     <link rel="stylesheet" href="/assets/css/glass-card.css?v=20260721" />
     <link rel="stylesheet" href="/assets/css/cards-entrance.css?v=20260721" />
-    <link rel="stylesheet" href="/assets/css/custom-cursor.css?v=20260721" />
     <link rel="stylesheet" href="/assets/css/oeuvre-tourbillon.css?v=20260721" />
     <link rel="stylesheet" href="/assets/css/pilotes-grid.css?v=20260721" />
     <link rel="stylesheet" href="/assets/css/metiers-grid.css?v=20260721" />
@@ -54,6 +53,7 @@
     <link rel="stylesheet" href="/assets/css/voyage-breath.css?v=20260721" />
     <link rel="stylesheet" href="/assets/css/vimeo-lightbox.css?v=20260433" />
     <link rel="stylesheet" href="/assets/css/automation.css?v=20260721" />
+    <link rel="stylesheet" href="/assets/css/cinema-hud-v7.css?v=20260422" />
     <script>
       window.__PINAPP__ = Object.assign({}, window.__PINAPP__ || {}, {
         WEBHOOK_N8N: '',
@@ -162,6 +162,7 @@
       <!-- Chapitre 0 — Ouverture -->
       <section
         id="s0"
+        data-scene="top"
         class="voyage-scene voyage-scene--ouverture lightshaft"
         data-film-start="0"
         data-film-end="3"
@@ -196,6 +197,7 @@
       <!-- Chapitre 1 -->
       <section
         id="s1"
+        data-scene="top"
         class="voyage-scene voyage-scene--film-prologue lightshaft"
         data-film-start="3"
         data-film-end="8"
@@ -257,6 +259,7 @@
       <!-- Chapitre 2 -->
       <section
         id="s2"
+        data-scene="pilotes"
         class="voyage-scene voyage-scene--duo voyage-scene--film-rencontre lightshaft"
         data-film-start="8"
         data-film-end="13"
@@ -335,6 +338,7 @@
       <!-- Chapitre 3 -->
       <section
         id="s3"
+        data-scene="services"
         class="voyage-scene voyage-scene--film-outils lightshaft"
         data-film-start="13"
         data-film-end="18"
@@ -401,6 +405,7 @@
       <!-- Chapitre 4 — Constellation M&amp;P · Auralis · newsletter -->
       <section
         id="s4"
+        data-scene="constellation"
         class="voyage-scene voyage-scene--film-constellation lightshaft"
         data-film-start="18"
         data-film-end="23"
@@ -521,6 +526,7 @@
       <!-- Chapitre 5 — Preuves -->
       <section
         id="s5"
+        data-scene="preuves"
         class="voyage-scene voyage-scene--film-preuves lightshaft"
         data-film-start="23"
         data-film-end="27"
@@ -596,6 +602,7 @@
       <!-- Chapitre 5b — Automatisation n8n (entre Preuves et Manifeste) -->
       <section
         id="s5b"
+        data-scene="mecanisme"
         class="voyage-scene voyage-scene--automation voyage-scene--film-mecanisme lightshaft"
         data-film-start="27"
         data-film-end="30"
@@ -708,6 +715,7 @@
       <!-- Chapitre 6 — Univers · planète · manifeste -->
       <section
         id="s6"
+        data-scene="manifeste"
         class="voyage-scene voyage-scene--film-manifeste"
         data-film-start="30"
         data-film-end="34"
@@ -740,6 +748,7 @@
       <!-- Chapitre 7 — Réalisations (aperçus Vimeo préparés — lightbox étape 5) -->
       <section
         id="s7"
+        data-scene="realisations"
         class="voyage-scene voyage-scene--film-oeuvre lightshaft"
         data-film-start="34"
         data-film-end="38"
@@ -779,6 +788,7 @@
       <!-- Chapitre 8 — Atterrissage sable + contact (formulaire) -->
       <section
         id="s8"
+        data-scene="contact"
         class="voyage-scene voyage-scene--s8-part voyage-scene--s8-landing voyage-scene--film-atterrissage lightshaft"
         data-film-start="38"
         data-film-end="42"
@@ -1022,17 +1032,16 @@
     <script type="module" src="/assets/js/tourbillon-webgl.js?v=20260721"></script>
     <script src="/assets/js/match-cuts.js?v=20260721" defer></script>
     <script src="/assets/js/chapter-nav.js?v=20260721" defer></script>
-    <script src="/assets/js/magnetic-cursor.js?v=20260721" defer></script>
-    <script src="/assets/js/custom-cursor.js?v=20260721" defer></script>
-    <script src="/assets/js/cursor-trail.js?v=20260721" defer></script>
+    <!-- V8.2 : 4 anciens cursors (magnetic, custom, trail, timecode) archivés en archive/js/
+         et remplacés par un système unifié dans cinema-hud-v7.js ci-dessous. -->
     <script src="/assets/js/film-grain.js?v=20260721" defer></script>
     <script src="/assets/js/easter-eggs.js?v=20260721" defer></script>
     <script src="/assets/js/scene-counter.js?v=20260721" defer></script>
     <script src="/assets/js/film-chromatic.js?v=20260721" defer></script>
-    <script src="/assets/js/cursor-timecode.js?v=20260721" defer></script>
     <script src="/assets/js/tourbillon-vertical.js?v=20260721" defer></script>
     <script src="/assets/js/glass-tilt.js?v=20260721" defer></script>
     <script src="/assets/js/i18n.js?v=20260721" defer></script>
+    <script src="/assets/js/cinema-hud-v7.js?v=20260422" defer></script>
     <script>
       // Lang switcher FR/EN wiring (attend que i18n.js soit chargé)
       document.addEventListener('DOMContentLoaded', function () {
