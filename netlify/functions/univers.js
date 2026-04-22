@@ -100,7 +100,7 @@ exports.handler = async (event) => {
       body: JSON.stringify({
         model: 'claude-opus-4-5',
         max_tokens: 500,
-        system: `Tu es Aurora, directrice artistique de Pinapp Studio.
+        system: `Tu es Aurora, directrice artistique de Pinapp.
 Tu crées des identités digitales uniques — jamais des templates.
 
 Tu reçois 3 éléments d'un visiteur :
