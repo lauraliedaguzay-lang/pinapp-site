@@ -35,7 +35,7 @@
     <link rel="stylesheet" href="/assets/css/ouverture-v50.css?v=20260721" />
     <link rel="stylesheet" href="/assets/css/pinapp-film-v6.css?v=20260721" />
 
-    <link rel="stylesheet" href="/assets/css/voyage.css?v=20260722" />
+    <link rel="stylesheet" href="/assets/css/voyage.css?v=20260723" />
     <link rel="stylesheet" href="/assets/css/glass-card.css?v=20260721" />
     <link rel="stylesheet" href="/assets/css/cards-entrance.css?v=20260721" />
     <link rel="stylesheet" href="/assets/css/custom-cursor.css?v=20260721" />
@@ -185,7 +185,7 @@
           <p class="ouverture-eyebrow" data-i18n="hero.eyebrow">— OUVERTURE —</p>
           <p id="voyage-s0-title" class="ouverture-title" role="doc-subtitle" data-i18n="hero.ouverture_title">Un film Pinapp</p>
           <p class="ouverture-subtitle" data-i18n="hero.ouverture_subtitle">Prenez place. Le voyage commence.</p>
-          <button type="button" class="ouverture-scroll-cue" aria-label="Aller au prologue — hero">
+          <button type="button" class="ouverture-scroll-cue" aria-label="Défilez vers le prologue">
             <span class="scroll-cue-label" data-i18n="hero.scroll_cue">Défilez</span>
             <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
               <path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.5" />
@@ -356,7 +356,7 @@
             Chaque point : une réalisation ou un univers démo.
           </h3>
           <div class="metiers-grid reveal" role="list">
-            <article class="metier glass-card" data-cursor="view">
+            <article class="metier glass-card" role="listitem" data-cursor="view">
               <svg class="metier-icon" viewBox="0 0 48 48" aria-hidden="true">
                 <circle cx="24" cy="24" r="10" />
                 <path d="M12 32c4-8 20-8 24 0" />
@@ -364,7 +364,7 @@
               <h3 class="h-3-metier">Sites</h3>
               <p class="body-lg">Sites premium qui vivent et se regardent en silence.</p>
             </article>
-            <article class="metier glass-card">
+            <article class="metier glass-card" role="listitem">
               <svg class="metier-icon" viewBox="0 0 48 48" aria-hidden="true">
                 <circle cx="14" cy="24" r="4" />
                 <circle cx="34" cy="16" r="4" />
@@ -374,7 +374,7 @@
               <h3 class="h-3-metier">Automatisation n8n</h3>
               <p class="body-lg">Vos outils travaillent pendant que vous vivez.</p>
             </article>
-            <article class="metier glass-card">
+            <article class="metier glass-card" role="listitem">
               <svg class="metier-icon" viewBox="0 0 48 48" aria-hidden="true">
                 <path d="M24 10c6 4 10 12 10 20a10 10 0 01-20 0c0-8 4-16 10-20z" />
                 <path d="M18 22h12M24 16v12" />
@@ -383,7 +383,7 @@
               <p class="body-lg">Des agents qui comprennent votre métier vraiment.</p>
               <p class="tapestry-whisper"><em>À votre service.</em></p>
             </article>
-            <article class="metier glass-card">
+            <article class="metier glass-card" role="listitem">
               <svg class="metier-icon" viewBox="0 0 48 48" aria-hidden="true">
                 <circle cx="24" cy="24" r="14" />
                 <circle cx="24" cy="24" r="6" />
@@ -477,13 +477,20 @@
                 stroke-dasharray="320"
                 stroke-dashoffset="320"
               />
-              <a class="voyage-constel__planet" href="https://lauraliedaguzay-lang.github.io/memoireetpresence/" target="_blank" rel="noopener noreferrer" data-constel-label="Mémoire &amp; Présence">
+              <a
+                class="voyage-constel__planet"
+                href="https://lauraliedaguzay-lang.github.io/memoireetpresence/"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-constel-label="Mémoire &amp; Présence"
+                aria-label="Mémoire &amp; Présence"
+              >
                 <circle class="voyage-constel__orbit voyage-constel__orbit--a" cx="150" cy="150" r="60" fill="url(#cg-mp)" />
               </a>
-              <a class="voyage-constel__planet" href="/auralis/" data-constel-label="Auralis RH">
+              <a class="voyage-constel__planet" href="/auralis/" data-constel-label="Auralis RH" aria-label="Auralis RH">
                 <circle class="voyage-constel__orbit voyage-constel__orbit--b" cx="450" cy="150" r="60" fill="url(#cg-aur)" />
               </a>
-              <a class="voyage-constel__planet" href="#s4-newsletter" data-constel-label="Newsletter">
+              <a class="voyage-constel__planet" href="#s4-newsletter" data-constel-label="Newsletter" aria-label="Newsletter">
                 <circle class="voyage-constel__orbit voyage-constel__orbit--c" cx="300" cy="300" r="45" fill="url(#cg-nl)" />
               </a>
             </svg>
@@ -510,7 +517,14 @@
                 <p class="body-lg" style="font-size: 0.9rem">Un e-mail par mois maximum.</p>
                 <label class="sr-only" for="nl-email">Email</label>
                 <input id="nl-email" name="email" type="email" required autocomplete="email" placeholder="votre@email.com" />
-                <input class="honeypot" type="text" name="website" tabindex="-1" autocomplete="off" />
+                <input
+                  class="honeypot"
+                  type="text"
+                  name="website"
+                  aria-label="Ne pas remplir"
+                  tabindex="-1"
+                  autocomplete="off"
+                />
                 <button class="btn btn-primary" type="submit" style="margin-top: var(--s-4)">S'abonner</button>
                 <p id="form-newsletter-feedback" style="margin-top: var(--s-3); min-height: 1.25rem; font-size: 0.85rem"></p>
               </form>
@@ -818,7 +832,14 @@
               <input type="checkbox" name="maintenance" value="oui" />
               <span class="body-lg" style="font-size: 0.85rem">Maintenance+ 99 €/mois après livraison (SAV, hébergement, évolutions) — à confirmer au devis.</span>
             </label>
-            <input class="honeypot" type="text" name="website" tabindex="-1" autocomplete="off" />
+            <input
+              class="honeypot"
+              type="text"
+              name="website"
+              aria-label="Ne pas remplir"
+              tabindex="-1"
+              autocomplete="off"
+            />
             <button class="btn btn-primary" type="submit" style="margin-top: var(--s-6)">Envoyer</button>
             <p id="form-diagnostic-feedback" style="margin-top: var(--s-3); min-height: 1.25rem; font-size: 0.85rem"></p>
           </form>
