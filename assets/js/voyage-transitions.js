@@ -21,6 +21,10 @@
 
   function chapterIdForIndex(idx) {
     try {
+      /* __PINAPP_V24_CHAPTERS__ : défini par voyage-scrubber.js,
+         non chargé sur la home (V8.3 — scrubber V24 remplacé par V2).
+         Fallback actif : return idx + 1. Ne pas charger le scrubber
+         avant la V2 Passengers/Avatar. */
       var list = window.__PINAPP_V24_CHAPTERS__;
       if (list && list[idx] && typeof list[idx].id === 'number') return list[idx].id;
     } catch (e0) {}
