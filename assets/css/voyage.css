@@ -1,6 +1,53 @@
 /* Pinapp voyage — V2 layout + V2.3 (Aladdin shell) + V2.4 prep (vidéos muettes) */
 /* Pinapp — page voyage V2 (layout scènes + nav + formulaires) */
-@import url('/assets/css/lightshafts.css?v=20260701');
+/* lightshafts.css inliné — supprime le @import bloquant (V8.3) */
+/* Pinapp V3.0 Phase 1 — volumetric light (CSS only, no scroll coupling) */
+@keyframes lightshaft-drift {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.lightshaft {
+  position: relative;
+}
+
+.lightshaft::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -20%;
+  width: 60%;
+  height: 200%;
+  background: conic-gradient(
+    from var(--shaft-angle, 45deg) at 50% 50%,
+    transparent 0deg,
+    rgba(230, 185, 115, 0.12) 20deg,
+    transparent 40deg,
+    transparent 360deg
+  );
+  mix-blend-mode: screen;
+  filter: blur(80px);
+  opacity: 0.4;
+  animation: lightshaft-drift 60s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightshaft::before {
+    animation: none;
+    opacity: 0.22;
+  }
+}
+
+html.voyage-sober .lightshaft::before {
+  display: none;
+}
+
 .voyage-skip {
   position: absolute;
   left: -9999px;
@@ -251,8 +298,7 @@ html.voyage-sober .voyage-hero-intro .voyage-hero-block {
   font-style: italic;
   text-align: center;
   padding: var(--space-cinema-lg) var(--space-cinema-sm);
-  opacity: 0.6;
-  color: var(--ivory-muted);
+  color: rgba(244, 228, 193, 0.88);
 }
 .end-credits p {
   font-size: 13px;
@@ -985,9 +1031,9 @@ html.voyage-v41-magic-media .voyage-scene__veil {
   gap: var(--s-4) var(--s-6);
   font-size: 12px;
   line-height: 1.5;
-  opacity: 0.6;
   margin: 0;
-  color: var(--text-muted);
+  /* Lisible sur --bg-void : évite double atténuation (opacity × text-muted) sous Lighthouse */
+  color: rgba(244, 228, 193, 0.82);
 }
 .voyage-footer__trust span {
   white-space: nowrap;
@@ -1002,8 +1048,7 @@ html.voyage-v41-magic-media .voyage-scene__veil {
   padding: 0;
   font: inherit;
   font-size: 12px;
-  opacity: 0.6;
-  color: var(--cyan-soft);
+  color: rgba(200, 245, 238, 0.92);
   text-decoration: underline;
   text-underline-offset: 3px;
   cursor: pointer;
@@ -1011,7 +1056,6 @@ html.voyage-v41-magic-media .voyage-scene__veil {
 }
 .voyage-footer__cookie-link:hover,
 .voyage-footer__cookie-link:focus-visible {
-  opacity: 1;
   color: var(--cyan-glow);
 }
 .voyage-footer__cookie-link:focus-visible {
