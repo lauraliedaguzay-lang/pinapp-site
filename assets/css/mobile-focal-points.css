@@ -1,0 +1,69 @@
+/* ============================================================
+   PINAPP V9 — HERO IMMERSIF · MOBILE FOCAL POINTS
+   ============================================================
+   À intégrer dans le CSS principal de la home V9.
+   Stratégie : pas de versions 9:16 dédiées générées,
+   on recadre les 16:9 via object-fit + object-position
+   calibrés par scène pour préserver le sujet narratif clé.
+   ============================================================ */
+
+/* Image background commune à toutes les scènes */
+.scene-bg img,
+.scene-bg picture {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Focal points par scène — calibrés mobile portrait
+   En desktop (>= 769px) on revient à object-position center. */
+
+@media (max-width: 768px) {
+
+  /* Scène 1 — Pod éveil
+     Garder le dôme cosmique + arbres centraux visibles */
+  .scene-1-pod-eveil .scene-bg img {
+    object-position: 50% 50%;
+  }
+
+  /* Scène 2 — Corridor
+     Priorité : hublots droite ouvrant sur l'espace */
+  .scene-2-corridor .scene-bg img {
+    object-position: 65% 50%;
+  }
+
+  /* Scène 3 — Cockpit + Pandora
+     Garder la planète bioluminescente + dashboard ambré */
+  .scene-3-cockpit-pandora .scene-bg img {
+    object-position: 50% 60%;
+  }
+
+  /* Scène 4 — Lounge Voie Lactée
+     Priorité : dôme transparent + Voie Lactée en haut */
+  .scene-4-lounge-voie-lactee .scene-bg img {
+    object-position: 50% 30%;
+  }
+
+  /* Scène 5 — Cosmos pur
+     Voie Lactée centrée naturellement */
+  .scene-5-cosmos-pur .scene-bg img {
+    object-position: 50% 50%;
+  }
+
+  /* Scène 6 — Désert SF
+     Priorité : dunes en bas + Voie Lactée plein ciel */
+  .scene-6-desert-sf .scene-bg img {
+    object-position: 50% 70%;
+  }
+
+}
+
+/* Desktop (>= 769px) : object-position center par défaut */
+@media (min-width: 769px) {
+  .scene-bg img {
+    object-position: center;
+  }
+}
