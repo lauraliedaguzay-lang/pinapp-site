@@ -287,6 +287,39 @@ html {
   color: var(--v9-text-secondary);
 }
 
+/* Scène 1 — hiérarchie typographique */
+.v9-label-chapter {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--v9-accent-amber);
+  margin: 0 0 0.5rem;
+  opacity: 0.92;
+}
+
+.v9-pre-titre {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.3rem, 2.8vw, 2rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.35rem;
+  color: var(--v9-text-primary);
+}
+
+.v9-caption-sc1 {
+  font-family: var(--v9-font-display);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  font-variant: small-caps;
+  letter-spacing: 0.1em;
+  margin: 0 0 1rem;
+  color: var(--v9-text-secondary);
+}
+
 /* ---------- Boutons ---------- */
 
 .v9-btn-row {
@@ -294,6 +327,10 @@ html {
   flex-wrap: wrap;
   gap: 0.75rem 1rem;
   align-items: center;
+}
+
+.v9-btn-row--center {
+  justify-content: center;
 }
 
 .v9-btn {
@@ -337,6 +374,12 @@ html {
   background: transparent;
   border-color: rgba(62, 245, 224, 0.35);
   color: var(--v9-accent-cyan);
+}
+
+.v9-btn--large {
+  min-height: 3rem;
+  padding: 0 1.5rem;
+  font-size: 1rem;
 }
 
 /* ---------- Menu hamburger ---------- */
@@ -634,6 +677,81 @@ html:not(
   color: var(--v9-text-secondary);
 }
 
+/* ---------- Champions (scène 3) ---------- */
+
+.v9-champions {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  margin: 1.25rem 0 0;
+}
+
+@media (min-width: 640px) {
+  .v9-champions {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .v9-champions {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.v9-champion-card {
+  display: block;
+  padding: 1rem 1.1rem;
+  border-radius: 0.85rem;
+  border: 1px solid rgba(245, 241, 232, 0.1);
+  background: rgba(5, 10, 20, 0.35);
+  text-decoration: none;
+  color: inherit;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.v9-champion-card:hover {
+  border-color: rgba(62, 245, 224, 0.22);
+  background: rgba(5, 10, 20, 0.48);
+  box-shadow: 0 0 0 1px rgba(62, 245, 224, 0.08) inset;
+}
+
+.v9-champion-card:focus-visible {
+  outline: 2px solid var(--v9-accent-cyan);
+  outline-offset: 2px;
+}
+
+.v9-champion-card__title {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--v9-text-primary);
+}
+
+.v9-champion-card__lead {
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--v9-text-secondary);
+}
+
+.v9-champion-card__body {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--v9-text-muted);
+}
+
+.v9-champions-note {
+  margin: 1rem 0 0;
+  font-size: 0.8rem;
+  color: var(--v9-text-muted);
+  line-height: 1.45;
+}
+
 /* ---------- Scène dense (4 + 6) ---------- */
 
 .v9-scene--dense .v9-scene__inner {
@@ -656,7 +774,7 @@ html:not(
   }
 }
 
-.v9-pilote {
+.v9-pilote-card {
   margin: 0;
   padding: 1rem;
   border-radius: var(--v9-radius-lg);
@@ -664,7 +782,7 @@ html:not(
   background: rgba(5, 10, 20, 0.4);
 }
 
-.v9-pilote__photo {
+.v9-pilote-card__photo {
   position: relative;
   aspect-ratio: 3 / 4;
   max-height: 14rem;
@@ -674,7 +792,8 @@ html:not(
   background: rgba(5, 10, 20, 0.6);
 }
 
-.v9-pilote__photo img {
+.v9-pilote-card__photo picture,
+.v9-pilote-card__photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -699,7 +818,7 @@ html:not(
   border: 1px dashed rgba(62, 245, 224, 0.25);
 }
 
-.v9-pilote__role-cap {
+.v9-pilote-card__role-cap {
   display: block;
   font-size: 0.6875rem;
   letter-spacing: 0.2em;
@@ -709,21 +828,21 @@ html:not(
   margin-bottom: 0.25rem;
 }
 
-.v9-pilote__name {
-  display: block;
+.v9-pilote-card__name {
+  margin: 0 0 0.35rem;
   font-size: 1.125rem;
   font-weight: 600;
   color: var(--v9-text-primary);
 }
 
-.v9-pilote__role {
-  display: block;
+.v9-pilote-card__bio {
+  margin: 0;
   font-size: 0.875rem;
   color: var(--v9-text-secondary);
-  margin-top: 0.35rem;
+  line-height: 1.5;
 }
 
-.v9-pilote__link {
+.v9-pilote-card__link {
   margin: 0.75rem 0 0;
 }
 
@@ -732,6 +851,10 @@ html:not(
 }
 
 /* ---------- Constellation cartes ---------- */
+
+.v9-constellation {
+  margin-top: 2rem;
+}
 
 .v9-constel-grid {
   display: grid;
@@ -752,11 +875,29 @@ html:not(
   background: rgba(5, 10, 20, 0.35);
 }
 
-.v9-constel-card__h {
+.v9-constel-card__title {
   font-size: 1.1rem;
   font-weight: 600;
-  margin: 0.35rem 0 0.5rem;
+  margin: 0 0 0.35rem;
   color: var(--v9-text-primary);
+}
+
+.v9-constel-card__lead {
+  margin: 0 0 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--v9-text-secondary);
+}
+
+.v9-constel-card__body {
+  margin: 0 0 0.85rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--v9-text-muted);
+}
+
+.v9-constel-card .v9-btn {
+  margin-top: 0.15rem;
 }
 
 .v9-newsletter-form {
@@ -785,6 +926,10 @@ html:not(
   border-radius: 0.85rem;
   border: 1px solid rgba(245, 241, 232, 0.1);
   background: rgba(5, 10, 20, 0.35);
+}
+
+.v9-subpanel--preuves {
+  margin-top: 0.75rem;
 }
 
 .v9-table-scroll {
