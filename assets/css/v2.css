@@ -1,0 +1,995 @@
+/* ============================================================
+   PINAPP V2 — BIOLUMINESCENCE AVALON
+   Direction : wearebrand.io++ · typo monumentale · rareté éditoriale
+   Cible : Awwwards SOTD (stretch SOTM)
+   ============================================================
+
+   Structure :
+   1. Reset + tokens
+   2. Typographies (Geist + Fraunces déjà chargées dans tokens-voyage)
+   3. Scène plein écran (bg ken burns + voile modulable)
+   4. Typo monumentale (H1 récit scènes 1/5/6)
+   5. Panel éditorial (scènes info 2/3/4) — glass minimal
+   6. Boutons + CTA
+   7. Navigation chapitre dots + menu
+   8. Cursor custom signature
+   9. Reveal + parallax (vars animables par JS)
+   10. prefers-reduced-motion + .low-perf
+
+   Contraintes :
+   - ≤ 2 Mo assets critiques
+   - Lighthouse ≥ 90
+   - WCAG AA (contrast 4.5:1 min sur texte, 3:1 sur UI)
+   - Touch target ≥ 44×44px
+   ============================================================ */
+
+/* ---------- 1. Reset + tokens locaux ---------- */
+
+:root {
+  /* Palette V2 — drop violet, 4 couleurs max */
+  --v2-void: #05090f;
+  --v2-deep: #0a1425;
+  --v2-navy: #0e1a30;
+  --v2-ivory: #f5f1e8;
+  --v2-ivory-soft: rgba(245, 241, 232, 0.72);
+  --v2-ivory-mute: rgba(245, 241, 232, 0.45);
+  --v2-cyan: #3ef5e0;
+  --v2-cyan-soft: rgba(62, 245, 224, 0.2);
+  --v2-amber: #e6b973;
+
+  /* Typos */
+  --v2-display: 'Geist', 'SF Pro Display', system-ui, sans-serif;
+  --v2-body: 'Geist', 'SF Pro Text', system-ui, sans-serif;
+  --v2-editorial: 'Fraunces', Georgia, serif;
+
+  /* Espacements */
+  --v2-space-1: 0.5rem;
+  --v2-space-2: 1rem;
+  --v2-space-3: 1.5rem;
+  --v2-space-4: 2.5rem;
+  --v2-space-5: 4rem;
+  --v2-space-6: 6rem;
+
+  /* Rayons */
+  --v2-radius-sm: 8px;
+  --v2-radius-md: 14px;
+  --v2-radius-lg: 20px;
+  --v2-radius-pill: 999px;
+
+  /* Easings cinéma */
+  --v2-ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --v2-ease-in-out: cubic-bezier(0.6, 0, 0.4, 1);
+  --v2-dur-fast: 280ms;
+  --v2-dur-med: 600ms;
+  --v2-dur-slow: 1200ms;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: auto; /* smooth géré par JS (Lenis) */
+  background: var(--v2-void);
+}
+
+body.v2-page {
+  font-family: var(--v2-body);
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--v2-ivory);
+  background: var(--v2-void);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Accessibilité : lien skip + sr-only */
+.v2-skip {
+  position: absolute;
+  left: -9999px;
+}
+.v2-skip:focus-visible {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 200;
+  padding: 0.75rem 1rem;
+  background: var(--v2-deep);
+  color: var(--v2-ivory);
+  border: 1px solid var(--v2-cyan);
+  border-radius: var(--v2-radius-md);
+  text-decoration: none;
+}
+
+.v2-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus-visible universel */
+.v2-page a:focus-visible,
+.v2-page button:focus-visible,
+.v2-page summary:focus-visible,
+.v2-page input:focus-visible,
+.v2-page textarea:focus-visible {
+  outline: 2px solid var(--v2-cyan);
+  outline-offset: 3px;
+  border-radius: var(--v2-radius-sm);
+}
+
+/* ---------- 3. Scène plein écran ---------- */
+
+.v2-scene {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: clamp(4rem, 9vw, 8rem) clamp(1.5rem, 6vw, 8rem);
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.v2-scene__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--v2-deep);
+  overflow: hidden;
+}
+
+.v2-scene__bg picture,
+.v2-scene__bg img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  will-change: transform;
+}
+
+/* Ken burns 6 directions par scène */
+@keyframes v2-kb-1 { from { transform: scale(1.04) translate3d(0,0,0); transform-origin: 50% 55%; } to { transform: scale(1.14) translate3d(-1%, -0.6%, 0); } }
+@keyframes v2-kb-2 { from { transform: scale(1.06) translate3d(0.6%,0,0); transform-origin: 65% 50%; } to { transform: scale(1.15) translate3d(-0.8%, 0.4%, 0); } }
+@keyframes v2-kb-3 { from { transform: scale(1.04) translate3d(0,0.4%,0); transform-origin: 50% 60%; } to { transform: scale(1.13) translate3d(0.8%, -0.6%, 0); } }
+@keyframes v2-kb-4 { from { transform: scale(1.05) translate3d(-0.4%,0.4%,0); transform-origin: 50% 35%; } to { transform: scale(1.14) translate3d(0.6%, -0.6%, 0); } }
+@keyframes v2-kb-5 { from { transform: scale(1.04) translate3d(0,0,0); transform-origin: 50% 50%; } to { transform: scale(1.15) translate3d(0.4%, 0.4%, 0); } }
+@keyframes v2-kb-6 { from { transform: scale(1.05) translate3d(0.4%,-0.4%,0); transform-origin: 50% 70%; } to { transform: scale(1.14) translate3d(-0.8%, 0.6%, 0); } }
+
+#s1 .v2-scene__bg img { animation: v2-kb-1 38s var(--v2-ease-in-out) infinite alternate; }
+#s2 .v2-scene__bg img { animation: v2-kb-2 32s var(--v2-ease-in-out) infinite alternate; }
+#s3 .v2-scene__bg img { animation: v2-kb-3 36s var(--v2-ease-in-out) infinite alternate; }
+#s4 .v2-scene__bg img { animation: v2-kb-4 40s var(--v2-ease-in-out) infinite alternate; }
+#s5 .v2-scene__bg img { animation: v2-kb-5 28s var(--v2-ease-in-out) infinite alternate; }
+#s6 .v2-scene__bg img { animation: v2-kb-6 34s var(--v2-ease-in-out) infinite alternate; }
+
+/* Voile : modulable par scène */
+.v2-scene__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Scènes récit : voile très léger, typo perce l'image */
+.v2-scene--recit .v2-scene__veil {
+  background: linear-gradient(
+    180deg,
+    rgba(5, 9, 15, 0.55) 0%,
+    rgba(5, 9, 15, 0.2) 35%,
+    rgba(5, 9, 15, 0.3) 65%,
+    rgba(5, 9, 15, 0.75) 100%
+  );
+}
+
+/* Scènes info : voile plus dense pour lisibilité des blocs */
+.v2-scene--info .v2-scene__veil {
+  background: linear-gradient(
+    180deg,
+    rgba(5, 9, 15, 0.65) 0%,
+    rgba(5, 9, 15, 0.5) 50%,
+    rgba(5, 9, 15, 0.8) 100%
+  );
+}
+
+/* Crossfade haut/bas pour liaison douce inter-scènes */
+.v2-scene::before,
+.v2-scene::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 15vh;
+  z-index: 2;
+  pointer-events: none;
+}
+.v2-scene::before {
+  top: 0;
+  background: linear-gradient(to bottom, rgba(5, 9, 15, 0.7), transparent);
+}
+.v2-scene::after {
+  bottom: 0;
+  background: linear-gradient(to top, rgba(5, 9, 15, 0.7), transparent);
+}
+
+.v2-scene__inner {
+  position: relative;
+  z-index: 3;
+  width: min(100%, 80rem);
+  margin: 0 auto;
+}
+
+/* ---------- 4. Typo monumentale (scènes récit) ---------- */
+
+.v2-label {
+  display: block;
+  font-family: var(--v2-display);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--v2-amber);
+  margin: 0 0 var(--v2-space-4);
+  opacity: 0.9;
+}
+
+/* H1 monumentale — scène 1 */
+.v2-h1 {
+  font-family: var(--v2-display);
+  font-weight: 600;
+  font-size: clamp(3rem, 11vw, 12rem);
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  margin: 0 0 var(--v2-space-4);
+  color: var(--v2-ivory);
+  text-wrap: balance;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.45);
+  max-width: 14ch;
+}
+
+.v2-h1 em {
+  font-family: var(--v2-editorial);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--v2-ivory);
+  letter-spacing: -0.03em;
+}
+
+/* H2 — scènes 2, 3, 4, 6 */
+.v2-h2 {
+  font-family: var(--v2-display);
+  font-weight: 600;
+  font-size: clamp(2rem, 6vw, 5rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin: 0 0 var(--v2-space-3);
+  color: var(--v2-ivory);
+  text-wrap: balance;
+  max-width: 18ch;
+}
+
+/* H2 manifeste — scène 5, italique éditoriale, monumentale */
+.v2-h2--manifest {
+  font-family: var(--v2-editorial);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(2rem, 8vw, 7rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  max-width: 20ch;
+}
+
+.v2-h2--manifest .v2-chute {
+  color: var(--v2-amber);
+  display: inline-block;
+  margin-top: 0.4em;
+}
+
+.v2-lead {
+  font-family: var(--v2-body);
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--v2-ivory-soft);
+  max-width: 42ch;
+  margin: 0 0 var(--v2-space-4);
+  text-wrap: pretty;
+}
+
+.v2-note {
+  font-family: var(--v2-editorial);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--v2-ivory-mute);
+  margin: var(--v2-space-3) 0 0;
+}
+
+/* ---------- 5. Panel éditorial (scènes info) ---------- */
+
+.v2-panel {
+  padding: clamp(1.5rem, 3.5vw, 3rem);
+  background: rgba(10, 20, 37, 0.5);
+  border: 1px solid rgba(245, 241, 232, 0.08);
+  border-radius: var(--v2-radius-lg);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 12px 40px rgba(0, 0, 0, 0.3);
+  max-width: 56rem;
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .v2-panel {
+    background: rgba(10, 20, 37, 0.92);
+  }
+}
+
+/* ---------- 6. Boutons + CTA ---------- */
+
+.v2-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--v2-space-2);
+  align-items: center;
+  margin-top: var(--v2-space-4);
+}
+
+.v2-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: 48px;
+  padding: 0 1.6rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  color: var(--v2-ivory);
+  background: transparent;
+  border: 1px solid rgba(62, 245, 224, 0.45);
+  border-radius: var(--v2-radius-pill);
+  cursor: pointer;
+  overflow: hidden;
+  touch-action: manipulation;
+  transition:
+    transform var(--v2-dur-fast) var(--v2-ease-out),
+    background var(--v2-dur-fast) var(--v2-ease-out),
+    border-color var(--v2-dur-fast) var(--v2-ease-out),
+    box-shadow var(--v2-dur-fast) var(--v2-ease-out);
+}
+
+.v2-btn--primary {
+  background: var(--v2-cyan);
+  border-color: var(--v2-cyan);
+  color: var(--v2-void);
+}
+
+.v2-btn--primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.45) 50%,
+    rgba(255, 255, 255, 0) 70%,
+    transparent 100%
+  );
+  transform: skewX(-18deg);
+  pointer-events: none;
+  transition: left var(--v2-dur-med) var(--v2-ease-out);
+}
+
+.v2-btn:hover {
+  transform: translateY(-1px);
+}
+.v2-btn--primary:hover {
+  box-shadow: 0 12px 28px rgba(62, 245, 224, 0.35);
+}
+.v2-btn--primary:hover::before {
+  left: 120%;
+}
+
+.v2-btn--ghost:hover {
+  background: rgba(62, 245, 224, 0.08);
+  border-color: var(--v2-cyan);
+  box-shadow: 0 0 18px rgba(62, 245, 224, 0.2);
+}
+
+/* Inline link — underline cyan animé */
+.v2-link {
+  position: relative;
+  color: var(--v2-cyan);
+  text-decoration: none;
+  background-image: linear-gradient(to right, var(--v2-cyan), var(--v2-cyan));
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+  background-position: 0 100%;
+  transition: background-size var(--v2-dur-fast) var(--v2-ease-out),
+              color var(--v2-dur-fast);
+}
+.v2-link:hover {
+  background-size: 0% 1px;
+  color: var(--v2-ivory);
+}
+
+/* ---------- 7. Navigation ---------- */
+
+/* Topbar */
+.v2-topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 80;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--v2-space-2) clamp(1rem, 3vw, 2rem);
+  pointer-events: none;
+}
+.v2-topbar > * { pointer-events: auto; }
+
+.v2-logo {
+  font-family: var(--v2-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--v2-ivory);
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--v2-radius-sm);
+  transition: color var(--v2-dur-fast);
+}
+.v2-logo:hover { color: var(--v2-cyan); }
+
+.v2-menu details > summary { list-style: none; cursor: pointer; }
+.v2-menu details > summary::-webkit-details-marker { display: none; }
+
+.v2-menu__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--v2-radius-pill);
+  border: 1px solid rgba(245, 241, 232, 0.14);
+  background: rgba(10, 20, 37, 0.5);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  color: var(--v2-ivory);
+}
+
+.v2-menu__icon { display: grid; gap: 5px; width: 18px; }
+.v2-menu__icon span { display: block; height: 2px; background: currentColor; border-radius: 1px; }
+
+.v2-menu__panel {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 13rem;
+  padding: 0.5rem;
+  border-radius: var(--v2-radius-md);
+  background: rgba(10, 20, 37, 0.75);
+  border: 1px solid rgba(245, 241, 232, 0.1);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity var(--v2-dur-fast) var(--v2-ease-out),
+              transform var(--v2-dur-fast) var(--v2-ease-out),
+              visibility var(--v2-dur-fast);
+}
+.v2-menu details[open] .v2-menu__panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.v2-menu__panel a {
+  display: block;
+  padding: 0.7rem 0.9rem;
+  color: var(--v2-ivory);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: var(--v2-radius-sm);
+  transition: background var(--v2-dur-fast), color var(--v2-dur-fast);
+}
+.v2-menu__panel a:hover {
+  background: rgba(62, 245, 224, 0.1);
+  color: var(--v2-cyan);
+}
+
+/* Chapter dots (droite) — touch target 44×44px */
+.v2-chapters {
+  position: fixed;
+  top: 50%;
+  right: clamp(0.75rem, 2vw, 1.25rem);
+  transform: translateY(-50%);
+  z-index: 70;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.v2-chapters a {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  touch-action: manipulation;
+}
+
+.v2-chapters a::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(245, 241, 232, 0.3);
+  border: 1px solid rgba(245, 241, 232, 0.15);
+  transition: background var(--v2-dur-fast),
+              transform var(--v2-dur-fast) var(--v2-ease-out),
+              box-shadow var(--v2-dur-fast),
+              width var(--v2-dur-fast),
+              height var(--v2-dur-fast);
+}
+
+.v2-chapters a:hover::before,
+.v2-chapters a:focus-visible::before {
+  background: rgba(62, 245, 224, 0.6);
+  transform: scale(1.15);
+}
+
+.v2-chapters a.is-active::before {
+  background: var(--v2-cyan);
+  border-color: rgba(62, 245, 224, 0.6);
+  box-shadow: 0 0 14px rgba(62, 245, 224, 0.6);
+  width: 10px;
+  height: 10px;
+}
+
+/* Progress rail vertical fin derrière les dots */
+.v2-chapters::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1px;
+  height: calc(6 * 44px - 22px);
+  background: rgba(245, 241, 232, 0.1);
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+/* Sticky CTA contact (fin de scène 2) */
+.v2-sticky-cta {
+  position: fixed;
+  bottom: clamp(1rem, 3vw, 1.5rem);
+  right: clamp(1rem, 3vw, 1.5rem);
+  z-index: 75;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--v2-dur-med) var(--v2-ease-out),
+              transform var(--v2-dur-med) var(--v2-ease-out);
+  pointer-events: none;
+}
+.v2-sticky-cta.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* ---------- 8. Cursor custom signature (desktop uniquement) ---------- */
+
+@media (hover: hover) and (pointer: fine) {
+  .v2-cursor-on {
+    cursor: none;
+  }
+  .v2-cursor-on .v2-link,
+  .v2-cursor-on .v2-btn,
+  .v2-cursor-on a,
+  .v2-cursor-on button,
+  .v2-cursor-on summary,
+  .v2-cursor-on input,
+  .v2-cursor-on textarea {
+    cursor: none;
+  }
+
+  .v2-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--v2-cyan);
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: screen;
+    transform: translate3d(-50%, -50%, 0);
+    transition: width 220ms var(--v2-ease-out),
+                height 220ms var(--v2-ease-out),
+                background 220ms;
+    will-change: transform, width, height;
+  }
+
+  .v2-cursor--hover {
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: 1.5px solid var(--v2-cyan);
+    box-shadow: 0 0 18px rgba(62, 245, 224, 0.4);
+  }
+}
+
+/* ---------- 9. Scroll reveal + parallax ---------- */
+
+.v2-reveal {
+  opacity: 0;
+  transform: translate3d(0, 32px, 0);
+  transition:
+    opacity 900ms var(--v2-ease-out),
+    transform 900ms var(--v2-ease-out);
+}
+.v2-scene.is-inview .v2-reveal {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Cascade : label > h1/h2 > lead > cta */
+.v2-scene.is-inview .v2-label     { transition-delay: 0.05s; }
+.v2-scene.is-inview .v2-h1,
+.v2-scene.is-inview .v2-h2        { transition-delay: 0.2s; }
+.v2-scene.is-inview .v2-lead      { transition-delay: 0.4s; }
+.v2-scene.is-inview .v2-cta-row   { transition-delay: 0.55s; }
+.v2-scene.is-inview .v2-note      { transition-delay: 0.7s; }
+
+.v2-label,
+.v2-h1,
+.v2-h2,
+.v2-lead,
+.v2-cta-row,
+.v2-note {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition:
+    opacity 800ms var(--v2-ease-out),
+    transform 800ms var(--v2-ease-out);
+}
+.v2-scene.is-inview .v2-label,
+.v2-scene.is-inview .v2-h1,
+.v2-scene.is-inview .v2-h2,
+.v2-scene.is-inview .v2-lead,
+.v2-scene.is-inview .v2-cta-row,
+.v2-scene.is-inview .v2-note {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Première scène : tout visible au chargement (pas de flash) */
+.v2-scene:first-of-type .v2-label,
+.v2-scene:first-of-type .v2-h1,
+.v2-scene:first-of-type .v2-lead,
+.v2-scene:first-of-type .v2-cta-row,
+.v2-scene:first-of-type .v2-note {
+  opacity: 1;
+  transform: none;
+}
+
+/* Parallax 3-couches — JS applique --parallax-y sur data-parallax */
+[data-parallax] {
+  will-change: transform;
+  transform: translate3d(0, var(--parallax-y, 0), 0);
+}
+
+/* ---------- 10. Grids contextuels (scènes info) ---------- */
+
+/* Metiers 4-col scène 2 */
+.v2-metiers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--v2-space-3);
+  margin-top: var(--v2-space-4);
+}
+.v2-metier {
+  padding: var(--v2-space-3);
+  background: rgba(10, 20, 37, 0.55);
+  border: 1px solid rgba(245, 241, 232, 0.08);
+  border-radius: var(--v2-radius-md);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  transition: transform var(--v2-dur-fast) var(--v2-ease-out),
+              border-color var(--v2-dur-fast),
+              box-shadow var(--v2-dur-fast);
+}
+.v2-metier:hover {
+  transform: translateY(-4px);
+  border-color: rgba(62, 245, 224, 0.28);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.35), 0 0 32px rgba(62, 245, 224, 0.12);
+}
+.v2-metier h3 {
+  font-family: var(--v2-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 var(--v2-space-1);
+  color: var(--v2-ivory);
+}
+.v2-metier p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--v2-ivory-soft);
+}
+.v2-metier__price {
+  display: block;
+  margin-top: var(--v2-space-2);
+  font-size: 0.85rem;
+  color: var(--v2-amber);
+  letter-spacing: 0.05em;
+}
+
+/* Pilotes 2-col scène 1.5 (bloc micro) */
+.v2-pilotes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--v2-space-4);
+  margin-top: var(--v2-space-4);
+  max-width: 48rem;
+}
+.v2-pilote {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--v2-space-2);
+}
+.v2-pilote__photo {
+  width: 120px;
+  height: 160px;
+  border-radius: var(--v2-radius-md);
+  overflow: hidden;
+  background: linear-gradient(160deg, rgba(62, 245, 224, 0.1), rgba(5, 9, 15, 0.8));
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(245, 241, 232, 0.06);
+}
+.v2-pilote__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+}
+.v2-pilote__name {
+  font-family: var(--v2-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--v2-ivory);
+}
+.v2-pilote__role {
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--v2-amber);
+  margin: 0;
+}
+.v2-pilote__bio {
+  font-size: 0.95rem;
+  color: var(--v2-ivory-soft);
+  margin: 0;
+  max-width: 26ch;
+}
+
+/* Stats scène 4 */
+.v2-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--v2-space-3);
+  margin-top: var(--v2-space-4);
+}
+.v2-stat {
+  padding: var(--v2-space-3);
+  background: rgba(10, 20, 37, 0.5);
+  border: 1px solid rgba(245, 241, 232, 0.08);
+  border-radius: var(--v2-radius-md);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+}
+.v2-stat__num {
+  font-family: var(--v2-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  color: var(--v2-cyan);
+  margin: 0;
+  line-height: 1;
+}
+.v2-stat__label {
+  font-size: 0.85rem;
+  color: var(--v2-ivory-soft);
+  margin: 0.4rem 0 0;
+}
+
+/* FAQ scène 6 */
+.v2-faq details {
+  border-bottom: 1px solid rgba(245, 241, 232, 0.08);
+  padding: var(--v2-space-2) 0;
+}
+.v2-faq summary {
+  font-weight: 600;
+  color: var(--v2-ivory);
+  padding-right: 1.5rem;
+  position: relative;
+}
+.v2-faq summary::after {
+  content: '+';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--v2-cyan);
+  font-size: 1.3rem;
+  transition: transform var(--v2-dur-fast);
+}
+.v2-faq details[open] summary::after {
+  content: '−';
+}
+.v2-faq p {
+  margin: 0.75rem 0 0;
+  color: var(--v2-ivory-soft);
+  font-size: 0.95rem;
+}
+
+/* Formulaire scène 6 */
+.v2-form {
+  display: grid;
+  gap: var(--v2-space-2);
+  margin-top: var(--v2-space-4);
+  max-width: 32rem;
+}
+.v2-form label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--v2-ivory-soft);
+  margin-bottom: 0.25rem;
+}
+.v2-form input,
+.v2-form textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.7rem 0.9rem;
+  font: inherit;
+  color: var(--v2-ivory);
+  background: rgba(5, 9, 15, 0.45);
+  border: 1px solid rgba(245, 241, 232, 0.14);
+  border-radius: var(--v2-radius-sm);
+}
+.v2-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+.v2-honeypot {
+  position: absolute;
+  left: -9999px;
+}
+
+/* Footer dense fin scène 6 */
+.v2-footer {
+  margin-top: var(--v2-space-5);
+  padding-top: var(--v2-space-4);
+  border-top: 1px solid rgba(245, 241, 232, 0.08);
+  color: var(--v2-ivory-mute);
+  font-size: 0.85rem;
+  display: grid;
+  gap: var(--v2-space-2);
+  max-width: 48rem;
+}
+.v2-footer strong { color: var(--v2-ivory); }
+.v2-footer a {
+  color: var(--v2-ivory-soft);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(245, 241, 232, 0.2);
+  transition: color var(--v2-dur-fast), border-color var(--v2-dur-fast);
+}
+.v2-footer a:hover {
+  color: var(--v2-cyan);
+  border-color: var(--v2-cyan);
+}
+
+/* ---------- 11. Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .v2-scene__bg img {
+    animation: none !important;
+    transform: none !important;
+  }
+  .v2-label,
+  .v2-h1,
+  .v2-h2,
+  .v2-lead,
+  .v2-cta-row,
+  .v2-note,
+  .v2-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .v2-btn,
+  .v2-metier,
+  .v2-chapters a,
+  .v2-link {
+    transition: none !important;
+  }
+  .v2-btn--primary::before { display: none; }
+  .v2-cursor { display: none; }
+  .v2-cursor-on { cursor: auto !important; }
+}
+
+/* ---------- 12. Low-perf ---------- */
+
+.low-perf .v2-scene__bg img { animation: none; }
+.low-perf .v2-panel,
+.low-perf .v2-metier,
+.low-perf .v2-stat,
+.low-perf .v2-menu__toggle,
+.low-perf .v2-menu__panel {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: rgba(10, 20, 37, 0.92);
+}
+.low-perf .v2-cursor { display: none; }
+
+/* ---------- 13. Responsive ---------- */
+
+@media (max-width: 768px) {
+  .v2-scene {
+    padding: clamp(5rem, 10vh, 7rem) var(--v2-space-3);
+  }
+  .v2-h1 {
+    font-size: clamp(2.5rem, 13vw, 6rem);
+    max-width: 100%;
+  }
+  .v2-h2 {
+    font-size: clamp(1.75rem, 9vw, 3.5rem);
+  }
+  .v2-h2--manifest {
+    font-size: clamp(1.85rem, 10vw, 4rem);
+  }
+  .v2-chapters {
+    right: 0.5rem;
+  }
+  .v2-chapters::before { display: none; }
+
+  /* Mobile : cursor custom désactivé, le natif reprend */
+  .v2-cursor-on { cursor: auto; }
+  .v2-cursor { display: none; }
+}
