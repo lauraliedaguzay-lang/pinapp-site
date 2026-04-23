@@ -190,26 +190,40 @@ html:not(.js) .stage__layer[data-stage="01"]{opacity:1}
 .pain__fix::before{content:"→";color:var(--cyan);font-weight:500;flex-shrink:0}
 @media (max-width:760px){.pains{grid-template-columns:1fr}.pain__num{font-size:1.75rem}}
 
-/* ============ SCENE 02b — AVANT / APRÈS PINAPP ============ */
-.ba{margin-top:var(--space-6);display:grid;grid-template-columns:1fr auto 1fr;gap:var(--space-4);align-items:stretch}
-@media (max-width:820px){.ba{grid-template-columns:1fr;gap:var(--space-2)}}
-.ba__col{padding:var(--space-5);border:1px solid var(--fumee);background:rgba(10,20,32,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;flex-direction:column;gap:var(--space-2)}
-.ba__col--before{opacity:.78;filter:grayscale(35%)}
-.ba__col--after{border-color:var(--or);background:linear-gradient(180deg,rgba(230,185,115,.08),rgba(10,20,32,.75))}
-.ba__head{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem;padding-bottom:var(--space-3);border-bottom:1px solid var(--fumee);margin-bottom:var(--space-2)}
-.ba__label{font-size:.6875rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ivoire-mute)}
-.ba__col--after .ba__label{color:var(--or)}
-.ba__title{font-family:var(--serif);font-style:italic;font-weight:500;font-size:1.5rem;margin:0;letter-spacing:-0.015em}
-.ba__col--after .ba__title{color:var(--or)}
-.ba__row{display:grid;grid-template-columns:auto 1fr;gap:var(--space-2);align-items:center;padding:var(--space-2) 0;border-bottom:1px dashed var(--fumee)}
-.ba__row:last-child{border-bottom:0}
-.ba__num{font-family:var(--serif);font-weight:500;font-size:1.875rem;line-height:1;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;min-width:4.5ch}
-.ba__col--before .ba__num{color:var(--ivoire-mute)}
-.ba__col--after .ba__num{color:var(--or)}
-.ba__desc{font-size:.9375rem;color:var(--ivoire-dim);line-height:1.35;margin:0}
-.ba__arrow{display:grid;place-items:center;padding:0 var(--space-2);font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(2rem,4vw,3.5rem);color:var(--or);letter-spacing:-0.04em}
-.ba__arrow::before{content:"→"}
-@media (max-width:820px){.ba__arrow{padding:var(--space-2) 0}.ba__arrow::before{content:"↓"}}
+/* ============ SCENE 02b — AVANT / APRÈS PINAPP (graphiques SVG) ============ */
+.ba{margin-top:var(--space-6);display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-3)}
+@media (max-width:1020px){.ba{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.ba{grid-template-columns:1fr}}
+.ba__card{padding:var(--space-4);border:1px solid var(--fumee-2);background:rgba(10,20,32,.65);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;flex-direction:column;gap:var(--space-3);transition:border-color .35s var(--ease),transform .35s var(--ease)}
+.ba__card:hover{border-color:var(--or);transform:translateY(-3px)}
+.ba__label{font-size:.6875rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ivoire-mute);margin:0}
+.ba__metric{font-family:var(--serif);font-weight:500;font-size:1.0625rem;line-height:1.3;letter-spacing:-0.01em;margin:0;color:var(--ivoire)}
+.ba__chart{position:relative;display:block;height:110px;margin:var(--space-1) 0}
+.ba__svg{width:100%;height:100%;overflow:visible}
+.ba__bar-before,.ba__bar-after{rx:3;ry:3}
+.ba__bar-before{fill:rgba(244,228,193,.16)}
+.ba__bar-after{fill:var(--or);filter:drop-shadow(0 0 12px rgba(230,185,115,.35))}
+.ba__bar-fill{width:0;transition:width 1.4s var(--ease)}
+.is-in .ba__bar-fill{width:var(--w,100%)}
+.ba__tick{fill:var(--ivoire-mute);font-size:10px;font-family:var(--sans);font-weight:500;letter-spacing:.08em}
+.ba__value{fill:var(--ivoire);font-size:14px;font-family:var(--serif);font-style:italic;font-weight:500}
+.ba__value--after{fill:var(--or)}
+.ba__values{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem;padding-top:var(--space-2);border-top:1px solid var(--fumee);font-variant-numeric:tabular-nums}
+.ba__side{display:flex;flex-direction:column;gap:.15rem}
+.ba__side small{font-size:.625rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ivoire-mute)}
+.ba__side strong{font-family:var(--serif);font-weight:500;font-size:1.5rem;line-height:1;letter-spacing:-0.02em}
+.ba__side--before strong{color:var(--ivoire-mute);text-decoration:line-through;text-decoration-color:rgba(244,228,193,.25);text-decoration-thickness:1px}
+.ba__side--after strong{color:var(--or)}
+.ba__arrow{font-family:var(--serif);font-style:italic;color:var(--or);font-size:1.25rem;padding:0 .5rem;align-self:center}
+
+/* Donut (pour pourcentages) */
+.ba__donut{width:100%;height:100%;display:grid;place-items:center}
+.ba__donut svg{width:110px;height:110px}
+.ba__donut-track{fill:none;stroke:rgba(244,228,193,.12);stroke-width:10}
+.ba__donut-fill{fill:none;stroke:var(--or);stroke-width:10;stroke-linecap:round;transform:rotate(-90deg);transform-origin:center;stroke-dasharray:283;stroke-dashoffset:283;transition:stroke-dashoffset 1.6s var(--ease);filter:drop-shadow(0 0 8px rgba(230,185,115,.35))}
+.is-in .ba__donut-fill{stroke-dashoffset:var(--dash,0)}
+.ba__donut-txt{fill:var(--or);font-family:var(--serif);font-weight:500;font-size:22px;text-anchor:middle;dominant-baseline:middle;font-style:italic}
+
 .ba__caption{margin-top:var(--space-4);font-size:.75rem;color:var(--ivoire-mute);text-align:center;letter-spacing:.04em}
 
 /* ============ SCENE 03 — SERVICES ============ */
@@ -539,31 +553,84 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       Chiffres mesurés sur nos propres opérations avant puis après déploiement des 8 workflows. Vos gains réels dépendent de votre point de départ — le diagnostic offert les estime pour vous.
     </p>
     <div class="ba" data-reveal data-reveal-delay="3">
-      <article class="ba__col ba__col--before">
-        <div class="ba__head">
-          <span class="ba__label">Avant</span>
-          <h3 class="ba__title">Chaos administratif</h3>
+
+      <!-- 1. Temps admin/jour : 8h → 1h (barres horizontales) -->
+      <article class="ba__card">
+        <p class="ba__label">Admin quotidien</p>
+        <h3 class="ba__metric">Temps passé chaque jour en tâches administratives</h3>
+        <div class="ba__chart">
+          <svg class="ba__svg" viewBox="0 0 220 110" preserveAspectRatio="none" aria-label="8h avant, 1h après">
+            <text x="0" y="14" class="ba__tick">AVANT</text>
+            <rect x="0" y="22" height="18" class="ba__bar-before ba__bar-fill" style="--w:100%" rx="3"></rect>
+            <text x="0" y="66" class="ba__tick">APRÈS</text>
+            <rect x="0" y="74" height="18" class="ba__bar-after ba__bar-fill" style="--w:12.5%" rx="3"></rect>
+          </svg>
         </div>
-        <div class="ba__row"><span class="ba__num">8h</span><p class="ba__desc">par jour en admin : devis, factures, relances, messages</p></div>
-        <div class="ba__row"><span class="ba__num">5</span><p class="ba__desc">outils déconnectés : agenda, CRM, facturation, email, WhatsApp</p></div>
-        <div class="ba__row"><span class="ba__num">3 j</span><p class="ba__desc">délai moyen de réponse à un prospect entrant</p></div>
-        <div class="ba__row"><span class="ba__num">30 %</span><p class="ba__desc">de no-shows sur les rendez-vous (jamais relancés)</p></div>
-        <div class="ba__row"><span class="ba__num">45 j</span><p class="ba__desc">délai moyen de paiement des factures</p></div>
-        <div class="ba__row"><span class="ba__num">0</span><p class="ba__desc">documentation technique à jour</p></div>
-      </article>
-      <div class="ba__arrow" aria-hidden="true"></div>
-      <article class="ba__col ba__col--after">
-        <div class="ba__head">
-          <span class="ba__label">Après Pinapp</span>
-          <h3 class="ba__title">Système qui tourne</h3>
+        <div class="ba__values">
+          <span class="ba__side ba__side--before"><small>Avant</small><strong>8h</strong></span>
+          <span class="ba__arrow">→</span>
+          <span class="ba__side ba__side--after"><small>Après</small><strong>1h</strong></span>
         </div>
-        <div class="ba__row"><span class="ba__num">1h</span><p class="ba__desc">par jour en admin : validations uniquement, l'IA fait le reste</p></div>
-        <div class="ba__row"><span class="ba__num">1</span><p class="ba__desc">source de vérité : Notion CRM connecté à tout le stack n8n</p></div>
-        <div class="ba__row"><span class="ba__num">&lt; 2 min</span><p class="ba__desc">prospect entrant → fiche Notion + accusé client automatique</p></div>
-        <div class="ba__row"><span class="ba__num">&lt; 5 %</span><p class="ba__desc">no-shows : confirmation J-1 + rappel 2h + relance si absent</p></div>
-        <div class="ba__row"><span class="ba__num">7 j</span><p class="ba__desc">paiement : Stripe à la signature YouSign + relance auto</p></div>
-        <div class="ba__row"><span class="ba__num">100 %</span><p class="ba__desc">documentation livrée : specs, workflows, accès, prompts</p></div>
       </article>
+
+      <!-- 2. Délai réponse prospect : 3j → <2min (barres) -->
+      <article class="ba__card">
+        <p class="ba__label">Réponse prospect</p>
+        <h3 class="ba__metric">Délai entre formulaire reçu et accusé client</h3>
+        <div class="ba__chart">
+          <svg class="ba__svg" viewBox="0 0 220 110" preserveAspectRatio="none" aria-label="3 jours avant, moins de 2 minutes après">
+            <text x="0" y="14" class="ba__tick">AVANT</text>
+            <rect x="0" y="22" height="18" class="ba__bar-before ba__bar-fill" style="--w:100%" rx="3"></rect>
+            <text x="0" y="66" class="ba__tick">APRÈS</text>
+            <rect x="0" y="74" height="18" class="ba__bar-after ba__bar-fill" style="--w:2%" rx="3"></rect>
+          </svg>
+        </div>
+        <div class="ba__values">
+          <span class="ba__side ba__side--before"><small>Avant</small><strong>3 j</strong></span>
+          <span class="ba__arrow">→</span>
+          <span class="ba__side ba__side--after"><small>Après</small><strong>&lt; 2 min</strong></span>
+        </div>
+      </article>
+
+      <!-- 3. No-shows : 30% → <5% (donut) -->
+      <article class="ba__card">
+        <p class="ba__label">No-shows RDV</p>
+        <h3 class="ba__metric">Rendez-vous manqués sans relance automatique</h3>
+        <div class="ba__chart">
+          <div class="ba__donut">
+            <svg viewBox="0 0 110 110" aria-label="30% avant, moins de 5% après">
+              <circle cx="55" cy="55" r="45" class="ba__donut-track"></circle>
+              <circle cx="55" cy="55" r="45" class="ba__donut-fill" style="--dash:269"></circle>
+              <text x="55" y="58" class="ba__donut-txt">&lt;5%</text>
+            </svg>
+          </div>
+        </div>
+        <div class="ba__values">
+          <span class="ba__side ba__side--before"><small>Avant</small><strong>30%</strong></span>
+          <span class="ba__arrow">→</span>
+          <span class="ba__side ba__side--after"><small>Après</small><strong>&lt; 5%</strong></span>
+        </div>
+      </article>
+
+      <!-- 4. Délai paiement : 45j → 7j (barres) -->
+      <article class="ba__card">
+        <p class="ba__label">Délai paiement</p>
+        <h3 class="ba__metric">Temps moyen entre devis signé et facture payée</h3>
+        <div class="ba__chart">
+          <svg class="ba__svg" viewBox="0 0 220 110" preserveAspectRatio="none" aria-label="45 jours avant, 7 jours après">
+            <text x="0" y="14" class="ba__tick">AVANT</text>
+            <rect x="0" y="22" height="18" class="ba__bar-before ba__bar-fill" style="--w:100%" rx="3"></rect>
+            <text x="0" y="66" class="ba__tick">APRÈS</text>
+            <rect x="0" y="74" height="18" class="ba__bar-after ba__bar-fill" style="--w:15.5%" rx="3"></rect>
+          </svg>
+        </div>
+        <div class="ba__values">
+          <span class="ba__side ba__side--before"><small>Avant</small><strong>45 j</strong></span>
+          <span class="ba__arrow">→</span>
+          <span class="ba__side ba__side--after"><small>Après</small><strong>7 j</strong></span>
+        </div>
+      </article>
+
     </div>
     <p class="ba__caption" data-reveal>Chiffres Pinapp internes — n'engagent que nous. Diagnostic offert sous 24h pour estimer vos gains.</p>
   </div>
