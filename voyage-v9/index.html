@@ -395,6 +395,7 @@ a.real:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
 .prices__link{color:var(--ivoire);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;text-decoration-color:rgba(230,185,115,.45);transition:color .25s,text-decoration-color .25s}
 .prices__link:hover{color:var(--or);text-decoration-color:var(--or)}
 .prices__link:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.prices__group td{padding-top:var(--space-3);border-top:1px solid var(--fumee);font-size:.8125rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ivoire-dim)}
 
 .scene--sisters{min-height:auto;padding:var(--space-7) 0}
 .sisters__grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);margin-top:var(--space-5)}
@@ -421,8 +422,56 @@ a.real:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
   margin-top:var(--space-2);
   clear:both
 }
-.placeholder-asset--inline{margin-top:var(--space-2)}
-.placeholder-asset--block{margin:var(--space-4) auto 0;max-width:52rem}
+.films-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-3);margin:var(--space-5) 0 var(--space-4)}
+.film-tier{position:relative;padding:var(--space-4);background:rgba(10,20,32,.75);border:1px solid var(--fumee);border-radius:4px;display:flex;flex-direction:column;gap:var(--space-2);transition:transform .35s var(--ease),border-color .35s}
+.film-tier:hover{transform:translateY(-3px);border-color:var(--or)}
+.film-tier--featured{border-color:var(--or);background:rgba(230,185,115,.06)}
+.film-tier__price{font-family:var(--serif);font-style:italic;font-size:clamp(1.75rem,2.8vw,2.25rem);color:var(--or);margin:0;line-height:1}
+.film-tier__price span{font-family:var(--sans);font-style:normal;font-size:.75rem;letter-spacing:.14em;color:var(--ivoire-dim);margin-left:.25rem}
+.film-tier__name{font-family:var(--sans);font-weight:500;font-size:clamp(1rem,1.4vw,1.25rem);letter-spacing:-0.01em;margin:0}
+.film-tier__name em{font-family:var(--serif);font-style:italic;color:var(--or)}
+.film-tier__desc{font-family:var(--sans);font-size:.875rem;line-height:1.5;color:var(--ivoire-dim);margin:0}
+.film-tier__specs{list-style:none;padding:0;margin:var(--space-2) 0 0;display:flex;flex-direction:column;gap:.35rem;font-size:.8125rem;color:var(--ivoire-dim)}
+.film-tier__specs li{position:relative;padding-left:1rem}
+.film-tier__specs li::before{content:"";position:absolute;left:0;top:.55em;width:6px;height:1px;background:var(--or)}
+.film-tier__badge{position:absolute;top:-10px;right:14px;padding:.25rem .7rem;border-radius:100px;background:var(--or);color:var(--nuit);font-family:var(--sans);font-size:.625rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.film-tier__badge--new{background:var(--cyan);color:var(--nuit)}
+.films-cta{display:flex;align-items:center;justify-content:center;gap:var(--space-3);flex-wrap:wrap;margin-top:var(--space-3);text-align:center}
+.films-cta__gift{font-family:var(--sans);font-size:.9375rem;color:var(--ivoire-dim)}
+.films-cta__gift em{font-family:var(--serif);font-style:italic;color:var(--or);font-size:1rem}
+@media (max-width:900px){.films-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:540px){.films-grid{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.film-tier,.film-tier:hover{transition:none;transform:none}}
+.diag__conditional{margin:var(--space-2) 0 0}
+.diag__conditional[hidden]{display:none}
+.partners{margin:var(--space-5) 0 var(--space-3);text-align:center}
+.partners__label{display:inline-block;margin-bottom:var(--space-2)}
+.partners__grid{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:var(--space-4)}
+.partners__logo{height:28px;width:auto;opacity:.5;filter:grayscale(1) brightness(2);transition:opacity .25s}
+.partners__logo:hover{opacity:1}
+#pinapp-film{position:fixed;inset:0;z-index:-4;pointer-events:none;opacity:.035;mix-blend-mode:screen;filter:hue-rotate(var(--film-hue-shift,0deg));transition:filter 1.2s var(--ease)}
+html.sober #pinapp-film{display:none}
+.morse-stay{position:fixed;bottom:1.25rem;left:1.25rem;z-index:8;display:flex;align-items:center;gap:4px;pointer-events:none}
+.morse-stay .dot,.morse-stay .dash{background:rgba(230,185,115,.55);border-radius:999px;animation:morse-blink-v9 4s infinite ease-in-out}
+.morse-stay .dot{width:6px;height:6px}
+.morse-stay .dash{width:16px;height:6px}
+.morse-stay .letter-gap{width:8px;height:6px}
+@keyframes morse-blink-v9{0%,45%,100%{opacity:.35}20%{opacity:1}60%{opacity:.6}}
+@media (max-width:767px){.morse-stay{bottom:1rem;left:1rem}}
+@media (prefers-reduced-motion:reduce){.morse-stay .dot,.morse-stay .dash{animation:none;opacity:.55}}
+html.sober .morse-stay{display:none}
+.scene-counter{position:fixed;top:1.5rem;right:5rem;z-index:50;display:inline-flex;align-items:baseline;gap:4px;font-family:ui-monospace,Menlo,monospace;font-size:.6875rem;letter-spacing:.08em;color:var(--or);opacity:.55;pointer-events:none;user-select:none;mix-blend-mode:screen}
+.scene-counter__current{position:relative;display:inline-block;width:1.4em;height:1em;overflow:hidden;vertical-align:baseline}
+.scene-counter__num{position:absolute;top:0;left:0;transform:translateY(0);opacity:1;transition:transform .6s cubic-bezier(.7,0,.3,1),opacity .4s ease-out}
+.scene-counter__num--enter{transform:translateY(100%);opacity:0}
+.scene-counter__num--active{transform:translateY(0);opacity:1}
+.scene-counter__num--exit{transform:translateY(-100%);opacity:0}
+.scene-counter__sep{margin:0 2px;color:var(--ivoire-dim)}
+.scene-counter__total{color:var(--ivoire-mute)}
+html[data-active-section] .scene-counter{opacity:.8}
+@media (max-width:767px){.scene-counter{top:1rem;right:4.5rem;font-size:.625rem}}
+@media (prefers-reduced-motion:reduce){.scene-counter__num{transition:none}}
+html.sober .scene-counter{display:none}
 body.draft-mode .placeholder-asset{display:block}
 body.draft-mode .placeholder-asset::before{
   content:"À compléter";
@@ -624,6 +673,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 </div>
 <div class="stage__scrim" aria-hidden="true"></div>
 <div class="stage__grain" aria-hidden="true"></div>
+<div id="pinapp-film" aria-hidden="true"></div>
 
 <div class="progress" aria-hidden="true"><div class="progress__fill"></div></div>
 
@@ -925,7 +975,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
           <p class="port__sub">Bande-annonce IA · réalisation Micha</p>
         </div>
       </article>
-      <div class="placeholder-asset placeholder-asset--inline" aria-hidden="true">
+      <div class="placeholder-asset" aria-hidden="true">
         <p class="placeholder-asset__label">Poster custom Star Wars (remplace vumbnail si besoin)</p>
         <p class="placeholder-asset__specs">1200×675 · JPEG ou WebP · cible ≤ 200&nbsp;Ko · pas de modification des hero stage</p>
       </div>
@@ -941,7 +991,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
           <p class="port__sub">Western IA · réalisation Micha</p>
         </div>
       </article>
-      <div class="placeholder-asset placeholder-asset--inline" aria-hidden="true">
+      <div class="placeholder-asset" aria-hidden="true">
         <p class="placeholder-asset__label">Poster custom Walker (Texas)</p>
         <p class="placeholder-asset__specs">1200×675 · JPEG ou WebP · même emplacement que la vignette Vimeo actuelle</p>
       </div>
@@ -957,7 +1007,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
           <p class="port__sub">Extrait · réalisation Micha</p>
         </div>
       </article>
-      <div class="placeholder-asset placeholder-asset--inline" aria-hidden="true">
+      <div class="placeholder-asset" aria-hidden="true">
         <p class="placeholder-asset__label">Poster custom Resident Evil (horreur)</p>
         <p class="placeholder-asset__specs">1200×675 · JPEG ou WebP</p>
       </div>
@@ -973,7 +1023,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
           <p class="port__sub">Vitrine cabinet · réalisation Lauralie</p>
         </div>
       </a>
-      <div class="placeholder-asset placeholder-asset--inline" aria-hidden="true">
+      <div class="placeholder-asset" aria-hidden="true">
         <p class="placeholder-asset__label">Screenshot site Atelier Rivage (live)</p>
         <p class="placeholder-asset__specs">1600×1000 · WebP · cible ≤ 150&nbsp;Ko · export navigateur depuis /demo/atelier-rivage/</p>
       </div>
@@ -989,7 +1039,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
           <p class="port__sub">Projet à part · Pinapp M&amp;P</p>
         </div>
       </article>
-      <div class="placeholder-asset placeholder-asset--inline" aria-hidden="true">
+      <div class="placeholder-asset" aria-hidden="true">
         <p class="placeholder-asset__label">Poster ou still Mémoire &amp; Présence — clip</p>
         <p class="placeholder-asset__specs">1200×675 · aligné sur la ligne Vimeo actuelle</p>
       </div>
@@ -999,7 +1049,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     <p class="portfolio__tease" data-reveal data-reveal-delay="3">
       <span aria-hidden="true">+</span> <em>Trois autres projets</em> en cours de production · Maison Aurélie · Maison Céleste · Domaine Éclipse
     </p>
-
     <!-- Séparateur aperçus sectoriels -->
     <div class="apercus-head" data-reveal>
       <p class="eyebrow eyebrow--center">05b · Aperçus sectoriels</p>
@@ -1033,21 +1082,77 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     </div>
   </div>
 
-  <div class="placeholder-asset placeholder-asset--block" aria-hidden="true">
+  <div class="placeholder-asset" aria-hidden="true">
     <p class="placeholder-asset__label">05b · Remplacer visuels Unsplash par captures réelles des 13 démos</p>
     <p class="placeholder-asset__specs">Pour chaque slug (/demo/artisan/ … /demo/sur-mesure/) : capture 960×720 WebP depuis la démo déployée. Les cartes restent cliquables ; seules les images sources changent.</p>
   </div>
+</section>
 
-  <!-- 05d · Films IA (piste contenu — hors stage) -->
-  <div class="container scene__content" style="margin-top:var(--space-6)">
-    <p class="eyebrow eyebrow--center" data-reveal>05d · Films IA</p>
-    <h3 class="h2" data-reveal>Quatre formats <em>à montrer</em> en reels.</h3>
-    <p class="lead" data-reveal style="text-align:center;max-width:52ch;margin-inline:auto">
-      Exemples courts (30&nbsp;s) par palier — à brancher sur Vimeo ou fichiers self-host quand prêts.
+<section class="scene" id="s05d" data-scene-id="05" data-stage="04" aria-labelledby="s05d-h">
+  <div class="container scene__content">
+    <p class="eyebrow" data-reveal>05d · Films IA sur mesure</p>
+    <h2 id="s05d-h" class="h1" data-reveal data-reveal-delay="1">Un film qui vous ressemble. <em>Ou un cadeau</em> qui marque.</h2>
+    <p class="lead" data-reveal data-reveal-delay="2">Anniversaire, départ, mariage, lancement produit — on fabrique votre bande-annonce IA en moins d'une semaine.</p>
+
+    <div class="films-grid" data-reveal data-reveal-delay="3">
+      <article class="film-tier">
+        <p class="film-tier__price">390 € <span>HT</span></p>
+        <h3 class="film-tier__name">Film <em>cadeau</em></h3>
+        <p class="film-tier__desc">Un instant qui marque. Un proche qui sourit. 30 secondes d'émotion.</p>
+        <ul class="film-tier__specs">
+          <li>Livraison 5 jours</li>
+          <li>1 genre au choix</li>
+          <li>1 révision incluse</li>
+          <li>Format vertical ou horizontal</li>
+        </ul>
+        <span class="film-tier__badge film-tier__badge--new">NOUVEAU</span>
+      </article>
+
+      <article class="film-tier">
+        <p class="film-tier__price">550 € <span>HT</span></p>
+        <h3 class="film-tier__name">Clip IA</h3>
+        <p class="film-tier__desc">30 à 60 secondes. Une idée. Un univers. Un clip.</p>
+        <ul class="film-tier__specs">
+          <li>Livraison 5 jours</li>
+          <li>Genre au choix (western, sci-fi, romance, horreur, comédie)</li>
+          <li>2 révisions incluses</li>
+        </ul>
+      </article>
+
+      <article class="film-tier film-tier--featured">
+        <p class="film-tier__price">1 290 € <span>HT</span></p>
+        <h3 class="film-tier__name">Court-métrage <em>IA</em></h3>
+        <p class="film-tier__desc">1 à 3 minutes. Un univers complet. Votre histoire en film.</p>
+        <ul class="film-tier__specs">
+          <li>Livraison 10 jours</li>
+          <li>Scénario co-écrit</li>
+          <li>3 révisions incluses</li>
+          <li>Musique originale</li>
+        </ul>
+        <span class="film-tier__badge">★ le plus demandé</span>
+      </article>
+
+      <article class="film-tier">
+        <p class="film-tier__price">2 800 € <span>HT</span></p>
+        <h3 class="film-tier__name">Premium</h3>
+        <p class="film-tier__desc">Bande-annonce type <em>Star Wars</em>, <em>Walker</em>, <em>Resident Evil</em>. Hollywood à votre nom.</p>
+        <ul class="film-tier__specs">
+          <li>Livraison 14 jours</li>
+          <li>Direction artistique complète</li>
+          <li>Révisions illimitées jusqu'à OK</li>
+          <li>Musique + sound design pro</li>
+        </ul>
+      </article>
+    </div>
+
+    <p class="films-cta" data-reveal data-reveal-delay="4">
+      <a class="btn btn--secondary" href="/realisations/films-ia/" target="_blank" rel="noopener noreferrer">Voir tous les exemples →</a>
+      <span class="films-cta__gift"><em>Film à offrir</em> · cochez-le dans le formulaire diagnostic</span>
     </p>
-    <div class="placeholder-asset placeholder-asset--block" aria-hidden="true">
+
+    <div class="placeholder-asset" aria-hidden="true" style="margin-top:var(--space-4)">
       <p class="placeholder-asset__label">05d · Pack 4 reels démos (Film cadeau · Clip · Court-métrage · Premium)</p>
-      <p class="placeholder-asset__specs">4 fichiers WebM + MP4 · ≤ 4&nbsp;Mo chacun · ratio 9:16 ou 16:9 · liens à intégrer dans cartes ci-dessous quand disponibles</p>
+      <p class="placeholder-asset__specs">4 fichiers WebM + MP4 · ≤ 4&nbsp;Mo chacun · ratio 9:16 ou 16:9 · liens à intégrer dans cartes ci-dessus quand disponibles</p>
     </div>
   </div>
 </section>
@@ -1086,7 +1191,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
           <figcaption class="duo-new__role">Co-associée · Architecte systèmes &amp; IA</figcaption>
         </figure>
         <div class="duo-new__body">
-          <div class="placeholder-asset placeholder-asset--inline" aria-hidden="true">
+          <div class="placeholder-asset" aria-hidden="true">
             <p class="placeholder-asset__label">Portrait HD Lauralie (remplace PNG actuel si upgrade)</p>
             <p class="placeholder-asset__specs">640×800 · PNG · chemin actuel&nbsp;: voyage-v9/assets/team/lauralie.png</p>
           </div>
@@ -1111,7 +1216,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
           <figcaption class="duo-new__role">Co-associé · Directeur artistique</figcaption>
         </figure>
         <div class="duo-new__body">
-          <div class="placeholder-asset placeholder-asset--inline" aria-hidden="true">
+          <div class="placeholder-asset" aria-hidden="true">
             <p class="placeholder-asset__label">Portrait HD Michaël (remplace JPG actuel si upgrade)</p>
             <p class="placeholder-asset__specs">640×800 · JPG · chemin actuel&nbsp;: voyage-v9/assets/team/micha.jpg</p>
           </div>
@@ -1216,7 +1321,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       <article class="mp__pillar"><span class="mp__icon">🤝</span><h3 class="mp__name">Accompagnement</h3><p class="mp__desc">Discret, respectueux, centré sur l'humain.</p></article>
     </div>
     <p class="mp__w5" data-reveal><b>W5 · M&amp;P Contact 🌿</b> — chaque famille contactée via Mémoire &amp; Présence déclenche automatiquement un WhatsApp à Micha + un email de confirmation. Réponse humaine sous 2h.</p>
-    <div class="placeholder-asset placeholder-asset--block" aria-hidden="true">
+    <div class="placeholder-asset" aria-hidden="true">
       <p class="placeholder-asset__label">Teaser vidéo Mémoire &amp; Présence (~30&nbsp;s)</p>
       <p class="placeholder-asset__specs">WebM + MP4 · ≤ 4&nbsp;Mo · intégration lecteur inline ou lien Vimeo privé · hors photos hero stage</p>
     </div>
@@ -1241,7 +1346,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
         <p class="sisters__desc">
           Notre IA bien-être au travail. 53&nbsp;% des RH sont épuisés — Auralis gère le burnout des équipes. Pour eux, pour nous, avec vous.
         </p>
-        <div class="placeholder-asset placeholder-asset--inline" aria-hidden="true">
+        <div class="placeholder-asset" aria-hidden="true">
           <p class="placeholder-asset__label">Screenshot UI Auralis RH</p>
           <p class="placeholder-asset__specs">1400×900 · WebP · capture depuis /auralis/ une fois la UI figée</p>
         </div>
@@ -1276,6 +1381,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
         <tr><td class="prices__offer">IA sur-mesure</td><td>890 €</td><td>48h livraison</td></tr>
         <tr><td class="prices__offer">Site Vitrine</td><td>1 290 €</td><td>7 jours</td></tr>
         <tr><td class="prices__offer">Système Complet</td><td>Dès 2 400 €</td><td>Sur devis</td></tr>
+        <tr class="prices__group"><td colspan="3"><strong>Films IA — signés Micha</strong></td></tr>
+        <tr><td class="prices__offer"><a href="/realisations/films-ia/" class="prices__link">Film cadeau (30s)</a></td><td>390 € HT</td><td>5 jours · à offrir</td></tr>
+        <tr><td class="prices__offer"><a href="/realisations/films-ia/" class="prices__link">Clip IA (30-60s)</a></td><td>550 € HT</td><td>5 jours · perso ou pro</td></tr>
+        <tr><td class="prices__offer"><a href="/realisations/films-ia/" class="prices__link">Court-métrage IA</a></td><td>1 290 € HT</td><td>10 jours · univers sur-mesure</td></tr>
+        <tr><td class="prices__offer"><a href="/realisations/films-ia/" class="prices__link">Premium bande-annonce</a></td><td>2 800 € HT</td><td>14 jours · cinéma</td></tr>
         <tr class="featured"><td class="prices__offer"><em>Pack Duo</em> Lauralie+Micha <span class="prices__star">★</span></td><td>Dès 3 900 €</td><td>~1 600 € économisés</td></tr>
         <tr><td class="prices__offer"><a href="/formations/kit-prompts/" class="prices__link">Formation niveau 1</a></td><td>67 €</td><td>—</td></tr>
         <tr><td class="prices__offer"><a href="/formations/kit-prompts/" class="prices__link">Formation niveau 2</a></td><td>147 €</td><td>—</td></tr>
@@ -1325,6 +1435,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
         </p>
       </details>
     </div>
+    <div class="placeholder-asset" aria-hidden="true" style="margin-top:var(--space-4)">
+      <p class="placeholder-asset__label">FAQ · illustration optionnelle</p>
+      <p class="placeholder-asset__specs">WebP discret si besoin d’un visuel d’ambiance sous les questions (hors hero stage)</p>
+    </div>
   </div>
 </section>
 
@@ -1364,8 +1478,13 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
           <option>IA sur-mesure</option>
           <option>Pack Duo complet</option>
           <option>Mémoire &amp; Présence</option>
+          <option value="film-ia-cadeau">Film IA à offrir (cadeau)</option>
+          <option value="film-ia-pro">Film IA pour mon activité</option>
           <option>Autre</option>
         </select>
+        <div id="diagGiftRecipient" class="diag__conditional" hidden>
+          <input type="text" name="gift_recipient" placeholder="Pour qui est ce film ? (prénom ou relation)" autocomplete="off">
+        </div>
         <textarea required name="message_libre" rows="4" placeholder="Décrivez votre besoin en quelques lignes"></textarea>
         <label class="diag__consent">
           <input type="checkbox" required name="consent">
@@ -1440,9 +1559,21 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
         </ul>
       </div>
     </div>
-    <div class="placeholder-asset placeholder-asset--block" aria-hidden="true" style="margin-top:var(--space-5)">
+    <div class="partners">
+      <p class="eyebrow partners__label">Stack technique européen</p>
+      <div class="partners__grid">
+        <img src="assets/partners/anthropic.svg" alt="Anthropic Claude" class="partners__logo" loading="lazy" width="120" height="32">
+        <img src="assets/partners/stripe.svg" alt="Stripe" class="partners__logo" loading="lazy" width="80" height="32">
+        <img src="assets/partners/n8n.svg" alt="n8n" class="partners__logo" loading="lazy" width="80" height="32">
+        <img src="assets/partners/hostinger.svg" alt="Hostinger" class="partners__logo" loading="lazy" width="100" height="32">
+        <img src="assets/partners/bunnyfonts.svg" alt="Bunny Fonts" class="partners__logo" loading="lazy" width="100" height="32">
+        <img src="assets/partners/plausible.svg" alt="Plausible" class="partners__logo" loading="lazy" width="100" height="32">
+        <img src="assets/partners/yousign.svg" alt="YouSign" class="partners__logo" loading="lazy" width="90" height="32">
+      </div>
+    </div>
+    <div class="placeholder-asset" aria-hidden="true" style="margin-top:var(--space-3)">
       <p class="placeholder-asset__label">Logos partenaires (7 SVG)</p>
-      <p class="placeholder-asset__specs">Anthropic · Stripe · n8n · Hostinger · Bunny Fonts · Plausible · YouSign — fichiers dans voyage-v9/assets/partners/ · grille horizontale sobre</p>
+      <p class="placeholder-asset__specs">Anthropic · Stripe · n8n · Hostinger · Bunny Fonts · Plausible · YouSign — fichiers dans voyage-v9/assets/partners/</p>
     </div>
     <div class="footer__bot">
       <span>Prix HT · TVA non applicable art. 293 B CGI</span>
@@ -1453,6 +1584,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 
 <!-- Config centralisée (webhooks n8n) -->
 <script src="../assets/js/config.js"></script>
+<script src="assets/js/scene-counter.js" defer></script>
+<script src="assets/js/easter-eggs.js" defer></script>
+<script src="assets/js/film-chromatic.js" defer></script>
 
 <script>
 (function(){
@@ -1620,6 +1754,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       badge.textContent = '';
     }
   }
+  document.addEventListener('DOMContentLoaded', function(){
+    var n = document.querySelectorAll('.placeholder-asset').length;
+    document.body.setAttribute('data-draft-count', String(n));
+    updateDraftBadge();
+  });
   updateDraftBadge();
   document.addEventListener('keydown', function(e){
     if (!e.ctrlKey || (e.key !== 'd' && e.key !== 'D')) return;
@@ -1627,6 +1766,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable)) return;
     e.preventDefault();
     document.body.classList.toggle('draft-mode');
+    document.body.setAttribute('data-draft-count', String(document.querySelectorAll('.placeholder-asset').length));
     updateDraftBadge();
   });
 
@@ -1646,6 +1786,15 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
         }
       }, { passive: true });
     }
+  }
+
+  // 8b. Film cadeau — champ conditionnel
+  var besoinSel = document.querySelector('#diag select[name="besoin"]');
+  if (besoinSel){
+    besoinSel.addEventListener('change', function(e){
+      var f = document.getElementById('diagGiftRecipient');
+      if (f) f.hidden = e.target.value !== 'film-ia-cadeau';
+    });
   }
 
   // 9. Formulaire diagnostic — fetch vers window.PinappConfig.webhooks.diagnosticLead
@@ -1668,6 +1817,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
         'Email : ' + (data.email || '—'),
         'Tél : ' + (data.tel || '—'),
         'Besoin : ' + (data.besoin || '—'),
+        'Film pour : ' + (data.gift_recipient || '—'),
         'Message : ' + (data.message_libre || '—')
       ].join('\n');
 
