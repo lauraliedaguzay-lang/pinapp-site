@@ -1,0 +1,438 @@
+/* voyage-v9 — P0 gaps (FAQ, sisters, portfolio tease, faq details, CTA row) */
+
+:root {
+  --vv9-bg: #0a0f18;
+  --vv9-panel: rgba(12, 18, 32, 0.78);
+  --vv9-border: rgba(62, 245, 224, 0.14);
+  --vv9-text: #f5f1e8;
+  --vv9-muted: rgba(245, 241, 232, 0.62);
+  --vv9-cyan: #3ef5e0;
+  --vv9-violet: #8b6fe8;
+}
+
+.vv9-page {
+  margin: 0;
+  min-height: 100%;
+  font-family: 'Geist', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--vv9-text);
+  background: var(--vv9-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+.vv9-page *,
+.vv9-page *::before,
+.vv9-page *::after {
+  box-sizing: border-box;
+}
+
+.vv9-skip {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.vv9-skip:focus {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 999;
+  width: auto;
+  height: auto;
+  padding: 0.75rem 1rem;
+  background: var(--vv9-panel);
+  border: 1px solid var(--vv9-border);
+  color: var(--vv9-text);
+}
+
+.scene {
+  padding: clamp(3rem, 8vw, 5rem) clamp(1.25rem, 4vw, 2.5rem);
+  border-bottom: 1px solid rgba(245, 241, 232, 0.06);
+}
+
+.container {
+  width: min(100%, 56rem);
+  margin: 0 auto;
+}
+
+.eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--vv9-cyan);
+  opacity: 0.85;
+  margin: 0 0 0.75rem;
+}
+
+.h1 {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  margin: 0 0 1.25rem;
+}
+
+.h1 em {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.panel {
+  background: var(--vv9-panel);
+  border: 1px solid var(--vv9-border);
+  border-radius: 1.25rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+}
+
+/* Portfolio 5 (stub minimal — remplacer par les vrais blocs voyage-v9) */
+.portfolio-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.portfolio-item {
+  padding: 1rem;
+  border-radius: 0.85rem;
+  border: 1px solid rgba(245, 241, 232, 0.1);
+  background: rgba(5, 10, 20, 0.45);
+  font-size: 0.9rem;
+}
+
+.portfolio-item strong {
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.portfolio__tease {
+  margin: 1.5rem 0 0;
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  line-height: 1.45;
+  color: var(--vv9-muted);
+  opacity: 0.6;
+}
+
+.sep {
+  margin: 2.5rem 0 1.25rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(245, 241, 232, 0.08);
+}
+
+/* Carrousel 13 démos */
+.reals {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding: 0.25rem 0 1rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.real {
+  flex: 0 0 min(16rem, 78vw);
+  scroll-snap-align: start;
+  display: block;
+  padding: 1rem 1.1rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(245, 241, 232, 0.12);
+  background: rgba(5, 10, 20, 0.5);
+  text-decoration: none;
+  color: inherit;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.real:hover {
+  border-color: rgba(62, 245, 224, 0.28);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.real:focus-visible {
+  outline: 2px solid var(--vv9-cyan);
+  outline-offset: 2px;
+}
+
+.real__tag {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--vv9-cyan);
+  opacity: 0.8;
+  margin-bottom: 0.35rem;
+}
+
+.real__name {
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin: 0 0 0.25rem;
+}
+
+.real__hint {
+  font-size: 0.8rem;
+  color: var(--vv9-muted);
+  margin: 0;
+}
+
+/* Sisters (P0.6) */
+.sisters {
+  margin: 0;
+  padding: clamp(3rem, 8vw, 5rem) clamp(1.25rem, 4vw, 2.5rem);
+  border-bottom: 1px solid rgba(245, 241, 232, 0.06);
+  background: rgba(5, 10, 20, 0.35);
+}
+
+.sisters__grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .sisters__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.sisters__card {
+  display: block;
+  padding: 1.25rem 1.35rem;
+  border-radius: 1.1rem;
+  border: 1px solid rgba(245, 241, 232, 0.12);
+  background: rgba(10, 16, 28, 0.75);
+  text-decoration: none;
+  color: inherit;
+  transition:
+    transform 0.22s cubic-bezier(0.25, 0.1, 0.25, 1),
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.sisters__card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(62, 245, 224, 0.25);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22);
+}
+
+.sisters__card:focus-visible {
+  outline: 2px solid var(--vv9-cyan);
+  outline-offset: 2px;
+}
+
+.sisters__card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.sisters__card h3 em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--vv9-cyan);
+}
+
+.sisters__card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--vv9-muted);
+  line-height: 1.45;
+}
+
+/* Tarifs */
+.pricing-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.pricing-table th,
+.pricing-table td {
+  padding: 0.65rem 0.5rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(245, 241, 232, 0.08);
+}
+
+.pricing-table th {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--vv9-muted);
+}
+
+.pricing-table a {
+  color: var(--vv9-cyan);
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
+.pricing-table a:hover {
+  color: var(--vv9-text);
+}
+
+/* FAQ P0.1 */
+.faq {
+  max-width: 40rem;
+}
+
+.faq details {
+  border-bottom: 1px solid rgba(245, 241, 232, 0.1);
+  padding: 0.35rem 0;
+}
+
+.faq summary {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.05rem;
+  cursor: pointer;
+  list-style: none;
+  padding: 0.65rem 0;
+  position: relative;
+  padding-right: 1.5rem;
+}
+
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq summary::after {
+  content: '';
+  position: absolute;
+  right: 0.25rem;
+  top: 50%;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 2px solid var(--vv9-muted);
+  border-bottom: 2px solid var(--vv9-muted);
+  transform: translateY(-60%) rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.faq details[open] summary::after {
+  transform: translateY(-30%) rotate(-135deg);
+}
+
+.faq details p {
+  margin: 0 0 1rem;
+  padding-left: 0.15rem;
+  color: var(--vv9-muted);
+  font-size: 0.95rem;
+  font-family: 'Geist', system-ui, sans-serif;
+  font-style: normal;
+}
+
+/* Contact + CTA */
+.contact-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-top: 1.5rem;
+}
+
+.contact-row > form {
+  flex: 1 1 18rem;
+}
+
+.contact-row__aside {
+  flex: 1 1 14rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0 1.25rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border-radius: 100px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  touch-action: manipulation;
+  font-family: inherit;
+}
+
+.btn--secondary {
+  background: rgba(62, 245, 224, 0.1);
+  border-color: rgba(62, 245, 224, 0.35);
+  color: var(--vv9-cyan);
+}
+
+.btn--secondary:hover {
+  background: rgba(62, 245, 224, 0.16);
+  border-color: rgba(62, 245, 224, 0.5);
+  color: var(--vv9-text);
+}
+
+.btn--secondary:focus-visible {
+  outline: 2px solid var(--vv9-cyan);
+  outline-offset: 2px;
+}
+
+.vv9-form label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--vv9-muted);
+  margin-bottom: 0.35rem;
+}
+
+.vv9-form input,
+.vv9-form textarea {
+  width: 100%;
+  min-height: 2.75rem;
+  margin-bottom: 0.85rem;
+  padding: 0.65rem 0.85rem;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--vv9-text);
+  background: rgba(5, 10, 20, 0.55);
+  border: 1px solid rgba(245, 241, 232, 0.14);
+  border-radius: 0.65rem;
+}
+
+.vv9-form textarea {
+  min-height: 6rem;
+  resize: vertical;
+}
+
+.vv9-note {
+  margin-top: 2rem;
+  font-size: 0.8rem;
+  color: var(--vv9-muted);
+}
