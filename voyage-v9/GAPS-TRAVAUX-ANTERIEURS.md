@@ -2,6 +2,8 @@
 
 > Basé sur : sessions Claude précédentes + `V24-DREAM-SPEC.md` + `TEXT-MASTER-V7.md` + `STORYBOARD-V2.3.md` + `HANDOVER-2026-04-21-NIGHT.md` + `COPY-PINAPP.md` + `realisations.json`.
 
+**Statut (main)** : les **6 P0** sont intégrés dans `voyage-v9/index.html` (FAQ s13b, Cal.com, 13 liens `/demo/`, tease portfolio, liens formations, s12b branches sœurs). Le détail d’implémentation utilise `data-stage` (voir `PROMPT-CURSOR-P0.md`). **Ne pas merger la PR #59** (stub) si elle existe encore.
+
 ---
 
 ## 🎯 RÉSUMÉ EXÉCUTIF
