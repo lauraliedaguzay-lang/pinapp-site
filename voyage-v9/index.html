@@ -14,12 +14,32 @@
 <meta property="og:url" content="https://pinapp.fr/voyage-v9/" />
 <meta property="og:image" content="assets/hero-1.webp" />
 <meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://pinapp.fr/" />
+<link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
 <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
 <link rel="preload" as="image" href="assets/hero-1.webp" fetchpriority="high" />
+<link rel="preload" as="image" href="assets/hero-2.webp" />
+<link rel="preload" as="image" href="assets/hero-3.webp" />
+<link rel="preload" as="image" href="assets/hero-4.webp" />
+<link rel="preload" as="image" href="assets/hero-5.webp" />
 <link rel="preload" as="image" href="assets/hero-6.webp" />
 <link rel="stylesheet" href="https://fonts.bunny.net/css?family=fraunces:400i,500,600i,700,900|inter:400,500,600,700&display=swap" />
 <script>document.documentElement.classList.add('js');</script>
 <script defer data-domain="pinapp.fr" src="https://plausible.io/js/script.js"></script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Organization",
+  "name":"Pinapp Inc.",
+  "url":"https://pinapp.fr",
+  "logo":"https://pinapp.fr/assets/logo.svg",
+  "address":{"@type":"PostalAddress","addressLocality":"Bordeaux","addressCountry":"FR"},
+  "email":"contact@pinapp.fr",
+  "founder":[{"@type":"Person","name":"Lauralie Daguzay"},{"@type":"Person","name":"Michaël Bouilhac"}],
+  "sameAs":["https://www.linkedin.com/company/pinapp-inc"]
+}
+</script>
 <style>
 /* ================================================================
    PINAPP — VOYAGE V9 (single-file cinematic edition)
@@ -69,6 +89,7 @@ body{font-feature-settings:"ss01","cv11"}
 ::selection{background:var(--or);color:var(--nuit)}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
+.scene__content p a,.footer a{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;text-decoration-color:rgba(230,185,115,.5)}
 button,input,select,textarea{font:inherit;color:inherit}
 button{background:none;border:0;cursor:pointer}
 em,i{font-family:var(--serif);font-style:italic;font-weight:400}
@@ -129,7 +150,7 @@ html:not(.js) .stage__layer[data-stage="01"]{opacity:1}
 .scene__content{position:relative;width:100%}
 
 /* ============ EYEBROW ============ */
-.eyebrow{display:inline-flex;align-items:center;gap:.75rem;font-family:var(--sans);font-weight:500;font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;color:var(--or);margin-bottom:var(--space-4)}
+.eyebrow{display:inline-flex;align-items:center;gap:.75rem;font-family:var(--sans);font-weight:500;font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;color:var(--or);margin-bottom:var(--space-4);font-variant-caps:small-caps;font-feature-settings:"tnum" 1}
 .eyebrow::before{content:"";display:inline-block;width:28px;height:1px;background:currentColor;opacity:.7}
 .eyebrow--center{justify-content:center}
 .eyebrow--center::before{width:52px}
@@ -273,7 +294,62 @@ html:not(.js) .stage__layer[data-stage="01"]{opacity:1}
 .duo__saving b{color:var(--cyan);font-weight:500}
 @media (max-width:820px){.duo{grid-template-columns:1fr}}
 
-/* ============ SCENE 05 — RÉALISATIONS ============ */
+/* ============ SCENE 05 — PORTFOLIO (5 vraies réalisations) ============ */
+.portfolio{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:minmax(240px,auto);gap:var(--space-3);margin:var(--space-4) 0 var(--space-6) 0}
+.port{position:relative;display:flex;flex-direction:column;background:var(--nuit-2);border:1px solid var(--fumee);border-radius:4px;overflow:hidden;text-decoration:none;color:inherit;cursor:pointer;transition:transform .45s var(--ease),border-color .45s}
+.port:hover{transform:translateY(-3px);border-color:var(--fumee-2)}
+.port:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.port--hero{grid-column:span 2;grid-row:span 2}
+.port__media{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--nuit)}
+.port--hero .port__media{aspect-ratio:16/9}
+.port__poster{width:100%;height:100%;object-fit:cover;filter:grayscale(10%) contrast(1.05) brightness(.88);transition:transform .8s var(--ease),filter .6s}
+.port:hover .port__poster{transform:scale(1.04);filter:grayscale(0) brightness(.95)}
+.port__play{position:absolute;inset:0;margin:auto;width:72px;height:72px;border-radius:50%;color:var(--ivoire);background:transparent;display:grid;place-items:center;cursor:pointer;transition:transform .3s,color .3s;z-index:2}
+.port--hero .port__play{width:96px;height:96px}
+.port:hover .port__play{color:var(--or);transform:scale(1.08)}
+.port__play svg{width:100%;height:100%}
+.port__live{position:absolute;top:14px;right:14px;padding:.35rem .75rem;border-radius:100px;font-size:.6875rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ivoire);background:rgba(5,11,20,.8);display:inline-flex;align-items:center;gap:.4rem;z-index:2}
+.port__dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);animation:pulse 2.4s ease-in-out infinite}
+.port__body{padding:var(--space-3);display:flex;flex-direction:column;gap:.4rem}
+.port__tag{align-self:flex-start;padding:.3rem .7rem;border-radius:100px;font-size:.625rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#fff}
+.port__title{font-family:var(--sans);font-weight:500;font-size:clamp(1.125rem,1.6vw,1.5rem);letter-spacing:-0.01em;margin:0}
+.port__title em{font-family:var(--serif);font-style:italic;color:var(--or)}
+.port--hero .port__title{font-size:clamp(1.5rem,2.4vw,2.25rem)}
+.port__sub{font-size:.875rem;color:var(--ivoire-dim);margin:0}
+.port.is-playing .port__poster,.port.is-playing .port__play{display:none}
+.port__iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.apercus-head{margin:var(--space-6) 0 var(--space-4);text-align:center;max-width:52ch;margin-left:auto;margin-right:auto}
+.apercus-head .lead strong{color:var(--or)}
+.apercus-head .h2{font-family:var(--sans);font-weight:500;font-size:var(--text-h2);line-height:1.06;letter-spacing:-0.03em;margin:var(--space-2) 0 var(--space-3) 0}
+.apercus-head .h2 em{font-family:var(--serif);font-weight:400;font-style:italic;color:var(--or)}
+@media (max-width:900px){.portfolio{grid-template-columns:repeat(2,1fr)}.port--hero{grid-column:span 2;grid-row:span 1}}
+@media (max-width:540px){.portfolio{grid-template-columns:1fr}.port--hero{grid-column:span 1}}
+@media (prefers-reduced-motion:reduce){.port,.port__poster,.port:hover .port__poster,.port:hover .port__play{transition:none;transform:none}}
+
+/* ============ SCENE 07 — DUO (nouveau) ============ */
+.duo-new{display:flex;flex-direction:column;gap:var(--space-7);margin-top:var(--space-6)}
+.duo-new__card{display:grid;grid-template-columns:minmax(280px,440px) 1fr;gap:clamp(1.5rem,4vw,4rem);align-items:center}
+.duo-new__card--reverse{direction:rtl}
+.duo-new__card--reverse > *{direction:ltr}
+.duo-new__portrait{position:relative;margin:0;border:1px solid var(--fumee);overflow:hidden;border-radius:4px;aspect-ratio:4/5;background:var(--nuit-2)}
+.duo-new__portrait img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(18%) contrast(1.08) brightness(.95);transition:filter .6s var(--ease),transform 1.2s var(--ease)}
+.duo-new__card:hover .duo-new__portrait img{filter:grayscale(0) contrast(1.1) brightness(1);transform:scale(1.02)}
+.duo-new__role{position:absolute;inset:auto 0 0 0;padding:.75rem 1rem;background:linear-gradient(180deg,transparent,rgba(5,11,20,.92));color:var(--ivoire);font-size:.6875rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;text-align:left}
+.duo-new__body{display:flex;flex-direction:column;gap:var(--space-3)}
+.duo-new__name{font-family:var(--sans);font-weight:500;font-size:clamp(2rem,4vw,3.25rem);letter-spacing:-0.02em;line-height:1;margin:0}
+.duo-new__name em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--or);display:block}
+.duo-new__bio{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(1.0625rem,1.5vw,1.375rem);line-height:1.5;color:var(--ivoire);max-width:46ch;margin:0;border-left:1px solid var(--or);padding-left:var(--space-3)}
+.duo-new__skills{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:.5rem 1.5rem;font-size:.9375rem;color:var(--ivoire-dim)}
+.duo-new__skills li{position:relative;padding-left:1rem}
+.duo-new__skills li::before{content:"";position:absolute;left:0;top:.65em;width:6px;height:1px;background:var(--or)}
+.duo-new__meta{font-size:.8125rem;letter-spacing:.08em;color:var(--ivoire-dim);margin:0;padding-top:var(--space-2);border-top:1px solid var(--fumee)}
+.duo-new__link{color:var(--cyan);border-bottom:1px solid rgba(62,245,224,.35);padding-bottom:.15rem;transition:border-color .25s}
+.duo-new__link:hover{border-bottom-color:var(--cyan)}
+.duo-new__link:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+@media (max-width:720px){.duo-new__card,.duo-new__card--reverse{grid-template-columns:1fr;direction:ltr;gap:var(--space-4)}.duo-new__portrait{aspect-ratio:3/4;max-width:360px}.duo-new__skills{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.duo-new__portrait img,.duo-new__card:hover .duo-new__portrait img{transition:none;transform:none;filter:grayscale(0) contrast(1) brightness(1)}}
+
+/* ============ SCENE 05b — APERÇUS SECTORIELS (carrousel) ============ */
 .reals__head{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:var(--space-3);margin-top:var(--space-4);margin-bottom:var(--space-4)}
 .reals__counter{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(2.25rem,4vw,3.5rem);color:var(--or);line-height:1;min-width:7ch}
 .reals__controls{display:flex;gap:.5rem}
@@ -399,7 +475,7 @@ html:not(.js) .stage__layer[data-stage="01"]{opacity:1}
 @media (max-width:560px){.diag__row{grid-template-columns:1fr}}
 .diag input,.diag select,.diag textarea{width:100%;padding:.9rem 1rem;background:rgba(5,11,20,.5);border:1px solid var(--fumee-2);color:var(--ivoire);font-size:.9375rem;border-radius:4px;transition:border-color .2s;font-family:inherit}
 .diag input::placeholder,.diag textarea::placeholder{color:var(--ivoire-mute)}
-.diag input:focus,.diag select:focus,.diag textarea:focus{outline:none;border-color:var(--or)}
+.diag input:focus,.diag select:focus,.diag textarea:focus{outline:2px solid var(--cyan);outline-offset:3px;border-color:var(--or)}
 .diag select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--or) 50%),linear-gradient(-45deg,transparent 50%,var(--or) 50%);background-position:calc(100% - 18px) 18px,calc(100% - 12px) 18px;background-size:6px 6px;background-repeat:no-repeat;padding-right:2.5rem}
 .diag textarea{resize:vertical;min-height:120px;font-family:inherit}
 .diag__consent{display:flex;align-items:flex-start;gap:.75rem;font-size:.8125rem;color:var(--ivoire-dim);line-height:1.5;padding:.5rem 0}
@@ -745,25 +821,100 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 </section>
 
 <!-- ========================================================
-     05 · RÉALISATIONS
+     05 · RÉALISATIONS (portfolio réel + aperçus sectoriels)
      ======================================================== -->
 <section class="scene scene--05" id="s05" data-stage="04" aria-labelledby="s05-h">
   <div class="container scene__content">
-    <p class="eyebrow" data-reveal>05 · Preuve</p>
-    <h2 class="h1" id="s05-h" data-reveal data-reveal-delay="1">Treize univers. <em>Treize</em> systèmes sur mesure.</h2>
+    <p class="eyebrow" data-reveal>05 · Réalisations</p>
+    <h2 class="h1" id="s05-h" data-reveal data-reveal-delay="1">Ce que nous avons <em>déjà</em> construit.</h2>
     <p class="lead" data-reveal data-reveal-delay="2" style="margin-top:var(--space-3)">
-      Chaque vitrine est conçue comme un livrable. Les aperçus ci-dessous sont des <em>scénarios sectoriels</em> — les mandats réels se communiquent lors d'un échange.
+      Films IA signés Micha, sites signés Lauralie. Vimeo et démos live.
     </p>
-    <div class="reals__head" data-reveal data-reveal-delay="3">
-      <span class="reals__counter" id="realsCounter">01 / 13</span>
+
+    <!-- Portfolio grid : Star Wars hero + 4 cartes -->
+    <div class="portfolio" data-reveal data-reveal-delay="3">
+
+      <article class="port port--hero" data-vimeo="1184294810">
+        <div class="port__media">
+          <img class="port__poster" loading="lazy" src="https://vumbnail.com/1184294810_large.jpg" alt="Star Wars — The Power of Female Unity (teaser Pinapp)">
+          <button class="port__play" type="button" aria-label="Lire Star Wars — The Power of Female Unity">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.5" fill="rgba(5,11,20,.4)"/><path d="M26 22 L44 32 L26 42 Z" fill="currentColor"/></svg>
+          </button>
+        </div>
+        <div class="port__body">
+          <span class="port__tag" style="background:linear-gradient(135deg,#1a1a2e,#3ef5e0);color:#050b14">FILM IA · SCI-FI</span>
+          <h3 class="port__title">Star Wars — <em>The Power of Female Unity</em></h3>
+          <p class="port__sub">Bande-annonce IA · réalisation Micha</p>
+        </div>
+      </article>
+
+      <article class="port" data-vimeo="1184294762">
+        <div class="port__media">
+          <img class="port__poster" loading="lazy" src="https://vumbnail.com/1184294762_large.jpg" alt="Walker — Western Christian Remake (film IA Pinapp)">
+          <button class="port__play" type="button" aria-label="Lire Walker"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.5" fill="rgba(5,11,20,.4)"/><path d="M26 22 L44 32 L26 42 Z" fill="currentColor"/></svg></button>
+        </div>
+        <div class="port__body">
+          <span class="port__tag" style="background:#c4622d">FILM IA · WESTERN</span>
+          <h3 class="port__title">Walker</h3>
+          <p class="port__sub">Western IA · réalisation Micha</p>
+        </div>
+      </article>
+
+      <article class="port" data-vimeo="1184294871">
+        <div class="port__media">
+          <img class="port__poster" loading="lazy" src="https://vumbnail.com/1184294871_large.jpg" alt="Resident Evil — extrait film IA Pinapp">
+          <button class="port__play" type="button" aria-label="Lire Resident Evil"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.5" fill="rgba(5,11,20,.4)"/><path d="M26 22 L44 32 L26 42 Z" fill="currentColor"/></svg></button>
+        </div>
+        <div class="port__body">
+          <span class="port__tag" style="background:#8b1e2e">FILM IA · HORREUR</span>
+          <h3 class="port__title">Resident Evil</h3>
+          <p class="port__sub">Extrait · réalisation Micha</p>
+        </div>
+      </article>
+
+      <a class="port port--site" href="/demo/atelier-rivage/" target="_blank" rel="noopener">
+        <div class="port__media">
+          <img class="port__poster" loading="lazy" src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80" alt="Atelier Rivage — site architecte (démo live)">
+          <span class="port__live"><span class="port__dot"></span>DÉMO LIVE</span>
+        </div>
+        <div class="port__body">
+          <span class="port__tag" style="background:#c4a77d;color:#1a1408">SITE · ARCHITECTE</span>
+          <h3 class="port__title">Atelier Rivage</h3>
+          <p class="port__sub">Vitrine cabinet · réalisation Lauralie</p>
+        </div>
+      </a>
+
+      <article class="port" data-vimeo="1184294901">
+        <div class="port__media">
+          <img class="port__poster" loading="lazy" src="https://vumbnail.com/1184294901_large.jpg" alt="Mémoire &amp; Présence — clip Pinapp">
+          <button class="port__play" type="button" aria-label="Lire Mémoire &amp; Présence — clip"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.5" fill="rgba(5,11,20,.4)"/><path d="M26 22 L44 32 L26 42 Z" fill="currentColor"/></svg></button>
+        </div>
+        <div class="port__body">
+          <span class="port__tag" style="background:#2d6a4f">EXTRAIT CINÉMA</span>
+          <h3 class="port__title">Mémoire &amp; Présence — clip</h3>
+          <p class="port__sub">Projet à part · Pinapp M&amp;P</p>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Séparateur aperçus sectoriels -->
+    <div class="apercus-head" data-reveal>
+      <p class="eyebrow eyebrow--center">05b · Aperçus sectoriels</p>
+      <h3 class="h2">Treize terrains de jeu <em>par secteur</em>.</h3>
+      <p class="lead">Démos construites pour montrer ce que nous déployons sur des TPE/PME. <strong>Ce ne sont pas des sites clients livrés</strong> — juste des aperçus de la méthode sectorielle.</p>
+    </div>
+
+    <div class="reals__head" data-reveal style="margin-top:var(--space-4)">
+      <span class="reals__counter" id="realsCounter" aria-live="polite" aria-atomic="true">01 / 13</span>
       <div class="reals__controls">
-        <button type="button" class="reals__arrow reals__prev" aria-label="Réalisation précédente"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M15 19l-7-7 7-7"/></svg></button>
-        <button type="button" class="reals__arrow reals__next" aria-label="Réalisation suivante"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+        <button type="button" id="realsPrev" class="reals__arrow reals__prev" aria-label="Aperçu précédent"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M15 19l-7-7 7-7"/></svg></button>
+        <button type="button" id="realsNext" class="reals__arrow reals__next" aria-label="Aperçu suivant"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
       </div>
     </div>
   </div>
   <div class="container">
-    <div class="reals__scroll" id="realsScroll" role="region" aria-label="Carrousel des réalisations">
+    <div class="reals__scroll" id="realsScroll" role="region" aria-label="Carrousel des aperçus sectoriels" aria-roledescription="carrousel">
       <article class="real"><img class="real__img" loading="lazy" src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=960&q=80" alt="Renov&amp;Co — artisan BTP"><div class="real__scrim"></div><span class="real__tag" style="background:#e8760a">BTP</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">01</span><h3 class="real__name">Renov&amp;Co</h3><span class="real__sector">Artisan · BTP</span></div></article>
       <article class="real"><img class="real__img" loading="lazy" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=960&q=80" alt="Ōkami — restaurant"><div class="real__scrim"></div><span class="real__tag" style="background:#c41e3a">RESTO</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">02</span><h3 class="real__name">Ōkami</h3><span class="real__sector">Restaurant</span></div></article>
       <article class="real"><img class="real__img" loading="lazy" src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=960&q=80" alt="Clara Fontaine — coach"><div class="real__scrim"></div><span class="real__tag" style="background:#2d6a4f">COACH</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">03</span><h3 class="real__name">Clara Fontaine</h3><span class="real__sector">Coach · Consultant</span></div></article>
@@ -803,27 +954,54 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
      ======================================================== -->
 <section class="scene scene--07" id="s07" data-stage="05" aria-labelledby="s07-h">
   <div class="container scene__content">
-    <p class="eyebrow" data-reveal>07 · Duo</p>
+    <p class="eyebrow" data-reveal>07 · Qui sommes-nous</p>
     <h2 class="h1" id="s07-h" data-reveal data-reveal-delay="1">Deux personnes. <em>Zéro</em> intermédiaire.</h2>
-    <div class="team">
-      <article class="person" data-reveal data-reveal-delay="2">
-        <div class="person__initial">L</div>
-        <h3 class="person__name">Lauralie</h3>
-        <p class="person__role">Co-associée · Architecte systèmes &amp; IA</p>
-        <p class="person__bio">Je conçois les systèmes, j'écris les specs, je les déploie. De l'IA à l'automatisation, du site au SaaS — sans intermédiaire.</p>
-        <ul class="person__skills">
-          <li>Sites premium</li><li>Automatisation n8n</li><li>IA sur-mesure</li><li>Auralis RH</li><li>Scripts Hostinger</li>
-        </ul>
+    <p class="lead" data-reveal data-reveal-delay="2" style="margin-top:var(--space-3)">Vous parlez à ceux qui construisent. Toujours.</p>
+
+    <div class="duo-new">
+
+      <article class="duo-new__card" data-reveal data-reveal-delay="3">
+        <figure class="duo-new__portrait">
+          <img src="assets/team/lauralie.png" alt="Lauralie Daguzay — co-associée Pinapp, architecte systèmes &amp; IA" loading="lazy" width="640" height="800">
+          <figcaption class="duo-new__role">Co-associée · Architecte systèmes &amp; IA</figcaption>
+        </figure>
+        <div class="duo-new__body">
+          <h3 class="duo-new__name">Lauralie <em>Daguzay</em></h3>
+          <p class="duo-new__bio">
+            Je conçois les systèmes, j'écris les specs, je les déploie. De l'IA à l'automatisation, du site au SaaS — sans intermédiaire.
+          </p>
+          <ul class="duo-new__skills">
+            <li>Sites premium &amp; landing pages</li>
+            <li>Automatisation n8n</li>
+            <li>IA sur-mesure &amp; RAG</li>
+            <li>Auralis RH (notre produit)</li>
+            <li>Scripts &amp; déploiement Hostinger</li>
+          </ul>
+          <p class="duo-new__meta">📍 Bordeaux · 🇫🇷 France</p>
+        </div>
       </article>
-      <article class="person" data-reveal data-reveal-delay="3">
-        <div class="person__initial">M</div>
-        <h3 class="person__name">Micha</h3>
-        <p class="person__role">Co-associé · Directeur artistique</p>
-        <p class="person__bio">Je crée les visuels qui font ressentir ce que les mots ne peuvent pas dire. Adobe, IA générative, restauration — depuis mon studio ou chez vous.</p>
-        <ul class="person__skills">
-          <li>Photo &amp; vidéo pro</li><li>Direction artistique</li><li>Branding Adobe</li><li>Restauration d'archives</li><li>Mémoire &amp; Présence</li>
-        </ul>
+
+      <article class="duo-new__card duo-new__card--reverse" data-reveal data-reveal-delay="4">
+        <figure class="duo-new__portrait">
+          <img src="assets/team/micha.jpg" alt="Michaël Bouilhac — co-associé Pinapp, directeur artistique" loading="lazy" width="640" height="800">
+          <figcaption class="duo-new__role">Co-associé · Directeur artistique</figcaption>
+        </figure>
+        <div class="duo-new__body">
+          <h3 class="duo-new__name">Michaël <em>Bouilhac</em></h3>
+          <p class="duo-new__bio">
+            Je crée les visuels qui font ressentir ce que les mots ne peuvent pas dire. Adobe, IA générative, restauration — depuis mon studio ou chez vous.
+          </p>
+          <ul class="duo-new__skills">
+            <li>Photo &amp; vidéo professionnelles</li>
+            <li>Direction artistique</li>
+            <li>Branding Adobe suite</li>
+            <li>Films IA (Star Wars, Walker, Resident Evil)</li>
+            <li>Mémoire &amp; Présence · restauration</li>
+          </ul>
+          <p class="duo-new__meta"><a href="#s05" class="duo-new__link">Voir les films IA ↓</a></p>
+        </div>
       </article>
+
     </div>
   </div>
 </section>
@@ -887,7 +1065,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 <section class="scene scene--11" id="s11" aria-labelledby="s11-h">
   <div class="container scene__content">
     <blockquote class="manifesto">
-      <p class="manifesto__quote" id="s11-h" data-reveal>Nous avons construit ces outils pour nous d'abord. Pour gérer notre propre complexité. Aujourd'hui nous les construisons pour vous.</p>
+      <h2 class="manifesto__quote" id="s11-h" data-reveal style="font-weight:400">Nous avons construit ces outils pour nous d'abord. Pour gérer notre propre complexité. Aujourd'hui nous les construisons pour vous.</h2>
       <footer class="manifesto__sig" data-reveal data-reveal-delay="2">Lauralie &amp; Micha</footer>
     </blockquote>
   </div>
@@ -991,7 +1169,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       <aside class="diag-side">
         <h3>Scan &amp; envoie depuis mobile</h3>
         <div class="diag-side__qr">
-          <img src="../assets/images/qr-diagnostic.png" alt="QR code diagnostic Pinapp" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+          <img src="assets/images/qr-diagnostic.png" alt="QR code diagnostic Pinapp" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
           <div class="diag-side__qr-ph" style="display:none;width:100%;height:100%">QR</div>
         </div>
         <p style="font-size:.8125rem;color:var(--ivoire-dim);margin:0">Ouvre le formulaire directement sur ton téléphone.</p>
@@ -1114,11 +1292,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     scenes.forEach(function(s){ ioStage.observe(s); });
   }
 
-  // 4. Carrousel réalisations
+  // 4. Carrousel aperçus sectoriels (+ clavier)
   var reel = document.getElementById('realsScroll');
   var counter = document.getElementById('realsCounter');
-  var prev = document.querySelector('.reals__prev');
-  var next = document.querySelector('.reals__next');
+  var prev = document.getElementById('realsPrev') || document.querySelector('.reals__prev');
+  var next = document.getElementById('realsNext') || document.querySelector('.reals__next');
   if (reel && counter && prev && next){
     var items = reel.querySelectorAll('.real');
     var total = items.length;
@@ -1141,9 +1319,42 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     reel.addEventListener('scroll', update, { passive: true });
     prev.addEventListener('click', function(){ reel.scrollBy({ left: -step(), behavior: 'smooth' }); });
     next.addEventListener('click', function(){ reel.scrollBy({ left:  step(), behavior: 'smooth' }); });
+    reel.setAttribute('tabindex','0');
+    reel.addEventListener('keydown', function(e){
+      if(e.key === 'ArrowRight'){ e.preventDefault(); reel.scrollBy({ left: step(), behavior:'smooth' }); }
+      if(e.key === 'ArrowLeft'){ e.preventDefault(); reel.scrollBy({ left: -step(), behavior:'smooth' }); }
+      if(e.key === 'Home'){ e.preventDefault(); reel.scrollTo({ left: 0, behavior:'smooth' }); }
+      if(e.key === 'End'){ e.preventDefault(); reel.scrollTo({ left: reel.scrollWidth, behavior:'smooth' }); }
+    });
     window.addEventListener('resize', update, { passive: true });
     update();
   }
+
+  // 4b. Portfolio Vimeo (click-to-play, pas d'iframe avant clic)
+  document.querySelectorAll('.port[data-vimeo]').forEach(function(card){
+    var play = card.querySelector('.port__play');
+    var id = card.dataset.vimeo;
+    if (!play || !id) return;
+    function activate(){
+      if (card.classList.contains('is-playing')) return;
+      card.classList.add('is-playing');
+      var iframe = document.createElement('iframe');
+      iframe.className = 'port__iframe';
+      iframe.src = 'https://player.vimeo.com/video/' + id + '?dnt=1&autoplay=1&title=0&byline=0&portrait=0';
+      iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+      iframe.loading = 'lazy';
+      var titleEl = card.querySelector('.port__title');
+      iframe.title = titleEl ? titleEl.textContent : 'Vidéo Pinapp';
+      card.querySelector('.port__media').appendChild(iframe);
+      try { if (window.plausible) window.plausible('Portfolio-Play', { props: { id: id } }); } catch(_){}
+    }
+    play.addEventListener('click', activate);
+    card.setAttribute('tabindex','0');
+    card.setAttribute('role','button');
+    card.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); activate(); }
+    });
+  });
 
   // 5. Smooth anchor scroll
   document.addEventListener('click', function(e){
@@ -1219,33 +1430,35 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       var cfg = window.PinappConfig;
       var isLive = cfg && cfg.features && cfg.features.diagnosticWebhook && cfg._isRealUrl(cfg.webhooks.diagnosticLead);
 
-      var ok = false;
-      try {
-        if (isLive){
+      var ok = true;
+      if (isLive){
+        try {
           var res = await fetch(cfg.webhooks.diagnosticLead, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
           });
           ok = res.ok;
-        } else {
-          // Fallback : mailto avec payload pré-rempli (preview / site statique non buildé)
-          var body = encodeURIComponent(
-            'Nom : ' + (data.vous||'') + '\n' +
-            'Entreprise : ' + (data.entreprise||'') + '\n' +
-            'Email : ' + (data.email||'') + '\n' +
-            'Tél : ' + (data.tel||'') + '\n' +
-            'Besoin : ' + (data.besoin||'') + '\n\n' +
-            (data.message_libre||'')
-          );
-          window.location.href = 'mailto:contact@pinapp.fr?subject=Diagnostic%20Pinapp&body=' + body;
-          ok = true;
-        }
-      } catch(err){ ok = false; }
+        } catch(err){ ok = false; }
+      }
+      // Si webhook non branché : on affiche succès quand même (preview / site statique non buildé)
 
       if (ok){
         try { if (window.plausible) window.plausible('Diagnostic-Submit', { props: { source: 'voyage-v9' } }); } catch(_){}
-        form.outerHTML = '<div class="diag__ok"><h3>Message reçu.</h3><p>Nous vous répondons sous 24h, par écrit. Aucun engagement.</p></div>';
+        var mailBody = encodeURIComponent(
+          'Nom : ' + (data.vous||'') + '\n' +
+          'Entreprise : ' + (data.entreprise||'') + '\n' +
+          'Email : ' + (data.email||'') + '\n' +
+          'Tél : ' + (data.tel||'') + '\n' +
+          'Besoin : ' + (data.besoin||'') + '\n\n' +
+          (data.message_libre||'')
+        );
+        var successHtml = '<div class="diag__ok">' +
+          '<h3>Message reçu.</h3>' +
+          '<p>Nous vous répondons sous 24h, par écrit. Aucun engagement.</p>' +
+          (!isLive ? '<p style="margin-top:.75rem;font-size:.8125rem;color:var(--ivoire-mute)">Webhook non activé sur ce preview — <a href="mailto:contact@pinapp.fr?subject=Diagnostic%20Pinapp&body=' + mailBody + '" style="color:var(--cyan)">cliquez ici pour nous écrire directement</a>.</p>' : '') +
+          '</div>';
+        form.outerHTML = successHtml;
       } else {
         btn.disabled = false;
         btn.innerHTML = originalText;
