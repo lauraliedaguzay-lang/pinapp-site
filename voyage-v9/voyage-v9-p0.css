@@ -87,6 +87,18 @@ html {
   font-weight: 400;
 }
 
+.lead {
+  margin: 0 0 1.25rem;
+  font-size: clamp(1rem, 1.2vw, 1.125rem);
+  line-height: 1.55;
+  color: var(--vv9-muted);
+  max-width: 48ch;
+}
+
+.sisters__lead {
+  margin-bottom: 0.5rem;
+}
+
 .panel {
   background: var(--vv9-panel);
   border: 1px solid var(--vv9-border);
@@ -129,13 +141,23 @@ html {
 }
 
 .portfolio__tease {
-  margin: 1.5rem 0 0;
+  text-align: center;
+  margin: 1.5rem auto 0;
+  max-width: 60ch;
+  font-family: var(--vv9-font-body, 'Geist', system-ui, sans-serif);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--vv9-muted);
+  opacity: 0.75;
+  letter-spacing: 0.02em;
+}
+
+.portfolio__tease em {
   font-family: 'Fraunces', Georgia, serif;
   font-style: italic;
-  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
-  line-height: 1.45;
-  color: var(--vv9-muted);
-  opacity: 0.6;
+  font-weight: 400;
+  color: var(--vv9-accent-amber, #f0a454);
+  font-size: 1.0625rem;
 }
 
 .sep {
@@ -178,7 +200,7 @@ html {
 
 .real:focus-visible {
   outline: 2px solid var(--vv9-cyan);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
 .real__tag {
@@ -202,11 +224,11 @@ html {
   margin: 0;
 }
 
-/* Sisters (P0.6) */
-.sisters {
-  margin: 0;
-  padding: clamp(3rem, 8vw, 5rem) clamp(1.25rem, 4vw, 2.5rem);
-  border-bottom: 1px solid rgba(245, 241, 232, 0.06);
+/* Sisters s12b (P0.6) */
+.scene--sisters {
+  min-height: auto;
+  padding-top: clamp(2.5rem, 6vw, 4rem);
+  padding-bottom: clamp(2.5rem, 6vw, 4rem);
   background: rgba(5, 10, 20, 0.35);
 }
 
@@ -214,56 +236,80 @@ html {
   display: grid;
   gap: 1rem;
   grid-template-columns: 1fr;
+  margin-top: 1.5rem;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 720px) {
   .sisters__grid {
     grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
   }
 }
 
 .sisters__card {
-  display: block;
-  padding: 1.25rem 1.35rem;
-  border-radius: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 1.5rem 1.35rem;
+  border-radius: 4px;
   border: 1px solid rgba(245, 241, 232, 0.12);
-  background: rgba(10, 16, 28, 0.75);
+  background: rgba(10, 20, 32, 0.75);
   text-decoration: none;
   color: inherit;
   transition:
-    transform 0.22s cubic-bezier(0.25, 0.1, 0.25, 1),
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+    transform 0.45s cubic-bezier(0.25, 0.1, 0.25, 1),
+    border-color 0.35s ease;
 }
 
 .sisters__card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(62, 245, 224, 0.25);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22);
+  transform: translateY(-3px);
+  border-color: rgba(240, 164, 84, 0.45);
 }
 
 .sisters__card:focus-visible {
   outline: 2px solid var(--vv9-cyan);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
-.sisters__card h3 {
-  margin: 0 0 0.5rem;
-  font-size: 1.15rem;
+.sisters__tag {
+  margin: 0;
+  font-size: 0.6875rem;
   font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(240, 164, 84, 0.95);
 }
 
-.sisters__card h3 em {
+.sisters__name {
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.sisters__name em {
+  font-family: 'Fraunces', Georgia, serif;
   font-style: italic;
   font-weight: 400;
-  color: var(--vv9-cyan);
+  color: rgba(240, 164, 84, 0.95);
 }
 
-.sisters__card p {
+.sisters__desc {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  line-height: 1.55;
   color: var(--vv9-muted);
-  line-height: 1.45;
+  max-width: 40ch;
+}
+
+.sisters__link {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  color: var(--vv9-cyan);
+  border-top: 1px solid rgba(245, 241, 232, 0.1);
 }
 
 /* Tarifs */
@@ -287,66 +333,98 @@ html {
   color: var(--vv9-muted);
 }
 
-.pricing-table a {
-  color: var(--vv9-cyan);
-  text-decoration: underline;
-  text-underline-offset: 0.12em;
-}
-
-.pricing-table a:hover {
+.prices__link {
   color: var(--vv9-text);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(230, 185, 115, 0.45);
+  transition:
+    color 0.25s ease,
+    text-decoration-color 0.25s ease;
 }
 
-/* FAQ P0.1 */
+.prices__link:hover {
+  color: rgba(240, 164, 84, 0.98);
+  text-decoration-color: rgba(240, 164, 84, 0.85);
+}
+
+.prices__link:focus-visible {
+  outline: 2px solid var(--vv9-cyan);
+  outline-offset: 2px;
+}
+
+/* FAQ P0.1 — faq__item + marqueur + */
 .faq {
-  max-width: 40rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 1.5rem;
+  max-width: 780px;
 }
 
-.faq details {
+.faq__item {
   border-bottom: 1px solid rgba(245, 241, 232, 0.1);
-  padding: 0.35rem 0;
+  padding: 1rem 0;
 }
 
-.faq summary {
+.faq__item:first-child {
+  border-top: 1px solid rgba(245, 241, 232, 0.1);
+}
+
+.faq__item summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
   font-family: 'Fraunces', Georgia, serif;
   font-style: italic;
   font-weight: 400;
-  font-size: 1.05rem;
-  cursor: pointer;
-  list-style: none;
-  padding: 0.65rem 0;
-  position: relative;
-  padding-right: 1.5rem;
+  font-size: clamp(1.125rem, 1.8vw, 1.5rem);
+  line-height: 1.35;
+  color: var(--vv9-text);
+  transition: color 0.3s ease;
 }
 
-.faq summary::-webkit-details-marker {
+.faq__item summary::-webkit-details-marker {
   display: none;
 }
 
-.faq summary::after {
-  content: '';
-  position: absolute;
-  right: 0.25rem;
-  top: 50%;
-  width: 0.5rem;
-  height: 0.5rem;
-  border-right: 2px solid var(--vv9-muted);
-  border-bottom: 2px solid var(--vv9-muted);
-  transform: translateY(-60%) rotate(45deg);
-  transition: transform 0.2s ease;
-}
-
-.faq details[open] summary::after {
-  transform: translateY(-30%) rotate(-135deg);
-}
-
-.faq details p {
-  margin: 0 0 1rem;
-  padding-left: 0.15rem;
-  color: var(--vv9-muted);
-  font-size: 0.95rem;
+.faq__item summary::after {
+  content: '+';
+  flex-shrink: 0;
   font-family: 'Geist', system-ui, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: rgba(240, 164, 84, 0.9);
+  transition: transform 0.35s ease;
+}
+
+.faq__item[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.faq__item[open] summary {
+  color: rgba(240, 164, 84, 0.98);
+}
+
+.faq__item p {
+  margin: 0.5rem 0 0;
+  max-width: 64ch;
+  font-family: 'Geist', system-ui, sans-serif;
+  font-size: clamp(0.9375rem, 1.15vw, 1.0625rem);
+  line-height: 1.6;
+  color: var(--vv9-muted);
   font-style: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq__item summary,
+  .faq__item summary::after {
+    transition: none;
+  }
 }
 
 /* Contact + CTA */
@@ -385,21 +463,53 @@ html {
   font-family: inherit;
 }
 
+.btn--primary {
+  background: var(--vv9-violet);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--vv9-text);
+}
+
+.btn--primary:hover {
+  filter: brightness(1.06);
+}
+
+.btn--primary:focus-visible {
+  outline: 2px solid var(--vv9-cyan);
+  outline-offset: 2px;
+}
+
 .btn--secondary {
-  background: rgba(62, 245, 224, 0.1);
-  border-color: rgba(62, 245, 224, 0.35);
+  background: transparent;
   color: var(--vv9-cyan);
+  border: 1px solid var(--vv9-cyan);
+  gap: 0.6rem;
+  padding: 0.85rem 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
 }
 
 .btn--secondary:hover {
-  background: rgba(62, 245, 224, 0.16);
-  border-color: rgba(62, 245, 224, 0.5);
-  color: var(--vv9-text);
+  background: var(--vv9-cyan);
+  color: var(--vv9-bg);
+  transform: translateY(-2px);
 }
 
 .btn--secondary:focus-visible {
   outline: 2px solid var(--vv9-cyan);
-  outline-offset: 2px;
+  outline-offset: 3px;
+}
+
+.diag__or {
+  text-align: center;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--vv9-muted);
+  margin: 0.75rem 0;
 }
 
 .vv9-form label {
