@@ -58,7 +58,7 @@
   --violet:  #b388ff;
   --ivoire:  #f4e4c1;
   --ivoire-dim: rgba(244,228,193,0.72);
-  --ivoire-mute: rgba(244,228,193,0.48);
+  --ivoire-mute: rgba(244,228,193,0.62);
   --nuit:    #050b14;
   --nuit-2:  #0a1420;
   --nuit-3:  #0f1b2a;
@@ -395,7 +395,7 @@ html:not(.js) .stage__layer[data-stage="01"]{opacity:1}
 .rivage-hero__track{display:flex;height:100%;transition:transform .5s var(--ease)}
 .rivage-hero__slide{min-width:100%;height:100%;margin:0;padding:0}
 .rivage-hero__slide img{width:100%;height:100%;object-fit:cover;display:block}
-.rivage-hero__nav{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 var(--space-2);pointer-events:none}
+.rivage-hero__nav{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 var(--space-2);pointer-events:none;z-index:2}
 .rivage-hero__btn{pointer-events:auto;width:44px;height:44px;border-radius:50%;border:1px solid var(--fumee-2);background:rgba(5,11,20,.65);color:var(--ivoire);display:grid;place-items:center;transition:background .2s,border-color .2s}
 .rivage-hero__btn:hover{border-color:var(--or);color:var(--or)}
 .rivage-hero__dots{display:flex;justify-content:center;gap:.4rem;margin-top:var(--space-3)}
@@ -628,6 +628,12 @@ a.real:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
 .diag__conditional{margin:var(--space-2) 0 0}
 .diag__conditional[hidden]{display:none}
 .diag__sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.diag__label{display:block;font-size:.6875rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ivoire-dim);margin:0 0 .35rem}
+.diag__hint{font-size:.8125rem;color:var(--ivoire-dim);line-height:1.45;margin:0}
+#diag-error:empty{display:none}
+#diag-error:not(:empty){display:block;margin-bottom:var(--space-2);padding:.65rem .85rem;border:1px solid rgba(255,107,107,.45);background:rgba(255,107,107,.08);color:var(--ivoire);font-size:.875rem;border-radius:4px}
+.rivage-hero__dot:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.rivage-hero__dot[aria-selected="true"]{background:var(--or);border-color:var(--or)}
 .partners{margin:var(--space-5) 0 var(--space-3);text-align:center}
 .partners__label{display:inline-block;margin-bottom:var(--space-3);color:var(--ivoire-dim)}
 .partners__grid{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:var(--space-3) var(--space-4);max-width:960px;margin:0 auto}
@@ -1433,7 +1439,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     <h2 class="h1" id="s05a-h" data-reveal data-reveal-delay="1">Atelier Rivage — <em>cabinet d'architecture</em></h2>
     <p class="lead" data-reveal data-reveal-delay="2" style="margin-top:var(--space-3);text-align:center;margin-inline:auto">Démo live : vitrine premium, navigation claire, chargement sobre. Cinq vues à fournir en WebP (draft mode si absent).</p>
     <div class="rivage-hero" data-reveal data-reveal-delay="3">
-      <div class="rivage-hero__viewport" id="rivageViewport" tabindex="0" aria-roledescription="carrousel" aria-label="Carrousel Atelier Rivage">
+      <div class="rivage-hero__viewport" id="rivageViewport" tabindex="0" role="tabpanel" aria-roledescription="carrousel" aria-label="Aperçu vitrine Atelier Rivage">
         <div class="rivage-hero__track" id="rivageTrack">
           <figure class="rivage-hero__slide"><img src="assets/atelier-rivage/slide-1.webp" alt="Atelier Rivage — slide 1" width="1600" height="1000" loading="lazy" decoding="async"></figure>
           <figure class="rivage-hero__slide"><img src="assets/atelier-rivage/slide-2.webp" alt="Atelier Rivage — slide 2" width="1600" height="1000" loading="lazy" decoding="async"></figure>
@@ -1441,7 +1447,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
           <figure class="rivage-hero__slide"><img src="assets/atelier-rivage/slide-4.webp" alt="Atelier Rivage — slide 4" width="1600" height="1000" loading="lazy" decoding="async"></figure>
           <figure class="rivage-hero__slide"><img src="assets/atelier-rivage/slide-5.webp" alt="Atelier Rivage — slide 5" width="1600" height="1000" loading="lazy" decoding="async"></figure>
         </div>
-        <div class="rivage-hero__nav" aria-hidden="true">
+        <div class="rivage-hero__nav">
           <button type="button" class="rivage-hero__btn" id="rivagePrev" aria-label="Image précédente">‹</button>
           <button type="button" class="rivage-hero__btn" id="rivageNext" aria-label="Image suivante">›</button>
         </div>
@@ -2018,65 +2024,87 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 
     <div class="diag-wrap" data-reveal data-reveal-delay="4">
       <form id="diag" class="diag" novalidate>
+        <div id="diag-error" role="alert" aria-live="assertive"></div>
         <div class="diag__row">
           <div>
-            <label class="diag__sr" for="diag-vous">Prénom et nom</label>
+            <label class="diag__label" for="diag-vous">Prénom et nom</label>
             <input id="diag-vous" required name="vous" autocomplete="name" placeholder="Votre prénom">
           </div>
           <div>
-            <label class="diag__sr" for="diag-entreprise">Entreprise</label>
+            <label class="diag__label" for="diag-entreprise">Entreprise</label>
             <input id="diag-entreprise" required name="entreprise" autocomplete="organization" placeholder="Votre entreprise">
           </div>
         </div>
         <div class="diag__row">
           <div>
-            <label class="diag__sr" for="diag-email">Adresse e-mail</label>
+            <label class="diag__label" for="diag-email">Adresse e-mail</label>
             <input id="diag-email" required type="email" name="email" autocomplete="email" placeholder="Email">
           </div>
           <div>
-            <label class="diag__sr" for="diag-tel">Téléphone (optionnel)</label>
+            <label class="diag__label" for="diag-tel">Téléphone (optionnel)</label>
             <input id="diag-tel" name="tel" type="tel" autocomplete="tel" placeholder="Téléphone (optionnel)">
           </div>
         </div>
-        <label class="diag__sr" for="diag-besoin">Besoin principal</label>
+        <label class="diag__label" for="diag-besoin">Votre demande</label>
         <select id="diag-besoin" required name="besoin">
-          <option value="">Votre besoin principal</option>
-          <option>Site vitrine</option>
-          <option>Automatisation</option>
-          <option>IA sur-mesure</option>
-          <option>Pack Duo complet</option>
-          <option>Site transmission / présence numérique</option>
-          <option value="film-ia-cadeau">Film IA à offrir (cadeau)</option>
-          <option value="film-ia-pro">Film IA pour mon activité</option>
+          <option value="">Choisir une option</option>
+          <optgroup label="Prestations">
+            <option value="site-vitrine">Site vitrine</option>
+            <option value="auto-pack">Automatisation (pack n8n)</option>
+            <option value="ia-mesure">IA sur-mesure</option>
+            <option value="duo-complet">Pack Duo complet</option>
+            <option value="transmission">Site transmission / présence numérique</option>
+          </optgroup>
+          <optgroup label="Films IA (en ligne)">
+            <option value="film-ia-cadeau">Film IA à offrir (cadeau)</option>
+            <option value="film-ia-pro">Film IA pour mon activité</option>
+          </optgroup>
           <optgroup label="Événementiel vidéo (Nouvelle-Aquitaine · sur devis)">
             <option value="event-seminaire">Séminaire entreprise</option>
             <option value="event-prive">Anniversaire / événement privé</option>
             <option value="event-autre">Autre captation sur site</option>
           </optgroup>
-          <option>Autre</option>
+          <optgroup label="Formations">
+            <option value="form-l1">Formation — Niveau 1 (Kit prompts)</option>
+            <option value="form-l2">Formation — Niveau 2 (Complet)</option>
+            <option value="form-l3">Formation — Niveau 3 (Pro)</option>
+            <option value="form-inconnu">Formation — je ne sais pas encore</option>
+          </optgroup>
+          <option value="unsure">Je ne sais pas / autre sujet</option>
         </select>
+        <div id="diagAutoFields" class="diag__conditional" hidden>
+          <label class="diag__label" for="diag-auto-scenario">Quel flux automatiser en priorité ?</label>
+          <select id="diag-auto-scenario" name="auto_scenario">
+            <option value="auto-lead">Prospect entrant (formulaire → Notion → email)</option>
+            <option value="auto-devis">Devis signé (signature → paiement → facture)</option>
+            <option value="auto-formation">Formation + séquence (paiement → accès → emails)</option>
+            <option value="auto-livraison">Livraison → avis</option>
+            <option value="auto-autre">Autre / à définir au diagnostic</option>
+          </select>
+        </div>
         <div id="diagGiftRecipient" class="diag__conditional" hidden>
-          <label class="diag__sr" for="diag-gift">Destinataire du film cadeau</label>
+          <label class="diag__label" for="diag-gift">Destinataire du film cadeau</label>
           <input id="diag-gift" type="text" name="gift_recipient" placeholder="Pour qui est ce film ? (prénom ou relation)" autocomplete="off">
         </div>
         <div id="diagEventFields" class="diag__conditional" hidden>
-          <p class="diag__hint" style="margin:0 0 var(--space-2);font-size:.8125rem;color:var(--ivoire-dim)">Déplacement Nouvelle-Aquitaine — précisez la date et le lieu pour un devis rapide.</p>
+          <p class="diag__hint" style="margin:0 0 var(--space-2)">Déplacement Nouvelle-Aquitaine — précisez la date et le lieu pour un devis rapide.</p>
           <div class="diag__row">
             <div>
-              <label class="diag__sr" for="diag-event-date">Date de l'événement</label>
+              <label class="diag__label" for="diag-event-date">Date de l'événement</label>
               <input id="diag-event-date" name="event_date" type="date" autocomplete="off">
             </div>
             <div>
-              <label class="diag__sr" for="diag-event-lieu">Lieu (ville ou adresse)</label>
+              <label class="diag__label" for="diag-event-lieu">Lieu (ville ou adresse)</label>
               <input id="diag-event-lieu" name="event_lieu" type="text" autocomplete="street-address" placeholder="Ville ou lieu précis">
             </div>
           </div>
         </div>
-        <label class="diag__sr" for="diag-message">Message</label>
+        <label class="diag__label" for="diag-message">Message</label>
         <textarea id="diag-message" required name="message_libre" rows="4" placeholder="Décrivez votre besoin en quelques lignes"></textarea>
+        <p id="diag-consent-desc" class="diag__hint" style="margin:0 0 var(--space-2)">En cochant, vous acceptez que Pinapp traite ces informations pour répondre à votre demande (base légale : intérêt légitime / exécution précontractuelle). Droit d'accès et de retrait : <a href="../legal/confidentialite.html" rel="nofollow">politique de confidentialité</a>.</p>
         <label class="diag__consent">
-          <input type="checkbox" required name="consent">
-          <span>J'accepte d'être recontacté·e par écrit sous 24h. Vos données restent chez nous — voir <a href="../legal/confidentialite.html" rel="nofollow">confidentialité</a>.</span>
+          <input type="checkbox" required name="consent" id="diag-consent" aria-describedby="diag-consent-desc">
+          <span>J'accepte d'être recontacté·e par écrit sous 24h.</span>
         </label>
         <button class="btn btn--primary diag__submit" type="submit">Envoyer — réponse sous 24h <span class="btn__arrow">→</span></button>
         <p class="diag__note">Aucun appel. Aucun engagement.</p>
@@ -2252,7 +2280,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     });
   }
 
-  // 2c Carrousel Atelier Rivage (05a)
+  // 2c Carrousel Atelier Rivage (05a) — tabs ARIA + roving tabindex
   (function(){
     var vp = document.getElementById('rivageViewport');
     var track = document.getElementById('rivageTrack');
@@ -2266,22 +2294,52 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     var idx = 0;
     var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var dots = [];
+    function syncDots(){
+      dots.forEach(function(dot, j){
+        var on = j === idx;
+        dot.setAttribute('aria-selected', on ? 'true' : 'false');
+        dot.setAttribute('tabindex', on ? '0' : '-1');
+        dot.classList.toggle('is-active', on);
+      });
+    }
+    function focusDot(i){
+      var j = (i + n) % n;
+      if (dots[j]) dots[j].focus();
+    }
     for (var d = 0; d < n; d++) {
       var b = document.createElement('button');
       b.type = 'button';
       b.className = 'rivage-hero__dot' + (d === 0 ? ' is-active' : '');
-      b.setAttribute('aria-label', 'Aller à la vue ' + (d + 1));
-      b.addEventListener('click', function(di){ return function(){ go(di); }; }(d));
+      b.setAttribute('role', 'tab');
+      b.id = 'rivage-tab-' + d;
+      b.setAttribute('aria-controls', 'rivageViewport');
+      b.setAttribute('aria-label', 'Vue ' + (d + 1) + ' sur ' + n);
+      b.setAttribute('aria-selected', d === 0 ? 'true' : 'false');
+      b.setAttribute('tabindex', d === 0 ? '0' : '-1');
+      b.addEventListener('click', function(di){ return function(){ go(di, true); }; }(d));
       dotsHost.appendChild(b);
       dots.push(b);
     }
-    function go(i){
+    function go(i, fromUser){
       idx = (i + n) % n;
       track.style.transform = 'translateX(-' + (idx * 100) + '%)';
-      dots.forEach(function(dot, j){ dot.classList.toggle('is-active', j === idx); });
+      syncDots();
+      if (fromUser && dots[idx]) dots[idx].focus();
     }
-    if (prev) prev.addEventListener('click', function(){ go(idx - 1); });
-    if (next) next.addEventListener('click', function(){ go(idx + 1); });
+    if (prev) prev.addEventListener('click', function(){ go(idx - 1, false); });
+    if (next) next.addEventListener('click', function(){ go(idx + 1, false); });
+    dotsHost.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown'){ e.preventDefault(); go(idx + 1, true); }
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp'){ e.preventDefault(); go(idx - 1, true); }
+      else if (e.key === 'Home'){ e.preventDefault(); go(0, true); }
+      else if (e.key === 'End'){ e.preventDefault(); go(n - 1, true); }
+    });
+    vp.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowRight'){ e.preventDefault(); go(idx + 1, false); focusDot(idx); }
+      else if (e.key === 'ArrowLeft'){ e.preventDefault(); go(idx - 1, false); focusDot(idx); }
+      else if (e.key === 'Home'){ e.preventDefault(); go(0, false); focusDot(0); }
+      else if (e.key === 'End'){ e.preventDefault(); go(n - 1, false); focusDot(n - 1); }
+    });
     var tx = 0;
     vp.addEventListener('touchstart', function(e){
       if (!e.touches || !e.touches[0]) return;
@@ -2290,14 +2348,14 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     vp.addEventListener('touchend', function(e){
       if (!e.changedTouches || !e.changedTouches[0]) return;
       var dx = e.changedTouches[0].clientX - tx;
-      if (dx > 50) go(idx - 1);
-      else if (dx < -50) go(idx + 1);
+      if (dx > 50) go(idx - 1, false);
+      else if (dx < -50) go(idx + 1, false);
     }, { passive: true });
     var timer = null;
     function arm(){
       if (reduced) return;
       if (timer) clearInterval(timer);
-      timer = window.setInterval(function(){ go(idx + 1); }, 4000);
+      timer = window.setInterval(function(){ go(idx + 1, false); }, 4000);
     }
     arm();
     vp.addEventListener('focus', function(){ if (timer) clearInterval(timer); });
@@ -2501,17 +2559,17 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     updateDraftBadge();
   });
 
-  // 8. Mouse parallax hero-1 (hover + no reduced motion)
+  // 8. Mouse parallax hero-1 — uniquement sur la <video> (ne pas écraser le Ken Burns du calque .stage__layer)
   if (window.matchMedia('(hover:hover)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    var hero = document.querySelector('.stage__layer[data-stage="01"]');
-    if (hero){
+    var heroVid = document.querySelector('.stage__layer[data-stage="01"] video');
+    if (heroVid){
       var raf = null, tx = 0, ty = 0;
       document.addEventListener('mousemove', function(e){
-        tx = (e.clientX / window.innerWidth  - 0.5) * 14;
-        ty = (e.clientY / window.innerHeight - 0.5) * 14;
+        tx = (e.clientX / window.innerWidth  - 0.5) * 10;
+        ty = (e.clientY / window.innerHeight - 0.5) * 10;
         if (!raf){
           raf = requestAnimationFrame(function(){
-            hero.style.transform = 'scale(1.04) translate3d(' + tx + 'px,' + ty + 'px,0)';
+            heroVid.style.transform = 'translate3d(' + tx + 'px,' + ty + 'px,0)';
             raf = null;
           });
         }
@@ -2526,6 +2584,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     var v = sel.value;
     var gift = document.getElementById('diagGiftRecipient');
     var eventBlock = document.getElementById('diagEventFields');
+    var autoBlock = document.getElementById('diagAutoFields');
+    var autoSel = document.getElementById('diag-auto-scenario');
     if (gift) gift.hidden = v !== 'film-ia-cadeau';
     var isEvent = v === 'event-seminaire' || v === 'event-prive' || v === 'event-autre';
     if (eventBlock){
@@ -2534,6 +2594,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       var lieuIn = document.getElementById('diag-event-lieu');
       if (dateIn) dateIn.required = isEvent;
       if (lieuIn) lieuIn.required = isEvent;
+    }
+    var isAuto = v === 'auto-pack';
+    if (autoBlock){
+      autoBlock.hidden = !isAuto;
+      if (autoSel) autoSel.required = isAuto;
     }
   }
   var besoinSel = document.querySelector('#diag select[name="besoin"]');
@@ -2552,29 +2617,54 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       btn.disabled = true;
       btn.innerHTML = 'Envoi…';
 
+      var errEl = document.getElementById('diag-error');
+      if (errEl) errEl.textContent = '';
+
       var data = Object.fromEntries(new FormData(form));
       data.submittedAt = new Date().toISOString();
       data.source = 'voyage-v9';
       data.meta = { ua: navigator.userAgent, ref: document.referrer, href: location.href };
-      var n8nTag = '—';
-      if (data.besoin === 'film-ia-cadeau') n8nTag = '#film-ia-cadeau';
-      else if (data.besoin === 'film-ia-pro') n8nTag = '#film-ia-pro';
-      else if (data.besoin === 'event-seminaire') n8nTag = '#event-seminaire';
-      else if (data.besoin === 'event-prive') n8nTag = '#event-prive';
-      else if (data.besoin === 'event-autre') n8nTag = '#event-autre';
+
+      var n8nMap = {
+        'site-vitrine': '#site-vitrine',
+        'ia-mesure': '#ia-mesure',
+        'duo-complet': '#duo-complet',
+        'transmission': '#transmission',
+        'film-ia-cadeau': '#film-ia-cadeau',
+        'film-ia-pro': '#film-ia-pro',
+        'event-seminaire': '#event-seminaire',
+        'event-prive': '#event-prive',
+        'event-autre': '#event-autre',
+        'form-l1': '#form-l1',
+        'form-l2': '#form-l2',
+        'form-l3': '#form-l3',
+        'form-inconnu': '#form-inconnu',
+        'unsure': '#lead-unsure'
+      };
+      var n8nTag = n8nMap[data.besoin] || '—';
+      if (data.besoin === 'auto-pack'){
+        var sc = (data.auto_scenario || '').trim();
+        if (sc.indexOf('#') === 0) n8nTag = sc;
+        else if (sc) n8nTag = '#' + sc.replace(/^#/, '');
+        else n8nTag = '#auto-pack';
+      }
       data.n8n_route_tag = n8nTag;
-      data.telegram_digest = [
+      var lines = [
         '🔷 Nouveau diagnostic — voyage-v9',
         'Nom : ' + (data.vous || '—') + ' (' + (data.entreprise || '—') + ')',
         'Email : ' + (data.email || '—'),
         'Tél : ' + (data.tel || '—'),
         'Besoin : ' + (data.besoin || '—'),
-        'n8n tag : ' + n8nTag,
+        'n8n tag : ' + n8nTag
+      ];
+      if (data.besoin === 'auto-pack') lines.push('Scénario auto : ' + (data.auto_scenario || '—'));
+      lines.push(
         'Film pour : ' + (data.gift_recipient || '—'),
         'Événement date : ' + (data.event_date || '—'),
         'Événement lieu : ' + (data.event_lieu || '—'),
         'Message : ' + (data.message_libre || '—')
-      ].join('\n');
+      );
+      data.telegram_digest = lines.join('\n');
 
       var cfg = window.PinappConfig;
       var isLive = cfg && cfg.features && cfg.features.diagnosticWebhook && cfg._isRealUrl(cfg.webhooks.diagnosticLead);
@@ -2601,6 +2691,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
           'Tél : ' + (data.tel||'') + '\n' +
           'Besoin : ' + (data.besoin||'') + '\n' +
           'n8n : ' + (data.n8n_route_tag||'') + '\n' +
+          (data.besoin === 'auto-pack' ? ('Scénario auto : ' + (data.auto_scenario||'') + '\n') : '') +
           'Film pour : ' + (data.gift_recipient||'') + '\n' +
           'Événement date : ' + (data.event_date||'') + '\n' +
           'Événement lieu : ' + (data.event_lieu||'') + '\n\n' +
@@ -2615,7 +2706,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       } else {
         btn.disabled = false;
         btn.innerHTML = originalText;
-        alert("Erreur d'envoi. Réessayez ou écrivez à contact@pinapp.fr");
+        if (errEl){
+          errEl.textContent = "L'envoi n'a pas abouti. Réessayez ou écrivez à contact@pinapp.fr.";
+        } else {
+          alert("Erreur d'envoi. Réessayez ou écrivez à contact@pinapp.fr");
+        }
       }
     });
   }
