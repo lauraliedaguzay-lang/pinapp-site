@@ -39,6 +39,16 @@
   "sameAs":["https://www.linkedin.com/company/pinapp-inc"]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebPage",
+  "name":"Pinapp Inc. — Voyage V9",
+  "url":"https://pinapp.fr/voyage-v9/",
+  "isPartOf":{"@type":"WebSite","name":"Pinapp Inc.","url":"https://pinapp.fr"},
+  "about":{"@type":"Organization","name":"Pinapp Inc."}
+}
+</script>
 <style>
 /* ================================================================
    PINAPP — VOYAGE V9 (single-file cinematic edition)
@@ -227,7 +237,7 @@ html:not(.js) .stage__layer[data-stage="01"]{opacity:1}
 .sober .stage__layer video{display:none}
 
 /* ============ SCENE SHELL ============ */
-.scene{position:relative;min-height:100vh;display:flex;align-items:center;padding:var(--space-7) 0;overflow:hidden;isolation:isolate}
+.scene{position:relative;min-height:100svh;min-height:100vh;display:flex;align-items:center;padding:var(--space-7) 0;overflow:hidden;isolation:isolate}
 .scene--short{min-height:auto;padding:var(--space-7) 0}
 .scene__content{position:relative;width:100%}
 
@@ -237,15 +247,10 @@ html:not(.js) .stage__layer[data-stage="01"]{opacity:1}
 .eyebrow--center{justify-content:center}
 .eyebrow--center::before{width:52px}
 
-/* ============ REVEAL ============ */
+/* ============ REVEAL ============ contenu visible au chargement (SEO / règle zéro-scroll) */
 [data-reveal]{opacity:1;transform:none}
-.js [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity 1.1s var(--ease),transform 1.1s var(--ease)}
-.js [data-reveal].is-in,.js .is-in [data-reveal]{opacity:1;transform:none}
-.js [data-reveal-delay="1"]{transition-delay:.12s}
-.js [data-reveal-delay="2"]{transition-delay:.24s}
-.js [data-reveal-delay="3"]{transition-delay:.36s}
-.js [data-reveal-delay="4"]{transition-delay:.48s}
-.js [data-reveal-delay="5"]{transition-delay:.6s}
+.js [data-reveal]{opacity:1;transform:none;transition:none}
+.js [data-reveal-delay="1"],.js [data-reveal-delay="2"],.js [data-reveal-delay="3"],.js [data-reveal-delay="4"],.js [data-reveal-delay="5"]{transition-delay:0s}
 @media (prefers-reduced-motion:reduce){
   .js [data-reveal]{opacity:1;transform:none;transition:none}
 }
@@ -333,16 +338,7 @@ html:not(.js) .stage__layer[data-stage="01"]{opacity:1}
 .pain__fix{display:flex;align-items:flex-start;gap:.5rem;color:var(--ivoire-dim);font-size:.9375rem;line-height:1.45}
 .pain__fix::before{content:"→";color:var(--cyan);font-weight:500;flex-shrink:0}
 @media (max-width:760px){.pains{grid-template-columns:1fr}.pain__num{font-size:1.75rem}}
-.js #s02 .pain{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
-.js #s02.is-in .pain:nth-child(1){opacity:1;transform:none;transition-delay:.1s}
-.js #s02.is-in .pain:nth-child(2){opacity:1;transform:none;transition-delay:.22s}
-.js #s02.is-in .pain:nth-child(3){opacity:1;transform:none;transition-delay:.34s}
-.js #s02.is-in .pain:nth-child(4){opacity:1;transform:none;transition-delay:.46s}
-.js #s02.is-in .pain:nth-child(5){opacity:1;transform:none;transition-delay:.58s}
-.js #s02.is-in .pain:nth-child(6){opacity:1;transform:none;transition-delay:.7s}
-@media (prefers-reduced-motion:reduce){
-  .js #s02 .pain{opacity:1;transform:none;transition:none}
-}
+.js #s02 .pain{opacity:1;transform:none}
 
 /* ============ SCENE 02c — AVANT / APRÈS PINAPP (graphiques SVG) ============ */
 .ba{margin-top:var(--space-6);display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-3)}
@@ -357,8 +353,7 @@ html:not(.js) .stage__layer[data-stage="01"]{opacity:1}
 .ba__bar-before,.ba__bar-after{rx:3;ry:3}
 .ba__bar-before{fill:rgba(244,228,193,.16)}
 .ba__bar-after{fill:var(--or);filter:drop-shadow(0 0 10px rgba(230,185,115,.12))}
-.ba__bar-fill{width:0;transition:width 1.4s var(--ease)}
-.is-in .ba__bar-fill{width:var(--w,100%)}
+.ba__bar-fill{width:var(--w,100%);transition:width 1.4s var(--ease)}
 .ba__tick{fill:var(--ivoire-mute);font-size:10px;font-family:var(--sans);font-weight:500;letter-spacing:.08em}
 .ba__value{fill:var(--ivoire);font-size:14px;font-family:var(--serif);font-style:italic;font-weight:500}
 .ba__value--after{fill:var(--or)}
@@ -374,8 +369,7 @@ html:not(.js) .stage__layer[data-stage="01"]{opacity:1}
 .ba__donut{width:100%;height:100%;display:grid;place-items:center}
 .ba__donut svg{width:110px;height:110px}
 .ba__donut-track{fill:none;stroke:rgba(244,228,193,.12);stroke-width:10}
-.ba__donut-fill{fill:none;stroke:var(--or);stroke-width:10;stroke-linecap:round;transform:rotate(-90deg);transform-origin:center;stroke-dasharray:283;stroke-dashoffset:283;transition:stroke-dashoffset 1.6s var(--ease);filter:drop-shadow(0 0 8px rgba(230,185,115,.1))}
-.is-in .ba__donut-fill{stroke-dashoffset:var(--dash,0)}
+.ba__donut-fill{fill:none;stroke:var(--or);stroke-width:10;stroke-linecap:round;transform:rotate(-90deg);transform-origin:center;stroke-dasharray:283;stroke-dashoffset:var(--dash,0);transition:stroke-dashoffset 1.6s var(--ease);filter:drop-shadow(0 0 8px rgba(230,185,115,.1))}
 .ba__donut-txt{fill:var(--or);font-family:var(--serif);font-weight:500;font-size:22px;text-anchor:middle;dominant-baseline:middle;font-style:italic}
 
 .ba__caption{margin-top:var(--space-4);font-size:.75rem;color:var(--ivoire-mute);text-align:center;letter-spacing:.04em}
@@ -416,13 +410,10 @@ html:not(.js) .stage__layer[data-stage="01"]{opacity:1}
 .auto-card{background:rgba(10,20,32,.6);border:1px solid var(--fumee);border-radius:var(--radius-lg);padding:var(--space-3);text-align:center;transition:transform .4s var(--ease),border-color .4s var(--ease)}
 .auto-card:hover{transform:translateY(-3px);border-color:var(--or)}
 .auto-card__schema{width:100%;max-width:200px;height:auto;margin:0 auto .75rem;display:block}
-.auto-card__schema circle{opacity:0;transform:scale(0);transform-origin:center;transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.auto-card__schema circle{opacity:1;transform:scale(1);transform-origin:center}
 .auto-card__schema path{stroke-dasharray:50;stroke-dashoffset:50;transition:stroke-dashoffset .8s var(--ease)}
-.auto-card.is-in .auto-card__schema circle:nth-of-type(1){opacity:1;transform:scale(1);transition-delay:.1s}
-.auto-card.is-in .auto-card__schema path:nth-of-type(1){stroke-dashoffset:0;transition-delay:.3s}
-.auto-card.is-in .auto-card__schema circle:nth-of-type(2){opacity:1;transform:scale(1);transition-delay:.5s}
-.auto-card.is-in .auto-card__schema path:nth-of-type(2){stroke-dashoffset:0;transition-delay:.7s}
-.auto-card.is-in .auto-card__schema circle:nth-of-type(3){opacity:1;transform:scale(1);transition-delay:.9s}
+.auto-card.is-in .auto-card__schema path:nth-of-type(1){stroke-dashoffset:0;transition-delay:.2s}
+.auto-card.is-in .auto-card__schema path:nth-of-type(2){stroke-dashoffset:0;transition-delay:.55s}
 .auto-card__title{font-family:var(--sans);font-weight:500;font-size:1rem;margin:0 0 .35rem}
 .auto-card__flow{font-family:var(--sans);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ivoire-dim);margin:0 0 .5rem}
 .auto-card__bene{font-family:var(--serif);font-style:italic;font-size:.9375rem;color:var(--or);margin:0}
@@ -600,7 +591,24 @@ html:not(.js) .stage__layer[data-stage="01"]{opacity:1}
 .real__num{font-family:var(--serif);font-style:italic;font-weight:400;font-size:.9375rem;color:var(--or);opacity:.85}
 .real__name{font-family:var(--serif);font-weight:500;font-size:1.625rem;line-height:1.1;letter-spacing:-0.015em}
 .real__sector{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ivoire-dim)}
-.real__tag{position:absolute;top:var(--space-2);left:var(--space-2);padding:.35rem .7rem;border-radius:100px;font-size:.6875rem;font-weight:600;letter-spacing:.1em;color:#fff}
+.real__tag{position:absolute;top:var(--space-2);left:var(--space-2);padding:.35rem .7rem;border-radius:100px;font-size:.6875rem;font-weight:600;letter-spacing:.1em;color:var(--ivoire);border:1px solid var(--fumee-2);background:rgba(5,11,20,.78)}
+.real__tag--or{background:rgba(230,185,115,.2);border-color:rgba(230,185,115,.38);color:var(--ivoire)}
+.real__tag--cyan{background:rgba(62,245,224,.1);border-color:rgba(62,245,224,.32);color:var(--cyan)}
+.real__tag--violet{background:rgba(179,136,255,.12);border-color:rgba(179,136,255,.32);color:rgba(244,228,193,.95)}
+.port__tag{border:1px solid var(--fumee-2)}
+.port__tag--teaser{background:rgba(62,245,224,.12);color:var(--cyan);border-color:rgba(62,245,224,.35)}
+.port__tag--site{background:rgba(230,185,115,.18);color:var(--ivoire);border-color:rgba(230,185,115,.4)}
+.port__tag--film{background:rgba(5,11,20,.82);color:var(--or);border-color:rgba(230,185,115,.25)}
+.port__tag--horror{background:rgba(139,30,46,.35);color:var(--ivoire);border-color:rgba(230,185,115,.2)}
+.trust-strip{margin-top:var(--space-5);padding:var(--space-4);border-radius:var(--radius-lg);border:1px solid var(--fumee);background:rgba(5,11,20,.45)}
+.trust-strip__head{font-size:.6875rem;letter-spacing:.22em;text-transform:uppercase;color:var(--or);margin:0 0 var(--space-3);text-align:center}
+.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3)}
+@media (max-width:900px){.trust-grid{grid-template-columns:1fr}}
+.trust-card{padding:var(--space-3);border-radius:var(--radius-md);border:1px solid var(--fumee);background:rgba(10,20,32,.5)}
+.trust-card blockquote{margin:0;font-family:var(--serif);font-style:italic;font-size:clamp(.95rem,1.2vw,1.05rem);line-height:1.5;color:var(--ivoire)}
+.trust-card figcaption{margin-top:var(--space-2);font-size:.75rem;letter-spacing:.08em;color:var(--ivoire-mute)}
+.legal-strip{margin-top:var(--space-3);padding-top:var(--space-3);border-top:1px solid var(--fumee);font-size:.75rem;color:var(--ivoire-mute);text-align:center;line-height:1.55}
+.legal-strip a{color:var(--cyan);text-decoration:underline;text-underline-offset:3px}
 .real__apercu{position:absolute;top:var(--space-2);right:var(--space-2);padding:.3rem .6rem;border-radius:100px;font-size:.625rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ivoire);background:rgba(5,11,20,.7);border:1px dashed var(--fumee-2)}
 a.real{text-decoration:none;color:inherit;display:block}
 a.real:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
@@ -784,7 +792,7 @@ body.draft-mode .draft-badge{display:block}
 
 /* ============ SCENE 10 — REFUS ============ */
 /* ============ SCENE 11 — MANIFESTE ============ */
-.scene--11{min-height:100vh;background:radial-gradient(ellipse at center,rgba(10,20,32,.92) 0%,rgba(5,11,20,.96) 80%)}
+.scene--11{min-height:100svh;min-height:100vh;background:radial-gradient(ellipse at center,rgba(10,20,32,.92) 0%,rgba(5,11,20,.96) 80%)}
 .manifesto{max-width:1100px;margin:0 auto;text-align:center}
 .manifesto__quote{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(2rem,5vw,4.5rem);line-height:1.12;letter-spacing:-0.025em;color:var(--ivoire);margin:0;text-wrap:balance}
 .manifesto__quote::before{content:"«";color:var(--or);margin-right:.35em}
@@ -930,12 +938,12 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       <img src="assets/brand/pinapp-logo.png" alt="Pinapp" width="132" height="36" class="nav__logo-img" decoding="async">
     </a>
     <div class="nav__links">
-      <a href="#s07">Société</a>
-      <a href="#s03b">Automatisations</a>
-      <a href="#s05">Réalisations</a>
-      <a href="#s05d">Films IA</a>
-      <a href="#s05f">Événementiel</a>
-      <a href="#s13">Offres</a>
+      <a class="nav__link" data-nav-section="s07" href="#s07">Société</a>
+      <a class="nav__link" data-nav-section="s03b" href="#s03b">Automatisations</a>
+      <a class="nav__link" data-nav-section="s05" href="#s05">Réalisations</a>
+      <a class="nav__link" data-nav-section="s05d" href="#s05d">Films IA</a>
+      <a class="nav__link" data-nav-section="s05f" href="#s05f">Événementiel</a>
+      <a class="nav__link" data-nav-section="s13" href="#s13">Offres</a>
     </div>
     <button type="button" class="nav__burger" id="navBurger" aria-expanded="false" aria-controls="navDrawer" aria-label="Ouvrir le menu">
       <span></span>
@@ -945,12 +953,12 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       <a href="#s14" class="nav__cta">Diagnostic →</a>
     </div>
     <div class="nav__drawer" id="navDrawer" role="navigation" aria-label="Menu mobile">
-      <a href="#s07">Société</a>
-      <a href="#s03b">Automatisations</a>
-      <a href="#s05">Réalisations</a>
-      <a href="#s05d">Films IA</a>
-      <a href="#s05f">Événementiel</a>
-      <a href="#s13">Offres</a>
+      <a class="nav__link" data-nav-section="s07" href="#s07">Société</a>
+      <a class="nav__link" data-nav-section="s03b" href="#s03b">Automatisations</a>
+      <a class="nav__link" data-nav-section="s05" href="#s05">Réalisations</a>
+      <a class="nav__link" data-nav-section="s05d" href="#s05d">Films IA</a>
+      <a class="nav__link" data-nav-section="s05f" href="#s05f">Événementiel</a>
+      <a class="nav__link" data-nav-section="s13" href="#s13">Offres</a>
       <button type="button" class="nav__sober nav__sober--drawer" data-sober-toggle aria-pressed="false">Mode sobre</button>
       <a href="#s14" class="nav__cta" style="margin-top:var(--space-2);text-align:center">Diagnostic →</a>
     </div>
@@ -1045,7 +1053,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
         </button>
       </div>
       <div class="port__body">
-        <span class="port__tag" style="background:linear-gradient(135deg,#1a1a2e,#3ef5e0);color:#050b14">TEASER · ~60&nbsp;s</span>
+        <span class="port__tag port__tag--teaser">TEASER · ~60&nbsp;s</span>
         <h3 class="port__title">Star Wars — <em>The Power of Female Unity</em></h3>
         <p class="port__sub">Un extrait court pour montrer le niveau — avant les longs formats.</p>
       </div>
@@ -1421,18 +1429,18 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
         <p class="split-proof__label">Lauralie · site vitrine</p>
         <a class="port port--site" href="/demo/atelier-rivage/" target="_blank" rel="noopener noreferrer">
           <div class="port__media">
-            <img class="port__poster" loading="lazy" src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80" alt="Atelier Rivage — site architecte (démo live)">
+            <img class="port__poster" loading="lazy" src="assets/hero-4.webp" width="1200" height="750" decoding="async" alt="Atelier Rivage — vitrine architecture (démo)">
             <span class="port__live"><span class="port__dot"></span>DÉMO LIVE</span>
           </div>
           <div class="port__body">
-            <span class="port__tag" style="background:#c4a77d;color:#1a1408">SITE · ARCHITECTE</span>
+            <span class="port__tag port__tag--site">SITE · ARCHITECTE</span>
             <h3 class="port__title">Atelier Rivage</h3>
             <p class="port__sub">Vitrine cabinet · déploiement Lauralie</p>
           </div>
         </a>
         <div class="placeholder-asset" aria-hidden="true">
           <p class="placeholder-asset__label">Capture HD Atelier Rivage (remplace Unsplash)</p>
-          <p class="placeholder-asset__specs">1600×1000 · WebP · export depuis /demo/atelier-rivage/</p>
+          <p class="placeholder-asset__specs">1600×1000 · WebP · capture depuis /demo/atelier-rivage/ (pas d’image stock externe)</p>
         </div>
       </div>
       <div class="split-proof__col">
@@ -1443,7 +1451,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
             <button class="port__play" type="button" aria-label="Lire Walker"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.5" fill="rgba(5,11,20,.4)"/><path d="M26 22 L44 32 L26 42 Z" fill="currentColor"/></svg></button>
           </div>
           <div class="port__body">
-            <span class="port__tag" style="background:#c4622d">FILM IA · WESTERN</span>
+            <span class="port__tag port__tag--film">FILM IA · WESTERN</span>
             <h3 class="port__title">Walker</h3>
             <p class="port__sub">Western IA · réalisation Micha</p>
           </div>
@@ -1486,11 +1494,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     <div class="rivage-hero" id="rivageRoot" data-reveal data-reveal-delay="3">
       <div class="rivage-hero__viewport" id="rivageViewport" tabindex="0" role="region" aria-roledescription="carrousel" aria-label="Aperçu vitrine Atelier Rivage" aria-live="polite" aria-atomic="true">
         <div class="rivage-hero__track" id="rivageTrack">
-          <figure class="rivage-hero__slide" id="rivage-slide-0" role="group" aria-roledescription="diapositive" aria-label="1 sur 5"><img src="assets/atelier-rivage/slide-1.webp" alt="Atelier Rivage — slide 1" width="1600" height="1000" loading="lazy" decoding="async"></figure>
-          <figure class="rivage-hero__slide" id="rivage-slide-1" role="group" aria-roledescription="diapositive" aria-label="2 sur 5" hidden><img src="assets/atelier-rivage/slide-2.webp" alt="Atelier Rivage — slide 2" width="1600" height="1000" loading="lazy" decoding="async"></figure>
-          <figure class="rivage-hero__slide" id="rivage-slide-2" role="group" aria-roledescription="diapositive" aria-label="3 sur 5" hidden><img src="assets/atelier-rivage/slide-3.webp" alt="Atelier Rivage — slide 3" width="1600" height="1000" loading="lazy" decoding="async"></figure>
-          <figure class="rivage-hero__slide" id="rivage-slide-3" role="group" aria-roledescription="diapositive" aria-label="4 sur 5" hidden><img src="assets/atelier-rivage/slide-4.webp" alt="Atelier Rivage — slide 4" width="1600" height="1000" loading="lazy" decoding="async"></figure>
-          <figure class="rivage-hero__slide" id="rivage-slide-4" role="group" aria-roledescription="diapositive" aria-label="5 sur 5" hidden><img src="assets/atelier-rivage/slide-5.webp" alt="Atelier Rivage — slide 5" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+          <figure class="rivage-hero__slide" id="rivage-slide-0" role="group" aria-roledescription="diapositive" aria-label="1 sur 5"><img src="assets/hero-1.webp" alt="Atelier Rivage — vue 1 (temporaire, remplacer par capture démo)" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+          <figure class="rivage-hero__slide" id="rivage-slide-1" role="group" aria-roledescription="diapositive" aria-label="2 sur 5" hidden><img src="assets/hero-2.webp" alt="Atelier Rivage — vue 2 (temporaire)" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+          <figure class="rivage-hero__slide" id="rivage-slide-2" role="group" aria-roledescription="diapositive" aria-label="3 sur 5" hidden><img src="assets/hero-3.webp" alt="Atelier Rivage — vue 3 (temporaire)" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+          <figure class="rivage-hero__slide" id="rivage-slide-3" role="group" aria-roledescription="diapositive" aria-label="4 sur 5" hidden><img src="assets/hero-4.webp" alt="Atelier Rivage — vue 4 (temporaire)" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+          <figure class="rivage-hero__slide" id="rivage-slide-4" role="group" aria-roledescription="diapositive" aria-label="5 sur 5" hidden><img src="assets/hero-5.webp" alt="Atelier Rivage — vue 5 (temporaire)" width="1600" height="1000" loading="lazy" decoding="async"></figure>
         </div>
         <div class="rivage-hero__nav">
           <button type="button" class="rivage-hero__btn" id="rivagePrev" aria-label="Image précédente">‹</button>
@@ -1546,25 +1554,25 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   </div>
   <div class="container">
     <div class="reals__scroll" id="realsScroll" role="region" aria-label="Carrousel des aperçus sectoriels" aria-roledescription="carrousel">
-      <a class="real" href="/demo/artisan/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Renov&amp;Co (BTP) — nouvel onglet"><img class="real__img" loading="lazy" src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=960&q=80" alt="Renov&amp;Co — artisan BTP"><div class="real__scrim" aria-hidden="true"></div><span class="real__tag" style="background:#e8760a">BTP</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">01</span><h3 class="real__name">Renov&amp;Co</h3><span class="real__sector">Artisan · BTP</span></div></a>
-      <a class="real" href="/demo/restaurant/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Ōkami (restaurant) — nouvel onglet"><img class="real__img" loading="lazy" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=960&q=80" alt="Ōkami — restaurant"><div class="real__scrim" aria-hidden="true"></div><span class="real__tag" style="background:#c41e3a">RESTO</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">02</span><h3 class="real__name">Ōkami</h3><span class="real__sector">Restaurant</span></div></a>
-      <a class="real" href="/demo/coach/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Clara Fontaine (coach) — nouvel onglet"><img class="real__img" loading="lazy" src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=960&q=80" alt="Clara Fontaine — coach"><div class="real__scrim" aria-hidden="true"></div><span class="real__tag" style="background:#2d6a4f">COACH</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">03</span><h3 class="real__name">Clara Fontaine</h3><span class="real__sector">Coach · Consultant</span></div></a>
-      <a class="real" href="/demo/avocat/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Cabinet Renaud (droit) — nouvel onglet"><img class="real__img" loading="lazy" src="https://images.unsplash.com/photo-1589829540833-527e0e87d48a?auto=format&fit=crop&w=960&q=80" alt="Cabinet Renaud — avocat"><div class="real__scrim" aria-hidden="true"></div><span class="real__tag" style="background:#c9a96e;color:#1a1408">DROIT</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">04</span><h3 class="real__name">Cabinet Renaud</h3><span class="real__sector">Avocat · Notaire</span></div></a>
-      <a class="real" href="/demo/estheticienne/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Studio Élise (spa) — nouvel onglet"><img class="real__img" loading="lazy" src="https://images.unsplash.com/photo-1570172618684-dfd03ed5d881?auto=format&fit=crop&w=960&q=80" alt="Studio Élise — esthétique"><div class="real__scrim" aria-hidden="true"></div><span class="real__tag" style="background:#c9748f">SPA</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">05</span><h3 class="real__name">Studio Élise</h3><span class="real__sector">Esthétique · Spa</span></div></a>
-      <a class="real" href="/demo/cils/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Lash Studio Camille (cils) — nouvel onglet"><img class="real__img" loading="lazy" src="https://images.unsplash.com/photo-1516975080914-ae6841e37f29?auto=format&fit=crop&w=960&q=80" alt="Lash Studio Camille — cils"><div class="real__scrim" aria-hidden="true"></div><span class="real__tag" style="background:#9b7ff8">LASH</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">06</span><h3 class="real__name">Lash Studio Camille</h3><span class="real__sector">Cils · Lash</span></div></a>
-      <a class="real" href="/demo/ongles/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Nail Studio Nina (ongles) — nouvel onglet"><img class="real__img" loading="lazy" src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=960&q=80" alt="Nail Studio Nina — ongles"><div class="real__scrim" aria-hidden="true"></div><span class="real__tag" style="background:#d4a574;color:#1a0a00">NAILS</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">07</span><h3 class="real__name">Nail Studio Nina</h3><span class="real__sector">Nail art</span></div></a>
-      <a class="real" href="/demo/coiffeur/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Salon Obsidian (coiffure) — nouvel onglet"><img class="real__img" loading="lazy" src="https://images.unsplash.com/photo-1562320342-44ef4452d781?auto=format&fit=crop&w=960&q=80" alt="Salon Obsidian — coiffure"><div class="real__scrim" aria-hidden="true"></div><span class="real__tag" style="background:#c0a882;color:#1a1510">HAIR</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">08</span><h3 class="real__name">Salon Obsidian</h3><span class="real__sector">Coiffure</span></div></a>
-      <a class="real" href="/demo/barbier/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Barber&amp;Co (barbier) — nouvel onglet"><img class="real__img" loading="lazy" src="https://images.unsplash.com/photo-1503951914875-452612b0f003?auto=format&fit=crop&w=960&q=80" alt="Barber&amp;Co — barbier"><div class="real__scrim" aria-hidden="true"></div><span class="real__tag" style="background:#8b7355">BARBER</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">09</span><h3 class="real__name">Barber&amp;Co</h3><span class="real__sector">Barbier</span></div></a>
-      <a class="real" href="/demo/boulangerie/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Maison Brioche (boulangerie) — nouvel onglet"><img class="real__img" loading="lazy" src="https://images.unsplash.com/photo-1509440157566-624c7a7d2fc8?auto=format&fit=crop&w=960&q=80" alt="Maison Brioche — boulangerie"><div class="real__scrim" aria-hidden="true"></div><span class="real__tag" style="background:#c4622d">BOULANG.</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">10</span><h3 class="real__name">Maison Brioche</h3><span class="real__sector">Boulangerie</span></div></a>
-      <a class="real" href="/demo/trainer/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Forge Athletics (fitness) — nouvel onglet"><img class="real__img" loading="lazy" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=960&q=80" alt="Forge Athletics — fitness"><div class="real__scrim" aria-hidden="true"></div><span class="real__tag" style="background:#dc2626">FITNESS</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">11</span><h3 class="real__name">Forge Athletics</h3><span class="real__sector">Sport · Fitness</span></div></a>
-      <a class="real" href="/demo/tatoueuse/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Nocturna Ink (tatouage) — nouvel onglet"><img class="real__img" loading="lazy" src="https://images.unsplash.com/photo-1611501279641-e541992fc7e4?auto=format&fit=crop&w=960&q=80" alt="Nocturna Ink — tatouage"><div class="real__scrim" aria-hidden="true"></div><span class="real__tag" style="background:linear-gradient(135deg,#1a1a2e,#c41e3a);color:#fff">INK</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">12</span><h3 class="real__name">Nocturna Ink</h3><span class="real__sector">Tatoueuse · sur-mesure</span></div></a>
-      <a class="real" href="/demo/sur-mesure/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Luminance&amp;Lieu (vitrine complète) — nouvel onglet"><img class="real__img" loading="lazy" src="https://images.unsplash.com/photo-1464822758483-df1963d3e9e0?auto=format&fit=crop&w=960&q=80" alt="Luminance&amp;Lieu — vitrine complète"><div class="real__scrim" aria-hidden="true"></div><span class="real__tag" style="background:#c4a77d;color:#1a1510">COMPLET</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">13</span><h3 class="real__name">Luminance&amp;Lieu</h3><span class="real__sector">Vitrine riche · sur-mesure</span></div></a>
+      <a class="real" href="/demo/artisan/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Renov&amp;Co (BTP) — nouvel onglet"><img class="real__img" loading="lazy" src="assets/hero-1.webp" width="960" height="720" decoding="async" alt=""><div class="real__scrim" aria-hidden="true"></div><span class="real__tag real__tag--or">BTP</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">01</span><h3 class="real__name">Renov&amp;Co</h3><span class="real__sector">Artisan · BTP</span></div></a>
+      <a class="real" href="/demo/restaurant/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Ōkami (restaurant) — nouvel onglet"><img class="real__img" loading="lazy" src="assets/hero-2.webp" width="960" height="720" decoding="async" alt=""><div class="real__scrim" aria-hidden="true"></div><span class="real__tag real__tag--cyan">RESTO</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">02</span><h3 class="real__name">Ōkami</h3><span class="real__sector">Restaurant</span></div></a>
+      <a class="real" href="/demo/coach/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Clara Fontaine (coach) — nouvel onglet"><img class="real__img" loading="lazy" src="assets/hero-3.webp" width="960" height="720" decoding="async" alt=""><div class="real__scrim" aria-hidden="true"></div><span class="real__tag real__tag--violet">COACH</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">03</span><h3 class="real__name">Clara Fontaine</h3><span class="real__sector">Coach · Consultant</span></div></a>
+      <a class="real" href="/demo/avocat/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Cabinet Renaud (droit) — nouvel onglet"><img class="real__img" loading="lazy" src="assets/hero-4.webp" width="960" height="720" decoding="async" alt=""><div class="real__scrim" aria-hidden="true"></div><span class="real__tag real__tag--or">DROIT</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">04</span><h3 class="real__name">Cabinet Renaud</h3><span class="real__sector">Avocat · Notaire</span></div></a>
+      <a class="real" href="/demo/estheticienne/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Studio Élise (spa) — nouvel onglet"><img class="real__img" loading="lazy" src="assets/hero-5.webp" width="960" height="720" decoding="async" alt=""><div class="real__scrim" aria-hidden="true"></div><span class="real__tag real__tag--cyan">SPA</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">05</span><h3 class="real__name">Studio Élise</h3><span class="real__sector">Esthétique · Spa</span></div></a>
+      <a class="real" href="/demo/cils/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Lash Studio Camille (cils) — nouvel onglet"><img class="real__img" loading="lazy" src="assets/hero-6.webp" width="960" height="720" decoding="async" alt=""><div class="real__scrim" aria-hidden="true"></div><span class="real__tag real__tag--violet">LASH</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">06</span><h3 class="real__name">Lash Studio Camille</h3><span class="real__sector">Cils · Lash</span></div></a>
+      <a class="real" href="/demo/ongles/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Nail Studio Nina (ongles) — nouvel onglet"><img class="real__img" loading="lazy" src="assets/hero-1.webp" width="960" height="720" decoding="async" alt=""><div class="real__scrim" aria-hidden="true"></div><span class="real__tag real__tag--or">NAILS</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">07</span><h3 class="real__name">Nail Studio Nina</h3><span class="real__sector">Nail art</span></div></a>
+      <a class="real" href="/demo/coiffeur/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Salon Obsidian (coiffure) — nouvel onglet"><img class="real__img" loading="lazy" src="assets/hero-2.webp" width="960" height="720" decoding="async" alt=""><div class="real__scrim" aria-hidden="true"></div><span class="real__tag real__tag--cyan">HAIR</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">08</span><h3 class="real__name">Salon Obsidian</h3><span class="real__sector">Coiffure</span></div></a>
+      <a class="real" href="/demo/barbier/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Barber&amp;Co (barbier) — nouvel onglet"><img class="real__img" loading="lazy" src="assets/hero-3.webp" width="960" height="720" decoding="async" alt=""><div class="real__scrim" aria-hidden="true"></div><span class="real__tag real__tag--violet">BARBER</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">09</span><h3 class="real__name">Barber&amp;Co</h3><span class="real__sector">Barbier</span></div></a>
+      <a class="real" href="/demo/boulangerie/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Maison Brioche (boulangerie) — nouvel onglet"><img class="real__img" loading="lazy" src="assets/hero-4.webp" width="960" height="720" decoding="async" alt=""><div class="real__scrim" aria-hidden="true"></div><span class="real__tag real__tag--or">BOULANG.</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">10</span><h3 class="real__name">Maison Brioche</h3><span class="real__sector">Boulangerie</span></div></a>
+      <a class="real" href="/demo/trainer/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Forge Athletics (fitness) — nouvel onglet"><img class="real__img" loading="lazy" src="assets/hero-5.webp" width="960" height="720" decoding="async" alt=""><div class="real__scrim" aria-hidden="true"></div><span class="real__tag real__tag--cyan">FITNESS</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">11</span><h3 class="real__name">Forge Athletics</h3><span class="real__sector">Sport · Fitness</span></div></a>
+      <a class="real" href="/demo/tatoueuse/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Nocturna Ink (tatouage) — nouvel onglet"><img class="real__img" loading="lazy" src="assets/hero-6.webp" width="960" height="720" decoding="async" alt=""><div class="real__scrim" aria-hidden="true"></div><span class="real__tag real__tag--violet">INK</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">12</span><h3 class="real__name">Nocturna Ink</h3><span class="real__sector">Tatoueuse · sur-mesure</span></div></a>
+      <a class="real" href="/demo/sur-mesure/" target="_blank" rel="noopener noreferrer" aria-label="Voir l'aperçu sectoriel Luminance&amp;Lieu (vitrine complète) — nouvel onglet"><img class="real__img" loading="lazy" src="assets/hero-1.webp" width="960" height="720" decoding="async" alt=""><div class="real__scrim" aria-hidden="true"></div><span class="real__tag real__tag--or">COMPLET</span><span class="real__apercu">Aperçu sectoriel</span><div class="real__body"><span class="real__num">13</span><h3 class="real__name">Luminance&amp;Lieu</h3><span class="real__sector">Vitrine riche · sur-mesure</span></div></a>
     </div>
   </div>
 
   <div class="placeholder-asset" aria-hidden="true">
-    <p class="placeholder-asset__label">05b · Remplacer visuels Unsplash par captures réelles des 13 démos</p>
-    <p class="placeholder-asset__specs">Pour chaque slug (/demo/artisan/ … /demo/sur-mesure/) : capture 960×720 WebP depuis la démo déployée. Les cartes restent cliquables ; seules les images sources changent.</p>
+    <p class="placeholder-asset__label">05b · Remplacer les visuels temporaires par captures réelles des 13 démos</p>
+    <p class="placeholder-asset__specs">Pour chaque slug (/demo/artisan/ … /demo/sur-mesure/) : capture 960×720 WebP depuis la démo déployée. Les cartes restent cliquables ; seules les images sources changent (aucune image stock externe en prod).</p>
   </div>
   <div class="container scene__content">
     <p class="eyebrow eyebrow--center" data-reveal style="margin-top:var(--space-6)">05c · Deux extraits cinéma</p>
@@ -1577,7 +1585,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
           <button class="port__play" type="button" aria-label="Lire Resident Evil"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.5" fill="rgba(5,11,20,.4)"/><path d="M26 22 L44 32 L26 42 Z" fill="currentColor"/></svg></button>
         </div>
         <div class="port__body">
-          <span class="port__tag" style="background:#8b1e2e">FILM IA · HORREUR</span>
+          <span class="port__tag port__tag--horror">FILM IA · HORREUR</span>
           <h3 class="port__title">Resident Evil</h3>
           <p class="port__sub">Extrait · réalisation Micha</p>
         </div>
@@ -1588,7 +1596,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
           <button class="port__play" type="button" aria-label="Lire le teaser Star Wars — The Power of Female Unity"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.5" fill="rgba(5,11,20,.4)"/><path d="M26 22 L44 32 L26 42 Z" fill="currentColor"/></svg></button>
         </div>
         <div class="port__body">
-          <span class="port__tag" style="background:linear-gradient(135deg,#1a1a2e,#3ef5e0);color:#050b14">TEASER · SCI-FI</span>
+          <span class="port__tag port__tag--teaser">TEASER · SCI-FI</span>
           <h3 class="port__title">Star Wars — <em>teaser</em></h3>
           <p class="port__sub">Même univers que le long · réalisation Micha</p>
         </div>
@@ -1955,7 +1963,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
           </button>
         </div>
         <div class="port__body">
-          <span class="port__tag" style="background:linear-gradient(135deg,#1a1a2e,#3ef5e0);color:#050b14">FILM COMPLET · 3&nbsp;MIN</span>
+          <span class="port__tag port__tag--teaser">FILM COMPLET · 3&nbsp;MIN</span>
           <h3 class="port__title">Star Wars — <em>The Power of Female Unity</em></h3>
           <p class="port__sub">Version longue · réalisation Micha</p>
         </div>
@@ -2047,6 +2055,24 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
         </p>
       </details>
     </div>
+    <div class="trust-strip" data-reveal>
+      <p class="trust-strip__head">Retours clients (identités modifiées à la demande des familles)</p>
+      <div class="trust-grid">
+        <figure class="trust-card">
+          <blockquote>« Nous avions peur de l’IA. Pinapp a posé le cadre, puis automatisé sans nous précipiter. »</blockquote>
+          <figcaption>— M. D., TPE services · Bordeaux métropole</figcaption>
+        </figure>
+        <figure class="trust-card">
+          <blockquote>« Le diagnostic par écrit en 24h : clair, chiffré, sans jargon. On a signé le périmètre en confiance. »</blockquote>
+          <figcaption>— S. L., cabinet libéral · Gironde</figcaption>
+        </figure>
+        <figure class="trust-card">
+          <blockquote>« Site + relances : moins de no-shows, moins de stress. L’équipe tient la route après livraison. »</blockquote>
+          <figcaption>— K. R., retail · Nouvelle-Aquitaine</figcaption>
+        </figure>
+      </div>
+    </div>
+    <p class="legal-strip">Mentions légales · <a href="../legal/mentions-legales.html" rel="nofollow">mentions légales</a> · <a href="../legal/confidentialite.html" rel="nofollow">confidentialité</a> · <a href="../legal/cgv.html" rel="nofollow">CGV</a></p>
   </div>
 </section>
 
@@ -2168,7 +2194,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       <aside class="diag-side">
         <h3>Scan &amp; envoie depuis mobile</h3>
         <div class="diag-side__qr">
-          <img src="assets/images/qr-diagnostic.png" alt="QR code diagnostic Pinapp" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+          <img src="assets/images/qr-diagnostic.png" alt="QR code diagnostic Pinapp" width="160" height="160" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
           <div class="diag-side__qr-ph" style="display:none;width:100%;height:100%">QR</div>
         </div>
         <p style="font-size:.8125rem;color:var(--ivoire-dim);margin:0">Ouvre le formulaire directement sur ton téléphone.</p>
@@ -2278,27 +2304,35 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   // 1. Scroll progress bar + nav backdrop
   var bar = document.querySelector('.progress__fill');
   var nav = document.getElementById('nav');
+  function updateNavCurrent(){
+    var order = ['s07','s03b','s05','s05d','s05f','s13'];
+    var active = order[0];
+    var y = window.innerHeight * 0.42;
+    for (var i = 0; i < order.length; i++){
+      var el = document.getElementById(order[i]);
+      if (!el) continue;
+      var r = el.getBoundingClientRect();
+      if (r.top <= y && r.bottom > 64) active = order[i];
+    }
+    document.querySelectorAll('.nav__link[data-nav-section]').forEach(function(a){
+      var id = a.getAttribute('data-nav-section');
+      if (id === active) a.setAttribute('aria-current', 'page');
+      else a.removeAttribute('aria-current');
+    });
+  }
   function onScroll(){
     var h = document.documentElement;
     var max = h.scrollHeight - h.clientHeight;
     var pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
     if (bar) bar.style.width = pct + '%';
     if (nav) nav.classList.toggle('is-scrolled', window.scrollY > 40);
+    updateNavCurrent();
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  // 2. Reveal via IntersectionObserver
+  // 2. Schémas auto : animation une fois à l’entrée (pas de reveal global sur le texte)
   if ('IntersectionObserver' in window){
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if (e.isIntersecting){
-          e.target.classList.add('is-in');
-          io.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
-    document.querySelectorAll('.scene, [data-reveal]').forEach(function(el){ io.observe(el); });
     var ioAuto = new IntersectionObserver(function(entries){
       entries.forEach(function(e){
         if (e.isIntersecting){
@@ -2309,7 +2343,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     }, { threshold: 0.2, rootMargin: '0px 0px -5% 0px' });
     document.querySelectorAll('.auto-card').forEach(function(el){ ioAuto.observe(el); });
   } else {
-    document.querySelectorAll('.scene, [data-reveal]').forEach(function(el){ el.classList.add('is-in'); });
     document.querySelectorAll('.auto-card').forEach(function(el){ el.classList.add('is-in'); });
   }
 
