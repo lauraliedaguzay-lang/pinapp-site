@@ -100,28 +100,45 @@ em,i{font-family:var(--serif);font-style:italic;font-weight:400}
 
 .container{max-width:var(--container);margin-inline:auto;padding-inline:var(--gutter)}
 
-/* ============ STAGE FIXE GLOBAL (6 LAYERS) ============ */
+/* ============ STAGE FIXE GLOBAL (6 LAYERS) — dissolve type showcase (cf. AUDIT-TRANSITIONS / ref wearebrand) ============ */
 .stage{position:fixed;inset:0;z-index:-3;overflow:hidden;background:var(--nuit)}
-.stage__layer{position:absolute;inset:0;opacity:0;transition:opacity 1.4s var(--ease);background-size:cover;background-position:center;will-change:opacity,transform}
+.stage__vignette{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(ellipse 92% 78% at 50% 44%,transparent 38%,rgba(5,11,20,.22) 72%,rgba(5,11,20,.55) 100%);
+  opacity:.9;
+  transition:opacity 1.6s var(--ease)
+}
+.stage__layer{
+  position:absolute;inset:0;opacity:0;
+  transition:opacity 1.85s var(--ease),filter 1.85s var(--ease);
+  background-size:cover;background-position:center;
+  transform:translateZ(0);
+  -webkit-backface-visibility:hidden;backface-visibility:hidden;
+  filter:blur(5px);
+  will-change:opacity,filter
+}
 .stage__layer[data-stage="01"]{background-image:url('assets/hero-1.webp')}
 .stage__layer[data-stage="02"]{background-image:url('assets/hero-2.webp')}
 .stage__layer[data-stage="03"]{background-image:url('assets/hero-3.webp')}
 .stage__layer[data-stage="04"]{background-image:url('assets/hero-4.webp')}
 .stage__layer[data-stage="05"]{background-image:url('assets/hero-5.webp')}
 .stage__layer[data-stage="06"]{background-image:url('assets/hero-6.webp')}
-.stage__layer video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s var(--ease)}
-.js .stage__layer.is-active{opacity:1}
+.stage__layer video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.85s var(--ease)}
+.js .stage__layer.is-active{opacity:1;filter:none;will-change:opacity,transform}
 @media (prefers-reduced-motion:no-preference){
   @keyframes kenburns{
-    0%{transform:scale(1) translate(0,0)}
-    50%{transform:scale(1.04) translate(-1%,-1%)}
-    100%{transform:scale(1.02) translate(1%,1%)}
+    0%{transform:translateZ(0) scale(1) translate(0,0)}
+    50%{transform:translateZ(0) scale(1.018) translate(-0.45%,-0.35%)}
+    100%{transform:translateZ(0) scale(1.028) translate(0.35%,0.45%)}
   }
-  .js .stage__layer.is-active{animation:kenburns 14s ease-in-out infinite alternate}
+  .js .stage__layer.is-active{animation:kenburns 22s ease-in-out infinite alternate}
 }
 @media (prefers-reduced-motion:reduce){.js .stage__layer.is-active{animation:none}}
 .js .stage__layer.is-active video{opacity:1}
-.stage__scrim{position:fixed;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(5,11,20,.42) 0%,rgba(5,11,20,.68) 40%,rgba(5,11,20,.82) 100%);pointer-events:none}
+.low-perf .stage__layer:not(.is-active){filter:none}
+.low-perf .js .stage__layer.is-active{animation:none}
+.low-perf .stage__vignette{opacity:.65}
+.stage__scrim{position:fixed;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(5,11,20,.4) 0%,rgba(5,11,20,.66) 42%,rgba(5,11,20,.84) 100%);pointer-events:none;transition:opacity 1.2s var(--ease)}
 .stage__grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
 /* fallback no-js uniquement : premier layer visible si JS absent */
 html:not(.js) .stage__layer[data-stage="01"]{opacity:1}
@@ -163,7 +180,7 @@ html:not(.js) .stage__layer[data-stage="01"]{opacity:1}
 }
 
 /* Mode sobre : désactive stage + reveals */
-.sober .stage,.sober .stage__scrim,.sober .stage__grain{display:none}
+.sober .stage,.sober .stage__scrim,.sober .stage__grain,.sober .stage__vignette{display:none}
 .sober body{background:var(--nuit)}
 .sober [data-reveal]{opacity:1!important;transform:none!important}
 .sober .stage__layer video{display:none}
@@ -817,6 +834,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
+  .stage__layer{filter:none!important}
   .stage__layer video{display:none}
   [data-reveal]{opacity:1;transform:none}
 }
@@ -845,6 +863,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       <source src="../assets/video/voyage/08-atterrissage-sable.mp4" type="video/mp4">
     </video>
   </div>
+  <div class="stage__vignette" aria-hidden="true"></div>
 </div>
 <div class="stage__scrim" aria-hidden="true"></div>
 <div class="stage__grain" aria-hidden="true"></div>
@@ -2300,17 +2319,38 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     });
   }
   setActiveStage('01');
-  if ('IntersectionObserver' in window){
-    var ioStage = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if (e.isIntersecting){
-          var key = e.target.getAttribute('data-stage');
-          if (key) setActiveStage(key);
-        }
+  /* Fond : une seule couche « gagnante » = scène dont le centre est le plus proche du point de lecture (évite les oscillations IO quand plusieurs blocs partagent le même data-stage — pattern type showcase / wearebrand, cf. AUDIT-TRANSITIONS) */
+  (function(){
+    var stageRaf = null;
+    function pickStageFromScroll(){
+      var list = document.querySelectorAll('.scene[data-stage]');
+      if (!list.length) return;
+      var mid = window.innerHeight * 0.42;
+      var best = null;
+      var bestD = Infinity;
+      for (var i = 0; i < list.length; i++){
+        var el = list[i];
+        var r = el.getBoundingClientRect();
+        if (r.bottom < 36 || r.top > window.innerHeight - 36) continue;
+        var c = (r.top + r.bottom) * 0.5;
+        var d = Math.abs(c - mid);
+        var k = el.getAttribute('data-stage');
+        if (!k) continue;
+        if (d < bestD){ bestD = d; best = k; }
+      }
+      if (best) setActiveStage(best);
+    }
+    function tickStage(){
+      if (stageRaf) return;
+      stageRaf = requestAnimationFrame(function(){
+        stageRaf = null;
+        pickStageFromScroll();
       });
-    }, { threshold: 0.5 });
-    scenes.forEach(function(s){ ioStage.observe(s); });
-  }
+    }
+    window.addEventListener('scroll', tickStage, { passive: true });
+    window.addEventListener('resize', tickStage, { passive: true });
+    pickStageFromScroll();
+  })();
 
   // 4. Carrousel aperçus sectoriels (+ clavier)
   var reel = document.getElementById('realsScroll');
