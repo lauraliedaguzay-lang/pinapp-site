@@ -678,6 +678,16 @@ a.real:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.film-tier,.film-tier:hover{transition:none;transform:none}}
 .diag__conditional{margin:var(--space-2) 0 0}
 .diag__conditional[hidden]{display:none}
+.diag__conditional--info{margin-top:var(--space-3)}
+.diag__info{margin:0;padding:var(--space-3) var(--space-4);border-radius:var(--radius-lg);border:1px solid var(--fumee);background:rgba(10,20,32,.55);font-size:.9375rem;line-height:1.55;color:var(--ivoire-dim)}
+.scene--10bis{padding-left:0;padding-right:0}
+.s10bis__inner{max-width:var(--container);margin:0 auto;padding:0 var(--space-4);text-align:center}
+.s10bis__video{margin-top:var(--space-5);width:100%;max-width:min(100vw - 2rem,72rem);margin-inline:auto;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--fumee);background:rgba(5,11,20,.45)}
+.s10bis__video .placeholder-asset{margin:var(--space-5) var(--space-4);text-align:left}
+@media (min-width:900px){
+  .scene--10bis .s10bis__inner{max-width:none;padding:0 var(--space-6)}
+  .s10bis__video{max-width:none}
+}
 .diag__sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .diag__label{display:block;font-size:.6875rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ivoire-dim);margin:0 0 .35rem}
 .diag__hint{font-size:.8125rem;color:var(--ivoire-dim);line-height:1.45;margin:0}
@@ -1468,81 +1478,29 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 </section>
 
 <!-- ========================================================
-     04b · CARREFOUR PREUVES
-     ======================================================== -->
-<section class="scene" id="s04b" data-stage="04" aria-labelledby="s04b-h">
-  <div class="container scene__content">
-    <p class="eyebrow" data-reveal>04b · Carrefour</p>
-    <h2 class="h1" id="s04b-h" data-reveal data-reveal-delay="1">Nos preuves sont <em>dispersées</em> — volontairement.</h2>
-    <p class="lead" data-reveal data-reveal-delay="2" style="margin-top:var(--space-3);text-align:center;max-width:52ch;margin-inline:auto">
-      Chaque bloc du parcours montre une facette : automatisation, démos sectorielles, films, branche sœur. Pas de mur unique — des points d'ancrage que vous croisez au bon moment.
-    </p>
-    <div class="proof-strip__links" data-reveal data-reveal-delay="3">
-      <a href="#s03b">8 workflows n8n</a>
-      <a href="#s05">14 aperçus + films IA</a>
-      <a href="#footer-mp">Transmission numérique</a>
-    </div>
-  </div>
-</section>
-
-<!-- ========================================================
-     05a · VITRINE ATELIER RIVAGE
-     ======================================================== -->
-<section class="scene scene--short" id="s05a" data-stage="04" aria-labelledby="s05a-h">
-  <div class="container scene__content">
-    <p class="eyebrow" data-reveal>05a · Vitrine</p>
-    <h2 class="h1" id="s05a-h" data-reveal data-reveal-delay="1">Atelier Rivage — <em>cabinet d'architecture</em></h2>
-    <p class="lead" data-reveal data-reveal-delay="2" style="margin-top:var(--space-3);text-align:center;margin-inline:auto">Démo live : vitrine premium, navigation claire, chargement sobre. Cinq vues à fournir en WebP (draft mode si absent).</p>
-    <div class="rivage-hero" id="rivageRoot" data-reveal data-reveal-delay="3">
-      <div class="rivage-hero__viewport" id="rivageViewport" tabindex="0" role="region" aria-roledescription="carrousel" aria-label="Aperçu vitrine Atelier Rivage" aria-live="polite" aria-atomic="true">
-        <div class="rivage-hero__track" id="rivageTrack">
-          <figure class="rivage-hero__slide" id="rivage-slide-0" role="group" aria-roledescription="diapositive" aria-label="1 sur 5"><img src="assets/hero-1.webp" alt="Atelier Rivage — vue 1 (temporaire, remplacer par capture démo)" width="1600" height="1000" loading="lazy" decoding="async"></figure>
-          <figure class="rivage-hero__slide" id="rivage-slide-1" role="group" aria-roledescription="diapositive" aria-label="2 sur 5" hidden><img src="assets/hero-2.webp" alt="Atelier Rivage — vue 2 (temporaire)" width="1600" height="1000" loading="lazy" decoding="async"></figure>
-          <figure class="rivage-hero__slide" id="rivage-slide-2" role="group" aria-roledescription="diapositive" aria-label="3 sur 5" hidden><img src="assets/hero-3.webp" alt="Atelier Rivage — vue 3 (temporaire)" width="1600" height="1000" loading="lazy" decoding="async"></figure>
-          <figure class="rivage-hero__slide" id="rivage-slide-3" role="group" aria-roledescription="diapositive" aria-label="4 sur 5" hidden><img src="assets/hero-4.webp" alt="Atelier Rivage — vue 4 (temporaire)" width="1600" height="1000" loading="lazy" decoding="async"></figure>
-          <figure class="rivage-hero__slide" id="rivage-slide-4" role="group" aria-roledescription="diapositive" aria-label="5 sur 5" hidden><img src="assets/hero-5.webp" alt="Atelier Rivage — vue 5 (temporaire)" width="1600" height="1000" loading="lazy" decoding="async"></figure>
-        </div>
-        <div class="rivage-hero__nav">
-          <button type="button" class="rivage-hero__btn" id="rivagePrev" aria-label="Image précédente">‹</button>
-          <button type="button" class="rivage-hero__btn" id="rivageNext" aria-label="Image suivante">›</button>
-        </div>
-      </div>
-      <div class="rivage-hero__dots" id="rivageDots" role="toolbar" aria-label="Sélection de diapositive"></div>
-      <div class="rivage-hero__cta">
-        <a class="btn btn--secondary" href="/demo/atelier-rivage/" target="_blank" rel="noopener noreferrer">Visiter la démo <span class="btn__arrow">→</span></a>
-        <a class="btn btn--primary" href="#s14">Démarrer un projet <span class="btn__arrow">→</span></a>
-      </div>
-      <div class="placeholder-asset" aria-hidden="true" style="margin-top:var(--space-3)">
-        <p class="placeholder-asset__label">05a · 5 captures WebP Atelier Rivage</p>
-        <p class="placeholder-asset__specs">assets/atelier-rivage/slide-1.webp … slide-5.webp · 1600×1000 · ≤ 150&nbsp;Ko chacune</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========================================================
-     05 · RÉALISATIONS (aperçus sectoriels + paire films)
+     05 · RÉALISATIONS (aperçus sectoriels)
      ======================================================== -->
 <section class="scene scene--05" id="s05" data-stage="04" aria-labelledby="s05-h">
   <div class="container scene__content">
     <p class="eyebrow" data-reveal>05 · Réalisations</p>
-    <h2 class="h1" id="s05-h" data-reveal data-reveal-delay="1">Quatorze terrains de jeu <em>et</em> deux extraits cinéma.</h2>
+    <h2 class="h1" id="s05-h" data-reveal data-reveal-delay="1">Quatorze démonstrations sectorielles.</h2>
     <p class="lead" data-reveal data-reveal-delay="2" style="margin-top:var(--space-3)">
-      Les démos sectorielles prouvent la méthode Lauralie. Les extraits ci-dessous prolongent la promesse cinéma — sans refaire un portfolio empilé.
+      Les démos sectorielles prouvent la méthode Lauralie. <strong>Atelier Rivage</strong> (architecture · villas) complète le carrousel en 14<sup>e</sup> position — <a href="/demo/atelier-rivage/" target="_blank" rel="noopener noreferrer">démo live</a>. Les longs formats cinéma sont regroupés plus bas (climax) pour garder le rythme.
     </p>
     <div class="proof-strip" data-reveal data-reveal-delay="2">
       <p class="proof-strip__kicker">Rappel du parcours</p>
       <div class="proof-strip__links">
         <a href="#s02b">Conviction + teaser</a>
         <a href="#s04">Pack Duo · parité</a>
+        <a href="#s10bis">Making-of Lauralie</a>
         <a href="#s11">Climax avant tarifs</a>
       </div>
-      <p class="proof-strip__lead">Les autres preuves vidéo sont placées plus haut (teaser) ou plus bas (climax) pour garder le rythme narratif.</p>
+      <p class="proof-strip__lead">Les preuves vidéo longues sont regroupées après les réalisations (making-of, puis climax) pour garder le rythme narratif.</p>
     </div>
     <!-- Séparateur aperçus sectoriels -->
     <div class="apercus-head" data-reveal>
-      <p class="eyebrow eyebrow--center">05b · Aperçus sectoriels</p>
-      <h3 class="h2">Quatorze terrains de jeu <em>par secteur</em>.</h3>
+      <p class="eyebrow eyebrow--center">05 · Aperçus sectoriels</p>
+      <h3 class="h2">Quatorze démonstrations <em>par secteur</em>.</h3>
       <p class="lead">Démos construites pour montrer ce que nous déployons sur des TPE/PME. <strong>Ce ne sont pas des sites clients livrés</strong> — juste des aperçus de la méthode sectorielle.</p>
     </div>
 
@@ -1574,37 +1532,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   </div>
 
   <div class="placeholder-asset" aria-hidden="true">
-    <p class="placeholder-asset__label">05b · Remplacer les Unsplash par captures WebP 960×720 depuis chaque démo déployée</p>
+    <p class="placeholder-asset__label">05 · Remplacer les Unsplash par captures WebP 960×720 depuis chaque démo déployée</p>
     <p class="placeholder-asset__specs">Slugs : /demo/artisan/ … /demo/sur-mesure/ + /demo/atelier-rivage/. Visuels actuels : Unsplash sectoriel (cohérence immédiate). Objectif prod : zéro stock externe, fichiers sous /assets/images/demos/&lt;slug&gt;/.</p>
-  </div>
-  <div class="container scene__content">
-    <p class="eyebrow eyebrow--center" data-reveal style="margin-top:var(--space-6)">05c · Deux extraits cinéma</p>
-    <h3 class="h2" data-reveal data-reveal-delay="1">Resident Evil <em>et</em> teaser Star Wars</h3>
-    <p class="lead" data-reveal data-reveal-delay="2" style="text-align:center;max-width:52ch;margin-inline:auto;margin-top:var(--space-2)">Une scène d'action et un teaser sci-fi — le même socle technique, deux tonalités.</p>
-    <div class="portfolio portfolio--pair" data-reveal data-reveal-delay="3">
-      <article class="port" data-vimeo="1184294871">
-        <div class="port__media">
-          <img class="port__poster" loading="lazy" src="https://vumbnail.com/1184294871_large.jpg" alt="Resident Evil — extrait film IA Pinapp">
-          <button class="port__play" type="button" aria-label="Lire Resident Evil"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.5" fill="rgba(5,11,20,.4)"/><path d="M26 22 L44 32 L26 42 Z" fill="currentColor"/></svg></button>
-        </div>
-        <div class="port__body">
-          <span class="port__tag port__tag--horror">FILM IA · HORREUR</span>
-          <h3 class="port__title">Resident Evil</h3>
-          <p class="port__sub">Extrait · réalisation Micha</p>
-        </div>
-      </article>
-      <article class="port" data-vimeo="1184294810">
-        <div class="port__media">
-          <img class="port__poster" loading="lazy" src="https://vumbnail.com/1184294810_large.jpg" alt="Star Wars — teaser Pinapp">
-          <button class="port__play" type="button" aria-label="Lire le teaser Star Wars — The Power of Female Unity"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.5" fill="rgba(5,11,20,.4)"/><path d="M26 22 L44 32 L26 42 Z" fill="currentColor"/></svg></button>
-        </div>
-        <div class="port__body">
-          <span class="port__tag port__tag--teaser">TEASER · SCI-FI</span>
-          <h3 class="port__title">Star Wars — <em>teaser</em></h3>
-          <p class="port__sub">Même univers que le long · réalisation Micha</p>
-        </div>
-      </article>
-    </div>
   </div>
 </section>
 
@@ -1655,7 +1584,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       <article class="film-tier">
         <p class="film-tier__price">2 800 € <span>HT</span></p>
         <h3 class="film-tier__name">Premium</h3>
-        <p class="film-tier__desc">Bande-annonce type <em>Star Wars</em>, <em>Walker</em>, <em>Resident Evil</em>. Hollywood à votre nom.</p>
+        <p class="film-tier__desc">Bande-annonce type <em>Star Wars</em>, <em>Walker</em>, <em>Resident Evil</em>. Traitement cinéma — votre univers, notre direction artistique.</p>
         <ul class="film-tier__specs">
           <li>Livraison 14 jours</li>
           <li>Direction artistique complète</li>
@@ -1710,12 +1639,29 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 </section>
 
 <!-- ========================================================
-     05e · FORMATIONS
+     06 · MÉTHODE
      ======================================================== -->
-<section class="scene scene--short" id="s05e" data-stage="04" aria-labelledby="s05e-h">
+<section class="scene scene--06" id="s06" data-stage="05" aria-labelledby="s06-h">
   <div class="container scene__content">
-    <p class="eyebrow" data-reveal>05e · Formations</p>
-    <h2 class="h1" id="s05e-h" data-reveal data-reveal-delay="1">Apprenez à piloter <em>vos propres outils.</em></h2>
+    <p class="eyebrow" data-reveal>06 · Méthode</p>
+    <h2 class="h1" id="s06-h" data-reveal data-reveal-delay="1">De la première question <em>à la</em> livraison.</h2>
+    <p class="lead" data-reveal data-reveal-delay="2" style="margin-top:var(--space-3)">Pas d'appel. Tout par écrit. Vous gardez la main.</p>
+    <div class="steps" data-reveal data-reveal-delay="3">
+      <article class="step"><div class="step__num">01</div><h3 class="step__name">Diagnostic</h3><p class="step__desc">Sous 24h, par écrit, offert. Vous décrivez, nous répondons avec un diagnostic concret.</p></article>
+      <article class="step"><div class="step__num">02</div><h3 class="step__name">Devis clair</h3><p class="step__desc">Lignes détaillées, zéro surprise. Vous savez exactement ce que vous payez.</p></article>
+      <article class="step"><div class="step__num">03</div><h3 class="step__name">Construction</h3><p class="step__desc">Vous validez aux jalons. Paiement sur livrable, pas d'avance sur promesse.</p></article>
+      <article class="step"><div class="step__num">04</div><h3 class="step__name">Livraison + 30j</h3><p class="step__desc">Accompagnement 30 jours inclus. Documentation incluse. Vous êtes autonomes.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================
+     06bis · FORMATIONS
+     ======================================================== -->
+<section class="scene scene--short" id="s06bis" data-stage="05" aria-labelledby="s06bis-h">
+  <div class="container scene__content">
+    <p class="eyebrow" data-reveal>06bis · Formations</p>
+    <h2 class="h1" id="s06bis-h" data-reveal data-reveal-delay="1">Apprenez à piloter <em>vos propres outils.</em></h2>
     <p class="lead" data-reveal data-reveal-delay="2" style="margin-top:var(--space-3);text-align:center;margin-inline:auto">Trois niveaux. Prix TTC comme sur la page formation. Inscription en ligne.</p>
     <div class="formations-grid" data-reveal data-reveal-delay="3">
       <article class="formation-tier">
@@ -1754,23 +1700,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
         </ul>
         <a class="btn btn--secondary" href="/formations/kit-prompts/">S'inscrire <span class="btn__arrow">→</span></a>
       </article>
-    </div>
-  </div>
-</section>
-
-<!-- ========================================================
-     06 · MÉTHODE
-     ======================================================== -->
-<section class="scene scene--06" id="s06" data-stage="05" aria-labelledby="s06-h">
-  <div class="container scene__content">
-    <p class="eyebrow" data-reveal>06 · Méthode</p>
-    <h2 class="h1" id="s06-h" data-reveal data-reveal-delay="1">De la première question <em>à la</em> livraison.</h2>
-    <p class="lead" data-reveal data-reveal-delay="2" style="margin-top:var(--space-3)">Pas d'appel. Tout par écrit. Vous gardez la main.</p>
-    <div class="steps" data-reveal data-reveal-delay="3">
-      <article class="step"><div class="step__num">01</div><h3 class="step__name">Diagnostic</h3><p class="step__desc">Sous 24h, par écrit, offert. Vous décrivez, nous répondons avec un diagnostic concret.</p></article>
-      <article class="step"><div class="step__num">02</div><h3 class="step__name">Devis clair</h3><p class="step__desc">Lignes détaillées, zéro surprise. Vous savez exactement ce que vous payez.</p></article>
-      <article class="step"><div class="step__num">03</div><h3 class="step__name">Construction</h3><p class="step__desc">Vous validez aux jalons. Paiement sur livrable, pas d'avance sur promesse.</p></article>
-      <article class="step"><div class="step__num">04</div><h3 class="step__name">Livraison + 30j</h3><p class="step__desc">Accompagnement 30 jours inclus. Documentation incluse. Vous êtes autonomes.</p></article>
     </div>
   </div>
 </section>
@@ -1948,6 +1877,26 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 </section>
 
 <!-- ========================================================
+     10bis · MAKING-OF LAURALIE
+     ======================================================== -->
+<section class="scene scene--10bis" id="s10bis" data-stage="06" aria-labelledby="s10bis-h">
+  <div class="s10bis__inner">
+    <p class="eyebrow" data-reveal>10bis · Making-of Lauralie</p>
+    <h2 class="h1" id="s10bis-h" data-reveal data-reveal-delay="1">Le système qui travaille pendant que vous dormez.</h2>
+    <p class="lead" data-reveal data-reveal-delay="2" style="margin-top:var(--space-3);max-width:52ch;margin-inline:auto;text-align:center">
+      Parcours complet : de la spec au déploiement — ce que vous voyez sur pinapp.fr est le même socle que nous livrons aux TPE/PME.
+    </p>
+    <div class="s10bis__video" data-reveal data-reveal-delay="3">
+      <div class="placeholder-asset" aria-hidden="true">
+        <p class="placeholder-asset__label">making-of-lauralie.mp4 — vidéo muet 60–90&nbsp;s</p>
+        <p class="placeholder-asset__specs">1920×1080 · ≤ 18&nbsp;Mo · intégration &lt;video muted playsinline&gt; quand le fichier est prêt</p>
+      </div>
+    </div>
+    <p style="margin-top:var(--space-4);text-align:center"><a class="btn btn--secondary" href="#s14">Demander le même niveau d'exécution <span class="btn__arrow">→</span></a></p>
+  </div>
+</section>
+
+<!-- ========================================================
      11 · MANIFESTE
      ======================================================== -->
 <section class="scene scene--11" id="s11" aria-labelledby="s11-h">
@@ -2007,7 +1956,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
         <tr><td class="prices__offer"><a href="/realisations/films-ia/" class="prices__link">Court-métrage IA</a></td><td>1 290 € HT</td><td>10 jours · univers sur-mesure</td></tr>
         <tr><td class="prices__offer"><a href="/realisations/films-ia/" class="prices__link">Premium bande-annonce</a></td><td>2 800 € HT</td><td>14 jours · cinéma</td></tr>
         <tr class="featured"><td class="prices__offer"><em>Pack Duo</em> Lauralie+Micha <span class="prices__star">★</span></td><td>Dès 3 900 €</td><td>~1 600 € économisés</td></tr>
-        <tr><td class="prices__offer"><a href="#s05e" class="prices__link">Formations (3 niveaux)</a></td><td>67 à 397 € TTC</td><td>Voir scène 05e</td></tr>
+        <tr><td class="prices__offer"><a href="#s06bis" class="prices__link">Formations (3 niveaux)</a></td><td>67 à 397 € TTC</td><td>Voir scène 06bis</td></tr>
       </tbody>
     </table>
     </div>
@@ -2046,7 +1995,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
         </p>
       </details>
       <details class="faq__item">
-        <summary>Qu'est-ce qui se passe si je ne suis pas satisfait ?</summary>
+        <summary>Et si le résultat ne correspond pas à ce que j'attendais ?</summary>
         <p>
           On itère, on ajuste, on clarifie. 30 jours d'accompagnement post-livraison inclus. Pas de remboursement cash : nous préférons le service jusqu'à ce que ça fonctionne dans le cadre convenu.
         </p>
@@ -2059,10 +2008,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       </details>
     </div>
     <div class="trust-strip" data-reveal>
-      <p class="trust-strip__head">Retours clients (identités modifiées à la demande des familles)</p>
+      <p class="trust-strip__head">Retours clients (initiales modifiées à la demande des intéressé·es)</p>
       <div class="trust-grid">
         <figure class="trust-card">
-          <blockquote>« Nous avions peur de l’IA. Pinapp a posé le cadre, puis automatisé sans nous précipiter. »</blockquote>
+          <blockquote>« Nous hésitions sur l’IA. Pinapp a posé le cadre, puis automatisé sans nous précipiter. »</blockquote>
           <figcaption>— M. D., TPE services · Bordeaux métropole</figcaption>
         </figure>
         <figure class="trust-card">
@@ -2174,6 +2123,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
               <input id="diag-event-lieu" name="event_lieu" type="text" autocomplete="street-address" placeholder="Ville ou lieu précis">
             </div>
           </div>
+        </div>
+        <div id="diagDuoMessage" class="diag__conditional diag__conditional--info" hidden>
+          <p class="diag__info" role="status">Le Pack Duo démarre à 3 900 € HT. Cadrage précis sous 24h.</p>
         </div>
         <label class="diag__label" for="diag-message">Message</label>
         <textarea id="diag-message" required name="message_libre" rows="4" placeholder="Décrivez votre besoin en quelques lignes"></textarea>
@@ -2371,109 +2323,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       } else start();
     });
   }
-
-  // 2c Carrousel Atelier Rivage (05a) — region + diapositives, pas tab/tabpanel
-  (function(){
-    var root = document.getElementById('rivageRoot');
-    var vp = document.getElementById('rivageViewport');
-    var track = document.getElementById('rivageTrack');
-    var prev = document.getElementById('rivagePrev');
-    var next = document.getElementById('rivageNext');
-    var dotsHost = document.getElementById('rivageDots');
-    if (!vp || !track || !dotsHost) return;
-    var slides = track.querySelectorAll('.rivage-hero__slide');
-    var n = slides.length;
-    if (!n) return;
-    var idx = 0;
-    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var dots = [];
-    function syncDots(){
-      dots.forEach(function(dot, j){
-        var on = j === idx;
-        dot.setAttribute('aria-pressed', on ? 'true' : 'false');
-        dot.setAttribute('tabindex', on ? '0' : '-1');
-        dot.classList.toggle('is-active', on);
-      });
-    }
-    function syncSlides(){
-      for (var s = 0; s < n; s++){
-        if (s === idx) slides[s].removeAttribute('hidden');
-        else slides[s].setAttribute('hidden', '');
-      }
-      vp.setAttribute('aria-label', 'Aperçu vitrine Atelier Rivage, diapositive ' + (idx + 1) + ' sur ' + n);
-    }
-    function focusDot(i){
-      var j = (i + n) % n;
-      if (dots[j]) dots[j].focus();
-    }
-    for (var d = 0; d < n; d++) {
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'rivage-hero__dot' + (d === 0 ? ' is-active' : '');
-      b.id = 'rivage-dot-' + d;
-      b.setAttribute('aria-controls', 'rivage-slide-' + d);
-      b.setAttribute('aria-label', 'Afficher la vue ' + (d + 1) + ' sur ' + n);
-      b.setAttribute('aria-pressed', d === 0 ? 'true' : 'false');
-      b.setAttribute('tabindex', d === 0 ? '0' : '-1');
-      b.addEventListener('click', function(di){ return function(){ go(di, true); }; }(d));
-      dotsHost.appendChild(b);
-      dots.push(b);
-    }
-    function go(i, fromUser){
-      idx = (i + n) % n;
-      track.style.transform = 'translateX(-' + (idx * 100) + '%)';
-      syncDots();
-      syncSlides();
-      if (fromUser && dots[idx]) dots[idx].focus();
-    }
-    syncSlides();
-    if (prev) prev.addEventListener('click', function(){ go(idx - 1, false); });
-    if (next) next.addEventListener('click', function(){ go(idx + 1, false); });
-    dotsHost.addEventListener('keydown', function(e){
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown'){ e.preventDefault(); go(idx + 1, true); }
-      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp'){ e.preventDefault(); go(idx - 1, true); }
-      else if (e.key === 'Home'){ e.preventDefault(); go(0, true); }
-      else if (e.key === 'End'){ e.preventDefault(); go(n - 1, true); }
-    });
-    vp.addEventListener('keydown', function(e){
-      if (e.key === 'ArrowRight'){ e.preventDefault(); go(idx + 1, false); focusDot(idx); }
-      else if (e.key === 'ArrowLeft'){ e.preventDefault(); go(idx - 1, false); focusDot(idx); }
-      else if (e.key === 'Home'){ e.preventDefault(); go(0, false); focusDot(0); }
-      else if (e.key === 'End'){ e.preventDefault(); go(n - 1, false); focusDot(n - 1); }
-    });
-    var tx = 0;
-    vp.addEventListener('touchstart', function(e){
-      if (!e.touches || !e.touches[0]) return;
-      tx = e.touches[0].clientX;
-    }, { passive: true });
-    vp.addEventListener('touchend', function(e){
-      if (!e.changedTouches || !e.changedTouches[0]) return;
-      var dx = e.changedTouches[0].clientX - tx;
-      if (dx > 50) go(idx - 1, false);
-      else if (dx < -50) go(idx + 1, false);
-    }, { passive: true });
-    var timer = null;
-    function disarm(){ if (timer){ clearInterval(timer); timer = null; } }
-    function arm(){
-      if (reduced) return;
-      disarm();
-      timer = window.setInterval(function(){ go(idx + 1, false); }, 4000);
-    }
-    if (root && 'IntersectionObserver' in window){
-      var ioR = new IntersectionObserver(function(entries){
-        entries.forEach(function(en){ if (en.isIntersecting) arm(); else disarm(); });
-      }, { threshold: 0.15 });
-      ioR.observe(root);
-    } else arm();
-    if (root){
-      root.addEventListener('focusin', function(){ disarm(); });
-      root.addEventListener('focusout', function(){
-        window.setTimeout(function(){
-          if (root && !root.contains(document.activeElement)) arm();
-        }, 0);
-      });
-    }
-  })();
 
   // 3. Stage layers — pilotées par la scène visible
   var layers = document.querySelectorAll('.stage__layer');
@@ -2699,7 +2548,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     var eventBlock = document.getElementById('diagEventFields');
     var autoBlock = document.getElementById('diagAutoFields');
     var autoSel = document.getElementById('diag-auto-scenario');
+    var duoMsg = document.getElementById('diagDuoMessage');
     if (gift) gift.hidden = v !== 'film-ia-cadeau';
+    if (duoMsg) duoMsg.hidden = v !== 'duo-complet';
     var isEvent = v === 'event-seminaire' || v === 'event-prive' || v === 'event-autre';
     if (eventBlock){
       eventBlock.hidden = !isEvent;
