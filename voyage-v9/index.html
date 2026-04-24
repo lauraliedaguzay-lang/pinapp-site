@@ -237,6 +237,26 @@ html:not(.js) .stage__layer[data-stage="01"]{opacity:1}
 .conviction__card h3{font-family:var(--serif);font-style:italic;font-size:clamp(1.15rem,2vw,1.5rem);margin:0 0 var(--space-2);color:var(--ivoire)}
 .conviction__card p{margin:0;font-size:var(--text-body);line-height:1.55;color:var(--ivoire-dim)}
 @media (max-width:900px){.conviction__grid{grid-template-columns:1fr}}
+.proof-strip{margin-top:var(--space-5);padding-top:var(--space-5);border-top:1px solid var(--fumee);text-align:center}
+.proof-strip__kicker{font-size:.6875rem;letter-spacing:.2em;text-transform:uppercase;color:var(--or);margin:0 0 var(--space-3)}
+.proof-strip__lead{max-width:48ch;margin:var(--space-4) auto 0;font-size:.9375rem;color:var(--ivoire-dim);line-height:1.55}
+.proof-strip__links{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-2) var(--space-4);margin-top:var(--space-4)}
+.proof-strip__links a{font-size:.8125rem;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan);text-decoration:underline;text-underline-offset:3px}
+.split-proof{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);margin-top:var(--space-5);align-items:stretch}
+.split-proof__col{display:flex;flex-direction:column;gap:var(--space-2);border:1px solid var(--fumee);border-radius:4px;overflow:hidden;background:rgba(10,20,32,.55)}
+.split-proof__label{padding:.65rem 1rem;font-size:.6875rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ivoire-mute);border-bottom:1px solid var(--fumee);background:rgba(5,11,20,.35)}
+.split-proof__col .port{margin:0;border:0;border-radius:0;flex:1}
+.split-proof__col .port:hover{transform:none}
+@media (max-width:820px){.split-proof{grid-template-columns:1fr}}
+.portfolio--pair{grid-template-columns:repeat(2,1fr);max-width:56rem;margin-inline:auto;margin-top:var(--space-4)}
+.portfolio--pair .port--hero{grid-column:span 1;grid-row:span 1}
+@media (max-width:540px){.portfolio--pair{grid-template-columns:1fr}}
+.manifesto-climax{margin-top:var(--space-5);padding-top:var(--space-5);border-top:1px solid var(--fumee);text-align:center}
+.manifesto-climax__lead{max-width:52ch;margin:var(--space-3) auto 0;font-size:var(--text-lead);color:var(--ivoire-dim)}
+.manifesto-climax__port{margin-top:var(--space-4);max-width:56rem;margin-inline:auto}
+.manifesto-climax__port .port__media{aspect-ratio:16/9}
+.duo-new__meta-proof{margin-top:var(--space-2);font-size:.875rem;color:var(--ivoire-dim)}
+.duo-new__meta-proof a{color:var(--cyan);text-decoration:underline;text-underline-offset:3px}
 
 /* ============ SCENE 02 — CONSTAT ============ */
 .pains{display:grid;grid-template-columns:repeat(2,1fr);gap:0;margin-top:var(--space-6);border-top:1px solid var(--fumee);border-left:1px solid var(--fumee)}
@@ -766,6 +786,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       <a href="#s14" class="btn btn--primary">Premier échange offert <span class="btn__arrow">→</span></a>
       <a href="#s02" class="btn btn--ghost">Voir le constat</a>
     </div>
+    <div class="placeholder-asset" aria-hidden="true" style="margin-top:var(--space-4);max-width:42rem">
+      <p class="placeholder-asset__label">01 · Vidéo présentation Pinapp (Vimeo)</p>
+      <p class="placeholder-asset__specs">Teaser 45–60&nbsp;s · intégration lecteur sous le hero quand le fichier est prêt · hero-1 reste l’image de fond stage</p>
+    </div>
   </div>
   <div class="scroll-hint" aria-hidden="true">
     <span>Scroll</span><span class="scroll-hint__line"></span>
@@ -799,7 +823,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 <section class="scene" id="s02b" data-stage="02" aria-labelledby="s02b-h">
   <div class="container scene__content">
     <p class="eyebrow" data-reveal>02b · Conviction</p>
-    <h2 class="h1" id="s02b-h" data-reveal data-reveal-delay="1">Nous encadrons l'IA <em>comme un outil</em>, pas comme une promesse.</h2>
+    <h2 class="h1" id="s02b-h" data-reveal data-reveal-delay="1">L'IA n'est pas une mode passagère. <em>Nous l'encadrons</em> comme un outil.</h2>
     <p class="lead" data-reveal data-reveal-delay="2" style="margin-top:var(--space-3)">
       Lauralie s'appuie sur la science cognitive et sur des années de terrain : rassurer, former, puis automatiser — dans cet ordre.
     </p>
@@ -817,10 +841,20 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
         <p>Nous réduisons la charge mentale : moins d'écrans inutiles, moins de friction, des parcours lisibles pour vos équipes et vos clients.</p>
       </article>
     </div>
-    <div class="placeholder-asset" aria-hidden="true" style="margin-top:var(--space-4)">
-      <p class="placeholder-asset__label">02b · Visuel conviction (option)</p>
-      <p class="placeholder-asset__specs">WebP 1400×700 · schéma discret ou photo d’ambiance si vous renforcez cette section en prod</p>
-    </div>
+    <p class="eyebrow eyebrow--center" data-reveal data-reveal-delay="4" style="margin-top:var(--space-5)">Preuve par l'image</p>
+    <article class="port port--hero" data-reveal data-reveal-delay="4" data-vimeo="1184294810" style="max-width:56rem;margin:var(--space-4) auto 0">
+      <div class="port__media">
+        <img class="port__poster" loading="lazy" src="https://vumbnail.com/1184294810_large.jpg" alt="Teaser Star Wars — The Power of Female Unity (environ 60 secondes)">
+        <button class="port__play" type="button" aria-label="Lire le teaser Star Wars — The Power of Female Unity">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.5" fill="rgba(5,11,20,.4)"/><path d="M26 22 L44 32 L26 42 Z" fill="currentColor"/></svg>
+        </button>
+      </div>
+      <div class="port__body">
+        <span class="port__tag" style="background:linear-gradient(135deg,#1a1a2e,#3ef5e0);color:#050b14">TEASER · ~60&nbsp;s</span>
+        <h3 class="port__title">Star Wars — <em>The Power of Female Unity</em></h3>
+        <p class="port__sub">Un extrait court pour montrer le niveau — avant les longs formats.</p>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -1023,110 +1057,88 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       <span class="duo__price">Dès <em>3 900 €</em> HT</span>
       <span class="duo__saving"><b>~1 600 €</b> économisés vs. séparé</span>
     </div>
+    <div class="split-proof" data-reveal data-reveal-delay="5">
+      <div class="split-proof__col">
+        <p class="split-proof__label">Lauralie · site vitrine</p>
+        <a class="port port--site" href="/demo/atelier-rivage/" target="_blank" rel="noopener noreferrer">
+          <div class="port__media">
+            <img class="port__poster" loading="lazy" src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80" alt="Atelier Rivage — site architecte (démo live)">
+            <span class="port__live"><span class="port__dot"></span>DÉMO LIVE</span>
+          </div>
+          <div class="port__body">
+            <span class="port__tag" style="background:#c4a77d;color:#1a1408">SITE · ARCHITECTE</span>
+            <h3 class="port__title">Atelier Rivage</h3>
+            <p class="port__sub">Vitrine cabinet · déploiement Lauralie</p>
+          </div>
+        </a>
+        <div class="placeholder-asset" aria-hidden="true">
+          <p class="placeholder-asset__label">Capture HD Atelier Rivage (remplace Unsplash)</p>
+          <p class="placeholder-asset__specs">1600×1000 · WebP · export depuis /demo/atelier-rivage/</p>
+        </div>
+      </div>
+      <div class="split-proof__col">
+        <p class="split-proof__label">Micha · film IA</p>
+        <article class="port" data-vimeo="1184294762">
+          <div class="port__media">
+            <img class="port__poster" loading="lazy" src="https://vumbnail.com/1184294762_large.jpg" alt="Walker — Western Christian Remake (film IA Pinapp)">
+            <button class="port__play" type="button" aria-label="Lire Walker"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.5" fill="rgba(5,11,20,.4)"/><path d="M26 22 L44 32 L26 42 Z" fill="currentColor"/></svg></button>
+          </div>
+          <div class="port__body">
+            <span class="port__tag" style="background:#c4622d">FILM IA · WESTERN</span>
+            <h3 class="port__title">Walker</h3>
+            <p class="port__sub">Western IA · réalisation Micha</p>
+          </div>
+        </article>
+        <div class="placeholder-asset" aria-hidden="true">
+          <p class="placeholder-asset__label">Poster custom Walker (Texas)</p>
+          <p class="placeholder-asset__specs">1200×675 · JPEG ou WebP</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- ========================================================
-     05 · RÉALISATIONS (portfolio réel + aperçus sectoriels)
+     04b · CARREFOUR PREUVES
+     ======================================================== -->
+<section class="scene" id="s04b" data-stage="04" aria-labelledby="s04b-h">
+  <div class="container scene__content">
+    <p class="eyebrow" data-reveal>04b · Carrefour</p>
+    <h2 class="h1" id="s04b-h" data-reveal data-reveal-delay="1">Nos preuves sont <em>dispersées</em> — volontairement.</h2>
+    <p class="lead" data-reveal data-reveal-delay="2" style="margin-top:var(--space-3);text-align:center;max-width:52ch;margin-inline:auto">
+      Chaque bloc du parcours montre une facette : automatisation, démos sectorielles, films, branche sœur. Pas de mur unique — des points d'ancrage que vous croisez au bon moment.
+    </p>
+    <div class="proof-strip__links" data-reveal data-reveal-delay="3">
+      <a href="#s03b">8 workflows n8n</a>
+      <a href="#s05">13 aperçus + films IA</a>
+      <a href="#s12">Branche sœur</a>
+    </div>
+    <div class="placeholder-asset" aria-hidden="true" style="margin-top:var(--space-4);max-width:40rem;margin-inline:auto">
+      <p class="placeholder-asset__label">04b · Visuel carrefour (option)</p>
+      <p class="placeholder-asset__specs">Schéma discret ou still unique si vous voulez ancrer visuellement ce bloc en prod</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================
+     05 · RÉALISATIONS (aperçus sectoriels + paire films)
      ======================================================== -->
 <section class="scene scene--05" id="s05" data-stage="04" aria-labelledby="s05-h">
   <div class="container scene__content">
     <p class="eyebrow" data-reveal>05 · Réalisations</p>
-    <h2 class="h1" id="s05-h" data-reveal data-reveal-delay="1">Ce que nous avons <em>déjà</em> construit.</h2>
+    <h2 class="h1" id="s05-h" data-reveal data-reveal-delay="1">Treize terrains de jeu <em>et</em> deux extraits cinéma.</h2>
     <p class="lead" data-reveal data-reveal-delay="2" style="margin-top:var(--space-3)">
-      Films IA signés Micha, sites signés Lauralie. Vimeo et démos live.
+      Les démos sectorielles prouvent la méthode Lauralie. Les extraits ci-dessous prolongent la promesse cinéma — sans refaire un portfolio empilé.
     </p>
-
-    <!-- Portfolio grid : Star Wars hero + 4 cartes -->
-    <div class="portfolio" data-reveal data-reveal-delay="3">
-
-      <article class="port port--hero" data-vimeo="1184294810">
-        <div class="port__media">
-          <img class="port__poster" loading="lazy" src="https://vumbnail.com/1184294810_large.jpg" alt="Star Wars — The Power of Female Unity (teaser Pinapp)">
-          <button class="port__play" type="button" aria-label="Lire Star Wars — The Power of Female Unity">
-            <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.5" fill="rgba(5,11,20,.4)"/><path d="M26 22 L44 32 L26 42 Z" fill="currentColor"/></svg>
-          </button>
-        </div>
-        <div class="port__body">
-          <span class="port__tag" style="background:linear-gradient(135deg,#1a1a2e,#3ef5e0);color:#050b14">FILM IA · SCI-FI</span>
-          <h3 class="port__title">Star Wars — <em>The Power of Female Unity</em></h3>
-          <p class="port__sub">Bande-annonce IA · réalisation Micha</p>
-        </div>
-      </article>
-      <div class="placeholder-asset" aria-hidden="true">
-        <p class="placeholder-asset__label">Poster custom Star Wars (remplace vumbnail si besoin)</p>
-        <p class="placeholder-asset__specs">1200×675 · JPEG ou WebP · cible ≤ 200&nbsp;Ko · pas de modification des hero stage</p>
+    <div class="proof-strip" data-reveal data-reveal-delay="2">
+      <p class="proof-strip__kicker">Rappel du parcours</p>
+      <div class="proof-strip__links">
+        <a href="#s02b">Conviction + teaser</a>
+        <a href="#s04">Pack Duo · parité</a>
+        <a href="#s11">Climax avant tarifs</a>
       </div>
-
-      <article class="port" data-vimeo="1184294762">
-        <div class="port__media">
-          <img class="port__poster" loading="lazy" src="https://vumbnail.com/1184294762_large.jpg" alt="Walker — Western Christian Remake (film IA Pinapp)">
-          <button class="port__play" type="button" aria-label="Lire Walker"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.5" fill="rgba(5,11,20,.4)"/><path d="M26 22 L44 32 L26 42 Z" fill="currentColor"/></svg></button>
-        </div>
-        <div class="port__body">
-          <span class="port__tag" style="background:#c4622d">FILM IA · WESTERN</span>
-          <h3 class="port__title">Walker</h3>
-          <p class="port__sub">Western IA · réalisation Micha</p>
-        </div>
-      </article>
-      <div class="placeholder-asset" aria-hidden="true">
-        <p class="placeholder-asset__label">Poster custom Walker (Texas)</p>
-        <p class="placeholder-asset__specs">1200×675 · JPEG ou WebP · même emplacement que la vignette Vimeo actuelle</p>
-      </div>
-
-      <article class="port" data-vimeo="1184294871">
-        <div class="port__media">
-          <img class="port__poster" loading="lazy" src="https://vumbnail.com/1184294871_large.jpg" alt="Resident Evil — extrait film IA Pinapp">
-          <button class="port__play" type="button" aria-label="Lire Resident Evil"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.5" fill="rgba(5,11,20,.4)"/><path d="M26 22 L44 32 L26 42 Z" fill="currentColor"/></svg></button>
-        </div>
-        <div class="port__body">
-          <span class="port__tag" style="background:#8b1e2e">FILM IA · HORREUR</span>
-          <h3 class="port__title">Resident Evil</h3>
-          <p class="port__sub">Extrait · réalisation Micha</p>
-        </div>
-      </article>
-      <div class="placeholder-asset" aria-hidden="true">
-        <p class="placeholder-asset__label">Poster custom Resident Evil (horreur)</p>
-        <p class="placeholder-asset__specs">1200×675 · JPEG ou WebP</p>
-      </div>
-
-      <a class="port port--site" href="/demo/atelier-rivage/" target="_blank" rel="noopener noreferrer">
-        <div class="port__media">
-          <img class="port__poster" loading="lazy" src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80" alt="Atelier Rivage — site architecte (démo live)">
-          <span class="port__live"><span class="port__dot"></span>DÉMO LIVE</span>
-        </div>
-        <div class="port__body">
-          <span class="port__tag" style="background:#c4a77d;color:#1a1408">SITE · ARCHITECTE</span>
-          <h3 class="port__title">Atelier Rivage</h3>
-          <p class="port__sub">Vitrine cabinet · réalisation Lauralie</p>
-        </div>
-      </a>
-      <div class="placeholder-asset" aria-hidden="true">
-        <p class="placeholder-asset__label">Screenshot site Atelier Rivage (live)</p>
-        <p class="placeholder-asset__specs">1600×1000 · WebP · cible ≤ 150&nbsp;Ko · export navigateur depuis /demo/atelier-rivage/</p>
-      </div>
-
-      <article class="port" data-vimeo="1184294901">
-        <div class="port__media">
-          <img class="port__poster" loading="lazy" src="https://vumbnail.com/1184294901_large.jpg" alt="Mémoire &amp; Présence — clip Pinapp">
-          <button class="port__play" type="button" aria-label="Lire Mémoire &amp; Présence — clip"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.5" fill="rgba(5,11,20,.4)"/><path d="M26 22 L44 32 L26 42 Z" fill="currentColor"/></svg></button>
-        </div>
-        <div class="port__body">
-          <span class="port__tag" style="background:#2d6a4f">EXTRAIT CINÉMA</span>
-          <h3 class="port__title">Mémoire &amp; Présence — clip</h3>
-          <p class="port__sub">Projet à part · Pinapp M&amp;P</p>
-        </div>
-      </article>
-      <div class="placeholder-asset" aria-hidden="true">
-        <p class="placeholder-asset__label">Poster ou still Mémoire &amp; Présence — clip</p>
-        <p class="placeholder-asset__specs">1200×675 · aligné sur la ligne Vimeo actuelle</p>
-      </div>
-
+      <p class="proof-strip__lead">Les autres preuves vidéo sont placées plus haut (teaser) ou plus bas (climax) pour garder le rythme narratif.</p>
     </div>
-
-    <p class="portfolio__tease" data-reveal data-reveal-delay="3">
-      <span aria-hidden="true">+</span> <em>Trois autres projets</em> en cours de production · Maison Aurélie · Maison Céleste · Domaine Éclipse
-    </p>
     <!-- Séparateur aperçus sectoriels -->
     <div class="apercus-head" data-reveal>
       <p class="eyebrow eyebrow--center">05b · Aperçus sectoriels</p>
@@ -1163,6 +1175,35 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   <div class="placeholder-asset" aria-hidden="true">
     <p class="placeholder-asset__label">05b · Remplacer visuels Unsplash par captures réelles des 13 démos</p>
     <p class="placeholder-asset__specs">Pour chaque slug (/demo/artisan/ … /demo/sur-mesure/) : capture 960×720 WebP depuis la démo déployée. Les cartes restent cliquables ; seules les images sources changent.</p>
+  </div>
+  <div class="container scene__content">
+    <p class="eyebrow eyebrow--center" data-reveal style="margin-top:var(--space-6)">05c · Deux extraits cinéma</p>
+    <h3 class="h2" data-reveal data-reveal-delay="1">Resident Evil <em>et</em> Mémoire &amp; Présence</h3>
+    <p class="lead" data-reveal data-reveal-delay="2" style="text-align:center;max-width:52ch;margin-inline:auto;margin-top:var(--space-2)">Une scène d'action et un clip hommage — le même socle technique, deux tonalités.</p>
+    <div class="portfolio portfolio--pair" data-reveal data-reveal-delay="3">
+      <article class="port" data-vimeo="1184294871">
+        <div class="port__media">
+          <img class="port__poster" loading="lazy" src="https://vumbnail.com/1184294871_large.jpg" alt="Resident Evil — extrait film IA Pinapp">
+          <button class="port__play" type="button" aria-label="Lire Resident Evil"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.5" fill="rgba(5,11,20,.4)"/><path d="M26 22 L44 32 L26 42 Z" fill="currentColor"/></svg></button>
+        </div>
+        <div class="port__body">
+          <span class="port__tag" style="background:#8b1e2e">FILM IA · HORREUR</span>
+          <h3 class="port__title">Resident Evil</h3>
+          <p class="port__sub">Extrait · réalisation Micha</p>
+        </div>
+      </article>
+      <article class="port" data-vimeo="1184294901">
+        <div class="port__media">
+          <img class="port__poster" loading="lazy" src="https://vumbnail.com/1184294901_large.jpg" alt="Mémoire &amp; Présence — clip Pinapp">
+          <button class="port__play" type="button" aria-label="Lire Mémoire &amp; Présence — clip"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.5" fill="rgba(5,11,20,.4)"/><path d="M26 22 L44 32 L26 42 Z" fill="currentColor"/></svg></button>
+        </div>
+        <div class="port__body">
+          <span class="port__tag" style="background:#2d6a4f">EXTRAIT CINÉMA</span>
+          <h3 class="port__title">Mémoire &amp; Présence — clip</h3>
+          <p class="port__sub">Projet à part · Pinapp M&amp;P</p>
+        </div>
+      </article>
+    </div>
   </div>
 </section>
 
@@ -1227,7 +1268,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       <a class="btn btn--secondary" href="/realisations/films-ia/" target="_blank" rel="noopener noreferrer">Voir tous les exemples →</a>
       <span class="films-cta__gift"><em>Film à offrir</em> · cochez-le dans le formulaire diagnostic</span>
     </p>
-
     <div class="placeholder-asset" aria-hidden="true" style="margin-top:var(--space-4)">
       <p class="placeholder-asset__label">05d · Pack 4 reels démos (Film cadeau · Clip · Court-métrage · Premium)</p>
       <p class="placeholder-asset__specs">4 fichiers WebM + MP4 · ≤ 4&nbsp;Mo chacun · ratio 9:16 ou 16:9 · liens à intégrer dans cartes ci-dessus quand disponibles</p>
@@ -1284,6 +1324,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
             <li>Architecture données &amp; intégrations métier</li>
             <li>Scripts &amp; déploiement Hostinger</li>
           </ul>
+          <p class="duo-new__meta-proof">Ce site que vous parcourez est sa démo — <a href="#s01">remonter au début du parcours</a>.</p>
           <p class="duo-new__meta">📍 Bordeaux · 🇫🇷 France</p>
         </div>
       </article>
@@ -1309,7 +1350,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
             <li>Films IA (Star Wars, Walker, Resident Evil)</li>
             <li>Mémoire &amp; Présence · restauration</li>
           </ul>
-          <p class="duo-new__meta"><a href="#s05" class="duo-new__link">Voir les films IA ↓</a></p>
+          <p class="duo-new__meta"><a href="#s05d" class="duo-new__link">Voir les films IA et les paliers tarifaires ↓</a></p>
         </div>
       </article>
 
@@ -1379,6 +1420,30 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
       <h2 class="manifesto__quote" id="s11-h" data-reveal style="font-weight:400">Nous avons construit ces outils pour nous d'abord. Pour gérer notre propre complexité. Aujourd'hui nous les construisons pour vous.</h2>
       <footer class="manifesto__sig" data-reveal data-reveal-delay="2">Lauralie &amp; Micha</footer>
     </blockquote>
+    <div class="manifesto-climax" data-reveal data-reveal-delay="3">
+      <p class="eyebrow eyebrow--center">Climax · Star Wars</p>
+      <article class="port port--hero manifesto-climax__port" data-vimeo="1184294810">
+        <div class="port__media">
+          <img class="port__poster" loading="lazy" src="https://vumbnail.com/1184294810_large.jpg" alt="Star Wars — The Power of Female Unity (film complet, environ 3 minutes)">
+          <button class="port__play" type="button" aria-label="Lire Star Wars — The Power of Female Unity (film complet)">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.5" fill="rgba(5,11,20,.4)"/><path d="M26 22 L44 32 L26 42 Z" fill="currentColor"/></svg>
+          </button>
+        </div>
+        <div class="port__body">
+          <span class="port__tag" style="background:linear-gradient(135deg,#1a1a2e,#3ef5e0);color:#050b14">FILM IA · ~3&nbsp;MIN</span>
+          <h3 class="port__title">Star Wars — <em>The Power of Female Unity</em></h3>
+          <p class="port__sub">Version longue · réalisation Micha</p>
+        </div>
+      </article>
+      <p class="manifesto-climax__lead">Lauralie a construit. Micha a monté. Vous, vous jouez dedans.</p>
+      <p style="margin-top:var(--space-4)">
+        <a class="btn btn--secondary" href="#s14">Jouer dans un film monté par un cinéaste professionnel <span class="btn__arrow">→</span></a>
+      </p>
+      <div class="placeholder-asset" aria-hidden="true" style="margin-top:var(--space-4);max-width:42rem;margin-inline:auto">
+        <p class="placeholder-asset__label">11 · Fichier Vimeo « combat 3 min » dédié (option)</p>
+        <p class="placeholder-asset__specs">Si vous séparez teaser / longue version : remplacer l’ID Vimeo du lecteur ci-dessus sans toucher au stage hero</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1504,6 +1569,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
           Oui. Stack 100&nbsp;% européen (Hostinger, n8n self-hosted, Bunny Fonts, Plausible). Aucun tracker US. Code source et accès vous appartiennent dès la livraison.
         </p>
       </details>
+    </div>
+    <div class="placeholder-asset" aria-hidden="true" style="margin-top:var(--space-4)">
+      <p class="placeholder-asset__label">13b · Vidéo courte FAQ (option)</p>
+      <p class="placeholder-asset__specs">30–45&nbsp;s · même ton que la page · lecteur discret sous les questions si vous produisez un complément vidéo</p>
     </div>
   </div>
 </section>
