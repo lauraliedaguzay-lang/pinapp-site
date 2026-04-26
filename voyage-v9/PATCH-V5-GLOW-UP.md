@@ -1,6 +1,7 @@
 # PATCH V5 GLOW UP — 30 améliorations CRO + SEO (addendum)
 
 > **Addendum** à [`PATCH-V5-FINAL.md`](./PATCH-V5-FINAL.md).  
+**Déploiement V5 ce soir** : prompt opérationnel en 2 fichiers — [`PROMPT-CURSOR-V5-DEPLOY-CE-SOIR.md`](./PROMPT-CURSOR-V5-DEPLOY-CE-SOIR.md) + [`PROMPT-CURSOR-V5-DEPLOY-CE-SOIR-PART2.md`](./PROMPT-CURSOR-V5-DEPLOY-CE-SOIR-PART2.md).  
 > Glow up **textuel + SEO + form CRO + microcopy** uniquement.  
 > **Aucune** modification des **offres**, **vidéos Vimeo** ni **encarts placeholder** (ni structure 14 scènes / hero R1).  
 > Inspiration documentée : skills marketing (coreyhaines31/marketingskills) + garde-fous **taste-design** (google-labs-code/stitch-skills).

@@ -915,7 +915,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 }
 </style>
 </head>
-<body class="draft-mode" data-draft-count="0">
+<body data-draft-count="0">
 <span class="draft-badge" id="draftBadge" aria-live="polite"></span>
 
 <!-- Stage fixe global : 6 layers empilées (cross-fade piloté par IntersectionObserver) -->
@@ -2511,6 +2511,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     updateDraftBadge();
   });
   updateDraftBadge();
+  // Draft : Ctrl+D ou Ctrl+Shift+D (hors champs)
   document.addEventListener('keydown', function(e){
     if (!e.ctrlKey || (e.key !== 'd' && e.key !== 'D')) return;
     var t = e.target;
