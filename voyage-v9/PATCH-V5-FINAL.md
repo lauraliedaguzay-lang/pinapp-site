@@ -4,6 +4,8 @@
 > 14 scènes (16 sections HTML) · doctrine prix Lauralie fixe / Micha sur devis · 5 réductions éthiques · 5 easter eggs cohérents · workflows W12–W22.  
 > **R1 INTOUCHABLE** : 6 photos `hero-1..6.webp` byte-identiques (ne jamais modifier les fichiers).
 
+**Addendum CRO + SEO (sans toucher offres / vidéos / encarts)** : [`PATCH-V5-GLOW-UP.md`](./PATCH-V5-GLOW-UP.md) — 30 glow ups textuels, formulaire, schema, FAQ, A/B, taste-design.
+
 ---
 
 ## Sauvegarde Git (état du site avant V5)
