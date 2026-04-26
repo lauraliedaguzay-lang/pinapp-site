@@ -1,39 +1,30 @@
 /**
- * Pinapp V7 — Scene Counter (voyage-v9)
- * IDs voyage-v9 : s01, s02, … — mappés vers des alias pour le compteur.
+ * Pinapp V9 — Scene counter (voyage-v5)
+ * 14 scènes logiques ; sections DOM : s01…s13 + interstitiels s04b, s06b, s09b.
  */
 (function () {
   'use strict';
 
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  var ALIAS = {
-    s01: 's0',
-    s02: 's1',
-    s02b: 's2',
-    s02c: 's2',
-    s03: 's3',
-    s03b: 's4',
-    s04: 's5',
-    s05: 's5',
-    s05d: 's5',
-    s05f: 's5',
-    s06: 's5b',
-    s06bis: 's5b',
-    s07: 's6',
-    s08: 's7',
-    s08b: 's7',
-    s09: 's8',
-    s10: 's8',
-    s10bis: 's8',
-    s11: 's8',
-    s13: 's8',
-    s13b: 's8',
-    s14: 's8'
+  var SCENE_MAP = {
+    s01: 1,
+    s02: 2,
+    s03: 3,
+    s04: 4,
+    s04b: 4,
+    'pack-duo': 5,
+    s06: 6,
+    s06b: 6,
+    s07: 7,
+    s08: 8,
+    s09: 9,
+    s09b: 10,
+    s10: 11,
+    s11: 12,
+    s12: 13,
+    form: 14
   };
 
-  var SCENES = ['s0', 's1', 's2', 's3', 's4', 's5', 's5b', 's6', 's7', 's8'];
-  var TOTAL = SCENES.length;
+  var TOTAL = 14;
 
   var reduced = false;
   try {
@@ -48,7 +39,14 @@
   var currentNumSpan = null;
 
   function inject() {
-    if (document.querySelector('.scene-counter')) return;
+    counter = document.querySelector('.scene-counter');
+    if (counter) {
+      currentNumSpan = counter.querySelector('.scene-counter__num');
+      var tot = counter.querySelector('.scene-counter__total');
+      if (tot) tot.textContent = pad2(TOTAL);
+      return;
+    }
+
     counter = document.createElement('div');
     counter.className = 'scene-counter';
     counter.setAttribute('aria-hidden', 'true');
@@ -75,17 +73,11 @@
     document.body.appendChild(counter);
   }
 
-  function resolveSectionId(raw) {
-    if (!raw) return '';
-    return ALIAS[raw] || raw;
-  }
-
   function setScene(sectionId) {
     if (!counter || !currentNumSpan) return;
-    var sid = resolveSectionId(sectionId);
-    var idx = SCENES.indexOf(sid);
-    if (idx === -1) return;
-    var newNum = pad2(idx + 1);
+    var idx = SCENE_MAP[sectionId];
+    if (typeof idx !== 'number') return;
+    var newNum = pad2(idx);
     if (currentNumSpan.textContent === newNum) return;
 
     if (reduced) {

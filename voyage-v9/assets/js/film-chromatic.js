@@ -1,6 +1,6 @@
 /**
- * Pinapp V7 — Film chromatic (voyage-v9)
- * #pinapp-film + data-active-section (ids s01…)
+ * Pinapp V9 — Film chromatic (voyage-v9)
+ * #pinapp-film + data-active-section (ids s01…s13, interstitiels)
  */
 (function () {
   'use strict';
@@ -10,26 +10,20 @@
   var ALIAS = {
     s01: 's0',
     s02: 's1',
-    s02b: 's2',
-    s02c: 's2',
     s03: 's3',
-    s03b: 's4',
-    s04: 's5',
-    s05: 's5',
-    s05d: 's5',
-    s05f: 's5',
+    s04: 's4',
+    s04b: 's4',
+    'pack-duo': 's5',
     s06: 's5b',
-    s06bis: 's5b',
+    s06b: 's5b',
     s07: 's6',
     s08: 's7',
-    s08b: 's7',
     s09: 's8',
+    s09b: 's8',
     s10: 's8',
-    s10bis: 's8',
     s11: 's8',
-    s13: 's8',
-    s13b: 's8',
-    s14: 's8'
+    s12: 's8',
+    form: 's8'
   };
 
   var HUE_MAP = {
@@ -80,14 +74,11 @@
           }
         }
       });
-      mo.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ['data-active-section']
-      });
+      mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-active-section'] });
     }
 
-    var current = document.documentElement.getAttribute('data-active-section');
-    if (current) setScene(current);
+    var cur = document.documentElement.getAttribute('data-active-section');
+    if (cur) setScene(cur);
   }
 
   if (document.readyState === 'loading') {
