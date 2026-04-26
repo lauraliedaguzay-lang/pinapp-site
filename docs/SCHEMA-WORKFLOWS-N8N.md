@@ -130,10 +130,33 @@ L’ancien fichier `voyage-v9/SCHEMA-FORM-COHERENT.md` est conservé comme **leg
 - `docs/LEAD_FLOW.md` — pipeline Notion / scoring / Slack (à harmoniser avec `n8n_route_tag` si besoin).
 - `docs/PINAPP-WORKFLOW-MAIL-CLAUDE.md` — brouillon Gmail, pas d’envoi auto des messages engageants.
 - Code : `voyage-v9/index.html` — recherche `n8nMap` et `n8n_route_tag`.
+- `voyage-v9/PATCH-V5-FINAL.md` — refonte V5 (orchestration interne W12–W22, hors tags formulaire).
 
 ---
 
-## 7. Prochaines étapes ops (hors périmètre de ce fichier)
+## 7. Workflows automation Claude (interne ops)
+
+Automatisations **côté Pinapp** (briefs, brouillons, veille) — **distinctes** du routage `n8n_route_tag` du formulaire voyage-v9. À brancher dans n8n / Apps Script selon ton infra ; validation humaine alignée sur `docs/PINAPP-WORKFLOW-MAIL-CLAUDE.md`.
+
+| # | Nom | Déclencheur | Résultat |
+|---|-----|--------------|----------|
+| W12 | Daily Brief | Cron 8h30 + 18h00 | Telegram « 3 actions max » |
+| W13 | API SIRENE -40 % | Case solidaire formulaire (futur champ) | Remise auto sur devis |
+| W14 | Lead Drafter | Nouveau lead / formulaire | Brouillon mail + validation Telegram |
+| W15 | Devis Generator | Signal Telegram /devis | PDF signature électronique |
+| W16 | Project Brief | Devis signé | Brief production Notion |
+| W17 | Weekly Strategy | Cron lundi 8h | Telegram priorités |
+| W18 | Email Triage | Boîte mail | Classement + brouillons |
+| W19 | Content Engine | Cron mar / ven | Brouillons réseaux |
+| W20 | Admin Helper | Échéance | Brouillons admin |
+| W21 | Project Tracker | Cron quotidien | Alertes retard |
+| W22 | Cross-sell Detector | Cron mensuel | Suggestions upgrade |
+
+**Sprint 1 prod recommandé** : W1 (dispatch diagnostic) + W12 + W14 pour ~80 % du gain perçu.
+
+---
+
+## 8. Prochaines étapes ops (hors périmètre de ce fichier)
 
 1. Activer W1 en prod (URL webhook réelle, feature flag / `PinappConfig` côté site).
 2. Renommer ou dupliquer les workflows n8n pour matcher **exactement** les tags du §1.
