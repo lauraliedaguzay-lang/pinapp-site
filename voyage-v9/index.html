@@ -94,7 +94,7 @@ html.sober #pinapp-film{display:none}
 .stage__scrim{position:fixed;inset:0;z-index:-2;pointer-events:none;background:linear-gradient(180deg,rgba(5,11,20,.42) 0%,rgba(5,11,20,.72) 50%,rgba(5,11,20,.88) 100%)}
 .progress{position:fixed;inset:0 0 auto 0;height:3px;z-index:200;pointer-events:none;background:transparent}
 .progress__fill{height:100%;width:100%;background:linear-gradient(90deg,var(--or),var(--cyan));transform-origin:0 50%;transform:scaleX(0);transition:none}
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:var(--sp-4) var(--gutter)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:var(--sp-4) var(--gutter);border-bottom:1px solid rgba(230,185,115,0.22);box-shadow:0 1px 0 rgba(230,185,115,0.08)}
 .nav__inner{max-width:var(--container);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:var(--sp-4);padding:var(--sp-3) var(--sp-5);background:var(--fumee);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(230,185,115,0.15);border-radius:var(--r-lg)}
 .nav__logo{font-family:var(--ff-display);font-weight:700;font-size:1.125rem;letter-spacing:-0.02em}
 .nav__logo span{color:var(--or)}
@@ -148,7 +148,12 @@ main{position:relative;z-index:1;padding-top:72px}
 @media(min-width:768px){.sources-grid{grid-template-columns:repeat(2,1fr)}}
 .source-card{text-align:left}
 .source-card a{font-weight:600;text-decoration:underline;text-underline-offset:3px}
-.crit-note{padding:var(--sp-5);border-radius:var(--r-lg);background:rgba(230,185,115,0.12);margin:var(--sp-6) 0}
+.crit-note{padding:var(--sp-5);border-radius:var(--r-lg);background:rgba(230,185,115,0.5);margin:var(--sp-6) 0}
+.hero-s01-grid{display:grid;gap:var(--sp-6);align-items:start;margin-top:var(--sp-5)}
+@media(min-width:900px){.hero-s01-grid{grid-template-columns:1fr 1fr;align-items:center}}
+.hero-s01-aside .placeholder-asset{margin-top:0}
+.slider-s10__track-labels{display:flex;justify-content:space-between;align-items:center;gap:var(--sp-4);max-width:400px;margin:0 auto var(--sp-2);font-size:var(--fs-micro);color:var(--ivoire-mute)}
+.whisper--tapestry{font-size:clamp(2rem,8vw,5rem);line-height:1.2;max-width:56rem}
 .qa-stack{max-width:36rem;margin:0 auto}
 .qa-item{margin-bottom:var(--sp-5)}
 .qa-q{font-weight:700;margin-bottom:var(--sp-2)}
@@ -176,8 +181,9 @@ details.faq .faq-a{margin-top:var(--sp-3);color:var(--ivoire-mute)}
 .vimeo-grid{display:grid;gap:var(--sp-4)}
 @media(min-width:768px){.vimeo-grid{grid-template-columns:repeat(2,1fr)}}
 .vimeo-tile{position:relative;border-radius:var(--r-lg);overflow:hidden;border:1px solid rgba(230,185,115,0.2)}
-.vimeo-tile button{width:100%;text-align:left;border:0;background:transparent;color:inherit;cursor:pointer;padding:0}
+.vimeo-tile button.vimeo-open{position:relative;width:100%;text-align:left;border:0;background:transparent;color:inherit;cursor:pointer;padding:0;display:block}
 .vimeo-tile img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.vimeo-tile button.vimeo-open::after{content:'▶';position:absolute;top:var(--sp-3);left:var(--sp-3);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;background:rgba(5,11,20,0.65);border:1px solid rgba(230,185,115,0.35);pointer-events:none}
 .vimeo-tile__body{padding:var(--sp-4);background:var(--fumee-strong)}
 .price-block{padding:var(--sp-5);border-radius:var(--r-lg);background:rgba(230,185,115,0.15);margin:var(--sp-5) 0}
 .whisper{font-family:var(--ff-display);font-style:italic;font-size:clamp(1.5rem,4vw,3rem);line-height:1.25;margin:var(--sp-8) auto;max-width:48rem;text-align:center}
@@ -186,7 +192,7 @@ details.faq .faq-a{margin-top:var(--sp-3);color:var(--ivoire-mute)}
 .compare-table{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-3);text-align:center;margin:var(--sp-6) 0;font-size:var(--fs-micro)}
 .chips{display:flex;flex-wrap:wrap;gap:var(--sp-3);justify-content:center;margin:var(--sp-5) 0}
 .chip{padding:8px 14px;border-radius:var(--r-pill);border:1px solid rgba(230,185,115,0.3);font-size:var(--fs-micro)}
-.pause-quote{font-family:var(--ff-display);font-style:italic;font-size:clamp(1.25rem,3vw,1.75rem);max-width:28rem;margin:0 auto;animation:fadein 1.5s var(--ease-out) both}
+.pause-quote{font-family:var(--ff-display);font-style:italic;font-size:clamp(1.75rem,5vw,4rem);max-width:36rem;margin:0 auto;animation:fadein 1.5s var(--ease-out) both}
 @keyframes fadein{from{opacity:0}to{opacity:1}}
 .slider-s10{margin:var(--sp-7) 0}
 .slider-s10__range{width:100%;max-width:400px;margin:0 auto var(--sp-5);display:block;accent-color:var(--or);min-height:44px}
@@ -247,7 +253,7 @@ footer nav a{text-decoration:underline;text-underline-offset:3px}
 footer .mp{font-size:12px;color:var(--ivoire-dim);margin-top:var(--sp-4)}
 .drawer-overlay{position:fixed;inset:0;background:rgba(5,11,20,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:300;opacity:0;pointer-events:none;transition:opacity var(--dur-mid)}
 .drawer-overlay.is-open{opacity:1;pointer-events:auto}
-.drawer{position:fixed;top:0;right:0;width:100vw;max-width:520px;height:100dvh;z-index:301;background:var(--nuit-soft);border-left:1px solid rgba(230,185,115,0.2);transform:translateX(100%);transition:transform var(--dur-mid) var(--ease-out);overflow-y:auto;padding:var(--sp-7) var(--sp-5)}
+.drawer{position:fixed;top:0;right:0;width:100vw;max-width:none;height:100dvh;z-index:301;background:var(--nuit-soft);border-left:1px solid rgba(230,185,115,0.2);transform:translateX(100%);transition:transform var(--dur-mid) var(--ease-out);overflow-y:auto;padding:var(--sp-7) var(--sp-5)}
 .drawer.is-open{transform:translateX(0)}
 .drawer__head{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--sp-6)}
 .drawer__close{min-width:44px;min-height:44px;border-radius:var(--r-sm);border:1px solid rgba(230,185,115,0.35)}
@@ -299,7 +305,7 @@ body.draft-mode .draft-badge{opacity:1}
   <div class="nav__inner">
     <a class="nav__logo" href="https://pinapp.fr/voyage-v9/" aria-label="Pinapp — accueil voyage-v9">Pinapp <span>Inc.</span></a>
     <div class="nav__actions">
-      <a class="nav__cta" href="#form">Diagnostic 24h offert</a>
+      <a class="nav__cta" href="#form">Diagnostic 24h offert →</a>
       <button type="button" class="nav__sober" id="btnSober" aria-pressed="false">Mode sobre</button>
       <button type="button" class="nav__drawer-open" id="btnDrawerOpen" aria-controls="drawerAbout" aria-expanded="false" aria-label="Ouvrir le menu Qui sommes-nous">☰</button>
     </div>
@@ -324,23 +330,25 @@ body.draft-mode .draft-badge{opacity:1}
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Pinapp Inc · Bordeaux · 2026</p>
       <h1 id="s01-h1" class="display display--h1" data-reveal data-reveal-delay="1">Vos outils travaillent.<br>Vous gagnez du temps.</h1>
-      <p class="badge-row" data-reveal><span class="badge">IA déclarée · Stack EU · Page &lt; 1 Mo</span></p>
       <p class="lead" data-reveal>Sites · automatisations · films · clips.<br>Un seul devis. 50 à 75 % moins cher qu'une agence classique.<br>Diagnostic offert sous 24 heures.</p>
-      <div class="placeholder-asset" data-reveal>📭 Vidéo « Pinapp en 60 secondes »
+      <p class="badge-row" data-reveal><span class="badge">★ IA déclarée · Stack EU · Page &lt; 1 Mo</span></p>
+      <div class="hero-s01-grid">
+        <div class="placeholder-asset hero-s01-aside" data-reveal>📭 Vidéo « Pinapp en 60 secondes »
 Duo face caméra · 45-60 sec · à tourner
 
 Script découpé :
 • Lauralie &amp; Michaël se présentent en duo (15s)
 • Démo écran : un site qui sort en 30 sec en live (20s)
 • Démo écran : un film IA qui sort en 30 sec (15s)
-• Pitch fin : "On fait les deux. Un seul devis." (10s)
+• Pitch fin : « On fait les deux. Un seul devis. » (10s)
 
 Tournage : Bordeaux · light naturelle + key fill or
 Habillage : sous-titres FR auto · audio descriptive dispo</div>
-      <div class="stats-row" data-reveal>
-        <div class="stat">24h réponse</div>
-        <div class="stat">0 € diagnostic</div>
-        <div class="stat">30j accompagnement</div>
+        <div class="stats-row" data-reveal>
+          <div class="stat">24h<br>rép.</div>
+          <div class="stat">0 €<br>diag.</div>
+          <div class="stat">30j<br>accmp</div>
+        </div>
       </div>
       <div class="cta-row" data-reveal>
         <a class="btn btn--primary" href="#form">Recevoir mon diagnostic gratuit →</a>
@@ -363,7 +371,7 @@ Habillage : sous-titres FR auto · audio descriptive dispo</div>
           <p class="lead" style="margin:0;font-size:1rem">10 ans dans l'événementiel.<br>Photo. Vidéo. Terrain.<br>Études d'informatique. Autodidacte sur les outils intelligents.<br>Tient l'image. Du brief au rendu final.<br>Bordeaux · Nouvelle-Aquitaine.</p>
         </div>
       </div>
-      <p class="microcite" data-reveal style="margin-top:var(--sp-8)">« Lauralie architecte. Michaël filme. Ensemble nous livrons. »</p>
+      <p class="microcite" data-reveal style="margin-top:var(--sp-8);font-size:1.5rem">« Lauralie architecte. Michaël filme. Ensemble nous livrons. »</p>
       <div class="cta-row" style="justify-content:center" data-reveal>
         <button type="button" class="btn btn--text" id="btnDrawerFromS02">En savoir plus sur nous →</button>
       </div>
@@ -555,6 +563,7 @@ Mosaïque animée · transitions cross-fade · sound design off
           <button type="button" class="vimeo-open" data-vimeo="1184294762" aria-label="Lire la vidéo Walker — court-métrage IA pro">
             <img src="https://vumbnail.com/1184294762_large.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
             <div class="vimeo-tile__body">
+              <p><strong>🎬 poster Walker</strong></p>
               <p><strong>🎬 Court-métrage IA pro</strong></p>
               <p>60-90 sec · livraison 7 jours</p>
               <p>À partir de 1 290 € HT · sur devis</p>
@@ -565,6 +574,7 @@ Mosaïque animée · transitions cross-fade · sound design off
           <button type="button" class="vimeo-open" data-vimeo="1184294810" aria-label="Lire la vidéo clip artiste IA">
             <img src="https://vumbnail.com/1184294810_large.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
             <div class="vimeo-tile__body">
+              <p><strong>🎬 poster SW Teaser</strong></p>
               <p><strong>🎬 Clip artiste IA</strong></p>
               <p>30-60 sec · livraison 7 jours</p>
               <p>À partir de 1 500 € HT · sur devis</p>
@@ -575,6 +585,7 @@ Mosaïque animée · transitions cross-fade · sound design off
           <button type="button" class="vimeo-open" data-vimeo="1184294871" aria-label="Lire la vidéo court-métrage premium">
             <img src="https://vumbnail.com/1184294871_large.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
             <div class="vimeo-tile__body">
+              <p><strong>🎬 poster Resident Evil</strong></p>
               <p><strong>🎬 Court-métrage premium</strong></p>
               <p>1-3 minutes · livraison 14 jours</p>
               <p>À partir de 1 890 € HT · sur devis</p>
@@ -585,6 +596,7 @@ Mosaïque animée · transitions cross-fade · sound design off
           <button type="button" class="vimeo-open" data-vimeo="1184294831" aria-label="Lire la vidéo premium vous dedans">
             <img src="https://vumbnail.com/1184294831_large.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
             <div class="vimeo-tile__body">
+              <p><strong>🎬 poster SW 3 min</strong></p>
               <p><strong>🎬 Premium « vous dedans »</strong></p>
               <p>3 minutes · vous + IA + montage pro</p>
               <p>À partir de 2 800 € HT · sur devis</p>
@@ -597,7 +609,6 @@ Mosaïque animée · transitions cross-fade · sound design off
 Démo Vimeo à fournir par Micha
 Esthétique : intime · journal vidéo · grain doux
 Use cases : anniversaire · départ retraite · naissance · bizz milestone
-            (PAS de mariage)
 Livraison 5 jours · à partir de 390 € HT · sur devis</div>
       <div class="price-block" data-reveal>
         <p style="margin:0">Avant l'IA : 8 000 € en agence.<br>Avec Pinapp : à partir de 1 290 €.   -84 %.</p>
@@ -609,7 +620,7 @@ Livraison 5 jours · à partir de 390 € HT · sur devis</div>
   <section id="s08" class="scene" data-stage="hero-4" aria-labelledby="s08-h2">
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Studio Micha · Clip 100 % IA</p>
-      <h2 id="s08-h2" class="display display--h2" style="font-size:clamp(2rem,6vw,4rem)" data-reveal>Un clip Marvel-style.<br>À 1 500 € au lieu de 50 000.</h2>
+      <h2 id="s08-h2" class="display display--h2" style="font-size:clamp(2.5rem,9vw,6rem)" data-reveal>Un clip Marvel-style.<br>À 1 500 € au lieu de 50 000.</h2>
       <p class="lead" data-reveal>Vous voulez un clip type Marvel, Star Wars ou Avatar.<br>En studio classique : 8 000 à 50 000 €.<br>Avec Pinapp : tout en IA — visuels, voix, montage.</p>
       <div class="placeholder-asset star-placeholder">[▶] Lauralie chante — clip 100 % IA
 En production · disponible été 2026
@@ -623,7 +634,11 @@ Esthétique cible : couloirs néon · slow-mo poétique ·
 Format final : 16:9 · 4K · 1m20s
 
 Démo Pinapp pour les créateurs qui veulent un clip CGI sans le budget studio.</div>
-      <p id="whisperText" class="whisper" aria-label="Citation">« Un grand pouvoir n'implique pas une grande responsabilité.<br>  Pas chez les autres.<br>  Chez nous, si. »</p>
+      <p id="whisperText" class="whisper whisper--tapestry" aria-label="Citation">« Un grand pouvoir n'implique pas une grande responsabilité.
+
+Pas chez les autres.
+
+Chez nous, si. »</p>
       <p class="source-note" style="text-align:center" data-reveal>Direction artistique Lauralie · Réalisation IA Micha · Voix Lauralie</p>
       <div class="compare-table card--glass" data-reveal>
         <div><strong>Avant l'IA</strong><div>8 000 - 50 000 €</div></div>
@@ -642,7 +657,7 @@ Démo Pinapp pour les créateurs qui veulent un clip CGI sans le budget studio.<
       <p class="eyebrow" data-reveal>Studio Micha · Nouvelle-Aquitaine</p>
       <h2 id="s09-h2" class="display display--h2" data-reveal>Votre événement mérite plus qu'un iPhone.</h2>
       <p class="lead" data-reveal>Micha filme en Nouvelle-Aquitaine. Sur devis.<br>Le déplacement est inclus dans le chiffrage.</p>
-      <div class="grid-2" style="margin-top:var(--sp-6)">
+      <div class="grid-2" style="margin-top:var(--sp-6);grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
         <div class="placeholder-asset">📭 Séminaire entreprise
 Vimeo Micha à fournir
 Esthétique : corporate doux · light naturelle · glide cam
@@ -655,11 +670,12 @@ Esthétique : émotion vraie · grain pellicule · longues focales
 Soirée, discours, moments forts — montage émotion.
 Captation 4-6h · montage 5 jours
 À partir de 1 200 € HT · sur devis</div>
-        <div class="card--glass" data-reveal style="grid-column:1/-1">
+        <div class="card--glass" data-reveal>
           <p><strong>🎨 Direction artistique</strong></p>
           <p>Univers visuel d'une marque ou d'un projet.<br>Sur devis</p>
         </div>
       </div>
+      <p class="source-note" style="text-align:center;margin-top:var(--sp-4)" data-reveal>⚠ AUCUN MARIAGE (Micha n'en fait plus)</p>
       <div class="cta-row" data-reveal><a class="btn btn--primary" href="#form">Demander un devis événementiel →</a></div>
     </div>
   </section>
@@ -676,7 +692,8 @@ Captation 4-6h · montage 5 jours
       <h2 id="s10-h2" class="display display--h2" data-reveal>Un site. Un film.<br>Voici tout ce que vous ne voyez pas.</h2>
       <p class="lead" data-reveal>Si on est moins cher qu'une agence, c'est parce qu'on ne sous-traite rien.<br>Pas parce qu'on saute des étapes.</p>
       <div class="slider-s10 card--glass" data-reveal>
-        <label for="rangeBeforeAfter" class="eyebrow" style="display:block;text-align:center">Comparer avant / avec Pinapp</label>
+        <label for="rangeBeforeAfter" class="eyebrow" style="display:block;text-align:center;margin-bottom:var(--sp-2)">Comparer avant / avec Pinapp</label>
+        <div class="slider-s10__track-labels" aria-hidden="true"><span>Tout humain</span><span>Avec Pinapp</span></div>
         <input type="range" id="rangeBeforeAfter" class="slider-s10__range" min="0" max="100" value="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Curseur avant IA ou avec Pinapp">
         <div class="slider-s10__panels">
           <div class="slider-s10__col is-strong" id="colBefore">
@@ -695,8 +712,8 @@ Captation 4-6h · montage 5 jours
       </div>
       <div class="counters card--glass">
         <div><div class="counter-num" id="cntSteps" data-from="16" data-to="4">16</div><div>étapes</div></div>
-        <div><div class="counter-num" id="cntEuro" data-from="8000" data-to="1290">8 000 €</div><div>budget indicatif</div></div>
-        <div><div class="counter-num" id="cntDays" data-from="30" data-to="7">30</div><div>jours</div></div>
+        <div><div class="counter-num" id="cntEuro" data-from="8000" data-to="1290">8 000 €</div><div>coût</div></div>
+        <div><div class="counter-num" id="cntDays" data-from="30" data-to="7">30</div><div>délai</div></div>
       </div>
       <p class="microcite" data-reveal>« La différence n'est pas dans le travail.<br>  Elle est dans qui le fait. »</p>
     </div>
@@ -1119,6 +1136,7 @@ if(wt && !prefersReduced()){
   var html=wt.innerHTML;
   wt.textContent='';
   html.replace(/<br\s*\/?>/gi,'\n').split('').forEach(function(ch){
+    if(ch==='\n'){ wt.appendChild(document.createElement('br')); return; }
     var s=document.createElement('span');
     s.className='char';
     s.textContent=ch;
