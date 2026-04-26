@@ -5,6 +5,17 @@
 > **Aucune** modification des **offres**, **vidéos Vimeo** ni **encarts placeholder** (ni structure 14 scènes / hero R1).  
 > Inspiration documentée : skills marketing (coreyhaines31/marketingskills) + garde-fous **taste-design** (google-labs-code/stitch-skills).
 
+**Avant toute exécution Cursor** : `git pull origin main` pour récupérer ce patch et les derniers commits.
+
+---
+
+## Neuroatypie — distinction critique (sans contradiction)
+
+| Zone | Règle |
+|------|--------|
+| **Cible / public** (copy visiteur) | **Autorisé** : formulations qui parlent au lecteur sans étiqueter personne — ex. *« Pour les cerveaux qui vont vite. Pour ceux qui veulent l’essentiel. »*, *« On parle aussi à ceux qui sautent les étapes, qui voient les liens. »* |
+| **Fondateurs** (Lauralie, Michaël) | **Interdit** : TDAH, bipolaire, neuroatypie, ou toute étiquette médicale / identitaire sur **nous** / **eux** dans la copy du site |
+
 ---
 
 ## Contraintes préservées (verrou)
@@ -19,7 +30,7 @@
 - Spider-Man whisper en climax.  
 - 5 réductions éthiques (Pack Duo, avant/après IA, bundle, inclus offerts, -40 % asso).  
 - 0 jargon outil (noms d’éditeurs / « agents » / etc.) dans la copy visible.  
-- 0 mention TDAH / bipolaire publique.  
+- 0 étiquette neuro / TDAH / bipolaire sur les **fondateurs** (voir § Neuroatypie ci-dessus).  
 - 0 `!` dans la copy, 0 « solution innovante », 0 « résultat garanti ».
 
 ---
@@ -141,7 +152,13 @@
 <meta name="twitter:card" content="summary_large_image">
 ```
 
-> **Note** : si `og-card.jpg` n’existe pas, utiliser une image déjà en prod (ex. `hero-1.webp`) ou créer `og-card.jpg` dédiée (1200×630) sans toucher aux hero R1.
+**`og:image` — règle d’implémentation** : si le fichier `voyage-v9/assets/og-card.jpg` **n’existe pas** dans le dépôt au moment du commit, utiliser **exclusivement** le fallback (sans modifier les fichiers hero R1) :
+
+```html
+<meta property="og:image" content="https://pinapp.fr/voyage-v9/assets/hero-1.webp">
+```
+
+(Option ultérieure : ajouter `og-card.jpg` 1200×630 dédiée, distincte des hero.)
 
 ### JSON-LD LocalBusiness + AggregateOffer
 
@@ -227,7 +244,7 @@ Coupler avec les 5 questions **en HTML** (`<details>` / section FAQ). Remplir `m
 - Pricing récap : éviter 4 cartes identiques en grille 3-col ; préférer lignes / asymétrie.  
 - s10 : **60/40** ou zig-zag plutôt que 50/50 « Avant / Après ».  
 - Pas de « Scroll to explore » ni chevrons rebondissants.  
-- Animations : `transform` / `opacity` surtout ; hauteur viewport : **`100dvh`** / `min-height` adapté (Safari).  
+- Animations : `transform` / `opacity` surtout ; viewport : **`min-height: 100dvh`** (CSS vanilla — équivalent sain iOS ; ne pas imposer Tailwind si absent du projet).  
 - Cibles tactiles ≥ 44 px.  
 - Audit **0** « Elevate / Seamless / Unleash / Next-Gen ».
 
@@ -247,15 +264,175 @@ Message de commit suggéré : feat(voyage-v9): V5 glow up — CRO + SEO + form +
 
 ---
 
-## Prompt Cursor — V5 final + glow up + taste (10 commits)
+## Prompt Cursor FINAL — 10 commits (source unique)
 
-*(À utiliser si tu veux enchaîner refonte 14 scènes + glow up + polish en une seule passe — détail dans [`PATCH-V5-FINAL.md`](./PATCH-V5-FINAL.md) section prompt + ce fichier pour les commits 7–10.)*
+Coller **tel quel** dans Cursor après `git pull origin main`. Branche : `cursor/voyage-v9-refonte-v5-0309`. Dépôt : `pinapp-site`.
 
-Ordre logique :
+```
+Lis voyage-v9/PATCH-V5-FINAL.md ET voyage-v9/PATCH-V5-GLOW-UP.md.
 
-1–6 : **PATCH-V5-FINAL** (squelette + copy + Micha + formations + méthode/form + STAY + glossaire).  
-7–9 : **PATCH-V5-GLOW-UP** (3 commits ci-dessus).  
-10 : **Taste-design** (section Commit 10).
+Crée la branche cursor/voyage-v9-refonte-v5-0309 depuis main.
+
+Applique 10 commits séquentiels.
+
+═══════════════════════════════════════════════════════════════
+PARTIE 1 — REFONTE 14 SCÈNES (PATCH-V5-FINAL.md)
+═══════════════════════════════════════════════════════════════
+
+COMMIT 1 · Squelette HTML
+- Renumérotation 22→16 sections selon §STRUCTURE du PATCH
+- Mapping data-stage selon table fournie
+- Mise à jour TOUS les href="#sXX" via la table de migration des ancres
+- Update voyage-v9/assets/js/scene-counter.js (16 scènes)
+
+COMMIT 2 · Textes Lauralie s01-s06b
+- Hero refondu, Duo bios, Constat 4 douleurs, Pourquoi IA + ADEME critique
+- Pédagogie IA 3 questions, Pack Duo économies chiffrées
+- Lauralie vue + système (rosace + flux 8 outils)
+- Bio Micha : "10 ans dans l'événementiel" (PAS "mariages")
+- Copy cible : formulations type "cerveaux qui vont vite" / "essentiel" OK si § Neuroatypie du PATCH-V5-GLOW-UP.md respectée (jamais d'étiquette sur les fondateurs)
+
+COMMIT 3 · Textes Micha s07-s09
+- Grille mosaic 4 vidéos + Film cadeau placeholder
+- Microcopy SW 3min "exemple Pack Signature"
+- Resident Evil 1290 → 1890 €
+- Climax Clip IA + tapestry whisper Spider-Man Option B
+- Événementiel SANS mariages (Séminaire + Anniversaire + DA)
+
+COMMIT 4 · Travail invisible + Formations
+- s09b micro-pause
+- s10 slider Avant/Après IA (16 vs 4 étapes)
+- s11 Formations 4 niveaux vulgarisés
+
+COMMIT 5 · Méthode + Tarifs + Form
+- s12 méthode 4 étapes + tableau funnel + colonne avant/après IA
+- Pricing solidaire -40 % via SIRENE auto
+- Capacité réelle 3 projets/mois
+- s13 form 3 chemins conditionnels
+
+COMMIT 6 · Easter egg STAY → M&P + glossaire jargon→simple
+- Modale STAY au click sur .morse-stay
+- Audit complet : remplacer jargon (n8n, Claude, Cursor, prompts, agent IA) par grand public
+- Mention M&P discrète footer
+
+═══════════════════════════════════════════════════════════════
+PARTIE 2 — GLOW UP CRO + SEO (PATCH-V5-GLOW-UP.md)
+═══════════════════════════════════════════════════════════════
+
+COMMIT 7 · Glow up CTA + headlines
+- Hero CTA "Recevoir mon diagnostic gratuit" (+ A/B test prévu)
+- Headlines questions rhétoriques s03/s04/s06b
+- Overlays vidéos s07 (bénéfice > spec)
+- Climax s08 contrast pricing "1 500 € au lieu de 50 000 €"
+- s09 objection iPhone "Votre événement mérite plus qu'un iPhone"
+- Cross-sell s11 conversationnel
+
+COMMIT 8 · Pricing visuels + Form CRO
+- Pack Duo Essentiel "~~1 970 €~~ → 1 890 €" visible
+- Pack Signature badge "Le plus demandé"
+- CTA différenciés par card Pack (Comparer / Réserver mon Signature)
+- Form s13 : transformer 3 radio en 3 CARDS visuelles cliquables
+- Champ téléphone "si vous préférez qu'on rappelle"
+- CTA submit "Envoyer mon brief — réponse écrite sous 24h"
+- Microcopy reassurance renforcée
+- s12 live capacité counter HTML+CSS+JS
+
+COMMIT 9 · SEO + Schema-markup + FAQ
+- <head> meta + Open Graph + Twitter Card
+- og:image → si og-card.jpg absent du repo, utiliser uniquement : https://pinapp.fr/voyage-v9/assets/hero-1.webp
+- JSON-LD LocalBusiness + AggregateOffer
+- JSON-LD FAQPage avec les 5 questions
+- 5 FAQ TPE/PME ajoutées (s12 ou s12b)
+- STAY modale : ESC + click-outside + CTA "M'en parler plus tard"
+
+COMMIT 10 · Taste-design polish (anti-générique premium)
+- 0 occurrence #000000 → utiliser #0a1420 ou #050b14
+- 0 neon/glow purple
+- 0 fake stats inventées (placeholder [metric] si pas de chiffre vrai)
+- 0 "Scroll to explore" / chevron bouncing
+- Section pricing récap : 4 lignes au lieu de 4 cards equal
+- s10 layout asymétrique 60/40 (pas 50/50)
+- Animations : transform/opacity uniquement
+- min-height: 100dvh en CSS vanilla (pas Tailwind obligatoire)
+- Touch targets ≥ 44px sur mobile
+- 0 "Elevate / Seamless / Unleash / Next-Gen"
+
+═══════════════════════════════════════════════════════════════
+CONTRAINTES IMMUABLES (toutes verrouillées)
+═══════════════════════════════════════════════════════════════
+
+R1  Photos hero-1..6.webp byte-identiques (jamais modifiées)
+R2  Stage fixe + IntersectionObserver intacts
+R3  Vanilla JS uniquement, Bunny Fonts, Hostinger + Plausible + n8n self-hosted
+R5  rel="noopener noreferrer" sur tous liens externes
+R6  prefers-reduced-motion respecté
+
+INTERDIT côté visiteur :
+- "!" dans la copy
+- "solution innovante" / "révolutionnaire" / "disruptif"
+- "résultat garanti" / promesses chiffrées non tenables
+- "satisfait ou remboursé" → "accompagnement 30 jours"
+- Jargon agence (synergies, transformation digitale)
+- Jargon tech (Cursor, Claude, n8n, agents IA, workflows, prompts)
+- AUCUNE mention TDAH/bipolaire/neuroatypie DES FONDATEURS (Lauralie et Michaël ne sont jamais étiquetés)
+
+AUTORISÉ côté visiteur — public cible sans étiqueter quiconque :
+- "Pour les cerveaux qui vont vite. Pour ceux qui veulent l'essentiel."
+- "On parle aussi à ceux qui sautent les étapes, qui voient les liens"
+
+Pronoms : Lauralie = elle · Micha = Michaël = il · "nous" = duo · "je" = bios individuelles uniquement.
+
+Bio Micha : "10 ans dans l'événementiel" (PAS "mariages").
+
+Doctrine prix : Lauralie prix fixes · Micha "à partir de" + sur devis.
+
+Tarifs INTACTS :
+39/67/147/397 € (formations) · 490/690/890/1290 € (Lauralie)
+1890/4900 € (Pack Duo) · 190-390 €/mois (Care)
+390/1290/1500/1890/2800 € (Micha "à partir de")
+1200/1800 € (événementiel "à partir de") · Sur devis (DA + autre)
+
+4 vidéos Vimeo INTACTES :
+1184294762 Walker · 1184294810 SW Teaser · 1184294871 Resident Evil · 1184294831 SW 3 min
+
+4 encarts placeholder INTACTS (Pinapp 60s · Lauralie chante · Séminaire · Anniversaire selon spec V5).
+
+Easter eggs : morse-stay → CLICK modale M&P · scene-counter NN/16 · easter-eggs.js · film-chromatic.js · Spider-Man climax s08.
+
+5 réductions éthiques préservées (Pack Duo, avant/après IA, bundle, inclus L3+Care, -40 % asso / SIRENE).
+
+LIVRABLE :
+Push sur cursor/voyage-v9-refonte-v5-0309.
+Mettre à jour docs/SCHEMA-WORKFLOWS-N8N.md selon §W12-W22 du PATCH-V5-FINAL si pas déjà aligné sur main.
+Message de merge / tag final suggéré : feat(voyage-v9): refonte V5 + glow up CRO + SEO + taste-design
+Ouvrir PR brouillon vers main.
+```
+
+---
+
+## PowerShell — skills perso Claude (avant Cursor)
+
+*(À exécuter sur ta machine Windows — chemins `AppData` — après `git pull origin main`.)*
+
+```powershell
+cd C:\Users\Lauralie\Projects\pinapp-site
+git pull origin main
+
+$marketingSrc = "C:\Users\Lauralie\AppData\Roaming\Claude\local-agent-mode-sessions\61062394-4f10-4a3b-8fe2-e31bc737d3c1\15866289-3833-4be7-aecf-3efcf76cb13f\local_01deafc2-fafa-4922-91bb-5192f7261da4\outputs\marketingskills_to_install\skills"
+$skillsDst = "C:\Users\Lauralie\AppData\Roaming\Claude\local-agent-mode-sessions\skills-plugin\15866289-3833-4be7-aecf-3efcf76cb13f\61062394-4f10-4a3b-8fe2-e31bc737d3c1\skills"
+
+if (Test-Path $marketingSrc) {
+    Copy-Item -Path "$marketingSrc\*" -Destination $skillsDst -Recurse -Force
+    Write-Host "40 marketingskills OK"
+}
+
+git clone --depth=1 https://github.com/google-labs-code/stitch-skills.git "$env:TEMP\stitch-skills" 2>$null
+if (Test-Path "$env:TEMP\stitch-skills\skills") {
+    Copy-Item -Path "$env:TEMP\stitch-skills\skills\*" -Destination $skillsDst -Recurse -Force
+    Write-Host "8 stitch-skills OK"
+    Remove-Item -Recurse -Force "$env:TEMP\stitch-skills"
+}
+```
 
 ---
 

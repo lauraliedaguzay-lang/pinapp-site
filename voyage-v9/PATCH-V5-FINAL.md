@@ -4,7 +4,9 @@
 > 14 scènes (16 sections HTML) · doctrine prix Lauralie fixe / Micha sur devis · 5 réductions éthiques · 5 easter eggs cohérents · workflows W12–W22.  
 > **R1 INTOUCHABLE** : 6 photos `hero-1..6.webp` byte-identiques (ne jamais modifier les fichiers).
 
-**Addendum CRO + SEO (sans toucher offres / vidéos / encarts)** : [`PATCH-V5-GLOW-UP.md`](./PATCH-V5-GLOW-UP.md) — 30 glow ups textuels, formulaire, schema, FAQ, A/B, taste-design.
+**Addendum CRO + SEO (sans toucher offres / vidéos / encarts)** : [`PATCH-V5-GLOW-UP.md`](./PATCH-V5-GLOW-UP.md) — 30 glow ups textuels, formulaire, schema, FAQ, A/B, taste-design, **neuroatypie cible vs fondateurs**, **`og:image` fallback `hero-1.webp`**, **prompt Cursor unique 10 commits**.
+
+**Avant Cursor** : `git pull origin main`.
 
 ---
 
@@ -268,41 +270,12 @@ git show "origin/$BR:$FILE" | grep -niE "n8n|cursor|claude|workflow|prompt|agent
 
 ---
 
-## Prompt Cursor (clé en main)
+## Prompt Cursor
 
-```
-Lis voyage-v9/PATCH-V5-FINAL.md attentivement.
+- **Refonte seule (6 commits)** : liste commits 1–6 dans ce fichier (sections détaillées + glossaire).  
+- **Refonte + glow up + taste (10 commits, prompt unique)** : [`PATCH-V5-GLOW-UP.md`](./PATCH-V5-GLOW-UP.md) → section **« Prompt Cursor FINAL — 10 commits »** (neuroatypie **cible** OK, **fondateurs** jamais étiquetés ; `og:image` = `hero-1.webp` si `og-card.jpg` absent).
 
-Crée la branche `cursor/voyage-v9-refonte-v5-0309` depuis main.
-
-Applique les 6 commits dans l'ordre exact :
-1. Squelette HTML : renumérotation 22→16 sections, mapping data-stage selon table, mise à jour de TOUS les href="#sXX" via table de migration, mise à jour scene-counter.js avec la nouvelle liste de 16 scènes.
-2. Textes Lauralie s01-s06b : copies exactes du patch, mode TDAH, glossaire jargon→simple appliqué, Pack Duo Essentiel à 1 890 € avec économies chiffrées.
-3. Textes Micha s07-s09 : 4 vidéos Vimeo en grille mosaic, microcopy SW 3min "exemple Pack Signature", Resident Evil 1 890 €, climax s08 avec tapestry-whisper Spider-Man "Un grand pouvoir n'implique pas une grande responsabilité. Pas chez les autres. Chez nous, si.", événementiel SANS mariages (séminaire + anniversaire + DA seulement).
-4. s09b micro-pause + s10 travail invisible (slider 16 vs 4 étapes) + s11 formations 4 niveaux vulgarisés.
-5. s12 méthode 4 étapes + tableau funnel complet avec colonne avant/après IA, pricing solidaire -40 % auto via SIRENE, capacité réelle 3 projets/mois affichée, s13 engagements 7 piliers + form 3 chemins conditionnels (path tech / image / duo) avec automation invisible microcopy.
-6. Easter egg STAY → M&P (click sur .morse-stay ouvre modale avec lien memoireetpresence.fr), audit complet du fichier pour remplacer le jargon visible (n8n, Cursor, Claude, prompts, agents) par le langage grand public selon le glossaire du patch.
-
-CONTRAINTES IMMUABLES :
-- R1 : photos hero-1..6.webp byte-identiques (ne pas toucher les fichiers)
-- R2 : stage fixe + IntersectionObserver inchangés (ne toucher que data-stage des sections)
-- R3 : vanilla JS uniquement, Bunny Fonts, pas de GSAP/Lenis/Google Fonts
-- R5 : rel="noopener noreferrer" sur tous liens externes
-- R6 : prefers-reduced-motion respecté
-- Pronoms : Lauralie (elle) · Michaël/Micha (il) · "nous" duo
-- Bio Micha : "10 ans dans l'événementiel" (pas "mariages")
-- Doctrine prix : Lauralie fixe affiché / Micha "à partir de" sur devis
-- Pas de "!", pas de "solution innovante", pas de "résultat garanti", pas de "satisfait ou remboursé"
-- Pas de mention TDAH/bipolaire des fondateurs
-- Easter eggs préservés : morse-stay, scene-counter, easter-eggs.js (Konami), film-chromatic.js
-- M&P : seul accès = easter egg STAY au click sur morse + microcopie footer
-
-Push sur cursor/voyage-v9-refonte-v5-0309. Ouvre PR brouillon vers main.
-
-Mettre à jour aussi docs/SCHEMA-WORKFLOWS-N8N.md avec la section "Workflows automation Claude" (W12-W22) selon le patch.
-
-Commit final : "feat(voyage-v9): refonte V5 — 14 scènes langage simple + 5 réductions éthiques + easter egg STAY M&P + auto Claude W12-W22"
-```
+Après `git pull origin main`, aligner `docs/SCHEMA-WORKFLOWS-N8N.md` sur § W12–W22 si besoin (déjà sur `main` depuis un commit précédent).
 
 ---
 
