@@ -1,33 +1,35 @@
 /**
  * Pinapp V9 — Scene counter (voyage-v5)
- * 17 scènes logiques (voyage-v9 + vitrine démo + Mémoire & Présence).
+ * 15 scènes logiques (ancres sémantiques V8.2).
  */
 (function () {
   'use strict';
 
   var SCENE_MAP = {
-    s01: 1,
-    s02: 2,
-    s03: 3,
-    s04: 4,
-    s04c: 5,
-    s04b: 5,
-    'pack-duo': 6,
-    'memoire-presence': 7,
-    'demo-showcase': 8,
-    s06: 9,
-    s06b: 9,
-    s07: 10,
-    s08: 11,
-    s09: 12,
-    s09b: 13,
-    s10: 14,
-    s11: 15,
-    s12: 16,
-    form: 17
+    hero: 1,
+    orientation: 1,
+    duo: 2,
+    diagnostic: 3,
+    'diagnostic-preuves': 3,
+    auto: 4,
+    'auto-faq': 4,
+    pack: 5,
+    realisations: 6,
+    'realisations-vitrine': 6,
+    'realisations-demos': 7,
+    'realisations-stack': 7,
+    'realisations-films': 8,
+    'realisations-cinema': 9,
+    'realisations-na': 9,
+    s09b: 10,
+    methode: 11,
+    'methode-formations': 12,
+    'methode-tarifs': 13,
+    mp: 14,
+    contact: 15
   };
 
-  var TOTAL = 17;
+  var TOTAL = 15;
 
   var reduced = false;
   try {

@@ -1,6 +1,6 @@
 /**
  * Pinapp V9 — Film chromatic (voyage-v9)
- * #pinapp-film + data-active-section (ids s01…s13, interstitiels)
+ * #pinapp-film + data-active-section (ancres sémantiques V8.2)
  */
 (function () {
   'use strict';
@@ -8,25 +8,27 @@
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   var ALIAS = {
-    s01: 's0',
-    s02: 's1',
-    s03: 's3',
-    s04: 's4',
-    s04c: 's4',
-    s04b: 's4',
-    'pack-duo': 's5',
-    'memoire-presence': 's5',
-    'demo-showcase': 's5b',
-    s06: 's5b',
-    s06b: 's5b',
-    s07: 's6',
-    s08: 's7',
-    s09: 's8',
-    s09b: 's8',
-    s10: 's8',
-    s11: 's8',
-    s12: 's8',
-    form: 's8'
+    hero: 's0',
+    orientation: 's0',
+    duo: 's1',
+    diagnostic: 's3',
+    'diagnostic-preuves': 's3',
+    auto: 's4',
+    'auto-faq': 's4',
+    pack: 's5',
+    realisations: 's5b',
+    'realisations-vitrine': 's5b',
+    'realisations-demos': 's5b',
+    'realisations-stack': 's5b',
+    'realisations-films': 's5b',
+    'realisations-cinema': 's6',
+    'realisations-na': 's6',
+    s09b: 's6',
+    methode: 's6',
+    'methode-formations': 's6',
+    'methode-tarifs': 's8',
+    mp: 's5',
+    contact: 's8'
   };
 
   var HUE_MAP = {
