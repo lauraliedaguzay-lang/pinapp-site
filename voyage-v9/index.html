@@ -354,6 +354,22 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
 .real-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:var(--sp-4)}
 .real-links a{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--r-pill);border:1px solid rgba(230,185,115,0.22);text-decoration:none;color:var(--ivoire-mute);font-size:12px;font-weight:600}
 .real-links a:hover,.real-links a:focus-visible{color:var(--ivoire);border-color:rgba(62,245,224,0.28);background:rgba(62,245,224,0.06)}
+.tdah-brief{margin-top:var(--sp-6)}
+.tdah-brief .grid-2{align-items:stretch}
+.tdah-card{padding:var(--sp-6)}
+.tdah-card h3{margin:0 0 var(--sp-3);font-family:var(--ff-display);font-style:normal;font-weight:650;letter-spacing:-0.02em}
+.tdah-card ul{margin:0;padding-left:1.2rem;color:var(--ivoire-mute);line-height:1.7;font-size:0.95rem}
+.tdah-card li{margin:0 0 var(--sp-2)}
+.tdah-steps{display:grid;gap:var(--sp-3);margin-top:var(--sp-5)}
+@media(min-width:900px){.tdah-steps{grid-template-columns:repeat(3,1fr)}}
+.tdah-step{padding:var(--sp-4);border-radius:var(--r-md);border:1px solid rgba(230,185,115,0.18);background:rgba(20,30,42,0.45);font-size:var(--fs-micro);color:var(--ivoire-mute)}
+.tdah-step strong{display:block;color:var(--ivoire);margin-bottom:6px;letter-spacing:-0.02em}
+.tdah-live{margin-top:var(--sp-5);padding:var(--sp-5);border-radius:var(--r-lg);border:1px solid rgba(62,245,224,0.22);background:linear-gradient(135deg,rgba(20,30,42,0.7),rgba(20,30,42,0.5))}
+.tdah-live__k{font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--ivoire-dim);margin:0 0 var(--sp-3)}
+.tdah-live__line{margin:0;color:var(--ivoire);font-weight:650}
+.tdah-live__sub{margin:var(--sp-2) 0 0;color:var(--ivoire-mute);font-size:0.95rem;line-height:1.6}
+.tdah-live__tag{display:inline-flex;align-items:center;gap:8px;margin-top:var(--sp-3);padding:8px 10px;border-radius:var(--r-pill);border:1px solid rgba(230,185,115,0.22);color:var(--or);font-size:12px;font-weight:750}
+.tdah-live__tag code{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--ivoire-mute)}
 .counters{padding:var(--sp-4)}
 .compare-table{padding:var(--sp-4)}
 @media(max-width:767px){.counters{grid-template-columns:1fr}}
@@ -1003,6 +1019,34 @@ Captation 4-6h · montage 5 jours
       <div class="clause" data-reveal>
         <p style="margin:0">« Si un engagement n'est pas tenu sur votre projet, on le dit<br>— et on rembourse la part concernée. »</p>
       </div>
+
+      <div class="tdah-brief" data-reveal aria-label="Résumé ultra concret">
+        <div class="grid-2">
+          <div class="card--glass tdah-card">
+            <h3>Ce que vous achetez</h3>
+            <ul>
+              <li><strong>Un livrable clair</strong> (site / automatisations / film / pack duo) avec un périmètre écrit.</li>
+              <li><strong>Une mise en ligne</strong> + vos accès (vous gardez le code et les comptes).</li>
+              <li><strong>30 jours d'accompagnement</strong> après livraison (ajustements + prise en main).</li>
+            </ul>
+          </div>
+          <div class="card--glass tdah-card">
+            <h3>Ce qui se passe après</h3>
+            <div class="tdah-steps" role="list" aria-label="Étapes après envoi">
+              <div class="tdah-step" role="listitem"><strong>1 · Réception</strong>Votre demande est routée (tag n8n) et tracée.</div>
+              <div class="tdah-step" role="listitem"><strong>2 · Claude prépare</strong>Un <strong>brouillon</strong> est préparé (analyse + réponse) pour gagner du temps.</div>
+              <div class="tdah-step" role="listitem"><strong>3 · Humain valide</strong><strong>Rien ne part sans validation</strong> de Lauralie ou Michaël.</div>
+            </div>
+          </div>
+        </div>
+        <div class="tdah-live" role="status" aria-live="polite" aria-atomic="true">
+          <p class="tdah-live__k">Votre résumé (en direct)</p>
+          <p class="tdah-live__line" id="tdahLiveLine">Choisissez un chemin (Tech / Image / Duo) pour voir ce que vous achetez.</p>
+          <p class="tdah-live__sub" id="tdahLiveSub">On affiche ici le livrable principal + ce qu’on fait ensuite, sans jargon.</p>
+          <div class="tdah-live__tag" id="tdahLiveTag" hidden><span>Routage</span> <code id="tdahLiveTagCode">—</code></div>
+        </div>
+      </div>
+
       <form id="diag" class="card--glass" style="margin-top:var(--sp-6);padding:var(--sp-6)" data-reveal novalidate>
         <input type="hidden" name="path" id="fieldPath" value="">
         <p class="eyebrow">Votre besoin</p>
@@ -1100,7 +1144,7 @@ Captation 4-6h · montage 5 jours
           <a class="btn btn--ghost" href="https://cal.com/lauralie-daguzay-hdglzw/diagnostic" target="_blank" rel="noopener noreferrer">📅 Prendre rendez-vous en ligne →</a>
         </div>
         <p class="reassure">Aucun appel surprise. Aucun engagement.<br>100 % par écrit. Réponse d'humain — pas de robot.</p>
-        <p class="auto-note">« Pas un robot — un brouillon préparé en amont<br>  que Lauralie ou Michaël valide en 1 clic.<br>  Vous gagnez du temps. Nous aussi. »</p>
+        <p class="auto-note">« Claude prépare un brouillon (analyse + réponse).<br>  Lauralie ou Michaël valide avant envoi client.<br>  Objectif : réponse écrite sous 24h, sans charge mentale. »</p>
         <div id="formStatus" class="form-status" aria-live="polite"></div>
       </form>
     </div>
@@ -1407,6 +1451,69 @@ var pathCards=[].slice.call(document.querySelectorAll('.path-card'));
 var cTech=document.getElementById('condTech');
 var cImg=document.getElementById('condImage');
 var cDuo=document.getElementById('condDuo');
+var liveLine=document.getElementById('tdahLiveLine');
+var liveSub=document.getElementById('tdahLiveSub');
+var liveTag=document.getElementById('tdahLiveTag');
+var liveTagCode=document.getElementById('tdahLiveTagCode');
+
+function safeText(el, txt){
+  if(!el) return;
+  el.textContent = String(txt || '');
+}
+
+function readPrimaryNeed(){
+  var p = String(pathInput && pathInput.value ? pathInput.value : '').trim();
+  if(p === 'tech'){
+    var a = document.getElementById('f_besoin_tech');
+    return a ? String(a.value || '') : '';
+  }
+  if(p === 'image'){
+    var b = document.getElementById('f_besoin_image');
+    return b ? String(b.value || '') : '';
+  }
+  if(p === 'duo'){
+    var c = document.getElementById('f_besoin_duo');
+    return c ? String(c.value || '') : '';
+  }
+  return '';
+}
+
+function needLabel(selectId){
+  var s = document.getElementById(selectId);
+  if(!s) return '';
+  var opt = s.options[s.selectedIndex];
+  return opt ? String(opt.textContent || '').trim() : '';
+}
+
+function updateTdahSummary(){
+  var p = String(pathInput && pathInput.value ? pathInput.value : '').trim();
+  if(!liveLine || !liveSub || !liveTag || !liveTagCode) return;
+
+  if(!p){
+    safeText(liveLine, 'Choisissez un chemin (Tech / Image / Duo) pour voir ce que vous achetez.');
+    safeText(liveSub, 'On affiche ici le livrable principal + ce qu’on fait ensuite, sans jargon.');
+    liveTag.hidden = true;
+    return;
+  }
+
+  var label = '';
+  if(p === 'tech') label = needLabel('f_besoin_tech');
+  if(p === 'image') label = needLabel('f_besoin_image');
+  if(p === 'duo') label = needLabel('f_besoin_duo');
+  if(!label) label = 'Choisissez votre besoin principal (juste en dessous).';
+
+  safeText(liveLine, 'Vous demandez : ' + label);
+  safeText(liveSub, 'Après envoi : routage → brouillon Claude → validation humaine → réponse écrite sous 24h.');
+
+  try{
+    var tag = computeRouteTagFromForm();
+    safeText(liveTagCode, tag || '—');
+    liveTag.hidden = false;
+  }catch(_e){
+    safeText(liveTagCode, '—');
+    liveTag.hidden = false;
+  }
+}
 function setPath(p){
   pathInput.value=p;
   pathCards.forEach(function(c){
@@ -1419,6 +1526,7 @@ function setPath(p){
   if(cTech){ cTech.hidden=p!=='tech'; cTech.classList.toggle('is-open',p==='tech'); }
   if(cImg){ cImg.hidden=p!=='image'; cImg.classList.toggle('is-open',p==='image'); }
   if(cDuo){ cDuo.hidden=p!=='duo'; cDuo.classList.toggle('is-open',p==='duo'); }
+  updateTdahSummary();
 }
 pathCards.forEach(function(c){
   c.addEventListener('click',function(){ setPath(c.getAttribute('data-path')); });
@@ -1437,6 +1545,11 @@ if(form){
     }catch(e){}
   }
   form.addEventListener('input', debounce(saveDraft,400));
+  form.addEventListener('change', function(){
+    updateTdahSummary();
+    var p = String(pathInput && pathInput.value ? pathInput.value : '').trim();
+    toggleRequiredByPath(p);
+  });
   try{
     var d=JSON.parse(localStorage.getItem(draftKey)||'{}');
     Object.keys(d).forEach(function(k){
