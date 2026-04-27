@@ -304,6 +304,11 @@ body.draft-mode .draft-badge{opacity:1}
 .soft-video__title{font-family:var(--ff-display,Fraunces,Georgia,serif);font-style:italic;font-weight:500;font-size:1.5rem;margin:0 0 .5rem;line-height:1.2;color:var(--ivoire)}
 .soft-video__title em{color:var(--or);font-style:italic}
 .soft-video__sub{margin:0;color:var(--ivoire-dim);font-size:.9375rem;line-height:1.5}
+.card--duo{display:flex;flex-direction:column;gap:var(--sp-4);overflow:hidden}
+.team-portrait{width:100%;max-width:220px;margin:0 auto var(--sp-2);aspect-ratio:3/4;object-fit:cover;border-radius:50% 50% 12px 12px;border:1px solid rgba(230,185,115,0.25)}
+@media(min-width:768px){.team-portrait{margin:0 0 var(--sp-3) 0;max-width:100%}}
+.card--duo .role-kicker{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--or);margin:0 0 var(--sp-2)}
+.pillar__desc{font-size:var(--fs-micro);color:var(--ivoire-mute);line-height:1.5;margin-top:var(--sp-2);max-width:14rem;margin-left:auto;margin-right:auto}
 /* Placeholders draft (s07/s09) plus compacts pour ressembler à des cards vidéo */
 body.draft-mode .placeholder-asset{max-width:520px;font-size:.8125rem}
 body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;padding:var(--sp-5);padding-top:var(--sp-7)}
@@ -351,7 +356,7 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Pinapp Inc · Bordeaux · 2026</p>
       <h1 id="s01-h1" class="display display--h1" data-reveal data-reveal-delay="1">Vos outils travaillent.<br>Vous gagnez du temps.</h1>
-      <p class="lead" data-reveal>Sites · automatisations · films · clips.<br>Un seul devis. 50 à 75 % moins cher qu'une agence classique.<br>Diagnostic offert sous 24 heures.</p>
+      <p class="lead" data-reveal><strong>Lauralie</strong> : site vitrine, outils qui tournent (devis, relances, avis), assistants et formations.<br><strong>Michaël</strong> : clips et films avec l'IA, captation d'événements, direction artistique.<br>Un seul devis pour les deux. 50 à 75 % moins cher qu'une agence classique. Diagnostic offert sous 24 heures.</p>
       <p class="badge-row" data-reveal><span class="badge">★ IA déclarée · Stack EU · Page &lt; 1 Mo</span></p>
       <div class="hero-s01-grid">
         <div class="soft-video hero-s01-aside" data-reveal aria-label="Vidéo de présentation Pinapp à venir">
@@ -385,14 +390,19 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Qui fait quoi</p>
       <h2 id="s02-h2" class="display display--h2" data-reveal>Lauralie + Michaël.<br>Deux experts. Un seul interlocuteur. Un seul devis.</h2>
+      <p class="lead" data-reveal style="text-align:center;max-width:40rem;margin-left:auto;margin-right:auto">Deux métiers complémentaires : tout ce qui est <strong>numérique et automatisé</strong> côté Lauralie, tout ce qui est <strong>image et récit</strong> côté Michaël. Vous ne gérez qu'un interlocuteur.</p>
       <div class="grid-2" style="margin-top:var(--sp-7)">
-        <div class="card--glass" data-reveal>
+        <div class="card--glass card--duo" data-reveal>
+          <img class="team-portrait" src="assets/team/lauralie.png" alt="Portrait de Lauralie Daguzay" width="440" height="587" loading="lazy" decoding="async">
+          <p class="role-kicker">Système &amp; conversion</p>
           <p><strong>🔧 LAURALIE Daguzay</strong></p>
-          <p class="lead" style="margin:0;font-size:1rem">Architecte des systèmes.<br>Sites, automatisations, assistants intelligents, formations.<br>Tient le système. Du brief à la mise en ligne.<br>Bordeaux · partout en France.</p>
+          <p class="lead" style="margin:0;font-size:1rem">Elle conçoit votre présence en ligne et ce qui tourne derrière : site rapide et accessible, parcours client clair, automatisations (CRM, devis, relances, avis), assistants sur vos processus, formations pour que vous gardiez la main.<br>Du brief à la mise en ligne — Bordeaux, partout en France.</p>
         </div>
-        <div class="card--glass" data-reveal data-reveal-delay="1">
+        <div class="card--glass card--duo" data-reveal data-reveal-delay="1">
+          <img class="team-portrait" src="assets/team/micha.jpg" alt="Portrait de Michaël Bouilhac" width="440" height="587" loading="lazy" decoding="async">
+          <p class="role-kicker">Image &amp; cinéma</p>
           <p><strong>🎬 MICHA · Michaël Bouilhac</strong></p>
-          <p class="lead" style="margin:0;font-size:1rem">10 ans dans l'événementiel.<br>Photo. Vidéo. Terrain.<br>Études d'informatique. Autodidacte sur les outils intelligents.<br>Tient l'image. Du brief au rendu final.<br>Bordeaux · Nouvelle-Aquitaine.</p>
+          <p class="lead" style="margin:0;font-size:1rem">Il réalise l'image et le mouvement : clips et films avec l'IA (du teaser au format long), captation sur le terrain en Nouvelle-Aquitaine, direction artistique pour une identité visuelle cohérente. 10 ans d'événementiel, photo et vidéo.<br>Du brief au fichier livré — Bordeaux et région.</p>
         </div>
       </div>
       <p class="microcite" data-reveal style="margin-top:var(--sp-8);font-size:1.5rem">« Lauralie architecte. Michaël filme. Ensemble nous livrons. »</p>
@@ -515,9 +525,9 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
 Mosaïque animée · transitions cross-fade · sound design off
 À monter — montre 14 sites successivement</div>
       <div class="pillars" data-reveal>
-        <div class="pillar"><div class="pillar__emoji">🌐</div><div class="pillar__title">Sites qui<br>convertissent</div><div>1 290 € HT</div></div>
-        <div class="pillar"><div class="pillar__emoji">⚙</div><div class="pillar__title">Automatisations<br>qui tournent seules</div><div>490 € HT</div></div>
-        <div class="pillar"><div class="pillar__emoji">✨</div><div class="pillar__title">Assistants qui<br>répondent H24</div><div>890 € HT</div></div>
+        <div class="pillar"><div class="pillar__emoji">🌐</div><div class="pillar__title">Sites qui<br>convertissent</div><p class="pillar__desc">Page d'accueil et pages clés : message clair, prise de contact, SEO et perf. Pas de site « carte de visite » qui ne ramène personne.</p><div>1 290 € HT</div></div>
+        <div class="pillar"><div class="pillar__emoji">⚙</div><div class="pillar__title">Automatisations<br>qui tournent seules</div><p class="pillar__desc">Relier formulaire, CRM, devis, mails, rappels, avis — moins de saisie manuelle, moins d'oublis.</p><div>490 € HT</div></div>
+        <div class="pillar"><div class="pillar__emoji">✨</div><div class="pillar__title">Assistants qui<br>répondent H24</div><p class="pillar__desc">Configurations sur vos outils pour qualifier, répondre aux questions fréquentes ou préparer des brouillons que vous validez.</p><div>890 € HT</div></div>
       </div>
       <div class="mock-grid" data-reveal>
         <div class="mock mock--wide">
@@ -582,6 +592,7 @@ Mosaïque animée · transitions cross-fade · sound design off
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Studio Micha · Cinéma IA</p>
       <h2 id="s07-h2" class="display display--h2" data-reveal>Du clip 30 secondes<br>au court-métrage 3 minutes.</h2>
+      <p class="lead" data-reveal>Offres « image » : fiction et promo avec l'IA (montage inclus), plus captation réelle sur la région et DA pour votre univers visuel. Chaque grille ci-dessous = un type de livrable et un ordre de grandeur tarifaire.</p>
       <div class="vimeo-grid" style="margin-top:var(--sp-6)">
         <div class="vimeo-tile" data-reveal>
           <button type="button" class="vimeo-open" data-vimeo="1184294762" aria-label="Lire la vidéo Walker — court-métrage IA pro">
@@ -834,17 +845,17 @@ Captation 4-6h · montage 5 jours
         <div class="path-cards" role="group" aria-label="Choisir un chemin">
           <button type="button" class="path-card" data-path="tech" aria-pressed="false">
             <h3>🔧 Tech / Systèmes</h3>
-            <p>Vous voulez parler à Lauralie</p>
+            <p>Site, automatisations, assistant, formation — besoin côté Lauralie</p>
             <span class="sel">○ Sélectionner</span>
           </button>
           <button type="button" class="path-card" data-path="image" aria-pressed="false">
             <h3>🎬 Image / Mouvement</h3>
-            <p>Vous voulez parler à Micha</p>
+            <p>Clip, film IA, captation, direction artistique — besoin côté Michaël</p>
             <span class="sel">○ Sélectionner</span>
           </button>
           <button type="button" class="path-card" data-path="duo" aria-pressed="false">
             <h3>✨ Pack Duo complet</h3>
-            <p>Les deux — projet à 360°</p>
+            <p>Les deux métiers dans un même projet et un seul devis</p>
             <span class="sel">○ Sélectionner</span>
           </button>
         </div>
