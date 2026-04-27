@@ -144,14 +144,24 @@ main{position:relative;z-index:1;padding-top:72px}
 .stat{font-family:var(--ff-display);font-style:normal;font-weight:600;font-size:clamp(1rem,2vw,1.25rem);color:var(--ivoire);letter-spacing:-0.02em}
 .cta-row{display:flex;flex-wrap:wrap;gap:var(--sp-4);margin-top:var(--sp-6)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--sp-2);min-height:44px;padding:14px 28px;border-radius:var(--r-pill);font-weight:600;font-size:0.875rem;transition:transform var(--dur-fast) var(--ease-spring),background var(--dur-fast),box-shadow var(--dur-fast)}
-.btn--primary{background:var(--or);color:var(--nuit);box-shadow:0 1px 0 rgba(255,255,255,0.25) inset}
-.btn--primary:hover{transform:translateY(-2px)}
-.btn--ghost{border:1px solid rgba(230,185,115,0.55);color:var(--ivoire);background:transparent}
-.btn--ghost:hover{background:var(--or-glow);transform:translateY(-2px)}
+.btn--primary{position:relative;overflow:hidden;z-index:0;background:var(--or);color:var(--nuit);box-shadow:0 1px 0 rgba(255,255,255,0.25) inset;transition:letter-spacing var(--dur-fast) var(--ease-out),box-shadow var(--dur-fast) var(--ease-out)}
+.btn--primary::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--or),#f0d4a8,var(--or));background-size:200% 100%;background-position:0 0;z-index:-1;transition:background-position var(--dur-mid) var(--ease-out)}
+.btn--primary:hover{letter-spacing:0.03em;box-shadow:0 0 24px 3px var(--or-glow-strong)}
+.btn--primary:hover::before{background-position:100% 0}
+.nav__cta{position:relative;overflow:hidden;z-index:0;transition:letter-spacing var(--dur-fast) var(--ease-out),box-shadow var(--dur-fast) var(--ease-out)}
+.nav__cta::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--or),#f0d4a8,var(--or));background-size:200% 100%;z-index:-1;transition:background-position var(--dur-mid) var(--ease-out)}
+.nav__cta:hover{letter-spacing:0.03em;box-shadow:0 0 20px 3px var(--or-glow-strong)}
+.nav__cta:hover::before{background-position:100% 0}
+.btn--ghost{position:relative;overflow:hidden;z-index:0;border:1px solid rgba(230,185,115,0.55);color:var(--ivoire);background:transparent;transition:color var(--dur-fast) var(--ease-out),border-color var(--dur-fast) var(--ease-out)}
+.btn--ghost::before{content:'';position:absolute;inset:0;background:var(--or);clip-path:inset(100% 0 0 0);transition:clip-path var(--dur-mid) var(--ease-out);z-index:-1}
+.btn--ghost:hover{color:var(--nuit);border-color:var(--or)}
+.btn--ghost:hover::before{clip-path:inset(0 0 0 0)}
 .btn--text{background:transparent;padding:12px 8px;min-height:44px;text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(230,185,115,0.5)}
 .btn--cta-large{padding:18px 40px;font-size:1.125rem;min-height:48px}
-.card--glass{background:var(--fumee);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(230,185,115,0.15);border-radius:var(--r-lg);padding:var(--sp-6);transform:translateZ(0);transition:transform var(--dur-fast) var(--ease-spring)}
-.card--glass:hover{transform:translateY(-2px) translateZ(0)}
+.card--glass{background:var(--fumee);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(230,185,115,0.15);border-radius:var(--r-lg);padding:var(--sp-6);transform:translateZ(0);transition:transform var(--dur-mid) var(--ease-out),border-color var(--dur-fast) var(--ease-out),box-shadow var(--dur-mid) var(--ease-out)}
+.card--glass:hover:not(.v10-tilt){transform:translateY(-2px) translateZ(0)}
+.v10-tilt{transform-style:preserve-3d;will-change:transform}
+.v10-tilt:hover{border-color:rgba(230,185,115,0.45);box-shadow:0 10px 32px var(--or-glow)}
 .card--pricing{position:relative}
 .card--pricing .price{font-family:var(--ff-display);font-size:1.75rem;margin:var(--sp-3) 0}
 .card--pricing .strike{text-decoration:line-through;opacity:0.55;font-size:1.1rem;margin-right:var(--sp-2)}
@@ -162,7 +172,7 @@ main{position:relative;z-index:1;padding-top:72px}
 @media(min-width:1024px){.grid-asym{grid-template-columns:1.1fr 0.9fr 1fr 0.85fr}}
 .pains-grid{display:grid;gap:var(--sp-4)}
 @media(min-width:768px){.pains-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto auto}.pains-grid .pain:nth-child(1){grid-column:1}.pains-grid .pain:nth-child(2){grid-column:2}.pains-grid .pain:nth-child(3){grid-column:1/2}.pains-grid .pain:nth-child(4){grid-column:2/3;max-width:92%;justify-self:end}}
-.pain{padding:var(--sp-5);font-size:0.95rem}
+.pain{padding:var(--sp-5);font-size:0.95rem;border-left:3px solid rgba(230,185,115,0)}
 .pain strong{display:block;font-family:var(--ff-display);font-size:1.15rem;margin-bottom:var(--sp-2)}
 .split-aa{display:grid;gap:var(--sp-4);margin:var(--sp-6) 0}
 @media(min-width:768px){.split-aa{grid-template-columns:1fr 1fr}}
@@ -247,7 +257,7 @@ details.faq .faq-a{margin-top:var(--sp-3);color:var(--ivoire-mute)}
 .path-cards{display:grid;gap:var(--sp-4);margin:var(--sp-6) 0}
 @media(min-width:768px){.path-cards{grid-template-columns:repeat(3,1fr)}}
 .path-card{border:2px solid rgba(230,185,115,0.25);border-radius:var(--r-lg);padding:var(--sp-5);cursor:pointer;text-align:left;transition:border-color var(--dur-fast),background var(--dur-fast),transform var(--dur-fast) var(--ease-spring)}
-.path-card:hover{transform:translateY(-2px)}
+.path-card:hover{transform:translateY(-1px)}
 .path-card.is-active{border-color:var(--or);background:rgba(230,185,115,0.08)}
 .path-card h3{margin:0 0 var(--sp-2);font-size:1.1rem}
 .path-card p{margin:0;font-size:var(--fs-micro);color:var(--ivoire-mute)}
@@ -441,6 +451,67 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
 .pack-duo-bridge{margin-top:var(--sp-6);padding:var(--sp-5);border-radius:var(--r-lg);border:1px solid rgba(62,245,224,0.25);background:rgba(62,245,224,0.08);text-align:center}
 .pack-duo-bridge strong{display:block;font-size:clamp(1.05rem,2.5vw,1.25rem);margin-bottom:var(--sp-2);color:var(--ivoire)}
 .pack-duo-bridge span{color:var(--ivoire-mute);font-size:var(--fs-micro)}
+.hero__title .hero-word{display:inline-block;opacity:0;transform:translateY(36px);animation:word-reveal 0.95s var(--ease-out) forwards;animation-delay:calc(var(--i)*80ms + 120ms)}
+@keyframes word-reveal{to{opacity:1;transform:translateY(0)}}
+.hero-word--accent{position:relative;font-style:italic;color:var(--or)}
+.hero-word--accent::after{content:'';position:absolute;left:0;bottom:-4px;width:100%;height:2px;background:var(--or);transform:scaleX(0);transform-origin:left;animation:underline-draw 1s var(--ease-out) 1.1s forwards}
+@keyframes underline-draw{to{transform:scaleX(1)}}
+@media (hover:hover){
+  .hero-word--accent:hover{transform:skewX(-2deg);transition:transform var(--dur-fast) var(--ease-spring)}
+}
+@supports (animation-timeline:scroll()){
+  .hero__title{animation:hero-scroll-fade linear;animation-timeline:scroll();animation-range:0 55vh}
+  @keyframes hero-scroll-fade{to{opacity:0.35;transform:translateY(-20px)}}
+  .hook-video-wrap{animation:hook-zoom linear;animation-timeline:view();animation-range:entry 0% cover 45%}
+  @keyframes hook-zoom{0%{opacity:0.85;transform:scale(0.96)}100%{opacity:1;transform:scale(1)}}
+  #diagnostic .pain{animation:pain-reveal linear;animation-timeline:view();animation-range:entry 0% entry 55%}
+  #diagnostic .pain:nth-child(1){animation-delay:0ms}
+  #diagnostic .pain:nth-child(2){animation-delay:80ms}
+  #diagnostic .pain:nth-child(3){animation-delay:160ms}
+  #diagnostic .pain:nth-child(4){animation-delay:240ms}
+  @keyframes pain-reveal{from{opacity:0.35;transform:translateY(16px);border-left-color:rgba(230,185,115,0)}to{opacity:1;transform:translateY(0);border-left-color:rgba(230,185,115,0.55)}}
+  #cinema-artistes{animation:cinema-darken linear;animation-timeline:view();animation-range:entry 0% cover 90%}
+  @keyframes cinema-darken{from{background-color:rgba(26,26,26,0.35)}to{background-color:rgba(8,8,8,0.92)}}
+}
+.pack-essentiel .price-old s{position:relative;text-decoration:none;display:inline-block}
+.pack-essentiel .price-old s::after{content:'';position:absolute;left:0;top:50%;width:0;height:1.5px;background:var(--text-2);transition:width 0.75s var(--ease-out) 0.25s}
+.pack-essentiel.in-view .price-old s::after{width:100%}
+.lead a:not(.btn),.real-links a:not(.btn),.source-note a:not(.btn){position:relative;display:inline-block;text-decoration:none}
+.lead a:not(.btn)::after,.real-links a:not(.btn)::after,.source-note a:not(.btn)::after{content:'';position:absolute;left:0;bottom:-1px;width:100%;height:1px;background:var(--or);transform:scaleX(0);transform-origin:right;transition:transform var(--dur-mid) var(--ease-out)}
+.lead a:not(.btn):hover::after,.real-links a:not(.btn):hover::after,.source-note a:not(.btn):hover::after{transform-origin:left;transform:scaleX(1)}
+.team-photo{position:relative;overflow:hidden;border-radius:14px;filter:grayscale(70%);transition:filter var(--dur-cinema) var(--ease-out)}
+.team-photo::before{content:'';position:absolute;inset:0;background:var(--or);clip-path:circle(0% at 50% 50%);transition:clip-path 1.2s var(--ease-out);z-index:1;mix-blend-mode:overlay;pointer-events:none;opacity:0.5}
+.team-photo.in-view::before{clip-path:circle(140% at 50% 50%)}
+.team-photo::after{content:'';position:absolute;inset:0;border:1px solid rgba(230,185,115,0.45);border-radius:14px;opacity:0;transform:scale(1.04);transition:opacity 0.7s var(--ease-out) 0.45s,transform 0.7s var(--ease-out) 0.45s;pointer-events:none}
+.team-photo.in-view::after{opacity:1;transform:scale(1)}
+@media (hover:hover){
+  .team-photo:hover{filter:grayscale(0%);transform:scale(1.02) rotate(0.4deg);transition:filter var(--dur-mid) var(--ease-out),transform var(--dur-mid) var(--ease-out)}
+}
+.hook-video-wrap{transition:box-shadow var(--dur-mid) var(--ease-out),border-color var(--dur-mid) var(--ease-out)}
+@media (hover:hover){
+  .hook-video-wrap:hover{box-shadow:0 0 40px 6px var(--or-glow-strong);border-color:var(--or-light)}
+}
+[data-author="lauralie"],[data-author="micha"]{position:relative;overflow:hidden}
+[data-author="lauralie"]::before{content:'';position:absolute;inset:auto 0 0 0;height:0;background:linear-gradient(to top,var(--cyan-glow),transparent);transition:height var(--dur-cinema) var(--ease-out);pointer-events:none;z-index:0}
+[data-author="lauralie"]:hover::before{height:55%}
+[data-author="micha"]::before{content:'';position:absolute;inset:0 0 auto 0;height:0;background:linear-gradient(to bottom,var(--or-glow),transparent);transition:height var(--dur-cinema) var(--ease-out);pointer-events:none;z-index:0}
+[data-author="micha"]:hover::before{height:55%}
+[data-author="lauralie"] > *,[data-author="micha"] > *{position:relative;z-index:1}
+@supports not (animation-timeline:scroll()){
+  .reveal-io{opacity:0;transform:translateY(16px);transition:opacity 0.7s var(--ease-out),transform 0.7s var(--ease-out)}
+  .reveal-io.is-in{opacity:1;transform:translateY(0)}
+}
+@media (prefers-reduced-motion:reduce){
+  .hero__title .hero-word{opacity:1;transform:none;animation:none}
+  .hero-word--accent::after{transform:scaleX(1);animation:none}
+  .hero__title{animation:none!important}
+  .hook-video-wrap{animation:none!important}
+  #diagnostic .pain{animation:none!important;border-left-color:rgba(230,185,115,0.35)}
+  #cinema-artistes{animation:none!important}
+  .team-photo::before,.team-photo::after{transition:none}
+  .team-photo.in-view::before{clip-path:none;opacity:0}
+  .team-photo.in-view::after{opacity:0}
+}
 html.sober #grain-canvas{display:none!important}
 @media (pointer:fine) and (min-width:1024px){
   html.mag-cursor-on body{cursor:none}
@@ -505,7 +576,7 @@ html.sober #grain-canvas{display:none!important}
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Pinapp Inc · Bordeaux · 2026</p>
       <p class="eyebrow" data-reveal data-reveal-delay="1" style="margin-top:calc(-1 * var(--sp-2));color:var(--ivoire-dim)">Studio digital · Bordeaux · Sites + automatisations + films IA</p>
-      <h1 id="hero-h1" class="display display--h1" data-reveal data-reveal-delay="1">Vos outils travaillent.<br>Vous gagnez du temps.</h1>
+      <h1 id="hero-h1" class="display display--h1 hero__title"><span class="hero-word" style="--i:0">Vos</span> <span class="hero-word" style="--i:1">outils</span> <span class="hero-word" style="--i:2">travaillent.</span><br><span class="hero-word" style="--i:3">Vous</span> <span class="hero-word" style="--i:4">gagnez</span> <span class="hero-word" style="--i:5">du</span> <span class="hero-word hero-word--accent" style="--i:6">temps.</span></h1>
       <p class="lead" data-reveal>Site vitrine, automatisations IA, films cinéma —<br>par un duo bordelais.<br>Un seul devis. 50 à 75 % moins cher qu'une agence.<br>Diagnostic offert sous 24 h.</p>
       <p class="badge-row" data-reveal><span class="badge">★ IA déclarée · Stack EU · Page &lt; 1 Mo</span></p>
       <div class="hero-s01-grid">
@@ -627,15 +698,15 @@ html.sober #grain-canvas{display:none!important}
       <h2 id="duo-h2" class="display display--h2" data-reveal>Lauralie + Michaël.<br>Deux experts. Un seul interlocuteur. Un seul devis.</h2>
       <p class="lead" data-reveal style="text-align:center;max-width:40rem;margin-left:auto;margin-right:auto">Deux métiers complémentaires : tout ce qui est <strong>numérique et automatisé</strong> côté Lauralie, tout ce qui est <strong>image et récit</strong> côté Michaël. Vous ne gérez qu'un interlocuteur.</p>
       <div class="grid-2" style="margin-top:var(--sp-7)">
-        <div class="card--glass card--duo" data-reveal>
-          <img class="team-portrait" src="assets/team/lauralie.png" alt="Portrait de Lauralie Daguzay" width="440" height="587" loading="eager" decoding="async" fetchpriority="high">
+        <div class="card--glass card--duo" data-reveal data-author="lauralie">
+          <img class="team-portrait team-photo" src="assets/team/lauralie.png" alt="Portrait de Lauralie Daguzay" width="440" height="587" loading="eager" decoding="async" fetchpriority="high">
           <p class="role-kicker">Système &amp; conversion</p>
           <p><strong>🔧 LAURALIE Daguzay</strong></p>
           <p class="lead" style="margin:0;font-size:1rem">Elle conçoit votre présence en ligne et ce qui tourne derrière : site rapide et accessible, parcours client clair, automatisations (CRM, devis, relances, avis), assistants sur vos processus, formations pour que vous gardiez la main.<br>Du brief à la mise en ligne — Bordeaux, partout en France.</p>
           <p style="margin:0"><a class="btn btn--text" href="https://www.linkedin.com/in/lauraliedaguzay" target="_blank" rel="noopener noreferrer" style="font-size:var(--fs-micro);padding:0;min-height:auto">Voir mes travaux LinkedIn ↗</a></p>
         </div>
-        <div class="card--glass card--duo" data-reveal data-reveal-delay="1">
-          <img class="team-portrait" src="assets/team/micha.jpg" alt="Portrait de Michaël Bouilhac" width="440" height="587" loading="eager" decoding="async" fetchpriority="high">
+        <div class="card--glass card--duo" data-reveal data-reveal-delay="1" data-author="micha">
+          <img class="team-portrait team-photo" src="assets/team/micha.jpg" alt="Portrait de Michaël Bouilhac" width="440" height="587" loading="eager" decoding="async" fetchpriority="high">
           <p class="role-kicker">Image &amp; cinéma</p>
           <p><strong>🎬 MICHA · Michaël Bouilhac</strong></p>
           <p class="lead" style="margin:0;font-size:1rem">Il réalise l'image et le mouvement : clips et films avec l'IA (du teaser au format long), captation sur le terrain en Nouvelle-Aquitaine, direction artistique pour une identité visuelle cohérente. 10 ans d'événementiel, photo et vidéo.<br>Du brief au fichier livré — Bordeaux et région.</p>
@@ -645,7 +716,7 @@ html.sober #grain-canvas{display:none!important}
       <div class="reals-duo" aria-label="Réalisations : exemples concrets" data-reveal>
         <p class="reals-duo__kicker">Exemples concrets</p>
         <div class="grid-2">
-          <div class="card--glass" style="padding:var(--sp-6)">
+          <div class="card--glass" style="padding:var(--sp-6)" data-author="lauralie">
             <p class="role-kicker" style="margin:0 0 var(--sp-3)">Réalisations Lauralie</p>
             <ul class="real-list">
               <li><strong>Sites premium</strong> (perf, accessibilité, SEO) avec un parcours qui convertit.</li>
@@ -658,7 +729,7 @@ html.sober #grain-canvas{display:none!important}
               <a href="#auto">Schéma automatisations ↓</a>
             </div>
           </div>
-          <div class="card--glass" style="padding:var(--sp-6)">
+          <div class="card--glass" style="padding:var(--sp-6)" data-author="micha">
             <p class="role-kicker" style="margin:0 0 var(--sp-3)">Réalisations Michaël</p>
             <ul class="real-list">
               <li><strong>Films IA</strong> (teaser, court-métrage, premium) : direction artistique, montage, rythme.</li>
@@ -725,7 +796,7 @@ html.sober #grain-canvas{display:none!important}
       <p class="eyebrow" data-reveal>L'offre signature</p>
       <h2 id="pack-h2" class="display display--h2" data-reveal>Pack Duo. Tout en un seul devis.</h2>
       <div class="pack-grid" style="margin-top:var(--sp-7)">
-        <div class="card--glass card--pricing" data-reveal>
+        <div class="card--glass card--pricing pack-essentiel" data-reveal>
           <h3>Pack Duo Essentiel</h3>
           <p class="price"><span class="price-old"><s>1 970 €</s></span> <span class="price-new">→ 1 890 € HT</span></p>
           <p>Économisez 80 €</p>
@@ -1470,6 +1541,7 @@ Captation 4-6h · montage 5 jours
 <script src="assets/js/film-chromatic.js" defer></script>
 <script src="assets/js/grain-canvas.js" defer></script>
 <script src="assets/js/magnetic-cursor.js" defer></script>
+<script src="assets/js/card-tilt.js" defer></script>
 <script>
 (function(){
 'use strict';
