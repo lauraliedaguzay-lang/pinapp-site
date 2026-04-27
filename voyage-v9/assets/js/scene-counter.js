@@ -1,142 +1,106 @@
 /**
- * Pinapp V9 — Scene counter (voyage-v9)
- * 14 étapes logiques (films-first, ancre #pourquoi-moins-cher).
+ * Pinapp V10 — compteur scène signature (bas gauche)
  */
 (function () {
   'use strict';
 
-  var SCENE_MAP = {
-    hero: 1,
-    'hook-film': 2,
-    orientation: 3,
-    diagnostic: 4,
-    duo: 5,
-    'pourquoi-moins-cher': 6,
-    auto: 7,
-    'auto-faq': 7,
-    pack: 8,
-    realisations: 9,
-    'realisations-vitrine': 9,
-    'realisations-demos': 9,
-    'realisations-stack': 9,
-    'realisations-films': 9,
-    'cinema-artistes': 10,
-    'captation-na': 11,
-    methode: 12,
-    'methode-formations': 12,
-    'methode-tarifs': 12,
-    s09b: 12,
-    mp: 13,
-    contact: 14
-  };
-
-  var TOTAL = 14;
+  var SCENES = [
+    { id: 'hero', num: '01', label: 'INVITATION' },
+    { id: 'hook-film', num: '02', label: 'DÉMO FILM' },
+    { id: 'orientation', num: '03', label: 'ORIENTATION' },
+    { id: 'diagnostic', num: '04', label: 'DIAGNOSTIC' },
+    { id: 'pourquoi-moins-cher', num: '05', label: 'PREUVE PRIX' },
+    { id: 'duo', num: '06', label: 'LE DUO' },
+    { id: 'auto', num: '07', label: 'AUTOMATISATIONS' },
+    { id: 'pack', num: '08', label: 'PACK SIGNATURE' },
+    { id: 'realisations', num: '09', label: 'RÉALISATIONS' },
+    { id: 'realisations-vitrine', num: '09', label: 'RÉALISATIONS' },
+    { id: 'realisations-demos', num: '09', label: 'RÉALISATIONS' },
+    { id: 'realisations-stack', num: '09', label: 'RÉALISATIONS' },
+    { id: 'realisations-films', num: '09', label: 'RÉALISATIONS' },
+    { id: 'cinema-artistes', num: '10', label: 'CINÉMA ARTISTES' },
+    { id: 'captation-na', num: '11', label: 'CAPTATION NA' },
+    { id: 'mp', num: '12', label: 'MÉMOIRE & PRÉSENCE' },
+    { id: 'methode', num: '13', label: 'MÉTHODE' },
+    { id: 'methode-formations', num: '13', label: 'MÉTHODE' },
+    { id: 'methode-tarifs', num: '13', label: 'MÉTHODE' },
+    { id: 's09b', num: '13', label: 'MÉTHODE' },
+    { id: 'contact', num: '14', label: 'CONTACT' }
+  ];
 
   var reduced = false;
   try {
     reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   } catch (e) {}
 
-  function pad2(n) {
-    return n < 10 ? '0' + n : '' + n;
+  var wrap = document.getElementById('scene-signature');
+  if (!wrap) {
+    wrap = document.createElement('div');
+    wrap.id = 'scene-signature';
+    wrap.setAttribute('aria-hidden', 'true');
+    wrap.innerHTML =
+      '<span class="scene-signature__num">01</span><span class="scene-signature__sep">·</span><span class="scene-signature__label">INVITATION</span>';
+    document.body.appendChild(wrap);
   }
 
-  var counter = null;
-  var currentNumSpan = null;
+  var numEl = wrap.querySelector('.scene-signature__num');
+  var labelEl = wrap.querySelector('.scene-signature__label');
+  var currentId = null;
+  var THRESH = 140;
 
-  function inject() {
-    counter = document.querySelector('.scene-counter');
-    if (counter) {
-      currentNumSpan = counter.querySelector('.scene-counter__num');
-      var tot = counter.querySelector('.scene-counter__total');
-      if (tot) tot.textContent = pad2(TOTAL);
-      return;
+  function scrollY() {
+    if (window.__pinappLenis && typeof window.__pinappLenis.scroll === 'number') {
+      return window.__pinappLenis.scroll;
     }
-
-    counter = document.createElement('div');
-    counter.className = 'scene-counter';
-    counter.setAttribute('aria-hidden', 'true');
-
-    var currentWrap = document.createElement('span');
-    currentWrap.className = 'scene-counter__current';
-
-    currentNumSpan = document.createElement('span');
-    currentNumSpan.className = 'scene-counter__num';
-    currentNumSpan.textContent = '01';
-    currentWrap.appendChild(currentNumSpan);
-
-    var sep = document.createElement('span');
-    sep.className = 'scene-counter__sep';
-    sep.textContent = '/';
-
-    var total = document.createElement('span');
-    total.className = 'scene-counter__total';
-    total.textContent = pad2(TOTAL);
-
-    counter.appendChild(currentWrap);
-    counter.appendChild(sep);
-    counter.appendChild(total);
-    document.body.appendChild(counter);
+    return window.scrollY || document.documentElement.scrollTop || 0;
   }
 
-  function setScene(sectionId) {
-    if (!counter || !currentNumSpan) return;
-    var idx = SCENE_MAP[sectionId];
-    if (typeof idx !== 'number') return;
-    var newNum = pad2(idx);
-    if (currentNumSpan.textContent === newNum) return;
-
+  function update() {
+    var y = scrollY();
+    var active = SCENES[0];
+    var i;
+    var el;
+    var top;
+    for (i = 0; i < SCENES.length; i++) {
+      el = document.getElementById(SCENES[i].id);
+      if (!el) continue;
+      top = el.getBoundingClientRect().top + y;
+      if (top <= y + THRESH) active = SCENES[i];
+    }
+    if (active.id === currentId) return;
+    currentId = active.id;
     if (reduced) {
-      currentNumSpan.textContent = newNum;
+      numEl.textContent = active.num;
+      labelEl.textContent = active.label;
       return;
     }
-
-    var nextSpan = document.createElement('span');
-    nextSpan.className = 'scene-counter__num scene-counter__num--enter';
-    nextSpan.textContent = newNum;
-    currentNumSpan.classList.add('scene-counter__num--exit');
-    currentNumSpan.parentNode.appendChild(nextSpan);
-
-    void nextSpan.offsetHeight;
-    requestAnimationFrame(function () {
-      nextSpan.classList.remove('scene-counter__num--enter');
-      nextSpan.classList.add('scene-counter__num--active');
-    });
-
-    var oldSpan = currentNumSpan;
-    currentNumSpan = nextSpan;
-    setTimeout(function () {
-      if (oldSpan.parentNode) oldSpan.parentNode.removeChild(oldSpan);
-    }, 700);
+    wrap.classList.add('is-switching');
+    window.setTimeout(function () {
+      numEl.textContent = active.num;
+      labelEl.textContent = active.label;
+      wrap.classList.remove('is-switching');
+    }, 160);
   }
+
+  if (window.__pinappLenis && window.__pinappLenis.on) {
+    window.__pinappLenis.on('scroll', update);
+  } else {
+    window.addEventListener('scroll', update, { passive: true });
+  }
+  update();
 
   document.addEventListener('voyage:scene-active', function (e) {
-    if (e && e.detail && e.detail.sectionId) setScene(e.detail.sectionId);
-  });
-
-  function observeHtmlAttr() {
-    if (!('MutationObserver' in window)) return;
-    var mo = new MutationObserver(function (muts) {
-      for (var i = 0; i < muts.length; i++) {
-        if (muts[i].type === 'attributes' && muts[i].attributeName === 'data-active-section') {
-          var val = document.documentElement.getAttribute('data-active-section');
-          if (val) setScene(val);
-        }
+    if (!e || !e.detail || !e.detail.sectionId) return;
+    var sid = e.detail.sectionId;
+    var j;
+    for (j = 0; j < SCENES.length; j++) {
+      if (SCENES[j].id === sid) {
+        currentId = null;
+        numEl.textContent = SCENES[j].num;
+        labelEl.textContent = SCENES[j].label;
+        currentId = sid;
+        return;
       }
-    });
-    mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-active-section'] });
-  }
-
-  function boot() {
-    inject();
-    observeHtmlAttr();
-    var current = document.documentElement.getAttribute('data-active-section');
-    if (current) setScene(current);
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', boot);
-  } else {
-    boot();
-  }
+    }
+  });
 })();
