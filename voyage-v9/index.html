@@ -331,6 +331,22 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
 @media(min-width:960px){.nav__jumps{display:flex}}
 .nav__jumps a{font-size:12px;font-weight:600;color:var(--ivoire-mute);text-decoration:none;padding:8px 10px;border-radius:var(--r-pill);border:1px solid transparent}
 .nav__jumps a:hover,.nav__jumps a:focus-visible{color:var(--ivoire);border-color:rgba(230,185,115,0.35);background:var(--or-glow)}
+.demo-showcase-hero{display:grid;gap:var(--sp-6);align-items:center;margin:var(--sp-7) 0}
+@media(min-width:900px){.demo-showcase-hero{grid-template-columns:1.15fr 1fr;gap:var(--sp-8)}}
+.demo-showcase-hero__visual{position:relative;border-radius:var(--r-lg);overflow:hidden;border:2px solid rgba(230,185,115,0.35);box-shadow:0 0 0 1px rgba(62,245,224,0.12) inset,0 24px 48px rgba(0,0,0,0.18)}
+.demo-showcase-hero__visual img{width:100%;height:auto;display:block;vertical-align:middle}
+.demo-showcase-badge{position:absolute;top:var(--sp-4);left:var(--sp-4);font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:8px 12px;border-radius:var(--r-pill);background:rgba(5,11,20,0.75);border:1px solid rgba(230,185,115,0.45);color:var(--or)}
+.demo-showcase-list{display:grid;gap:var(--sp-4);margin:var(--sp-6) 0}
+@media(min-width:768px){.demo-showcase-list{grid-template-columns:repeat(3,1fr)}}
+.demo-tile{position:relative;border-radius:var(--r-md);overflow:hidden;border:1px solid rgba(230,185,115,0.22);background:var(--fumee);transition:transform var(--dur-fast) var(--ease-spring)}
+.demo-tile:hover{transform:translateY(-3px)}
+.demo-tile a{display:block;color:inherit;text-decoration:none}
+.demo-tile img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
+.demo-tile__body{padding:var(--sp-4);font-size:var(--fs-micro)}
+.demo-tile__body strong{display:block;font-size:0.95rem;color:var(--ivoire);margin-bottom:var(--sp-2)}
+.demo-tile--star{border-color:rgba(62,245,224,0.35);box-shadow:0 0 0 1px rgba(62,245,224,0.08) inset}
+.demo-tile--star .demo-tile__body{background:linear-gradient(180deg,rgba(62,245,224,0.08),var(--fumee-strong))}
+.demo-fine{font-size:12px;color:var(--ivoire-dim);margin-top:var(--sp-5);max-width:48rem}
 .counters{padding:var(--sp-4)}
 .compare-table{padding:var(--sp-4)}
 @media(max-width:767px){.counters{grid-template-columns:1fr}}
@@ -345,6 +361,7 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
     <a class="nav__logo" href="https://pinapp.fr/voyage-v9/" aria-label="Pinapp — accueil voyage-v9">Pinapp <span>Inc.</span></a>
     <nav class="nav__jumps" aria-label="Accès rapide">
       <a href="#s04c">Automatisations</a>
+      <a href="#demo-showcase">Vitrine démo</a>
       <a href="#s06">Démos</a>
       <a href="#memoire-presence">Mémoire &amp; Présence</a>
       <a href="#pack-duo">Pack Duo</a>
@@ -498,7 +515,7 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
       <p class="flow-note" data-reveal>Outils souvent branchés : site statique, Tally ou formulaire maison, Notion / Sheets, n8n, Gmail, YouSign, Stripe — toujours en stack européenne quand c'est possible. On vous livre la doc et les accès : c'est à vous.</p>
       <div class="cta-row" data-reveal>
         <a class="btn btn--primary" href="#form">Parler de mon flux →</a>
-        <a class="btn btn--ghost" href="#s06">Voir des sites démo ↓</a>
+        <a class="btn btn--ghost" href="#demo-showcase">Voir les captures démo ↓</a>
       </div>
     </div>
   </section>
@@ -576,11 +593,60 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
     </div>
   </section>
 
+  <section id="demo-showcase" class="scene" data-stage="hero-3" aria-labelledby="demo-showcase-h2">
+    <div class="scene__inner">
+      <p class="eyebrow" data-reveal>Vitrine démo</p>
+      <h2 id="demo-showcase-h2" class="display display--h2" data-reveal>La démo qui fait dire « je veux la même chose ».</h2>
+      <p class="lead" data-reveal><strong>Atelier Rivage</strong> est notre vitrine architecture : plein écran, transitions calmes, typo éditoriale, images qui respirent. Ce n'est pas un template : c'est le niveau de finition qu'on applique quand votre image doit porter le prix.</p>
+      <div class="demo-showcase-hero" data-reveal>
+        <a class="demo-showcase-hero__visual" href="/demo/atelier-rivage/" target="_blank" rel="noopener noreferrer" aria-label="Ouvrir la démo Atelier Rivage en nouvel onglet">
+          <span class="demo-showcase-badge">★ Référence Pinapp</span>
+          <img src="assets/demo-screens/atelier-rivage.webp" alt="Capture d'écran de la page d'accueil démo Atelier Rivage — architecture villas" width="1400" height="875" loading="lazy" decoding="async">
+        </a>
+        <div>
+          <p class="lead" style="margin:0 0 var(--sp-4)">Ambiance luxe discret, parcours clair, mobile-first. Parfait si vous vendez de l'exception : immobilier, artisanat haut de gamme, cabinet premium.</p>
+          <ul class="lead" style="margin:0 0 var(--sp-5);font-size:0.95rem;padding-left:1.2rem;line-height:1.65">
+            <li>Storytelling visuel — chaque slide raconte une villa</li>
+            <li>Preuve et calme — pas de bruit, pas de gadgets</li>
+            <li>Prêt à être adapté à votre nom, vos photos, votre secteur</li>
+          </ul>
+          <div class="cta-row" style="margin:0">
+            <a class="btn btn--primary btn--cta-large" href="/demo/atelier-rivage/" target="_blank" rel="noopener noreferrer">Voir Atelier Rivage plein écran ↗</a>
+            <a class="btn btn--ghost" href="#form">Obtenir ce niveau pour mon projet →</a>
+          </div>
+        </div>
+      </div>
+      <p class="eyebrow" data-reveal style="margin-top:var(--sp-8)">Autres secteurs · même exigence</p>
+      <p class="lead" data-reveal style="margin-top:var(--sp-3)">Deux autres démos : restauration et coaching. Captures réelles des pages d'accueil — cliquez pour tout parcourir.</p>
+      <div class="demo-showcase-list" data-reveal>
+        <article class="demo-tile demo-tile--star">
+          <a href="/demo/atelier-rivage/" target="_blank" rel="noopener noreferrer">
+            <img src="assets/demo-screens/atelier-rivage.webp" alt="Aperçu démo Atelier Rivage" width="700" height="438" loading="lazy" decoding="async">
+            <div class="demo-tile__body"><strong>Atelier Rivage</strong>Architecture · villas · notre vitrine phare</div>
+          </a>
+        </article>
+        <article class="demo-tile">
+          <a href="/demo/restaurant/" target="_blank" rel="noopener noreferrer">
+            <img src="assets/demo-screens/restaurant.webp" alt="Aperçu démo restaurant Ōkami" width="700" height="438" loading="lazy" decoding="async">
+            <div class="demo-tile__body"><strong>Ōkami</strong>Restaurant · ambiance et réservation</div>
+          </a>
+        </article>
+        <article class="demo-tile">
+          <a href="/demo/coach/" target="_blank" rel="noopener noreferrer">
+            <img src="assets/demo-screens/coach.webp" alt="Aperçu démo coach Clara Fontaine" width="700" height="438" loading="lazy" decoding="async">
+            <div class="demo-tile__body"><strong>Clara Fontaine</strong>Coach certifiée · confiance et clarté</div>
+          </a>
+        </article>
+      </div>
+      <p class="demo-fine" data-reveal>Données et marques sur ces pages sont <strong>fictives</strong> (démonstration). Le rendu et la structure sont représentatifs d'une livraison Pinapp.</p>
+    </div>
+  </section>
+
   <section id="s06" class="scene" data-stage="hero-3" aria-labelledby="s06-h2">
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Studio Lauralie · Prix fixes</p>
       <h2 id="s06-h2" class="display display--h2" data-reveal>14 démos sectorielles. Votre métier s'y retrouve.<br>Prix affichés · ouverture en un clic.</h2>
-      <p class="lead" data-reveal>Chaque carte ouvre une <strong>vitrine fictive</strong> (données de démo) pour que vous voyiez le niveau de finition. Ci-dessous : trois entrées — le reste de la liste est dans le volet « Trouver mon secteur ».</p>
+      <p class="lead" data-reveal>Chaque carte ouvre une <strong>vitrine fictive</strong> (données de démo) pour que vous voyiez le niveau de finition — comme la vitrine <a href="#demo-showcase" style="color:var(--cyan);text-decoration:underline;text-underline-offset:3px">Atelier Rivage</a> ci-dessus. Grille rapide + secteurs dans le volet.</p>
       <div class="placeholder-asset" data-reveal>📭 Reel 14 sites · style Apple WWDC · 20 sec
 Mosaïque animée · transitions cross-fade · sound design off
 À monter — montre 14 sites successivement</div>
@@ -592,19 +658,19 @@ Mosaïque animée · transitions cross-fade · sound design off
       <div class="mock-grid" data-reveal>
         <div class="mock mock--wide">
           <a href="/demo/atelier-rivage/" target="_blank" rel="noopener noreferrer">
-            <img class="mock__img mock__img--demo" src="assets/hero-3.webp" alt="Aperçu visuel démo architecture — Atelier Rivage" width="800" height="600" loading="lazy" decoding="async">
-            <div class="mock__body"><strong>★ Atelier Rivage · architecture · villas</strong> — démo live ↗</div>
+            <img class="mock__img mock__img--demo" src="assets/demo-screens/atelier-rivage.webp" alt="Capture d'écran démo Atelier Rivage — architecture" width="800" height="500" loading="lazy" decoding="async">
+            <div class="mock__body"><strong>★ Atelier Rivage · architecture · villas</strong> — vitrine phare ↗</div>
           </a>
         </div>
         <div class="mock">
           <a href="/demo/restaurant/" target="_blank" rel="noopener noreferrer">
-            <img class="mock__img mock__img--demo" src="assets/hero-2.webp" alt="Aperçu visuel démo restaurant — Ōkami" width="800" height="600" loading="lazy" decoding="async">
+            <img class="mock__img mock__img--demo" src="assets/demo-screens/restaurant.webp" alt="Capture d'écran démo restaurant Ōkami" width="800" height="500" loading="lazy" decoding="async">
             <div class="mock__body"><span>02 Ōkami · restaurant</span> — voir ↗</div>
           </a>
         </div>
         <div class="mock">
           <a href="/demo/coach/" target="_blank" rel="noopener noreferrer">
-            <img class="mock__img mock__img--demo" src="assets/hero-4.webp" alt="Aperçu visuel démo coach — Clara Fontaine" width="800" height="600" loading="lazy" decoding="async">
+            <img class="mock__img mock__img--demo" src="assets/demo-screens/coach.webp" alt="Capture d'écran démo coach Clara Fontaine" width="800" height="500" loading="lazy" decoding="async">
             <div class="mock__body"><span>03 Clara Fontaine · coach · consultant</span> — voir ↗</div>
           </a>
         </div>
@@ -970,7 +1036,7 @@ Captation 4-6h · montage 5 jours
   <p class="source-note">© 2026 Pinapp Inc. · Lauralie &amp; Michaël</p>
 </footer>
 
-<div class="scene-counter" aria-hidden="true"><span class="scene-counter__current"><span class="scene-counter__num">01</span></span><span class="scene-counter__sep"> / </span><span class="scene-counter__total">16</span></div>
+<div class="scene-counter" aria-hidden="true"><span class="scene-counter__current"><span class="scene-counter__num">01</span></span><span class="scene-counter__sep"> / </span><span class="scene-counter__total">17</span></div>
 
 <div class="morse-stay" role="group" aria-label="Easter egg Mémoire et Présence">
   <span class="morse-dot" aria-hidden="true"></span><span class="morse-dot" aria-hidden="true"></span><span class="morse-dot" aria-hidden="true"></span><span class="morse-dot" aria-hidden="true"></span>

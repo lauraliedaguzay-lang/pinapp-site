@@ -16,6 +16,7 @@
     s04b: 's4',
     'pack-duo': 's5',
     'memoire-presence': 's5',
+    'demo-showcase': 's5b',
     s06: 's5b',
     s06b: 's5b',
     s07: 's6',
