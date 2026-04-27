@@ -1445,4 +1445,217 @@ if(form){
     });
   }catch(e){}
 
+  function setStatus(msg, ok){
+    var st=document.getElementById('formStatus');
+    if(!st) return;
+    st.classList.remove('is-ok','is-err');
+    if(ok===true) st.classList.add('is-ok');
+    if(ok===false) st.classList.add('is-err');
+    st.textContent=msg||'';
+  }
+
+  function setBusy(on){
+    var b=document.getElementById('btnSubmit');
+    if(!b) return;
+    b.disabled=!!on;
+    b.setAttribute('aria-disabled', on?'true':'false');
+  }
+
+  function setRequiredIn(root, on){
+    if(!root) return;
+    [].slice.call(root.querySelectorAll('[required]')).forEach(function(el){
+      if(on){ el.removeAttribute('data-was-optional'); }
+      else { el.setAttribute('data-was-optional','1'); }
+    });
+    [].slice.call(root.querySelectorAll('input,select,textarea')).forEach(function(el){
+      if(el.hasAttribute('data-force-required')) return;
+      if(on){
+        if(el.getAttribute('data-was-required')==='1'){
+          el.required=true; el.setAttribute('aria-required','true');
+        }
+      }else{
+        if(el.required){
+          el.setAttribute('data-was-required','1');
+          el.required=false;
+        }
+        el.removeAttribute('aria-required');
+      }
+    });
+  }
+
+  function toggleRequiredByPath(p){
+    setRequiredIn(cTech, p==='tech');
+    setRequiredIn(cImg, p==='image');
+    setRequiredIn(cDuo, p==='duo');
+  }
+
+  function normalizeTag(t){
+    if(!t) return '';
+    t=(''+t).trim();
+    if(!t) return '';
+    return t.startsWith('#') ? t : '#'+t;
+  }
+
+  function buildRouteTag(fd){
+    var path=String(fd.get('path')||'').trim();
+    var besoin='form-inconnu';
+    if(path==='tech') besoin=String(fd.get('besoin_tech')||'').trim();
+    else if(path==='image') besoin=String(fd.get('besoin_image')||'').trim();
+    else if(path==='duo') besoin=String(fd.get('besoin_duo')||'').trim();
+
+    var n8nMap={
+      'site-vitrine':'#site-vitrine',
+      'ia-mesure':'#ia-mesure',
+      'direction-artistique':'#direction-artistique',
+      'duo-complet':'#duo-complet',
+      'film-ia-cadeau':'#film-ia-cadeau',
+      'film-ia-pro':'#film-ia-pro',
+      'event-seminaire':'#event-seminaire',
+      'event-prive':'#event-prive',
+      'event-autre':'#event-autre',
+      'form-l1':'#form-l1',
+      'form-l2':'#form-l2',
+      'form-l3':'#form-l3',
+      'form-inconnu':'#form-inconnu',
+      'unsure':'#lead-unsure'
+    };
+
+    if(besoin==='auto-pack'){
+      var sc=String(fd.get('auto_scenario')||'').trim();
+      if(sc && sc.startsWith('#')) return sc;
+      if(sc) return normalizeTag(sc);
+      return '#auto-pack';
+    }
+    if(n8nMap[besoin]) return n8nMap[besoin];
+    return '—';
+  }
+
+  function buildTelegramDigest(fd, tag){
+    function pick(k){ return String(fd.get(k)||'').trim(); }
+    var prenom=pick('prenom');
+    var ent=pick('entreprise');
+    var email=pick('email');
+    var tel=pick('tel');
+    var path=pick('path');
+    var msg=pick('message_libre');
+    var delai=pick('delai');
+    var budget=pick('budget');
+    var date=pick('date_approx');
+    var lieu=pick('lieu');
+    var site=pick('site_actuel');
+    var auto=pick('auto_scenario');
+    var lines=[];
+    lines.push('🧭 '+(tag||'—')+' · '+(path||'—'));
+    lines.push('👤 '+(prenom||'—')+' · '+(ent||'—'));
+    lines.push('✉ '+(email||'—')+(tel?(' · ☎ '+tel):''));
+    if(site) lines.push('🌐 '+site);
+    if(auto) lines.push('⚙ '+auto);
+    if(date||lieu) lines.push('📍 '+[date,lieu].filter(Boolean).join(' · '));
+    if(delai) lines.push('⏱ '+delai);
+    if(budget) lines.push('💶 '+budget);
+    if(msg) lines.push('💬 '+(msg.length>260?msg.slice(0,257)+'…':msg));
+    return lines.join('\n');
+  }
+
+  function validateBeforeSubmit(){
+    var p=String(pathInput.value||'').trim();
+    var pathErr=document.getElementById('pathErr');
+    if(!p){
+      if(pathErr) pathErr.hidden=false;
+      setStatus('Choisissez un chemin (Tech / Image / Duo).', false);
+      return false;
+    }
+    if(pathErr) pathErr.hidden=true;
+
+    toggleRequiredByPath(p);
+
+    var rgpd=document.getElementById('f_rgpd');
+    var rgpdErr=document.getElementById('rgpdErr');
+    if(rgpd && !rgpd.checked){
+      if(rgpdErr) rgpdErr.hidden=false;
+      setStatus('Case RGPD obligatoire.', false);
+      return false;
+    }
+    if(rgpdErr) rgpdErr.hidden=true;
+
+    if(!form.checkValidity()){
+      try{ form.reportValidity(); }catch(e){}
+      setStatus('Vérifiez les champs obligatoires.', false);
+      return false;
+    }
+    return true;
+  }
+
+  var condAuto=document.getElementById('condAutoScenario');
+  var selTech=document.getElementById('f_besoin_tech');
+  if(selTech && condAuto){
+    function syncAutoScenario(){
+      var on = selTech.value === 'auto-pack';
+      condAuto.hidden = !on;
+      condAuto.classList.toggle('is-open', on);
+      var autoSel=document.getElementById('f_auto_scenario');
+      if(autoSel){
+        autoSel.required = false;
+        autoSel.removeAttribute('aria-required');
+        if(!on) autoSel.value='';
+      }
+    }
+    selTech.addEventListener('change', syncAutoScenario);
+    syncAutoScenario();
+  }
+
   form.addEventListener('submit', function(e){
+    e.preventDefault();
+    setStatus('', null);
+
+    if(!validateBeforeSubmit()) return;
+
+    var fd=new FormData(form);
+    var tag=buildRouteTag(fd);
+    var digest=buildTelegramDigest(fd, tag);
+
+    var payload={};
+    fd.forEach(function(v,k){
+      if(payload[k]!==undefined){
+        if(!Array.isArray(payload[k])) payload[k]=[payload[k]];
+        payload[k].push(v);
+      }else{
+        payload[k]=v;
+      }
+    });
+    payload.n8n_route_tag = tag;
+    payload.telegram_digest = digest;
+
+    setBusy(true);
+    setStatus('Envoi…', null);
+
+    var cfg = window.PinappConfig || null;
+    var sent = false;
+    try{
+      if(cfg && typeof cfg.sendDiagnosticLead === 'function'){
+        cfg.sendDiagnosticLead(payload);
+        sent = true;
+      }
+      if(cfg && typeof cfg.sendDiagnosticClaudePrep === 'function'){
+        cfg.sendDiagnosticClaudePrep(payload);
+      }
+    }catch(_e){}
+
+    setTimeout(function(){
+      setBusy(false);
+      if(sent){
+        setStatus('Bien reçu. On revient vers vous par écrit sous 24h.', true);
+        try{ localStorage.removeItem(draftKey); }catch(_e){}
+        try{ form.reset(); }catch(_e){}
+        setPath('');
+        toggleRequiredByPath('');
+      }else{
+        setStatus("Envoi non activé côté automatisations pour l’instant (webhook désactivé). Le formulaire est prêt : il suffit d’activer n8n dans la config.", false);
+      }
+    }, 450);
+  });
+}
+
+})();</script>
+</body>
+</html>
