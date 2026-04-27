@@ -347,6 +347,13 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
 .demo-tile--star{border-color:rgba(62,245,224,0.35);box-shadow:0 0 0 1px rgba(62,245,224,0.08) inset}
 .demo-tile--star .demo-tile__body{background:linear-gradient(180deg,rgba(62,245,224,0.08),var(--fumee-strong))}
 .demo-fine{font-size:12px;color:var(--ivoire-dim);margin-top:var(--sp-5);max-width:48rem}
+.reals-duo{margin-top:var(--sp-7)}
+.reals-duo__kicker{margin:0 0 var(--sp-3);font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--ivoire-dim);text-align:center}
+.real-list{margin:0;padding-left:1.2rem;color:var(--ivoire-mute);line-height:1.65;font-size:0.95rem}
+.real-list li{margin:0 0 var(--sp-2)}
+.real-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:var(--sp-4)}
+.real-links a{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--r-pill);border:1px solid rgba(230,185,115,0.22);text-decoration:none;color:var(--ivoire-mute);font-size:12px;font-weight:600}
+.real-links a:hover,.real-links a:focus-visible{color:var(--ivoire);border-color:rgba(62,245,224,0.28);background:rgba(62,245,224,0.06)}
 .counters{padding:var(--sp-4)}
 .compare-table{padding:var(--sp-4)}
 @media(max-width:767px){.counters{grid-template-columns:1fr}}
@@ -439,6 +446,37 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
           <p class="role-kicker">Image &amp; cinéma</p>
           <p><strong>🎬 MICHA · Michaël Bouilhac</strong></p>
           <p class="lead" style="margin:0;font-size:1rem">Il réalise l'image et le mouvement : clips et films avec l'IA (du teaser au format long), captation sur le terrain en Nouvelle-Aquitaine, direction artistique pour une identité visuelle cohérente. 10 ans d'événementiel, photo et vidéo.<br>Du brief au fichier livré — Bordeaux et région.</p>
+        </div>
+      </div>
+      <div class="reals-duo" aria-label="Réalisations : exemples concrets" data-reveal>
+        <p class="reals-duo__kicker">Exemples concrets</p>
+        <div class="grid-2">
+          <div class="card--glass" style="padding:var(--sp-6)">
+            <p class="role-kicker" style="margin:0 0 var(--sp-3)">Réalisations Lauralie</p>
+            <ul class="real-list">
+              <li><strong>Sites premium</strong> (perf, accessibilité, SEO) avec un parcours qui convertit.</li>
+              <li><strong>Démos sectorielles</strong> pour se projeter (structure adaptable, données fictives).</li>
+              <li><strong>Automatisations</strong> : formulaire → qualification → devis → signature/paiement → avis.</li>
+            </ul>
+            <div class="real-links" aria-label="Liens réalisations Lauralie">
+              <a href="/demo/atelier-rivage/" target="_blank" rel="noopener noreferrer">Atelier Rivage ↗</a>
+              <a href="#demo-showcase">Captures démo ↓</a>
+              <a href="#s04c">Schéma automatisations ↓</a>
+            </div>
+          </div>
+          <div class="card--glass" style="padding:var(--sp-6)">
+            <p class="role-kicker" style="margin:0 0 var(--sp-3)">Réalisations Michaël</p>
+            <ul class="real-list">
+              <li><strong>Films IA</strong> (teaser, court-métrage, premium) : direction artistique, montage, rythme.</li>
+              <li><strong>Captation</strong> : événementiel, photo, vidéo — pour une image qui tient le prix.</li>
+              <li><strong>Identité visuelle</strong> : cohérence couleur, typographie, rendu final.</li>
+            </ul>
+            <div class="real-links" aria-label="Liens réalisations Michaël">
+              <a href="/realisations/films-ia/" target="_blank" rel="noopener noreferrer">Films IA ↗</a>
+              <a href="https://player.vimeo.com/video/1184294810" target="_blank" rel="noopener noreferrer">Teaser sci-fi ↗</a>
+              <a href="https://player.vimeo.com/video/1184294762" target="_blank" rel="noopener noreferrer">Teaser western ↗</a>
+            </div>
+          </div>
         </div>
       </div>
       <p class="microcite" data-reveal style="margin-top:var(--sp-8);font-size:1.5rem">« Lauralie architecte. Michaël filme. Ensemble nous livrons. »</p>
@@ -994,15 +1032,62 @@ Captation 4-6h · montage 5 jours
         </div>
         <div id="condTech" class="cond" hidden>
           <div class="field"><label for="f_site">Site actuel (URL ou « rien encore »)</label><input id="f_site" name="site_actuel"></div>
+          <div class="field">
+            <label for="f_besoin_tech">Votre besoin principal *</label>
+            <select id="f_besoin_tech" name="besoin_tech" required aria-required="true">
+              <option value="">Choisir…</option>
+              <option value="site-vitrine">Site vitrine (conversion + SEO + perf)</option>
+              <option value="ia-mesure">IA sur-mesure (assistant interne / process)</option>
+              <option value="direction-artistique">Direction artistique (univers + cohérence)</option>
+              <option value="auto-pack">Pack automatisations (n8n)</option>
+              <option value="form-l1">Formation Niveau 1 (67 €)</option>
+              <option value="form-l2">Formation Niveau 2 (147 €)</option>
+              <option value="form-l3">Formation Niveau 3 (397 €)</option>
+              <option value="unsure">Je ne sais pas (qualification)</option>
+            </select>
+            <p class="source-note">On s’en sert pour router correctement votre demande.</p>
+          </div>
+          <div class="field cond" id="condAutoScenario" hidden>
+            <label for="f_auto_scenario">Quel scénario d’automatisation ?</label>
+            <select id="f_auto_scenario" name="auto_scenario">
+              <option value="">Choisir…</option>
+              <option value="auto-lead">Leads (formulaire → CRM → réponse)</option>
+              <option value="auto-devis">Devis (signature → paiement → facture)</option>
+              <option value="auto-formation">Formation (accès + séquence email)</option>
+              <option value="auto-livraison">Livraison (feedback + avis J+7)</option>
+              <option value="auto-autre">Autre / à qualifier</option>
+            </select>
+          </div>
           <div class="checks"><label><input type="checkbox" name="pain_site" value="1"> Site qui dort</label><label><input type="checkbox" name="pain_devis" value="1"> Devis qui s'oublient</label><label><input type="checkbox" name="pain_avis" value="1"> Avis Google rares</label><label><input type="checkbox" name="pain_charge" value="1"> Charge mentale H24</label></div>
           <fieldset class="checks"><legend class="eyebrow">Délai souhaité</legend><label><input type="radio" name="delai" value="lt1"> &lt; 1 mois</label><label><input type="radio" name="delai" value="1-3"> 1-3 mois</label><label><input type="radio" name="delai" value="later"> pas pressé</label></fieldset>
         </div>
         <div id="condImage" class="cond" hidden>
+          <div class="field">
+            <label for="f_besoin_image">Votre besoin principal *</label>
+            <select id="f_besoin_image" name="besoin_image" required aria-required="true">
+              <option value="">Choisir…</option>
+              <option value="film-ia-cadeau">Film cadeau IA (30–60 s)</option>
+              <option value="film-ia-pro">Film IA pro (60–90 s)</option>
+              <option value="event-seminaire">Événement (séminaire / entreprise)</option>
+              <option value="event-prive">Événement (anniversaire / privé)</option>
+              <option value="event-autre">Événement (autre)</option>
+              <option value="direction-artistique">Direction artistique</option>
+              <option value="unsure">Je ne sais pas (qualification)</option>
+            </select>
+          </div>
           <div class="field"><label for="f_type">Type de projet</label><input id="f_type" name="type_projet" placeholder="film cadeau · court-métrage · clip artiste · clip CGI · premium · séminaire · anniversaire · DA · autre"></div>
           <div class="form-grid"><div class="field"><label for="f_date">Date approximative</label><input id="f_date" name="date_approx" type="text"></div><div class="field"><label for="f_lieu">Lieu</label><input id="f_lieu" name="lieu" type="text"></div></div>
           <div class="field"><label for="f_univ">Univers visuel souhaité</label><textarea id="f_univ" name="univers" rows="3"></textarea></div>
         </div>
         <div id="condDuo" class="cond" hidden>
+          <div class="field">
+            <label for="f_besoin_duo">Votre besoin principal *</label>
+            <select id="f_besoin_duo" name="besoin_duo" required aria-required="true">
+              <option value="">Choisir…</option>
+              <option value="duo-complet">Pack Duo complet</option>
+              <option value="unsure">Je ne sais pas (qualification)</option>
+            </select>
+          </div>
           <div class="checks"><label><input type="checkbox" name="duo_site" value="1"> Site</label><label><input type="checkbox" name="duo_film" value="1"> Film</label><label><input type="checkbox" name="duo_auto" value="1"> Auto</label><label><input type="checkbox" name="duo_care" value="1"> Care</label><label><input type="checkbox" name="duo_da" value="1"> DA</label><label><input type="checkbox" name="duo_form" value="1"> Formation</label></div>
           <div class="field"><label for="f_echeance">Échéance critique</label><input id="f_echeance" name="echeance" type="text"></div>
           <fieldset class="checks"><legend class="eyebrow">Budget</legend><label><input type="radio" name="budget" value="1890"> Budget ≥ 1 890 € (Essentiel)</label><label><input type="radio" name="budget" value="4900"> Budget ≥ 4 900 € (Signature)</label><label><input type="radio" name="budget" value="discuss"> À discuter</label></fieldset>
