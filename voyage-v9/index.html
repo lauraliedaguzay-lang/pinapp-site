@@ -422,6 +422,20 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
 .form-success .success-icon{width:56px;height:56px;margin:0 auto var(--sp-4);border-radius:50%;background:var(--or);color:var(--nuit);display:grid;place-items:center;font-size:1.5rem;font-weight:700}
 .footer-social{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--sp-4);margin:var(--sp-4) 0;font-size:var(--fs-micro)}
 .footer-social a{text-decoration:underline;text-underline-offset:3px}
+.hook-film{background:rgba(5,5,5,0.55);border-top:1px solid rgba(230,185,115,0.2);border-bottom:1px solid rgba(230,185,115,0.15)}
+.hook-film .scene__inner{max-width:min(1080px,94vw)}
+.hook-eyebrow{font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--or);margin:0 0 var(--sp-3)}
+.hook-title{margin:0 0 var(--sp-5);font-family:var(--ff-display);font-weight:600;font-size:clamp(1.75rem,5vw,2.75rem);line-height:1.12;letter-spacing:-0.03em;text-wrap:balance}
+.hook-video-wrap{margin:0 auto;border:2px solid var(--or);border-radius:var(--r-lg);overflow:hidden;max-width:1080px;aspect-ratio:16/9;background:rgba(5,11,20,0.9)}
+.hook-video-wrap iframe{display:block;width:100%;height:100%;min-height:min(61vw,520px);border:0}
+@media(min-width:900px){.hook-video-wrap iframe{min-height:480px}}
+.hook-anchor-price{margin:var(--sp-6) 0 0;text-align:center;font-size:clamp(1rem,2.5vw,1.15rem);color:var(--ivoire)}
+.hook-mini-rail{margin-top:var(--sp-5);display:flex;flex-wrap:wrap;justify-content:center;gap:var(--sp-3)}
+.hook-mini-rail a{font-size:var(--fs-micro);padding:10px 14px;border-radius:var(--r-pill);border:1px solid rgba(230,185,115,0.35);color:var(--ivoire);text-decoration:none}
+.hook-mini-rail a:hover{border-color:var(--cyan);color:var(--cyan)}
+.pack-duo-bridge{margin-top:var(--sp-6);padding:var(--sp-5);border-radius:var(--r-lg);border:1px solid rgba(62,245,224,0.25);background:rgba(62,245,224,0.08);text-align:center}
+.pack-duo-bridge strong{display:block;font-size:clamp(1.05rem,2.5vw,1.25rem);margin-bottom:var(--sp-2);color:var(--ivoire)}
+.pack-duo-bridge span{color:var(--ivoire-mute);font-size:var(--fs-micro)}
 </style>
 </head>
 
@@ -433,6 +447,7 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
     <a class="nav__logo" href="./" aria-label="Pinapp — accueil voyage-v9">Pinapp <span>Inc.</span></a>
     <nav class="nav__jumps" aria-label="Accès rapide">
       <a href="#hero">Accueil</a>
+      <a href="#hook-film">Démo</a>
       <a href="#duo">Duo</a>
       <a href="#diagnostic">Diagnostic</a>
       <a href="#auto">Automatisations</a>
@@ -469,7 +484,7 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
       <p class="eyebrow" data-reveal>Pinapp Inc · Bordeaux · 2026</p>
       <p class="eyebrow" data-reveal data-reveal-delay="1" style="margin-top:calc(-1 * var(--sp-2));color:var(--ivoire-dim)">Studio digital · Bordeaux · Sites + automatisations + films IA</p>
       <h1 id="hero-h1" class="display display--h1" data-reveal data-reveal-delay="1">Vos outils travaillent.<br>Vous gagnez du temps.</h1>
-      <p class="lead" data-reveal>Site vitrine, automatisations IA, films cinéma —<br>par un duo bordelais.<br>Un seul devis. 50 à 75 % moins cher qu'une agence.<br>Diagnostic offert sous 24 h.<br><span style="font-size:var(--fs-micro);color:var(--ivoire-dim)">Nous portons aussi <a href="#mp" style="color:var(--or);text-decoration:underline;text-underline-offset:3px">Mémoire &amp; Présence</a> — transmission pour les familles (projet distinct).</span></p>
+      <p class="lead" data-reveal>Site vitrine, automatisations IA, films cinéma —<br>par un duo bordelais.<br>Un seul devis. 50 à 75 % moins cher qu'une agence.<br>Diagnostic offert sous 24 h.</p>
       <p class="badge-row" data-reveal><span class="badge">★ IA déclarée · Stack EU · Page &lt; 1 Mo</span></p>
       <div class="hero-s01-grid">
         <div class="soft-video hero-s01-aside" data-reveal aria-label="Vidéo de présentation Pinapp à venir">
@@ -494,10 +509,26 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
       </div>
       <div class="cta-row" data-reveal>
         <a class="btn btn--primary" href="#contact">Recevoir mon diagnostic écrit sous 24h →</a>
-        <a class="btn btn--ghost" href="#orientation">Voir ↓</a>
+        <a class="btn btn--ghost" href="#hook-film">Voir la démo ↓</a>
       </div>
       <p class="source-note" data-reveal style="margin-top:var(--sp-3);text-align:center;max-width:36rem;margin-left:auto;margin-right:auto">Une analyse écrite par mail · pas un appel · pas d'engagement.</p>
-      <p class="microcite" data-reveal style="margin-top:var(--sp-6);font-size:1.15rem">Voyons d'abord qui on est.</p>
+      <p class="microcite" data-reveal style="margin-top:var(--sp-6);font-size:1.15rem">D'abord : <strong>60 secondes</strong> de preuve. Ensuite votre parcours.</p>
+    </div>
+  </section>
+
+  <section id="hook-film" class="scene hook-film" data-stage="hero-1" aria-labelledby="hook-film-h2">
+    <div class="scene__inner">
+      <p class="hook-eyebrow" data-reveal>★ Démo · tournée par Micha</p>
+      <h2 id="hook-film-h2" class="hook-title" data-reveal>Voilà ce qu'on fait. <em>En 60 secondes.</em></h2>
+      <p class="source-note" data-reveal style="text-align:center;margin-bottom:var(--sp-4)">SW Teaser · démo client réel · lecture ci-dessous</p>
+      <div class="hook-video-wrap" data-reveal>
+        <iframe src="https://player.vimeo.com/video/1184294810?dnt=1" title="SW Teaser · démo Pinapp" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <p class="hook-anchor-price" data-reveal><strong>8 000 € en agence</strong> · chez nous, <strong>à partir de 1 290 € HT</strong>.</p>
+      <div class="hook-mini-rail" data-reveal aria-label="Autres films">
+        <a href="#realisations-films">Voir les autres exemples →</a>
+        <a href="#orientation">Choisir mon parcours →</a>
+      </div>
     </div>
   </section>
 
@@ -506,10 +537,65 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
       <h2 id="orientation-h2" class="display display--h3" data-reveal>Vous êtes plutôt…</h2>
       <p class="lead" data-reveal style="text-align:center;margin-left:auto;margin-right:auto">Trois entrées — le site s'adapte ensuite à votre besoin.</p>
       <div class="orientation-grid" data-reveal>
-        <a class="orientation-card" href="#duo"><h3>Dirigeant·e TPE/PME</h3><p>Site, automatisations, pack duo — objectif conversion et temps gagné.</p><span class="eyebrow" style="margin:0">Suite → Duo</span></a>
-        <a class="orientation-card" href="#realisations-cinema"><h3>Artiste / créateur·trice</h3><p>Clips IA, univers visuel, voix — objectif présence scène numérique.</p><span class="eyebrow" style="margin:0">Suite → Cinéma IA</span></a>
+        <a class="orientation-card" href="#diagnostic"><h3>Dirigeant·e TPE/PME</h3><p>Site, automatisations, pack duo — objectif conversion et temps gagné.</p><span class="eyebrow" style="margin:0">Suite → Diagnostic</span></a>
+        <a class="orientation-card" href="#cinema-artistes"><h3>Artiste / créateur·trice</h3><p>Clips IA, univers visuel, voix — objectif présence scène numérique.</p><span class="eyebrow" style="margin:0">Suite → Cinéma IA</span></a>
         <a class="orientation-card orientation-card--discreet" href="https://memoireetpresence.fr/" target="_blank" rel="noopener noreferrer"><h3>Famille · hommage</h3><p>Projet à part : accompagnement humain, site dédié — memoireetpresence.fr</p><span class="eyebrow" style="margin:0;color:var(--accent-mp)">Ouvrir memoireetpresence.fr ↗</span></a>
       </div>
+    </div>
+  </section>
+
+  <section id="diagnostic" class="scene" data-stage="hero-2" aria-labelledby="diagnostic-h2">
+    <div class="scene__inner">
+      <p class="eyebrow" data-reveal>Le diagnostic</p>
+      <h2 id="diagnostic-h2" class="display display--h2" data-reveal>Reconnaissez-vous votre semaine ?</h2>
+      <div class="pains-grid" style="margin-top:var(--sp-6)">
+        <div class="card--glass pain" data-reveal><strong>01  Site qui dort.</strong> → Personne ne vous trouve.</div>
+        <div class="card--glass pain" data-reveal data-reveal-delay="1"><strong>02  Devis qui s'oublient.</strong>→ Vous facturez en retard.</div>
+        <div class="card--glass pain" data-reveal><strong>03  Avis Google rares.</strong> → Vous demandez. Personne répond.</div>
+        <div class="card--glass pain" data-reveal data-reveal-delay="1"><strong>04  Charge mentale H24.</strong> → Vous y pensez encore à 23h.</div>
+      </div>
+      <div class="split-aa card--glass" data-reveal>
+        <div><strong>AVANT</strong><p class="lead" style="margin:var(--sp-3) 0 0;font-size:1rem">3 jours · 12 % closent</p></div>
+        <div><strong>APRÈS</strong><p class="lead" style="margin:var(--sp-3) 0 0;font-size:1rem">24 heures · 32 % closent</p></div>
+      </div>
+      <p class="source-note" data-reveal>(Mesures sur nos propres ops · le diagnostic chiffre les vôtres.)</p>
+      <div class="cta-row" data-reveal style="margin-top:var(--sp-6)"><a class="btn btn--primary" href="#contact">Recevoir mon diagnostic écrit sous 24h →</a></div>
+      <p class="source-note" data-reveal style="margin-top:var(--sp-5)">Voici ce qui tourne pendant que vous bossez.</p>
+    </div>
+  </section>
+
+  <section id="pourquoi-moins-cher" class="scene" data-stage="hero-2" aria-labelledby="pourquoi-moins-cher-h2">
+    <div class="scene__inner">
+      <p class="eyebrow" data-reveal>La méthode</p>
+      <h2 id="pourquoi-moins-cher-h2" class="display display--h2" data-reveal>Pourquoi 50 à 75 % moins cher ? Voici les 4 sources qu'on assume.</h2>
+      <div class="sources-grid" style="margin-top:var(--sp-6)">
+        <div class="card--glass source-card" data-reveal>
+          <p>📊 McKinsey 2023 — Economic potential of generative AI</p>
+          <p>« -50 à -70 % temps production digitale »</p>
+          <p><a href="https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier" target="_blank" rel="noopener noreferrer">Lire ↗</a></p>
+        </div>
+        <div class="card--glass source-card" data-reveal>
+          <p>📊 Stanford AI Index 2025</p>
+          <p>« Coûts vidéo générative ÷ 4 entre 2023 et 2025 »</p>
+          <p><a href="https://hai.stanford.edu/ai-index/2025-ai-index-report" target="_blank" rel="noopener noreferrer">Lire ↗</a></p>
+        </div>
+        <div class="card--glass source-card" data-reveal>
+          <p>📊 OECD AI Observatory 2024</p>
+          <p>« +138 % adoption IA dans les PME françaises (YoY) »</p>
+          <p><a href="https://oecd.ai/en/" target="_blank" rel="noopener noreferrer">Lire ↗</a></p>
+        </div>
+        <div class="card--glass source-card" data-reveal>
+          <p>📊 ADEME 2024 (vue critique) <span class="badge-crit">Vue critique</span></p>
+          <p>« Coût environnemental de l'IA générative — transparence »</p>
+          <p><a href="https://www.ademe.fr/" target="_blank" rel="noopener noreferrer">Lire ↗</a></p>
+        </div>
+      </div>
+      <p class="microcite" data-reveal style="margin-top:var(--sp-7)">« Pour les cerveaux qui vont vite. Pour ceux qui veulent l'essentiel. »</p>
+      <p class="lead" data-reveal>Un site agence : 4 200 à 8 000 €.<br>Chez nous : à partir de 1 290 €.<br>Trois sources publiques le confirment.</p>
+      <div class="crit-note" data-reveal>
+        <p style="margin:0">« L'IA a un coût environnemental. Voici comment on le limite :<br>hébergement européen, choix d'outils sobres, pas de génération inutile. »</p>
+      </div>
+      <div class="cta-row" data-reveal style="margin-top:var(--sp-6)"><a class="btn btn--primary" href="#contact">Recevoir mon diagnostic écrit sous 24h →</a></div>
     </div>
   </section>
 
@@ -559,7 +645,7 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
             </ul>
             <div class="real-links" aria-label="Liens réalisations Michaël">
               <a href="../realisations/films-ia/" target="_blank" rel="noopener noreferrer">Films IA ↗</a>
-              <a href="https://player.vimeo.com/video/1184294810" target="_blank" rel="noopener noreferrer">Teaser sci-fi ↗</a>
+              <a href="#hook-film">Démo SW Teaser ↓</a>
               <a href="https://player.vimeo.com/video/1184294762" target="_blank" rel="noopener noreferrer">Teaser western ↗</a>
             </div>
           </div>
@@ -569,62 +655,7 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
       <div class="cta-row" style="justify-content:center" data-reveal>
         <button type="button" class="btn btn--text" id="btnDrawerFromS02">En savoir plus sur nous →</button>
       </div>
-      <p class="microcite" data-reveal style="margin-top:var(--sp-7);font-size:1.1rem">Maintenant, votre situation. Reconnaissez-vous ces quatre signes ?</p>
-    </div>
-  </section>
-
-  <section id="diagnostic" class="scene" data-stage="hero-2" aria-labelledby="diagnostic-h2">
-    <div class="scene__inner">
-      <p class="eyebrow" data-reveal>Le diagnostic</p>
-      <h2 id="diagnostic-h2" class="display display--h2" data-reveal>Reconnaissez-vous votre semaine ?</h2>
-      <div class="pains-grid" style="margin-top:var(--sp-6)">
-        <div class="card--glass pain" data-reveal><strong>01  Site qui dort.</strong> → Personne ne vous trouve.</div>
-        <div class="card--glass pain" data-reveal data-reveal-delay="1"><strong>02  Devis qui s'oublient.</strong>→ Vous facturez en retard.</div>
-        <div class="card--glass pain" data-reveal><strong>03  Avis Google rares.</strong> → Vous demandez. Personne répond.</div>
-        <div class="card--glass pain" data-reveal data-reveal-delay="1"><strong>04  Charge mentale H24.</strong> → Vous y pensez encore à 23h.</div>
-      </div>
-      <div class="split-aa card--glass" data-reveal>
-        <div><strong>AVANT</strong><p class="lead" style="margin:var(--sp-3) 0 0;font-size:1rem">3 jours · 12 % closent</p></div>
-        <div><strong>APRÈS</strong><p class="lead" style="margin:var(--sp-3) 0 0;font-size:1rem">24 heures · 32 % closent</p></div>
-      </div>
-      <p class="source-note" data-reveal>(Mesures sur nos propres ops · le diagnostic chiffre les vôtres.)</p>
-      <p class="microcite" data-reveal>« Pour les cerveaux qui vont vite. Pour ceux qui veulent l'essentiel. »</p>
-      <div class="cta-row" data-reveal style="margin-top:var(--sp-6)"><a class="btn btn--primary" href="#contact">Recevoir mon diagnostic écrit sous 24h →</a></div>
-      <p class="source-note" data-reveal style="margin-top:var(--sp-5)">Voici ce qui tourne pendant que vous bossez.</p>
-    </div>
-  </section>
-
-  <section id="diagnostic-preuves" class="scene" data-stage="hero-2" aria-labelledby="diagnostic-preuves-h2">
-    <div class="scene__inner">
-      <p class="eyebrow" data-reveal>La méthode</p>
-      <h2 id="diagnostic-preuves-h2" class="display display--h2" data-reveal>Pourquoi 50 à 75 % moins cher ? Voici les 4 sources qu'on assume.</h2>
-      <div class="sources-grid" style="margin-top:var(--sp-6)">
-        <div class="card--glass source-card" data-reveal>
-          <p>📊 McKinsey 2023 — Economic potential of generative AI</p>
-          <p>« -50 à -70 % temps production digitale »</p>
-          <p><a href="https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier" target="_blank" rel="noopener noreferrer">Lire ↗</a></p>
-        </div>
-        <div class="card--glass source-card" data-reveal>
-          <p>📊 Stanford AI Index 2025</p>
-          <p>« Coûts vidéo générative ÷ 4 entre 2023 et 2025 »</p>
-          <p><a href="https://hai.stanford.edu/ai-index/2025-ai-index-report" target="_blank" rel="noopener noreferrer">Lire ↗</a></p>
-        </div>
-        <div class="card--glass source-card" data-reveal>
-          <p>📊 OECD AI Observatory 2024</p>
-          <p>« +138 % adoption IA dans les PME françaises (YoY) »</p>
-          <p><a href="https://oecd.ai/en/" target="_blank" rel="noopener noreferrer">Lire ↗</a></p>
-        </div>
-        <div class="card--glass source-card" data-reveal>
-          <p>📊 ADEME 2024 (vue critique) <span class="badge-crit">Vue critique</span></p>
-          <p>« Coût environnemental de l'IA générative — transparence »</p>
-          <p><a href="https://www.ademe.fr/" target="_blank" rel="noopener noreferrer">Lire ↗</a></p>
-        </div>
-      </div>
-      <p class="lead" data-reveal>Un site agence : 4 200 à 8 000 €.<br>Chez nous : à partir de 1 290 €.<br>Trois sources publiques le confirment.</p>
-      <div class="crit-note" data-reveal>
-        <p style="margin:0">« L'IA a un coût environnemental. Voici comment on le limite :<br>hébergement européen, choix d'outils sobres, pas de génération inutile. »</p>
-      </div>
-      <div class="cta-row" data-reveal style="margin-top:var(--sp-6)"><a class="btn btn--primary" href="#contact">Recevoir mon diagnostic écrit sous 24h →</a></div>
+      <p class="microcite" data-reveal style="margin-top:var(--sp-7);font-size:1.1rem">Ensuite : ce qui tourne pendant que vous bossez.</p>
     </div>
   </section>
 
@@ -645,7 +676,11 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
         <a class="btn btn--primary" href="#contact">Parler de mon flux →</a>
         <a class="btn btn--ghost" href="#realisations-vitrine">Voir les captures démo ↓</a>
       </div>
-      <p class="source-note" data-reveal style="margin-top:var(--sp-6)">L'offre qui réunit tout : Pack Duo.</p>
+      <div class="pack-duo-bridge" data-reveal>
+        <strong>L'offre qui réunit tout : Pack Duo</strong>
+        <span>Site + film + automatisations · un seul devis · voir tarifs ci-dessous</span>
+        <div class="cta-row" style="margin-top:var(--sp-4);margin-bottom:0"><a class="btn btn--ghost" href="#pack">Voir le Pack Duo →</a></div>
+      </div>
     </div>
   </section>
 
@@ -670,7 +705,7 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
       <div class="pack-grid" style="margin-top:var(--sp-7)">
         <div class="card--glass card--pricing" data-reveal>
           <h3>Pack Duo Essentiel</h3>
-          <p class="price"><span class="strike">1 970 €</span> → 1 890 € HT</p>
+          <p class="price"><span class="price-old"><s>1 970 €</s></span> <span class="price-new">→ 1 890 € HT</span></p>
           <p>Économisez 80 €</p>
           <ul class="lead" style="margin:var(--sp-4) 0;font-size:0.95rem;padding-left:1.2rem">
             <li>Site qui convertit</li>
@@ -712,8 +747,8 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
     <a href="#realisations-demos">14 démos</a>
     <a href="#realisations-stack">Pile tech</a>
     <a href="#realisations-films">Films Micha</a>
-    <a href="#realisations-cinema">Cinéma artistes</a>
-    <a href="#realisations-na">Captation NA</a>
+    <a href="#cinema-artistes">Cinéma artistes</a>
+    <a href="#captation-na">Captation NA</a>
   </nav>
   <section id="realisations-vitrine" class="scene" data-stage="hero-3" aria-labelledby="realisations-vitrine-h2">
     <div class="scene__inner">
@@ -833,7 +868,7 @@ Mosaïque animée · transitions cross-fade · sound design off
       </div>
       <p class="flow-nodes" data-reveal>◉ Lead capté → ◉ Notion CRM → ◉ Devis auto → ◉ Paiement → ◉ Avis Google J+7</p>
       <p class="microcite" data-reveal>8 dimensions · 1 livraison · 16 étapes invisibles.</p>
-      <div class="cta-row" style="justify-content:center"><button type="button" class="btn btn--text" id="btnScrollS10">Voir le travail invisible →</button></div>
+      <div class="cta-row" style="justify-content:center"><a class="btn btn--text" href="#methode">Voir le travail invisible →</a></div>
     </div>
   </section>
 
@@ -841,25 +876,19 @@ Mosaïque animée · transitions cross-fade · sound design off
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Studio Micha · Cinéma IA</p>
       <h2 id="realisations-films-h2" class="display display--h2" data-reveal>Du clip 30 secondes<br>au court-métrage 3 minutes.</h2>
-      <p class="lead" data-reveal>Offres « image » : fiction et promo avec l'IA (montage inclus), plus captation réelle sur la région et DA pour votre univers visuel. Chaque grille ci-dessous = un type de livrable et un ordre de grandeur tarifaire.</p>
+      <p class="lead" data-reveal>D'autres exemples concrets — chaque livrable a son ordre de grandeur tarifaire. La démo phare (SW Teaser) est en haut de page : <a href="#hook-film" style="color:var(--cyan);text-decoration:underline;text-underline-offset:3px">voir la démo 60 s</a>.</p>
       <div class="vimeo-grid" style="margin-top:var(--sp-6)">
         <div class="vimeo-tile" data-reveal>
-          <button type="button" class="vimeo-open" data-vimeo="1184294810" aria-label="Lire la vidéo court-métrage IA pro — 60 s">
-            <img src="https://vumbnail.com/1184294810_large.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
-            <div class="vimeo-tile__body">
-              <p><strong>Slot 1 · Court-métrage IA pro</strong></p>
-              <p>1 290 € HT · 60 s · SW Teaser</p>
-            </div>
-          </button>
+          <div class="placeholder-asset" style="min-height:200px;display:flex;align-items:center;justify-content:center;text-align:center;padding:var(--sp-4)"><strong>Court-métrage IA pro</strong><br>1 290 € HT · 60 s · même livrable que la démo en tête de page</div>
         </div>
         <div class="vimeo-tile" data-reveal>
-          <div class="placeholder-asset" style="min-height:200px;display:flex;align-items:center;justify-content:center;text-align:center;padding:var(--sp-4)">Slot 2 · Clip artiste IA · 1 500 € HT<br>Démo 30–60 s à fournir</div>
+          <div class="placeholder-asset" style="min-height:200px;display:flex;align-items:center;justify-content:center;text-align:center;padding:var(--sp-4)"><strong>Clip artiste IA</strong> · 1 500 € HT<br>Démo 30–60 s à fournir</div>
         </div>
         <div class="vimeo-tile" data-reveal>
           <button type="button" class="vimeo-open" data-vimeo="1184294871" aria-label="Lire la vidéo court-métrage premium Resident Evil">
             <img src="https://vumbnail.com/1184294871_large.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
             <div class="vimeo-tile__body">
-              <p><strong>Slot 3 · Court-métrage premium</strong></p>
+              <p><strong>Court-métrage premium</strong></p>
               <p>1 890 € HT · Resident Evil</p>
             </div>
           </button>
@@ -868,14 +897,14 @@ Mosaïque animée · transitions cross-fade · sound design off
           <button type="button" class="vimeo-open" data-vimeo="1184294831" aria-label="Lire la vidéo premium Unity 3 min">
             <img src="https://vumbnail.com/1184294831_large.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
             <div class="vimeo-tile__body">
-              <p><strong>Slot 4 · Premium « vous dedans »</strong></p>
+              <p><strong>Premium · vous dedans</strong></p>
               <p>2 800 € HT · 3 min · SW Unity</p>
               <p class="lead" style="font-size:0.85rem;margin:var(--sp-2) 0 0">« Exemple Pack Signature — votre univers, pas Star Wars. »</p>
             </div>
           </button>
         </div>
       </div>
-      <div class="placeholder-asset" data-reveal style="margin-top:var(--sp-4)">Slot 5 · Film cadeau IA 30 s · 390 € HT<br>Démo Vimeo à fournir · esthétique intime · journal vidéo · anniversaire · départ · naissance</div>
+      <div class="placeholder-asset" data-reveal style="margin-top:var(--sp-4)"><strong>Film cadeau IA 30 s</strong> · 390 € HT<br>Démo Vimeo à fournir · esthétique intime · journal vidéo · anniversaire · départ · naissance</div>
       <div class="price-block" data-reveal>
         <p style="margin:0">Avant l'IA : 8 000 € en agence.<br>Avec Pinapp : à partir de 1 290 €.   -84 %.</p>
       </div>
@@ -883,11 +912,13 @@ Mosaïque animée · transitions cross-fade · sound design off
     </div>
   </section>
 
-  <section id="realisations-cinema" class="scene" data-stage="hero-4" aria-labelledby="realisations-cinema-h2">
+  </div>
+
+  <section id="cinema-artistes" class="scene" data-stage="hero-4" aria-labelledby="cinema-artistes-h2">
     <div class="scene__inner">
       <div class="real-cinema-panel">
       <p class="eyebrow" data-reveal>Studio Pinapp · Cinéma IA pour artistes</p>
-      <h2 id="realisations-cinema-h2" class="display display--h3" data-reveal>Vous avez la voix. Nous avons le studio.</h2>
+      <h2 id="cinema-artistes-h2" class="display display--h3" data-reveal>Vous avez la voix. Nous avons le studio.</h2>
       <p class="lead" data-reveal>Vous êtes artiste, créateur, marque narrative. Vous avez l'univers en tête. Il vous manquait le budget studio. Plus maintenant. Premium pour TPE/PME · disrupteur pour artistes et créateurs.</p>
       <div class="soft-video soft-video--star" aria-label="Vidéo Lauralie chante — à fournir" style="margin:var(--sp-6) auto;max-width:min(920px,100%);border:2px solid var(--or);border-radius:var(--r-lg);overflow:hidden">
         <div class="soft-video__poster soft-video__poster--clip">
@@ -923,10 +954,10 @@ Chez nous, si. »</p>
     </div>
   </section>
 
-  <section id="realisations-na" class="scene" data-stage="hero-4" aria-labelledby="realisations-na-h2">
+  <section id="captation-na" class="scene" data-stage="hero-4" aria-labelledby="captation-na-h2">
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Studio Micha · Nouvelle-Aquitaine</p>
-      <h2 id="realisations-na-h2" class="display display--h2" data-reveal>Votre événement mérite plus qu'un iPhone.</h2>
+      <h2 id="captation-na-h2" class="display display--h2" data-reveal>Micha filme votre événement — <em>en Nouvelle-Aquitaine, déplacement inclus.</em></h2>
       <p class="lead" data-reveal>Micha filme uniquement en Nouvelle-Aquitaine. Déplacement régional inclus dans le devis. Hors région : non couvert (sauf demande exceptionnelle, sur devis).</p>
       <div class="grid-2" style="margin-top:var(--sp-6);grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
         <div class="placeholder-asset">📭 Séminaire entreprise
@@ -951,8 +982,6 @@ Captation 4-6h · montage 5 jours
       <div class="cta-row" data-reveal style="margin-top:var(--sp-4)"><a class="btn btn--ghost" href="#contact">Recevoir mon diagnostic écrit sous 24h →</a></div>
     </div>
   </section>
-
-  </div>
 
   <section id="mp" class="scene" data-stage="hero-3" aria-labelledby="mp-h2">
     <div class="scene__inner">
@@ -1365,7 +1394,7 @@ Captation 4-6h · montage 5 jours
   <p class="source-note">© 2026 Pinapp Inc. · Lauralie &amp; Michaël</p>
 </footer>
 
-<div class="scene-counter" aria-hidden="true"><span class="scene-counter__current"><span class="scene-counter__num">01</span></span><span class="scene-counter__sep"> / </span><span class="scene-counter__total">17</span></div>
+<div class="scene-counter" aria-hidden="true"><span class="scene-counter__current"><span class="scene-counter__num">01</span></span><span class="scene-counter__sep"> / </span><span class="scene-counter__total">14</span></div>
 
 <div class="morse-stay" role="group" aria-label="Easter egg Mémoire et Présence">
   <span class="morse-dot" aria-hidden="true"></span><span class="morse-dot" aria-hidden="true"></span><span class="morse-dot" aria-hidden="true"></span><span class="morse-dot" aria-hidden="true"></span>

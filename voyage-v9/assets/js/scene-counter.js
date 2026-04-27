@@ -1,35 +1,36 @@
 /**
- * Pinapp V9 — Scene counter (voyage-v5)
- * 15 scènes logiques (ancres sémantiques V8.2).
+ * Pinapp V9 — Scene counter (voyage-v9)
+ * 14 étapes logiques (films-first, ancre #pourquoi-moins-cher).
  */
 (function () {
   'use strict';
 
   var SCENE_MAP = {
     hero: 1,
-    orientation: 1,
-    duo: 2,
-    diagnostic: 3,
-    'diagnostic-preuves': 3,
-    auto: 4,
-    'auto-faq': 4,
-    pack: 5,
-    realisations: 6,
-    'realisations-vitrine': 6,
-    'realisations-demos': 7,
-    'realisations-stack': 7,
-    'realisations-films': 8,
-    'realisations-cinema': 9,
-    'realisations-na': 9,
-    s09b: 10,
-    methode: 11,
+    'hook-film': 2,
+    orientation: 3,
+    diagnostic: 4,
+    duo: 5,
+    'pourquoi-moins-cher': 6,
+    auto: 7,
+    'auto-faq': 7,
+    pack: 8,
+    realisations: 9,
+    'realisations-vitrine': 9,
+    'realisations-demos': 9,
+    'realisations-stack': 9,
+    'realisations-films': 9,
+    'cinema-artistes': 10,
+    'captation-na': 11,
+    methode: 12,
     'methode-formations': 12,
-    'methode-tarifs': 13,
-    mp: 14,
-    contact: 15
+    'methode-tarifs': 12,
+    s09b: 12,
+    mp: 13,
+    contact: 14
   };
 
-  var TOTAL = 15;
+  var TOTAL = 14;
 
   var reduced = false;
   try {

@@ -1,6 +1,6 @@
 /**
  * Pinapp V9 — Film chromatic (voyage-v9)
- * #pinapp-film + data-active-section (ancres sémantiques V8.2)
+ * #pinapp-film + data-active-section (films-first V9)
  */
 (function () {
   'use strict';
@@ -9,10 +9,11 @@
 
   var ALIAS = {
     hero: 's0',
-    orientation: 's0',
-    duo: 's1',
+    'hook-film': 's0',
+    orientation: 's1',
     diagnostic: 's3',
-    'diagnostic-preuves': 's3',
+    duo: 's1',
+    'pourquoi-moins-cher': 's3',
     auto: 's4',
     'auto-faq': 's4',
     pack: 's5',
@@ -21,11 +22,11 @@
     'realisations-demos': 's5b',
     'realisations-stack': 's5b',
     'realisations-films': 's5b',
-    'realisations-cinema': 's6',
-    'realisations-na': 's6',
-    s09b: 's6',
-    methode: 's6',
-    'methode-formations': 's6',
+    'cinema-artistes': 's6',
+    'captation-na': 's6',
+    s09b: 's7',
+    methode: 's7',
+    'methode-formations': 's7',
     'methode-tarifs': 's8',
     mp: 's5',
     contact: 's8'
