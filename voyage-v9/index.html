@@ -286,6 +286,23 @@ body.draft-mode .draft-badge{opacity:1}
 .star-placeholder{position:relative}
 @keyframes halo-pulse{0%,100%{box-shadow:0 0 0 0 rgba(230,185,115,0.25)}50%{box-shadow:0 0 0 12px rgba(230,185,115,0)}}
 @media (prefers-reduced-motion:no-preference){body.draft-mode .star-placeholder{animation:halo-pulse 4s ease-in-out infinite}}
+/* ===== Soft video placeholders (visibles par défaut, format 16/9) ===== */
+.soft-video{display:flex;flex-direction:column;border:1px solid rgba(230,185,115,0.25);border-radius:var(--r-lg);overflow:hidden;background:rgba(20,30,42,0.55);transition:transform var(--dur-fast) var(--ease-out),border-color var(--dur-fast) var(--ease-out);max-width:100%}
+.soft-video:hover{transform:translateY(-2px);border-color:var(--or)}
+.soft-video__poster{position:relative;aspect-ratio:16/9;display:grid;place-items:center;background:linear-gradient(135deg,rgba(10,20,32,.95),rgba(20,30,42,.9));color:var(--or);overflow:hidden}
+.soft-video__poster--clip{background:linear-gradient(135deg,rgba(62,245,224,.18),rgba(230,185,115,.14),rgba(20,30,42,.95))}
+.soft-video__icon{width:64px;height:64px;opacity:.6}
+.soft-video__badge{position:absolute;top:.75rem;right:.75rem;padding:.3rem .8rem;background:var(--or);color:var(--nuit);font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;border-radius:2px;line-height:1}
+.soft-video__badge--prod{background:linear-gradient(135deg,#3ef5e0,#e6b973);color:#050b14}
+.soft-video__body{padding:var(--sp-4) var(--sp-5)}
+.soft-video__tag{display:inline-block;padding:.2rem .65rem;background:var(--or);color:var(--nuit);font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;border-radius:2px;margin-bottom:var(--sp-2);line-height:1.4}
+.soft-video__tag--clip{background:linear-gradient(135deg,#3ef5e0,#e6b973);color:#050b14}
+.soft-video__title{font-family:var(--ff-display,Fraunces,Georgia,serif);font-style:italic;font-weight:500;font-size:1.5rem;margin:0 0 .5rem;line-height:1.2;color:var(--ivoire)}
+.soft-video__title em{color:var(--or);font-style:italic}
+.soft-video__sub{margin:0;color:var(--ivoire-dim);font-size:.9375rem;line-height:1.5}
+/* Placeholders draft (s07/s09) plus compacts pour ressembler à des cards vidéo */
+body.draft-mode .placeholder-asset{max-width:520px;font-size:.8125rem}
+body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;padding:var(--sp-5);padding-top:var(--sp-7)}
 .rosace-wrap{margin:var(--sp-6) auto;max-width:420px}
 .flow-nodes{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:var(--sp-2);font-size:var(--fs-micro);margin:var(--sp-6) 0;color:var(--ivoire-mute)}
 @media(max-width:767px){.stats-row{grid-template-columns:1fr}.compare-table{grid-template-columns:1fr}}
@@ -333,17 +350,20 @@ body.draft-mode .draft-badge{opacity:1}
       <p class="lead" data-reveal>Sites · automatisations · films · clips.<br>Un seul devis. 50 à 75 % moins cher qu'une agence classique.<br>Diagnostic offert sous 24 heures.</p>
       <p class="badge-row" data-reveal><span class="badge">★ IA déclarée · Stack EU · Page &lt; 1 Mo</span></p>
       <div class="hero-s01-grid">
-        <div class="placeholder-asset hero-s01-aside" data-reveal>📭 Vidéo « Pinapp en 60 secondes »
-Duo face caméra · 45-60 sec · à tourner
-
-Script découpé :
-• Lauralie &amp; Michaël se présentent en duo (15s)
-• Démo écran : un site qui sort en 30 sec en live (20s)
-• Démo écran : un film IA qui sort en 30 sec (15s)
-• Pitch fin : « On fait les deux. Un seul devis. » (10s)
-
-Tournage : Bordeaux · light naturelle + key fill or
-Habillage : sous-titres FR auto · audio descriptive dispo</div>
+        <div class="soft-video hero-s01-aside" data-reveal aria-label="Vidéo de présentation Pinapp à venir">
+          <div class="soft-video__poster">
+            <svg viewBox="0 0 64 64" class="soft-video__icon" aria-hidden="true">
+              <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.5" fill="rgba(5,11,20,.4)"></circle>
+              <path d="M26 22 L44 32 L26 42 Z" fill="currentColor"></path>
+            </svg>
+            <span class="soft-video__badge">Bientôt</span>
+          </div>
+          <div class="soft-video__body">
+            <span class="soft-video__tag">Présentation · 60 s</span>
+            <h3 class="soft-video__title">Pinapp en <em>60 secondes</em></h3>
+            <p class="soft-video__sub">Lauralie &amp; Michaël · duo face caméra · à venir</p>
+          </div>
+        </div>
         <div class="stats-row" data-reveal>
           <div class="stat">24h<br>rép.</div>
           <div class="stat">0 €<br>diag.</div>
@@ -622,18 +642,20 @@ Livraison 5 jours · à partir de 390 € HT · sur devis</div>
       <p class="eyebrow" data-reveal>Studio Micha · Clip 100 % IA</p>
       <h2 id="s08-h2" class="display display--h2" style="font-size:clamp(2.5rem,9vw,6rem)" data-reveal>Un clip Marvel-style.<br>À 1 500 € au lieu de 50 000.</h2>
       <p class="lead" data-reveal>Vous voulez un clip type Marvel, Star Wars ou Avatar.<br>En studio classique : 8 000 à 50 000 €.<br>Avec Pinapp : tout en IA — visuels, voix, montage.</p>
-      <div class="placeholder-asset star-placeholder">[▶] Lauralie chante — clip 100 % IA
-En production · disponible été 2026
-
-✦ Voix de Lauralie (synthétisée IA)
-✦ Univers visuel cinéma (génération IA)
-✦ Montage et étalonnage (assistés IA)
-
-Esthétique cible : couloirs néon · slow-mo poétique ·
-                   cinéma indé Wong Kar-wai-Marvel
-Format final : 16:9 · 4K · 1m20s
-
-Démo Pinapp pour les créateurs qui veulent un clip CGI sans le budget studio.</div>
+      <div class="soft-video soft-video--star" aria-label="Clip Lauralie chante 100% IA en production" style="margin:var(--sp-6) auto;max-width:46rem">
+        <div class="soft-video__poster soft-video__poster--clip">
+          <svg viewBox="0 0 64 64" class="soft-video__icon" aria-hidden="true">
+            <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.5" fill="rgba(5,11,20,.4)"></circle>
+            <path d="M26 22 L44 32 L26 42 Z" fill="currentColor"></path>
+          </svg>
+          <span class="soft-video__badge soft-video__badge--prod">En production</span>
+        </div>
+        <div class="soft-video__body">
+          <span class="soft-video__tag soft-video__tag--clip">Clip 100 % IA · 1m20</span>
+          <h3 class="soft-video__title"><em>Lauralie chante</em> — clip 100 % IA</h3>
+          <p class="soft-video__sub">✦ Voix de Lauralie (synthétisée IA) &nbsp;·&nbsp; ✦ Univers visuel cinéma (génération IA) &nbsp;·&nbsp; ✦ Montage et étalonnage (assistés IA)<br>Esthétique : couloirs néon · slow-mo poétique · cinéma indé Wong Kar-wai-Marvel · 16:9 · 4K · 1m20.<br>Disponible été 2026 — démo Pinapp pour les créateurs qui veulent un clip CGI sans le budget studio.</p>
+        </div>
+      </div>
       <p id="whisperText" class="whisper whisper--tapestry" aria-label="Citation">« Un grand pouvoir n'implique pas une grande responsabilité.
 
 Pas chez les autres.
@@ -1198,81 +1220,3 @@ if(form){
   }catch(e){}
 
   form.addEventListener('submit', function(e){
-    e.preventDefault();
-    var path=pathInput.value;
-    var pe=document.getElementById('pathErr');
-    if(!path){ pe.hidden=false; return; } pe.hidden=true;
-    var rgpd=document.getElementById('f_rgpd');
-    var re=document.getElementById('rgpdErr');
-    if(!rgpd.checked){ re.hidden=false; return; } re.hidden=true;
-
-    var data=Object.fromEntries(new FormData(form).entries());
-    data.submittedAt=new Date().toISOString();
-    data.source='voyage-v9-v5';
-    data.path=path;
-    data.meta={ ua:navigator.userAgent, ref:document.referrer, href:location.href };
-    var tagMap={ tech:'#path-tech', image:'#path-image', duo:'#path-duo' };
-    data.n8n_route_tag=tagMap[path]||'#lead';
-
-    var btn=document.getElementById('btnSubmit');
-    var st=document.getElementById('formStatus');
-    btn.disabled=true; st.textContent='Envoi en cours…'; st.className='form-status';
-
-    var cfg=window.PinappConfig;
-    var isLive=cfg&&cfg.features&&cfg.features.diagnosticWebhook&&cfg._isRealUrl(cfg.webhooks.diagnosticLead);
-
-    if(isLive){
-      fetch(cfg.webhooks.diagnosticLead,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
-        .then(function(res){
-          btn.disabled=false;
-          if(res.ok){
-            st.textContent='Merci. Réponse sous 24h par écrit.'; st.className='form-status is-ok';
-            try{localStorage.removeItem(draftKey);}catch(e){}
-            form.reset(); setPath('');
-          }else{
-            st.textContent="L'envoi n'a pas abouti. Réessayez ou écrivez à contact@pinapp.fr."; st.className='form-status is-err';
-          }
-        }).catch(function(){
-          btn.disabled=false;
-          st.textContent="L'envoi n'a pas abouti. Réessayez ou écrivez à contact@pinapp.fr."; st.className='form-status is-err';
-        });
-    }else{
-      btn.disabled=false;
-      st.innerHTML='Envoi automatique indisponible. <a href="mailto:contact@pinapp.fr">contact@pinapp.fr</a>';
-      st.className='form-status is-err';
-    }
-  });
-}
-
-document.addEventListener('keydown',function(e){
-  var t=e.target;
-  if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.tagName==='SELECT'||t.isContentEditable)) return;
-  if(e.ctrlKey&&(e.key==='d'||e.key==='D')){
-    e.preventDefault();
-    document.body.classList.toggle('draft-mode');
-    document.body.setAttribute('data-draft-count',String(document.querySelectorAll('.placeholder-asset').length));
-  }
-});
-
-var seq=[];
-var kon=[38,38,40,40,37,39,37,39,66,65];
-window.addEventListener('keydown',function(e){
-  seq.push(e.keyCode);
-  if(seq.length>10) seq.shift();
-  if(seq.length===10 && kon.every(function(k,i){ return seq[i]===k; })){
-    console.log('%cPINAPP','font-size:32px;font-weight:bold;color:#e6b973','\nEaster egg — Pinapp Voyage V9');
-    seq=[];
-  }
-});
-
-var ls=document.getElementById('liveSlots');
-if(ls){ var left=Math.max(0,3-(new Date().getDate()%4)); ls.textContent='(Live counter : '+left+' créneaux dispo ce mois)'; }
-
-var b10=document.getElementById('btnScrollS10');
-if(b10) b10.addEventListener('click',function(){ var el=document.getElementById('s10'); if(el) el.scrollIntoView(); });
-
-emitScene('s01');
-})();
-</script>
-</body>
-</html>
