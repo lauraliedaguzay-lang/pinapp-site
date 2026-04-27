@@ -328,7 +328,7 @@ footer .mp{font-size:12px;color:var(--ivoire-dim);margin-top:var(--sp-4)}
 #demo-modal::backdrop{background:rgba(5,11,20,0.75)}
 .demo-modal__media{position:relative;overflow:hidden;border-radius:var(--r-md);border:1px solid rgba(230,185,115,0.2);box-shadow:0 12px 32px rgba(0,0,0,0.1)}
 .demo-modal__media img{width:100%;height:auto;display:block;max-height:min(70dvh,560px);object-fit:contain;background:rgba(5,11,20,0.3)}
-.demo-modal__cap{margin:var(--sp-4) 0 0;font-size:0.95rem;color:var(--ivoire-mute);line-height:1.5}
+.demo-modal__caption,.demo-modal__cap{margin:var(--sp-4) 0 0;font-size:0.95rem;color:var(--ivoire-mute);line-height:1.5}
 .demo-modal__actions{margin-top:var(--sp-5);display:flex;flex-wrap:wrap;gap:var(--sp-3);align-items:center;justify-content:flex-end}
 #demoClose{min-width:44px;min-height:44px;border-radius:var(--r-sm);border:1px solid rgba(230,185,115,0.45);background:transparent;color:var(--ivoire);font-size:1.25rem;line-height:1;cursor:pointer;position:absolute;top:var(--sp-3);right:var(--sp-3);touch-action:manipulation}
 .modal__close{position:absolute;top:var(--sp-3);right:var(--sp-3);min-width:44px;min-height:44px;border-radius:var(--r-sm);border:1px solid rgba(230,185,115,0.35)}
@@ -1780,12 +1780,12 @@ Captation 4-6h · montage 5 jours
 </aside>
 
 <dialog id="demo-modal" class="modal" aria-labelledby="demo-modal-title" aria-modal="true">
-  <button type="button" id="demoClose" aria-label="Fermer l'aperçu">×</button>
+  <button type="button" class="demo-modal__close" id="demoClose" aria-label="Fermer l'aperçu">×</button>
   <h2 id="demo-modal-title" class="display display--h3" style="font-size:1.25rem;margin:0 0 var(--sp-2);padding-right:2.5rem">Aperçu démo</h2>
   <div class="demo-modal__media">
-    <img id="demo-modal-img" src="assets/demo-screens/atelier-rivage.webp" alt="Aperçu de la démo" width="1400" height="875" />
+    <img id="demo-modal__img" src="assets/demo-screens/atelier-rivage.webp" alt="Aperçu de la démo" width="1400" height="875" />
   </div>
-  <p class="demo-modal__cap" id="demo-modal-cap"></p>
+  <p class="demo-modal__caption" id="demo-modal-cap"></p>
   <div class="demo-modal__actions">
     <a class="btn btn--ghost" id="demo-modal-live" href="/demo/atelier-rivage/" target="_blank" rel="noopener noreferrer">Ouvrir la démo en direct</a>
     <button type="button" class="btn btn--primary" id="demo-modal-close2">Fermer</button>
@@ -1864,7 +1864,7 @@ function applySober(on){
 try{ if(localStorage.getItem(SOBER_KEY)==='1') applySober(true);}catch(e){}
 
 var demoDlg=document.getElementById('demo-modal');
-var demoModalImg=document.getElementById('demo-modal-img');
+var demoModalImg=document.getElementById('demo-modal__img');
 var demoModalTitleEl=document.getElementById('demo-modal-title');
 var demoModalCap=document.getElementById('demo-modal-cap');
 var demoModalLive=document.getElementById('demo-modal-live');
@@ -1909,6 +1909,21 @@ if(demoCloseBtn) demoCloseBtn.addEventListener('click',closeDemo);
 if(demoClose2) demoClose2.addEventListener('click',closeDemo);
 if(demoDlg) demoDlg.addEventListener('cancel',function(e){ e.preventDefault(); closeDemo(); });
 if(demoDlg) demoDlg.addEventListener('click',function(e){ if(e.target===demoDlg) closeDemo(); });
+window.PinappOpenDataDemo=function(slug){
+  if(!slug) return;
+  var href='/demo/atelier-rivage/';
+  if(slug==='restaurant') href='/demo/restaurant/';
+  else if(slug==='coach') href='/demo/coach/';
+  var fake={getAttribute:function(n){
+    if(n==='data-demo-img') return 'assets/'+slug+'.webp';
+    if(n==='data-demo-title') return 'Démo · '+slug;
+    if(n==='data-demo-cap') return 'Démo · '+slug;
+    if(n==='data-demo-href') return href;
+    if(n==='data-demo-label') return 'Ouvrir la démo en direct';
+    return '';
+  }};
+  openDemoFromBtn(fake);
+};
 
 function getFocusable(root){
   return [].slice.call(root.querySelectorAll('a[href],button:not([disabled]),textarea,input,select,[tabindex]:not([tabindex="-1"])')).filter(function(n){ return n.offsetParent!==null || n===document.activeElement; });
@@ -2103,5 +2118,6 @@ if(wt && !prefersReduced()){
 }
 
 })();</script>
+<script src="assets/js/demo-modal.js" defer></script>
 </body>
 </html>
