@@ -22,6 +22,8 @@
 <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/pinapp-icon.png" />
 <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon.png" />
 <link rel="preload" as="image" href="assets/hero-1.webp" fetchpriority="high" />
+<link rel="preload" as="image" href="assets/team/lauralie.png" fetchpriority="high" />
+<link rel="preload" as="image" href="assets/team/micha.jpg" fetchpriority="high" />
 <script>document.documentElement.classList.add('js');</script>
 <script defer data-domain="pinapp.fr" src="https://plausible.io/js/script.js"></script>
 <script type="application/ld+json">
@@ -317,6 +319,18 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
 .badge-crit{display:inline-block;margin-top:var(--sp-2);font-size:10px;padding:4px 8px;border-radius:var(--r-pill);background:var(--or-glow)}
 .live-slots{font-size:var(--fs-micro);color:var(--ivoire-dim)}
 .mock__img--ph{background:linear-gradient(145deg,rgba(230,185,115,0.15),rgba(62,245,224,0.08));min-height:200px}
+.mock__img--demo{object-fit:cover;min-height:200px}
+.mp-banner{border:1px solid rgba(62,245,224,0.22);background:linear-gradient(135deg,rgba(20,30,42,0.75),rgba(20,30,42,0.55))}
+.mp-banner__lead{font-size:var(--fs-micro);color:var(--ivoire-mute);margin:var(--sp-3) 0 var(--sp-4);max-width:40rem}
+.flow-diagram{display:grid;gap:var(--sp-3);margin:var(--sp-6) 0}
+@media(min-width:900px){.flow-diagram{grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--sp-3)}}
+.flow-step{padding:var(--sp-4);border-radius:var(--r-md);border:1px solid rgba(230,185,115,0.25);background:var(--fumee);text-align:center;font-size:var(--fs-micro)}
+.flow-step strong{display:block;font-size:0.95rem;color:var(--ivoire);margin-bottom:var(--sp-2);letter-spacing:-0.02em}
+.flow-note{font-size:var(--fs-micro);color:var(--ivoire-dim);margin-top:var(--sp-5);max-width:44rem}
+.nav__jumps{display:none;align-items:center;gap:var(--sp-2);flex-wrap:wrap}
+@media(min-width:960px){.nav__jumps{display:flex}}
+.nav__jumps a{font-size:12px;font-weight:600;color:var(--ivoire-mute);text-decoration:none;padding:8px 10px;border-radius:var(--r-pill);border:1px solid transparent}
+.nav__jumps a:hover,.nav__jumps a:focus-visible{color:var(--ivoire);border-color:rgba(230,185,115,0.35);background:var(--or-glow)}
 .counters{padding:var(--sp-4)}
 .compare-table{padding:var(--sp-4)}
 @media(max-width:767px){.counters{grid-template-columns:1fr}}
@@ -329,6 +343,12 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
 <header class="nav" role="banner">
   <div class="nav__inner">
     <a class="nav__logo" href="https://pinapp.fr/voyage-v9/" aria-label="Pinapp — accueil voyage-v9">Pinapp <span>Inc.</span></a>
+    <nav class="nav__jumps" aria-label="Accès rapide">
+      <a href="#s04c">Automatisations</a>
+      <a href="#s06">Démos</a>
+      <a href="#memoire-presence">Mémoire &amp; Présence</a>
+      <a href="#pack-duo">Pack Duo</a>
+    </nav>
     <div class="nav__actions">
       <a class="nav__cta" href="#form">Diagnostic 24h offert →</a>
       <button type="button" class="nav__sober" id="btnSober" aria-pressed="false">Mode sobre</button>
@@ -355,7 +375,7 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Pinapp Inc · Bordeaux · 2026</p>
       <h1 id="s01-h1" class="display display--h1" data-reveal data-reveal-delay="1">Vos outils travaillent.<br>Vous gagnez du temps.</h1>
-      <p class="lead" data-reveal><strong>Lauralie</strong> : site vitrine, outils qui tournent (devis, relances, avis), assistants et formations.<br><strong>Michaël</strong> : clips et films avec l'IA, captation d'événements, direction artistique.<br>Un seul devis pour les deux. 50 à 75 % moins cher qu'une agence classique. Diagnostic offert sous 24 heures.</p>
+      <p class="lead" data-reveal><strong>Lauralie</strong> : site vitrine, <strong>automatisations</strong> (formulaire → devis signé → paiement → relances → avis), assistants, formations.<br><strong>Michaël</strong> : clips et films avec l'IA, captation d'événements, direction artistique — <a href="#s02" style="color:var(--cyan);text-decoration:underline;text-underline-offset:3px">voir le duo en photo</a>.<br>Un seul devis pour les deux. 50 à 75 % moins cher qu'une agence classique. Diagnostic offert sous 24 heures.<br><span style="font-size:var(--fs-micro);color:var(--ivoire-dim)">Nous portons aussi <a href="#memoire-presence" style="color:var(--or);text-decoration:underline;text-underline-offset:3px">Mémoire &amp; Présence</a> — transmission numérique pour les familles (projet distinct).</span></p>
       <p class="badge-row" data-reveal><span class="badge">★ IA déclarée · Stack EU · Page &lt; 1 Mo</span></p>
       <div class="hero-s01-grid">
         <div class="soft-video hero-s01-aside" data-reveal aria-label="Vidéo de présentation Pinapp à venir">
@@ -373,9 +393,9 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
           </div>
         </div>
         <div class="stats-row" data-reveal>
-          <div class="stat">24h<br>rép.</div>
-          <div class="stat">0 €<br>diag.</div>
-          <div class="stat">30j<br>accmp</div>
+          <div class="stat">Réponse<br>24 h</div>
+          <div class="stat">Diag.<br>offert</div>
+          <div class="stat">30 j<br>accomp.</div>
         </div>
       </div>
       <div class="cta-row" data-reveal>
@@ -392,13 +412,13 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
       <p class="lead" data-reveal style="text-align:center;max-width:40rem;margin-left:auto;margin-right:auto">Deux métiers complémentaires : tout ce qui est <strong>numérique et automatisé</strong> côté Lauralie, tout ce qui est <strong>image et récit</strong> côté Michaël. Vous ne gérez qu'un interlocuteur.</p>
       <div class="grid-2" style="margin-top:var(--sp-7)">
         <div class="card--glass card--duo" data-reveal>
-          <img class="team-portrait" src="assets/team/lauralie.png" alt="Portrait de Lauralie Daguzay" width="440" height="587" loading="lazy" decoding="async">
+          <img class="team-portrait" src="assets/team/lauralie.png" alt="Portrait de Lauralie Daguzay" width="440" height="587" loading="eager" decoding="async" fetchpriority="high">
           <p class="role-kicker">Système &amp; conversion</p>
           <p><strong>🔧 LAURALIE Daguzay</strong></p>
           <p class="lead" style="margin:0;font-size:1rem">Elle conçoit votre présence en ligne et ce qui tourne derrière : site rapide et accessible, parcours client clair, automatisations (CRM, devis, relances, avis), assistants sur vos processus, formations pour que vous gardiez la main.<br>Du brief à la mise en ligne — Bordeaux, partout en France.</p>
         </div>
         <div class="card--glass card--duo" data-reveal data-reveal-delay="1">
-          <img class="team-portrait" src="assets/team/micha.jpg" alt="Portrait de Michaël Bouilhac" width="440" height="587" loading="lazy" decoding="async">
+          <img class="team-portrait" src="assets/team/micha.jpg" alt="Portrait de Michaël Bouilhac" width="440" height="587" loading="eager" decoding="async" fetchpriority="high">
           <p class="role-kicker">Image &amp; cinéma</p>
           <p><strong>🎬 MICHA · Michaël Bouilhac</strong></p>
           <p class="lead" style="margin:0;font-size:1rem">Il réalise l'image et le mouvement : clips et films avec l'IA (du teaser au format long), captation sur le terrain en Nouvelle-Aquitaine, direction artistique pour une identité visuelle cohérente. 10 ans d'événementiel, photo et vidéo.<br>Du brief au fichier livré — Bordeaux et région.</p>
@@ -463,6 +483,26 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
     </div>
   </section>
 
+  <section id="s04c" class="scene" data-stage="hero-2" aria-labelledby="s04c-h2">
+    <div class="scene__inner">
+      <p class="eyebrow" data-reveal>Automatisations</p>
+      <h2 id="s04c-h2" class="display display--h2" data-reveal>Ce qui tourne pendant que vous bossez.</h2>
+      <p class="lead" data-reveal>On relie votre site, vos formulaires et vos outils (e-mail, CRM, signature, paiement) pour que les tâches répétitives partent sans vous. Voici le flux type qu'on déploie pour les TPE — adapté à votre stack.</p>
+      <div class="flow-diagram" data-reveal role="list" aria-label="Schéma du parcours automatisé">
+        <div class="flow-step" role="listitem"><strong>1 · Contact</strong>Formulaire ou message — tout entre au même endroit.</div>
+        <div class="flow-step" role="listitem"><strong>2 · Qualif</strong>Réponse ou brouillon validé — rien ne part sans votre OK si vous le voulez.</div>
+        <div class="flow-step" role="listitem"><strong>3 · Devis</strong>Génération, envoi, relances — moins d'oublis, moins de copier-coller.</div>
+        <div class="flow-step" role="listitem"><strong>4 · Signature &amp; paiement</strong>YouSign, Stripe ou équivalent — le fil se referme tout seul.</div>
+        <div class="flow-step" role="listitem"><strong>5 · Fidélisation</strong>Avis, rappels, séquences — au bon moment, sans spam.</div>
+      </div>
+      <p class="flow-note" data-reveal>Outils souvent branchés : site statique, Tally ou formulaire maison, Notion / Sheets, n8n, Gmail, YouSign, Stripe — toujours en stack européenne quand c'est possible. On vous livre la doc et les accès : c'est à vous.</p>
+      <div class="cta-row" data-reveal>
+        <a class="btn btn--primary" href="#form">Parler de mon flux →</a>
+        <a class="btn btn--ghost" href="#s06">Voir des sites démo ↓</a>
+      </div>
+    </div>
+  </section>
+
   <section id="s04b" class="scene scene--interstitial" data-stage="hero-2" aria-labelledby="s04b-h3">
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Comprendre</p>
@@ -516,10 +556,31 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
     </div>
   </section>
 
+  <section id="memoire-presence" class="scene" data-stage="hero-3" aria-labelledby="mp-h2">
+    <div class="scene__inner">
+      <p class="eyebrow" data-reveal>Projet parallèle</p>
+      <h2 id="mp-h2" class="display display--h2" data-reveal>Mémoire &amp; Présence</h2>
+      <p class="lead mp-banner__lead" data-reveal>Au-delà de Pinapp, nous construisons un service de <strong>transmission numérique</strong> pour les familles : hommage, lien, présence, mémoire — avec le soin que ce sujet exige. Ce n'est pas une offre « agence » : c'est un engagement à part, porté avec Michaël côté image et Lauralie côté produit.</p>
+      <div class="card--glass mp-banner" data-reveal style="padding:var(--sp-6)">
+        <p style="margin:0 0 var(--sp-3);font-weight:600">Ce que vous y trouvez</p>
+        <ul class="lead" style="margin:0;font-size:0.95rem;padding-left:1.2rem;line-height:1.6">
+          <li>Univers digne pour célébrer une vie et garder le contact avec les proches</li>
+          <li>Accompagnement humain — pas de promesse gadget</li>
+          <li>Même exigence technique : accessible, sobre, hébergement maîtrisé</li>
+        </ul>
+        <div class="cta-row" style="margin-top:var(--sp-5);margin-bottom:0">
+          <a class="btn btn--primary" href="https://memoireetpresence.fr/" target="_blank" rel="noopener noreferrer">Visiter memoireetpresence.fr ↗</a>
+          <a class="btn btn--ghost" href="#form">Revenir au diagnostic Pinapp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="s06" class="scene" data-stage="hero-3" aria-labelledby="s06-h2">
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Studio Lauralie · Prix fixes</p>
-      <h2 id="s06-h2" class="display display--h2" data-reveal>14 démos. Votre secteur est dedans.<br>Prix affichés.</h2>
+      <h2 id="s06-h2" class="display display--h2" data-reveal>14 démos sectorielles. Votre métier s'y retrouve.<br>Prix affichés · ouverture en un clic.</h2>
+      <p class="lead" data-reveal>Chaque carte ouvre une <strong>vitrine fictive</strong> (données de démo) pour que vous voyiez le niveau de finition. Ci-dessous : trois entrées — le reste de la liste est dans le volet « Trouver mon secteur ».</p>
       <div class="placeholder-asset" data-reveal>📭 Reel 14 sites · style Apple WWDC · 20 sec
 Mosaïque animée · transitions cross-fade · sound design off
 À monter — montre 14 sites successivement</div>
@@ -531,20 +592,20 @@ Mosaïque animée · transitions cross-fade · sound design off
       <div class="mock-grid" data-reveal>
         <div class="mock mock--wide">
           <a href="/demo/atelier-rivage/" target="_blank" rel="noopener noreferrer">
-            <div class="mock__img mock__img--ph" role="img" aria-label="Aperçu sectoriel Atelier Rivage architecture"></div>
-            <div class="mock__body"><strong>★ Atelier Rivage · architecture · villas</strong> (démo live ↗)</div>
+            <img class="mock__img mock__img--demo" src="assets/hero-3.webp" alt="Aperçu visuel démo architecture — Atelier Rivage" width="800" height="600" loading="lazy" decoding="async">
+            <div class="mock__body"><strong>★ Atelier Rivage · architecture · villas</strong> — démo live ↗</div>
           </a>
         </div>
         <div class="mock">
           <a href="/demo/restaurant/" target="_blank" rel="noopener noreferrer">
-            <div class="mock__img mock__img--ph" role="img" aria-label="Aperçu Ōkami restaurant"></div>
-            <div class="mock__body"><span>02 Ōkami · restaurant</span> (voir ↗)</div>
+            <img class="mock__img mock__img--demo" src="assets/hero-2.webp" alt="Aperçu visuel démo restaurant — Ōkami" width="800" height="600" loading="lazy" decoding="async">
+            <div class="mock__body"><span>02 Ōkami · restaurant</span> — voir ↗</div>
           </a>
         </div>
         <div class="mock">
           <a href="/demo/coach/" target="_blank" rel="noopener noreferrer">
-            <div class="mock__img mock__img--ph" role="img" aria-label="Aperçu Clara Fontaine coach"></div>
-            <div class="mock__body"><span>03 Clara Fontaine · coach · consultant</span> (voir ↗)</div>
+            <img class="mock__img mock__img--demo" src="assets/hero-4.webp" alt="Aperçu visuel démo coach — Clara Fontaine" width="800" height="600" loading="lazy" decoding="async">
+            <div class="mock__body"><span>03 Clara Fontaine · coach · consultant</span> — voir ↗</div>
           </a>
         </div>
       </div>
@@ -905,11 +966,11 @@ Captation 4-6h · montage 5 jours
     <a href="/confidentialite.html">Confidentialité</a>
     <a href="/cgv.html#tva">TVA art. 293 B CGI</a>
   </nav>
-  <p class="mp">« Nous portons aussi Mémoire &amp; Présence. »</p>
+  <p class="mp">« Nous portons aussi <a href="#memoire-presence">Mémoire &amp; Présence</a> — transmission numérique pour les familles. »</p>
   <p class="source-note">© 2026 Pinapp Inc. · Lauralie &amp; Michaël</p>
 </footer>
 
-<div class="scene-counter" aria-hidden="true"><span class="scene-counter__current"><span class="scene-counter__num">01</span></span><span class="scene-counter__sep"> / </span><span class="scene-counter__total">14</span></div>
+<div class="scene-counter" aria-hidden="true"><span class="scene-counter__current"><span class="scene-counter__num">01</span></span><span class="scene-counter__sep"> / </span><span class="scene-counter__total">16</span></div>
 
 <div class="morse-stay" role="group" aria-label="Easter egg Mémoire et Présence">
   <span class="morse-dot" aria-hidden="true"></span><span class="morse-dot" aria-hidden="true"></span><span class="morse-dot" aria-hidden="true"></span><span class="morse-dot" aria-hidden="true"></span>

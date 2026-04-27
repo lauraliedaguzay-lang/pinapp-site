@@ -1,6 +1,6 @@
 /**
  * Pinapp V9 — Scene counter (voyage-v5)
- * 14 scènes logiques ; sections DOM : s01…s13 + interstitiels s04b, s06b, s09b.
+ * 16 scènes logiques (voyage-v9 + automatisations + Mémoire & Présence).
  */
 (function () {
   'use strict';
@@ -10,21 +10,23 @@
     s02: 2,
     s03: 3,
     s04: 4,
-    s04b: 4,
-    'pack-duo': 5,
-    s06: 6,
-    s06b: 6,
-    s07: 7,
-    s08: 8,
-    s09: 9,
-    s09b: 10,
-    s10: 11,
-    s11: 12,
-    s12: 13,
-    form: 14
+    s04c: 5,
+    s04b: 5,
+    'pack-duo': 6,
+    'memoire-presence': 7,
+    s06: 8,
+    s06b: 8,
+    s07: 9,
+    s08: 10,
+    s09: 11,
+    s09b: 12,
+    s10: 13,
+    s11: 14,
+    s12: 15,
+    form: 16
   };
 
-  var TOTAL = 14;
+  var TOTAL = 16;
 
   var reduced = false;
   try {
