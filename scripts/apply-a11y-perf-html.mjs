@@ -12,7 +12,8 @@ const ROOT = path.resolve(__dirname, '..');
 
 const SKIP_FIRST = new Set(['pinapp-site-vitrine/index.html', 'pinapp-site-vitrine/histoire.html']);
 
-const SKIP_LINK = '<a href="#main" class="skip-link">Aller au contenu principal</a>';
+const SKIP_LINK =
+  '<a href="#main" class="skip-link">Aller au contenu principal</a>';
 
 const DNS_PLAUSIBLE = '    <link rel="dns-prefetch" href="https://plausible.io" />\n';
 
@@ -71,17 +72,20 @@ function fixImgsAlt(html) {
 }
 
 function fixBlankTargets(html) {
-  return html.replace(/<a\b([^>]*\btarget\s*=\s*["']?_blank["']?[^>]*)>/gi, (full, attrs) => {
-    if (/rel\s*=\s*[^>]*noopener/.test(attrs)) return full;
-    const relM = attrs.match(/\brel\s*=\s*("([^"]*)"|'([^']*)')/i);
-    if (relM) {
-      const q = relM[1][0];
-      const val = relM[2] || relM[3];
-      const newVal = val.includes('noopener') ? val : `${val} noopener noreferrer`;
-      return full.replace(relM[0], `rel=${q}${newVal}${q}`);
-    }
-    return `<a${attrs} rel="noopener noreferrer">`;
-  });
+  return html.replace(
+    /<a\b([^>]*\btarget\s*=\s*["']?_blank["']?[^>]*)>/gi,
+    (full, attrs) => {
+      if (/rel\s*=\s*[^>]*noopener/.test(attrs)) return full;
+      const relM = attrs.match(/\brel\s*=\s*("([^"]*)"|'([^']*)')/i);
+      if (relM) {
+        const q = relM[1][0];
+        const val = relM[2] || relM[3];
+        const newVal = val.includes('noopener') ? val : `${val} noopener noreferrer`;
+        return full.replace(relM[0], `rel=${q}${newVal}${q}`);
+      }
+      return `<a${attrs} rel="noopener noreferrer">`;
+    },
+  );
 }
 
 function picturePinappIcon(html) {
@@ -93,7 +97,10 @@ function picturePinappIcon(html) {
 }
 
 function fixSrOnlyH1(html) {
-  return html.replace(/<h1(\s+class="sr-only"[^>]*)>([\s\S]*?)<\/h1>/gi, '<p$1>$2</p>');
+  return html.replace(
+    /<h1(\s+class="sr-only"[^>]*)>([\s\S]*?)<\/h1>/gi,
+    '<p$1>$2</p>',
+  );
 }
 
 let n = 0;

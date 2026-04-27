@@ -93,31 +93,25 @@
       if (!val(document.getElementById('prenom'))) return 'Merci d’indiquer votre prénom.';
       if (!val(document.getElementById('nom'))) return 'Merci d’indiquer votre nom.';
       var em = val(document.getElementById('email'));
-      if (!em || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em))
-        return 'Merci d’indiquer un e-mail professionnel valide.';
+      if (!em || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) return 'Merci d’indiquer un e-mail professionnel valide.';
       var tel = val(document.getElementById('telephone'));
-      if (!tel || tel.replace(/\s/g, '').length < 10)
-        return 'Merci d’indiquer un numéro de téléphone valide.';
+      if (!tel || tel.replace(/\s/g, '').length < 10) return 'Merci d’indiquer un numéro de téléphone valide.';
     }
     if (step === 1) {
-      if (!val(document.getElementById('entreprise')))
-        return 'Merci d’indiquer le nom de l’entreprise.';
+      if (!val(document.getElementById('entreprise'))) return 'Merci d’indiquer le nom de l’entreprise.';
       var s = val(secteur);
       if (!s) return 'Merci de choisir un secteur d’activité.';
       if (s === 'Autre (précisez)' && !val(secteurAutre))
         return 'Merci de préciser votre secteur (champ « Autre (précisez) »).';
       if (!val(document.getElementById('ville'))) return 'Merci d’indiquer votre ville ou commune.';
       var siret = val(document.getElementById('siret'));
-      if (siret && !/^[0-9\s]+$/.test(siret))
-        return 'Le SIRET ne doit contenir que des chiffres et des espaces.';
+      if (siret && !/^[0-9\s]+$/.test(siret)) return 'Le SIRET ne doit contenir que des chiffres et des espaces.';
     }
     if (step === 2) {
       var boxes = form.querySelectorAll('input[name="interets"]:checked');
-      if (!boxes.length)
-        return 'Cochez au moins une option dans « Qu’est-ce qui vous intéresse ? ».';
+      if (!boxes.length) return 'Cochez au moins une option dans « Qu’est-ce qui vous intéresse ? ».';
       var autre = form.querySelector('input[name="interets"][value="Autre"]');
-      if (autre && autre.checked && !val(interestAutre))
-        return 'Merci de préciser votre besoin dans le champ « Autre ».';
+      if (autre && autre.checked && !val(interestAutre)) return 'Merci de préciser votre besoin dans le champ « Autre ».';
       if (!form.querySelector('input[name="contact_pref"]:checked'))
         return 'Merci d’indiquer comment vous préférez être contacté.';
       var oa = form.querySelector('input[name="outils_num"][value="Autre"]');
@@ -135,8 +129,7 @@
         if (filmCadeauChecked()) {
           if (!val(document.getElementById('film_ia_destinataire')))
             return 'Indiquez le destinataire du Film IA cadeau.';
-          if (!val(document.getElementById('film_ia_occasion')))
-            return 'Indiquez l’occasion du Film IA cadeau.';
+          if (!val(document.getElementById('film_ia_occasion'))) return 'Indiquez l’occasion du Film IA cadeau.';
           if (!val(document.getElementById('film_ia_livraison')))
             return 'Indiquez la date souhaitée de livraison pour le Film IA cadeau.';
         }
@@ -148,8 +141,7 @@
     }
     if (step === 4) {
       var rgpd = document.getElementById('rgpd_consent');
-      if (!rgpd || !rgpd.checked)
-        return 'Veuillez accepter le traitement de vos données pour continuer.';
+      if (!rgpd || !rgpd.checked) return 'Veuillez accepter le traitement de vos données pour continuer.';
     }
     return '';
   }
@@ -495,9 +487,7 @@
     var webhook = getWebhook();
     var file = fichier && fichier.files[0] ? fichier.files[0] : null;
     if (file && file.size > FILE_MAX) {
-      setErr(
-        'Le fichier dépasse 5 Mo. Merci de nous l’envoyer par e-mail en réponse à notre retour.',
-      );
+      setErr('Le fichier dépasse 5 Mo. Merci de nous l’envoyer par e-mail en réponse à notre retour.');
       return;
     }
 
@@ -509,10 +499,7 @@
     function fallbackMailto() {
       var body = mailtoBody(payload);
       var max = 65000;
-      if (body.length > max)
-        body =
-          body.slice(0, max) +
-          '\n…(message tronqué — préférez le formulaire en ligne avec webhook)';
+      if (body.length > max) body = body.slice(0, max) + '\n…(message tronqué — préférez le formulaire en ligne avec webhook)';
       window.location.href =
         'mailto:contact@pinapp.fr?subject=' +
         encodeURIComponent('Diagnostic Pinapp — ' + payload.vous.prenom + ' ' + payload.vous.nom) +
