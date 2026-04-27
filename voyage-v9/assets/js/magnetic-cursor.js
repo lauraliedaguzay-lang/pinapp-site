@@ -1,11 +1,15 @@
 /**
- * Pinapp V10 — curseur custom (desktop, pointer fine)
+ * Pinapp V11 — curseur custom (≥1024px, pointer fine) + RM soft
  */
 (function () {
   'use strict';
   if (!window.matchMedia('(pointer: fine)').matches) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (window.innerWidth < 1024) return;
+
+  var RM = false;
+  try {
+    RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  } catch (e) {}
 
   document.documentElement.classList.add('mag-cursor-on');
 
@@ -20,7 +24,7 @@
   var mouseY = 0;
   var cursorX = 0;
   var cursorY = 0;
-  var lerp = 0.18;
+  var lerp = RM ? 0.5 : 0.18;
 
   document.addEventListener('mousemove', function (e) {
     mouseX = e.clientX;

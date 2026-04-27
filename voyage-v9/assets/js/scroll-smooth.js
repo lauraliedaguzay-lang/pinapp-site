@@ -52,6 +52,20 @@
   }
   onScrollOrLenis();
 
+  if ('IntersectionObserver' in window) {
+    var hook = document.getElementById('hook-film');
+    if (hook) {
+      new IntersectionObserver(
+        function (ents) {
+          ents.forEach(function (x) {
+            if (x.isIntersecting) hook.classList.add('in-view');
+          });
+        },
+        { threshold: 0.3 }
+      ).observe(hook);
+    }
+  }
+
   document.addEventListener(
     'click',
     function (e) {
@@ -107,8 +121,8 @@
     );
     var pack = document.querySelector('.pack-essentiel');
     if (pack) revealIo.observe(pack);
-    document.querySelectorAll('.team-photo').forEach(function (img) {
-      revealIo.observe(img);
+    document.querySelectorAll('.team-figure').forEach(function (fig) {
+      revealIo.observe(fig);
     });
   }
 })();

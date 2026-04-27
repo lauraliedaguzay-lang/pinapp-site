@@ -1,10 +1,17 @@
 /**
- * Pinapp V10 — tilt 3D léger sur cartes ciblées
+ * Pinapp V11 — tilt 3D (≥768px, pointer fine) + RM soft (moins d'amplitude)
  */
 (function () {
   'use strict';
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (!window.matchMedia('(pointer: fine)').matches) return;
+  if (window.innerWidth < 768) return;
+
+  var RM = false;
+  try {
+    RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  } catch (e) {}
+
+  var amp = RM ? 2 : 5;
 
   var sel =
     '.orientation-card, .demo-tile, .vimeo-tile, .pinapp-form .path-card, .reals-duo .card--glass';
@@ -20,9 +27,9 @@
         var y = (e.clientY - rect.top) / rect.height - 0.5;
         card.style.transform =
           'perspective(1000px) rotateY(' +
-          x * 5 +
+          x * amp +
           'deg) rotateX(' +
-          -y * 5 +
+          -y * amp +
           'deg) translateZ(6px)';
       });
       card.addEventListener('mouseleave', function () {
