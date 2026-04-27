@@ -7,8 +7,8 @@
 <meta name="referrer" content="strict-origin-when-cross-origin" />
 <title>Pinapp · Sites + films pour TPE/PME · 50 à 75% moins cher | Bordeaux</title>
 <meta name="description" content="Duo Pinapp : sites qui convertissent + films cinéma. Diagnostic 24h gratuit. Bordeaux + Nouvelle-Aquitaine. Tarifs publics dès 1 290 €." />
-<meta property="og:title" content="Pinapp — Sites + Films pour TPE/PME ambitieuses" />
-<meta property="og:description" content="Duo Pinapp : sites qui convertissent + films cinéma. Diagnostic 24h gratuit. Bordeaux + Nouvelle-Aquitaine. Tarifs publics dès 1 290 €." />
+<meta property="og:title" content="Pinapp · Sites + films pour TPE/PME · 50-75% moins cher | Bordeaux" />
+<meta property="og:description" content="Lauralie : tech &amp; automatisations IA. Michaël : films cinéma IA. Un seul devis. Diagnostic 24h offert." />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="fr_FR" />
 <meta property="og:url" content="https://pinapp.fr/voyage-v9/" />
@@ -25,7 +25,23 @@
 <link rel="preload" as="image" href="assets/team/lauralie.png" fetchpriority="high" />
 <link rel="preload" as="image" href="assets/team/micha.jpg" fetchpriority="high" />
 <script>document.documentElement.classList.add('js');</script>
-<script defer data-domain="pinapp.fr" src="https://plausible.io/js/script.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Pinapp Inc.",
+  "url": "https://pinapp.fr",
+  "logo": "https://pinapp.fr/voyage-v9/assets/brand/pinapp-icon.png",
+  "image": "https://pinapp.fr/voyage-v9/assets/hero-1.webp",
+  "description": "Studio digital Bordeaux · Sites, automatisations IA et films cinéma pour TPE/PME.",
+  "address": { "@type": "PostalAddress", "addressLocality": "Bordeaux", "addressCountry": "FR" },
+  "founder": [
+    { "@type": "Person", "name": "Lauralie Daguzay" },
+    { "@type": "Person", "name": "Michaël Bouilhac" }
+  ],
+  "email": "contact@pinapp.fr"
+}
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -58,9 +74,11 @@
 :root{
   --or:#e6b973;--or-light:#f7d99d;--or-glow:rgba(230,185,115,0.18);--ivoire:#f4ece0;--ivoire-dim:#c9bfae;--ivoire-mute:rgba(244,228,193,0.62);
   --cyan:#3ef5e0;--nuit:#050b14;--nuit-soft:#0a121f;--fumee:rgba(20,30,42,0.6);--fumee-strong:rgba(20,30,42,0.85);
+  --accent-lauralie:var(--or);--accent-micha:var(--cyan);--accent-mp:rgba(123,184,154,0.95);
+  --ff-serif:Georgia,"Times New Roman",serif;
   --rouge-err:#ff6b6b;--vert-ok:#5eddb6;
   --ff-apple:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Segoe UI",Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
-  --ff-display:var(--ff-apple);--ff-body:var(--ff-apple);
+  --ff-display:var(--ff-apple);--ff-body:var(--ff-apple),Georgia,"Times New Roman",serif;
   --fs-h1:clamp(3.5rem,9vw,7rem);--fs-h2:clamp(2.25rem,5vw,4rem);--fs-h3:clamp(1.75rem,3.5vw,2.5rem);
   --fs-lead:clamp(1.125rem,1.5vw,1.375rem);--fs-body:17px;--fs-micro:14px;--lh-tight:1.15;--lh-body:1.65;
   --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:24px;--sp-6:32px;--sp-7:48px;--sp-8:64px;--sp-9:96px;--sp-10:128px;
@@ -373,6 +391,37 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
 .counters{padding:var(--sp-4)}
 .compare-table{padding:var(--sp-4)}
 @media(max-width:767px){.counters{grid-template-columns:1fr}}
+.orientation-grid{display:grid;gap:var(--sp-4);margin-top:var(--sp-6)}
+@media(min-width:768px){.orientation-grid{grid-template-columns:repeat(3,1fr)}}
+.orientation-card{display:flex;flex-direction:column;gap:var(--sp-3);padding:var(--sp-5);border-radius:var(--r-lg);border:2px solid rgba(230,185,115,0.25);background:var(--fumee);text-decoration:none;color:inherit;text-align:left;transition:border-color var(--dur-fast) var(--ease-out),transform var(--dur-fast) var(--ease-spring)}
+.orientation-card:hover{transform:translateY(-2px);border-color:rgba(62,245,224,0.35)}
+.orientation-card--discreet{opacity:0.92;border-color:rgba(123,184,154,0.28);font-size:0.95rem}
+.orientation-card h3{margin:0;font-size:1.05rem}
+.orientation-card p{margin:0;color:var(--ivoire-mute);font-size:0.9rem;line-height:1.5}
+.real-nav{position:sticky;top:72px;z-index:5;display:flex;flex-wrap:wrap;gap:8px;padding:var(--sp-3) 0;margin:var(--sp-5) 0 var(--sp-6);border-bottom:1px solid rgba(230,185,115,0.15);background:rgba(5,11,20,0.75);backdrop-filter:blur(12px) saturate(140%);-webkit-backdrop-filter:blur(12px) saturate(140%)}
+.real-nav a{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--ivoire-mute);text-decoration:none;padding:6px 10px;border-radius:var(--r-pill);border:1px solid transparent}
+.real-nav a:hover,.real-nav a:focus-visible{color:var(--ivoire);border-color:rgba(230,185,115,0.35)}
+.real-cinema-panel{border-radius:var(--r-lg);padding:var(--sp-6);background:rgba(5,5,5,0.72);border:1px solid rgba(230,185,115,0.2)}
+.pack-discount{margin-top:var(--sp-5);padding:var(--sp-5);border-radius:var(--r-md);border:1px dashed rgba(62,245,224,0.35);background:rgba(62,245,224,0.06);font-size:var(--fs-micro);color:var(--ivoire-mute)}
+.honeypot-field{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.pinapp-form .path-selector{margin-bottom:var(--sp-5)}
+.pinapp-form .path-selector legend{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--or);margin-bottom:var(--sp-3)}
+.pinapp-form .path-cards{display:grid;gap:var(--sp-3);grid-template-columns:1fr}
+@media(min-width:768px){.pinapp-form .path-cards{grid-template-columns:repeat(3,1fr)}}
+.pinapp-form .path-card{display:flex;flex-direction:column;gap:var(--sp-2);padding:var(--sp-5);border-radius:var(--r-lg);border:2px solid rgba(230,185,115,0.22);background:var(--fumee);cursor:pointer;transition:border-color var(--dur-fast),background var(--dur-fast);position:relative}
+.pinapp-form .path-card:has(input:checked){border-color:var(--or);background:rgba(230,185,115,0.08)}
+.pinapp-form .path-card input{position:absolute;opacity:0;pointer-events:none}
+.pinapp-form .field-grid-2{display:grid;gap:var(--sp-3);grid-template-columns:1fr;margin-bottom:var(--sp-3)}
+@media(min-width:600px){.pinapp-form .field-grid-2{grid-template-columns:1fr 1fr}.pinapp-form .field.full{grid-column:span 2}}
+.pinapp-form .conditional-fields{margin:var(--sp-5) 0;padding:var(--sp-5);border-radius:var(--r-md);border:1px dashed rgba(230,185,115,0.28);background:rgba(255,255,255,0.02)}
+.pinapp-form .conditional-fields legend{padding:0 var(--sp-2);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--or)}
+.pinapp-form .checkbox-field{display:flex;align-items:flex-start;gap:var(--sp-3);margin-top:var(--sp-4);font-size:var(--fs-micro);color:var(--ivoire-mute);cursor:pointer}
+.pinapp-form .checkbox-field input{width:18px;height:18px;flex-shrink:0;margin-top:4px}
+.pinapp-form .ia-disclosure{margin-top:var(--sp-5);padding:var(--sp-4);border-left:2px solid var(--cyan);border-radius:0 var(--r-sm) var(--r-sm) 0;background:rgba(62,245,224,0.06);font-size:13px;color:var(--ivoire-dim)}
+.form-success{padding:var(--sp-8) var(--sp-5);text-align:center;border:1px solid rgba(230,185,115,0.2);border-radius:var(--r-lg);background:var(--fumee-strong)}
+.form-success .success-icon{width:56px;height:56px;margin:0 auto var(--sp-4);border-radius:50%;background:var(--or);color:var(--nuit);display:grid;place-items:center;font-size:1.5rem;font-weight:700}
+.footer-social{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--sp-4);margin:var(--sp-4) 0;font-size:var(--fs-micro)}
+.footer-social a{text-decoration:underline;text-underline-offset:3px}
 </style>
 </head>
 
@@ -381,16 +430,20 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
 
 <header class="nav" role="banner">
   <div class="nav__inner">
-    <a class="nav__logo" href="https://pinapp.fr/voyage-v9/" aria-label="Pinapp — accueil voyage-v9">Pinapp <span>Inc.</span></a>
+    <a class="nav__logo" href="./" aria-label="Pinapp — accueil voyage-v9">Pinapp <span>Inc.</span></a>
     <nav class="nav__jumps" aria-label="Accès rapide">
-      <a href="#s04c">Automatisations</a>
-      <a href="#demo-showcase">Vitrine démo</a>
-      <a href="#s06">Démos</a>
-      <a href="#memoire-presence">Mémoire &amp; Présence</a>
-      <a href="#pack-duo">Pack Duo</a>
+      <a href="#hero">Accueil</a>
+      <a href="#duo">Duo</a>
+      <a href="#diagnostic">Diagnostic</a>
+      <a href="#auto">Automatisations</a>
+      <a href="#pack">Pack</a>
+      <a href="#realisations">Réalisations</a>
+      <a href="#methode">Méthode</a>
+      <a href="#mp">M&amp;P</a>
+      <a href="#contact">Contact</a>
     </nav>
     <div class="nav__actions">
-      <a class="nav__cta" href="#form">Diagnostic 24h offert →</a>
+      <a class="nav__cta" href="#contact">Diagnostic 24h offert →</a>
       <button type="button" class="nav__sober" id="btnSober" aria-pressed="false">Mode sobre</button>
       <button type="button" class="nav__drawer-open" id="btnDrawerOpen" aria-controls="drawerAbout" aria-expanded="false" aria-label="Ouvrir le menu Qui sommes-nous">☰</button>
     </div>
@@ -411,11 +464,12 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
 <div class="progress" aria-hidden="true"><div class="progress__fill" id="scrollProgress"></div></div>
 
 <main id="main">
-  <section id="s01" class="scene" data-stage="hero-1" aria-labelledby="s01-h1">
+  <section id="hero" class="scene" data-stage="hero-1" aria-labelledby="hero-h1">
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Pinapp Inc · Bordeaux · 2026</p>
-      <h1 id="s01-h1" class="display display--h1" data-reveal data-reveal-delay="1">Vos outils travaillent.<br>Vous gagnez du temps.</h1>
-      <p class="lead" data-reveal><strong>Lauralie</strong> : site vitrine, <strong>automatisations</strong> (formulaire → devis signé → paiement → relances → avis), assistants, formations.<br><strong>Michaël</strong> : clips et films avec l'IA, captation d'événements, direction artistique — <a href="#s02" style="color:var(--cyan);text-decoration:underline;text-underline-offset:3px">voir le duo en photo</a>.<br>Un seul devis pour les deux. 50 à 75 % moins cher qu'une agence classique. Diagnostic offert sous 24 heures.<br><span style="font-size:var(--fs-micro);color:var(--ivoire-dim)">Nous portons aussi <a href="#memoire-presence" style="color:var(--or);text-decoration:underline;text-underline-offset:3px">Mémoire &amp; Présence</a> — transmission numérique pour les familles (projet distinct).</span></p>
+      <p class="eyebrow" data-reveal data-reveal-delay="1" style="margin-top:calc(-1 * var(--sp-2));color:var(--ivoire-dim)">Studio digital · Bordeaux · Sites + automatisations + films IA</p>
+      <h1 id="hero-h1" class="display display--h1" data-reveal data-reveal-delay="1">Vos outils travaillent.<br>Vous gagnez du temps.</h1>
+      <p class="lead" data-reveal>Site vitrine, automatisations IA, films cinéma —<br>par un duo bordelais.<br>Un seul devis. 50 à 75 % moins cher qu'une agence.<br>Diagnostic offert sous 24 h.<br><span style="font-size:var(--fs-micro);color:var(--ivoire-dim)">Nous portons aussi <a href="#mp" style="color:var(--or);text-decoration:underline;text-underline-offset:3px">Mémoire &amp; Présence</a> — transmission pour les familles (projet distinct).</span></p>
       <p class="badge-row" data-reveal><span class="badge">★ IA déclarée · Stack EU · Page &lt; 1 Mo</span></p>
       <div class="hero-s01-grid">
         <div class="soft-video hero-s01-aside" data-reveal aria-label="Vidéo de présentation Pinapp à venir">
@@ -439,16 +493,30 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
         </div>
       </div>
       <div class="cta-row" data-reveal>
-        <a class="btn btn--primary" href="#form">Recevoir mon diagnostic gratuit →</a>
-        <a class="btn btn--ghost" href="#s03">Voir le diagnostic ↓</a>
+        <a class="btn btn--primary" href="#contact">Recevoir mon diagnostic écrit sous 24h →</a>
+        <a class="btn btn--ghost" href="#orientation">Voir ↓</a>
+      </div>
+      <p class="source-note" data-reveal style="margin-top:var(--sp-3);text-align:center;max-width:36rem;margin-left:auto;margin-right:auto">Une analyse écrite par mail · pas un appel · pas d'engagement.</p>
+      <p class="microcite" data-reveal style="margin-top:var(--sp-6);font-size:1.15rem">Voyons d'abord qui on est.</p>
+    </div>
+  </section>
+
+  <section id="orientation" class="scene scene--interstitial" data-stage="hero-1" aria-labelledby="orientation-h2">
+    <div class="scene__inner">
+      <h2 id="orientation-h2" class="display display--h3" data-reveal>Vous êtes plutôt…</h2>
+      <p class="lead" data-reveal style="text-align:center;margin-left:auto;margin-right:auto">Trois entrées — le site s'adapte ensuite à votre besoin.</p>
+      <div class="orientation-grid" data-reveal>
+        <a class="orientation-card" href="#duo"><h3>Dirigeant·e TPE/PME</h3><p>Site, automatisations, pack duo — objectif conversion et temps gagné.</p><span class="eyebrow" style="margin:0">Suite → Duo</span></a>
+        <a class="orientation-card" href="#realisations-cinema"><h3>Artiste / créateur·trice</h3><p>Clips IA, univers visuel, voix — objectif présence scène numérique.</p><span class="eyebrow" style="margin:0">Suite → Cinéma IA</span></a>
+        <a class="orientation-card orientation-card--discreet" href="https://memoireetpresence.fr/" target="_blank" rel="noopener noreferrer"><h3>Famille · hommage</h3><p>Projet à part : accompagnement humain, site dédié — memoireetpresence.fr</p><span class="eyebrow" style="margin:0;color:var(--accent-mp)">Ouvrir memoireetpresence.fr ↗</span></a>
       </div>
     </div>
   </section>
 
-  <section id="s02" class="scene" data-stage="hero-1" aria-labelledby="s02-h2">
+  <section id="duo" class="scene" data-stage="hero-1" aria-labelledby="duo-h2">
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Qui fait quoi</p>
-      <h2 id="s02-h2" class="display display--h2" data-reveal>Lauralie + Michaël.<br>Deux experts. Un seul interlocuteur. Un seul devis.</h2>
+      <h2 id="duo-h2" class="display display--h2" data-reveal>Lauralie + Michaël.<br>Deux experts. Un seul interlocuteur. Un seul devis.</h2>
       <p class="lead" data-reveal style="text-align:center;max-width:40rem;margin-left:auto;margin-right:auto">Deux métiers complémentaires : tout ce qui est <strong>numérique et automatisé</strong> côté Lauralie, tout ce qui est <strong>image et récit</strong> côté Michaël. Vous ne gérez qu'un interlocuteur.</p>
       <div class="grid-2" style="margin-top:var(--sp-7)">
         <div class="card--glass card--duo" data-reveal>
@@ -456,12 +524,14 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
           <p class="role-kicker">Système &amp; conversion</p>
           <p><strong>🔧 LAURALIE Daguzay</strong></p>
           <p class="lead" style="margin:0;font-size:1rem">Elle conçoit votre présence en ligne et ce qui tourne derrière : site rapide et accessible, parcours client clair, automatisations (CRM, devis, relances, avis), assistants sur vos processus, formations pour que vous gardiez la main.<br>Du brief à la mise en ligne — Bordeaux, partout en France.</p>
+          <p style="margin:0"><a class="btn btn--text" href="https://www.linkedin.com/in/lauraliedaguzay" target="_blank" rel="noopener noreferrer" style="font-size:var(--fs-micro);padding:0;min-height:auto">Voir mes travaux LinkedIn ↗</a></p>
         </div>
         <div class="card--glass card--duo" data-reveal data-reveal-delay="1">
           <img class="team-portrait" src="assets/team/micha.jpg" alt="Portrait de Michaël Bouilhac" width="440" height="587" loading="eager" decoding="async" fetchpriority="high">
           <p class="role-kicker">Image &amp; cinéma</p>
           <p><strong>🎬 MICHA · Michaël Bouilhac</strong></p>
           <p class="lead" style="margin:0;font-size:1rem">Il réalise l'image et le mouvement : clips et films avec l'IA (du teaser au format long), captation sur le terrain en Nouvelle-Aquitaine, direction artistique pour une identité visuelle cohérente. 10 ans d'événementiel, photo et vidéo.<br>Du brief au fichier livré — Bordeaux et région.</p>
+          <p style="margin:0"><a class="btn btn--text" href="#contact" title="Demandez le lien LinkedIn de Michaël si besoin" style="font-size:var(--fs-micro);padding:0;min-height:auto">Voir mes travaux LinkedIn ↗</a></p>
         </div>
       </div>
       <div class="reals-duo" aria-label="Réalisations : exemples concrets" data-reveal>
@@ -476,8 +546,8 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
             </ul>
             <div class="real-links" aria-label="Liens réalisations Lauralie">
               <a href="../demo/atelier-rivage/" target="_blank" rel="noopener noreferrer">Atelier Rivage ↗</a>
-              <a href="#demo-showcase">Captures démo ↓</a>
-              <a href="#s04c">Schéma automatisations ↓</a>
+              <a href="#realisations-vitrine">Captures démo ↓</a>
+              <a href="#auto">Schéma automatisations ↓</a>
             </div>
           </div>
           <div class="card--glass" style="padding:var(--sp-6)">
@@ -495,17 +565,18 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
           </div>
         </div>
       </div>
-      <p class="microcite" data-reveal style="margin-top:var(--sp-8);font-size:1.5rem">« Lauralie architecte. Michaël filme. Ensemble nous livrons. »</p>
+      <p class="microcite" data-reveal style="margin-top:var(--sp-8);font-size:1.5rem">« Lauralie architecte. Michaël filme. Ensemble livrons. »</p>
       <div class="cta-row" style="justify-content:center" data-reveal>
         <button type="button" class="btn btn--text" id="btnDrawerFromS02">En savoir plus sur nous →</button>
       </div>
+      <p class="microcite" data-reveal style="margin-top:var(--sp-7);font-size:1.1rem">Maintenant, votre situation. Reconnaissez-vous ces quatre signes ?</p>
     </div>
   </section>
 
-  <section id="s03" class="scene" data-stage="hero-2" aria-labelledby="s03-h2">
+  <section id="diagnostic" class="scene" data-stage="hero-2" aria-labelledby="diagnostic-h2">
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Le diagnostic</p>
-      <h2 id="s03-h2" class="display display--h2" data-reveal>Reconnaissez-vous votre semaine ?</h2>
+      <h2 id="diagnostic-h2" class="display display--h2" data-reveal>Reconnaissez-vous votre semaine ?</h2>
       <div class="pains-grid" style="margin-top:var(--sp-6)">
         <div class="card--glass pain" data-reveal><strong>01  Site qui dort.</strong> → Personne ne vous trouve.</div>
         <div class="card--glass pain" data-reveal data-reveal-delay="1"><strong>02  Devis qui s'oublient.</strong>→ Vous facturez en retard.</div>
@@ -518,13 +589,15 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
       </div>
       <p class="source-note" data-reveal>(Mesures sur nos propres ops · le diagnostic chiffre les vôtres.)</p>
       <p class="microcite" data-reveal>« Pour les cerveaux qui vont vite. Pour ceux qui veulent l'essentiel. »</p>
+      <div class="cta-row" data-reveal style="margin-top:var(--sp-6)"><a class="btn btn--primary" href="#contact">Recevoir mon diagnostic écrit sous 24h →</a></div>
+      <p class="source-note" data-reveal style="margin-top:var(--sp-5)">Voici ce qui tourne pendant que vous bossez.</p>
     </div>
   </section>
 
-  <section id="s04" class="scene" data-stage="hero-2" aria-labelledby="s04-h2">
+  <section id="diagnostic-preuves" class="scene" data-stage="hero-2" aria-labelledby="diagnostic-preuves-h2">
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>La méthode</p>
-      <h2 id="s04-h2" class="display display--h2" data-reveal>Pourquoi 50 à 75 % moins cher ? Voici les 4 sources qu'on assume.</h2>
+      <h2 id="diagnostic-preuves-h2" class="display display--h2" data-reveal>Pourquoi 50 à 75 % moins cher ? Voici les 4 sources qu'on assume.</h2>
       <div class="sources-grid" style="margin-top:var(--sp-6)">
         <div class="card--glass source-card" data-reveal>
           <p>📊 McKinsey 2023 — Economic potential of generative AI</p>
@@ -551,13 +624,14 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
       <div class="crit-note" data-reveal>
         <p style="margin:0">« L'IA a un coût environnemental. Voici comment on le limite :<br>hébergement européen, choix d'outils sobres, pas de génération inutile. »</p>
       </div>
+      <div class="cta-row" data-reveal style="margin-top:var(--sp-6)"><a class="btn btn--primary" href="#contact">Recevoir mon diagnostic écrit sous 24h →</a></div>
     </div>
   </section>
 
-  <section id="s04c" class="scene" data-stage="hero-2" aria-labelledby="s04c-h2">
+  <section id="auto" class="scene" data-stage="hero-2" aria-labelledby="auto-h2">
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Automatisations</p>
-      <h2 id="s04c-h2" class="display display--h2" data-reveal>Ce qui tourne pendant que vous bossez.</h2>
+      <h2 id="auto-h2" class="display display--h2" data-reveal>Ce qui tourne pendant que vous bossez.</h2>
       <p class="lead" data-reveal>On relie votre site, vos formulaires et vos outils (e-mail, CRM, signature, paiement) pour que les tâches répétitives partent sans vous. Voici le flux type qu'on déploie pour les TPE — adapté à votre stack.</p>
       <div class="flow-diagram" data-reveal role="list" aria-label="Schéma du parcours automatisé">
         <div class="flow-step" role="listitem"><strong>1 · Contact</strong>Formulaire ou message — tout entre au même endroit.</div>
@@ -568,16 +642,17 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
       </div>
       <p class="flow-note" data-reveal>Outils souvent branchés : site statique, Tally ou formulaire maison, Notion / Sheets, n8n, Gmail, YouSign, Stripe — toujours en stack européenne quand c'est possible. On vous livre la doc et les accès : c'est à vous.</p>
       <div class="cta-row" data-reveal>
-        <a class="btn btn--primary" href="#form">Parler de mon flux →</a>
-        <a class="btn btn--ghost" href="#demo-showcase">Voir les captures démo ↓</a>
+        <a class="btn btn--primary" href="#contact">Parler de mon flux →</a>
+        <a class="btn btn--ghost" href="#realisations-vitrine">Voir les captures démo ↓</a>
       </div>
+      <p class="source-note" data-reveal style="margin-top:var(--sp-6)">L'offre qui réunit tout : Pack Duo.</p>
     </div>
   </section>
 
-  <section id="s04b" class="scene scene--interstitial" data-stage="hero-2" aria-labelledby="s04b-h3">
+  <section id="auto-faq" class="scene scene--interstitial" data-stage="hero-2" aria-labelledby="auto-faq-h3">
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Comprendre</p>
-      <h3 id="s04b-h3" class="display display--h3" data-reveal>L'intelligence pour ma boîte.<br>Concrètement.</h3>
+      <h3 id="auto-faq-h3" class="display display--h3" data-reveal>L'intelligence pour ma boîte.<br>Concrètement.</h3>
       <p class="lead" data-reveal style="margin-left:auto;margin-right:auto;text-align:center">Vous n'avez pas à comprendre comment ça marche.<br>Juste ce que ça change pour vous.</p>
       <div class="qa-stack" style="margin-top:var(--sp-7)">
         <div class="qa-item" data-reveal><p class="qa-q">❓ C'est quoi pour ma boîte ?</p><p class="qa-a">✓ Un outil qui fait à votre place ce que vous faites en double.</p></div>
@@ -588,10 +663,10 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
     </div>
   </section>
 
-  <section id="pack-duo" class="scene" data-stage="hero-3" aria-labelledby="s05-h2">
+  <section id="pack" class="scene" data-stage="hero-3" aria-labelledby="pack-h2">
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>L'offre signature</p>
-      <h2 id="s05-h2" class="display display--h2" data-reveal>Pack Duo. Tout en un seul devis.</h2>
+      <h2 id="pack-h2" class="display display--h2" data-reveal>Pack Duo. Tout en un seul devis.</h2>
       <div class="pack-grid" style="margin-top:var(--sp-7)">
         <div class="card--glass card--pricing" data-reveal>
           <h3>Pack Duo Essentiel</h3>
@@ -604,7 +679,7 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
             <li>+ Direction artistique unifiée</li>
           </ul>
           <p>Livrable &lt; 30 jours</p>
-          <a class="btn btn--ghost" href="#form">Réserver le Pack Essentiel →</a>
+          <a class="btn btn--ghost" href="#contact">Réserver le Pack Essentiel →</a>
         </div>
         <div class="card--glass card--pricing" data-reveal>
           <span class="badge-popular">★ Le plus demandé</span>
@@ -620,38 +695,30 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
             <li>+ 1 mois de Pinapp Care offert</li>
           </ul>
           <p>Livrable &lt; 45 jours</p>
-          <a class="btn btn--primary btn--cta-large" href="#form">Réserver le Pack Signature →</a>
+          <a class="btn btn--primary btn--cta-large" href="#contact">Réserver le Pack Signature →</a>
+          <p style="margin:var(--sp-4) 0 0;font-size:var(--fs-micro)"><a href="#methode" style="color:var(--cyan);text-decoration:underline;text-underline-offset:3px">Voir notre méthode →</a></p>
         </div>
       </div>
+      <div class="pack-discount" data-reveal>Association loi 1901 · ESS · TPE &lt; 5 salariés ? Tarif préférentiel -40 % après vérification SIRENE.</div>
       <p class="rarity" data-reveal>On prend 3 projets par mois. Pas plus. Pour rester bons.</p>
+      <div class="cta-row" data-reveal style="margin-top:var(--sp-5)"><a class="btn btn--primary" href="#contact">Recevoir mon diagnostic écrit sous 24h →</a></div>
+      <p class="source-note" data-reveal style="margin-top:var(--sp-5)">Quelques exemples — nos preuves dispersées volontairement.</p>
     </div>
   </section>
 
-  <section id="memoire-presence" class="scene" data-stage="hero-3" aria-labelledby="mp-h2">
-    <div class="scene__inner">
-      <p class="eyebrow" data-reveal>Projet parallèle</p>
-      <h2 id="mp-h2" class="display display--h2" data-reveal>Mémoire &amp; Présence</h2>
-      <p class="lead mp-banner__lead" data-reveal>Au-delà de Pinapp, nous construisons un service de <strong>transmission numérique</strong> pour les familles : hommage, lien, présence, mémoire — avec le soin que ce sujet exige. Ce n'est pas une offre « agence » : c'est un engagement à part, porté avec Michaël côté image et Lauralie côté produit.</p>
-      <div class="card--glass mp-banner" data-reveal style="padding:var(--sp-6)">
-        <p style="margin:0 0 var(--sp-3);font-weight:600">Ce que vous y trouvez</p>
-        <ul class="lead" style="margin:0;font-size:0.95rem;padding-left:1.2rem;line-height:1.6">
-          <li>Univers digne pour célébrer une vie et garder le contact avec les proches</li>
-          <li>Accompagnement humain — pas de promesse gadget</li>
-          <li>Même exigence technique : accessible, sobre, hébergement maîtrisé</li>
-        </ul>
-        <div class="cta-row" style="margin-top:var(--sp-5);margin-bottom:0">
-          <a class="btn btn--primary" href="https://memoireetpresence.fr/" target="_blank" rel="noopener noreferrer">Visiter memoireetpresence.fr ↗</a>
-          <a class="btn btn--ghost" href="https://github.com/lauraliedaguzay-lang/memoireetpresence" target="_blank" rel="noopener noreferrer">Voir le dépôt GitHub ↗</a>
-          <a class="btn btn--ghost" href="#form">Revenir au diagnostic Pinapp</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="demo-showcase" class="scene" data-stage="hero-3" aria-labelledby="demo-showcase-h2">
+  <div id="realisations">
+  <nav class="real-nav" aria-label="Sous-sections réalisations">
+    <a href="#realisations-vitrine">Vitrine</a>
+    <a href="#realisations-demos">14 démos</a>
+    <a href="#realisations-stack">Pile tech</a>
+    <a href="#realisations-films">Films Micha</a>
+    <a href="#realisations-cinema">Cinéma artistes</a>
+    <a href="#realisations-na">Captation NA</a>
+  </nav>
+  <section id="realisations-vitrine" class="scene" data-stage="hero-3" aria-labelledby="realisations-vitrine-h2">
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Vitrine démo</p>
-      <h2 id="demo-showcase-h2" class="display display--h2" data-reveal>La démo qui fait dire « je veux la même chose ».</h2>
+      <h2 id="realisations-vitrine-h2" class="display display--h2" data-reveal>La démo qui fait dire « je veux la même chose ».</h2>
       <p class="lead" data-reveal><strong>Atelier Rivage</strong> est notre vitrine architecture : plein écran, transitions calmes, typo éditoriale, images qui respirent. Ce n'est pas un template : c'est le niveau de finition qu'on applique quand votre image doit porter le prix.</p>
       <div class="demo-showcase-hero" data-reveal>
         <a class="demo-showcase-hero__visual" href="../demo/atelier-rivage/" target="_blank" rel="noopener noreferrer" aria-label="Ouvrir la démo Atelier Rivage en nouvel onglet">
@@ -667,7 +734,7 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
           </ul>
           <div class="cta-row" style="margin:0">
             <a class="btn btn--primary btn--cta-large" href="../demo/atelier-rivage/" target="_blank" rel="noopener noreferrer">Voir Atelier Rivage plein écran ↗</a>
-            <a class="btn btn--ghost" href="#form">Obtenir ce niveau pour mon projet →</a>
+            <a class="btn btn--ghost" href="#contact">Obtenir ce niveau pour mon projet →</a>
           </div>
         </div>
       </div>
@@ -697,11 +764,11 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
     </div>
   </section>
 
-  <section id="s06" class="scene" data-stage="hero-3" aria-labelledby="s06-h2">
+  <section id="realisations-demos" class="scene" data-stage="hero-3" aria-labelledby="realisations-demos-h2">
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Studio Lauralie · Prix fixes</p>
-      <h2 id="s06-h2" class="display display--h2" data-reveal>14 démos sectorielles. Votre métier s'y retrouve.<br>Prix affichés · ouverture en un clic.</h2>
-      <p class="lead" data-reveal>Chaque carte ouvre une <strong>vitrine fictive</strong> (données de démo) pour que vous voyiez le niveau de finition — comme la vitrine <a href="#demo-showcase" style="color:var(--cyan);text-decoration:underline;text-underline-offset:3px">Atelier Rivage</a> ci-dessus. Grille rapide + secteurs dans le volet.</p>
+      <h2 id="realisations-demos-h2" class="display display--h2" data-reveal>14 démos sectorielles. Votre métier s'y retrouve.<br>Prix affichés · ouverture en un clic.</h2>
+      <p class="lead" data-reveal>Chaque carte ouvre une <strong>vitrine fictive</strong> (données de démo) pour que vous voyiez le niveau de finition — comme la vitrine <a href="#realisations-vitrine" style="color:var(--cyan);text-decoration:underline;text-underline-offset:3px">Atelier Rivage</a> ci-dessus. Grille rapide + secteurs dans le volet.</p>
       <div class="placeholder-asset" data-reveal>📭 Reel 14 sites · style Apple WWDC · 20 sec
 Mosaïque animée · transitions cross-fade · sound design off
 À monter — montre 14 sites successivement</div>
@@ -735,18 +802,19 @@ Mosaïque animée · transitions cross-fade · sound design off
         <p class="faq-a">artisan · avocat · esthéticienne · cils · ongles ·<br>coiffeur · barbier · boulangerie · fitness · tatoueuse · sur-mesure</p>
       </details>
       <div class="card--glass" style="margin-top:var(--sp-6)" data-reveal>
-        <p><strong>💼 Bundle Site + Outils auto · 1 590 € HT</strong></p>
+        <p><span class="badge" style="margin-right:var(--sp-2)">Passerelle</span><strong>Bundle Site + Auto · 1 590 € HT</strong></p>
+        <p>Entre formations et Pack Duo : site + automatisations, tarif passerelle.</p>
         <p>Séparé : 1 290 € + 490 € = 1 780 €. En bundle : -190 € (-11 %).</p>
-        <a class="btn btn--ghost" href="#form">Réserver le bundle →</a>
+        <a class="btn btn--ghost" href="#contact">Réserver le bundle →</a>
       </div>
       <p class="microcite" data-reveal>« Côté Lauralie : prix fixes affichés. La tech, ça se chiffre. »</p>
     </div>
   </section>
 
-  <section id="s06b" class="scene" data-stage="hero-3" aria-labelledby="s06b-h3">
+  <section id="realisations-stack" class="scene" data-stage="hero-3" aria-labelledby="realisations-stack-h3">
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Ce qu'il y a derrière</p>
-      <h3 id="s06b-h3" class="display display--h3" data-reveal>Pourquoi un site Lauralie tient dans le temps ?<br>8 dimensions qu'on gère pour vous. Vous ne les verrez jamais.</h3>
+      <h3 id="realisations-stack-h3" class="display display--h3" data-reveal>Pourquoi un site Lauralie tient dans le temps ?<br>8 dimensions qu'on gère pour vous. Vous ne les verrez jamais.</h3>
       <div class="rosace-wrap" data-reveal aria-hidden="true">
         <svg viewBox="0 0 200 200" width="100%" height="auto" role="img" aria-label="Schéma rosace 8 pétales autour du projet">
           <circle cx="100" cy="100" r="12" fill="none" stroke="var(--or)" stroke-width="1.2"/>
@@ -769,63 +837,45 @@ Mosaïque animée · transitions cross-fade · sound design off
     </div>
   </section>
 
-  <section id="s07" class="scene" data-stage="hero-4" aria-labelledby="s07-h2">
+  <section id="realisations-films" class="scene" data-stage="hero-4" aria-labelledby="realisations-films-h2">
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Studio Micha · Cinéma IA</p>
-      <h2 id="s07-h2" class="display display--h2" data-reveal>Du clip 30 secondes<br>au court-métrage 3 minutes.</h2>
+      <h2 id="realisations-films-h2" class="display display--h2" data-reveal>Du clip 30 secondes<br>au court-métrage 3 minutes.</h2>
       <p class="lead" data-reveal>Offres « image » : fiction et promo avec l'IA (montage inclus), plus captation réelle sur la région et DA pour votre univers visuel. Chaque grille ci-dessous = un type de livrable et un ordre de grandeur tarifaire.</p>
       <div class="vimeo-grid" style="margin-top:var(--sp-6)">
         <div class="vimeo-tile" data-reveal>
-          <button type="button" class="vimeo-open" data-vimeo="1184294762" aria-label="Lire la vidéo Walker — court-métrage IA pro">
-            <img src="https://vumbnail.com/1184294762_large.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
-            <div class="vimeo-tile__body">
-              <p><strong>🎬 poster Walker</strong></p>
-              <p><strong>🎬 Court-métrage IA pro</strong></p>
-              <p>60-90 sec · livraison 7 jours</p>
-              <p>À partir de 1 290 € HT · sur devis</p>
-            </div>
-          </button>
-        </div>
-        <div class="vimeo-tile" data-reveal>
-          <button type="button" class="vimeo-open" data-vimeo="1184294810" aria-label="Lire la vidéo clip artiste IA">
+          <button type="button" class="vimeo-open" data-vimeo="1184294810" aria-label="Lire la vidéo court-métrage IA pro — 60 s">
             <img src="https://vumbnail.com/1184294810_large.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
             <div class="vimeo-tile__body">
-              <p><strong>🎬 poster SW Teaser</strong></p>
-              <p><strong>🎬 Clip artiste IA</strong></p>
-              <p>30-60 sec · livraison 7 jours</p>
-              <p>À partir de 1 500 € HT · sur devis</p>
+              <p><strong>Slot 1 · Court-métrage IA pro</strong></p>
+              <p>1 290 € HT · 60 s · SW Teaser</p>
             </div>
           </button>
         </div>
         <div class="vimeo-tile" data-reveal>
-          <button type="button" class="vimeo-open" data-vimeo="1184294871" aria-label="Lire la vidéo court-métrage premium">
+          <div class="placeholder-asset" style="min-height:200px;display:flex;align-items:center;justify-content:center;text-align:center;padding:var(--sp-4)">Slot 2 · Clip artiste IA · 1 500 € HT<br>Démo 30–60 s à fournir</div>
+        </div>
+        <div class="vimeo-tile" data-reveal>
+          <button type="button" class="vimeo-open" data-vimeo="1184294871" aria-label="Lire la vidéo court-métrage premium Resident Evil">
             <img src="https://vumbnail.com/1184294871_large.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
             <div class="vimeo-tile__body">
-              <p><strong>🎬 poster Resident Evil</strong></p>
-              <p><strong>🎬 Court-métrage premium</strong></p>
-              <p>1-3 minutes · livraison 14 jours</p>
-              <p>À partir de 1 890 € HT · sur devis</p>
+              <p><strong>Slot 3 · Court-métrage premium</strong></p>
+              <p>1 890 € HT · Resident Evil</p>
             </div>
           </button>
         </div>
         <div class="vimeo-tile" data-reveal>
-          <button type="button" class="vimeo-open" data-vimeo="1184294831" aria-label="Lire la vidéo premium vous dedans">
+          <button type="button" class="vimeo-open" data-vimeo="1184294831" aria-label="Lire la vidéo premium Unity 3 min">
             <img src="https://vumbnail.com/1184294831_large.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
             <div class="vimeo-tile__body">
-              <p><strong>🎬 poster SW 3 min</strong></p>
-              <p><strong>🎬 Premium « vous dedans »</strong></p>
-              <p>3 minutes · vous + IA + montage pro</p>
-              <p>À partir de 2 800 € HT · sur devis</p>
-              <p class="lead" style="font-size:0.85rem;margin:var(--sp-2) 0 0">« Exemple de ce que vous recevez en Pack Signature.<br>Votre version, sur votre univers — pas Star Wars. »</p>
+              <p><strong>Slot 4 · Premium « vous dedans »</strong></p>
+              <p>2 800 € HT · 3 min · SW Unity</p>
+              <p class="lead" style="font-size:0.85rem;margin:var(--sp-2) 0 0">« Exemple Pack Signature — votre univers, pas Star Wars. »</p>
             </div>
           </button>
         </div>
       </div>
-      <div class="placeholder-asset">📭 Slot Film cadeau IA · 30 sec
-Démo Vimeo à fournir par Micha
-Esthétique : intime · journal vidéo · grain doux
-Use cases : anniversaire · départ retraite · naissance · bizz milestone
-Livraison 5 jours · à partir de 390 € HT · sur devis</div>
+      <div class="placeholder-asset" data-reveal style="margin-top:var(--sp-4)">Slot 5 · Film cadeau IA 30 s · 390 € HT<br>Démo Vimeo à fournir · esthétique intime · journal vidéo · anniversaire · départ · naissance</div>
       <div class="price-block" data-reveal>
         <p style="margin:0">Avant l'IA : 8 000 € en agence.<br>Avec Pinapp : à partir de 1 290 €.   -84 %.</p>
       </div>
@@ -833,23 +883,24 @@ Livraison 5 jours · à partir de 390 € HT · sur devis</div>
     </div>
   </section>
 
-  <section id="s08" class="scene" data-stage="hero-4" aria-labelledby="s08-h2">
+  <section id="realisations-cinema" class="scene" data-stage="hero-4" aria-labelledby="realisations-cinema-h2">
     <div class="scene__inner">
-      <p class="eyebrow" data-reveal>Studio Micha · Clip 100 % IA</p>
-      <h2 id="s08-h2" class="display display--h2" style="font-size:clamp(2.5rem,9vw,6rem)" data-reveal>Un clip Marvel-style.<br>À 1 500 € au lieu de 50 000.</h2>
-      <p class="lead" data-reveal>Vous voulez un clip type Marvel, Star Wars ou Avatar.<br>En studio classique : 8 000 à 50 000 €.<br>Avec Pinapp : tout en IA — visuels, voix, montage.</p>
-      <div class="soft-video soft-video--star" aria-label="Clip Lauralie chante 100% IA en production" style="margin:var(--sp-6) auto;max-width:46rem">
+      <div class="real-cinema-panel">
+      <p class="eyebrow" data-reveal>Studio Pinapp · Cinéma IA pour artistes</p>
+      <h2 id="realisations-cinema-h2" class="display display--h3" data-reveal>Vous avez la voix. Nous avons le studio.</h2>
+      <p class="lead" data-reveal>Vous êtes artiste, créateur, marque narrative. Vous avez l'univers en tête. Il vous manquait le budget studio. Plus maintenant. Premium pour TPE/PME · disrupteur pour artistes et créateurs.</p>
+      <div class="soft-video soft-video--star" aria-label="Vidéo Lauralie chante — à fournir" style="margin:var(--sp-6) auto;max-width:min(920px,100%);border:2px solid var(--or);border-radius:var(--r-lg);overflow:hidden">
         <div class="soft-video__poster soft-video__poster--clip">
-          <svg viewBox="0 0 64 64" class="soft-video__icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" class="soft-video__icon" style="width:64px;height:64px" aria-hidden="true">
             <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.5" fill="rgba(5,11,20,.4)"></circle>
             <path d="M26 22 L44 32 L26 42 Z" fill="currentColor"></path>
           </svg>
-          <span class="soft-video__badge soft-video__badge--prod">En production</span>
+          <span class="soft-video__badge soft-video__badge--prod">À fournir</span>
         </div>
         <div class="soft-video__body">
-          <span class="soft-video__tag soft-video__tag--clip">Clip 100 % IA · 1m20</span>
-          <h3 class="soft-video__title"><em>Lauralie chante</em> — clip 100 % IA</h3>
-          <p class="soft-video__sub">✦ Voix de Lauralie (synthétisée IA) &nbsp;·&nbsp; ✦ Univers visuel cinéma (génération IA) &nbsp;·&nbsp; ✦ Montage et étalonnage (assistés IA)<br>Esthétique : couloirs néon · slow-mo poétique · cinéma indé Wong Kar-wai-Marvel · 16:9 · 4K · 1m20.<br>Disponible été 2026 — démo Pinapp pour les créateurs qui veulent un clip CGI sans le budget studio.</p>
+          <span class="soft-video__tag soft-video__tag--clip">Lauralie chante · 16:9</span>
+          <h3 class="soft-video__title"><em>Lauralie chante</em> — démo à intégrer</h3>
+          <p class="soft-video__sub">Fichier ou Vimeo fourni par Lauralie — lecture inline une fois reçu.</p>
         </div>
       </div>
       <p id="whisperText" class="whisper whisper--tapestry" aria-label="Citation">« Un grand pouvoir n'implique pas une grande responsabilité.
@@ -864,17 +915,19 @@ Chez nous, si. »</p>
         <div><strong>Économie</strong><div>-90 %</div></div>
       </div>
       <div class="chips" data-reveal>
-        <span class="chip">🎤 artistes</span><span class="chip">🎬 créateurs de contenu</span><span class="chip">🏢 marques narratives</span>
+        <span class="chip">🎤 artistes</span><span class="chip">🎬 créateurs</span><span class="chip">🏢 marques</span>
       </div>
-      <div class="cta-row" data-reveal><a class="btn btn--primary btn--cta-large" href="#form">Recevoir un devis clip sous 48h →</a></div>
+      <p class="badge-row" data-reveal style="justify-content:center"><span class="badge">Disponible été 2026 · 5 premiers projets à -30 %</span></p>
+      <div class="cta-row" data-reveal><a class="btn btn--primary btn--cta-large" href="#contact">Recevoir un devis clip sous 48h →</a></div>
+      </div>
     </div>
   </section>
 
-  <section id="s09" class="scene" data-stage="hero-4" aria-labelledby="s09-h2">
+  <section id="realisations-na" class="scene" data-stage="hero-4" aria-labelledby="realisations-na-h2">
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Studio Micha · Nouvelle-Aquitaine</p>
-      <h2 id="s09-h2" class="display display--h2" data-reveal>Votre événement mérite plus qu'un iPhone.</h2>
-      <p class="lead" data-reveal>Micha filme en Nouvelle-Aquitaine. Sur devis.<br>Le déplacement est inclus dans le chiffrage.</p>
+      <h2 id="realisations-na-h2" class="display display--h2" data-reveal>Votre événement mérite plus qu'un iPhone.</h2>
+      <p class="lead" data-reveal>Micha filme uniquement en Nouvelle-Aquitaine. Déplacement régional inclus dans le devis. Hors région : non couvert (sauf demande exceptionnelle, sur devis).</p>
       <div class="grid-2" style="margin-top:var(--sp-6);grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
         <div class="placeholder-asset">📭 Séminaire entreprise
 Vimeo Micha à fournir
@@ -894,7 +947,34 @@ Captation 4-6h · montage 5 jours
         </div>
       </div>
       <p class="source-note" style="text-align:center;margin-top:var(--sp-4)" data-reveal>⚠ AUCUN MARIAGE (Micha n'en fait plus)</p>
-      <div class="cta-row" data-reveal><a class="btn btn--primary" href="#form">Demander un devis événementiel →</a></div>
+      <div class="cta-row" data-reveal><a class="btn btn--primary" href="#contact">Demander un devis événementiel →</a></div>
+      <div class="cta-row" data-reveal style="margin-top:var(--sp-4)"><a class="btn btn--ghost" href="#contact">Recevoir mon diagnostic écrit sous 24h →</a></div>
+    </div>
+  </section>
+
+  </div>
+
+  <section id="mp" class="scene" data-stage="hero-3" aria-labelledby="mp-h2">
+    <div class="scene__inner">
+      <p class="eyebrow" data-reveal>Projet parallèle</p>
+      <h2 id="mp-h2" class="display display--h2" data-reveal>Mémoire &amp; Présence</h2>
+      <p class="source-note" data-reveal style="text-align:center;margin-bottom:var(--sp-4)">Ce n'est pas une offre Pinapp.</p>
+      <p class="lead mp-banner__lead" data-reveal>Au-delà de Pinapp, nous construisons un service de <strong>transmission numérique</strong> pour les familles : hommage, lien, présence, mémoire — avec le soin que ce sujet exige. Ce n'est pas une offre « agence » : c'est un engagement à part, porté avec Michaël côté image et Lauralie côté produit.</p>
+      <div class="card--glass mp-banner" data-reveal style="padding:var(--sp-6)">
+        <p style="margin:0 0 var(--sp-3);font-weight:600">Ce que vous y trouvez</p>
+        <ul class="lead" style="margin:0;font-size:0.95rem;padding-left:1.2rem;line-height:1.6">
+          <li>Univers digne pour célébrer une vie et garder le contact avec les proches</li>
+          <li>Accompagnement humain — pas de promesse gadget</li>
+          <li>Même exigence technique : accessible, sobre, hébergement maîtrisé</li>
+        </ul>
+        <div class="cta-row" style="margin-top:var(--sp-5);margin-bottom:0">
+          <a class="btn btn--primary" href="https://memoireetpresence.fr/" target="_blank" rel="noopener noreferrer">Visiter memoireetpresence.fr ↗</a>
+          <a class="btn btn--ghost" href="https://github.com/lauraliedaguzay-lang/memoireetpresence" target="_blank" rel="noopener noreferrer">Voir le dépôt GitHub ↗</a>
+          <a class="btn btn--ghost" href="#contact">Revenir au diagnostic Pinapp</a>
+        </div>
+      </div>
+      <p class="lead" data-reveal style="text-align:center;margin-top:var(--sp-6);max-width:40rem;margin-left:auto;margin-right:auto">Pour un projet d'hommage, allez directement sur <a href="https://memoireetpresence.fr/" target="_blank" rel="noopener noreferrer" style="color:var(--accent-mp);text-decoration:underline;text-underline-offset:3px">memoireetpresence.fr</a> · accompagnement humain dédié.</p>
+      <p class="source-note" data-reveal style="text-align:center;margin-top:var(--sp-5)">Sept engagements écrits. Et un formulaire qui s'adapte à vous.</p>
     </div>
   </section>
 
@@ -904,10 +984,10 @@ Captation 4-6h · montage 5 jours
     </div>
   </section>
 
-  <section id="s10" class="scene" data-stage="hero-5" aria-labelledby="s10-h2">
+  <section id="methode" class="scene" data-stage="hero-5" aria-labelledby="methode-h2">
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Ce qu'il y a derrière</p>
-      <h2 id="s10-h2" class="display display--h2" data-reveal>Un site. Un film.<br>Voici tout ce que vous ne voyez pas.</h2>
+      <h2 id="methode-h2" class="display display--h2" data-reveal>Un site. Un film.<br>Voici tout ce que vous ne voyez pas.</h2>
       <p class="lead" data-reveal>Si on est moins cher qu'une agence, c'est parce qu'on ne sous-traite rien.<br>Pas parce qu'on saute des étapes.</p>
       <div class="slider-s10 card--glass" data-reveal>
         <label for="rangeBeforeAfter" class="eyebrow" style="display:block;text-align:center;margin-bottom:var(--sp-2)">Comparer avant / avec Pinapp</label>
@@ -937,10 +1017,10 @@ Captation 4-6h · montage 5 jours
     </div>
   </section>
 
-  <section id="s11" class="scene" data-stage="hero-5" aria-labelledby="s11-h2">
+  <section id="methode-formations" class="scene" data-stage="hero-5" aria-labelledby="methode-formations-h2">
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Apprendre à piloter ses propres outils</p>
-      <h2 id="s11-h2" class="display display--h2" data-reveal>Quatre niveaux.<br>Du curieux au travailleur augmenté.</h2>
+      <h2 id="methode-formations-h2" class="display display--h2" data-reveal>Quatre niveaux.<br>Du curieux au travailleur augmenté.</h2>
       <p class="lead" data-reveal>Stanford 2025 : adoption de l'intelligence dans les PME françaises +138 % en un an.<br>Vous décidez de quel côté vous êtes.</p>
       <div class="formations-grid" style="margin-top:var(--sp-6)">
         <div class="card--glass formation-card" data-reveal><p><strong>🌱 39 €</strong> Éveil IA</p><p>1h vidéo + checklist</p><a class="btn btn--ghost" href="/formation-gratuite/">Démarrer</a></div>
@@ -950,22 +1030,29 @@ Captation 4-6h · montage 5 jours
       </div>
       <div class="cross-sell" data-reveal>
         <p style="margin:0;max-width:36rem">Une fois Praticien terminé, beaucoup passent au Pack Duo.<br>C'est l'enchaînement logique.</p>
-        <a class="btn btn--ghost" href="#pack-duo">Voir Pack Duo →</a>
+        <a class="btn btn--ghost" href="#pack">Voir Pack Duo →</a>
       </div>
       <div class="cta-row" data-reveal><a class="btn btn--primary" href="../formation-gratuite/">Choisir mon niveau →</a></div>
     </div>
   </section>
 
-  <section id="s12" class="scene" data-stage="hero-6" aria-labelledby="s12-h2">
+  <section id="methode-tarifs" class="scene" data-stage="hero-6" aria-labelledby="methode-tarifs-h2">
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Comment on travaille</p>
-      <h2 id="s12-h2" class="display display--h2" data-reveal>Quatre étapes. Tous les tarifs.<br>Pas de surprise.</h2>
+      <h2 id="methode-tarifs-h2" class="display display--h2" data-reveal>Quatre étapes. Tous les tarifs.<br>Pas de surprise.</h2>
       <div class="timeline card--glass" style="margin-top:var(--sp-6)" data-reveal>
         <div class="timeline__step"><strong>01 BRIEF</strong><p>30 minutes en visio ou par écrit. Vous racontez. On écoute.</p></div>
         <div class="timeline__step"><strong>02 CADRAGE</strong><p>Devis fixe écrit · sous 48 heures. Vous validez par écrit.</p></div>
         <div class="timeline__step"><strong>03 LIVRAISON</strong><p>On produit. Vous voyez avancer. Vous corrigez.</p></div>
         <div class="timeline__step"><strong>04 ACCOMPAGNT</strong><p>30 jours offerts après livraison. On corrige jusqu'à ce que ça tienne.</p></div>
       </div>
+      <div class="compare-table card--glass" style="margin-top:var(--sp-6);grid-template-columns:repeat(auto-fit,minmax(160px,1fr))" data-reveal>
+        <div><strong>PALIER 1 · Entrée</strong><div>Formations / éveil IA · dès 39 €</div></div>
+        <div><strong>PALIER 2 · Productivité</strong><div>Automatisations · dès 147 €</div></div>
+        <div><strong>PALIER 3 · Projets</strong><div>Sites + films · dès 890 €</div></div>
+        <div><strong>PALIER 4 ★ · Transformation</strong><div>Pack Duo · dès 1 890 €</div></div>
+      </div>
+      <p class="source-note" data-reveal style="text-align:center;margin-top:var(--sp-3)">★ -40 % associations · ESS · TPE &lt; 5 salariés (vérification SIRENE)</p>
       <div class="crit-note" data-reveal>
         <p style="margin:0">🔧 Côté Lauralie : prix fixes affichés. La tech, ça se chiffre.<br>🎬 Côté Micha : « à partir de » + devis. Le cinéma, ça se brieffe.</p>
       </div>
@@ -992,7 +1079,7 @@ Captation 4-6h · montage 5 jours
         <ul><li>1 890 €      Pack Duo Essentiel</li><li>4 900 €      Pack Duo Signature ★ recommandé</li><li>190-390 €/mois Pinapp Care</li></ul>
       </div>
       <p class="rarity" data-reveal>★ -40 % associations · ESS · TPE &lt; 5 salariés<br>sur tous nos services. Vérification SIRENE automatique.</p>
-      <p class="rarity" data-reveal>On prend 3 projets par mois. Pas plus. Pour rester bons.<br><span class="live-slots" id="liveSlots" aria-live="polite">(Live counter : créneaux dispo ce mois)</span></p>
+      <p class="rarity" data-reveal>On prend 3 projets par mois. Pas plus. Pour rester bons.</p>
       <div style="margin-top:var(--sp-7)">
         <details class="faq" data-reveal><summary>Et si je n'y connais rien en informatique ?</summary><p class="faq-a">Vous validez par mail. On gère tout le reste.<br>Pas de logiciel à apprendre.</p></details>
         <details class="faq" data-reveal><summary>Combien de temps avant d'avoir des résultats ?</summary><p class="faq-a">Site livré sous 3 semaines.<br>Premiers leads sous 30 à 60 jours en moyenne (selon votre secteur).</p></details>
@@ -1000,14 +1087,15 @@ Captation 4-6h · montage 5 jours
         <details class="faq" data-reveal><summary>Que se passe-t-il après les 30 jours d'accompagnement ?</summary><p class="faq-a">Vous gardez tout : code, accès, données.<br>Option Pinapp Care (190-390 €/mois) pour rester accompagné·e.</p></details>
         <details class="faq" data-reveal><summary>Vous travaillez avec mon secteur ?</summary><p class="faq-a">14 démos sectorielles disponibles.<br>Si le vôtre n'y est pas, on en fait une gratuitement avant le devis.</p></details>
       </div>
-      <div class="cta-row" data-reveal><a class="btn btn--primary" href="#form">Diagnostic offert sous 24h →</a></div>
+      <p class="microcite" data-reveal style="margin-top:var(--sp-7);font-size:1.05rem">Au-delà de Pinapp, nous portons aussi Mémoire &amp; Présence.</p>
+      <div class="cta-row" data-reveal><a class="btn btn--primary" href="#contact">Diagnostic offert sous 24h →</a></div>
     </div>
   </section>
 
-  <section id="form" class="scene scene--anchor" data-stage="hero-6" aria-labelledby="form-h2">
+  <section id="contact" class="scene scene--anchor" data-stage="hero-6" aria-labelledby="contact-h2">
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Pour démarrer</p>
-      <h2 id="form-h2" class="display display--h2" data-reveal>Sept engagements.<br>Un formulaire qui s'adapte à vous.</h2>
+      <h2 id="contact-h2" class="display display--h2" data-reveal>Sept engagements.<br>Un formulaire qui s'adapte à vous.</h2>
       <div class="engage-grid" style="margin-top:var(--sp-6)">
         <div class="card--glass engage-card" data-reveal><strong>🟢 IA déclarée</strong>Mention sur chaque contenu généré.</div>
         <div class="card--glass engage-card" data-reveal><strong>🟢 Stack européenne</strong>Hébergement et outils EU.</div>
@@ -1021,133 +1109,239 @@ Captation 4-6h · montage 5 jours
         <p style="margin:0">« Si un engagement n'est pas tenu sur votre projet, on le dit<br>— et on rembourse la part concernée. »</p>
       </div>
 
-      <div class="tdah-brief" data-reveal aria-label="Résumé ultra concret">
-        <div class="grid-2">
-          <div class="card--glass tdah-card">
-            <h3>Ce que vous achetez</h3>
-            <ul>
-              <li><strong>Un livrable clair</strong> (site / automatisations / film / pack duo) avec un périmètre écrit.</li>
-              <li><strong>Une mise en ligne</strong> + vos accès (vous gardez le code et les comptes).</li>
-              <li><strong>30 jours d'accompagnement</strong> après livraison (ajustements + prise en main).</li>
-            </ul>
+      <p class="source-note" data-reveal style="margin-top:var(--sp-5);text-align:center">Nous ne formerons aucun modèle IA sur vos données sans consentement explicite.</p>
+
+      <form id="pinapp-form" class="card--glass pinapp-form" style="margin-top:var(--sp-6);padding:var(--sp-6);position:relative" data-reveal novalidate>
+        <div class="honeypot-field" aria-hidden="true">
+          <label for="website">Ne pas remplir</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+        <fieldset class="path-selector">
+          <legend>Votre besoin</legend>
+          <div class="path-cards">
+            <label class="path-card">
+              <input type="radio" name="path" value="tech" required>
+              <span class="path-ico" aria-hidden="true">🔧</span>
+              <span class="path-title">Tech / Systèmes</span>
+              <span class="path-desc">Site, automatisations, assistant, formation</span>
+              <span class="path-author" style="color:var(--accent-lauralie)">Lauralie</span>
+            </label>
+            <label class="path-card">
+              <input type="radio" name="path" value="image">
+              <span class="path-ico" aria-hidden="true">🎬</span>
+              <span class="path-title">Image / Mouvement</span>
+              <span class="path-desc">Clip, film IA, captation, direction artistique</span>
+              <span class="path-author" style="color:var(--cyan)">Michaël</span>
+            </label>
+            <label class="path-card">
+              <input type="radio" name="path" value="pack_duo">
+              <span class="path-ico" aria-hidden="true">✨</span>
+              <span class="path-title">Pack Duo complet</span>
+              <span class="path-desc">Les deux métiers, un seul devis</span>
+              <span class="path-author">Lauralie + Michaël</span>
+            </label>
           </div>
-          <div class="card--glass tdah-card">
-            <h3>Ce qui se passe après</h3>
-            <div class="tdah-steps" role="list" aria-label="Étapes après envoi">
-              <div class="tdah-step" role="listitem"><strong>1 · Réception</strong>Votre demande est routée (tag n8n) et tracée.</div>
-              <div class="tdah-step" role="listitem"><strong>2 · Claude prépare</strong>Un <strong>brouillon</strong> est préparé (analyse + réponse) pour gagner du temps.</div>
-              <div class="tdah-step" role="listitem"><strong>3 · Humain valide</strong><strong>Rien ne part sans validation</strong> de Lauralie ou Michaël.</div>
+        </fieldset>
+        <fieldset class="common-fields">
+          <div class="field-grid-2">
+            <div class="field">
+              <label for="prenom">Prénom *</label>
+              <input type="text" id="prenom" name="prenom" required autocomplete="given-name">
+            </div>
+            <div class="field">
+              <label for="nom">Nom (optionnel)</label>
+              <input type="text" id="nom" name="nom" autocomplete="family-name">
+            </div>
+            <div class="field">
+              <label for="entreprise">Entreprise / projet *</label>
+              <input type="text" id="entreprise" name="entreprise" required autocomplete="organization">
+            </div>
+            <div class="field">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" required autocomplete="email">
+            </div>
+            <div class="field">
+              <label for="tel">Téléphone (optionnel)</label>
+              <input type="tel" id="tel" name="tel" autocomplete="tel" placeholder="si vous préférez qu'on rappelle">
+            </div>
+            <div class="field">
+              <label for="cp">Code postal *</label>
+              <input type="text" id="cp" name="cp" required pattern="[0-9]{5}" autocomplete="postal-code" inputmode="numeric">
+            </div>
+            <div class="field full">
+              <label for="site">Site actuel</label>
+              <input type="text" id="site" name="site" placeholder="URL ou « rien encore »" autocomplete="url">
             </div>
           </div>
-        </div>
-        <div class="tdah-live" role="status" aria-live="polite" aria-atomic="true">
-          <p class="tdah-live__k">Votre résumé (en direct)</p>
-          <p class="tdah-live__line" id="tdahLiveLine">Choisissez un chemin (Tech / Image / Duo) pour voir ce que vous achetez.</p>
-          <p class="tdah-live__sub" id="tdahLiveSub">On affiche ici le livrable principal + ce qu’on fait ensuite, sans jargon.</p>
-          <div class="tdah-live__tag" id="tdahLiveTag" hidden><span>Routage</span> <code id="tdahLiveTagCode">—</code></div>
-        </div>
-      </div>
-
-      <form id="diag" class="card--glass" style="margin-top:var(--sp-6);padding:var(--sp-6)" data-reveal novalidate>
-        <input type="hidden" name="path" id="fieldPath" value="">
-        <p class="eyebrow">Votre besoin</p>
-        <div class="path-cards" role="group" aria-label="Choisir un chemin">
-          <button type="button" class="path-card" data-path="tech" aria-pressed="false">
-            <h3>🔧 Tech / Systèmes</h3>
-            <p>Site, automatisations, assistant, formation — besoin côté Lauralie</p>
-            <span class="sel">○ Sélectionner</span>
-          </button>
-          <button type="button" class="path-card" data-path="image" aria-pressed="false">
-            <h3>🎬 Image / Mouvement</h3>
-            <p>Clip, film IA, captation, direction artistique — besoin côté Michaël</p>
-            <span class="sel">○ Sélectionner</span>
-          </button>
-          <button type="button" class="path-card" data-path="duo" aria-pressed="false">
-            <h3>✨ Pack Duo complet</h3>
-            <p>Les deux métiers dans un même projet et un seul devis</p>
-            <span class="sel">○ Sélectionner</span>
-          </button>
-        </div>
-        <p id="pathErr" class="err-msg" role="alert" hidden>Choisissez un chemin.</p>
-        <div class="form-grid" style="margin-top:var(--sp-5)">
-          <div class="field"><label for="f_prenom">Prénom *</label><input id="f_prenom" name="prenom" autocomplete="given-name" required aria-required="true"></div>
-          <div class="field"><label for="f_ent">Entreprise *</label><input id="f_ent" name="entreprise" autocomplete="organization" required aria-required="true"></div>
-          <div class="field"><label for="f_email">Email *</label><input id="f_email" name="email" type="email" autocomplete="email" required aria-required="true"></div>
-          <div class="field"><label for="f_tel">Téléphone (optionnel)</label><input id="f_tel" name="tel" type="tel" autocomplete="tel"><span class="source-note">si vous préférez qu'on rappelle</span></div>
-        </div>
-        <div id="condTech" class="cond" hidden>
-          <div class="field"><label for="f_site">Site actuel (URL ou « rien encore »)</label><input id="f_site" name="site_actuel"></div>
-          <div class="field">
-            <label for="f_besoin_tech">Votre besoin principal *</label>
-            <select id="f_besoin_tech" name="besoin_tech" required aria-required="true">
-              <option value="">Choisir…</option>
-              <option value="site-vitrine">Site vitrine (conversion + SEO + perf)</option>
-              <option value="ia-mesure">IA sur-mesure (assistant interne / process)</option>
-              <option value="direction-artistique">Direction artistique (univers + cohérence)</option>
-              <option value="auto-pack">Pack automatisations (n8n)</option>
-              <option value="form-l1">Formation Niveau 1 (67 €)</option>
-              <option value="form-l2">Formation Niveau 2 (147 €)</option>
-              <option value="form-l3">Formation Niveau 3 (397 €)</option>
-              <option value="unsure">Je ne sais pas (qualification)</option>
-            </select>
-            <p class="source-note">On s’en sert pour router correctement votre demande.</p>
+        </fieldset>
+        <fieldset class="conditional-fields" data-path="tech" hidden>
+          <legend>Votre situation tech</legend>
+          <div class="field-grid-2">
+            <div class="field">
+              <label for="tech_type">Type de besoin</label>
+              <select id="tech_type" name="tech_type">
+                <option value="">— Sélectionner —</option>
+                <option>Site vitrine</option>
+                <option>Automatisation</option>
+                <option>Assistant IA</option>
+                <option>Formation</option>
+                <option>Plusieurs</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="tech_pain">Pain principal</label>
+              <select id="tech_pain" name="tech_pain">
+                <option value="">— Sélectionner —</option>
+                <option>Site qui dort</option>
+                <option>Devis qui s'oublient</option>
+                <option>Avis Google rares</option>
+                <option>Charge mentale H24</option>
+                <option>Autre</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="tech_outils">Outils actuels</label>
+              <textarea id="tech_outils" name="tech_outils" rows="2" placeholder="Quels logiciels utilisez-vous aujourd'hui ?"></textarea>
+            </div>
           </div>
-          <div class="field cond" id="condAutoScenario" hidden>
-            <label for="f_auto_scenario">Quel scénario d’automatisation ?</label>
-            <select id="f_auto_scenario" name="auto_scenario">
-              <option value="">Choisir…</option>
-              <option value="auto-lead">Leads (formulaire → CRM → réponse)</option>
-              <option value="auto-devis">Devis (signature → paiement → facture)</option>
-              <option value="auto-formation">Formation (accès + séquence email)</option>
-              <option value="auto-livraison">Livraison (feedback + avis J+7)</option>
-              <option value="auto-autre">Autre / à qualifier</option>
-            </select>
+        </fieldset>
+        <fieldset class="conditional-fields" data-path="image" hidden>
+          <legend>Votre projet image</legend>
+          <div class="field-grid-2">
+            <div class="field">
+              <label for="image_type">Type de livrable</label>
+              <select id="image_type" name="image_type">
+                <option value="">— Sélectionner —</option>
+                <option>Clip / Film IA</option>
+                <option>Court-métrage IA</option>
+                <option>Captation événement</option>
+                <option>Direction artistique</option>
+                <option>Film cadeau IA</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="image_duree">Durée souhaitée</label>
+              <select id="image_duree" name="image_duree">
+                <option value="">— Sélectionner —</option>
+                <option>30 secondes</option>
+                <option>60 secondes</option>
+                <option>1-3 minutes</option>
+                <option>3-10 minutes</option>
+                <option>Autre</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="image_date">Date événement (si captation)</label>
+              <input type="date" id="image_date" name="image_date">
+            </div>
+            <div class="field">
+              <label for="image_lieu">Lieu</label>
+              <input type="text" id="image_lieu" name="image_lieu" placeholder="Ville ou région">
+            </div>
+            <div class="field full">
+              <label for="image_pourquoi">Pour qui / pour quoi</label>
+              <textarea id="image_pourquoi" name="image_pourquoi" rows="2"></textarea>
+            </div>
+            <div class="field full">
+              <label for="image_univers">Univers visuel souhaité</label>
+              <textarea id="image_univers" name="image_univers" rows="2" placeholder="Inspirations, références, ambiance"></textarea>
+            </div>
           </div>
-          <div class="checks"><label><input type="checkbox" name="pain_site" value="1"> Site qui dort</label><label><input type="checkbox" name="pain_devis" value="1"> Devis qui s'oublient</label><label><input type="checkbox" name="pain_avis" value="1"> Avis Google rares</label><label><input type="checkbox" name="pain_charge" value="1"> Charge mentale H24</label></div>
-          <fieldset class="checks"><legend class="eyebrow">Délai souhaité</legend><label><input type="radio" name="delai" value="lt1"> &lt; 1 mois</label><label><input type="radio" name="delai" value="1-3"> 1-3 mois</label><label><input type="radio" name="delai" value="later"> pas pressé</label></fieldset>
-        </div>
-        <div id="condImage" class="cond" hidden>
-          <div class="field">
-            <label for="f_besoin_image">Votre besoin principal *</label>
-            <select id="f_besoin_image" name="besoin_image" required aria-required="true">
-              <option value="">Choisir…</option>
-              <option value="film-ia-cadeau">Film cadeau IA (30–60 s)</option>
-              <option value="film-ia-pro">Film IA pro (60–90 s)</option>
-              <option value="event-seminaire">Événement (séminaire / entreprise)</option>
-              <option value="event-prive">Événement (anniversaire / privé)</option>
-              <option value="event-autre">Événement (autre)</option>
-              <option value="direction-artistique">Direction artistique</option>
-              <option value="unsure">Je ne sais pas (qualification)</option>
-            </select>
+        </fieldset>
+        <fieldset class="conditional-fields" data-path="pack_duo" hidden>
+          <legend>Votre Pack Duo</legend>
+          <div class="field-grid-2">
+            <div class="field">
+              <label for="pack_choix">Pack envisagé</label>
+              <select id="pack_choix" name="pack_choix">
+                <option value="">— Sélectionner —</option>
+                <option>Essentiel · 1 890 €</option>
+                <option>Signature · 4 900 € ★</option>
+                <option>À discuter</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="pack_echeance">Échéance critique</label>
+              <input type="text" id="pack_echeance" name="pack_echeance" placeholder="Date ou flexible">
+            </div>
+            <div class="field full">
+              <label for="pack_description">Description du projet</label>
+              <textarea id="pack_description" name="pack_description" rows="3"></textarea>
+            </div>
           </div>
-          <div class="field"><label for="f_type">Type de projet</label><input id="f_type" name="type_projet" placeholder="film cadeau · court-métrage · clip artiste · clip CGI · premium · séminaire · anniversaire · DA · autre"></div>
-          <div class="form-grid"><div class="field"><label for="f_date">Date approximative</label><input id="f_date" name="date_approx" type="text"></div><div class="field"><label for="f_lieu">Lieu</label><input id="f_lieu" name="lieu" type="text"></div></div>
-          <div class="field"><label for="f_univ">Univers visuel souhaité</label><textarea id="f_univ" name="univers" rows="3"></textarea></div>
-        </div>
-        <div id="condDuo" class="cond" hidden>
-          <div class="field">
-            <label for="f_besoin_duo">Votre besoin principal *</label>
-            <select id="f_besoin_duo" name="besoin_duo" required aria-required="true">
-              <option value="">Choisir…</option>
-              <option value="duo-complet">Pack Duo complet</option>
-              <option value="unsure">Je ne sais pas (qualification)</option>
-            </select>
+        </fieldset>
+        <fieldset class="common-fields-end">
+          <div class="field-grid-2">
+            <div class="field">
+              <label for="delai">Délai souhaité</label>
+              <select id="delai" name="delai">
+                <option value="">— Sélectionner —</option>
+                <option>Moins d'un mois</option>
+                <option>1 à 3 mois</option>
+                <option>Pas pressé</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="budget">Budget envisagé</label>
+              <select id="budget" name="budget">
+                <option value="">— Sélectionner —</option>
+                <option>Moins de 500 €</option>
+                <option>500 - 2 000 €</option>
+                <option>2 000 - 5 000 €</option>
+                <option>Plus de 5 000 €</option>
+                <option>À discuter</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="source">Source</label>
+              <select id="source" name="source">
+                <option value="">— Sélectionner —</option>
+                <option>Recommandation</option>
+                <option>LinkedIn</option>
+                <option>Google</option>
+                <option>Réseau pro</option>
+                <option>Autre</option>
+              </select>
+            </div>
           </div>
-          <div class="checks"><label><input type="checkbox" name="duo_site" value="1"> Site</label><label><input type="checkbox" name="duo_film" value="1"> Film</label><label><input type="checkbox" name="duo_auto" value="1"> Auto</label><label><input type="checkbox" name="duo_care" value="1"> Care</label><label><input type="checkbox" name="duo_da" value="1"> DA</label><label><input type="checkbox" name="duo_form" value="1"> Formation</label></div>
-          <div class="field"><label for="f_echeance">Échéance critique</label><input id="f_echeance" name="echeance" type="text"></div>
-          <fieldset class="checks"><legend class="eyebrow">Budget</legend><label><input type="radio" name="budget" value="1890"> Budget ≥ 1 890 € (Essentiel)</label><label><input type="radio" name="budget" value="4900"> Budget ≥ 4 900 € (Signature)</label><label><input type="radio" name="budget" value="discuss"> À discuter</label></fieldset>
+          <div class="field full" style="margin-top:var(--sp-3)">
+            <label for="message">Message libre</label>
+            <textarea id="message" name="message" rows="4" placeholder="Ce que vous voulez nous dire en plus"></textarea>
+          </div>
+          <label class="checkbox-field">
+            <input type="checkbox" name="discount_eligible" value="on">
+            <span>Je suis association loi 1901, ESS ou TPE moins de 5 salariés (-40% appliqué après vérification SIRENE)</span>
+          </label>
+          <label class="checkbox-field">
+            <input type="checkbox" name="newsletter" value="on">
+            <span>Recevoir 1 article par mois sur l'IA pour TPE/PME (optionnel)</span>
+          </label>
+          <label class="checkbox-field consent-required">
+            <input type="checkbox" name="consent" value="on" required>
+            <span>J'accepte d'être recontacté·e par écrit sous 24h. Mes données restent chez Pinapp. Je peux demander suppression à tout moment.</span>
+          </label>
+          <p class="ia-disclosure">
+            <small>Transparence IA : nos réponses peuvent être assistées par Claude (Anthropic). Aucune donnée n'est utilisée pour entraîner un modèle sans votre consentement explicite.</small>
+          </p>
+        </fieldset>
+        <input type="hidden" name="timestamp" id="timestamp">
+        <input type="hidden" name="referrer" id="referrer">
+        <input type="hidden" name="utm_source" id="utm_source">
+        <div class="form-actions">
+          <button type="submit" class="btn btn--primary btn--cta-large breathing" id="form-submit">Envoyer mon brief — réponse écrite sous 24h</button>
+          <p class="form-foot" style="margin-top:var(--sp-3)">Pas un appel. Pas un devis ferme. Un diagnostic écrit + estimation. Sans engagement.</p>
         </div>
-        <div class="checks" style="margin-top:var(--sp-4)"><label><input type="checkbox" name="solidaire" value="1"> Je suis association 1901 / ESS / TPE &lt; 5 salariés (-40 %)</label><span class="source-note">vérification SIRENE automatique</span></div>
-        <div class="field" style="margin-top:var(--sp-4)"><label for="f_msg">Message libre</label><textarea id="f_msg" name="message_libre" rows="4"></textarea></div>
-        <div class="checks field" id="rgpdWrap"><label><input type="checkbox" name="rgpd" id="f_rgpd" value="1" required aria-required="true"> J'accepte d'être recontacté·e par écrit sous 24h.<br>Mes données restent chez nous.</label><p id="rgpdErr" class="err-msg" hidden>Case à cocher obligatoire.</p></div>
-        <div class="cta-row" style="margin-top:var(--sp-5)">
-          <button type="submit" class="btn btn--primary btn--cta-large" id="btnSubmit">Envoyer mon brief — réponse écrite sous 24h</button>
-          <a class="btn btn--ghost" href="https://cal.com/lauralie-daguzay-hdglzw/diagnostic" target="_blank" rel="noopener noreferrer">📅 Prendre rendez-vous en ligne →</a>
+        <div class="form-alternative" style="margin-top:var(--sp-5)">
+          <span class="form-or">— OU —</span>
+          <a href="https://cal.com/lauralie-daguzay-hdglzw/diagnostic" target="_blank" rel="noopener noreferrer" class="btn btn--ghost" style="width:100%;justify-content:center;display:inline-flex;margin-top:var(--sp-3)">Prendre rendez-vous en ligne</a>
         </div>
-        <p class="reassure">Aucun appel surprise. Aucun engagement.<br>100 % par écrit. Réponse d'humain — pas de robot.</p>
-        <p class="auto-note">« Claude prépare un brouillon (analyse + réponse).<br>  Lauralie ou Michaël valide avant envoi client.<br>  Objectif : réponse écrite sous 24h, sans charge mentale. »</p>
-        <div id="formStatus" class="form-status" aria-live="polite"></div>
       </form>
+      <div id="form-success" class="form-success" hidden>
+        <div class="success-icon" aria-hidden="true">✓</div>
+        <h3 class="display display--h3" style="margin:0 0 var(--sp-3)">Reçu. Merci.</h3>
+        <p>Lauralie et Michaël lisent votre brief et reviennent vers vous par écrit sous 24h ouvré.</p>
+        <p class="success-meta">Pas d'appel surprise. Pas d'engagement. Vous gardez la main.<br>Question urgente : contact@pinapp.fr · WhatsApp 07 86 17 37 15</p>
+      </div>
     </div>
   </section>
 
@@ -1162,7 +1356,12 @@ Captation 4-6h · montage 5 jours
     <a href="../confidentialite/">Confidentialité</a>
     <a href="../cgv/#tva">TVA art. 293 B CGI</a>
   </nav>
-  <p class="mp">« Nous portons aussi <a href="#memoire-presence">Mémoire &amp; Présence</a> — transmission numérique pour les familles. »</p>
+  <div class="footer-social" aria-label="Réseaux">
+    <a href="https://www.linkedin.com/in/lauraliedaguzay" target="_blank" rel="noopener noreferrer">LinkedIn Lauralie</a>
+    <a href="#contact" title="Demandez le lien LinkedIn de Michaël">LinkedIn Michaël</a>
+    <a href="https://www.linkedin.com/company/pinapp-inc" target="_blank" rel="noopener noreferrer">Instagram Pinapp (à compléter · lien société)</a>
+  </div>
+  <p class="mp">« Nous portons aussi <a href="#mp">Mémoire &amp; Présence</a> — transmission numérique pour les familles. »</p>
   <p class="source-note">© 2026 Pinapp Inc. · Lauralie &amp; Michaël</p>
 </footer>
 
@@ -1214,6 +1413,8 @@ Captation 4-6h · montage 5 jours
 <div class="draft-badge" aria-hidden="true">draft</div>
 
 <script src="../assets/js/config.js"></script>
+<script src="assets/js/n8n-config.js"></script>
+<script src="assets/js/form-handler.js" defer></script>
 <script src="assets/js/scene-counter.js" defer></script>
 <script src="assets/js/film-chromatic.js" defer></script>
 <script>
@@ -1446,329 +1647,6 @@ if(wt && !prefersReduced()){
   }
   window.addEventListener('scroll',onWhisperScroll,{passive:true});
   onWhisperScroll();
-}
-
-var pathInput=document.getElementById('fieldPath');
-var pathCards=[].slice.call(document.querySelectorAll('.path-card'));
-var cTech=document.getElementById('condTech');
-var cImg=document.getElementById('condImage');
-var cDuo=document.getElementById('condDuo');
-var liveLine=document.getElementById('tdahLiveLine');
-var liveSub=document.getElementById('tdahLiveSub');
-var liveTag=document.getElementById('tdahLiveTag');
-var liveTagCode=document.getElementById('tdahLiveTagCode');
-
-function safeText(el, txt){
-  if(!el) return;
-  el.textContent = String(txt || '');
-}
-
-function readPrimaryNeed(){
-  var p = String(pathInput && pathInput.value ? pathInput.value : '').trim();
-  if(p === 'tech'){
-    var a = document.getElementById('f_besoin_tech');
-    return a ? String(a.value || '') : '';
-  }
-  if(p === 'image'){
-    var b = document.getElementById('f_besoin_image');
-    return b ? String(b.value || '') : '';
-  }
-  if(p === 'duo'){
-    var c = document.getElementById('f_besoin_duo');
-    return c ? String(c.value || '') : '';
-  }
-  return '';
-}
-
-function needLabel(selectId){
-  var s = document.getElementById(selectId);
-  if(!s) return '';
-  var opt = s.options[s.selectedIndex];
-  return opt ? String(opt.textContent || '').trim() : '';
-}
-
-function updateTdahSummary(){
-  var p = String(pathInput && pathInput.value ? pathInput.value : '').trim();
-  if(!liveLine || !liveSub || !liveTag || !liveTagCode) return;
-
-  if(!p){
-    safeText(liveLine, 'Choisissez un chemin (Tech / Image / Duo) pour voir ce que vous achetez.');
-    safeText(liveSub, 'On affiche ici le livrable principal + ce qu’on fait ensuite, sans jargon.');
-    liveTag.hidden = true;
-    return;
-  }
-
-  var label = '';
-  if(p === 'tech') label = needLabel('f_besoin_tech');
-  if(p === 'image') label = needLabel('f_besoin_image');
-  if(p === 'duo') label = needLabel('f_besoin_duo');
-  if(!label) label = 'Choisissez votre besoin principal (juste en dessous).';
-
-  safeText(liveLine, 'Vous demandez : ' + label);
-  safeText(liveSub, 'Après envoi : routage → brouillon Claude → validation humaine → réponse écrite sous 24h.');
-
-  try{
-    var tag = computeRouteTagFromForm();
-    safeText(liveTagCode, tag || '—');
-    liveTag.hidden = false;
-  }catch(_e){
-    safeText(liveTagCode, '—');
-    liveTag.hidden = false;
-  }
-}
-function setPath(p){
-  pathInput.value=p;
-  pathCards.forEach(function(c){
-    var on=c.getAttribute('data-path')===p;
-    c.classList.toggle('is-active',on);
-    c.setAttribute('aria-pressed',on?'true':'false');
-    var sel=c.querySelector('.sel');
-    if(sel) sel.textContent=on?'● Sélectionné':'○ Sélectionner';
-  });
-  if(cTech){ cTech.hidden=p!=='tech'; cTech.classList.toggle('is-open',p==='tech'); }
-  if(cImg){ cImg.hidden=p!=='image'; cImg.classList.toggle('is-open',p==='image'); }
-  if(cDuo){ cDuo.hidden=p!=='duo'; cDuo.classList.toggle('is-open',p==='duo'); }
-  updateTdahSummary();
-}
-pathCards.forEach(function(c){
-  c.addEventListener('click',function(){ setPath(c.getAttribute('data-path')); });
-});
-
-var form=document.getElementById('diag');
-var draftKey='pinapp-v9-form-draft';
-var debT;
-function debounce(fn,ms){ return function(){ clearTimeout(debT); debT=setTimeout(fn,ms); }; }
-if(form){
-  function saveDraft(){
-    try{
-      var o={};
-      new FormData(form).forEach(function(v,k){ o[k]=v; });
-      localStorage.setItem(draftKey, JSON.stringify(o));
-    }catch(e){}
-  }
-  form.addEventListener('input', debounce(saveDraft,400));
-  form.addEventListener('change', function(){
-    updateTdahSummary();
-    var p = String(pathInput && pathInput.value ? pathInput.value : '').trim();
-    toggleRequiredByPath(p);
-  });
-  try{
-    var d=JSON.parse(localStorage.getItem(draftKey)||'{}');
-    Object.keys(d).forEach(function(k){
-      var el=form.elements.namedItem(k);
-      if(el && el.type!=='checkbox' && el.type!=='radio' && k!=='rgpd') el.value=d[k];
-    });
-  }catch(e){}
-
-  function setStatus(msg, ok){
-    var st=document.getElementById('formStatus');
-    if(!st) return;
-    st.classList.remove('is-ok','is-err');
-    if(ok===true) st.classList.add('is-ok');
-    if(ok===false) st.classList.add('is-err');
-    st.textContent=msg||'';
-  }
-
-  function setBusy(on){
-    var b=document.getElementById('btnSubmit');
-    if(!b) return;
-    b.disabled=!!on;
-    b.setAttribute('aria-disabled', on?'true':'false');
-  }
-
-  function setRequiredIn(root, on){
-    if(!root) return;
-    [].slice.call(root.querySelectorAll('[required]')).forEach(function(el){
-      if(on){ el.removeAttribute('data-was-optional'); }
-      else { el.setAttribute('data-was-optional','1'); }
-    });
-    [].slice.call(root.querySelectorAll('input,select,textarea')).forEach(function(el){
-      if(el.hasAttribute('data-force-required')) return;
-      if(on){
-        if(el.getAttribute('data-was-required')==='1'){
-          el.required=true; el.setAttribute('aria-required','true');
-        }
-      }else{
-        if(el.required){
-          el.setAttribute('data-was-required','1');
-          el.required=false;
-        }
-        el.removeAttribute('aria-required');
-      }
-    });
-  }
-
-  function toggleRequiredByPath(p){
-    setRequiredIn(cTech, p==='tech');
-    setRequiredIn(cImg, p==='image');
-    setRequiredIn(cDuo, p==='duo');
-  }
-
-  function normalizeTag(t){
-    if(!t) return '';
-    t=(''+t).trim();
-    if(!t) return '';
-    return t.startsWith('#') ? t : '#'+t;
-  }
-
-  function buildRouteTag(fd){
-    var path=String(fd.get('path')||'').trim();
-    var besoin='form-inconnu';
-    if(path==='tech') besoin=String(fd.get('besoin_tech')||'').trim();
-    else if(path==='image') besoin=String(fd.get('besoin_image')||'').trim();
-    else if(path==='duo') besoin=String(fd.get('besoin_duo')||'').trim();
-
-    var n8nMap={
-      'site-vitrine':'#site-vitrine',
-      'ia-mesure':'#ia-mesure',
-      'direction-artistique':'#direction-artistique',
-      'duo-complet':'#duo-complet',
-      'film-ia-cadeau':'#film-ia-cadeau',
-      'film-ia-pro':'#film-ia-pro',
-      'event-seminaire':'#event-seminaire',
-      'event-prive':'#event-prive',
-      'event-autre':'#event-autre',
-      'form-l1':'#form-l1',
-      'form-l2':'#form-l2',
-      'form-l3':'#form-l3',
-      'form-inconnu':'#form-inconnu',
-      'unsure':'#lead-unsure'
-    };
-
-    if(besoin==='auto-pack'){
-      var sc=String(fd.get('auto_scenario')||'').trim();
-      if(sc && sc.startsWith('#')) return sc;
-      if(sc) return normalizeTag(sc);
-      return '#auto-pack';
-    }
-    if(n8nMap[besoin]) return n8nMap[besoin];
-    return '—';
-  }
-
-  function buildTelegramDigest(fd, tag){
-    function pick(k){ return String(fd.get(k)||'').trim(); }
-    var prenom=pick('prenom');
-    var ent=pick('entreprise');
-    var email=pick('email');
-    var tel=pick('tel');
-    var path=pick('path');
-    var msg=pick('message_libre');
-    var delai=pick('delai');
-    var budget=pick('budget');
-    var date=pick('date_approx');
-    var lieu=pick('lieu');
-    var site=pick('site_actuel');
-    var auto=pick('auto_scenario');
-    var lines=[];
-    lines.push('🧭 '+(tag||'—')+' · '+(path||'—'));
-    lines.push('👤 '+(prenom||'—')+' · '+(ent||'—'));
-    lines.push('✉ '+(email||'—')+(tel?(' · ☎ '+tel):''));
-    if(site) lines.push('🌐 '+site);
-    if(auto) lines.push('⚙ '+auto);
-    if(date||lieu) lines.push('📍 '+[date,lieu].filter(Boolean).join(' · '));
-    if(delai) lines.push('⏱ '+delai);
-    if(budget) lines.push('💶 '+budget);
-    if(msg) lines.push('💬 '+(msg.length>260?msg.slice(0,257)+'…':msg));
-    return lines.join('\n');
-  }
-
-  function validateBeforeSubmit(){
-    var p=String(pathInput.value||'').trim();
-    var pathErr=document.getElementById('pathErr');
-    if(!p){
-      if(pathErr) pathErr.hidden=false;
-      setStatus('Choisissez un chemin (Tech / Image / Duo).', false);
-      return false;
-    }
-    if(pathErr) pathErr.hidden=true;
-
-    toggleRequiredByPath(p);
-
-    var rgpd=document.getElementById('f_rgpd');
-    var rgpdErr=document.getElementById('rgpdErr');
-    if(rgpd && !rgpd.checked){
-      if(rgpdErr) rgpdErr.hidden=false;
-      setStatus('Case RGPD obligatoire.', false);
-      return false;
-    }
-    if(rgpdErr) rgpdErr.hidden=true;
-
-    if(!form.checkValidity()){
-      try{ form.reportValidity(); }catch(e){}
-      setStatus('Vérifiez les champs obligatoires.', false);
-      return false;
-    }
-    return true;
-  }
-
-  var condAuto=document.getElementById('condAutoScenario');
-  var selTech=document.getElementById('f_besoin_tech');
-  if(selTech && condAuto){
-    function syncAutoScenario(){
-      var on = selTech.value === 'auto-pack';
-      condAuto.hidden = !on;
-      condAuto.classList.toggle('is-open', on);
-      var autoSel=document.getElementById('f_auto_scenario');
-      if(autoSel){
-        autoSel.required = false;
-        autoSel.removeAttribute('aria-required');
-        if(!on) autoSel.value='';
-      }
-    }
-    selTech.addEventListener('change', syncAutoScenario);
-    syncAutoScenario();
-  }
-
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    setStatus('', null);
-
-    if(!validateBeforeSubmit()) return;
-
-    var fd=new FormData(form);
-    var tag=buildRouteTag(fd);
-    var digest=buildTelegramDigest(fd, tag);
-
-    var payload={};
-    fd.forEach(function(v,k){
-      if(payload[k]!==undefined){
-        if(!Array.isArray(payload[k])) payload[k]=[payload[k]];
-        payload[k].push(v);
-      }else{
-        payload[k]=v;
-      }
-    });
-    payload.n8n_route_tag = tag;
-    payload.telegram_digest = digest;
-
-    setBusy(true);
-    setStatus('Envoi…', null);
-
-    var cfg = window.PinappConfig || null;
-    var sent = false;
-    try{
-      if(cfg && typeof cfg.sendDiagnosticLead === 'function'){
-        cfg.sendDiagnosticLead(payload);
-        sent = true;
-      }
-      if(cfg && typeof cfg.sendDiagnosticClaudePrep === 'function'){
-        cfg.sendDiagnosticClaudePrep(payload);
-      }
-    }catch(_e){}
-
-    setTimeout(function(){
-      setBusy(false);
-      if(sent){
-        setStatus('Bien reçu. On revient vers vous par écrit sous 24h.', true);
-        try{ localStorage.removeItem(draftKey); }catch(_e){}
-        try{ form.reset(); }catch(_e){}
-        setPath('');
-        toggleRequiredByPath('');
-      }else{
-        setStatus("Envoi non activé côté automatisations pour l’instant (webhook désactivé). Le formulaire est prêt : il suffit d’activer n8n dans la config.", false);
-      }
-    }, 450);
-  });
 }
 
 })();</script>
