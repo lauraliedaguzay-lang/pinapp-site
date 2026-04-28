@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#050b14" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
-<meta name="pinapp-voyage-v9-build" content="v12a5-merged-2026-04" />
+<meta name="pinapp-voyage-v9-build" content="v12a5-hero-duo-photos-2026-04" />
 <title>Pinapp · Sites + films pour TPE/PME · 50 à 75% moins cher | Bordeaux</title>
 <meta name="description" content="Duo Pinapp : sites qui convertissent + films cinéma. Diagnostic 24h gratuit. Bordeaux + Nouvelle-Aquitaine. Tarifs publics dès 1 290 €." />
 <meta property="og:title" content="Pinapp · Sites + films pour TPE/PME · 50-75% moins cher | Bordeaux" />
@@ -26,7 +26,8 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon.png" />
 <link rel="preload" as="image" href="assets/hero-1.webp" fetchpriority="high" />
 <link rel="preload" as="image" href="assets/team/lauralie.png" fetchpriority="high" />
-<link rel="preload" as="image" href="assets/team/micha.jpg" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/team/micha.jpg" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/team/lauralie.png" />
 <script>document.documentElement.classList.add('js');</script>
 <script type="application/ld+json">
 {
@@ -139,6 +140,14 @@ html.sober #pinapp-film{display:none}
 .placeholder__tag{font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--or);font-weight:500}
 .placeholder__label{font-family:var(--ff-serif);font-style:italic;color:var(--ivoire);font-size:16px}
 .placeholder__hint{font-size:11px;opacity:0.6}
+/* Hero : aperçu duo (photos réelles) en attendant la vidéo 60s */
+.hero-duo-preview{max-width:520px;margin:24px auto;padding:0;background:rgba(4,8,18,0.22);border:1px solid rgba(201,169,110,0.28);border-radius:14px;overflow:hidden;box-shadow:0 1px 0 rgba(255,255,255,0.06) inset}
+.hero-duo-preview__grid{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:0}
+.hero-duo-preview__cell{position:relative;overflow:hidden;aspect-ratio:3/4;margin:0}
+.hero-duo-preview__img{width:100%;height:100%;object-fit:cover;display:block;transform:translateZ(0)}
+.hero-duo-preview__meta{display:grid;place-items:center;gap:6px;padding:20px 16px 18px;background:rgba(0,0,0,0.2)}
+html[data-mode="day"] .hero-duo-preview__meta{background:rgba(255,255,255,0.04)}
+@media (min-width:768px){.hero-duo-preview__cell{aspect-ratio:4/5}}
 .film-card{display:block;text-decoration:none;color:inherit;border-radius:var(--r-lg);overflow:hidden;transition:transform var(--dur-fast) var(--ease-spring),border-color var(--dur-fast),box-shadow var(--dur-fast);border:1px solid rgba(230,185,115,0.2);background:var(--fumee)}
 .film-card:hover{transform:translateY(-2px);border-color:rgba(230,185,115,0.45);box-shadow:0 8px 24px var(--or-glow-soft)}
 .capt-na-logos__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
@@ -775,10 +784,20 @@ html.sober #grain-canvas{display:none!important}
           <div class="stat">30 j<br>accomp.</div>
         </div>
       </div>
-      <div class="placeholder" style="aspect-ratio:16/9; max-width:520px; margin:24px auto;" data-reveal>
-        <span class="placeholder__tag">À TOURNER · DUO FACE CAMÉRA</span>
-        <span class="placeholder__label">Pinapp en 60 secondes</span>
-        <span class="placeholder__hint">Lauralie + Michaël · présentation duo</span>
+      <div class="hero-duo-preview" data-reveal aria-label="Aperçu du duo — Pinapp 60s à venir">
+        <div class="hero-duo-preview__grid">
+          <div class="hero-duo-preview__cell">
+            <img class="hero-duo-preview__img" src="assets/team/lauralie.png" alt="Lauralie Daguzay" width="440" height="587" loading="eager" decoding="async" />
+          </div>
+          <div class="hero-duo-preview__cell">
+            <img class="hero-duo-preview__img" src="assets/team/micha.jpg" alt="Michaël Bouilhac" width="440" height="587" loading="eager" decoding="async" fetchpriority="high" />
+          </div>
+        </div>
+        <div class="hero-duo-preview__meta">
+          <span class="placeholder__tag">VIDÉO · BIENTÔT · DUO FACE CAMÉRA</span>
+          <span class="placeholder__label">Pinapp en 60 secondes</span>
+          <span class="placeholder__hint">Lauralie + Michaël — photo du duo (la vidéo remplacera ce bloc)</span>
+        </div>
       </div>
       <div class="cta-row" data-reveal>
         <a class="btn btn--primary breath-cta" href="#contact">Recevoir mon diagnostic écrit sous 24h →</a>
