@@ -52,7 +52,8 @@ async function toWebp(pngPath, webpPath) {
 const demos = [
   { id: 'atelier-rivage', path: '/demo/atelier-rivage/', budget: 22000 },
   { id: 'restaurant', path: '/demo/restaurant/', budget: 25000 },
-  { id: 'coach', path: '/demo/coach/', budget: 25000 }
+  { id: 'maison-solene', path: '/demo/esthetique/', budget: 22000 },
+  { id: 'studio-lena', path: '/demo/extensions-cils/', budget: 22000 }
 ];
 
 for (const d of demos) {
