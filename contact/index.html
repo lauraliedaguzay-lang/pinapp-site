@@ -5,49 +5,166 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="pinapp-build" content="v13-rescue-2026-04-28" />
     <title>Contact — Diagnostic 24h offert · Pinapp Bordeaux</title>
-    <meta name="description" content="Écrire à Pinapp — diagnostic sous 24 h, formulaire sécurisé." />
+    <meta name="description" content="Contact Pinapp — diagnostic écrit sous 24 h, trois options pour nous joindre (formulaire, WhatsApp, email)." />
     <link rel="canonical" href="https://pinapp.fr/contact/" />
     <meta property="og:image" content="https://pinapp.fr/assets/images/og-pinapp-share.svg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:image" content="https://pinapp.fr/assets/images/og-pinapp-share.svg" />
-    <meta http-equiv="refresh" content="0;url=/#contact" />
-    <script>
-      location.replace('/#contact');
-    </script>
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="Pinapp" />
+    <meta property="og:title" content="Contact — Diagnostic 24h offert · Pinapp Bordeaux" />
+    <meta property="og:description" content="Trois façons de nous joindre : démarrer le diagnostic, écrire sur WhatsApp, ou envoyer un email." />
+    <meta property="og:url" content="https://pinapp.fr/contact/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Contact — Diagnostic 24h offert · Pinapp Bordeaux" />
+    <meta name="twitter:description" content="Trois façons de nous joindre : démarrer le diagnostic, écrire sur WhatsApp, ou envoyer un email." />
+    <meta name="theme-color" content="#050b14" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="/assets/fonts/geist-sans-500.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/assets/css/tokens-voyage.css?v=20260430" />
+    <link rel="stylesheet" href="/assets/css/voyage.css?v=20260724" />
     <style>
-      :root {
-        --bg: #080d18;
-        --text: #f0f8ff;
-        --muted: rgba(240, 248, 255, 0.55);
-        --or: #e6b973;
-      }
-      body {
-        margin: 0;
+      /* Contact page: minimal overrides, reuse voyage styling */
+      .contact-page {
         min-height: 100vh;
-        display: grid;
-        place-items: center;
-        padding: 1.5rem;
-        background: var(--bg);
-        color: var(--text);
-        font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
-        line-height: 1.5;
+        background: #050b14;
+        color: #f0f8ff;
+      }
+      .contact-header {
+        padding: max(var(--s-8), env(safe-area-inset-top)) var(--s-6) var(--s-5);
         text-align: center;
       }
-      a {
-        color: var(--or);
-        font-weight: 600;
+      .contact-header .label {
+        margin: 0 0 var(--s-2);
+      }
+      .contact-header a {
+        color: var(--cyan-soft);
+      }
+      .contact-wrap {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 0 var(--s-6) var(--s-8);
+      }
+      .contact-hero {
+        text-align: center;
+        padding: var(--s-7) 0 var(--s-6);
+      }
+      .contact-hero h1 {
+        margin: 0 0 var(--s-3);
+      }
+      .contact-hero .body-lg {
+        max-width: 44rem;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .contact-cards {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--s-5);
+        margin-top: var(--s-6);
+      }
+      @media (max-width: 980px) {
+        .contact-cards {
+          grid-template-columns: 1fr;
+        }
+      }
+      .contact-card {
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 20px;
+        padding: var(--s-6);
+        backdrop-filter: blur(18px) saturate(140%);
+        -webkit-backdrop-filter: blur(18px) saturate(140%);
+      }
+      .contact-card h2 {
+        margin: 0 0 var(--s-3);
+        font-size: 1.15rem;
+      }
+      .contact-card p {
+        margin: 0 0 var(--s-5);
+        opacity: 0.75;
+      }
+      .contact-card .btn {
+        width: 100%;
+        justify-content: center;
+      }
+      .contact-meta {
+        margin-top: var(--s-7);
+        text-align: center;
+        opacity: 0.7;
+      }
+      .contact-meta strong {
+        opacity: 1;
+      }
+      .contact-footer {
+        padding: var(--s-7) var(--s-6) var(--s-6);
+        text-align: center;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .contact-footer a {
+        color: rgba(240, 248, 255, 0.78);
       }
     </style>
   </head>
-  <body>
+  <body class="contact-page">
     <a class="skip-link" href="#main">Aller au contenu principal</a>
-    <main id="main">
-      <h1 style="font-size: 1.5rem; font-weight: 600; margin: 0 0 0.75rem">Contact</h1>
-      <p style="margin: 0; color: var(--muted); max-width: 28rem">
-        Redirection vers le formulaire sur la page d’accueil…<br />
-        <a href="/#contact">Ouvrir le formulaire de contact</a>
+
+    <header class="contact-header" role="banner">
+      <p class="label">Pinapp · Bordeaux</p>
+      <p style="margin: 0">
+        <a href="/">Accueil expérience</a> · <a href="/services/">Services</a> · <a href="/a-propos/">À propos</a>
       </p>
+    </header>
+
+    <main id="main" class="contact-wrap">
+      <section class="contact-hero" aria-labelledby="contact-h1">
+        <h1 id="contact-h1" class="display display--h2">Échangeons.</h1>
+        <p class="body-lg">
+          Diagnostic offert · Réponse sous 24 h.<br />
+          Trois façons simples de nous joindre — sans dupliquer de formulaire ici.
+        </p>
+      </section>
+
+      <section aria-label="Méthodes de contact">
+        <div class="contact-cards">
+          <article class="contact-card">
+            <h2>Diagnostic écrit (24 h)</h2>
+            <p>
+              Lancez votre demande sur la page d’accueil. C’est le point d’entrée unique, structuré, pour préparer une réponse claire.
+            </p>
+            <a class="btn btn--primary" href="/#contact">Démarrer mon diagnostic</a>
+          </article>
+
+          <article class="contact-card">
+            <h2>WhatsApp (SAV / questions rapides)</h2>
+            <p>
+              Pour une question courte, un suivi ou une précision. Nous répondons quand nous sommes en contexte (pas de promesse instantanée).
+            </p>
+            <a class="btn btn-secondary" href="https://wa.me/33659882015" target="_blank" rel="noopener noreferrer">Écrire sur WhatsApp</a>
+          </article>
+
+          <article class="contact-card">
+            <h2>Email direct</h2>
+            <p>
+              Si vous préférez, écrivez-nous directement. Pour un audit complet, privilégiez le diagnostic (plus efficace à traiter).
+            </p>
+            <a class="btn btn-tertiary" href="mailto:contact@pinapp.fr">Envoyer un email</a>
+          </article>
+        </div>
+
+        <p class="contact-meta">
+          <strong>Lauralie + Michaël</strong> · Bordeaux / Mérignac · Pinapp Inc. — SIRET 523 884 898 00017
+        </p>
+      </section>
     </main>
+
+    <footer class="contact-footer">
+      <p style="margin: 0 0 var(--s-3); opacity: 0.75">Prix HT · TVA non applicable, art. 293 B du CGI</p>
+      <p style="margin: 0; opacity: 0.75">
+        <a href="/mentions-legales/">Mentions légales</a> · <a href="/confidentialite/">Confidentialité</a> · <a href="/cgv/">CGV</a>
+      </p>
+    </footer>
   </body>
 </html>
