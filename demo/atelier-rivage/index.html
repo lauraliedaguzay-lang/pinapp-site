@@ -1,647 +1,593 @@
 <!doctype html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="pinapp-build" content="v13-rescue-2026-04-28" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="canonical" href="https://pinapp.fr/demo/atelier-rivage/" />
-    <meta
-      name="description"
-      content="Atelier Rivage — démo vitrine architecture résidentielle d'exception · Pinapp Studio." />
-    <title>Atelier Rivage — Architecture d'exception</title>
-    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
-    <link rel="dns-prefetch" href="https://images.unsplash.com" />
-    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
-    <link rel="stylesheet" href="https://fonts.bunny.net/css?family=cormorant-garamond:ital,wght@0,300;0,400;1,300;1,400&family=outfit:wght@200;300;400" />
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      html,
-      body {
-        height: 100%;
-        overflow: hidden;
-        background: #0a0a08;
-        font-family: 'Outfit', sans-serif;
-        color: #fff;
-      }
-      ::selection {
-        background: #c8a87a;
-        color: #fff;
-      }
+<head>
+<meta charset="utf-8" />
+<meta name="pinapp-build" content="v14-atelier-immersive-2026-04-28" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Atelier Rivage · Architecte d'intérieur · Bordeaux & Atlantique</title>
+<meta name="description" content="Atelier Rivage · Dix villas livrées entre Bordeaux et le littoral atlantique. Architecte d'intérieur · Maquettes habitées sur-mesure." />
+<meta name="theme-color" content="#B85C3C" />
 
-      .slide {
-        position: absolute;
-        inset: 0;
-        opacity: 0;
-        transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        overflow: hidden;
-      }
-      .slide.active {
-        opacity: 1;
-      }
-      .slide img {
-        position: absolute;
-        width: 115%;
-        height: 115%;
-        top: -7.5%;
-        left: -7.5%;
-        object-fit: cover;
-        filter: brightness(0.5) saturate(0.85);
-        transition: transform 0.15s ease-out;
-        animation: ken 25s ease-in-out alternate infinite;
-      }
-      @keyframes ken {
-        0% {
-          transform: scale(1.02);
-        }
-        100% {
-          transform: scale(1.12) translate(-1%, -0.5%);
-        }
-      }
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="fr_FR" />
+<meta property="og:title" content="Atelier Rivage · Architecte d'intérieur" />
+<meta property="og:description" content="Dix villas d'exception entre Bordeaux et le littoral atlantique." />
+<meta property="og:site_name" content="Atelier Rivage" />
+<meta property="og:image" content="assets/photos/villa-lumiere.jpg" />
 
-      .vignette {
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(ellipse at 50% 50%, transparent 25%, rgba(10, 10, 8, 0.5) 100%);
-      }
-      .gradient {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          180deg,
-          rgba(10, 10, 8, 0.25) 0%,
-          transparent 30%,
-          transparent 50%,
-          rgba(10, 10, 8, 0.9) 100%
-        );
-      }
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23B85C3C'/%3E%3Ctext x='32' y='44' font-family='Cormorant Garamond,serif' font-size='40' font-style='italic' font-weight='300' fill='%23F4EFE6' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E" />
 
-      .nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 50;
-        padding: 1.5rem 3rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .nav-logo {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 1.4rem;
-        letter-spacing: 0.18em;
-        font-weight: 300;
-        color: #fff;
-        text-decoration: none;
-      }
-      .nav-links {
-        display: flex;
-        gap: 2.5rem;
-        align-items: center;
-      }
-      .nav-links a {
-        color: rgba(255, 255, 255, 0.4);
-        text-decoration: none;
-        font-size: 0.58rem;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        font-weight: 300;
-        transition: color 0.3s;
-      }
-      .nav-links a:hover {
-        color: #c8a87a;
-      }
-      .nav-links a.nav-back-demo {
-        color: rgba(200, 168, 122, 0.85);
-      }
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@400;500;600&display=swap" />
+<link rel="stylesheet" href="assets/style.css?v=16" />
 
-      .content {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 20;
-        padding: 0 4rem 4.5rem;
-      }
-      .eyebrow {
-        font-size: 0.5rem;
-        letter-spacing: 0.4em;
-        text-transform: uppercase;
-        color: #c8a87a;
-        margin-bottom: 1.2rem;
-      }
-      .title {
-        font-family: 'Cormorant Garamond', serif;
-        font-weight: 300;
-        line-height: 1.05;
-        text-shadow: 0 2px 50px rgba(0, 0, 0, 0.4);
-        transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-      .title-hero {
-        font-size: clamp(2.8rem, 7vw, 5.5rem);
-      }
-      .title-project {
-        font-size: clamp(2rem, 5vw, 3.5rem);
-      }
-      .title em {
-        font-style: italic;
-        color: #e8d5b8;
-      }
-      .subtitle {
-        font-size: 0.82rem;
-        color: rgba(255, 255, 255, 0.5);
-        margin-top: 0.6rem;
-        font-weight: 200;
-      }
+<link rel="preload" as="image" href="assets/photos/villa-lumiere.jpg" />
 
-      .thumbs {
-        display: flex;
-        gap: 0.6rem;
-        margin-top: 2.5rem;
-        align-items: flex-end;
-      }
-      .thumb {
-        width: 75px;
-        height: 50px;
-        border-radius: 5px;
-        overflow: hidden;
-        cursor: pointer;
-        border: 2px solid rgba(255, 255, 255, 0.08);
-        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        opacity: 0.4;
-        flex-shrink: 0;
-      }
-      .thumb.active {
-        width: 130px;
-        height: 80px;
-        border-color: #c8a87a;
-        opacity: 1;
-      }
-      .thumb img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: filter 0.3s;
-      }
-      .thumb:not(.active) img {
-        filter: brightness(0.5) saturate(0.4);
-      }
-      .thumb:hover {
-        opacity: 0.8;
-      }
-      .thumb-label {
-        position: absolute;
-        bottom: 3px;
-        left: 5px;
-        font-size: 0.38rem;
-        color: #fff;
-        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
-        letter-spacing: 0.05em;
-      }
-
-      .arrows {
-        display: flex;
-        gap: 0.6rem;
-        margin-top: 1.2rem;
-        align-items: center;
-      }
-      .arrow {
-        width: 38px;
-        height: 38px;
-        border-radius: 50%;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        background: rgba(255, 255, 255, 0.04);
-        color: #fff;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.9rem;
-        transition: all 0.3s;
-        backdrop-filter: blur(8px);
-      }
-      .arrow:hover {
-        border-color: #c8a87a;
-        background: rgba(200, 168, 122, 0.1);
-      }
-      .counter {
-        font-size: 0.5rem;
-        color: rgba(255, 255, 255, 0.2);
-        margin-left: 0.5rem;
-        letter-spacing: 0.12em;
-        font-variant-numeric: tabular-nums;
-      }
-
-      .dots {
-        position: fixed;
-        right: 1.5rem;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 50;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-      .dot {
-        width: 3px;
-        height: 8px;
-        border: none;
-        padding: 0;
-        border-radius: 2px;
-        background: rgba(255, 255, 255, 0.12);
-        cursor: pointer;
-        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        font-size: 0;
-        color: transparent;
-      }
-      .dot.active {
-        height: 22px;
-        background: #c8a87a;
-      }
-
-      .scroll-hint {
-        margin-top: 2.5rem;
-        display: flex;
-        align-items: center;
-        gap: 0.6rem;
-        opacity: 0.35;
-        animation: breathe 3s infinite;
-      }
-      @keyframes breathe {
-        0%,
-        100% {
-          opacity: 0.2;
-        }
-        50% {
-          opacity: 0.5;
-        }
-      }
-
-      .demo-foot {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 40;
-        padding: 0.45rem 1rem;
-        text-align: center;
-        font-size: 10px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.42);
-        background: rgba(10, 10, 8, 0.78);
-        pointer-events: none;
-      }
-
-      .badge {
-        position: fixed;
-        bottom: 1rem;
-        right: 1.5rem;
-        z-index: 50;
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-        padding: 0.35rem 0.8rem;
-        background: rgba(10, 10, 8, 0.5);
-        backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        border-radius: 100px;
-        text-decoration: none;
-      }
-      .badge-dot {
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        background: #6baf8d;
-        animation: breathe 3s infinite;
-      }
-      .badge-text {
-        font-size: 0.45rem;
-        color: rgba(255, 255, 255, 0.25);
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-      }
-
-      @media (max-width: 768px) {
-        .content {
-          padding: 0 1.5rem 3rem;
-        }
-        .title-hero {
-          font-size: 2.5rem;
-        }
-        .title-project {
-          font-size: 1.8rem;
-        }
-        .nav {
-          padding: 1rem 1.5rem;
-        }
-        .nav-links {
-          display: none;
-        }
-        .thumbs {
-          gap: 0.4rem;
-        }
-        .thumb {
-          width: 50px;
-          height: 35px;
-        }
-        .thumb.active {
-          width: 90px;
-          height: 55px;
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .slide img {
-          animation: none;
-        }
-        .slide {
-          transition: opacity 0.35s ease;
-        }
-        .thumb,
-        .dot,
-        .title {
-          transition-duration: 0.2s;
-        }
-        .badge-dot,
-        .scroll-hint {
-          animation: none;
-          opacity: 0.35;
-        }
-      }
-    </style>
-  <link rel="stylesheet" href="/assets/css/pp-awwwards.css?v=20260471" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Atelier Rivage",
+  "description": "Architecte d'intérieur, Bordeaux. Maquettes habitées sur-mesure, livrées clé en main.",
+  "url": "https://atelier-rivage.fr",
+  "email": "studio@atelier-rivage.fr",
+  "telephone": "+33-5-56-00-12-12",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "12 quai des Chartrons",
+    "postalCode": "33000",
+    "addressLocality": "Bordeaux",
+    "addressCountry": "FR"
+  },
+  "priceRange": "€€€€",
+  "areaServed": ["Bordeaux", "Cap Ferret", "Biarritz", "Arcachon", "Hossegor", "Saint-Émilion"]
+}
+</script>
 </head>
-  <body>
-<div class="pp-cursor-dot" aria-hidden="true"></div>
-<div class="pp-cursor-circle" aria-hidden="true"></div>
+<body data-screen-label="Atelier Rivage">
 
-    <nav class="nav">
-      <a href="#" class="nav-logo">Atelier Rivage</a>
-      <div class="nav-links">
-        <a class="nav-back-demo" href="/">Démos</a>
-        <a href="#">Villas</a>
-        <a href="#">Studio</a>
-        <a href="#">Contact</a>
-      </div>
-    </nav>
+<a class="skip-link" href="#contenu">Aller au contenu</a>
 
-    <div id="slides">
-      <div class="slide active" data-i="0">
-        <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920&q=90" alt="Villa Lumière" />
-        <div class="vignette"></div>
-        <div class="gradient"></div>
-      </div>
-      <div class="slide" data-i="1">
-        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=90" alt="Les Jardins" />
-        <div class="vignette"></div>
-        <div class="gradient"></div>
-      </div>
-      <div class="slide" data-i="2">
-        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=90" alt="Maison Pierre" />
-        <div class="vignette"></div>
-        <div class="gradient"></div>
-      </div>
-      <div class="slide" data-i="3">
-        <img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=1920&q=90" alt="Villa Éclipse" />
-        <div class="vignette"></div>
-        <div class="gradient"></div>
-      </div>
-      <div class="slide" data-i="4">
-        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=90" alt="L'Intérieur" />
-        <div class="vignette"></div>
-        <div class="gradient"></div>
-      </div>
-      <div class="slide" data-i="5">
-        <img src="https://images.unsplash.com/photo-1574739782594-db4ead022697?w=1920&q=90" alt="Horizon Bleu" />
-        <div class="vignette"></div>
-        <div class="gradient"></div>
-      </div>
-      <div class="slide" data-i="6">
-        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=90" alt="Villa Littoral" />
-        <div class="vignette"></div>
-        <div class="gradient"></div>
-      </div>
-      <div class="slide" data-i="7">
-        <img src="https://images.unsplash.com/photo-1518005058771-92be0df73698?w=1920&q=90" alt="Résidence Verre" />
-        <div class="vignette"></div>
-        <div class="gradient"></div>
-      </div>
-      <div class="slide" data-i="8">
-        <img src="https://images.unsplash.com/photo-1487958449943-242a9dd376c3?w=1920&q=90" alt="Maison Ligne" />
-        <div class="vignette"></div>
-        <div class="gradient"></div>
-      </div>
-      <div class="slide" data-i="9">
-        <img src="https://images.unsplash.com/photo-1542317854553-046557184cfd?w=1920&q=90" alt="Atelier Béton" />
-        <div class="vignette"></div>
-        <div class="gradient"></div>
-      </div>
+<header class="header">
+  <a href="#" class="header__logo" aria-label="Atelier Rivage · Accueil">Atelier <em>Rivage</em>.</a>
+  <nav class="header__nav" aria-label="Principal">
+    <a href="#stack" class="is-current">Villas</a>
+    <a href="#manifeste">Studio</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main id="contenu">
+
+<!-- HERO terracotta -->
+<section class="hero" data-screen-label="01 Hero">
+  <div class="hero__top">
+    <span>Atelier Rivage · Studio · Bordeaux</span>
+    <span>MMXX → MMXXVI</span>
+  </div>
+  <div class="hero__center">
+    <div class="hero__eyebrow">Architecture résidentielle, depuis la côte atlantique.</div>
+    <h1 class="hero__title">Atelier<br/><em>Rivage</em>.</h1>
+  </div>
+  <div class="hero__bottom">
+    <p class="hero__lede">
+      Dix villas livrées en six ans, entre la dune du Pyla et les vignes de Saint-Émilion. Chaque maison est dessinée pour la lumière qui la traverse.
+    </p>
+    <div class="hero__scroll" aria-hidden="true">
+      <span>Faire défiler</span>
+      <span class="hero__scroll-line"></span>
     </div>
-
-    <div class="content" id="content">
-      <div class="eyebrow" id="eyebrow">Architecture résidentielle · Bordeaux &amp; Littoral</div>
-      <h1 class="title title-hero" id="title">Entrez dans<br />nos <em>créations.</em></h1>
-      <p class="subtitle" id="subtitle">Naviguez à travers nos villas d'exception</p>
-
-      <div class="thumbs" id="thumbs"></div>
-      <div class="arrows">
-        <button type="button" class="arrow" id="prev" aria-label="Diapositive précédente">←</button>
-        <button type="button" class="arrow" id="next" aria-label="Diapositive suivante">→</button>
-        <span class="counter" id="counter">01 / 10</span>
-      </div>
+    <div class="hero__meta-right">
+      <strong>10</strong> villas · <strong>6</strong> ans<br/>
+      Cap Ferret · Biarritz · Bordeaux
     </div>
+  </div>
+</section>
 
-    <div class="dots" id="dots" role="navigation" aria-label="Projets"></div>
+<!-- MANIFESTO -->
+<section class="manifesto" id="manifeste" data-screen-label="02 Manifeste">
+  <div class="manifesto__label">— Atelier · Manifeste</div>
+  <p class="manifesto__text">
+    Nous concevons des maisons où la pierre, le bois et la <em>lumière atlantique</em> se répondent — sans bruit, sans ostentation. Une architecture d'intérieur pensée comme un climat.
+  </p>
+</section>
 
-    <p class="demo-foot" role="status">Démo Pinapp · visuels d'illustration (Unsplash) · données fictives</p>
+<!-- STACK 3D · 10 villas -->
+<section class="stack" id="stack" data-screen-label="03 Galerie">
+  <div class="stack__viewport">
 
-    <a href="https://pinapp.fr" target="_blank" rel="noopener noreferrer" class="badge">
-      <span class="badge-dot"></span>
-      <span class="badge-text">Créé par Pinapp</span>
-    </a>
+    <article class="card" data-card="0" data-screen-label="V01 Lumière">
+      <div class="card__media"><img class="card__img" src="assets/photos/villa-lumiere.jpg" alt="Villa Lumière, Cap Ferret" /></div>
+      <div class="card__shade"></div>
+      <span class="card__num">I.</span>
+      <div class="card__copy">
+        <div class="card__heading">
+          <div class="card__eyebrow"><span>Villa Lumière</span><span class="dot"></span><span>Cap Ferret · 2024</span></div>
+          <h2 class="card__title">Une maison <em>dessinée par l'horizon.</em></h2>
+        </div>
+        <div class="card__details">
+          <p class="card__desc">Posée à mi-pente entre la pinède et le bassin, elle capte la lumière du matin jusqu'au coucher. Baies en chêne, sols en pierre claire de Dordogne.</p>
+          <div class="card__meta">
+            <div class="card__meta-item"><span class="card__meta-label">Lieu</span><span class="card__meta-value">Cap Ferret</span></div>
+            <div class="card__meta-item"><span class="card__meta-label">Surface</span><span class="card__meta-value">480 m²</span></div>
+            <div class="card__meta-item"><span class="card__meta-label">Année</span><span class="card__meta-value">2024</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
 
-    <script>
-      var data = [
-        {
-          t: 'Villa Lumière',
-          l: 'Cap Ferret · 480m²',
-          d: "Piscine à débordement face à l'Atlantique",
-          img: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=400&q=70',
-        },
-        {
-          t: 'Les Jardins',
-          l: 'Biarritz · 350m²',
-          d: 'Terrasses végétalisées surplombant la côte',
-          img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400&q=70',
-        },
-        {
-          t: 'Maison Pierre',
-          l: 'Saint-Émilion · 420m²',
-          d: 'Pierre blonde et acier noir',
-          img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&q=70',
-        },
-        {
-          t: 'Villa Éclipse',
-          l: 'Arcachon · 290m²',
-          d: 'Infinity pool sur le Bassin',
-          img: 'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=400&q=70',
-        },
-        {
-          t: "L'Intérieur",
-          l: 'Bordeaux · 260m²',
-          d: 'Double hauteur et verrière zénithale',
-          img: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=70',
-        },
-        {
-          t: 'Horizon Bleu',
-          l: 'Hossegor · 310m²',
-          d: "Face à l'océan, bois flotté et pierre",
-          img: 'https://images.unsplash.com/photo-1574739782594-db4ead022697?w=400&q=70',
-        },
-        {
-          t: 'Villa Littoral',
-          l: 'Capbreton · 380m²',
-          d: 'Lignes basses, pierre locale et baies vitrées plein sud',
-          img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=70',
-        },
-        {
-          t: 'Résidence Verre',
-          l: 'Biarritz · 220m²',
-          d: 'Façade vitrée et patios intérieurs pour la lumière zénithale',
-          img: 'https://images.unsplash.com/photo-1518005058771-92be0df73698?w=400&q=70',
-        },
-        {
-          t: 'Maison Ligne',
-          l: 'Bordeaux · 195m²',
-          d: 'Volume minimal, béton ciré et chêne massif',
-          img: 'https://images.unsplash.com/photo-1487958449943-242a9dd376c3?w=400&q=70',
-        },
-        {
-          t: 'Atelier Béton',
-          l: 'Arcachon · 275m²',
-          d: 'Structure apparente, terrasse rooftop et vue bassin',
-          img: 'https://images.unsplash.com/photo-1542317854553-046557184cfd?w=400&q=70',
-        },
-      ];
+    <article class="card" data-card="1" data-screen-label="V02 Jardins">
+      <div class="card__media"><img class="card__img" src="assets/photos/jardins.jpg" alt="Maison des Jardins" /></div>
+      <div class="card__shade"></div>
+      <span class="card__num">II.</span>
+      <div class="card__copy">
+        <div class="card__heading">
+          <div class="card__eyebrow"><span>Maison des Jardins</span><span class="dot"></span><span>Saint-Émilion · 2023</span></div>
+          <h2 class="card__title">Le jardin comme <em>sixième pièce.</em></h2>
+        </div>
+        <div class="card__details">
+          <p class="card__desc">Réhabilitation d'un chai du XIXᵉ. Le patio central, planté d'oliviers, devient le cœur thermique et lumineux de la composition.</p>
+          <div class="card__meta">
+            <div class="card__meta-item"><span class="card__meta-label">Lieu</span><span class="card__meta-value">Saint-Émilion</span></div>
+            <div class="card__meta-item"><span class="card__meta-label">Surface</span><span class="card__meta-value">320 m²</span></div>
+            <div class="card__meta-item"><span class="card__meta-label">Année</span><span class="card__meta-value">2023</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
 
-      var cur = 0;
-      var slides = document.querySelectorAll('.slide');
-      var title = document.getElementById('title');
-      var subtitle = document.getElementById('subtitle');
-      var eyebrow = document.getElementById('eyebrow');
-      var counter = document.getElementById('counter');
-      var thumbsEl = document.getElementById('thumbs');
-      var dotsEl = document.getElementById('dots');
+    <article class="card" data-card="2" data-screen-label="V03 Pierre">
+      <div class="card__media"><img class="card__img" src="assets/photos/maison-pierre.jpg" alt="Maison de Pierre" /></div>
+      <div class="card__shade"></div>
+      <span class="card__num">III.</span>
+      <div class="card__copy">
+        <div class="card__heading">
+          <div class="card__eyebrow"><span>Maison de Pierre</span><span class="dot"></span><span>Biarritz · 2023</span></div>
+          <h2 class="card__title">Pierre brute, <em>main douce.</em></h2>
+        </div>
+        <div class="card__details">
+          <p class="card__desc">Une longère néo-basque réinterprétée. Murs en moellons chaulés, charpente en chêne apparente, mobilier sur-mesure.</p>
+          <div class="card__meta">
+            <div class="card__meta-item"><span class="card__meta-label">Lieu</span><span class="card__meta-value">Biarritz</span></div>
+            <div class="card__meta-item"><span class="card__meta-label">Surface</span><span class="card__meta-value">410 m²</span></div>
+            <div class="card__meta-item"><span class="card__meta-label">Année</span><span class="card__meta-value">2023</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
 
-      data.forEach(function (d, i) {
-        var th = document.createElement('div');
-        th.className = 'thumb' + (i === 0 ? ' active' : '');
-        th.style.position = 'relative';
-        th.setAttribute('role', 'button');
-        th.setAttribute('tabindex', '0');
-        th.setAttribute('aria-label', d.t);
-        th.innerHTML = '<img src="' + d.img + '" alt=""><span class="thumb-label">' + d.t + '</span>';
-        th.onclick = function () {
-          goTo(i);
-        };
-        th.onkeydown = function (e) {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            goTo(i);
-          }
-        };
-        thumbsEl.appendChild(th);
-      });
+    <article class="card" data-card="3" data-screen-label="V04 Eclipse">
+      <div class="card__media"><img class="card__img" src="assets/photos/villa-eclipse.jpg" alt="Villa Eclipse" /></div>
+      <div class="card__shade"></div>
+      <span class="card__num">IV.</span>
+      <div class="card__copy">
+        <div class="card__heading">
+          <div class="card__eyebrow"><span>Villa Eclipse</span><span class="dot"></span><span>Hossegor · 2022</span></div>
+          <h2 class="card__title">L'heure dorée, <em>captée par la maison.</em></h2>
+        </div>
+        <div class="card__details">
+          <p class="card__desc">Construction neuve face à l'océan, conçue autour d'une pièce de vie de quatorze mètres. Les baies effacent la limite entre l'intérieur et la dune.</p>
+          <div class="card__meta">
+            <div class="card__meta-item"><span class="card__meta-label">Lieu</span><span class="card__meta-value">Hossegor</span></div>
+            <div class="card__meta-item"><span class="card__meta-label">Surface</span><span class="card__meta-value">540 m²</span></div>
+            <div class="card__meta-item"><span class="card__meta-label">Année</span><span class="card__meta-value">2022</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
 
-      data.forEach(function (d, i) {
-        var dot = document.createElement('button');
-        dot.type = 'button';
-        dot.className = 'dot' + (i === 0 ? ' active' : '');
-        dot.setAttribute('aria-label', d.t);
-        dot.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
-        dot.onclick = function () {
-          goTo(i);
-        };
-        dotsEl.appendChild(dot);
-      });
+    <article class="card" data-card="4" data-screen-label="V05 Horizon">
+      <div class="card__media"><img class="card__img" src="assets/photos/horizon-bleu.jpg" alt="Horizon" /></div>
+      <div class="card__shade"></div>
+      <span class="card__num">V.</span>
+      <div class="card__copy">
+        <div class="card__heading">
+          <div class="card__eyebrow"><span>Horizon</span><span class="dot"></span><span>Cap Ferret · 2022</span></div>
+          <h2 class="card__title">Un cadrage <em>tenu sur l'océan.</em></h2>
+        </div>
+        <div class="card__details">
+          <p class="card__desc">Étude de fenêtre paysagée. Le mur sud disparaît au profit d'une seule ouverture continue, dessinée pour cadrer l'horizon comme un tableau.</p>
+          <div class="card__meta">
+            <div class="card__meta-item"><span class="card__meta-label">Lieu</span><span class="card__meta-value">Cap Ferret</span></div>
+            <div class="card__meta-item"><span class="card__meta-label">Surface</span><span class="card__meta-value">240 m²</span></div>
+            <div class="card__meta-item"><span class="card__meta-label">Année</span><span class="card__meta-value">2022</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
 
-      function goTo(n) {
-        if (n === cur) return;
-        slides[cur].classList.remove('active');
-        thumbsEl.children[cur].classList.remove('active');
-        dotsEl.children[cur].classList.remove('active');
-        dotsEl.children[cur].setAttribute('aria-selected', 'false');
-        cur = n;
-        slides[cur].classList.add('active');
-        thumbsEl.children[cur].classList.add('active');
-        dotsEl.children[cur].classList.add('active');
-        dotsEl.children[cur].setAttribute('aria-selected', 'true');
+    <article class="card" data-card="5" data-screen-label="V06 Ligne">
+      <div class="card__media"><img class="card__img" src="assets/photos/maison-ligne.jpg" alt="Maison Ligne" /></div>
+      <div class="card__shade"></div>
+      <span class="card__num">VI.</span>
+      <div class="card__copy">
+        <div class="card__heading">
+          <div class="card__eyebrow"><span>Maison Ligne</span><span class="dot"></span><span>Arcachon · 2022</span></div>
+          <h2 class="card__title">Une ligne basse, <em>posée sur la dune.</em></h2>
+        </div>
+        <div class="card__details">
+          <p class="card__desc">Maison contemporaine en bois local, pensée comme une longue galerie ouverte sur le Bassin. Toiture végétalisée, isolation chanvre.</p>
+          <div class="card__meta">
+            <div class="card__meta-item"><span class="card__meta-label">Lieu</span><span class="card__meta-value">Arcachon</span></div>
+            <div class="card__meta-item"><span class="card__meta-label">Surface</span><span class="card__meta-value">390 m²</span></div>
+            <div class="card__meta-item"><span class="card__meta-label">Année</span><span class="card__meta-value">2022</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
 
-        if (cur === 0) {
-          title.className = 'title title-hero';
-          title.innerHTML = 'Entrez dans<br>nos <em>créations.</em>';
-          subtitle.textContent = "Naviguez à travers nos villas d'exception";
-          eyebrow.style.display = 'block';
-        } else {
-          title.className = 'title title-project';
-          title.innerHTML = data[cur].t;
-          subtitle.textContent = data[cur].l + ' — ' + data[cur].d;
-          eyebrow.style.display = 'none';
-        }
-        counter.textContent = String(cur + 1).padStart(2, '0') + ' / ' + String(data.length).padStart(2, '0');
+    <article class="card" data-card="6" data-screen-label="V07 Verre">
+      <div class="card__media"><img class="card__img" src="assets/photos/residence-verre.jpg" alt="Résidence Verre" /></div>
+      <div class="card__shade"></div>
+      <span class="card__num">VII.</span>
+      <div class="card__copy">
+        <div class="card__heading">
+          <div class="card__eyebrow"><span>Résidence Verre</span><span class="dot"></span><span>Bordeaux · 2021</span></div>
+          <h2 class="card__title">Transparence et <em>matière vivante.</em></h2>
+        </div>
+        <div class="card__details">
+          <p class="card__desc">Surélévation contemporaine d'un hôtel particulier des Chartrons. Une boîte de verre coiffée de cuivre patiné dialoguant avec la pierre blonde.</p>
+          <div class="card__meta">
+            <div class="card__meta-item"><span class="card__meta-label">Lieu</span><span class="card__meta-value">Bordeaux</span></div>
+            <div class="card__meta-item"><span class="card__meta-label">Surface</span><span class="card__meta-value">280 m²</span></div>
+            <div class="card__meta-item"><span class="card__meta-label">Année</span><span class="card__meta-value">2021</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-card="7" data-screen-label="V08 Béton">
+      <div class="card__media"><img class="card__img" src="assets/photos/atelier-beton.jpg" alt="Atelier Béton" /></div>
+      <div class="card__shade"></div>
+      <span class="card__num">VIII.</span>
+      <div class="card__copy">
+        <div class="card__heading">
+          <div class="card__eyebrow"><span>Atelier Béton</span><span class="dot"></span><span>Bordeaux · 2021</span></div>
+          <h2 class="card__title">Le brut, <em>tenu en silence.</em></h2>
+        </div>
+        <div class="card__details">
+          <p class="card__desc">Reconversion d'un atelier d'imprimerie en loft familial. Béton ciré, charpente métallique conservée, mobilier en chêne et lin écru.</p>
+          <div class="card__meta">
+            <div class="card__meta-item"><span class="card__meta-label">Lieu</span><span class="card__meta-value">Bordeaux</span></div>
+            <div class="card__meta-item"><span class="card__meta-label">Surface</span><span class="card__meta-value">220 m²</span></div>
+            <div class="card__meta-item"><span class="card__meta-label">Année</span><span class="card__meta-value">2021</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-card="8" data-screen-label="V09 Littoral">
+      <div class="card__media"><img class="card__img" src="assets/photos/villa-littoral.jpg" alt="Villa Littoral" /></div>
+      <div class="card__shade"></div>
+      <span class="card__num">IX.</span>
+      <div class="card__copy">
+        <div class="card__heading">
+          <div class="card__eyebrow"><span>Villa Littoral</span><span class="dot"></span><span>Cap Ferret · 2020</span></div>
+          <h2 class="card__title">Le bois, <em>la mer, le calme.</em></h2>
+        </div>
+        <div class="card__details">
+          <p class="card__desc">Cabane d'ostréiculteur réinterprétée. Bardage en pin maritime brûlé selon la technique japonaise du shou-sugi-ban, intérieurs blanchis.</p>
+          <div class="card__meta">
+            <div class="card__meta-item"><span class="card__meta-label">Lieu</span><span class="card__meta-value">Cap Ferret</span></div>
+            <div class="card__meta-item"><span class="card__meta-label">Surface</span><span class="card__meta-value">180 m²</span></div>
+            <div class="card__meta-item"><span class="card__meta-label">Année</span><span class="card__meta-value">2020</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-card="9" data-screen-label="V10 Intérieur">
+      <div class="card__media"><img class="card__img" src="assets/photos/interieur.jpg" alt="Hôtel particulier Saint-Pierre" /></div>
+      <div class="card__shade"></div>
+      <span class="card__num">X.</span>
+      <div class="card__copy">
+        <div class="card__heading">
+          <div class="card__eyebrow"><span>Hôtel particulier Saint-Pierre</span><span class="dot"></span><span>Bordeaux · 2020</span></div>
+          <h2 class="card__title">Patrimoine et <em>geste contemporain.</em></h2>
+        </div>
+        <div class="card__details">
+          <p class="card__desc">Restauration d'un hôtel particulier du XVIIIᵉ. Boiseries d'origine, parquet en point de Hongrie, insertions discrètes de mobilier d'auteur.</p>
+          <div class="card__meta">
+            <div class="card__meta-item"><span class="card__meta-label">Lieu</span><span class="card__meta-value">Bordeaux</span></div>
+            <div class="card__meta-item"><span class="card__meta-label">Surface</span><span class="card__meta-value">620 m²</span></div>
+            <div class="card__meta-item"><span class="card__meta-label">Année</span><span class="card__meta-value">2020</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- HUD -->
+<div class="hud hud-counter" aria-hidden="true">
+  <span class="hud-counter__current" data-counter-current>I</span>
+  <span class="hud-counter__sep">/</span>
+  <span class="hud-counter__total">X</span>
+</div>
+<div class="hud hud-progress" aria-hidden="true">
+  <span class="hud-progress__fill" data-progress-fill></span>
+</div>
+
+<!-- OUTRO -->
+<section class="outro" id="contact" data-screen-label="14 Contact">
+  <div class="outro__heading">
+    <span class="outro__eyebrow">Atelier Rivage · MMXXVI</span>
+    <h2 class="outro__title">Concevez<br/><em>la vôtre.</em></h2>
+    <p class="outro__sub">
+      Dix villas livrées entre Bordeaux et le littoral atlantique. L'atelier conçoit votre maison sur-mesure, depuis l'esquisse jusqu'à la livraison clé en main.
+    </p>
+  </div>
+  <form class="contact-form" id="contactForm" novalidate>
+    <div class="contact-form__field">
+      <label class="contact-form__label" for="cf-nom">Nom</label>
+      <input class="contact-form__input" type="text" id="cf-nom" name="nom" autocomplete="name" required />
+    </div>
+    <div class="contact-form__field">
+      <label class="contact-form__label" for="cf-tel">Téléphone</label>
+      <input class="contact-form__input" type="tel" id="cf-tel" name="tel" autocomplete="tel" />
+    </div>
+    <div class="contact-form__field contact-form__field--full">
+      <label class="contact-form__label" for="cf-mail">E-mail</label>
+      <input class="contact-form__input" type="email" id="cf-mail" name="email" autocomplete="email" required />
+    </div>
+    <div class="contact-form__field contact-form__field--full">
+      <label class="contact-form__label" for="cf-msg">Votre projet, en une ligne</label>
+      <textarea class="contact-form__textarea" id="cf-msg" name="projet" rows="2" placeholder="Une villa pieds dans l'eau, un appartement haussmannien, une rénovation patrimoniale…"></textarea>
+    </div>
+    <button class="contact-form__submit" type="submit">
+      Démarrer mon projet <span class="arrow">→</span>
+    </button>
+  </form>
+</section>
+
+</main>
+
+<footer class="footer" data-screen-label="15 Footer">
+  <div class="footer__col">
+    <div class="footer__brand">Atelier <em>Rivage</em>.</div>
+    <p>Architecte d'intérieur, Bordeaux.<br/>Maquettes habitées sur-mesure, livrées clé en main.</p>
+  </div>
+  <div class="footer__col">
+    <h4>Atelier</h4>
+    <p>12 quai des Chartrons<br/>33000 Bordeaux<br/>France</p>
+  </div>
+  <div class="footer__col">
+    <h4>Contact</h4>
+    <a href="mailto:studio@atelier-rivage.fr">studio@atelier-rivage.fr</a>
+    <a href="tel:+33556001212">+33 5 56 00 12 12</a>
+  </div>
+  <div class="footer__col">
+    <h4>Suivre</h4>
+    <a href="#">Instagram</a>
+    <a href="#">Pinterest</a>
+    <a href="#">Newsletter</a>
+  </div>
+  <div class="footer__bottom">
+    <span>© 2026 · Atelier Rivage SARL · TVA FR67·439·212·001</span>
+    <span class="footer__legal">
+      <a href="#" data-modal="legal">Mentions légales</a>
+      <a href="#" data-modal="privacy">Confidentialité</a>
+      <a href="https://pinapp.fr" class="pinapp">Démo Pinapp Studio</a>
+    </span>
+  </div>
+</footer>
+
+<!-- Modales -->
+<div class="modal" id="modal-legal" data-open="false" role="dialog" aria-modal="true" aria-labelledby="legal-title">
+  <div class="modal__panel">
+    <button class="modal__close" data-modal-close aria-label="Fermer">×</button>
+    <h2 class="modal__title" id="legal-title">Mentions <em>légales</em></h2>
+    <h3>Éditeur</h3>
+    <p>Atelier Rivage SARL · 12 quai des Chartrons, 33000 Bordeaux · RCS Bordeaux 439 212 001 · TVA intra. FR67·439·212·001.</p>
+    <h3>Hébergement</h3>
+    <p>Démo conçue par Pinapp Studio · pinapp.fr</p>
+    <h3>Crédits</h3>
+    <p>Photographies : © Atelier Rivage / clients · Conception : Pinapp Studio · Typographies : Cormorant Garamond, Inter (OFL).</p>
+  </div>
+</div>
+
+<div class="modal" id="modal-privacy" data-open="false" role="dialog" aria-modal="true" aria-labelledby="privacy-title">
+  <div class="modal__panel">
+    <button class="modal__close" data-modal-close aria-label="Fermer">×</button>
+    <h2 class="modal__title" id="privacy-title">Politique de <em>confidentialité</em></h2>
+    <h3>Cookies</h3>
+    <p>Ce site n'utilise <strong>aucun cookie</strong>, ni outil d'analyse tiers.</p>
+    <h3>Vos droits (RGPD)</h3>
+    <p>Pour exercer vos droits : <a href="mailto:rgpd@atelier-rivage.fr">rgpd@atelier-rivage.fr</a></p>
+  </div>
+</div>
+
+<!-- Lenis + GSAP -->
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<script>
+(function () {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cards = Array.from(document.querySelectorAll('.card'));
+  const total = cards.length;
+  const stack = document.getElementById('stack');
+
+  // Lenis smooth scroll
+  let lenis = null;
+  if (window.Lenis && !reduced) {
+    lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      touchMultiplier: 1.4,
+    });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+
+    if (window.gsap && window.ScrollTrigger) {
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time) => lenis.raf(time * 1000));
+      gsap.ticker.lagSmoothing(0);
+    }
+  }
+
+  // Set initial transforms — newest card on top, others stacked behind with depth
+  cards.forEach((card, i) => {
+    if (i === 0) {
+      card.style.transform = 'translateZ(0px) translateY(0%) rotateX(0deg) scale(1)';
+      card.style.opacity = '1';
+    } else {
+      // Sit behind, slightly smaller, slightly down, dim
+      card.style.transform = `translateZ(${-80 * i}px) translateY(${4 * i}%) scale(${1 - i * 0.04})`;
+      card.style.opacity = '0';
+    }
+    card.style.zIndex = String(total - i);
+  });
+
+  // GSAP ScrollTrigger orchestration
+  if (window.gsap && window.ScrollTrigger && stack) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // The original implementation created many ScrollTriggers (per card × per property),
+    // which is both heavy and can stutter on some machines. We collapse everything
+    // into a single scrubbed timeline (1 ScrollTrigger) + idempotent init.
+    const ROMAN = ['I','II','III','IV','V','VI','VII','VIII','IX','X'];
+    const progressEl = document.querySelector('[data-progress-fill]');
+    const counterEl = document.querySelector('[data-counter-current]');
+
+    let st = null;
+    let tl = null;
+    let resizeRaf = 0;
+
+    function updateHud(progress) {
+      const clamped = Math.max(0, Math.min(1, progress || 0));
+      const idx = Math.min(total - 1, Math.round(clamped * (total - 1)));
+      if (counterEl) counterEl.textContent = ROMAN[idx] || ROMAN[ROMAN.length - 1];
+      if (progressEl) progressEl.style.width = (clamped * 100).toFixed(1) + '%';
+    }
+
+    function killStackTimeline() {
+      if (tl) { tl.kill(); tl = null; }
+      if (st) { st.kill(); st = null; }
+    }
+
+    function buildStackTimeline() {
+      killStackTimeline();
+
+      // Keep the init idempotent even if the page is restored from bfcache.
+      // Also remove any stray triggers created by previous builds.
+      if (ScrollTrigger && typeof ScrollTrigger.getAll === 'function') {
+        ScrollTrigger.getAll().forEach((t) => t.kill());
       }
 
-      document.getElementById('prev').onclick = function () {
-        goTo(cur > 0 ? cur - 1 : data.length - 1);
-      };
-      document.getElementById('next').onclick = function () {
-        goTo(cur < data.length - 1 ? cur + 1 : 0);
-      };
+      const STEP = Math.max(1, window.innerHeight); // 1 viewport per card transition
+      const end = (total - 1) * STEP;
 
-      document.addEventListener('mousemove', function (e) {
-        var x = (e.clientX / window.innerWidth - 0.5) * -20;
-        var y = (e.clientY / window.innerHeight - 0.5) * -12;
-        var img = slides[cur].querySelector('img');
-        if (img) img.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(1.08)';
-      });
+      tl = gsap.timeline({ defaults: { ease: 'none' } });
 
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'ArrowRight' || e.key === ' ') {
-          e.preventDefault();
-          goTo(cur < data.length - 1 ? cur + 1 : 0);
+      for (let i = 0; i < total - 1; i++) {
+        const current = cards[i];
+        const next = cards[i + 1];
+
+        const currentImg = current?.querySelector?.('.card__img');
+        const currentNum = current?.querySelector?.('.card__num');
+        const currentCopy = current?.querySelector?.('.card__copy');
+
+        const nextNum = next?.querySelector?.('.card__num');
+        const nextCopy = next?.querySelector?.('.card__copy');
+
+        // Outgoing : tilts back and lifts away
+        tl.to(current, { y: '-50%', rotateX: -28, scale: 0.88, opacity: 0, duration: 1 }, i);
+        if (currentNum) tl.to(currentNum, { x: '-30%', opacity: 0, duration: 1 }, i);
+        if (currentCopy) tl.to(currentCopy, { y: -60, opacity: 0, duration: 1 }, i);
+        if (currentImg) tl.to(currentImg, { scale: 1.18, y: '-8%', duration: 1 }, i);
+
+        // Incoming : from behind/below, scale up to full
+        tl.fromTo(
+          next,
+          { y: '8%', scale: 0.92, opacity: 0, rotateX: 8 },
+          { y: '0%', scale: 1, opacity: 1, rotateX: 0, duration: 1, immediateRender: false },
+          i
+        );
+        if (nextNum) {
+          tl.fromTo(nextNum, { x: '20%', opacity: 0 }, { x: '0%', opacity: 1, duration: 1, immediateRender: false }, i);
         }
-        if (e.key === 'ArrowLeft') goTo(cur > 0 ? cur - 1 : data.length - 1);
+        if (nextCopy) {
+          tl.fromTo(nextCopy, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1, immediateRender: false }, i);
+        }
+      }
+
+      st = ScrollTrigger.create({
+        trigger: stack,
+        start: 'top top',
+        end: `+=${end}`,
+        scrub: 0.6,
+        animation: tl,
+        onUpdate: (self) => updateHud(self.progress),
       });
 
-      var touchX = 0;
-      document.addEventListener(
-        'touchstart',
-        function (e) {
-          touchX = e.touches[0].clientX;
-        },
-        { passive: true },
-      );
-      document.addEventListener(
-        'touchend',
-        function (e) {
-          var diff = e.changedTouches[0].clientX - touchX;
-          if (Math.abs(diff) > 50) {
-            diff < 0 ? goTo(cur < data.length - 1 ? cur + 1 : 0) : goTo(cur > 0 ? cur - 1 : data.length - 1);
-          }
-        },
-        { passive: true },
-      );
-    </script>
-      <link rel="stylesheet" href="/assets/css/pinapp-awwards.css?v=20260217" />
-    <script src="/assets/js/pinapp-awwards.js?v=20260217" defer></script>
-<script src="/assets/vendor/gsap.min.js?v=3.12.5" defer></script>
-<script src="/assets/vendor/ScrollTrigger.min.js?v=3.12.5" defer></script>
-<script src="/assets/vendor/lenis.min.js?v=1.1.18" defer></script>
-<script src="/assets/js/pp-awwwards-effects.js?v=20260470" defer></script>
+      updateHud(0);
+    }
+
+    // Guard against double-init (rare, but can happen with bfcache / script re-execution)
+    if (!window.__atelierRivageStackInit) {
+      window.__atelierRivageStackInit = true;
+      buildStackTimeline();
+    }
+
+    // Refresh/rebuild on resize (STEP depends on viewport height)
+    window.addEventListener('resize', () => {
+      if (resizeRaf) cancelAnimationFrame(resizeRaf);
+      resizeRaf = requestAnimationFrame(() => {
+        buildStackTimeline();
+        ScrollTrigger.refresh();
+      });
+    }, { passive: true });
+  }
+
+  // ----- Modals -----
+  document.querySelectorAll('[data-modal]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = link.getAttribute('data-modal');
+      const m = document.getElementById('modal-' + id);
+      if (m) m.dataset.open = 'true';
+    });
+  });
+  document.querySelectorAll('[data-modal-close]').forEach(btn => {
+    btn.addEventListener('click', () => { btn.closest('.modal').dataset.open = 'false'; });
+  });
+  document.querySelectorAll('.modal').forEach(m => {
+    m.addEventListener('click', (e) => { if (e.target === m) m.dataset.open = 'false'; });
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal[data-open="true"]').forEach(m => m.dataset.open = 'false');
+    }
+  });
+
+  // ----- Form -----
+  const cf = document.getElementById('contactForm');
+  if (cf) {
+    cf.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fd = new FormData(cf);
+      const subj = encodeURIComponent('Projet Atelier Rivage · ' + (fd.get('nom') || ''));
+      const body = encodeURIComponent(`Nom : ${fd.get('nom') || ''}\nE-mail : ${fd.get('email') || ''}\nTéléphone : ${fd.get('tel') || ''}\n\nProjet :\n${fd.get('projet') || ''}`);
+      window.location.href = `mailto:studio@atelier-rivage.fr?subject=${subj}&body=${body}`;
+    });
+  }
+
+  // Active nav highlight
+  const navLinks = document.querySelectorAll('.header__nav a');
+  const sections = ['#stack', '#manifeste', '#contact'].map(s => document.querySelector(s)).filter(Boolean);
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY + window.innerHeight * 0.3;
+    let active = '#stack';
+    sections.forEach(s => { if (s.offsetTop <= y) active = '#' + s.id; });
+    navLinks.forEach(a => a.classList.toggle('is-current', a.getAttribute('href') === active));
+  }, { passive: true });
+})();
+</script>
+
 </body>
 </html>

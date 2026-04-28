@@ -377,7 +377,7 @@ Cartes existantes a conserver + Memoire et Presence a ajouter :
 
 - Artisan plombier -> /demo/artisan/index.html
 - Restaurant japonais Okami -> /demo/restaurant/index.html
-- Coach independant -> /demo/coach/index.html
+- Institut beauté (démo) -> /demo/esthetique/
 - Vitrine complete -> /demo/sur-mesure/index.html
 - Memoire et Presence -> memoireetpresence.fr (target \_blank)
 
