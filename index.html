@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#050b14" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
-<meta name="pinapp-voyage-v9-build" content="v14.3-brand-logo-micha-2026-04-28" />
+<meta name="pinapp-voyage-v9-build" content="v14.4-nav-hamburger-no-sober-2026-04-28" />
 <title>Pinapp · Sites + films pour TPE/PME · 50 à 75% moins cher | Bordeaux</title>
 <meta name="description" content="Duo Pinapp : sites qui convertissent + films cinéma. Diagnostic 24h gratuit. Bordeaux + Nouvelle-Aquitaine. Tarifs publics dès 1 290 €." />
 <meta property="og:title" content="Pinapp · Sites + films pour TPE/PME · 50-75% moins cher | Bordeaux" />
@@ -116,15 +116,14 @@ button{background:none;border:0;cursor:pointer}
 :focus-visible{outline:none;box-shadow:var(--focus);border-radius:var(--r-sm)}
 a,button,.btn,input[type="checkbox"],input[type="radio"]{touch-action:manipulation}
 #pinapp-film{position:fixed;inset:0;z-index:-4;pointer-events:none;opacity:.035;mix-blend-mode:screen;filter:hue-rotate(var(--film-hue-shift,0deg));transition:filter 1.2s var(--ease-out)}
-html.sober #pinapp-film{display:none}
 .stage{position:fixed;inset:0;z-index:-3;overflow:hidden;background:var(--nuit)}
 .stage__layer{position:absolute;inset:0;opacity:0;transition:opacity var(--dur-cinema) var(--ease-out),filter var(--dur-cinema) var(--ease-out);background-size:cover;background-position:center;transform:translateZ(0);-webkit-backface-visibility:hidden;backface-visibility:hidden;filter:blur(4px);will-change:opacity}
 .stage__layer.is-active{opacity:1;filter:none}
 @media (prefers-reduced-motion:no-preference){
-  html:not(.sober) .stage__layer.is-active{animation:kenburns 15s linear infinite}
+  .stage__layer.is-active{animation:kenburns 15s linear infinite}
 }
 @keyframes kenburns{0%{transform:translateZ(0) scale(1)}100%{transform:translateZ(0) scale(1.05)}}
-@media (prefers-reduced-motion:reduce),(html.sober){.stage__layer.is-active{animation:none!important}}
+@media (prefers-reduced-motion:reduce){.stage__layer.is-active{animation:none!important}}
 .stage__scrim{position:fixed;inset:0;z-index:-2;pointer-events:none;background:linear-gradient(180deg,rgba(5,11,20,.42) 0%,rgba(5,11,20,.72) 50%,rgba(5,11,20,.88) 100%)}
 .progress{position:fixed;inset:0 0 auto 0;height:3px;z-index:200;pointer-events:none;background:transparent}
 .progress__fill{height:100%;width:100%;background:linear-gradient(90deg,var(--or),var(--cyan));transform-origin:0 50%;transform:scaleX(0);transition:none}
@@ -161,13 +160,14 @@ html[data-mode="day"] .hero-duo-preview__meta{background:rgba(255,255,255,0.04)}
 .nav__actions{display:flex;align-items:center;gap:var(--sp-3);flex-wrap:wrap;justify-content:flex-end}
 .nav__cta{font-size:var(--fs-micro);font-weight:600;padding:12px 18px;min-height:44px;border-radius:var(--r-pill);background:var(--or);color:var(--nuit);transition:transform var(--dur-fast) var(--ease-spring)}
 .nav__cta:hover{transform:translateY(-1px)}
-.drawer__sober{font-size:var(--fs-micro);padding:12px 16px;min-height:44px;border-radius:var(--r-pill);border:1px solid rgba(230,185,115,0.45);color:var(--ivoire);background:transparent;cursor:pointer;width:100%;text-align:left;transition:background var(--dur-fast),transform var(--dur-fast) var(--ease-spring);margin-top:var(--sp-4);touch-action:manipulation}
-.drawer__sober:hover,.drawer__sober:focus-visible{background:var(--or-glow);transform:translateY(-1px)}
-.drawer__sober-glyph{display:inline-block;font-size:1.1rem;margin-right:8px;opacity:0.9;vertical-align:middle}
-.drawer__sober-text{display:inline;vertical-align:middle}
-.nav__drawer-open{font-size:var(--fs-micro);padding:12px 16px;min-height:44px;border-radius:var(--r-pill);border:1px solid rgba(230,185,115,0.45);color:var(--ivoire);transition:background var(--dur-fast),transform var(--dur-fast) var(--ease-spring)}
-.nav__drawer-open:hover{background:var(--or-glow);transform:translateY(-1px)}
-.nav__drawer-open{font-size:1.25rem;line-height:1;padding:10px 14px}
+.nav__hamburger{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:0;border-radius:var(--r-pill);border:1px solid rgba(230,185,115,0.45);color:var(--ivoire);background:rgba(5,11,20,0.35);cursor:pointer;transition:background var(--dur-fast),border-color var(--dur-fast),transform var(--dur-fast) var(--ease-spring);touch-action:manipulation}
+.nav__hamburger:hover,.nav__hamburger:focus-visible{background:var(--or-glow);border-color:rgba(230,185,115,0.55);transform:translateY(-1px)}
+.nav__hamburger:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.nav__hamburger-box{display:flex;flex-direction:column;justify-content:center;gap:5px;width:20px;height:14px}
+.nav__hamburger-line{display:block;height:2px;width:100%;background:currentColor;border-radius:1px;transition:transform var(--dur-fast) var(--ease-spring),opacity var(--dur-fast)}
+.nav__hamburger[aria-expanded="true"] .nav__hamburger-line:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav__hamburger[aria-expanded="true"] .nav__hamburger-line:nth-child(2){opacity:0}
+.nav__hamburger[aria-expanded="true"] .nav__hamburger-line:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 main{position:relative;z-index:1;padding-top:72px}
 .scene{position:relative;min-height:100dvh;padding:var(--sp-8) var(--gutter) var(--sp-9);display:flex;align-items:center}
 .scene--interstitial{min-height:100dvh;justify-content:center;text-align:center}
@@ -350,7 +350,6 @@ footer .mp{font-size:12px;color:var(--ivoire-dim);margin-top:var(--sp-4)}
 #demoClose{min-width:44px;min-height:44px;border-radius:var(--r-sm);border:1px solid rgba(230,185,115,0.45);background:transparent;color:var(--ivoire);font-size:1.25rem;line-height:1;cursor:pointer;position:absolute;top:var(--sp-3);right:var(--sp-3);touch-action:manipulation}
 .modal__close{position:absolute;top:var(--sp-3);right:var(--sp-3);min-width:44px;min-height:44px;border-radius:var(--r-sm);border:1px solid rgba(230,185,115,0.35)}
 .morse-stay{position:fixed;bottom:var(--sp-4);left:var(--sp-4);z-index:50;display:flex;gap:4px;align-items:center;padding:8px 12px;min-height:44px;background:rgba(5,11,20,0.6);border-radius:var(--r-pill);border:1px solid rgba(230,185,115,0.2)}
-html.sober .morse-stay{display:none}
 .morse-stay .morse-dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--or);opacity:0.25;transition:opacity 0.15s}
 .morse-stay .morse-dot.is-on{opacity:1}
 @media (prefers-reduced-motion:reduce){.morse-stay .morse-dot{animation:none!important}}
@@ -470,16 +469,12 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
 .scene-signature__num{font-weight:600;font-family:ui-monospace,Menlo,monospace}
 .scene-signature__sep{opacity:0.45}
 .scene-signature__label{font-style:italic;font-family:var(--ff-serif);letter-spacing:0.06em;text-transform:none;font-size:11px;line-height:1.2}
-html.sober #scene-signature{display:none}
 .scroll-progress{position:fixed;bottom:22px;right:18px;z-index:96;width:56px;height:56px;border-radius:50%;opacity:0;transform:scale(0.88);transition:opacity var(--dur-mid) var(--ease-out),transform var(--dur-mid) var(--ease-spring);box-shadow:0 0 0 1px rgba(230,185,115,0.1)}
 .scroll-progress.is-visible{opacity:1;transform:scale(1)}
 .scroll-progress svg{display:block;width:100%;height:100%;transform:rotate(-90deg)}
 .scroll-progress__track{fill:rgba(5,11,20,0.55);stroke:rgba(230,185,115,0.14);stroke-width:2}
 .scroll-progress__fill{fill:none;stroke:var(--or);stroke-width:2;stroke-linecap:round;stroke-dasharray:163.36;stroke-dashoffset:163.36;transition:stroke-dashoffset 0.15s linear}
 .scroll-progress__arrow{fill:var(--or);font-size:17px;font-weight:600;transform:rotate(90deg);transform-origin:30px 35px}
-html.sober .scroll-progress{display:none}
-.theme-ripple{position:fixed;width:0;height:0;border-radius:50%;background:var(--or);transform:translate(-50%,-50%);pointer-events:none;z-index:9998;opacity:0.55;transition:width 0.75s var(--ease-cinema),height 0.75s var(--ease-cinema),opacity 0.75s var(--ease-out)}
-.theme-ripple.is-expand{width:280vmax;height:280vmax;opacity:0}
 #pinapp-loader{position:fixed;inset:0;z-index:100000;background:#0a0d12;display:grid;place-items:center;gap:var(--sp-5);transition:opacity 0.55s var(--ease-out)}
 #pinapp-loader.is-done{opacity:0;pointer-events:none}
 .loader__brand{display:block}
@@ -670,7 +665,6 @@ html.sober .scroll-progress{display:none}
     grid-template-columns: 1fr;
   }
 }
-html.sober #grain-canvas{display:none!important}
 @media (pointer:fine) and (min-width:1024px){
   html.mag-cursor-on body{cursor:none}
   html.mag-cursor-on a,html.mag-cursor-on button,html.mag-cursor-on [role="button"],html.mag-cursor-on input,html.mag-cursor-on textarea,html.mag-cursor-on select{cursor:none}
@@ -751,7 +745,7 @@ html.sober #grain-canvas{display:none!important}
     </nav>
     <div class="nav__actions">
       <a class="nav__cta" href="#contact">Diagnostic 24h offert →</a>
-      <button type="button" class="nav__drawer-open" id="btnDrawerOpen" aria-controls="drawerAbout" aria-expanded="false" aria-label="Ouvrir le menu Qui sommes-nous">☰</button>
+      <button type="button" class="nav__hamburger" id="btnDrawerOpen" aria-controls="drawerAbout" aria-expanded="false" aria-label="Ouvrir le menu Qui sommes-nous"><span class="nav__hamburger-box" aria-hidden="true"><span class="nav__hamburger-line"></span><span class="nav__hamburger-line"></span><span class="nav__hamburger-line"></span></span></button>
     </div>
   </div>
 </header>
@@ -1772,8 +1766,7 @@ Captation 4-6h · montage 5 jours
   </div>
   <div class="drawer__act">
     <h3>Affichage</h3>
-    <p class="source-note" style="margin:0 0 var(--sp-2)">Réduit les effets (particules, smooth scroll) pour un parcours plus sobre — utile en fatigue visuelle.</p>
-    <button type="button" class="drawer__sober" id="btnSober" aria-pressed="false" aria-label="Activer le mode sobre (désactive les effets)"><span class="drawer__sober-glyph" aria-hidden="true">◯</span><span class="drawer__sober-text">Mode sobre</span></button>
+    <p class="source-note" style="margin:0">Les animations lourdes se coupent automatiquement si le système demande moins de mouvement (<code>prefers-reduced-motion</code>).</p>
   </div>
 </aside>
 
@@ -1850,18 +1843,6 @@ if('IntersectionObserver' in window && !prefersReduced()){
   document.querySelectorAll('[data-reveal]').forEach(function(el){ el.classList.add('is-in'); });
 }
 
-var SOBER_KEY='pinapp-voyage-sober';
-function applySober(on){
-  document.documentElement.classList.toggle('sober',on);
-  document.body.classList.toggle('sober',on);
-  try{localStorage.setItem(SOBER_KEY,on?'1':'0');}catch(e){}
-  if(on && window.__pinappLenis && typeof window.__pinappLenis.destroy==='function'){
-    try{window.__pinappLenis.destroy();}catch(e2){}
-    window.__pinappLenis=null;
-  }
-}
-try{ if(localStorage.getItem(SOBER_KEY)==='1') applySober(true);}catch(e){}
-
 var demoDlg=document.getElementById('demo-modal');
 var demoModalImg=document.getElementById('demo-modal__img');
 var demoModalTitleEl=document.getElementById('demo-modal-title');
@@ -1935,7 +1916,6 @@ window.PinappOpenDataDemo=function(slug){
 function getFocusable(root){
   return [].slice.call(root.querySelectorAll('a[href],button:not([disabled]),textarea,input,select,[tabindex]:not([tabindex="-1"])')).filter(function(n){ return n.offsetParent!==null || n===document.activeElement; });
 }
-var btnSober=document.getElementById('btnSober');
 var trapState={ el:null, fn:null };
 function trapFocus(root){
   if(trapState.fn && trapState.el){ trapState.el.removeEventListener('keydown', trapState.fn); trapState.el=null; trapState.fn=null; }
@@ -1987,34 +1967,6 @@ window.addEventListener('keydown',function(e){
   else if(dPanel && dPanel.classList.contains('is-open')) closeDrawer();
 });
 
-if(btnSober){
-  btnSober.addEventListener('click',function(){
-    if(prefersReduced()){
-      var on0=!document.documentElement.classList.contains('sober');
-      applySober(on0);
-      btnSober.setAttribute('aria-pressed',on0?'true':'false');
-      return;
-    }
-    if(dPanel && dPanel.classList.contains('is-open')){ closeDrawer(); }
-    var ripple=document.createElement('div');
-    ripple.className='theme-ripple';
-    var rect=btnSober.getBoundingClientRect();
-    ripple.style.left=(rect.left+rect.width/2)+'px';
-    ripple.style.top=(rect.top+rect.height/2)+'px';
-    document.body.appendChild(ripple);
-    requestAnimationFrame(function(){
-      ripple.classList.add('is-expand');
-      window.setTimeout(function(){
-        var on=!document.documentElement.classList.contains('sober');
-        applySober(on);
-        btnSober.setAttribute('aria-pressed',on?'true':'false');
-      },400);
-      window.setTimeout(function(){ ripple.remove(); },820);
-    });
-  });
-  if(document.documentElement.classList.contains('sober')) btnSober.setAttribute('aria-pressed','true');
-}
-
 var mpO=document.getElementById('mpOverlay');
 var mpD=document.getElementById('mpDialog');
 var mpC=document.getElementById('mpClose');
@@ -2040,7 +1992,7 @@ var dots=[].slice.call(document.querySelectorAll('.morse-dot'));
 var morseSeq=[0,1,2,1,3,4,3,5];
 var mi=0;
 function tickMorse(){
-  if(prefersReduced() || document.documentElement.classList.contains('sober')) return;
+  if(prefersReduced()) return;
   dots.forEach(function(d,i){ d.classList.toggle('is-on', morseSeq[mi%8]===i); });
   mi++;
 }
