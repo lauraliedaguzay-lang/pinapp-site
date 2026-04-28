@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Atelier Rivage · Architecte d'intérieur · Bordeaux & Atlantique</title>
+<meta name="description" content="Galerie immersive 3D · Atelier Rivage · 10 villas d'exception, du Cap Ferret à Saint-Émilion. Architecte d'intérieur basé à Bordeaux." />
+<meta name="theme-color" content="#0A0908" />
+
+<!-- OpenGraph -->
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="fr_FR" />
+<meta property="og:title" content="Atelier Rivage · Architecte d'intérieur" />
+<meta property="og:description" content="Dix villas d'exception entre Bordeaux et le littoral atlantique. Galerie immersive 3D." />
+<meta property="og:site_name" content="Atelier Rivage" />
+<meta property="og:image" content="assets/photos/villa-lumiere.jpg" />
+
+<!-- Twitter card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Atelier Rivage" />
+<meta name="twitter:description" content="Dix villas d'exception · Architecte d'intérieur · Bordeaux." />
+<meta name="twitter:image" content="assets/photos/villa-lumiere.jpg" />
+
+<!-- Favicon SVG -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230A0908'/%3E%3Ctext x='32' y='44' font-family='Cormorant Garamond,serif' font-size='40' font-style='italic' font-weight='300' fill='%23C9A96E' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@400;500;600&display=swap" />
+<link rel="stylesheet" href="assets/style.css?v=14" />
+
+<!-- Preload première photo (au-dessus du fold après loader) -->
+<link rel="preload" as="image" href="assets/photos/villa-lumiere.jpg" />
+
+<!-- Stack -->
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+
+<!-- JSON-LD LocalBusiness -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Atelier Rivage",
+  "description": "Architecte d'intérieur, Bordeaux. Maquettes habitées sur-mesure, livrées clé en main.",
+  "url": "https://atelier-rivage.fr",
+  "email": "studio@atelier-rivage.fr",
+  "telephone": "+33-5-56-00-12-12",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "12 quai des Chartrons",
+    "postalCode": "33000",
+    "addressLocality": "Bordeaux",
+    "addressCountry": "FR"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": "44.8533", "longitude": "-0.5708" },
+  "priceRange": "€€€€",
+  "areaServed": ["Bordeaux", "Cap Ferret", "Biarritz", "Arcachon", "Hossegor", "Saint-Émilion"]
+}
+</script>
+</head>
+<body data-screen-label="Atelier Rivage">
+
+<a class="skip-link" href="#contenu">Aller au contenu</a>
+
+<!-- Loader -->
+<div class="loader" data-screen-label="00 Chargement">
+  <div class="loader__top">
+    <span>Atelier Rivage · Studio · Bordeaux</span>
+    <span>MMXXVI</span>
+  </div>
+  <div class="loader__center">
+    <div class="loader__title">Atelier <em>Rivage</em>.</div>
+    <div class="loader__bar"></div>
+    <div style="font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(244,235,217,0.45)">
+      <span class="loader__pct">000</span> / 100 · Galerie 3D
+    </div>
+  </div>
+  <div class="loader__bottom">
+    <span>10 villas livrées</span>
+    <span>Cap Ferret · Biarritz · Bordeaux</span>
+  </div>
+</div>
+
+<!-- WebGL stage -->
+<div id="stage" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- Header -->
+<header class="header">
+  <a href="#" class="header__logo" data-cursor="Accueil">Atelier <em>Rivage</em>.</a>
+  <nav class="header__nav" aria-label="Principal">
+    <a href="#" class="is-current" data-cursor="Galerie">Galerie</a>
+    <a href="#" data-cursor="Studio">Studio</a>
+    <a href="#" data-cursor="Presse">Presse</a>
+    <a href="#contact" data-cursor="Écrire">Contact</a>
+  </nav>
+</header>
+
+<!-- Mini-index latéral (généré par scene.js) -->
+<nav class="minimap" aria-label="Index des villas"></nav>
+
+<!-- Hero entry -->
+<div class="hero" data-screen-label="01 Hero">
+  <div class="hero__inner">
+    <span class="hero__eyebrow">Architecture résidentielle · Bordeaux &amp; Atlantique</span>
+    <h1 class="hero__title">
+      <span class="word"><span>ATELIER</span></span><br/>
+      <span class="word"><span><em>Rivage</em>.</span></span>
+    </h1>
+    <div class="hero__sub">Dix villas livrées · MMXX → MMXXVI</div>
+    <div class="hero__scroll">
+      <span>Faites défiler</span>
+      <span class="hero__scroll-line"></span>
+    </div>
+  </div>
+</div>
+
+<!-- HUD -->
+<div class="hud hud-counter" data-hud="counter">01</div>
+<div class="hud hud-villa" data-visible="false">
+  <span class="hud-villa__eyebrow" data-hud="eyebrow">Villa 01 · 2024</span>
+  <h2 class="hud-villa__title" data-hud="title">Villa Lumière</h2>
+  <div class="hud-villa__loc" data-hud="loc">Cap Ferret · 480m²</div>
+  <p class="hud-villa__desc" data-hud="desc">Piscine à débordement face à l'Atlantique.</p>
+</div>
+<div class="hud hud-bottom">
+  <span class="hud-bottom__progress"></span>
+  <span>Scroll · Atelier Rivage 2026</span>
+</div>
+
+<!-- Scroll spine -->
+<main id="contenu">
+<div class="scroll-spine" aria-hidden="true">
+  <div class="scroll-spine__section"></div>
+  <div class="scroll-spine__section"></div>
+  <div class="scroll-spine__section"></div>
+  <div class="scroll-spine__section"></div>
+  <div class="scroll-spine__section"></div>
+  <div class="scroll-spine__section"></div>
+  <div class="scroll-spine__section"></div>
+  <div class="scroll-spine__section"></div>
+  <div class="scroll-spine__section"></div>
+  <div class="scroll-spine__section"></div>
+  <div class="scroll-spine__section"></div>
+  <div class="scroll-spine__section"></div>
+  <div class="scroll-spine__section"></div>
+</div>
+
+<!-- Outro CTA en cream -->
+<section class="outro" data-screen-label="12 Outro" id="contact">
+  <div class="outro__inner">
+    <span class="outro__eyebrow">Atelier Rivage · 2026</span>
+    <h2 class="outro__title">Concevez<br/><em>la vôtre.</em></h2>
+    <p class="outro__sub">Dix villas livrées entre Bordeaux et le littoral atlantique. Atelier Rivage conçoit votre maison sur-mesure, depuis l'esquisse jusqu'à la livraison clé en main.</p>
+
+    <form class="contact-form" id="contactForm" novalidate>
+      <div class="contact-form__field">
+        <label class="contact-form__label" for="cf-nom">Nom</label>
+        <input class="contact-form__input" type="text" id="cf-nom" name="nom" autocomplete="name" required />
+      </div>
+      <div class="contact-form__field">
+        <label class="contact-form__label" for="cf-tel">Téléphone</label>
+        <input class="contact-form__input" type="tel" id="cf-tel" name="tel" autocomplete="tel" />
+      </div>
+      <div class="contact-form__field contact-form__field--full">
+        <label class="contact-form__label" for="cf-mail">E-mail</label>
+        <input class="contact-form__input" type="email" id="cf-mail" name="email" autocomplete="email" required />
+      </div>
+      <div class="contact-form__field contact-form__field--full">
+        <label class="contact-form__label" for="cf-msg">Votre projet, en une ligne</label>
+        <textarea class="contact-form__textarea" id="cf-msg" name="projet" rows="2" placeholder="Une villa pieds dans l'eau, un appartement haussmannien, une rénovation patrimoniale…"></textarea>
+      </div>
+      <button class="contact-form__submit" type="submit" data-cursor="Envoyer">
+        Démarrer mon projet <span class="arrow">→</span>
+      </button>
+    </form>
+
+    <div class="outro__ctas">
+      <a class="btn" href="mailto:studio@atelier-rivage.fr" style="border-color:rgba(30,42,58,0.22);color:var(--ink)" data-cursor="Email">studio@atelier-rivage.fr</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- Footer en bleu nuit -->
+<footer class="footer" data-screen-label="13 Footer">
+  <div class="footer__col">
+    <div class="footer__brand">Atelier <em>Rivage</em>.</div>
+    <p>Architecte d'intérieur, Bordeaux.<br/>Maquettes habitées sur-mesure,<br/>livrées clé en main.</p>
+  </div>
+  <div class="footer__col">
+    <h4>Atelier</h4>
+    <p>12 quai des Chartrons<br/>33000 Bordeaux<br/>France</p>
+  </div>
+  <div class="footer__col">
+    <h4>Contact</h4>
+    <a href="mailto:studio@atelier-rivage.fr">studio@atelier-rivage.fr</a>
+    <a href="tel:+33556001212">+33 5 56 00 12 12</a>
+  </div>
+  <div class="footer__col">
+    <h4>Suivre</h4>
+    <a href="#">Instagram</a>
+    <a href="#">Pinterest</a>
+    <a href="#">Newsletter</a>
+  </div>
+  <div class="footer__bottom">
+    <span>© 2026 · Atelier Rivage SARL · TVA FR67·439·212·001</span>
+    <span class="footer__legal">
+      <a href="#" data-modal="legal">Mentions légales</a>
+      <a href="#" data-modal="privacy">Confidentialité</a>
+      <a href="https://pinapp.fr" class="pinapp" data-cursor="Pinapp">Démo Pinapp Studio</a>
+    </span>
+  </div>
+</footer>
+
+<!-- Modal Mentions légales -->
+<div class="modal" id="modal-legal" data-open="false" role="dialog" aria-modal="true" aria-labelledby="legal-title">
+  <div class="modal__panel">
+    <button class="modal__close" data-modal-close aria-label="Fermer">×</button>
+    <h2 class="modal__title" id="legal-title">Mentions <em>légales</em></h2>
+    <h3>Éditeur</h3>
+    <p>Atelier Rivage SARL · 12 quai des Chartrons, 33000 Bordeaux · RCS Bordeaux 439 212 001 · TVA intra. FR67·439·212·001 · Capital social : 50 000 €.</p>
+    <h3>Directeur de la publication</h3>
+    <p>L. Rivage, gérante.</p>
+    <h3>Hébergement</h3>
+    <p>Démo conçue par Pinapp Studio · pinapp.fr · Hébergement statique cloud (Vercel / Netlify).</p>
+    <h3>Crédits</h3>
+    <p>Photographies : © Atelier Rivage / clients · Conception interactive : Pinapp Studio · Typographies : Cormorant Garamond, Inter (Google Fonts, OFL).</p>
+    <h3>Propriété intellectuelle</h3>
+    <p>L'ensemble des contenus de ce site (textes, images, vidéos, logos) est la propriété exclusive d'Atelier Rivage SARL ou de ses partenaires. Toute reproduction, même partielle, est interdite sans autorisation écrite préalable.</p>
+  </div>
+</div>
+
+<!-- Modal Privacy -->
+<div class="modal" id="modal-privacy" data-open="false" role="dialog" aria-modal="true" aria-labelledby="privacy-title">
+  <div class="modal__panel">
+    <button class="modal__close" data-modal-close aria-label="Fermer">×</button>
+    <h2 class="modal__title" id="privacy-title">Politique de <em>confidentialité</em></h2>
+    <h3>Cookies</h3>
+    <p>Ce site n'utilise <strong>aucun cookie</strong>, ni outil d'analyse tiers (Google Analytics, Meta Pixel, etc.). Aucune donnée n'est collectée à votre passage.</p>
+    <h3>Formulaire de contact</h3>
+    <p>Les informations transmises via le formulaire (nom, e-mail, téléphone, description du projet) sont utilisées uniquement pour vous recontacter. Elles ne sont jamais cédées à des tiers et sont conservées 24 mois maximum.</p>
+    <h3>Vos droits (RGPD)</h3>
+    <p>Conformément au Règlement Général sur la Protection des Données, vous disposez d'un droit d'accès, de rectification, de portabilité et d'effacement de vos données. Pour exercer ces droits :</p>
+    <ul>
+      <li>par e-mail : <a href="mailto:rgpd@atelier-rivage.fr">rgpd@atelier-rivage.fr</a></li>
+      <li>par courrier : 12 quai des Chartrons, 33000 Bordeaux</li>
+    </ul>
+    <p>Vous pouvez également déposer une réclamation auprès de la <a href="https://www.cnil.fr">CNIL</a>.</p>
+  </div>
+</div>
+
+<!-- Mobile fallback (généré par scene.js) -->
+<div class="mobile" aria-label="Galerie mobile"></div>
+
+<!-- Custom cursor -->
+<div class="cursor" data-state=""><span class="cursor__label"></span></div>
+<div class="cursor-dot"></div>
+
+<script src="assets/cursor.js?v=14"></script>
+<script src="assets/loader.js?v=14"></script>
+<script type="module">
+  try { await import('./assets/scene.js?v=14'); }
+  catch (e) {
+    console.error('[Atelier] scene module failed:', e);
+    const l = document.querySelector('.loader'); if (l) l.dataset.done = 'true';
+  }
+</script>
+
+<!-- Modale + form handlers -->
+<script>
+  // Modal open/close
+  document.querySelectorAll('[data-modal]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = link.getAttribute('data-modal');
+      const modal = document.getElementById('modal-' + id);
+      if (modal) modal.dataset.open = 'true';
+    });
+  });
+  document.querySelectorAll('[data-modal-close]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.closest('.modal').dataset.open = 'false';
+    });
+  });
+  document.querySelectorAll('.modal').forEach(m => {
+    m.addEventListener('click', (e) => {
+      if (e.target === m) m.dataset.open = 'false';
+    });
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal[data-open="true"]').forEach(m => m.dataset.open = 'false');
+    }
+  });
+
+  // Form contact (mailto fallback)
+  const cf = document.getElementById('contactForm');
+  if (cf) {
+    cf.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fd = new FormData(cf);
+      const subj = encodeURIComponent('Projet Atelier Rivage · ' + (fd.get('nom') || ''));
+      const body = encodeURIComponent(
+        `Nom : ${fd.get('nom') || ''}\nE-mail : ${fd.get('email') || ''}\nTéléphone : ${fd.get('tel') || ''}\n\nProjet :\n${fd.get('projet') || ''}`
+      );
+      window.location.href = `mailto:studio@atelier-rivage.fr?subject=${subj}&body=${body}`;
+    });
+  }
+</script>
+</body>
+</html>
