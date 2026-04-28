@@ -6,7 +6,7 @@ Documentation **aval webhook** : ce qui doit se passer dans n8n **après** réce
 
 ## 1. Source de vérité (code)
 
-**Référence unique** : objet JavaScript `n8nMap` + branche `auto-pack` dans `voyage-v9/index.html` (bloc inline du formulaire `#diag`).
+**Référence unique (implémentation actuelle)** : le formulaire `#pinapp-form` (3 chemins : tech / image / pack_duo) calcule `n8n_route_tag` et `telegram_digest` dans **`voyage-v9/assets/js/v9-n8n-route.js`** (chargé avant `form-handler.js`). Les tableaux §1.1–1.2 décrivent les **tags** attendus par n8n ; le mapping depuis les champs du formulaire V9 est documenté en en-tête de ce script. L’ancienne spec « `n8nMap` inline + `#diag` » visait un autre gabarit de formulaire.
 
 Les workflows n8n et les noms de branches **doivent** aligner sur ces chaînes **exactes** (préfixe `#` inclus dans le tag émis quand le map renvoie une valeur avec `#`).
 

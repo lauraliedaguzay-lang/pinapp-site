@@ -116,6 +116,13 @@
       (data.newsletter ? 'Souscrit' : 'Non') +
       '\n\n──────────────────────────────────────────────────────────\nMESSAGE LIBRE\n──────────────────────────────────────────────────────────\n' +
       (data.message || '(vide)') +
+      '\n\n──────────────────────────────────────────────────────────\nROUTAGE N8N (docs/SCHEMA-WORKFLOWS-N8N.md)\n──────────────────────────────────────────────────────────\n' +
+      'n8n_route_tag : ' +
+      (data.n8n_route_tag || '—') +
+      '\nbesoin_key : ' +
+      (data.besoin_key || '—') +
+      '\n\ntelegram_digest :\n' +
+      (data.telegram_digest || '(vide)') +
       '\n\n──────────────────────────────────────────────────────────\nMETA\n──────────────────────────────────────────────────────────\n' +
       'Soumis : ' +
       (data.timestamp || '') +
@@ -221,6 +228,14 @@
           data[k] = v;
         }
       });
+
+      data.source = 'voyage-v9';
+      if (typeof window.PinappV9ResolveN8n === 'function') {
+        var r = window.PinappV9ResolveN8n(data);
+        if (r && r.n8n_route_tag) data.n8n_route_tag = r.n8n_route_tag;
+        if (r && r.telegram_digest) data.telegram_digest = r.telegram_digest;
+        if (r && r.besoin_key) data.besoin_key = r.besoin_key;
+      }
 
       var useWebhook = USE_N8N && isRealN8nUrl(N8N_URL);
       var submitBtn = document.getElementById('form-submit');

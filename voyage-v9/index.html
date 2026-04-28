@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#050b14" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
-<meta name="pinapp-voyage-v9-build" content="v12a5-hero-duo-photos-2026-04" />
+<meta name="pinapp-voyage-v9-build" content="v12a6-n8n-route-telegram-2026-04" />
 <title>Pinapp · Sites + films pour TPE/PME · 50 à 75% moins cher | Bordeaux</title>
 <meta name="description" content="Duo Pinapp : sites qui convertissent + films cinéma. Diagnostic 24h gratuit. Bordeaux + Nouvelle-Aquitaine. Tarifs publics dès 1 290 €." />
 <meta property="og:title" content="Pinapp · Sites + films pour TPE/PME · 50-75% moins cher | Bordeaux" />
@@ -1804,6 +1804,7 @@ Captation 4-6h · montage 5 jours
 
 <script src="/assets/js/config.js"></script>
 <script src="assets/js/n8n-config.js"></script>
+<script src="assets/js/v9-n8n-route.js"></script>
 <script src="assets/js/lenis.min.js"></script>
 <script src="assets/js/form-handler.js" defer></script>
 <script src="assets/js/scroll-smooth.js" defer></script>
@@ -1922,12 +1923,19 @@ window.PinappOpenDataDemo=function(slug){
   var href='/demo/atelier-rivage/';
   if(slug==='restaurant') href='/demo/restaurant/';
   else if(slug==='coach') href='/demo/coach/';
+  else if(slug==='logos-animes'){ href='#realisations-films'; }
+  var cap='Démo · '+slug;
+  var title='Démo · '+slug;
+  if(slug==='logos-animes'){
+    title='Branding · Logos animés';
+    cap='Aperçu image — démo secteur / films voir plus bas sur la page.';
+  }
   var fake={getAttribute:function(n){
     if(n==='data-demo-img') return 'assets/'+slug+'.webp';
-    if(n==='data-demo-title') return 'Démo · '+slug;
-    if(n==='data-demo-cap') return 'Démo · '+slug;
+    if(n==='data-demo-title') return title;
+    if(n==='data-demo-cap') return cap;
     if(n==='data-demo-href') return href;
-    if(n==='data-demo-label') return 'Ouvrir la démo en direct';
+    if(n==='data-demo-label') return slug==='logos-animes' ? 'Aller à Films / réalisations' : 'Ouvrir la démo en direct';
     return '';
   }};
   openDemoFromBtn(fake);
