@@ -299,7 +299,7 @@
 
     var lines = [
       { text: 'Bienvenue.', delay: 600 },
-      { text: "Vous êtes sur le point d'entrer\ndans un système différent.", delay: 2200 },
+      { text: "Chaque outil a sa place.\nNous la structurons.", delay: 2200 },
       { text: "Le problème n'est plus\nle manque d'outils.", delay: 4200 },
       { text: "C'est le manque de structure.", delay: 6200 },
       { text: 'Nous construisons la structure.\nVous récoltez.', delay: 8000 },

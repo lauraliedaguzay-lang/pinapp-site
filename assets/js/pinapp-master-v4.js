@@ -45,7 +45,7 @@
     var txt = document.getElementById('pi-txt');
     var lines = [
       { t: 'Bienvenue.', d: 600 },
-      { t: "Vous êtes sur le point d'entrer<br/>dans un système différent.", d: 2200 },
+      { t: "Chaque outil a sa place.<br/>Nous la structurons.", d: 2200 },
       { t: "Le problème n'est plus<br/>le manque d'outils.", d: 4400 },
       { t: "C'est le manque de structure.", d: 6400 },
       { t: 'Nous construisons la structure.<br/>Vous récoltez.', d: 8200 },
