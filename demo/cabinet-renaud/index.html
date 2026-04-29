@@ -1,0 +1,921 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Cabinet Renaud · Avocat · Droit des affaires · Paris</title>
+<meta name="description" content="Cabinet Renaud · Avocat en droit des affaires à Paris. Conseil, contentieux, transactions. Première consultation 30 min offerte." />
+<meta name="theme-color" content="#1F3A2D" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" />
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231F3A2D'/%3E%3Ctext x='32' y='44' font-family='Cormorant Garamond,serif' font-size='38' font-weight='500' fill='%23B8975A' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Attorney",
+  "name": "Cabinet Renaud",
+  "description": "Avocat en droit des affaires à Paris. Conseil, contentieux, transactions.",
+  "url": "https://pinapp.fr/demo/cabinet-renaud/",
+  "telephone": "+33-1-45-00-12-12",
+  "email": "cabinet@renaud-avocat.fr",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "12 avenue Hoche",
+    "postalCode": "75008",
+    "addressLocality": "Paris",
+    "addressCountry": "FR"
+  },
+  "areaServed": "FR"
+}
+</script>
+
+<style>
+:root {
+  --green: #1F3A2D;
+  --green-2: #2A4A3A;
+  --gold: #B8975A;
+  --gold-2: #D4B777;
+  --ivory: #F5F0E6;
+  --ivory-2: #FFFCF7;
+  --charcoal: #1A1614;
+  --line: rgba(26, 22, 20, 0.12);
+  --line-strong: rgba(26, 22, 20, 0.22);
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --ease: cubic-bezier(.22,1,.36,1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--ivory);
+  color: var(--charcoal);
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; height: auto; display: block; }
+::selection { background: var(--gold); color: var(--ivory); }
+.italic { font-family: var(--serif); font-style: italic; }
+
+/* Header */
+.hdr {
+  position: fixed; top:0; left:0; right:0; z-index:100;
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 22px 36px;
+  background: rgba(245, 240, 230, 0);
+  border-bottom: 1px solid transparent;
+  transition: background .35s var(--ease), padding .35s var(--ease), border-color .35s var(--ease), backdrop-filter .35s var(--ease);
+}
+.hdr.scrolled {
+  background: rgba(245, 240, 230, 0.92);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border-bottom-color: var(--line);
+  padding: 14px 36px;
+}
+.hdr.dark { color: var(--ivory); }
+.hdr.dark.scrolled { color: var(--charcoal); }
+.brand {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  display: flex; align-items: baseline; gap: 6px;
+}
+.brand-mark {
+  font-style: italic;
+  color: var(--gold);
+}
+.nav { display:flex; align-items:center; gap: 36px; }
+.nav a {
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  font-weight: 400;
+  position: relative;
+  padding-bottom: 3px;
+  transition: color .25s var(--ease);
+}
+.nav a::after {
+  content:'';
+  position: absolute; left:0; bottom:0; width:100%; height:1px;
+  background: currentColor;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .35s var(--ease);
+}
+.nav a:hover::after { transform: scaleX(1); }
+.nav .cta {
+  padding: 10px 18px;
+  background: var(--green);
+  color: var(--ivory);
+  border-radius: 0;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--green);
+  transition: background .3s var(--ease), color .3s var(--ease), letter-spacing .3s var(--ease);
+}
+.nav .cta::after { display:none; }
+.nav .cta:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--charcoal);
+  letter-spacing: 0.14em;
+}
+.menu-btn { display:none; }
+
+/* Hero */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 36px 80px;
+  color: var(--ivory);
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background: linear-gradient(135deg, #0f1f17 0%, #1F3A2D 60%, #2A4A3A 100%);
+}
+.hero-bg img {
+  width: 100%; height: 100%; object-fit: cover;
+  position: absolute; inset: 0;
+  opacity: 0.45;
+  filter: saturate(0.85) contrast(1.05);
+  animation: kenburns 18s ease-in-out infinite alternate;
+}
+.hero-bg::after {
+  content:'';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(15,31,23,0.5) 0%, transparent 35%, rgba(15,31,23,0.85) 100%);
+}
+@keyframes kenburns {
+  0% { transform: scale(1) translate(0,0); }
+  100% { transform: scale(1.08) translate(-1%,-1%); }
+}
+.hero-inner {
+  position: relative; z-index: 1;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+}
+.hero-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold-2);
+  margin-bottom: 32px;
+  display: inline-flex; align-items: center; gap: 14px;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 32px; height: 1px;
+  background: var(--gold-2);
+}
+.hero-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(44px, 7.5vw, 96px);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  margin-bottom: 28px;
+  max-width: 18ch;
+}
+.hero-title .ital { font-style: italic; color: var(--gold-2); }
+.hero-sub {
+  font-size: 17px;
+  color: rgba(245,240,230,0.82);
+  max-width: 580px;
+  margin-bottom: 44px;
+  line-height: 1.7;
+}
+.hero-ctas { display: flex; gap: 32px; align-items: center; flex-wrap: wrap; }
+.btn-primary {
+  padding: 16px 28px;
+  background: var(--gold);
+  color: var(--charcoal);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+  display: inline-flex; align-items: center; gap: 12px;
+  transition: background .3s var(--ease), letter-spacing .3s var(--ease);
+}
+.btn-primary:hover {
+  background: var(--ivory);
+  letter-spacing: 0.18em;
+}
+.btn-link {
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ivory);
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--gold-2);
+  transition: border-color .3s var(--ease), color .3s var(--ease);
+}
+.btn-link:hover { color: var(--gold-2); }
+
+/* Section eyebrow shared */
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: inline-flex; align-items: center; gap: 14px;
+}
+.eyebrow::before {
+  content: '';
+  width: 32px; height: 1px;
+  background: var(--gold);
+}
+
+/* Section Domaines */
+.dom {
+  padding: 140px 36px;
+  background: var(--ivory);
+}
+.dom-inner { max-width: 1200px; margin: 0 auto; }
+.dom-head {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 60px;
+  margin-bottom: 80px;
+  align-items: end;
+}
+.dom-head h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+.dom-head .lead {
+  font-size: 17px;
+  line-height: 1.75;
+  color: rgba(26,22,20,0.7);
+  max-width: 520px;
+}
+.dom-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.dom-item {
+  background: var(--ivory);
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  transition: background .4s var(--ease);
+  position: relative;
+}
+.dom-item:hover { background: var(--ivory-2); }
+.dom-item::before {
+  content: attr(data-num);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+}
+.dom-item h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 1.15;
+  letter-spacing: -0.005em;
+}
+.dom-item p {
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: rgba(26,22,20,0.7);
+}
+.dom-item ul {
+  list-style: none;
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.dom-item li {
+  font-size: 13px;
+  color: rgba(26,22,20,0.62);
+  padding-left: 18px;
+  position: relative;
+}
+.dom-item li::before {
+  content: '—';
+  position: absolute; left: 0; top: 0;
+  color: var(--gold);
+}
+
+/* Section À propos */
+.about {
+  padding: 140px 36px;
+  background: var(--green);
+  color: var(--ivory);
+  position: relative;
+  overflow: hidden;
+}
+.about::before {
+  content:'';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 80% 50%, rgba(184,151,90,0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+.about-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  position: relative;
+}
+.about-text .eyebrow { color: var(--gold-2); }
+.about-text .eyebrow::before { background: var(--gold-2); }
+.about-text h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(36px, 4.5vw, 56px);
+  line-height: 1.1;
+  margin: 22px 0 32px;
+  letter-spacing: -0.005em;
+}
+.about-text h2 .ital { font-style: italic; color: var(--gold-2); }
+.about-text p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: rgba(245,240,230,0.78);
+  margin-bottom: 16px;
+}
+.about-sig {
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(245,240,230,0.18);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 24px;
+  color: var(--gold-2);
+}
+.about-sig small {
+  display: block;
+  font-family: var(--sans);
+  font-style: normal;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(245,240,230,0.55);
+  margin-top: 6px;
+}
+.about-img {
+  position: relative;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+}
+.about-img::before {
+  content:'';
+  position: absolute;
+  inset: 16px;
+  border: 1px solid var(--gold-2);
+  z-index: 2;
+  pointer-events: none;
+}
+.about-img-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(165deg, #2A4A3A 0%, #1F3A2D 60%, #B8975A 100%);
+}
+.about-img img {
+  position: absolute; inset: 0;
+  width:100%; height:100%; object-fit: cover;
+  filter: saturate(0.9);
+}
+
+/* Section Chiffres */
+.stats {
+  padding: 100px 36px;
+  background: var(--ivory-2);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.stats-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+.stat {
+  text-align: center;
+  padding: 0 24px;
+  border-right: 1px solid var(--line);
+}
+.stat:last-child { border-right: 0; }
+.stat-num {
+  font-family: var(--serif);
+  font-size: 64px;
+  font-weight: 400;
+  color: var(--green);
+  line-height: 1;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+.stat-num .ital { font-style: italic; color: var(--gold); }
+.stat-label {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(26,22,20,0.6);
+}
+
+/* CTA final */
+.contact {
+  padding: 140px 36px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 50%, rgba(184,151,90,0.06) 0%, transparent 70%),
+    var(--ivory);
+}
+.contact-inner { max-width: 760px; margin: 0 auto; }
+.contact h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(36px, 5vw, 60px);
+  line-height: 1.1;
+  margin: 22px 0 24px;
+  letter-spacing: -0.01em;
+}
+.contact h2 .ital { font-style: italic; color: var(--gold); }
+.contact p {
+  font-size: 16px;
+  color: rgba(26,22,20,0.7);
+  margin-bottom: 48px;
+  line-height: 1.7;
+}
+.contact .btn-primary { background: var(--green); color: var(--ivory); }
+.contact .btn-primary:hover { background: var(--gold); color: var(--charcoal); }
+.contact-coords {
+  margin-top: 56px;
+  display: flex; justify-content: center; gap: 64px;
+  font-size: 14px;
+  flex-wrap: wrap;
+}
+.contact-coords > div small {
+  display: block;
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(26,22,20,0.5);
+  margin-bottom: 8px;
+}
+.contact-coords a {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 20px;
+  color: var(--green);
+  border-bottom: 1px solid transparent;
+  transition: border-color .3s var(--ease);
+  padding-bottom: 2px;
+}
+.contact-coords a:hover { border-bottom-color: var(--gold); }
+
+/* Footer */
+.ftr {
+  background: var(--charcoal);
+  color: rgba(245,240,230,0.5);
+  padding: 60px 36px 28px;
+  font-size: 13px;
+}
+.ftr-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 48px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+.ftr-brand { display: flex; flex-direction: column; gap: 10px; }
+.ftr-brand .brand { color: var(--ivory); }
+.ftr-brand .brand-mark { color: var(--gold); }
+.ftr-brand small { font-style: italic; font-family: var(--serif); font-size: 14px; }
+.ftr-cols {
+  display: flex; gap: 48px;
+  flex-wrap: wrap;
+}
+.ftr-col h4 {
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+.ftr-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.ftr-col a { transition: color .25s var(--ease); }
+.ftr-col a:hover { color: var(--ivory); }
+.ftr-bottom {
+  max-width: 1200px; margin: 0 auto;
+  padding-top: 24px;
+  border-top: 1px solid rgba(245,240,230,0.1);
+  display: flex; justify-content: space-between;
+  font-size: 11px;
+  flex-wrap: wrap; gap: 12px;
+}
+.ftr-bottom a { color: var(--gold); transition: color .25s var(--ease); }
+.ftr-bottom a:hover { color: var(--ivory); }
+
+/* Mobile */
+@media (max-width: 900px) {
+  .hdr { padding: 16px 20px; }
+  .hdr.scrolled { padding: 12px 20px; }
+  .nav { display: none; }
+  .menu-btn {
+    display: inline-flex;
+    width: 40px; height: 40px;
+    align-items: center; justify-content: center;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+  }
+  .menu-btn svg { width: 18px; height: 18px; }
+  .menu-open.nav {
+    display: flex; flex-direction: column; gap: 24px;
+    position: fixed; top:0; left:0; right:0; bottom:0;
+    background: var(--ivory);
+    padding: 100px 36px 36px;
+    z-index: 90;
+    align-items: flex-start;
+    color: var(--charcoal);
+  }
+  .menu-open.nav a {
+    font-family: var(--serif);
+    font-size: 32px;
+    font-style: italic;
+    color: var(--charcoal) !important;
+    letter-spacing: 0;
+    text-transform: none;
+    padding-bottom: 0;
+  }
+  .menu-open.nav a::after { display: none; }
+  .menu-open.nav a:hover { color: var(--gold) !important; }
+  .menu-open.nav .cta {
+    margin-top: 24px;
+    background: var(--green) !important;
+    color: var(--ivory) !important;
+    padding: 14px 22px;
+    font-family: var(--sans);
+    font-style: normal;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .menu-open.nav .cta:hover {
+    background: var(--gold) !important;
+    color: var(--charcoal) !important;
+  }
+  /* Bouton close (X) qui apparaît sur le burger-btn quand menu ouvert */
+  .menu-btn .bar {
+    transform-origin: center;
+    transition: transform .35s var(--ease), opacity .25s var(--ease);
+  }
+  .menu-btn[aria-expanded="true"] .bar-1 {
+    transform: translateY(3px) rotate(45deg);
+  }
+  .menu-btn[aria-expanded="true"] .bar-2 {
+    transform: translateY(-3px) rotate(-45deg);
+  }
+  .menu-btn[aria-expanded="true"] {
+    position: fixed;
+    top: 16px;
+    right: 22px;
+    z-index: 100;
+    background: var(--ivory);
+    border-color: var(--charcoal);
+    color: var(--charcoal);
+  }
+
+  .hero { padding: 0 20px 60px; }
+  .dom { padding: 90px 20px; }
+  .dom-head { grid-template-columns: 1fr; gap: 24px; margin-bottom: 56px; }
+  .dom-grid { grid-template-columns: 1fr; }
+
+  .about { padding: 90px 20px; }
+  .about-inner { grid-template-columns: 1fr; gap: 56px; }
+
+  .stats { padding: 70px 20px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 48px 0; }
+  .stat { border-right: 0; padding: 0 12px; }
+  .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid var(--line); padding-bottom: 36px; }
+
+  .contact { padding: 90px 20px; }
+  .contact-coords { flex-direction: column; gap: 28px; }
+
+  .ftr { padding: 48px 20px 24px; }
+  .ftr-inner { flex-direction: column; gap: 32px; }
+  .ftr-cols { gap: 32px; }
+  .ftr-bottom { flex-direction: column; align-items: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+:focus-visible {
+  outline: 2px solid var(--gold); outline-offset: 3px;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr dark" id="hdr">
+  <a href="#" class="brand">Cabinet <span class="brand-mark">Renaud</span></a>
+  <nav class="nav" id="nav">
+    <a href="#domaines">Domaines</a>
+    <a href="#cabinet">Le cabinet</a>
+    <a href="#contact">Contact</a>
+    <a href="#contact" class="cta">Prendre rendez-vous</a>
+  </nav>
+  <button class="menu-btn" id="btn-menu" aria-label="Menu" aria-expanded="false">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+      <line x1="4" y1="9" x2="20" y2="9" class="bar bar-1"/>
+      <line x1="4" y1="15" x2="20" y2="15" class="bar bar-2"/>
+    </svg>
+  </button>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=2000&q=85&auto=format&fit=crop"
+         alt="Bibliothèque juridique"
+         onerror="this.style.display='none'" />
+  </div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Avocat · Paris VIIIᵉ</div>
+    <h1 class="hero-title">
+      Le droit, <span class="ital">posé.</span><br/>
+      Vos affaires, <span class="ital">avancées.</span>
+    </h1>
+    <p class="hero-sub">
+      Maître Renaud accompagne les dirigeants, les fondateurs et les groupes familiaux dans
+      leurs opérations sensibles. Conseil, contentieux, transactions —
+      sans approximation, sans dilatoire.
+    </p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-primary">
+        Première consultation 30&nbsp;min offerte
+        <span aria-hidden="true">→</span>
+      </a>
+      <a href="#domaines" class="btn-link">Voir les domaines</a>
+    </div>
+  </div>
+</section>
+
+<!-- DOMAINES -->
+<section class="dom" id="domaines">
+  <div class="dom-inner">
+    <div class="dom-head">
+      <h2><span class="italic">Quatre</span> domaines<br/>d'intervention.</h2>
+      <p class="lead">
+        Une pratique resserrée, choisie pour la profondeur de l'expertise.
+        Pas de "tout faire" — quatre terrains, parfaitement maîtrisés.
+      </p>
+    </div>
+    <div class="dom-grid">
+
+      <article class="dom-item" data-num="01 — Affaires">
+        <h3>Droit des sociétés &amp; M&amp;A</h3>
+        <p>Constitution, gouvernance, opérations capitalistiques, transmissions familiales.</p>
+        <ul>
+          <li>Pactes d'actionnaires, gouvernance</li>
+          <li>Cessions, acquisitions, fusions</li>
+          <li>Levées de fonds, BSPCE, BSA</li>
+          <li>Restructurations</li>
+        </ul>
+      </article>
+
+      <article class="dom-item" data-num="02 — Contentieux">
+        <h3>Contentieux des affaires</h3>
+        <p>Représentation devant les juridictions civiles, commerciales et arbitrales.</p>
+        <ul>
+          <li>Conflits entre associés</li>
+          <li>Responsabilité dirigeants</li>
+          <li>Concurrence déloyale</li>
+          <li>Arbitrage CCI, CMAP</li>
+        </ul>
+      </article>
+
+      <article class="dom-item" data-num="03 — Contrats">
+        <h3>Contrats &amp; négociation</h3>
+        <p>Rédaction, audit et sécurisation de l'ensemble de la documentation contractuelle.</p>
+        <ul>
+          <li>Distribution, franchise, partenariats</li>
+          <li>Conditions générales B2B / B2C</li>
+          <li>Joint-ventures</li>
+          <li>Confidentialité, IP, data</li>
+        </ul>
+      </article>
+
+      <article class="dom-item" data-num="04 — Patrimoine">
+        <h3>Patrimoine du dirigeant</h3>
+        <p>Stratégies de détention, transmission, structuration internationale.</p>
+        <ul>
+          <li>Holdings patrimoniales</li>
+          <li>Pacte Dutreil, donation-partage</li>
+          <li>Family office juridique</li>
+          <li>Expatriation, mobilité</li>
+        </ul>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- À PROPOS -->
+<section class="about" id="cabinet">
+  <div class="about-inner">
+    <div class="about-text">
+      <span class="eyebrow">Le cabinet</span>
+      <h2>Une pratique <span class="ital">artisanale.</span><br/>Une exécution implacable.</h2>
+      <p>
+        Diplômée de l'École de droit de la Sorbonne et titulaire d'un LL.M. de Columbia Law
+        School, Maître Renaud a exercé douze années dans deux grands cabinets parisiens
+        avant de fonder son propre cabinet en 2019.
+      </p>
+      <p>
+        Le choix d'une structure réduite est délibéré&nbsp;: chaque dossier est
+        traité par l'avocate elle-même, sans externalisation, sans intermédiaire.
+        La clientèle est limitée à une vingtaine de groupes — le temps d'attention
+        n'est pas négociable.
+      </p>
+      <div class="about-sig">
+        — Mᵉ Camille Renaud
+        <small>Avocate au Barreau de Paris · 2009</small>
+      </div>
+    </div>
+    <div class="about-img">
+      <div class="about-img-bg"></div>
+      <img src="https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=1200&q=85&auto=format&fit=crop"
+           alt="Cabinet Renaud · bureau"
+           onerror="this.style.display='none'" />
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="stats-grid">
+    <div class="stat">
+      <div class="stat-num">17<span class="ital">+</span></div>
+      <div class="stat-label">Années de pratique</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">240<span class="ital">+</span></div>
+      <div class="stat-label">Dossiers traités</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">95<span class="ital">%</span></div>
+      <div class="stat-label">Issues favorables</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">20</div>
+      <div class="stat-label">Clients actifs <em>(plafond)</em></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <span class="eyebrow">Contact</span>
+    <h2>Une question, une opération, <span class="ital">un dossier.</span></h2>
+    <p>
+      La première consultation de 30&nbsp;minutes est offerte. Décrivez votre situation
+      en quelques lignes — réponse sous 24&nbsp;heures, jours ouvrés.
+    </p>
+    <a href="mailto:cabinet@renaud-avocat.fr?subject=Demande%20de%20premier%20rendez-vous" class="btn-primary">
+      Écrire au cabinet <span aria-hidden="true">→</span>
+    </a>
+    <div class="contact-coords">
+      <div>
+        <small>Adresse</small>
+        <span class="italic" style="font-size:18px;color:var(--charcoal)">12 avenue Hoche · 75008 Paris</span>
+      </div>
+      <div>
+        <small>Email</small>
+        <a href="mailto:cabinet@renaud-avocat.fr">cabinet@renaud-avocat.fr</a>
+      </div>
+      <div>
+        <small>Téléphone</small>
+        <a href="tel:+33145001212">+33 (0)1 45 00 12 12</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="ftr">
+  <div class="ftr-inner">
+    <div class="ftr-brand">
+      <span class="brand">Cabinet <span class="brand-mark">Renaud</span></span>
+      <small>Avocat au Barreau de Paris · Droit des affaires</small>
+    </div>
+    <div class="ftr-cols">
+      <div class="ftr-col">
+        <h4>Cabinet</h4>
+        <ul>
+          <li><a href="#domaines">Domaines</a></li>
+          <li><a href="#cabinet">Le cabinet</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="ftr-col">
+        <h4>Légal</h4>
+        <ul>
+          <li><a href="#">Mentions légales</a></li>
+          <li><a href="#">Honoraires</a></li>
+          <li><a href="#">RGPD</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="ftr-bottom">
+    <span>© 2026 Cabinet Renaud · Tous droits réservés.</span>
+    <span>Site signé <a href="https://pinapp.fr" target="_blank" rel="noopener">Pinapp Studio</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+  var hdr = document.getElementById('hdr');
+  function onScroll(){
+    var s = window.scrollY > 24;
+    hdr.classList.toggle('scrolled', s);
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  var btn = document.getElementById('btn-menu');
+  var nav = document.getElementById('nav');
+  btn.addEventListener('click', function(){
+    var open = nav.classList.toggle('menu-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('aria-label', open ? 'Fermer le menu' : 'Menu');
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  nav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      nav.classList.remove('menu-open');
+      btn.setAttribute('aria-expanded','false');
+      btn.setAttribute('aria-label', 'Menu');
+      document.body.style.overflow = '';
+    });
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && nav.classList.contains('menu-open')) {
+      nav.classList.remove('menu-open');
+      btn.setAttribute('aria-expanded','false');
+      btn.setAttribute('aria-label', 'Menu');
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href');
+      if(id && id.length > 1 && document.querySelector(id)){
+        e.preventDefault();
+        var t = document.querySelector(id);
+        var top = t.getBoundingClientRect().top + window.scrollY - 60;
+        window.scrollTo({top: top, behavior: 'smooth'});
+      }
+    });
+  });
+
+  // Désactiver les liens href="#" orphelins (placeholders)
+  document.querySelectorAll('a[href="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){ e.preventDefault(); });
+    a.setAttribute('aria-disabled', 'true');
+    a.style.cursor = 'default';
+  });
+})();
+</script>
+</body>
+</html>
