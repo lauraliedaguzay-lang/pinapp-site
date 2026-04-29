@@ -754,6 +754,107 @@ html.sober #grain-canvas{display:none!important}
 @media (prefers-reduced-motion: reduce){
   .drawer__nav-link,.drawer__nav-arrow{transition:none}
 }
+/* ============================================
+   M3 — Avalon Motion (additive, no override)
+   ============================================ */
+
+/* Scroll smooth global — déjà défini sur html (scroll-behavior:auto) ; on ne redéclare pas smooth ici */
+/* html{scroll-behavior:smooth} */
+
+/* Boutons — courbe expressive */
+.btn--primary,.btn--ghost,.btn--cta-large,.nav__cta{
+  transition:
+    transform .5s cubic-bezier(0.16,1,0.3,1),
+    box-shadow .5s cubic-bezier(0.16,1,0.3,1),
+    background-color .35s cubic-bezier(0.16,1,0.3,1),
+    border-color .35s cubic-bezier(0.16,1,0.3,1);
+}
+
+/* CTA primaire — halo or au hover */
+.btn--primary:hover{
+  transform:translateY(-3px);
+  box-shadow:0 16px 48px rgba(230,185,115,0.45), 0 0 0 1px rgba(230,185,115,0.25);
+}
+.btn--primary:active{
+  transform:translateY(-1px) scale(0.98);
+  transition-duration:.15s;
+}
+
+/* CTA ghost — border glow */
+.btn--ghost:hover{
+  transform:translateY(-2px);
+  background:var(--or-glow);
+  border-color:var(--or);
+  box-shadow:0 0 0 1px var(--or), 0 8px 24px rgba(230,185,115,0.18);
+}
+.btn--ghost:active{
+  transform:translateY(0);
+  transition-duration:.15s;
+}
+
+/* CTA large — élévation cinématique + respiration discrète */
+@keyframes m3-breath-glow{
+  0%,100%{box-shadow:0 0 0 rgba(230,185,115,0)}
+  50%{box-shadow:0 0 36px rgba(230,185,115,0.18)}
+}
+.btn--cta-large{
+  animation:m3-breath-glow 4.5s ease-in-out infinite;
+  will-change:transform,box-shadow;
+}
+.btn--cta-large:hover{
+  animation:none;
+  transform:translateY(-5px) scale(1.015);
+  box-shadow:0 24px 64px rgba(230,185,115,0.5), 0 0 0 1px rgba(230,185,115,0.3);
+  letter-spacing:-0.005em;
+}
+.btn--cta-large:active{
+  transform:translateY(-2px) scale(1);
+  transition-duration:.15s;
+}
+
+/* nav__cta — consistance discrète */
+.nav__cta:hover{
+  transform:translateY(-1px);
+  box-shadow:0 6px 20px rgba(230,185,115,0.32);
+}
+
+/* Reveal au scroll — émergence cinématique */
+.scene{
+  opacity:0;
+  transform:translateY(60px) scale(0.96);
+  filter:blur(8px);
+  transition:
+    opacity 1.2s cubic-bezier(0.16,1,0.3,1),
+    transform 1.2s cubic-bezier(0.16,1,0.3,1),
+    filter 1s cubic-bezier(0.16,1,0.3,1);
+  will-change:opacity,transform,filter;
+}
+.scene.is-revealed{
+  opacity:1;
+  transform:translateY(0) scale(1);
+  filter:blur(0);
+}
+/* Hero exclu : toujours visible */
+#hero{opacity:1;transform:none;filter:none;will-change:auto}
+
+/* Focus visible — anneau lumineux or */
+a:focus-visible,button:focus-visible,input:focus-visible,
+[tabindex]:not([tabindex="-1"]):focus-visible{
+  outline:none;
+  box-shadow:0 0 0 3px var(--or), 0 0 16px rgba(230,185,115,0.4);
+  border-radius:8px;
+}
+
+/* Mode sobre — désactive toute animation M3 (classe sur html/body : sober) */
+html.sober .btn--cta-large,html.sober .btn--cta-large:hover{animation:none}
+html.sober .scene{opacity:1!important;transform:none!important;filter:none!important}
+
+/* Reduced motion — respect OS */
+@media (prefers-reduced-motion: reduce){
+  .btn--primary,.btn--ghost,.btn--cta-large,.nav__cta{transition:none}
+  .btn--cta-large{animation:none}
+  .scene{opacity:1;transform:none;filter:none;transition:none}
+}
 </style>
 </head>
 
@@ -2173,5 +2274,24 @@ if(wt && !prefersReduced()){
 
 })();</script>
 <script src="assets/js/demo-modal.js" defer></script>
+<script>
+/* M3 — Reveal scroll observer (vanilla, ~0.5KB) */
+(function(){
+  if(!('IntersectionObserver' in window))return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){
+    document.querySelectorAll('.scene').forEach(function(s){s.classList.add('is-revealed')});
+    return;
+  }
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('is-revealed');
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:0.12,rootMargin:'0px 0px -80px 0px'});
+  document.querySelectorAll('.scene:not(#hero)').forEach(function(s){io.observe(s)});
+})();
+</script>
 </body>
 </html>
