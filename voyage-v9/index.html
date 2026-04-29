@@ -936,10 +936,140 @@ html.sober #hero::after{animation:none;opacity:.55}
   .ambient-particle{animation:none;opacity:0}
   #hero::after{animation:none;opacity:.55}
 }
+/* ============================================
+   M5 — Intro splash WOW (additive)
+   ============================================ */
+.intro-splash{
+  position:fixed;inset:0;
+  z-index:9999;
+  background:#000;
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:auto;
+  opacity:1;
+  animation:m5-overlay-out 2.8s cubic-bezier(0.16,1,0.3,1) forwards;
+  animation-delay:0s;
+}
+.intro-splash.is-skipped{display:none!important}
+.intro-splash__logo-wrap{
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  width:240px;height:120px;
+  animation:m5-logo-zoom 2.8s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+.intro-splash__logo{
+  width:180px;height:auto;display:block;
+  opacity:0;transform:scale(0.92);
+  animation:m5-logo-in 2.8s cubic-bezier(0.16,1,0.3,1) forwards;
+  position:relative;z-index:2;
+  filter:drop-shadow(0 0 0 transparent);
+}
+.intro-splash__glow{
+  position:absolute;inset:-40px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(230,185,115,0.0) 0%, rgba(230,185,115,0.3) 35%, transparent 65%);
+  opacity:0;
+  animation:m5-glow-pulse 2.8s cubic-bezier(0.16,1,0.3,1) forwards;
+  z-index:1;
+  filter:blur(8px);
+}
+.intro-splash__rays{
+  position:absolute;inset:50% 50%;width:0;height:0;
+  background:conic-gradient(from 0deg, transparent 0deg, rgba(230,185,115,0.08) 30deg, transparent 60deg, transparent 90deg, rgba(230,185,115,0.06) 120deg, transparent 150deg, transparent 180deg, rgba(230,185,115,0.08) 210deg, transparent 240deg, transparent 270deg, rgba(230,185,115,0.06) 300deg, transparent 330deg);
+  border-radius:50%;
+  opacity:0;
+  animation:m5-rays 2.8s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+@keyframes m5-logo-in{
+  0%   {opacity:0;transform:scale(0.92)}
+  28%  {opacity:1;transform:scale(1)}
+  50%  {opacity:1;transform:scale(1)}
+  75%  {opacity:0.7;transform:scale(1)}
+  100% {opacity:0;transform:scale(1)}
+}
+@keyframes m5-glow-pulse{
+  0%   {opacity:0;transform:scale(0.85)}
+  28%  {opacity:0.4;transform:scale(1)}
+  50%  {opacity:0.95;transform:scale(1.15)}
+  75%  {opacity:0.4;transform:scale(1.4)}
+  100% {opacity:0;transform:scale(1.6)}
+}
+@keyframes m5-rays{
+  0%   {opacity:0;width:0;height:0;transform:translate(-50%,-50%) rotate(0deg)}
+  30%  {opacity:0.4;width:600px;height:600px;transform:translate(-50%,-50%) rotate(15deg)}
+  60%  {opacity:0.6;width:1200px;height:1200px;transform:translate(-50%,-50%) rotate(45deg)}
+  100% {opacity:0;width:1800px;height:1800px;transform:translate(-50%,-50%) rotate(80deg)}
+}
+@keyframes m5-logo-zoom{
+  0%   {transform:scale(1)}
+  60%  {transform:scale(1)}
+  100% {transform:scale(1.06)}
+}
+@keyframes m5-overlay-out{
+  0%   {opacity:1}
+  70%  {opacity:1}
+  100% {opacity:0;visibility:hidden}
+}
+/* Fin de l'animation : retire l'overlay du flux */
+.intro-splash.is-done{display:none!important}
+
+/* Mode sober : skip intro */
+html.sober .intro-splash{display:none!important}
+
+/* Reduced motion : skip intro */
+@media (prefers-reduced-motion: reduce){
+  .intro-splash{display:none!important}
+}
+
+/* ============================================
+   M6 — Particules visibles HORS hero (refacto M4.1)
+   ============================================ */
+
+/* Mode brillant : mix-blend-mode + tailles montées + glow */
+.ambient-layer{
+  mix-blend-mode:screen;
+  opacity:0;
+  transition:opacity 1.2s cubic-bezier(0.16,1,0.3,1);
+}
+/* Active dès qu'on scrolle hors du hero */
+body.ambient-active .ambient-layer{opacity:1}
+
+/* Override des particules existantes (tailles + opacity v2) */
+.ambient-particle{
+  box-shadow:0 0 14px 3px rgba(230,185,115,0.55);
+  background:radial-gradient(circle, #fff5dc 0%, var(--or) 35%, rgba(230,185,115,0.3) 70%, transparent 100%);
+}
+.ambient-particle--1 {width:8px;height:8px;opacity:.65}
+.ambient-particle--2 {width:5px;height:5px;opacity:.50}
+.ambient-particle--3 {width:9px;height:9px;opacity:.45}
+.ambient-particle--4 {width:6px;height:6px;opacity:.65}
+.ambient-particle--5 {width:8px;height:8px;opacity:.55}
+.ambient-particle--6 {width:5px;height:5px;opacity:.45}
+.ambient-particle--7 {width:9px;height:9px;opacity:.40}
+.ambient-particle--8 {width:6px;height:6px;opacity:.65}
+.ambient-particle--9 {width:8px;height:8px;opacity:.55}
+.ambient-particle--10{width:5px;height:5px;opacity:.45}
+.ambient-particle--11{width:8px;height:8px;opacity:.55}
+.ambient-particle--12{width:6px;height:6px;opacity:.50}
+
+/* 6 particules supplémentaires (densité 18 total) — ajout HTML aussi à l'étape D */
+.ambient-particle--13{width:7px;height:7px;left:18%;top:25%;opacity:.50;animation:m4-drift-a 34s ease-in-out infinite -8s}
+.ambient-particle--14{width:5px;height:5px;left:65%;top:38%;opacity:.45;animation:m4-drift-b 29s ease-in-out infinite -14s}
+.ambient-particle--15{width:8px;height:8px;left:42%;top:72%;opacity:.55;animation:m4-drift-c 37s ease-in-out infinite -22s}
+.ambient-particle--16{width:6px;height:6px;left:25%;top:5%; opacity:.45;animation:m4-drift-a 31s ease-in-out infinite -19s}
+.ambient-particle--17{width:7px;height:7px;left:90%;top:85%;opacity:.50;animation:m4-drift-b 39s ease-in-out infinite -6s}
+.ambient-particle--18{width:5px;height:5px;left:50%;top:55%;opacity:.40;animation:m4-drift-c 26s ease-in-out infinite -16s}
 </style>
 </head>
 
 <body data-draft-count="0">
+<!-- M5 — Intro splash logo (WOW entrée, une fois par session) -->
+<div class="intro-splash" id="introSplash" aria-hidden="true">
+  <div class="intro-splash__rays"></div>
+  <div class="intro-splash__logo-wrap">
+    <img src="assets/brand/pinapp-logo.png" alt="" class="intro-splash__logo" width="180" height="82" />
+    <div class="intro-splash__glow"></div>
+  </div>
+</div>
 <!-- M4.1 — Ambient particles (12 dorées flottantes) -->
 <div class="ambient-layer" aria-hidden="true">
   <span class="ambient-particle ambient-particle--1"></span>
@@ -954,6 +1084,12 @@ html.sober #hero::after{animation:none;opacity:.55}
   <span class="ambient-particle ambient-particle--10"></span>
   <span class="ambient-particle ambient-particle--11"></span>
   <span class="ambient-particle ambient-particle--12"></span>
+  <span class="ambient-particle ambient-particle--13"></span>
+  <span class="ambient-particle ambient-particle--14"></span>
+  <span class="ambient-particle ambient-particle--15"></span>
+  <span class="ambient-particle ambient-particle--16"></span>
+  <span class="ambient-particle ambient-particle--17"></span>
+  <span class="ambient-particle ambient-particle--18"></span>
 </div>
 <div id="pinapp-loader" aria-hidden="true">
   <div class="loader__lockup">
@@ -2387,6 +2523,44 @@ if(wt && !prefersReduced()){
     });
   },{threshold:0.12,rootMargin:'0px 0px -80px 0px'});
   document.querySelectorAll('.scene:not(#hero)').forEach(function(s){io.observe(s)});
+})();
+</script>
+<script>
+/* M5 — Intro splash : skip si déjà vu cette session, skip au clic */
+(function(){
+  var intro = document.getElementById('introSplash');
+  if(!intro) return;
+  try{
+    if(sessionStorage.getItem('pinapp_intro_seen') === '1'){
+      intro.classList.add('is-skipped');
+      return;
+    }
+    sessionStorage.setItem('pinapp_intro_seen', '1');
+  }catch(e){}
+  // Skip au clic
+  intro.addEventListener('click', function(){ intro.classList.add('is-done'); }, {once:true});
+  // Auto-cleanup après animation (2.9s)
+  setTimeout(function(){ intro.classList.add('is-done'); }, 2900);
+})();
+
+/* M6 — Active particules quand on scrolle hors du hero */
+(function(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){
+    document.body.classList.add('ambient-active');
+    return;
+  }
+  var hero = document.getElementById('hero');
+  if(!hero) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.intersectionRatio < 0.4){
+        document.body.classList.add('ambient-active');
+      } else {
+        document.body.classList.remove('ambient-active');
+      }
+    });
+  }, {threshold:[0.4]});
+  io.observe(hero);
 })();
 </script>
 </body>
