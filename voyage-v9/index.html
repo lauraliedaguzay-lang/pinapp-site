@@ -694,6 +694,66 @@ html.sober #grain-canvas{display:none!important}
 @media (max-width:768px){
   .nav__brand .pinapp-logo-img{height:26px;}
 }
+/* M2 — Drawer nav (additive) */
+.drawer__nav{
+  display:flex;flex-direction:column;
+  padding:8px clamp(20px,5vw,32px) 16px;
+  gap:2px;
+}
+.drawer__nav-link{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 4px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-style:italic;font-weight:400;
+  font-size:clamp(20px,3vw,24px);
+  color:var(--ivoire);
+  text-decoration:none;
+  letter-spacing:-0.005em;
+  transition:color .25s cubic-bezier(0.32,0.72,0,1), transform .25s cubic-bezier(0.32,0.72,0,1), padding-left .25s cubic-bezier(0.32,0.72,0,1);
+  position:relative;
+}
+.drawer__nav-link:hover,.drawer__nav-link:focus-visible{
+  color:var(--or);
+  padding-left:8px;
+  outline:none;
+}
+.drawer__nav-link--accent{color:var(--or-light)}
+.drawer__nav-link--accent:hover,.drawer__nav-link--accent:focus-visible{color:var(--or)}
+.drawer__nav-arrow{
+  display:inline-block;font-size:0.85em;opacity:0.6;
+  transition:transform .3s cubic-bezier(0.32,0.72,0,1), opacity .25s ease;
+  margin-left:12px;
+}
+.drawer__nav-link--accent:hover .drawer__nav-arrow,
+.drawer__nav-link--accent:focus-visible .drawer__nav-arrow{
+  transform:translateX(6px);opacity:1;
+}
+.drawer__nav-sep{
+  display:block;height:1px;
+  background:linear-gradient(to right, transparent, rgba(230,185,115,0.22), transparent);
+  margin:10px 0;
+}
+.drawer__foot{
+  margin-top:auto;
+  padding:24px clamp(20px,5vw,32px) 28px;
+  border-top:1px solid rgba(230,185,115,0.14);
+  display:flex;flex-direction:column;gap:8px;
+}
+.drawer__foot-mail{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;
+  font-size:14px;font-weight:500;
+  color:var(--ivoire);
+  text-decoration:none;letter-spacing:0.005em;
+  transition:color .25s ease;
+}
+.drawer__foot-mail:hover{color:var(--or)}
+.drawer__foot-mention{
+  font-size:11px;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--ivoire-mute);font-weight:500;
+}
+@media (prefers-reduced-motion: reduce){
+  .drawer__nav-link,.drawer__nav-arrow{transition:none}
+}
 </style>
 </head>
 
@@ -758,7 +818,7 @@ html.sober #grain-canvas{display:none!important}
     </nav>
     <div class="nav__actions">
       <a class="nav__cta" href="#contact">Diagnostic 24h offert →</a>
-      <button type="button" class="nav__drawer-open" id="btnDrawerOpen" aria-controls="drawerAbout" aria-expanded="false" aria-label="Ouvrir le menu Qui sommes-nous">☰</button>
+      <button type="button" class="nav__drawer-open" id="btnDrawerOpen" aria-controls="drawerAbout" aria-expanded="false" aria-label="Ouvrir le menu de navigation">☰</button>
     </div>
   </div>
 </header>
@@ -1739,25 +1799,24 @@ Captation 4-6h · montage 5 jours
 <div class="drawer-overlay" id="drawerOverlay" aria-hidden="true"></div>
 <aside class="drawer" id="drawerAbout" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" tabindex="-1" hidden>
   <div class="drawer__head">
-    <h2 id="drawerTitle" style="margin:0;font-size:1.25rem">Qui sommes-nous</h2>
+    <h2 id="drawerTitle" style="margin:0;font-size:1.25rem">Menu</h2>
     <button type="button" class="drawer__close" id="drawerClose" aria-label="Fermer le panneau">×</button>
   </div>
-  <div class="drawer__act">
-    <h3>ACTE I — Avant Pinapp</h3>
-    <p>Deux trajectoires séparées.<br>Micha à Bordeaux, dix ans à filmer des événements.<br>À apprendre la lumière qui ne pardonne pas.<br>À monter des films qui devaient tenir trente ans dans un salon.<br>Lauralie en parallèle, direction artistique et code.<br>À construire des sites pour des indépendants<br>qui n'avaient pas les moyens d'une agence parisienne.</p>
-  </div>
-  <div class="drawer__act">
-    <h3>ACTE II — La rencontre IA</h3>
-    <p>2023-2024. L'IA générative passe de jouet à outil.<br>Les deux basculent en même temps, chacun de son côté.<br>Micha entraîne des modèles d'image, monte ses premiers films IA.<br>Lauralie pousse ses pipelines voix synthétique IA, sites cinématiques, automations.<br>Ils se croisent sur un projet commun :<br>un film a besoin d'un site, un site a besoin d'un film, une voix a besoin d'un univers.<br>Pinapp Inc. naît de cette conversation-là.</p>
-  </div>
-  <div class="drawer__act">
-    <h3>ACTE III — Le duo Pinapp</h3>
-    <p>Une boîte à Bordeaux, deux expertises sous un même toit.<br>Lauralie tient le système : sites, automations, intelligence générative.<br>Michaël tient l'image : films IA, clips, captations événementielles.<br>Un seul interlocuteur pour le client.<br>Deux cerveaux derrière.<br>Le client paie une boîte. Il a une équipe.</p>
-  </div>
-  <div class="drawer__act">
-    <h3>ACTE IV — Aujourd'hui et après</h3>
-    <p>Pinapp construit ce que les concurrents des clients n'ont pas encore.<br>Sites cinématiques. Automations qui tournent la nuit.<br>Films IA narratifs. Captations événementielles signées. Capsules créateurs.<br>Trente jours d'accompagnement post-livraison sur chaque chantier.<br>Bordeaux comme port d'attache.<br>Nouvelle-Aquitaine en zone caméra.<br>France entière en distance.<br>Diagnostic offert sous 24 h.</p>
-  </div>
+<nav class="drawer__nav" aria-label="Navigation principale">
+  <a href="index.html#diagnostic" class="drawer__nav-link">Diagnostic</a>
+  <a href="index.html#auto" class="drawer__nav-link">Automatisations</a>
+  <a href="index.html#pack" class="drawer__nav-link">Pack</a>
+  <a href="index.html#realisations" class="drawer__nav-link">Réalisations</a>
+  <a href="index.html#methode" class="drawer__nav-link">Méthode &amp; tarifs</a>
+  <span class="drawer__nav-sep" aria-hidden="true"></span>
+  <a href="histoire.html" class="drawer__nav-link drawer__nav-link--accent">Notre histoire <span class="drawer__nav-arrow" aria-hidden="true">→</span></a>
+  <span class="drawer__nav-sep" aria-hidden="true"></span>
+  <a href="index.html#contact" class="drawer__nav-link">Contact</a>
+</nav>
+<div class="drawer__foot">
+  <a href="mailto:contact@pinapp.fr" class="drawer__foot-mail">contact@pinapp.fr</a>
+  <p class="drawer__foot-mention">Pinapp Inc · Bordeaux · 2026</p>
+</div>
   <div class="drawer__act">
     <h3>Affichage</h3>
     <p class="source-note" style="margin:0 0 var(--sp-2)">Réduit les effets (particules, smooth scroll) pour un parcours plus sobre — utile en fatigue visuelle.</p>

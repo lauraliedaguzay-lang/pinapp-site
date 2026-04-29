@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Notre histoire · Pinapp Inc · Bordeaux</title>
+<meta name="description" content="L'histoire de Pinapp en quatre actes : avant Pinapp, la rencontre IA, le duo, et aujourd'hui." />
+<meta name="theme-color" content="#050b14" />
+<meta property="og:title" content="Notre histoire · Pinapp" />
+<meta property="og:description" content="Quatre actes. Une seule conversation." />
+<meta property="og:type" content="article" />
+<link rel="preload" as="image" href="assets/hero-3.webp" />
+<link rel="preload" as="image" href="assets/brand/pinapp-logo.png" />
+<style>
+:root{
+  --or:#e6b973;--or-light:#f7d99d;--or-glow:rgba(230,185,115,0.18);
+  --ivoire:#f4ece0;--ivoire-dim:#c9bfae;--ivoire-mute:rgba(244,228,193,0.62);
+  --nuit:#050b14;--nuit-soft:#0a121f;
+  --ff-serif:Georgia,"Times New Roman",serif;
+  --ff-apple:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Segoe UI",Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --ease-out-expo:cubic-bezier(0.32,0.72,0,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  min-height:100vh;
+  background:var(--nuit);
+  color:var(--ivoire);
+  font-family:var(--ff-apple);
+  font-size:17px;line-height:1.65;
+  font-weight:300;
+  letter-spacing:0.005em;
+  overflow-x:hidden;
+  position:relative;
+}
+.bg{
+  position:fixed;inset:0;z-index:0;
+  background:url('assets/hero-3.webp') center/cover no-repeat;
+  filter:blur(16px) saturate(110%);
+  transform:scale(1.08);
+}
+.bg::after{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse at center, rgba(5,11,20,0.55) 0%, rgba(5,11,20,0.85) 70%, rgba(5,11,20,0.95) 100%);
+}
+.wrap{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column}
+header.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:24px clamp(20px,4vw,48px);
+  position:sticky;top:0;z-index:10;
+  background:linear-gradient(to bottom, rgba(5,11,20,0.7), rgba(5,11,20,0));
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+header.topbar a.brand{
+  display:inline-flex;align-items:center;text-decoration:none;
+  transition:opacity .3s var(--ease-out-expo);
+}
+header.topbar a.brand:hover{opacity:.8}
+header.topbar a.brand img{
+  height:32px;width:auto;display:block;
+  filter:drop-shadow(0 0 12px rgba(230,185,115,0.15));
+}
+header.topbar a.back{
+  font-size:14px;font-weight:500;
+  color:var(--ivoire-mute);
+  text-decoration:none;
+  padding:10px 18px;
+  border:1px solid rgba(230,185,115,0.35);
+  border-radius:999px;
+  transition:all .3s var(--ease-out-expo);
+  letter-spacing:0.01em;
+}
+header.topbar a.back:hover{
+  color:var(--ivoire);
+  border-color:var(--or);
+  background:var(--or-glow);
+  transform:translateY(-1px);
+}
+main.story{
+  flex:1;
+  max-width:680px;
+  margin:0 auto;
+  padding:clamp(60px,10vw,120px) clamp(20px,4vw,32px) clamp(80px,12vw,140px);
+  width:100%;
+}
+.intro{
+  margin-bottom:clamp(60px,10vw,100px);
+  opacity:0;animation:fadeUp .9s var(--ease-out-expo) .1s forwards;
+}
+.intro__eyebrow{
+  font-family:var(--ff-apple);
+  font-size:13px;font-weight:500;letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--or);
+  margin-bottom:24px;
+}
+.intro__title{
+  font-family:var(--ff-serif);
+  font-style:italic;
+  font-weight:400;
+  font-size:clamp(2.5rem,6vw,4.25rem);
+  line-height:1.05;
+  color:var(--ivoire);
+  letter-spacing:-0.01em;
+}
+.intro__title em{
+  color:var(--or);font-style:italic;
+}
+.act{
+  margin-bottom:clamp(56px,8vw,84px);
+  opacity:0;
+  animation:fadeUp .9s var(--ease-out-expo) forwards;
+}
+.act:nth-of-type(1){animation-delay:.4s}
+.act:nth-of-type(2){animation-delay:.6s}
+.act:nth-of-type(3){animation-delay:.8s}
+.act:nth-of-type(4){animation-delay:1s}
+.act__num{
+  font-family:var(--ff-apple);
+  font-size:12px;font-weight:600;letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--or);
+  margin-bottom:14px;
+  display:flex;align-items:center;gap:14px;
+}
+.act__num::after{
+  content:"";flex:1;height:1px;
+  background:linear-gradient(to right, rgba(230,185,115,0.35), transparent);
+}
+.act__title{
+  font-family:var(--ff-serif);
+  font-style:italic;
+  font-weight:400;
+  font-size:clamp(1.625rem,3vw,2.125rem);
+  line-height:1.2;
+  margin-bottom:28px;
+  color:var(--ivoire);
+  letter-spacing:-0.005em;
+}
+.act__body{
+  font-size:clamp(1rem,1.4vw,1.125rem);
+  line-height:1.75;
+  color:var(--ivoire-dim);
+  font-weight:300;
+}
+.act__body p{margin-bottom:14px}
+.act__body p:last-child{margin-bottom:0}
+.act__body p strong{color:var(--ivoire);font-weight:500}
+.outro{
+  margin-top:clamp(80px,12vw,120px);
+  padding-top:clamp(40px,6vw,60px);
+  border-top:1px solid rgba(230,185,115,0.18);
+  text-align:center;
+  opacity:0;animation:fadeUp .9s var(--ease-out-expo) 1.3s forwards;
+}
+.outro__cta{
+  display:inline-block;
+  font-size:15px;font-weight:600;
+  color:var(--nuit);
+  background:var(--or);
+  padding:14px 28px;
+  border-radius:999px;
+  text-decoration:none;
+  transition:all .3s var(--ease-out-expo);
+  letter-spacing:0.005em;
+}
+.outro__cta:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 32px rgba(230,185,115,0.28);
+  background:var(--or-light);
+}
+footer.foot{
+  text-align:center;
+  padding:32px clamp(20px,4vw,48px) 40px;
+  font-size:12px;
+  color:var(--ivoire-mute);
+  letter-spacing:0.06em;
+}
+footer.foot::before{
+  content:"";display:block;width:32px;height:1px;
+  background:var(--or-glow);
+  margin:0 auto 20px;
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .intro,.act,.outro{opacity:1!important}
+}
+@media (max-width:520px){
+  header.topbar{padding:18px 20px}
+  header.topbar a.brand img{height:26px}
+  header.topbar a.back{font-size:13px;padding:8px 14px}
+}
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true"></div>
+<div class="wrap">
+  <header class="topbar">
+    <a href="index.html" class="brand" aria-label="Accueil Pinapp">
+      <img src="assets/brand/pinapp-logo.png" alt="" width="170" height="78" decoding="async" />
+      <span class="visually-hidden" style="position:absolute;left:-9999px">Pinapp Inc.</span>
+    </a>
+    <a href="index.html" class="back">← Retour</a>
+  </header>
+
+  <main class="story">
+    <section class="intro">
+      <p class="intro__eyebrow">Notre histoire</p>
+      <h1 class="intro__title">Quatre actes.<br/>Une seule <em>conversation</em>.</h1>
+    </section>
+
+    <article class="act">
+      <p class="act__num">Acte I · Avant Pinapp</p>
+      <h2 class="act__title">Deux trajectoires séparées.</h2>
+      <div class="act__body">
+        <p>Micha à Bordeaux, dix ans à filmer des événements.</p>
+        <p>À apprendre la lumière qui ne pardonne pas.<br/>À monter des films qui devaient tenir trente ans dans un salon.</p>
+        <p>Lauralie en parallèle, direction artistique et code.<br/>À construire des sites pour des indépendants qui n'avaient pas les moyens d'une agence parisienne.</p>
+      </div>
+    </article>
+
+    <article class="act">
+      <p class="act__num">Acte II · La rencontre IA</p>
+      <h2 class="act__title">2023–2024. L'IA passe de jouet à outil.</h2>
+      <div class="act__body">
+        <p>Les deux basculent en même temps, chacun de son côté.</p>
+        <p>Micha entraîne des modèles d'image, monte ses premiers films IA.<br/>Lauralie pousse ses pipelines voix synthétique IA, sites cinématiques, automations.</p>
+        <p>Ils se croisent sur un projet commun : <strong>un film a besoin d'un site, un site a besoin d'un film, une voix a besoin d'un univers</strong>.</p>
+        <p>Pinapp Inc. naît de cette conversation-là.</p>
+      </div>
+    </article>
+
+    <article class="act">
+      <p class="act__num">Acte III · Le duo Pinapp</p>
+      <h2 class="act__title">Une boîte. Deux expertises. Un seul toit.</h2>
+      <div class="act__body">
+        <p>Lauralie tient le système : sites, automations, intelligence générative.<br/>Michaël tient l'image : films IA, clips, captations événementielles.</p>
+        <p><strong>Un seul interlocuteur pour le client. Deux cerveaux derrière.</strong></p>
+        <p>Le client paie une boîte. Il a une équipe.</p>
+      </div>
+    </article>
+
+    <article class="act">
+      <p class="act__num">Acte IV · Aujourd'hui et après</p>
+      <h2 class="act__title">Ce que les concurrents n'ont pas encore.</h2>
+      <div class="act__body">
+        <p>Sites cinématiques. Automations qui tournent la nuit.<br/>Films IA narratifs. Captations événementielles signées. Capsules créateurs.</p>
+        <p>Trente jours d'accompagnement post-livraison sur chaque chantier.</p>
+        <p>Bordeaux comme port d'attache.<br/>Nouvelle-Aquitaine en zone caméra.<br/>France entière en distance.</p>
+        <p><strong>Diagnostic offert sous 24 h.</strong></p>
+      </div>
+    </article>
+
+    <div class="outro">
+      <a href="index.html#contact" class="outro__cta">Démarrer une conversation →</a>
+    </div>
+  </main>
+
+  <footer class="foot">
+    Pinapp Inc · Bordeaux · 2026
+  </footer>
+</div>
+</body>
+</html>
