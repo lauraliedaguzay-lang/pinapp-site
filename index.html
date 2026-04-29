@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#050b14" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
-<meta name="pinapp-voyage-v9-build" content="v12a8-audit-demos-2026-04" />
+<meta name="pinapp-voyage-v9-build" content="v14.4.1-logo-horizontal-webp-2026-04-28" />
 <title>Pinapp · Sites + films pour TPE/PME · 50 à 75% moins cher | Bordeaux</title>
 <meta name="description" content="Duo Pinapp : sites qui convertissent + films cinéma. Diagnostic 24h gratuit. Bordeaux + Nouvelle-Aquitaine. Tarifs publics dès 1 290 €." />
 <meta property="og:title" content="Pinapp · Sites + films pour TPE/PME · 50-75% moins cher | Bordeaux" />
@@ -26,6 +26,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/voyage-v9/assets/brand/pinapp-icon.png" />
 <link rel="apple-touch-icon" sizes="180x180" href="/voyage-v9/assets/brand/apple-touch-icon.png" />
 <link rel="preload" as="image" href="/voyage-v9/assets/hero-1.webp" fetchpriority="high" />
+<link rel="preload" as="image" href="/voyage-v9/assets/brand/pinapp-logo-horizontal.webp" type="image/webp" media="(min-width: 960px)" />
 <link rel="preload" as="image" href="/voyage-v9/assets/team/lauralie.png" fetchpriority="high" />
   <link rel="preload" as="image" href="/voyage-v9/assets/team/micha.jpg" fetchpriority="high" />
   <link rel="preload" as="image" href="/voyage-v9/assets/team/lauralie.png" />
@@ -36,7 +37,7 @@
   "@type": "Organization",
   "name": "Pinapp Inc.",
   "url": "https://pinapp.fr",
-  "logo": "https://pinapp.fr/voyage-v9/assets/logo-pinapp.svg",
+  "logo": "https://pinapp.fr/voyage-v9/assets/brand/pinapp-logo-mark.svg",
   "image": "https://pinapp.fr/voyage-v9/assets/og-pinapp.jpg",
   "description": "Studio digital Bordeaux · Sites, automatisations IA et films cinéma pour TPE/PME.",
   "address": { "@type": "PostalAddress", "addressLocality": "Bordeaux", "addressCountry": "FR" },
@@ -70,7 +71,7 @@
     { "@type": "Question", "name": "Combien de temps avant d'avoir des résultats ?", "acceptedAnswer": { "@type": "Answer", "text": "Site livré sous 3 semaines. Premiers leads sous 30 à 60 jours en moyenne." } },
     { "@type": "Question", "name": "Pourquoi vous êtes moins chers qu'une agence ?", "acceptedAnswer": { "@type": "Answer", "text": "On est 2, pas 15. On automatise notre propre travail. On ne sous-traite rien." } },
     { "@type": "Question", "name": "Que se passe-t-il après les 30 jours d'accompagnement ?", "acceptedAnswer": { "@type": "Answer", "text": "Vous gardez tout : code, accès, données. Option Pinapp Care 190-390 €/mois." } },
-    { "@type": "Question", "name": "Vous travaillez avec mon secteur ?", "acceptedAnswer": { "@type": "Answer", "text": "14 démos sectorielles. Si le vôtre n'y est pas, on en fait une gratuitement avant le devis." } }
+    { "@type": "Question", "name": "Vous travaillez avec mon secteur ?", "acceptedAnswer": { "@type": "Answer", "text": "5 démos sectorielles. Si le vôtre n'y est pas, on en fait une gratuitement avant le devis." } }
   ]
 }
 </script>
@@ -116,15 +117,14 @@ button{background:none;border:0;cursor:pointer}
 :focus-visible{outline:none;box-shadow:var(--focus);border-radius:var(--r-sm)}
 a,button,.btn,input[type="checkbox"],input[type="radio"]{touch-action:manipulation}
 #pinapp-film{position:fixed;inset:0;z-index:-4;pointer-events:none;opacity:.035;mix-blend-mode:screen;filter:hue-rotate(var(--film-hue-shift,0deg));transition:filter 1.2s var(--ease-out)}
-html.sober #pinapp-film{display:none}
 .stage{position:fixed;inset:0;z-index:-3;overflow:hidden;background:var(--nuit)}
 .stage__layer{position:absolute;inset:0;opacity:0;transition:opacity var(--dur-cinema) var(--ease-out),filter var(--dur-cinema) var(--ease-out);background-size:cover;background-position:center;transform:translateZ(0);-webkit-backface-visibility:hidden;backface-visibility:hidden;filter:blur(4px);will-change:opacity}
 .stage__layer.is-active{opacity:1;filter:none}
 @media (prefers-reduced-motion:no-preference){
-  html:not(.sober) .stage__layer.is-active{animation:kenburns 15s linear infinite}
+  .stage__layer.is-active{animation:kenburns 15s linear infinite}
 }
 @keyframes kenburns{0%{transform:translateZ(0) scale(1)}100%{transform:translateZ(0) scale(1.05)}}
-@media (prefers-reduced-motion:reduce),(html.sober){.stage__layer.is-active{animation:none!important}}
+@media (prefers-reduced-motion:reduce){.stage__layer.is-active{animation:none!important}}
 .stage__scrim{position:fixed;inset:0;z-index:-2;pointer-events:none;background:linear-gradient(180deg,rgba(5,11,20,.42) 0%,rgba(5,11,20,.72) 50%,rgba(5,11,20,.88) 100%)}
 .progress{position:fixed;inset:0 0 auto 0;height:3px;z-index:200;pointer-events:none;background:transparent}
 .progress__fill{height:100%;width:100%;background:linear-gradient(90deg,var(--or),var(--cyan));transform-origin:0 50%;transform:scaleX(0);transition:none}
@@ -132,9 +132,21 @@ html.sober #pinapp-film{display:none}
 .nav__inner{max-width:var(--container);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:var(--sp-4);padding:var(--sp-3) var(--sp-5);background:var(--fumee);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(230,185,115,0.15);border-radius:var(--r-lg)}
 .nav__brand{display:inline-flex;align-items:center;min-height:44px;min-width:44px;text-decoration:none;color:var(--ivoire);transition:color 200ms cubic-bezier(.16,1,.3,1)}
 .nav__brand svg{height:28px;width:auto;color:var(--ivoire);transition:color 200ms cubic-bezier(.16,1,.3,1)}
+.nav__brand--mark img,.nav__brand--mark svg{height:28px;width:auto;display:block;object-fit:contain}
+.nav__brand--wide .nav__brand-img--wide{display:none}
+@media (min-width:960px){
+  .nav__brand--wide .nav__brand-img--mark{display:none}
+  .nav__brand--wide .nav__brand-img--wide{display:block;height:32px;width:auto;max-width:min(320px,44vw);object-fit:contain}
+}
 .nav__brand:hover svg,.nav__brand:focus-visible svg{color:var(--or)}
 .nav__brand:focus-visible{outline:2px solid var(--cyan);outline-offset:4px;border-radius:4px}
 .nav__brand--footer,.nav__brand--footer:hover svg{color:var(--text-2)}.nav__brand--footer svg{height:22px;width:auto;color:var(--text-2)}.nav__brand--footer:hover svg{color:var(--or)}
+.nav__brand--footer.nav__brand--mark img{height:22px}
+footer .nav__brand--wide .nav__brand-img--wide{display:none}
+@media (min-width:720px){
+  footer .nav__brand--wide .nav__brand-img--mark{display:none}
+  footer .nav__brand--wide .nav__brand-img--wide{display:block;height:26px;width:auto;max-width:min(280px,75vw);object-fit:contain}
+}
 #pinapp-loader .nav__loader-svg,svg#pinapp-loader-mark{height:40px;width:auto;max-width:50vw}
 .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .placeholder{display:grid;place-items:center;gap:8px;background:rgba(201,169,110,0.04);border:1.5px dashed rgba(201,169,110,0.35);border-radius:14px;padding:32px;color:var(--text-2);text-align:center;font-size:13px;letter-spacing:0.06em}
@@ -159,13 +171,14 @@ html[data-mode="day"] .hero-duo-preview__meta{background:rgba(255,255,255,0.04)}
 .nav__actions{display:flex;align-items:center;gap:var(--sp-3);flex-wrap:wrap;justify-content:flex-end}
 .nav__cta{font-size:var(--fs-micro);font-weight:600;padding:12px 18px;min-height:44px;border-radius:var(--r-pill);background:var(--or);color:var(--nuit);transition:transform var(--dur-fast) var(--ease-spring)}
 .nav__cta:hover{transform:translateY(-1px)}
-.drawer__sober{font-size:var(--fs-micro);padding:12px 16px;min-height:44px;border-radius:var(--r-pill);border:1px solid rgba(230,185,115,0.45);color:var(--ivoire);background:transparent;cursor:pointer;width:100%;text-align:left;transition:background var(--dur-fast),transform var(--dur-fast) var(--ease-spring);margin-top:var(--sp-4);touch-action:manipulation}
-.drawer__sober:hover,.drawer__sober:focus-visible{background:var(--or-glow);transform:translateY(-1px)}
-.drawer__sober-glyph{display:inline-block;font-size:1.1rem;margin-right:8px;opacity:0.9;vertical-align:middle}
-.drawer__sober-text{display:inline;vertical-align:middle}
-.nav__drawer-open{font-size:var(--fs-micro);padding:12px 16px;min-height:44px;border-radius:var(--r-pill);border:1px solid rgba(230,185,115,0.45);color:var(--ivoire);transition:background var(--dur-fast),transform var(--dur-fast) var(--ease-spring)}
-.nav__drawer-open:hover{background:var(--or-glow);transform:translateY(-1px)}
-.nav__drawer-open{font-size:1.25rem;line-height:1;padding:10px 14px}
+.nav__hamburger{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:0;border-radius:var(--r-pill);border:1px solid rgba(230,185,115,0.45);color:var(--ivoire);background:rgba(5,11,20,0.35);cursor:pointer;transition:background var(--dur-fast),border-color var(--dur-fast),transform var(--dur-fast) var(--ease-spring);touch-action:manipulation}
+.nav__hamburger:hover,.nav__hamburger:focus-visible{background:var(--or-glow);border-color:rgba(230,185,115,0.55);transform:translateY(-1px)}
+.nav__hamburger:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.nav__hamburger-box{display:flex;flex-direction:column;justify-content:center;gap:5px;width:20px;height:14px}
+.nav__hamburger-line{display:block;height:2px;width:100%;background:currentColor;border-radius:1px;transition:transform var(--dur-fast) var(--ease-spring),opacity var(--dur-fast)}
+.nav__hamburger[aria-expanded="true"] .nav__hamburger-line:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav__hamburger[aria-expanded="true"] .nav__hamburger-line:nth-child(2){opacity:0}
+.nav__hamburger[aria-expanded="true"] .nav__hamburger-line:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 main{position:relative;z-index:1;padding-top:72px}
 .scene{position:relative;min-height:100dvh;padding:var(--sp-8) var(--gutter) var(--sp-9);display:flex;align-items:center}
 .scene--interstitial{min-height:100dvh;justify-content:center;text-align:center}
@@ -198,6 +211,11 @@ main{position:relative;z-index:1;padding-top:72px}
 .btn--cta-large{padding:18px 40px;font-size:1.125rem;min-height:48px}
 .card--glass{background:var(--fumee);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(230,185,115,0.15);border-radius:var(--r-lg);padding:var(--sp-6);transform:translateZ(0);transition:transform var(--dur-mid) var(--ease-out),border-color var(--dur-fast) var(--ease-out),box-shadow var(--dur-mid) var(--ease-out)}
 .card--glass:hover:not(.v10-tilt){transform:translateY(-2px) translateZ(0)}
+.demo-live-grid{display:grid;gap:var(--sp-4);margin:var(--sp-6) 0}
+@media(min-width:768px){.demo-live-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.demo-live-grid{grid-template-columns:repeat(3,1fr)}}
+a.demo-live-card{display:flex;flex-direction:column;gap:var(--sp-2);color:inherit;text-decoration:none;touch-action:manipulation}
+.demo-live-card__meta{font-size:var(--fs-micro);color:var(--text-2);font-weight:400}
 .v10-tilt{transform-style:preserve-3d;will-change:transform}
 .v10-tilt:hover{border-color:rgba(230,185,115,0.45);box-shadow:0 10px 32px var(--or-glow)}
 .card--pricing{position:relative}
@@ -343,7 +361,6 @@ footer .mp{font-size:12px;color:var(--ivoire-dim);margin-top:var(--sp-4)}
 #demoClose{min-width:44px;min-height:44px;border-radius:var(--r-sm);border:1px solid rgba(230,185,115,0.45);background:transparent;color:var(--ivoire);font-size:1.25rem;line-height:1;cursor:pointer;position:absolute;top:var(--sp-3);right:var(--sp-3);touch-action:manipulation}
 .modal__close{position:absolute;top:var(--sp-3);right:var(--sp-3);min-width:44px;min-height:44px;border-radius:var(--r-sm);border:1px solid rgba(230,185,115,0.35)}
 .morse-stay{position:fixed;bottom:var(--sp-4);left:var(--sp-4);z-index:50;display:flex;gap:4px;align-items:center;padding:8px 12px;min-height:44px;background:rgba(5,11,20,0.6);border-radius:var(--r-pill);border:1px solid rgba(230,185,115,0.2)}
-html.sober .morse-stay{display:none}
 .morse-stay .morse-dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--or);opacity:0.25;transition:opacity 0.15s}
 .morse-stay .morse-dot.is-on{opacity:1}
 @media (prefers-reduced-motion:reduce){.morse-stay .morse-dot{animation:none!important}}
@@ -378,6 +395,7 @@ body.draft-mode .draft-badge{opacity:1}
 .soft-video__sub{margin:0;color:var(--ivoire-dim);font-size:.9375rem;line-height:1.5}
 .card--duo{display:flex;flex-direction:column;gap:var(--sp-4);overflow:hidden}
 .team-portrait{width:100%;max-width:220px;margin:0 auto var(--sp-2);aspect-ratio:3/4;object-fit:cover;border-radius:50% 50% 12px 12px;border:1px solid rgba(230,185,115,0.25)}
+[data-author="micha"] .team-portrait{object-position:center 25%}
 @media(min-width:768px){.team-portrait{margin:0 0 var(--sp-3) 0;max-width:100%}}
 .card--duo .role-kicker{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--or);margin:0 0 var(--sp-2)}
 .pillar__desc{font-size:var(--fs-micro);color:var(--ivoire-mute);line-height:1.5;margin-top:var(--sp-2);max-width:14rem;margin-left:auto;margin-right:auto}
@@ -462,16 +480,12 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
 .scene-signature__num{font-weight:600;font-family:ui-monospace,Menlo,monospace}
 .scene-signature__sep{opacity:0.45}
 .scene-signature__label{font-style:italic;font-family:var(--ff-serif);letter-spacing:0.06em;text-transform:none;font-size:11px;line-height:1.2}
-html.sober #scene-signature{display:none}
 .scroll-progress{position:fixed;bottom:22px;right:18px;z-index:96;width:56px;height:56px;border-radius:50%;opacity:0;transform:scale(0.88);transition:opacity var(--dur-mid) var(--ease-out),transform var(--dur-mid) var(--ease-spring);box-shadow:0 0 0 1px rgba(230,185,115,0.1)}
 .scroll-progress.is-visible{opacity:1;transform:scale(1)}
 .scroll-progress svg{display:block;width:100%;height:100%;transform:rotate(-90deg)}
 .scroll-progress__track{fill:rgba(5,11,20,0.55);stroke:rgba(230,185,115,0.14);stroke-width:2}
 .scroll-progress__fill{fill:none;stroke:var(--or);stroke-width:2;stroke-linecap:round;stroke-dasharray:163.36;stroke-dashoffset:163.36;transition:stroke-dashoffset 0.15s linear}
 .scroll-progress__arrow{fill:var(--or);font-size:17px;font-weight:600;transform:rotate(90deg);transform-origin:30px 35px}
-html.sober .scroll-progress{display:none}
-.theme-ripple{position:fixed;width:0;height:0;border-radius:50%;background:var(--or);transform:translate(-50%,-50%);pointer-events:none;z-index:9998;opacity:0.55;transition:width 0.75s var(--ease-cinema),height 0.75s var(--ease-cinema),opacity 0.75s var(--ease-out)}
-.theme-ripple.is-expand{width:280vmax;height:280vmax;opacity:0}
 #pinapp-loader{position:fixed;inset:0;z-index:100000;background:#0a0d12;display:grid;place-items:center;gap:var(--sp-5);transition:opacity 0.55s var(--ease-out)}
 #pinapp-loader.is-done{opacity:0;pointer-events:none}
 .loader__brand{display:block}
@@ -662,7 +676,6 @@ html.sober .scroll-progress{display:none}
     grid-template-columns: 1fr;
   }
 }
-html.sober #grain-canvas{display:none!important}
 @media (pointer:fine) and (min-width:1024px){
   html.mag-cursor-on body{cursor:none}
   html.mag-cursor-on a,html.mag-cursor-on button,html.mag-cursor-on [role="button"],html.mag-cursor-on input,html.mag-cursor-on textarea,html.mag-cursor-on select{cursor:none}
@@ -725,11 +738,9 @@ html.sober #grain-canvas{display:none!important}
 
 <header class="nav" role="banner">
   <div class="nav__inner">
-    <a href="/" class="nav__brand" aria-label="Accueil Pinapp">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 32" width="140" height="32" aria-hidden="true" focusable="false">
-        <text x="0" y="24" font-family="Georgia,serif" font-style="italic" font-size="26" font-weight="500" fill="currentColor">pinapp</text>
-        <circle cx="120" cy="22" r="3" fill="var(--or)"/>
-      </svg>
+    <a href="/" class="nav__brand nav__brand--mark nav__brand--wide" aria-label="Accueil Pinapp">
+      <img class="nav__brand-img nav__brand-img--mark" src="/voyage-v9/assets/brand/pinapp-logo-mark.svg" alt="" width="188" height="36" decoding="async" fetchpriority="high" />
+      <img class="nav__brand-img nav__brand-img--wide" src="/voyage-v9/assets/brand/pinapp-logo-horizontal.webp" alt="" width="1376" height="768" decoding="async" />
       <span class="visually-hidden">Pinapp Inc.</span>
     </a>
     <nav class="nav__jumps" aria-label="Accès rapide">
@@ -746,7 +757,7 @@ html.sober #grain-canvas{display:none!important}
     </nav>
     <div class="nav__actions">
       <a class="nav__cta" href="#contact">Diagnostic 24h offert →</a>
-      <button type="button" class="nav__drawer-open" id="btnDrawerOpen" aria-controls="drawerAbout" aria-expanded="false" aria-label="Ouvrir le menu Qui sommes-nous">☰</button>
+      <button type="button" class="nav__hamburger" id="btnDrawerOpen" aria-controls="drawerAbout" aria-expanded="false" aria-label="Ouvrir le menu Qui sommes-nous"><span class="nav__hamburger-box" aria-hidden="true"><span class="nav__hamburger-line"></span><span class="nav__hamburger-line"></span><span class="nav__hamburger-line"></span></span></button>
     </div>
   </div>
 </header>
@@ -817,7 +828,7 @@ html.sober #grain-canvas{display:none!important}
       <div class="orientation-grid" data-reveal>
         <a class="orientation-card" href="#diagnostic"><h3>Dirigeant·e TPE/PME</h3><p>Site, automatisations, pack duo — objectif conversion et temps gagné.</p><span class="eyebrow" style="margin:0">Suite → Diagnostic</span></a>
         <a class="orientation-card" href="#cinema-artistes"><h3>Artiste / créateur·trice</h3><p>Clips IA, univers visuel, voix — objectif présence scène numérique.</p><span class="eyebrow" style="margin:0">Suite → Cinéma IA</span></a>
-        <a class="orientation-card orientation-card--discreet" href="https://memoireetpresence.fr/" target="_blank" rel="noopener noreferrer"><h3>Famille · hommage</h3><p>Projet à part : accompagnement humain, site dédié — memoireetpresence.fr</p><span class="eyebrow" style="margin:0;color:var(--accent-mp)">Ouvrir memoireetpresence.fr ↗</span></a>
+        <a class="orientation-card orientation-card--discreet" href="https://lauraliedaguzay-lang.github.io/memoireetpresence/" target="_blank" rel="noopener noreferrer"><h3>Famille · hommage</h3><p>Projet à part : accompagnement humain — vitrine en ligne (GitHub Pages).</p><span class="eyebrow" style="margin:0;color:var(--accent-mp)">Voir Mémoire &amp; Présence ↗</span></a>
       </div>
     </div>
   </section>
@@ -901,7 +912,7 @@ html.sober #grain-canvas{display:none!important}
         <div class="card--glass card--duo" data-reveal data-reveal-delay="1" data-author="micha">
           <figure class="team-figure">
             <div class="team-wrap">
-              <img class="team-portrait team-photo" src="/voyage-v9/assets/team/micha.jpg" alt="Portrait de Michaël Bouilhac" width="440" height="587" loading="eager" decoding="async" fetchpriority="high" />
+              <img class="team-portrait team-photo" src="/voyage-v9/assets/team/micha.jpg" alt="Portrait de Michaël Bouilhac" width="560" height="560" loading="eager" decoding="async" fetchpriority="high" />
             </div>
             <figcaption class="team-caption">
               <span class="team-name">Michaël</span>
@@ -925,7 +936,7 @@ html.sober #grain-canvas{display:none!important}
               <li><strong>Automatisations</strong> : formulaire → qualification → devis → signature/paiement → avis.</li>
             </ul>
             <div class="real-links" aria-label="Liens réalisations Lauralie">
-              <a href="#" data-demo="atelier-rivage">Atelier Rivage ↗</a>
+              <a href="/demo/atelier-rivage/">Atelier Rivage ↗</a>
               <a href="#realisations-vitrine">Captures démo ↓</a>
               <a href="#auto">Schéma automatisations ↓</a>
             </div>
@@ -1045,7 +1056,7 @@ html.sober #grain-canvas{display:none!important}
   <div class="realisations-wrap">
   <nav class="bloc6-nav" aria-label="Sous-sections réalisations">
     <a href="#realisations-vitrine" class="bloc6-nav__link">Vitrine</a>
-    <a href="#realisations-demos" class="bloc6-nav__link">14 démos</a>
+    <a href="#realisations-demos" class="bloc6-nav__link">5 démos</a>
     <a href="#realisations-stack" class="bloc6-nav__link">Pile tech</a>
     <a href="#realisations-films" class="bloc6-nav__link">Films Micha</a>
     <a href="#cinema-artistes" class="bloc6-nav__link">Cinéma artistes</a>
@@ -1103,9 +1114,9 @@ html.sober #grain-canvas{display:none!important}
           </button>
         </article>
         <article class="demo-tile">
-          <button type="button" class="demo-open" data-demo-img="/assets/images/og-pinapp-share.svg" data-demo-title="Ōkami" data-demo-cap="Restauration — ambiance et réservation (démo fictive)." data-demo-href="/demo/restaurant/" data-demo-label="Ouvrir la démo en direct" aria-label="Ouvrir la démo restaurant Ōkami">
+          <button type="button" class="demo-open" data-demo-img="/assets/images/og-pinapp-share.svg" data-demo-title="Maison Aurore" data-demo-cap="Restauration — ambiance et réservation (démo fictive)." data-demo-href="/demo/restaurant/" data-demo-label="Ouvrir la démo en direct" aria-label="Ouvrir la démo restaurant Maison Aurore">
             <span aria-hidden="true" style="display:block;width:100%;aspect-ratio:16/10;border-radius:18px;background:radial-gradient(110% 90% at 70% 30%, rgba(230,185,115,0.14), rgba(5,10,20,0.92) 72%);border:1px solid rgba(255,255,255,0.08)"></span>
-            <div class="demo-tile__body"><strong>Ōkami</strong>Restaurant · ambiance et réservation</div>
+            <div class="demo-tile__body"><strong>Maison Aurore</strong>Restaurant · ambiance et réservation</div>
           </button>
         </article>
         <article class="demo-tile">
@@ -1122,39 +1133,26 @@ html.sober #grain-canvas{display:none!important}
   <section id="realisations-demos" class="scene" data-stage="hero-3" aria-labelledby="realisations-demos-h2">
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>Studio Lauralie · Prix fixes</p>
-      <h2 id="realisations-demos-h2" class="display display--h2" data-reveal>14 démos sectorielles. Votre métier s'y retrouve.<br>Prix affichés · ouverture en un clic.</h2>
+      <h2 id="realisations-demos-h2" class="display display--h2" data-reveal>5 démos sectorielles. Votre métier s'y retrouve.<br>Prix affichés · ouverture en un clic.</h2>
       <p class="lead" data-reveal>Chaque carte ouvre une <strong>vitrine fictive</strong> (données de démo) pour que vous voyiez le niveau de finition — comme la vitrine <a href="#realisations-vitrine" style="color:var(--cyan);text-decoration:underline;text-underline-offset:3px">Atelier Rivage</a> ci-dessus. Grille rapide + secteurs dans le volet.</p>
-      <div class="placeholder-asset" data-reveal>📭 Reel 14 sites · style Apple WWDC · 20 sec
+      <div class="placeholder-asset" data-reveal>📭 Reel 5 univers · style Apple WWDC · 20 sec
 Mosaïque animée · transitions cross-fade · sound design off
-À monter — montre 14 sites successivement</div>
+À monter — montre les 5 vitrines successivement</div>
       <div class="pillars" data-reveal>
         <div class="pillar"><div class="pillar__emoji">🌐</div><div class="pillar__title">Sites qui<br>convertissent</div><p class="pillar__desc">Page d'accueil et pages clés : message clair, prise de contact, SEO et perf. Pas de site « carte de visite » qui ne ramène personne.</p><div>1 290 € HT</div></div>
         <div class="pillar"><div class="pillar__emoji">⚙</div><div class="pillar__title">Automatisations<br>qui tournent seules</div><p class="pillar__desc">Relier formulaire, CRM, devis, mails, rappels, avis — moins de saisie manuelle, moins d'oublis.</p><div>490 € HT</div></div>
         <div class="pillar"><div class="pillar__emoji">✨</div><div class="pillar__title">Assistants qui<br>répondent H24</div><p class="pillar__desc">Configurations sur vos outils pour qualifier, répondre aux questions fréquentes ou préparer des brouillons que vous validez.</p><div>890 € HT</div></div>
       </div>
-      <div class="mock-grid" data-reveal>
-        <div class="mock mock--wide">
-          <button type="button" class="mock__open demo-open" data-demo-img="/assets/images/og-pinapp-share.svg" data-demo-title="Atelier Rivage" data-demo-cap="Vitrine architecture (données fictives)." data-demo-href="/demo/atelier-rivage/" data-demo-label="Ouvrir la démo en direct" aria-label="Ouvrir la démo Atelier Rivage">
-            <span class="mock__img mock__img--demo" aria-hidden="true" style="display:block;width:100%;aspect-ratio:16/10;background:radial-gradient(120% 90% at 70% 40%, rgba(62,235,214,0.16), rgba(5,10,20,0.92) 70%);"></span>
-            <div class="mock__body"><strong>★ Atelier Rivage · architecture · villas</strong> — aperçu (clic pour zoom)</div>
-          </button>
-        </div>
-        <div class="mock">
-          <button type="button" class="mock__open demo-open" data-demo-img="/assets/images/og-pinapp-share.svg" data-demo-title="Ōkami" data-demo-cap="Démo restauration (fictif)." data-demo-href="/demo/restaurant/" data-demo-label="Ouvrir la démo en direct" aria-label="Ouvrir la démo restaurant Ōkami">
-            <span class="mock__img mock__img--demo" aria-hidden="true" style="display:block;width:100%;aspect-ratio:16/10;background:radial-gradient(120% 90% at 70% 40%, rgba(230,185,115,0.14), rgba(5,10,20,0.92) 72%);"></span>
-            <div class="mock__body"><span>02 Ōkami · restaurant</span> — aperçu</div>
-          </button>
-        </div>
-        <div class="mock">
-          <button type="button" class="mock__open demo-open" data-demo-img="/assets/images/og-pinapp-share.svg" data-demo-title="Studio Léna" data-demo-cap="Extensions de cils — démo fictive (placeholders premium V1)." data-demo-href="/demo/extensions-cils/" data-demo-label="Ouvrir la démo en direct" aria-label="Ouvrir la démo Studio Léna">
-            <span class="mock__img mock__img--demo" aria-hidden="true" style="display:block;width:100%;aspect-ratio:16/10;background:radial-gradient(120% 90% at 70% 40%, rgba(201,169,110,0.16), rgba(5,10,20,0.94) 74%);"></span>
-            <div class="mock__body"><span>03 Studio Léna · extensions de cils</span> — aperçu</div>
-          </button>
-        </div>
+      <div class="demo-live-grid" data-reveal>
+        <a class="card--glass demo-live-card" href="/demo/atelier-rivage/"><strong>Atelier Rivage</strong><span class="demo-live-card__meta">Architecture · villas</span></a>
+        <a class="card--glass demo-live-card" href="/demo/restaurant/"><strong>Maison Aurore</strong><span class="demo-live-card__meta">Restaurant</span></a>
+        <a class="card--glass demo-live-card" href="/demo/avocat/"><strong>Cabinet Renaud</strong><span class="demo-live-card__meta">Avocat</span></a>
+        <a class="card--glass demo-live-card" href="/demo/esthetique/"><strong>Maison Solène</strong><span class="demo-live-card__meta">Esthétique</span></a>
+        <a class="card--glass demo-live-card" href="/demo/extensions-cils/"><strong>Studio Léna</strong><span class="demo-live-card__meta">Extensions cils</span></a>
       </div>
       <details class="faq" data-reveal>
-        <summary>Trouver mon secteur (11 démos +)</summary>
-        <p class="faq-a">artisan · avocat · esthétique · cils · ongles ·<br>coiffeur · barbier · fitness · tatoueuse · sur-mesure</p>
+        <summary>Voir toutes les démos disponibles (5 univers sectoriels)</summary>
+        <p class="faq-a">architecte · restaurant · avocat · esthétique ·<br>extensions cils</p>
       </details>
       <div class="card--glass" style="margin-top:var(--sp-6)" data-reveal>
         <p><span class="badge" style="margin-right:var(--sp-2)">Passerelle</span><strong>Bundle Site + Auto · 1 590 € HT</strong></p>
@@ -1331,12 +1329,12 @@ Captation 4-6h · montage 5 jours
           <li>Même exigence technique : accessible, sobre, hébergement maîtrisé</li>
         </ul>
         <div class="cta-row" style="margin-top:var(--sp-5);margin-bottom:0">
-          <a class="btn btn--primary" href="https://memoireetpresence.fr/" target="_blank" rel="noopener noreferrer">Visiter memoireetpresence.fr ↗</a>
+          <a class="btn btn--primary" href="https://lauraliedaguzay-lang.github.io/memoireetpresence/" target="_blank" rel="noopener noreferrer">Voir le site Mémoire &amp; Présence ↗</a>
           <a class="btn btn--ghost" href="https://github.com/lauraliedaguzay-lang/memoireetpresence" target="_blank" rel="noopener noreferrer">Voir le dépôt GitHub ↗</a>
           <a class="btn btn--ghost" href="#contact">Revenir au diagnostic Pinapp</a>
         </div>
       </div>
-      <p class="lead" data-reveal style="text-align:center;margin-top:var(--sp-6);max-width:40rem;margin-left:auto;margin-right:auto">Pour un projet d'hommage, allez directement sur <a href="https://memoireetpresence.fr/" target="_blank" rel="noopener noreferrer" style="color:var(--accent-mp);text-decoration:underline;text-underline-offset:3px">memoireetpresence.fr</a> · accompagnement humain dédié.</p>
+      <p class="lead" data-reveal style="text-align:center;margin-top:var(--sp-6);max-width:40rem;margin-left:auto;margin-right:auto">Pour un projet d'hommage, consultez <a href="https://lauraliedaguzay-lang.github.io/memoireetpresence/" target="_blank" rel="noopener noreferrer" style="color:var(--accent-mp);text-decoration:underline;text-underline-offset:3px">Mémoire &amp; Présence</a> (vitrine GitHub Pages) · accompagnement humain dédié.</p>
       <p class="source-note" data-reveal style="text-align:center;margin-top:var(--sp-5)">Sept engagements écrits. Et un formulaire qui s'adapte à vous.</p>
     </div>
   </section>
@@ -1448,7 +1446,7 @@ Captation 4-6h · montage 5 jours
         <details class="faq" data-reveal><summary>Combien de temps avant d'avoir des résultats ?</summary><p class="faq-a">Site livré sous 3 semaines.<br>Premiers leads sous 30 à 60 jours en moyenne (selon votre secteur).</p></details>
         <details class="faq" data-reveal><summary>Pourquoi vous êtes moins chers qu'une agence ?</summary><p class="faq-a">On est 2, pas 15. On automatise notre propre travail.<br>On ne sous-traite rien. C'est tout.</p></details>
         <details class="faq" data-reveal><summary>Que se passe-t-il après les 30 jours d'accompagnement ?</summary><p class="faq-a">Vous gardez tout : code, accès, données.<br>Option Pinapp Care (190-390 €/mois) pour rester accompagné·e.</p></details>
-        <details class="faq" data-reveal><summary>Vous travaillez avec mon secteur ?</summary><p class="faq-a">14 démos sectorielles disponibles.<br>Si le vôtre n'y est pas, on en fait une gratuitement avant le devis.</p></details>
+        <details class="faq" data-reveal><summary>Vous travaillez avec mon secteur ?</summary><p class="faq-a">5 démos sectorielles disponibles.<br>Si le vôtre n'y est pas, on en fait une gratuitement avant le devis.</p></details>
       </div>
       <p class="microcite" data-reveal style="margin-top:var(--sp-7);font-size:1.05rem">Au-delà de Pinapp, nous portons aussi Mémoire &amp; Présence.</p>
       <div class="cta-row" data-reveal><a class="btn btn--primary" href="#contact">Diagnostic offert sous 24h →</a></div>
@@ -1721,11 +1719,9 @@ Captation 4-6h · montage 5 jours
   <p class="sig">« Sites faits main à Bordeaux : stack européenne, IA déclarée,<br>accessibles, sous 1 Mo, prix publics. »</p>
   <p class="co2" id="co2line">🌍 Cette page ≈ 0,35 g CO₂ / visite (estimation page statique légère)</p>
   <p style="margin:0 0 var(--sp-3)">
-    <a href="/" class="nav__brand nav__brand--footer" aria-label="Accueil Pinapp">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 32" width="140" height="32" aria-hidden="true" focusable="false">
-        <text x="0" y="24" font-family="Georgia,serif" font-style="italic" font-size="26" font-weight="500" fill="currentColor">pinapp</text>
-        <circle cx="120" cy="22" r="3" fill="var(--or)"/>
-      </svg>
+    <a href="/" class="nav__brand nav__brand--footer nav__brand--mark nav__brand--wide" aria-label="Accueil Pinapp">
+      <img class="nav__brand-img nav__brand-img--mark" src="/voyage-v9/assets/brand/pinapp-logo-mark.svg" alt="" width="188" height="36" decoding="async" loading="lazy" />
+      <img class="nav__brand-img nav__brand-img--wide" src="/voyage-v9/assets/brand/pinapp-logo-horizontal.webp" alt="" width="1376" height="768" decoding="async" loading="lazy" />
       <span class="visually-hidden">Pinapp Inc.</span>
     </a>
   </p>
@@ -1753,7 +1749,7 @@ Captation 4-6h · montage 5 jours
     <p>Ce qui reste. Ce qu'on transmet.</p>
     <p>Aux côtés de Pinapp, nous portons aussi<br>Mémoire &amp; Présence — un projet de transmission numérique pour les familles.</p>
     <p>Pas un service Pinapp. Un engagement parallèle.</p>
-    <p><a href="https://memoireetpresence.fr/" target="_blank" rel="noopener noreferrer">Visiter memoireetpresence.fr ↗</a></p>
+    <p><a href="https://lauraliedaguzay-lang.github.io/memoireetpresence/" target="_blank" rel="noopener noreferrer">Voir Mémoire &amp; Présence ↗</a></p>
     <p><a href="https://github.com/lauraliedaguzay-lang/memoireetpresence" target="_blank" rel="noopener noreferrer">Voir le dépôt GitHub ↗</a></p>
     <button type="button" class="btn btn--ghost" id="mpClose2">Fermer</button>
   </div>
@@ -1783,8 +1779,7 @@ Captation 4-6h · montage 5 jours
   </div>
   <div class="drawer__act">
     <h3>Affichage</h3>
-    <p class="source-note" style="margin:0 0 var(--sp-2)">Réduit les effets (particules, smooth scroll) pour un parcours plus sobre — utile en fatigue visuelle.</p>
-    <button type="button" class="drawer__sober" id="btnSober" aria-pressed="false" aria-label="Activer le mode sobre (désactive les effets)"><span class="drawer__sober-glyph" aria-hidden="true">◯</span><span class="drawer__sober-text">Mode sobre</span></button>
+    <p class="source-note" style="margin:0">Les animations lourdes se coupent automatiquement si le système demande moins de mouvement (<code>prefers-reduced-motion</code>).</p>
   </div>
 </aside>
 
@@ -1861,18 +1856,6 @@ if('IntersectionObserver' in window && !prefersReduced()){
   document.querySelectorAll('[data-reveal]').forEach(function(el){ el.classList.add('is-in'); });
 }
 
-var SOBER_KEY='pinapp-voyage-sober';
-function applySober(on){
-  document.documentElement.classList.toggle('sober',on);
-  document.body.classList.toggle('sober',on);
-  try{localStorage.setItem(SOBER_KEY,on?'1':'0');}catch(e){}
-  if(on && window.__pinappLenis && typeof window.__pinappLenis.destroy==='function'){
-    try{window.__pinappLenis.destroy();}catch(e2){}
-    window.__pinappLenis=null;
-  }
-}
-try{ if(localStorage.getItem(SOBER_KEY)==='1') applySober(true);}catch(e){}
-
 var demoDlg=document.getElementById('demo-modal');
 var demoModalImg=document.getElementById('demo-modal__img');
 var demoModalTitleEl=document.getElementById('demo-modal-title');
@@ -1946,7 +1929,6 @@ window.PinappOpenDataDemo=function(slug){
 function getFocusable(root){
   return [].slice.call(root.querySelectorAll('a[href],button:not([disabled]),textarea,input,select,[tabindex]:not([tabindex="-1"])')).filter(function(n){ return n.offsetParent!==null || n===document.activeElement; });
 }
-var btnSober=document.getElementById('btnSober');
 var trapState={ el:null, fn:null };
 function trapFocus(root){
   if(trapState.fn && trapState.el){ trapState.el.removeEventListener('keydown', trapState.fn); trapState.el=null; trapState.fn=null; }
@@ -1998,34 +1980,6 @@ window.addEventListener('keydown',function(e){
   else if(dPanel && dPanel.classList.contains('is-open')) closeDrawer();
 });
 
-if(btnSober){
-  btnSober.addEventListener('click',function(){
-    if(prefersReduced()){
-      var on0=!document.documentElement.classList.contains('sober');
-      applySober(on0);
-      btnSober.setAttribute('aria-pressed',on0?'true':'false');
-      return;
-    }
-    if(dPanel && dPanel.classList.contains('is-open')){ closeDrawer(); }
-    var ripple=document.createElement('div');
-    ripple.className='theme-ripple';
-    var rect=btnSober.getBoundingClientRect();
-    ripple.style.left=(rect.left+rect.width/2)+'px';
-    ripple.style.top=(rect.top+rect.height/2)+'px';
-    document.body.appendChild(ripple);
-    requestAnimationFrame(function(){
-      ripple.classList.add('is-expand');
-      window.setTimeout(function(){
-        var on=!document.documentElement.classList.contains('sober');
-        applySober(on);
-        btnSober.setAttribute('aria-pressed',on?'true':'false');
-      },400);
-      window.setTimeout(function(){ ripple.remove(); },820);
-    });
-  });
-  if(document.documentElement.classList.contains('sober')) btnSober.setAttribute('aria-pressed','true');
-}
-
 var mpO=document.getElementById('mpOverlay');
 var mpD=document.getElementById('mpDialog');
 var mpC=document.getElementById('mpClose');
@@ -2051,7 +2005,7 @@ var dots=[].slice.call(document.querySelectorAll('.morse-dot'));
 var morseSeq=[0,1,2,1,3,4,3,5];
 var mi=0;
 function tickMorse(){
-  if(prefersReduced() || document.documentElement.classList.contains('sober')) return;
+  if(prefersReduced()) return;
   dots.forEach(function(d,i){ d.classList.toggle('is-on', morseSeq[mi%8]===i); });
   mi++;
 }
