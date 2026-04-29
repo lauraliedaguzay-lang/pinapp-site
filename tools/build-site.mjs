@@ -69,6 +69,64 @@ function copyTree(srcDir, rel = '') {
   }
 }
 
+/**
+ * Promote voyage-v9/ HTML to _site root so pinapp.fr/ serves the new home.
+ * Repo source unchanged — only the publish artifact is rewritten.
+ * _site/voyage-v9/ stays (staging mirror + static assets for promoted pages).
+ */
+function promoteVoyageV9(siteDir) {
+  const v9Dir = path.join(siteDir, 'voyage-v9');
+  if (!fs.existsSync(v9Dir)) {
+    console.log('[promoteVoyageV9] voyage-v9/ absent dans _site, skip');
+    return;
+  }
+
+  const backups = [
+    ['index.html', 'index-legacy.html'],
+    ['histoire.html', 'histoire-legacy.html'],
+  ];
+  for (const [from, to] of backups) {
+    const src = path.join(siteDir, from);
+    const dst = path.join(siteDir, to);
+    if (fs.existsSync(src)) {
+      if (fs.existsSync(dst)) fs.rmSync(dst, { force: true });
+      fs.renameSync(src, dst);
+      console.log('[promoteVoyageV9] backup', from, '→', to);
+    }
+  }
+
+  function rewritePromotedHtml(raw) {
+    let content = raw;
+    content = content.replace(/https:\/\/pinapp\.fr\/voyage-v9\//g, 'https://pinapp.fr/');
+    /* Images / logo JSON-LD : après remplacement ci-dessus ils pointent vers /assets/ racine alors que les fichiers sont sous /voyage-v9/assets/ */
+    content = content.replace(/https:\/\/pinapp\.fr\/assets\//g, 'https://pinapp.fr/voyage-v9/assets/');
+    content = content.replace(/pinapp-voyage-v9-build/g, 'pinapp-home-build');
+    /* Chemins relatifs assets/ → voyage-v9/assets/ (fichiers réels restent sous _site/voyage-v9/) */
+    const assetReplacers = [
+      [/url\('assets\//g, "url('voyage-v9/assets/"],
+      [/url\("assets\//g, 'url("voyage-v9/assets/'],
+      [/url\(assets\//g, 'url(voyage-v9/assets/'],
+      [/"assets\//g, '"voyage-v9/assets/'],
+      [/'assets\//g, "'voyage-v9/assets/"],
+    ];
+    for (const [re, rep] of assetReplacers) {
+      content = content.replace(re, rep);
+    }
+    return content;
+  }
+
+  const filesToPromote = ['index.html', 'histoire.html'];
+  for (const f of filesToPromote) {
+    const src = path.join(v9Dir, f);
+    const dst = path.join(siteDir, f);
+    if (!fs.existsSync(src)) continue;
+    const out = rewritePromotedHtml(fs.readFileSync(src, 'utf8'));
+    fs.writeFileSync(dst, out, 'utf8');
+    console.log('[promoteVoyageV9] promoted', f, '→ racine _site (', out.length, 'octets)');
+  }
+  console.log('[promoteVoyageV9] OK — / sert le HTML voyage-v9 ; assets sous /voyage-v9/assets/');
+}
+
 fs.rmSync(dest, { recursive: true, force: true });
 fs.mkdirSync(dest, { recursive: true });
 copyTree(root);
@@ -92,6 +150,8 @@ if (auto.configUrl || auto.flags || auto.tally) {
       .join(', ') || '(rien)',
   );
 }
+
+promoteVoyageV9(dest);
 
 if (!fs.existsSync(path.join(dest, 'index.html'))) {
   console.error('build-site: index.html manquant dans _site');
