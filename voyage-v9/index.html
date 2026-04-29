@@ -855,10 +855,106 @@ html.sober .scene{opacity:1!important;transform:none!important;filter:none!impor
   .btn--cta-large{animation:none}
   .scene{opacity:1;transform:none;filter:none;transition:none}
 }
+/* ============================================
+   M4 — Ambient Avalon (additive, no override)
+   ============================================ */
+
+/* M4.1 — Particules dorées flottantes */
+.ambient-layer{
+  position:fixed;inset:0;
+  pointer-events:none;
+  z-index:1;
+  overflow:hidden;
+  contain:strict;
+}
+.ambient-particle{
+  position:absolute;
+  display:block;
+  border-radius:50%;
+  background:radial-gradient(circle, var(--or) 0%, rgba(230,185,115,0.4) 60%, transparent 100%);
+  will-change:transform,opacity;
+}
+
+/* 12 particules — tailles, positions, durées, trajectoires variées */
+.ambient-particle--1 {width:3px;height:3px;left:8%; top:15%;opacity:.32;animation:m4-drift-a 32s ease-in-out infinite}
+.ambient-particle--2 {width:2px;height:2px;left:22%;top:78%;opacity:.22;animation:m4-drift-b 41s ease-in-out infinite -7s}
+.ambient-particle--3 {width:4px;height:4px;left:38%;top:32%;opacity:.18;animation:m4-drift-c 28s ease-in-out infinite -12s}
+.ambient-particle--4 {width:2px;height:2px;left:55%;top:62%;opacity:.30;animation:m4-drift-a 36s ease-in-out infinite -3s}
+.ambient-particle--5 {width:3px;height:3px;left:71%;top:18%;opacity:.25;animation:m4-drift-b 44s ease-in-out infinite -18s}
+.ambient-particle--6 {width:2px;height:2px;left:86%;top:48%;opacity:.20;animation:m4-drift-c 31s ease-in-out infinite -9s}
+.ambient-particle--7 {width:4px;height:4px;left:14%;top:55%;opacity:.16;animation:m4-drift-a 38s ease-in-out infinite -21s}
+.ambient-particle--8 {width:2px;height:2px;left:48%;top:88%;opacity:.28;animation:m4-drift-b 33s ease-in-out infinite -5s}
+.ambient-particle--9 {width:3px;height:3px;left:62%;top:8%; opacity:.22;animation:m4-drift-c 42s ease-in-out infinite -15s}
+.ambient-particle--10{width:2px;height:2px;left:31%;top:42%;opacity:.18;animation:m4-drift-a 27s ease-in-out infinite -23s}
+.ambient-particle--11{width:3px;height:3px;left:78%;top:72%;opacity:.24;animation:m4-drift-b 35s ease-in-out infinite -11s}
+.ambient-particle--12{width:2px;height:2px;left:5%; top:88%;opacity:.20;animation:m4-drift-c 39s ease-in-out infinite -2s}
+
+@keyframes m4-drift-a{
+  0%,100%{transform:translate(0,0)}
+  25%{transform:translate(40px,-30px)}
+  50%{transform:translate(20px,-60px)}
+  75%{transform:translate(-20px,-30px)}
+}
+@keyframes m4-drift-b{
+  0%,100%{transform:translate(0,0)}
+  33%{transform:translate(-35px,25px)}
+  66%{transform:translate(25px,40px)}
+}
+@keyframes m4-drift-c{
+  0%,100%{transform:translate(0,0)}
+  20%{transform:translate(20px,20px)}
+  50%{transform:translate(-30px,-15px)}
+  80%{transform:translate(15px,-25px)}
+}
+
+/* M4.2 — Vignette respirante hero */
+#hero{position:relative}
+#hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+  background:
+    radial-gradient(ellipse at center, transparent 30%, rgba(5,11,20,0.35) 80%, rgba(5,11,20,0.6) 100%),
+    radial-gradient(ellipse at 50% 40%, rgba(230,185,115,0.04) 0%, transparent 50%);
+  animation:m4-hero-breath 8s ease-in-out infinite;
+}
+@keyframes m4-hero-breath{
+  0%,100%{opacity:.55}
+  50%{opacity:.78}
+}
+/* Garder le contenu hero AU-DESSUS de la vignette */
+#hero > *{position:relative;z-index:2}
+
+/* Mode sobre — désactive ambient (cohérent M3) */
+html.sober .ambient-layer{display:none}
+html.sober #hero::after{animation:none;opacity:.55}
+
+/* Reduced motion — coupe toutes les animations M4 */
+@media (prefers-reduced-motion: reduce){
+  .ambient-particle{animation:none;opacity:0}
+  #hero::after{animation:none;opacity:.55}
+}
 </style>
 </head>
 
 <body data-draft-count="0">
+<!-- M4.1 — Ambient particles (12 dorées flottantes) -->
+<div class="ambient-layer" aria-hidden="true">
+  <span class="ambient-particle ambient-particle--1"></span>
+  <span class="ambient-particle ambient-particle--2"></span>
+  <span class="ambient-particle ambient-particle--3"></span>
+  <span class="ambient-particle ambient-particle--4"></span>
+  <span class="ambient-particle ambient-particle--5"></span>
+  <span class="ambient-particle ambient-particle--6"></span>
+  <span class="ambient-particle ambient-particle--7"></span>
+  <span class="ambient-particle ambient-particle--8"></span>
+  <span class="ambient-particle ambient-particle--9"></span>
+  <span class="ambient-particle ambient-particle--10"></span>
+  <span class="ambient-particle ambient-particle--11"></span>
+  <span class="ambient-particle ambient-particle--12"></span>
+</div>
 <div id="pinapp-loader" aria-hidden="true">
   <div class="loader__lockup">
     <div class="loader__brand" aria-hidden="true">
