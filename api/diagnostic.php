@@ -1,12 +1,14 @@
 <?php
 /**
- * PINAPP — Bridge diagnostic (Hostinger)
- * Déposer sur le serveur : /public_html/api/diagnostic.php
- * Reçoit le JSON du wizard #pinapp-contact-wizard (4 étapes).
+ * PINAPP — Bridge diagnostic (Hostinger) v2
+ * JSON ou multipart/form-data · emails HTML Avalon · uploads optionnels (voir commit upload-back).
  *
- * Les messages sont envoyés à contact@pinapp.fr (compte Hostinger + forwards).
- * CORS : ajuster $allowed si domaine différent.
+ * Déploiement : /public_html/api/diagnostic.php
  */
+declare(strict_types=1);
+
+require_once __DIR__ . '/email-template.php';
+
 header('Content-Type: application/json; charset=utf-8');
 
 $allowed = [
@@ -35,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
   exit;
 }
 
+// ——— Payload JSON uniquement (multipart géré dans commit suivant) ———
 $raw = file_get_contents('php://input');
 $payload = json_decode($raw, true);
 if (!is_array($payload) || empty($payload['email'])) {
@@ -128,47 +131,82 @@ $packLabels = [
   'pas_encore' => 'Je ne sais pas encore — orientation au diagnostic',
 ];
 $packHuman = $packLabels[$pack_envisage] ?? $pack_envisage;
-$packNote = $pack_envisage === 'pack_duo' ? 'Offre mise en avant (★ STAR).' : '';
+$parts = array_map('trim', explode('—', $packHuman));
+$pack_label = $parts[0] ?? $packHuman;
+$pack_price = $parts[1] ?? '';
+$pack_desc = $parts[2] ?? '';
 
-// Hostinger : forwards depuis contact@pinapp.fr vers Lauralie + Micha (hPanel).
+$budgetLabels = [
+  'moins_1500' => 'Moins de 1 500 €',
+  '1500_2500' => '1 500 € – 2 500 €',
+  '2500_4000' => '2 500 € – 4 000 €',
+  '4000_6000' => '4 000 € – 6 000 €',
+  'plus_6000' => 'Plus de 6 000 €',
+  'a_chiffrer' => 'À chiffrer ensemble',
+];
+$delaiLabels = [
+  'urgent' => 'Urgent (sous 7 jours)',
+  '21_jours' => 'Sous 21 jours (standard)',
+  '1_mois' => 'Sous 1 mois',
+  'pas_presse' => 'Pas pressé · qualité avant tout',
+];
+$contactLabels = [
+  'email' => 'Email',
+  'telephone' => 'Téléphone',
+  'whatsapp' => 'WhatsApp / SMS',
+  'visio' => 'Visio (Google Meet)',
+];
+$budget_h = $budgetLabels[$budget] ?? $budget;
+$delai_h = $delaiLabels[$delai] ?? $delai;
+$contact_h = $contactLabels[$contact_preference] ?? $contact_preference;
+$catLabels = [
+  'code' => 'Code site',
+  'imagerie' => 'Imagerie / films',
+  'les_deux' => 'Site + image',
+];
+$categorie_h = $catLabels[$categorie] ?? $categorie;
+
+$submissionUuid = bin2hex(random_bytes(16));
+
+$emailData = [
+  'nom_complet' => $nom_complet,
+  'email' => $email,
+  'telephone' => $telephone,
+  'entreprise' => $entreprise,
+  'secteur' => $secteur,
+  'categorie' => $categorie_h,
+  'description' => $description,
+  'references' => $references,
+  'pack_label' => $pack_label,
+  'pack_price' => $pack_price,
+  'pack_desc' => $pack_desc,
+  'pack_star' => $pack_envisage === 'pack_duo',
+  'budget' => $budget_h,
+  'delai' => $delai_h,
+  'contact_preference' => $contact_h,
+  'creneau' => $creneau,
+  'meta_ip' => (string) ($_SERVER['REMOTE_ADDR'] ?? 'N/A'),
+  'meta_ua' => (string) ($_SERVER['HTTP_USER_AGENT'] ?? 'N/A'),
+  'meta_date' => date('Y-m-d H:i:s'),
+  'uuid' => $submissionUuid,
+  'uuid_short' => substr($submissionUuid, 0, 8),
+  'source' => $source,
+  'upload_portal_url' => '',
+  'upload_files' => [],
+];
+
 $destinataire = 'contact@pinapp.fr';
-
 $catU = strtoupper(str_replace([' ', '-'], '_', $categorie));
 $packU = strtoupper($pack_envisage);
 $sujet = '[Pinapp Diagnostic · ' . $catU . ' · ' . $packU . '] ' . $nom_complet;
 
-$corps = "Nouveau diagnostic Pinapp\n\n";
-$corps .= "── Identité ──\n";
-$corps .= "Nom complet      : {$nom_complet}\n";
-$corps .= "Email            : {$email}\n";
-$corps .= "Téléphone        : {$telephone}\n";
-$corps .= "Entreprise       : {$entreprise}\n";
-$corps .= "Secteur          : {$secteur}\n\n";
-$corps .= "── Besoin ──\n";
-$corps .= "Catégorie        : {$categorie}\n";
-$corps .= "Description      : {$description}\n";
-$corps .= "Inspirations     : {$references}\n\n";
-$corps .= "── Pack envisagé ──\n";
-$corps .= "Pack             : {$pack_envisage} — {$packHuman}\n";
-if ($packNote !== '') {
-  $corps .= "Note             : {$packNote}\n";
-}
-$corps .= "\n── Cadrage ──\n";
-$corps .= "Budget           : {$budget}\n";
-$corps .= "Délai            : {$delai}\n";
-$corps .= "Contact préféré  : {$contact_preference}\n";
-$corps .= "Créneau          : {$creneau}\n";
-$corps .= "RGPD             : Accepté ✓\n\n";
-$corps .= "── Métadonnées ──\n";
-$corps .= 'IP               : ' . ($_SERVER['REMOTE_ADDR'] ?? 'N/A') . "\n";
-$corps .= 'User-Agent       : ' . ($_SERVER['HTTP_USER_AGENT'] ?? 'N/A') . "\n";
-$corps .= 'Date             : ' . date('Y-m-d H:i:s') . "\n";
-$corps .= "Source           : {$source}\n";
-
 $fromAddr = 'contact@pinapp.fr';
+$htmlInternal = render_diagnostic_internal($emailData);
+$htmlClient = render_diagnostic_client($emailData);
+
 $headers = [];
 $headers[] = 'MIME-Version: 1.0';
-$headers[] = 'Content-Type: text/plain; charset=UTF-8';
+$headers[] = 'Content-Type: text/html; charset=UTF-8';
 $headers[] = 'From: Pinapp <' . $fromAddr . '>';
 $headers[] = 'Reply-To: ' . $email;
 $headerStr = implode("\r\n", $headers);
@@ -177,7 +215,7 @@ $subjHdr = function_exists('mb_encode_mimeheader')
   ? mb_encode_mimeheader($sujet, 'UTF-8')
   : ('=?UTF-8?B?' . base64_encode($sujet) . '?=');
 
-$sent = @mail($destinataire, $subjHdr, $corps, $headerStr);
+$sent = @mail($destinataire, $subjHdr, $htmlInternal, $headerStr);
 
 $logFile = __DIR__ . '/diagnostic-logs.txt';
 $logEntry = '[' . date('Y-m-d H:i:s') . "] {$email} | {$categorie} | {$pack_envisage} | {$nom_complet}\n";
@@ -185,18 +223,15 @@ $logEntry = '[' . date('Y-m-d H:i:s') . "] {$email} | {$categorie} | {$pack_envi
 
 if ($sent) {
   $userSub = 'Pinapp · Demande bien reçue';
-  $userBody = "Bonjour {$nom_complet},\n\n";
-  $userBody .= "Nous avons bien reçu votre demande de diagnostic. Lauralie et Michaël vous répondent sous 24 h ouvrées.\n\n";
-  $userBody .= "— Pinapp Inc.\n";
   $userHeaders = [
     'MIME-Version: 1.0',
-    'Content-Type: text/plain; charset=UTF-8',
+    'Content-Type: text/html; charset=UTF-8',
     'From: Pinapp <' . $fromAddr . '>',
   ];
   $userSubHdr = function_exists('mb_encode_mimeheader')
     ? mb_encode_mimeheader($userSub, 'UTF-8')
     : ('=?UTF-8?B?' . base64_encode($userSub) . '?=');
-  @mail($email, $userSubHdr, $userBody, implode("\r\n", $userHeaders));
+  @mail($email, $userSubHdr, $htmlClient, implode("\r\n", $userHeaders));
   echo json_encode(['ok' => true, 'message' => 'Diagnostic reçu']);
 } else {
   http_response_code(500);
