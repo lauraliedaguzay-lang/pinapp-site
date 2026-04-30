@@ -1,0 +1,285 @@
+/* Polices : Google Fonts (BRIEF §2 — démo ORIANE, pas vitrine pinapp.fr V15 Bunny). */
+@import './tokens.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    background-color: var(--ivoire);
+    color: var(--encre);
+  }
+}
+
+@keyframes brumeShift {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(2%, -1%) scale(1.03);
+  }
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+.hero-brume {
+  animation: brumeShift 18s ease-in-out infinite alternate;
+}
+
+.hero-bob {
+  animation: bob 2.5s ease-in-out infinite;
+}
+
+@keyframes galleryCounterFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.gallery-counter-num {
+  animation: galleryCounterFade 0.3s ease-out;
+}
+
+/* — Marquee notes olfactives (BRIEF §6 section 3) — */
+@keyframes scrollMarquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee {
+  overflow: hidden;
+}
+
+.marquee[data-variant='dark'] {
+  background-color: var(--encre);
+  color: var(--ivoire);
+  border-top: 1px solid var(--or-rose);
+  border-bottom: 1px solid var(--or-rose);
+  padding-block: 1.5rem;
+}
+
+.marquee[data-variant='light'] {
+  background-color: var(--ivoire);
+  color: var(--encre);
+  border-top: 1px solid var(--encre);
+  border-bottom: 1px solid var(--encre);
+  padding-block: 1.5rem;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  animation: scrollMarquee 40s linear infinite;
+  will-change: transform;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee-segment {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.marquee .marquee-item {
+  flex-shrink: 0;
+  padding: 0 2rem;
+  white-space: nowrap;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.6rem;
+}
+
+.marquee .marquee-diamond {
+  flex-shrink: 0;
+  padding: 0;
+  color: var(--or-rose);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation-duration: 120s;
+  }
+
+  .marquee:hover .marquee-track {
+    animation-play-state: running;
+  }
+}
+
+/* — Preloader (BRIEF §6 section 1) — */
+.preloader-svg .liquid-fill {
+  fill: var(--or-rose);
+  fill-opacity: 0;
+  stroke: none;
+  animation: preloaderLiquid 2.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes preloaderLiquid {
+  0%,
+  41.667% {
+    fill-opacity: 0;
+  }
+
+  100% {
+    fill-opacity: 0.5;
+  }
+}
+
+.preloader-svg .preloader-draw {
+  fill: none;
+  stroke: var(--encre);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 500;
+  stroke-dashoffset: 500;
+  animation: preloaderStroke 2.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes preloaderStroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.preloader-line {
+  animation: preloaderLineScale 0.8s cubic-bezier(0.65, 0, 0.35, 1) 1.6s forwards;
+}
+
+@keyframes preloaderLineScale {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.preloader-letter {
+  transform: translateY(110%);
+  animation: preloaderLetterReveal 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes preloaderLetterReveal {
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader-svg .liquid-fill,
+  .preloader-svg .preloader-draw,
+  .preloader-line,
+  .preloader-letter {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .preloader-letter {
+    transform: translateY(0);
+  }
+
+  .preloader-line {
+    transform: scaleX(1);
+  }
+
+  .preloader-svg .liquid-fill {
+    fill-opacity: 0.5;
+  }
+
+  .preloader-svg .preloader-draw {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* — Losange curseur (desktop uniquement) — */
+.losange-cursor {
+  width: 24px;
+  height: 24px;
+}
+
+.losange-square {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--or-rose);
+  transform: rotate(45deg);
+}
+
+.losange-square.losange-inner {
+  inset: 5px;
+}
+
+@media (min-width: 768px) {
+  html,
+  body {
+    cursor: none;
+  }
+
+  a,
+  button {
+    cursor: none;
+  }
+}
+
+@media (max-width: 767px) {
+  html,
+  body {
+    cursor: auto;
+  }
+
+  a,
+  button {
+    cursor: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  body,
+  a,
+  button {
+    cursor: auto !important;
+  }
+
+  .losange-cursor {
+    display: none !important;
+  }
+}
+
