@@ -4,7 +4,8 @@
  * Déposer sur le serveur : /public_html/api/diagnostic.php
  * Reçoit le JSON du wizard #pinapp-contact-wizard (mêmes clés que le front).
  *
- * À ajuster : PINAPP_FROM, destinataires $routage, CORS si domaine différent.
+ * Les messages sont envoyés à contact@pinapp.fr (compte Hostinger + forwards).
+ * CORS : ajuster $allowed si domaine différent.
  */
 header('Content-Type: application/json; charset=utf-8');
 
@@ -74,14 +75,10 @@ if (!$email) {
   exit;
 }
 
-$routage = [
-  'code' => 'lauralie.daguzay@gmail.com',
-  'imagerie' => 'bouilhacmichael@gmail.com',
-  'les_deux' => 'lauralie.daguzay@gmail.com,bouilhacmichael@gmail.com',
-];
-$destinataire = $routage[$categorie] ?? 'lauralie.daguzay@gmail.com';
+// Hostinger : forwards depuis contact@pinapp.fr vers Lauralie + Micha (hPanel).
+$destinataire = 'contact@pinapp.fr';
 
-$sujet = '[Pinapp Diagnostic] ' . $nom_complet . ' — ' . $categorie;
+$sujet = '[Pinapp Diagnostic · ' . strtoupper($categorie) . '] ' . $nom_complet;
 
 $corps = "Nouveau diagnostic Pinapp\n\n";
 $corps .= "── Identité ──\n";
@@ -108,7 +105,7 @@ $fromAddr = 'contact@pinapp.fr';
 $headers = [];
 $headers[] = 'MIME-Version: 1.0';
 $headers[] = 'Content-Type: text/plain; charset=UTF-8';
-$headers[] = 'From: Pinapp Diagnostic <' . $fromAddr . '>';
+$headers[] = 'From: Pinapp <' . $fromAddr . '>';
 $headers[] = 'Reply-To: ' . $email;
 $headerStr = implode("\r\n", $headers);
 
