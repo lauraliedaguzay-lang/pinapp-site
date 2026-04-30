@@ -170,6 +170,91 @@ main{position:relative;z-index:1;padding-top:72px}
 .scene{position:relative;min-height:100dvh;padding:var(--sp-8) var(--gutter) var(--sp-9);display:flex;align-items:center}
 .scene--interstitial{min-height:100dvh;justify-content:center;text-align:center}
 .scene__inner{width:100%;max-width:var(--container);margin:0 auto}
+/* PR2 — #domaines */
+.scene--domaines{background:linear-gradient(180deg,rgba(5,11,20,0.4) 0%,transparent 100%);border-top:1px solid rgba(230,185,115,0.08)}
+.domaines-grid{display:grid;gap:var(--sp-4);margin-top:var(--sp-6)}
+@media(min-width:600px){.domaines-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.domaines-grid{grid-template-columns:repeat(3,1fr)}}
+.domaine-card{padding:0;display:flex;flex-direction:column;text-align:left}
+.domaine-card__toggle{
+  display:flex;align-items:center;gap:var(--sp-3);width:100%;padding:var(--sp-4) var(--sp-5);text-align:left;
+  border-radius:var(--r-lg);border:1px solid rgba(230,185,115,0.15);background:rgba(10,18,31,0.35);
+  transition:background .25s var(--ease-out),border-color .25s var(--ease-out);
+}
+.domaine-card.is-open .domaine-card__toggle{border-color:rgba(230,185,115,0.45);background:rgba(230,185,115,0.06)}
+.domaine-card__ico{font-size:1.35rem;line-height:1}
+.domaine-card__title{font-family:var(--ff-display);font-weight:600;font-size:1.05rem;flex:1}
+.domaine-card__chev{display:inline-flex;transition:transform 280ms cubic-bezier(0.22,1,0.36,1);opacity:0.75;font-size:0.85rem}
+.domaine-card.is-open .domaine-card__chev{transform:rotate(180deg)}
+.domaine-card__panel{
+  max-height:0;opacity:0;overflow:hidden;padding:0 var(--sp-5);
+  transition:max-height 280ms cubic-bezier(0.22,1,0.36,1),opacity 240ms ease,padding 280ms ease;
+}
+.domaine-card.is-open .domaine-card__panel{max-height:320px;opacity:1;padding-top:var(--sp-3);padding-bottom:var(--sp-4)}
+.domaine-card__list{margin:0;padding:0 0 0 1.1rem;color:var(--ivoire-mute);font-size:0.95rem;line-height:1.55}
+.domaine-card__list li{margin-bottom:var(--sp-2)}
+@media (prefers-reduced-motion: reduce){
+  .domaine-card__panel,.domaine-card__chev{transition:none}
+}
+/* PR2 — hub #realisations */
+.scene--real-hub{border-top:1px solid rgba(230,185,115,0.1)}
+.real-hub-filters{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--sp-3);margin:var(--sp-6) 0 var(--sp-5)}
+.real-hub-filter{
+  font:inherit;font-weight:600;font-size:var(--fs-micro);padding:10px 18px;min-height:44px;border-radius:var(--r-pill);
+  border:1px solid rgba(230,185,115,0.35);color:var(--ivoire);background:rgba(10,18,31,0.5);
+  transition:background .2s ease,border-color .2s ease,opacity .2s ease;
+}
+.real-hub-filter:hover,.real-hub-filter:focus-visible{background:rgba(230,185,115,0.08);border-color:rgba(230,185,115,0.55)}
+.real-hub-filter.is-active{background:rgba(230,185,115,0.18);border-color:rgba(230,185,115,0.55);color:var(--ivoire)}
+.real-hub-grid{
+  display:grid;gap:var(--sp-5);
+  grid-template-columns:1fr;
+}
+@media(min-width:700px){.real-hub-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1100px){.real-hub-grid{grid-template-columns:repeat(3,1fr)}}
+.real-hub-card{
+  display:flex;flex-direction:column;overflow:hidden;padding:0;
+  max-height:2000px;
+  transition:opacity .2s cubic-bezier(0.22,1,0.36,1),max-height .28s cubic-bezier(0.22,1,0.36,1),margin .28s ease,padding .28s ease,transform .2s ease;
+}
+.real-hub-card.is-real-hidden{
+  opacity:0;max-height:0;margin:0!important;padding:0!important;border-width:0;pointer-events:none;visibility:hidden;
+}
+.real-hub-card__link{display:block;color:inherit;text-decoration:none}
+.real-hub-card__thumb{aspect-ratio:16/10;overflow:hidden;background:rgba(0,0,0,0.25)}
+.real-hub-card__thumb img{width:100%;height:100%;object-fit:cover}
+.real-hub-card__thumb--ph{background:linear-gradient(135deg,rgba(230,185,115,0.08),rgba(62,245,224,0.06));min-height:180px}
+.real-hub-card__embed{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:var(--r-md) var(--r-md) 0 0;overflow:hidden}
+.real-hub-card__embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.real-hub-card__body{padding:var(--sp-5) var(--sp-5) var(--sp-4);flex:1;display:flex;flex-direction:column;gap:var(--sp-2)}
+.real-hub-card__title{margin:0;font-family:var(--ff-display);font-size:clamp(1.05rem,2vw,1.2rem)}
+.real-hub-card__meta{margin:0;font-size:var(--fs-micro);color:var(--text-2)}
+.real-hub-card__badge{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--or)}
+.real-hub-card__more{margin-top:auto;align-self:flex-start}
+.real-hub-card--placeholder .real-hub-card__body{padding-top:var(--sp-6)}
+@media (prefers-reduced-motion: reduce){
+  .real-hub-card,.real-hub-filter{transition:none}
+}
+/* PR2 — tableau comparatif #pourquoi-moins-cher */
+.compare-agence-block{width:100%}
+.compare-agence-table{width:100%;border-collapse:collapse;font-size:clamp(0.85rem,2vw,0.95rem)}
+.compare-agence-table th,.compare-agence-table td{padding:var(--sp-3) var(--sp-4);border-bottom:1px solid rgba(230,185,115,0.12);text-align:left;vertical-align:top}
+.compare-agence-table thead th{font-size:var(--fs-micro);letter-spacing:0.06em;text-transform:uppercase;color:var(--ivoire-mute);border-bottom:1px solid rgba(230,185,115,0.22)}
+.compare-agence-table tbody th{font-weight:600;color:var(--ivoire);width:28%}
+.compare-agence-table__pin{color:var(--or-light);font-weight:600}
+@media(max-width:599px){
+  .compare-agence-table{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .compare-agence-table thead{display:table-header-group}
+  .compare-agence-table tbody{font-size:0.88rem}
+}
+/* PR2 — #laboratoire */
+.scene--laboratoire{background:radial-gradient(ellipse 80% 60% at 50% 20%,rgba(123,184,154,0.08),transparent 55%);border-top:1px solid rgba(123,184,154,0.15)}
+.laboratoire-inner{max-width:min(920px,94vw)}
+.laboratoire-grid{display:grid;gap:var(--sp-6);align-items:start;margin-top:var(--sp-5)}
+@media(min-width:768px){.laboratoire-grid{grid-template-columns:minmax(140px,0.35fr) 1fr}}
+.laboratoire-visual{min-height:160px;display:grid;place-items:center;padding:var(--sp-7)}
+.laboratoire-visual__glyph{font-size:3rem;opacity:0.9}
+.laboratoire-copy .laboratoire-lead{margin-bottom:var(--sp-4)}
 .eyebrow{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--or);margin:0 0 var(--sp-4)}
 .display{font-family:var(--ff-display);font-style:normal;font-weight:600;line-height:var(--lh-tight);letter-spacing:-0.035em;margin:0 0 var(--sp-5)}
 .display--h1{font-size:var(--fs-h1)}
@@ -198,6 +283,7 @@ main{position:relative;z-index:1;padding-top:72px}
 .btn--cta-large{padding:18px 40px;font-size:1.125rem;min-height:48px}
 .card--glass{background:var(--fumee);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(230,185,115,0.15);border-radius:var(--r-lg);padding:var(--sp-6);transform:translateZ(0);transition:transform var(--dur-mid) var(--ease-out),border-color var(--dur-fast) var(--ease-out),box-shadow var(--dur-mid) var(--ease-out)}
 .card--glass:hover:not(.v10-tilt){transform:translateY(-2px) translateZ(0)}
+.domaine-card.card--glass,.real-hub-card.card--glass{padding:0}
 .demo-live-grid{display:grid;gap:var(--sp-4);margin:var(--sp-6) 0}
 @media(min-width:768px){.demo-live-grid{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:1024px){.demo-live-grid{grid-template-columns:repeat(3,1fr)}}
@@ -1528,14 +1614,14 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
     </a>
     <nav class="nav__jumps" aria-label="Accès rapide">
       <a href="#hero">Accueil</a>
-      <a href="#hook-film">Démo</a>
+      <a href="#domaines">Secteurs</a>
       <a href="#duo">Duo</a>
       <a href="#diagnostic">Diagnostic</a>
       <a href="#auto">Automatisations</a>
       <a href="#pack">Pack</a>
       <a href="#realisations">Réalisations</a>
       <a href="#methode">Méthode</a>
-      <a href="#mp">M&amp;P</a>
+      <a href="#laboratoire">Labo</a>
       <a href="#contact">Contact</a>
     </nav>
     <div class="nav__actions">
@@ -1587,18 +1673,99 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
     </div>
   </section>
 
-  <section id="hook-film" class="scene hook-film" data-stage="hero-1" aria-labelledby="hook-film-h2">
+  <section id="domaines" class="scene scene--domaines" data-stage="hero-1" aria-labelledby="domaines-h2">
     <div class="scene__inner">
-      <p class="hook-eyebrow" data-reveal>★ Démo · tournée par Micha</p>
-      <h2 id="hook-film-h2" class="hook-title" data-reveal>Voilà ce qu'on fait. <em>En 60 secondes.</em></h2>
-      <p class="source-note" data-reveal style="text-align:center;margin-bottom:var(--sp-4)">SW Teaser · démo client réel · lecture ci-dessous</p>
-      <div class="hook-video-wrap" data-reveal>
-        <iframe src="https://player.vimeo.com/video/1184294810?dnt=1" title="SW Teaser · démo Pinapp" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+      <p class="eyebrow" data-reveal>LE PROBLÈME</p>
+      <h2 id="domaines-h2" class="display display--h2" data-reveal>Reconnaissez-vous votre domaine ?</h2>
+      <p class="lead" data-reveal style="text-align:center;max-width:36rem;margin-left:auto;margin-right:auto">Cliquez sur votre secteur. Vous verrez votre semaine.</p>
+      <div class="domaines-grid" data-domaines-grid>
+        <div class="domaine-card card--glass v10-tilt" data-domaine-card data-reveal>
+          <button type="button" class="domaine-card__toggle" aria-expanded="false" aria-controls="domaine-panel-1" id="domaine-btn-1">
+            <span class="domaine-card__ico" aria-hidden="true">⚖️</span>
+            <span class="domaine-card__title">Avocat</span>
+            <span class="domaine-card__chev" aria-hidden="true">↓</span>
+          </button>
+          <div class="domaine-card__panel" id="domaine-panel-1" aria-hidden="true">
+            <ul class="domaine-card__list">
+              <li>Vous passez 3 h par semaine à courir après vos devis</li>
+              <li>Vos relances clients dorment dans votre boîte mail</li>
+              <li>Votre site n'est plus à jour depuis 2022</li>
+            </ul>
+          </div>
+        </div>
+        <div class="domaine-card card--glass v10-tilt" data-domaine-card data-reveal data-reveal-delay="1">
+          <button type="button" class="domaine-card__toggle" aria-expanded="false" aria-controls="domaine-panel-2" id="domaine-btn-2">
+            <span class="domaine-card__ico" aria-hidden="true">🍽️</span>
+            <span class="domaine-card__title">Restaurant</span>
+            <span class="domaine-card__chev" aria-hidden="true">↓</span>
+          </button>
+          <div class="domaine-card__panel" id="domaine-panel-2" aria-hidden="true">
+            <ul class="domaine-card__list">
+              <li>Vos réservations passent encore par téléphone aux heures de service</li>
+              <li>Les avis Google s'accumulent sans que vous puissiez répondre</li>
+              <li>Pas de menu en ligne, pas de réservation en ligne</li>
+            </ul>
+          </div>
+        </div>
+        <div class="domaine-card card--glass v10-tilt" data-domaine-card data-reveal>
+          <button type="button" class="domaine-card__toggle" aria-expanded="false" aria-controls="domaine-panel-3" id="domaine-btn-3">
+            <span class="domaine-card__ico" aria-hidden="true">🔨</span>
+            <span class="domaine-card__title">Artisan</span>
+            <span class="domaine-card__chev" aria-hidden="true">↓</span>
+          </button>
+          <div class="domaine-card__panel" id="domaine-panel-3" aria-hidden="true">
+            <ul class="domaine-card__list">
+              <li>Vos devis se perdent entre deux chantiers</li>
+              <li>Pas de site, juste une page Facebook qui rame</li>
+              <li>Vous comptez sur le bouche à oreille faute de mieux</li>
+            </ul>
+          </div>
+        </div>
+        <div class="domaine-card card--glass v10-tilt" data-domaine-card data-reveal data-reveal-delay="1">
+          <button type="button" class="domaine-card__toggle" aria-expanded="false" aria-controls="domaine-panel-4" id="domaine-btn-4">
+            <span class="domaine-card__ico" aria-hidden="true">📷</span>
+            <span class="domaine-card__title">Photographe</span>
+            <span class="domaine-card__chev" aria-hidden="true">↓</span>
+          </button>
+          <div class="domaine-card__panel" id="domaine-panel-4" aria-hidden="true">
+            <ul class="domaine-card__list">
+              <li>Votre galerie en ligne charge en 8 secondes sur mobile</li>
+              <li>Vous saisissez encore les devis mariage à la main</li>
+              <li>Personne ne vous trouve sur Google</li>
+            </ul>
+          </div>
+        </div>
+        <div class="domaine-card card--glass v10-tilt" data-domaine-card data-reveal>
+          <button type="button" class="domaine-card__toggle" aria-expanded="false" aria-controls="domaine-panel-5" id="domaine-btn-5">
+            <span class="domaine-card__ico" aria-hidden="true">💼</span>
+            <span class="domaine-card__title">Prestataire de services</span>
+            <span class="domaine-card__chev" aria-hidden="true">↓</span>
+          </button>
+          <div class="domaine-card__panel" id="domaine-panel-5" aria-hidden="true">
+            <ul class="domaine-card__list">
+              <li>Vos process tournent dans 4 outils qui ne se parlent pas</li>
+              <li>Pas de classement automatique de vos prospects</li>
+              <li>Vous perdez 1 lead sur 3 faute de relance</li>
+            </ul>
+          </div>
+        </div>
+        <div class="domaine-card card--glass v10-tilt" data-domaine-card data-reveal data-reveal-delay="1">
+          <button type="button" class="domaine-card__toggle" aria-expanded="false" aria-controls="domaine-panel-6" id="domaine-btn-6">
+            <span class="domaine-card__ico" aria-hidden="true">📢</span>
+            <span class="domaine-card__title">Agence de communication</span>
+            <span class="domaine-card__chev" aria-hidden="true">↓</span>
+          </button>
+          <div class="domaine-card__panel" id="domaine-panel-6" aria-hidden="true">
+            <ul class="domaine-card__list">
+              <li>Vous sous-traitez à 5 prestataires différents</li>
+              <li>Vos marges fondent à chaque projet complexe</li>
+              <li>Vos clients réclament des livrables IA que vous ne maîtrisez pas</li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <p class="hook-anchor-price" data-reveal><strong>8 000 € en agence</strong> · chez nous, <strong>à partir de 1 290 € HT</strong>.</p>
-      <div class="hook-mini-rail" data-reveal aria-label="Autres films">
-        <a href="#realisations-films">Voir les autres exemples →</a>
-        <a href="#orientation">Choisir mon parcours →</a>
+      <div class="cta-row" style="justify-content:center;margin-top:var(--sp-7)" data-reveal>
+        <a class="btn btn--primary" href="#contact">Démarrer mon diagnostic →</a>
       </div>
     </div>
   </section>
@@ -1640,6 +1807,45 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>La méthode</p>
       <h2 id="pourquoi-moins-cher-h2" class="display display--h2" data-reveal>Pourquoi 50 à 75 % moins cher ? Voici les 4 sources qu'on assume.</h2>
+      <div class="compare-agence-block card--glass v10-tilt" data-reveal style="margin-top:var(--sp-6);padding:var(--sp-6)">
+        <h3 class="display display--h3 compare-agence-title" style="margin:0 0 var(--sp-5);text-align:center;font-size:clamp(1.05rem,2.5vw,1.25rem)">Concrètement, qu'est-ce qu'on fait à votre place ?</h3>
+        <table class="compare-agence-table" aria-label="Comparatif agence et Pinapp">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Agence type</th>
+              <th scope="col" class="compare-agence-table__pin">Pinapp</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Site type</th>
+              <td>5 000 - 8 000 €</td>
+              <td class="compare-agence-table__pin">1 290 €</td>
+            </tr>
+            <tr>
+              <th scope="row">Délai</th>
+              <td>6-12 semaines</td>
+              <td class="compare-agence-table__pin">7-10 jours</td>
+            </tr>
+            <tr>
+              <th scope="row">Suivi</th>
+              <td>Avenant payant</td>
+              <td class="compare-agence-table__pin">30 j gratuits</td>
+            </tr>
+            <tr>
+              <th scope="row">IA</th>
+              <td>Externalisée</td>
+              <td class="compare-agence-table__pin">Native</td>
+            </tr>
+            <tr>
+              <th scope="row">Contacts</th>
+              <td>5 +</td>
+              <td class="compare-agence-table__pin">1 seul</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <div class="sources-grid" style="margin-top:var(--sp-6)">
         <div class="card--glass source-card" data-reveal>
           <p>📊 McKinsey 2023 — Economic potential of generative AI</p>
@@ -1730,7 +1936,7 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
             </ul>
             <div class="real-links" aria-label="Liens réalisations Lauralie">
               <a href="/demo/atelier-rivage/">Atelier Rivage ↗</a>
-              <a href="#realisations-vitrine">Captures démo ↓</a>
+              <a href="#realisations">Captures démo ↓</a>
               <a href="#auto">Schéma automatisations ↓</a>
             </div>
           </div>
@@ -1743,8 +1949,8 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
             </ul>
             <div class="real-links" aria-label="Liens réalisations Michaël">
               <a href="/realisations/films-ia/" target="_blank" rel="noopener noreferrer">Films IA ↗</a>
-              <a href="#hook-film">Démo SW Teaser ↓</a>
-              <a href="#realisations-films">Extraits portfolio ↓</a>
+              <a href="#realisations?filter=imagerie">Films &amp; clips ↓</a>
+              <a href="#realisations">Extraits portfolio ↓</a>
             </div>
           </div>
         </div>
@@ -1835,7 +2041,7 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
       <p class="flow-note" data-reveal>Outils souvent branchés : site statique, Tally ou formulaire maison, Notion / Sheets, n8n, Gmail, YouSign, Stripe — toujours en stack européenne quand c'est possible. On vous livre la doc et les accès : c'est à vous.</p>
       <div class="cta-row" data-reveal>
         <a class="btn btn--primary" href="#contact">Parler de mon flux →</a>
-        <a class="btn btn--ghost" href="#realisations-vitrine">Voir les captures démo ↓</a>
+        <a class="btn btn--ghost" href="#realisations">Voir les captures démo ↓</a>
       </div>
       <div class="pack-duo-bridge" data-reveal>
         <strong>L'offre qui réunit tout : Pack Duo</strong>
@@ -1908,244 +2114,114 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
       <span>Bordeaux · IA déclarée · Stack EU · 0 tracker · Page &lt; 1 Mo · Code propre · Sans abonnement · Diagnostic 24h · ★ 50 à 75 % moins cher · Lauralie + Michaël ·</span>
     </div>
   </div>
-  <section id="realisations" class="v10-anchor-sr" aria-hidden="true"><p class="eyebrow" data-reveal>Réalisations</p><h2 id="realisations-h2" class="display display--h2" data-reveal>Ce qu'on a livré.</h2></section>
-  <div class="realisations-wrap">
-  <nav class="bloc6-nav" aria-label="Sous-sections réalisations">
-    <a href="#realisations-vitrine" class="bloc6-nav__link">Vitrine</a>
-    <a href="#realisations-demos" class="bloc6-nav__link">5 démos</a>
-    <a href="#realisations-stack" class="bloc6-nav__link">Pile tech</a>
-    <a href="#realisations-films" class="bloc6-nav__link">Films Micha</a>
-    <a href="#cinema-artistes" class="bloc6-nav__link">Cinéma artistes</a>
-    <a href="#captation-na" class="bloc6-nav__link">Captation NA</a>
-  </nav>
-  <section id="realisations-vitrine" class="scene" data-stage="hero-3" aria-labelledby="realisations-vitrine-h2">
+    <section id="realisations" class="scene scene--real-hub" data-stage="hero-3" aria-labelledby="realisations-h2">
     <div class="scene__inner">
-      <p class="eyebrow" data-reveal>Vitrine démo</p>
-      <h2 id="realisations-vitrine-h2" class="display display--h2" data-reveal>La démo qui fait dire « je veux la même chose ».</h2>
-      <p class="lead" data-reveal><strong>Atelier Rivage</strong> est notre vitrine architecture : plein écran, transitions calmes, typo éditoriale, images qui respirent. Ce n'est pas un template : c'est le niveau de finition qu'on applique quand votre image doit porter le prix.</p>
-      <div class="demo-showcase-hero" data-reveal>
-        <button type="button" class="demo-showcase-hero__visual demo-open" data-demo-img="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%201400%20875%27%3E%3Cdefs%3E%3CradialGradient%20id%3D%27g%27%20cx%3D%2730%25%27%20cy%3D%2720%25%27%20r%3D%2780%25%27%3E%3Cstop%20offset%3D%270%25%27%20stop-color%3D%27%23163040%27/%3E%3Cstop%20offset%3D%2755%25%27%20stop-color%3D%27%230A1425%27/%3E%3Cstop%20offset%3D%27100%25%27%20stop-color%3D%27%23020810%27/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect%20width%3D%271400%27%20height%3D%27875%27%20fill%3D%27url(%23g)%27/%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23C9A96E%27%20opacity%3D%270.65%27%20stroke-width%3D%271.2%27%3E%3Cpath%20d%3D%27M180%20630%20C360%20500%20540%20480%20710%20410%20C930%20320%201080%20210%201250%20250%27/%3E%3Cpath%20d%3D%27M200%20680%20C420%20580%20580%20570%20780%20480%20C960%20400%201120%20310%201240%20340%27/%3E%3C/g%3E%3Cg%20fill%3D%27%23F4EBD9%27%20opacity%3D%270.92%27%3E%3Ctext%20x%3D%2770%27%20y%3D%27780%27%20font-family%3D%27Georgia%2Cserif%27%20font-style%3D%27italic%27%20font-size%3D%2756%27%3EAtelier%20Rivage%3C/text%3E%3Ctext%20x%3D%2770%27%20y%3D%27830%27%20font-family%3D%27Inter%2Csystem-ui%2Csans-serif%27%20font-size%3D%2724%27%20opacity%3D%270.75%27%3EVitrine%20d%C3%A9mo%20%E2%80%94%20capture%20%C3%A0%20g%C3%A9n%C3%A9rer%3C/text%3E%3C/g%3E%3C/svg%3E" data-demo-title="Atelier Rivage — architecture" data-demo-cap="Vitrine phare : plein écran, transitions calmes, typo éditoriale, images qui respirent. Données fictives." data-demo-href="/demo/atelier-rivage/" data-demo-label="Ouvrir la démo en direct" aria-label="Agrandir la capture Atelier Rivage">
-          <span class="demo-showcase-badge">★ Référence Pinapp</span>
-          <img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%201400%20875%27%3E%3Cdefs%3E%3CradialGradient%20id%3D%27g%27%20cx%3D%2730%25%27%20cy%3D%2720%25%27%20r%3D%2780%25%27%3E%3Cstop%20offset%3D%270%25%27%20stop-color%3D%27%23163040%27/%3E%3Cstop%20offset%3D%2755%25%27%20stop-color%3D%27%230A1425%27/%3E%3Cstop%20offset%3D%27100%25%27%20stop-color%3D%27%23020810%27/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect%20width%3D%271400%27%20height%3D%27875%27%20fill%3D%27url(%23g)%27/%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23C9A96E%27%20opacity%3D%270.65%27%20stroke-width%3D%271.2%27%3E%3Cpath%20d%3D%27M180%20630%20C360%20500%20540%20480%20710%20410%20C930%20320%201080%20210%201250%20250%27/%3E%3Cpath%20d%3D%27M200%20680%20C420%20580%20580%20570%20780%20480%20C960%20400%201120%20310%201240%20340%27/%3E%3C/g%3E%3Cg%20fill%3D%27%23F4EBD9%27%20opacity%3D%270.92%27%3E%3Ctext%20x%3D%2770%27%20y%3D%27780%27%20font-family%3D%27Georgia%2Cserif%27%20font-style%3D%27italic%27%20font-size%3D%2756%27%3EAtelier%20Rivage%3C/text%3E%3Ctext%20x%3D%2770%27%20y%3D%27830%27%20font-family%3D%27Inter%2Csystem-ui%2Csans-serif%27%20font-size%3D%2724%27%20opacity%3D%270.75%27%3EVitrine%20d%C3%A9mo%20%E2%80%94%20capture%20%C3%A0%20g%C3%A9n%C3%A9rer%3C/text%3E%3C/g%3E%3C/svg%3E" alt="Capture d'écran de la page d'accueil démo Atelier Rivage — architecture villas" width="1400" height="875" loading="lazy" decoding="async">
-        </button>
-        <div>
-          <p class="lead" style="margin:0 0 var(--sp-4)">Ambiance luxe discret, parcours clair, mobile-first. Parfait si vous vendez de l'exception : immobilier, artisanat haut de gamme, cabinet premium.</p>
-          <ul class="lead" style="margin:0 0 var(--sp-5);font-size:0.95rem;padding-left:1.2rem;line-height:1.65">
-            <li>Storytelling visuel — chaque slide raconte une villa</li>
-            <li>Preuve et calme — pas de bruit, pas de gadgets</li>
-            <li>Prêt à être adapté à votre nom, vos photos, votre secteur</li>
-          </ul>
-          <div class="cta-row" style="margin:0">
-            <button type="button" class="btn btn--primary btn--cta-large demo-open" data-demo-img="assets/demo-screens-placeholder/atelier-rivage.svg" data-demo-title="Atelier Rivage" data-demo-cap="Ouvrez la version live ou parcourez la capture en grand." data-demo-href="/demo/atelier-rivage/" data-demo-label="Ouvrir la démo en direct">Voir la capture en grand</button>
-            <a class="btn btn--ghost" href="#contact">Obtenir ce niveau pour mon projet →</a>
+      <p class="eyebrow" data-reveal>RÉALISATIONS</p>
+      <h2 id="realisations-h2" class="display display--h2" data-reveal>Ce qu'on a livré.</h2>
+      <p class="lead real-hub-lead" data-reveal style="text-align:center;max-width:38rem;margin-left:auto;margin-right:auto">Vrais clients, vrais livrables. Pas de démo fictive.</p>
+      <div class="real-hub-filters" role="group" aria-label="Filtrer les réalisations" data-reveal>
+        <button type="button" class="real-hub-filter is-active" data-real-filter="all" aria-pressed="true">Tous</button>
+        <button type="button" class="real-hub-filter" data-real-filter="code" aria-pressed="false">🖥️ Code</button>
+        <button type="button" class="real-hub-filter" data-real-filter="imagerie" aria-pressed="false">🎬 Imagerie</button>
+      </div>
+      <div class="real-hub-grid" id="real-hub-grid">
+        <article class="real-hub-card card--glass v10-tilt" data-reveal data-categorie="code" data-real-card>
+          <a class="real-hub-card__link" href="/demo/atelier-rivage/" target="_blank" rel="noopener noreferrer">
+            <div class="real-hub-card__thumb"><img src="assets/demo-screens-placeholder/atelier-rivage.svg" alt="" width="640" height="400" loading="lazy" decoding="async"/></div>
+            <div class="real-hub-card__body">
+              <h3 class="real-hub-card__title">Atelier Rivage</h3>
+              <p class="real-hub-card__meta">Site architecte · Bordeaux 2026</p>
+            </div>
+          </a>
+          <button type="button" class="btn btn--text real-hub-card__more" disabled aria-disabled="true" title="Détail · PR3">En savoir plus</button>
+        </article>
+        <article class="real-hub-card card--glass v10-tilt" data-reveal data-categorie="code" data-real-card>
+          <a class="real-hub-card__link" href="/demo/avocat/" target="_blank" rel="noopener noreferrer">
+            <div class="real-hub-card__thumb"><img src="assets/demo-screens-placeholder/atelier-rivage.svg" alt="" width="640" height="400" loading="lazy" decoding="async" style="filter:hue-rotate(-18deg) saturate(0.85)"/></div>
+            <div class="real-hub-card__body">
+              <h3 class="real-hub-card__title">Cabinet Avocat</h3>
+              <p class="real-hub-card__meta">Site avocat · Bordeaux 2026</p>
+            </div>
+          </a>
+          <button type="button" class="btn btn--text real-hub-card__more" disabled aria-disabled="true" title="Détail · PR3">En savoir plus</button>
+        </article>
+        <article class="real-hub-card card--glass v10-tilt real-hub-card--placeholder" data-reveal data-categorie="code" data-real-card data-state="placeholder">
+          <div class="real-hub-card__thumb real-hub-card__thumb--ph" aria-hidden="true"></div>
+          <div class="real-hub-card__body">
+            <h3 class="real-hub-card__title">3e site</h3>
+            <p class="real-hub-card__meta">En livraison · disponible bientôt</p>
           </div>
-        </div>
-      </div>
-      <p class="eyebrow" data-reveal style="margin-top:var(--sp-8)">Autres secteurs · même exigence</p>
-      <p class="lead" data-reveal style="margin-top:var(--sp-3)">Deux autres démos : restauration et beauté. Captures réelles des pages d'accueil — cliquez pour tout parcourir.</p>
-      <div class="demo-showcase-list" data-reveal>
-        <article class="demo-tile demo-tile--star">
-          <button type="button" class="demo-open" data-demo-img="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20700%20438%27%3E%3Cdefs%3E%3CradialGradient%20id%3D%27g%27%20cx%3D%2730%25%27%20cy%3D%2720%25%27%20r%3D%2780%25%27%3E%3Cstop%20offset%3D%270%25%27%20stop-color%3D%27%23163040%27/%3E%3Cstop%20offset%3D%2755%25%27%20stop-color%3D%27%230A1425%27/%3E%3Cstop%20offset%3D%27100%25%27%20stop-color%3D%27%23020810%27/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect%20width%3D%27700%27%20height%3D%27438%27%20fill%3D%27url(%23g)%27/%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23C9A96E%27%20opacity%3D%270.6%27%20stroke-width%3D%271.1%27%3E%3Cpath%20d%3D%27M90%20310%20C180%20260%20310%20230%20390%20200%20C520%20150%20600%20110%20650%20125%27/%3E%3C/g%3E%3Ctext%20x%3D%2736%27%20y%3D%27404%27%20font-family%3D%27Georgia%2Cserif%27%20font-style%3D%27italic%27%20font-size%3D%2732%27%20fill%3D%27%23F4EBD9%27%20opacity%3D%270.92%27%3EAtelier%20Rivage%3C/text%3E%3C/svg%3E" data-demo-title="Atelier Rivage" data-demo-cap="Architecture · villas — vitrine de référence (données fictives)." data-demo-href="/demo/atelier-rivage/" data-demo-label="Ouvrir la démo en direct" aria-label="Agrandir la capture Atelier Rivage">
-            <img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20700%20438%27%3E%3Cdefs%3E%3CradialGradient%20id%3D%27g%27%20cx%3D%2730%25%27%20cy%3D%2720%25%27%20r%3D%2780%25%27%3E%3Cstop%20offset%3D%270%25%27%20stop-color%3D%27%23163040%27/%3E%3Cstop%20offset%3D%2755%25%27%20stop-color%3D%27%230A1425%27/%3E%3Cstop%20offset%3D%27100%25%27%20stop-color%3D%27%23020810%27/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect%20width%3D%27700%27%20height%3D%27438%27%20fill%3D%27url(%23g)%27/%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23C9A96E%27%20opacity%3D%270.6%27%20stroke-width%3D%271.1%27%3E%3Cpath%20d%3D%27M90%20310%20C180%20260%20310%20230%20390%20200%20C520%20150%20600%20110%20650%20125%27/%3E%3C/g%3E%3Ctext%20x%3D%2736%27%20y%3D%27404%27%20font-family%3D%27Georgia%2Cserif%27%20font-style%3D%27italic%27%20font-size%3D%2732%27%20fill%3D%27%23F4EBD9%27%20opacity%3D%270.92%27%3EAtelier%20Rivage%3C/text%3E%3C/svg%3E" alt="Aperçu démo Atelier Rivage" width="700" height="438" loading="lazy" decoding="async">
-            <div class="demo-tile__body"><strong>Atelier Rivage</strong>Architecture · villas · notre vitrine phare</div>
-          </button>
+          <button type="button" class="btn btn--text real-hub-card__more" disabled aria-disabled="true">En savoir plus</button>
         </article>
-        <article class="demo-tile">
-          <button type="button" class="demo-open" data-demo-img="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20700%20438%27%3E%3Cdefs%3E%3CradialGradient%20id%3D%27g%27%20cx%3D%2720%25%27%20cy%3D%2720%25%27%20r%3D%2785%25%27%3E%3Cstop%20offset%3D%270%25%27%20stop-color%3D%27%23401018%27/%3E%3Cstop%20offset%3D%2755%25%27%20stop-color%3D%27%23130A0D%27/%3E%3Cstop%20offset%3D%27100%25%27%20stop-color%3D%27%23020810%27/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect%20width%3D%27700%27%20height%3D%27438%27%20fill%3D%27url(%23g)%27/%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23C9A96E%27%20opacity%3D%270.55%27%20stroke-width%3D%271.1%27%3E%3Cpath%20d%3D%27M86%20330%20C210%20270%20310%20245%20420%20202%20C530%20160%20610%20118%20660%20130%27/%3E%3C/g%3E%3Ctext%20x%3D%2736%27%20y%3D%27404%27%20font-family%3D%27Georgia%2Cserif%27%20font-style%3D%27italic%27%20font-size%3D%2732%27%20fill%3D%27%23F4EBD9%27%20opacity%3D%270.92%27%3EMaison%20Aurore%3C/text%3E%3C/svg%3E" data-demo-title="Maison Aurore" data-demo-cap="Restauration — ambiance et réservation (démo fictive)." data-demo-href="/demo/restaurant/" data-demo-label="Ouvrir la démo en direct" aria-label="Agrandir la capture restaurant Maison Aurore">
-            <img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20700%20438%27%3E%3Cdefs%3E%3CradialGradient%20id%3D%27g%27%20cx%3D%2720%25%27%20cy%3D%2720%25%27%20r%3D%2785%25%27%3E%3Cstop%20offset%3D%270%25%27%20stop-color%3D%27%23401018%27/%3E%3Cstop%20offset%3D%2755%25%27%20stop-color%3D%27%23130A0D%27/%3E%3Cstop%20offset%3D%27100%25%27%20stop-color%3D%27%23020810%27/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect%20width%3D%27700%27%20height%3D%27438%27%20fill%3D%27url(%23g)%27/%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23C9A96E%27%20opacity%3D%270.55%27%20stroke-width%3D%271.1%27%3E%3Cpath%20d%3D%27M86%20330%20C210%20270%20310%20245%20420%20202%20C530%20160%20610%20118%20660%20130%27/%3E%3C/g%3E%3Ctext%20x%3D%2736%27%20y%3D%27404%27%20font-family%3D%27Georgia%2Cserif%27%20font-style%3D%27italic%27%20font-size%3D%2732%27%20fill%3D%27%23F4EBD9%27%20opacity%3D%270.92%27%3EMaison%20Aurore%3C/text%3E%3C/svg%3E" alt="Aperçu démo restaurant Maison Aurore" width="700" height="438" loading="lazy" decoding="async">
-            <div class="demo-tile__body"><strong>Maison Aurore</strong>Restaurant · ambiance et réservation</div>
-          </button>
+
+        <article class="real-hub-card card--glass v10-tilt" data-reveal data-categorie="imagerie" data-real-card>
+          <div class="real-hub-card__embed">
+            <iframe src="https://player.vimeo.com/video/1187533794?dnt=1" title="Icebreaker — clip cinéma IA" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="real-hub-card__body">
+            <h3 class="real-hub-card__title">Icebreaker</h3>
+            <p class="real-hub-card__meta">Clip cinéma IA · 2:18</p>
+          </div>
+          <button type="button" class="btn btn--text real-hub-card__more" disabled aria-disabled="true" title="Détail · PR3">En savoir plus</button>
         </article>
-        <article class="demo-tile">
-          <button type="button" class="demo-open" data-demo-img="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20700%20438%27%3E%3Cdefs%3E%3CradialGradient%20id%3D%27g%27%20cx%3D%2730%25%27%20cy%3D%2720%25%27%20r%3D%2790%25%27%3E%3Cstop%20offset%3D%270%25%27%20stop-color%3D%27%23F7F1E8%27/%3E%3Cstop%20offset%3D%2760%25%27%20stop-color%3D%27%23E8D5C0%27/%3E%3Cstop%20offset%3D%27100%25%27%20stop-color%3D%27%23D8C3AA%27/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect%20width%3D%27700%27%20height%3D%27438%27%20fill%3D%27url(%23g)%27/%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23B8975A%27%20opacity%3D%270.75%27%20stroke-width%3D%271.2%27%20stroke-linecap%3D%27round%27%3E%3Cpath%20d%3D%27M420%20135%20c-46%204%20-74%2036%20-83%2068%20c-12%2042%2019%2084%2068%2094%20c48%209%2096%20-18%20107%20-60%20c8%20-31%20-13%20-69%20-51%20-84%20c-11%20-4%20-26%20-10%20-41%20-18%27/%3E%3Cpath%20d%3D%27M335%20296%20c36%2026%2091%2024%20128%20-10%27/%3E%3C/g%3E%3Ctext%20x%3D%2736%27%20y%3D%27404%27%20font-family%3D%27Georgia%2Cserif%27%20font-style%3D%27italic%27%20font-size%3D%2732%27%20fill%3D%27%232A2520%27%20opacity%3D%270.92%27%3EMaison%20Sol%C3%A8ne%3C/text%3E%3C/svg%3E" data-demo-title="Maison Solène" data-demo-cap="Institut beauté — démo fictive (placeholders premium V1)." data-demo-href="/demo/esthetique/" data-demo-label="Ouvrir la démo en direct" aria-label="Agrandir la capture Maison Solène">
-            <img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20700%20438%27%3E%3Cdefs%3E%3CradialGradient%20id%3D%27g%27%20cx%3D%2730%25%27%20cy%3D%2720%25%27%20r%3D%2790%25%27%3E%3Cstop%20offset%3D%270%25%27%20stop-color%3D%27%23F7F1E8%27/%3E%3Cstop%20offset%3D%2760%25%27%20stop-color%3D%27%23E8D5C0%27/%3E%3Cstop%20offset%3D%27100%25%27%20stop-color%3D%27%23D8C3AA%27/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect%20width%3D%27700%27%20height%3D%27438%27%20fill%3D%27url(%23g)%27/%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23B8975A%27%20opacity%3D%270.75%27%20stroke-width%3D%271.2%27%20stroke-linecap%3D%27round%27%3E%3Cpath%20d%3D%27M420%20135%20c-46%204%20-74%2036%20-83%2068%20c-12%2042%2019%2084%2068%2094%20c48%209%2096%20-18%20107%20-60%20c8%20-31%20-13%20-69%20-51%20-84%20c-11%20-4%20-26%20-10%20-41%20-18%27/%3E%3Cpath%20d%3D%27M335%20296%20c36%2026%2091%2024%20128%20-10%27/%3E%3C/g%3E%3Ctext%20x%3D%2736%27%20y%3D%27404%27%20font-family%3D%27Georgia%2Cserif%27%20font-style%3D%27italic%27%20font-size%3D%2732%27%20fill%3D%27%232A2520%27%20opacity%3D%270.92%27%3EMaison%20Sol%C3%A8ne%3C/text%3E%3C/svg%3E" alt="Aperçu démo Maison Solène" width="700" height="438" loading="lazy" decoding="async">
-            <div class="demo-tile__body"><strong>Maison Solène</strong>Institut beauté · peau qui respire</div>
-          </button>
+        <article class="real-hub-card card--glass v10-tilt" data-reveal data-categorie="imagerie" data-real-card>
+          <div class="real-hub-card__embed">
+            <iframe src="https://player.vimeo.com/video/1184294831?dnt=1" title="SW Power Of Female Unity" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="real-hub-card__body">
+            <h3 class="real-hub-card__title">SW Power Of Female Unity</h3>
+            <p class="real-hub-card__meta">Court-métrage cinéma IA · 3:49</p>
+          </div>
+          <button type="button" class="btn btn--text real-hub-card__more" disabled aria-disabled="true" title="Détail · PR3">En savoir plus</button>
+        </article>
+        <article class="real-hub-card card--glass v10-tilt" data-reveal data-categorie="imagerie" data-real-card>
+          <div class="real-hub-card__embed">
+            <iframe src="https://player.vimeo.com/video/1184294810?dnt=1" title="SW Teaser — vidéo Pinapp 60s en tournage" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="real-hub-card__body">
+            <h3 class="real-hub-card__title">SW Teaser</h3>
+            <p class="real-hub-card__meta">Teaser cinéma IA · 1:55 · vidéo Pinapp 60s en tournage</p>
+          </div>
+          <button type="button" class="btn btn--text real-hub-card__more" disabled aria-disabled="true" title="Détail · PR3">En savoir plus</button>
+        </article>
+        <article class="real-hub-card card--glass v10-tilt" data-reveal data-categorie="imagerie" data-real-card>
+          <div class="real-hub-card__embed">
+            <iframe src="https://player.vimeo.com/video/1184294871?dnt=1" title="Resident Evil Black Event" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="real-hub-card__body">
+            <h3 class="real-hub-card__title">Resident Evil Black Event</h3>
+            <p class="real-hub-card__meta">Teaser événementiel · 1:52</p>
+          </div>
+          <button type="button" class="btn btn--text real-hub-card__more" disabled aria-disabled="true" title="Détail · PR3">En savoir plus</button>
+        </article>
+        <article class="real-hub-card card--glass v10-tilt" data-reveal data-categorie="imagerie" data-real-card>
+          <div class="real-hub-card__embed">
+            <iframe src="https://player.vimeo.com/video/1184294901?dnt=1" title="Clip Mémoire &amp; Présence" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="real-hub-card__body">
+            <span class="real-hub-card__badge">★ Projet Pinapp</span>
+            <h3 class="real-hub-card__title">Clip Mémoire &amp; Présence</h3>
+            <p class="real-hub-card__meta">Notre projet · 1:46</p>
+          </div>
+          <button type="button" class="btn btn--text real-hub-card__more" disabled aria-disabled="true" title="Détail · PR3">En savoir plus</button>
+        </article>
+        <article class="real-hub-card card--glass v10-tilt" data-reveal data-categorie="imagerie" data-real-card>
+          <div class="real-hub-card__embed">
+            <iframe src="https://player.vimeo.com/video/1184294762?dnt=1" title="Walker Christian Remake" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="real-hub-card__body">
+            <h3 class="real-hub-card__title">Walker Christian Remake</h3>
+            <p class="real-hub-card__meta">Format réseaux humour · 0:50</p>
+          </div>
+          <button type="button" class="btn btn--text real-hub-card__more" disabled aria-disabled="true" title="Détail · PR3">En savoir plus</button>
         </article>
       </div>
-      <p class="demo-fine" data-reveal>Données et marques sur ces pages sont <strong>fictives</strong> (démonstration). Le rendu et la structure sont représentatifs d'une livraison Pinapp.</p>
+      <p class="cta-row" style="justify-content:center;margin-top:var(--sp-7)" data-reveal>
+        <a class="btn btn--ghost" href="/essayer-une-demo/">Voir tous nos univers · essayer une démo →</a>
+      </p>
     </div>
   </section>
 
-  <section id="realisations-demos" class="scene" data-stage="hero-3" aria-labelledby="realisations-demos-h2">
-    <div class="scene__inner">
-      <p class="eyebrow" data-reveal>Studio Lauralie · Prix fixes</p>
-      <h2 id="realisations-demos-h2" class="display display--h2" data-reveal>5 démos sectorielles. Votre métier s'y retrouve.<br>Prix affichés · ouverture en un clic.</h2>
-      <p class="lead" data-reveal>Chaque carte ouvre une <strong>vitrine fictive</strong> (données de démo) pour que vous voyiez le niveau de finition — comme la vitrine <a href="#realisations-vitrine" style="color:var(--cyan);text-decoration:underline;text-underline-offset:3px">Atelier Rivage</a> ci-dessus. Grille rapide + secteurs dans le volet.</p>
-      <div class="placeholder-asset" data-reveal>📭 Reel 5 univers · style Apple WWDC · 20 sec
-Mosaïque animée · transitions cross-fade · sound design off
-À monter — montre les 5 vitrines successivement</div>
-      <div class="pillars" data-reveal>
-        <div class="pillar"><div class="pillar__emoji">🌐</div><div class="pillar__title">Sites qui<br>convertissent</div><p class="pillar__desc">Page d'accueil et pages clés : message clair, prise de contact, SEO et perf. Pas de site « carte de visite » qui ne ramène personne.</p><div>1 290 € HT</div></div>
-        <div class="pillar"><div class="pillar__emoji">⚙</div><div class="pillar__title">Automatisations<br>qui tournent seules</div><p class="pillar__desc">Relier formulaire, CRM, devis, mails, rappels, avis — moins de saisie manuelle, moins d'oublis.</p><div>490 € HT</div></div>
-        <div class="pillar"><div class="pillar__emoji">✨</div><div class="pillar__title">Assistants qui<br>répondent H24</div><p class="pillar__desc">Configurations sur vos outils pour qualifier, répondre aux questions fréquentes ou préparer des brouillons que vous validez.</p><div>890 € HT</div></div>
-      </div>
-      <div class="demo-live-grid" data-reveal>
-        <a class="card--glass demo-live-card" href="/demo/atelier-rivage/"><strong>Atelier Rivage</strong><span class="demo-live-card__meta">Architecture · villas</span></a>
-        <a class="card--glass demo-live-card" href="/demo/restaurant/"><strong>Maison Aurore</strong><span class="demo-live-card__meta">Restaurant</span></a>
-        <a class="card--glass demo-live-card" href="/demo/avocat/"><strong>Cabinet Renaud</strong><span class="demo-live-card__meta">Avocat</span></a>
-        <a class="card--glass demo-live-card" href="/demo/esthetique/"><strong>Maison Solène</strong><span class="demo-live-card__meta">Esthétique</span></a>
-        <a class="card--glass demo-live-card" href="/demo/extensions-cils/"><strong>Studio Léna</strong><span class="demo-live-card__meta">Extensions cils</span></a>
-      </div>
-      <details class="faq" data-reveal>
-        <summary>Voir toutes les démos disponibles (5 univers sectoriels)</summary>
-        <p class="faq-a">architecte · restaurant · avocat · esthétique ·<br>extensions cils</p>
-      </details>
-      <div class="card--glass" style="margin-top:var(--sp-6)" data-reveal>
-        <p><span class="badge" style="margin-right:var(--sp-2)">Passerelle</span><strong>Bundle Site + Auto · 1 590 € HT</strong></p>
-        <p>Entre formations et Pack Duo : site + automatisations, tarif passerelle.</p>
-        <p>Séparé : 1 290 € + 490 € = 1 780 €. En bundle : -190 € (-11 %).</p>
-        <a class="btn btn--ghost" href="#contact">Réserver le bundle →</a>
-      </div>
-      <p class="microcite" data-reveal>« Côté Lauralie : prix fixes affichés. La tech, ça se chiffre. »</p>
-    </div>
-  </section>
-
-  <section id="realisations-stack" class="scene" data-stage="hero-3" aria-labelledby="realisations-stack-h3">
-    <div class="scene__inner">
-      <p class="eyebrow" data-reveal>Le travail invisible</p>
-      <h2 class="display display--h2" data-reveal>Sous le capot.</h2>
-      <p class="hero-punchline" data-reveal>Vous ne verrez que le résultat.</p>
-      <h3 id="realisations-stack-h3" class="display display--h3" data-reveal>Pourquoi un site Lauralie tient dans le temps ?<br>8 dimensions qu'on gère pour vous. Vous ne les verrez jamais.</h3>
-      <!-- M10.1 — Étoile constellation 8 dimensions -->
-      <div class="constel-wrap" data-reveal aria-hidden="true">
-        <svg viewBox="0 0 600 600" class="constel" role="img" aria-label="Constellation 8 dimensions Pinapp">
-          <g class="constel__center">
-            <circle cx="300" cy="300" r="46" class="constel__center-ring" />
-            <text x="300" y="306" text-anchor="middle" class="constel__center-text">PROJET</text>
-          </g>
-          <g class="constel__lines">
-            <path class="constel__line constel__line--1" d="M300 300 Q300 200 300 60" />
-            <path class="constel__line constel__line--2" d="M300 300 Q380 220 470 130" />
-            <path class="constel__line constel__line--3" d="M300 300 Q420 300 540 300" />
-            <path class="constel__line constel__line--4" d="M300 300 Q380 380 470 470" />
-            <path class="constel__line constel__line--5" d="M300 300 Q300 400 300 540" />
-            <path class="constel__line constel__line--6" d="M300 300 Q220 380 130 470" />
-            <path class="constel__line constel__line--7" d="M300 300 Q180 300 60 300" />
-            <path class="constel__line constel__line--8" d="M300 300 Q220 220 130 130" />
-          </g>
-          <g class="constel__nodes">
-            <g class="constel__node constel__node--1" transform="translate(300 60)">
-              <circle r="34" class="constel__node-bg" />
-              <svg x="-12" y="-12" width="24" height="24" class="constel__node-ico"><use href="#ico-uiux" /></svg>
-              <text y="62" text-anchor="middle" class="constel__node-label">UI/UX</text>
-            </g>
-            <g class="constel__node constel__node--2" transform="translate(470 130)">
-              <circle r="34" class="constel__node-bg" />
-              <svg x="-12" y="-12" width="24" height="24" class="constel__node-ico"><use href="#ico-code" /></svg>
-              <text y="62" text-anchor="middle" class="constel__node-label">Code</text>
-            </g>
-            <g class="constel__node constel__node--3" transform="translate(540 300)">
-              <circle r="34" class="constel__node-bg" />
-              <svg x="-12" y="-12" width="24" height="24" class="constel__node-ico"><use href="#ico-hosting" /></svg>
-              <text y="62" text-anchor="middle" class="constel__node-label">Hosting EU</text>
-            </g>
-            <g class="constel__node constel__node--4" transform="translate(470 470)">
-              <circle r="34" class="constel__node-bg" />
-              <svg x="-12" y="-12" width="24" height="24" class="constel__node-ico"><use href="#ico-perf" /></svg>
-              <text y="62" text-anchor="middle" class="constel__node-label">Performance</text>
-            </g>
-            <g class="constel__node constel__node--5" transform="translate(300 540)">
-              <circle r="34" class="constel__node-bg" />
-              <svg x="-12" y="-12" width="24" height="24" class="constel__node-ico"><use href="#ico-seo" /></svg>
-              <text y="62" text-anchor="middle" class="constel__node-label">SEO</text>
-            </g>
-            <g class="constel__node constel__node--6" transform="translate(130 470)">
-              <circle r="34" class="constel__node-bg" />
-              <svg x="-12" y="-12" width="24" height="24" class="constel__node-ico"><use href="#ico-a11y" /></svg>
-              <text y="62" text-anchor="middle" class="constel__node-label">A11y</text>
-            </g>
-            <g class="constel__node constel__node--7" transform="translate(60 300)">
-              <circle r="34" class="constel__node-bg" />
-              <svg x="-12" y="-12" width="24" height="24" class="constel__node-ico"><use href="#ico-tools" /></svg>
-              <text y="62" text-anchor="middle" class="constel__node-label">Outils auto</text>
-            </g>
-            <g class="constel__node constel__node--8" transform="translate(130 130)">
-              <circle r="34" class="constel__node-bg" />
-              <svg x="-12" y="-12" width="24" height="24" class="constel__node-ico"><use href="#ico-prompt" /></svg>
-              <text y="62" text-anchor="middle" class="constel__node-label">Prompts</text>
-            </g>
-          </g>
-        </svg>
-      </div>
-      <!-- M10.1 — Mini-flux iconographique -->
-      <div class="miniflux" data-reveal aria-label="Pipeline lead capté à avis Google">
-        <div class="miniflux__step">
-          <div class="miniflux__icon"><svg viewBox="0 0 24 24" width="32" height="32"><use href="#ico-lead" /></svg></div>
-          <div class="miniflux__label">Lead capté</div>
-        </div>
-        <div class="miniflux__line miniflux__line--1"></div>
-        <div class="miniflux__step">
-          <div class="miniflux__icon"><svg viewBox="0 0 24 24" width="32" height="32"><use href="#ico-crm" /></svg></div>
-          <div class="miniflux__label">Notion CRM</div>
-        </div>
-        <div class="miniflux__line miniflux__line--2"></div>
-        <div class="miniflux__step">
-          <div class="miniflux__icon"><svg viewBox="0 0 24 24" width="32" height="32"><use href="#ico-doc" /></svg></div>
-          <div class="miniflux__label">Devis auto</div>
-        </div>
-        <div class="miniflux__line miniflux__line--3"></div>
-        <div class="miniflux__step">
-          <div class="miniflux__icon"><svg viewBox="0 0 24 24" width="32" height="32"><use href="#ico-pay" /></svg></div>
-          <div class="miniflux__label">Paiement</div>
-        </div>
-        <div class="miniflux__line miniflux__line--4"></div>
-        <div class="miniflux__step">
-          <div class="miniflux__icon"><svg viewBox="0 0 24 24" width="32" height="32"><use href="#ico-star" /></svg></div>
-          <div class="miniflux__label">Avis Google J+7</div>
-        </div>
-      </div>
-      <p class="microcite" data-reveal>8 dimensions · 1 livraison · 16 étapes invisibles.</p>
-      <div class="cta-row" style="justify-content:center"><a class="btn btn--text" href="#methode">Voir le travail invisible →</a></div>
-    </div>
-  </section>
-
-  <section id="realisations-films" class="scene" data-stage="hero-4" aria-labelledby="realisations-films-h2">
-    <div class="scene__inner">
-      <p class="eyebrow" data-reveal>Studio Micha · Cinéma IA</p>
-      <h2 id="realisations-films-h2" class="display display--h2" data-reveal>Du clip 30 secondes<br>au court-métrage 3 minutes.</h2>
-      <p class="lead" data-reveal>Deux extraits de portfolio complets (la démo phare 60 s est <a href="#hook-film" style="color:var(--cyan);text-decoration:underline;text-underline-offset:3px">en tête de page</a>) — chaque livrable a son ordre de grandeur tarifaire.</p>
-      <div class="vimeo-grid" style="margin-top:var(--sp-6)">
-        <div class="vimeo-tile" data-reveal>
-          <button type="button" class="vimeo-open" data-vimeo="1184294871" aria-label="Lire la vidéo court-métrage premium Resident Evil">
-            <img src="https://vumbnail.com/1184294871_large.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
-            <div class="vimeo-tile__body">
-              <p><strong>Court-métrage premium</strong></p>
-              <p>1 890 € HT · Resident Evil</p>
-            </div>
-          </button>
-        </div>
-        <div class="vimeo-tile" data-reveal>
-          <button type="button" class="vimeo-open" data-vimeo="1184294831" aria-label="Lire la vidéo premium Unity 3 min">
-            <img src="https://vumbnail.com/1184294831_large.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
-            <div class="vimeo-tile__body">
-              <p><strong>Premium · vous dedans</strong></p>
-              <p>2 800 € HT · 3 min · SW Unity</p>
-              <p class="lead" style="font-size:0.85rem;margin:var(--sp-2) 0 0">« Exemple Pack Signature — votre univers, pas Star Wars. »</p>
-            </div>
-          </button>
-        </div>
-      </div>
-      <a href="#" data-demo="logos-animes" class="film-card" data-reveal>
-        <div class="placeholder" style="aspect-ratio:16/9;border-radius:0;border-left:0;border-right:0;border-top:0">
-          <span class="placeholder__tag">À FOURNIR PAR MICHA</span>
-          <span class="placeholder__label">Branding · Logos animés</span>
-          <span class="placeholder__hint">Galerie 6-8 logos motion</span>
-        </div>
-        <div style="padding:14px var(--sp-4);">
-          <h4 style="margin:0;font-size:18px;">Branding · Logos animés</h4>
-          <p style="margin:6px 0 0;font-size:13px;color:var(--text-2);">Sur devis · Création identité visuelle motion</p>
-        </div>
-      </a>
-      <div class="placeholder-asset" data-reveal style="margin-top:var(--sp-4)"><strong>Film cadeau IA 30 s</strong> · 390 € HT<br>Démo Vimeo à fournir · esthétique intime · journal vidéo · anniversaire · départ · naissance</div>
-      <div class="price-block" data-reveal>
-        <p style="margin:0">Avant l'IA : 8 000 € en agence.<br>Avec Pinapp : à partir de 1 290 €.   -84 %.</p>
-      </div>
-      <p class="microcite" data-reveal>« Côté Micha : "à partir de" + devis. Le cinéma, ça se brieffe. »</p>
-    </div>
-  </section>
-
-  </div>
 
   <section id="cinema-artistes" class="scene" data-stage="hero-4" aria-labelledby="cinema-artistes-h2">
     <div class="scene__inner">
@@ -2225,27 +2301,23 @@ Captation 4-6h · montage 5 jours
     </div>
   </section>
 
-  <section id="mp" class="scene" data-stage="hero-3" aria-labelledby="mp-h2">
-    <div class="scene__inner">
-      <p class="eyebrow" data-reveal>Projet parallèle</p>
-      <h2 id="mp-h2" class="display display--h2" data-reveal>Mémoire &amp; Présence</h2>
-      <p class="source-note" data-reveal style="text-align:center;margin-bottom:var(--sp-4)">Ce n'est pas une offre Pinapp.</p>
-      <p class="lead mp-banner__lead" data-reveal>Au-delà de Pinapp, nous construisons un service de <strong>transmission numérique</strong> pour les familles : hommage, lien, présence, mémoire — avec le soin que ce sujet exige. Ce n'est pas une offre « agence » : c'est un engagement à part, porté avec Michaël côté image et Lauralie côté produit.</p>
-      <div class="card--glass mp-banner" data-reveal style="padding:var(--sp-6)">
-        <p style="margin:0 0 var(--sp-3);font-weight:600">Ce que vous y trouvez</p>
-        <ul class="lead" style="margin:0;font-size:0.95rem;padding-left:1.2rem;line-height:1.6">
-          <li>Univers digne pour célébrer une vie et garder le contact avec les proches</li>
-          <li>Accompagnement humain — pas de promesse gadget</li>
-          <li>Même exigence technique : accessible, sobre, hébergement maîtrisé</li>
-        </ul>
-        <div class="cta-row" style="margin-top:var(--sp-5);margin-bottom:0">
-          <a class="btn btn--primary" href="https://lauraliedaguzay-lang.github.io/memoireetpresence/" target="_blank" rel="noopener noreferrer">Voir le site Mémoire &amp; Présence ↗</a>
-          <a class="btn btn--ghost" href="https://github.com/lauraliedaguzay-lang/memoireetpresence" target="_blank" rel="noopener noreferrer">Voir le dépôt GitHub ↗</a>
-          <a class="btn btn--ghost" href="#contact">Revenir au diagnostic Pinapp</a>
+  <section id="laboratoire" class="scene scene--laboratoire" data-stage="hero-3" aria-labelledby="laboratoire-h3">
+    <div class="scene__inner laboratoire-inner">
+      <p class="eyebrow" data-reveal>NOTRE LABORATOIRE</p>
+      <h3 id="laboratoire-h3" class="display display--h3" data-reveal>Notre projet le plus personnel — Mémoire &amp; Présence</h3>
+      <div class="laboratoire-grid">
+        <div class="laboratoire-visual card--glass v10-tilt" data-reveal aria-hidden="true">
+          <span class="laboratoire-visual__glyph" aria-hidden="true">🕯️</span>
+        </div>
+        <div class="laboratoire-copy">
+          <p class="lead laboratoire-lead" data-reveal>Quand on perd quelqu'un, on cherche souvent un endroit pour rassembler son histoire : les photos, les voix, ce qu'il ou elle a été.</p>
+          <p class="lead laboratoire-lead" data-reveal>C'est pourquoi on a créé Mémoire &amp; Présence — une page web douce et durable, pour que la mémoire d'un être cher reste vivante.</p>
+          <p class="lead laboratoire-lead" data-reveal>C'est notre projet. On y a mis tout ce qu'on sait faire, à deux.</p>
+          <p class="cta-row" style="margin-top:var(--sp-5)" data-reveal>
+            <a class="btn btn--ghost" href="https://memoireetpresence.fr" target="_blank" rel="noopener noreferrer">Découvrir Mémoire &amp; Présence ↗</a>
+          </p>
         </div>
       </div>
-      <p class="lead" data-reveal style="text-align:center;margin-top:var(--sp-6);max-width:40rem;margin-left:auto;margin-right:auto">Pour un projet d'hommage, consultez <a href="https://lauraliedaguzay-lang.github.io/memoireetpresence/" target="_blank" rel="noopener noreferrer" style="color:var(--accent-mp);text-decoration:underline;text-underline-offset:3px">Mémoire &amp; Présence</a> (vitrine GitHub Pages) · accompagnement humain dédié.</p>
-      <p class="source-note" data-reveal style="text-align:center;margin-top:var(--sp-5)">Sept engagements écrits. Et un formulaire qui s'adapte à vous.</p>
     </div>
   </section>
 
@@ -2641,7 +2713,7 @@ Captation 4-6h · montage 5 jours
     <a href="#contact" title="Demandez le lien LinkedIn de Michaël">LinkedIn Michaël</a>
     <a href="https://www.linkedin.com/company/pinapp-inc" target="_blank" rel="noopener noreferrer">LinkedIn Pinapp (société) ↗</a>
   </div>
-  <p class="mp">« Nous portons aussi <a href="#mp">Mémoire &amp; Présence</a> — transmission numérique pour les familles. »</p>
+  <p class="mp">« Nous portons aussi <a href="#laboratoire">Mémoire &amp; Présence</a> — transmission numérique pour les familles. »</p>
   <p class="source-note">© 2026 Pinapp Inc. · Lauralie &amp; Michaël</p>
 </footer>
 
@@ -2671,6 +2743,7 @@ Captation 4-6h · montage 5 jours
     <button type="button" class="drawer__close" id="drawerClose" aria-label="Fermer le panneau">×</button>
   </div>
 <nav class="drawer__nav" aria-label="Navigation principale">
+  <a href="index.html#domaines" class="drawer__nav-link">Secteurs</a>
   <a href="index.html#diagnostic" class="drawer__nav-link">Diagnostic</a>
   <a href="index.html#auto" class="drawer__nav-link">Automatisations</a>
   <a href="index.html#pack" class="drawer__nav-link">Pack</a>
@@ -2829,7 +2902,7 @@ window.PinappOpenDataDemo=function(slug){
   if(slug==='restaurant') href='/demo/restaurant/';
   else if(slug==='esthetique') href='/demo/esthetique/';
   else if(slug==='extensions-cils') href='/demo/extensions-cils/';
-  else if(slug==='logos-animes'){ href='#realisations-films'; }
+  else if(slug==='logos-animes'){ href='#realisations?filter=imagerie'; }
   var cap='Démo · '+slug;
   var title='Démo · '+slug;
   if(slug==='logos-animes'){
@@ -3015,6 +3088,89 @@ if('IntersectionObserver' in window){
   var ct=document.querySelector('.counters');
   if(ct) new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting) runCounters(); }); },{threshold:0.2}).observe(ct);
 }
+
+(function(){
+  var grid=document.querySelector('[data-domaines-grid]');
+  if(grid){
+    var cards=[].slice.call(grid.querySelectorAll('[data-domaine-card]'));
+    cards.forEach(function(card){
+      var btn=card.querySelector('.domaine-card__toggle');
+      var panel=card.querySelector('.domaine-card__panel');
+      if(!btn||!panel) return;
+      btn.addEventListener('click',function(){
+        var wasOpen=card.classList.contains('is-open');
+        cards.forEach(function(c){
+          c.classList.remove('is-open');
+          var b=c.querySelector('.domaine-card__toggle');
+          var p=c.querySelector('.domaine-card__panel');
+          if(b) b.setAttribute('aria-expanded','false');
+          if(p) p.setAttribute('aria-hidden','true');
+        });
+        if(!wasOpen){
+          card.classList.add('is-open');
+          btn.setAttribute('aria-expanded','true');
+          panel.setAttribute('aria-hidden','false');
+        }
+      });
+    });
+  }
+})();
+
+(function(){
+  var hub=document.getElementById('realisations');
+  var hubGrid=document.getElementById('real-hub-grid');
+  if(!hub||!hubGrid) return;
+  var filterBtns=[].slice.call(hub.querySelectorAll('[data-real-filter]'));
+  var hubCards=[].slice.call(hubGrid.querySelectorAll('[data-real-card]'));
+  function parseRealisationsFilter(){
+    var h=location.hash||'';
+    if(!h) return 'all';
+    var raw=h.replace(/^#/,'');
+    var qi=raw.indexOf('?');
+    var base=qi>=0 ? raw.slice(0,qi) : raw;
+    if(base!=='realisations') return 'all';
+    if(qi<0) return 'all';
+    var params=new URLSearchParams(raw.slice(qi+1));
+    var f=params.get('filter');
+    if(f==='code'||f==='imagerie') return f;
+    return 'all';
+  }
+  function syncUrl(mode){
+    try{
+      if(mode==='all') history.replaceState(null,'','#realisations');
+      else history.replaceState(null,'','#realisations?filter='+encodeURIComponent(mode));
+    }catch(e){
+      location.hash=mode==='all'?'realisations':'realisations?filter='+encodeURIComponent(mode);
+    }
+  }
+  function applyHubFilter(mode){
+    if(mode!=='all'&&mode!=='code'&&mode!=='imagerie') mode='all';
+    filterBtns.forEach(function(b){
+      var m=b.getAttribute('data-real-filter')||'all';
+      var active=(mode==='all'&&m==='all')||(mode!=='all'&&m===mode);
+      b.classList.toggle('is-active',active);
+      b.setAttribute('aria-pressed',active?'true':'false');
+    });
+    hubCards.forEach(function(card){
+      var cat=(card.getAttribute('data-categorie')||'').toLowerCase();
+      var show=mode==='all'||cat===mode;
+      card.classList.toggle('is-real-hidden',!show);
+    });
+  }
+  function setHubFilter(mode){
+    applyHubFilter(mode);
+    syncUrl(mode);
+  }
+  filterBtns.forEach(function(b){
+    b.addEventListener('click',function(){
+      setHubFilter(b.getAttribute('data-real-filter')||'all');
+    });
+  });
+  window.addEventListener('hashchange',function(){
+    applyHubFilter(parseRealisationsFilter());
+  });
+  applyHubFilter(parseRealisationsFilter());
+})();
 
 var wt=document.getElementById('whisperText');
 if(wt && !prefersReduced()){
