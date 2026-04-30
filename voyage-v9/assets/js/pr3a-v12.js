@@ -1,4 +1,4 @@
-/* PR3a — offres toggle, detail drawers, contact wizard + submit */
+/* PR3a — offres toggle, detail drawers, contact wizard 4 étapes + submit */
 (function () {
   'use strict';
 
@@ -64,64 +64,169 @@
 
   var steps = [].slice.call(form.querySelectorAll('.cw-step'));
   var cur = 0;
-  var dots = document.querySelectorAll('#cwProgressDots .cw-dot');
+  var dots = [].slice.call(form.querySelectorAll('#cwProgressDots .cw-dot'));
   var labelEl = document.getElementById('cwStepLabel');
-  var routage = document.getElementById('cw-routage');
   var successEl = document.getElementById('contact-wizard-success');
+  var creneauWrap = document.getElementById('cw-creneau-wrap');
+
+  var stepLabels = ['1/4 Identité', '2/4 Besoin', '3/4 Pack envisagé', '4/4 Cadrage'];
+
+  function syncDots() {
+    dots.forEach(function (d, i) {
+      d.classList.remove('is-on', 'is-done');
+      if (i < cur) d.classList.add('is-done');
+      else if (i === cur) {
+        d.classList.add('is-on');
+        d.setAttribute('aria-current', 'step');
+      } else d.removeAttribute('aria-current');
+    });
+  }
 
   function setStep(i) {
     cur = Math.max(0, Math.min(steps.length - 1, i));
     steps.forEach(function (fs, j) {
       fs.hidden = j !== cur;
     });
-    dots.forEach(function (d, j) {
-      d.classList.toggle('is-on', j === cur);
-      if (j === cur) d.setAttribute('aria-current', 'step');
-      else d.removeAttribute('aria-current');
-    });
-    if (labelEl) {
-      labelEl.textContent = cur === 0 ? '1/3 Identité' : cur === 1 ? '2/3 Besoin' : '3/3 Cadrage';
+    syncDots();
+    if (labelEl) labelEl.textContent = stepLabels[cur] || '';
+    updateCreneau();
+  }
+
+  function updateCreneau() {
+    if (!creneauWrap) return;
+    var pref = (form.querySelector('input[name="contact_preference"]:checked') || {}).value;
+    creneauWrap.hidden = pref !== 'telephone' && pref !== 'visio';
+  }
+
+  form.querySelectorAll('input[name="contact_preference"]').forEach(function (r) {
+    r.addEventListener('change', updateCreneau);
+  });
+
+  function validateStep0() {
+    var n = form.querySelector('#cw-nom');
+    var em = form.querySelector('#cw-email');
+    var se = form.querySelector('#cw-secteur');
+    if (n && !n.value.trim()) {
+      n.reportValidity();
+      return false;
     }
+    if (em && !em.checkValidity()) {
+      em.reportValidity();
+      return false;
+    }
+    if (se && !se.value) {
+      se.reportValidity();
+      return false;
+    }
+    return true;
+  }
+
+  function validateStep1() {
+    var cat = form.querySelector('input[name="categorie"]:checked');
+    if (!cat) {
+      var first = form.querySelector('input[name="categorie"][required]') || form.querySelector('input[name="categorie"]');
+      if (first) first.reportValidity();
+      return false;
+    }
+    var d = form.querySelector('#cw-desc');
+    if (d && !d.value.trim()) {
+      d.reportValidity();
+      return false;
+    }
+    return true;
+  }
+
+  function validateStep2() {
+    var p = form.querySelector('input[name="pack_envisage"]:checked');
+    if (!p) {
+      var first =
+        form.querySelector('input[name="pack_envisage"][required]') ||
+        form.querySelector('input[name="pack_envisage"]');
+      if (first) first.reportValidity();
+      return false;
+    }
+    return true;
+  }
+
+  function validateStep3() {
+    if (!form.querySelector('input[name="budget"]:checked')) {
+      var b = form.querySelector('input[name="budget"][required]') || form.querySelector('input[name="budget"]');
+      if (b) b.reportValidity();
+      return false;
+    }
+    if (!form.querySelector('input[name="delai"]:checked')) {
+      var d = form.querySelector('input[name="delai"][required]') || form.querySelector('input[name="delai"]');
+      if (d) d.reportValidity();
+      return false;
+    }
+    if (!form.querySelector('input[name="contact_preference"]:checked')) {
+      var c =
+        form.querySelector('input[name="contact_preference"][required]') ||
+        form.querySelector('input[name="contact_preference"]');
+      if (c) c.reportValidity();
+      return false;
+    }
+    var rgpd = form.querySelector('#cw-rgpd');
+    if (rgpd && !rgpd.checked) {
+      rgpd.reportValidity();
+      return false;
+    }
+    return true;
   }
 
   form.querySelectorAll('[data-cw-next]').forEach(function (b) {
     b.addEventListener('click', function () {
       if (cur === 0) {
-        var n = form.querySelector('#cw-nom');
-        var em = form.querySelector('#cw-email');
-        if (n && !n.value.trim()) {
-          n.reportValidity();
-          return;
-        }
-        if (em && !em.checkValidity()) {
-          em.reportValidity();
-          return;
-        }
+        if (!validateStep0()) return;
       } else if (cur === 1) {
-        var cat = form.querySelector('input[name="categorie"]:checked');
-        if (!cat) return;
-        var d = form.querySelector('#cw-desc');
-        if (d && !d.value.trim()) {
-          d.reportValidity();
-          return;
-        }
+        if (!validateStep1()) return;
+      } else if (cur === 2) {
+        if (!validateStep2()) return;
       }
       setStep(cur + 1);
     });
   });
+
   form.querySelectorAll('[data-cw-prev]').forEach(function (b) {
     b.addEventListener('click', function () {
       setStep(cur - 1);
     });
   });
 
-  form.addEventListener('change', function () {
-    var cat = (form.querySelector('input[name="categorie"]:checked') || {}).value;
-    if (!routage) return;
-    if (cat === 'code') routage.value = 'lauralie';
-    else if (cat === 'imagerie') routage.value = 'micha';
-    else if (cat === 'les_deux') routage.value = 'duo';
-  });
+  function buildPayload() {
+    var nom = (form.querySelector('[name="nom_complet"]') || {}).value || '';
+    var email = (form.querySelector('[name="email"]') || {}).value || '';
+    var tel = (form.querySelector('[name="telephone"]') || {}).value || '';
+    var ent = (form.querySelector('[name="entreprise"]') || {}).value || '';
+    var secteur = (form.querySelector('[name="secteur"]') || {}).value || '';
+    var categorie = (form.querySelector('input[name="categorie"]:checked') || {}).value || '';
+    var description = (form.querySelector('[name="description"]') || {}).value || '';
+    var references = (form.querySelector('[name="references"]') || {}).value || '';
+    var pack_envisage = (form.querySelector('input[name="pack_envisage"]:checked') || {}).value || '';
+    var budget = (form.querySelector('input[name="budget"]:checked') || {}).value || '';
+    var delai = (form.querySelector('input[name="delai"]:checked') || {}).value || '';
+    var contact_preference = (form.querySelector('input[name="contact_preference"]:checked') || {}).value || '';
+    var creneau = (form.querySelector('[name="creneau"]') || {}).value || '';
+    var rgpd = !!(form.querySelector('#cw-rgpd') || {}).checked;
+    return {
+      nom_complet: nom.trim(),
+      email: email.trim(),
+      telephone: tel.trim(),
+      entreprise: ent.trim(),
+      secteur: secteur,
+      categorie: categorie,
+      description: description.trim(),
+      references: references.trim(),
+      pack_envisage: pack_envisage,
+      budget: budget,
+      delai: delai,
+      contact_preference: contact_preference,
+      creneau: creneau.trim(),
+      rgpd_consent: rgpd,
+      website: (form.querySelector('[name="website"]') || {}).value || '',
+      source: 'voyage-v9-contact-wizard',
+    };
+  }
 
   function fallbackMailto(payload) {
     try {
@@ -129,7 +234,8 @@
     } catch (e1) {}
     var nom = payload.nom_complet || 'contact';
     var cat = payload.categorie || 'demande';
-    var subj = '[Pinapp Diagnostic] ' + nom + ' - ' + cat;
+    var pack = payload.pack_envisage || '';
+    var subj = '[Pinapp Diagnostic] ' + nom + ' — ' + cat + (pack ? ' — ' + pack : '');
     var bodyLines = [];
     Object.keys(payload).forEach(function (k) {
       bodyLines.push(k + ': ' + payload[k]);
@@ -152,15 +258,25 @@
     e.preventDefault();
     var hp = form.querySelector('[name="website"]');
     if (hp && hp.value) return;
-    if (!form.reportValidity()) return;
+    if (!validateStep0()) {
+      setStep(0);
+      return;
+    }
+    if (!validateStep1()) {
+      setStep(1);
+      return;
+    }
+    if (!validateStep2()) {
+      setStep(2);
+      return;
+    }
+    if (!validateStep3()) {
+      setStep(3);
+      return;
+    }
 
-    var fd = new FormData(form);
-    var payload = {};
-    fd.forEach(function (v, k) {
-      if (k === 'website') return;
-      payload[k] = v;
-    });
-    payload.source = 'voyage-v9-contact-wizard';
+    var payload = buildPayload();
+    if (!payload.rgpd_consent) return;
 
     var wh = (form.getAttribute('data-webhook-url') || '').trim();
     var useN8n =
@@ -182,11 +298,14 @@
       body: JSON.stringify(payload),
     })
       .then(function (r) {
-        return r.json().catch(function () {
-          return {};
-        }).then(function (data) {
-          return { okHttp: r.ok, data: data };
-        });
+        return r
+          .json()
+          .catch(function () {
+            return {};
+          })
+          .then(function (data) {
+            return { okHttp: r.ok, data: data };
+          });
       })
       .then(function (x) {
         if (x.okHttp && x.data && x.data.ok) {
@@ -208,13 +327,12 @@
 
   try {
     var u = new URL(window.location.href);
-    var cat = u.searchParams.get('categorie');
-    if (cat === 'cadeau') {
+    var catParam = u.searchParams.get('categorie');
+    if (catParam === 'cadeau') {
       var rImg = form.querySelector('input[name="categorie"][value="imagerie"]');
-      if (rImg) {
-        rImg.checked = true;
-        if (routage) routage.value = 'micha';
-      }
+      if (rImg) rImg.checked = true;
+      var rPack = form.querySelector('input[name="pack_envisage"][value="anniversaire"]');
+      if (rPack) rPack.checked = true;
       var descEl = form.querySelector('#cw-desc');
       if (descEl && !String(descEl.value || '').trim()) {
         descEl.placeholder =

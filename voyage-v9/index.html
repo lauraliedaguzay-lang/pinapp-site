@@ -1563,17 +1563,44 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
 .diagnostic-v12-txt{margin:0;color:var(--ivoire-mute);font-size:0.92rem}
 .diagnostic-v12-arrow{align-self:center;color:rgba(230,185,115,0.45)}
 @media(max-width:767px){.diagnostic-v12-arrow{display:none}}
-.contact-wizard{max-width:42rem;margin-left:auto;margin-right:auto;padding:var(--sp-6)!important}
+.contact-wizard{max-width:min(52rem,94vw);margin-left:auto;margin-right:auto;padding:var(--sp-6)!important}
 .contact-wizard-progress{text-align:center;margin-bottom:var(--sp-6)}
-.cw-step-dots{font-size:0.75rem;letter-spacing:0.02em;color:var(--ivoire-mute)}
-.cw-dot.is-on{color:var(--or)}
-.cw-step-label{margin:var(--sp-2) 0 0;font-size:var(--fs-micro);color:var(--ivoire-mute)}
+.cw-step-dots{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:nowrap;margin:0 auto;max-width:22rem}
+.cw-dot{display:block;width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.2);transition:width .2s var(--ease-out),height .2s var(--ease-out),background .2s,box-shadow .2s}
+.cw-dot.is-on{width:12px;height:12px;background:rgba(230,185,115,0.92);box-shadow:0 0 14px rgba(230,185,115,0.35)}
+.cw-dot.is-done{background:rgba(230,185,115,0.5)}
+.cw-progress-line{flex:1 1 32px;height:1px;min-width:16px;max-width:56px;background:rgba(230,185,115,0.22);margin:0 6px}
+.cw-step-label{margin:var(--sp-3) 0 0;font-size:var(--fs-micro);color:var(--ivoire-mute);letter-spacing:.04em}
 .cw-radio-cards{display:flex;flex-direction:column;gap:var(--sp-3)}
-.cw-radio-card{display:flex;flex-direction:column;gap:var(--sp-1);padding:var(--sp-4);border-radius:var(--r-md);border:1px solid rgba(230,185,115,0.25);cursor:pointer}
-.cw-radio-card:has(input:checked){border-color:var(--or);background:rgba(230,185,115,0.06)}
-.cw-radio-card input{margin-right:var(--sp-2)}
+.cw-radio-card{display:flex;flex-direction:column;gap:var(--sp-1);padding:var(--sp-4) var(--sp-5);border-radius:var(--r-md);border:1px solid rgba(230,185,115,0.18);cursor:pointer;background:linear-gradient(165deg,rgba(255,255,255,0.04),rgba(5,10,20,0.2));transition:transform .22s var(--ease-out),border-color .22s,box-shadow .22s}
+.cw-radio-card:hover{border-color:rgba(62,245,224,0.35);transform:translateY(-2px);box-shadow:0 8px 28px rgba(62,245,224,0.08)}
+.cw-radio-card:has(input:checked){border-color:rgba(230,185,115,0.55);background:rgba(230,185,115,0.08);box-shadow:0 0 0 1px rgba(230,185,115,0.2),0 12px 32px rgba(230,185,115,0.06)}
+.cw-radio-card:focus-within,.cw-pack-card:focus-within{outline:2px solid rgba(62,245,224,0.45);outline-offset:3px}
+.cw-radio-card > span:first-of-type{font-weight:600;font-size:1.05rem}
+.cw-radio-card small{color:var(--ivoire-mute);font-size:0.88rem;line-height:1.45}
+.cw-pack-grid{display:grid;grid-template-columns:1fr;gap:var(--sp-3);margin-top:var(--sp-4)}
+@media(min-width:600px){.cw-pack-grid{grid-template-columns:repeat(2,1fr)}}
+.cw-pack-card{display:flex;flex-direction:column;gap:var(--sp-1);padding:var(--sp-4) var(--sp-4);border-radius:var(--r-md);border:1px solid rgba(230,185,115,0.18);cursor:pointer;background:linear-gradient(165deg,rgba(255,255,255,0.035),rgba(5,10,20,0.18));position:relative;transition:transform .22s var(--ease-out),border-color .22s,box-shadow .22s}
+.cw-pack-card:hover{border-color:rgba(62,245,224,0.35);transform:translateY(-2px);box-shadow:0 8px 28px rgba(62,245,224,0.08)}
+.cw-pack-card:has(input:checked){border-color:rgba(230,185,115,0.55);box-shadow:0 0 0 1px rgba(230,185,115,0.22),0 10px 28px rgba(230,185,115,0.07)}
+.cw-pack-card__name{font-weight:600}
+.cw-pack-card__prix{color:var(--or-light);font-weight:700;font-size:0.95rem}
+.cw-pack-card__detail{color:var(--ivoire-mute);font-size:0.82rem;line-height:1.45}
+.cw-pack-card--star{border-color:rgba(230,185,115,0.45);box-shadow:0 0 0 1px rgba(230,185,115,0.25),0 12px 40px rgba(230,185,115,0.12);padding:var(--sp-5) var(--sp-4);min-height:calc(100% + 8px)}
+@media(max-width:599px){.cw-pack-card--star{order:-1}}
+.cw-pack-card__badge{position:absolute;top:10px;right:10px;font-size:10px;font-weight:700;letter-spacing:.12em;color:var(--nuit);background:linear-gradient(135deg,var(--or),#f0d4a8);padding:4px 8px;border-radius:var(--r-pill)}
+.cw-upload-soon{margin-top:var(--sp-6);padding:var(--sp-4);border:2px dashed rgba(230,185,115,0.28);border-radius:var(--r-md);opacity:.5;pointer-events:none;font-size:0.88rem;color:var(--ivoire-mute);line-height:1.5;text-align:left}
+.cw-upload-soon strong{color:var(--ivoire-dim)}
 .cw-radio-list{display:flex;flex-direction:column;gap:var(--sp-2);font-size:0.95rem}
-.cw-actions{display:flex;flex-wrap:wrap;gap:var(--sp-3);justify-content:space-between;margin-top:var(--sp-6)}
+.cw-radio-list label.cw-radio-row{display:flex;align-items:flex-start;gap:var(--sp-3);padding:var(--sp-3) var(--sp-4);border-radius:var(--r-md);border:1px solid rgba(230,185,115,0.14);cursor:pointer;transition:background .2s,border-color .2s,transform .2s}
+.cw-radio-list label.cw-radio-row:hover{border-color:rgba(62,245,224,0.28);transform:translateY(-1px)}
+.cw-radio-list label.cw-radio-row:has(input:checked){border-color:rgba(230,185,115,0.45);background:rgba(230,185,115,0.06)}
+.cw-fieldset-intro{color:var(--ivoire-mute);font-size:0.95rem;line-height:1.5;margin:0 0 var(--sp-4)}
+.cw-actions{display:flex;flex-wrap:wrap;gap:var(--sp-3);justify-content:space-between;margin-top:var(--sp-6);align-items:center}
+.cw-actions .btn--primary{margin-left:auto}
+@media(max-width:599px){.cw-actions{flex-direction:column;align-items:stretch}.cw-actions .btn{width:100%;justify-content:center}.cw-actions .btn--primary{margin-left:0}}
+.cw-step[data-cw-step="0"] .cw-actions{justify-content:flex-end}
+.contact-wizard-success-cta{display:flex;flex-wrap:wrap;gap:var(--sp-3);justify-content:center;margin-top:var(--sp-5)}
 .compare-economie-bars .economie-bar-row{display:grid;grid-template-columns:minmax(4rem,7rem) 1fr;gap:var(--sp-3) var(--sp-4);align-items:center;margin-bottom:var(--sp-4)}
 .compare-economie-bars .economie-bar-row--pinapp{margin-bottom:0}
 .economie-bar-track{grid-column:2;height:14px;border-radius:var(--r-pill);background:rgba(244,228,193,0.08);overflow:hidden}
@@ -2421,26 +2448,29 @@ Chez nous, si. »</p>
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>DÉMARRONS</p>
       <h2 id="contact-h2" class="display display--h2" data-reveal>Démarrons la conversation.</h2>
-      <p class="lead" data-reveal style="text-align:center;max-width:38rem;margin-left:auto;margin-right:auto">Promis, vos infos ne sortent pas d'Europe.<br>Diagnostic offert. Réponse sous 24 h.<br>On vous redirige automatiquement vers la bonne personne.</p>
+      <p class="lead" data-reveal style="text-align:center;max-width:38rem;margin-left:auto;margin-right:auto">Promis, vos infos ne sortent pas d'Europe.<br>Diagnostic offert. Réponse sous 24 h ouvrées par Lauralie &amp; Michaël.</p>
 
       <form id="pinapp-contact-wizard" class="card--glass contact-wizard" data-reveal data-webhook-url="https://pinapp.fr/api/diagnostic.php" novalidate>
         <div class="honeypot-field" aria-hidden="true">
           <label for="cw-website">Ne pas remplir</label>
           <input type="text" id="cw-website" name="website" tabindex="-1" autocomplete="off">
         </div>
-        <input type="hidden" name="data_routage" id="cw-routage" value="duo" />
 
         <div class="contact-wizard-progress" role="group" aria-label="Progression du formulaire">
-          <div class="cw-step-dots" id="cwProgressDots">
-            <span class="cw-dot is-on" data-step-i="0" aria-current="step">●</span><span class="cw-dash">━━━</span>
-            <span class="cw-dot" data-step-i="1">○</span><span class="cw-dash">━━━</span>
-            <span class="cw-dot" data-step-i="2">○</span>
+          <div class="cw-step-dots" id="cwProgressDots" role="list">
+            <span class="cw-dot is-on" data-step-i="0" aria-current="step" role="listitem" aria-label="Étape 1 sur 4"></span>
+            <span class="cw-progress-line" aria-hidden="true"></span>
+            <span class="cw-dot" data-step-i="1" role="listitem" aria-label="Étape 2 sur 4"></span>
+            <span class="cw-progress-line" aria-hidden="true"></span>
+            <span class="cw-dot" data-step-i="2" role="listitem" aria-label="Étape 3 sur 4"></span>
+            <span class="cw-progress-line" aria-hidden="true"></span>
+            <span class="cw-dot" data-step-i="3" role="listitem" aria-label="Étape 4 sur 4"></span>
           </div>
-          <p class="cw-step-label" id="cwStepLabel">1/3 Identité</p>
+          <p class="cw-step-label" id="cwStepLabel">1/4 Identité</p>
         </div>
 
         <fieldset class="cw-step" data-cw-step="0" id="cwStep0">
-          <legend class="visually-hidden">Étape 1 — Identité</legend>
+          <legend class="visually-hidden">Étape 1 sur 4 — Identité</legend>
           <div class="field-grid-2">
             <div class="field full">
               <label for="cw-nom">Nom complet *</label>
@@ -2455,8 +2485,22 @@ Chez nous, si. »</p>
               <input type="tel" id="cw-tel" name="telephone" autocomplete="tel">
             </div>
             <div class="field full">
-              <label for="cw-ent">Entreprise</label>
+              <label for="cw-ent">Entreprise / activité</label>
               <input type="text" id="cw-ent" name="entreprise" autocomplete="organization">
+            </div>
+            <div class="field full">
+              <label for="cw-secteur">Secteur *</label>
+              <select id="cw-secteur" name="secteur" required>
+                <option value="">Choisir votre secteur</option>
+                <option value="architecte">Architecte / design</option>
+                <option value="restaurant">Restaurant / café</option>
+                <option value="esthetique">Esthétique / beauté</option>
+                <option value="coach">Coach / accompagnement</option>
+                <option value="avocat">Avocat / juridique</option>
+                <option value="artisan">Artisan / création</option>
+                <option value="commerce">Commerce / boutique</option>
+                <option value="autre">Autre</option>
+              </select>
             </div>
           </div>
           <div class="cw-actions">
@@ -2465,20 +2509,21 @@ Chez nous, si. »</p>
         </fieldset>
 
         <fieldset class="cw-step" data-cw-step="1" id="cwStep1" hidden>
-          <legend class="visually-hidden">Étape 2 — Besoin</legend>
-          <p class="eyebrow" style="margin-bottom:var(--sp-3)">Catégorie</p>
+          <legend class="visually-hidden">Étape 2 sur 4 — Besoin</legend>
+          <p class="eyebrow" style="margin-bottom:var(--sp-3)">Votre demande</p>
+          <p class="lead" style="margin:0 0 var(--sp-4);font-size:1rem">Quelle est votre demande principale ? *</p>
           <div class="cw-radio-cards">
-            <label class="cw-radio-card"><input type="radio" name="categorie" value="code" required> <span>🖥️ Code</span><small>site, automatisations, assistants</small></label>
-            <label class="cw-radio-card"><input type="radio" name="categorie" value="imagerie"> <span>🎬 Imagerie</span><small>films, clips, vidéos, photos, logos</small></label>
-            <label class="cw-radio-card"><input type="radio" name="categorie" value="les_deux"> <span>🌐 Les deux</span><small>projet cross-expertises</small></label>
+            <label class="cw-radio-card"><input type="radio" name="categorie" value="code" class="visually-hidden" required> <span>💻 Code site</span><small>Site vitrine, automatisations, assistants</small></label>
+            <label class="cw-radio-card"><input type="radio" name="categorie" value="imagerie" class="visually-hidden"> <span>🎬 Imagerie / films</span><small>Clips, captation, identité animée</small></label>
+            <label class="cw-radio-card"><input type="radio" name="categorie" value="les_deux" class="visually-hidden"> <span>💻 + 🎬 Les deux</span><small>Projet site + image</small></label>
           </div>
           <div class="field full" style="margin-top:var(--sp-5)">
-            <label for="cw-desc">Décrivez votre projet en quelques lignes.</label>
-            <textarea id="cw-desc" name="description" rows="4" required placeholder="Ex : J'ai besoin d'un site qui amène des clients pour mon cabinet d'avocat..."></textarea>
+            <label for="cw-desc">Description de votre projet *</label>
+            <textarea id="cw-desc" name="description" rows="5" required placeholder="Dites-nous ce que vous voulez créer · l'ambition · vos visiteurs cibles · vos contraintes"></textarea>
           </div>
           <div class="field full">
-            <label for="cw-refs">Des exemples qui vous inspirent ? (Liens, références)</label>
-            <textarea id="cw-refs" name="references" rows="2" placeholder="Ex : J'aime le site de [concurrent], le clip [artiste], etc."></textarea>
+            <label for="cw-refs">Liens inspirations · concurrents · existant</label>
+            <textarea id="cw-refs" name="references" rows="3" placeholder="Exemples : annetaintor.com, votre site actuel, sites concurrents"></textarea>
           </div>
           <div class="cw-actions">
             <button type="button" class="btn btn--ghost cw-prev" data-cw-prev>← Précédent</button>
@@ -2487,40 +2532,83 @@ Chez nous, si. »</p>
         </fieldset>
 
         <fieldset class="cw-step" data-cw-step="2" id="cwStep2" hidden>
-          <legend class="visually-hidden">Étape 3 — Cadrage</legend>
-          <p class="eyebrow">Budget</p>
-          <div class="cw-radio-list">
-            <label><input type="radio" name="budget" value="<1000" required> &lt; 1 000 €</label>
-            <label><input type="radio" name="budget" value="1000-3000"> 1 000 - 3 000 €</label>
-            <label><input type="radio" name="budget" value="3000-5000"> 3 000 - 5 000 €</label>
-            <label><input type="radio" name="budget" value="5000-10000"> 5 000 - 10 000 €</label>
-            <label><input type="radio" name="budget" value=">10000"> &gt; 10 000 €</label>
-            <label><input type="radio" name="budget" value="ns"> Je ne sais pas encore</label>
+          <legend class="visually-hidden">Étape 3 sur 4 — Pack envisagé</legend>
+          <p class="cw-fieldset-intro">Quel pack vous correspond le mieux ?<br>(vous pouvez changer · on chiffre au diagnostic)</p>
+          <div class="cw-pack-grid">
+            <label class="cw-pack-card"><input type="radio" name="pack_envisage" value="page_light" class="visually-hidden" required> <span class="cw-pack-card__name">Page Light</span><span class="cw-pack-card__prix">990 € HT</span><span class="cw-pack-card__detail">1 page · code seul</span></label>
+            <label class="cw-pack-card"><input type="radio" name="pack_envisage" value="pack_code" class="visually-hidden"> <span class="cw-pack-card__name">Pack Code</span><span class="cw-pack-card__prix">1 490 € HT</span><span class="cw-pack-card__detail">5 pages · code + 1 auto</span></label>
+            <label class="cw-pack-card cw-pack-card--star"><span class="cw-pack-card__badge" aria-hidden="true">★ STAR</span><input type="radio" name="pack_envisage" value="pack_duo" class="visually-hidden"> <span class="cw-pack-card__name">Pack Duo ⭐ STAR</span><span class="cw-pack-card__prix">1 890 € HT</span><span class="cw-pack-card__detail">5 pages · code + 60s + 1 auto</span></label>
+            <label class="cw-pack-card"><input type="radio" name="pack_envisage" value="pack_clip" class="visually-hidden"> <span class="cw-pack-card__name">Pack Clip artiste</span><span class="cw-pack-card__prix">2 290 € HT</span><span class="cw-pack-card__detail">Clip 90s · imagerie + montage</span></label>
+            <label class="cw-pack-card"><input type="radio" name="pack_envisage" value="anniversaire" class="visually-hidden"> <span class="cw-pack-card__name">Anniversaire 3 min</span><span class="cw-pack-card__prix">2 490 € HT</span><span class="cw-pack-card__detail">Film famille · son cadré</span></label>
+            <label class="cw-pack-card"><input type="radio" name="pack_envisage" value="signature" class="visually-hidden"> <span class="cw-pack-card__name">Pack Signature</span><span class="cw-pack-card__prix">3 890 € HT</span><span class="cw-pack-card__detail">10 pages · code + 120s + 2 auto</span></label>
+            <label class="cw-pack-card"><input type="radio" name="pack_envisage" value="sur_mesure" class="visually-hidden"> <span class="cw-pack-card__name">Sur-Mesure</span><span class="cw-pack-card__prix">5 990 € HT</span><span class="cw-pack-card__detail">Sur cahier des charges</span></label>
+            <label class="cw-pack-card"><input type="radio" name="pack_envisage" value="pas_encore" class="visually-hidden"> <span class="cw-pack-card__name">Je ne sais pas encore</span><span class="cw-pack-card__prix">—</span><span class="cw-pack-card__detail">Lauralie m'orientera au diagnostic</span></label>
           </div>
-          <p class="eyebrow" style="margin-top:var(--sp-5)">Délai</p>
-          <div class="cw-radio-list">
-            <label><input type="radio" name="delai" value="urgent" required> Urgent (&lt; 7 jours)</label>
-            <label><input type="radio" name="delai" value="court"> Court terme (1-4 semaines)</label>
-            <label><input type="radio" name="delai" value="moyen"> Moyen terme (1-3 mois)</label>
-            <label><input type="radio" name="delai" value="none"> Pas de contrainte</label>
-          </div>
-          <p class="eyebrow" style="margin-top:var(--sp-5)">Mode de contact préféré</p>
-          <div class="cw-radio-list">
-            <label><input type="radio" name="contact_pref" value="email" required> Email</label>
-            <label><input type="radio" name="contact_pref" value="tel"> Téléphone</label>
-            <label><input type="radio" name="contact_pref" value="visio"> Visio (30 min)</label>
+          <div class="cw-upload-soon" aria-disabled="true">
+            <strong>📎 Bientôt : envoi de vos fichiers</strong><br>
+            Photos · vidéos · PDF · charte graphique<br>
+            <span>(disponible courant mai 2026)</span>
           </div>
           <div class="cw-actions">
             <button type="button" class="btn btn--ghost cw-prev" data-cw-prev>← Précédent</button>
-            <button type="submit" class="btn btn--primary btn--cta-large" id="cwSubmit">Envoyer mon diagnostic →</button>
+            <button type="button" class="btn btn--primary cw-next" data-cw-next>Suivant →</button>
+          </div>
+        </fieldset>
+
+        <fieldset class="cw-step" data-cw-step="3" id="cwStep3" hidden>
+          <legend class="visually-hidden">Étape 4 sur 4 — Cadrage</legend>
+          <p class="eyebrow">Budget</p>
+          <p class="lead" style="margin:0 0 var(--sp-3);font-size:1rem">Budget envisagé (HT) *</p>
+          <div class="cw-radio-list">
+            <label class="cw-radio-row"><input type="radio" name="budget" value="moins_1500" required> Moins de 1 500 €</label>
+            <label class="cw-radio-row"><input type="radio" name="budget" value="1500_2500"> 1 500 € – 2 500 €</label>
+            <label class="cw-radio-row"><input type="radio" name="budget" value="2500_4000"> 2 500 € – 4 000 €</label>
+            <label class="cw-radio-row"><input type="radio" name="budget" value="4000_6000"> 4 000 € – 6 000 €</label>
+            <label class="cw-radio-row"><input type="radio" name="budget" value="plus_6000"> Plus de 6 000 €</label>
+            <label class="cw-radio-row"><input type="radio" name="budget" value="a_chiffrer"> À chiffrer ensemble</label>
+          </div>
+          <p class="eyebrow" style="margin-top:var(--sp-5)">Délai</p>
+          <p class="lead" style="margin:0 0 var(--sp-3);font-size:1rem">Délai souhaité *</p>
+          <div class="cw-radio-list">
+            <label class="cw-radio-row"><input type="radio" name="delai" value="urgent" required> Urgent (sous 7 jours · supplément possible)</label>
+            <label class="cw-radio-row"><input type="radio" name="delai" value="21_jours"> Sous 21 jours (délai standard Pinapp)</label>
+            <label class="cw-radio-row"><input type="radio" name="delai" value="1_mois"> Sous 1 mois</label>
+            <label class="cw-radio-row"><input type="radio" name="delai" value="pas_presse"> Pas pressé · qualité avant tout</label>
+          </div>
+          <p class="eyebrow" style="margin-top:var(--sp-5)">Contact</p>
+          <p class="lead" style="margin:0 0 var(--sp-3);font-size:1rem">Préférence de contact *</p>
+          <div class="cw-radio-list">
+            <label class="cw-radio-row"><input type="radio" name="contact_preference" value="email" required> Email</label>
+            <label class="cw-radio-row"><input type="radio" name="contact_preference" value="telephone"> Téléphone</label>
+            <label class="cw-radio-row"><input type="radio" name="contact_preference" value="whatsapp"> WhatsApp / SMS</label>
+            <label class="cw-radio-row"><input type="radio" name="contact_preference" value="visio"> Visio (Google Meet)</label>
+          </div>
+          <div class="field full" id="cw-creneau-wrap" hidden>
+            <label for="cw-creneau">Créneau préféré</label>
+            <input type="text" id="cw-creneau" name="creneau" placeholder="Ex: matin 9h-11h" autocomplete="off">
+          </div>
+          <div class="field full" style="margin-top:var(--sp-5)">
+            <label class="cw-radio-row" style="align-items:flex-start;border-style:solid;border-color:rgba(230,185,115,0.22)">
+              <input type="checkbox" name="rgpd_consent" id="cw-rgpd" value="true" required style="margin-top:4px;flex-shrink:0;width:auto;height:auto;opacity:1;position:static;pointer-events:auto">
+              <span>J'accepte que mes données soient traitées par Pinapp Inc. pour répondre à ma demande de diagnostic. Conservation max 6 mois. <a href="/voyage-v9/confidentialite/" target="_blank" rel="noopener noreferrer" style="color:var(--cyan);text-decoration:underline;text-underline-offset:3px">Voir politique de confidentialité</a>.</span>
+            </label>
+          </div>
+          <div class="cw-actions">
+            <button type="button" class="btn btn--ghost cw-prev" data-cw-prev>← Précédent</button>
+            <button type="submit" class="btn btn--primary btn--cta-large" id="cwSubmit">✓ Envoyer ma demande</button>
           </div>
         </fieldset>
       </form>
 
       <div id="contact-wizard-success" class="form-success" hidden>
         <div class="success-icon" aria-hidden="true">✓</div>
-        <h3 class="display display--h3" style="margin:0 0 var(--sp-3)">✓ Demande reçue.</h3>
-        <p>On revient vers vous sous 24 h.</p>
+        <h3 class="display display--h3" style="margin:0 0 var(--sp-3)">Demande reçue. Merci !</h3>
+        <p>Lauralie &amp; Micha vous répondent sous 24 h ouvrées.<br>Selon votre catégorie, vous serez recontacté·e par le bon interlocuteur.</p>
+        <p class="source-note" style="margin-top:var(--sp-4)">📧 Un email de confirmation a été envoyé à votre adresse.</p>
+        <div class="contact-wizard-success-cta">
+          <a class="btn btn--primary" href="/essayer-une-demo/">Voir nos démos</a>
+          <a class="btn btn--ghost" href="#offres">Voir nos tarifs</a>
+        </div>
       </div>
 
       <div class="cta-row" style="justify-content:center;margin-top:var(--sp-6)" data-reveal>
