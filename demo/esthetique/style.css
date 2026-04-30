@@ -1,0 +1,258 @@
+/* Maison Solène — Démo esthétique (light / sand)
+   Objectif : hero premium clair, cohérent avec la copie.
+   Dépend de /assets/css/demo-base.css (typo, tokens). */
+
+:root {
+  --ms-bg: #f6f0e7;
+  --ms-bg-2: #efe6d9;
+  --ms-text: #2c2a27;
+  --ms-muted: rgba(44, 42, 39, 0.72);
+  --ms-line: rgba(44, 42, 39, 0.12);
+  --ms-gold: #b58f55;
+  --ms-card: rgba(255, 255, 255, 0.55);
+}
+
+body.demo-beauty--light {
+  background: radial-gradient(120% 120% at 20% 0%, rgba(181, 143, 85, 0.14), transparent 55%),
+    radial-gradient(120% 120% at 80% 20%, rgba(181, 143, 85, 0.08), transparent 60%),
+    linear-gradient(180deg, var(--ms-bg), var(--ms-bg-2));
+  color: var(--ms-text);
+}
+
+/* Utilise la typo serif chargée par la page */
+.demo-hero__title,
+.demo-h2 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  letter-spacing: -0.02em;
+}
+
+.demo-skip {
+  position: absolute;
+  left: -9999px;
+  top: 12px;
+  z-index: 9999;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(181, 143, 85, 0.14);
+  border: 1px solid rgba(181, 143, 85, 0.35);
+  color: var(--ms-text);
+  text-decoration: none;
+}
+.demo-skip:focus {
+  left: 12px;
+}
+
+.demo-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px clamp(16px, 4vw, 28px);
+  background: rgba(246, 240, 231, 0.82);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid var(--ms-line);
+}
+.demo-nav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  text-decoration: none;
+  color: var(--ms-text);
+}
+.demo-nav__brand-mark {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(181, 143, 85, 0.16);
+  border: 1px solid rgba(181, 143, 85, 0.25);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+.demo-nav__brand-text {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.demo-nav__links {
+  display: none;
+  gap: 14px;
+  font-size: 13px;
+  color: var(--ms-muted);
+}
+.demo-nav__links a {
+  text-decoration: none;
+  padding: 10px 10px;
+  border-radius: 999px;
+}
+.demo-nav__links a:hover {
+  background: rgba(181, 143, 85, 0.10);
+  color: var(--ms-text);
+}
+.demo-nav__cta {
+  text-decoration: none;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(181, 143, 85, 0.35);
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--ms-text);
+  font-weight: 600;
+}
+@media (min-width: 860px) {
+  .demo-nav__links {
+    display: inline-flex;
+  }
+}
+
+/* Hero */
+.demo-hero {
+  position: relative;
+  padding: clamp(56px, 8vh, 92px) clamp(16px, 4vw, 28px) 56px;
+  overflow: hidden;
+}
+.demo-hero__bg {
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(120% 120% at 30% 20%, rgba(181, 143, 85, 0.22), transparent 58%),
+    radial-gradient(120% 120% at 70% 30%, rgba(181, 143, 85, 0.12), transparent 60%);
+  transform: translateZ(0);
+}
+.demo-hero__veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(246, 240, 231, 0) 0%, rgba(246, 240, 231, 0.82) 90%);
+}
+.demo-hero__content {
+  position: relative;
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: center;
+}
+.demo-kicker {
+  margin: 0 0 14px;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(181, 143, 85, 0.9);
+}
+.demo-hero__title {
+  margin: 0;
+  font-weight: 400;
+  line-height: 1.05;
+  font-size: clamp(44px, 6.5vw, 78px);
+  color: var(--ms-text);
+}
+.demo-hero__title em {
+  font-style: italic;
+  font-weight: 300;
+}
+.demo-hero__lead {
+  margin: 18px auto 0;
+  max-width: 62ch;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--ms-muted);
+}
+.demo-hero__actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+.demo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(181, 143, 85, 0.32);
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--ms-text);
+  font-weight: 600;
+  text-decoration: none;
+}
+.demo-btn--primary {
+  background: rgba(181, 143, 85, 0.18);
+  border-color: rgba(181, 143, 85, 0.45);
+}
+.demo-btn--ghost {
+  background: rgba(255, 255, 255, 0.30);
+}
+.demo-hero__sig {
+  margin: 28px auto 0;
+  width: min(520px, 90vw);
+  color: rgba(181, 143, 85, 0.72);
+}
+
+/* Sections — garder simple, lisible (pas de design complet ici) */
+.demo-section {
+  padding: 64px 0;
+}
+.demo-section--soft {
+  background: rgba(255, 255, 255, 0.35);
+  border-top: 1px solid var(--ms-line);
+  border-bottom: 1px solid var(--ms-line);
+}
+.demo-container {
+  width: min(1120px, calc(100vw - 48px));
+  margin: 0 auto;
+}
+.demo-h2 {
+  margin: 0 0 10px;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(28px, 4vw, 44px);
+  color: var(--ms-text);
+}
+.demo-prose p {
+  margin: 0 0 12px;
+  color: var(--ms-muted);
+}
+.demo-note {
+  color: rgba(181, 143, 85, 0.95);
+  font-weight: 600;
+}
+
+/* Footer / badge */
+.demo-footer {
+  padding: 30px 0 78px; /* espace pour le bandeau fixe */
+  text-align: center;
+  color: rgba(44, 42, 39, 0.6);
+  border-top: 1px solid var(--ms-line);
+}
+.demo-badge {
+  position: fixed;
+  bottom: 44px;
+  right: 18px;
+  z-index: 200;
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 999px;
+  background: rgba(246, 240, 231, 0.72);
+  border: 1px solid rgba(181, 143, 85, 0.18);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+}
+.demo-badge span {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(181, 143, 85, 0.92);
+  font-weight: 700;
+}
+.demo-badge a {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: rgba(44, 42, 39, 0.62);
+  border-bottom: 1px solid rgba(181, 143, 85, 0.3);
+  text-decoration: none;
+}
