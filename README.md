@@ -82,6 +82,10 @@ Les pages profondes fonctionnent en MPA (`/offres/index.html`, etc.).
 
 **Important :** le déploiement (Hostinger, GitHub Pages, ZIP Netlify) continue d’utiliser les **fichiers sources** tels quels ; il n’y a **pas** d’étape `vite build` en prod pour éviter tout conflit avec le dossier `assets/` existant.
 
+### Build local (`_site/`) et `index.html` à la racine du dépôt
+
+Le script Node `tools/build-site.mjs` copie l’arborescence publiable vers `_site/`, puis applique **`promoteVoyageV9`** : la page d’accueil servie en production est **`voyage-v9/index.html`** réécrite en **`_site/index.html`** (ajustement des URL et des chemins `assets/`). Le fichier **`index.html` à la racine du dépôt** peut donc être un instantané plus ancien ou ne pas contenir certaines sections présentes dans `voyage-v9/index.html` (par exemple `#temoignages` en `display:none`) : ce n’est **pas** une étape du build qui supprime ces blocs. **Source de vérité pour la home :** `voyage-v9/index.html`.
+
 ## Déploiement prévisualisation (GitHub Pages)
 
 Après chaque push sur `**main`**, le workflow **Déployer GitHub Pages\*\* publie le site.
