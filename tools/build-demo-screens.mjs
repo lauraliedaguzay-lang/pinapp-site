@@ -1,7 +1,8 @@
 /**
  * Captures hero des démos (viewport 1400×875) → voyage-v9/assets/demo-screens/*.webp
+ * PR5 : waitForSelector hero + délai 2,5 s (intro / voile) ; coach.html inclus ; 2 essais par URL.
+ *
  * Usage : BASE_URL=https://pinapp.fr node tools/build-demo-screens.mjs
- * Défaut BASE_URL : https://pinapp.fr
  */
 import fs from 'fs';
 import path from 'path';
@@ -15,17 +16,27 @@ const outDir = path.join(root, 'voyage-v9', 'assets', 'demo-screens');
 
 const BASE = (process.env.BASE_URL || 'https://pinapp.fr').replace(/\/$/, '');
 
+/** Sélecteurs union : première occurrence visible = zone hero prête */
+const HERO_SEL = '.demo-hero, main#main.hero, #top, section.hero';
+
 const shots = [
-  { slug: 'esthetique', file: 'esthetique.webp' },
-  { slug: 'avocat', file: 'avocat.webp' },
+  { path: '/demo/esthetique/', file: 'esthetique.webp' },
+  { path: '/demo/avocat/', file: 'avocat.webp' },
+  { path: '/demo/coach.html', file: 'coach.webp' },
 ];
 
-async function capture(page, urlPath, outFile) {
+async function captureOnce(page, urlPath, outFile) {
   const url = `${BASE}${urlPath}`;
   const tmpPng = outFile.replace(/\.webp$/i, '.tmp.png');
   await page.setViewportSize({ width: 1400, height: 875 });
   await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 });
-  await new Promise((r) => setTimeout(r, 800));
+  try {
+    await page.locator(HERO_SEL).first().waitFor({ state: 'visible', timeout: 8000 });
+  } catch {
+    console.warn('[build-demo-screens] hero wait timeout → fallback 5s', urlPath);
+    await new Promise((r) => setTimeout(r, 5000));
+  }
+  await new Promise((r) => setTimeout(r, 2500));
   await page.screenshot({
     path: tmpPng,
     type: 'png',
@@ -37,14 +48,28 @@ async function capture(page, urlPath, outFile) {
   console.log('[build-demo-screens]', url, '→', path.relative(root, outFile), st.size, 'B');
 }
 
+async function captureWithRetries(page, shot) {
+  const out = path.join(outDir, shot.file);
+  let lastErr;
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      await captureOnce(page, shot.path, out);
+      return;
+    } catch (e) {
+      lastErr = e;
+      console.warn('[build-demo-screens] attempt', attempt, 'failed:', shot.path, e && e.message);
+    }
+  }
+  throw lastErr || new Error('capture failed: ' + shot.path);
+}
+
 async function main() {
   fs.mkdirSync(outDir, { recursive: true });
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage();
   try {
-    for (const { slug, file } of shots) {
-      const out = path.join(outDir, file);
-      await capture(page, `/demo/${slug}/`, out);
+    for (const shot of shots) {
+      await captureWithRetries(page, shot);
     }
   } finally {
     await browser.close();
@@ -53,6 +78,6 @@ async function main() {
 }
 
 main().catch((e) => {
-  console.error('[build-demo-screens] FAIL', e);
+  console.error('[build-demo-screens] FAIL — après 2 essais par URL, fallback manuel possible (voir DÉCISION 5 PR5)', e);
   process.exit(1);
 });
