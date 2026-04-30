@@ -574,17 +574,20 @@ html.sober .scroll-progress{display:none}
 .pack-duo-bridge{margin-top:var(--sp-6);padding:var(--sp-5);border-radius:var(--r-lg);border:1px solid rgba(62,245,224,0.25);background:rgba(62,245,224,0.08);text-align:center}
 .pack-duo-bridge strong{display:block;font-size:clamp(1.05rem,2.5vw,1.25rem);margin-bottom:var(--sp-2);color:var(--ivoire)}
 .pack-duo-bridge span{color:var(--ivoire-mute);font-size:var(--fs-micro)}
-@keyframes h1-shimmer{0%,100%{filter:brightness(1) saturate(1)}50%{filter:brightness(1.04) saturate(1.06)}}
-@keyframes word-reveal-rm{to{opacity:1;transform:translateY(0)}}
-.hero__title .hero-word{display:inline-block;opacity:0;transform:translateY(36px);animation:word-reveal 0.95s var(--ease-out) forwards,h1-shimmer var(--dur-shimmer) ease-in-out infinite 2s;animation-delay:calc(var(--i)*80ms + 120ms),2s;animation-fill-mode:forwards,none}
-.hero__title .hero-word--accent{animation:word-reveal 0.95s var(--ease-out) forwards,h1-shimmer var(--dur-shimmer) ease-in-out infinite 2s;animation-delay:calc(var(--i)*80ms + 120ms),2s;animation-fill-mode:forwards,none}
-@keyframes word-reveal{to{opacity:1;transform:translateY(0)}}
-.hero-word--accent{position:relative;font-style:italic;color:var(--or)}
-.hero-word--accent::after{content:'';position:absolute;left:0;bottom:-4px;width:100%;height:2px;background:var(--or);transform:scaleX(0);transform-origin:left;animation:underline-draw 1s var(--ease-out) 1.1s forwards}
-@keyframes underline-draw{to{transform:scaleX(1)}}
-@media (hover:hover){
-  .hero-word--accent:hover{transform:skewX(-2deg);transition:transform var(--dur-fast) var(--ease-spring)}
-}
+/* v12 PR1 — Hero : fadeUp 2 lignes + cascade (remplace .hero-word) */
+@keyframes v12-hero-fade-up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes v12-hero-eyebrow{0%{letter-spacing:0.22em;opacity:0}100%{letter-spacing:0.18em;opacity:1}}
+#hero .hero-h1-line1,
+#hero .hero-h1-line2{display:block;opacity:0;transform:translateY(24px);animation:v12-hero-fade-up 0.6s cubic-bezier(0.2,0.8,0.2,1) forwards}
+#hero .hero-h1-line1{animation-delay:0.12s}
+#hero .hero-h1-line2{margin-top:0.28em;font-style:italic;color:var(--or);animation-delay:0.2s}
+#hero .hero-v12-sub,
+#hero .hero-v12-stats,
+#hero .hero-v12-cta{opacity:0;transform:translateY(24px);animation:v12-hero-fade-up 0.6s cubic-bezier(0.2,0.8,0.2,1) forwards}
+#hero .hero-v12-sub{animation-delay:0.4s}
+#hero .hero-v12-stats{animation-delay:0.6s}
+#hero .hero-v12-cta{animation-delay:0.8s}
+#hero .eyebrow{opacity:0;animation:v12-hero-eyebrow 1.4s cubic-bezier(0.16,1,0.3,1) forwards;animation-delay:0.6s}
 @supports (animation-timeline:scroll()){
   .hero__title{animation:hero-scroll-fade linear;animation-timeline:scroll();animation-range:0 55vh}
   @keyframes hero-scroll-fade{to{opacity:0.35;transform:translateY(-20px)}}
@@ -642,9 +645,17 @@ html.sober .scroll-progress{display:none}
 }
 @media (prefers-reduced-motion:reduce){
   [class*=reveal],.reveal-io,.demo-tile{animation:none!important;opacity:1!important;transform:none!important}
-  .hero__title .hero-word{animation:word-reveal-rm 0.4s ease forwards;animation-delay:calc(var(--i)*50ms + 40ms);opacity:0;transform:none;filter:none}
-  .hero__title .hero-word--accent{animation:word-reveal-rm 0.4s ease forwards;animation-delay:calc(var(--i)*50ms + 40ms);opacity:0;transform:none}
-  .hero__title .hero-word--accent::after{animation:underline-draw 0.5s var(--ease-out) 0.2s forwards}
+  #hero .hero-h1-line1,
+  #hero .hero-h1-line2,
+  #hero .hero-v12-sub,
+  #hero .hero-v12-stats,
+  #hero .hero-v12-cta,
+  #hero .eyebrow{animation:v12-hero-fade-up 0.28s ease forwards!important;opacity:0;transform:none}
+  #hero .hero-h1-line2{animation-delay:0.06s!important}
+  #hero .hero-v12-sub{animation-delay:0.12s!important}
+  #hero .hero-v12-stats{animation-delay:0.18s!important}
+  #hero .hero-v12-cta{animation-delay:0.24s!important}
+  #hero .eyebrow{animation:v12-hero-fade-up 0.28s ease forwards!important;animation-delay:0s!important;letter-spacing:0.18em}
   .hero__title{animation:none!important}
   #hook-film .hook-video-wrap{animation:hook-halo-pulse 3.2s cubic-bezier(0.16,1,0.3,1) 0.35s 1 forwards}
   #diagnostic .pain{animation:none!important;border-left-color:rgba(230,185,115,0.35);opacity:1;transform:none}
@@ -1059,101 +1070,23 @@ body.ambient-active .ambient-layer{opacity:1}
 .ambient-particle--17{width:7px;height:7px;left:90%;top:85%;opacity:.50;animation:m4-drift-b 39s ease-in-out infinite -6s}
 .ambient-particle--18{width:5px;height:5px;left:50%;top:55%;opacity:.40;animation:m4-drift-c 26s ease-in-out infinite -16s}
 /* ============================================
-   M7 — Hero cinema reveal (additive, override timing)
+   M7 — Hero + intro splash (v12 : sync sur #hero uniquement)
    ============================================ */
-
-/* Pause animation hero-word jusqu'à fin intro splash (1ère visite) */
-body.intro-pending .hero-word{
-  animation-play-state:paused !important;
-  opacity:0 !important;
+body.intro-pending #hero .hero-h1-line1,
+body.intro-pending #hero .hero-h1-line2,
+body.intro-pending #hero .hero-v12-sub,
+body.intro-pending #hero .hero-v12-stats,
+body.intro-pending #hero .hero-v12-cta,
+body.intro-pending #hero .eyebrow{
+  animation-play-state:paused!important;
+  opacity:0!important;
 }
-body.intro-pending .hero-word--accent::after{
-  animation-play-state:paused !important;
-}
-
-/* Quand intro fini, on reprend animation avec stagger plus marqué */
-body.intro-done .hero-word{
-  animation-play-state:running !important;
-  animation-delay:calc(var(--i) * 100ms + 100ms),2900ms !important;
-}
-body.intro-done .hero-word--accent::after{
-  animation-play-state:running !important;
-  animation-delay:1100ms !important;
-}
-
-/* Glow doré qui passe sur chaque mot pendant son arrivée */
-.hero-word{
-  position:relative;
-}
-.hero-word::before{
-  content:"";
-  position:absolute;inset:-4px -8px;
-  background:radial-gradient(ellipse at center, rgba(230,185,115,0.45) 0%, transparent 70%);
-  opacity:0;
-  pointer-events:none;
-  z-index:-1;
-  filter:blur(6px);
-  animation:m7-word-glow 1.2s cubic-bezier(0.16,1,0.3,1) forwards;
-  animation-delay:calc(var(--i) * 100ms + 200ms);
-}
-body.intro-done .hero-word::before{
-  animation-delay:calc(var(--i) * 100ms + 3000ms) !important;
-}
-@keyframes m7-word-glow{
-  0%{opacity:0;transform:scale(0.7)}
-  40%{opacity:1;transform:scale(1.1)}
-  100%{opacity:0;transform:scale(1.3)}
-}
-
-/* Mot accentué "temps" : zoom-in dramatique + halo or */
-.hero__title .hero-word--accent{
-  animation:word-reveal 0.95s var(--ease-out) forwards,
-            h1-shimmer var(--dur-shimmer) ease-in-out infinite 2s,
-            m7-accent-zoom 1.1s cubic-bezier(0.16,1,0.3,1) forwards !important;
-  animation-delay:calc(var(--i) * 100ms + 100ms),2s,calc(var(--i) * 100ms + 100ms) !important;
-}
-body.intro-done .hero__title .hero-word--accent{
-  animation-delay:calc(var(--i) * 100ms + 100ms + 2900ms),2s,calc(var(--i) * 100ms + 100ms + 2900ms) !important;
-}
-@keyframes m7-accent-zoom{
-  0%{transform:scale(1.25);filter:drop-shadow(0 0 0 transparent)}
-  60%{transform:scale(1);filter:drop-shadow(0 0 20px rgba(230,185,115,0.7))}
-  100%{transform:scale(1);filter:drop-shadow(0 0 12px rgba(230,185,115,0.4))}
-}
-
-/* Halo or radial autour du mot accentué */
-.hero__title .hero-word--accent::before{
-  content:"";
-  position:absolute;inset:-20px -30px;
-  background:radial-gradient(circle, rgba(230,185,115,0.4) 0%, rgba(230,185,115,0.15) 40%, transparent 70%);
-  opacity:0;
-  pointer-events:none;
-  z-index:-1;
-  filter:blur(12px);
-  animation:m7-accent-halo 1.8s cubic-bezier(0.16,1,0.3,1) forwards;
-  animation-delay:calc(var(--i) * 100ms + 300ms);
-}
-body.intro-done .hero__title .hero-word--accent::before{
-  animation-delay:calc(var(--i) * 100ms + 300ms + 2900ms) !important;
-}
-@keyframes m7-accent-halo{
-  0%{opacity:0;transform:scale(0.5)}
-  35%{opacity:1;transform:scale(1.2)}
-  100%{opacity:0.3;transform:scale(1.6)}
-}
-
-/* Eyebrow : letter-spacing animé */
-.eyebrow{
-  animation:m7-eyebrow-spread 1.4s cubic-bezier(0.16,1,0.3,1) forwards;
-  animation-delay:600ms;
-}
-body.intro-done .eyebrow{
-  animation-delay:3500ms !important;
-}
-@keyframes m7-eyebrow-spread{
-  0%{letter-spacing:0.22em;opacity:0}
-  100%{letter-spacing:0.18em;opacity:1}
-}
+body.intro-done #hero .hero-h1-line1{animation-delay:calc(0.12s + 2.9s)!important;}
+body.intro-done #hero .hero-h1-line2{animation-delay:calc(0.2s + 2.9s)!important;}
+body.intro-done #hero .hero-v12-sub{animation-delay:calc(0.4s + 2.9s)!important;}
+body.intro-done #hero .hero-v12-stats{animation-delay:calc(0.6s + 2.9s)!important;}
+body.intro-done #hero .hero-v12-cta{animation-delay:calc(0.8s + 2.9s)!important;}
+body.intro-done #hero .eyebrow{animation-delay:calc(0.6s + 2.9s)!important;}
 
 /* ============================================
    M8 — Hover signature WOW (additive, hover-only)
@@ -1235,17 +1168,24 @@ body.intro-done .eyebrow{
 }
 
 /* Mode sober — désactive M7+M8 cinéma */
-html.sober .hero-word::before,
-html.sober .hero__title .hero-word--accent::before{display:none}
-html.sober body.intro-pending .hero-word{opacity:1 !important;animation-play-state:running !important}
+html.sober body.intro-pending #hero .hero-h1-line1,
+html.sober body.intro-pending #hero .hero-h1-line2,
+html.sober body.intro-pending #hero .hero-v12-sub,
+html.sober body.intro-pending #hero .hero-v12-stats,
+html.sober body.intro-pending #hero .hero-v12-cta,
+html.sober body.intro-pending #hero .eyebrow{opacity:1 !important;animation-play-state:running !important}
 html.sober .card--duo:hover,html.sober .demo-tile:hover,
 html.sober .demo-live-card:hover,html.sober .vimeo-tile:hover,
 html.sober .film-card:hover{transform:none !important;box-shadow:none !important}
 
 /* Reduced motion — coupe tout M7+M8 effet */
 @media (prefers-reduced-motion: reduce){
-  .hero-word::before,.hero__title .hero-word--accent::before{display:none}
-  body.intro-pending .hero-word{opacity:1 !important;animation-play-state:running !important}
+  body.intro-pending #hero .hero-h1-line1,
+  body.intro-pending #hero .hero-h1-line2,
+  body.intro-pending #hero .hero-v12-sub,
+  body.intro-pending #hero .hero-v12-stats,
+  body.intro-pending #hero .hero-v12-cta,
+  body.intro-pending #hero .eyebrow{opacity:1 !important;animation-play-state:running !important}
   .card--duo:hover,.demo-tile:hover,.demo-live-card:hover,
   .vimeo-tile:hover,.film-card:hover,.formation-card:hover,
   .engage-card:hover,.source-card:hover,.card--pricing:hover,
@@ -1262,6 +1202,30 @@ html.sober .film-card:hover{transform:none !important;box-shadow:none !important
   letter-spacing:0.01em;
   margin:1.2rem 0 0.8rem;
   text-align:inherit;
+}
+/* v12 PR1 — Duo listes + section engagements */
+.duo-list{margin:var(--sp-4) 0 0;padding-left:1.15rem;font-size:clamp(0.9rem,1.8vw,1rem);line-height:1.5;color:var(--ivoire)}
+.duo-list li{margin:0.4em 0}
+.duo-list li::marker{color:var(--or)}
+.duo-cta-wrap{margin-top:var(--sp-4)}
+.duo-na{margin-top:var(--sp-3);font-size:var(--fs-micro);letter-spacing:0.06em;color:var(--text-2)}
+#engagements .engagements-grid{
+  display:grid;gap:var(--sp-5);margin-top:var(--sp-7);
+  grid-template-columns:1fr;
+}
+@media(min-width:900px){
+  #engagements .engagements-grid{grid-template-columns:repeat(3,1fr);}
+}
+.engage-v12-card{
+  padding:var(--sp-5);border-radius:var(--r-lg);
+  border:1px solid rgba(230,185,115,0.18);
+  background:rgba(8,12,22,0.52);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  font-size:var(--fs-micro);line-height:1.55;color:var(--ivoire-mute);
+}
+.engage-v12-card strong{
+  display:block;font-size:1.02rem;font-family:var(--ff-serif);font-style:italic;
+  color:var(--or);margin-bottom:var(--sp-2);font-weight:400;
 }
 /* ============================================
    M10.1 — Schémas SVG cinéma (additive)
@@ -1605,25 +1569,23 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
 <main id="main">
   <section id="hero" class="scene" data-stage="hero-1" aria-labelledby="hero-h1">
     <div class="scene__inner">
-      <p class="eyebrow" data-reveal>Studio indépendant · Bordeaux · 2026</p>
-      <p class="eyebrow" data-reveal data-reveal-delay="1" style="margin-top:calc(-1 * var(--sp-2));color:var(--ivoire-dim)">Studio digital · Bordeaux · Sites + automatisations + films IA</p>
-      <h1 id="hero-h1" class="display display--h1 hero__title"><span class="hero-word" style="--i:0">Vos</span> <span class="hero-word" style="--i:1">outils</span> <span class="hero-word" style="--i:2">travaillent.</span><br><span class="hero-word" style="--i:3">Vous</span> <span class="hero-word" style="--i:4">gagnez</span> <span class="hero-word" style="--i:5">du</span> <span class="hero-word hero-word--accent" style="--i:6">temps.</span></h1>
-      <p class="hero-punchline" data-reveal>Sites + automatisations + films IA. Un seul devis. Bordeaux.</p>
-      <p class="lead" data-reveal>Site vitrine, automatisations IA, films cinéma —<br>par un duo bordelais.<br>Un seul devis. 50 à 75 % moins cher qu'une agence.<br>Diagnostic offert sous 24 h.</p>
-      <p class="badge-row" data-reveal><span class="badge">★ IA déclarée · Stack EU · Page &lt; 1 Mo</span></p>
-      <div class="hero-s01-row" data-reveal>
+      <p class="eyebrow">STUDIO IA · BORDEAUX · 2026</p>
+      <h1 id="hero-h1" class="display display--h1 hero__title">
+        <span class="hero-h1-line1">Studio IA tous domaines.</span>
+        <span class="hero-h1-line2">Code + imagerie.</span>
+      </h1>
+      <p class="lead hero-v12-sub">Sites, films, automatisations — par 2 expertises complémentaires. Un seul devis, un seul interlocuteur.</p>
+      <div class="hero-s01-row hero-v12-stats">
         <div class="stats-row">
           <div class="stat">Réponse<br>24 h</div>
-          <div class="stat">Diag.<br>offert</div>
-          <div class="stat">30 j<br>accomp.</div>
+          <div class="stat">Diagnostic<br>offert</div>
+          <div class="stat">Suivi<br>30 j</div>
         </div>
       </div>
-      <div class="cta-row" data-reveal>
+      <div class="cta-row hero-v12-cta">
         <a class="btn btn--primary breath-cta" href="#contact">Recevoir mon diagnostic écrit sous 24h →</a>
-        <a class="btn btn--ghost" href="#hook-film">Voir la démo ↓</a>
+        <a class="btn btn--ghost" href="#realisations">Voir nos réalisations ↓</a>
       </div>
-      <p class="source-note" data-reveal style="margin-top:var(--sp-3);text-align:center;max-width:36rem;margin-left:auto;margin-right:auto">Une analyse écrite par mail · pas un appel · pas d'engagement.</p>
-      <p class="microcite" data-reveal style="margin-top:var(--sp-6);font-size:1.15rem">D'abord : <strong>60 secondes</strong> de preuve. Ensuite votre parcours.</p>
     </div>
   </section>
 
@@ -1713,10 +1675,9 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
 
   <section id="duo" class="scene" data-stage="hero-1" aria-labelledby="duo-h2">
     <div class="scene__inner">
-      <p class="eyebrow" data-reveal>Le duo</p>
-      <h2 id="duo-h2" class="display display--h2" data-reveal>Lauralie + Michaël.<br>Deux experts. Un seul interlocuteur. Un seul devis.</h2>
+      <p class="eyebrow" data-reveal>LE DUO</p>
+      <h2 id="duo-h2" class="display display--h2" data-reveal>Tout l'IA, par deux expertises.</h2>
       <p class="hero-punchline" data-reveal>À deux voix. À une seule signature.</p>
-      <p class="lead" data-reveal style="text-align:center;max-width:40rem;margin-left:auto;margin-right:auto">Deux métiers complémentaires : tout ce qui est <strong>numérique et automatisé</strong> côté Lauralie, tout ce qui est <strong>image et récit</strong> côté Michaël. Vous ne gérez qu'un interlocuteur.</p>
       <div class="grid-2" style="margin-top:var(--sp-7)">
         <div class="card--glass card--duo" data-reveal data-author="lauralie">
           <figure class="team-figure">
@@ -1725,13 +1686,17 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
             </div>
             <figcaption class="team-caption">
               <span class="team-name">Lauralie</span>
-              <span class="team-role">Architecture &amp; automatisations</span>
+              <span class="team-role">CODE &amp; WORKFLOW IA</span>
             </figcaption>
           </figure>
-          <p class="role-kicker">Système &amp; conversion</p>
-          <p><strong>🔧 LAURALIE Daguzay</strong></p>
-          <p class="lead" style="margin:0;font-size:1rem">Elle conçoit votre présence en ligne et ce qui tourne derrière : site rapide et accessible, parcours client clair, automatisations (CRM, devis, relances, avis), assistants sur vos processus, formations pour que vous gardiez la main.<br>Du brief à la mise en ligne — Bordeaux, partout en France.</p>
-          <p style="margin:0"><a class="btn btn--text" href="https://www.linkedin.com/in/lauraliedaguzay" target="_blank" rel="noopener noreferrer" style="font-size:var(--fs-micro);padding:0;min-height:auto">Voir mes travaux LinkedIn ↗</a></p>
+          <ul class="duo-list">
+            <li>Sites et parcours qui ramènent des demandes — pas seulement une vitrine.</li>
+            <li>Automatisations sur mesure : devis, relances, avis, tout ce qui vous fait perdre du temps chaque semaine.</li>
+            <li>Assistants et workflows branchés sur vos outils (mail, CRM, facturation).</li>
+            <li>Formations courtes pour garder la main une fois livré.</li>
+            <li>Un interlocuteur du brief à la mise en ligne — partout en France.</li>
+          </ul>
+          <p class="duo-cta-wrap"><a class="btn btn--text" href="#realisations?filter=code" style="font-size:var(--fs-micro);padding:0;min-height:auto">Voir mes réalisations →</a></p>
         </div>
         <div class="card--glass card--duo" data-reveal data-reveal-delay="1" data-author="micha">
           <figure class="team-figure">
@@ -1740,13 +1705,19 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
             </div>
             <figcaption class="team-caption">
               <span class="team-name">Michaël</span>
-              <span class="team-role">Image &amp; cinéma</span>
+              <span class="team-role">IMAGERIE IA</span>
             </figcaption>
           </figure>
-          <p class="role-kicker">Image &amp; cinéma</p>
-          <p><strong>🎬 MICHA · Michaël Bouilhac</strong></p>
-          <p class="lead" style="margin:0;font-size:1rem">Il réalise l'image et le mouvement : clips et films avec l'IA (du teaser au format long), captation sur le terrain en Nouvelle-Aquitaine, direction artistique pour une identité visuelle cohérente. 10 ans d'événementiel, photo et vidéo.<br>Du brief au fichier livré — Bordeaux et région.</p>
-          <p style="margin:0"><a class="btn btn--text" href="#contact" title="Demandez le lien LinkedIn de Michaël si besoin" style="font-size:var(--fs-micro);padding:0;min-height:auto">Voir mes travaux LinkedIn ↗</a></p>
+          <ul class="duo-list">
+            <li>Films et clips avec l'IA : du teaser au format long, avec un œil cinéma.</li>
+            <li>Captation photo et vidéo sur événements et terrain.</li>
+            <li>Direction artistique pour une image qui tient dans le temps.</li>
+            <li>Montage, rythme, son — le fichier prêt à diffuser.</li>
+            <li>Plus de dix ans d'événementiel, photo et vidéo.</li>
+            <li>Du brief au rendu final — exigence jusqu'au livrable.</li>
+          </ul>
+          <p class="duo-na" aria-label="Zone d'intervention terrain">📍 Déplacement Nouvelle-Aquitaine</p>
+          <p class="duo-cta-wrap"><a class="btn btn--text" href="#realisations?filter=imagerie" style="font-size:var(--fs-micro);padding:0;min-height:auto">Voir mes réalisations →</a></p>
         </div>
       </div>
       <div class="reals-duo" aria-label="Réalisations : exemples concrets" data-reveal>
@@ -1785,6 +1756,40 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
         <button type="button" class="btn btn--text" id="btnDrawerFromS02">En savoir plus sur nous →</button>
       </div>
       <p class="microcite" data-reveal style="margin-top:var(--sp-7);font-size:1.1rem">Ensuite : ce qui tourne pendant que vous bossez.</p>
+    </div>
+  </section>
+
+  <section id="engagements" class="scene scene--engagements" data-stage="hero-1" aria-labelledby="engagements-h2">
+    <div class="scene__inner">
+      <p class="eyebrow" data-reveal>NOS ENGAGEMENTS</p>
+      <h2 id="engagements-h2" class="display display--h2" data-reveal>Six engagements concrets — pas des promesses floues.</h2>
+      <p class="lead" data-reveal style="text-align:center;max-width:42rem;margin-left:auto;margin-right:auto;margin-top:var(--sp-4)">Ce qu'on signe avec vous avant même le devis : transparence, rythme humain, et livrables dont vous restez propriétaire.</p>
+      <div class="engagements-grid" data-reveal>
+        <article class="engage-v12-card card--glass v10-tilt">
+          <strong>Transparence totale</strong>
+          Tarifs affichés, périmètre clair ligne à ligne — pas de « surprise » en fin de projet.
+        </article>
+        <article class="engage-v12-card card--glass v10-tilt">
+          <strong>Votre rythme, vos validations</strong>
+          Étapes expliquées sans jargon ; vous cochez ce qui part, quand vous êtes prêt·e.
+        </article>
+        <article class="engage-v12-card card--glass v10-tilt">
+          <strong>Données &amp; outils européens</strong>
+          On privilégie hébergement et services UE lorsque c'est pertinent pour votre stack.
+        </article>
+        <article class="engage-v12-card card--glass v10-tilt">
+          <strong>IA dite explicitement</strong>
+          Les contenus générés sont signalés ; vous recevez sources et fichiers pour les réutiliser.
+        </article>
+        <article class="engage-v12-card card--glass v10-tilt">
+          <strong>Performance &amp; sobriété</strong>
+          Pages légères, peu de trackers — le site doit rester vif et responsable.
+        </article>
+        <article class="engage-v12-card card--glass v10-tilt">
+          <strong>Racines bordelaises</strong>
+          Basés à Bordeaux — déplacements en région et accompagnement à distance selon le projet.
+        </article>
+      </div>
     </div>
   </section>
 
