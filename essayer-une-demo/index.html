@@ -15,6 +15,48 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="stylesheet" href="/voyage-v9/assets/css/pr3b-subpage.css" />
 <link rel="stylesheet" href="/voyage-v9/assets/css/pinapp-type.css" />
+<style>
+  .demo-grid-v12{display:grid;gap:16px;margin-top:var(--sp-6)}
+  @media(min-width:740px){.demo-grid-v12{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}}
+  @media(min-width:1100px){.demo-grid-v12{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}}
+
+  .demo-card-v12{position:relative;overflow:hidden;border-radius:22px;border:1px solid rgba(184,151,90,0.15);background:linear-gradient(180deg,#0E1116 0%,#11151E 100%);box-shadow:0 12px 40px rgba(0,0,0,0.28);transform:translateZ(0);transition:transform 350ms cubic-bezier(0.25,0.1,0.25,1),border-color 200ms ease,filter 200ms ease}
+  .demo-card-v12:hover{border-color:rgba(184,151,90,0.45)}
+  .demo-card-v12:hover{transform:translateY(-4px)}
+  .demo-tier-1:hover{transform:translateY(-8px)}
+  .demo-tier-3:hover{transform:translateY(-2px)}
+  .demo-card-v12.is-hidden{opacity:0;transform:translateY(8px);pointer-events:none}
+  .demo-grid-v12.is-animating .demo-card-v12{transition:opacity 250ms ease,transform 250ms ease,border-color 200ms ease}
+
+  .browser-frame{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid rgba(184,151,90,0.12);color:rgba(244,228,193,0.66);font-size:12px;letter-spacing:0.01em}
+  .browser-dots{display:inline-flex;gap:6px}
+  .browser-dots .dot{width:9px;height:9px;border-radius:999px;background:rgba(244,228,193,0.20);border:1px solid rgba(244,228,193,0.14)}
+  .browser-url{margin-left:auto;opacity:0.85}
+  .badge-demo{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(230,185,115,0.95);border:1px solid rgba(230,185,115,0.25);padding:4px 8px;border-radius:999px}
+
+  .halo-bg{position:absolute;inset:-40%;pointer-events:none;opacity:0.0;transition:opacity 250ms ease;filter:blur(0px)}
+  .demo-card-v12:hover .halo-bg{opacity:1}
+  .demo-tier-1 .halo-bg{background:radial-gradient(circle,rgba(184,151,90,0.18) 0%,transparent 70%)}
+  .demo-tier-2 .halo-bg{background:radial-gradient(circle,rgba(184,151,90,0.10) 0%,transparent 70%)}
+  .demo-tier-3 .halo-bg{background:radial-gradient(circle,rgba(184,151,90,0.06) 0%,transparent 70%)}
+
+  .demo-shot{display:block;width:100%;height:auto;aspect-ratio:1400/875;object-fit:cover}
+  .card-meta{padding:14px 14px 16px}
+  .card-meta h3{margin:0 0 6px;font-size:18px;letter-spacing:-0.01em}
+  .card-meta p{margin:0;color:rgba(244,228,193,0.72);font-size:13px;line-height:1.5}
+  .card-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+  .cta-primary,.cta-zip{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:40px;padding:10px 12px;border-radius:999px;border:1px solid rgba(230,185,115,0.28);background:rgba(255,255,255,0.04);color:rgba(244,228,193,0.86);text-decoration:none;font-size:13px}
+  .cta-primary:hover,.cta-zip:hover{border-color:rgba(230,185,115,0.45);background:rgba(255,255,255,0.06)}
+  .cta-zip{border-color:rgba(62,245,224,0.24)}
+  .cta-zip:hover{border-color:rgba(62,245,224,0.35)}
+
+  @media(min-width:1100px){
+    .demo-tier-1{grid-column:span 2}
+  }
+  @media(max-width:739px){
+    .card-actions{flex-direction:column;align-items:stretch}
+  }
+</style>
 </head>
 <body>
 <a class="skip-link" href="#main">Aller au contenu</a>
@@ -31,115 +73,167 @@
     <h1 class="display-h1">Touchez du doigt ce que ça donne.</h1>
     <p class="lead">Cinq démos sectorielles pour projeter votre futur site. Aucun client réel : uniquement des visuels générés et des maquettes internes.</p>
 
-    <div class="demo-grid" style="margin-top:var(--sp-6)">
-      <article class="demo-card">
-        <span class="demo-badge" aria-hidden="true">★ DÉMO</span>
-        <div class="demo-card__browser" aria-hidden="true">
-          <div class="demo-card__browser-dots">
-            <span class="dot dot--red"></span><span class="dot dot--yellow"></span><span class="dot dot--green"></span>
-          </div>
-          <div class="demo-card__browser-url">atelier-rivage.demo</div>
+    <div class="demo-grid-v12" id="demoGrid" style="margin-top:var(--sp-6)">
+      <!-- Tier 1 — Premium -->
+      <article class="demo-card-v12 demo-tier-1" data-secteur="architecte" data-premium="true">
+        <div class="browser-frame" aria-hidden="true">
+          <div class="browser-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <span class="badge-demo">★ DÉMO</span>
+          <span class="browser-url">atelier-rivage.demo</span>
         </div>
-        <div class="demo-card__hero">
-          <img src="/voyage-v9/assets/demo-screens/atelier-rivage.webp" alt="Aperçu démo Atelier Rivage" width="1400" height="875" loading="lazy" />
-          <div class="demo-card__halo"></div>
-        </div>
-        <div class="demo-card__body">
+        <div class="halo-bg" aria-hidden="true"></div>
+        <img class="demo-shot" src="/voyage-v9/assets/demo-screens/atelier-rivage.webp" alt="Aperçu de la démo Atelier Rivage" loading="lazy" decoding="async" width="1400" height="875" />
+        <div class="card-meta">
           <h3>Atelier Rivage</h3>
-          <p>Architecte · vitrine premium</p>
-          <div class="demo-card__actions">
-            <a class="btn btn--ghost btn--compact" href="/demo/atelier-rivage/">Ouvrir la démo ↗</a>
-            <a class="btn btn--zip btn--compact" href="/demo/atelier-rivage/atelier-rivage-pinapp.zip" download="atelier-rivage-pinapp.zip">📦 Télécharger le ZIP source</a>
+          <p class="card-secteur">Architecte · vitrine premium</p>
+          <div class="card-actions">
+            <a class="cta-primary" href="/demo/atelier-rivage/">Ouvrir la démo ↗</a>
+            <a class="cta-zip" href="/demo/atelier-rivage/atelier-rivage-pinapp.zip" download> Télécharger le ZIP source</a>
           </div>
         </div>
       </article>
 
-      <article class="demo-card">
-        <span class="demo-badge" aria-hidden="true">★ DÉMO</span>
-        <div class="demo-card__browser" aria-hidden="true">
-          <div class="demo-card__browser-dots">
-            <span class="dot dot--red"></span><span class="dot dot--yellow"></span><span class="dot dot--green"></span>
+      <article class="demo-card-v12 demo-tier-1" data-secteur="architecte" data-premium="true">
+        <div class="browser-frame" aria-hidden="true">
+          <div class="browser-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <span class="badge-demo">★ DÉMO</span>
+          <span class="browser-url">sur-mesure.demo</span>
+        </div>
+        <div class="halo-bg" aria-hidden="true"></div>
+        <img class="demo-shot" src="/voyage-v9/assets/demo-screens/sur-mesure.webp" alt="Aperçu de la démo Sur-Mesure" loading="lazy" decoding="async" width="1400" height="875" />
+        <div class="card-meta">
+          <h3>Sur-Mesure</h3>
+          <p class="card-secteur">Architecte · cahier des charges</p>
+          <div class="card-actions">
+            <a class="cta-primary" href="/demo/sur-mesure/">Ouvrir la démo ↗</a>
           </div>
-          <div class="demo-card__browser-url">maison-aurore.demo</div>
         </div>
-        <div class="demo-card__hero">
-          <img src="/voyage-v9/assets/demo-screens/restaurant.webp" alt="Aperçu démo Maison Aurore" width="1400" height="875" loading="lazy" />
-          <div class="demo-card__halo"></div>
+      </article>
+
+      <!-- Tier 2 — Standard -->
+      <article class="demo-card-v12 demo-tier-2" data-secteur="restauration" data-premium="false">
+        <div class="browser-frame" aria-hidden="true">
+          <div class="browser-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <span class="badge-demo">★ DÉMO</span>
+          <span class="browser-url">maison-aurore.demo</span>
         </div>
-        <div class="demo-card__body">
+        <div class="halo-bg" aria-hidden="true"></div>
+        <img class="demo-shot" src="/voyage-v9/assets/demo-screens/restaurant.webp" alt="Aperçu de la démo Maison Aurore" loading="lazy" decoding="async" width="1400" height="875" />
+        <div class="card-meta">
           <h3>Maison Aurore</h3>
-          <p>Restaurant · réservation &amp; carte</p>
-          <div class="demo-card__actions">
-            <a class="btn btn--ghost btn--compact" href="/demo/restaurant/">Ouvrir la démo ↗</a>
+          <p class="card-secteur">Restaurant · réservation &amp; carte</p>
+          <div class="card-actions">
+            <a class="cta-primary" href="/demo/restaurant/">Ouvrir la démo ↗</a>
           </div>
         </div>
       </article>
 
-      <article class="demo-card">
-        <span class="demo-badge" aria-hidden="true">★ DÉMO</span>
-        <div class="demo-card__browser" aria-hidden="true">
-          <div class="demo-card__browser-dots">
-            <span class="dot dot--red"></span><span class="dot dot--yellow"></span><span class="dot dot--green"></span>
-          </div>
-          <div class="demo-card__browser-url">maison-solene.demo</div>
+      <article class="demo-card-v12 demo-tier-2" data-secteur="droit" data-premium="false">
+        <div class="browser-frame" aria-hidden="true">
+          <div class="browser-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <span class="badge-demo">★ DÉMO</span>
+          <span class="browser-url">cabinet-solis.demo</span>
         </div>
-        <div class="demo-card__hero">
-          <img src="/voyage-v9/assets/demo-screens/esthetique.webp" alt="Aperçu démo Maison Solène" width="1400" height="875" loading="lazy" />
-          <div class="demo-card__halo"></div>
-        </div>
-        <div class="demo-card__body">
-          <h3>Maison Solène</h3>
-          <p>Esthétique · douceur &amp; confiance</p>
-          <div class="demo-card__actions">
-            <a class="btn btn--ghost btn--compact" href="/demo/esthetique/">Ouvrir la démo ↗</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="demo-card">
-        <span class="demo-badge" aria-hidden="true">★ DÉMO</span>
-        <div class="demo-card__browser" aria-hidden="true">
-          <div class="demo-card__browser-dots">
-            <span class="dot dot--red"></span><span class="dot dot--yellow"></span><span class="dot dot--green"></span>
-          </div>
-          <div class="demo-card__browser-url">studio-lena.demo</div>
-        </div>
-        <div class="demo-card__hero">
-          <img src="/voyage-v9/assets/demo-screens/coach.webp" alt="Aperçu démo Studio Léna" width="1400" height="875" loading="lazy" />
-          <div class="demo-card__halo"></div>
-        </div>
-        <div class="demo-card__body">
-          <h3>Studio Léna</h3>
-          <p>Coach · storytelling personnel</p>
-          <div class="demo-card__actions">
-            <a class="btn btn--ghost btn--compact" href="/demo/coach.html">Ouvrir la démo ↗</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="demo-card">
-        <span class="demo-badge" aria-hidden="true">★ DÉMO</span>
-        <div class="demo-card__browser" aria-hidden="true">
-          <div class="demo-card__browser-dots">
-            <span class="dot dot--red"></span><span class="dot dot--yellow"></span><span class="dot dot--green"></span>
-          </div>
-          <div class="demo-card__browser-url">cabinet-solis.demo</div>
-        </div>
-        <div class="demo-card__hero">
-          <img src="/voyage-v9/assets/demo-screens/avocat.webp" alt="Aperçu démo Cabinet Solis" width="1400" height="875" loading="lazy" />
-          <div class="demo-card__halo"></div>
-        </div>
-        <div class="demo-card__body">
+        <div class="halo-bg" aria-hidden="true"></div>
+        <img class="demo-shot" src="/voyage-v9/assets/demo-screens/avocat.webp" alt="Aperçu de la démo Cabinet Solis" loading="lazy" decoding="async" width="1400" height="875" />
+        <div class="card-meta">
           <h3>Cabinet Solis</h3>
-          <p>Avocat · cabinet feutré</p>
-          <div class="demo-card__actions">
-            <a class="btn btn--ghost btn--compact" href="/demo/avocat/">Ouvrir la démo ↗</a>
+          <p class="card-secteur">Droit · cabinet feutré</p>
+          <div class="card-actions">
+            <a class="cta-primary" href="/demo/avocat/">Ouvrir la démo ↗</a>
           </div>
         </div>
+      </article>
+
+      <article class="demo-card-v12 demo-tier-2" data-secteur="coaching" data-premium="false">
+        <div class="browser-frame" aria-hidden="true">
+          <div class="browser-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <span class="badge-demo">★ DÉMO</span>
+          <span class="browser-url">studio-lena.demo</span>
+        </div>
+        <div class="halo-bg" aria-hidden="true"></div>
+        <img class="demo-shot" src="/voyage-v9/assets/demo-screens/coach.webp" alt="Aperçu de la démo Studio Léna (coach)" loading="lazy" decoding="async" width="1400" height="875" />
+        <div class="card-meta">
+          <h3>Studio Léna</h3>
+          <p class="card-secteur">Coaching · parcours &amp; conversion</p>
+          <div class="card-actions">
+            <a class="cta-primary" href="/demo/coach.html">Ouvrir la démo ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Tier 3 — Beauté -->
+      <article class="demo-card-v12 demo-tier-3" data-secteur="beaute" data-premium="false">
+        <div class="browser-frame" aria-hidden="true"><div class="browser-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><span class="badge-demo">★ DÉMO</span><span class="browser-url">maison-solene.demo</span></div>
+        <div class="halo-bg" aria-hidden="true"></div>
+        <img class="demo-shot" src="/voyage-v9/assets/demo-screens/esthetique.webp" alt="Aperçu de la démo Maison Solène (esthétique)" loading="lazy" decoding="async" width="1400" height="875" />
+        <div class="card-meta"><h3>Maison Solène</h3><p class="card-secteur">Beauté · esthétique premium</p><div class="card-actions"><a class="cta-primary" href="/demo/esthetique/">Ouvrir la démo ↗</a></div></div>
+      </article>
+
+      <article class="demo-card-v12 demo-tier-3" data-secteur="beaute" data-premium="false">
+        <div class="browser-frame" aria-hidden="true"><div class="browser-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><span class="badge-demo">★ DÉMO</span><span class="browser-url">institut-eclat.demo</span></div>
+        <div class="halo-bg" aria-hidden="true"></div>
+        <img class="demo-shot" src="/voyage-v9/assets/demo-screens/estheticienne.webp" alt="Aperçu de la démo Institut Éclat" loading="lazy" decoding="async" width="1400" height="875" />
+        <div class="card-meta"><h3>Institut Éclat</h3><p class="card-secteur">Beauté · institut (light)</p><div class="card-actions"><a class="cta-primary" href="/demo/estheticienne/">Ouvrir la démo ↗</a></div></div>
+      </article>
+
+      <article class="demo-card-v12 demo-tier-3" data-secteur="beaute" data-premium="false">
+        <div class="browser-frame" aria-hidden="true"><div class="browser-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><span class="badge-demo">★ DÉMO</span><span class="browser-url">atelier-du-regard.demo</span></div>
+        <div class="halo-bg" aria-hidden="true"></div>
+        <img class="demo-shot" src="/voyage-v9/assets/demo-screens/cils.webp" alt="Aperçu de la démo Atelier du Regard" loading="lazy" decoding="async" width="1400" height="875" />
+        <div class="card-meta"><h3>Atelier du Regard</h3><p class="card-secteur">Beauté · cils</p><div class="card-actions"><a class="cta-primary" href="/demo/cils/">Ouvrir la démo ↗</a></div></div>
+      </article>
+
+      <article class="demo-card-v12 demo-tier-3" data-secteur="beaute" data-premium="false">
+        <div class="browser-frame" aria-hidden="true"><div class="browser-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><span class="badge-demo">★ DÉMO</span><span class="browser-url">studio-lena-cils.demo</span></div>
+        <div class="halo-bg" aria-hidden="true"></div>
+        <img class="demo-shot" src="/voyage-v9/assets/demo-screens/extensions-cils.webp" alt="Aperçu de la démo Studio Léna (extensions de cils)" loading="lazy" decoding="async" width="1400" height="875" />
+        <div class="card-meta"><h3>Studio Léna</h3><p class="card-secteur">Beauté · extensions de cils</p><div class="card-actions"><a class="cta-primary" href="/demo/extensions-cils/">Ouvrir la démo ↗</a></div></div>
+      </article>
+
+      <article class="demo-card-v12 demo-tier-3" data-secteur="beaute" data-premium="false">
+        <div class="browser-frame" aria-hidden="true"><div class="browser-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><span class="badge-demo">★ DÉMO</span><span class="browser-url">atelier-des-mains.demo</span></div>
+        <div class="halo-bg" aria-hidden="true"></div>
+        <img class="demo-shot" src="/voyage-v9/assets/demo-screens/ongles.webp" alt="Aperçu de la démo Atelier des Mains (ongles)" loading="lazy" decoding="async" width="1400" height="875" />
+        <div class="card-meta"><h3>Atelier des Mains</h3><p class="card-secteur">Beauté · ongles</p><div class="card-actions"><a class="cta-primary" href="/demo/ongles/">Ouvrir la démo ↗</a></div></div>
+      </article>
+
+      <article class="demo-card-v12 demo-tier-3" data-secteur="beaute" data-premium="false">
+        <div class="browser-frame" aria-hidden="true"><div class="browser-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><span class="badge-demo">★ DÉMO</span><span class="browser-url">studio-pandora.demo</span></div>
+        <div class="halo-bg" aria-hidden="true"></div>
+        <img class="demo-shot" src="/voyage-v9/assets/demo-screens/coiffeur.webp" alt="Aperçu de la démo Coiffeur" loading="lazy" decoding="async" width="1400" height="875" />
+        <div class="card-meta"><h3>Coiffeur</h3><p class="card-secteur">Beauté · salon</p><div class="card-actions"><a class="cta-primary" href="/demo/coiffeur/">Ouvrir la démo ↗</a></div></div>
+      </article>
+
+      <article class="demo-card-v12 demo-tier-3" data-secteur="beaute" data-premium="false">
+        <div class="browser-frame" aria-hidden="true"><div class="browser-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><span class="badge-demo">★ DÉMO</span><span class="browser-url">ink-aura.demo</span></div>
+        <div class="halo-bg" aria-hidden="true"></div>
+        <img class="demo-shot" src="/voyage-v9/assets/demo-screens/tatoueuse.webp" alt="Aperçu de la démo Ink &amp; Aura (tatouage)" loading="lazy" decoding="async" width="1400" height="875" />
+        <div class="card-meta"><h3>Ink &amp; Aura</h3><p class="card-secteur">Beauté · tatouage</p><div class="card-actions"><a class="cta-primary" href="/demo/tatoueuse/">Ouvrir la démo ↗</a></div></div>
+      </article>
+
+      <article class="demo-card-v12 demo-tier-3" data-secteur="beaute" data-premium="false">
+        <div class="browser-frame" aria-hidden="true"><div class="browser-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><span class="badge-demo">★ DÉMO</span><span class="browser-url">barbier.demo</span></div>
+        <div class="halo-bg" aria-hidden="true"></div>
+        <img class="demo-shot" src="/voyage-v9/assets/demo-screens/barbier.webp" alt="Aperçu de la démo Barbier" loading="lazy" decoding="async" width="1400" height="875" />
+        <div class="card-meta"><h3>Barbier</h3><p class="card-secteur">Beauté · barber shop</p><div class="card-actions"><a class="cta-primary" href="/demo/barbier/">Ouvrir la démo ↗</a></div></div>
+      </article>
+
+      <!-- Tier 3 — Artisanat -->
+      <article class="demo-card-v12 demo-tier-3" data-secteur="artisanat" data-premium="false">
+        <div class="browser-frame" aria-hidden="true"><div class="browser-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><span class="badge-demo">★ DÉMO</span><span class="browser-url">artisan.demo</span></div>
+        <div class="halo-bg" aria-hidden="true"></div>
+        <img class="demo-shot" src="/voyage-v9/assets/demo-screens/artisan.webp" alt="Aperçu de la démo Artisan" loading="lazy" decoding="async" width="1400" height="875" />
+        <div class="card-meta"><h3>Artisan</h3><p class="card-secteur">Artisanat · vitrine</p><div class="card-actions"><a class="cta-primary" href="/demo/artisan/">Ouvrir la démo ↗</a></div></div>
+      </article>
+
+      <article class="demo-card-v12 demo-tier-3" data-secteur="artisanat" data-premium="false">
+        <div class="browser-frame" aria-hidden="true"><div class="browser-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><span class="badge-demo">★ DÉMO</span><span class="browser-url">trainer.demo</span></div>
+        <div class="halo-bg" aria-hidden="true"></div>
+        <img class="demo-shot" src="/voyage-v9/assets/demo-screens/trainer.webp" alt="Aperçu de la démo Trainer" loading="lazy" decoding="async" width="1400" height="875" />
+        <div class="card-meta"><h3>Trainer</h3><p class="card-secteur">Artisanat · coaching sport</p><div class="card-actions"><a class="cta-primary" href="/demo/trainer/">Ouvrir la démo ↗</a></div></div>
       </article>
     </div>
-
-    <p class="source-note">Sites créés par Pinapp pour démontrer notre savoir-faire. Aucun client réel. Marques fictives. Données fictives. Designed in Bordeaux. Built with AI.</p>
 
     <div class="cta-row">
       <a class="btn btn--primary" href="/#contact">Demander une démo sur mon secteur →</a>
