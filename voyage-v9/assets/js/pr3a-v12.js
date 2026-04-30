@@ -123,6 +123,31 @@
     else if (cat === 'les_deux') routage.value = 'duo';
   });
 
+  function fallbackMailto(payload) {
+    try {
+      console.log({ step: 'submit', payload: payload });
+    } catch (e1) {}
+    var nom = payload.nom_complet || 'contact';
+    var cat = payload.categorie || 'demande';
+    var subj = '[Pinapp Diagnostic] ' + nom + ' - ' + cat;
+    var bodyLines = [];
+    Object.keys(payload).forEach(function (k) {
+      bodyLines.push(k + ': ' + payload[k]);
+    });
+    try {
+      window.location.href =
+        'mailto:contact@pinapp.fr?subject=' +
+        encodeURIComponent(subj) +
+        '&body=' +
+        encodeURIComponent(bodyLines.join('\n'));
+    } catch (e2) {}
+  }
+
+  function showSuccess() {
+    form.style.display = 'none';
+    if (successEl) successEl.hidden = false;
+  }
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var hp = form.querySelector('[name="website"]');
@@ -138,25 +163,15 @@
     payload.source = 'voyage-v9-contact-wizard';
 
     var wh = (form.getAttribute('data-webhook-url') || '').trim();
-    var useN8n = !!window.PINAPP_USE_N8N && window.PINAPP_N8N_URL && String(window.PINAPP_N8N_URL).indexOf('https://') === 0 && String(window.PINAPP_N8N_URL).indexOf('webhook') !== -1;
+    var useN8n =
+      !!window.PINAPP_USE_N8N &&
+      window.PINAPP_N8N_URL &&
+      String(window.PINAPP_N8N_URL).indexOf('https://') === 0 &&
+      String(window.PINAPP_N8N_URL).indexOf('webhook') !== -1;
 
     if (!wh && !useN8n) {
-      try {
-        console.log({ step: 'submit', payload: payload });
-      } catch (e1) {}
-      var nom = payload.nom_complet || 'contact';
-      var cat = payload.categorie || 'demande';
-      var subj = '[Pinapp Diagnostic] ' + nom + ' - ' + cat;
-      var bodyLines = [];
-      Object.keys(payload).forEach(function (k) {
-        bodyLines.push(k + ': ' + payload[k]);
-      });
-      try {
-        window.location.href =
-          'mailto:contact@pinapp.fr?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(bodyLines.join('\n'));
-      } catch (e2) {}
-      form.style.display = 'none';
-      if (successEl) successEl.hidden = false;
+      fallbackMailto(payload);
+      showSuccess();
       return;
     }
 
@@ -167,16 +182,25 @@
       body: JSON.stringify(payload),
     })
       .then(function (r) {
-        if (!r.ok) throw new Error('bad');
-        form.style.display = 'none';
-        if (successEl) successEl.hidden = false;
+        return r.json().catch(function () {
+          return {};
+        }).then(function (data) {
+          return { okHttp: r.ok, data: data };
+        });
+      })
+      .then(function (x) {
+        if (x.okHttp && x.data && x.data.ok) {
+          showSuccess();
+          return;
+        }
+        throw new Error('bad response');
       })
       .catch(function () {
         try {
           console.log({ step: 'submit-fallback', payload: payload });
         } catch (e3) {}
-        form.style.display = 'none';
-        if (successEl) successEl.hidden = false;
+        fallbackMailto(payload);
+        showSuccess();
       });
   });
 
