@@ -16,6 +16,14 @@
 <link rel="stylesheet" href="/voyage-v9/assets/css/pr3b-subpage.css" />
 <link rel="stylesheet" href="/voyage-v9/assets/css/pinapp-type.css" />
 <style>
+  .demo-filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;margin-top:var(--sp-5)}
+  .filter-pill,.filter-toggle{border:1px solid rgba(230,185,115,0.22);background:rgba(20,30,42,0.55);color:var(--ivoire-mute);border-radius:999px;padding:10px 14px;min-height:44px;font-size:13px;letter-spacing:0.01em;cursor:pointer;transition:transform 200ms var(--ease-out),border-color 200ms var(--ease-out),background 200ms var(--ease-out),color 200ms var(--ease-out)}
+  .filter-pill:hover,.filter-toggle:hover{transform:translateY(-1px);border-color:rgba(230,185,115,0.45);color:var(--ivoire)}
+  .filter-pill.is-active{background:rgba(230,185,115,0.14);border-color:rgba(230,185,115,0.55);color:var(--ivoire)}
+  .filter-toggle.is-active{background:rgba(62,245,224,0.10);border-color:rgba(62,245,224,0.28);color:var(--ivoire)}
+  .filter-divider{opacity:0.35;color:var(--ivoire-mute);padding:0 4px}
+  .filter-pill .count{opacity:0.8}
+
   .demo-grid-v12{display:grid;gap:16px;margin-top:var(--sp-6)}
   @media(min-width:740px){.demo-grid-v12{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}}
   @media(min-width:1100px){.demo-grid-v12{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}}
@@ -72,6 +80,18 @@
     <p class="eyebrow">ESSAYER UNE DÉMO</p>
     <h1 class="display-h1">Touchez du doigt ce que ça donne.</h1>
     <p class="lead">Cinq démos sectorielles pour projeter votre futur site. Aucun client réel : uniquement des visuels générés et des maquettes internes.</p>
+
+    <div class="demo-filters" role="tablist" aria-label="Filtrer les démos">
+      <button type="button" class="filter-pill is-active" data-filter="all">Tous · <span class="count" data-count="all">—</span></button>
+      <button type="button" class="filter-pill" data-filter="architecte">Architecte · <span class="count" data-count="architecte">—</span></button>
+      <button type="button" class="filter-pill" data-filter="restauration">Restauration · <span class="count" data-count="restauration">—</span></button>
+      <button type="button" class="filter-pill" data-filter="coaching">Coaching · <span class="count" data-count="coaching">—</span></button>
+      <button type="button" class="filter-pill" data-filter="droit">Droit · <span class="count" data-count="droit">—</span></button>
+      <button type="button" class="filter-pill" data-filter="beaute">Beauté · <span class="count" data-count="beaute">—</span></button>
+      <button type="button" class="filter-pill" data-filter="artisanat">Artisanat · <span class="count" data-count="artisanat">—</span></button>
+      <span class="filter-divider" aria-hidden="true">|</span>
+      <button type="button" class="filter-toggle" data-toggle="premium">Premium uniquement</button>
+    </div>
 
     <div class="demo-grid-v12" id="demoGrid" style="margin-top:var(--sp-6)">
       <!-- Tier 1 — Premium -->
@@ -248,5 +268,82 @@
   </nav>
   <p>© 2026 <a href="/">Pinapp Inc.</a> · Bordeaux</p>
 </footer>
+<script>
+  (function () {
+    const pills = Array.from(document.querySelectorAll('[data-filter]'));
+    const premiumToggle = document.querySelector('[data-toggle="premium"]');
+    const grid = document.getElementById('demoGrid');
+    const cards = Array.from(document.querySelectorAll('.demo-card-v12'));
+    if (!grid || !cards.length || !pills.length) return;
+
+    function counts() {
+      const map = { all: cards.length };
+      for (const c of cards) {
+        const s = c.getAttribute('data-secteur') || 'all';
+        map[s] = (map[s] || 0) + 1;
+      }
+      for (const el of document.querySelectorAll('[data-count]')) {
+        const key = el.getAttribute('data-count');
+        if (key && map[key] != null) el.textContent = String(map[key]);
+      }
+    }
+
+    function getParams() {
+      const p = new URLSearchParams(location.search);
+      return { filter: p.get('filter') || 'all', premium: p.get('premium') === '1' };
+    }
+
+    function setParams(filter, premium) {
+      const p = new URLSearchParams();
+      if (filter && filter !== 'all') p.set('filter', filter);
+      if (premium) p.set('premium', '1');
+      const qs = p.toString();
+      history.replaceState(null, '', qs ? ('?' + qs) : location.pathname);
+    }
+
+    function setActive(filter, premium) {
+      for (const b of pills) {
+        b.classList.toggle('is-active', (b.getAttribute('data-filter') || 'all') === filter);
+      }
+      if (premiumToggle) premiumToggle.classList.toggle('is-active', !!premium);
+    }
+
+    function apply(filter, premium) {
+      grid.classList.add('is-animating');
+      for (const c of cards) {
+        const secteur = c.getAttribute('data-secteur') || 'all';
+        const isPremium = c.getAttribute('data-premium') === 'true';
+        const visibleByFilter = filter === 'all' ? true : secteur === filter;
+        const visibleByPremium = premium ? isPremium : true;
+        c.classList.toggle('is-hidden', !(visibleByFilter && visibleByPremium));
+      }
+      window.setTimeout(() => grid.classList.remove('is-animating'), 260);
+    }
+
+    counts();
+    const init = getParams();
+    setActive(init.filter, init.premium);
+    apply(init.filter, init.premium);
+
+    for (const b of pills) {
+      b.addEventListener('click', () => {
+        const nextFilter = b.getAttribute('data-filter') || 'all';
+        const cur = getParams();
+        setParams(nextFilter, cur.premium);
+        setActive(nextFilter, cur.premium);
+        apply(nextFilter, cur.premium);
+      });
+    }
+    if (premiumToggle) {
+      premiumToggle.addEventListener('click', () => {
+        const cur = getParams();
+        const nextPremium = !cur.premium;
+        setParams(cur.filter, nextPremium);
+        setActive(cur.filter, nextPremium);
+        apply(cur.filter, nextPremium);
+      });
+    }
+  })();
+</script>
 </body>
 </html>
