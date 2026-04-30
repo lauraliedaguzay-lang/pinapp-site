@@ -182,6 +182,31 @@
 
   setStep(0);
 
+  try {
+    var u = new URL(window.location.href);
+    var cat = u.searchParams.get('categorie');
+    if (cat === 'cadeau') {
+      var rImg = form.querySelector('input[name="categorie"][value="imagerie"]');
+      if (rImg) {
+        rImg.checked = true;
+        if (routage) routage.value = 'micha';
+      }
+      var descEl = form.querySelector('#cw-desc');
+      if (descEl && !String(descEl.value || '').trim()) {
+        descEl.placeholder =
+          'Décrivez votre film cadeau (pour qui, date, ton souhaité, durée)…';
+      }
+    }
+    if (u.hash === '#contact') {
+      var csec = document.getElementById('contact');
+      if (csec) {
+        window.requestAnimationFrame(function () {
+          csec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+    }
+  } catch (e0) {}
+
   if ('IntersectionObserver' in window) {
     var barHost = document.querySelector('[data-bars-animate]');
     if (barHost) {
