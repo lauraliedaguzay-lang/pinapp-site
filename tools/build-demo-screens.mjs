@@ -32,10 +32,33 @@ const ONLY = (() => {
   );
 })();
 
+/**
+ * Catalogue complet /demo/ (15) → 15 captures.
+ * delayMs = buffer après networkidle / hero visible (intros / particules).
+ */
 const shots = [
-  { path: '/demo/esthetique/', file: 'esthetique.webp' },
-  { path: '/demo/avocat/', file: 'avocat.webp' },
-  { path: '/demo/coach.html', file: 'coach.webp' },
+  // Tier 1 / Premium
+  { path: '/demo/atelier-rivage/', file: 'atelier-rivage.webp', delayMs: 2500 },
+  { path: '/demo/sur-mesure/', file: 'sur-mesure.webp', delayMs: 4000 },
+
+  // Tier 2 / Standard
+  { path: '/demo/restaurant/', file: 'restaurant.webp', delayMs: 2500 },
+  { path: '/demo/avocat/', file: 'avocat.webp', delayMs: 2500 },
+  { path: '/demo/coach.html', file: 'coach.webp', delayMs: 2500 },
+
+  // Beauté
+  { path: '/demo/esthetique/', file: 'esthetique.webp', delayMs: 2500 },
+  { path: '/demo/estheticienne/', file: 'estheticienne.webp', delayMs: 3000 },
+  { path: '/demo/cils/', file: 'cils.webp', delayMs: 3000 },
+  { path: '/demo/extensions-cils/', file: 'extensions-cils.webp', delayMs: 3000 },
+  { path: '/demo/ongles/', file: 'ongles.webp', delayMs: 3000 },
+  { path: '/demo/coiffeur/', file: 'coiffeur.webp', delayMs: 3000 },
+  { path: '/demo/tatoueuse/', file: 'tatoueuse.webp', delayMs: 3000 },
+  { path: '/demo/barbier/', file: 'barbier.webp', delayMs: 3000 },
+
+  // Artisanat
+  { path: '/demo/artisan/', file: 'artisan.webp', delayMs: 3000 },
+  { path: '/demo/trainer/', file: 'trainer.webp', delayMs: 3000 },
 ];
 
 function getSlug(urlPath) {
@@ -43,14 +66,14 @@ function getSlug(urlPath) {
   return urlPath.replace(/^\/+/, '').replace(/^demo\//, '').replace(/\/+$/, '');
 }
 
-async function waitDefault(page, urlPath) {
+async function waitDefault(page, urlPath, shot) {
   try {
     await page.locator(HERO_SEL).first().waitFor({ state: 'visible', timeout: 8000 });
   } catch {
     console.warn('[build-demo-screens] hero wait timeout → fallback 5s', urlPath);
     await page.waitForTimeout(5000);
   }
-  await page.waitForTimeout(2500);
+  await page.waitForTimeout(Math.max(0, shot?.delayMs ?? 2500));
 }
 
 const waitStrategies = {
@@ -123,14 +146,16 @@ async function screenshotWithLuminanceCheck(page, urlPath) {
   return { buf: lum2 >= lum1 ? shot2 : shot1, lum: Math.max(lum1, lum2), retried: true };
 }
 
-async function captureOnce(page, urlPath, outFile) {
+async function captureOnce(page, shot) {
+  const urlPath = shot.path;
+  const outFile = path.join(outDir, shot.file);
   const url = `${BASE}${urlPath}`;
   await page.setViewportSize({ width: 1400, height: 875 });
   await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 });
 
   const slug = getSlug(urlPath);
   const strat = waitStrategies[slug] || waitDefault;
-  await strat(page, urlPath);
+  await strat(page, urlPath, shot);
 
   const { buf, lum } = await screenshotWithLuminanceCheck(page, urlPath);
   const minLum = minLuminanceForSlug(slug);
@@ -145,11 +170,10 @@ async function captureOnce(page, urlPath, outFile) {
 }
 
 async function captureWithRetries(page, shot) {
-  const out = path.join(outDir, shot.file);
   let lastErr;
   for (let attempt = 1; attempt <= 2; attempt++) {
     try {
-      await captureOnce(page, shot.path, out);
+      await captureOnce(page, shot);
       return;
     } catch (e) {
       lastErr = e;
