@@ -90,15 +90,23 @@ const waitStrategies = {
   },
 };
 
+function minLuminanceForSlug(slug) {
+  // Certaines démos sont volontairement très sombres : on évite les faux négatifs.
+  if (slug === 'coach.html') return 15;
+  return 30;
+}
+
 async function screenshotWithLuminanceCheck(page, urlPath) {
   const clip = { x: 0, y: 0, width: 1400, height: 875 };
+  const slug = getSlug(urlPath);
+  const minLum = minLuminanceForSlug(slug);
 
   const shot1 = await page.screenshot({ type: 'png', clip });
   const stats1 = await sharp(shot1).stats();
   const lum1 =
     stats1.channels.reduce((s, c) => s + c.mean, 0) / Math.max(1, stats1.channels.length);
 
-  if (lum1 >= 30) return { buf: shot1, lum: lum1, retried: false };
+  if (lum1 >= minLum) return { buf: shot1, lum: lum1, retried: false };
 
   console.warn(
     `[build-demo-screens] screenshot semble noir (luminance ${lum1.toFixed(
@@ -125,7 +133,8 @@ async function captureOnce(page, urlPath, outFile) {
   await strat(page, urlPath);
 
   const { buf, lum } = await screenshotWithLuminanceCheck(page, urlPath);
-  if (lum < 30) {
+  const minLum = minLuminanceForSlug(slug);
+  if (lum < minLum) {
     // Ne pas écrire de capture corrompue ; laisser le retry remonter.
     throw new Error(`screenshot trop sombre (luminance ${lum.toFixed(1)})`);
   }
