@@ -9,6 +9,7 @@
           <label for="cw-website">Ne pas remplir</label>
           <input type="text" id="cw-website" name="website" tabindex="-1" autocomplete="off">
         </div>
+        <input type="hidden" name="submission_uuid" id="cw-submission-uuid" value="" />
 
         <div class="contact-wizard-progress" role="group" aria-label="Progression du formulaire">
           <div class="cw-step-dots" id="cwProgressDots" role="list">
@@ -98,10 +99,23 @@
             <label class="cw-pack-card"><input type="radio" name="pack_envisage" value="sur_mesure" class="visually-hidden"> <span class="cw-pack-card__name">Sur-Mesure</span><span class="cw-pack-card__prix">5 990 € HT</span><span class="cw-pack-card__detail">Sur cahier des charges</span></label>
             <label class="cw-pack-card"><input type="radio" name="pack_envisage" value="pas_encore" class="visually-hidden"> <span class="cw-pack-card__name">Je ne sais pas encore</span><span class="cw-pack-card__prix">—</span><span class="cw-pack-card__detail">Lauralie m'orientera au diagnostic</span></label>
           </div>
-          <div class="cw-upload-soon" aria-disabled="true">
-            <strong>📎 Bientôt : envoi de vos fichiers</strong><br>
-            Photos · vidéos · PDF · charte graphique<br>
-            <span>(disponible courant mai 2026)</span>
+          <div class="wizard-upload-zone" id="wizard-upload">
+            <input type="file" id="upload-files" name="files[]" multiple accept="image/jpeg,image/png,video/mp4,video/quicktime,application/pdf,application/zip" hidden />
+            <label for="upload-files" class="upload-trigger" id="upload-trigger">
+              <span class="upload-icon" aria-hidden="true">📎</span>
+              <span class="upload-text">
+                <strong>Glissez vos fichiers ici</strong>
+                <span class="upload-hint">ou cliquez pour parcourir</span>
+              </span>
+              <span class="upload-formats">JPG · PNG · MP4 · MOV · PDF · ZIP · 25 Mo max/fichier · 100 Mo total</span>
+            </label>
+            <div class="upload-progress" id="upload-progress" aria-hidden="true"><div class="upload-progress__fill" id="upload-progress-fill"></div></div>
+            <ul class="upload-list" id="upload-list" aria-live="polite"></ul>
+            <p class="upload-error" id="upload-error" role="alert"></p>
+            <p class="upload-rgpd">
+              🔒 Vos fichiers sont stockés en Europe (Hostinger France), conservés 6 mois maximum, supprimés sur demande à
+              <a href="mailto:contact@pinapp.fr">contact@pinapp.fr</a>.
+            </p>
           </div>
           <div class="cw-actions">
             <button type="button" class="btn btn--ghost cw-prev" data-cw-prev>← Précédent</button>
