@@ -1,6 +1,6 @@
 /**
  * Captures hero des démos (viewport 1400×875) → voyage-v9/assets/demo-screens/*.webp
- * PR5 : waitForSelector hero + délai 2,5 s (intro / voile) ; coach.html inclus ; 2 essais par URL.
+ * PR5 : waitForSelector hero + délai 2,5 s (intro / voile) ; démo coach inclus ; 2 essais par URL.
  *
  * Usage : BASE_URL=https://pinapp.fr node tools/build-demo-screens.mjs
  */
@@ -44,7 +44,7 @@ const shots = [
   // Tier 2 / Standard
   { path: '/demo/restaurant/', file: 'restaurant.webp', delayMs: 2500 },
   { path: '/demo/avocat/', file: 'avocat.webp', delayMs: 2500 },
-  { path: '/demo/coach.html', file: 'coach.webp', delayMs: 2500 },
+  { path: '/demo/coach/', file: 'coach.webp', delayMs: 2500 },
 
   // Beauté
   { path: '/demo/esthetique/', file: 'esthetique.webp', delayMs: 2500 },
@@ -62,7 +62,7 @@ const shots = [
 ];
 
 function getSlug(urlPath) {
-  // ex: /demo/esthetique/ → esthetique ; /demo/coach.html → coach.html
+  // ex: /demo/esthetique/ → esthetique ; /demo/coach/ → coach
   return urlPath.replace(/^\/+/, '').replace(/^demo\//, '').replace(/\/+$/, '');
 }
 
@@ -92,9 +92,9 @@ const waitStrategies = {
     await page.waitForTimeout(500);
   },
 
-  'coach.html': async (page) => {
+  coach: async (page) => {
     await page.waitForLoadState('networkidle');
-    // coach.html : on tente de "passer" l’intro si un contrôle existe.
+    // coach : on tente de "passer" l’intro si un contrôle existe.
     try {
       const skip = page
         .locator('button:has-text("Passer"), a:has-text("Aller au contenu"), [data-skip-intro]')
@@ -115,7 +115,7 @@ const waitStrategies = {
 
 function minLuminanceForSlug(slug) {
   // Certaines démos sont volontairement très sombres : on évite les faux négatifs.
-  if (slug === 'coach.html') return 15;
+  if (slug === 'coach' || slug === 'coach.html') return 15;
   return 30;
 }
 
