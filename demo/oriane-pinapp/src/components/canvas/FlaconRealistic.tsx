@@ -8,6 +8,8 @@ import * as THREE from 'three';
 
 export type FlaconV3Phase = 'line' | 'morph' | 'visible';
 
+export type FlaconNarrativeVariant = 'default' | 'scene1';
+
 function easeOutCubic(t: number) {
   return 1 - Math.pow(1 - Math.min(1, Math.max(0, t)), 3);
 }
@@ -32,9 +34,11 @@ type SceneProps = {
   mouseX: number;
   mouseY: number;
   cameraFov: number;
+  narrativeVariant?: FlaconNarrativeVariant;
 };
 
-function FlaconScene({
+/** Scène 3D flacon — peut être montée dans un Canvas parent (ex. Scène 1 avec goutte) ou via `<FlaconRealistic />`. */
+export function FlaconRealisticScene({
   startTime,
   phaseRef,
   reducedMotion,
@@ -43,6 +47,7 @@ function FlaconScene({
   mouseX,
   mouseY,
   cameraFov,
+  narrativeVariant = 'default',
 }: SceneProps) {
   const { camera } = useThree();
   const groupRef = useRef<THREE.Group>(null);
@@ -177,6 +182,52 @@ function FlaconScene({
       return;
     }
 
+    if (narrativeVariant === 'scene1') {
+      const orbitX = elapsed >= 3 ? mouseX * 0.35 : 0;
+      const orbitY = elapsed >= 3 ? mouseY * 0.22 : 0;
+      camera.position.set(camBase.x + orbitX, camBase.y + orbitY, camBase.z);
+      camera.lookAt(0, 0, 0);
+
+      liquidMat.clippingPlanes = [clipPlane.current];
+
+      if (elapsed < 1.8) {
+        phaseRef.current = 'line';
+        bodyMat.opacity = 0;
+        capMat.opacity = 0;
+        ringMat.opacity = 0;
+        clipPlane.current.set(new THREE.Vector3(0, 1, 0), -1.5);
+        if (capGroupRef.current) capGroupRef.current.position.y = 4;
+      } else if (elapsed < 2.5) {
+        phaseRef.current = 'morph';
+        const u = easeOutCubic((elapsed - 1.8) / 0.7);
+        bodyMat.opacity = u * 0.78;
+        capMat.opacity = Math.max(0, (u - 0.35) / 0.65);
+        ringMat.opacity = Math.max(0, (u - 0.5) / 0.5);
+        clipPlane.current.set(new THREE.Vector3(0, 1, 0), -1.5);
+        if (capGroupRef.current) capGroupRef.current.position.y = 4;
+      } else if (elapsed < 3) {
+        phaseRef.current = 'morph';
+        const u2 = easeOutCubic((elapsed - 2.5) / 0.5);
+        bodyMat.opacity = 0.78;
+        capMat.opacity = 1;
+        ringMat.opacity = 1;
+        clipPlane.current.set(new THREE.Vector3(0, 1, 0), -1.5 + u2 * 2.9);
+        if (capGroupRef.current) capGroupRef.current.position.y = 4 - u2 * 2.55;
+      } else {
+        phaseRef.current = 'visible';
+        bodyMat.opacity = 0.78;
+        capMat.opacity = 1;
+        ringMat.opacity = 1;
+        clipPlane.current.set(new THREE.Vector3(0, 1, 0), 1.4);
+        if (capGroupRef.current) capGroupRef.current.position.y = 1.45;
+      }
+
+      if (groupRef.current) {
+        groupRef.current.rotation.y = Math.sin(t * 0.3) * 0.05;
+      }
+      return;
+    }
+
     const orbitX = mouseX * 0.35;
     const orbitY = mouseY * 0.22;
     camera.position.set(camBase.x + orbitX, camBase.y + orbitY, camBase.z);
@@ -259,6 +310,7 @@ type Props = {
   mouseX?: number;
   mouseY?: number;
   cameraFov?: number;
+  narrativeVariant?: FlaconNarrativeVariant;
 };
 
 export function FlaconRealistic({
@@ -270,6 +322,7 @@ export function FlaconRealistic({
   mouseX = 0,
   mouseY = 0,
   cameraFov = 35,
+  narrativeVariant = 'default',
 }: Props) {
   return (
     <Canvas
@@ -278,7 +331,7 @@ export function FlaconRealistic({
       dpr={[1, 2]}
     >
       <Suspense fallback={null}>
-        <FlaconScene
+        <FlaconRealisticScene
           startTime={startTime}
           phaseRef={phaseRef}
           reducedMotion={reducedMotion}
@@ -287,6 +340,7 @@ export function FlaconRealistic({
           mouseX={mouseX}
           mouseY={mouseY}
           cameraFov={cameraFov}
+          narrativeVariant={narrativeVariant}
         />
       </Suspense>
     </Canvas>
