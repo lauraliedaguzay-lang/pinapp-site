@@ -59,21 +59,24 @@ export function Preloader() {
 
   return (
     <div
-      className={`preloader fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-ivoire transition-[opacity,visibility] duration-300 ease-out ${overlayClass}`}
+      className={`preloader fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-noir-profond transition-[opacity,visibility] duration-300 ease-out ${overlayClass}`}
       aria-hidden={gone || phase === 'fade'}
       aria-busy={phase === 'run' && !gone}
     >
-      <div className="mb-10 font-display text-3xl font-light italic tracking-[0.35em] text-encre md:text-4xl">
+      <div className="mb-10 font-display text-3xl font-light italic tracking-[0.35em] text-or-liquide md:text-4xl">
         {LABEL}
       </div>
 
       <div
-        className="preloader-line h-px w-[min(200px,40vw)] origin-left scale-x-0 bg-or-rose"
+        className="preloader-line h-px w-[min(200px,40vw)] origin-left scale-x-0"
+        style={{
+          background: 'linear-gradient(90deg, #D4A574, #F4C977, #D4A574)',
+        }}
         aria-hidden
       />
 
       <div
-        className="mt-6 font-body text-[0.65rem] font-extralight tracking-[0.35em] text-or-rose"
+        className="mt-6 font-body text-[0.65rem] font-extralight tracking-[0.45em] text-or-pale"
         style={{ fontWeight: 200 }}
       >
         {String(percent).padStart(3, '0')}

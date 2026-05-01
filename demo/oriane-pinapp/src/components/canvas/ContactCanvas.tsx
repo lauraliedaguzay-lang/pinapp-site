@@ -57,10 +57,10 @@ export function ContactCanvas({ active = true }: ContactCanvasProps) {
       <group ref={groupRef}>
         <points ref={pointsRef} geometry={geometry}>
           <pointsMaterial
-            color={new THREE.Color('#D4A574')}
+            color={new THREE.Color('#F4C977')}
             size={0.05}
             transparent
-            opacity={0.7}
+            opacity={0.9}
             depthWrite={false}
             blending={THREE.AdditiveBlending}
             sizeAttenuation

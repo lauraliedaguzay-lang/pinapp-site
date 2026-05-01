@@ -34,7 +34,7 @@ export function HamburgerMenu() {
   const drawer = (
     <div
       id="oriane-mobile-drawer"
-      className={`fixed inset-0 z-[105] bg-encre transition-[opacity,visibility] duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] md:hidden ${
+      className={`fixed inset-0 z-[105] bg-noir-profond transition-[opacity,visibility] duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] md:hidden ${
         isOpen
           ? 'visible opacity-100 pointer-events-auto'
           : 'invisible opacity-0 pointer-events-none'
@@ -48,7 +48,7 @@ export function HamburgerMenu() {
         <a
           href="#manifesto"
           onClick={() => setIsOpen(false)}
-          className={`font-display text-4xl font-light italic text-ivoire no-underline transition-all duration-700 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-or-rose ${
+          className={`font-display text-4xl font-light italic text-ivoire-chaud no-underline transition-all duration-700 ease-out hover:text-or-liquide focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-or-pur ${
             isOpen ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
           }`}
           style={{ transitionDelay: isOpen ? '200ms' : '0ms' }}
@@ -58,7 +58,7 @@ export function HamburgerMenu() {
         <a
           href="#collection"
           onClick={() => setIsOpen(false)}
-          className={`font-display text-4xl font-light italic text-ivoire no-underline transition-all duration-700 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-or-rose ${
+          className={`font-display text-4xl font-light italic text-ivoire-chaud no-underline transition-all duration-700 ease-out hover:text-or-liquide focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-or-pur ${
             isOpen ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
           }`}
           style={{ transitionDelay: isOpen ? '300ms' : '0ms' }}
@@ -68,7 +68,7 @@ export function HamburgerMenu() {
         <a
           href="#contact"
           onClick={() => setIsOpen(false)}
-          className={`font-display text-4xl font-light italic text-ivoire no-underline transition-all duration-700 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-or-rose ${
+          className={`font-display text-4xl font-light italic text-ivoire-chaud no-underline transition-all duration-700 ease-out hover:text-or-liquide focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-or-pur ${
             isOpen ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
           }`}
           style={{ transitionDelay: isOpen ? '400ms' : '0ms' }}
@@ -76,7 +76,7 @@ export function HamburgerMenu() {
           Contact
         </a>
         <div
-          className={`absolute bottom-12 font-body text-[0.7rem] font-extralight uppercase tracking-[0.4em] text-or-rose transition-opacity duration-[600ms] ${
+          className={`absolute bottom-12 font-body text-[0.7rem] font-extralight uppercase tracking-[0.4em] text-or-pur transition-opacity duration-[600ms] ${
             isOpen ? 'opacity-100' : 'opacity-0'
           }`}
           style={{ fontWeight: 200, transitionDelay: isOpen ? '600ms' : '0ms' }}
@@ -95,7 +95,7 @@ export function HamburgerMenu() {
         aria-expanded={isOpen}
         aria-controls="oriane-mobile-drawer"
         onClick={() => setIsOpen((o) => !o)}
-        className="relative z-[110] flex h-10 w-10 cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-ivoire focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-or-rose md:hidden touch-manipulation pointer-events-auto"
+        className="relative z-[110] flex h-10 w-10 cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-ivoire-chaud focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-or-pur md:hidden touch-manipulation pointer-events-auto"
       >
         <span
           className={`absolute h-px w-6 bg-current transition-all duration-[400ms] ease-out ${

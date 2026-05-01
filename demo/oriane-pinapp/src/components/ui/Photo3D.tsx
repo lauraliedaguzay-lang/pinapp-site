@@ -171,7 +171,7 @@ function Photo3DInner({
           }}
           aria-hidden
         />
-        <div className="relative h-full w-full overflow-hidden shadow-[0_30px_80px_rgba(26,22,20,0.25)]">
+        <div className="relative h-full w-full overflow-hidden shadow-[0_30px_80px_rgba(10,8,5,0.2)]">
           <img
             src={photoUrl}
             alt={photoAlt}
@@ -182,6 +182,14 @@ function Photo3DInner({
             decoding="async"
             width={800}
             height={1067}
+          />
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(10, 8, 5, 0.4) 0%, rgba(10, 8, 5, 0.7) 100%)',
+            }}
+            aria-hidden
           />
         </div>
       </div>

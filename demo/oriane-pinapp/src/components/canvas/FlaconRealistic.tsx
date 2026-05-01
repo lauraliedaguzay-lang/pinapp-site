@@ -83,7 +83,7 @@ function FlaconScene({
     const ringGeometry = new THREE.TorusGeometry(0.42, 0.05, 16, latheSegments);
 
     const bodyMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0xffffff,
+      color: new THREE.Color('#C49A8A'),
       metalness: 0,
       roughness: 0.05,
       transmission: 1,
@@ -94,18 +94,18 @@ function FlaconScene({
       side: THREE.DoubleSide,
       clearcoat: 1,
       clearcoatRoughness: 0.05,
-      attenuationColor: new THREE.Color('#FFE4DC'),
+      attenuationColor: new THREE.Color('#E8C5C0'),
       attenuationDistance: 0.5,
       envMapIntensity: 1.5,
     });
 
     const liquidMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0xe8c5c0,
+      color: new THREE.Color('#F4C977'),
       metalness: 0,
-      roughness: 0.12,
-      transmission: 0.55,
+      roughness: 0.1,
+      transmission: 0.3,
       transparent: true,
-      opacity: 0.88,
+      opacity: 0.92,
       ior: 1.33,
       side: THREE.DoubleSide,
       clippingPlanes: [clipPlane.current],
@@ -228,12 +228,12 @@ function FlaconScene({
     <>
       <EnableLocalClipping />
       <PerspectiveCamera makeDefault fov={cameraFov} position={[0, 0, 5.5]} />
-      <ambientLight intensity={0.3} color="#F7F1EA" />
-      <directionalLight intensity={2} position={[3, 4, 5]} color="#FFF5E1" />
-      <directionalLight intensity={1.5} position={[-3, 2, -3]} color="#B8A2C8" />
-      <directionalLight intensity={0.6} position={[0, -2, 3]} color="#E8C5C0" />
+      <ambientLight intensity={0.2} color="#F0E5D0" />
+      <directionalLight intensity={2.5} position={[4, 5, 5]} color="#F4C977" />
+      <directionalLight intensity={1} position={[-3, 2, -3]} color="#4A1F1F" />
+      <directionalLight intensity={0.4} position={[0, -2, 3]} color="#C49A8A" />
       <Suspense fallback={null}>
-        <Environment preset="studio" />
+        <Environment preset="night" />
       </Suspense>
 
       <group ref={groupRef} scale={0.266}>

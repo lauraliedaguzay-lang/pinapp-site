@@ -74,7 +74,7 @@ function Panel({
         className={`text-wrap max-md:order-2 max-md:px-1 max-md:pb-4 text-left md:p-[4vw] ${reversed ? 'md:order-1' : 'md:order-2'}`}
       >
         <div
-          className={`mb-6 font-body text-[0.7rem] font-extralight uppercase tracking-[0.35em] text-or-rose ${revealEase} ${
+          className={`mb-6 font-body text-[0.7rem] font-extralight uppercase tracking-[0.35em] text-or-pur ${revealEase} ${
             showHeure ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
           }`}
           style={{ fontWeight: 200 }}
@@ -82,14 +82,14 @@ function Panel({
           {fragrance.heure} — {fragrance.sousTitre}
         </div>
         <h2
-          className={`mb-8 font-display text-[clamp(2.5rem,5vw,4.5rem)] font-light italic leading-none tracking-tight text-encre ${revealEase} ${
+          className={`mb-8 font-display text-[clamp(2.5rem,5vw,4.5rem)] font-light italic leading-none tracking-tight text-ivoire-chaud ${revealEase} ${
             showTitre ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
           }`}
         >
           {fragrance.nom}
         </h2>
         <p
-          className={`mb-10 max-w-[480px] font-body text-base font-light leading-relaxed text-encre-soft ${revealEase} ${
+          className={`mb-10 max-w-[480px] font-body text-base font-light leading-relaxed text-ivoire-soft ${revealEase} ${
             showDesc ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
           }`}
         >
@@ -103,9 +103,9 @@ function Panel({
           {fragrance.notes.map((note) => (
             <div
               key={note}
-              className="flex items-center gap-4 font-display text-xl font-light italic text-encre"
+              className="flex items-center gap-4 font-display text-xl font-light italic text-ivoire-chaud"
             >
-              <span className="h-px w-[30px] shrink-0 bg-or-rose" />
+              <span className="h-px w-[30px] shrink-0 bg-or-pur" />
               {note}
             </div>
           ))}
@@ -130,10 +130,10 @@ export function StickyGallery() {
     <section
       ref={ref}
       id="gallery"
-      className="relative bg-ivoire"
+      className="relative bg-noir-profond"
       style={{ height: '400vh' }}
     >
-      <div className="sticky top-0 h-[100dvh] overflow-hidden bg-ivoire">
+      <div className="sticky top-0 h-[100dvh] overflow-hidden bg-noir-profond">
         {fragrances.map((f, i) => (
           <Panel
             key={f.id}
@@ -146,17 +146,17 @@ export function StickyGallery() {
         ))}
 
         <div
-          className="pointer-events-none absolute bottom-[2vh] right-[4vw] z-10 flex items-baseline gap-3 md:bottom-[4vh] md:right-[6vw] md:gap-4"
+          className="pointer-events-none absolute bottom-[2vh] right-[4vw] z-[10] flex items-baseline gap-3 md:bottom-[4vh] md:right-[6vw] md:gap-4"
           aria-live="polite"
           aria-atomic="true"
         >
           <span
             key={activeIndex}
-            className="gallery-counter-num font-display text-2xl font-light italic leading-none text-or-rose md:text-[2.5rem]"
+            className="gallery-counter-num font-display text-2xl font-light italic leading-none text-or-liquide md:text-[2.5rem]"
           >
             {String(activeIndex + 1).padStart(2, '0')}
           </span>
-          <span className="font-display text-base font-light italic leading-none text-encre-soft md:text-[1.2rem]">
+          <span className="font-display text-base font-light italic leading-none text-ivoire-soft md:text-[1.2rem]">
             / 03
           </span>
         </div>

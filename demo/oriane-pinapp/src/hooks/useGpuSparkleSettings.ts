@@ -10,7 +10,7 @@ export type GpuSparkleSettings = {
 const defaultSettings: GpuSparkleSettings = {
   isLowEnd: false,
   isMobile: false,
-  sparkleCount: 600,
+  sparkleCount: 800,
   latheSegments: 64,
 };
 
@@ -33,9 +33,9 @@ export function useGpuSparkleSettings(): GpuSparkleSettings {
         renderer = gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) as string;
       }
     }
-    const isLowEnd = /Intel|Mali|Adreno [3-5]\d{2}/i.test(renderer);
-    const base = isLowEnd ? 200 : 600;
-    const count = mobile ? Math.min(100, base) : base;
+    const isLowEnd = /Intel UHD|Mali|Adreno [3-5]\d{2}/i.test(renderer);
+    const base = isLowEnd ? 250 : 800;
+    const count = mobile ? Math.min(300, base) : base;
 
     setS({
       isLowEnd,
