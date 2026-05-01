@@ -7,7 +7,6 @@ const FADE_MS = 800;
 const LABEL = 'MAISON ORIANE';
 
 export function Preloader() {
-  const [mounted, setMounted] = useState(false);
   const [phase, setPhase] = useState<'run' | 'fade' | 'gone'>('run');
   const [percent, setPercent] = useState(0);
   const reducedMotion = useRef(false);
@@ -15,7 +14,6 @@ export function Preloader() {
   const startRef = useRef(0);
 
   useEffect(() => {
-    setMounted(true);
     reducedMotion.current =
       typeof window !== 'undefined' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -52,7 +50,7 @@ export function Preloader() {
     };
   }, []);
 
-  if (!mounted || phase === 'gone') return null;
+  if (phase === 'gone') return null;
 
   const overlayClass =
     phase === 'fade'
