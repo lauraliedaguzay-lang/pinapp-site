@@ -94,6 +94,15 @@ export function Hero() {
     };
   }, [flaconStart, reducedMotion, heroActive]);
 
+  console.log('[Hero render]', {
+    phaseRef: phaseRef.current,
+    flaconStart,
+    showFlaconCanvas,
+    heroActive,
+    reducedMotion,
+    willReturn: 'JSX (always <section> in this file)',
+  });
+
   return (
     <section
       ref={sectionRef}

@@ -50,6 +50,13 @@ export function Preloader() {
     };
   }, []);
 
+  console.log('[Preloader render]', {
+    phase,
+    percent,
+    reducedMotionRef: reducedMotion.current,
+    willReturn: phase === 'gone' ? 'null' : 'JSX',
+  });
+
   if (phase === 'gone') return null;
 
   const overlayClass =
