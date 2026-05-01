@@ -50,18 +50,18 @@ export function Preloader() {
     };
   }, []);
 
-  if (phase === 'gone') return null;
-
-  const overlayClass =
-    phase === 'fade'
+  const gone = phase === 'gone';
+  const overlayClass = gone
+    ? 'pointer-events-none opacity-0 invisible'
+    : phase === 'fade'
       ? 'pointer-events-none opacity-0 invisible'
       : 'opacity-100 visible';
 
   return (
     <div
       className={`preloader fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-ivoire transition-[opacity,visibility] duration-300 ease-out ${overlayClass}`}
-      aria-hidden={phase === 'fade'}
-      aria-busy={phase === 'run'}
+      aria-hidden={gone || phase === 'fade'}
+      aria-busy={phase === 'run' && !gone}
     >
       <div className="mb-10 font-display text-3xl font-light italic tracking-[0.35em] text-encre md:text-4xl">
         {LABEL}

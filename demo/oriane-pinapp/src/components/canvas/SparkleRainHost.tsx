@@ -10,10 +10,29 @@ export function SparkleRainHost() {
   const { sparkleCount, isMobile } = useGpuSparkleSettings();
 
   return (
-    <SparkleRain
-      scrollVelocityRef={scrollVelocityRef}
-      sparkleCount={sparkleCount}
-      isMobile={isMobile}
-    />
+    <div
+      className="sparkle-rain-host"
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: '100vw',
+        height: '100vh',
+        maxWidth: '100vw',
+        maxHeight: '100vh',
+        zIndex: 5,
+        pointerEvents: 'none',
+        margin: 0,
+        padding: 0,
+      }}
+    >
+      <SparkleRain
+        scrollVelocityRef={scrollVelocityRef}
+        sparkleCount={sparkleCount}
+        isMobile={isMobile}
+      />
+    </div>
   );
 }

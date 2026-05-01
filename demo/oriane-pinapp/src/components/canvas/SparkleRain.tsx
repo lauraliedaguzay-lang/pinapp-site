@@ -64,7 +64,7 @@ function RainScene({ scrollVelocityRef, count, reducedMotion, isMobile }: RainSc
     geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
     const m = new THREE.PointsMaterial({
-      size: reducedMotion ? 0.09 : isMobile ? 0.085 : 0.055,
+      size: reducedMotion ? 0.09 : isMobile ? 0.14 : 0.12,
       map: makeSparkleTexture() ?? undefined,
       vertexColors: true,
       transparent: true,
@@ -141,9 +141,20 @@ export function SparkleRain({ scrollVelocityRef, sparkleCount, isMobile }: Props
   if (reducedMotion) return null;
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[12]" aria-hidden>
+    <div
+      className="pointer-events-none h-full w-full min-h-0 min-w-0"
+      style={{
+        position: 'absolute',
+        inset: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 1,
+      }}
+      aria-hidden
+    >
       <Canvas
-        className="h-full w-full"
+        className="block h-full w-full min-h-0"
+        style={{ width: '100%', height: '100%', display: 'block' }}
         gl={{ alpha: true, antialias: true, premultipliedAlpha: false }}
         dpr={[1, 2]}
       >

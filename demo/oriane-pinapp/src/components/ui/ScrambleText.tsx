@@ -11,29 +11,34 @@ type Props = {
   className?: string;
 };
 
-function randomInt(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+/** Déterministe SSR/client (évite mismatch hydration). */
+function seededInt(seed: number, min: number, max: number) {
+  const x = Math.sin(seed * 12.9898) * 43758.5453123;
+  const r = x - Math.floor(x);
+  return min + Math.floor(r * (max - min + 1));
 }
 
-function randomScrambleChar() {
-  return SCRAMBLE_CHARS[randomInt(0, SCRAMBLE_CHARS.length - 1)] ?? '?';
+function scrambleCharFromSeed(seed: number) {
+  const i = seededInt(seed, 0, SCRAMBLE_CHARS.length - 1);
+  return SCRAMBLE_CHARS[i] ?? '?';
 }
 
 export function ScrambleText({ text, delay, className = '' }: Props) {
   const schedules = useMemo(() => {
-    return text.split('').map((ch) => {
+    return text.split('').map((ch, i) => {
       if (ch === ' ') return { isSpace: true, start: 0, end: 0 };
-      const start = randomInt(0, 30);
-      const end = start + randomInt(0, 30);
+      const seed = i * 7919 + text.length * 31;
+      const start = seededInt(seed, 0, 30);
+      const end = start + seededInt(seed + 1, 0, 30);
       return { isSpace: false, start, end };
     });
   }, [text]);
 
-  const [chars, setChars] = useState<string[]>(() =>
-    text.split('').map((ch) => (ch === ' ' ? ' ' : '\u00A0')),
-  );
+  /** Premier paint identique SSR et client : texte final (pas de nbsp aléatoire). */
+  const [chars, setChars] = useState<string[]>(() => text.split(''));
 
   useEffect(() => {
+    setChars(text.split('').map((ch) => (ch === ' ' ? ' ' : '\u00A0')));
     let frame = 0;
     let rafId = 0;
     let cancelled = false;
@@ -46,7 +51,7 @@ export function ScrambleText({ text, delay, className = '' }: Props) {
         const s = schedules[i]!;
         if (s.isSpace) return ' ';
         if (frame < s.start) return '\u00A0';
-        if (frame < s.end) return randomScrambleChar();
+        if (frame < s.end) return scrambleCharFromSeed(frame * 1000 + i);
         return ch;
       });
       setChars(next);

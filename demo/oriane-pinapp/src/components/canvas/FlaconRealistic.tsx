@@ -51,7 +51,7 @@ function FlaconScene({
   const capGroupRef = useRef<THREE.Group>(null);
   const clipPlane = useRef(new THREE.Plane(new THREE.Vector3(0, 1, 0), -1.5));
 
-  const camBase = useMemo(() => new THREE.Vector3(0, 0, 4), []);
+  const camBase = useMemo(() => new THREE.Vector3(0, 0, 5.5), []);
 
   const {
     bodyGeo,
@@ -227,7 +227,7 @@ function FlaconScene({
   return (
     <>
       <EnableLocalClipping />
-      <PerspectiveCamera makeDefault fov={cameraFov} position={[0, 0, 4]} />
+      <PerspectiveCamera makeDefault fov={cameraFov} position={[0, 0, 5.5]} />
       <ambientLight intensity={0.3} color="#F7F1EA" />
       <directionalLight intensity={2} position={[3, 4, 5]} color="#FFF5E1" />
       <directionalLight intensity={1.5} position={[-3, 2, -3]} color="#B8A2C8" />
@@ -236,7 +236,7 @@ function FlaconScene({
         <Environment preset="studio" />
       </Suspense>
 
-      <group ref={groupRef} scale={0.38}>
+      <group ref={groupRef} scale={0.266}>
         <mesh ref={bodyRef} geometry={bodyGeo} material={bodyMat} />
         <mesh ref={liquidRef} geometry={liquidGeo} material={liquidMat} />
         <group ref={capGroupRef} position={[0, 4, 0]}>
