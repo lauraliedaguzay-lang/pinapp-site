@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 const TOTAL_MS = 1200;
-const FADE_MS = 300;
+const FADE_MS = 400;
 const LABEL = 'M·O';
 
 export function Preloader() {
@@ -59,7 +59,7 @@ export function Preloader() {
 
   return (
     <div
-      className={`preloader fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-noir-profond transition-[opacity,visibility] duration-300 ease-out ${overlayClass}`}
+      className={`preloader fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-noir-profond transition-[opacity,visibility] duration-[400ms] ease-out ${overlayClass}`}
       aria-hidden={gone || phase === 'fade'}
       aria-busy={phase === 'run' && !gone}
     >

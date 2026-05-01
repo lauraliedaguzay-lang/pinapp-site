@@ -1,45 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
-import { Hero } from '../components/sections/Hero.tsx';
-import Marquee from '../components/sections/Marquee.astro';
-import { Manifesto } from '../components/sections/Manifesto.tsx';
-import { StickyGallery } from '../components/sections/StickyGallery.tsx';
-import Collection from '../components/sections/Collection.astro';
-import { Contact } from '../components/sections/Contact.tsx';
-import Footer from '../components/sections/Footer.astro';
+import { PageNarrative } from '../components/PageNarrative.tsx';
 ---
 
 <Base>
-  <Hero client:load />
-  <Marquee
-    variant="dark"
-    notes={[
-      'PIVOINE HUMIDE',
-      'ROSÉE',
-      'SOIE TIÈDE',
-      'IRIS',
-      'VÉTIVER DOUX',
-      'PEAU LAVÉE',
-      'AMBRE CLAIR',
-      'NÉROLI',
-      "MIEL D'ACACIA",
-    ]}
-  />
-  <Manifesto client:visible />
-  <StickyGallery client:visible />
-  <Marquee
-    variant="light"
-    notes={[
-      'BORDEAUX 2026',
-      'PARFUMERIE NICHE',
-      'TROIS AUBES',
-      'TROIS FRAGRANCES',
-      'UNE MAISON',
-      'SUR MESURE',
-      'EXCLUSIF',
-    ]}
-  />
-  <Collection />
-  <Contact client:visible />
-  <Footer />
+  <PageNarrative client:load />
 </Base>
