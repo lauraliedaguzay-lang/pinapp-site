@@ -1,92 +1,158 @@
 'use client';
 
+import { Canvas } from '@react-three/fiber';
 import { Suspense, useEffect, useRef, useState } from 'react';
-import { FlaconRealistic, type FlaconV3Phase } from '../canvas/FlaconRealistic';
+import { FlaconRealisticScene, type FlaconV3Phase } from '../canvas/FlaconRealistic';
+import { Scene1Drop } from '../canvas/Scene1Drop';
 import { useGpuSparkleSettings } from '../../hooks/useGpuSparkleSettings';
 import { useMousePosition } from '../../hooks/useMousePosition';
 
 const LETTERS = 'ORIANE'.split('');
 
+/**
+ * Architecture : un seul Canvas R3F (pas de Canvas dupliqué avec FlaconRealistic).
+ * `Scene1Drop` + `FlaconRealisticScene` partagent la même timeline `sceneEpochMs`.
+ */
 export function Scene1Opening() {
   const [reducedMotion, setRm] = useState(false);
-  useEffect(() => {
-    setRm(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-  }, []);
+  const [sceneEpochMs, setSceneEpochMs] = useState<number | null>(null);
+  const [blackOverlay, setBlackOverlay] = useState(true);
+  const [showTitle, setShowTitle] = useState(false);
+  const [showTagline, setShowTagline] = useState(false);
+
+  const phaseRef = useRef<FlaconV3Phase>('line');
   const { latheSegments, isMobile } = useGpuSparkleSettings();
   const { x: mx, y: my } = useMousePosition();
-  const phaseRef = useRef<FlaconV3Phase>('line');
-  const [showBlack, setShowBlack] = useState(true);
-  const [showTitle, setShowTitle] = useState(false);
-  const [flaconStart, setFlaconStart] = useState<number | null>(null);
 
   useEffect(() => {
-    if (reducedMotion) {
-      setShowBlack(false);
+    const rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    setRm(rm);
+    const epoch = performance.now();
+    setSceneEpochMs(epoch);
+
+    if (rm) {
+      setBlackOverlay(false);
       setShowTitle(true);
-      setFlaconStart(performance.now());
+      setShowTagline(true);
       return;
     }
-    const t0 = window.setTimeout(() => setShowBlack(false), 1000);
-    const t1 = window.setTimeout(() => setFlaconStart(performance.now()), 1500);
-    const t2 = window.setTimeout(() => setShowTitle(true), 3000);
+
+    const tBlack = window.setTimeout(() => setBlackOverlay(false), 1000);
+    const tTitle = window.setTimeout(() => setShowTitle(true), 3000);
+    const tTag = window.setTimeout(() => setShowTagline(true), 4000);
     return () => {
-      window.clearTimeout(t0);
-      window.clearTimeout(t1);
-      window.clearTimeout(t2);
+      window.clearTimeout(tBlack);
+      window.clearTimeout(tTitle);
+      window.clearTimeout(tTag);
     };
-  }, [reducedMotion]);
+  }, []);
 
   return (
     <section
-      className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden bg-noir-profond"
+      className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden bg-[#0A0805]"
       aria-label="Ouverture"
     >
-      {showBlack && <div className="absolute inset-0 z-[20] bg-noir-profond" aria-hidden />}
+      {blackOverlay && (
+        <div className="pointer-events-none absolute inset-0 z-[20] bg-[#0A0805]" aria-hidden />
+      )}
 
-      {flaconStart !== null && (
+      {sceneEpochMs !== null && (
         <div className="absolute inset-0 z-[1] flex items-center justify-center">
-          <div className="h-[min(70vh,520px)] w-full max-w-[min(90vw,380px)] opacity-95">
-            <Suspense fallback={null}>
-              <FlaconRealistic
-                startTime={flaconStart}
-                phaseRef={phaseRef}
-                reducedMotion={reducedMotion}
-                active
-                latheSegments={latheSegments}
-                mouseX={mx}
-                mouseY={my}
-                cameraFov={isMobile ? 50 : 35}
-              />
-            </Suspense>
+          <div className="h-[min(70vh,520px)] w-full max-w-[min(90vw,380px)]">
+            <Canvas
+              className="h-full w-full touch-none"
+              gl={{ alpha: true, antialias: true, localClippingEnabled: true }}
+              dpr={[1, 2]}
+              frameloop="always"
+            >
+              <Suspense fallback={null}>
+                {!reducedMotion && (
+                  <Scene1Drop sceneEpochMs={sceneEpochMs} reducedMotion={reducedMotion} />
+                )}
+                <FlaconRealisticScene
+                  startTime={sceneEpochMs}
+                  phaseRef={phaseRef}
+                  reducedMotion={reducedMotion}
+                  active
+                  latheSegments={latheSegments}
+                  mouseX={mx}
+                  mouseY={my}
+                  cameraFov={isMobile ? 50 : 35}
+                  narrativeVariant="scene1"
+                />
+              </Suspense>
+            </Canvas>
           </div>
         </div>
       )}
 
       {showTitle && (
-        <div className="relative z-[10] flex flex-col items-center px-6 text-center">
-          <h1 className="font-display text-[clamp(3rem,12vw,8rem)] font-light italic leading-none tracking-tight text-ivoire-chaud [text-shadow:0_0_24px_rgba(244,201,119,0.12)]">
+        <div className="pointer-events-none absolute inset-0 z-[10] flex flex-col items-center justify-center px-6 text-center">
+          <h1
+            className="font-display font-light italic leading-none tracking-tight text-ivoire-chaud"
+            style={{
+              fontSize: 'clamp(5rem, 10vw, 10rem)',
+              fontWeight: 300,
+              textShadow:
+                '0 0 30px rgba(244, 201, 119, 0.3), 0 0 60px rgba(244, 201, 119, 0.15)',
+            }}
+          >
             {LETTERS.map((ch, i) => (
               <span
                 key={i}
-                className="inline-block opacity-0 [animation:scene1Letter_0.55s_ease-out_forwards]"
-                style={{ animationDelay: `${i * 80}ms` }}
+                className={`inline-block ${reducedMotion ? 'opacity-100' : 'opacity-0 [animation-fill-mode:forwards]'}`}
+                style={
+                  reducedMotion
+                    ? undefined
+                    : {
+                        animationName: 'scene1LetterIn',
+                        animationDuration: '400ms',
+                        animationTimingFunction: 'cubic-bezier(0.65, 0, 0.35, 1)',
+                        animationDelay: `${i * 80}ms`,
+                      }
+                }
               >
                 {ch}
               </span>
             ))}
           </h1>
-          <p className="mt-6 font-display text-lg font-light italic text-or-pale md:text-xl">
-            Une parfumerie.
-          </p>
+          {showTagline && (
+            <p
+              className={`mt-6 font-display italic text-or-pale ${reducedMotion ? 'opacity-100' : 'opacity-0'}`}
+              style={{
+                fontSize: '1rem',
+                fontWeight: 200,
+                letterSpacing: '0.1em',
+                ...(reducedMotion ? {} : { animation: 'scene1TaglineFade 600ms ease-out forwards' }),
+              }}
+            >
+              Une parfumerie.
+            </p>
+          )}
         </div>
       )}
 
-      <p className="pointer-events-none absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-or-pur/30">↓</p>
+      {!reducedMotion && (
+        <p
+          className="pointer-events-none absolute bottom-[4vh] left-1/2 z-[10] -translate-x-1/2 font-body text-[0.7rem] font-extralight uppercase tracking-[0.5em] [animation:scene1ScrollHint_2.8s_ease-in-out_infinite]"
+          style={{ fontWeight: 200, color: 'rgba(244, 228, 193, 0.4)' }}
+        >
+          SCROLL ↓
+        </p>
+      )}
 
       <style>{`
-        @keyframes scene1Letter {
-          from { opacity: 0; transform: translateY(10px); }
+        @keyframes scene1LetterIn {
+          from { opacity: 0; transform: translateY(15px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scene1TaglineFade {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes scene1ScrollHint {
+          0%, 100% { transform: translate(-50%, 0); }
+          50% { transform: translate(-50%, 5px); }
         }
       `}</style>
     </section>
