@@ -193,6 +193,7 @@ export function FlaconRealisticScene({
       if (elapsed < 1.8) {
         phaseRef.current = 'line';
         bodyMat.opacity = 0;
+        liquidMat.opacity = 0;
         capMat.opacity = 0;
         ringMat.opacity = 0;
         clipPlane.current.set(new THREE.Vector3(0, 1, 0), -1.5);
@@ -201,6 +202,7 @@ export function FlaconRealisticScene({
         phaseRef.current = 'morph';
         const u = easeOutCubic((elapsed - 1.8) / 0.7);
         bodyMat.opacity = u * 0.78;
+        liquidMat.opacity = u * 0.92;
         capMat.opacity = Math.max(0, (u - 0.35) / 0.65);
         ringMat.opacity = Math.max(0, (u - 0.5) / 0.5);
         clipPlane.current.set(new THREE.Vector3(0, 1, 0), -1.5);
@@ -209,6 +211,7 @@ export function FlaconRealisticScene({
         phaseRef.current = 'morph';
         const u2 = easeOutCubic((elapsed - 2.5) / 0.5);
         bodyMat.opacity = 0.78;
+        liquidMat.opacity = 0.92;
         capMat.opacity = 1;
         ringMat.opacity = 1;
         clipPlane.current.set(new THREE.Vector3(0, 1, 0), -1.5 + u2 * 2.9);
@@ -216,6 +219,7 @@ export function FlaconRealisticScene({
       } else {
         phaseRef.current = 'visible';
         bodyMat.opacity = 0.78;
+        liquidMat.opacity = 0.92;
         capMat.opacity = 1;
         ringMat.opacity = 1;
         clipPlane.current.set(new THREE.Vector3(0, 1, 0), 1.4);
