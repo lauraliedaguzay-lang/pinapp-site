@@ -6,7 +6,6 @@ import { useIsInViewport } from '../../hooks/useIsInViewport';
 import { useMousePosition } from '../../hooks/useMousePosition';
 import { FlaconLineArt } from '../canvas/FlaconLineArt';
 import { FlaconRealistic, type FlaconV3Phase } from '../canvas/FlaconRealistic';
-import { ScrambleText } from '../ui/ScrambleText';
 
 /** Aligné sur Preloader court (~1.5s) puis léger buffer. */
 const HERO_START_AFTER_MS = 1500;
@@ -129,25 +128,15 @@ export function Hero() {
         </p>
 
         <div className="flex flex-col items-center text-center">
-          <h1 className="font-display text-[clamp(3.5rem,11vw,8.5rem)] font-light italic leading-none tracking-tight text-ivoire-chaud">
-            <ScrambleText
-              text="ORIANE"
-              delay={400}
-              scrambleClassName="text-or-pur"
-              finalClassName="text-ivoire-chaud [text-shadow:0_0_20px_rgba(244,201,119,0.15)]"
-            />
+          <h1 className="font-display text-[clamp(3.5rem,11vw,8.5rem)] font-light italic leading-none tracking-tight text-ivoire-chaud [text-shadow:0_0_20px_rgba(244,201,119,0.15)]">
+            ORIANE
           </h1>
-          <div
+          <p
             className="mt-8 max-w-xl font-body text-[0.95rem] font-light italic tracking-[0.3em] text-or-pale"
             style={{ fontWeight: 300 }}
           >
-            <ScrambleText
-              text="Trois aubes. Trois fragrances. Une maison."
-              delay={900}
-              scrambleClassName="text-or-pur"
-              finalClassName="text-or-pale"
-            />
-          </div>
+            Trois aubes. Trois fragrances. Une maison.
+          </p>
         </div>
 
         <p
