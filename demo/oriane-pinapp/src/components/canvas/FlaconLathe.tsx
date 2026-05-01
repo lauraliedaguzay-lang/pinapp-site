@@ -5,8 +5,9 @@ import { PerspectiveCamera } from '@react-three/drei';
 import type { MutableRefObject } from 'react';
 import { Suspense, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import {
-  BufferAttribute,  CanvasTexture,
+  BufferAttribute,
   BufferGeometry,
+  CanvasTexture,
   CylinderGeometry,
   DoubleSide,
   EdgesGeometry,
