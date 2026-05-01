@@ -17,6 +17,7 @@ import {
   Mesh,
   MeshPhysicalMaterial,
   NormalBlending,
+  Plane,
   Points,
   PointsMaterial,
   TorusGeometry,
