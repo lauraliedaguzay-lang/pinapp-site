@@ -12,10 +12,13 @@ export default defineConfig({
   ],
   vite: {
     resolve: {
-      dedupe: ['three'],
+      dedupe: ['three', 'react', 'react-dom'],
     },
     ssr: {
       noExternal: ['three'],
+    },
+    optimizeDeps: {
+      include: ['react', 'react-dom', 'react/jsx-runtime'],
     },
   },
 });
