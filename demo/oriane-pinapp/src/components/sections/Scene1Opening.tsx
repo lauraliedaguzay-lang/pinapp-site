@@ -49,7 +49,7 @@ export function Scene1Opening() {
 
   return (
     <section
-      className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden bg-[#0A0805]"
+      className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-x-clip bg-[#0A0805]"
       aria-label="Ouverture"
     >
       {blackOverlay && (
@@ -87,9 +87,9 @@ export function Scene1Opening() {
       )}
 
       {showTitle && (
-        <div className="pointer-events-none absolute inset-0 z-[10] flex flex-col items-center justify-center px-6 text-center">
+        <div className="pointer-events-none absolute inset-0 z-[10] flex flex-col items-center justify-center px-4 text-center sm:px-8 md:px-12">
           <h1
-            className="font-display font-light italic leading-none tracking-tight text-ivoire-chaud"
+            className="font-display inline-flex max-w-[min(100%,calc(100vw-2rem))] flex-wrap justify-center font-light italic leading-none tracking-tight text-ivoire-chaud"
             style={{
               fontSize: 'clamp(5rem, 10vw, 10rem)',
               fontWeight: 300,
