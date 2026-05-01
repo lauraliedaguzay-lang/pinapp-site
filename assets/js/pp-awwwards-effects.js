@@ -28,11 +28,12 @@
     });
   }
 
-  var siteStarted = false;
-
   function startSite() {
-    if (siteStarted) return;
-    siteStarted = true;
+    if (window.__pp_booted) {
+      console.log('[pp] startSite skipped (already booted)');
+      return;
+    }
+    window.__pp_booted = true;
     console.log('[pp] startSite — readyState:', document.readyState);
     gsap = gsapRef();
     ScrollTrigger = stRef();
