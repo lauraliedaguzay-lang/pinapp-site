@@ -9,6 +9,10 @@ type Props = {
   delay: number;
   /** Classes sur le wrapper (typo + couleur finale héritée par les lettres révélées). */
   className?: string;
+  /** Classes Tailwind pour les lettres en phase scramble. */
+  scrambleClassName?: string;
+  /** Classes Tailwind pour les lettres une fois révélées. */
+  finalClassName?: string;
 };
 
 /** Déterministe SSR/client (évite mismatch hydration). */
@@ -23,7 +27,13 @@ function scrambleCharFromSeed(seed: number) {
   return SCRAMBLE_CHARS[i] ?? '?';
 }
 
-export function ScrambleText({ text, delay, className = '' }: Props) {
+export function ScrambleText({
+  text,
+  delay,
+  className = '',
+  scrambleClassName = '',
+  finalClassName = '',
+}: Props) {
   const schedules = useMemo(() => {
     return text.split('').map((ch, i) => {
       if (ch === ' ') return { isSpace: true, start: 0, end: 0 };
@@ -88,11 +98,20 @@ export function ScrambleText({ text, delay, className = '' }: Props) {
         const isFinal = ch === target;
         const isScramble = !isPending && !isFinal;
 
+        const extra =
+          (isScramble || isPending) && scrambleClassName
+            ? scrambleClassName
+            : isFinal && finalClassName
+              ? finalClassName
+              : '';
         return (
           <span
             key={i}
+            className={extra.trim()}
             style={
-              isScramble ? { color: 'rgba(212, 165, 116, 0.7)' } : undefined
+              isScramble && !scrambleClassName
+                ? { color: 'rgba(212, 165, 116, 0.7)' }
+                : undefined
             }
           >
             {ch}

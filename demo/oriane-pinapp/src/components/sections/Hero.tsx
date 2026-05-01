@@ -71,13 +71,13 @@ export function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-[100dvh] overflow-hidden bg-ivoire"
+      className="relative min-h-[100dvh] overflow-hidden bg-noir-profond"
       style={{
         background:
-          'radial-gradient(ellipse 70% 55% at 50% 45%, var(--ivoire-deep, #EDE3D6) 0%, var(--ivoire, #F7F1EA) 72%)',
+          'radial-gradient(ellipse 75% 60% at 50% 50%, #15110D 0%, #0A0805 78%)',
       }}
     >
-      <div className="absolute inset-0 z-[1]">
+      <div className="absolute inset-0 z-[4]">
         {flaconStart !== null && (
           <div className="absolute inset-0 flex items-center justify-center">
             <div
@@ -101,7 +101,7 @@ export function Hero() {
             {!reducedMotion && (
               <div
                 ref={lineLayerRef}
-                className="pointer-events-none relative z-[2] flex h-[min(72vh,520px)] w-[min(42vw,280px)] max-w-[90vw] items-center justify-center transition-none"
+                className="pointer-events-none relative z-[2] flex h-[min(72vh,520px)] w-[min(42vw,280px)] max-w-[90vw] items-center justify-center text-or-pur transition-none"
                 style={{ opacity: 1 }}
               >
                 <FlaconLineArt className="h-full w-full max-h-[480px]" />
@@ -115,36 +115,43 @@ export function Hero() {
         className="hero-brume pointer-events-none absolute inset-0 z-[2] mix-blend-soft-light"
         aria-hidden
         style={{
-          background: `radial-gradient(ellipse at 20% 80%, rgba(232, 197, 192, 0.35) 0%, transparent 50%),
-            radial-gradient(ellipse at 80% 20%, rgba(184, 162, 200, 0.2) 0%, transparent 55%)`,
+          background: `radial-gradient(ellipse at 25% 75%, rgba(244, 201, 119, 0.08) 0%, transparent 45%),
+            radial-gradient(ellipse at 75% 25%, rgba(74, 31, 31, 0.12) 0%, transparent 50%)`,
         }}
       />
 
-      <div className="relative z-[25] flex min-h-[100dvh] flex-col items-center justify-between px-[6vw] pb-[6vh] pt-[12vh] mix-blend-difference pointer-events-none">
+      <div className="relative z-[25] flex min-h-[100dvh] flex-col items-center justify-between px-[6vw] pb-[6vh] pt-[12vh] pointer-events-none">
         <p
-          className="text-center font-body text-[0.7rem] font-extralight uppercase tracking-[0.5em] text-[#D4A574]"
+          className="text-center font-body text-[0.7rem] font-extralight uppercase tracking-[0.5em] text-or-pur"
           style={{ fontWeight: 200 }}
         >
           Parfumerie niche - Bordeaux 2026
         </p>
 
         <div className="flex flex-col items-center text-center">
-          <h1 className="font-display text-[clamp(3.5rem,11vw,8.5rem)] font-light italic leading-none tracking-tight text-[#F7F1EA]">
-            <ScrambleText text="ORIANE" delay={400} />
+          <h1 className="font-display text-[clamp(3.5rem,11vw,8.5rem)] font-light italic leading-none tracking-tight text-ivoire-chaud">
+            <ScrambleText
+              text="ORIANE"
+              delay={400}
+              scrambleClassName="text-or-pur"
+              finalClassName="text-ivoire-chaud [text-shadow:0_0_20px_rgba(244,201,119,0.15)]"
+            />
           </h1>
           <div
-            className="mt-8 max-w-xl font-body text-[0.95rem] font-light uppercase tracking-[0.3em] text-[#F7F1EA]"
+            className="mt-8 max-w-xl font-body text-[0.95rem] font-light italic tracking-[0.3em] text-or-pale"
             style={{ fontWeight: 300 }}
           >
             <ScrambleText
               text="Trois aubes. Trois fragrances. Une maison."
               delay={900}
+              scrambleClassName="text-or-pur"
+              finalClassName="text-or-pale"
             />
           </div>
         </div>
 
         <p
-          className="hero-bob text-center font-body text-[0.65rem] font-extralight uppercase tracking-[0.4em] text-[#F7F1EA]"
+          className="hero-bob text-center font-body text-[0.65rem] font-extralight uppercase tracking-[0.4em] text-or-pale"
           style={{ fontWeight: 200 }}
         >
           Scroll ↓

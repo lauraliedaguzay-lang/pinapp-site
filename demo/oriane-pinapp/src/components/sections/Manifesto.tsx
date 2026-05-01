@@ -50,11 +50,19 @@ export function Manifesto() {
     <section
       ref={sectionRef}
       id="manifesto"
-      className="flex min-h-[90vh] items-center bg-ivoire-deep px-[6vw] py-[22vh] [clip-path:polygon(0_0,100%_0,100%_100%,0_95%)]"
+      className="relative flex min-h-[90vh] items-center overflow-hidden bg-noir-profond px-[6vw] py-[22vh] [clip-path:polygon(0_0,100%_0,100%_100%,0_95%)]"
     >
-      <div className="mx-auto w-full max-w-[900px] text-center">
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(ellipse at center, rgba(74, 31, 31, 0.3) 0%, transparent 70%)',
+        }}
+        aria-hidden
+      />
+      <div className="relative z-[10] mx-auto w-full max-w-[900px] text-center">
         <p
-          className={`mb-16 font-body text-[0.7rem] font-extralight uppercase tracking-[0.5em] text-or-rose ${lineMotion} ${line1 ? lineShown : lineHidden}`}
+          className={`mb-16 font-body text-[0.7rem] font-extralight uppercase tracking-[0.5em] text-or-pur ${lineMotion} ${line1 ? lineShown : lineHidden}`}
           style={{ fontWeight: 200 }}
         >
           — Manifeste
@@ -62,19 +70,19 @@ export function Manifesto() {
 
         <div className="space-y-6">
           <p
-            className={`font-display text-[clamp(1.4rem,3vw,2.4rem)] font-light italic leading-[1.5] text-encre ${lineMotion} ${line1 ? lineShown : lineHidden}`}
+            className={`font-display text-[clamp(1.4rem,3vw,2.4rem)] font-light italic leading-[1.5] text-ivoire-chaud [text-shadow:0_0_30px_rgba(244,201,119,0.08)] ${lineMotion} ${line1 ? lineShown : lineHidden}`}
             style={{ fontWeight: 300 }}
           >
             {LINES[0]}
           </p>
           <p
-            className={`font-display text-[clamp(1.4rem,3vw,2.4rem)] font-light italic leading-[1.5] text-encre ${lineMotion} ${line2 ? lineShown : lineHidden}`}
+            className={`font-display text-[clamp(1.4rem,3vw,2.4rem)] font-light italic leading-[1.5] text-ivoire-chaud [text-shadow:0_0_30px_rgba(244,201,119,0.08)] ${lineMotion} ${line2 ? lineShown : lineHidden}`}
             style={{ fontWeight: 300 }}
           >
             {LINES[1]}
           </p>
           <p
-            className={`font-display text-[clamp(1.4rem,3vw,2.4rem)] font-light italic leading-[1.5] text-encre ${lineMotion} ${line3 ? lineShown : lineHidden}`}
+            className={`font-display text-[clamp(1.4rem,3vw,2.4rem)] font-light italic leading-[1.5] text-ivoire-chaud [text-shadow:0_0_30px_rgba(244,201,119,0.08)] ${lineMotion} ${line3 ? lineShown : lineHidden}`}
             style={{ fontWeight: 300 }}
           >
             {LINES[2]}
@@ -82,7 +90,7 @@ export function Manifesto() {
         </div>
 
         <div
-          className={`mx-auto mt-16 h-20 w-px bg-or-rose ${dividerMotion} ${
+          className={`mx-auto mt-16 h-20 w-px bg-or-pur ${dividerMotion} ${
             reducedMotion
               ? divider
                 ? 'opacity-100'

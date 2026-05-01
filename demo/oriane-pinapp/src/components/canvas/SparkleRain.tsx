@@ -7,19 +7,144 @@ import * as THREE from 'three';
 
 function makeSparkleTexture() {
   const c = document.createElement('canvas');
-  c.width = 32;
-  c.height = 32;
+  c.width = 64;
+  c.height = 64;
   const ctx = c.getContext('2d');
   if (!ctx) return null;
-  const g = ctx.createRadialGradient(16, 16, 0, 16, 16, 14);
-  g.addColorStop(0, 'rgba(255,255,255,0.95)');
-  g.addColorStop(0.4, 'rgba(244,228,193,0.5)');
-  g.addColorStop(1, 'rgba(212,165,116,0)');
+  const g = ctx.createRadialGradient(32, 32, 0, 32, 32, 28);
+  g.addColorStop(0, 'rgba(255,255,255,1)');
+  g.addColorStop(0.15, 'rgba(255,248,230,0.85)');
+  g.addColorStop(0.55, 'rgba(244,201,119,0.35)');
+  g.addColorStop(1, 'rgba(244,201,119,0)');
   ctx.fillStyle = g;
-  ctx.fillRect(0, 0, 32, 32);
+  ctx.fillRect(0, 0, 64, 64);
   const tex = new THREE.CanvasTexture(c);
   tex.needsUpdate = true;
   return tex;
+}
+
+const cOrLiq = new THREE.Color('#F4C977');
+const cOrPur = new THREE.Color('#D4A574');
+const cOrPale = new THREE.Color('#F4E4C1');
+
+function fract01(n: number) {
+  const x = Math.sin(n * 12.9898) * 43758.5453123;
+  return x - Math.floor(x);
+}
+
+function pickColor(seed: number) {
+  const r = fract01(seed);
+  const c = r < 0.8 ? cOrLiq : r < 0.95 ? cOrPur : cOrPale;
+  return [c.r, c.g, c.b] as const;
+}
+
+type LayerProps = {
+  scrollVelocityRef: MutableRefObject<number>;
+  n: number;
+  pointSize: number;
+  seed: number;
+  reducedMotion: boolean;
+  isMobile: boolean;
+  map: THREE.CanvasTexture | null;
+};
+
+function SparkleLayer({
+  scrollVelocityRef,
+  n,
+  pointSize,
+  seed,
+  reducedMotion,
+  isMobile,
+  map,
+}: LayerProps) {
+  const pointsRef = useRef<THREE.Points>(null);
+  const freq = useRef<Float32Array | null>(null);
+  const phase = useRef<Float32Array | null>(null);
+  const speed = useRef<Float32Array | null>(null);
+
+  const { geometry, material } = useMemo(() => {
+    const geo = new THREE.BufferGeometry();
+    const positions = new Float32Array(n * 3);
+    const colors = new Float32Array(n * 3);
+    freq.current = new Float32Array(n);
+    phase.current = new Float32Array(n);
+    speed.current = new Float32Array(n);
+    for (let i = 0; i < n; i++) {
+      const r = (k: number) => fract01(seed * 0.001 + i * 31.7 + k);
+      let x = (r(0) - 0.5) * 2.2;
+      let y: number;
+      if (r(1) < 0.7) {
+        y = 0.6 + r(2) * 0.9;
+      } else {
+        x *= 0.35;
+        y = 0.2 + r(3) * 0.5;
+      }
+      positions[i * 3] = x;
+      positions[i * 3 + 1] = y;
+      positions[i * 3 + 2] = (r(4) - 0.5) * 2.8;
+      freq.current[i] = 0.1 + r(5) * 0.4;
+      phase.current[i] = r(6) * Math.PI * 2;
+      speed.current[i] = 0.05 + r(7) * 0.2;
+      const [cr, cg, cb] = pickColor(seed + i * 997);
+      colors[i * 3] = cr;
+      colors[i * 3 + 1] = cg;
+      colors[i * 3 + 2] = cb;
+    }
+    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    const m = new THREE.PointsMaterial({
+      size: pointSize * (isMobile ? 1.35 : 1),
+      map: map ?? undefined,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.92,
+      depthWrite: false,
+      blending: THREE.NormalBlending,
+      sizeAttenuation: true,
+    });
+    return { geometry: geo, material: m };
+  }, [n, pointSize, seed, isMobile, map]);
+
+  useEffect(() => {
+    return () => {
+      geometry.dispose();
+      material.dispose();
+    };
+  }, [geometry, material]);
+
+  useFrame((state, delta) => {
+    const t = state.clock.elapsedTime;
+    const vel = scrollVelocityRef.current;
+    const pts = pointsRef.current;
+    if (!pts || !freq.current || !phase.current || !speed.current) return;
+    const pos = pts.geometry.attributes.position as THREE.BufferAttribute;
+    const mult = 1 + Math.abs(vel) * 2;
+    const d = Math.min(0.05, delta) * 60;
+
+    for (let i = 0; i < n; i++) {
+      const ph = phase.current[i]!;
+      const fr = freq.current[i]!;
+      const sp = speed.current[i]!;
+      let x = pos.getX(i);
+      let y = pos.getY(i);
+      let z = pos.getZ(i);
+      y -= sp * mult * 0.018 * d * (reducedMotion ? 0.5 : 1);
+      x += Math.sin(t * fr + ph) * 0.0035;
+      if (y < -1.25) {
+        y = 1.1 + fract01(seed + i * 13 + t) * 0.35;
+        x = (fract01(seed + i * 3 + t * 0.7) - 0.5) * 2.2;
+        z = (fract01(seed + i * 5 + t * 0.3) - 0.5) * 2.8;
+      }
+      pos.setX(i, x);
+      pos.setY(i, y);
+      pos.setZ(i, z);
+    }
+    pos.needsUpdate = true;
+    const tw = 0.88 + Math.sin(t * 0.5) * 0.06;
+    material.opacity = (reducedMotion ? 0.55 : 0.92) * tw;
+  });
+
+  return <points ref={pointsRef} geometry={geometry} material={material} />;
 }
 
 type RainSceneProps = {
@@ -30,97 +155,45 @@ type RainSceneProps = {
 };
 
 function RainScene({ scrollVelocityRef, count, reducedMotion, isMobile }: RainSceneProps) {
-  const pointsRef = useRef<THREE.Points>(null);
-  const baseY = useRef<Float32Array | null>(null);
-  const speed = useRef<Float32Array | null>(null);
-  const phase = useRef<Float32Array | null>(null);
-  const xBase = useRef<Float32Array | null>(null);
-
-  const { geometry, material, map } = useMemo(() => {
-    const geo = new THREE.BufferGeometry();
-    const positions = new Float32Array(count * 3);
-    const colors = new Float32Array(count * 3);
-    baseY.current = new Float32Array(count);
-    speed.current = new Float32Array(count);
-    phase.current = new Float32Array(count);
-    xBase.current = new Float32Array(count);
-    const c1 = new THREE.Color('#D4A574');
-    const c2 = new THREE.Color('#F4E4C1');
-    for (let i = 0; i < count; i++) {
-      const x = (Math.random() - 0.5) * 2.2;
-      const y = Math.random() * 2.4 - 0.2;
-      positions[i * 3] = x;
-      positions[i * 3 + 1] = y;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 0.15;
-      baseY.current[i] = y;
-      xBase.current[i] = x;
-      speed.current[i] = 0.08 + Math.random() * 0.22;
-      phase.current[i] = Math.random() * Math.PI * 2;
-      const pick = Math.random() < 0.7 ? c1 : c2;
-      colors[i * 3] = pick.r;
-      colors[i * 3 + 1] = pick.g;
-      colors[i * 3 + 2] = pick.b;
-    }
-    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-    const m = new THREE.PointsMaterial({
-      size: reducedMotion ? 0.09 : isMobile ? 0.14 : 0.12,
-      map: makeSparkleTexture() ?? undefined,
-      vertexColors: true,
-      transparent: true,
-      opacity: 0.72,
-      depthWrite: false,
-      blending: THREE.NormalBlending,
-      sizeAttenuation: false,
-    });
-    return { geometry: geo, material: m, map: m.map as THREE.CanvasTexture | null };
-  }, [count, reducedMotion, isMobile]);
-
+  const map = useMemo(() => makeSparkleTexture(), []);
   useEffect(() => {
-    return () => {
-      geometry.dispose();
-      material.dispose();
-      map?.dispose();
-    };
-  }, [geometry, material, map]);
+    return () => map?.dispose();
+  }, [map]);
 
-  useFrame((state) => {
-    const t = state.clock.elapsedTime;
-    const vel = scrollVelocityRef.current;
-    const pts = pointsRef.current;
-    if (!pts || !baseY.current || !speed.current || !phase.current || !xBase.current) return;
-    const pos = pts.geometry.attributes.position as THREE.BufferAttribute;
-    const h = typeof window !== 'undefined' ? window.innerHeight : 900;
-    const w = typeof window !== 'undefined' ? window.innerWidth : 1200;
-    const scale = reducedMotion ? 0.45 : 1;
-    const velBoost = 1 + Math.min(2.5, Math.max(-1.2, vel)) * 0.035;
-
-    for (let i = 0; i < count; i++) {
-      const ph = phase.current[i]!;
-      let y = pos.getY(i);
-      const sp = speed.current[i]! * scale * velBoost * 0.012;
-      y -= sp * (reducedMotion ? 0.5 : 1);
-      if (y < -1.15) {
-        y = 1.15 + Math.random() * 0.35;
-        const nx = ((Math.random() - 0.5) * w) / (w * 0.5) * 1.1;
-        pos.setX(i, nx);
-        xBase.current[i] = nx;
-      } else {
-        const x0 = xBase.current[i]!;
-        const sway = Math.sin(t * 0.9 + ph) * 0.012 * (1 + Math.abs(vel) * 0.02);
-        pos.setX(i, x0 + sway);
-      }
-      pos.setY(i, y);
-      const tw = 0.88 + Math.sin(t * 2.4 + ph * 3) * 0.08;
-      material.opacity = reducedMotion ? 0.5 : 0.72 * tw;
-    }
-    pos.needsUpdate = true;
-  });
+  const a = Math.floor(count / 3);
+  const b = Math.floor(count / 3);
+  const c = Math.max(0, count - a - b);
 
   return (
     <>
-      <OrthographicCamera makeDefault position={[0, 0, 1]} zoom={1} near={0.1} far={10} />
-      <points ref={pointsRef} geometry={geometry} material={material} />
+      <OrthographicCamera makeDefault position={[0, 0, 8]} zoom={1} near={0.1} far={20} />
+      <SparkleLayer
+        scrollVelocityRef={scrollVelocityRef}
+        n={a}
+        pointSize={0.045}
+        seed={1}
+        reducedMotion={reducedMotion}
+        isMobile={isMobile}
+        map={map}
+      />
+      <SparkleLayer
+        scrollVelocityRef={scrollVelocityRef}
+        n={b}
+        pointSize={0.075}
+        seed={10001}
+        reducedMotion={reducedMotion}
+        isMobile={isMobile}
+        map={map}
+      />
+      <SparkleLayer
+        scrollVelocityRef={scrollVelocityRef}
+        n={c}
+        pointSize={0.11}
+        seed={20003}
+        reducedMotion={reducedMotion}
+        isMobile={isMobile}
+        map={map}
+      />
     </>
   );
 }
@@ -136,24 +209,14 @@ export function SparkleRain({ scrollVelocityRef, sparkleCount, isMobile }: Props
     typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const count = reducedMotion ? Math.min(100, sparkleCount) : sparkleCount;
+  const count = reducedMotion ? Math.min(200, sparkleCount) : sparkleCount;
 
   if (reducedMotion) return null;
 
   return (
-    <div
-      className="pointer-events-none h-full w-full min-h-0 min-w-0"
-      style={{
-        position: 'absolute',
-        inset: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 1,
-      }}
-      aria-hidden
-    >
+    <div className="pointer-events-none h-full w-full" aria-hidden>
       <Canvas
-        className="block h-full w-full min-h-0"
+        className="block h-full w-full"
         style={{ width: '100%', height: '100%', display: 'block' }}
         gl={{ alpha: true, antialias: true, premultipliedAlpha: false }}
         dpr={[1, 2]}

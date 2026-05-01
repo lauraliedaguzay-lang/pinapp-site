@@ -15,7 +15,7 @@ export function FlaconLineArt({ className = '' }: { className?: string }) {
       <defs>
         <style>{`
           .flacon-line-art-path {
-            stroke: #1A1614;
+            stroke: #d4a574;
             stroke-width: 1.35;
             stroke-linecap: round;
             stroke-linejoin: round;
