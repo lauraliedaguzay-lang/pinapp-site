@@ -1,13 +1,8 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { SplitText } from 'gsap/SplitText';
 import { HeroCanvas } from '../canvas/HeroCanvas';
-
-gsap.registerPlugin(ScrollTrigger, SplitText);
 
 // ─── Section principale ───────────────────────────────────────────────────────
 export function Scene1Opening() {
@@ -23,12 +18,10 @@ export function Scene1Opening() {
 
   const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
 
   // ── Mount ──
   useEffect(() => {
     setMounted(true);
-    setReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     const mq = window.matchMedia('(max-width: 768px)');
     setIsMobile(mq.matches);
     const onMq = (e: MediaQueryListEvent) => setIsMobile(e.matches);
@@ -60,8 +53,8 @@ export function Scene1Opening() {
     return () => window.removeEventListener('mousemove', onMouse);
   }, [mounted]);
 
-  // ── GSAP intro — SplitText letter stagger (pattern adrianhajdin/iphone) ──
-  useGSAP(() => {
+  // ── GSAP intro — fade-in simple, robuste ──
+  useEffect(() => {
     if (!mounted) return;
 
     const title    = titleRef.current;
@@ -70,56 +63,27 @@ export function Scene1Opening() {
     const ornement = ornementRef.current;
     if (!title || !tagline || !hint || !ornement) return;
 
-    // SplitText — chaque lettre du titre animée
-    const split = SplitText.create(title, { type: 'chars' });
+    const tl = gsap.timeline({ delay: 0.4 });
 
-    gsap.set(split.chars, { opacity: 0, yPercent: 110, rotateX: -80 });
-    gsap.set(tagline,  { opacity: 0, y: 22 });
-    gsap.set(ornement, { opacity: 0, scaleX: 0 });
-    gsap.set(hint,     { opacity: 0 });
+    tl.fromTo(title,
+      { opacity: 0, y: 28, filter: 'blur(10px)' },
+      { opacity: 1, y: 0,  filter: 'blur(0px)', duration: 1.3, ease: 'power3.out' },
+    0);
+    tl.fromTo(ornement,
+      { opacity: 0, scaleX: 0 },
+      { opacity: 1, scaleX: 1, duration: 0.8, ease: 'power2.out' },
+    0.65);
+    tl.fromTo(tagline,
+      { opacity: 0, y: 18 },
+      { opacity: 1, y: 0,  duration: 0.9, ease: 'power2.out' },
+    0.82);
+    tl.fromTo(hint,
+      { opacity: 0 },
+      { opacity: 1, duration: 0.7, ease: 'power2.out' },
+    1.4);
 
-    const tl = gsap.timeline({ delay: 0.35 });
-
-    tl.to(split.chars, {
-      opacity: 1,
-      yPercent: 0,
-      rotateX: 0,
-      stagger: 0.045,
-      duration: 1.1,
-      ease: 'power3.out',
-    }, 0);
-
-    tl.to(ornement, {
-      opacity: 1,
-      scaleX: 1,
-      duration: 0.7,
-      ease: 'power2.out',
-    }, 0.55);
-
-    tl.to(tagline, {
-      opacity: 1,
-      y: 0,
-      duration: 0.95,
-      ease: 'power2.out',
-    }, 0.72);
-
-    tl.to(hint, {
-      opacity: 1,
-      duration: 0.7,
-      ease: 'power2.out',
-    }, 1.35);
-
-    return () => split.revert();
-  }, { dependencies: [mounted], scope: overlayRef });
-
-  // ── Fallback visible immédiatement si reduced-motion ──
-  useEffect(() => {
-    if (!mounted || !reducedMotion) return;
-    const els = [titleRef.current, taglineRef.current, scrollHintRef.current, ornementRef.current];
-    els.forEach(el => {
-      if (el) el.style.opacity = '1';
-    });
-  }, [mounted, reducedMotion]);
+    return () => { tl.kill(); };
+  }, [mounted]);
 
   return (
     <section
@@ -162,7 +126,6 @@ export function Scene1Opening() {
       <div
         ref={overlayRef}
         className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center px-6 text-center"
-        style={{ perspective: '800px' }}
       >
         {/* Surtitle */}
         <p
@@ -194,7 +157,7 @@ export function Scene1Opening() {
         <div
           ref={ornementRef}
           className="my-5 flex items-center gap-3.5"
-          style={{ opacity: 0, transformOrigin: 'center' }}
+          style={{ transformOrigin: 'center' }}
           aria-hidden
         >
           <div className="h-px w-14 bg-gradient-to-r from-transparent via-or-pale/50 to-or-pale/20" />
@@ -213,7 +176,6 @@ export function Scene1Opening() {
           style={{
             fontSize: 'clamp(0.55rem, 1.3vw, 0.78rem)',
             letterSpacing: '0.52em',
-            opacity: 0,
             mixBlendMode: 'screen',
             textShadow: '0 0 18px rgba(212,169,106,0.30)',
           }}
@@ -226,7 +188,6 @@ export function Scene1Opening() {
       <div
         ref={scrollHintRef}
         className="pointer-events-none absolute bottom-7 left-1/2 z-20 -translate-x-1/2 flex flex-col items-center gap-2"
-        style={{ opacity: 0 }}
         aria-hidden
       >
         <span className="font-body text-[0.45rem] uppercase tracking-[0.5em] text-or-pale/35">
