@@ -25,7 +25,7 @@ export function Scene3Manifesto() {
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       lineEls.forEach((r) => {
-        if (r.current) gsap.set(r.current, { opacity: 1, y: 0 });
+        if (r.current) gsap.set(r.current, { autoAlpha: 1, y: 0 });
       });
       if (lineRef.current) gsap.set(lineRef.current, { scaleY: 1 });
       return;
@@ -33,35 +33,58 @@ export function Scene3Manifesto() {
 
     gsap.registerPlugin(ScrollTrigger);
     const ctx = gsap.context(() => {
+      const D = 0.22; // durée de chaque tween dans la timeline
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: wrap,
           start: 'top top',
-          end: '+=150%',
+          end: '+=220%',
           pin: true,
-          scrub: 0.7,
+          scrub: 1,
         },
       });
 
-      // Chaque ligne : fade-in puis fade-out rapide
+      /*
+       * Séquencement strict : la phrase i est ENTIÈREMENT disparue
+       * avant que la phrase i+1 commence à apparaître.
+       *
+       * Phrase 0 : in [0, D]  — hold [D, D+0.12] — out [D+0.12, D+0.12+D]
+       * Phrase 1 : in [0.72, 0.72+D]  — hold — out
+       * Phrase 2 : in [1.44, 1.44+D]  — reste visible
+       * Ligne verticale : [1.9, 2.1]
+       */
+      const SLOT = D * 2 + 0.12 + 0.16; // ≈ 0.72 par phrase
+
       lineEls.forEach((ref, i) => {
         const el = ref.current;
         if (!el) return;
-        const a = (i * 0.28);
-        const peak = a + 0.16;
-        const b = peak + 0.1;
-        tl.fromTo(el, { autoAlpha: 0, y: 24, filter: 'blur(6px)' }, { autoAlpha: 1, y: 0, filter: 'blur(0px)', ease: 'power2.out' }, a);
+
+        const inAt = i * SLOT;
+        const outAt = inAt + D + 0.12;
+
+        tl.fromTo(
+          el,
+          { autoAlpha: 0, y: 22 },
+          { autoAlpha: 1, y: 0, duration: D, ease: 'power2.out' },
+          inAt,
+        );
+
         if (i < lineEls.length - 1) {
-          tl.to(el, { autoAlpha: 0, y: -14, ease: 'power1.in' }, b);
+          tl.to(
+            el,
+            { autoAlpha: 0, y: -14, duration: D, ease: 'power1.in' },
+            outAt,
+          );
         }
       });
 
-      // Ligne verticale se déroule à la fin
+      // Ligne verticale après la 3e phrase
       tl.fromTo(
         lineRef.current,
         { scaleY: 0, transformOrigin: 'top center' },
-        { scaleY: 1, ease: 'none' },
-        0.78,
+        { scaleY: 1, duration: 0.25, ease: 'power2.out' },
+        lineEls.length * SLOT + 0.1,
       );
     }, wrap);
 
@@ -95,7 +118,6 @@ export function Scene3Manifesto() {
               key={line}
               ref={lineEls[i]}
               className="absolute inset-x-0 top-0 font-display text-[clamp(1.6rem,3.8vw,3.25rem)] font-light italic leading-snug text-ivoire-chaud"
-              style={{ opacity: 0 }}
             >
               {line}
             </p>
@@ -106,7 +128,7 @@ export function Scene3Manifesto() {
           ref={lineRef}
           className="mx-auto mt-24 h-24 w-px bg-or-pur"
           aria-hidden
-          style={{ transformOrigin: 'top center', transform: 'scaleY(0)' }}
+          style={{ transformOrigin: 'top center' }}
         />
       </div>
     </div>
