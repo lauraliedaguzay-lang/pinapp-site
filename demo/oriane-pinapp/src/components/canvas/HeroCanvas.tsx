@@ -8,6 +8,7 @@ import { Sparkles } from '@react-three/drei';
 import * as THREE from 'three';
 import { CinematicLighting } from './CinematicLighting';
 import { FlaconModel } from './FlaconModel';
+import { BackdropPlane } from './BackdropPlane';
 
 // ─── Fond coloré stable (remplace ShaderMaterial fragile) ───────────────────
 // Utilise scene.background via <color attach> — garanti opaque dès frame 1
@@ -81,6 +82,7 @@ export function HeroCanvas({ isMobile, scrollProgress, mouseX, mouseY }: Props) 
     >
       {/* Fond bordeaux opaque — visible dès frame 1, garanti non-transparent */}
       <SceneBackground />
+      <BackdropPlane />
       <CinematicLighting />
 
       {/* Flacon + sparkles — suspendus pendant le chargement GLB */}
