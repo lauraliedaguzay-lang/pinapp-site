@@ -37,7 +37,7 @@ export function Scene1Opening() {
       return;
     }
 
-    const tBlack = window.setTimeout(() => setBlackOverlay(false), 1000);
+    const tBlack = window.setTimeout(() => setBlackOverlay(false), 600);
     const tTitle = window.setTimeout(() => setShowTitle(true), 3000);
     const tTag = window.setTimeout(() => setShowTagline(true), 4000);
     return () => {
@@ -49,7 +49,7 @@ export function Scene1Opening() {
 
   return (
     <section
-      className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-x-clip bg-[#0A0805]"
+      className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden bg-[#0A0805]"
       aria-label="Ouverture"
     >
       {blackOverlay && (
@@ -89,9 +89,9 @@ export function Scene1Opening() {
       {showTitle && (
         <div className="pointer-events-none absolute inset-0 z-[10] flex flex-col items-center justify-center px-4 text-center sm:px-8 md:px-12">
           <h1
-            className="font-display inline-flex max-w-[min(100%,calc(100vw-2rem))] flex-wrap justify-center font-light italic leading-none tracking-tight text-ivoire-chaud"
+            className="font-display flex w-full flex-wrap justify-center font-light italic leading-none tracking-tight text-ivoire-chaud"
             style={{
-              fontSize: 'clamp(5rem, 10vw, 10rem)',
+              fontSize: 'clamp(4rem, 12vw, 10rem)',
               fontWeight: 300,
               textShadow:
                 '0 0 30px rgba(244, 201, 119, 0.3), 0 0 60px rgba(244, 201, 119, 0.15)',
@@ -118,12 +118,17 @@ export function Scene1Opening() {
           </h1>
           {showTagline && (
             <p
-              className={`mt-6 font-display italic text-or-pale ${reducedMotion ? 'opacity-100' : 'opacity-0'}`}
+              className="mt-6 font-display italic text-or-pale"
               style={{
                 fontSize: '1rem',
                 fontWeight: 200,
                 letterSpacing: '0.1em',
-                ...(reducedMotion ? {} : { animation: 'scene1TaglineFade 600ms ease-out forwards' }),
+                opacity: reducedMotion ? 1 : 0,
+                ...(reducedMotion
+                  ? {}
+                  : {
+                      animation: 'scene1TaglineFade 800ms ease-out both',
+                    }),
               }}
             >
               Une parfumerie.
