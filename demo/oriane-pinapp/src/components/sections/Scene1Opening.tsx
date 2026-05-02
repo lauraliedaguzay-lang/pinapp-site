@@ -104,16 +104,14 @@ export function Scene1Opening() {
         </div>
       )}
 
-      {/* ─── Fond statique avant mount (évite le flash noir) ─── */}
-      {!mounted && (
-        <div
-          className="absolute inset-0 z-0"
-          style={{
-            background: 'radial-gradient(ellipse 80% 70% at 50% 44%, #260808 0%, #0D0303 42%, #040101 100%)',
-          }}
-          aria-hidden
-        />
-      )}
+      {/* ─── Fond bordeaux radial (toujours visible — avant mount ET par-dessus le Canvas) ─── */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[1]"
+        style={{
+          background: 'radial-gradient(ellipse 70% 60% at 50% 44%, rgba(38,8,8,0.7) 0%, transparent 70%)',
+        }}
+        aria-hidden
+      />
 
       {/* ─── Vignette CSS (remplace WebGL postprocessing) ─── */}
       <div

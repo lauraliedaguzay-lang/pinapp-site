@@ -1,7 +1,7 @@
 'use client';
 
-import { Suspense, useRef, useMemo } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Suspense } from 'react';
+import { Canvas } from '@react-three/fiber';
 import { Sparkles } from '@react-three/drei';
 // PostProcessing désactivé — version mismatch (TODO V11)
 // import { EffectComposer, ... } from '@react-three/postprocessing';
@@ -9,53 +9,14 @@ import * as THREE from 'three';
 import { CinematicLighting } from './CinematicLighting';
 import { FlaconModel } from './FlaconModel';
 
-// ─── Backdrop shader bordeaux → noir ─────────────────────────────────────────
-// HORS Suspense : visible immédiatement, avant que le GLB soit chargé
-function BackdropPlane() {
-  const mat = useRef<THREE.ShaderMaterial>(null);
-
-  const shader = useMemo(() => ({
-    uniforms: { uTime: { value: 0 } },
-    vertexShader: /* glsl */`
-      varying vec2 vUv;
-      void main() {
-        vUv = uv;
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
-      }
-    `,
-    fragmentShader: /* glsl */`
-      varying vec2 vUv;
-      uniform float uTime;
-      void main() {
-        vec3 cDark    = vec3(0.018, 0.005, 0.006);
-        vec3 cBordeau = vec3(0.14,  0.025, 0.030);
-        vec3 cGold    = vec3(0.21,  0.13,  0.035);
-
-        vec2 uv = vUv - vec2(0.5, 0.44);
-        float d = length(uv * vec2(0.9, 1.1));
-        float pulse = 0.5 + 0.5 * sin(uTime * 0.28);
-
-        float r1 = smoothstep(0.75, 0.02, d);
-        float r2 = smoothstep(0.42, 0.06, d) * (0.15 + pulse * 0.07);
-        float vgn = smoothstep(0.0, 0.6, d);
-
-        vec3 col = mix(cDark, cBordeau, r1);
-        col = mix(col, cGold, r2);
-        col = mix(col, cDark * 0.5, vgn * 0.4);
-        gl_FragColor = vec4(col, 1.0);
-      }
-    `,
-  }), []);
-
-  useFrame(s => { if (mat.current) mat.current.uniforms.uTime.value = s.clock.elapsedTime; });
-
-  return (
-    <mesh position={[0, 0, -6]}>
-      <planeGeometry args={[22, 22]} />
-      <shaderMaterial ref={mat} args={[shader]} />
-    </mesh>
-  );
+// ─── Fond coloré stable (remplace ShaderMaterial fragile) ───────────────────
+// Utilise scene.background via <color attach> — garanti opaque dès frame 1
+function SceneBackground() {
+  return <color attach="background" args={['#0D0203']} />;
 }
+
+// ─── Glow bordeaux CSS-side (via overlay dans Scene1Opening) ─────────────────
+// Le shader backdrop était fragile en WebGL2. Le fond radial est en CSS.
 
 // ─── Contenu asynchrone (GLB) ─────────────────────────────────────────────────
 type AsyncProps = {
@@ -118,8 +79,8 @@ export function HeroCanvas({ isMobile, scrollProgress, mouseX, mouseY }: Props) 
       shadows={false}
       className="h-full w-full"
     >
-      {/* Fond visible IMMÉDIATEMENT — pas de Suspense */}
-      <BackdropPlane />
+      {/* Fond bordeaux opaque — visible dès frame 1, garanti non-transparent */}
+      <SceneBackground />
       <CinematicLighting />
 
       {/* Flacon + sparkles — suspendus pendant le chargement GLB */}
