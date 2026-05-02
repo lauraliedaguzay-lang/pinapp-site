@@ -115,6 +115,13 @@ export function Scene1Opening() {
         />
       )}
 
+      {/* ─── Vignette CSS (remplace WebGL postprocessing) ─── */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[5]"
+        style={{ background: 'radial-gradient(ellipse at center, transparent 38%, rgba(0,0,0,0.55) 100%)' }}
+        aria-hidden
+      />
+
       {/* ─── Gradient bas — fondu vers la scène suivante ─── */}
       <div
         className="pointer-events-none absolute bottom-0 left-0 right-0 z-10 h-52"
