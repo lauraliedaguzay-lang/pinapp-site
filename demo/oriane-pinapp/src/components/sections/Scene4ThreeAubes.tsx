@@ -138,13 +138,15 @@ export function Scene4ThreeAubes() {
           );
         })}
 
-        {/* Compteur */}
-        <div className="pointer-events-none absolute bottom-6 right-6 z-10 flex items-baseline gap-2 md:bottom-10 md:right-10">
-          <span className="font-display text-3xl font-light italic text-or-liquide">
-            {String(active + 1).padStart(2, '0')}
-          </span>
-          <span className="font-display text-lg italic text-ivoire-soft">/ 03</span>
-        </div>
+        {/* Compteur — masqué hors de la scène pour ne pas déborder sur S5+ */}
+        {progress > 0.005 && progress < 0.995 && (
+          <div className="pointer-events-none absolute bottom-6 right-6 z-10 flex items-baseline gap-2 md:bottom-10 md:right-10">
+            <span className="font-display text-3xl font-light italic text-or-liquide">
+              {String(active + 1).padStart(2, '0')}
+            </span>
+            <span className="font-display text-lg italic text-ivoire-soft">/ 03</span>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -1,6 +1,6 @@
 'use client';
 
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrthographicCamera } from '@react-three/drei';
 import { useMemo, useRef, useEffect, type MutableRefObject } from 'react';
 import * as THREE from 'three';
@@ -147,6 +147,29 @@ function SparkleLayer({
   return <points ref={pointsRef} geometry={geometry} material={material} />;
 }
 
+/**
+ * Fixe le frustum de la caméra orthographique pour que les particules
+ * (coordonnées ±1.1 en x, −1.25 à +1.5 en y) couvrent tout l'écran.
+ * Sans ce fix, R3F hérite de left=−1 right=1 mais le zoom=1 n'est pas
+ * calibré selon l'aspect ratio → particules invisibles ou trop petites.
+ */
+function CameraFrustumFix() {
+  const { camera, size } = useThree();
+  useEffect(() => {
+    if (!(camera instanceof THREE.OrthographicCamera)) return;
+    const aspect = size.width / size.height;
+    // Espace x : −1.2 à 1.2 (particles ±1.1 → légère marge)
+    camera.left = -1.2;
+    camera.right = 1.2;
+    // Espace y ajusté à l'aspect ratio, particules jusqu'à 1.5 en haut
+    camera.top = 1.6 / aspect;
+    camera.bottom = -1.6 / aspect;
+    camera.zoom = 1;
+    camera.updateProjectionMatrix();
+  }, [camera, size]);
+  return null;
+}
+
 type RainSceneProps = {
   scrollVelocityRef: MutableRefObject<number>;
   count: number;
@@ -166,7 +189,8 @@ function RainScene({ scrollVelocityRef, count, reducedMotion, isMobile }: RainSc
 
   return (
     <>
-      <OrthographicCamera makeDefault position={[0, 0, 8]} zoom={1} near={0.1} far={20} />
+      <OrthographicCamera makeDefault position={[0, 0, 8]} near={0.1} far={20} />
+      <CameraFrustumFix />
       <SparkleLayer
         scrollVelocityRef={scrollVelocityRef}
         n={a}
