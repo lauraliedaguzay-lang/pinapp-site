@@ -1,0 +1,193 @@
+/**
+ * Pinapp V12 — section #comparatif (temps gagné avec / sans Pinapp)
+ * Palette Avalon · vanilla · pas de dépendance hors variables page.
+ */
+.comparatif-section {
+  --comparatif-ink: #faf6ee;
+  --comparatif-copper: #b8975a;
+  --comparatif-navy: #1b3a52;
+  --comparatif-bronze: #8e6f40;
+  color: var(--comparatif-ink);
+}
+
+.comparatif-section .scene__inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.comparatif-section .eyebrow {
+  color: var(--comparatif-copper);
+}
+
+.comparatif-title {
+  font-family: var(--ff-display);
+  font-weight: 600;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.035em;
+  margin: 0 0 var(--sp-6);
+  text-align: center;
+  color: var(--comparatif-ink);
+}
+
+.comparatif-title em {
+  font-style: italic;
+  color: var(--comparatif-copper);
+}
+
+.comparatif-grid {
+  display: grid;
+  gap: var(--sp-5);
+  grid-template-columns: 1fr;
+  margin-top: var(--sp-6);
+}
+
+@media (min-width: 768px) {
+  .comparatif-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+}
+
+.comparatif-card {
+  position: relative;
+  padding: var(--sp-6);
+  border-radius: 20px;
+  border: 1px solid rgba(184, 151, 90, 0.18);
+  background: rgba(244, 238, 223, 0.04);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  transform: translateZ(0);
+}
+
+.comparatif-card h3 {
+  margin: 0 0 var(--sp-4);
+  font-family: var(--ff-display);
+  font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+  font-weight: 600;
+  color: var(--comparatif-ink);
+}
+
+.comparatif-with {
+  border-color: rgba(184, 151, 90, 0.42);
+  box-shadow: 0 0 0 1px rgba(184, 151, 90, 0.12);
+}
+
+.badge-star {
+  position: absolute;
+  top: var(--sp-4);
+  right: var(--sp-4);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--comparatif-copper);
+}
+
+.comparatif-stats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.comparatif-stats li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--sp-3);
+  border-bottom: 1px solid rgba(184, 151, 90, 0.12);
+  padding-bottom: var(--sp-3);
+}
+
+.comparatif-stats li:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.comparatif-stats strong {
+  font-family: var(--ff-display);
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 600;
+  color: var(--comparatif-ink);
+  min-width: 2.5ch;
+}
+
+.comparatif-stats span {
+  font-size: var(--fs-micro);
+  color: rgba(250, 246, 238, 0.72);
+  max-width: 14rem;
+}
+
+.comparatif-summary {
+  margin: var(--sp-8) auto 0;
+  text-align: center;
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  line-height: 1.65;
+  color: rgba(250, 246, 238, 0.88);
+  max-width: 38rem;
+}
+
+.comparatif-summary strong {
+  color: var(--comparatif-ink);
+}
+
+.comparatif-disclaimer {
+  margin: var(--sp-4) auto 0;
+  text-align: center;
+  font-size: var(--fs-micro);
+  color: rgba(250, 246, 238, 0.5);
+  max-width: 34rem;
+}
+
+.comparatif-donut {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-5);
+  margin-top: var(--sp-8);
+}
+
+.donut-svg {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  display: block;
+}
+
+.donut-svg text {
+  fill: var(--comparatif-ink);
+}
+
+.donut-legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  font-size: var(--fs-micro);
+  color: rgba(250, 246, 238, 0.78);
+}
+
+.donut-legend li {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.donut-legend span {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 389px) {
+  .comparatif-grid {
+    grid-template-columns: 1fr;
+  }
+}
