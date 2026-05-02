@@ -62,7 +62,7 @@ export function Scene1Opening() {
 
   // ── GSAP intro — SplitText letter stagger (pattern adrianhajdin/iphone) ──
   useGSAP(() => {
-    if (!mounted || reducedMotion) return;
+    if (!mounted) return;
 
     const title    = titleRef.current;
     const tagline  = taglineRef.current;
@@ -110,7 +110,7 @@ export function Scene1Opening() {
     }, 1.35);
 
     return () => split.revert();
-  }, { dependencies: [mounted, reducedMotion], scope: overlayRef });
+  }, { dependencies: [mounted], scope: overlayRef });
 
   // ── Fallback visible immédiatement si reduced-motion ──
   useEffect(() => {
@@ -128,8 +128,8 @@ export function Scene1Opening() {
       className="relative h-[100dvh] w-full overflow-hidden bg-[#060101]"
       aria-label="Maison ORIANE — Ouverture"
     >
-      {/* ─── Canvas 3D ─── */}
-      {mounted && !reducedMotion && (
+      {/* ─── Canvas 3D — monté dès que le composant est hydraté ─── */}
+      {mounted && (
         <div className="absolute inset-0 z-0" aria-hidden>
           <HeroCanvas
             isMobile={isMobile}
@@ -140,8 +140,8 @@ export function Scene1Opening() {
         </div>
       )}
 
-      {/* ─── Fond statique (SSR + reduced-motion) ─── */}
-      {(!mounted || reducedMotion) && (
+      {/* ─── Fond statique avant mount (évite le flash noir) ─── */}
+      {!mounted && (
         <div
           className="absolute inset-0 z-0"
           style={{
