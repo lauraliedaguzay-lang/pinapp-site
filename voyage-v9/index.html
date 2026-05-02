@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#050b14" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
-<meta name="pinapp-voyage-v9-build" content="v14.2.2-mp-github-pages-2026-04-28" />
+<meta name="pinapp-voyage-v9-build" content="v14.2.3-real-hub-thumb-2026-04-30" />
 <title>Pinapp · Sites + films pour TPE/PME · dès 990 € HT | Bordeaux</title>
 <meta name="description" content="Duo Pinapp : sites qui convertissent + films cinéma. Diagnostic 24h offert. Bordeaux + Nouvelle-Aquitaine. Grille 2026 · dès 990 € HT." />
 <meta property="og:title" content="Pinapp · Sites + films pour TPE/PME · dès 990 € HT | Bordeaux" />
@@ -285,6 +285,14 @@ main{position:relative;z-index:1;padding-top:72px}
 .card--glass{background:var(--fumee);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(230,185,115,0.15);border-radius:var(--r-lg);padding:var(--sp-6);transform:translateZ(0);transition:transform var(--dur-mid) var(--ease-out),border-color var(--dur-fast) var(--ease-out),box-shadow var(--dur-mid) var(--ease-out)}
 .card--glass:hover:not(.v10-tilt){transform:translateY(-2px) translateZ(0)}
 .domaine-card.card--glass,.real-hub-card.card--glass{padding:0}
+/* Réalisations hub : WebP dans .card--glass — sans backdrop sur la carte (bug Chrome/WebKit : vignette « vide »). */
+.real-hub-card.card--glass{
+  background:var(--fumee-strong);
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
+.real-hub-card__thumb{position:relative;z-index:1;isolation:isolate;transform:translateZ(0)}
+.real-hub-card__thumb img{position:relative;z-index:1;transform:translateZ(0)}
 .demo-live-grid{display:grid;gap:var(--sp-4);margin:var(--sp-6) 0}
 @media(min-width:768px){.demo-live-grid{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:1024px){.demo-live-grid{grid-template-columns:repeat(3,1fr)}}
