@@ -3,13 +3,14 @@
 import { Suspense, useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Sparkles } from '@react-three/drei';
-// PostProcessing désactivé — version mismatch @react-three/postprocessing (TODO V11)
-// import { EffectComposer, Bloom, DepthOfField, ChromaticAberration, Vignette } from '@react-three/postprocessing';
+// PostProcessing désactivé — version mismatch (TODO V11)
+// import { EffectComposer, ... } from '@react-three/postprocessing';
 import * as THREE from 'three';
 import { CinematicLighting } from './CinematicLighting';
 import { FlaconModel } from './FlaconModel';
 
 // ─── Backdrop shader bordeaux → noir ─────────────────────────────────────────
+// HORS Suspense : visible immédiatement, avant que le GLB soit chargé
 function BackdropPlane() {
   const mat = useRef<THREE.ShaderMaterial>(null);
 
@@ -56,23 +57,18 @@ function BackdropPlane() {
   );
 }
 
-// ─── PostFX désactivé (version mismatch) — TODO V11 ─────────────────────────
-// function PostFX({ enabled }: { enabled: boolean }) { ... }
-
-// ─── Contenu de la scène ──────────────────────────────────────────────────────
-type SceneProps = {
+// ─── Contenu asynchrone (GLB) ─────────────────────────────────────────────────
+type AsyncProps = {
   isMobile: boolean;
   scrollProgress: React.MutableRefObject<number>;
   mouseX: React.MutableRefObject<number>;
   mouseY: React.MutableRefObject<number>;
 };
 
-function SceneContent({ isMobile, scrollProgress, mouseX, mouseY }: SceneProps) {
+function AsyncContent({ isMobile, scrollProgress, mouseX, mouseY }: AsyncProps) {
   const sparkleCount = isMobile ? 50 : 140;
   return (
     <>
-      <BackdropPlane />
-      <CinematicLighting />
       <FlaconModel scrollProgress={scrollProgress} mouseX={mouseX} mouseY={mouseY} />
 
       {/* Paillettes fond */}
@@ -95,8 +91,6 @@ function SceneContent({ isMobile, scrollProgress, mouseX, mouseY }: SceneProps) 
         color="#F4E4C1"
         position={[0, 0.2, 0]}
       />
-
-      {/* <PostFX enabled={!isMobile} /> — désactivé V11 */}
     </>
   );
 }
@@ -124,8 +118,13 @@ export function HeroCanvas({ isMobile, scrollProgress, mouseX, mouseY }: Props) 
       shadows={false}
       className="h-full w-full"
     >
+      {/* Fond visible IMMÉDIATEMENT — pas de Suspense */}
+      <BackdropPlane />
+      <CinematicLighting />
+
+      {/* Flacon + sparkles — suspendus pendant le chargement GLB */}
       <Suspense fallback={null}>
-        <SceneContent
+        <AsyncContent
           isMobile={isMobile}
           scrollProgress={scrollProgress}
           mouseX={mouseX}
