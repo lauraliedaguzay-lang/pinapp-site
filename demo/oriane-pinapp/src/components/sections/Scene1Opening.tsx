@@ -369,11 +369,13 @@ export function Scene1Opening() {
   const scrollHintRef = useRef<HTMLDivElement>(null);
   const scrollRef     = useRef(0);
 
+  const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const reducedMotion = typeof window !== 'undefined' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+    setReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     const mq = window.matchMedia('(max-width: 768px)');
     setIsMobile(mq.matches);
     const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
@@ -401,8 +403,8 @@ export function Scene1Opening() {
       className="relative h-[100dvh] w-full overflow-hidden bg-[#080202]"
       aria-label="Maison ORIANE — Ouverture"
     >
-      {/* Canvas 3D — fond plein écran */}
-      {!reducedMotion && (
+      {/* Canvas 3D — fond plein écran (client-only via mounted guard) */}
+      {mounted && !reducedMotion && (
         <div className="absolute inset-0 z-0">
           <Canvas
             camera={{ position: [0, 0, 5.5], fov: 38, near: 0.1, far: 40 }}
@@ -422,8 +424,8 @@ export function Scene1Opening() {
         </div>
       )}
 
-      {/* Fallback fond pour reduced-motion */}
-      {reducedMotion && (
+      {/* Fallback fond — avant mount ou reduced-motion */}
+      {(!mounted || reducedMotion) && (
         <div
           className="absolute inset-0 z-0"
           style={{ background: 'radial-gradient(ellipse at 50% 45%, #280808 0%, #0D0303 40%, #040101 100%)' }}
