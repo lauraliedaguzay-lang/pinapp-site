@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { HeroCanvas } from '../canvas/HeroCanvas';
 
@@ -53,35 +54,23 @@ export function Scene1Opening() {
     return () => window.removeEventListener('mousemove', onMouse);
   }, [mounted]);
 
-  // ── GSAP intro — éléments toujours visibles, animation en bonus ──
-  useEffect(() => {
-    if (!mounted) return;
+  // ── GSAP intro — useGSAP gère le ctx.revert() proprement en Strict Mode ──
+  useGSAP(() => {
+    // Efface tout résidu d'inline opacity de sessions précédentes
+    gsap.set('.hero-title, .hero-tagline, .hero-ornament', { clearProps: 'opacity' });
 
-    const title    = titleRef.current;
-    const tagline  = taglineRef.current;
-    const hint     = scrollHintRef.current;
-    const ornement = ornementRef.current;
-    if (!title || !tagline || !hint || !ornement) return;
-
-    // Ceinture + bretelles : efface tout résidu d'inline opacity laissé par d'anciens runs GSAP
-    gsap.set([title, tagline, hint, ornement], { clearProps: 'opacity' });
-
-    // ZÉRO animation opacity — CSS est la source de vérité (opacity:1 par défaut)
-    // On anime uniquement les transforms pour éviter le piège React Strict Mode
+    // Transforms uniquement — JAMAIS opacity dans ces tweens
     const tl = gsap.timeline({ delay: 0.3 });
-
-    tl.from(title,
+    tl.from('.hero-title',
       { y: 28, filter: 'blur(8px)', duration: 1.2, ease: 'power3.out', immediateRender: false },
     0);
-    tl.from(ornement,
+    tl.from('.hero-ornament',
       { scaleX: 0, duration: 0.7, ease: 'power2.out', immediateRender: false },
     0.6);
-    tl.from(tagline,
+    tl.from('.hero-tagline',
       { y: 14, duration: 0.85, ease: 'power2.out', immediateRender: false },
     0.75);
-
-    return () => { tl.kill(); };
-  }, [mounted]);
+  }, { dependencies: [mounted], revertOnUpdate: true });
 
   return (
     <section
@@ -140,7 +129,7 @@ export function Scene1Opening() {
         {/* Titre principal — SplitText appliqué ici */}
         <h1
           ref={titleRef}
-          className="relative select-none font-display font-extralight uppercase leading-none text-or-liquide"
+          className="hero-title relative select-none font-display font-extralight uppercase leading-none text-or-liquide"
           style={{
             fontSize: 'clamp(4.5rem, 13.5vw, 11.5rem)',
             letterSpacing: '0.24em',
@@ -159,7 +148,7 @@ export function Scene1Opening() {
         {/* Ornement ligne — scaleX animé */}
         <div
           ref={ornementRef}
-          className="my-5 flex items-center gap-3.5"
+          className="hero-ornament my-5 flex items-center gap-3.5"
           style={{ transformOrigin: 'center' }}
           aria-hidden
         >
@@ -175,7 +164,7 @@ export function Scene1Opening() {
         {/* Tagline */}
         <p
           ref={taglineRef}
-          className="font-body font-extralight uppercase text-or-pale"
+          className="hero-tagline font-body font-extralight uppercase text-or-pale"
           style={{
             fontSize: 'clamp(0.55rem, 1.3vw, 0.78rem)',
             letterSpacing: '0.52em',
