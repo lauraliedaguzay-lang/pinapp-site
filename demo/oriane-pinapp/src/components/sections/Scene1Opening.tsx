@@ -63,30 +63,19 @@ export function Scene1Opening() {
     const ornement = ornementRef.current;
     if (!title || !tagline || !hint || !ornement) return;
 
-    // GARANTIE immédiate — opacity:1 avant que GSAP ne touche quoi que ce soit
-    gsap.set([title, tagline, hint, ornement], { opacity: 1 });
-
-    // fromTo avec immediateRender:false → GSAP n'applique PAS le "from" à la création
-    // (évite le piège React Strict Mode : useEffect mount→cleanup→remount kill l'anim
-    //  en laissant le titre à opacity:0 si immediateRender avait appliqué le "from")
+    // ZÉRO animation opacity — CSS est la source de vérité (opacity:1 par défaut)
+    // On anime uniquement les transforms pour éviter le piège React Strict Mode
     const tl = gsap.timeline({ delay: 0.3 });
 
-    tl.fromTo(title,
-      { opacity: 0, y: 24, filter: 'blur(8px)', immediateRender: false },
-      { opacity: 1, y: 0,  filter: 'blur(0px)', duration: 1.2, ease: 'power3.out' },
+    tl.from(title,
+      { y: 28, filter: 'blur(8px)', duration: 1.2, ease: 'power3.out', immediateRender: false },
     0);
-    tl.fromTo(ornement,
-      { opacity: 0, scaleX: 0, immediateRender: false },
-      { opacity: 1, scaleX: 1, duration: 0.7, ease: 'power2.out' },
+    tl.from(ornement,
+      { scaleX: 0, duration: 0.7, ease: 'power2.out', immediateRender: false },
     0.6);
-    tl.fromTo(tagline,
-      { opacity: 0, y: 14, immediateRender: false },
-      { opacity: 1, y: 0,  duration: 0.85, ease: 'power2.out' },
+    tl.from(tagline,
+      { y: 14, duration: 0.85, ease: 'power2.out', immediateRender: false },
     0.75);
-    tl.fromTo(hint,
-      { opacity: 0, immediateRender: false },
-      { opacity: 1, duration: 0.6, ease: 'power2.out' },
-    1.3);
 
     return () => { tl.kill(); };
   }, [mounted]);
