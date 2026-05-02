@@ -53,7 +53,7 @@ export function Scene1Opening() {
     return () => window.removeEventListener('mousemove', onMouse);
   }, [mounted]);
 
-  // ── GSAP intro — fade-in simple, robuste ──
+  // ── GSAP intro — éléments toujours visibles, animation en bonus ──
   useEffect(() => {
     if (!mounted) return;
 
@@ -63,24 +63,25 @@ export function Scene1Opening() {
     const ornement = ornementRef.current;
     if (!title || !tagline || !hint || !ornement) return;
 
-    const tl = gsap.timeline({ delay: 0.4 });
+    // GARANTIE : rendre visible immédiatement quelle que soit la suite
+    gsap.set([title, tagline, hint, ornement], { opacity: 1, clearProps: 'none' });
 
-    tl.fromTo(title,
-      { opacity: 0, y: 28, filter: 'blur(10px)' },
-      { opacity: 1, y: 0,  filter: 'blur(0px)', duration: 1.3, ease: 'power3.out' },
+    // Animation en bonus — depuis un état "de sous" vers l'état actuel (opacity:1)
+    // gsap.from() anime VERS l'état CSS (opacity:1) sans jamais bloquer si ça échoue
+    const tl = gsap.timeline({ delay: 0.3 });
+
+    tl.from(title,
+      { opacity: 0, y: 24, filter: 'blur(8px)', duration: 1.2, ease: 'power3.out' },
     0);
-    tl.fromTo(ornement,
-      { opacity: 0, scaleX: 0 },
-      { opacity: 1, scaleX: 1, duration: 0.8, ease: 'power2.out' },
-    0.65);
-    tl.fromTo(tagline,
-      { opacity: 0, y: 18 },
-      { opacity: 1, y: 0,  duration: 0.9, ease: 'power2.out' },
-    0.82);
-    tl.fromTo(hint,
-      { opacity: 0 },
-      { opacity: 1, duration: 0.7, ease: 'power2.out' },
-    1.4);
+    tl.from(ornement,
+      { opacity: 0, scaleX: 0, duration: 0.7, ease: 'power2.out' },
+    0.6);
+    tl.from(tagline,
+      { opacity: 0, y: 14, duration: 0.85, ease: 'power2.out' },
+    0.75);
+    tl.from(hint,
+      { opacity: 0, duration: 0.6, ease: 'power2.out' },
+    1.3);
 
     return () => { tl.kill(); };
   }, [mounted]);
