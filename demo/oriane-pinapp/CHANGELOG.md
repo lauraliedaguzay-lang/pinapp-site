@@ -4,7 +4,38 @@
 
 ---
 
-### 2026-05-02
+### 2026-05-02 — Audit visuel (session 2)
+
+#### fix(audit): 5 bugs visuels corrigés
+
+**BUG 1 — Compteur "03/03" hors viewport** (`Scene4ThreeAubes.tsx`)
+- Guard `progress > 0.005 && progress < 0.995` autour du compteur
+- Le "03/03" disparaît quand on sort de la scène → ne déborde plus sur S5-8
+
+**BUG 2/3 — Sections S5/S6/S7/S8 invisibles (espaces noirs)**
+- Cause : `ScrollTrigger { once: true }` calcule des positions erronées après les sections pinnées S2/S3 (GSAP scroll distance virtuelle)
+- Fix : `IntersectionObserver` natif dans chaque scène (threshold 0.1–0.2)
+- État initial via `gsap.set()` au mount — plus d'`opacity:0` inline dans le JSX
+- Suppression de `ScrollTrigger` et de son import dans S5/S7/S8
+
+**BUG 4 — Paillettes S2 invisibles + phrase non visible** (`Scene2Verser.tsx`)
+- Cause particles : `var(--tx)/var(--ty)` dans `calc()` de `@keyframes` — non rendu dans certains contextes navigateur
+- Fix : 28 keyframes uniques `capJet_0..27` avec valeurs px hardcodées (calc sans variable)
+- Cause phrase : `style={{ opacity: 0 }}` inline conflictait avec `gsap.set autoAlpha`
+- Fix : `gsap.set({ autoAlpha: 0, y: 32 })` au mount, JSX sans inline opacity
+
+**BUG 5 — SparkleRain global invisible** (`SparkleRain.tsx`)
+- Cause : `OrthographicCamera` sans frustum explicite → THREE.js défaut `left=−1 right=1`
+- `PointsMaterial size=0.045–0.11` en world units → ~4–10px à cette échelle = imperceptible
+- Fix : composant `CameraFrustumFix` (via `useThree`) → `left=−1.2 right=1.2`, top/bottom ajustés par aspect ratio, `updateProjectionMatrix()` sur mount + resize
+
+#### fix(scene-3): séquence manifeste stricte (session 1)
+- Timeline GSAP avec slots `SLOT=0.72` — phrase i entièrement disparue avant que i+1 commence
+- `end: '+=220%'` pour accommoder 3 phrases + ligne verticale
+
+---
+
+### 2026-05-02 — Session 1
 
 #### fix(scene-1): 3 bugs corrigés
 
