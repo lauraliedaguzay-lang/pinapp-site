@@ -3024,19 +3024,49 @@ function emitScene(sectionId){
     if(st) setHero(st);
   }
 }
-if('IntersectionObserver' in window){
-  var io=new IntersectionObserver(function(entries){
-    var best=null, bestR=0;
+function syncStageFromHeroSection(){
+  var heroEl=document.getElementById('hero');
+  if(!heroEl) return;
+  var st=heroEl.getAttribute('data-stage');
+  if(st) setHero(st);
+}
+function processStageIntersectionEntries(entries){
+  var best=null, bestR=-1;
+  entries.forEach(function(en){
+    if(!en.isIntersecting) return;
+    var r=en.intersectionRatio;
+    if(r>bestR){ bestR=r; best=en.target; }
+  });
+  if(!best){
     entries.forEach(function(en){
       if(!en.isIntersecting) return;
-      if(en.intersectionRatio>bestR){ bestR=en.intersectionRatio; best=en.target; }
+      var r=en.intersectionRatio;
+      if(!best || r>bestR){ best=en.target; bestR=r; }
     });
-    if(!best){
-      entries.forEach(function(en){ if(en.isIntersecting && (!best || en.intersectionRatio>bestR)){ best=en.target; bestR=en.intersectionRatio; } });
-    }
-    if(best && best.id) emitScene(best.id);
+  }
+  if(best && best.id) emitScene(best.id);
+}
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(entries){
+    processStageIntersectionEntries(entries);
   },{threshold:[0,0.15,0.35,0.55,0.75],rootMargin:'-12% 0px -35% 0px'});
   document.querySelectorAll('main section[id]').forEach(function(sec){ io.observe(sec); });
+  try{
+    var pending=io.takeRecords();
+    if(pending && pending.length) processStageIntersectionEntries(pending);
+  }catch(e){}
+  var yTop=window.scrollY||document.documentElement.scrollTop||0;
+  if(!(typeof yTop==='number'&&!isNaN(yTop))||yTop<64) syncStageFromHeroSection();
+  if(typeof window.requestAnimationFrame==='function'){
+    window.requestAnimationFrame(function(){
+      try{
+        var pending2=io.takeRecords();
+        if(pending2 && pending2.length) processStageIntersectionEntries(pending2);
+      }catch(e2){}
+      var y2=window.scrollY||document.documentElement.scrollTop||0;
+      if(!(typeof y2==='number'&&!isNaN(y2))||y2<64) syncStageFromHeroSection();
+    });
+  }
 }
 
 if('IntersectionObserver' in window && !prefersReduced()){
