@@ -4,6 +4,29 @@
 
 ---
 
+### 2026-05-02 — Hero V5 · Scène 1 photorealistic 3D (session 3)
+
+#### feat(scene-1): rebuild Hero V5 photorealistic 3D parfumerie cinema-grade
+
+**Commit `b082d7ec`**
+
+- **Canvas R3F plein écran** — fond noir, position Z=5.5, FOV 38°, ACES tonemapping
+- **Flacon procédural LatheGeometry** — 17 points de profil (base → corps → épaule → col → goulot → lèvre), 80 segments
+- **MeshTransmissionMaterial** (verre) — backside + backsideThickness, transmission 0.96, IOR 1.52, chromaticAberration, distortion, temporalDistortion, attenuation `#D4A96A`
+- **Capuchon meshPhysicalMaterial** (or) — metalness 0.92, roughness 0.08, envMapIntensity 2.2, emissive subtle
+- **Environment + 4 Lightformers** : key chaud `#FFE4A0` haut-gauche, fill froid `#B0C8FF` bas-droite, rim blanc derrière, bounce doré bas
+- **Sparkles x2** : 150 en fond scale=8 doré, 60 proches scale=3 or-pale
+- **Shader GLSL backdrop** : radial bordeaux→noir avec halo doré pulsant (uniform `uTime`)
+- **EffectComposer** (desktop) : Bloom mipmap intensity=1.15, DepthOfField bokeh=2.8, ChromaticAberration, Vignette darkness=0.65
+- **useFrame camera rig** : mouse lerp 8%/frame (delta-based) + Float (speed=1.2) + scroll drift y/z
+- **HTML overlay** `mix-blend-mode: screen` — ORIANE (font-display) + ornement + tagline
+- **GSAP intro** : blur 12px→0 + translateY stagger (title 0s, tagline 0.55s, hint 1.4s)
+- **Mobile** : DPR 1.5, sparkles réduits, postprocessing désactivé
+- **prefers-reduced-motion** : Canvas désactivé, fond bordeaux CSS statique
+- **Packages ajoutés** : `@react-three/postprocessing ^3.0.4`, `maath ^0.10.8`, `vite` (peer dep fix)
+
+---
+
 ### 2026-05-02 — Audit visuel (session 2)
 
 #### fix(audit): 5 bugs visuels corrigés
