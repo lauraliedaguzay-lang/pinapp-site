@@ -1,403 +1,493 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { Suspense, useEffect, useRef, useMemo, useState } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import {
+  MeshTransmissionMaterial,
+  Sparkles,
+  Float,
+  Environment,
+  Lightformer,
+  OrbitControls,
+} from '@react-three/drei';
+import { EffectComposer, Bloom, DepthOfField, ChromaticAberration, Vignette } from '@react-three/postprocessing';
+import { BlendFunction } from 'postprocessing';
+import * as THREE from 'three';
+import gsap from 'gsap';
 
-// ─────────────────────────────────────────────────────────────
-// Constantes DA
-// ─────────────────────────────────────────────────────────────
-const LETTERS = 'ORIANE'.split('');
-
-// Parallax souris : déplacement max en px à l'extrémité de l'écran
-const MOUSE_MAX: readonly number[] = [10, 20, 30, 46, 68, 80, 110];
-
-// Parallax scroll : fraction de vh que la couche descend sur 1 section (100dvh)
-// négatif = la couche monte quand on scrolle (effet profondeur)
-const SCROLL_FACTOR: readonly number[] = [0.28, 0.34, 0.42, 0.5, 0.6, 0.65, 1.0];
-
-// ─────────────────────────────────────────────────────────────
-// Seeded pseudo-random [0, 1)
-// ─────────────────────────────────────────────────────────────
+// ─── Seeded random ───────────────────────────────────────────────────────────
 function sr(i: number, k: number): number {
   const x = Math.sin((i * 37.3 + k * 4.17 + 1.9) * 12.9898) * 43758.5453;
   return x - Math.floor(x);
 }
 
-// ─────────────────────────────────────────────────────────────
-// Couche 2 — Brumes dorées (grandes taches floues)
-// ─────────────────────────────────────────────────────────────
-const MISTS = Array.from({ length: 10 }, (_, i) => ({
-  left: (5 + sr(i, 0) * 90).toFixed(1),
-  top:  (5 + sr(i, 1) * 90).toFixed(1),
-  size: Math.round(200 + sr(i, 2) * 350),
-  color: (['rgba(244,201,119,0.09)', 'rgba(212,165,116,0.07)', 'rgba(244,228,193,0.06)'] as const)[
-    Math.floor(sr(i, 3) * 3)
-  ],
-  dur:  (12 + sr(i, 4) * 14).toFixed(1),
-  del:  (sr(i, 5)  * 9).toFixed(1),
-  dx1:  ((sr(i, 6)  - 0.5) * 28).toFixed(0),
-  dy1:  ((sr(i, 7)  - 0.5) * 18).toFixed(0),
-  dx2:  ((sr(i, 8)  - 0.5) * 28).toFixed(0),
-  dy2:  ((sr(i, 9)  - 0.5) * 18).toFixed(0),
-  name: `s1mist${i}`,
-}));
+// ─── Flacon procédural ───────────────────────────────────────────────────────
+function buildFlaconPoints(): THREE.Vector2[] {
+  // Points de profil (r, y) — revolved autour de Y
+  // Fond légèrement courbé → épaule → col → goulot → lèvre
+  const raw: [number, number][] = [
+    [0.00,  -1.10],  // base centre
+    [0.48,  -1.10],  // base bord
+    [0.54,  -1.00],  // arrondi base
+    [0.56,  -0.80],
+    [0.56,   0.40],  // corps principal
+    [0.52,   0.70],  // début épaule
+    [0.38,   0.90],  // mi-épaule
+    [0.22,   1.00],  // col
+    [0.20,   1.20],
+    [0.24,   1.30],  // légère rebord col
+    [0.20,   1.35],
+    [0.20,   1.60],  // goulot droit
+    [0.24,   1.65],  // lèvre ext
+    [0.24,   1.72],
+    [0.18,   1.72],  // lèvre int
+    [0.18,   1.60],
+    [0.00,   1.60],  // axe pour fermer
+  ];
+  return raw.map(([r, y]) => new THREE.Vector2(r, y));
+}
 
-// ─────────────────────────────────────────────────────────────
-// Couche 4 — Paillettes arrière (petites, 100 pièces)
-// ─────────────────────────────────────────────────────────────
-const SPARKS_BACK = Array.from({ length: 100 }, (_, i) => ({
-  left: (sr(i, 10) * 100).toFixed(1),
-  top:  (sr(i, 11) * 100).toFixed(1),
-  size: (1 + sr(i, 12) * 2).toFixed(1),
-  color: (['#F4C977', '#D4A574', '#F4E4C1'] as const)[Math.floor(sr(i, 13) * 3)],
-  dur:  (8  + sr(i, 14) * 10).toFixed(1),
-  del:  (sr(i, 15) * 12).toFixed(1),
-  name: `s1sb${i}`,
-}));
+function buildCapPoints(): THREE.Vector2[] {
+  const raw: [number, number][] = [
+    [0.00,  0.00],
+    [0.28,  0.00],
+    [0.30,  0.04],
+    [0.30,  0.60],
+    [0.28,  0.68],
+    [0.20,  0.72],
+    [0.00,  0.72],
+  ];
+  return raw.map(([r, y]) => new THREE.Vector2(r, y));
+}
 
-// ─────────────────────────────────────────────────────────────
-// Couche 7 — Paillettes premier plan (plus grosses, 36 pièces)
-// ─────────────────────────────────────────────────────────────
-const SPARKS_FRONT = Array.from({ length: 36 }, (_, i) => ({
-  left:  (sr(i, 20) * 100).toFixed(1),
-  top:   (sr(i, 21) * 100).toFixed(1),
-  size:  (2.5 + sr(i, 22) * 4).toFixed(1),
-  color: (['#F4C977', '#D4A574', '#F4E4C1', '#F4C977'] as const)[Math.floor(sr(i, 23) * 4)],
-  dur:   (4  + sr(i, 24) * 6).toFixed(1),
-  del:   (sr(i, 25) * 8).toFixed(1),
-  name:  `s1sf${i}`,
-}));
+// ─── Matériaux partagés ───────────────────────────────────────────────────────
+const colorGold = new THREE.Color('#C9A84C');
+const colorGoldLight = new THREE.Color('#E8C97A');
+const colorBordeaux = new THREE.Color('#2A0A0A');
 
-// ─────────────────────────────────────────────────────────────
-// Générer les @keyframes comme une chaîne statique
-// ─────────────────────────────────────────────────────────────
-const KEYFRAMES = [
-  // Brumes
-  ...MISTS.map(
-    (m) => `@keyframes ${m.name} {
-      0%,100% { transform:translate(0px,0px) scale(1); opacity:.55; }
-      33%     { transform:translate(${m.dx1}px,${m.dy1}px) scale(1.07); opacity:.82; }
-      66%     { transform:translate(${m.dx2}px,${m.dy2}px) scale(.95); opacity:.38; }
-    }`,
-  ),
-  // Paillettes arrière
-  ...SPARKS_BACK.map(
-    (s) => `@keyframes ${s.name} {
-      0%   { opacity:0;    transform:translateY(0px)   scale(.6); }
-      20%  { opacity:.75; }
-      60%  { opacity:.45; transform:translateY(-18px) scale(1); }
-      100% { opacity:0;    transform:translateY(-36px) scale(.4); }
-    }`,
-  ),
-  // Paillettes avant
-  ...SPARKS_FRONT.map(
-    (s) => `@keyframes ${s.name} {
-      0%   { opacity:0;    transform:translateY(0px)   scale(.5); }
-      18%  { opacity:.9; }
-      55%  { opacity:.55; transform:translateY(-24px) scale(1); }
-      100% { opacity:0;    transform:translateY(-50px) scale(.35); }
-    }`,
-  ),
-  // Halos pulse (partagés)
-  `@keyframes s1halo0 { 0%,100%{transform:scale(.95);opacity:.28;} 50%{transform:scale(1.04);opacity:.52;} }`,
-  `@keyframes s1halo1 { 0%,100%{transform:scale(1.02);opacity:.18;} 50%{transform:scale(.97);opacity:.42;} }`,
-  `@keyframes s1halo2 { 0%,100%{transform:scale(.97);opacity:.22;} 50%{transform:scale(1.05);opacity:.45;} }`,
-  `@keyframes s1halo3 { 0%,100%{transform:scale(1.03);opacity:.15;} 50%{transform:scale(.95);opacity:.38;} }`,
-  // Entrée lettres
-  `@keyframes s1letterIn {
-    from { opacity:0; transform:translateY(20px) scale(.9); filter:blur(5px); }
-    to   { opacity:1; transform:translateY(0px)  scale(1);  filter:blur(0px); }
-  }`,
-  // Tagline
-  `@keyframes s1tagFade {
-    from { opacity:0; transform:translateY(12px); }
-    to   { opacity:1; transform:translateY(0px); }
-  }`,
-  // Scroll hint
-  `@keyframes s1hint {
-    0%,100% { transform:translate(-50%,0px); opacity:.55; }
-    50%     { transform:translate(-50%,7px); opacity:.9; }
-  }`,
-  // Grain pulse
-  `@keyframes s1grain {
-    0%,100% { opacity:.025; }
-    50%     { opacity:.045; }
-  }`,
-  // Reduced motion: désactive toutes les animations couteuses
-  `@media (prefers-reduced-motion:reduce) {
-    .s1-mist,.s1-spark,.s1-halo { animation:none !important; opacity:.5 !important; }
-  }`,
-].join('\n');
-
-// ─────────────────────────────────────────────────────────────
-// Composant principal
-// ─────────────────────────────────────────────────────────────
-export function Scene1Opening() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  // Un ref par couche (ordre = MOUSE_MAX / SCROLL_FACTOR)
-  const bgRef        = useRef<HTMLDivElement>(null); // 0
-  const brumeRef     = useRef<HTMLDivElement>(null); // 1
-  const halosRef     = useRef<HTMLDivElement>(null); // 2
-  const sparkBRef    = useRef<HTMLDivElement>(null); // 3
-  const titleRef     = useRef<HTMLDivElement>(null); // 4
-  const taglineRef   = useRef<HTMLDivElement>(null); // 5
-  const sparkFRef    = useRef<HTMLDivElement>(null); // 6
+// ─── Composant Flacon ────────────────────────────────────────────────────────
+function Flacon({ scrollRef }: { scrollRef: React.MutableRefObject<number> }) {
+  const groupRef = useRef<THREE.Group>(null);
+  const capRef = useRef<THREE.Mesh>(null);
+  const mouseRef = useRef({ x: 0, y: 0 });
+  const currentRot = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
+    const onMouse = (e: MouseEvent) => {
+      mouseRef.current.x = (e.clientX / window.innerWidth - 0.5) * 2;
+      mouseRef.current.y = -(e.clientY / window.innerHeight - 0.5) * 2;
+    };
+    window.addEventListener('mousemove', onMouse);
+    return () => window.removeEventListener('mousemove', onMouse);
+  }, []);
 
-    const rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const flaconGeo = useMemo(() => new THREE.LatheGeometry(buildFlaconPoints(), 80), []);
+  const capGeo    = useMemo(() => new THREE.LatheGeometry(buildCapPoints(), 64), []);
 
-    const layers = [bgRef, brumeRef, halosRef, sparkBRef, titleRef, taglineRef, sparkFRef];
+  useEffect(() => {
+    return () => { flaconGeo.dispose(); capGeo.dispose(); };
+  }, [flaconGeo, capGeo]);
 
-    if (rm) {
-      // Mode sobre : pas de parallax, tout visible
-      layers.forEach((r) => {
-        if (r.current) r.current.style.transform = 'translate3d(0,0,0)';
-      });
+  useFrame((state, delta) => {
+    const g = groupRef.current;
+    if (!g) return;
+
+    const LERP = 1 - Math.pow(0.08, delta);
+    currentRot.current.x += (mouseRef.current.y * 0.12 - currentRot.current.x) * LERP;
+    currentRot.current.y += (mouseRef.current.x * 0.18 - currentRot.current.y) * LERP;
+
+    g.rotation.x = currentRot.current.x;
+    g.rotation.y = currentRot.current.y + state.clock.elapsedTime * 0.06;
+
+    // Scroll animation: dérive vers le haut et s'éloigne
+    const sv = Math.max(0, Math.min(1, scrollRef.current));
+    g.position.y = sv * 1.8;
+    g.position.z = sv * -2.0;
+    g.scale.setScalar(1 - sv * 0.15);
+  });
+
+  return (
+    <Float speed={1.2} rotationIntensity={0.08} floatIntensity={0.25}>
+      <group ref={groupRef} position={[0, -0.3, 0]}>
+        {/* Corps du flacon — verre */}
+        <mesh geometry={flaconGeo} castShadow>
+          <MeshTransmissionMaterial
+            backside
+            backsideThickness={0.3}
+            thickness={0.35}
+            chromaticAberration={0.06}
+            anisotropicBlur={0.12}
+            distortion={0.12}
+            distortionScale={0.35}
+            temporalDistortion={0.05}
+            transmission={0.96}
+            ior={1.52}
+            roughness={0.04}
+            metalness={0.0}
+            color="#E8D5B5"
+            attenuationColor="#D4A96A"
+            attenuationDistance={0.8}
+            envMapIntensity={1.4}
+          />
+        </mesh>
+
+        {/* Capuchon — métal doré */}
+        <mesh
+          ref={capRef}
+          geometry={capGeo}
+          castShadow
+          position={[0, 1.60, 0]}
+        >
+          <meshPhysicalMaterial
+            color={colorGold}
+            metalness={0.92}
+            roughness={0.08}
+            envMapIntensity={2.2}
+            emissive={colorGoldLight}
+            emissiveIntensity={0.12}
+            reflectivity={1}
+          />
+        </mesh>
+
+        {/* Fond du flacon — légèrement opaque */}
+        <mesh position={[0, -1.10, 0]}>
+          <cylinderGeometry args={[0.48, 0.48, 0.04, 64]} />
+          <meshPhysicalMaterial
+            color="#2A1A08"
+            metalness={0.1}
+            roughness={0.6}
+            transparent
+            opacity={0.7}
+          />
+        </mesh>
+
+        {/* Label simulé — quad bordeaux subtil */}
+        <mesh position={[0, -0.1, 0.575]}>
+          <planeGeometry args={[0.72, 0.88]} />
+          <meshBasicMaterial
+            color="#1A0A06"
+            transparent
+            opacity={0.55}
+            depthWrite={false}
+          />
+        </mesh>
+      </group>
+    </Float>
+  );
+}
+
+// ─── Background plane (shader bordeaux → noir) ───────────────────────────────
+function BackdropPlane() {
+  const mat = useRef<THREE.ShaderMaterial>(null);
+
+  const shader = useMemo(() => ({
+    uniforms: {
+      uTime: { value: 0 },
+    },
+    vertexShader: /* glsl */`
+      varying vec2 vUv;
+      void main() {
+        vUv = uv;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+      }
+    `,
+    fragmentShader: /* glsl */`
+      varying vec2 vUv;
+      uniform float uTime;
+      void main() {
+        vec3 cDark   = vec3(0.02, 0.005, 0.005);
+        vec3 cBordeaux = vec3(0.16, 0.03, 0.04);
+        vec3 cGold   = vec3(0.22, 0.14, 0.04);
+
+        float d = length(vUv - vec2(0.5, 0.45));
+        float pulse = 0.5 + 0.5 * sin(uTime * 0.35);
+
+        // Fond bordeaux radial au centre
+        float r1 = smoothstep(0.7, 0.05, d);
+        // Halo doré léger
+        float r2 = smoothstep(0.45, 0.10, d) * (0.18 + pulse * 0.08);
+
+        vec3 col = mix(cDark, cBordeaux, r1);
+        col = mix(col, cGold, r2);
+
+        gl_FragColor = vec4(col, 1.0);
+      }
+    `,
+  }), []);
+
+  useFrame((state) => {
+    if (mat.current) mat.current.uniforms.uTime.value = state.clock.elapsedTime;
+  });
+
+  return (
+    <mesh position={[0, 0, -4]}>
+      <planeGeometry args={[20, 20]} />
+      <shaderMaterial ref={mat} args={[shader]} />
+    </mesh>
+  );
+}
+
+// ─── Lights ──────────────────────────────────────────────────────────────────
+function Lights() {
+  return (
+    <Environment resolution={256}>
+      {/* Key light — chaud haut gauche */}
+      <Lightformer
+        intensity={4.5}
+        color="#FFE4A0"
+        position={[-3, 4, 2]}
+        rotation={[0, Math.PI / 3, 0]}
+        scale={[3, 2, 1]}
+        form="rect"
+      />
+      {/* Fill light — froid bas droite */}
+      <Lightformer
+        intensity={1.8}
+        color="#B0C8FF"
+        position={[4, -2, 1]}
+        rotation={[0, -Math.PI / 4, 0]}
+        scale={[2, 3, 1]}
+        form="rect"
+      />
+      {/* Rim light — blanc derrière */}
+      <Lightformer
+        intensity={3.2}
+        color="#FFFFFF"
+        position={[0, 0, -5]}
+        scale={[6, 6, 1]}
+        form="rect"
+      />
+      {/* Bounce doré bas */}
+      <Lightformer
+        intensity={1.2}
+        color="#D4A96A"
+        position={[0, -3, 2]}
+        rotation={[Math.PI / 2, 0, 0]}
+        scale={[4, 4, 1]}
+        form="rect"
+      />
+    </Environment>
+  );
+}
+
+// ─── Postprocessing (desktop only) ──────────────────────────────────────────
+function PostFX({ isMobile }: { isMobile: boolean }) {
+  if (isMobile) return null;
+  return (
+    <EffectComposer multisampling={0}>
+      <Bloom
+        intensity={1.15}
+        luminanceThreshold={0.55}
+        luminanceSmoothing={0.7}
+        mipmapBlur
+      />
+      <DepthOfField
+        focusDistance={0.0}
+        focalLength={0.06}
+        bokehScale={2.8}
+        height={480}
+      />
+      <ChromaticAberration
+        blendFunction={BlendFunction.NORMAL}
+        offset={new THREE.Vector2(0.0018, 0.0018) as unknown as [number, number]}
+        radialModulation={false}
+        modulationOffset={0}
+      />
+      <Vignette eskil={false} offset={0.22} darkness={0.65} />
+    </EffectComposer>
+  );
+}
+
+// ─── Scene R3F ───────────────────────────────────────────────────────────────
+function Scene3D({ isMobile, scrollRef }: { isMobile: boolean; scrollRef: React.MutableRefObject<number> }) {
+  const count = isMobile ? 60 : 150;
+  return (
+    <>
+      <BackdropPlane />
+      <Lights />
+      <Flacon scrollRef={scrollRef} />
+
+      {/* Sparkles fond lointain */}
+      <Sparkles
+        count={count}
+        scale={8}
+        size={isMobile ? 1.8 : 2.8}
+        speed={0.25}
+        opacity={0.55}
+        color="#C9A84C"
+        position={[0, 0, -2]}
+      />
+      {/* Sparkles proches — autour du flacon */}
+      <Sparkles
+        count={Math.floor(count * 0.4)}
+        scale={3}
+        size={isMobile ? 1.2 : 2.0}
+        speed={0.45}
+        opacity={0.7}
+        color="#F4E4C1"
+        position={[0, 0, 0]}
+      />
+
+      <PostFX isMobile={isMobile} />
+    </>
+  );
+}
+
+// ─── Intro animation overlay ──────────────────────────────────────────────────
+function useIntroAnim(
+  titleRef: React.RefObject<HTMLDivElement | null>,
+  taglineRef: React.RefObject<HTMLDivElement | null>,
+  scrollHintRef: React.RefObject<HTMLDivElement | null>,
+) {
+  useEffect(() => {
+    const title    = titleRef.current;
+    const tagline  = taglineRef.current;
+    const hint     = scrollHintRef.current;
+    if (!title || !tagline || !hint) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      gsap.set([title, tagline, hint], { opacity: 1, y: 0, filter: 'none' });
       return;
     }
 
-    // ── État lerp souris ────────────────────────────────────
-    let targetX = 0, targetY = 0;
-    let currentX = 0, currentY = 0;
-    let rafId = 0;
+    gsap.set(title,   { opacity: 0, y: 28, filter: 'blur(12px)' });
+    gsap.set(tagline, { opacity: 0, y: 16, filter: 'blur(6px)' });
+    gsap.set(hint,    { opacity: 0 });
 
-    const LERP = 0.065;
+    const tl = gsap.timeline({ delay: 0.5 });
+    tl.to(title,   { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.4, ease: 'power3.out' }, 0);
+    tl.to(tagline, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.1, ease: 'power3.out' }, 0.55);
+    tl.to(hint,    { opacity: 1, duration: 0.8, ease: 'power2.out' }, 1.4);
+  }, [titleRef, taglineRef, scrollHintRef]);
+}
 
-    const onMouseMove = (e: MouseEvent) => {
-      targetX = (e.clientX / window.innerWidth  - 0.5) * 2; // -1 → +1
-      targetY = (e.clientY / window.innerHeight - 0.5) * 2;
-    };
-    const onMouseLeave = () => { targetX = 0; targetY = 0; };
+// ─── Section principale ───────────────────────────────────────────────────────
+export function Scene1Opening() {
+  const sectionRef    = useRef<HTMLElement>(null);
+  const titleRef      = useRef<HTMLDivElement>(null);
+  const taglineRef    = useRef<HTMLDivElement>(null);
+  const scrollHintRef = useRef<HTMLDivElement>(null);
+  const scrollRef     = useRef(0);
 
-    // ── rAF loop unique : mouse + scroll en un seul translate3d ─
-    const tick = () => {
-      currentX += (targetX - currentX) * LERP;
-      currentY += (targetY - currentY) * LERP;
+  const [isMobile, setIsMobile] = useState(false);
+  const reducedMotion = typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      // Scroll normalisé : 0 = top du hero, 1 = bottom du hero
-      const rect = section.getBoundingClientRect();
-      const scrollNorm = Math.max(0, Math.min(1, -rect.top / window.innerHeight));
-
-      // Fade-out hero après 50% de scroll
-      const alpha = scrollNorm < 0.5 ? 1 : Math.max(0, 1 - (scrollNorm - 0.5) * 2.2);
-      section.style.opacity = alpha.toFixed(3);
-
-      layers.forEach((ref, i) => {
-        const el = ref.current;
-        if (!el) return;
-        const mx = currentX * MOUSE_MAX[i]!;
-        const my = currentY * MOUSE_MAX[i]!;
-        // scroll : descend proportionnellement selon le facteur
-        const sy = -scrollNorm * SCROLL_FACTOR[i]! * window.innerHeight;
-        el.style.transform = `translate3d(${mx.toFixed(2)}px,${(my + sy).toFixed(2)}px,0)`;
-      });
-
-      rafId = requestAnimationFrame(tick);
-    };
-
-    window.addEventListener('mousemove', onMouseMove, { passive: true });
-    section.addEventListener('mouseleave', onMouseLeave, { passive: true });
-    rafId = requestAnimationFrame(tick);
-
-    return () => {
-      window.removeEventListener('mousemove', onMouseMove);
-      section.removeEventListener('mouseleave', onMouseLeave);
-      cancelAnimationFrame(rafId);
-      section.style.opacity = '1';
-      layers.forEach((r) => { if (r.current) r.current.style.transform = ''; });
-    };
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)');
+    setIsMobile(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
   }, []);
+
+  // Scroll tracking
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const onScroll = () => {
+      const rect = section.getBoundingClientRect();
+      scrollRef.current = Math.max(0, Math.min(1, -rect.top / window.innerHeight));
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useIntroAnim(titleRef, taglineRef, scrollHintRef);
 
   return (
     <section
       ref={sectionRef}
-      className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden bg-[#0A0805]"
-      aria-label="Ouverture Maison ORIANE"
+      className="relative h-[100dvh] w-full overflow-hidden bg-[#080202]"
+      aria-label="Maison ORIANE — Ouverture"
     >
-      <style>{KEYFRAMES}</style>
-
-      {/* ── Couche 1 — Background atmosphère ── */}
-      <div
-        ref={bgRef}
-        className="absolute inset-0 will-change-transform"
-        style={{ zIndex: 1 }}
-        aria-hidden
-      >
-        {/* Gradient principal */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'radial-gradient(ellipse 80% 70% at 50% 42%, rgba(74,31,31,0.38) 0%, rgba(20,10,5,0.88) 52%, #0A0805 80%)',
-          }}
-        />
-        {/* Grain SVG pulsant */}
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-            backgroundSize: '220px 220px',
-            animation: 's1grain 5s ease-in-out infinite',
-          }}
-        />
-      </div>
-
-      {/* ── Couche 2 — Brumes dorées ── */}
-      <div
-        ref={brumeRef}
-        className="pointer-events-none absolute inset-0 will-change-transform"
-        style={{ zIndex: 2 }}
-        aria-hidden
-      >
-        {MISTS.map((m) => (
-          <div
-            key={m.name}
-            className="s1-mist absolute -translate-x-1/2 -translate-y-1/2 rounded-full"
-            style={{
-              left: `${m.left}%`,
-              top: `${m.top}%`,
-              width: m.size,
-              height: m.size,
-              background: `radial-gradient(ellipse at center, ${m.color} 0%, transparent 70%)`,
-              filter: 'blur(32px)',
-              animationName: m.name,
-              animationDuration: `${m.dur}s`,
-              animationDelay: `${m.del}s`,
-              animationTimingFunction: 'ease-in-out',
-              animationIterationCount: 'infinite',
+      {/* Canvas 3D — fond plein écran */}
+      {!reducedMotion && (
+        <div className="absolute inset-0 z-0">
+          <Canvas
+            camera={{ position: [0, 0, 5.5], fov: 38, near: 0.1, far: 40 }}
+            gl={{
+              alpha: false,
+              antialias: !isMobile,
+              toneMapping: THREE.ACESFilmicToneMapping,
+              toneMappingExposure: 1.15,
             }}
-          />
-        ))}
-      </div>
-
-      {/* ── Couche 3 — Halos lumineux ── */}
-      <div
-        ref={halosRef}
-        className="pointer-events-none absolute inset-0 will-change-transform"
-        style={{ zIndex: 3 }}
-        aria-hidden
-      >
-        {([
-          { w: 420,  l: '32%', t: '38%', dur: 6.5, del: 0   },
-          { w: 660,  l: '62%', t: '55%', dur: 8,   del: 1.4 },
-          { w: 880,  l: '44%', t: '50%', dur: 5.5, del: 2.8 },
-          { w: 1080, l: '54%', t: '42%', dur: 7.2, del: 0.8 },
-        ] as const).map(({ w, l, t, dur, del }, i) => (
-          <div
-            key={i}
-            className="s1-halo absolute -translate-x-1/2 -translate-y-1/2 rounded-full"
-            style={{
-              left: l,
-              top: t,
-              width: w,
-              height: w,
-              background: `radial-gradient(ellipse at center, rgba(244,201,119,0.22) 0%, rgba(212,165,116,0.1) 35%, transparent 70%)`,
-              animationName: `s1halo${i}`,
-              animationDuration: `${dur}s`,
-              animationDelay: `${del}s`,
-              animationTimingFunction: 'ease-in-out',
-              animationIterationCount: 'infinite',
-            }}
-          />
-        ))}
-      </div>
-
-      {/* ── Couche 4 — Paillettes arrière ── */}
-      <div
-        ref={sparkBRef}
-        className="pointer-events-none absolute inset-0 will-change-transform"
-        style={{ zIndex: 4 }}
-        aria-hidden
-      >
-        {SPARKS_BACK.map((s) => (
-          <div
-            key={s.name}
-            className="s1-spark absolute rounded-full"
-            style={{
-              left: `${s.left}%`,
-              top: `${s.top}%`,
-              width: `${s.size}px`,
-              height: `${s.size}px`,
-              background: s.color,
-              boxShadow: `0 0 4px 1px ${s.color}88`,
-              animationName: s.name,
-              animationDuration: `${s.dur}s`,
-              animationDelay: `${s.del}s`,
-              animationTimingFunction: 'ease-in-out',
-              animationIterationCount: 'infinite',
-              opacity: 0,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* ── Couche 5 — Titre ORIANE ── */}
-      <div
-        ref={titleRef}
-        className="pointer-events-none absolute inset-0 flex items-center justify-center will-change-transform"
-        style={{ zIndex: 10 }}
-      >
-        <h1
-          className="flex flex-wrap justify-center font-display font-light italic leading-none tracking-tight text-ivoire-chaud"
-          style={{
-            fontSize: 'clamp(4.5rem, 14vw, 12rem)',
-            fontWeight: 300,
-            textShadow: [
-              '0 0 15px rgba(244,201,119,0.7)',
-              '0 0 40px rgba(244,201,119,0.45)',
-              '0 0 80px rgba(244,201,119,0.25)',
-              '0 0 160px rgba(212,165,116,0.12)',
-            ].join(', '),
-          }}
-        >
-          {LETTERS.map((ch, i) => (
-            <span
-              key={i}
-              className="inline-block"
-              style={{
-                animation: `s1letterIn 900ms cubic-bezier(0.22,1,0.36,1) ${i * 80}ms both`,
-              }}
-            >
-              {ch}
-            </span>
-          ))}
-        </h1>
-      </div>
-
-      {/* ── Couche 6 — Tagline + ornement ── */}
-      <div
-        ref={taglineRef}
-        className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center will-change-transform"
-        style={{ zIndex: 11 }}
-      >
-        {/* Décalage vertical : en-dessous du titre */}
-        <div
-          style={{ marginTop: 'clamp(6rem, 16vw, 13.5rem)' }}
-        >
-          <div
-            className="mx-auto mb-3 flex items-center justify-center gap-3"
-            style={{ animation: 's1tagFade 700ms ease-out 820ms both' }}
+            dpr={isMobile ? [1, 1.5] : [1, 2]}
+            className="h-full w-full"
           >
-            <div className="h-px w-7 opacity-50" style={{ background: '#D4A574' }} />
-            <span
-              className="font-body uppercase"
-              style={{ fontSize: '0.52rem', letterSpacing: '0.55em', color: '#D4A574', fontWeight: 200, opacity: 0.55 }}
-            >
-              Bordeaux 2026
-            </span>
-            <div className="h-px w-7 opacity-50" style={{ background: '#D4A574' }} />
-          </div>
-          <p
-            className="text-center font-display italic"
+            <Suspense fallback={null}>
+              <Scene3D isMobile={isMobile} scrollRef={scrollRef} />
+            </Suspense>
+          </Canvas>
+        </div>
+      )}
+
+      {/* Fallback fond pour reduced-motion */}
+      {reducedMotion && (
+        <div
+          className="absolute inset-0 z-0"
+          style={{ background: 'radial-gradient(ellipse at 50% 45%, #280808 0%, #0D0303 40%, #040101 100%)' }}
+        />
+      )}
+
+      {/* Overlay gradient bas — fondu vers section suivante */}
+      <div
+        className="pointer-events-none absolute bottom-0 left-0 right-0 z-10 h-48"
+        style={{ background: 'linear-gradient(to bottom, transparent, #040101)' }}
+        aria-hidden
+      />
+
+      {/* Contenu HTML — mix-blend-mode screen pour fusion avec 3D */}
+      <div className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center px-6 text-center">
+        {/* Ornement haut */}
+        <div
+          className="mb-5 text-[0.55rem] font-light uppercase tracking-[0.55em] text-or-pale/60"
+          style={{ fontFamily: 'var(--font-body, serif)' }}
+        >
+          Bordeaux · 2026
+        </div>
+
+        {/* Titre principal */}
+        <div
+          ref={titleRef}
+          className="relative select-none"
+          style={{ mixBlendMode: 'screen' }}
+        >
+          <h1
+            className="font-display font-extralight uppercase leading-none text-or-liquide"
             style={{
-              fontSize: '1rem',
-              fontWeight: 200,
-              letterSpacing: '0.14em',
-              color: '#F4E4C1',
-              animation: 's1tagFade 700ms ease-out 960ms both',
+              fontSize: 'clamp(4.5rem, 13vw, 11rem)',
+              letterSpacing: '0.22em',
+              textShadow: [
+                '0 0 60px rgba(212,169,106,0.55)',
+                '0 0 120px rgba(212,169,106,0.25)',
+                '0 0 240px rgba(180,100,60,0.18)',
+                '0 2px 4px rgba(0,0,0,0.6)',
+              ].join(', '),
+            }}
+          >
+            ORIANE
+          </h1>
+        </div>
+
+        {/* Ligne ornementale */}
+        <div className="my-5 flex items-center gap-4" aria-hidden>
+          <div className="h-px w-12 bg-gradient-to-r from-transparent to-or-pale/50" />
+          <div className="h-[3px] w-[3px] rounded-full bg-or-pale/70" />
+          <div className="h-px w-12 bg-gradient-to-l from-transparent to-or-pale/50" />
+        </div>
+
+        {/* Tagline */}
+        <div
+          ref={taglineRef}
+          style={{ mixBlendMode: 'screen' }}
+        >
+          <p
+            className="font-body font-extralight uppercase text-or-pale"
+            style={{
+              fontSize: 'clamp(0.6rem, 1.4vw, 0.82rem)',
+              letterSpacing: '0.48em',
+              textShadow: '0 0 20px rgba(212,169,106,0.35)',
             }}
           >
             Une parfumerie.
@@ -405,53 +495,29 @@ export function Scene1Opening() {
         </div>
       </div>
 
-      {/* ── Couche 7 — Paillettes premier plan ── */}
+      {/* Scroll hint */}
       <div
-        ref={sparkFRef}
-        className="pointer-events-none absolute inset-0 will-change-transform"
-        style={{ zIndex: 15 }}
+        ref={scrollHintRef}
+        className="pointer-events-none absolute bottom-8 left-1/2 z-20 -translate-x-1/2 flex flex-col items-center gap-2"
         aria-hidden
       >
-        {SPARKS_FRONT.map((s) => (
-          <div
-            key={s.name}
-            className="s1-spark absolute rounded-full"
-            style={{
-              left: `${s.left}%`,
-              top: `${s.top}%`,
-              width: `${s.size}px`,
-              height: `${s.size}px`,
-              background: s.color,
-              boxShadow: `0 0 6px 2px ${s.color}aa`,
-              animationName: s.name,
-              animationDuration: `${s.dur}s`,
-              animationDelay: `${s.del}s`,
-              animationTimingFunction: 'ease-in-out',
-              animationIterationCount: 'infinite',
-              opacity: 0,
-            }}
-          />
-        ))}
+        <span
+          className="font-body text-[0.5rem] uppercase tracking-[0.45em] text-or-pale/40"
+        >
+          Scroll
+        </span>
+        <div
+          className="h-8 w-px bg-gradient-to-b from-or-pale/30 to-transparent"
+          style={{ animation: 'scene1ScrollPulse 2s ease-in-out infinite' }}
+        />
       </div>
 
-      {/* ── Couche 8 — Scroll indicator ── */}
-      <div
-        className="pointer-events-none absolute bottom-[4.5vh] left-1/2 z-[20]"
-        aria-hidden
-        style={{ animation: 's1hint 2.6s ease-in-out 1.4s infinite' }}
-      >
-        <p
-          className="font-body uppercase"
-          style={{
-            fontSize: '0.65rem',
-            fontWeight: 200,
-            letterSpacing: '0.52em',
-            color: 'rgba(244,228,193,0.38)',
-          }}
-        >
-          SCROLL ↓
-        </p>
-      </div>
+      <style>{`
+        @keyframes scene1ScrollPulse {
+          0%, 100% { opacity: 0.3; transform: scaleY(1); }
+          50% { opacity: 0.8; transform: scaleY(1.3); }
+        }
+      `}</style>
     </section>
   );
 }
