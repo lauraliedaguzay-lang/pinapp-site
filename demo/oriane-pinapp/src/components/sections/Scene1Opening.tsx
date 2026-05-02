@@ -63,6 +63,9 @@ export function Scene1Opening() {
     const ornement = ornementRef.current;
     if (!title || !tagline || !hint || !ornement) return;
 
+    // Ceinture + bretelles : efface tout résidu d'inline opacity laissé par d'anciens runs GSAP
+    gsap.set([title, tagline, hint, ornement], { clearProps: 'opacity' });
+
     // ZÉRO animation opacity — CSS est la source de vérité (opacity:1 par défaut)
     // On anime uniquement les transforms pour éviter le piège React Strict Mode
     const tl = gsap.timeline({ delay: 0.3 });
