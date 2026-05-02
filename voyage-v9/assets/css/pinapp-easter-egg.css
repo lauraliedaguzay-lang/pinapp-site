@@ -1,0 +1,118 @@
+/**
+ * Pinapp V12 — easter egg pierres (raccourcis sections)
+ */
+.footer-easter-wrap {
+  margin: var(--sp-5) 0 var(--sp-3);
+}
+
+.easter-egg-trigger {
+  cursor: help;
+  display: inline-block;
+  font-size: var(--fs-micro);
+  letter-spacing: 0.06em;
+  color: var(--ivoire-dim);
+  border-bottom: 1px dashed rgba(230, 185, 115, 0.35);
+  padding-bottom: 2px;
+  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+
+.easter-egg-trigger:hover,
+.easter-egg-trigger:focus-visible {
+  color: var(--ivoire);
+  border-bottom-color: rgba(230, 185, 115, 0.55);
+}
+
+.easter-egg-stones {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1000;
+  padding: 10px;
+  border-radius: 999px;
+  background: rgba(14, 17, 22, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  transform: translateZ(0);
+}
+
+.easter-egg-stones.is-revealed {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.stone {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 0;
+  padding: 0;
+  transform: scale(0);
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.easter-egg-stones.is-revealed .stone {
+  transform: scale(1);
+}
+
+.stone:hover {
+  transform: scale(1.4);
+}
+
+.stone:focus-visible {
+  outline: 2px solid #faf6ee;
+  outline-offset: 4px;
+}
+
+.stone--power {
+  background: radial-gradient(circle at 30% 30%, #9b5be0, #6f2dbd);
+  box-shadow: 0 0 12px rgba(111, 45, 189, 0.5);
+  transition-delay: 0ms;
+}
+
+.stone--time {
+  background: radial-gradient(circle at 30% 30%, #5be091, #2dbd6e);
+  box-shadow: 0 0 12px rgba(45, 189, 110, 0.5);
+  transition-delay: 100ms;
+}
+
+.stone--reality {
+  background: radial-gradient(circle at 30% 30%, #e05b5b, #bd2d2d);
+  box-shadow: 0 0 12px rgba(189, 45, 45, 0.5);
+  transition-delay: 200ms;
+}
+
+.stone--soul {
+  background: radial-gradient(circle at 30% 30%, #ffb870, #ff8b3d);
+  box-shadow: 0 0 12px rgba(255, 139, 61, 0.5);
+  transition-delay: 300ms;
+}
+
+.stone--mind {
+  background: radial-gradient(circle at 30% 30%, #f5ea9c, #e8d85f);
+  box-shadow: 0 0 12px rgba(232, 216, 95, 0.5);
+  transition-delay: 400ms;
+}
+
+.stone--space {
+  background: radial-gradient(circle at 30% 30%, #5b85e0, #2d5bbd);
+  box-shadow: 0 0 12px rgba(45, 91, 189, 0.5);
+  transition-delay: 500ms;
+}
+
+@media (max-width: 599px) {
+  .easter-egg-stones {
+    bottom: 16px;
+    right: 16px;
+    flex-wrap: wrap;
+    max-width: min(100vw - 24px, 200px);
+    justify-content: center;
+  }
+}
