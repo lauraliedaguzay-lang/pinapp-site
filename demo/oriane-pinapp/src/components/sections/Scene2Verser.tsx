@@ -3,45 +3,104 @@
 import { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { FlaconOpenScene } from '../canvas/FlaconOpenScene';
+import { FlaconRevealScene } from '../canvas/FlaconRevealScene';
+import { FlaconSVGIllustration } from '../canvas/FlaconSVGIllustration';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export function Scene2Verser() {
-  const sectionRef   = useRef<HTMLElement>(null);
-  const phraseRef    = useRef<HTMLDivElement>(null);
-  const scrollProgress = useRef(0);
+  const sectionRef       = useRef<HTMLElement>(null);
+  const svgRef           = useRef<HTMLDivElement>(null);
+  const canvasRef        = useRef<HTMLDivElement>(null);
+  const textRef          = useRef<HTMLDivElement>(null);
+
+  // Deux canaux de progress :
+  // progressRef → Canvas (lu en useFrame, zéro re-render)
+  // progressState → SVG (nécessite re-render React pour mettre à jour les attributs SVG)
+  const progressRef                          = useRef(0);
+  const [progressState, setProgressState]    = useState(0);
+  const rafPending                           = useRef(false);
+
   const [mounted, setMounted] = useState(false);
 
   // ── Mount ──
   useEffect(() => { setMounted(true); }, []);
 
-  // ── GSAP pin + phrase reveal + scroll progress ──
+  // ── GSAP pin + phases ──
   useEffect(() => {
     if (!mounted) return;
     const section = sectionRef.current;
     if (!section) return;
 
+    // SVG visible initialement, Canvas masqué
+    gsap.set(canvasRef.current, { opacity: 0 });
+    gsap.set(textRef.current,   { opacity: 0, y: 60 });
+
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          end: '+=150%',
-          pin: true,
-          scrub: 0.8,
-          onUpdate: (self) => {
-            scrollProgress.current = self.progress;
-          },
+      // ── Pin principal 200vh (4 phases × 50vh) ──
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top top',
+        end: '+=200%',
+        pin: true,
+        scrub: 1,
+        onUpdate: (self) => {
+          // Canvas : mise à jour synchrone (pas de re-render)
+          progressRef.current = self.progress;
+          // SVG : batché via rAF pour ne pas spammer React
+          if (!rafPending.current) {
+            rafPending.current = true;
+            requestAnimationFrame(() => {
+              setProgressState(progressRef.current);
+              rafPending.current = false;
+            });
+          }
         },
       });
 
-      // Phrase révèle dans la deuxième moitié du scrub (60 % → 90 %)
-      tl.fromTo(
-        phraseRef.current,
-        { autoAlpha: 0, y: 32 },
-        { autoAlpha: 1, y: 0, ease: 'none', duration: 0.3 },
-        0.6,
+      // Phase A → B (0-25%) : SVG disparaît
+      gsap.to(svgRef.current, {
+        opacity: 0,
+        scale: 1.08,
+        filter: 'blur(6px)',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: '+=50%',
+          scrub: 1,
+        },
+      });
+
+      // Phase B → C (25-50%) : Canvas apparaît
+      gsap.fromTo(canvasRef.current,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: '+=50%',
+            end: '+=100%',
+            scrub: 1,
+          },
+        },
+      );
+
+      // Texte fade-in (10-40% du pin)
+      gsap.fromTo(textRef.current,
+        { opacity: 0, y: 60 },
+        {
+          opacity: 1,
+          y: 0,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: '+=20%',
+            end: '+=80%',
+            scrub: 1,
+          },
+        },
       );
     }, section);
 
@@ -54,14 +113,22 @@ export function Scene2Verser() {
       aria-label="Le flacon s'ouvre"
       className="relative h-[100dvh] w-full overflow-hidden bg-[#0A0805]"
     >
-      {/* Canvas R3F plein écran — monté après hydratation */}
+      {/* Phase A : SVG illustration linework */}
+      <div
+        ref={svgRef}
+        className="absolute inset-0 z-10 flex items-center justify-center"
+      >
+        <FlaconSVGIllustration progress={progressState} />
+      </div>
+
+      {/* Phase B-D : Canvas R3F 3D */}
       {mounted && (
-        <div className="absolute inset-0 z-0" aria-hidden>
-          <FlaconOpenScene scrollProgress={scrollProgress} />
+        <div ref={canvasRef} className="absolute inset-0 z-0" aria-hidden>
+          <FlaconRevealScene progressRef={progressRef} />
         </div>
       )}
 
-      {/* Vignette CSS */}
+      {/* Vignette */}
       <div
         className="pointer-events-none absolute inset-0 z-[5]"
         style={{ background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.5) 100%)' }}
@@ -75,28 +142,25 @@ export function Scene2Verser() {
         aria-hidden
       />
 
-      {/* Phrase overlay */}
-      <div className="pointer-events-none absolute inset-0 z-20 flex flex-col items-end justify-center pb-[12vh] pr-[8vw] text-right">
-        <div ref={phraseRef}>
-          <p
-            className="font-display font-light italic leading-snug text-ivoire-chaud"
-            style={{
-              fontSize: 'clamp(1.4rem, 3.2vw, 2.4rem)',
-              textShadow: '0 0 30px rgba(244,201,119,0.25)',
-            }}
-          >
-            Capturer l&apos;instant<br />
-            où le monde change de couleur.
-          </p>
-          <div className="mt-8 flex items-center justify-end gap-3 text-or-pale/50">
-            <span
-              className="font-body uppercase tracking-[0.4em]"
-              style={{ fontSize: '0.55rem' }}
-            >
-              Manifeste
-            </span>
-            <span className="h-px w-8 bg-or-pale/40" />
-          </div>
+      {/* HTML overlay text */}
+      <div
+        ref={textRef}
+        className="pointer-events-none absolute inset-x-0 bottom-[15%] z-20 flex flex-col items-center px-6 text-center"
+      >
+        <p
+          className="font-display font-light italic leading-relaxed text-ivoire-chaud"
+          style={{
+            fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
+            textShadow: '0 0 40px rgba(244,201,119,0.4)',
+          }}
+        >
+          Capturer l&apos;instant<br />
+          où le monde change de couleur.
+        </p>
+        <div className="mt-10 flex items-center gap-3 text-or-pale/50">
+          <span className="h-px w-8 bg-or-pale/40" />
+          <span className="font-body text-[0.55rem] uppercase tracking-[0.4em]">Manifeste</span>
+          <span className="h-px w-8 bg-or-pale/40" />
         </div>
       </div>
     </section>
