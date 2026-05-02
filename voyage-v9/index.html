@@ -30,6 +30,7 @@
   <link rel="preload" as="image" href="assets/team/micha.jpg" fetchpriority="high" />
   <link rel="preload" as="image" href="assets/team/lauralie.png" />
   <link rel="stylesheet" href="assets/css/pr3a-v12.css" />
+  <link rel="stylesheet" href="assets/css/pinapp-cinema.css?v=1" />
 <script>document.documentElement.classList.add('js');</script>
 <script type="application/ld+json">
 {
@@ -119,12 +120,12 @@ a,button,.btn,input[type="checkbox"],input[type="radio"]{touch-action:manipulati
 #pinapp-film{position:fixed;inset:0;z-index:-4;pointer-events:none;opacity:.035;mix-blend-mode:screen;filter:hue-rotate(var(--film-hue-shift,0deg));transition:filter 1.2s var(--ease-out)}
 html.sober #pinapp-film{display:none}
 .stage{position:fixed;inset:0;z-index:-3;overflow:hidden;background:var(--nuit)}
-.stage__layer{position:absolute;inset:0;opacity:0;transition:opacity var(--dur-cinema) var(--ease-out),filter var(--dur-cinema) var(--ease-out);background-size:cover;background-position:center;transform:translateZ(0);-webkit-backface-visibility:hidden;backface-visibility:hidden;filter:blur(4px);will-change:opacity}
+.stage__layer{position:absolute;inset:0;opacity:0;transition:opacity 1.85s var(--ease-out),filter 1.85s var(--ease-out);background-size:cover;background-position:center;transform:translateZ(0);-webkit-backface-visibility:hidden;backface-visibility:hidden;filter:blur(4px);will-change:opacity,transform;transform-style:preserve-3d}
 .stage__layer.is-active{opacity:1;filter:none}
 @media (prefers-reduced-motion:no-preference){
-  html:not(.sober) .stage__layer.is-active{animation:kenburns 15s linear infinite}
+  html:not(.sober) .stage__layer.is-active{animation:kenburns 24s cubic-bezier(.16,1,.3,1) infinite alternate}
 }
-@keyframes kenburns{0%{transform:translateZ(0) scale(1)}100%{transform:translateZ(0) scale(1.05)}}
+@keyframes kenburns{0%{transform:scale(1) translate3d(0,0,0)}100%{transform:scale(1.06) translate3d(-2%,-1%,0)}}
 @media (prefers-reduced-motion:reduce),(html.sober){.stage__layer.is-active{animation:none!important}}
 .stage__scrim{position:fixed;inset:0;z-index:-2;pointer-events:none;background:linear-gradient(180deg,rgba(5,11,20,.42) 0%,rgba(5,11,20,.72) 50%,rgba(5,11,20,.88) 100%)}
 .progress{position:fixed;inset:0 0 auto 0;height:3px;z-index:200;pointer-events:none;background:transparent}
@@ -2292,7 +2293,7 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
 
 
 
-  <section id="laboratoire" class="scene scene--laboratoire" data-stage="hero-3" aria-labelledby="laboratoire-h3">
+  <section id="laboratoire" class="scene scene--laboratoire" data-stage="hero-4" aria-labelledby="laboratoire-h3">
     <div class="scene__inner laboratoire-inner">
       <p class="eyebrow" data-reveal>NOTRE LABORATOIRE</p>
       <h3 id="laboratoire-h3" class="display display--h3" data-reveal>Notre projet le plus personnel — Mémoire &amp; Présence</h3>
@@ -2317,7 +2318,7 @@ Chez nous, si. »</p>
     </div>
   </section>
 
-  <section id="offres" class="scene scene--offres" data-stage="hero-3" aria-labelledby="offres-h2">
+  <section id="offres" class="scene scene--offres" data-stage="hero-5" aria-labelledby="offres-h2">
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>LES TARIFS</p>
       <h2 id="offres-h2" class="display display--h2" data-reveal>Sept niveaux. Une même exigence.</h2>
