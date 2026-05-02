@@ -1,10 +1,10 @@
 'use client';
 
 import { Suspense, useRef, useMemo } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { Sparkles } from '@react-three/drei';
-import { EffectComposer, Bloom, DepthOfField, ChromaticAberration, Vignette } from '@react-three/postprocessing';
-import { BlendFunction } from 'postprocessing';
+// PostProcessing désactivé — version mismatch @react-three/postprocessing (TODO V11)
+// import { EffectComposer, Bloom, DepthOfField, ChromaticAberration, Vignette } from '@react-three/postprocessing';
 import * as THREE from 'three';
 import { CinematicLighting } from './CinematicLighting';
 import { FlaconModel } from './FlaconModel';
@@ -56,33 +56,8 @@ function BackdropPlane() {
   );
 }
 
-// ─── PostFX ──────────────────────────────────────────────────────────────────
-function PostFX({ enabled }: { enabled: boolean }) {
-  if (!enabled) return null;
-  return (
-    <EffectComposer multisampling={0}>
-      <Bloom
-        intensity={1.05}
-        luminanceThreshold={0.55}
-        luminanceSmoothing={0.75}
-        mipmapBlur
-      />
-      <DepthOfField
-        focusDistance={0.0}
-        focalLength={0.055}
-        bokehScale={2.4}
-        height={480}
-      />
-      <ChromaticAberration
-        blendFunction={BlendFunction.NORMAL}
-        offset={new THREE.Vector2(0.0016, 0.0016) as unknown as [number, number]}
-        radialModulation={false}
-        modulationOffset={0}
-      />
-      <Vignette eskil={false} offset={0.18} darkness={0.72} />
-    </EffectComposer>
-  );
-}
+// ─── PostFX désactivé (version mismatch) — TODO V11 ─────────────────────────
+// function PostFX({ enabled }: { enabled: boolean }) { ... }
 
 // ─── Contenu de la scène ──────────────────────────────────────────────────────
 type SceneProps = {
@@ -121,7 +96,7 @@ function SceneContent({ isMobile, scrollProgress, mouseX, mouseY }: SceneProps) 
         position={[0, 0.2, 0]}
       />
 
-      <PostFX enabled={!isMobile} />
+      {/* <PostFX enabled={!isMobile} /> — désactivé V11 */}
     </>
   );
 }
