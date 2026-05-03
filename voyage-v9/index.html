@@ -180,9 +180,10 @@ main{position:relative;z-index:1;padding-top:72px}
 @media(min-width:1024px){.domaines-grid{grid-template-columns:repeat(3,1fr)}}
 .domaine-card{padding:0;display:flex;flex-direction:column;text-align:left}
 .domaine-card__toggle{
-  display:flex;align-items:center;gap:var(--sp-3);width:100%;padding:var(--sp-4) var(--sp-5);text-align:left;
+  display:flex;align-items:center;gap:var(--sp-3);width:100%;min-height:44px;padding:var(--sp-4) var(--sp-5);text-align:left;
   border-radius:var(--r-lg);border:1px solid rgba(230,185,115,0.15);background:rgba(10,18,31,0.35);
   transition:background .25s var(--ease-out),border-color .25s var(--ease-out);
+  touch-action:manipulation;
 }
 .domaine-card.is-open .domaine-card__toggle{border-color:rgba(230,185,115,0.45);background:rgba(230,185,115,0.06)}
 .domaine-card__ico{font-size:1.35rem;line-height:1}
@@ -281,7 +282,7 @@ main{position:relative;z-index:1;padding-top:72px}
 .btn--ghost::before{content:'';position:absolute;inset:0;background:var(--or);clip-path:inset(100% 0 0 0);transition:clip-path var(--dur-mid) var(--ease-out);z-index:-1}
 .btn--ghost:hover{color:var(--nuit);border-color:var(--or)}
 .btn--ghost:hover::before{clip-path:inset(0 0 0 0)}
-.btn--text{background:transparent;padding:12px 8px;min-height:44px;text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(230,185,115,0.5)}
+.btn--text,.btn.btn--text{background:transparent;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding-block:12px;padding-inline:8px;box-sizing:border-box;text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(230,185,115,0.5);touch-action:manipulation}
 .btn--cta-large{padding:18px 40px;font-size:1.125rem;min-height:48px}
 .card--glass{background:var(--fumee);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(230,185,115,0.15);border-radius:var(--r-lg);padding:var(--sp-6);transform:translateZ(0);transition:transform var(--dur-mid) var(--ease-out),border-color var(--dur-fast) var(--ease-out),box-shadow var(--dur-mid) var(--ease-out)}
 .card--glass:hover:not(.v10-tilt){transform:translateY(-2px) translateZ(0)}
@@ -412,8 +413,7 @@ footer{padding:var(--sp-9) var(--gutter) var(--sp-8);text-align:center;border-to
 footer .sig{font-family:var(--ff-display);font-style:normal;font-weight:500;max-width:40rem;margin:0 auto var(--sp-5);letter-spacing:-0.02em}
 footer .co2{font-size:var(--fs-micro);margin:var(--sp-4) 0}
 footer nav{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--sp-4);font-size:var(--fs-micro);margin:var(--sp-5) 0}
-footer nav a{text-decoration:underline;text-underline-offset:3px}
-footer nav[aria-label="Univers Pinapp"] a{display:inline-flex;align-items:center;gap:6px;vertical-align:middle}
+footer nav a{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:10px 8px;box-sizing:border-box;text-decoration:underline;text-underline-offset:3px;touch-action:manipulation;vertical-align:middle}
 .pp-ico--nav{flex-shrink:0;display:inline-flex;line-height:0;align-items:center;justify-content:center}
 .pp-ico--sect{display:inline-flex;line-height:0;width:24px;height:24px;align-items:center;justify-content:center;vertical-align:middle}
 .real-hub-filter .pp-ico--nav{vertical-align:middle}
@@ -521,7 +521,7 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
 .real-list{margin:0;padding-left:1.2rem;color:var(--ivoire-mute);line-height:1.65;font-size:0.95rem}
 .real-list li{margin:0 0 var(--sp-2)}
 .real-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:var(--sp-4)}
-.real-links a{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--r-pill);border:1px solid rgba(230,185,115,0.22);text-decoration:none;color:var(--ivoire-mute);font-size:12px;font-weight:600}
+.real-links a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:12px 14px;border-radius:var(--r-pill);border:1px solid rgba(230,185,115,0.22);text-decoration:none;color:var(--ivoire-mute);font-size:12px;font-weight:600;box-sizing:border-box;touch-action:manipulation}
 .real-links a:hover,.real-links a:focus-visible{color:var(--ivoire);border-color:rgba(62,245,224,0.28);background:rgba(62,245,224,0.06)}
 .tdah-brief{margin-top:var(--sp-6)}
 .tdah-brief .grid-2{align-items:stretch}
@@ -614,7 +614,7 @@ html.sober .scroll-progress{display:none}
 .form-success{padding:var(--sp-8) var(--sp-5);text-align:center;border:1px solid rgba(230,185,115,0.2);border-radius:var(--r-lg);background:var(--fumee-strong)}
 .form-success .success-icon{width:56px;height:56px;margin:0 auto var(--sp-4);border-radius:50%;background:var(--or);color:var(--nuit);display:grid;place-items:center;font-size:1.5rem;font-weight:700}
 .footer-social{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--sp-4);margin:var(--sp-4) 0;font-size:var(--fs-micro)}
-.footer-social a{text-decoration:underline;text-underline-offset:3px}
+.footer-social a{display:inline-flex;align-items:center;min-height:44px;padding:10px 8px;box-sizing:border-box;text-decoration:underline;text-underline-offset:3px;touch-action:manipulation}
 .hook-film{background:rgba(5,5,5,0.55);border-top:1px solid rgba(230,185,115,0.2);border-bottom:1px solid rgba(230,185,115,0.15)}
 .hook-film .scene__inner{max-width:min(1080px,94vw)}
 .hook-eyebrow{font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--or);margin:0 0 var(--sp-3)}
@@ -697,7 +697,8 @@ html.sober .scroll-progress{display:none}
 .pack-essentiel .price-old s{position:relative;text-decoration:none;display:inline-block}
 .pack-essentiel .price-old s::after{content:'';position:absolute;left:0;top:50%;width:0;height:1.5px;background:var(--text-2);transition:width 0.75s var(--ease-out) 0.25s}
 .pack-essentiel.in-view .price-old s::after{width:100%}
-.lead a:not(.btn),.real-links a:not(.btn),.source-note a:not(.btn){position:relative;display:inline-block;text-decoration:none}
+.lead a:not(.btn),.source-note a:not(.btn){position:relative;display:inline-block;text-decoration:none}
+.real-links a:not(.btn){position:relative;display:inline-flex;align-items:center;text-decoration:none}
 .lead a:not(.btn)::after,.real-links a:not(.btn)::after,.source-note a:not(.btn)::after{content:'';position:absolute;left:0;bottom:-1px;width:100%;height:1px;background:var(--or);transform:scaleX(0);transform-origin:right;transition:transform var(--dur-mid) var(--ease-out)}
 .lead a:not(.btn):hover::after,.real-links a:not(.btn):hover::after,.source-note a:not(.btn):hover::after{transform-origin:left;transform:scaleX(1)}
 .team-figure{display:grid;gap:14px;justify-items:center;max-width:220px;margin:0 auto}
@@ -1862,7 +1863,7 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
             <li>Un classement automatique de vos contacts et demandes</li>
             <li>Des conseils pour bien commencer avec l'IA</li>
           </ul>
-          <p class="duo-cta-wrap"><a class="btn btn--text" href="#realisations?filter=code" style="font-size:var(--fs-micro);padding:0;min-height:auto">Voir mes réalisations →</a></p>
+          <p class="duo-cta-wrap"><a class="btn btn--text" href="#realisations?filter=code">Voir mes réalisations →</a></p>
         </div>
         <div class="card--glass card--duo" data-reveal data-reveal-delay="1" data-author="micha">
           <figure class="team-figure">
@@ -1883,7 +1884,7 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
             <li>Votre univers visuel, pensé pour rester dans les têtes</li>
           </ul>
           <p class="duo-na" aria-label="Zone d'intervention terrain">📍 Déplacement Nouvelle-Aquitaine</p>
-          <p class="duo-cta-wrap"><a class="btn btn--text" href="#realisations?filter=imagerie" style="font-size:var(--fs-micro);padding:0;min-height:auto">Voir mes réalisations →</a></p>
+          <p class="duo-cta-wrap"><a class="btn btn--text" href="#realisations?filter=imagerie">Voir mes réalisations →</a></p>
         </div>
       </div>
       <div class="reals-duo" aria-label="Réalisations : exemples concrets" data-reveal>
@@ -1901,7 +1902,7 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
               <a href="/essayer-une-demo/">Essayer une démo ↗</a>
               <a href="/demo/atelier-rivage/">Atelier Rivage ↗</a>
               <a href="#realisations">Captures démo ↓</a>
-              <button type="button" class="btn btn--text" data-open-detail="drawer-workflow-ia" style="font-size:var(--fs-micro);padding:0;min-height:auto;text-decoration:underline">Workflow automatisations →</button>
+              <button type="button" class="btn btn--text" data-open-detail="drawer-workflow-ia">Workflow automatisations →</button>
             </div>
           </div>
           <div class="card--glass" style="padding:var(--sp-6)" data-author="micha">
