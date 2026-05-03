@@ -590,8 +590,14 @@ html.sober .scroll-progress{display:none}
   .marquee__track{font-size:9px;letter-spacing:0.24em}
 }
 @media (prefers-reduced-motion:reduce){
-  .marquee__track{animation-duration:180s!important;animation-iteration-count:infinite}
-  .marquee--reverse .marquee__track{animation-duration:200s!important}
+  .marquee__track,.marquee--reverse .marquee__track{animation:none!important}
+  #pinapp-film{transition:none!important}
+}
+/* PR-S9: pause ambient loops until near viewport (excl. .stage__layer Ken Burns, .breath-cta / .nav__cta) */
+@media (prefers-reduced-motion:no-preference){
+  .marquee:not(.is-anim-on) .marquee__track{animation:none!important}
+  .pack-signature-crown:not(.is-anim-on)::before{animation:none!important}
+  body.draft-mode .star-placeholder:not(.is-anim-on){animation:none!important}
 }
 .real-cinema-panel{border-radius:var(--r-lg);padding:var(--sp-6);background:rgba(5,5,5,0.72);border:1px solid rgba(230,185,115,0.2)}
 .pack-discount{margin-top:var(--sp-5);padding:var(--sp-5);border-radius:var(--r-md);border:1px dashed rgba(62,245,224,0.35);background:rgba(62,245,224,0.06);font-size:var(--fs-micro);color:var(--ivoire-mute)}
@@ -644,7 +650,7 @@ html.sober .scroll-progress{display:none}
 .pack-signature-crown > *{position:relative;z-index:1}
 @keyframes crown-rotate{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){
-  .pack-signature-crown::before{animation-duration:30s}
+  .pack-signature-crown::before{animation:none!important}
 }
 @keyframes cta-breathe{
   0%,100%{box-shadow:0 0 0 0 rgba(230,185,115,0),0 0 18px 0 var(--or-glow-soft),0 1px 0 rgba(255,255,255,0.25) inset}
@@ -692,6 +698,11 @@ html.sober .scroll-progress{display:none}
   #diagnostic .pain:nth-child(3){animation-delay:160ms}
   #diagnostic .pain:nth-child(4){animation-delay:240ms}
   @keyframes pain-reveal{from{opacity:0.35;transform:translateY(16px);border-left-color:rgba(230,185,115,0)}to{opacity:1;transform:translateY(0);border-left-color:rgba(230,185,115,0.55)}}
+}
+@media (prefers-reduced-motion:reduce){
+  @supports (animation-timeline:scroll()){
+    .hero__title,.hook-video-wrap,#diagnostic .pain{animation:none!important}
+  }
 }
 .pack-essentiel .price-old s{position:relative;text-decoration:none;display:inline-block}
 .pack-essentiel .price-old s::after{content:'';position:absolute;left:0;top:50%;width:0;height:1.5px;background:var(--text-2);transition:width 0.75s var(--ease-out) 0.25s}
@@ -3126,6 +3137,15 @@ if('IntersectionObserver' in window){
     var u=f.getAttribute('data-vimeo-src');
     if(u){ f.setAttribute('src', u); f.removeAttribute('data-vimeo-src'); }
   });
+}
+
+if('IntersectionObserver' in window && !prefersReduced()){
+  var ioAmb=new IntersectionObserver(function(entries){
+    entries.forEach(function(x){ x.target.classList.toggle('is-anim-on', x.isIntersecting); });
+  },{rootMargin:'22% 0%',threshold:0});
+  document.querySelectorAll('.marquee,.pack-signature-crown,.star-placeholder').forEach(function(el){ ioAmb.observe(el); });
+}else if(!prefersReduced()){
+  document.querySelectorAll('.marquee,.pack-signature-crown,.star-placeholder').forEach(function(el){ el.classList.add('is-anim-on'); });
 }
 
 var SOBER_KEY='pinapp-voyage-sober';
