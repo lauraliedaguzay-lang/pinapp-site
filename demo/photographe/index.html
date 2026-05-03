@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Studio Lumière — photographe portrait et mariage à Bordeaux. Démo Pinapp Studio · marque et données fictives." />
+  <title>Studio Lumière · Photographe portrait &amp; mariage · Bordeaux</title>
+  <link rel="canonical" href="https://pinapp.fr/demo/photographe/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #1a1a1a;
+      --background: #f8f5f0;
+      --accent: #b8975a;
+      --text: #2a2a2a;
+      --muted: #6b6b6b;
+      --border: rgba(0, 0, 0, 0.08);
+      --font-display: "Cormorant Garamond", Georgia, serif;
+      --font-body: Inter, system-ui, sans-serif;
+      --radius: 8px;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --dur: 320ms;
+      --max: 1200px;
+      --nav-h: 72px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: auto; }
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: clamp(16px, 1.05vw, 18px);
+      line-height: 1.7;
+      color: var(--text);
+      background: var(--background);
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: var(--accent); text-underline-offset: 3px; }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 12px;
+      z-index: 200;
+      padding: 12px 20px;
+      background: var(--primary);
+      color: #fff;
+      text-decoration: none;
+      border-radius: var(--radius);
+    }
+    .skip-link:focus { left: 12px; }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: var(--nav-h);
+      padding: 0 clamp(16px, 4vw, 40px);
+      background: rgba(248, 245, 240, 0.88);
+      backdrop-filter: blur(16px) saturate(140%);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav__brand {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary);
+      text-decoration: none;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .nav__links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 4px 12px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav__links a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 12px 14px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      border-radius: var(--radius);
+      touch-action: manipulation;
+    }
+    .nav__links a:hover { color: var(--accent); }
+    .nav__cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 12px 22px;
+      background: var(--accent);
+      color: #1a1a1a;
+      font-weight: 600;
+      font-size: 0.875rem;
+      text-decoration: none;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+      touch-action: manipulation;
+    }
+    .nav__cta:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(184, 151, 90, 0.35); }
+    .nav__panel { flex: 1; display: flex; justify-content: center; min-width: 0; }
+    .nav__toggle { display: none; min-height: 44px; min-width: 44px; border: 1px solid var(--border); border-radius: var(--radius); background: transparent; cursor: pointer; }
+    @media (max-width: 900px) {
+      .nav__toggle { display: inline-flex; align-items: center; justify-content: center; }
+      .nav__panel {
+        flex: none;
+        position: fixed;
+        inset: var(--nav-h) 0 auto 0;
+        background: rgba(248, 245, 240, 0.98);
+        border-bottom: 1px solid var(--border);
+        padding: 16px;
+        display: none;
+        flex-direction: column;
+        gap: 8px;
+        justify-content: flex-start;
+      }
+      .nav__panel.is-open { display: flex; }
+      .nav__links { flex-direction: column; align-items: stretch; width: 100%; }
+      .nav__links a { width: 100%; justify-content: center; }
+    }
+    .hero {
+      position: relative;
+      min-height: min(100svh, 900px);
+      display: grid;
+      align-items: end;
+      color: #fff;
+    }
+    .hero__media {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(180deg, rgba(26, 26, 26, 0.35) 0%, rgba(26, 26, 26, 0.72) 100%);
+    }
+    .hero__inner {
+      position: relative;
+      z-index: 2;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: clamp(32px, 8vw, 120px) clamp(20px, 4vw, 40px) clamp(48px, 10vw, 100px);
+    }
+    .eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.92;
+      margin: 0 0 16px;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 7vw, 5.5rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.08;
+      margin: 0 0 20px;
+      max-width: 18ch;
+    }
+    .hero__lead {
+      font-size: clamp(1rem, 2.2vw, 1.25rem);
+      max-width: 36rem;
+      opacity: 0.95;
+      margin: 0 0 32px;
+    }
+    .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 14px 28px;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      border-radius: 999px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+      touch-action: manipulation;
+    }
+    .btn--primary { background: var(--accent); color: #1a1a1a; }
+    .btn--ghost { background: transparent; color: #fff; border: 1px solid rgba(255, 255, 255, 0.55); }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(0, 0, 0, 0.2); }
+    .section {
+      padding: clamp(72px, 12vw, 120px) clamp(20px, 4vw, 40px);
+    }
+    .section__inner { max-width: var(--max); margin: 0 auto; }
+    .section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      font-weight: 400;
+      margin: 0 0 12px;
+      color: var(--primary);
+    }
+    .section__intro { color: var(--muted); max-width: 42rem; margin: 0 0 48px; }
+    .grid-3 {
+      display: grid;
+      gap: 24px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 768px) { .grid-3 { grid-template-columns: repeat(3, 1fr); } }
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: clamp(24px, 4vw, 40px);
+      transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 20px 48px rgba(0, 0, 0, 0.08); }
+    .card h3 { font-family: var(--font-display); font-size: 1.35rem; margin: 0 0 12px; color: var(--primary); }
+    .card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+    .services-grid {
+      display: grid;
+      gap: 24px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 700px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
+    .service-card {
+      background: #fff;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 20px 48px rgba(0, 0, 0, 0.08); }
+    .service-card img { aspect-ratio: 4/3; object-fit: cover; width: 100%; }
+    .service-card__body { padding: 24px 28px 28px; }
+    .service-card__price { font-family: var(--font-display); font-size: 1.75rem; color: var(--accent); margin: 8px 0 0; }
+    .timeline {
+      display: grid;
+      gap: 20px;
+      counter-reset: step;
+    }
+    @media (min-width: 768px) {
+      .timeline { grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    }
+    .step {
+      position: relative;
+      padding: 24px 20px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+    .step::before {
+      counter-increment: step;
+      content: counter(step, decimal-leading-zero);
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 8px;
+    }
+    .step strong { display: block; margin-bottom: 8px; color: var(--primary); }
+    .gallery {
+      column-count: 2;
+      column-gap: 12px;
+    }
+    @media (min-width: 640px) { .gallery { column-count: 3; } }
+    @media (min-width: 1000px) { .gallery { column-count: 4; } }
+    .gallery button {
+      break-inside: avoid;
+      margin-bottom: 12px;
+      width: 100%;
+      padding: 0;
+      border: none;
+      cursor: pointer;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: none;
+      display: block;
+    }
+    .gallery button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+    .gallery img { width: 100%; transition: transform var(--dur) var(--ease); }
+    .gallery button:hover img { transform: scale(1.03); }
+    .quotes { display: grid; gap: 24px; }
+    @media (min-width: 900px) { .quotes { grid-template-columns: repeat(3, 1fr); } }
+    .quote {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+    .quote blockquote { margin: 0 0 16px; font-family: var(--font-display); font-size: 1.25rem; font-style: italic; color: var(--primary); }
+    .quote figcaption { font-size: 0.875rem; color: var(--muted); }
+    .about {
+      display: grid;
+      gap: 32px;
+      align-items: center;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 900px) { .about { grid-template-columns: 0.9fr 1.1fr; gap: 48px; } }
+    .about img { border-radius: var(--radius); width: 100%; max-height: 520px; object-fit: cover; }
+    .badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--muted);
+    }
+    .contact-grid {
+      display: grid;
+      gap: 32px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 900px) { .contact-grid { grid-template-columns: 1fr 1fr; } }
+    .form label { display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 8px; color: var(--primary); }
+    .form input, .form textarea {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 16px;
+      font-size: 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-family: inherit;
+      margin-bottom: 16px;
+    }
+    .form textarea { min-height: 140px; resize: vertical; }
+    .map-wrap { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); min-height: 280px; }
+    .map-wrap iframe { width: 100%; height: 280px; border: 0; display: block; }
+    .footer {
+      background: var(--primary);
+      color: rgba(255, 255, 255, 0.82);
+      padding: 64px clamp(20px, 4vw, 40px) 32px;
+    }
+    .footer a { color: #e8dcc4; }
+    .footer__grid {
+      max-width: var(--max);
+      margin: 0 auto 40px;
+      display: grid;
+      gap: 32px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 768px) { .footer__grid { grid-template-columns: repeat(3, 1fr); } }
+    .footer__brand { font-family: var(--font-display); font-size: 1.25rem; letter-spacing: 0.1em; text-transform: uppercase; }
+    .footer__note {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 0.8125rem;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.65);
+    }
+    .js-reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.65s var(--ease), transform 0.65s var(--ease); }
+    .js-reveal.is-in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .js-reveal { opacity: 1; transform: none; transition: none; }
+      .btn:hover, .nav__cta:hover, .card:hover, .service-card:hover, .gallery button:hover img { transform: none; }
+    }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      background: rgba(10, 10, 10, 0.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: min(96vw, 1200px); max-height: 90vh; object-fit: contain; border-radius: var(--radius); }
+    .lightbox__close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      min-height: 48px;
+      min-width: 48px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: rgba(0, 0, 0, 0.35);
+      color: #fff;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    [aria-live="polite"] { min-height: 1.25em; margin-top: 12px; font-size: 0.9rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+  <header class="nav" role="banner">
+    <a class="nav__brand" href="#accueil">Studio Lumière</a>
+    <button type="button" class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navPanel" aria-label="Ouvrir le menu"><span aria-hidden="true">Menu</span></button>
+    <div class="nav__panel" id="navPanel">
+      <ul class="nav__links" role="list">
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#galerie">Galerie</a></li>
+        <li><a href="#tarifs">Tarifs</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <a class="nav__cta" href="#contact">Réserver une séance</a>
+  </header>
+
+  <main id="main">
+    <section id="accueil" class="hero" aria-labelledby="hero-title">
+      <div class="hero__media" aria-hidden="true">
+        <img
+          src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?auto=format&amp;fit=crop&amp;w=1920&amp;q=82"
+          alt=""
+          width="1920"
+          height="1080"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </div>
+      <div class="hero__overlay" aria-hidden="true"></div>
+      <div class="hero__inner">
+        <p class="eyebrow">Photographe portrait · Bordeaux</p>
+        <h1 id="hero-title">Capturer l'instant. Sublimer l'éternité.</h1>
+        <p class="hero__lead">Portraits, mariages et événements — photographie d'auteur en Nouvelle-Aquitaine. Accompagnement discret, direction douce, livrables soignés.</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#galerie">Voir mon portfolio</a>
+          <a class="btn btn--ghost" href="#contact">Prendre rendez-vous</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="valeurs" class="section" aria-labelledby="valeurs-title">
+      <div class="section__inner">
+        <h2 id="valeurs-title" class="js-reveal">Trois engagements</h2>
+        <p class="section__intro js-reveal">Chaque séance est pensée comme une courte production : repérages lumière, cadrage précis, post-production maîtrisée.</p>
+        <div class="grid-3">
+          <article class="card js-reveal">
+            <h3>Approche cinéma</h3>
+            <p>Lumière naturelle privilégiée, cadrage type cinéma, retouches fines pour un rendu intemporel.</p>
+          </article>
+          <article class="card js-reveal">
+            <h3>Livraison rapide</h3>
+            <p>Galerie privée sous sept jours, sélection accompagnée, fichiers haute définition et tirages sur demande.</p>
+          </article>
+          <article class="card js-reveal">
+            <h3>Souvenirs durables</h3>
+            <p>Tirages musée, livre photo relié cuir, clé USB premium — archives pensées pour durer.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="tarifs" class="section" style="background:#fff" aria-labelledby="tarifs-title">
+      <div class="section__inner">
+        <h2 id="tarifs-title" class="js-reveal">Formules</h2>
+        <p class="section__intro js-reveal" id="services">Portrait, famille et mariages — tarifs indicatifs (démo fictive).</p>
+        <div class="services-grid">
+          <article class="service-card js-reveal">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Portrait en studio — lumière douce" width="900" height="675" loading="lazy" decoding="async" />
+            <div class="service-card__body">
+              <h3>Portrait individuel</h3>
+              <p>Une heure en studio ou extérieur, direction des poses, sélection et retouches sur vingt images.</p>
+              <p class="service-card__price">290&nbsp;€</p>
+            </div>
+          </article>
+          <article class="service-card js-reveal">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Couple en extérieur — golden hour" width="900" height="675" loading="lazy" decoding="async" />
+            <div class="service-card__body">
+              <h3>Couple et famille</h3>
+              <p>Une heure et demie, parcours de lieux proches, ambiance naturelle, trente images retouchées.</p>
+              <p class="service-card__price">390&nbsp;€</p>
+            </div>
+          </article>
+          <article class="service-card js-reveal">
+            <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mariage — cérémonie laïque" width="900" height="675" loading="lazy" decoding="async" />
+            <div class="service-card__body">
+              <h3>Mariage Essentiel</h3>
+              <p>Six heures de couverture, préparatifs à la soirée, galerie en ligne sécurisée, sélection large.</p>
+              <p class="service-card__price">1&nbsp;490&nbsp;€</p>
+            </div>
+          </article>
+          <article class="service-card js-reveal">
+            <img src="https://images.unsplash.com/photo-1606800052052-a36c52234497?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Détail alliance et bouquet" width="900" height="675" loading="lazy" decoding="async" />
+            <div class="service-card__body">
+              <h3>Mariage Signature</h3>
+              <p>Dix heures, second photographe en option, livre photo cuir, projection privée le lendemain.</p>
+              <p class="service-card__price">2&nbsp;490&nbsp;€</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="approche" class="section" aria-labelledby="approche-title">
+      <div class="section__inner">
+        <h2 id="approche-title" class="js-reveal">Déroulé d'une commande</h2>
+        <p class="section__intro js-reveal">Quatre étapes pour avancer sans stress, du premier échange à la remise des fichiers.</p>
+        <div class="timeline">
+          <div class="step js-reveal"><strong>Échange</strong>Brief de trente minutes en visioconférence, gratuit, pour cadrer style et attentes.</div>
+          <div class="step js-reveal"><strong>Shooting</strong>Direction artistique douce, pas de pose figée — priorité à l'authenticité des regards.</div>
+          <div class="step js-reveal"><strong>Curation</strong>Sélection des meilleures images, retouches couleur cohérentes avec la charte convenue.</div>
+          <div class="step js-reveal"><strong>Livraison</strong>Galerie privée, téléchargement HD, commande de tirages et livre via partenaires labo.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="galerie" class="section" style="background:#fff" aria-labelledby="galerie-title">
+      <div class="section__inner">
+        <h2 id="galerie-title" class="js-reveal">Galerie</h2>
+        <p class="section__intro js-reveal">Extraits de reportages — clichés Unsplash pour cette maquette. Cliquez pour agrandir.</p>
+        <div class="gallery" role="list">
+          <button type="button" class="js-reveal js-lightbox-open" data-full="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&amp;fit=crop&amp;w=1600&amp;q=82" aria-label="Agrandir la photo portrait 1">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Portrait femme souriante, fond neutre" width="600" height="800" loading="lazy" decoding="async" />
+          </button>
+          <button type="button" class="js-reveal js-lightbox-open" data-full="https://images.unsplash.com/photo-1520854221050-0f4caff449fb?auto=format&amp;fit=crop&amp;w=1600&amp;q=82" aria-label="Agrandir la photo portrait 2">
+            <img src="https://images.unsplash.com/photo-1520854221050-0f4caff449fb?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Portrait homme, regard caméra" width="600" height="750" loading="lazy" decoding="async" />
+          </button>
+          <button type="button" class="js-reveal js-lightbox-open" data-full="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&amp;fit=crop&amp;w=1600&amp;q=82" aria-label="Agrandir la photo mariage 1">
+            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Couple mariés marchant dans la ville" width="600" height="800" loading="lazy" decoding="async" />
+          </button>
+          <button type="button" class="js-reveal js-lightbox-open" data-full="https://images.unsplash.com/photo-1522673602040-b62fad36b400?auto=format&amp;fit=crop&amp;w=1600&amp;q=82" aria-label="Agrandir la photo mariage 2">
+            <img src="https://images.unsplash.com/photo-1522673602040-b62fad36b400?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Alliances sur livre ouvert" width="600" height="800" loading="lazy" decoding="async" />
+          </button>
+          <button type="button" class="js-reveal js-lightbox-open" data-full="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&amp;fit=crop&amp;w=1600&amp;q=82" aria-label="Agrandir la photo détail fleurs">
+            <img src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Composition florale événement" width="600" height="800" loading="lazy" decoding="async" />
+          </button>
+          <button type="button" class="js-reveal js-lightbox-open" data-full="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&amp;fit=crop&amp;w=1600&amp;q=82" aria-label="Agrandir la photo portrait 3">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Portrait homme chemise claire" width="600" height="800" loading="lazy" decoding="async" />
+          </button>
+          <button type="button" class="js-reveal js-lightbox-open" data-full="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&amp;fit=crop&amp;w=1600&amp;q=82" aria-label="Agrandir la photo portrait 4">
+            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Portrait femme robe noire" width="600" height="900" loading="lazy" decoding="async" />
+          </button>
+          <button type="button" class="js-reveal js-lightbox-open" data-full="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&amp;fit=crop&amp;w=1600&amp;q=82" aria-label="Agrandir la photo couple">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Couple en extérieur" width="600" height="800" loading="lazy" decoding="async" />
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="temoignages" class="section" aria-labelledby="temoignages-title">
+      <div class="section__inner">
+        <h2 id="temoignages-title" class="js-reveal">Témoignages</h2>
+        <p class="section__intro js-reveal">Avis fictifs pour cette démonstration — identités modifiées à la demande des familles (scénario démo).</p>
+        <div class="quotes">
+          <figure class="quote js-reveal">
+            <blockquote>« Des images qui racontent vraiment notre journée — naturel, élégant, jamais artificiel. »</blockquote>
+            <figcaption>Marie et Thomas · mariage à Pessac (fictif)</figcaption>
+          </figure>
+          <figure class="quote js-reveal">
+            <blockquote>« Portrait corporate livré en trois jours. Regard assuré sans rigidité. »</blockquote>
+            <figcaption>Camille L. · directrice marketing (fictif)</figcaption>
+          </figure>
+          <figure class="quote js-reveal">
+            <blockquote>« Grossesse et couple : une lumière douce, une écoute rare. Nous recommandons sans hésiter. »</blockquote>
+            <figcaption>Studio Manon · famille (fictif)</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="a-propos" class="section" style="background:#fff" aria-labelledby="apropos-title">
+      <div class="section__inner about">
+        <div class="js-reveal">
+          <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Portrait du photographe — modèle Unsplash (fictif)" width="900" height="1120" loading="lazy" decoding="async" />
+        </div>
+        <div>
+          <h2 id="apropos-title" class="js-reveal">À propos</h2>
+          <p class="js-reveal">Formé aux arts visuels à Bordeaux, je photographie depuis douze ans portraits et unions. Mon fil conducteur : la lumière naturelle, le moment juste, et une direction de comédiens amateurs sans stress.</p>
+          <p class="js-reveal">Publications fictives pour la démo : magazines mariage premium, sélection festival photo régional.</p>
+          <div class="badges">
+            <span class="badge">12 ans d'expérience</span>
+            <span class="badge">200+ mariages (fictif)</span>
+            <span class="badge">Livres photo labo partenaire</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section" aria-labelledby="contact-title">
+      <div class="section__inner">
+        <h2 id="contact-title" class="js-reveal">Contact</h2>
+        <p class="section__intro js-reveal">Formulaire de démonstration — aucun envoi serveur. Réponse simulée à l'écran.</p>
+        <div class="contact-grid">
+          <form class="form js-reveal" id="contact-form" novalidate>
+            <label for="f-name">Nom</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required />
+            <label for="f-email">Email</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required />
+            <label for="f-date">Date envisagée</label>
+            <input id="f-date" name="date" type="text" autocomplete="off" placeholder="Ex. juin 2026" />
+            <label for="f-msg">Message</label>
+            <textarea id="f-msg" name="message" required></textarea>
+            <button type="submit" class="btn btn--primary">Envoyer ma demande</button>
+            <p id="form-status" class="js-form-status" aria-live="polite"></p>
+          </form>
+          <div class="js-reveal">
+            <p><strong>Studio Lumière</strong><br />12 rue Sainte-Catherine<br />33000 Bordeaux (adresse fictive)</p>
+            <p>Mar–sam · 10h–19h · sur rendez-vous uniquement.</p>
+            <p>Téléphone démo : <a href="tel:+33612345678">06 12 34 56 78</a> (fictif)</p>
+            <div class="map-wrap" aria-label="Carte illustrative Bordeaux centre">
+              <iframe title="OpenStreetMap — Bordeaux centre" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=-0.5920%2C44.8268%2C-0.5580%2C44.8455&amp;layer=mapnik"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer__grid">
+      <div>
+        <p class="footer__brand">Studio Lumière</p>
+        <p style="margin:12px 0 0;font-size:0.9rem;opacity:0.85">Photographie d'auteur — portraits et mariages (marque fictive).</p>
+      </div>
+      <div>
+        <p style="font-weight:600;margin:0 0 12px">Liens rapides</p>
+        <ul style="list-style:none;margin:0;padding:0;line-height:2">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#galerie">Galerie</a></li>
+          <li><a href="https://pinapp.fr/" rel="noopener noreferrer">Pinapp Studio</a></li>
+        </ul>
+      </div>
+      <div>
+        <p style="font-weight:600;margin:0 0 12px">Réseaux (fictifs)</p>
+        <p style="margin:0;font-size:0.9rem"><a href="#" onclick="return false;">Instagram démo</a> · <a href="#" onclick="return false;">LinkedIn démo</a></p>
+      </div>
+    </div>
+    <p class="footer__note">Site démo créé par Pinapp Studio · marque fictive · données fictives · <a href="https://pinapp.fr/">pinapp.fr</a></p>
+  </footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image agrandie" hidden>
+    <button type="button" class="lightbox__close" id="lightboxClose" aria-label="Fermer">×</button>
+    <img id="lightboxImg" src="" alt="" width="1600" height="1067" decoding="async" />
+  </div>
+
+  <script>
+(function () {
+  'use strict';
+  var navToggle = document.getElementById('navToggle');
+  var navPanel = document.getElementById('navPanel');
+  if (navToggle && navPanel) {
+    navToggle.addEventListener('click', function () {
+      var open = navPanel.classList.toggle('is-open');
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+
+  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.js-reveal').forEach(function (el) {
+      var io = new IntersectionObserver(
+        function (ents) {
+          ents.forEach(function (x) {
+            if (x.isIntersecting) {
+              el.classList.add('is-in');
+              io.unobserve(el);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }
+      );
+      io.observe(el);
+    });
+  } else {
+    document.querySelectorAll('.js-reveal').forEach(function (el) {
+      el.classList.add('is-in');
+    });
+  }
+
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lightboxImg');
+  var lbClose = document.getElementById('lightboxClose');
+  function openLb(src, alt) {
+    if (!lb || !lbImg) return;
+    lbImg.src = src;
+    lbImg.alt = alt || 'Image agrandie';
+    lb.hidden = false;
+    lb.classList.add('is-open');
+    lbClose.focus();
+  }
+  function closeLb() {
+    if (!lb) return;
+    lb.classList.remove('is-open');
+    lb.hidden = true;
+    lbImg.removeAttribute('src');
+  }
+  document.querySelectorAll('.js-lightbox-open').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var img = btn.querySelector('img');
+      openLb(btn.getAttribute('data-full'), img ? img.alt : '');
+    });
+  });
+  if (lbClose) lbClose.addEventListener('click', closeLb);
+  if (lb) {
+    lb.addEventListener('click', function (e) {
+      if (e.target === lb) closeLb();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && lb.classList.contains('is-open')) closeLb();
+    });
+  }
+
+  var form = document.getElementById('contact-form');
+  var statusEl = document.querySelector('.js-form-status');
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      var data = new FormData(form);
+      var payload = {};
+      data.forEach(function (v, k) {
+        payload[k] = v;
+      });
+      try {
+        console.log('[demo-photographe] soumission fictive', payload);
+      } catch (err) {}
+      if (statusEl) {
+        statusEl.textContent = 'Merci — en démonstration, aucun message n’est envoyé. Ouvrez la console pour voir les champs.';
+      }
+      form.reset();
+    });
+  }
+})();
+  </script>
+</body>
+</html>
