@@ -115,9 +115,23 @@ body.demo-beauty--light {
   padding: clamp(56px, 8vh, 92px) clamp(16px, 4vw, 28px) 56px;
   overflow: hidden;
 }
+.demo-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.demo-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 28%;
+  transform: scale(1.02);
+}
 .demo-hero__bg {
   position: absolute;
   inset: -20%;
+  z-index: 1;
   background: radial-gradient(120% 120% at 30% 20%, rgba(181, 143, 85, 0.22), transparent 58%),
     radial-gradient(120% 120% at 70% 30%, rgba(181, 143, 85, 0.12), transparent 60%);
   transform: translateZ(0);
@@ -125,10 +139,12 @@ body.demo-beauty--light {
 .demo-hero__veil {
   position: absolute;
   inset: 0;
+  z-index: 2;
   background: linear-gradient(180deg, rgba(246, 240, 231, 0) 0%, rgba(246, 240, 231, 0.82) 90%);
 }
 .demo-hero__content {
   position: relative;
+  z-index: 3;
   max-width: 980px;
   margin: 0 auto;
   text-align: center;
@@ -204,6 +220,9 @@ body.demo-beauty--light {
   width: min(1120px, calc(100vw - 48px));
   margin: 0 auto;
 }
+.demo-container--narrow {
+  max-width: 560px;
+}
 .demo-h2 {
   margin: 0 0 10px;
   font-style: italic;
@@ -255,4 +274,110 @@ body.demo-beauty--light {
   color: rgba(44, 42, 39, 0.62);
   border-bottom: 1px solid rgba(181, 143, 85, 0.3);
   text-decoration: none;
+}
+
+/* Grille soins + galerie (Unsplash) */
+.demo-grid {
+  display: grid;
+  gap: 18px;
+}
+.demo-grid--4 {
+  grid-template-columns: 1fr;
+}
+@media (min-width: 720px) {
+  .demo-grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .demo-grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.demo-grid--gallery {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+@media (min-width: 720px) {
+  .demo-grid--gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.demo-card {
+  border-radius: 18px;
+  border: 1px solid var(--ms-line);
+  background: var(--ms-card);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.demo-h3 {
+  margin: 0 0 6px;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--ms-text);
+}
+.demo-price {
+  margin: 0 0 8px;
+  font-weight: 600;
+  color: rgba(181, 143, 85, 0.95);
+}
+.demo-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ms-muted);
+}
+.demo-card__body {
+  padding: 16px 16px 18px;
+}
+.demo-section__head {
+  margin-bottom: 22px;
+}
+.demo-sub {
+  margin: 8px 0 0;
+  color: var(--ms-muted);
+  font-size: 15px;
+}
+.demo-photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: rgba(44, 42, 39, 0.06);
+  overflow: hidden;
+}
+.demo-photo--portrait {
+  aspect-ratio: 3 / 4;
+}
+.demo-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.demo-section--cta .demo-h2 {
+  text-align: center;
+}
+.demo-section--cta .demo-sub {
+  text-align: center;
+}
+.demo-cta-card {
+  margin-top: 18px;
+  padding: 22px;
+  border-radius: 18px;
+  border: 1px solid var(--ms-line);
+  background: rgba(255, 255, 255, 0.45);
+  text-align: center;
+}
+.demo-micro {
+  margin: 12px 0 0;
+  font-size: 12px;
+  color: rgba(44, 42, 39, 0.55);
+}
+.demo-disclaimer {
+  margin: 18px 0 0;
+  text-align: center;
+  font-size: 12px;
+  color: rgba(44, 42, 39, 0.55);
 }
