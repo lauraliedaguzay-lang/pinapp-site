@@ -10,8 +10,66 @@
   var STORAGE_KEY = 'pinapp_easter_egg_found';
   var timer = null;
   var touchTimer = null;
+  var wrap = trigger.closest('.footer-easter-wrap') || trigger.parentElement;
+  var hintEl = null;
+  var hintScheduleTimer = null;
+  var hintAutoHideTimer = null;
+
+  function abortHintSchedule() {
+    if (hintScheduleTimer) {
+      clearTimeout(hintScheduleTimer);
+      hintScheduleTimer = null;
+    }
+  }
+
+  function hideHintVisual() {
+    if (hintAutoHideTimer) {
+      clearTimeout(hintAutoHideTimer);
+      hintAutoHideTimer = null;
+    }
+    if (!hintEl) return;
+    hintEl.classList.remove('is-visible');
+    var el = hintEl;
+    hintEl = null;
+    setTimeout(function () {
+      if (el && el.parentNode) el.parentNode.removeChild(el);
+    }, 650);
+  }
+
+  function shouldSkipHint() {
+    try {
+      if (localStorage.getItem(STORAGE_KEY) === '1') return true;
+    } catch (e) {}
+    return stones.classList.contains('is-revealed');
+  }
+
+  function scheduleHintTooltip() {
+    if (shouldSkipHint()) return;
+    hintScheduleTimer = setTimeout(function () {
+      hintScheduleTimer = null;
+      if (shouldSkipHint() || !wrap) return;
+      hintEl = document.createElement('span');
+      hintEl.className = 'easter-egg-hint';
+      hintEl.setAttribute('aria-hidden', 'true');
+      hintEl.textContent = 'Maintenez 3s';
+      wrap.insertBefore(hintEl, trigger);
+      requestAnimationFrame(function () {
+        if (hintEl) hintEl.classList.add('is-visible');
+      });
+      hintAutoHideTimer = setTimeout(function () {
+        hintAutoHideTimer = null;
+        hideHintVisual();
+      }, 4000);
+    }, 8000);
+  }
+
+  function dismissHintIfVisible() {
+    if (hintEl) hideHintVisual();
+  }
 
   function reveal() {
+    abortHintSchedule();
+    hideHintVisual();
     stones.classList.add('is-revealed');
     stones.setAttribute('aria-hidden', 'false');
     try {
@@ -36,13 +94,16 @@
   }
 
   trigger.addEventListener('mouseenter', armHoverFocus);
+  trigger.addEventListener('mouseenter', dismissHintIfVisible);
   trigger.addEventListener('mouseleave', clearTimers);
   trigger.addEventListener('focus', armHoverFocus);
+  trigger.addEventListener('focus', dismissHintIfVisible);
   trigger.addEventListener('blur', clearTimers);
 
   trigger.addEventListener(
     'touchstart',
     function () {
+      dismissHintIfVisible();
       clearTimers();
       touchTimer = setTimeout(reveal, 2000);
     },
@@ -65,6 +126,10 @@
     if (localStorage.getItem(STORAGE_KEY) === '1') {
       stones.classList.add('is-revealed');
       stones.setAttribute('aria-hidden', 'false');
+    } else {
+      scheduleHintTooltip();
     }
-  } catch (e2) {}
+  } catch (e2) {
+    scheduleHintTooltip();
+  }
 })();
