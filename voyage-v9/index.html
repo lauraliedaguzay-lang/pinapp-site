@@ -2158,7 +2158,7 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
 
         <article class="real-hub-card card--glass v10-tilt" data-reveal data-categorie="imagerie" data-real-card>
           <div class="real-hub-card__embed">
-            <iframe src="https://player.vimeo.com/video/1187533794?dnt=1" title="Icebreaker — clip cinéma IA" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
+            <iframe src="about:blank" data-vimeo-src="https://player.vimeo.com/video/1187533794?dnt=1" title="Icebreaker — clip cinéma IA" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
           </div>
           <div class="real-hub-card__body">
             <h3 class="real-hub-card__title">Icebreaker</h3>
@@ -2168,7 +2168,7 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
         </article>
         <article class="real-hub-card card--glass v10-tilt" data-reveal data-categorie="imagerie" data-real-card>
           <div class="real-hub-card__embed">
-            <iframe src="https://player.vimeo.com/video/1184294831?dnt=1" title="SW Power Of Female Unity" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
+            <iframe src="about:blank" data-vimeo-src="https://player.vimeo.com/video/1184294831?dnt=1" title="SW Power Of Female Unity" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
           </div>
           <div class="real-hub-card__body">
             <h3 class="real-hub-card__title">SW Power Of Female Unity</h3>
@@ -2178,7 +2178,7 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
         </article>
         <article class="real-hub-card card--glass v10-tilt" data-reveal data-categorie="imagerie" data-real-card>
           <div class="real-hub-card__embed">
-            <iframe src="https://player.vimeo.com/video/1184294810?dnt=1" title="SW Teaser — vidéo Pinapp 60s en tournage" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
+            <iframe src="about:blank" data-vimeo-src="https://player.vimeo.com/video/1184294810?dnt=1" title="SW Teaser — vidéo Pinapp 60s en tournage" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
           </div>
           <div class="real-hub-card__body">
             <h3 class="real-hub-card__title">SW Teaser</h3>
@@ -2188,7 +2188,7 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
         </article>
         <article class="real-hub-card card--glass v10-tilt" data-reveal data-categorie="imagerie" data-real-card>
           <div class="real-hub-card__embed">
-            <iframe src="https://player.vimeo.com/video/1184294871?dnt=1" title="Resident Evil Black Event" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
+            <iframe src="about:blank" data-vimeo-src="https://player.vimeo.com/video/1184294871?dnt=1" title="Resident Evil Black Event" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
           </div>
           <div class="real-hub-card__body">
             <h3 class="real-hub-card__title">Resident Evil Black Event</h3>
@@ -2198,7 +2198,7 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
         </article>
         <article class="real-hub-card card--glass v10-tilt" data-reveal data-categorie="imagerie" data-real-card>
           <div class="real-hub-card__embed">
-            <iframe src="https://player.vimeo.com/video/1184294901?dnt=1" title="Clip Mémoire &amp; Présence" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
+            <iframe src="about:blank" data-vimeo-src="https://player.vimeo.com/video/1184294901?dnt=1" title="Clip Mémoire &amp; Présence" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
           </div>
           <div class="real-hub-card__body">
             <span class="real-hub-card__badge">★ Projet Pinapp</span>
@@ -2209,7 +2209,7 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
         </article>
         <article class="real-hub-card card--glass v10-tilt" data-reveal data-categorie="imagerie" data-real-card>
           <div class="real-hub-card__embed">
-            <iframe src="https://player.vimeo.com/video/1184294762?dnt=1" title="Walker Christian Remake" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
+            <iframe src="about:blank" data-vimeo-src="https://player.vimeo.com/video/1184294762?dnt=1" title="Walker Christian Remake" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
           </div>
           <div class="real-hub-card__body">
             <h3 class="real-hub-card__title">Walker Christian Remake</h3>
@@ -3103,6 +3103,29 @@ if('IntersectionObserver' in window && !prefersReduced()){
   });
 }else{
   document.querySelectorAll('[data-reveal]').forEach(function(el){ el.classList.add('is-in'); });
+}
+
+if('IntersectionObserver' in window){
+  document.querySelectorAll('.real-hub-card__embed iframe[data-vimeo-src]').forEach(function(frame){
+    var ioV=new IntersectionObserver(function(entries){
+      entries.forEach(function(x){
+        if(!x.isIntersecting) return;
+        var f=x.target;
+        var u=f.getAttribute('data-vimeo-src');
+        if(u){
+          f.setAttribute('src', u);
+          f.removeAttribute('data-vimeo-src');
+          ioV.unobserve(f);
+        }
+      });
+    },{rootMargin:'45% 0px',threshold:0});
+    ioV.observe(frame);
+  });
+}else{
+  document.querySelectorAll('.real-hub-card__embed iframe[data-vimeo-src]').forEach(function(f){
+    var u=f.getAttribute('data-vimeo-src');
+    if(u){ f.setAttribute('src', u); f.removeAttribute('data-vimeo-src'); }
+  });
 }
 
 var SOBER_KEY='pinapp-voyage-sober';
