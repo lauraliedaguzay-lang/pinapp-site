@@ -243,17 +243,17 @@
       photoHero: img('1562320342-44ef4452d781'),
       galerieTitle: 'Coupes & colorations',
       galerie: [
-        { src: img('1562320342-44ef4452d781', qM), alt: 'Salon', caption: 'Fauteuils' },
-        { src: img('1521590834227-7bcfd46fbd9d', qM), alt: 'Coupe', caption: 'Styling' },
-        { src: img('1633681738845-a5e52e44e475', qM), alt: 'Couleur', caption: 'Balayage' },
-        { src: img('1503951914875-452612b0f003', qM), alt: 'Barbier', caption: 'Taille de barbe' },
-        { src: img('1522338140842-4fe909a4322e', qM), alt: 'Produits', caption: 'Soins' },
-        { src: img('1560066984-138d3534f6d9', qM), alt: 'Miroir', caption: 'Avant / après' },
+        { src: img('1562320342-44ef4452d781', qM), alt: 'Salon de coiffure', caption: 'Fauteuils' },
+        { src: img('1521590834227-7bcfd46fbd9d', qM), alt: 'Brushing et coupe', caption: 'Styling' },
+        { src: img('1633681738845-a5e52e44e475', qM), alt: 'Coloration', caption: 'Balayage' },
+        { src: img('1522338140842-4fe909a4322e', qM), alt: 'Soins capillaires', caption: 'Soins' },
+        { src: img('1560066984-138d3534f6d9', qM), alt: 'Miroir en salon', caption: 'Avant / après' },
+        { src: img('1534528741775-53994a69daeb', qM), alt: 'Cliente satisfaite', caption: 'Résultat' },
       ],
       serviceImages: [
         img('1521590834227-7bcfd46fbd9d', qS),
         img('1633681738845-a5e52e44e475', qS),
-        img('1503951914875-452612b0f003', qS),
+        img('1522338140842-4fe909a4322e', qS),
       ],
       apropos: {
         titre: 'Salon indépendant',
@@ -266,7 +266,7 @@
         'Mise en avant des services qui vous rapportent — parcours écrit pour ce salon, pas pour « n’importe quel coiffeur ».',
       bookingSub: 'Prestation et horaire en trois choix (démo).',
       confirmSub: 'Exemple : agenda synchronisé sur le site livré.',
-      preuvePhoto: img('1507003211169-0a1dd7228f2d', qS),
+      preuvePhoto: img('1534528741775-53994a69daeb', qS),
     },
 
     cils: {

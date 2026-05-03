@@ -4,28 +4,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="robots" content="index, follow" />
-    <meta name="pinapp-build" content="v14-clean-2026-04-28" />
+    <meta name="pinapp-build" content="v15.3.2-prAB-bis-2026-05-03" />
     <link rel="canonical" href="https://pinapp.fr/demo/extensions-cils/" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/demo/_shared/demo-banner.css" />
     <title>Studio Léna — Extensions de cils premium · Démo Pinapp</title>
-    <meta name="description" content="Démo vitrine extensions de cils : hero premium, tarifs & temps, avant/après (placeholders), réservation. Pinapp Studio." />
+    <meta name="description" content="Démo vitrine extensions de cils : hero premium, tarifs &amp; temps, avant/après illustrés, réservation. Pinapp Studio." />
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:site_name" content="Pinapp" />
     <meta property="og:title" content="Studio Léna — Extensions de cils premium · Démo Pinapp" />
-    <meta property="og:description" content="Démo vitrine extensions de cils : hero premium, tarifs & temps, avant/après (placeholders), réservation." />
+    <meta property="og:description" content="Démo vitrine extensions de cils : hero premium, tarifs &amp; temps, avant/après illustrés, réservation." />
     <meta property="og:url" content="https://pinapp.fr/demo/extensions-cils/" />
     <meta property="og:image" content="https://pinapp.fr/assets/images/og-pinapp-share.svg" />
     <meta property="og:image:type" content="image/svg+xml" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Studio Léna — Extensions de cils premium · Démo Pinapp" />
-    <meta name="twitter:description" content="Démo vitrine extensions de cils : hero premium, tarifs & temps, avant/après (placeholders), réservation." />
+    <meta name="twitter:description" content="Démo vitrine extensions de cils : hero premium, tarifs &amp; temps, avant/après illustrés, réservation." />
     <meta name="twitter:image" content="https://pinapp.fr/assets/images/og-pinapp-share.svg" />
 
     <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
     <link rel="dns-prefetch" href="https://fonts.bunny.net" />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
+    <link
+      rel="preload"
+      as="image"
+      href="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&amp;fit=crop&amp;w=1600&amp;q=85"
+      fetchpriority="high"
+    />
     <link
       rel="stylesheet"
       href="https://fonts.bunny.net/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@400;500;600&display=swap"
@@ -135,6 +143,91 @@
         height: auto;
         opacity: 0.9;
       }
+
+      .frame--photo {
+        padding: 0;
+        place-items: stretch;
+      }
+      .frame--photo img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        z-index: 0;
+      }
+      .frame--photo .frame__tag,
+      .frame--photo .frame__note {
+        z-index: 1;
+      }
+
+      .demo-hero-visual {
+        width: min(720px, 92vw);
+        margin: 28px auto 0;
+        aspect-ratio: 16 / 10;
+        border-radius: 20px;
+        border: 1px solid rgba(201, 169, 110, 0.28);
+        overflow: hidden;
+        box-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
+      }
+      .demo-hero-visual img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .geste-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 18px;
+      }
+      @media (max-width: 820px) {
+        .geste-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .geste-card {
+        border-radius: 18px;
+        border: 1px solid rgba(201, 169, 110, 0.22);
+        background: rgba(34, 28, 22, 0.55);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+      }
+      .geste-card__img {
+        aspect-ratio: 16 / 11;
+        overflow: hidden;
+      }
+      .geste-card__img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .geste-card__body {
+        padding: 18px 18px 20px;
+      }
+      .geste-card__body .card__k {
+        margin-top: 0;
+      }
+
+      .booking-side-img {
+        margin-top: 14px;
+        border-radius: 14px;
+        overflow: hidden;
+        border: 1px solid rgba(244, 235, 217, 0.12);
+        aspect-ratio: 4 / 3;
+      }
+      .booking-side-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
       .frame__tag {
         position: absolute;
         top: 10px;
@@ -237,9 +330,25 @@
           <p class="kicker">Extensions de cils · Bordeaux</p>
           <h1 class="hero-title">Le regard, <em>sans le maquillage.</em></h1>
           <p class="lede">
-            Structure premium V1 (placeholders). Les photos avant/après seront remplacées par les visuels réels de
-            Studio Léna.
+            Visuels Unsplash pour la démo (ambiance spa, regard). En production : photos réelles de Studio Léna, même
+            cadrage pour les avant/après.
           </p>
+          <div class="demo-hero-visual">
+            <img
+              src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&amp;fit=crop&amp;w=1600&amp;q=85"
+              srcset="
+                https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&amp;fit=crop&amp;w=800&amp;q=85 800w,
+                https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&amp;fit=crop&amp;w=1600&amp;q=85 1600w
+              "
+              sizes="(max-width: 900px) 92vw, 720px"
+              width="1600"
+              height="1000"
+              alt="Gros plan sur un regard détendu en cabine beauté"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </div>
           <div class="hero-mark" aria-hidden="true">
             <svg viewBox="0 0 820 220" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -273,17 +382,51 @@
         <div class="container">
           <p class="kicker">Le geste</p>
           <h2 id="h2-geste">Technique claire, résultat naturel.</h2>
-          <div class="grid-2" style="margin-top: 18px">
-            <div class="card">
-              <p class="card__k">Cil-à-cil</p>
-              <p class="card__t">Un cil synthétique, un cil naturel. Le rendu le plus discret.</p>
-              <p class="card__meta">Idéal première pose · tenue 3–4 semaines</p>
-            </div>
-            <div class="card">
-              <p class="card__k">Hybride / Volume russe</p>
-              <p class="card__t">Densité modulée. Plus intense, toujours équilibré.</p>
-              <p class="card__meta">Selon morphologie · mapping sur-mesure</p>
-            </div>
+          <div class="geste-grid">
+            <article class="geste-card">
+              <div class="geste-card__img">
+                <img
+                  src="https://images.unsplash.com/photo-1522335780753-8ca7b8c0c34c?auto=format&amp;fit=crop&amp;w=800&amp;q=85"
+                  srcset="
+                    https://images.unsplash.com/photo-1522335780753-8ca7b8c0c34c?auto=format&amp;fit=crop&amp;w=600&amp;q=85 600w,
+                    https://images.unsplash.com/photo-1522335780753-8ca7b8c0c34c?auto=format&amp;fit=crop&amp;w=800&amp;q=85 800w
+                  "
+                  sizes="(max-width: 820px) 100vw, 50vw"
+                  width="800"
+                  height="550"
+                  alt="Cabine institut : soin du visage, ambiance douce"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="geste-card__body">
+                <p class="card__k">Cil-à-cil</p>
+                <p class="card__t">Un cil synthétique, un cil naturel. Le rendu le plus discret.</p>
+                <p class="card__meta">Idéal première pose · tenue 3–4 semaines</p>
+              </div>
+            </article>
+            <article class="geste-card">
+              <div class="geste-card__img">
+                <img
+                  src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&amp;fit=crop&amp;w=800&amp;q=85"
+                  srcset="
+                    https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&amp;fit=crop&amp;w=600&amp;q=85 600w,
+                    https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&amp;fit=crop&amp;w=800&amp;q=85 800w
+                  "
+                  sizes="(max-width: 820px) 100vw, 50vw"
+                  width="800"
+                  height="550"
+                  alt="Espace spa tamisé, pierres et serviettes"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="geste-card__body">
+                <p class="card__k">Hybride / Volume russe</p>
+                <p class="card__t">Densité modulée. Plus intense, toujours équilibré.</p>
+                <p class="card__meta">Selon morphologie · mapping sur-mesure</p>
+              </div>
+            </article>
           </div>
         </div>
       </section>
@@ -320,82 +463,125 @@
         <div class="container">
           <p class="kicker">Avant / Après</p>
           <h2 id="h2-aa">Une preuve visuelle, cadrée.</h2>
-          <p class="note">V1 placeholders premium · V2 photos réelles (sans compression agressive, lumière homogène).</p>
+          <p class="note">
+            Illustrations Unsplash (même tonalité chaude). En réel : paires avant/après du même client, même lumière et
+            cadrage.
+          </p>
 
           <div class="before-after">
             <div class="pair">
               <div class="pair__row">
-                <div class="frame" aria-label="Avant">
+                <div class="frame frame--photo" aria-label="Avant">
                   <span class="frame__tag">Avant</span>
-                  <svg viewBox="0 0 300 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M24 140c40-62 92-92 156-90 46 2 82 22 112 62" fill="none" stroke="rgba(201,169,110,0.85)" stroke-width="2.2" stroke-linecap="round"/>
-                    <path d="M78 118c-10-18-22-30-40-38" fill="none" stroke="rgba(217,168,156,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M110 104c-8-18-16-32-30-44" fill="none" stroke="rgba(217,168,156,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M148 98c-4-18-8-36-16-54" fill="none" stroke="rgba(217,168,156,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <circle cx="176" cy="126" r="24" fill="rgba(244,235,217,0.06)" stroke="rgba(244,235,217,0.12)"/>
-                  </svg>
-                  <div class="frame__note">À documenter par Léna</div>
+                  <img
+                    src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&amp;fit=crop&amp;w=800&amp;q=85"
+                    srcset="
+                      https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&amp;fit=crop&amp;w=600&amp;q=85 600w,
+                      https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&amp;fit=crop&amp;w=800&amp;q=85 800w
+                    "
+                    sizes="(max-width: 980px) 100vw, 33vw"
+                    width="800"
+                    height="1000"
+                    alt="Soin visage avant mise en beauté du regard"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div class="frame__note">Exemple démo</div>
                 </div>
-                <div class="frame" aria-label="Après">
+                <div class="frame frame--photo" aria-label="Après">
                   <span class="frame__tag">Après</span>
-                  <svg viewBox="0 0 300 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M24 140c40-62 92-92 156-90 46 2 82 22 112 62" fill="none" stroke="rgba(201,169,110,0.95)" stroke-width="2.2" stroke-linecap="round"/>
-                    <path d="M78 116c-12-22-26-36-46-46" fill="none" stroke="rgba(201,169,110,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M112 102c-10-22-20-38-38-54" fill="none" stroke="rgba(201,169,110,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M152 96c-6-22-12-40-22-62" fill="none" stroke="rgba(201,169,110,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <circle cx="176" cy="126" r="24" fill="rgba(244,235,217,0.08)" stroke="rgba(201,169,110,0.22)"/>
-                  </svg>
-                  <div class="frame__note">PHOTO À FOURNIR · éclairage constant</div>
+                  <img
+                    src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&amp;fit=crop&amp;w=800&amp;q=85"
+                    srcset="
+                      https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&amp;fit=crop&amp;w=600&amp;q=85 600w,
+                      https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&amp;fit=crop&amp;w=800&amp;q=85 800w
+                    "
+                    sizes="(max-width: 980px) 100vw, 33vw"
+                    width="800"
+                    height="1000"
+                    alt="Peau lumineuse après soin esthétique"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div class="frame__note">Même ambiance lumière</div>
                 </div>
               </div>
             </div>
 
             <div class="pair">
               <div class="pair__row">
-                <div class="frame" aria-label="Avant">
+                <div class="frame frame--photo" aria-label="Avant">
                   <span class="frame__tag">Avant</span>
-                  <svg viewBox="0 0 300 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M24 140c40-62 92-92 156-90 46 2 82 22 112 62" fill="none" stroke="rgba(201,169,110,0.85)" stroke-width="2.2" stroke-linecap="round"/>
-                    <path d="M94 122c-10-18-22-30-40-38" fill="none" stroke="rgba(217,168,156,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M126 108c-8-18-16-32-30-44" fill="none" stroke="rgba(217,168,156,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <circle cx="186" cy="130" r="22" fill="rgba(244,235,217,0.06)" stroke="rgba(244,235,217,0.12)"/>
-                  </svg>
-                  <div class="frame__note">À documenter par Léna</div>
+                  <img
+                    src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?auto=format&amp;fit=crop&amp;w=800&amp;q=85"
+                    srcset="
+                      https://images.unsplash.com/photo-1600334129128-685c5582fd35?auto=format&amp;fit=crop&amp;w=600&amp;q=85 600w,
+                      https://images.unsplash.com/photo-1600334129128-685c5582fd35?auto=format&amp;fit=crop&amp;w=800&amp;q=85 800w
+                    "
+                    sizes="(max-width: 980px) 100vw, 33vw"
+                    width="800"
+                    height="1000"
+                    alt="Rituel spa, modelage du visage"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div class="frame__note">Exemple démo</div>
                 </div>
-                <div class="frame" aria-label="Après">
+                <div class="frame frame--photo" aria-label="Après">
                   <span class="frame__tag">Après</span>
-                  <svg viewBox="0 0 300 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M24 140c40-62 92-92 156-90 46 2 82 22 112 62" fill="none" stroke="rgba(201,169,110,0.95)" stroke-width="2.2" stroke-linecap="round"/>
-                    <path d="M94 120c-12-22-26-36-46-46" fill="none" stroke="rgba(201,169,110,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M128 106c-10-22-20-38-38-54" fill="none" stroke="rgba(201,169,110,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <circle cx="186" cy="130" r="22" fill="rgba(244,235,217,0.08)" stroke="rgba(201,169,110,0.22)"/>
-                  </svg>
-                  <div class="frame__note">PHOTO À FOURNIR · même cadrage</div>
+                  <img
+                    src="https://images.unsplash.com/photo-1583416750470-965b2707b355?auto=format&amp;fit=crop&amp;w=800&amp;q=85"
+                    srcset="
+                      https://images.unsplash.com/photo-1583416750470-965b2707b355?auto=format&amp;fit=crop&amp;w=600&amp;q=85 600w,
+                      https://images.unsplash.com/photo-1583416750470-965b2707b355?auto=format&amp;fit=crop&amp;w=800&amp;q=85 800w
+                    "
+                    sizes="(max-width: 980px) 100vw, 33vw"
+                    width="800"
+                    height="1000"
+                    alt="Détente spa, ambiance zen"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div class="frame__note">Rendu soigné</div>
                 </div>
               </div>
             </div>
 
             <div class="pair">
               <div class="pair__row">
-                <div class="frame" aria-label="Avant">
+                <div class="frame frame--photo" aria-label="Avant">
                   <span class="frame__tag">Avant</span>
-                  <svg viewBox="0 0 300 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M24 140c40-62 92-92 156-90 46 2 82 22 112 62" fill="none" stroke="rgba(201,169,110,0.85)" stroke-width="2.2" stroke-linecap="round"/>
-                    <path d="M70 118c-10-18-22-30-40-38" fill="none" stroke="rgba(217,168,156,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M102 104c-8-18-16-32-30-44" fill="none" stroke="rgba(217,168,156,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <circle cx="166" cy="126" r="24" fill="rgba(244,235,217,0.06)" stroke="rgba(244,235,217,0.12)"/>
-                  </svg>
-                  <div class="frame__note">À documenter par Léna</div>
+                  <img
+                    src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&amp;fit=crop&amp;w=800&amp;q=85"
+                    srcset="
+                      https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&amp;fit=crop&amp;w=600&amp;q=85 600w,
+                      https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&amp;fit=crop&amp;w=800&amp;q=85 800w
+                    "
+                    sizes="(max-width: 980px) 100vw, 33vw"
+                    width="800"
+                    height="1000"
+                    alt="Soin du visage en cabine"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div class="frame__note">Exemple démo</div>
                 </div>
-                <div class="frame" aria-label="Après">
+                <div class="frame frame--photo" aria-label="Après">
                   <span class="frame__tag">Après</span>
-                  <svg viewBox="0 0 300 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M24 140c40-62 92-92 156-90 46 2 82 22 112 62" fill="none" stroke="rgba(201,169,110,0.95)" stroke-width="2.2" stroke-linecap="round"/>
-                    <path d="M70 116c-12-22-26-36-46-46" fill="none" stroke="rgba(201,169,110,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M104 102c-10-22-20-38-38-54" fill="none" stroke="rgba(201,169,110,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <circle cx="166" cy="126" r="24" fill="rgba(244,235,217,0.08)" stroke="rgba(201,169,110,0.22)"/>
-                  </svg>
-                  <div class="frame__note">PHOTO À FOURNIR · lumière diffuse</div>
+                  <img
+                    src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&amp;fit=crop&amp;w=800&amp;q=85"
+                    srcset="
+                      https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&amp;fit=crop&amp;w=600&amp;q=85 600w,
+                      https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&amp;fit=crop&amp;w=800&amp;q=85 800w
+                    "
+                    sizes="(max-width: 980px) 100vw, 33vw"
+                    width="800"
+                    height="1000"
+                    alt="Matériel de beauté rangé sur un plateau"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div class="frame__note">Précision &amp; hygiène</div>
                 </div>
               </div>
             </div>
@@ -425,13 +611,28 @@
               <div style="height: 10px"></div>
               <p class="card__k">CTA</p>
               <p class="card__meta">Bouton “Réserver” à connecter à Cal.com / Planity en production.</p>
+              <div class="booking-side-img">
+                <img
+                  src="https://images.unsplash.com/photo-1516975080914-ae6841e37f29?auto=format&amp;fit=crop&amp;w=800&amp;q=85"
+                  srcset="
+                    https://images.unsplash.com/photo-1516975080914-ae6841e37f29?auto=format&amp;fit=crop&amp;w=600&amp;q=85 600w,
+                    https://images.unsplash.com/photo-1516975080914-ae6841e37f29?auto=format&amp;fit=crop&amp;w=800&amp;q=85 800w
+                  "
+                  sizes="(max-width: 980px) 100vw, 38vw"
+                  width="800"
+                  height="600"
+                  alt="Pose d’extensions de cils en institut"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       <footer class="demo-footer">
-        <p class="demo-footer__line">Données fictives · placeholders V1 · photos réelles en V2</p>
+        <p class="demo-footer__line">Données fictives · visuels Unsplash (démo) · photos réelles en V2</p>
         <p class="demo-footer__line">Studio Léna · Bordeaux (fictif)</p>
       </footer>
     </main>
