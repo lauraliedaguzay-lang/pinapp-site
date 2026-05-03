@@ -30,54 +30,8 @@
     });
   }
 
-  /* ── INTRO IA ── */
-  function initIntroIA() {
-    if (sessionStorage.getItem('p-intro')) return;
-    var st = document.createElement('style');
-    st.textContent =
-      '#pi{position:fixed;inset:0;z-index:9999;background:#020408;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .8s}#pi.out{opacity:0;pointer-events:none}#pi.gone{display:none}.pi-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,229,176,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,176,.03) 1px,transparent 1px);background-size:40px 40px}.pi-scan{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,229,176,.8),transparent);box-shadow:0 0 20px rgba(0,229,176,.4);animation:scan 3s linear infinite}@keyframes scan{0%{top:0}100%{top:100%}}.pi-cnt{position:relative;z-index:1;text-align:center;max-width:540px;padding:0 24px}.pi-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border:1px solid rgba(0,229,176,.2);border-radius:100px;margin-bottom:40px;background:rgba(0,229,176,.05);font-size:10px;letter-spacing:.20em;text-transform:uppercase;color:#00e5b0;font-family:-apple-system,sans-serif}.pi-dot{width:6px;height:6px;border-radius:50%;background:#00e5b0;box-shadow:0 0 8px #00e5b0;animation:pd 1s ease-in-out infinite}@keyframes pd{0%,100%{opacity:1}50%{opacity:.2}}#pi-txt{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:clamp(20px,5vw,36px);font-weight:300;color:#f0f8ff;line-height:1.4;letter-spacing:-.02em;min-height:110px;display:flex;align-items:center;justify-content:center}.pi-cur{font-size:28px;color:#00e5b0;animation:pc .8s step-end infinite;margin-top:8px}@keyframes pc{0%,100%{opacity:1}50%{opacity:0}}.pi-skip{position:fixed;bottom:max(env(safe-area-inset-bottom,0px),24px);right:24px;background:transparent;border:1px solid rgba(0,229,176,.2);border-radius:100px;color:rgba(240,248,255,.4);font-family:-apple-system,sans-serif;font-size:12px;letter-spacing:.08em;padding:8px 16px;cursor:pointer;min-height:44px;transition:color .2s,border-color .2s}.pi-skip:hover{color:#f0f8ff;border-color:rgba(0,229,176,.5)}';
-    document.head.appendChild(st);
-    var el = document.createElement('div');
-    el.id = 'pi';
-    el.innerHTML =
-      '<div class="pi-grid" aria-hidden="true"></div><div class="pi-scan" aria-hidden="true"></div><div class="pi-cnt"><div class="pi-badge"><span class="pi-dot"></span>PINAPP · SYSTÈME ACTIF</div><div id="pi-txt"></div><div class="pi-cur" aria-hidden="true">_</div></div><button class="pi-skip" id="pi-skip">Passer →</button>';
-    document.body.insertBefore(el, document.body.firstChild);
-    var txt = document.getElementById('pi-txt');
-    var lines = [
-      { t: 'Bienvenue.', d: 600 },
-      { t: "Vous êtes sur le point d'entrer<br/>dans un système différent.", d: 2200 },
-      { t: "Le problème n'est plus<br/>le manque d'outils.", d: 4400 },
-      { t: "C'est le manque de structure.", d: 6400 },
-      { t: 'Nous construisons la structure.<br/>Vous récoltez.', d: 8200 },
-      { t: 'Pinapp', d: 10000 },
-    ];
-    var timers = [];
-    function show(l) {
-      txt.style.opacity = '0';
-      txt.style.transition = 'opacity .4s';
-      setTimeout(function () {
-        txt.innerHTML = l.t;
-        txt.style.opacity = '1';
-      }, 400);
-    }
-    lines.forEach(function (l) {
-      timers.push(
-        setTimeout(function () {
-          show(l);
-        }, l.d),
-      );
-    });
-    function close() {
-      timers.forEach(clearTimeout);
-      el.classList.add('out');
-      setTimeout(function () {
-        el.classList.add('gone');
-      }, 900);
-      sessionStorage.setItem('p-intro', '1');
-    }
-    timers.push(setTimeout(close, 12000));
-    document.getElementById('pi-skip').addEventListener('click', close);
-  }
+  /* Splash #pi (doublon intro) retiré — PR-AA mai 2026 */
+  function initIntroIA() {}
 
   /* ── SCROLL-SNAP FIX ── */
   function fixSnap() {
