@@ -1863,7 +1863,7 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
 
 <main id="main">
 
-  <section id="hero" class="scene" data-stage="hero-6" aria-labelledby="hero-h1">
+  <section id="hero" class="scene" data-stage="hero-1" aria-labelledby="hero-h1">
     <div class="scene__inner">
       <p class="eyebrow">STUDIO IA · BORDEAUX · 2026</p>
       <h1 id="hero-h1" class="display display--h1 hero__title">
@@ -3105,6 +3105,9 @@ if('IntersectionObserver' in window){
       if(stageSectionOrder.indexOf(cur)>stageSectionOrder.indexOf(best)) best=cur;
     }
     if(best && best.id){
+      try{
+        console.log('[stage-debug]',{intersecting:cand.map(function(s){return s.id;}),winner:best.id,scrollY:Math.round(window.scrollY||document.documentElement.scrollTop||0)});
+      }catch(_){}
       emitScene(best.id);
     }
   },{threshold:[0,0.15,0.35,0.55,0.75],rootMargin:'-12% 0px -35% 0px'});
