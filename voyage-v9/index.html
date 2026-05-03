@@ -3111,15 +3111,6 @@ if('IntersectionObserver' in window){
   stageSectionOrder.forEach(function(sec){ io.observe(sec); });
 }
 
-/* PR-S11 Phase 4 — align stage layer with #hero data-stage before first IO callback */
-if(document.readyState==='loading'){
-  document.addEventListener('DOMContentLoaded',function(){
-    requestAnimationFrame(function(){ emitScene('hero'); });
-  });
-}else{
-  requestAnimationFrame(function(){ emitScene('hero'); });
-}
-
 if('IntersectionObserver' in window && !prefersReduced()){
   document.querySelectorAll('[data-reveal]').forEach(function(el){
     var d=parseInt(el.getAttribute('data-reveal-delay')||'0',10);
