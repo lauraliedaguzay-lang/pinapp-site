@@ -1,0 +1,64 @@
+/**
+ * PR-AE — badge niveau offre (démos ICP Pinapp)
+ * position: fixed — repère visuel sans scroll
+ */
+.tier-badge {
+  position: fixed;
+  top: max(16px, env(safe-area-inset-top, 0px));
+  right: max(16px, env(safe-area-inset-right, 0px));
+  padding: 8px 16px;
+  max-width: min(92vw, 280px);
+  background: rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: #fff;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1.25;
+  text-align: right;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+.tier-badge::before {
+  content: '';
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #c9a96e;
+  box-shadow: 0 0 0 1px rgba(201, 168, 110, 0.35);
+}
+
+.tier-badge:hover,
+.tier-badge:focus-visible {
+  opacity: 1;
+}
+
+.tier-badge:focus-visible {
+  outline: 2px solid rgba(201, 168, 110, 0.65);
+  outline-offset: 2px;
+}
+
+.tier-badge {
+  opacity: 0.88;
+}
+
+@media (max-width: 768px) {
+  .tier-badge {
+    top: max(8px, env(safe-area-inset-top, 0px));
+    right: max(8px, env(safe-area-inset-right, 0px));
+    padding: 6px 12px;
+    font-size: 10px;
+    max-width: min(88vw, 260px);
+  }
+}
