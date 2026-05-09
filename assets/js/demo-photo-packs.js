@@ -240,26 +240,18 @@
     },
 
     coiffeur: {
-      photoHero: img('1562320342-44ef4452d781'),
+      // 2026-05-03 J-2 pitch · 6 photo IDs Unsplash retournaient 404 (audit Chrome MCP)
+      // Retour à l'état "épure pure" : photoHero/galerie/serviceImages/apropos.photo neutralisés
+      // À recâbler post-pitch avec photos vérifiées vivantes (cf audit-2026-05-03.md).
+      photoHero: '',
       galerieTitle: 'Coupes & colorations',
-      galerie: [
-        { src: img('1562320342-44ef4452d781', qM), alt: 'Salon', caption: 'Fauteuils' },
-        { src: img('1521590834227-7bcfd46fbd9d', qM), alt: 'Coupe', caption: 'Styling' },
-        { src: img('1633681738845-a5e52e44e475', qM), alt: 'Couleur', caption: 'Balayage' },
-        { src: img('1503951914875-452612b0f003', qM), alt: 'Barbier', caption: 'Taille de barbe' },
-        { src: img('1522338140842-4fe909a4322e', qM), alt: 'Produits', caption: 'Soins' },
-        { src: img('1560066984-138d3534f6d9', qM), alt: 'Miroir', caption: 'Avant / après' },
-      ],
-      serviceImages: [
-        img('1521590834227-7bcfd46fbd9d', qS),
-        img('1633681738845-a5e52e44e475', qS),
-        img('1503951914875-452612b0f003', qS),
-      ],
+      galerie: [],
+      serviceImages: [],
       apropos: {
         titre: 'Salon indépendant',
         texte:
           'Écoute, conseil couleur, finitions nettes. RDV en ligne, rappels automatiques — vous profitez du fauteuil.',
-        photo: img('1562320342-44ef4452d781', qM),
+        photo: '',
       },
       servicesTitle: 'Coupes, couleurs, barbe',
       servicesSubtitle:
