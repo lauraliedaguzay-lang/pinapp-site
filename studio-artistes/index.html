@@ -3,18 +3,234 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="theme-color" content="#050b14" />
-<title>Studio artistes · Clips IA &amp; univers visuels · Pinapp</title>
-<meta name="description" content="Vos clips IA, vos univers visuels. Pack clip artiste 2 290 € HT — Pinapp Inc." />
+<meta name="theme-color" content="#0A0F14" />
+<meta name="pinapp-build" content="v15.3.0-studio-artistes-2026-05-10" />
+<title>Studio artistes · Votre clip cinéma IA · 2 290 € HT · Pinapp</title>
+<meta name="description" content="Votre univers, votre clip 90 s en 4K, droits cédés. Pack Clip artiste 2 290 € HT — brief créatif offert." />
 <meta property="og:title" content="Studio artistes · Pinapp" />
-<meta property="og:description" content="Clips IA et pack artiste — vitrine dédiée." />
+<meta property="og:description" content="Clips IA pour artistes indépendants — pack 2 290 € HT." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://pinapp.fr/studio-artistes/" />
 <meta property="og:image" content="https://pinapp.fr/voyage-v9/assets/og-pinapp.jpg" />
 <link rel="canonical" href="https://pinapp.fr/studio-artistes/" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.bunny.net/css?family=cormorant-garamond:ital,wght@0,400;0,600;1,400;1,600|inter:400,500,600&display=swap" />
 <link rel="stylesheet" href="/voyage-v9/assets/css/pr3b-subpage.css" />
 <link rel="stylesheet" href="/voyage-v9/assets/css/pinapp-type.css" />
+<style>
+:root {
+  --sa-ivoire: #f5ede0;
+  --sa-or: #c9a66b;
+  --sa-hublot: #1b2a3a;
+  --sa-cosmos: #0a0f14;
+  --sa-ivoire-50: rgba(245, 237, 224, 0.5);
+  --sa-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+html { scroll-behavior: auto; }
+body {
+  background: var(--sa-cosmos);
+  color: var(--sa-ivoire);
+  font-family: Inter, system-ui, sans-serif;
+}
+.display-h1,
+.display-h2 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--sa-ivoire);
+}
+.hero-sub .eyebrow { color: var(--sa-or); }
+.hero-sub .lead { color: rgba(245, 237, 224, 0.82); }
+.sa-wrap {
+  max-width: min(720px, 92vw);
+  margin: 0 auto;
+  padding: var(--sp-7) clamp(16px, 4vw, 24px);
+}
+.sa-card {
+  background: rgba(27, 42, 58, 0.55);
+  border: 1px solid rgba(201, 166, 107, 0.22);
+  border-radius: var(--r-lg);
+  padding: var(--sp-5);
+  transition: transform 0.35s var(--sa-ease), box-shadow 0.35s var(--sa-ease);
+  margin-top: var(--sp-5);
+}
+@media (hover: hover) and (pointer: fine) {
+  .sa-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 36px rgba(201, 166, 107, 0.1);
+  }
+}
+.sa-vimeowrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: #000;
+  border: 1px solid rgba(201, 166, 107, 0.25);
+}
+.sa-vimeowrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(145deg, rgba(27, 42, 58, 0.5), rgba(10, 15, 20, 0.85));
+  transition: opacity 0.4s var(--sa-ease), visibility 0.4s;
+}
+.sa-vimeowrap.is-loaded::before {
+  opacity: 0;
+  visibility: hidden;
+}
+.sa-vimeowrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  z-index: 2;
+  background: #05080c;
+}
+.sa-vimeowrap .sa-poster {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 3;
+}
+.sa-cap {
+  margin: var(--sp-4) 0 0;
+  font-size: 0.95rem;
+  color: rgba(245, 237, 224, 0.78);
+  text-align: center;
+}
+.sa-list {
+  margin: var(--sp-4) 0 0;
+  padding-left: 1.2rem;
+  line-height: 1.65;
+  color: rgba(245, 237, 224, 0.88);
+}
+.sa-list li { margin-bottom: 0.55rem; }
+.sa-note {
+  margin-top: var(--sp-5);
+  font-size: 0.95rem;
+  color: rgba(245, 237, 224, 0.72);
+  font-style: italic;
+}
+.sa-pack-price {
+  font-size: clamp(2rem, 5vw, 2.6rem);
+  font-weight: 600;
+  color: var(--sa-or);
+  margin: var(--sp-3) 0 0;
+}
+.sa-care-foot {
+  font-size: 0.8rem;
+  color: var(--sa-ivoire-50);
+  margin-top: var(--sp-4);
+  text-align: center;
+}
+.sa-cta-full {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  margin: var(--sp-8) auto 0;
+  padding: 16px 22px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: Inter, system-ui, sans-serif;
+  color: var(--sa-cosmos);
+  background: var(--sa-or);
+  border: none;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: transform 0.3s var(--sa-ease), box-shadow 0.3s var(--sa-ease);
+  touch-action: manipulation;
+}
+@media (min-width: 640px) {
+  .sa-cta-full { width: auto; min-width: 320px; }
+}
+.sa-cta-full:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(201, 166, 107, 0.22);
+}
+.sa-h3 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.35rem, 3vw, 1.65rem);
+  margin: 0 0 var(--sp-3);
+  color: var(--sa-ivoire);
+}
+.sa-ai-disclaimer {
+  font-size: 0.75rem;
+  color: var(--sa-ivoire-50);
+  text-align: center;
+  margin: var(--sp-6) auto var(--sp-4);
+  max-width: 36rem;
+}
+.sa-form .sa-fld {
+  margin-bottom: var(--sp-4);
+}
+.sa-form label {
+  display: block;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(245, 237, 224, 0.65);
+  margin-bottom: 6px;
+}
+.sa-form input,
+.sa-form textarea,
+.sa-form select {
+  width: 100%;
+  min-height: 48px;
+  font-size: 16px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(201, 166, 107, 0.28);
+  background: rgba(10, 15, 20, 0.65);
+  color: var(--sa-ivoire);
+}
+.sa-form textarea { min-height: 120px; resize: vertical; }
+.sa-form .sa-consent {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+.sa-form .sa-consent input { width: auto; min-height: auto; margin-top: 4px; }
+.site-footer {
+  border-top: 1px solid rgba(201, 166, 107, 0.15);
+  padding: var(--sp-6) clamp(16px, 4vw, 24px);
+  text-align: center;
+  font-size: 0.9rem;
+  color: rgba(245, 237, 224, 0.7);
+}
+@media (prefers-reduced-motion: reduce) {
+  .sa-card,
+  .sa-cta-full {
+    transition: none;
+  }
+  .sa-card:hover,
+  .sa-cta-full:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  .sa-vimeowrap::before {
+    display: none;
+  }
+  .sa-vimeowrap iframe {
+    display: none !important;
+  }
+  .sa-vimeowrap .sa-poster {
+    display: block;
+  }
+}
+</style>
 </head>
 <body>
 <a class="skip-link" href="#main">Aller au contenu</a>
@@ -26,48 +242,236 @@
 </header>
 
 <main id="main">
-  <div class="hero-sub" style="min-height:38vh" aria-labelledby="hero-h1">
+  <div class="hero-sub" style="min-height:40vh" aria-labelledby="hero-h1">
     <div class="hero-sub__bg" style="background-image:url(/voyage-v9/assets/photos/studio-artistes-hero.webp)"></div>
     <div class="hero-sub__scrim" aria-hidden="true"></div>
     <div class="sub-wrap">
       <p class="eyebrow">STUDIO ARTISTES</p>
-      <h1 id="hero-h1" class="display-h1">Vos clips IA, vos univers visuels.</h1>
-      <p class="lead">Petite équipe, même chaîne IA que les sites entreprises. Tarif clip artiste : 2 290 € HT.</p>
+      <h1 id="hero-h1" class="display-h1">Votre clip. Votre univers. Livré en 4K.</h1>
+      <p class="lead">Un pack tout compris : brief créatif, direction cinéma IA, 90 secondes, droits commerciaux à vous — <strong>2 290&nbsp;€ HT</strong>.</p>
     </div>
   </div>
 
-  <div class="sub-wrap">
-    <h2 class="display-h2">Clip mis en avant — Icebreaker</h2>
-    <div class="card-glass" style="margin-top:var(--sp-4)">
-      <div class="vimeo-embed"><iframe src="https://player.vimeo.com/video/1187533794?dnt=1" title="Icebreaker" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+  <div class="sa-wrap" id="videos">
+    <h2 class="display-h2">Vous voyez le rendu</h2>
+    <p class="lead" style="margin-bottom:var(--sp-4)">Deux extraits pour juger la matière avant de réserver votre brief.</p>
+
+    <div class="sa-card">
+      <div class="sa-vimeowrap" data-sa-vimeo>
+        <iframe
+          src="about:blank"
+          data-vimeo-src="https://player.vimeo.com/video/1187533794?dnt=1"
+          title="Icebreaker — clip cinéma IA"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+          referrerpolicy="strict-origin-when-cross-origin"
+        ></iframe>
+        <img class="sa-poster" src="/voyage-v9/assets/photos/studio-artistes-hero.webp" width="1280" height="720" alt="" loading="lazy" decoding="async" />
+      </div>
+      <p class="sa-cap">Icebreaker — Clip cinéma IA · 2:18</p>
     </div>
 
-    <h2 class="display-h2">Humour &amp; remake</h2>
-    <p class="lead">Walker Christian Remake — ton plus léger, même chaîne de prod IA + finition humaine.</p>
-    <div class="card-glass" style="max-width:720px;margin-top:var(--sp-4)">
-      <div class="vimeo-embed"><iframe src="https://player.vimeo.com/video/1184294762?dnt=1" title="Walker Christian Remake" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+    <div class="sa-card">
+      <div class="sa-vimeowrap" data-sa-vimeo>
+        <iframe
+          src="about:blank"
+          data-vimeo-src="https://player.vimeo.com/video/1184294762?dnt=1"
+          title="Walker Christian Remake"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+          referrerpolicy="strict-origin-when-cross-origin"
+        ></iframe>
+        <img class="sa-poster" src="/voyage-v9/assets/photos/studio-artistes-hero.webp" width="1280" height="720" alt="" loading="lazy" decoding="async" />
+      </div>
+      <p class="sa-cap">Walker Christian Remake — ton plus léger, même chaîne de production.</p>
+    </div>
+  </div>
+
+  <div class="sa-wrap">
+    <h2 class="display-h2">Pour quels artistes ?</h2>
+    <ul class="sa-list">
+      <li>Vous chantez ou rappez en indépendant et voulez une image à la hauteur du son.</li>
+      <li>Votre groupe émerge : vous cherchez un clip signature, pas un montage générique.</li>
+      <li>Vous portez un label : vous voulez une identité visuelle forte sans internaliser toute la post-production.</li>
+      <li>Vous développez un projet avec un budget maîtrisé et besoin d’un livrable pro.</li>
+    </ul>
+    <p class="sa-note">Pas pour les budgets illimités des majors — pour ceux qui veulent du cinéma sans la facture cinéma.</p>
+  </div>
+
+  <div class="sa-wrap" id="pack">
+    <h2 class="display-h2">Pack Clip artiste</h2>
+    <div class="sa-card" style="text-align:center">
+      <p class="eyebrow" style="margin:0;color:var(--sa-or)">OFFRE FERME</p>
+      <p class="sa-pack-price">2 290&nbsp;€ HT</p>
+      <p style="margin:var(--sp-4) 0 0;color:rgba(245,237,224,0.78);line-height:1.55">Un clip qui vous ressemble, une équipe qui reste derrière la caméra — vous restez sur la pochette.</p>
     </div>
 
-    <h2 class="display-h2">Pack clip artiste</h2>
-    <div class="card-glass" style="margin-top:var(--sp-4);text-align:center;max-width:520px;margin-left:auto;margin-right:auto">
-      <p class="eyebrow" style="margin-bottom:8px">OFFRE FERME</p>
-      <p style="font-size:clamp(2rem,4vw,2.5rem);font-weight:700;color:var(--or);margin:0">2 290 € HT</p>
-      <p style="color:var(--text-2);margin:12px 0 0">Clip 60–180 s + teaser réseaux 30 s · même livrable que sur la home Pinapp.</p>
+    <h3 class="sa-h3">Inclus dans le Pack Clip 2 290&nbsp;€ HT</h3>
+    <div class="sa-card" style="margin-top:var(--sp-4)">
+      <ul class="sa-list" style="margin-top:0">
+        <li>Brief créatif d’1&nbsp;h pour cadrer votre univers.</li>
+        <li>Direction artistique cinéma IA.</li>
+        <li>Un clip de 90&nbsp;secondes livré en 4K.</li>
+        <li>2 révisions incluses.</li>
+        <li>Droits commerciaux entiers cédés.</li>
+        <li>Délai de livraison : 4 à 6 semaines.</li>
+      </ul>
+      <p class="sa-care-foot">+ Pinapp Care 79&nbsp;€ / mois (12 mois min.) pour hébergement, sauvegardes et corrections en continu.</p>
     </div>
+  </div>
 
-    <div class="cta-row">
-      <a class="btn btn--primary" href="/#contact">Démarrer mon diagnostic →</a>
+  <div class="sa-wrap">
+    <a class="sa-cta-full" href="#contact">Réserver mon brief créatif gratuit</a>
+  </div>
+
+  <div class="sa-wrap" id="contact">
+    <h2 class="display-h2">Votre brief, sans engagement</h2>
+    <p class="lead">Décrivez votre projet : réponse écrite sous 24&nbsp;h ouvrées.</p>
+    <form id="pinapp-form" class="sa-form sa-card" novalidate>
+      <div class="honeypot-field" aria-hidden="true" style="position:absolute;left:-9999px">
+        <label for="sa-hp">Ne pas remplir</label>
+        <input type="text" id="sa-hp" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+      <input type="hidden" name="path" value="image" />
+      <input type="hidden" name="image_type" value="Pack Clip artiste · Studio artistes" />
+      <input type="hidden" name="image_duree" value="90 secondes" />
+      <input type="hidden" name="image_date" value="" />
+      <input type="hidden" name="image_lieu" value="" />
+      <input type="hidden" name="image_pourquoi" value="Page studio-artistes" />
+      <input type="hidden" name="image_univers" value="" />
+      <div class="sa-fld">
+        <label for="sa-prenom">Prénom *</label>
+        <input type="text" id="sa-prenom" name="prenom" required autocomplete="given-name" />
+      </div>
+      <div class="sa-fld">
+        <label for="sa-nom">Nom</label>
+        <input type="text" id="sa-nom" name="nom" autocomplete="family-name" />
+      </div>
+      <div class="sa-fld">
+        <label for="sa-art">Nom d’artiste / projet *</label>
+        <input type="text" id="sa-art" name="entreprise" required autocomplete="organization" />
+      </div>
+      <div class="sa-fld">
+        <label for="sa-mail">Email *</label>
+        <input type="email" id="sa-mail" name="email" required autocomplete="email" />
+      </div>
+      <div class="sa-fld">
+        <label for="sa-tel">Téléphone</label>
+        <input type="tel" id="sa-tel" name="tel" autocomplete="tel" />
+      </div>
+      <div class="sa-fld">
+        <label for="sa-cp">Code postal *</label>
+        <input type="text" id="sa-cp" name="cp" required pattern="[0-9]{5}" autocomplete="postal-code" inputmode="numeric" />
+      </div>
+      <div class="sa-fld">
+        <label for="sa-delai">Délai souhaité</label>
+        <select id="sa-delai" name="delai">
+          <option value="">—</option>
+          <option>Moins d’un mois</option>
+          <option>1 à 3 mois</option>
+          <option>Flexible</option>
+        </select>
+      </div>
+      <div class="sa-fld">
+        <label for="sa-budget">Budget</label>
+        <select id="sa-budget" name="budget">
+          <option value="2 290 € HT — Pack Clip" selected>2 290 € HT — Pack Clip</option>
+          <option>Autre fourchette</option>
+          <option>À définir</option>
+        </select>
+      </div>
+      <div class="sa-fld">
+        <label for="sa-msg">Votre message *</label>
+        <textarea id="sa-msg" name="message" rows="4" required></textarea>
+      </div>
+      <label class="sa-consent">
+        <input type="checkbox" name="consent" value="on" required />
+        <span>J’accepte d’être recontacté·e par écrit. Mes données servent uniquement à traiter cette demande.</span>
+      </label>
+      <p style="margin:var(--sp-4) 0 0;font-size:0.8rem;color:rgba(245,237,224,0.55)">Réponses pouvant être assistées par des outils d’IA, relues par l’équipe avant envoi.</p>
+      <input type="hidden" name="timestamp" id="timestamp" />
+      <input type="hidden" name="referrer" id="referrer" />
+      <input type="hidden" name="utm_source" id="utm_source" />
+      <div style="margin-top:var(--sp-5)">
+        <button type="submit" class="btn btn--primary" id="form-submit" style="width:100%;touch-action:manipulation">Envoyer mon brief</button>
+      </div>
+    </form>
+    <div id="form-success" class="sa-card" hidden style="text-align:center;margin-top:var(--sp-5)" role="status" aria-live="polite">
+      <p style="margin:0;font-size:1.2rem;color:var(--sa-or)">Bien reçu.</p>
+      <p style="margin:var(--sp-3) 0 0">L’équipe revient vers vous par écrit sous 24&nbsp;h ouvrées.</p>
     </div>
   </div>
 </main>
 
+<p class="sa-ai-disclaimer">Imagerie générée par IA · Studio Pinapp · Conformité EU AI Act Article&nbsp;50</p>
+
 <footer class="site-footer">
-  <nav aria-label="Liens de pied de page">
+  <p><strong>Pinapp Care</strong> · hébergement, sauvegardes, corrections — 79&nbsp;€ / mois, engagement 12&nbsp;mois minimum. Souscription après signature du devis clip.</p>
+  <nav aria-label="Liens de pied de page" style="margin-top:var(--sp-4)">
     <a href="/mentions-legales/">Mentions légales</a>
+    ·
     <a href="/voyage-v9/confidentialite/">Confidentialité</a>
   </nav>
-  <p>© 2026 <a href="/">Pinapp Inc.</a> · Bordeaux</p>
-  <p class="photo-credit" style="font-size:13px;color:var(--ivoire-mute);margin:12px 0 0">Photos d'illustration : Unsplash (licence libre).</p>
+  <p style="margin-top:var(--sp-3)">© 2026 <a href="/">Pinapp Inc.</a> · Bordeaux</p>
 </footer>
+
+<script src="/assets/js/config.js"></script>
+<script src="/voyage-v9/assets/js/n8n-config.js"></script>
+<script src="/voyage-v9/assets/js/v9-n8n-route.js"></script>
+<script src="/voyage-v9/assets/js/form-handler.js" defer></script>
+<script>
+(function () {
+  "use strict";
+  function prefersRM() {
+    try {
+      return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    } catch (e) {
+      return true;
+    }
+  }
+  function armUnveil(wrap, iframe) {
+    iframe.addEventListener(
+      "load",
+      function () {
+        wrap.classList.add("is-loaded");
+      },
+      { once: true },
+    );
+  }
+  if (prefersRM()) return;
+  if (!("IntersectionObserver" in window)) {
+    document.querySelectorAll('iframe[data-vimeo-src]').forEach(function (f) {
+      var u = f.getAttribute("data-vimeo-src");
+      if (u) {
+        f.setAttribute("src", u);
+        f.removeAttribute("data-vimeo-src");
+        var w = f.closest("[data-sa-vimeo]");
+        if (w) armUnveil(w, f);
+      }
+    });
+    return;
+  }
+  document.querySelectorAll('iframe[data-vimeo-src]').forEach(function (frame) {
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (x) {
+          if (!x.isIntersecting) return;
+          var f = x.target;
+          var u = f.getAttribute("data-vimeo-src");
+          if (u) {
+            f.setAttribute("src", u);
+            f.removeAttribute("data-vimeo-src");
+            var wrap = f.closest("[data-sa-vimeo]");
+            if (wrap) armUnveil(wrap, f);
+          }
+          io.unobserve(f);
+        });
+      },
+      { rootMargin: "45% 0px", threshold: 0 },
+    );
+    io.observe(frame);
+  });
+})();
+</script>
 </body>
 </html>
