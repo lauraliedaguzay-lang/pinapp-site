@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
-    <meta name="pinapp-build" content="v15.4.1-mini-fix-en-tournage-2026-05-10" />
+    <meta name="pinapp-build" content="v15.4.2-hotfix-viewport-stage-2026-05-10" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#050b14" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -108,8 +108,8 @@
   --bp-mobile:390px;--bp-tablet:768px;--bp-desktop:1024px;--bp-wide:1280px;
 }
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:auto;-webkit-text-size-adjust:100%;background:var(--nuit);overflow-x:hidden;max-width:100%}
-body{margin:0;color:var(--ivoire);font-family:var(--ff-body);font-size:var(--fs-body);line-height:var(--lh-body);background:transparent;overflow-x:hidden;max-width:100%;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+html{scroll-behavior:auto;-webkit-text-size-adjust:100%;background:var(--nuit);height:100%;overflow-x:hidden;overflow-y:auto;max-width:100%}
+body{margin:0;color:var(--ivoire);font-family:var(--ff-body);font-size:var(--fs-body);line-height:var(--lh-body);background:transparent;min-height:100%;overflow-x:hidden;overflow-y:visible;max-width:100%;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 img{max-width:100%;display:block}
 a{color:inherit}
 button,input,select,textarea{font:inherit;color:inherit}
@@ -2434,7 +2434,7 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
   </section>
 
   <!-- TEMOIGNAGES MASQUÉS - retirer style="display:none" quand 3 avis sont recueillis avec consentement client -->
-  <section id="temoignages" class="scene scene--temoignages" style="display:none" data-stage="hero-4" aria-labelledby="temoignages-h2">
+  <section id="temoignages" class="scene scene--temoignages" style="display:none" aria-labelledby="temoignages-h2">
     <div class="scene__inner">
       <p class="eyebrow">ILS EN PARLENT</p>
       <h2 id="temoignages-h2" class="display display--h2">Ce qu'ils disent.</h2>
@@ -3131,12 +3131,7 @@ if('IntersectionObserver' in window){
       var cur=cand[ci];
       if(stageSectionOrder.indexOf(cur)>stageSectionOrder.indexOf(best)) best=cur;
     }
-    if(best && best.id){
-      try{
-        console.log('[stage-debug]',{intersecting:cand.map(function(s){return s.id;}),winner:best.id,scrollY:Math.round(window.scrollY||document.documentElement.scrollTop||0)});
-      }catch(_){}
-      emitScene(best.id);
-    }
+    if(best && best.id) emitScene(best.id);
   },{threshold:[0,0.15,0.35,0.55,0.75],rootMargin:'-12% 0px -35% 0px'});
   stageSectionOrder.forEach(function(sec){ io.observe(sec); });
 }
