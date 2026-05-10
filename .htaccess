@@ -7,9 +7,6 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 RewriteCond %{HTTP_HOST} ^www\.pinapp\.fr [NC]
 RewriteRule ^(.*)$ https://pinapp.fr/$1 [L,R=301]
 
-# Ancienne URL voyage-v9 → accueil (Hostinger / Apache)
-RedirectMatch 301 ^/voyage-v9/?$ https://pinapp.fr/
-
 # Démos retirées → ancre secteurs (Hostinger)
 RewriteRule ^demo/agence/?$ /#domaines [L,R=301,NE]
 RewriteRule ^demo/prestataire/?$ /#domaines [L,R=301,NE]
