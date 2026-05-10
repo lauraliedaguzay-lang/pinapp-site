@@ -47,7 +47,27 @@
         --txt: #1a1510;
       }
       html {
-        scroll-behavior: smooth;
+        scroll-behavior: auto;
+      }
+      .skip-link {
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        z-index: 100000;
+        padding: 0.75rem 1.25rem;
+        background: var(--noir);
+        color: var(--creme);
+        border: 2px solid var(--or);
+        border-radius: 4px;
+        font-size: 0.875rem;
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .skip-link:focus {
+        left: 1rem;
+        top: 1rem;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.35);
       }
       body {
         background: var(--noir);
@@ -399,7 +419,7 @@
         <li><a href="#carte">La carte</a></li>
         <li><a href="#reservation">Réserver</a></li>
       </ul>
-      <button class="nav-cta" onclick="document.getElementById('reservation').scrollIntoView({ behavior: 'smooth' })">
+      <button class="nav-cta" onclick="document.getElementById('reservation').scrollIntoView({ behavior: 'auto' })">
         Réserver
       </button>
     </nav>
