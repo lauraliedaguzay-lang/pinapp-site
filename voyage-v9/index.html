@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
-    <meta name="pinapp-build" content="v15.2.0-secteurs-2026-05-03" />
+    <meta name="pinapp-build" content="v15.4.0-finitions-master-2026-05-10" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#050b14" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -32,6 +32,7 @@
   <link rel="stylesheet" href="assets/css/pr3a-v12.css" />
   <link rel="stylesheet" href="assets/css/pinapp-comparatif.css" />
   <link rel="stylesheet" href="assets/css/pinapp-easter-egg.css?v=2" />
+  <link rel="stylesheet" href="/assets/css/cookie-banner.css?v=20260510" />
 <script>document.documentElement.classList.add('js');</script>
 <script type="application/ld+json">
 {
@@ -1587,13 +1588,12 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
   .constel__node,.flowchart__node{opacity:1!important}
 }
 /* PR3a — présentation vidéo, offres, méthode, diagnostic, contact wizard, barres, drawers */
-.presentation-video-frame{margin:var(--sp-6) auto;max-width:min(920px,96vw);aspect-ratio:16/9;border-radius:var(--r-lg);border:2px solid rgba(230,185,115,0.35);background:linear-gradient(145deg,rgba(10,18,31,0.95),rgba(5,11,20,0.88));display:grid;place-items:center;position:relative;overflow:hidden}
-.presentation-video-play{width:72px;height:72px;border-radius:50%;border:2px solid rgba(230,185,115,0.55);background:rgba(230,185,115,0.12);display:grid;place-items:center;cursor:default;opacity:0.85}
-.presentation-video-play__tri{width:0;height:0;border-left:18px solid var(--or);border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:6px}
-@keyframes pr3a-play-breath{0%,100%{box-shadow:0 0 0 0 rgba(230,185,115,0)}50%{box-shadow:0 0 24px 4px rgba(230,185,115,0.2)}}
-.presentation-video-play{animation:pr3a-play-breath 2s ease-in-out infinite}
-.presentation-video-status{text-align:center;color:var(--ivoire-mute);font-size:var(--fs-micro)}
-@media (prefers-reduced-motion:reduce){.presentation-video-play{animation:none}}
+.presentation-video-frame{margin:var(--sp-6) auto;max-width:min(920px,96vw);aspect-ratio:16/9;border-radius:var(--r-lg);border:2px solid rgba(230,185,115,0.35);background:linear-gradient(145deg,rgba(10,18,31,0.95),rgba(5,11,20,0.88));position:relative;overflow:hidden;display:block}
+.presentation-video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;opacity:0;transition:opacity 400ms var(--ease-out)}
+.presentation-video-frame.is-vimeo-loaded iframe{opacity:1}
+.presentation-video-frame::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 30% 30%,rgba(230,185,115,0.12),transparent 55%),linear-gradient(145deg,rgba(5,11,20,0.55),rgba(10,18,31,0.35));opacity:1;transition:opacity 400ms var(--ease-out)}
+.presentation-video-frame.is-vimeo-loaded::before{opacity:0}
+@media (prefers-reduced-motion:reduce){.presentation-video-frame iframe{transition:none}.presentation-video-frame::before{transition:none}}
 .scene--offres .lead{margin-bottom:var(--sp-6)}
 .offres-premium-band{background:linear-gradient(135deg,rgba(157,125,240,0.12) 0%,rgba(230,185,115,0.08) 100%);border:1px solid rgba(157,125,240,0.4);border-radius:var(--r-lg);padding:var(--sp-6);margin-top:var(--sp-6)}
 .offres-premium-grid{display:grid;gap:var(--sp-5);grid-template-columns:1fr}
@@ -1896,11 +1896,8 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
       <p class="lead" data-reveal style="text-align:center;max-width:36rem;margin:var(--sp-4) auto 0;font-size:1.05rem">60 secondes pour montrer ce qu'on sait faire en teaser cinéma. Mis en scène par Pinapp. Imagerie IA. Montage Micha.</p>
       <p class="source-note" data-reveal style="text-align:center;margin:var(--sp-3) auto 0">SW Teaser · mise en scène Pinapp</p>
       <div class="presentation-video-frame" data-reveal>
-        <button type="button" class="presentation-video-play" aria-label="Lecture · vidéo en tournage" disabled>
-          <span class="presentation-video-play__tri" aria-hidden="true"></span>
-        </button>
+        <iframe src="about:blank" data-vimeo-src="https://player.vimeo.com/video/1190745013?dnt=1" title="Vidéo de présentation Pinapp — teaser 60 secondes" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
-      <p class="presentation-video-status" data-reveal>Vidéo en tournage · Disponible bientôt</p>
       <p class="source-note" data-reveal style="text-align:center;max-width:40rem;margin:var(--sp-5) auto 0">Vitrine 5 sections · agence Bordeaux 2025 : 5 000–8 000 € HT. Pack Duo Pinapp : 1 890 € HT. Sources benchmark CCI Aquitaine + freelances locaux.</p>
     </div>
   </section>
@@ -2179,12 +2176,14 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
           </a>
           <button type="button" class="btn btn--text real-hub-card__more" data-open-detail="drawer-sites-augmentes">En savoir plus</button>
         </article>
-        <article class="real-hub-card card--glass v10-tilt real-hub-card--placeholder" data-reveal data-categorie="code" data-real-card data-state="placeholder">
-          <div class="real-hub-card__thumb real-hub-card__thumb--ph" aria-hidden="true"></div>
-          <div class="real-hub-card__body">
-            <h3 class="real-hub-card__title">3e site</h3>
-            <p class="real-hub-card__meta">En livraison · disponible bientôt</p>
-          </div>
+        <article class="real-hub-card card--glass v10-tilt" data-reveal data-categorie="code" data-real-card>
+          <a class="real-hub-card__link" href="/demo/esthetique/" target="_blank" rel="noopener noreferrer">
+            <div class="real-hub-card__thumb"><img src="assets/demo-screens/esthetique.webp" alt="Aperçu démo Maison Solène — site esthétique premium" width="640" height="400" loading="lazy" decoding="async" fetchpriority="low"/></div>
+            <div class="real-hub-card__body">
+            <h3 class="real-hub-card__title">Maison Solène</h3>
+            <p class="real-hub-card__meta">Site esthétique premium · Bordeaux 2026</p>
+            </div>
+          </a>
           <button type="button" class="btn btn--text real-hub-card__more" data-open-detail="drawer-sites-augmentes">En savoir plus</button>
         </article>
 
@@ -2820,7 +2819,7 @@ Chez nous, si. »</p>
           <div class="field full" style="margin-top:var(--sp-5)">
             <label class="cw-radio-row" style="align-items:flex-start;border-style:solid;border-color:rgba(230,185,115,0.22)">
               <input type="checkbox" name="rgpd_consent" id="cw-rgpd" value="true" required style="margin-top:4px;flex-shrink:0;width:auto;height:auto;opacity:1;position:static;pointer-events:auto">
-              <span>J'accepte que mes données soient traitées par Pinapp Inc. pour répondre à ma demande de diagnostic. Conservation max 6 mois. <a href="/voyage-v9/confidentialite/" target="_blank" rel="noopener noreferrer" style="color:var(--cyan);text-decoration:underline;text-underline-offset:3px">Voir politique de confidentialité</a>.</span>
+              <span>J'accepte que mes données soient traitées par Pinapp Inc. pour répondre à ma demande de diagnostic. Conservation max 6 mois. <a href="/politique-confidentialite/" target="_blank" rel="noopener noreferrer" style="color:var(--cyan);text-decoration:underline;text-underline-offset:3px">Voir politique de confidentialité</a>.</span>
             </label>
           </div>
           <div class="cw-actions">
@@ -2981,6 +2980,13 @@ Chez nous, si. »</p>
     <a href="#contact" title="Demandez le lien LinkedIn de Michaël">LinkedIn Michaël</a>
     <a href="https://www.linkedin.com/company/pinapp-inc" target="_blank" rel="noopener noreferrer">LinkedIn Pinapp (société) ↗</a>
   </div>
+  <p class="source-note" style="margin:var(--sp-4) 0 0;font-size:var(--fs-micro)">
+    <a href="/mentions-legales/" style="color:var(--ivoire-mute);text-decoration:underline;text-underline-offset:3px">Mentions légales</a>
+    ·
+    <a href="/cgv/" style="color:var(--ivoire-mute);text-decoration:underline;text-underline-offset:3px">CGV</a>
+    ·
+    <a href="/politique-confidentialite/" style="color:var(--ivoire-mute);text-decoration:underline;text-underline-offset:3px">Politique de confidentialité</a>
+  </p>
   <p class="mp">« Nous portons aussi <a href="#laboratoire">Mémoire &amp; Présence</a> — transmission numérique pour les familles. »</p>
   <div class="footer-easter-wrap">
     <span
@@ -3147,7 +3153,7 @@ if('IntersectionObserver' in window && !prefersReduced()){
 }
 
 if('IntersectionObserver' in window){
-  document.querySelectorAll('.real-hub-card__embed iframe[data-vimeo-src]').forEach(function(frame){
+  document.querySelectorAll('.real-hub-card__embed iframe[data-vimeo-src], .presentation-video-frame iframe[data-vimeo-src]').forEach(function(frame){
     var ioV=new IntersectionObserver(function(entries){
       entries.forEach(function(x){
         if(!x.isIntersecting) return;
@@ -3156,6 +3162,11 @@ if('IntersectionObserver' in window){
         if(u){
           f.setAttribute('src', u);
           f.removeAttribute('data-vimeo-src');
+          f.addEventListener('load', function onVimeoLoad(){
+            f.removeEventListener('load', onVimeoLoad);
+            var wrap=f.closest('.presentation-video-frame');
+            if(wrap) wrap.classList.add('is-vimeo-loaded');
+          });
           ioV.unobserve(f);
         }
       });
@@ -3163,9 +3174,14 @@ if('IntersectionObserver' in window){
     ioV.observe(frame);
   });
 }else{
-  document.querySelectorAll('.real-hub-card__embed iframe[data-vimeo-src]').forEach(function(f){
+  document.querySelectorAll('.real-hub-card__embed iframe[data-vimeo-src], .presentation-video-frame iframe[data-vimeo-src]').forEach(function(f){
     var u=f.getAttribute('data-vimeo-src');
-    if(u){ f.setAttribute('src', u); f.removeAttribute('data-vimeo-src'); }
+    if(u){
+      f.setAttribute('src', u);
+      f.removeAttribute('data-vimeo-src');
+      var wrap=f.closest('.presentation-video-frame');
+      if(wrap) wrap.classList.add('is-vimeo-loaded');
+    }
   });
 }
 
@@ -3667,5 +3683,18 @@ if(wt && !prefersReduced()){
   fchObs.observe(flowchart);
 })();
 </script>
+<div id="pinapp-cookie-banner" class="pinapp-cookie-banner" role="dialog" aria-label="Cookies" aria-live="polite" hidden>
+  <div class="pinapp-cookie-banner__inner">
+    <p class="pinapp-cookie-banner__text">
+      Cookies strictement nécessaires au site et, si vous acceptez, mesure d'audience anonymisée.
+      <a href="/politique-confidentialite/">Politique de confidentialité</a>.
+    </p>
+    <div class="pinapp-cookie-banner__actions">
+      <button type="button" class="pinapp-cookie-banner__btn pinapp-cookie-banner__btn--accent" data-cookie-accept>Accepter</button>
+      <button type="button" class="pinapp-cookie-banner__btn" data-cookie-reject>Refuser tout</button>
+    </div>
+  </div>
+</div>
+<script src="/assets/js/cookie-banner.js?v=20260510" defer></script>
 </body>
 </html>
