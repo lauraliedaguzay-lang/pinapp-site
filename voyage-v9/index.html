@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
-    <meta name="pinapp-build" content="v15.2.0-secteurs-2026-05-03" />
+    <meta name="pinapp-build" content="v15.2.1-sprint-a-2026-05-09" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#050b14" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -1587,13 +1587,12 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
   .constel__node,.flowchart__node{opacity:1!important}
 }
 /* PR3a — présentation vidéo, offres, méthode, diagnostic, contact wizard, barres, drawers */
-.presentation-video-frame{margin:var(--sp-6) auto;max-width:min(920px,96vw);aspect-ratio:16/9;border-radius:var(--r-lg);border:2px solid rgba(230,185,115,0.35);background:linear-gradient(145deg,rgba(10,18,31,0.95),rgba(5,11,20,0.88));display:grid;place-items:center;position:relative;overflow:hidden}
-.presentation-video-play{width:72px;height:72px;border-radius:50%;border:2px solid rgba(230,185,115,0.55);background:rgba(230,185,115,0.12);display:grid;place-items:center;cursor:default;opacity:0.85}
-.presentation-video-play__tri{width:0;height:0;border-left:18px solid var(--or);border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:6px}
-@keyframes pr3a-play-breath{0%,100%{box-shadow:0 0 0 0 rgba(230,185,115,0)}50%{box-shadow:0 0 24px 4px rgba(230,185,115,0.2)}}
-.presentation-video-play{animation:pr3a-play-breath 2s ease-in-out infinite}
-.presentation-video-status{text-align:center;color:var(--ivoire-mute);font-size:var(--fs-micro)}
-@media (prefers-reduced-motion:reduce){.presentation-video-play{animation:none}}
+.presentation-video-frame{margin:var(--sp-6) auto;max-width:min(920px,96vw);aspect-ratio:16/9;border-radius:var(--r-lg);border:2px solid rgba(230,185,115,0.35);background:rgba(5,11,20,0.95);position:relative;overflow:hidden}
+.presentation-video-frame::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;border-radius:inherit;background:radial-gradient(ellipse 85% 60% at 50% 38%,rgba(27,58,82,0.42) 0%,transparent 58%),linear-gradient(180deg,rgba(230,185,115,0.09) 0%,rgba(5,11,20,0.96) 45%,rgba(5,11,20,1) 100%);box-shadow:inset 0 0 0 1px rgba(230,185,115,0.08);transition:opacity 420ms cubic-bezier(0.22,1,0.36,1),visibility 420ms}
+.presentation-video-frame.is-vimeo-loaded::before{opacity:0;visibility:hidden}
+.presentation-video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:#050b14;z-index:2}
+.presentation-video-status{text-align:center;color:var(--ivoire-mute);font-size:var(--fs-micro);margin-top:var(--sp-3)}
+@media (prefers-reduced-motion:reduce){.presentation-video-frame::before{transition:none}}
 .scene--offres .lead{margin-bottom:var(--sp-6)}
 .offres-premium-band{background:linear-gradient(135deg,rgba(157,125,240,0.12) 0%,rgba(230,185,115,0.08) 100%);border:1px solid rgba(157,125,240,0.4);border-radius:var(--r-lg);padding:var(--sp-6);margin-top:var(--sp-6)}
 .offres-premium-grid{display:grid;gap:var(--sp-5);grid-template-columns:1fr}
@@ -1895,13 +1894,19 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
       <h2 id="presentation-video-h2" class="display display--h2" data-reveal>Vidéo de présentation Pinapp.</h2>
       <p class="lead" data-reveal style="text-align:center;max-width:36rem;margin:var(--sp-4) auto 0;font-size:1.05rem">60 secondes pour montrer ce qu'on sait faire en teaser cinéma. Mis en scène par Pinapp. Imagerie IA. Montage Micha.</p>
       <p class="source-note" data-reveal style="text-align:center;margin:var(--sp-3) auto 0">SW Teaser · mise en scène Pinapp</p>
-      <div class="presentation-video-frame" data-reveal>
-        <button type="button" class="presentation-video-play" aria-label="Lecture · vidéo en tournage" disabled>
-          <span class="presentation-video-play__tri" aria-hidden="true"></span>
-        </button>
+      <div class="presentation-video-frame" data-reveal data-vimeo-frame>
+        <iframe
+          src="about:blank"
+          data-vimeo-src="https://player.vimeo.com/video/1190745013?dnt=1"
+          title="Pinapp · vidéo de présentation"
+          loading="lazy"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+          referrerpolicy="strict-origin-when-cross-origin"
+        ></iframe>
       </div>
-      <p class="presentation-video-status" data-reveal>Vidéo en tournage · Disponible bientôt</p>
-      <p class="source-note" data-reveal style="text-align:center;max-width:40rem;margin:var(--sp-5) auto 0">Vitrine 5 sections · agence Bordeaux 2025 : 5 000–8 000 € HT. Pack Duo Pinapp : 1 890 € HT. Sources benchmark CCI Aquitaine + freelances locaux.</p>
+      <p class="presentation-video-status" data-reveal>SW Teaser · lecture ci-dessus · même bande que l'accueil pinapp.fr</p>
+      <p class="source-note" data-reveal style="text-align:center;max-width:40rem;margin:var(--sp-5) auto 0">Une vitrine lisible qui convertit — pas un empilement de blocs pour « faire site ». Ordre de grandeur agence Bordeaux 2025 : 5 000–8 000 € HT pour l'équivalent ; Pack Duo Pinapp : 1&nbsp;890&nbsp;€ HT. Sources chiffrées à l'ouverture du diagnostic.</p>
     </div>
   </section>
 
@@ -2179,15 +2184,6 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
           </a>
           <button type="button" class="btn btn--text real-hub-card__more" data-open-detail="drawer-sites-augmentes">En savoir plus</button>
         </article>
-        <article class="real-hub-card card--glass v10-tilt real-hub-card--placeholder" data-reveal data-categorie="code" data-real-card data-state="placeholder">
-          <div class="real-hub-card__thumb real-hub-card__thumb--ph" aria-hidden="true"></div>
-          <div class="real-hub-card__body">
-            <h3 class="real-hub-card__title">3e site</h3>
-            <p class="real-hub-card__meta">En livraison · disponible bientôt</p>
-          </div>
-          <button type="button" class="btn btn--text real-hub-card__more" data-open-detail="drawer-sites-augmentes">En savoir plus</button>
-        </article>
-
         <article class="real-hub-card card--glass v10-tilt" data-reveal data-categorie="imagerie" data-real-card>
           <div class="real-hub-card__embed">
             <iframe src="about:blank" data-vimeo-src="https://player.vimeo.com/video/1187533794?dnt=1" title="Icebreaker — clip cinéma IA" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
@@ -2279,7 +2275,7 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
             <tr>
               <th scope="row">Site type</th>
               <td>5 000 - 8 000 €</td>
-              <td class="compare-agence-table__pin">dès 990 € · 1 490 € Pack Code</td>
+              <td class="compare-agence-table__pin">dès 990&nbsp;€ · 1&#8239;490&nbsp;€ Pack Code</td>
             </tr>
             <tr>
               <th scope="row">Délai</th>
@@ -2341,7 +2337,7 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
         </div>
       </div>
       <p class="microcite" data-reveal style="margin-top:var(--sp-7)">« Pour les cerveaux qui vont vite. Pour ceux qui veulent l'essentiel. »</p>
-      <p class="lead" data-reveal>Vitrine 5 sections · agence Bordeaux 2025 : 5 000–8 000 € HT.<br>Pack Duo Pinapp : 1 890 € HT. Pourquoi : code IA · chaîne interne · pas de chef de projet inutile.<br>Sources benchmark CCI Aquitaine + freelances locaux (détail au diagnostic).</p>
+      <p class="lead" data-reveal>Vous obtenez une page claire qui vend votre savoir-faire — sans payer la structure d'une agence classique. Ordre de grandeur Bordeaux 2025 : 5 000–8 000 € HT pour l'équivalent ; Pack Duo Pinapp : 1&nbsp;890&nbsp;€ HT. Pourquoi moins cher : code et IA intégrés · chaîne courte · pas de chef de projet facturé en surcouche.<br>Sources et hypothèses détaillées au diagnostic.</p>
       <div class="crit-note" data-reveal>
         <p style="margin:0">« L'IA a un coût environnemental. Voici comment on le limite :<br>hébergement européen, choix d'outils sobres, pas de génération inutile. »</p>
       </div>
@@ -2487,6 +2483,7 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
 Pas chez les autres.
 
 Chez nous, si. »</p>
+      <p class="source-note" style="margin-top:var(--sp-4);text-align:center;max-width:36rem;margin-left:auto;margin-right:auto;font-size:0.85rem;color:var(--ivoire-mute)">Formule popularisée par <cite>Spider-Man</cite> (Stan Lee &amp; Steve Ditko) — ici détournée avec humour.</p>
     </div>
   </section>
 
@@ -2499,7 +2496,7 @@ Chez nous, si. »</p>
       <p class="offres-tier-entry-note" data-reveal>Entrée de gamme — vitrine &amp; code</p>
       <div class="offres-tier-grid offres-tier-grid--2 offres-tier-wrap" data-reveal>
         <article class="offres-tier-card">
-          <p class="offres-tier-label">T0 · ENTRY</p>
+          <p class="offres-tier-label">T0 · ESSENTIEL</p>
           <h3 class="offres-tier-name">Page Light</h3>
           <p class="offres-tier-price">990 € HT</p>
           <p class="offres-tier-incl">1 page · code · 30 j corrections incluses</p>
@@ -2508,9 +2505,9 @@ Chez nous, si. »</p>
           <p class="offres-tier-foot">code remis · accès remis · 30j corrections incluses</p>
         </article>
         <article class="offres-tier-card">
-          <p class="offres-tier-label">T1 · ENTRY</p>
+          <p class="offres-tier-label">T1 · ESSENTIEL</p>
           <h3 class="offres-tier-name">Pack Code</h3>
-          <p class="offres-tier-price">1 490 € HT</p>
+          <p class="offres-tier-price">1&#8239;490&nbsp;€ HT</p>
           <p class="offres-tier-incl">5 pages · code · 30 j corrections · 1 automatisation incluse</p>
           <p class="offres-tier-auto">Automatisations : 1</p>
           <button type="button" class="btn btn--text" data-open-detail="drawer-workflow-ia" style="align-self:flex-start;margin-top:var(--sp-2)">Qu'est-ce qu'une auto ? →</button>
@@ -2753,7 +2750,7 @@ Chez nous, si. »</p>
           <p class="cw-fieldset-intro">Quel pack vous correspond le mieux ?<br>(vous pouvez changer · on chiffre au diagnostic)</p>
           <div class="cw-pack-grid">
             <label class="cw-pack-card"><input type="radio" name="pack_envisage" value="page_light" class="visually-hidden" required> <span class="cw-pack-card__name">Page Light</span><span class="cw-pack-card__prix">990 € HT</span><span class="cw-pack-card__detail">1 page · code seul</span></label>
-            <label class="cw-pack-card"><input type="radio" name="pack_envisage" value="pack_code" class="visually-hidden"> <span class="cw-pack-card__name">Pack Code</span><span class="cw-pack-card__prix">1 490 € HT</span><span class="cw-pack-card__detail">5 pages · code + 1 auto</span></label>
+            <label class="cw-pack-card"><input type="radio" name="pack_envisage" value="pack_code" class="visually-hidden"> <span class="cw-pack-card__name">Pack Code</span><span class="cw-pack-card__prix">1&#8239;490&nbsp;€ HT</span><span class="cw-pack-card__detail">5 pages · code + 1 auto</span></label>
             <label class="cw-pack-card cw-pack-card--star"><span class="cw-pack-card__badge" aria-hidden="true">★ STAR · Pack Duo</span><input type="radio" name="pack_envisage" value="pack_duo" class="visually-hidden"> <span class="cw-pack-card__name">Pack Duo</span><span class="cw-pack-card__prix">1 890 € HT</span><span class="cw-pack-card__detail">5 pages · code + 60s + 1 auto</span></label>
             <label class="cw-pack-card"><input type="radio" name="pack_envisage" value="pack_clip" class="visually-hidden"> <span class="cw-pack-card__name">Pack Clip artiste</span><span class="cw-pack-card__prix">2 290 € HT</span><span class="cw-pack-card__detail">Clip 90s · imagerie + montage</span></label>
             <label class="cw-pack-card"><input type="radio" name="pack_envisage" value="anniversaire" class="visually-hidden"> <span class="cw-pack-card__name">Anniversaire 3 min</span><span class="cw-pack-card__prix">2 490 € HT</span><span class="cw-pack-card__detail">Film famille · son cadré</span></label>
@@ -2904,7 +2901,7 @@ Chez nous, si. »</p>
         <h4>Pourquoi c'est rapide ?</h4>
         <p>L'IA nous aide à coder 4 fois plus vite qu'à la main.</p>
         <h4>Pourquoi c'est moins cher qu'ailleurs ?</h4>
-        <p>Une agence facture 5 000 à 8 000 € HT pour un site équivalent. Nous, dès 990 € (Page Light) et 1 490 € (Pack Code 5 pages), parce qu'on est plus efficaces.</p>
+        <p>Une agence facture 5 000 à 8 000 € HT pour un site équivalent. Nous, dès 990&nbsp;€ (Page Light) et 1&#8239;490&nbsp;€ (Pack Code 5 pages), parce qu'on est plus efficaces.</p>
         <h4>En combien de temps c'est livré ?</h4>
         <p>7 à 10 jours pour un site standard.</p>
       </article>
@@ -2918,7 +2915,7 @@ Chez nous, si. »</p>
         <h4>Pourquoi c'est rapide ?</h4>
         <p>On utilise des briques toutes faites qu'on assemble. Pas de développement de zéro.</p>
         <h4>Pourquoi c'est moins cher qu'ailleurs ?</h4>
-        <p>Inclus dans le Pack Code (1 490 € HT · 1 automatisation) ou en Pack Signature (3 890 € HT · 2 automatisations). Pour stack plus complexe : Pack Sur-Mesure sur cahier des charges.</p>
+        <p>Inclus dans le Pack Code (1&#8239;490&nbsp;€ HT · 1 automatisation) ou en Pack Signature (3&nbsp;890&nbsp;€ HT · 2 automatisations). Pour stack plus complexe : Pack Sur-Mesure sur cahier des charges.</p>
         <h4>En combien de temps c'est livré ?</h4>
         <p>3 à 7 jours.</p>
       </article>
@@ -3147,7 +3144,7 @@ if('IntersectionObserver' in window && !prefersReduced()){
 }
 
 if('IntersectionObserver' in window){
-  document.querySelectorAll('.real-hub-card__embed iframe[data-vimeo-src]').forEach(function(frame){
+  document.querySelectorAll('.real-hub-card__embed iframe[data-vimeo-src], .presentation-video-frame iframe[data-vimeo-src]').forEach(function(frame){
     var ioV=new IntersectionObserver(function(entries){
       entries.forEach(function(x){
         if(!x.isIntersecting) return;
@@ -3157,15 +3154,31 @@ if('IntersectionObserver' in window){
           f.setAttribute('src', u);
           f.removeAttribute('data-vimeo-src');
           ioV.unobserve(f);
+          var wrap=f.closest('.presentation-video-frame');
+          if(wrap){
+            function markPresVimeoLoaded(){
+              wrap.classList.add('is-vimeo-loaded');
+              f.removeEventListener('load', markPresVimeoLoaded);
+            }
+            f.addEventListener('load', markPresVimeoLoaded);
+          }
         }
       });
     },{rootMargin:'45% 0px',threshold:0});
     ioV.observe(frame);
   });
 }else{
-  document.querySelectorAll('.real-hub-card__embed iframe[data-vimeo-src]').forEach(function(f){
+  document.querySelectorAll('.real-hub-card__embed iframe[data-vimeo-src], .presentation-video-frame iframe[data-vimeo-src]').forEach(function(f){
     var u=f.getAttribute('data-vimeo-src');
     if(u){ f.setAttribute('src', u); f.removeAttribute('data-vimeo-src'); }
+    var wrap=f.closest('.presentation-video-frame');
+    if(wrap){
+      function markPresVimeoLoadedEager(){
+        wrap.classList.add('is-vimeo-loaded');
+        f.removeEventListener('load', markPresVimeoLoadedEager);
+      }
+      f.addEventListener('load', markPresVimeoLoadedEager);
+    }
   });
 }
 
