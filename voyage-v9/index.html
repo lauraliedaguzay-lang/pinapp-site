@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
-    <meta name="pinapp-build" content="v15.4.3-fix-observer-rootmargin-2026-05-10" />
+    <meta name="pinapp-build" content="v15.4.4-stage-scroll-icebreaker-2026-05-10" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#050b14" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -1594,6 +1594,7 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
 .presentation-video-frame::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 30% 30%,rgba(230,185,115,0.12),transparent 55%),linear-gradient(145deg,rgba(5,11,20,0.55),rgba(10,18,31,0.35));opacity:1;transition:opacity 400ms var(--ease-out)}
 .presentation-video-frame.is-vimeo-loaded::before{opacity:0}
 @media (prefers-reduced-motion:reduce){.presentation-video-frame iframe{transition:none}.presentation-video-frame::before{transition:none}}
+.scene.scene--icebreaker-spot{min-height:0;align-items:flex-start;padding-top:var(--sp-6);padding-bottom:var(--sp-7)}
 .scene--offres .lead{margin-bottom:var(--sp-6)}
 .offres-premium-band{background:linear-gradient(135deg,rgba(157,125,240,0.12) 0%,rgba(230,185,115,0.08) 100%);border:1px solid rgba(157,125,240,0.4);border-radius:var(--r-lg);padding:var(--sp-6);margin-top:var(--sp-6)}
 .offres-premium-grid{display:grid;gap:var(--sp-5);grid-template-columns:1fr}
@@ -1902,8 +1903,17 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
     </div>
   </section>
 
-
-
+  <section id="icebreaker-spot" class="scene scene--icebreaker-spot" data-stage="hero-1" aria-labelledby="icebreaker-spot-h2">
+    <div class="scene__inner">
+      <p class="eyebrow" data-reveal>CLIP RÉFÉRENCE</p>
+      <h2 id="icebreaker-spot-h2" class="display display--h3" data-reveal style="font-size:clamp(1.5rem,4vw,2.25rem)">Icebreaker</h2>
+      <p class="lead" data-reveal style="text-align:center;max-width:34rem;margin:var(--sp-3) auto 0">Clip cinéma IA · 2:18 — même chargement paresseux que la grille Réalisations.</p>
+      <div class="presentation-video-frame" data-reveal style="margin-top:var(--sp-5)">
+        <iframe src="about:blank" data-vimeo-src="https://player.vimeo.com/video/1187533794?dnt=1" title="Icebreaker — clip cinéma IA" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+      <p class="source-note" data-reveal style="text-align:center;margin-top:var(--sp-4)">Extrait repris dans la grille Réalisations — lecture hors réseaux sociaux.</p>
+    </div>
+  </section>
 
   <section id="duo" class="scene" data-stage="hero-1" aria-labelledby="duo-h2">
     <div class="scene__inner">
@@ -3117,24 +3127,40 @@ function emitScene(sectionId){
     if(st) setHero(st);
   }
 }
-if('IntersectionObserver' in window){
-  var stageSectionOrder=[].slice.call(document.querySelectorAll('main section[id]'));
-  var io=new IntersectionObserver(function(entries){
-    var cand=[];
-    entries.forEach(function(en){
-      if(!en.isIntersecting) return;
-      cand.push(en.target);
-    });
-    if(!cand.length) return;
-    var best=cand[0];
-    for(var ci=1; ci<cand.length; ci++){
-      var cur=cand[ci];
-      if(stageSectionOrder.indexOf(cur)>stageSectionOrder.indexOf(best)) best=cur;
-    }
-    if(best && best.id) emitScene(best.id);
-  },{threshold:[0,0.15,0.35,0.55,0.75],rootMargin:'0px 0px -50% 0px'});
-  stageSectionOrder.forEach(function(sec){ io.observe(sec); });
+/* v15.4.4 — pilotage stage : scroll milieu viewport (Option B, pages longues + Lenis) */
+function getStageScrollY(){
+  var L=window.__pinappLenis;
+  if(L&&typeof L.scroll==='number'&&!document.documentElement.classList.contains('sober'))return L.scroll;
+  return window.scrollY||document.documentElement.scrollTop||0;
 }
+var _pinappStageLenisBound=false;
+function onStageScroll(){
+  var nodes=document.querySelectorAll('main section[data-stage]');
+  if(!nodes.length)return;
+  var ref=getStageScrollY()+window.innerHeight*0.5;
+  var closest=null,minD=Infinity;
+  for(var i=0;i<nodes.length;i++){
+    var s=nodes[i];
+    if(s.offsetParent===null)continue;
+    try{ if(window.getComputedStyle(s).display==='none')continue; }catch(e0){continue;}
+    var r=s.getBoundingClientRect();
+    if(r.height<=0)continue;
+    var st=getStageScrollY();
+    var c=st+r.top+r.height*0.5;
+    var d=Math.abs(c-ref);
+    if(d<minD){minD=d;closest=s;}
+  }
+  if(closest&&closest.id)emitScene(closest.id);
+}
+window.addEventListener('scroll',onStageScroll,{passive:true});
+window.addEventListener('resize',onStageScroll,{passive:true});
+function bindStageLenis(){
+  if(_pinappStageLenisBound)return;
+  var L=window.__pinappLenis;
+  if(L&&typeof L.on==='function'){ try{L.on('scroll',onStageScroll);_pinappStageLenisBound=true;}catch(e1){} }
+}
+document.addEventListener('DOMContentLoaded',function(){ onStageScroll(); bindStageLenis(); });
+window.addEventListener('load',function(){ bindStageLenis(); onStageScroll(); });
 
 if('IntersectionObserver' in window && !prefersReduced()){
   document.querySelectorAll('[data-reveal]').forEach(function(el){
