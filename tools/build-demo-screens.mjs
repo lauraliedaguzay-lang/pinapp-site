@@ -39,7 +39,7 @@ const ONLY = (() => {
 const shots = [
   // Tier 1 / Premium
   { path: '/demo/atelier-rivage/', file: 'atelier-rivage.webp', delayMs: 2500 },
-  { path: '/demo/sur-mesure/', file: 'sur-mesure.webp', delayMs: 4000 },
+  { path: '/demo/sur-mesure/', file: 'sur-mesure.webp', delayMs: 9000 },
 
   // Tier 2 / Standard
   { path: '/demo/restaurant/', file: 'restaurant.webp', delayMs: 2500 },
@@ -111,11 +111,36 @@ const waitStrategies = {
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.waitForTimeout(500);
   },
+
+  'sur-mesure': async (page, urlPath, shot) => {
+    await page.waitForLoadState('networkidle');
+    // Loader vidéo retiré du DOM après ~2,4 s ; contenu hero injecté ensuite.
+    try {
+      await page.waitForFunction(() => !document.getElementById('pandora-loader'), { timeout: 15000 });
+    } catch {
+      /* continue */
+    }
+    try {
+      await page.waitForFunction(
+        () => {
+          const el = document.querySelector('main#main-demo .hero-title');
+          return el && (el.textContent || '').trim().length > 0;
+        },
+        { timeout: 20000 },
+      );
+    } catch {
+      await page.waitForTimeout(shot?.delayMs ?? 9000);
+    }
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.waitForTimeout(1200);
+  },
 };
 
 function minLuminanceForSlug(slug) {
   // Certaines démos sont volontairement très sombres : on évite les faux négatifs.
   if (slug === 'coach' || slug === 'coach.html') return 15;
+  // L’Atelier Sur-Mesure : hero full dark-luxury (fond #0E0D0B + typo claire) — la moyenne de pixels reste basse.
+  if (slug === 'sur-mesure') return 5;
   return 30;
 }
 

@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
-    <meta name="pinapp-build" content="v15.2.1-sprint-a-2026-05-09" />
+    <meta name="pinapp-build" content="v15.3.0-premium-2026-05-10" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#050b14" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -236,6 +236,7 @@ main{position:relative;z-index:1;padding-top:72px}
 .real-hub-card__meta{margin:0;font-size:var(--fs-micro);color:var(--text-2)}
 .real-hub-card__badge{font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--or)}
 .real-hub-card__more{margin-top:auto;align-self:flex-start}
+.real-hub-card.card--glass{transition:transform 0.35s cubic-bezier(0.16,1,0.3,1),box-shadow 0.35s cubic-bezier(0.16,1,0.3,1)}
 .real-hub-card--placeholder .real-hub-card__body{padding-top:var(--sp-6)}
 @media (prefers-reduced-motion: reduce){
   .real-hub-card,.real-hub-filter{transition:none}
@@ -500,8 +501,11 @@ body.draft-mode .grid-2 .placeholder-asset{max-width:100%;font-size:.8125rem;pad
 .flow-note{font-size:var(--fs-micro);color:var(--ivoire-dim);margin-top:var(--sp-5);max-width:44rem}
 .nav__jumps{display:none;align-items:center;gap:var(--sp-2);flex-wrap:wrap}
 @media(min-width:960px){.nav__jumps{display:flex}}
-.nav__jumps a{font-size:12px;font-weight:600;color:var(--ivoire-mute);text-decoration:none;padding:8px 10px;border-radius:var(--r-pill);border:1px solid transparent}
+.nav__jumps a{font-size:12px;font-weight:600;color:var(--ivoire-mute);text-decoration:none;padding:8px 10px;border-radius:var(--r-pill);border:1px solid transparent;position:relative}
+.nav__jumps a::after{content:'';position:absolute;left:10px;right:10px;bottom:4px;height:2px;background:var(--or);transform:scaleX(0);transform-origin:left;transition:transform 0.3s cubic-bezier(0.16,1,0.3,1)}
+.nav__jumps a:hover::after,.nav__jumps a:focus-visible::after{transform:scaleX(1)}
 .nav__jumps a:hover,.nav__jumps a:focus-visible{color:var(--ivoire);border-color:rgba(230,185,115,0.35);background:var(--or-glow)}
+.nav.is-scrolled .nav__inner{background:rgba(5,11,20,0.78);backdrop-filter:blur(24px) saturate(170%);-webkit-backdrop-filter:blur(24px) saturate(170%);box-shadow:0 10px 36px rgba(0,0,0,0.12)}
 .demo-showcase-hero{display:grid;gap:var(--sp-6);align-items:center;margin:var(--sp-7) 0}
 @media(min-width:900px){.demo-showcase-hero{grid-template-columns:1.15fr 1fr;gap:var(--sp-8)}}
 .demo-showcase-hero__visual{position:relative;border-radius:var(--r-lg);overflow:hidden;border:2px solid rgba(230,185,115,0.35);box-shadow:0 0 0 1px rgba(62,245,224,0.12) inset,0 24px 48px rgba(0,0,0,0.18);background:transparent;padding:0;width:100%;text-align:left;cursor:pointer;font:inherit;color:inherit;touch-action:manipulation}
@@ -682,13 +686,16 @@ html.sober .scroll-progress{display:none}
 #hero .hero-h1-line1,
 #hero .hero-h1-line2{display:block;opacity:0;transform:translateY(24px);animation:v12-hero-fade-up 0.6s cubic-bezier(0.2,0.8,0.2,1) forwards}
 #hero .hero-h1-line1{animation-delay:0.12s}
-#hero .hero-h1-line2{margin-top:0.28em;font-style:italic;color:var(--or);animation-delay:0.2s}
+#hero .hero-h1-line2{margin-top:0.28em;color:var(--or);animation-delay:0.2s}
 #hero .hero-v12-sub,
 #hero .hero-v12-stats,
 #hero .hero-v12-cta{opacity:0;transform:translateY(24px);animation:v12-hero-fade-up 0.6s cubic-bezier(0.2,0.8,0.2,1) forwards}
 #hero .hero-v12-sub{animation-delay:0.4s}
 #hero .hero-v12-stats{animation-delay:0.6s}
 #hero .hero-v12-cta{animation-delay:0.8s}
+#hero .hero-word{display:inline}
+#hero .hero-word--accent{color:var(--or);text-shadow:0 0 20px rgba(201,166,107,0.28)}
+#hero .hero-h1-line2 em{font-style:italic}
 #hero .eyebrow{opacity:0;animation:v12-hero-eyebrow 1.4s cubic-bezier(0.16,1,0.3,1) forwards;animation-delay:0.6s}
 @supports (animation-timeline:scroll()){
   .hero__title{animation:hero-scroll-fade linear;animation-timeline:scroll();animation-range:0 55vh}
@@ -703,6 +710,7 @@ html.sober .scroll-progress{display:none}
   @keyframes pain-reveal{from{opacity:0.35;transform:translateY(16px);border-left-color:rgba(230,185,115,0)}to{opacity:1;transform:translateY(0);border-left-color:rgba(230,185,115,0.55)}}
 }
 @media (prefers-reduced-motion:reduce){
+  .real-hub-card.card--glass{transition:none!important}
   @supports (animation-timeline:scroll()){
     .hero__title,.hook-video-wrap,#diagnostic .pain{animation:none!important}
   }
@@ -1263,6 +1271,10 @@ body.intro-done #hero .eyebrow{animation-delay:calc(0.6s + 2.9s)!important;}
     will-change:transform;
     position:relative;
   }
+  .real-hub-card.card--glass:hover{
+    transform:translateY(-4px);
+    box-shadow:0 12px 40px rgba(0,0,0,0.1);
+  }
   .card--duo:hover,.demo-tile:hover,.demo-live-card:hover,
   .vimeo-tile:hover,.film-card:hover{
     transform:translateY(-6px) perspective(1000px) rotateX(2deg) rotateY(-2deg);
@@ -1336,7 +1348,7 @@ html.sober body.intro-pending #hero .hero-v12-cta,
 html.sober body.intro-pending #hero .eyebrow{opacity:1 !important;animation-play-state:running !important}
 html.sober .card--duo:hover,html.sober .demo-tile:hover,
 html.sober .demo-live-card:hover,html.sober .vimeo-tile:hover,
-html.sober .film-card:hover{transform:none !important;box-shadow:none !important}
+html.sober .film-card:hover,html.sober .real-hub-card.card--glass:hover{transform:none !important;box-shadow:none !important}
 
 /* Reduced motion — coupe tout M7+M8 effet */
 @media (prefers-reduced-motion: reduce){
@@ -1346,6 +1358,7 @@ html.sober .film-card:hover{transform:none !important;box-shadow:none !important
   body.intro-pending #hero .hero-v12-stats,
   body.intro-pending #hero .hero-v12-cta,
   body.intro-pending #hero .eyebrow{opacity:1 !important;animation-play-state:running !important}
+  .real-hub-card.card--glass:hover{transform:none!important;box-shadow:none!important}
   .card--duo:hover,.demo-tile:hover,.demo-live-card:hover,
   .vimeo-tile:hover,.film-card:hover,.formation-card:hover,
   .engage-card:hover,.source-card:hover,.card--pricing:hover,
@@ -1869,8 +1882,12 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
     <div class="scene__inner">
       <p class="eyebrow">STUDIO IA · BORDEAUX · 2026</p>
       <h1 id="hero-h1" class="display display--h1 hero__title">
-        <span class="hero-h1-line1">Studio IA tous domaines.</span>
-        <span class="hero-h1-line2">Code + imagerie.</span>
+        <span class="hero-h1-line1"
+          ><span class="hero-word">Studio</span> <span class="hero-word">IA</span> <span class="hero-word">tous</span> <span class="hero-word">domaines.</span></span
+        >
+        <span class="hero-h1-line2"
+          ><em><span class="hero-word hero-word--accent">Code</span> <span class="hero-word hero-word--accent">+</span> <span class="hero-word hero-word--accent">imagerie.</span></em></span
+        >
       </h1>
       <p class="lead hero-v12-sub">Sites, films, automatisations — par 2 expertises complémentaires. Un seul devis, un seul interlocuteur.</p>
       <div class="hero-s01-row hero-v12-stats">
@@ -2184,6 +2201,27 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
           </a>
           <button type="button" class="btn btn--text real-hub-card__more" data-open-detail="drawer-sites-augmentes">En savoir plus</button>
         </article>
+        <article class="real-hub-card card--glass v10-tilt" data-reveal data-categorie="code" data-real-card>
+          <a class="real-hub-card__link" href="/demo/esthetique/" target="_blank" rel="noopener noreferrer">
+            <div class="real-hub-card__thumb">
+              <img
+                src="assets/demo-screens/esthetique.webp"
+                alt="Aperçu démo Maison Solène — institut de beauté fictif"
+                width="640"
+                height="400"
+                loading="lazy"
+                decoding="async"
+                fetchpriority="low"
+              />
+            </div>
+            <div class="real-hub-card__body">
+              <h3 class="real-hub-card__title">Maison Solène</h3>
+              <p class="real-hub-card__meta">Institut beauté · Pack Signature T5 · 3&nbsp;890&nbsp;€&nbsp;HT</p>
+            </div>
+          </a>
+          <button type="button" class="btn btn--text real-hub-card__more" data-open-detail="drawer-sites-augmentes">Voir la démo →</button>
+        </article>
+
         <article class="real-hub-card card--glass v10-tilt" data-reveal data-categorie="imagerie" data-real-card>
           <div class="real-hub-card__embed">
             <iframe src="about:blank" data-vimeo-src="https://player.vimeo.com/video/1187533794?dnt=1" title="Icebreaker — clip cinéma IA" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
@@ -2498,7 +2536,7 @@ Chez nous, si. »</p>
         <article class="offres-tier-card">
           <p class="offres-tier-label">T0 · ESSENTIEL</p>
           <h3 class="offres-tier-name">Page Light</h3>
-          <p class="offres-tier-price">990 € HT</p>
+          <p class="offres-tier-price">990&nbsp;€ HT</p>
           <p class="offres-tier-incl">1 page · code · 30 j corrections incluses</p>
           <p class="offres-tier-auto">Automatisations : 0</p>
           <button type="button" class="btn btn--text" data-open-detail="drawer-sites-augmentes" style="align-self:flex-start;margin-top:var(--sp-2)">Détail site →</button>
@@ -3085,6 +3123,7 @@ Chez nous, si. »</p>
 <script src="assets/js/scene-counter.js" defer></script>
 <script src="assets/js/grain-canvas.js" defer></script>
 <script src="assets/js/magnetic-cursor.js" defer></script>
+<script src="assets/js/confetti-cta.js" defer></script>
 <script src="assets/js/card-tilt.js" defer></script>
 <script src="assets/js/marquee-mobile.js" defer></script>
 <script>
@@ -3548,6 +3587,16 @@ if(wt && !prefersReduced()){
   }
   window.addEventListener('scroll',onWhisperScroll,{passive:true});
   onWhisperScroll();
+}
+
+var navHdr=document.querySelector('header.nav');
+if(navHdr){
+  function onNavScrollPremium(){
+    var y=window.scrollY||document.documentElement.scrollTop||0;
+    navHdr.classList.toggle('is-scrolled',y>48);
+  }
+  window.addEventListener('scroll',onNavScrollPremium,{passive:true});
+  onNavScrollPremium();
 }
 
 })();</script>
