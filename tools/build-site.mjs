@@ -75,6 +75,7 @@ function copyTree(srcDir, rel = '') {
  * _site/voyage-v9/ stays (staging mirror + static assets for promoted pages).
  */
 function promoteVoyageV9(siteDir) {
+  /* Copie intégrale du HTML voyage-v9 (monolithique) ; pas de filtre par bloc. */
   const v9Dir = path.join(siteDir, 'voyage-v9');
   if (!fs.existsSync(v9Dir)) {
     console.log('[promoteVoyageV9] voyage-v9/ absent dans _site, skip');

@@ -1,7 +1,11 @@
 /**
  * Pinapp Voyage V2 — Lenis (desktop), ScrollTrigger pin + scrub zoom, GSAP blur-reveal, mode sobre.
+ * Aligné build narrative v15.5.0 (référence meta pinapp-build sur la home voyage-v9).
  */
 (function () {
+  try {
+    window.PINAPP_VERSION = 'v15.5.0';
+  } catch (e) {}
   var root = document.documentElement;
   var reduced = false;
   try {
