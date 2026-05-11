@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
-    <meta name="pinapp-build" content="v15.4.5-hotfix-scroll-lenis-2026-05-11" />
+    <meta name="pinapp-build" content="v15.4.6-icebreaker-vimeo-2026-05-11" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#050b14" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -1594,7 +1594,9 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
 .presentation-video-frame::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 30% 30%,rgba(230,185,115,0.12),transparent 55%),linear-gradient(145deg,rgba(5,11,20,0.55),rgba(10,18,31,0.35));opacity:1;transition:opacity 400ms var(--ease-out)}
 .presentation-video-frame.is-vimeo-loaded::before{opacity:0}
 @media (prefers-reduced-motion:reduce){.presentation-video-frame iframe{transition:none}.presentation-video-frame::before{transition:none}}
-.scene.scene--icebreaker-spot{min-height:0;align-items:flex-start;padding-top:var(--sp-6);padding-bottom:var(--sp-7)}
+/* v15.4.6 — Icebreaker (#cinema-artistes) : cadre 16/9 + Vimeo lazy (presentation-video-frame) */
+.presentation-video-frame.video-frame--icebreaker{margin:2rem auto;max-width:960px;border-radius:22px;box-shadow:0 8px 32px rgba(0,0,0,0.1)}
+.presentation-video-frame.video-frame--icebreaker iframe{border:0}
 .scene--offres .lead{margin-bottom:var(--sp-6)}
 .offres-premium-band{background:linear-gradient(135deg,rgba(157,125,240,0.12) 0%,rgba(230,185,115,0.08) 100%);border:1px solid rgba(157,125,240,0.4);border-radius:var(--r-lg);padding:var(--sp-6);margin-top:var(--sp-6)}
 .offres-premium-grid{display:grid;gap:var(--sp-5);grid-template-columns:1fr}
@@ -1900,18 +1902,6 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
         <iframe src="about:blank" data-vimeo-src="https://player.vimeo.com/video/1190745013?dnt=1" title="Vidéo de présentation Pinapp — teaser 60 secondes" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
       <p class="source-note" data-reveal style="text-align:center;max-width:40rem;margin:var(--sp-5) auto 0">Vitrine 5 sections · agence Bordeaux 2025 : 5 000–8 000 € HT. Pack Duo Pinapp : 1 890 € HT. Sources benchmark CCI Aquitaine + freelances locaux.</p>
-    </div>
-  </section>
-
-  <section id="icebreaker-spot" class="scene scene--icebreaker-spot" data-stage="hero-1" aria-labelledby="icebreaker-spot-h2">
-    <div class="scene__inner">
-      <p class="eyebrow" data-reveal>CLIP RÉFÉRENCE</p>
-      <h2 id="icebreaker-spot-h2" class="display display--h3" data-reveal style="font-size:clamp(1.5rem,4vw,2.25rem)">Icebreaker</h2>
-      <p class="lead" data-reveal style="text-align:center;max-width:34rem;margin:var(--sp-3) auto 0">Clip cinéma IA · 2:18 — même chargement paresseux que la grille Réalisations.</p>
-      <div class="presentation-video-frame" data-reveal style="margin-top:var(--sp-5)">
-        <iframe src="about:blank" data-vimeo-src="https://player.vimeo.com/video/1187533794?dnt=1" title="Icebreaker — clip cinéma IA" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-      </div>
-      <p class="source-note" data-reveal style="text-align:center;margin-top:var(--sp-4)">Extrait repris dans la grille Réalisations — lecture hors réseaux sociaux.</p>
     </div>
   </section>
 
@@ -2265,9 +2255,6 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
     </div>
   </section>
 
-
-
-
   <section id="pourquoi-moins-cher" class="scene" data-stage="hero-3" aria-labelledby="pourquoi-moins-cher-h2">
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>La méthode</p>
@@ -2355,6 +2342,30 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
         <p style="margin:0">« L'IA a un coût environnemental. Voici comment on le limite :<br>hébergement européen, choix d'outils sobres, pas de génération inutile. »</p>
       </div>
       <div class="cta-row" data-reveal style="margin-top:var(--sp-6)"><a class="btn btn--primary" href="#contact">Recevoir le devis transparent →</a></div>
+    </div>
+  </section>
+
+  <section id="cinema-artistes" class="scene" data-stage="hero-4" aria-labelledby="cinema-artistes-h2">
+    <div class="scene__inner">
+      <div class="real-cinema-panel">
+      <p class="eyebrow" data-reveal>Studio Pinapp · Cinéma IA pour artistes</p>
+      <h2 id="cinema-artistes-h2" class="display display--h3" data-reveal>Vous avez la voix. Nous avons le studio.</h2>
+      <p class="lead" data-reveal>Vous êtes artiste, créateur, marque narrative. Vous avez l'univers en tête. Il vous manquait le budget studio. Plus maintenant. Premium pour TPE/PME · disrupteur pour artistes et créateurs.</p>
+      <div class="presentation-video-frame video-frame--icebreaker" data-reveal>
+        <iframe src="about:blank" data-vimeo-src="https://player.vimeo.com/video/1187533794?dnt=1&amp;title=0&amp;byline=0&amp;portrait=0" title="Icebreaker — Studio Pinapp Cinéma IA" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+      <p class="source-note" style="text-align:center" data-reveal>Direction artistique Lauralie · Réalisation IA Micha · Voix Lauralie</p>
+      <div class="compare-table card--glass" data-reveal>
+        <div><strong>Avant l'IA</strong><div>8 000 - 50 000 €</div></div>
+        <div><strong>Avec Pinapp</strong><div>dès 1 500 € HT</div></div>
+        <div><strong>Économie</strong><div>-90 %</div></div>
+      </div>
+      <div class="chips" data-reveal>
+        <span class="chip">artistes</span><span class="chip">créateurs</span><span class="chip">marques</span>
+      </div>
+      <p class="badge-row" data-reveal style="justify-content:center"><span class="badge">Disponible été 2026 · 5 premiers projets à -30 %</span></p>
+      <div class="cta-row" data-reveal><a class="btn btn--primary btn--cta-large" href="#contact">Recevoir un devis clip sous 48h →</a></div>
+      </div>
     </div>
   </section>
 
