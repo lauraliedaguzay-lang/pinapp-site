@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
-    <meta name="pinapp-build" content="v15.4.5-hotfix-scroll-lenis-2026-05-11" />
+    <meta name="pinapp-build" content="v15.4.6-icebreaker-cleanup-2026-05-11" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#050b14" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -686,10 +686,12 @@ html.sober .scroll-progress{display:none}
 #hero .hero-h1-line2{margin-top:0.28em;font-style:italic;color:var(--or);animation-delay:0.2s}
 #hero .hero-v12-sub,
 #hero .hero-v12-stats,
-#hero .hero-v12-cta{opacity:0;transform:translateY(24px);animation:v12-hero-fade-up 0.6s cubic-bezier(0.2,0.8,0.2,1) forwards}
+#hero .hero-v12-cta,
+#hero .hero-v12-cta-note{opacity:0;transform:translateY(24px);animation:v12-hero-fade-up 0.6s cubic-bezier(0.2,0.8,0.2,1) forwards}
 #hero .hero-v12-sub{animation-delay:0.4s}
 #hero .hero-v12-stats{animation-delay:0.6s}
 #hero .hero-v12-cta{animation-delay:0.8s}
+#hero .hero-v12-cta-note{animation-delay:1s}
 #hero .eyebrow{opacity:0;animation:v12-hero-eyebrow 1.4s cubic-bezier(0.16,1,0.3,1) forwards;animation-delay:0.6s}
 @supports (animation-timeline:scroll()){
   .hero__title{animation:hero-scroll-fade linear;animation-timeline:scroll();animation-range:0 55vh}
@@ -757,11 +759,13 @@ html.sober .scroll-progress{display:none}
   #hero .hero-v12-sub,
   #hero .hero-v12-stats,
   #hero .hero-v12-cta,
+  #hero .hero-v12-cta-note,
   #hero .eyebrow{animation:v12-hero-fade-up 0.28s ease forwards!important;opacity:0;transform:none}
   #hero .hero-h1-line2{animation-delay:0.06s!important}
   #hero .hero-v12-sub{animation-delay:0.12s!important}
   #hero .hero-v12-stats{animation-delay:0.18s!important}
   #hero .hero-v12-cta{animation-delay:0.24s!important}
+  #hero .hero-v12-cta-note{animation-delay:0.3s!important}
   #hero .eyebrow{animation:v12-hero-fade-up 0.28s ease forwards!important;animation-delay:0s!important;letter-spacing:0.18em}
   .hero__title{animation:none!important}
   #hook-film .hook-video-wrap{animation:hook-halo-pulse 3.2s cubic-bezier(0.16,1,0.3,1) 0.35s 1 forwards}
@@ -1238,6 +1242,7 @@ body.intro-pending #hero .hero-h1-line2,
 body.intro-pending #hero .hero-v12-sub,
 body.intro-pending #hero .hero-v12-stats,
 body.intro-pending #hero .hero-v12-cta,
+body.intro-pending #hero .hero-v12-cta-note,
 body.intro-pending #hero .eyebrow{
   animation-play-state:paused!important;
   opacity:0!important;
@@ -1247,6 +1252,7 @@ body.intro-done #hero .hero-h1-line2{animation-delay:calc(0.2s + 2.9s)!important
 body.intro-done #hero .hero-v12-sub{animation-delay:calc(0.4s + 2.9s)!important;}
 body.intro-done #hero .hero-v12-stats{animation-delay:calc(0.6s + 2.9s)!important;}
 body.intro-done #hero .hero-v12-cta{animation-delay:calc(0.8s + 2.9s)!important;}
+body.intro-done #hero .hero-v12-cta-note{animation-delay:calc(1s + 2.9s)!important;}
 body.intro-done #hero .eyebrow{animation-delay:calc(0.6s + 2.9s)!important;}
 
 /* ============================================
@@ -1334,6 +1340,7 @@ html.sober body.intro-pending #hero .hero-h1-line2,
 html.sober body.intro-pending #hero .hero-v12-sub,
 html.sober body.intro-pending #hero .hero-v12-stats,
 html.sober body.intro-pending #hero .hero-v12-cta,
+html.sober body.intro-pending #hero .hero-v12-cta-note,
 html.sober body.intro-pending #hero .eyebrow{opacity:1 !important;animation-play-state:running !important}
 html.sober .card--duo:hover,html.sober .demo-tile:hover,
 html.sober .demo-live-card:hover,html.sober .vimeo-tile:hover,
@@ -1346,6 +1353,7 @@ html.sober .film-card:hover{transform:none !important;box-shadow:none !important
   body.intro-pending #hero .hero-v12-sub,
   body.intro-pending #hero .hero-v12-stats,
   body.intro-pending #hero .hero-v12-cta,
+  body.intro-pending #hero .hero-v12-cta-note,
   body.intro-pending #hero .eyebrow{opacity:1 !important;animation-play-state:running !important}
   .card--duo:hover,.demo-tile:hover,.demo-live-card:hover,
   .vimeo-tile:hover,.film-card:hover,.formation-card:hover,
@@ -1594,7 +1602,10 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
 .presentation-video-frame::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 30% 30%,rgba(230,185,115,0.12),transparent 55%),linear-gradient(145deg,rgba(5,11,20,0.55),rgba(10,18,31,0.35));opacity:1;transition:opacity 400ms var(--ease-out)}
 .presentation-video-frame.is-vimeo-loaded::before{opacity:0}
 @media (prefers-reduced-motion:reduce){.presentation-video-frame iframe{transition:none}.presentation-video-frame::before{transition:none}}
-.scene.scene--icebreaker-spot{min-height:0;align-items:flex-start;padding-top:var(--sp-6);padding-bottom:var(--sp-7)}
+/* PR #163 — Icebreaker cadre Vimeo (#cinema-artistes) */
+.video-frame--icebreaker{position:relative;width:100%;aspect-ratio:16/9;border-radius:22px;overflow:hidden;background:var(--nuit-soft,#0a121f);box-shadow:0 8px 32px rgba(0,0,0,0.12);margin:2rem auto;max-width:960px}
+.video-frame--icebreaker iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+#hero .hero-v12-cta-note{margin:0;max-width:28rem;text-align:center;font-size:0.8125rem;line-height:1.5;color:var(--ivoire-mute)}
 .scene--offres .lead{margin-bottom:var(--sp-6)}
 .offres-premium-band{background:linear-gradient(135deg,rgba(157,125,240,0.12) 0%,rgba(230,185,115,0.08) 100%);border:1px solid rgba(157,125,240,0.4);border-radius:var(--r-lg);padding:var(--sp-6);margin-top:var(--sp-6)}
 .offres-premium-grid{display:grid;gap:var(--sp-5);grid-template-columns:1fr}
@@ -1878,13 +1889,16 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
       <div class="hero-s01-row hero-v12-stats">
         <div class="stats-row">
           <div class="stat">Réponse<br>24 h</div>
-          <div class="stat">Diagnostic<br>offert</div>
+          <div class="stat">Analyse<br>écrite</div>
           <div class="stat">Suivi<br>30 j</div>
         </div>
       </div>
-      <div class="cta-row hero-v12-cta">
+      <div class="cta-row hero-v12-cta" style="flex-direction:column;align-items:center;gap:var(--sp-3)">
+        <div style="display:flex;flex-wrap:wrap;gap:var(--sp-4);justify-content:center;width:100%">
         <a class="btn btn--primary breath-cta" href="#contact">Recevoir mon diagnostic écrit sous 24h →</a>
         <a class="btn btn--ghost" href="#realisations">Voir nos réalisations ↓</a>
+        </div>
+        <p class="source-note hero-v12-cta-note">Une analyse écrite par mail · pas un appel · pas d'engagement</p>
       </div>
     </div>
   </section>
@@ -1900,18 +1914,6 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
         <iframe src="about:blank" data-vimeo-src="https://player.vimeo.com/video/1190745013?dnt=1" title="Vidéo de présentation Pinapp — teaser 60 secondes" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
       <p class="source-note" data-reveal style="text-align:center;max-width:40rem;margin:var(--sp-5) auto 0">Vitrine 5 sections · agence Bordeaux 2025 : 5 000–8 000 € HT. Pack Duo Pinapp : 1 890 € HT. Sources benchmark CCI Aquitaine + freelances locaux.</p>
-    </div>
-  </section>
-
-  <section id="icebreaker-spot" class="scene scene--icebreaker-spot" data-stage="hero-1" aria-labelledby="icebreaker-spot-h2">
-    <div class="scene__inner">
-      <p class="eyebrow" data-reveal>CLIP RÉFÉRENCE</p>
-      <h2 id="icebreaker-spot-h2" class="display display--h3" data-reveal style="font-size:clamp(1.5rem,4vw,2.25rem)">Icebreaker</h2>
-      <p class="lead" data-reveal style="text-align:center;max-width:34rem;margin:var(--sp-3) auto 0">Clip cinéma IA · 2:18 — même chargement paresseux que la grille Réalisations.</p>
-      <div class="presentation-video-frame" data-reveal style="margin-top:var(--sp-5)">
-        <iframe src="about:blank" data-vimeo-src="https://player.vimeo.com/video/1187533794?dnt=1" title="Icebreaker — clip cinéma IA" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-      </div>
-      <p class="source-note" data-reveal style="text-align:center;margin-top:var(--sp-4)">Extrait repris dans la grille Réalisations — lecture hors réseaux sociaux.</p>
     </div>
   </section>
 
@@ -1989,7 +1991,7 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
             </ul>
             <div class="real-links" aria-label="Liens réalisations Michaël">
               <a href="/studio-micha/">Studio Micha (films &amp; captation) ↗</a>
-              <a href="/studio-artistes/">Studio artistes ↗</a>
+              <a href="/studio-artistes/">Studio Lauralie ↗</a>
               <a href="/realisations/films-ia/" target="_blank" rel="noopener noreferrer">Films IA ↗</a>
               <a href="#realisations?filter=imagerie">Films &amp; clips ↓</a>
               <a href="#realisations">Extraits portfolio ↓</a>
@@ -2355,6 +2357,30 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
         <p style="margin:0">« L'IA a un coût environnemental. Voici comment on le limite :<br>hébergement européen, choix d'outils sobres, pas de génération inutile. »</p>
       </div>
       <div class="cta-row" data-reveal style="margin-top:var(--sp-6)"><a class="btn btn--primary" href="#contact">Recevoir le devis transparent →</a></div>
+    </div>
+  </section>
+
+  <section id="cinema-artistes" class="scene" data-stage="hero-4" aria-labelledby="cinema-artistes-h2">
+    <div class="scene__inner">
+      <div class="real-cinema-panel">
+      <p class="eyebrow" data-reveal>Studio Lauralie · Cinéma IA pour artistes</p>
+      <h2 id="cinema-artistes-h2" class="display display--h3" data-reveal>Vous avez la voix. Nous avons le studio.</h2>
+      <p class="lead" data-reveal>Vous êtes artiste, créateur, marque narrative. Vous avez l'univers en tête. Il vous manquait le budget studio. Plus maintenant. Premium pour TPE/PME · disrupteur pour artistes et créateurs.</p>
+      <div class="video-frame video-frame--icebreaker" data-reveal>
+        <iframe src="https://player.vimeo.com/video/1187533794?dnt=1&amp;title=0&amp;byline=0&amp;portrait=0" width="100%" height="100%" title="Icebreaker — Studio Pinapp Cinéma IA" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+      <p class="source-note" style="text-align:center" data-reveal>Direction artistique Lauralie · Réalisation IA Micha · Voix Lauralie</p>
+      <div class="compare-table card--glass" data-reveal>
+        <div><strong>Avant l'IA</strong><div>8 000 - 50 000 €</div></div>
+        <div><strong>Avec Pinapp</strong><div>dès 1 500 € HT</div></div>
+        <div><strong>Économie</strong><div>-90 %</div></div>
+      </div>
+      <div class="chips" data-reveal>
+        <span class="chip">artistes</span><span class="chip">créateurs</span><span class="chip">marques</span>
+      </div>
+      <p class="badge-row" data-reveal style="justify-content:center"><span class="badge">Disponible été 2026 · 5 premiers projets à -30 %</span></p>
+      <div class="cta-row" data-reveal><a class="btn btn--primary btn--cta-large" href="#contact">Recevoir un devis clip sous 48h →</a></div>
+      </div>
     </div>
   </section>
 
@@ -2978,7 +3004,7 @@ Chez nous, si. »</p>
 
   <nav aria-label="Univers Pinapp">
     <a href="/studio-micha/"><span class="pp-ico--nav" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8975A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l4-2v8l-4-2"/></svg></span> Studio Micha</a>
-    <a href="/studio-artistes/"><span class="pp-ico--nav" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8975A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span> Studio artistes</a>
+    <a href="/studio-artistes/"><span class="pp-ico--nav" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8975A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span> Studio Lauralie</a>
     <a href="/essayer-une-demo/"><span class="pp-ico--nav" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8975A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span> Essayer une démo</a>
     <a href="/cadeaux-ia/"><span class="pp-ico--nav" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8975A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="14" rx="2"/><path d="M12 8v14"/><path d="M8 8h8"/><path d="M9.5 8a2.5 2.5 0 0 1 5 0H9.5z"/></svg></span> Cadeaux IA</a>
     <a href="/histoire/"><span class="pp-ico--nav" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8975A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span> Notre histoire</a>
@@ -3056,7 +3082,7 @@ Chez nous, si. »</p>
   <a href="index.html#diagnostic" class="drawer__nav-link">Diagnostic</a>
   <span class="drawer__nav-sep" aria-hidden="true"></span>
   <a href="/studio-micha/" class="drawer__nav-link">Studio Micha</a>
-  <a href="/studio-artistes/" class="drawer__nav-link">Studio artistes</a>
+  <a href="/studio-artistes/" class="drawer__nav-link">Studio Lauralie</a>
   <a href="/essayer-une-demo/" class="drawer__nav-link">Essayer une démo</a>
   <a href="/cadeaux-ia/" class="drawer__nav-link">Cadeaux IA</a>
   <span class="drawer__nav-sep" aria-hidden="true"></span>
