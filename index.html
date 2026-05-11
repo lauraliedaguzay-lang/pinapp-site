@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
-    <meta name="pinapp-build" content="v15.4.4-stage-scroll-icebreaker-2026-05-10" />
+    <meta name="pinapp-build" content="v15.4.5-hotfix-scroll-lenis-2026-05-11" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#050b14" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -1837,13 +1837,12 @@ function emitScene(sectionId){
     if(st) setHero(st);
   }
 }
-/* v15.4.4 — pilotage stage : scroll milieu viewport (Option B, pages longues + Lenis) */
+/* v15.4.4 — pilotage stage : scroll milieu viewport (Option B, pages longues + Lenis) ; v15.4.5 — scroll natif réémis depuis Lenis (scroll-smooth.js) */
 function getStageScrollY(){
   var L=window.__pinappLenis;
   if(L&&typeof L.scroll==='number'&&!document.documentElement.classList.contains('sober'))return L.scroll;
   return window.scrollY||document.documentElement.scrollTop||0;
 }
-var _pinappStageLenisBound=false;
 function onStageScroll(){
   var nodes=document.querySelectorAll('main section[data-stage]');
   if(!nodes.length)return;
@@ -1864,13 +1863,8 @@ function onStageScroll(){
 }
 window.addEventListener('scroll',onStageScroll,{passive:true});
 window.addEventListener('resize',onStageScroll,{passive:true});
-function bindStageLenis(){
-  if(_pinappStageLenisBound)return;
-  var L=window.__pinappLenis;
-  if(L&&typeof L.on==='function'){ try{L.on('scroll',onStageScroll);_pinappStageLenisBound=true;}catch(e1){} }
-}
-document.addEventListener('DOMContentLoaded',function(){ onStageScroll(); bindStageLenis(); });
-window.addEventListener('load',function(){ bindStageLenis(); onStageScroll(); });
+document.addEventListener('DOMContentLoaded',function(){ onStageScroll(); });
+window.addEventListener('load',function(){ onStageScroll(); });
 
 if('IntersectionObserver' in window && !prefersReduced()){
   document.querySelectorAll('[data-reveal]').forEach(function(el){
