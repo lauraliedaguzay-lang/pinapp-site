@@ -1,0 +1,202 @@
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { HeroCanvas } from '../canvas/HeroCanvas';
+
+// ─── Section principale ───────────────────────────────────────────────────────
+export function Scene1Opening() {
+  const sectionRef     = useRef<HTMLElement>(null);
+  const overlayRef     = useRef<HTMLDivElement>(null);
+  const titleRef       = useRef<HTMLHeadingElement>(null);
+  const taglineRef     = useRef<HTMLParagraphElement>(null);
+  const scrollHintRef  = useRef<HTMLDivElement>(null);
+  const ornementRef    = useRef<HTMLDivElement>(null);
+  const scrollProgress = useRef(0);
+  const mouseX         = useRef(0);
+  const mouseY         = useRef(0);
+
+  const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // ── Mount ──
+  useEffect(() => {
+    setMounted(true);
+    const mq = window.matchMedia('(max-width: 768px)');
+    setIsMobile(mq.matches);
+    const onMq = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener('change', onMq);
+    return () => mq.removeEventListener('change', onMq);
+  }, []);
+
+  // ── Scroll tracking ──
+  useEffect(() => {
+    if (!mounted) return;
+    const section = sectionRef.current;
+    if (!section) return;
+    const onScroll = () => {
+      const rect = section.getBoundingClientRect();
+      scrollProgress.current = Math.max(0, Math.min(1, -rect.top / window.innerHeight));
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [mounted]);
+
+  // ── Mouse tracking ──
+  useEffect(() => {
+    if (!mounted) return;
+    const onMouse = (e: MouseEvent) => {
+      mouseX.current =  (e.clientY / window.innerHeight - 0.5) * 2;
+      mouseY.current =  (e.clientX / window.innerWidth  - 0.5) * 2;
+    };
+    window.addEventListener('mousemove', onMouse);
+    return () => window.removeEventListener('mousemove', onMouse);
+  }, [mounted]);
+
+  // ── GSAP intro — useGSAP gère le ctx.revert() proprement en Strict Mode ──
+  useGSAP(() => {
+    // Efface tout résidu d'inline opacity de sessions précédentes
+    gsap.set('.hero-title, .hero-tagline, .hero-ornament', { clearProps: 'opacity' });
+
+    // Transforms uniquement — JAMAIS opacity dans ces tweens
+    const tl = gsap.timeline({ delay: 0.3 });
+    tl.from('.hero-title',
+      { y: 28, filter: 'blur(8px)', duration: 1.2, ease: 'power3.out', immediateRender: false },
+    0);
+    tl.from('.hero-ornament',
+      { scaleX: 0, duration: 0.7, ease: 'power2.out', immediateRender: false },
+    0.6);
+    tl.from('.hero-tagline',
+      { y: 14, duration: 0.85, ease: 'power2.out', immediateRender: false },
+    0.75);
+  }, { dependencies: [mounted], revertOnUpdate: true });
+
+  return (
+    <section
+      ref={sectionRef}
+      id="scene-1"
+      className="relative h-[100dvh] w-full overflow-hidden bg-[#060101]"
+      aria-label="Maison ORIANE — Ouverture"
+    >
+      {/* ─── Canvas 3D — monté dès que le composant est hydraté ─── */}
+      {mounted && (
+        <div className="absolute inset-0 z-0" aria-hidden>
+          <HeroCanvas
+            isMobile={isMobile}
+            scrollProgress={scrollProgress}
+            mouseX={mouseX}
+            mouseY={mouseY}
+          />
+        </div>
+      )}
+
+      {/* ─── Fond bordeaux radial (toujours visible — avant mount ET par-dessus le Canvas) ─── */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[1]"
+        style={{
+          background: 'radial-gradient(ellipse 70% 60% at 50% 44%, rgba(38,8,8,0.7) 0%, transparent 70%)',
+        }}
+        aria-hidden
+      />
+
+      {/* ─── Vignette CSS (remplace WebGL postprocessing) ─── */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[5]"
+        style={{ background: 'radial-gradient(ellipse at center, transparent 38%, rgba(0,0,0,0.55) 100%)' }}
+        aria-hidden
+      />
+
+      {/* ─── Gradient bas — fondu vers la scène suivante ─── */}
+      <div
+        className="pointer-events-none absolute bottom-0 left-0 right-0 z-10 h-52"
+        style={{ background: 'linear-gradient(to bottom, transparent, #040101)' }}
+        aria-hidden
+      />
+
+      {/* ─── HTML overlay ─── */}
+      <div
+        ref={overlayRef}
+        className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center px-6 text-center"
+      >
+        {/* Surtitle */}
+        <p
+          className="mb-6 font-body text-[0.52rem] font-light uppercase tracking-[0.6em] text-or-pale/55"
+        >
+          Bordeaux · 2026
+        </p>
+
+        {/* Titre principal — SplitText appliqué ici */}
+        <h1
+          ref={titleRef}
+          className="hero-title relative select-none font-display font-extralight uppercase leading-none text-or-liquide"
+          style={{
+            fontSize: 'clamp(4.5rem, 13.5vw, 11.5rem)',
+            letterSpacing: '0.24em',
+            mixBlendMode: 'screen',
+            textShadow: [
+              '0 0 55px rgba(212,169,106,0.65)',
+              '0 0 110px rgba(212,169,106,0.28)',
+              '0 0 220px rgba(180,100,60,0.15)',
+              '0 2px 8px rgba(0,0,0,0.7)',
+            ].join(', '),
+          }}
+        >
+          ORIANE
+        </h1>
+
+        {/* Ornement ligne — scaleX animé */}
+        <div
+          ref={ornementRef}
+          className="hero-ornament my-5 flex items-center gap-3.5"
+          style={{ transformOrigin: 'center' }}
+          aria-hidden
+        >
+          <div className="h-px w-14 bg-gradient-to-r from-transparent via-or-pale/50 to-or-pale/20" />
+          <div className="flex gap-1.5">
+            <span className="block h-[2.5px] w-[2.5px] rounded-full bg-or-pale/60" />
+            <span className="block h-[2.5px] w-[2.5px] rounded-full bg-or-pur/80" />
+            <span className="block h-[2.5px] w-[2.5px] rounded-full bg-or-pale/60" />
+          </div>
+          <div className="h-px w-14 bg-gradient-to-l from-transparent via-or-pale/50 to-or-pale/20" />
+        </div>
+
+        {/* Tagline */}
+        <p
+          ref={taglineRef}
+          className="hero-tagline font-body font-extralight uppercase text-or-pale"
+          style={{
+            fontSize: 'clamp(0.55rem, 1.3vw, 0.78rem)',
+            letterSpacing: '0.52em',
+            mixBlendMode: 'screen',
+            textShadow: '0 0 18px rgba(212,169,106,0.30)',
+          }}
+        >
+          Une parfumerie.
+        </p>
+      </div>
+
+      {/* ─── Scroll hint ─── */}
+      <div
+        ref={scrollHintRef}
+        className="pointer-events-none absolute bottom-7 left-1/2 z-20 -translate-x-1/2 flex flex-col items-center gap-2"
+        aria-hidden
+      >
+        <span className="font-body text-[0.45rem] uppercase tracking-[0.5em] text-or-pale/35">
+          Scroll
+        </span>
+        <div
+          className="h-9 w-px bg-gradient-to-b from-or-pale/30 to-transparent"
+          style={{ animation: 'scrollPulse 2.2s ease-in-out infinite' }}
+        />
+      </div>
+
+      <style>{`
+        @keyframes scrollPulse {
+          0%, 100% { opacity: 0.25; transform: scaleY(1); transform-origin: top; }
+          50%       { opacity: 0.75; transform: scaleY(1.35); transform-origin: top; }
+        }
+      `}</style>
+    </section>
+  );
+}

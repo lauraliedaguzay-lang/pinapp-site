@@ -1,0 +1,59 @@
+---
+import { fragrances } from '../../data/fragrances';
+---
+
+<section
+  id="collection"
+  class="bg-noir-profond px-[6vw] py-[18vh] text-ivoire-chaud [clip-path:polygon(0_5%,100%_0,100%_100%,0_100%)]"
+>
+  <div class="relative z-[10] mx-auto max-w-[1200px]">
+    <p
+      class="mb-4 font-body text-[0.7rem] font-extralight uppercase tracking-[0.45em] text-or-pur"
+      style="font-weight: 200;"
+    >
+      — La Collection
+    </p>
+    <h2
+      class="mb-16 max-w-[900px] font-display text-[clamp(2rem,4.5vw,3.5rem)] font-light italic leading-tight tracking-tight text-ivoire-chaud"
+    >
+      Trois fragrances, un trajet de jour.
+    </h2>
+
+    <div class="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
+      {
+        fragrances.map((f) => (
+          <article
+            class="group relative rounded-sm border border-or-pur/50 [perspective:1200px] transition-[border-color,box-shadow] duration-500 motion-safe:hover:border-or-liquide motion-safe:hover:shadow-[0_30px_60px_-20px_rgba(244,201,119,0.12)]"
+            style="transform-style: preserve-3d;"
+          >
+            <div
+              class="relative overflow-hidden rounded-sm transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform motion-safe:group-hover:[transform:translateY(-12px)_rotateX(2deg)]"
+            >
+              <div
+                class="aspect-[3/4] w-full origin-center bg-cover bg-center transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-safe:group-hover:scale-110"
+                style={{
+                  backgroundImage: `url(${f.photoUrl})`,
+                  ...(f.filterCSS !== 'none' ? { filter: f.filterCSS } : {}),
+                }}
+                role="img"
+                aria-label={f.photoAlt}
+              />
+              <div
+                class="pointer-events-none absolute inset-0"
+                style="background: linear-gradient(180deg, transparent 40%, rgba(10, 8, 5, 0.85) 100%);"
+              />
+              <div class="absolute inset-x-0 bottom-0 p-6 text-left">
+                <h3 class="mb-2 font-display text-2xl font-light italic text-ivoire-chaud md:text-[1.5rem]">
+                  {f.nom}
+                </h3>
+                <p class="font-body text-[0.65rem] font-extralight uppercase tracking-[0.35em] text-or-pur">
+                  {f.heure}
+                </p>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
