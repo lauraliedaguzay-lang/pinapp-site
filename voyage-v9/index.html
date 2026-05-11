@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
-    <meta name="pinapp-build" content="v15.4.4-stage-scroll-icebreaker-2026-05-10" />
+    <meta name="pinapp-build" content="v15.5.0-restore-narrative-2026-05-11" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#050b14" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -455,8 +455,16 @@ html.sober .morse-stay{display:none}
 }
 body.draft-mode .placeholder-asset{display:block!important}
 .placeholder-asset{display:none;margin:var(--sp-5) 0;padding:var(--sp-5);border:2px dashed var(--or);border-radius:var(--r-lg);background:rgba(230,185,115,0.06);position:relative;font-size:var(--fs-micro);color:var(--ivoire-mute);white-space:pre-line}
-.placeholder-asset::before{content:'📭 PLACEHOLDER';position:absolute;top:var(--sp-3);left:var(--sp-3);font-size:10px;font-weight:700;letter-spacing:0.06em;color:var(--or)}
+.placeholder-asset::before{content:'[ASSET À FOURNIR]';display:block;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--or);margin-bottom:0.5rem;font-weight:600}
 .placeholder-asset{padding-top:var(--sp-7)}
+.word-reveal{display:inline-block;opacity:0;transform:translateY(0.5em);animation:word-reveal-anim 600ms cubic-bezier(0.4,0,0.2,1) forwards;animation-delay:var(--delay,0ms)}
+@keyframes word-reveal-anim{to{opacity:1;transform:translateY(0)}}
+@media (prefers-reduced-motion:reduce){.word-reveal{animation:none!important;opacity:1;transform:none}}
+.formation-card[data-niveau="eveil"]{border-left:3px solid rgba(127,191,155,0.85)}
+.formation-card[data-niveau="decouverte"]{border-left:3px solid rgba(62,245,224,0.75)}
+.formation-card[data-niveau="praticien"]{border-left:3px solid rgba(107,158,255,0.75)}
+.formation-card[data-niveau="augmente"]{border-left:3px solid rgba(179,136,255,0.75)}
+.formation-card__badge{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ivoire-mute);margin:0 0 var(--sp-2)}
 .draft-badge{position:fixed;bottom:var(--sp-4);right:var(--sp-4);z-index:120;font-size:10px;padding:6px 10px;border-radius:var(--r-sm);background:var(--or);color:var(--nuit);opacity:0;pointer-events:none;transition:opacity var(--dur-fast)}
 body.draft-mode .draft-badge{opacity:1}
 .star-placeholder{position:relative}
@@ -1889,6 +1897,37 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
     </div>
   </section>
 
+  <section id="hook-film" class="scene hook-film" data-stage="hero-1" aria-labelledby="hook-film-h2">
+    <div class="scene__inner">
+      <p class="hook-eyebrow" data-reveal>Démo · tournée par Micha</p>
+      <h2 id="hook-film-h2" class="hook-title" data-reveal>Voilà ce qu'on fait. <em>En 60 secondes.</em></h2>
+      <p class="source-note" data-reveal style="text-align:center;margin-bottom:var(--sp-4)">Démo terrain distincte · le teaser Pinapp officiel reste dans la section « 60 secondes » ci-dessous.</p>
+      <div class="hook-video-wrap" data-reveal>
+        <div class="card--glass" style="margin:0;min-height:min(56vw,480px);display:grid;place-items:center;padding:var(--sp-7);text-align:center;border-radius:var(--r-lg)">
+          <span class="placeholder__tag">À fournir</span>
+          <p class="placeholder__label" style="margin:var(--sp-3) 0 0;font-family:var(--ff-serif);font-style:italic;color:var(--ivoire)">Vidéo démo 60 s (Micha)</p>
+          <p class="placeholder__hint" style="margin-top:var(--sp-2);max-width:28rem">Placeholder interne · intégration Vimeo quand le fichier est prêt.</p>
+        </div>
+      </div>
+      <p class="hook-anchor-price" data-reveal><strong>8 000 € en agence</strong> · chez nous, <strong>à partir de 1 290 € HT</strong>.</p>
+      <div class="hook-mini-rail" data-reveal aria-label="Navigation rapide">
+        <a href="#realisations">Voir les réalisations →</a>
+        <a href="#orientation">Choisir un parcours →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="orientation" class="scene scene--interstitial" data-stage="hero-1" aria-labelledby="orientation-h2">
+    <div class="scene__inner">
+      <h2 id="orientation-h2" class="display display--h3" data-reveal data-reveal-words>Vous êtes plutôt…</h2>
+      <p class="lead" data-reveal style="text-align:center;margin-left:auto;margin-right:auto">Trois entrées — le site s'adapte ensuite à votre besoin.</p>
+      <div class="orientation-grid" data-reveal>
+        <a class="orientation-card" href="#diagnostic"><h3>Dirigeant·e TPE/PME</h3><p>Site, automatisations, pack duo — objectif conversion et temps gagné.</p><span class="eyebrow" style="margin:0">Suite → Diagnostic</span></a>
+        <a class="orientation-card" href="#cinema-artistes"><h3>Artiste / créateur·trice</h3><p>Clips, univers visuel, voix — objectif présence scène numérique.</p><span class="eyebrow" style="margin:0">Suite → Cinéma IA</span></a>
+        <a class="orientation-card orientation-card--discreet" href="https://lauraliedaguzay-lang.github.io/memoireetpresence/" target="_blank" rel="noopener noreferrer"><h3>Famille · hommage</h3><p>Projet à part : accompagnement humain — vitrine en ligne (GitHub Pages).</p><span class="eyebrow" style="margin:0;color:var(--accent-mp)">Voir Mémoire &amp; Présence ↗</span></a>
+      </div>
+    </div>
+  </section>
 
   <section id="presentation-video" class="scene scene--presentation-video" data-stage="hero-1" aria-labelledby="presentation-video-h2">
     <div class="scene__inner">
@@ -1958,7 +1997,7 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
             <li>Votre logo qui prend vie en quelques secondes</li>
             <li>Votre univers visuel, pensé pour rester dans les têtes</li>
           </ul>
-          <p class="duo-na" aria-label="Zone d'intervention terrain">📍 Déplacement Nouvelle-Aquitaine</p>
+          <p class="duo-na" aria-label="Zone d'intervention terrain">Déplacement Nouvelle-Aquitaine</p>
           <p class="duo-cta-wrap"><a class="btn btn--text" href="#realisations?filter=imagerie">Voir mes réalisations →</a></p>
         </div>
       </div>
@@ -2154,10 +2193,43 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
     </div>
   </section>
 
+  <section id="auto" class="scene" data-stage="hero-2" aria-labelledby="auto-h2">
+    <div class="scene__inner">
+      <p class="eyebrow" data-reveal>Automatisations</p>
+      <h2 id="auto-h2" class="display display--h2" data-reveal>Ce qui tourne pendant que vous bossez.</h2>
+      <p class="lead" data-reveal>On relie votre site, vos formulaires et vos outils (e-mail, CRM, signature, paiement) pour que les tâches répétitives partent sans vous. Voici le flux type qu'on déploie pour les TPE — adapté à votre stack.</p>
+      <div class="flow-diagram" data-reveal role="list" aria-label="Schéma du parcours automatisé">
+        <div class="flow-step" role="listitem"><strong>1 · Contact</strong>Formulaire ou message — tout entre au même endroit.</div>
+        <div class="flow-step" role="listitem"><strong>2 · Qualif</strong>Réponse ou brouillon validé — rien ne part sans votre OK si vous le voulez.</div>
+        <div class="flow-step" role="listitem"><strong>3 · Devis</strong>Génération, envoi, relances — moins d'oublis, moins de copier-coller.</div>
+        <div class="flow-step" role="listitem"><strong>4 · Signature &amp; paiement</strong>YouSign, Stripe ou équivalent — le fil se referme tout seul.</div>
+        <div class="flow-step" role="listitem"><strong>5 · Fidélisation</strong>Avis, rappels, séquences — au bon moment, sans spam.</div>
+      </div>
+      <p class="flow-note" data-reveal>Outils souvent branchés : site statique, Tally ou formulaire maison, Notion / Sheets, n8n, Gmail, YouSign, Stripe — toujours en stack européenne quand c'est possible. On vous livre la doc et les accès : c'est à vous.</p>
+      <div class="cta-row" data-reveal>
+        <a class="btn btn--primary" href="#contact">Parler de mon flux →</a>
+        <a class="btn btn--ghost" href="#realisations">Voir les réalisations →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="auto-faq" class="scene scene--interstitial" data-stage="hero-2" aria-labelledby="auto-faq-h3">
+    <div class="scene__inner">
+      <p class="eyebrow" data-reveal>Comprendre</p>
+      <h3 id="auto-faq-h3" class="display display--h3" data-reveal>L'intelligence pour ma boîte.<br>Concrètement.</h3>
+      <p class="lead" data-reveal style="margin-left:auto;margin-right:auto;text-align:center">Vous n'avez pas à comprendre comment ça marche.<br>Juste ce que ça change pour vous.</p>
+      <div class="qa-stack" style="margin-top:var(--sp-7)">
+        <div class="qa-item" data-reveal><p class="qa-q">C'est quoi pour ma boîte ?</p><p class="qa-a">Un outil qui fait à votre place ce que vous faites en double.</p></div>
+        <div class="qa-item" data-reveal><p class="qa-q">Concrètement ?</p><p class="qa-a">Un client écrit · une réponse en 2 minutes.<br>Un devis qui part · signé · payé sans vous.<br>Un avis Google demandé tout seul J+7.</p></div>
+        <div class="qa-item" data-reveal><p class="qa-q">Combien je gagne ?</p><p class="qa-a">8 à 14 heures par semaine récupérées sur les tâches répétitives (ordre de grandeur).</p></div>
+        <div class="qa-item" data-reveal><p class="qa-q">Et si je suis nul·le en informatique ?</p><p class="qa-a">On s'occupe de tout. Vous validez par mail.<br>Pas de logiciel à apprendre.</p></div>
+      </div>
+    </div>
+  </section>
 
     <section id="realisations" class="scene scene--real-hub" data-stage="hero-3" aria-labelledby="realisations-h2">
     <div class="scene__inner">
-      <p class="eyebrow" data-reveal>RÉALISATIONS</p>
+      <p class="eyebrow" data-reveal>Studio Lauralie · Code &amp; Studio Micha · Imagerie</p>
       <h2 id="realisations-h2" class="display display--h2" data-reveal>Sites + films par Pinapp.</h2>
       <p class="lead real-hub-lead" data-reveal style="text-align:center;max-width:38rem;margin-left:auto;margin-right:auto">Pour démontrer notre savoir-faire. Tout est visible.<br>Aucun NDA. Aucun client réel affiché.</p>
       <div class="real-hub-filters" role="group" aria-label="Filtrer les réalisations" data-reveal>
@@ -2329,22 +2401,22 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
       </div>
       <div class="sources-grid" style="margin-top:var(--sp-6)">
         <div class="card--glass source-card" data-reveal>
-          <p>📊 McKinsey 2023 — Economic potential of generative AI</p>
+          <p>Étude · McKinsey 2023 — Economic potential of generative AI</p>
           <p>« -50 à -70 % temps production digitale »</p>
           <p><a href="https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier" target="_blank" rel="noopener noreferrer">Lire ↗</a></p>
         </div>
         <div class="card--glass source-card" data-reveal>
-          <p>📊 Stanford AI Index 2025</p>
+          <p>Étude · Stanford AI Index 2025</p>
           <p>« Coûts vidéo générative ÷ 4 entre 2023 et 2025 »</p>
           <p><a href="https://hai.stanford.edu/ai-index/2025-ai-index-report" target="_blank" rel="noopener noreferrer">Lire ↗</a></p>
         </div>
         <div class="card--glass source-card" data-reveal>
-          <p>📊 OECD AI Observatory 2024</p>
+          <p>Étude · OECD AI Observatory 2024</p>
           <p>« +138 % adoption IA dans les PME françaises (YoY) »</p>
           <p><a href="https://oecd.ai/en/" target="_blank" rel="noopener noreferrer">Lire ↗</a></p>
         </div>
         <div class="card--glass source-card" data-reveal>
-          <p>📊 ADEME 2024 (vue critique) <span class="badge-crit">Vue critique</span></p>
+          <p>Étude · ADEME 2024 (vue critique) <span class="badge-crit">Vue critique</span></p>
           <p>« Coût environnemental de l'IA générative — transparence »</p>
           <p><a href="https://www.ademe.fr/" target="_blank" rel="noopener noreferrer">Lire ↗</a></p>
         </div>
@@ -2355,6 +2427,57 @@ html.sober .flowchart .flowchart__node{opacity:1!important;stroke-dashoffset:0!i
         <p style="margin:0">« L'IA a un coût environnemental. Voici comment on le limite :<br>hébergement européen, choix d'outils sobres, pas de génération inutile. »</p>
       </div>
       <div class="cta-row" data-reveal style="margin-top:var(--sp-6)"><a class="btn btn--primary" href="#contact">Recevoir le devis transparent →</a></div>
+    </div>
+  </section>
+
+  <section id="cinema-artistes" class="scene" data-stage="hero-4" aria-labelledby="cinema-artistes-h2">
+    <div class="scene__inner">
+      <div class="real-cinema-panel">
+        <p class="eyebrow" data-reveal>Studio Pinapp · Cinéma IA pour artistes</p>
+        <h2 id="cinema-artistes-h2" class="display display--h3" data-reveal>Vous avez la voix. Nous avons le studio.</h2>
+        <p class="lead" data-reveal>Clip vidéo, EP visuel, court-métrage cinéma IA pour artistes émergents. Esthétique premium, narration forte, budget tenu.</p>
+        <div class="placeholder" style="aspect-ratio:16/9;margin:var(--sp-6) 0" data-reveal>
+          <span class="placeholder__tag">À fournir</span>
+          <span class="placeholder__label">Extrait clip studio</span>
+          <span class="placeholder__hint">Vimeo · démo voix + DA</span>
+        </div>
+        <div class="compare-table card--glass" data-reveal style="margin-top:var(--sp-5)">
+          <div><strong>Avant l'IA</strong><div>8 000 – 50 000 €</div></div>
+          <div><strong>Avec Pinapp</strong><div>dès 1 500 € HT</div></div>
+          <div><strong>Économie</strong><div>jusqu'à −90 %</div></div>
+        </div>
+        <p class="badge-row" data-reveal style="justify-content:center;margin-top:var(--sp-5)"><span class="badge">Disponibilité limitée · premiers projets sur devis</span></p>
+        <div class="cta-row" data-reveal><a class="btn btn--primary btn--cta-large" href="/studio-artistes/">Voir les packs artistes →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="captation-na" class="scene" data-stage="hero-4" aria-labelledby="captation-na-h2">
+    <div class="scene__inner">
+      <p class="eyebrow" data-reveal>Studio Micha · Nouvelle-Aquitaine</p>
+      <h2 id="captation-na-h2" class="display display--h2" data-reveal>Micha filme votre événement — <em>en Nouvelle-Aquitaine, déplacement inclus.</em></h2>
+      <p class="lead" data-reveal>Micha filme en Nouvelle-Aquitaine. Déplacement régional inclus dans le devis. Hors région : sur demande exceptionnelle, sur devis.</p>
+      <div class="card--glass" style="margin:var(--sp-6) 0;padding:var(--sp-5)">
+        <p class="eyebrow" style="margin:0 0 var(--sp-2)">Direction artistique</p>
+        <p style="margin:0;color:var(--ivoire-mute)">Corporate doux · lumière naturelle · glide cam · émotion · grain maîtrisé · focales longues selon le besoin.</p>
+      </div>
+      <div class="grid-2" style="margin-top:var(--sp-6);grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--sp-4)">
+        <div class="placeholder-asset" data-reveal><strong>Captation corporate</strong>
+Vimeo Micha à fournir
+Reportage d'entreprise · pub · séminaire
+Esthétique : corporate doux · lumière naturelle · glide cam
+Discours, ateliers, ambiance — livrable pro.
+Captation 1 journée max · montage 7 jours
+Déplacement Nouvelle-Aquitaine inclus
+À partir de 2 100 € HT · sur devis</div>
+        <div class="placeholder-asset" data-reveal><strong>Anniversaire / événement privé</strong>
+Vimeo Micha à fournir
+Esthétique : émotion · grain maîtrisé · focales longues
+Soirée, discours, moments forts — montage émotion.
+Captation 4–6 h · montage 5 jours
+À partir de 1 200 € HT · sur devis</div>
+      </div>
+      <div class="cta-row" data-reveal><a class="btn btn--primary" href="#contact">Demander un devis événementiel →</a></div>
     </div>
   </section>
 
@@ -2590,7 +2713,7 @@ Chez nous, si. »</p>
       </div>
 
       <div class="offres-depl card--glass" data-reveal style="margin-top:var(--sp-7)">
-        <p class="offres-depl__title"><span aria-hidden="true">📍</span> Déplacement Nouvelle-Aquitaine</p>
+        <p class="offres-depl__title">Déplacement Nouvelle-Aquitaine</p>
         <ul class="offres-depl__list">
           <li>Bordeaux + 30 km : <strong>inclus</strong></li>
           <li>30-100 km : <strong>150 € HT</strong></li>
@@ -2600,6 +2723,22 @@ Chez nous, si. »</p>
       </div>
 
       <p class="offres-reduc-note" data-reveal><em>-40 % Associations · ESS · TPE &lt;5 salariés (vérification SIRENE)</em></p>
+    </div>
+  </section>
+
+  <section id="methode-formations" class="scene" data-stage="hero-5" aria-labelledby="methode-formations-h2">
+    <div class="scene__inner">
+      <p class="eyebrow" data-reveal>Apprendre à piloter ses propres outils</p>
+      <h2 id="methode-formations-h2" class="display display--h2" data-reveal>Quatre niveaux.<br>Du curieux au travailleur augmenté.</h2>
+      <p class="lead" data-reveal>Stanford 2025 : adoption de l'intelligence dans les PME françaises +138 % en un an.<br>Vous décidez de quel côté vous êtes.</p>
+      <div class="formations-grid" style="margin-top:var(--sp-6)">
+        <article class="card--glass formation-card" data-reveal data-niveau="eveil"><p class="formation-card__badge">Niveau 1</p><h3 class="display display--h3" style="font-size:1.25rem;margin:var(--sp-2) 0">Éveil IA</h3><p class="formation-card__price" style="font-weight:700;color:var(--or)">39 €</p><p style="color:var(--ivoire-mute);font-size:var(--fs-micro)">1 h vidéo + checklist</p><a class="btn btn--ghost" href="/formations/">Démarrer</a></article>
+        <article class="card--glass formation-card" data-reveal data-niveau="decouverte"><p class="formation-card__badge">Niveau 2 · Recommandé</p><h3 class="display display--h3" style="font-size:1.25rem;margin:var(--sp-2) 0">Découverte</h3><p class="formation-card__price" style="font-weight:700;color:var(--or)">67 €</p><p style="color:var(--ivoire-mute);font-size:var(--fs-micro)">2 h · comprendre l'assistant</p><p style="font-size:12px;color:var(--cyan);margin:0">Beaucoup commencent ici.</p><a class="btn btn--ghost" href="/formations/">Démarrer</a></article>
+        <article class="card--glass formation-card" data-reveal data-niveau="praticien"><p class="formation-card__badge">Niveau 3</p><h3 class="display display--h3" style="font-size:1.25rem;margin:var(--sp-2) 0">Praticien</h3><p class="formation-card__price" style="font-weight:700;color:var(--or)">147 €</p><p style="color:var(--ivoire-mute);font-size:var(--fs-micro)">5 h · automatiser 5 tâches</p><a class="btn btn--ghost" href="/formations/">Démarrer</a></article>
+        <article class="card--glass formation-card" data-reveal data-niveau="augmente"><p class="formation-card__badge">Niveau 4</p><h3 class="display display--h3" style="font-size:1.25rem;margin:var(--sp-2) 0">Travailleur augmenté</h3><p class="formation-card__price" style="font-weight:700;color:var(--or)">397 €</p><p style="color:var(--ivoire-mute);font-size:var(--fs-micro)">12 h · construire son assistant</p><a class="btn btn--ghost" href="/formations/">Démarrer</a></article>
+      </div>
+      <p class="source-note" data-reveal style="text-align:center;margin-top:var(--sp-6)">Une fois Praticien terminé, beaucoup passent au Pack Duo — enchaînement logique.</p>
+      <div class="cta-row" data-reveal><a class="btn btn--primary" href="/formations/">Choisir mon niveau →</a></div>
     </div>
   </section>
 
@@ -2636,6 +2775,33 @@ Chez nous, si. »</p>
           <p class="methode-v12-txt">30 jours offerts après livraison.<br>30 jours de corrections incluses. Au-delà, sur devis.</p>
         </article>
       </div>
+    </div>
+  </section>
+
+  <section id="methode-tarifs" class="scene" data-stage="hero-6" aria-labelledby="methode-tarifs-h2">
+    <div class="scene__inner">
+      <p class="eyebrow" data-reveal>Comment on travaille</p>
+      <h2 id="methode-tarifs-h2" class="display display--h2" data-reveal>Quatre étapes. Tous les tarifs.<br>Pas de surprise.</h2>
+      <div class="methode-v12-flow" data-reveal style="margin-top:var(--sp-6)">
+        <article class="methode-v12-step card--glass"><p class="methode-v12-num">01</p><h3 class="methode-v12-tit">Brief</h3><p class="methode-v12-txt">30 minutes en visio ou par écrit. On écoute.</p></article>
+        <span class="methode-v12-connector" aria-hidden="true">→</span>
+        <article class="methode-v12-step card--glass"><p class="methode-v12-num">02</p><h3 class="methode-v12-tit">Cadrage</h3><p class="methode-v12-txt">Devis fixe écrit sous 48 h. Vous validez.</p></article>
+        <span class="methode-v12-connector" aria-hidden="true">→</span>
+        <article class="methode-v12-step card--glass"><p class="methode-v12-num">03</p><h3 class="methode-v12-tit">Production</h3><p class="methode-v12-txt">5–15 jours selon pack. Dev, tournage, montage.</p></article>
+        <span class="methode-v12-connector" aria-hidden="true">→</span>
+        <article class="methode-v12-step card--glass"><p class="methode-v12-num">04</p><h3 class="methode-v12-tit">Livraison</h3><p class="methode-v12-txt">Tests, doc, accès. C'est à vous.</p></article>
+      </div>
+      <div class="compare-table card--glass" style="margin-top:var(--sp-7);grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--sp-3)" data-reveal>
+        <div><strong>T0 Page Light</strong><div>990 € HT</div></div>
+        <div><strong>T1 Pack Code</strong><div>1 490 € HT</div></div>
+        <div><strong>T2 Pack Duo</strong><div>1 890 € HT</div></div>
+        <div><strong>T3 Pack Clip</strong><div>2 290 € HT</div></div>
+        <div><strong>T4 Anniversaire</strong><div>2 490 € HT</div></div>
+        <div><strong>T5 Pack Signature</strong><div>3 890 € HT</div></div>
+        <div><strong>T6 Sur-Mesure</strong><div>5 990 € HT+</div></div>
+        <div><strong>Pinapp Care</strong><div>79 €/mois (12 mois min)</div></div>
+      </div>
+      <p class="source-note" data-reveal style="text-align:center;margin-top:var(--sp-4)">Tarifs publics HT · TVA non applicable, art. 293 B du CGI.</p>
     </div>
   </section>
 
@@ -3161,6 +3327,26 @@ function bindStageLenis(){
 }
 document.addEventListener('DOMContentLoaded',function(){ onStageScroll(); bindStageLenis(); });
 window.addEventListener('load',function(){ bindStageLenis(); onStageScroll(); });
+
+function initWordReveal(){
+  if(prefersReduced())return;
+  document.querySelectorAll('[data-reveal-words]').forEach(function(el){
+    if(el.getAttribute('data-word-reveal-init'))return;
+    el.setAttribute('data-word-reveal-init','1');
+    var raw=el.textContent.trim().split(/\s+/).filter(Boolean);
+    if(!raw.length)return;
+    el.innerHTML=raw.map(function(w,i){
+      return '<span class="word-reveal" style="--delay:'+(i*80)+'ms">'+w.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</span>';
+    }).join(' ');
+  });
+}
+initWordReveal();
+document.addEventListener('keydown',function(e){
+  if((e.ctrlKey||e.metaKey)&&(e.key==='d'||e.key==='D')){
+    e.preventDefault();
+    document.body.classList.toggle('draft-mode');
+  }
+});
 
 if('IntersectionObserver' in window && !prefersReduced()){
   document.querySelectorAll('[data-reveal]').forEach(function(el){
