@@ -47,6 +47,12 @@
 
   if (lenis) {
     lenis.on('scroll', onScrollOrLenis);
+    /* PR #161 — Lenis anime le scroll sans déclencher window 'scroll' ; on réémet pour le pilotage stage (Option B). */
+    lenis.on('scroll', function () {
+      try {
+        window.dispatchEvent(new Event('scroll'));
+      } catch (e0) {}
+    });
   } else {
     window.addEventListener('scroll', onScrollOrLenis, { passive: true });
   }
