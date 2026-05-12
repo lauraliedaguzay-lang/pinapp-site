@@ -2,11 +2,11 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
-    <meta name="pinapp-build" content="v15.4.5-hotfix-scroll-lenis-2026-05-11" />
+    <meta name="pinapp-build" content="v15.4.9-sync-racine-2026-05-12" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#050b14" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
-<meta name="pinapp-voyage-v9-build" content="v14.2.2-mp-github-pages-2026-04-28" />
+<meta name="pinapp-voyage-v9-build" content="v15.4.7-restore-racine-base-v9-2026-05-12" />
 <title>Pinapp · Sites + films pour TPE/PME · 50 à 75% moins cher | Bordeaux</title>
 <meta name="description" content="Duo Pinapp : sites qui convertissent + films cinéma. Diagnostic 24h gratuit. Bordeaux + Nouvelle-Aquitaine. Tarifs publics dès 1 290 €." />
 <meta property="og:title" content="Pinapp · Sites + films pour TPE/PME · 50-75% moins cher | Bordeaux" />
@@ -686,6 +686,35 @@ html.sober #grain-canvas{display:none!important}
 #magnetic-cursor[data-state="micha"] .cursor-label{opacity:1;color:var(--cyan);font-style:italic;font-family:var(--ff-serif)}
 #magnetic-cursor[data-state="input"]{width:2px;height:22px;border-radius:1px;background:var(--or);border:none}
 #magnetic-cursor.clicking{opacity:0.85}
+/* P1 — #offres 7 tiers + Pinapp Care (DA Avalon, scoped) */
+#offres{--avalon-ivoire:#F4ECD9;--avalon-or:#C8965A;--avalon-hublot:#1E3A5F;--avalon-glass:rgba(8,14,24,0.55)}
+#offres .offres-eyebrow{color:var(--avalon-or);letter-spacing:0.14em}
+#offres .offres-sub{color:rgba(244,236,217,0.78)}
+#offres .tier-grid{display:grid;gap:var(--sp-5);margin-top:var(--sp-8);grid-template-columns:1fr}
+@media(min-width:640px){#offres .tier-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){#offres .tier-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:1280px){#offres .tier-grid{grid-template-columns:repeat(4,1fr)}}
+#offres .tier-card{position:relative;padding:var(--sp-6) var(--sp-5);background:var(--avalon-glass);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(200,150,90,0.22);color:var(--avalon-ivoire);transform:translateZ(0);transition:border-color var(--dur-fast) var(--ease-out),box-shadow var(--dur-fast) var(--ease-out)}
+#offres .tier-card:nth-child(1){border-radius:20px}
+#offres .tier-card:nth-child(2){border-radius:22px}
+#offres .tier-card:nth-child(3){border-radius:20px}
+#offres .tier-card:nth-child(4){border-radius:18px}
+#offres .tier-card:nth-child(5){border-radius:20px}
+#offres .tier-card:nth-child(6){border-radius:22px}
+#offres .tier-card:nth-child(7){border-radius:18px}
+#offres .tier-card:hover,#offres .tier-card:focus-within{border-color:rgba(200,150,90,0.5);box-shadow:0 0 0 1px rgba(200,150,90,0.12) inset,0 8px 28px rgba(0,0,0,0.1)}
+#offres .tier-card:has(.tier-badge){padding-top:calc(var(--sp-6) + 28px)}
+#offres .tier-name{margin:0 0 var(--sp-3);font-family:var(--ff-display);font-weight:600;font-size:1.05rem;line-height:1.25;color:var(--avalon-ivoire)}
+#offres .tier-price{margin:0 0 var(--sp-3);font-family:var(--ff-display);font-size:1.35rem;font-weight:600;color:var(--avalon-or);letter-spacing:-0.02em}
+#offres .tier-desc{min-height:0;margin:0 0 var(--sp-2)}
+#offres .tier-bullets{margin:0;padding:0;list-style:none;min-height:0}
+#offres .offres-care{margin-top:var(--sp-9);padding:var(--sp-7) var(--sp-6);border-radius:22px;background:rgba(30,58,95,0.42);backdrop-filter:blur(20px) saturate(155%);-webkit-backdrop-filter:blur(20px) saturate(155%);border:1px solid rgba(244,236,217,0.12);box-shadow:0 1px 0 rgba(244,236,217,0.06) inset;color:var(--avalon-ivoire)}
+#offres .offres-care h3{margin:0 0 var(--sp-4);font-family:var(--ff-display);font-size:clamp(1.25rem,2.5vw,1.5rem);font-weight:600;color:var(--avalon-ivoire);letter-spacing:-0.02em}
+#offres .offres-care p{margin:0 0 var(--sp-3);max-width:42rem;color:rgba(244,236,217,0.88);line-height:1.6}
+#offres .offres-care p:last-of-type{margin-bottom:var(--sp-5)}
+#offres .btn-gold{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:12px 22px;border-radius:var(--r-pill);font-weight:600;font-size:var(--fs-micro);text-decoration:none;background:var(--avalon-or);color:var(--avalon-hublot);border:1px solid rgba(200,150,90,0.45);transition:transform var(--dur-fast) var(--ease-spring),box-shadow var(--dur-fast) var(--ease-out)}
+#offres .btn-gold:hover,#offres .btn-gold:focus-visible{transform:translateY(-1px);box-shadow:0 0 0 1px rgba(244,236,217,0.2) inset,0 6px 20px rgba(0,0,0,0.1)}
+#offres .btn-gold:focus-visible{outline:none;box-shadow:var(--focus)}
 </style>
 </head>
 
@@ -742,6 +771,7 @@ html.sober #grain-canvas{display:none!important}
     <nav class="nav__jumps" aria-label="Accès rapide">
       <a href="#hero">Accueil</a>
       <a href="#hook-film">Démo</a>
+      <a href="#offres">Offres</a>
       <a href="#duo">Duo</a>
       <a href="#diagnostic">Diagnostic</a>
       <a href="#auto">Automatisations</a>
@@ -1049,6 +1079,64 @@ html.sober #grain-canvas{display:none!important}
       <span>Bordeaux · IA déclarée · Stack EU · 0 tracker · Page &lt; 1 Mo · Code propre · Sans abonnement · Diagnostic 24h · ★ 50 à 75 % moins cher · Lauralie + Michaël ·</span>
     </div>
   </div>
+  <section id="offres" class="scene scene--offres" data-stage="hero-2" aria-labelledby="offres-h2">
+    <div class="scene__inner">
+      <p class="eyebrow offres-eyebrow" data-reveal>Offres Pinapp Studio</p>
+      <h2 id="offres-h2" class="display display--h2" data-reveal>Sept paliers pour un même cap</h2>
+      <p class="lead offres-sub" data-reveal style="text-align:center;max-width:40rem;margin-left:auto;margin-right:auto">Tarifs forfaitaires hors taxes · Sans engagement · Devis sous 24h</p>
+      <div class="tier-grid">
+        <article class="tier-card" aria-labelledby="tier-t0">
+          <h3 id="tier-t0" class="tier-name">T0 — Page Light</h3>
+          <p class="tier-price">990 € HT</p>
+          <p class="tier-desc"></p>
+          <ul class="tier-bullets"></ul>
+        </article>
+        <article class="tier-card" aria-labelledby="tier-t1">
+          <h3 id="tier-t1" class="tier-name">T1 — Pack Code</h3>
+          <p class="tier-price">1 490 € HT</p>
+          <p class="tier-desc"></p>
+          <ul class="tier-bullets"></ul>
+        </article>
+        <article class="tier-card" aria-labelledby="tier-t2">
+          <span class="tier-badge">Le plus choisi</span>
+          <h3 id="tier-t2" class="tier-name">T2 — Pack Duo STAR</h3>
+          <p class="tier-price">1 890 € HT</p>
+          <p class="tier-desc"></p>
+          <ul class="tier-bullets"></ul>
+        </article>
+        <article class="tier-card" aria-labelledby="tier-t3">
+          <h3 id="tier-t3" class="tier-name">T3 — Pack Clip</h3>
+          <p class="tier-price">2 290 € HT</p>
+          <p class="tier-desc"></p>
+          <ul class="tier-bullets"></ul>
+        </article>
+        <article class="tier-card" aria-labelledby="tier-t4">
+          <h3 id="tier-t4" class="tier-name">T4 — Anniversaire</h3>
+          <p class="tier-price">2 490 € HT</p>
+          <p class="tier-desc"></p>
+          <ul class="tier-bullets"></ul>
+        </article>
+        <article class="tier-card" aria-labelledby="tier-t5">
+          <h3 id="tier-t5" class="tier-name">T5 — Pack Signature</h3>
+          <p class="tier-price">3 890 € HT</p>
+          <p class="tier-desc"></p>
+          <ul class="tier-bullets"></ul>
+        </article>
+        <article class="tier-card" aria-labelledby="tier-t6">
+          <h3 id="tier-t6" class="tier-name">T6 — Sur-Mesure</h3>
+          <p class="tier-price">à partir de 5 990 € HT</p>
+          <p class="tier-desc"></p>
+          <ul class="tier-bullets"></ul>
+        </article>
+      </div>
+      <div class="offres-care" data-reveal>
+        <h3 id="offres-care-h3">Pinapp Care — 79 € HT / mois</h3>
+        <p>Maintenance · monitoring · 2h d'évolutions incluses · support WhatsApp 2h ouvrées</p>
+        <p>Sans engagement · Résiliable à tout moment</p>
+        <a href="#contact" class="btn-gold">En savoir plus</a>
+      </div>
+    </div>
+  </section>
   <section id="realisations" class="v10-anchor-sr" aria-hidden="true"></section>
   <div class="realisations-wrap">
   <nav class="bloc6-nav" aria-label="Sous-sections réalisations">
