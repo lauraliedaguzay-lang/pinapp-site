@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
-    <meta name="pinapp-build" content="v15.5.2-engagements-8-promesses-2026-05-12" />
+    <meta name="pinapp-build" content="v15.5.3-comparatif-pack-duo-2026-05-12" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#050b14" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -747,6 +747,32 @@ html.sober #grain-canvas{display:none!important}
 @media(min-width:1024px){#engagements .engagements-grid{grid-template-columns:repeat(4,1fr)}}
 #engagements .engagements-card{padding:var(--sp-5);min-height:100%;background:rgba(8,14,24,0.55);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(200,150,90,0.22);border-radius:18px;color:var(--eg-ivoire);transform:translateZ(0)}
 #engagements .engagements-card__text{margin:0;font-size:0.98rem;line-height:1.55;color:rgba(244,236,217,0.92)}
+/* P6 — #comparatif Sans/Avec + donut Pack Duo (Avalon scoped) */
+#comparatif{--cmp-ivoire:#F4ECD9;--cmp-or:#C8965A;--cmp-hublot:#1E3A5F}
+#comparatif .comparatif-eyebrow{color:var(--cmp-or);letter-spacing:0.14em}
+#comparatif .comparatif-grid{display:grid;gap:var(--sp-5);margin-top:var(--sp-8);grid-template-columns:1fr}
+@media(min-width:768px){#comparatif .comparatif-grid{grid-template-columns:repeat(2,1fr)}}
+#comparatif .comparatif-card{position:relative;padding:var(--sp-6);min-height:100%;background:rgba(8,14,24,0.55);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border-radius:18px;transform:translateZ(0)}
+#comparatif .comparatif-card--sans{border:1px solid rgba(244,236,217,0.18)}
+#comparatif .comparatif-card--avec{border:1px solid rgba(200,150,90,0.42);box-shadow:0 0 0 1px rgba(200,150,90,0.12) inset}
+#comparatif .comparatif-badge{display:inline-block;margin-bottom:var(--sp-3);padding:6px 12px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--cmp-or);border:1px solid rgba(200,150,90,0.45);background:rgba(200,150,90,0.12)}
+#comparatif .comparatif-card__title{margin:0 0 var(--sp-4);font-size:1.25rem;color:var(--cmp-ivoire);letter-spacing:-0.02em}
+#comparatif .comparatif-list{margin:0;padding:0;list-style:none}
+#comparatif .comparatif-list li{margin:0 0 var(--sp-3);padding-left:0;font-size:0.98rem;line-height:1.5;color:rgba(244,236,217,0.9)}
+#comparatif .comparatif-list li:last-child{margin-bottom:0}
+#comparatif .comparatif-closing{margin:var(--sp-8) auto 0;max-width:40rem;text-align:center;font-size:1.05rem;line-height:1.6;font-style:italic;color:rgba(244,236,217,0.92)}
+#comparatif .comparatif-footnote{margin:var(--sp-5) auto 0;max-width:42rem;text-align:center;font-size:0.8rem;line-height:1.5;color:rgba(244,236,217,0.7)}
+#comparatif .comparatif-donut-wrap{margin-top:var(--sp-9);padding-top:var(--sp-8);border-top:1px solid rgba(200,150,90,0.2)}
+#comparatif .comparatif-donut-eyebrow{color:var(--cmp-or);letter-spacing:0.12em;text-align:center;margin-bottom:var(--sp-6)}
+#comparatif .comparatif-donut-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:var(--sp-7)}
+#comparatif .comparatif-donut-svg{flex:0 0 auto;width:min(220px,70vw);height:auto}
+#comparatif .comparatif-donut-svg circle{fill:none;stroke-width:18;stroke-linecap:butt}
+#comparatif .comparatif-legend{min-width:min(280px,100%);display:flex;flex-direction:column;gap:var(--sp-3)}
+#comparatif .comparatif-legend__item{display:flex;align-items:center;gap:var(--sp-3);font-size:0.95rem;color:rgba(244,236,217,0.9)}
+#comparatif .comparatif-legend__sw{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+#comparatif .comparatif-legend__sw--site{background:var(--cmp-or)}
+#comparatif .comparatif-legend__sw--video{background:var(--cmp-ivoire)}
+#comparatif .comparatif-legend__sw--auto{background:var(--cmp-hublot)}
 </style>
 </head>
 
@@ -804,6 +830,7 @@ html.sober #grain-canvas{display:none!important}
       <a href="#hero">Accueil</a>
       <a href="#presentation-video">Vidéo</a>
       <a href="#engagements">Engagements</a>
+      <a href="#comparatif">Comparatif</a>
       <a href="#hook-film">Démo</a>
       <a href="#offres">Offres</a>
       <a href="#duo">Duo</a>
@@ -908,6 +935,54 @@ html.sober #grain-canvas{display:none!important}
         <article class="engagements-card" data-reveal role="listitem">
           <p class="engagements-card__text">✓ Lisible WCAG 2.1 AA.</p>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="comparatif" class="scene scene--comparatif" data-stage="hero-3" aria-labelledby="comparatif-h2">
+    <div class="scene__inner">
+      <p class="eyebrow comparatif-eyebrow" data-reveal>L'ÉCART PINAPP · TEMPS GAGNÉ</p>
+      <h2 id="comparatif-h2" class="display display--h2" data-reveal>Le même résultat. 5× moins de temps.</h2>
+      <div class="comparatif-grid">
+        <article class="comparatif-card comparatif-card--sans" data-reveal aria-labelledby="comparatif-sans-h3">
+          <h3 id="comparatif-sans-h3" class="comparatif-card__title">Sans Pinapp</h3>
+          <ul class="comparatif-list">
+            <li>· 70 heures côté client</li>
+            <li>· 3 prestataires à aligner</li>
+            <li>· 6 semaines avant livraison</li>
+            <li>· 12 allers-retours décision</li>
+          </ul>
+        </article>
+        <article class="comparatif-card comparatif-card--avec" data-reveal aria-labelledby="comparatif-avec-h3">
+          <span class="comparatif-badge">★ PINAPP</span>
+          <h3 id="comparatif-avec-h3" class="comparatif-card__title">Avec Pinapp</h3>
+          <ul class="comparatif-list">
+            <li>· 12 heures côté client</li>
+            <li>· 1 duo dédié</li>
+            <li>· 21 jours avant livraison</li>
+            <li>· 1 décision à trancher</li>
+          </ul>
+        </article>
+      </div>
+      <p class="comparatif-closing" data-reveal>Vous récupérez en moyenne 58 heures par projet.<br>Une semaine entière rendue à votre vrai métier.</p>
+      <p class="comparatif-footnote" data-reveal>Ordre de grandeur client sur projet vitrine comparable — chiffrés au diagnostic.</p>
+      <div class="comparatif-donut-wrap" data-reveal>
+        <p class="eyebrow comparatif-donut-eyebrow">Pack Duo Pinapp · répartition</p>
+        <div class="comparatif-donut-row">
+          <svg class="comparatif-donut-svg" viewBox="0 0 100 100" width="220" height="220" role="img" aria-labelledby="comparatif-donut-title" focusable="false">
+            <title id="comparatif-donut-title">Répartition Pack Duo Pinapp : site web 60 %, vidéo cinéma 30 %, automatisation 10 %.</title>
+            <g transform="rotate(-90 50 50)">
+              <circle cx="50" cy="50" r="40" pathLength="100" stroke="#C8965A" stroke-dasharray="60 40" stroke-dashoffset="0" />
+              <circle cx="50" cy="50" r="40" pathLength="100" stroke="#F4ECD9" stroke-dasharray="30 70" stroke-dashoffset="-60" />
+              <circle cx="50" cy="50" r="40" pathLength="100" stroke="#1E3A5F" stroke-dasharray="10 90" stroke-dashoffset="-90" />
+            </g>
+          </svg>
+          <div class="comparatif-legend" aria-label="Légende du graphique">
+            <div class="comparatif-legend__item"><span class="comparatif-legend__sw comparatif-legend__sw--site" aria-hidden="true"></span><span>Site web · 60 %</span></div>
+            <div class="comparatif-legend__item"><span class="comparatif-legend__sw comparatif-legend__sw--video" aria-hidden="true"></span><span>Vidéo cinéma · 30 %</span></div>
+            <div class="comparatif-legend__item"><span class="comparatif-legend__sw comparatif-legend__sw--auto" aria-hidden="true"></span><span>Automatisation · 10 %</span></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
