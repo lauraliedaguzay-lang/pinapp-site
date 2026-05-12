@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
-    <meta name="pinapp-build" content="v15.5.0-presentation-video-2026-05-12" />
+    <meta name="pinapp-build" content="v15.5.1-captation-na-vimeo-2026-05-12" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#050b14" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -722,6 +722,23 @@ html.sober #grain-canvas{display:none!important}
 #presentation-video .presentation-video-frame{margin-top:var(--sp-7);max-width:min(960px,100%);margin-left:auto;margin-right:auto;padding:var(--sp-5);background:rgba(8,14,24,0.55);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(200,150,90,0.28);border-radius:22px;box-shadow:0 1px 0 rgba(244,236,217,0.08) inset,0 12px 32px rgba(200,150,90,0.1);transform:translateZ(0)}
 #presentation-video .presentation-video-aspect{position:relative;width:100%;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:16px;background:rgba(30,58,95,0.35)}
 #presentation-video .presentation-video-aspect iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:16px;background:#050b14}
+/* P4 — #captation-na Vimeo + pricing (Avalon scoped) */
+#captation-na{--cna-ivoire:#F4ECD9;--cna-or:#C8965A;--cna-hublot:#1E3A5F}
+#captation-na .capt-na-eyebrow{color:var(--cna-or);letter-spacing:0.14em}
+#captation-na .capt-na-video-frame{margin-top:var(--sp-6);max-width:min(960px,100%);margin-left:auto;margin-right:auto;padding:var(--sp-5);background:rgba(8,14,24,0.55);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(200,150,90,0.28);border-radius:22px;box-shadow:0 1px 0 rgba(244,236,217,0.08) inset,0 12px 32px rgba(200,150,90,0.1);transform:translateZ(0)}
+#captation-na .capt-na-video-aspect{position:relative;width:100%;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:16px;background:rgba(30,58,95,0.35)}
+#captation-na .capt-na-video-aspect iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:16px;background:#050b14}
+#captation-na .capt-na-pricing{display:grid;gap:var(--sp-5);margin-top:var(--sp-8);grid-template-columns:1fr}
+@media(min-width:900px){#captation-na .capt-na-pricing{grid-template-columns:repeat(3,1fr)}}
+#captation-na .capt-na-price-card{position:relative;padding:var(--sp-6) var(--sp-5);background:rgba(8,14,24,0.55);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(200,150,90,0.22);border-radius:20px;color:var(--cna-ivoire);transform:translateZ(0)}
+#captation-na .capt-na-price-card:nth-child(2){border-radius:22px}
+#captation-na .capt-na-price-card:nth-child(3){border-radius:18px}
+#captation-na .capt-na-price-card__title{margin:0 0 var(--sp-3);font-family:var(--ff-display);font-size:1.1rem;font-weight:600;line-height:1.25}
+#captation-na .capt-na-price-card__price{margin:0 0 var(--sp-3);font-family:var(--ff-display);font-size:1.35rem;font-weight:600;color:var(--cna-or);letter-spacing:-0.02em}
+#captation-na .capt-na-price-card__list{margin:0;padding-left:1.1rem;color:rgba(244,236,217,0.88);font-size:0.95rem;line-height:1.55}
+#captation-na .capt-na-price-card__list li{margin-bottom:var(--sp-2)}
+#captation-na .capt-na-price-badge{position:absolute;top:var(--sp-4);right:var(--sp-4);font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:6px 10px;border-radius:var(--r-pill);background:rgba(200,150,90,0.2);color:var(--cna-or);border:1px solid rgba(200,150,90,0.35)}
+#captation-na .capt-na-price-card:has(.capt-na-price-badge){padding-top:calc(var(--sp-6) + 28px)}
 </style>
 </head>
 
@@ -1376,13 +1393,41 @@ Chez nous, si. »</p>
 
   <section id="captation-na" class="scene" data-stage="hero-4" aria-labelledby="captation-na-h2">
     <div class="scene__inner">
-      <p class="eyebrow" data-reveal>Studio Micha · Nouvelle-Aquitaine</p>
+      <p class="eyebrow capt-na-eyebrow" data-reveal>Captation Nouvelle-Aquitaine · Studio Micha</p>
       <h2 id="captation-na-h2" class="display display--h2" data-reveal>Micha filme votre événement — <em>en Nouvelle-Aquitaine, déplacement inclus.</em></h2>
       <p class="lead" data-reveal>Micha filme uniquement en Nouvelle-Aquitaine. Déplacement régional inclus dans le devis. Hors région : non couvert (sauf demande exceptionnelle, sur devis).</p>
-      <div class="placeholder" style="aspect-ratio:16/9; margin:32px 0;" data-reveal>
-        <span class="placeholder__tag">À FOURNIR PAR LAURALIE</span>
-        <span class="placeholder__label">Showreel séminaires Micha</span>
-        <span class="placeholder__hint">Vimeo · 30-60s · 10 ans d&apos;événementiel</span>
+      <div class="capt-na-video-frame" data-reveal>
+        <div class="capt-na-video-aspect">
+          <iframe src="https://player.vimeo.com/video/1191622111?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;dnt=1" title="Captation séminaire — exemple Micha Pinapp" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+      </div>
+      <div class="capt-na-pricing" data-reveal>
+        <article class="capt-na-price-card" aria-labelledby="capt-na-p1">
+          <h3 id="capt-na-p1" class="capt-na-price-card__title">Séminaire entreprise</h3>
+          <p class="capt-na-price-card__price">2 100 € HT</p>
+          <ul class="capt-na-price-card__list">
+            <li>Captation événement corporate</li>
+            <li>Déplacements Nouvelle-Aquitaine inclus</li>
+          </ul>
+        </article>
+        <article class="capt-na-price-card" aria-labelledby="capt-na-p2">
+          <h3 id="capt-na-p2" class="capt-na-price-card__title">Anniversaire / Événement privé</h3>
+          <p class="capt-na-price-card__price">1 200 € HT</p>
+          <ul class="capt-na-price-card__list">
+            <li>Captation 2h sur place</li>
+            <li>Montage 3-5 min livré sous 5 jours</li>
+          </ul>
+        </article>
+        <article class="capt-na-price-card" aria-labelledby="capt-na-p3">
+          <span class="capt-na-price-badge">Cadeau original</span>
+          <h3 id="capt-na-p3" class="capt-na-price-card__title">Forfait cadeau Cinéma IA</h3>
+          <p class="capt-na-price-card__price">990 € HT</p>
+          <ul class="capt-na-price-card__list">
+            <li>Atelier 10 personnes (99 €/pers)</li>
+            <li>Création film IA collectif</li>
+            <li>Déplacements N-A inclus</li>
+          </ul>
+        </article>
       </div>
       <div style="margin: 40px 0;" data-reveal>
         <p style="font-size:11px; letter-spacing:0.3em; text-transform:uppercase; color:var(--text-3); text-align:center; margin-bottom:20px;">Ils nous ont fait confiance</p>
@@ -1395,24 +1440,6 @@ Chez nous, si. »</p>
           <div class="placeholder" style="height:60px; padding:8px 12px;"><span class="placeholder__hint">Logo 6/8</span></div>
           <div class="placeholder" style="height:60px; padding:8px 12px;"><span class="placeholder__hint">Logo 7/8</span></div>
           <div class="placeholder" style="height:60px; padding:8px 12px;"><span class="placeholder__hint">Logo 8/8</span></div>
-        </div>
-      </div>
-      <div class="grid-2" style="margin-top:var(--sp-6);grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
-        <div class="placeholder-asset">📭 Séminaire entreprise
-Vimeo Micha à fournir
-Esthétique : corporate doux · light naturelle · glide cam
-Discours, ateliers, ambiance — un livrable pro.
-Captation 1 jour · montage 7 jours
-À partir de 1 800 € HT · sur devis</div>
-        <div class="placeholder-asset">📭 Anniversaire / événement privé
-Vimeo Micha à fournir
-Esthétique : émotion vraie · grain pellicule · longues focales
-Soirée, discours, moments forts — montage émotion.
-Captation 4-6h · montage 5 jours
-À partir de 1 200 € HT · sur devis</div>
-        <div class="card--glass" data-reveal>
-          <p><strong>🎨 Direction artistique</strong></p>
-          <p>Univers visuel d'une marque ou d'un projet.<br>Sur devis</p>
         </div>
       </div>
       <p class="source-note" style="text-align:center;margin-top:var(--sp-4)" data-reveal>⚠ AUCUN MARIAGE (Micha n'en fait plus)</p>
