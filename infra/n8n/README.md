@@ -4,6 +4,8 @@ Ce dossier alimente le workflow **Deploy n8n** (`.github/workflows/deploy-n8n.ym
 
 Aucun secret n’est versionné : tout passe par **GitHub Actions → Secrets**.
 
+> **Note GitHub** : un secret ne peut pas être testé (`== true`) dans un workflow. Pour désactiver temporairement la vérification stricte du host SSH, utilise l’**input** `skip_host_key_check` ou une **variable** dépôt `VPS_SKIP_HOST_CHECK` (pas un secret).
+
 ---
 
 ## 1. Générer une clé SSH dédiée (sur ton poste)
