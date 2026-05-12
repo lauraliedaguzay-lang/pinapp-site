@@ -1,0 +1,21 @@
+# Reverse proxy + TLS (Let's Encrypt) for n8n + CORS for pinapp.fr form POSTs.
+# Deployed to /etc/caddy/Caddyfile by GitHub Actions (apply mode).
+
+n8n.pinapp.fr {
+    reverse_proxy localhost:5678
+
+    @options method OPTIONS
+    respond @options 204
+
+    header {
+        Access-Control-Allow-Origin "https://pinapp.fr"
+        Access-Control-Allow-Methods "POST, GET, OPTIONS"
+        Access-Control-Allow-Headers "Content-Type, Authorization"
+        Access-Control-Max-Age "86400"
+    }
+
+    log {
+        output file /var/log/caddy/n8n.log
+        format json
+    }
+}

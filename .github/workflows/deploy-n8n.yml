@@ -1,0 +1,80 @@
+# Deploy n8n infrastructure on Hostinger VPS: Caddy (TLS + reverse proxy) + n8n env (CORS).
+# Trigger: workflow_dispatch only (no push) until you opt in later.
+name: Deploy n8n
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "discover = read-only audit on VPS | apply = install/merge/reload"
+        required: true
+        type: choice
+        options:
+          - discover
+          - apply
+        default: discover
+      skip_host_key_check:
+        description: "If true, SSH skips strict host key checking (dev / first run only)"
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-n8n-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Start ssh-agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+
+      - name: Configure SSH
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          SKIP_HOST: ${{ inputs.skip_host_key_check }}
+          SKIP_FROM_VAR: ${{ vars.VPS_SKIP_HOST_CHECK }}
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          if [ "${SKIP_HOST}" = "true" ] || [ "${SKIP_FROM_VAR}" = "true" ]; then
+            {
+              printf '%s\n' 'Host *'
+              printf '%s\n' '  StrictHostKeyChecking no'
+              printf '%s\n' '  UserKnownHostsFile=/dev/null'
+            } >> ~/.ssh/config
+            chmod 600 ~/.ssh/config
+          else
+            ssh-keyscan -T 30 -H "${VPS_HOST}" >> ~/.ssh/known_hosts
+            chmod 644 ~/.ssh/known_hosts
+          fi
+
+      - name: Discover (read-only on VPS)
+        if: inputs.mode == 'discover'
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+        run: |
+          set -euo pipefail
+          ssh -o BatchMode=yes "root@${VPS_HOST}" 'bash -s' < infra/n8n/discover.sh
+
+      - name: Apply (Caddyfile + env patch + deploy)
+        if: inputs.mode == 'apply'
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+        run: |
+          set -euo pipefail
+          scp -o BatchMode=yes infra/n8n/Caddyfile "root@${VPS_HOST}:/etc/caddy/Caddyfile"
+          scp -o BatchMode=yes infra/n8n/n8n.env.patch "root@${VPS_HOST}:/tmp/n8n.env.patch"
+          scp -o BatchMode=yes infra/n8n/deploy.sh "root@${VPS_HOST}:/tmp/deploy.sh"
+          ssh -o BatchMode=yes "root@${VPS_HOST}" 'install -m 0755 /tmp/deploy.sh /tmp/deploy.sh && bash /tmp/deploy.sh'
