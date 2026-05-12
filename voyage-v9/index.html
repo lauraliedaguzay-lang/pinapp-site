@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
-    <meta name="pinapp-build" content="v15.4.6-icebreaker-cleanup-2026-05-11" />
+    <meta name="pinapp-build" content="v15.4.7-sable-cosmique-contact-2026-05-12" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#050b14" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -106,6 +106,27 @@
   --container:min(1200px,92vw);--gutter:clamp(1rem,4vw,2rem);
   --dur-pulse:4s;--dur-halo:2s;--dur-crown:6s;--dur-shimmer:6s;--dur-light-leak:1.2s;
   --bp-mobile:390px;--bp-tablet:768px;--bp-desktop:1024px;--bp-wide:1280px;
+}
+/* P0 — Sable cosmique background #contact (v15.4.7) */
+#contact { position: relative; isolation: isolate; }
+.contact-sable-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  pointer-events: none;
+}
+.contact-sable-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(14, 17, 22, 0.60);
+  z-index: -1;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .contact-sable-bg { display: none; }
 }
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:auto;-webkit-text-size-adjust:100%;background:var(--nuit);height:100%;overflow-x:hidden;overflow-y:auto;max-width:100%}
@@ -2696,6 +2717,10 @@ Chez nous, si. »</p>
   </section>
 
   <section id="contact" class="scene scene--anchor scene--contact-v12" data-stage="hero-6" aria-labelledby="contact-h2">
+    <video class="contact-sable-bg" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+      <source src="/assets/video/voyage/08-atterrissage-sable.mp4" type="video/mp4">
+    </video>
+    <div class="contact-sable-scrim" aria-hidden="true"></div>
     <div class="scene__inner">
       <p class="eyebrow" data-reveal>DÉMARRONS</p>
       <h2 id="contact-h2" class="display display--h2" data-reveal>Démarrons la conversation.</h2>
