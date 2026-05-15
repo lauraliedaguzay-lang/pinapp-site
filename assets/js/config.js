@@ -32,7 +32,9 @@ window.PinappConfig = {
   /* ─── WEBHOOKS N8N ─────────────────────────────────── */
   webhooks: {
     /* Leads & Diagnostic */
-    diagnosticLead: 'https://[TON-N8N]/webhook/diagnostic-lead', // ① Lead entrant
+    // Activé 2026-05-15 — infra P2 finalisée (DNS + SSL Let's Encrypt + CORS).
+    // Le webhook doit être créé côté n8n admin (workflow JSON dans infra/n8n/workflows/).
+    diagnosticLead: 'https://n8n.pinapp.fr/webhook/diagnostic-lead', // ① Lead entrant
     formApproval: 'https://[TON-N8N]/webhook/lead-decision', // ② Décision approve/decline
 
     /* Onboarding questionnaire index.html */
@@ -61,7 +63,7 @@ window.PinappConfig = {
   /* ─── FEATURE FLAGS ────────────────────────────────── */
   features: {
     /* Automation leads */
-    diagnosticWebhook: false, // ① Activer quand n8n workflow "diagnostic-lead" est prêt
+    diagnosticWebhook: true, // ① Actif — webhook https://n8n.pinapp.fr/webhook/diagnostic-lead
     onboardingWebhook: false, // ③ Activer quand n8n workflow "onboarding" est prêt
     leadWebhook: false, // ④ Activer quand n8n workflow "lead-guide" est prêt
 
@@ -168,3 +170,18 @@ window.PinappConfig.sendDiagnosticClaudePrep = function (payload) {
     ),
   }).catch(function () {});
 };
+
+/* Formulaire accueil #pinapp-form (form-handler.js) : même webhook que diagnosticLead si activé. */
+(function () {
+  var cfg = window.PinappConfig;
+  if (
+    cfg &&
+    cfg.features &&
+    cfg.features.diagnosticWebhook === true &&
+    cfg._isRealUrl &&
+    cfg._isRealUrl(cfg.webhooks.diagnosticLead)
+  ) {
+    window.PINAPP_USE_N8N = true;
+    window.PINAPP_N8N_URL = cfg.webhooks.diagnosticLead;
+  }
+})();
