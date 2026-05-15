@@ -1,0 +1,73 @@
+{
+  "name": "Diagnostic Lead — pinapp.fr",
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "pinData": {},
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Import (3 étapes)\n1. Connexion n8n admin → **Workflows** → **Import from File**.\n2. Choisir `diagnostic-lead.json` puis **Save** ; lier la **credential Telegram** sur le nœud Telegram.\n3. Vérifier la variable d’environnement `TELEGRAM_CHAT_ID` sur le serveur ; activer le workflow (déjà `active: true` dans le fichier).",
+        "height": 320,
+        "width": 420
+      },
+      "id": "sticky-import-note",
+      "name": "NOTE — Import",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [60, 120]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "diagnostic-lead",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-diagnostic-lead",
+      "name": "Webhook diagnostic-lead",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [360, 360],
+      "webhookId": "diagnostic-lead-pinapp-fr"
+    },
+    {
+      "parameters": {
+        "operation": "sendMessage",
+        "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
+        "text": "={{ 'Nouveau lead — pinapp.fr\\n\\nPrénom : ' + String(($json.body || $json).prenom || '') + '\\nNom : ' + String(($json.body || $json).nom || '') + '\\nEntreprise : ' + String(($json.body || $json).entreprise || '') + '\\nEmail : ' + String(($json.body || $json).email || '') + '\\nTéléphone : ' + String(($json.body || $json).tel || ($json.body || $json).telephone || '') + '\\nPersona : ' + String(($json.body || $json).path || ($json.body || $json).persona || '') + '\\nMessage : ' + String(($json.body || $json).message || '') }}"
+      },
+      "id": "telegram-diagnostic-lead",
+      "name": "Telegram diagnostic lead",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [620, 360]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ status: 'received' }) }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "respond-diagnostic-lead",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [880, 360]
+    }
+  ],
+  "connections": {
+    "Webhook diagnostic-lead": {
+      "main": [[{ "node": "Telegram diagnostic lead", "type": "main", "index": 0 }]]
+    },
+    "Telegram diagnostic lead": {
+      "main": [[{ "node": "Respond to Webhook", "type": "main", "index": 0 }]]
+    }
+  }
+}
