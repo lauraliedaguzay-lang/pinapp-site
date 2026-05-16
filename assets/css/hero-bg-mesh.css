@@ -29,11 +29,11 @@ body,
   pointer-events: none;
   will-change: transform;
   background:
-    radial-gradient(ellipse 60% 50% at 20% 30%, rgba(30, 58, 95, 0.75) 0%, transparent 50%),
-    radial-gradient(ellipse 50% 60% at 80% 40%, rgba(15, 26, 46, 0.85) 0%, transparent 55%),
-    radial-gradient(ellipse 40% 40% at 50% 80%, rgba(200, 150, 90, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 50% at 20% 30%, rgba(40, 25, 15, 0.6) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 60% at 80% 40%, rgba(20, 12, 8, 0.75) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 40% at 50% 80%, rgba(200, 150, 90, 0.15) 0%, transparent 50%),
     radial-gradient(ellipse 30% 30% at 60% 20%, rgba(244, 236, 217, 0.05) 0%, transparent 60%),
-    linear-gradient(180deg, #0a0a0a 0%, #14100c 42%, rgba(30, 58, 95, 0.55) 100%);
+    linear-gradient(180deg, #0a0a0a 0%, #140c08 100%);
   transform: translateZ(0);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -54,12 +54,29 @@ body,
   z-index: 3;
   pointer-events: none;
   background-image: url("/voyage-v9/assets/hero-1.webp");
-  background-size: cover;
-  background-position: center;
+  background-size: 140% 140%;
+  background-position: bottom right;
+  filter:
+    blur(50px)
+    saturate(0.4)
+    hue-rotate(-25deg)
+    brightness(0.55)
+    contrast(1.1);
   mix-blend-mode: screen;
-  opacity: 0.35;
-  -webkit-mask-image: linear-gradient(to top left, black 30%, transparent 70%);
-  mask-image: linear-gradient(to top left, black 30%, transparent 70%);
+  opacity: 0.2;
+  -webkit-mask-image: radial-gradient(
+    ellipse 80% 80% at 100% 100%,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 80% 80% at 100% 100%,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
+    transparent 100%
+  );
+  will-change: transform;
   transform: translateZ(0);
 }
 
@@ -108,6 +125,6 @@ body,
   .hero-bg-avalon-overlay {
     width: 72%;
     height: 55%;
-    opacity: 0.28;
+    opacity: 0.16;
   }
 }
