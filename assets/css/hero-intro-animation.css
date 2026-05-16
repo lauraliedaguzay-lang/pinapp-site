@@ -1,0 +1,45 @@
+/**
+ * WOW PR #183 — intro load : masquage hero jusqu’à timeline GSAP
+ */
+html.intro-loading .hero-content > *:not(.hero-logo-xl-wrap),
+html.intro-loading .hero-logo-xl-wrap > * {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Cercles visibles pour le tracé SVG (wrap parent reste masqué sans ce correctif) */
+html.intro-loading .hero-logo-xl-wrap > .hero-hublot-deco-wrap {
+  opacity: 1;
+  visibility: visible;
+}
+
+html.intro-loading.intro-ready .hero-content > *:not(.hero-logo-xl-wrap),
+html.intro-loading.intro-ready .hero-logo-xl-wrap > * {
+  visibility: visible;
+}
+
+html.intro-loading .hero-hublot-deco circle {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+/* Évite le conflit avec le reveal mot (PR #181) pendant l’intro */
+html.intro-loading #hero .hero__title .hero-word {
+  animation: none !important;
+  opacity: 0;
+  filter: none;
+  transform: translateY(12px);
+}
+
+@media (prefers-reduced-motion: reduce), (html.sober) {
+  html.intro-loading .hero-content > *:not(.hero-logo-xl-wrap),
+  html.intro-loading .hero-logo-xl-wrap > * {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  html.intro-loading .hero-hublot-deco circle {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
+}

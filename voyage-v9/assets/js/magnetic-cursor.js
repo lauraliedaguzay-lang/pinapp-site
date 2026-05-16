@@ -3,6 +3,8 @@
  */
 (function () {
   'use strict';
+  /* WOW PR #183 — curseur blob : un seul curseur custom */
+  if (document.querySelector('.cursor-blob')) return;
   if (!window.matchMedia('(pointer: fine)').matches) return;
   if (window.innerWidth < 1024) return;
 

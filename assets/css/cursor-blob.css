@@ -1,0 +1,46 @@
+/**
+ * WOW PR #183 — curseur blob (desktop pointeur fin)
+ */
+.cursor-blob {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  background: var(--ivoire, #f4ecd9);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.2s ease,
+    opacity 0.2s ease;
+  will-change: transform;
+}
+
+.cursor-blob.cursor-blob--hover {
+  width: 56px;
+  height: 56px;
+  background: var(--or-cuivre, #c8965a);
+  mix-blend-mode: normal;
+  opacity: 0.85;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .cursor-blob {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-blob {
+    display: none !important;
+  }
+}
+
+html.sober .cursor-blob {
+  display: none !important;
+}
