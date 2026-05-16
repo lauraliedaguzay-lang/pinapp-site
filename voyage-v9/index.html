@@ -2,9 +2,9 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
-    <meta name="pinapp-build" content="v15.6.3-identity-motion-2026-05-16" />
+    <meta name="pinapp-build" content="v15.7.0-fondations-awwwards-2026-05-16" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="theme-color" content="#050b14" />
+<meta name="theme-color" content="#0a0a0a" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
 <meta name="pinapp-voyage-v9-build" content="v15.4.7-restore-racine-base-v9-2026-05-12" />
 <title>Pinapp · Sites + films pour TPE/PME · 50 à 75% moins cher | Bordeaux</title>
@@ -83,8 +83,8 @@
 <style>
 /* Voyage V9 V5 — single file */
 :root{
-  --or:#e6b973;--or-cuivre:#C8965A;--hublot-avalon:#1E3A5F;--or-light:#f7d99d;--or-glow:rgba(230,185,115,0.18);--ivoire:#f4ece0;--ivoire-dim:#c9bfae;--ivoire-mute:rgba(244,228,193,0.62);
-  --cyan:#3ef5e0;--nuit:#050b14;--nuit-soft:#0a121f;--fumee:rgba(20,30,42,0.6);--fumee-strong:rgba(20,30,42,0.85);
+  --or:#e6b973;--or-cuivre:#C8965A;--hublot:#1E3A5F;--hublot-avalon:var(--hublot);--glass-dark:#0F0A06;--or-light:#f7d99d;--or-glow:rgba(230,185,115,0.18);--ivoire:#F4ECD9;--ivoire-dim:#c9bfae;--ivoire-mute:rgba(244,236,217,0.62);
+  --cyan:#3ef5e0;--nuit:#0A0A0A;--noir-warm:#140C08;--nuit-soft:#14100c;--fumee:rgba(28,18,14,0.55);--fumee-strong:rgba(12,8,6,0.88);
   --accent-lauralie:var(--or);--accent-micha:var(--cyan);--accent-mp:rgba(123,184,154,0.95);
   --ff-serif:Georgia,"Times New Roman",serif;
   --rouge-err:#ff6b6b;--vert-ok:#5eddb6;
@@ -111,7 +111,7 @@
 }
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:auto;-webkit-text-size-adjust:100%;background:var(--nuit);height:100%;overflow-x:hidden;overflow-y:auto;max-width:100%}
-body{margin:0;color:var(--ivoire);font-family:var(--ff-body);font-size:var(--fs-body);line-height:var(--lh-body);background:transparent;min-height:100%;overflow-x:hidden;overflow-y:visible;max-width:100%;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{margin:0;color:var(--ivoire);font-family:var(--ff-body);font-size:var(--fs-body);line-height:var(--lh-body);background:var(--nuit);min-height:100%;overflow-x:hidden;overflow-y:visible;max-width:100%;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 img{max-width:100%;display:block}
 a{color:inherit}
 button,input,select,textarea{font:inherit;color:inherit}
@@ -888,11 +888,13 @@ html.sober #grain-canvas{display:none!important}
       <p class="eyebrow" data-reveal>Pinapp Inc · Bordeaux · 2026</p>
       <p class="eyebrow" data-reveal data-reveal-delay="1" style="margin-top:calc(-1 * var(--sp-2));color:var(--ivoire-dim)">Studio digital · Bordeaux · Sites + automatisations + films IA</p>
       <div class="hero-logo-xl-wrap" data-reveal>
-        <svg class="hero-hublot-deco" viewBox="0 0 280 280" aria-hidden="true" focusable="false">
-          <circle cx="140" cy="140" r="120" fill="none" stroke="rgba(200,150,90,0.2)" stroke-width="1.5"/>
-          <circle cx="140" cy="140" r="100" fill="none" stroke="rgba(200,150,90,0.12)" stroke-width="1"/>
-          <circle cx="140" cy="140" r="80" fill="none" stroke="rgba(244,236,217,0.06)" stroke-width="0.8"/>
-        </svg>
+        <div class="hero-hublot-deco-wrap" aria-hidden="true">
+          <svg class="hero-hublot-deco" viewBox="0 0 280 280" aria-hidden="true" focusable="false">
+            <circle cx="140" cy="140" r="120" fill="none" stroke="rgba(200,150,90,0.2)" stroke-width="1.5"/>
+            <circle cx="140" cy="140" r="100" fill="none" stroke="rgba(200,150,90,0.12)" stroke-width="1"/>
+            <circle cx="140" cy="140" r="80" fill="none" stroke="rgba(244,236,217,0.06)" stroke-width="0.8"/>
+          </svg>
+        </div>
         <p class="hero-logo-xl" role="img" aria-label="Pinapp"><span class="hero-logo-text">pinapp</span><span class="hero-logo-dot" aria-hidden="true"></span></p>
       </div>
       <h1 id="hero-h1" class="display display--h1 hero__title"><span class="hero-word" style="--i:0">Vos</span> <span class="hero-word" style="--i:1">outils</span> <span class="hero-word" style="--i:2">travaillent.</span><br><span class="hero-word" style="--i:3">Vous</span> <span class="hero-word" style="--i:4">gagnez</span> <span class="hero-word" style="--i:5">du</span> <span class="hero-word hero-word--accent" style="--i:6">temps.</span></h1>
@@ -2103,6 +2105,8 @@ Chez nous, si. »</p>
 <script src="/voyage-v9/assets/js/lenis.min.js"></script>
 <script src="/voyage-v9/assets/js/form-handler.js" defer></script>
 <script src="/voyage-v9/assets/js/scroll-smooth.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer crossorigin="anonymous"></script>
 <script src="/voyage-v9/assets/js/scene-counter.js" defer></script>
 <script src="/voyage-v9/assets/js/grain-canvas.js" defer></script>
 <script src="/voyage-v9/assets/js/magnetic-cursor.js" defer></script>
@@ -2110,6 +2114,7 @@ Chez nous, si. »</p>
 <script src="/voyage-v9/assets/js/marquee-mobile.js" defer></script>
 <script src="/assets/js/hero-text-reveal.js?v=20260516" defer></script>
 <script src="/assets/js/magnetic-cta.js?v=20260516" defer></script>
+<script src="/assets/js/hero-scrolltrigger.js?v=20260516" defer></script>
 <script>
 (function(){
 'use strict';

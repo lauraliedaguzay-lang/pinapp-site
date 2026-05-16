@@ -1,24 +1,39 @@
 /**
- * Hero — gradient mesh + Avalon overlay + grain (pinapp.fr voyage v9)
+ * Hero — gradient mesh + Avalon overlay + grain + warm vignette (pinapp.fr voyage v9)
  * Overlay : /voyage-v9/assets/hero-1.webp
  */
+body,
+.hero-section {
+  background-color: var(--nuit, #0a0a0a);
+}
+
 .hero-section {
   position: relative;
   overflow: hidden;
   isolation: isolate;
 }
 
-.hero-bg-mesh {
+.hero-section::before {
+  content: "";
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(20, 12, 8, 0.4) 0%, transparent 70%);
+}
+
+.hero-bg-mesh {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  will-change: transform;
   background:
     radial-gradient(ellipse 60% 50% at 20% 30%, rgba(30, 58, 95, 0.75) 0%, transparent 50%),
     radial-gradient(ellipse 50% 60% at 80% 40%, rgba(15, 26, 46, 0.85) 0%, transparent 55%),
     radial-gradient(ellipse 40% 40% at 50% 80%, rgba(200, 150, 90, 0.12) 0%, transparent 50%),
     radial-gradient(ellipse 30% 30% at 60% 20%, rgba(244, 236, 217, 0.05) 0%, transparent 60%),
-    linear-gradient(180deg, #0a0f1e 0%, #1e3a5f 100%);
+    linear-gradient(180deg, #0a0a0a 0%, #14100c 42%, rgba(30, 58, 95, 0.55) 100%);
   transform: translateZ(0);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -36,7 +51,7 @@
   right: 0;
   width: 60%;
   height: 70%;
-  z-index: 2;
+  z-index: 3;
   pointer-events: none;
   background-image: url("/voyage-v9/assets/hero-1.webp");
   background-size: cover;
@@ -51,7 +66,7 @@
 .hero-grain-overlay {
   position: absolute;
   inset: 0;
-  z-index: 3;
+  z-index: 4;
   pointer-events: none;
   opacity: 0.08;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
@@ -60,7 +75,9 @@
 
 .hero-content {
   position: relative;
-  z-index: 4;
+  z-index: 5;
+  transform-origin: center center;
+  will-change: transform, opacity, filter;
 }
 
 @keyframes mesh-drift {
