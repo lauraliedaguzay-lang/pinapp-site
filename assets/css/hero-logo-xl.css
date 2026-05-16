@@ -1,0 +1,106 @@
+/**
+ * Hero — logo typographique XL + hublot décoratif (Avalon)
+ */
+.hero-logo-xl-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 3rem;
+  padding: 2rem 0;
+  z-index: 1;
+}
+
+.hero-hublot-deco {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  z-index: 0;
+  transform: translateZ(0);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.sober) .hero-hublot-deco {
+    animation: hublot-spin 60s linear infinite;
+  }
+}
+
+@keyframes hublot-spin {
+  from {
+    transform: translateZ(0) rotate(0deg);
+  }
+  to {
+    transform: translateZ(0) rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce), (html.sober) {
+  .hero-hublot-deco {
+    animation: none !important;
+  }
+}
+
+.hero-logo-xl {
+  position: relative;
+  z-index: 1;
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(3rem, 7vw, 5rem);
+  color: #f4ecd9;
+  margin: 0;
+  letter-spacing: -0.02em;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.15em;
+}
+
+.hero-logo-text {
+  line-height: 1;
+}
+
+.hero-logo-dot {
+  width: 0.4em;
+  height: 0.4em;
+  background: #c8965a;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+  box-shadow: 0 0 16px rgba(200, 150, 90, 0.35);
+  transform: translateZ(0);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.sober) .hero-logo-dot {
+    animation: dot-pulse 3s ease-in-out infinite;
+  }
+}
+
+@keyframes dot-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: translateZ(0) scale(1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: translateZ(0) scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce), (html.sober) {
+  .hero-logo-dot {
+    animation: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-hublot-deco {
+    width: 200px;
+    height: 200px;
+  }
+  .hero-logo-xl-wrap {
+    margin-bottom: 2rem;
+    padding: 1.5rem 0;
+  }
+}
