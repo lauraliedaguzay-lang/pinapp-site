@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
-    <meta name="pinapp-build" content="v15.6.1-urgent-modernisation-2026-05-15" />
+    <meta name="pinapp-build" content="v15.6.2-hero-strategic-2026-05-15" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#050b14" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -75,6 +75,8 @@
 }
 </script>
 <link rel="stylesheet" href="/assets/css/cookie-banner.css?v=20260515" />
+<link rel="stylesheet" href="/assets/css/hero-bg-mesh.css?v=20260515" />
+<link rel="stylesheet" href="/assets/css/hero-logos-bandeau.css?v=20260515" />
 <style>
 /* Voyage V9 V5 — single file */
 :root{
@@ -118,15 +120,6 @@ button{background:none;border:0;cursor:pointer}
 a,button,.btn,input[type="checkbox"],input[type="radio"]{touch-action:manipulation}
 #pinapp-film{position:fixed;inset:0;z-index:-4;pointer-events:none;opacity:.035;mix-blend-mode:screen;filter:hue-rotate(var(--film-hue-shift,0deg));transition:filter 1.2s var(--ease-out)}
 html.sober #pinapp-film{display:none}
-.stage{position:fixed;inset:0;z-index:-3;overflow:hidden;background:var(--nuit)}
-.stage__layer{position:absolute;inset:0;opacity:0;transition:opacity var(--dur-cinema) var(--ease-out),filter var(--dur-cinema) var(--ease-out);background-size:cover;background-position:center;transform:translateZ(0);-webkit-backface-visibility:hidden;backface-visibility:hidden;filter:blur(4px);will-change:opacity}
-.stage__layer.is-active{opacity:1;filter:none}
-@media (prefers-reduced-motion:no-preference){
-  html:not(.sober) .stage__layer.is-active{animation:kenburns 15s linear infinite}
-}
-@keyframes kenburns{0%{transform:translateZ(0) scale(1)}100%{transform:translateZ(0) scale(1.05)}}
-@media (prefers-reduced-motion:reduce),(html.sober){.stage__layer.is-active{animation:none!important}}
-.stage__scrim{position:fixed;inset:0;z-index:-2;pointer-events:none;background:linear-gradient(180deg,rgba(5,11,20,.42) 0%,rgba(5,11,20,.72) 50%,rgba(5,11,20,.88) 100%)}
 .progress{position:fixed;inset:0 0 auto 0;height:3px;z-index:200;pointer-events:none;background:transparent}
 .progress__fill{height:100%;width:100%;background:linear-gradient(90deg,var(--or),var(--cyan));transform-origin:0 50%;transform:scaleX(0);transition:none}
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:var(--sp-4) var(--gutter);border-bottom:1px solid rgba(230,185,115,0.22);box-shadow:0 1px 0 rgba(230,185,115,0.08)}
@@ -850,16 +843,6 @@ html.sober #grain-canvas{display:none!important}
 
 <div id="pinapp-film" aria-hidden="true"></div>
 
-<div class="stage" aria-hidden="true">
-  <!-- Ordre narratif validé : atrium → salon → couloir → cockpit → voie lactée → désert -->
-  <div class="stage__layer is-active" data-hero="1" style="background-image:url(/voyage-v9/assets/hero-1.webp)"></div><!-- atrium cosmique -->
-  <div class="stage__layer" data-hero="2" style="background-image:url(/voyage-v9/assets/hero-5.webp)"></div><!-- salon-hublot -->
-  <div class="stage__layer" data-hero="3" style="background-image:url(/voyage-v9/assets/hero-4.webp)"></div><!-- couloir courbe -->
-  <div class="stage__layer" data-hero="4" style="background-image:url(/voyage-v9/assets/hero-6.webp)"></div><!-- cockpit-planète -->
-  <div class="stage__layer" data-hero="5" style="background-image:url(/voyage-v9/assets/hero-3.webp)"></div><!-- voie lactée -->
-  <div class="stage__layer" data-hero="6" style="background-image:url(/voyage-v9/assets/hero-2.webp)"></div><!-- désert sable -->
-</div>
-<div class="stage__scrim" aria-hidden="true"></div>
 <a href="#hero" id="scroll-progress" class="scroll-progress" aria-label="Retour en haut — progression de lecture">
   <svg viewBox="0 0 60 60" aria-hidden="true" width="60" height="60">
     <circle cx="30" cy="30" r="26" class="scroll-progress__track"/>
@@ -869,8 +852,10 @@ html.sober #grain-canvas{display:none!important}
 </a>
 
 <main id="main">
-  <section id="hero" class="scene" data-stage="hero-1" aria-labelledby="hero-h1">
-    <div class="scene__inner">
+  <section id="hero" class="scene hero-section" data-stage="hero-1" aria-labelledby="hero-h1">
+    <div class="hero-bg-mesh" aria-hidden="true"></div>
+    <div class="hero-bg-avalon-overlay" aria-hidden="true"></div>
+    <div class="scene__inner hero-content">
       <p class="eyebrow" data-reveal>Pinapp Inc · Bordeaux · 2026</p>
       <p class="eyebrow" data-reveal data-reveal-delay="1" style="margin-top:calc(-1 * var(--sp-2));color:var(--ivoire-dim)">Studio digital · Bordeaux · Sites + automatisations + films IA</p>
       <h1 id="hero-h1" class="display display--h1 hero__title"><span class="hero-word" style="--i:0">Vos</span> <span class="hero-word" style="--i:1">outils</span> <span class="hero-word" style="--i:2">travaillent.</span><br><span class="hero-word" style="--i:3">Vous</span> <span class="hero-word" style="--i:4">gagnez</span> <span class="hero-word" style="--i:5">du</span> <span class="hero-word hero-word--accent" style="--i:6">temps.</span></h1>
@@ -882,6 +867,17 @@ html.sober #grain-canvas{display:none!important}
           <div class="stat">Diagnostic<br>offert</div>
           <div class="stat">30 jours<br>accompagnement</div>
         </div>
+      </div>
+      <div class="hero-logos-bandeau" data-reveal>
+        <p class="hero-logos-libelle">Notre équipe a réalisé pour</p>
+        <ul class="hero-logos-grid" role="list">
+          <li class="hero-logo-placeholder" data-logo="1" aria-hidden="true"></li>
+          <li class="hero-logo-placeholder" data-logo="2" aria-hidden="true"></li>
+          <li class="hero-logo-placeholder" data-logo="3" aria-hidden="true"></li>
+          <li class="hero-logo-placeholder" data-logo="4" aria-hidden="true"></li>
+          <li class="hero-logo-placeholder" data-logo="5" aria-hidden="true"></li>
+        </ul>
+        <p class="visually-hidden hero-logos-note">Bandeau logos clients : remplacement prévu par vidéos MP4 — voir assets/logos-clients/README.md</p>
       </div>
       <div class="cta-row" data-reveal>
         <a class="btn btn--primary breath-cta" href="#contact">Recevoir mon diagnostic écrit sous 24h →</a>
@@ -2077,6 +2073,7 @@ function prefersReduced(){ try{return window.matchMedia('(prefers-reduced-motion
 var heroMap={'hero-1':'1','hero-2':'2','hero-3':'3','hero-4':'4','hero-5':'5','hero-6':'6'};
 var layers=[].slice.call(document.querySelectorAll('.stage__layer'));
 function setHero(h){
+  if(!layers.length)return;
   var id=heroMap[h]; if(!id)return;
   layers.forEach(function(L){ L.classList.toggle('is-active', L.getAttribute('data-hero')===id); });
 }
