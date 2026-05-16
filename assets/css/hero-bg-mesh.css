@@ -1,6 +1,6 @@
 /**
- * Hero — gradient mesh + Avalon overlay (pinapp.fr voyage v9)
- * Overlay asset : chemin canon dépôt = /voyage-v9/assets/hero-1.webp
+ * Hero — gradient mesh + Avalon overlay + grain (pinapp.fr voyage v9)
+ * Overlay : /voyage-v9/assets/hero-1.webp
  */
 .hero-section {
   position: relative;
@@ -14,10 +14,10 @@
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 60% 50% at 20% 30%, rgba(30, 58, 95, 0.55) 0%, transparent 50%),
-    radial-gradient(ellipse 50% 60% at 80% 40%, rgba(15, 26, 46, 0.65) 0%, transparent 55%),
-    radial-gradient(ellipse 40% 40% at 50% 80%, rgba(200, 150, 90, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse 30% 30% at 60% 20%, rgba(244, 236, 217, 0.03) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 20% 30%, rgba(30, 58, 95, 0.75) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 60% at 80% 40%, rgba(15, 26, 46, 0.85) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 40% at 50% 80%, rgba(200, 150, 90, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse 30% 30% at 60% 20%, rgba(244, 236, 217, 0.05) 0%, transparent 60%),
     linear-gradient(180deg, #0a0f1e 0%, #1e3a5f 100%);
   transform: translateZ(0);
   -webkit-backface-visibility: hidden;
@@ -32,20 +32,35 @@
 
 .hero-bg-avalon-overlay {
   position: absolute;
-  inset: 0;
-  z-index: 1;
+  bottom: 0;
+  right: 0;
+  width: 60%;
+  height: 70%;
+  z-index: 2;
   pointer-events: none;
   background-image: url("/voyage-v9/assets/hero-1.webp");
   background-size: cover;
   background-position: center;
-  mix-blend-mode: multiply;
-  opacity: 0.1;
+  mix-blend-mode: screen;
+  opacity: 0.35;
+  -webkit-mask-image: linear-gradient(to top left, black 30%, transparent 70%);
+  mask-image: linear-gradient(to top left, black 30%, transparent 70%);
   transform: translateZ(0);
+}
+
+.hero-grain-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.08;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
 }
 
 .hero-content {
   position: relative;
-  z-index: 2;
+  z-index: 4;
 }
 
 @keyframes mesh-drift {
@@ -72,5 +87,10 @@
 @media (max-width: 768px) {
   .hero-bg-mesh {
     background-size: 150% 150%;
+  }
+  .hero-bg-avalon-overlay {
+    width: 72%;
+    height: 55%;
+    opacity: 0.28;
   }
 }

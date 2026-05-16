@@ -14,11 +14,13 @@ Quand les vrais logos animés MP4 sont disponibles :
 
    (Ou tout autre nom — adapter le HTML en conséquence.)
 
-2. Dans `index.html` et `voyage-v9/index.html`, remplacer chaque :
+2. Dans `index.html` et `voyage-v9/index.html`, éditer le bloc `.hero-logos-marquee` : la liste `.hero-logos-grid` contient **10 entrées** (5 logos + 5 dupliqués pour le marquee). Remplacer chaque placeholder par une paire `<li class="hero-logo">` + `<video>` comme ci-dessous (répliquer la séquence deux fois pour conserver la boucle).
 
-   `<li class="hero-logo-placeholder" data-logo="N" aria-hidden="true"></li>`
+   Ancien exemple :
 
-   par :
+   `<li class="hero-logo-placeholder" data-logo="N"></li>`
+
+   Remplacement :
 
    ```html
    <li class="hero-logo">
