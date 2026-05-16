@@ -1,0 +1,46 @@
+/**
+ * WOW PR #183 — tilt 3D cartes + shine (desktop)
+ */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.tilt-card-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(244, 236, 217, 0.06) 0%,
+    transparent 50%,
+    rgba(200, 150, 90, 0.08) 100%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  border-radius: inherit;
+  z-index: 2;
+}
+
+.tilt-card:hover .tilt-card-shine {
+  opacity: 1;
+}
+
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .tilt-card {
+    transform: none !important;
+  }
+
+  .tilt-card-shine {
+    display: none !important;
+  }
+}
+
+html.sober .tilt-card {
+  transform: none !important;
+}
+
+html.sober .tilt-card-shine {
+  display: none !important;
+}

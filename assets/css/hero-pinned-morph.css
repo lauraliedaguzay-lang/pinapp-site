@@ -1,0 +1,41 @@
+/**
+ * WOW PR #183 — hero H1 morph + pin 2 viewports (desktop)
+ */
+.hero-h1-stack {
+  position: relative;
+  width: 100%;
+  min-height: clamp(7.5rem, 18vw, 12rem);
+}
+
+.hero-h1.hero-h1--alt {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px) scale(0.96);
+}
+
+.hero-h1-stack .hero-h1[data-scene="A"] {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-h1-em {
+  font-style: italic;
+  color: var(--or-cuivre, #c8965a);
+}
+
+@media (prefers-reduced-motion: reduce), (html.sober) {
+  .hero-h1.hero-h1--alt {
+    display: none !important;
+  }
+}
+
+@media (max-width: 899px) {
+  .hero-h1.hero-h1--alt {
+    display: none !important;
+  }
+}

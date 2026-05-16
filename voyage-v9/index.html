@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
-    <meta name="pinapp-build" content="v15.7.0-fondations-awwwards-2026-05-16" />
+    <meta name="pinapp-build" content="v15.7.1-wow-pack-2026-05-16" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#0a0a0a" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -29,7 +29,7 @@
 <link rel="preload" as="image" href="/voyage-v9/assets/team/lauralie.png" fetchpriority="high" />
   <link rel="preload" as="image" href="/voyage-v9/assets/team/micha.jpg" fetchpriority="high" />
   <link rel="preload" as="image" href="/voyage-v9/assets/team/lauralie.png" />
-<script>document.documentElement.classList.add('js');(function(){try{if(document.documentElement.classList.contains('sober'))return;if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;document.documentElement.classList.add('hero-reveal-motion-ready');}catch(e){}})();</script>
+<script>document.documentElement.classList.add('js');(function(){try{var sober=document.documentElement.classList.contains('sober');try{sober=sober||localStorage.getItem('pinapp-voyage-sober')==='1';}catch(e0){}var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;if(!sober&&!rm){document.documentElement.classList.add('intro-loading');document.documentElement.classList.add('hero-reveal-motion-ready');}}catch(e){}})();</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -80,6 +80,10 @@
 <link rel="stylesheet" href="/assets/css/hero-particles.css?v=20260516" />
 <link rel="stylesheet" href="/assets/css/hero-logos-bandeau.css?v=20260516" />
 <link rel="stylesheet" href="/assets/css/hero-magnetic-cta.css?v=20260516" />
+<link rel="stylesheet" href="/assets/css/hero-intro-animation.css?v=20260516" />
+<link rel="stylesheet" href="/assets/css/cursor-blob.css?v=20260516" />
+<link rel="stylesheet" href="/assets/css/hero-pinned-morph.css?v=20260516" />
+<link rel="stylesheet" href="/assets/css/tilt-cards.css?v=20260516" />
 <style>
 /* Voyage V9 V5 — single file */
 :root{
@@ -773,6 +777,7 @@ html.sober #grain-canvas{display:none!important}
 </head>
 
 <body data-draft-count="0">
+<div class="cursor-blob" aria-hidden="true"></div>
 <div id="pinapp-loader" aria-hidden="true">
   <div class="loader__lockup">
     <div class="loader__brand" aria-hidden="true">
@@ -885,8 +890,8 @@ html.sober #grain-canvas{display:none!important}
     <div class="hero-bg-avalon-overlay" aria-hidden="true"></div>
     <div class="hero-grain-overlay" aria-hidden="true"></div>
     <div class="scene__inner hero-content">
-      <p class="eyebrow" data-reveal>Pinapp Inc · Bordeaux · 2026</p>
-      <p class="eyebrow" data-reveal data-reveal-delay="1" style="margin-top:calc(-1 * var(--sp-2));color:var(--ivoire-dim)">Studio digital · Bordeaux · Sites + automatisations + films IA</p>
+      <p class="eyebrow hero-eyebrow" data-reveal>Pinapp Inc · Bordeaux · 2026</p>
+      <p class="eyebrow hero-eyebrow" data-reveal data-reveal-delay="1" style="margin-top:calc(-1 * var(--sp-2));color:var(--ivoire-dim)">Studio digital · Bordeaux · Sites + automatisations + films IA</p>
       <div class="hero-logo-xl-wrap" data-reveal>
         <div class="hero-hublot-deco-wrap" aria-hidden="true">
           <svg class="hero-hublot-deco" viewBox="0 0 280 280" aria-hidden="true" focusable="false">
@@ -897,7 +902,11 @@ html.sober #grain-canvas{display:none!important}
         </div>
         <p class="hero-logo-xl" role="img" aria-label="Pinapp"><span class="hero-logo-text">pinapp</span><span class="hero-logo-dot" aria-hidden="true"></span></p>
       </div>
-      <h1 id="hero-h1" class="display display--h1 hero__title"><span class="hero-word" style="--i:0">Vos</span> <span class="hero-word" style="--i:1">outils</span> <span class="hero-word" style="--i:2">travaillent.</span><br><span class="hero-word" style="--i:3">Vous</span> <span class="hero-word" style="--i:4">gagnez</span> <span class="hero-word" style="--i:5">du</span> <span class="hero-word hero-word--accent" style="--i:6">temps.</span></h1>
+      <div class="hero-h1-stack">
+      <h1 id="hero-h1" class="display display--h1 hero__title hero-h1" data-scene="A"><span class="hero-word" style="--i:0">Vos</span> <span class="hero-word" style="--i:1">outils</span> <span class="hero-word" style="--i:2">travaillent.</span><br><span class="hero-word" style="--i:3">Vous</span> <span class="hero-word" style="--i:4">gagnez</span> <span class="hero-word" style="--i:5">du</span> <span class="hero-word hero-word--accent" style="--i:6">temps.</span></h1>
+      <h1 class="display display--h1 hero__title hero-h1 hero-h1--alt" data-scene="B" aria-hidden="true">1&nbsp;490&nbsp;€ tout inclus. Livré en <span class="hero-h1-em">14 jours</span>.</h1>
+      <h1 class="display display--h1 hero__title hero-h1 hero-h1--alt" data-scene="C" aria-hidden="true">Diagnostic offert sous <span class="hero-h1-em">24&nbsp;h</span>.</h1>
+      </div>
       <p class="lead" data-reveal>Site vitrine, automatisations IA, films cinéma —<br>par un duo bordelais.<br>Un seul devis. 50 à 75 % moins cher qu'une agence.<br>Diagnostic offert sous 24 h.</p>
       <p class="badge-row" data-reveal><span class="badge hero-pill"><svg class="dot" viewBox="0 0 8 8" width="8" height="8" aria-hidden="true"><circle cx="4" cy="4" r="3" fill="currentColor"/></svg>IA déclarée · Stack EU · Page &lt; 1 Mo</span></p>
       <div class="hero-s01-row" data-reveal>
@@ -936,7 +945,7 @@ html.sober #grain-canvas{display:none!important}
 
   <section id="presentation-video" class="scene scene--presentation-video" data-stage="hero-1" aria-labelledby="presentation-video-h2">
     <div class="scene__inner">
-      <p class="eyebrow presentation-video-eyebrow" data-reveal>Présentation</p>
+      <p class="eyebrow presentation-video-eyebrow section-eyebrow" data-reveal>Présentation</p>
       <h2 id="presentation-video-h2" class="display display--h2" data-reveal>Découvrez Pinapp en vidéo</h2>
       <p class="lead presentation-video-lead" data-reveal>Sites + films + automatisations. Pour TPE/PME. Depuis Bordeaux.</p>
       <div class="presentation-video-frame" data-reveal>
@@ -2106,15 +2115,21 @@ Chez nous, si. »</p>
 <script src="/voyage-v9/assets/js/form-handler.js" defer></script>
 <script src="/voyage-v9/assets/js/scroll-smooth.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js" defer crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer crossorigin="anonymous"></script>
+<script src="/assets/js/hero-intro-animation.js?v=20260516" defer></script>
 <script src="/voyage-v9/assets/js/scene-counter.js" defer></script>
 <script src="/voyage-v9/assets/js/grain-canvas.js" defer></script>
 <script src="/voyage-v9/assets/js/magnetic-cursor.js" defer></script>
+<script src="/assets/js/cursor-blob.js?v=20260516" defer></script>
 <script src="/voyage-v9/assets/js/card-tilt.js" defer></script>
 <script src="/voyage-v9/assets/js/marquee-mobile.js" defer></script>
 <script src="/assets/js/hero-text-reveal.js?v=20260516" defer></script>
 <script src="/assets/js/magnetic-cta.js?v=20260516" defer></script>
 <script src="/assets/js/hero-scrolltrigger.js?v=20260516" defer></script>
+<script src="/assets/js/hero-pinned-morph.js?v=20260516" defer></script>
+<script src="/assets/js/text-scramble.js?v=20260516" defer></script>
+<script src="/assets/js/tilt-cards.js?v=20260516" defer></script>
 <script>
 (function(){
 'use strict';
