@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le digital qui travaille pendant que vous vivez — Pinapp</title>
+<meta name="description" content="Pinapp reconstruit le digital des indépendants et TPE : sites, automatisations, IA sur-mesure et direction artistique. Vos outils travaillent. Vous décidez.">
+<meta name="robots" content="noindex,nofollow">
+<meta property="og:title" content="Le digital qui travaille pendant que vous vivez — Pinapp">
+<meta property="og:description" content="Sites, automatisations, IA sur-mesure et image. Un interlocuteur. Deux expertises.">
+<meta property="og:type" content="website">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+
+<!-- ============================================================
+     PINAPP · voyage cinématique adapté de la structure Sun Metalon
+     Stack : HTML/CSS/JS vanilla + GSAP + ScrollTrigger + Lenis
+     Charte pinapp : nuit #050b14 · or #e6b973 · cyan #3ef5e0 · ivoire
+     Garde-fous CLAUDE.md : prefers-reduced-motion + Mode sobre
+     ============================================================ -->
+<style>
+:root{
+  --or:#e6b973;--or-light:#f7d99d;--or-glow:rgba(230,185,115,.18);
+  --ivoire:#f4ece0;--ivoire-dim:#c9bfae;--ivoire-mute:rgba(244,228,193,.62);
+  --cyan:#3ef5e0;--cyan-glow:rgba(62,245,224,.16);
+  --violet:#9d7bff;--violet-glow:rgba(157,123,255,.18);
+  --nuit:#050b14;--nuit-soft:#0a121f;--nuit-card:#0c1622;
+  --line:rgba(230,185,115,.16);--line-soft:rgba(244,228,193,.10);
+  --ff-sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --ff-display:Georgia,"Times New Roman",serif;
+  --ease:cubic-bezier(.22,1,.36,1);--ease-cinema:cubic-bezier(.7,0,.3,1);
+  --header-h:60px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--nuit);-webkit-text-size-adjust:100%;scroll-behavior:auto}
+body{margin:0;background:var(--nuit);color:var(--ivoire);font-family:var(--ff-sans);
+  font-size:17px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body.modal-open,body.no-scroll{overflow:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--or);color:var(--nuit)}
+
+/* ---------- typo ---------- */
+h1,h2,h3,h4{margin:0;font-weight:400}
+.eyebrow{display:inline-block;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--or);font-weight:600}
+.display{font-family:var(--ff-display);font-weight:300;line-height:1.04;letter-spacing:-.01em}
+.h1{font-size:clamp(3.2rem,8vw,7rem)}
+.h2{font-size:clamp(2.2rem,5vw,4rem);line-height:1.05;letter-spacing:-.02em}
+.h2-sans{font-family:var(--ff-sans);font-weight:300}
+.lead{font-size:clamp(1.15rem,1.7vw,1.5rem);line-height:1.5;color:var(--ivoire-dim)}
+.muted{color:var(--ivoire-mute)}
+.small{font-size:.82rem;letter-spacing:.01em}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:.5em;background:var(--ivoire);color:var(--nuit);
+  border:0;border-radius:999px;padding:.85em 1.5em;font:inherit;font-size:.78rem;font-weight:600;
+  letter-spacing:.01em;cursor:pointer;transition:background .35s var(--ease),color .35s var(--ease),transform .35s var(--ease)}
+.btn:hover{background:var(--or);color:var(--nuit);transform:translateY(-2px)}
+.btn .arrow{transition:transform .35s var(--ease)}
+.btn:hover .arrow{transform:translateX(4px)}
+.btn.ghost{background:transparent;color:var(--ivoire);border:1px solid var(--line)}
+.btn.ghost:hover{background:var(--or);color:var(--nuit);border-color:var(--or)}
+
+/* ---------- reveal ---------- */
+.reveal{opacity:0;transform:translateY(28px)}
+.is-in .reveal,.reveal.is-in{opacity:1;transform:none;transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.line-mask{display:block;overflow:hidden}
+.line-mask>span{display:block;transform:translateY(105%)}
+.is-in .line-mask>span{transform:none;transition:transform .95s var(--ease-cinema)}
+
+/* ---------- header ---------- */
+header.nav{position:sticky;top:0;z-index:60;background:rgba(5,11,20,.72);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line-soft);transition:transform .45s var(--ease)}
+header.nav.hide{transform:translateY(-110%)}
+.nav-bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
+.nav-bar ul{display:flex;margin:0;padding:0;list-style:none}
+.nav-bar .nav-right{justify-content:flex-end}
+.nav-bar a,.nav-bar .toggle{display:flex;align-items:center;height:var(--header-h);
+  padding:0 clamp(14px,2vw,34px);font-size:.74rem;font-weight:600;letter-spacing:.02em;
+  color:var(--ivoire);position:relative;background:none;border:0;font-family:inherit;cursor:pointer}
+.nav-bar a::after,.toggle::after{content:"";position:absolute;left:0;right:0;bottom:0;height:0;
+  background:var(--or);transition:height .18s ease}
+.nav-bar a:hover::after,.toggle:hover::after,.nav-bar a.active::after{height:3px}
+.brand{display:flex;align-items:center;justify-content:center;height:var(--header-h);
+  font-family:var(--ff-display);font-size:1.45rem;letter-spacing:.04em;color:var(--ivoire)}
+.brand b{color:var(--or);font-weight:400}
+.toggle .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);margin-right:.5em;
+  box-shadow:0 0 10px var(--cyan-glow);transition:background .3s,box-shadow .3s}
+body.sober .toggle .dot{background:var(--ivoire-mute);box-shadow:none}
+@media(max-width:860px){
+  .nav-bar{grid-template-columns:auto 1fr}
+  .nav-left{display:none!important}
+  .brand{justify-content:flex-start;padding-left:18px}
+}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;min-height:calc(100svh - var(--header-h));display:flex;flex-direction:column;
+  align-items:center;justify-content:flex-end;overflow:hidden;text-align:center}
+.hero .eyebrow-row{position:absolute;top:46%;transform:translateY(-100%);width:96vw;z-index:3;
+  display:flex;align-items:center;justify-content:center;gap:14px}
+.hero .eyebrow-row .ln{flex:0 0 90px;height:1px;background:var(--line);position:relative}
+.hero .eyebrow-row .ln::before,.hero .eyebrow-row .ln::after{content:"";position:absolute;top:50%;width:7px;height:7px;
+  border:1px solid var(--line);transform:translateY(-50%) rotate(45deg)}
+.hero .eyebrow-row .ln.l::before{left:0}.hero .eyebrow-row .ln.l::after{right:0}
+.hero .eyebrow-row .ln.r::before{left:0}.hero .eyebrow-row .ln.r::after{right:0}
+.hero .htxt{font-size:clamp(1.05rem,1.5vw,1.4rem);font-family:var(--ff-display);color:var(--ivoire);font-weight:300}
+.hero figure{position:relative;z-index:4;width:min(52vw,640px);margin-bottom:-4vh}
+.hero figure img{width:100%;height:auto;max-height:62vh;object-fit:contain;
+  filter:drop-shadow(0 30px 80px rgba(0,0,0,.6))}
+.wordmark{position:relative;z-index:3;width:100vw;text-align:center;line-height:.82;
+  font-family:var(--ff-display);font-weight:300;
+  font-size:clamp(4rem,18.5vw,18rem);letter-spacing:-.02em;
+  color:var(--ivoire);margin-bottom:18px;padding:0 2vw;
+  -webkit-user-select:none;user-select:none}
+.glow{position:absolute;bottom:-6vh;left:50%;transform:translateX(-50%);
+  width:60vw;height:42vh;border-radius:50%;
+  background:radial-gradient(closest-side,var(--or-glow),transparent 70%);
+  filter:blur(60px);z-index:0;pointer-events:none}
+.glow.cyan{background:radial-gradient(closest-side,var(--cyan-glow),transparent 70%)}
+
+/* ---------- shells ---------- */
+.section{position:relative}
+.pad-x{padding-left:max(2.2vw,18px);padding-right:max(2.2vw,18px)}
+.divider-top{border-top:1px solid var(--line-soft)}
+
+/* ---------- full width statement ---------- */
+.statement{padding:clamp(56px,9vw,140px) max(2.2vw,18px)}
+.statement .h2{font-family:var(--ff-sans);font-weight:300;color:var(--ivoire-mute);max-width:1100px;white-space:pre-line}
+.statement .h2 b{color:var(--ivoire);font-weight:400}
+.statement .btn{margin-top:34px}
+
+/* ---------- benefits ---------- */
+.benefits{padding-top:clamp(80px,12vw,180px);border-top:1px solid var(--line-soft)}
+.benefits .big{display:flex;flex-direction:column;line-height:.92;text-align:center;
+  font-size:clamp(2.6rem,11vw,11rem);letter-spacing:-.03em;
+  font-family:var(--ff-display);font-weight:300;padding:0 4vw}
+.benefits .big .line-mask:nth-child(1){align-self:flex-end}
+.benefits .big .line-mask:nth-child(2){align-self:flex-start}
+.benefits .big .line-mask:nth-child(3){align-self:center}
+.benefits-wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,7vw,120px);
+  align-items:center;padding:clamp(40px,7vw,90px) max(2.2vw,18px)}
+.benefits-wrap figure{justify-self:end;width:100%;max-width:560px}
+.benefits-wrap figure img{width:100%;border-radius:14px}
+.benefits-list li{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start;
+  list-style:none;margin:0 0 40px;padding:0}
+.benefits-list .ic{width:40px;height:40px;border:1px solid var(--line);border-radius:10px;
+  display:grid;place-items:center;color:var(--or);font-size:1.1rem}
+.benefits-list h3{font-family:var(--ff-display);font-weight:300;font-size:clamp(1.4rem,2.4vw,2rem);line-height:1.15}
+@media(max-width:860px){
+  .benefits-wrap{grid-template-columns:1fr;gap:36px}
+  .benefits-wrap figure{order:-1;justify-self:center}
+}
+
+/* ---------- process (accordion) ---------- */
+.process{display:grid;grid-template-columns:1fr 1fr;min-height:100svh;border-top:1px solid var(--line-soft)}
+.process .left{border-right:1px solid var(--line-soft);display:grid;grid-template-rows:auto 1fr}
+.process .left .head{padding:clamp(28px,4vw,48px) max(2.2vw,18px)}
+.process .left .head .h2{color:var(--ivoire-mute)}
+.process .left .head .h2 b{color:var(--ivoire);font-weight:400}
+.proc-items{align-self:end;border-top:1px solid var(--line-soft)}
+.proc-items li{border-bottom:1px solid var(--line-soft);color:var(--ivoire-mute);cursor:pointer;
+  position:relative;transition:color .3s}
+.proc-items li .tog{display:flex;align-items:center;justify-content:space-between;
+  gap:18px;padding:clamp(20px,2.6vw,30px) max(2.2vw,18px);opacity:.62;transition:opacity .4s var(--ease)}
+.proc-items li .tog .name{font-family:var(--ff-display);font-weight:300;font-size:clamp(1.5rem,3vw,2.6rem)}
+.proc-items li .tog .price{font-size:.78rem;font-weight:600;color:var(--or);letter-spacing:.02em;white-space:nowrap}
+.proc-items li .plus{width:24px;height:24px;flex:0 0 24px;position:relative;transition:transform .5s var(--ease)}
+.proc-items li .plus::before,.proc-items li .plus::after{content:"";position:absolute;background:var(--ivoire);inset:0;margin:auto}
+.proc-items li .plus::before{width:100%;height:1.5px}
+.proc-items li .plus::after{width:1.5px;height:100%}
+.proc-items li.active{color:var(--ivoire);border-right:2px solid var(--or)}
+.proc-items li.active .tog{opacity:1}
+.proc-items li.active .plus{transform:rotate(45deg)}
+.proc-items li .body{max-height:0;overflow:hidden;transition:max-height .55s var(--ease)}
+.proc-items li .body p{padding:0 max(2.2vw,18px) 28px;margin:0;color:var(--ivoire-dim);max-width:520px}
+.process .right{position:relative;overflow:hidden;display:grid;align-items:end}
+.process .right .pic{position:absolute;inset:0;opacity:0;transition:opacity .7s var(--ease),transform 8s linear}
+.process .right .pic.on{opacity:1;transform:scale(1.06)}
+.process .right .pic img{width:100%;height:100%;object-fit:cover}
+.process .right .pic::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(0deg,rgba(5,11,20,.92),rgba(5,11,20,0) 60%)}
+.process .right .cap{position:relative;z-index:1;padding:clamp(28px,4vw,56px);max-width:560px}
+.process .right .cap h3{font-family:var(--ff-display);font-weight:300;font-size:clamp(1.6rem,2.6vw,2.4rem);margin-bottom:10px}
+@media(max-width:860px){
+  .process{grid-template-columns:1fr}
+  .process .left{border-right:0}
+  .proc-items li.active{border-right:0}
+  .process .right{display:none}
+  .proc-items li .body .mpic{display:block;width:100%;height:170px;margin:0 max(2.2vw,18px) 22px;
+    width:auto;border-radius:10px;overflow:hidden}
+  .proc-items li .body .mpic img{width:100%;height:100%;object-fit:cover}
+}
+.proc-items li .body .mpic{display:none}
+
+/* ---------- centered text image ---------- */
+.intro-product{border-top:1px solid var(--line-soft);text-align:center;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;position:relative}
+.intro-product .txt{padding:clamp(80px,12vw,180px) 6vw 0;position:relative;z-index:1}
+.intro-product .big{font-family:var(--ff-display);font-weight:300;
+  font-size:clamp(3.4rem,14vw,15rem);line-height:.92;letter-spacing:-.03em}
+.intro-product .big .hl{color:var(--or)}
+.intro-product figure{width:min(48vw,560px);margin-top:-3vh;position:relative;z-index:1}
+.intro-product figure img{width:100%;max-height:62vh;object-fit:contain;border-radius:14px}
+.intro-product .glow{bottom:-8vh;width:80vw;height:60vh}
+
+/* ---------- feature cards (horizontal) ---------- */
+.fcards{position:relative;border-top:1px solid var(--line-soft)}
+.fcards-track{display:flex;flex-direction:column}
+.fcards.is-h{height:100svh;overflow:hidden}
+.fcards.is-h .fcards-track{flex-direction:row;flex-wrap:nowrap;width:max-content;height:100svh}
+.fcard{flex:0 0 auto;position:relative;display:flex;flex-direction:column;justify-content:space-between;
+  padding:clamp(26px,3vw,40px);overflow:hidden;background:var(--nuit-card);
+  border-bottom:1px solid var(--line-soft);min-height:78svh}
+.fcards.is-h .fcard{width:min(46vw,720px);height:100svh;min-height:0;border-bottom:0;border-right:1px solid var(--line-soft)}
+.fcard.text{padding-top:clamp(40px,5vw,72px)}
+.fcard .blk{max-width:520px;position:relative;z-index:2}
+.fcard .blk h3{font-family:var(--ff-display);font-weight:300;font-size:clamp(2rem,4vw,3.4rem);
+  line-height:1.04;margin-bottom:18px}
+.fcard .blk p{color:var(--ivoire-dim)}
+.fcard .top,.fcard .bot{position:relative;z-index:2;max-width:520px}
+.fcard .tag{position:relative;z-index:2;padding-left:18px;font-size:.78rem;font-weight:600;max-width:460px}
+.fcard .tag::before{content:"";position:absolute;left:0;top:.55em;width:8px;height:8px;border-radius:50%;background:var(--or)}
+.fcard.media{justify-content:space-between}
+.fcard.media figure{position:absolute;inset:0;z-index:0}
+.fcard.media figure img{width:100%;height:100%;object-fit:cover;opacity:.55}
+.fcard.media::after{content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgba(5,11,20,.55),rgba(5,11,20,.15) 40%,rgba(5,11,20,.85))}
+
+/* ---------- output / color shift tabs ---------- */
+.output{--c1:#0a1822;--c2:#04323a;
+  background:var(--c1);background-image:linear-gradient(180deg,transparent,var(--c2));
+  display:flex;flex-direction:column;align-items:center;overflow:hidden;
+  padding:0 max(2.2vw,18px) clamp(40px,6vw,80px);transition:--c1 .7s var(--ease),--c2 .7s var(--ease)}
+.output h2{margin:clamp(70px,10vw,150px) 0 0;text-align:center;max-width:14ch}
+.output-stage{display:flex;flex-direction:row;flex-wrap:nowrap;width:max-content;will-change:transform}
+.output-stage figure{width:min(40vw,440px);padding:24px 12.5vw;display:grid;place-items:center}
+.output-stage figure img{width:100%;border-radius:16px}
+.out-tabs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:26px}
+.out-tabs button{background:rgba(244,236,224,.10);color:var(--ivoire);border:0;border-radius:999px;
+  padding:.7em 1.25em;font:inherit;font-size:.78rem;font-weight:600;cursor:pointer;transition:.3s}
+.out-tabs button.active{background:var(--ivoire);color:var(--nuit)}
+.out-text{max-width:640px;text-align:center;min-height:90px}
+.out-text p{margin:0;color:var(--ivoire-dim)}
+.output .speedbump{display:flex;align-items:center;justify-content:center;gap:48px;
+  border-top:1px solid rgba(244,236,224,.16);margin-top:42px;padding-top:48px;width:min(80vw,1000px);flex-wrap:wrap}
+.output .speedbump h3{font-family:var(--ff-display);font-weight:300;font-size:clamp(1.5rem,3vw,2.2rem)}
+
+/* ---------- stacking cards ---------- */
+.stack{padding:clamp(20px,3vw,40px) max(2.2vw,18px) 40px;position:relative}
+.stack .head h2{margin-bottom:8px}
+.stack-cards{border:1px solid var(--line-soft);border-radius:0 16px;background:var(--nuit);position:relative;z-index:1}
+.stack-card{display:grid;grid-template-columns:34vw 1fr;gap:clamp(24px,8vw,140px);
+  position:sticky;top:0;background:var(--nuit);border-top:1px solid var(--line-soft);
+  padding-top:32px;transform-origin:center top}
+.stack-card:first-child{border-top:0}
+.stack-card .num{display:grid;place-items:center;border-right:1px solid var(--line-soft);
+  font-family:var(--ff-display);font-weight:300;font-size:clamp(5rem,15vw,15rem);color:var(--or);line-height:.8}
+.stack-card .blk{padding:clamp(40px,7vw,96px) 8vw clamp(40px,7vw,96px) 0}
+.stack-card .blk h3{font-family:var(--ff-display);font-weight:300;font-size:clamp(1.8rem,3.5vw,2.8rem);margin-bottom:18px}
+.stack-card .blk p{color:var(--ivoire-dim)}
+@media(max-width:860px){
+  .stack-card{grid-template-columns:1fr;gap:0;padding:16px}
+  .stack-card .num{border-right:0;place-items:start;font-size:26vw}
+  .stack-card .blk{padding:14px 0}
+}
+
+/* ---------- link list / offres ---------- */
+.linklist{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,80px);
+  padding:clamp(56px,8vw,120px) max(2.2vw,18px);border-top:1px solid var(--line-soft)}
+.linklist .legal{margin-top:18px;color:var(--ivoire-mute)}
+.offer{display:block;border-bottom:1px solid var(--line-soft);padding:26px 0;position:relative}
+.offer .row{display:flex;align-items:baseline;justify-content:space-between;gap:18px}
+.offer h4{font-family:var(--ff-display);font-weight:300;font-size:clamp(1.2rem,2.2vw,1.7rem);
+  transition:color .35s;max-width:80%}
+.offer .price{font-size:.82rem;font-weight:600;color:var(--or);white-space:nowrap}
+.offer:hover h4{color:var(--or)}
+.offer .desc{margin:6px 0 0;color:var(--ivoire-mute);font-size:.85rem}
+.linklist .btn{margin-top:30px}
+@media(max-width:860px){.linklist{grid-template-columns:1fr;gap:30px}}
+
+/* ---------- footer ---------- */
+footer.ft{border-top:1px solid var(--line-soft);display:grid;
+  grid-template-columns:1fr auto;grid-template-areas:"top nav" "logo nav";gap:0 2vw}
+.ft .top{grid-area:top;padding:48px max(2.2vw,18px) 0}
+.ft .top h4{font-family:var(--ff-display);font-weight:300;font-size:clamp(1.3rem,2.4vw,2rem);
+  max-width:620px;line-height:1.25;color:var(--ivoire)}
+.ft .top p{margin-top:14px;color:var(--ivoire-mute);font-size:.82rem}
+.ft .logo{grid-area:logo;padding:80px max(2.2vw,18px) 36px;
+  font-family:var(--ff-display);font-size:clamp(3rem,11vw,9rem);color:var(--ivoire);line-height:.8}
+.ft .logo b{color:var(--or);font-weight:400}
+.ft .nav{grid-area:nav;width:min(26vw,360px)}
+.ft .nav ul{display:grid;grid-template-columns:1fr 1fr;border-left:1px solid var(--line-soft);
+  height:100%;margin:0;padding:0;list-style:none}
+.ft .nav li{grid-column:span 2;border-bottom:1px solid var(--line-soft);text-align:center}
+.ft .nav li:nth-last-child(-n+2){grid-column:span 1}
+.ft .nav li:last-child{border-left:1px solid var(--line-soft)}
+.ft .nav a{display:flex;align-items:center;justify-content:center;padding:30px 0;
+  font-size:.74rem;font-weight:600;width:100%;position:relative}
+.ft .nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:0;background:var(--or);transition:height .18s}
+.ft .nav a:hover::after{height:3px}
+@media(max-width:860px){
+  footer.ft{grid-template-columns:1fr;grid-template-areas:"top" "nav" "logo";gap:40px}
+  .ft .nav{width:100%}
+  .ft .nav ul{border-left:0;border-top:1px solid var(--line-soft)}
+  .ft .logo{padding-top:0}
+}
+
+/* ---------- ananas filigrane ---------- */
+.filigrane{position:fixed;bottom:14px;right:14px;width:34px;opacity:.12;z-index:5;pointer-events:none}
+
+/* ---------- reduced motion / sober ---------- */
+@media (prefers-reduced-motion:reduce){
+  .reveal,.line-mask>span{opacity:1!important;transform:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+body.sober .reveal,body.sober .line-mask>span{opacity:1!important;transform:none!important}
+body.sober .fcards.is-h{height:auto;overflow:visible}
+body.sober .fcards.is-h .fcards-track{flex-direction:column;width:auto;height:auto}
+body.sober .fcards.is-h .fcard{width:auto;height:auto;min-height:60svh;border-right:0;border-bottom:1px solid var(--line-soft)}
+</style>
+</head>
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header class="nav" id="header">
+  <div class="nav-bar">
+    <ul class="nav-left">
+      <li><a href="#hero" class="active">Accueil</a></li>
+      <li><a href="../a-propos/">Société</a></li>
+      <li><a href="../offres/">Offres</a></li>
+    </ul>
+    <a href="#hero" class="brand" aria-label="Pinapp">Pin<b>app</b></a>
+    <ul class="nav-right">
+      <li><a href="../contact/">Contact</a></li>
+      <li><button class="toggle" id="soberToggle" aria-pressed="false">
+        <span class="dot"></span><span class="lbl">Mode sobre</span>
+      </button></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero section" id="hero">
+  <h1 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Le digital qui travaille pendant que vous vivez</h1>
+  <div class="eyebrow-row">
+    <span class="htxt">Vos outils travaillent</span>
+    <span class="ln l"></span>
+    <span class="ln r"></span>
+    <span class="htxt">Vous décidez</span>
+  </div>
+  <figure class="reveal">
+    <img src="../assets/images/voyage/03-cockpit-planete-desktop-v1.png" alt="Vue cockpit Pinapp : une planète vue depuis le vaisseau" fetchpriority="high">
+  </figure>
+  <div class="glow"></div>
+  <div class="wordmark reveal">Pinapp</div>
+</section>
+
+<!-- ===================== STATEMENT 1 ===================== -->
+<section class="statement section">
+  <div class="reveal-wrap">
+    <h2 class="h2 reveal"><b>Nous reconstruisons le digital des indépendants.</b>
+Vos outils ont été conçus pour le bureau. Votre équipe, elle, travaille de partout. Pinapp connecte tout, automatise le reste, et vous rend vos heures — sans jargon, sans agence fantôme.</h2>
+    <div class="reveal"><a href="../contact/" class="btn">Premier échange offert <span class="arrow">→</span></a></div>
+  </div>
+</section>
+
+<!-- ===================== BENEFITS ===================== -->
+<section class="benefits section">
+  <div class="big js-lines">
+    <span class="line-mask"><span>Le digital</span></span>
+    <span class="line-mask"><span>qui travaille</span></span>
+    <span class="line-mask"><span>pendant que vous vivez</span></span>
+  </div>
+  <div class="benefits-wrap">
+    <figure class="reveal"><img src="../assets/images/voyage/04-pod-voie-lactee-desktop-v1.png" alt="Pod Pinapp devant la voie lactée"></figure>
+    <div class="list">
+      <ul class="benefits-list">
+        <li class="reveal"><span class="ic">◇</span><div><h3>Pensé pour toutes les tailles d'entreprise</h3></div></li>
+        <li class="reveal"><span class="ic">⬡</span><div><h3>Stack 100% européen, zéro outil superflu</h3></div></li>
+        <li class="reveal"><span class="ic">↺</span><div><h3>Vous gardez la main — documentation incluse, satisfait ou remboursé 30 jours</h3></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROCESS (accordion) ===================== -->
+<section class="process section" id="proc">
+  <div class="left">
+    <div class="head">
+      <h2 class="h2 reveal"><b>Quatre expertises.</b><br>Un seul résultat.</h2>
+    </div>
+    <div class="items">
+      <ul class="proc-items">
+        <li data-pic="0" class="active">
+          <div class="tog"><span class="name">Sites &amp; vitrines</span><span class="price">dès 1 290 € HT</span><span class="plus"></span></div>
+          <div class="body"><div class="mpic"><img src="../assets/images/monde-super-heros.webp" alt=""></div><p>Un site rapide, soigné, que vous partagez fièrement. Livré, pas promis — généralement sous 7 jours.</p></div>
+        </li>
+        <li data-pic="1">
+          <div class="tog"><span class="name">Automatisation</span><span class="price">dès 490 € HT</span><span class="plus"></span></div>
+          <div class="body"><div class="mpic"><img src="../assets/images/voyage/02-corridor-desktop.png" alt=""></div><p>Devis, factures, relances, RDV : générés pendant que vous êtes sur le terrain. Une seule source de vérité.</p></div>
+        </li>
+        <li data-pic="2">
+          <div class="tog"><span class="name">IA sur-mesure</span><span class="price">dès 890 € HT</span><span class="plus"></span></div>
+          <div class="body"><div class="mpic"><img src="../assets/images/voyage/03-cockpit-planete-desktop-v2.png" alt=""></div><p>Une IA entraînée sur vos données, vos mots. Elle répond pendant que vous vivez. Livrée sous 48h.</p></div>
+        </li>
+        <li data-pic="3">
+          <div class="tog"><span class="name">Vidéo &amp; image</span><span class="price">Pack Duo</span><span class="plus"></span></div>
+          <div class="body"><div class="mpic"><img src="../assets/images/monde-sakura-kai.webp" alt=""></div><p>Micha crée les visuels qui font ressentir ce que les mots ne disent pas. Direction artistique, shooting, branding Adobe.</p></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="right">
+    <div class="pic on" data-pic="0"><img src="../assets/images/monde-super-heros.webp" alt="Démo site secteur">
+      <div class="cap"><h3>Sites &amp; vitrines</h3><p class="muted small">Un site que vous partagez fièrement.</p></div></div>
+    <div class="pic" data-pic="1"><img src="../assets/images/voyage/02-corridor-desktop.png" alt="Corridor des métiers Pinapp">
+      <div class="cap"><h3>Automatisation</h3><p class="muted small">Vos process tournent pendant que vous êtes ailleurs.</p></div></div>
+    <div class="pic" data-pic="2"><img src="../assets/images/voyage/03-cockpit-planete-desktop-v2.png" alt="IA Pinapp">
+      <div class="cap"><h3>IA sur-mesure</h3><p class="muted small">Elle répond avec vos mots, vos données.</p></div></div>
+    <div class="pic" data-pic="3"><img src="../assets/images/monde-sakura-kai.webp" alt="Direction artistique Pinapp">
+      <div class="cap"><h3>Vidéo &amp; image</h3><p class="muted small">L'image à la hauteur de votre travail.</p></div></div>
+  </div>
+</section>
+
+<!-- ===================== INTRO PRODUCT ===================== -->
+<section class="intro-product section">
+  <div class="txt">
+    <span class="eyebrow reveal">Le pack signature</span>
+    <h2 class="big reveal">Pack <span class="hl">Duo</span></h2>
+  </div>
+  <figure class="reveal"><img src="../assets/images/voyage/06-bridge-lune-desktop-v1.png" alt="Bridge lune — Pack Duo Pinapp"></figure>
+  <div class="glow cyan"></div>
+</section>
+
+<!-- ===================== FEATURE CARDS (horizontal) ===================== -->
+<section class="fcards section" id="fcards">
+  <div class="fcards-track">
+    <article class="fcard text">
+      <div class="blk">
+        <h3>Pack Complet Duo</h3>
+        <p>Un interlocuteur. Deux expertises. De votre site à votre IA, de vos visuels à vos automatisations — clé en main.</p>
+      </div>
+      <p class="tag">Site + automatisation + IA + shooting + branding</p>
+    </article>
+    <article class="fcard media">
+      <p class="top tag">Un interlocuteur</p>
+      <figure><img src="../assets/images/voyage/05-warp-desktop.png" alt=""></figure>
+      <p class="bot tag">Lauralie + Micha. Une seule équipe, jamais de sous-traitance.</p>
+    </article>
+    <article class="fcard media">
+      <p class="top tag">Deux expertises</p>
+      <figure><img src="../assets/images/voyage/04-pod-voie-lactee-desktop-v2.png" alt=""></figure>
+      <p class="bot tag">Systèmes &amp; IA d'un côté, direction artistique &amp; image de l'autre.</p>
+    </article>
+    <article class="fcard media">
+      <p class="top tag">Clé en main</p>
+      <figure><img src="../assets/images/voyage/06-bridge-lune-desktop-v2.png" alt=""></figure>
+      <p class="bot tag">Zéro coordination à gérer. Environ 1 600 € économisés vs. séparé.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ===================== OUTPUT / COLOR-SHIFT TABS ===================== -->
+<section class="output section" id="output">
+  <h2 class="h2 display reveal">Le résultat ? Des outils qui bossent pour vous.</h2>
+  <div class="output-stage" id="outStage">
+    <figure data-tab="0"><img src="../assets/images/voyage/03-cockpit-planete-desktop-v1.png" alt="Sites & vitrines Pinapp"></figure>
+    <figure data-tab="1"><img src="../assets/images/voyage/03-cockpit-planete-desktop-v2.png" alt="Automatisations Pinapp"></figure>
+    <figure data-tab="2"><img src="../assets/images/voyage/03-cockpit-planete-desktop-v3.png" alt="IA sur-mesure Pinapp"></figure>
+  </div>
+  <div class="out-tabs" id="outTabs">
+    <button class="active" data-tab="0">Sites &amp; vitrines</button>
+    <button data-tab="1">Automatisations</button>
+    <button data-tab="2">IA sur-mesure</button>
+  </div>
+  <div class="out-text" id="outText">
+    <p>Un site rapide, soigné, que vous partagez fièrement. Livré en 7 jours, et qui vous ressemble.</p>
+  </div>
+  <div class="speedbump">
+    <h3>On en parle ? Le premier échange est offert.</h3>
+    <a href="../contact/" class="btn">Nous écrire <span class="arrow">→</span></a>
+  </div>
+</section>
+
+<!-- ===================== STATEMENT 2 (mission) ===================== -->
+<section class="statement section divider-top">
+  <h2 class="h2 reveal"><b>Notre mission est simple.</b>
+La technologie doit servir les gens, pas les remplacer. On a construit ces outils pour nous d'abord — pour gérer notre propre complexité. Aujourd'hui, on les construit pour vous.</h2>
+  <div class="reveal"><a href="../a-propos/" class="btn ghost">Notre société <span class="arrow">→</span></a></div>
+</section>
+
+<!-- ===================== STACKING CARDS ===================== -->
+<section class="stack section" id="stack">
+  <div class="head reveal"><h2 class="h2 display">Bénéfices</h2></div>
+  <div class="stack-cards">
+    <div class="stack-card">
+      <div class="num">01</div>
+      <div class="blk"><h3>Vos heures</h3><p>Vous payez des outils pensés pour le bureau pendant que votre équipe court partout. Récupérez vos heures : l'IA répond, les relances partent seules, les factures se génèrent à la signature.</p></div>
+    </div>
+    <div class="stack-card">
+      <div class="num">02</div>
+      <div class="blk"><h3>Votre indépendance</h3><p>Stack 100% européen, sobre, sans abonnement superflu. Vous gardez tout : code, accès, données. Documentation incluse — vous êtes autonomes, pas captifs.</p></div>
+    </div>
+    <div class="stack-card">
+      <div class="num">03</div>
+      <div class="blk"><h3>Votre image</h3><p>Un site et des visuels dont vous n'avez plus honte. Direction artistique, shooting, branding : l'image à la hauteur de votre travail, partagée fièrement.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== OFFRES / LINK LIST ===================== -->
+<section class="linklist section">
+  <div class="head">
+    <h2 class="h2 display reveal">Nos offres</h2>
+    <p class="legal small reveal">Prix HT · TVA non applicable art. 293 B CGI · Paiement sur livrable · Satisfait ou remboursé 30 jours.</p>
+  </div>
+  <div class="list">
+    <a href="../offres/" class="offer reveal"><div class="row"><h4>Site Vitrine — livré sous 7 jours</h4><span class="price">1 290 € HT</span></div></a>
+    <a href="../offres/" class="offer reveal"><div class="row"><h4>Automatisation Messages — entrée de gamme</h4><span class="price">490 € HT</span></div><p class="desc">~1 jour/mois récupéré</p></a>
+    <a href="../offres/" class="offer reveal"><div class="row"><h4>IA sur-mesure — livrée sous 48h</h4><span class="price">890 € HT</span></div></a>
+    <a href="../offres/" class="offer reveal"><div class="row"><h4>Système Complet — sur devis</h4><span class="price">dès 2 400 € HT</span></div></a>
+    <a href="../offres/" class="offer reveal"><div class="row"><h4>Pack Duo Lauralie + Micha</h4><span class="price">dès 3 900 € HT</span></div><p class="desc">~1 600 € économisés vs séparé</p></a>
+    <a href="../offres/" class="btn reveal">Voir toutes les offres <span class="arrow">→</span></a>
+  </div>
+</section>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="ft">
+  <div class="top">
+    <h4>Connecter. Construire. Transmettre.</h4>
+    <p>© 2026 Pinapp Inc. · Lauralie &amp; Micha · Prix HT · TVA non applicable art. 293 B CGI</p>
+  </div>
+  <div class="logo">Pin<b>app</b></div>
+  <div class="nav">
+    <ul>
+      <li><a href="#hero">Accueil</a></li>
+      <li><a href="../a-propos/">Société</a></li>
+      <li><a href="../offres/">Offres</a></li>
+      <li><a href="../contact/">Contact</a></li>
+      <li><a href="https://www.linkedin.com/" rel="noopener noreferrer" target="_blank">LinkedIn</a></li>
+      <li><a href="../mentions-legales/">Mentions légales</a></li>
+    </ul>
+  </div>
+</footer>
+
+<img class="filigrane" src="../assets/images/ananas-filigrane.svg" alt="" aria-hidden="true">
+
+<!-- ===================== VENDORS ===================== -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+(function(){
+  "use strict";
+  var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var SMALL  = window.matchMedia('(max-width: 860px)').matches;
+  var sober  = localStorage.getItem('pinapp-sober') === '1';
+  var hasGSAP = window.gsap && window.ScrollTrigger;
+  if (hasGSAP) gsap.registerPlugin(ScrollTrigger);
+
+  /* ---------- mode sobre toggle ---------- */
+  var soberBtn = document.getElementById('soberToggle');
+  function applySober(){
+    document.body.classList.toggle('sober', sober);
+    soberBtn.setAttribute('aria-pressed', String(sober));
+    soberBtn.querySelector('.lbl').textContent = sober ? 'Mode immersif' : 'Mode sobre';
+  }
+  applySober();
+  soberBtn.addEventListener('click', function(){
+    sober = !sober;
+    localStorage.setItem('pinapp-sober', sober ? '1' : '0');
+    location.reload(); // re-init clean (ScrollTrigger teardown is heavy otherwise)
+  });
+
+  var IMMERSIVE = hasGSAP && !REDUCE && !sober;
+
+  /* ---------- Lenis smooth scroll ---------- */
+  var lenis = null;
+  if (IMMERSIVE && window.Lenis){
+    lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function(t){ lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  /* ---------- header hide on scroll down ---------- */
+  var header = document.getElementById('header'), lastY = 0;
+  function onScrollHeader(y){
+    if (y > lastY && y > 200) header.classList.add('hide');
+    else header.classList.remove('hide');
+    lastY = y;
+  }
+  if (lenis) lenis.on('scroll', function(e){ onScrollHeader(e.scroll); });
+  else window.addEventListener('scroll', function(){ onScrollHeader(window.scrollY); }, {passive:true});
+
+  /* ---------- hero pre-anim ---------- */
+  if (IMMERSIVE){
+    gsap.from('.hero figure', {y:40, opacity:0, duration:1.2, ease:'power3.out', delay:.1});
+    gsap.from('.hero .wordmark', {y:60, opacity:0, duration:1.3, ease:'power3.out', delay:.25});
+    gsap.from('.hero .eyebrow-row', {opacity:0, duration:1, delay:.5});
+    // hero parallax
+    gsap.to('.hero figure', {yPercent:-12, ease:'none',
+      scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:true}});
+    gsap.to('.hero .wordmark', {yPercent:18, ease:'none',
+      scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:true}});
+  }
+
+  /* ---------- generic reveal ---------- */
+  if (IMMERSIVE){
+    gsap.utils.toArray('.reveal').forEach(function(el){
+      ScrollTrigger.create({
+        trigger: el, start:'top 88%',
+        onEnter: function(){ el.classList.add('is-in'); }
+      });
+    });
+    // line masks
+    gsap.utils.toArray('.js-lines, .line-mask').forEach(function(el){
+      var host = el.classList.contains('js-lines') ? el : el;
+      ScrollTrigger.create({
+        trigger: el, start:'top 85%',
+        onEnter: function(){ el.classList.add('is-in'); }
+      });
+    });
+  } else {
+    document.querySelectorAll('.reveal,.js-lines,.line-mask').forEach(function(el){ el.classList.add('is-in'); });
+  }
+
+  /* ---------- process accordion ---------- */
+  (function(){
+    var items = Array.prototype.slice.call(document.querySelectorAll('.proc-items li'));
+    var pics  = Array.prototype.slice.call(document.querySelectorAll('.process .right .pic'));
+    function setBody(li, open){
+      var body = li.querySelector('.body');
+      body.style.maxHeight = open ? (body.scrollHeight + 'px') : '0px';
+    }
+    items.forEach(function(li){
+      setBody(li, li.classList.contains('active'));
+      li.querySelector('.tog').addEventListener('click', function(){
+        var idx = li.getAttribute('data-pic');
+        items.forEach(function(o){ o.classList.remove('active'); setBody(o, false); });
+        li.classList.add('active'); setBody(li, true);
+        pics.forEach(function(p){ p.classList.toggle('on', p.getAttribute('data-pic') === idx); });
+      });
+    });
+  })();
+
+  /* ---------- feature cards horizontal pin ---------- */
+  (function(){
+    var sec = document.getElementById('fcards');
+    var track = sec.querySelector('.fcards-track');
+    if (!IMMERSIVE || SMALL){ return; } // vertical fallback by CSS
+    sec.classList.add('is-h');
+    var getX = function(){ return track.scrollWidth - window.innerWidth; };
+    gsap.to(track, {
+      x: function(){ return -getX(); },
+      ease:'none',
+      scrollTrigger:{
+        trigger: sec, start:'top top', pin:true, scrub:1, invalidateOnRefresh:true,
+        end: function(){ return '+=' + getX(); }
+      }
+    });
+  })();
+
+  /* ---------- output : color shift tabs + horizontal drift ---------- */
+  (function(){
+    var sec = document.getElementById('output');
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('#outTabs button'));
+    var stage = document.getElementById('outStage');
+    var outText = document.getElementById('outText').querySelector('p');
+    var palette = [
+      {c1:'#08161f', c2:'#063b42', txt:"Un site rapide, soigné, que vous partagez fièrement. Livré en 7 jours, et qui vous ressemble."},
+      {c1:'#1a1408', c2:'#4a3410', txt:"Vos devis, factures et relances tournent seuls. ~1 jour/mois récupéré dès l'entrée de gamme."},
+      {c1:'#120a22', c2:'#34215e', txt:"Une IA entraînée sur vos données qui répond pendant que vous êtes ailleurs. Livrée sous 48h."}
+    ];
+    function select(i){
+      tabs.forEach(function(b,k){ b.classList.toggle('active', k===i); });
+      var p = palette[i];
+      if (window.gsap){ gsap.to(sec, {'--c1':p.c1, '--c2':p.c2, duration:.65, ease:'power2.out'}); }
+      else { sec.style.setProperty('--c1', p.c1); sec.style.setProperty('--c2', p.c2); }
+      outText.textContent = p.txt;
+      // center the matching figure
+      var fig = stage.querySelector('figure[data-tab="'+i+'"]');
+      if (fig){
+        if (IMMERSIVE && !SMALL){
+          var target = fig.offsetLeft + fig.offsetWidth/2 - window.innerWidth/2;
+          gsap.to(stage, {x: -target, duration:.7, ease:'power2.out'});
+        } else {
+          fig.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+        }
+      }
+    }
+    tabs.forEach(function(b,i){ b.addEventListener('click', function(){ select(i); }); });
+    // init colors
+    sec.style.setProperty('--c1', palette[0].c1);
+    sec.style.setProperty('--c2', palette[0].c2);
+  })();
+
+  /* ---------- stacking cards scale ---------- */
+  (function(){
+    if (!IMMERSIVE || SMALL) return;
+    var cards = gsap.utils.toArray('.stack-card');
+    cards.forEach(function(card, i){
+      if (i === cards.length - 1) return;
+      gsap.to(card, {
+        scale:.92, filter:'brightness(.7)', ease:'none',
+        scrollTrigger:{ trigger: card, start:'top top', end:'bottom top', scrub:true }
+      });
+    });
+  })();
+
+  /* ---------- refresh after images load ---------- */
+  window.addEventListener('load', function(){ if (hasGSAP) ScrollTrigger.refresh(); });
+})();
+</script>
+</body>
+</html>
