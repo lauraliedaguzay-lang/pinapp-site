@@ -89,6 +89,25 @@ section{position:relative}
 .plan-cap .eyebrow{display:block;margin-bottom:1rem}
 .plan-cap h2{font-family:var(--serif);font-size:clamp(2.2rem,6vw,5rem);text-shadow:0 2px 50px rgba(0,0,0,.6)}
 .plan-cap p{color:var(--cream-dim);margin-top:1rem;max-width:30rem;margin-left:auto;margin-right:auto;font-size:.9rem}
+.plan-stage-ind{display:flex;align-items:baseline;gap:.8rem;justify-content:center;margin-bottom:1.1rem}
+.plan-stage-ind .n{font-family:var(--serif);font-style:italic;font-size:2.4rem;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+.plan-stage-ind .t{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--cream-dim)}
+
+/* index chapitres (esprit terminal) */
+.chapters{position:fixed;right:1.5rem;top:50%;transform:translateY(-50%);z-index:55;display:flex;flex-direction:column;gap:1rem}
+.chapters button{background:none;border:0;cursor:pointer;display:flex;align-items:center;gap:.6rem;color:var(--cream-mute);font:inherit;font-size:.56rem;letter-spacing:.14em;font-variant-numeric:tabular-nums;opacity:.5;transition:opacity .4s,color .4s}
+.chapters button .bar{width:16px;height:1px;background:currentColor;transition:width .4s}
+.chapters button .lab{text-transform:uppercase;opacity:0;transform:translateX(6px);transition:.4s;max-width:0;overflow:hidden;white-space:nowrap}
+.chapters button.active{opacity:1;color:var(--gold)}
+.chapters button.active .bar{width:34px}
+.chapters button.active .lab{opacity:1;transform:none;max-width:120px}
+.chapters button:hover{opacity:1}
+@media(max-width:900px){.chapters{display:none}}
+
+/* curseur sur-mesure */
+.cursor{position:fixed;top:0;left:0;width:30px;height:30px;border:1px solid rgba(200,168,122,.6);border-radius:50%;pointer-events:none;z-index:200;transform:translate(-50%,-50%);transition:width .3s,height .3s,background .3s,border-color .3s;mix-blend-mode:difference;will-change:transform}
+.cursor.big{width:62px;height:62px;background:rgba(200,168,122,.12);border-color:transparent}
+@media(max-width:900px),(pointer:coarse){.cursor{display:none}}
 
 /* featured full-bleed */
 .featured{height:100svh;min-height:600px;overflow:hidden;display:flex;align-items:flex-end}
@@ -169,6 +188,8 @@ footer.ft .cc{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;colo
 </style>
 </head>
 <body>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+<nav class="chapters" id="chapters" aria-label="Chapitres"></nav>
 
 <nav class="nav" id="nav">
   <a href="#top" class="logo">Atelier <span>Rivage</span></a>
@@ -219,6 +240,7 @@ footer.ft .cc{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;colo
       <line data-draw x1="850" y1="350" x2="850" y2="470"/>
     </svg>
     <div class="plan-cap">
+      <div class="plan-stage-ind"><span class="n" id="planN">01</span><span class="t" id="planT">Le trait</span></div>
       <span class="eyebrow">Du plan à la réalité</span>
       <h2 class="serif">Chaque ligne<br>devient un <em>lieu.</em></h2>
       <p>Du premier trait à la pierre posée — on dessine, on bâtit, on habite.</p>
@@ -238,7 +260,7 @@ footer.ft .cc{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;colo
 </section>
 
 <!-- SÉLECTION -->
-<section class="block"><div class="wrap">
+<section class="block" id="selection"><div class="wrap">
   <div class="sel-head">
     <div><span class="eyebrow" data-rv>La sélection</span><h2 data-rv style="margin-top:.8rem">Dix demeures,<br>un même geste.</h2></div>
     <p data-rv>Chaque projet est unique. Tous partagent la même exigence : des volumes justes, des matériaux nobles, une lumière maîtrisée.</p>
@@ -413,7 +435,11 @@ document.documentElement.classList.add('js');
     if(plan){
       var wires=[].slice.call(plan.querySelectorAll('.plan-wire [data-draw]'));
       wires.forEach(function(p){var len=400;try{len=p.getTotalLength();}catch(e){}p.style.strokeDasharray=len;p.style.strokeDashoffset=len;});
-      var ptl=gsap.timeline({scrollTrigger:{trigger:plan,start:'top top',end:'bottom bottom',scrub:1}});
+      var ptl=gsap.timeline({scrollTrigger:{trigger:plan,start:'top top',end:'bottom bottom',scrub:1,onUpdate:function(self){
+        var p=self.progress;var st=p<.4?['01','Le trait']:(p<.78?['02','La structure']:['03','Le bâti']);
+        var nE=document.getElementById('planN'),tE=document.getElementById('planT');
+        if(nE&&nE.textContent!==st[0]){nE.textContent=st[0];tE.textContent=st[1];}
+      }}});
       ptl.to(wires,{strokeDashoffset:0,stagger:.06,ease:'none'},0);
       ptl.fromTo('.plan-photo',{opacity:0,scale:1.14,filter:'blur(10px)'},{opacity:.78,scale:1,filter:'blur(0px)',ease:'none'},.42);
       ptl.to('.plan-wire',{opacity:.22,ease:'none'},.62);
@@ -431,7 +457,27 @@ document.documentElement.classList.add('js');
     var open=nav.getAttribute('data-open')==='1';nav.setAttribute('data-open',open?'0':'1');
     document.querySelectorAll('.nlinks a:not(.back)').forEach(function(a){a.style.display=open?'':'inline';});
   });
-  addEventListener('load',function(){if(hasGSAP)ScrollTrigger.refresh();});
+
+  // index chapitres (esprit terminal) — numéroté, suit le scroll
+  var chapters=[{id:'plan',n:'01',t:'Le geste'},{id:'projets',n:'02',t:'Projets'},{id:'selection',n:'03',t:'Sélection'},{id:'approche',n:'04',t:'Approche'},{id:'studio',n:'05',t:'Studio'},{id:'contact',n:'06',t:'Contact'}];
+  var chEl=document.getElementById('chapters');
+  chapters.forEach(function(c){var b=document.createElement('button');b.setAttribute('aria-label',c.n+' '+c.t);
+    b.innerHTML='<span class="bar"></span><span>'+c.n+'</span><span class="lab">'+c.t+'</span>';
+    b.onclick=function(){var t=document.getElementById(c.id);if(t)t.scrollIntoView({behavior:'smooth'});};
+    chEl.appendChild(b);});
+  function activeChapter(){var mid=innerHeight*0.42,best=0;chapters.forEach(function(c,i){var t=document.getElementById(c.id);if(t&&t.getBoundingClientRect().top<=mid)best=i;});
+    [].slice.call(chEl.children).forEach(function(b,i){b.classList.toggle('active',i===best);});}
+  addEventListener('scroll',activeChapter,{passive:true}); activeChapter();
+
+  // curseur sur-mesure
+  (function(){if(matchMedia('(max-width:900px)').matches||matchMedia('(pointer:coarse)').matches)return;
+    var c=document.getElementById('cursor');if(!c)return;var x=innerWidth/2,y=innerHeight/2,cx=x,cy=y;
+    addEventListener('mousemove',function(e){x=e.clientX;y=e.clientY;},{passive:true});
+    document.querySelectorAll('a,button,.proj,.igrid figure').forEach(function(el){el.addEventListener('mouseenter',function(){c.classList.add('big');});el.addEventListener('mouseleave',function(){c.classList.remove('big');});});
+    (function loop(){cx+=(x-cx)*.2;cy+=(y-cy)*.2;c.style.transform='translate('+cx+'px,'+cy+'px) translate(-50%,-50%)';requestAnimationFrame(loop);})();
+  })();
+
+  addEventListener('load',function(){if(hasGSAP)ScrollTrigger.refresh();activeChapter();});
 })();
 </script>
 </body>
