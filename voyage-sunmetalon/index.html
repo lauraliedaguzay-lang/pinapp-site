@@ -116,7 +116,12 @@ body.sober .sober-toggle .dot{background:var(--smoked-gray);box-shadow:none}
     radial-gradient(ellipse at 20% 30%,rgba(141,106,216,.10) 0%,transparent 50%),
     radial-gradient(ellipse at 80% 70%,rgba(109,143,234,.08) 0%,transparent 50%),
     linear-gradient(180deg,var(--graphite) 0%,var(--smoked) 100%)}
-.hero-mesh .inner{max-width:1100px}
+.hero-mesh .inner{max-width:1100px;position:relative;z-index:1}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.42;filter:saturate(.95)}
+.hero-overlay{position:absolute;inset:0;z-index:0;
+  background:linear-gradient(180deg,rgba(17,18,20,.55) 0%,rgba(17,18,20,.82) 100%),
+    radial-gradient(ellipse at 30% 25%,rgba(141,106,216,.20),transparent 60%)}
+.hero-mesh .scroll-hint{z-index:1}
 .hero-mesh .e1{margin-bottom:.6rem}
 .hero-mesh .e2{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;opacity:.5;margin-bottom:2.4rem}
 .hero-mesh h1{font-size:clamp(2.6rem,6.5vw,5.5rem);font-weight:600;line-height:1.04;letter-spacing:-.035em;margin-bottom:2rem}
@@ -344,6 +349,8 @@ body.sober .mcursor{display:none}
 
 <!-- ===================== HERO ===================== -->
 <section class="hero-mesh grain">
+  <video class="hero-video" src="avalon/videos/2-1-constellation.mp4" poster="avalon/frames/2-1-constellation.png" autoplay muted loop playsinline preload="auto"></video>
+  <div class="hero-overlay"></div>
   <div class="inner">
     <div class="eyebrow e1" data-reveal="fade-up">PINAPP INC · BORDEAUX · 2026</div>
     <div class="e2" data-reveal="fade-up">STUDIO DIGITAL · SITES + AUTOMATISATIONS + FILMS IA</div>
@@ -569,7 +576,11 @@ body.sober .mcursor{display:none}
   var sober=localStorage.getItem('pinapp-sober')==='1';
   var hasGSAP=window.gsap&&window.ScrollTrigger;
   if(hasGSAP)gsap.registerPlugin(ScrollTrigger);
-  var IMMERSIVE=hasGSAP&&!REDUCE&&!sober;
+  // Voyage cinématique = défaut. "Mode sobre" (clic) = opt-out accessible.
+  // (on ne désactive plus tout automatiquement sur prefers-reduced-motion :
+  //  une vitrine doit montrer les vidéos + transitions par défaut)
+  var IMMERSIVE=hasGSAP&&!sober;
+  void REDUCE;
 
   /* ---- mode sobre ---- */
   var sb=document.getElementById('soberToggle');
