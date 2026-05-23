@@ -11,10 +11,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script>document.documentElement.classList.add('js')</script>
-<!-- PINAPP — contenu réel sur fonds vidéo/photo (assets fournis uniquement).
-     Texte en widgets glassmorphism Apple qui dansent au scroll. Scroll réduit. -->
+<!-- PINAPP — fond unique fixe en FONDU ENCHAÎNÉ (vos vidéos/photos uniquement).
+     Contenu en widgets glass Apple qui dansent. Aucune barre, tout s'enchaîne. -->
 <style>
-:root{--graphite:#111214;--smoked:#1A1A1D;--ivory:#F4F1EA;--smoked-gray:#7A746D;--champagne:#B8ADA1;
+:root{--graphite:#0d0e11;--smoked:#1A1A1D;--ivory:#F4F1EA;--smoked-gray:#7A746D;--champagne:#B8ADA1;
 --violet:#8E6AD8;--periwinkle:#6D8FEA;--lavender:#A88BE0;
 --border:rgba(255,255,255,.14);--ease-apple:cubic-bezier(.32,.72,0,1);--ease-out-expo:cubic-bezier(.16,1,.3,1);
 --ff:"Geist",-apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif;--maxw:1180px}
@@ -28,35 +28,37 @@ a,button{transition:transform .4s var(--ease-apple),background .3s,color .3s,bor
 .grad{background:linear-gradient(135deg,var(--violet),var(--periwinkle));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .eyebrow{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--periwinkle)}.muted{opacity:.82}.peri{color:var(--periwinkle)}
 .lead{font-size:clamp(1rem,1.35vw,1.16rem);opacity:.9;line-height:1.6}
+
+/* ===== FOND UNIQUE FIXE · fondu enchaîné (vos assets) ===== */
+#bgstage{position:fixed;inset:0;z-index:-2;overflow:hidden;background:var(--graphite)}
+.bglayer{position:absolute;inset:0;opacity:0;transition:opacity 1.25s var(--ease-apple);will-change:opacity}
+.bglayer.active{opacity:1}
+.bglayer img,.bglayer video{width:100%;height:100%;object-fit:cover}
+.bglayer.active img,.bglayer.active video{animation:kb 20s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1.04) translateY(0)}to{transform:scale(1.16) translateY(-2%)}}
+#bgveil{position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(8,9,13,.52),rgba(8,9,13,.72)),radial-gradient(ellipse at 28% 22%,rgba(141,106,216,.16),transparent 60%);}
+#bggrain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ===== sections (transparentes, glissent sur le fond) ===== */
+.vsec{position:relative;z-index:1;display:flex;align-items:center;padding:clamp(4rem,8vw,7rem) clamp(1.2rem,5vw,4rem)}
+.vsec.full{min-height:100svh}
+.vsec-inner{width:100%;max-width:var(--maxw);margin:0 auto}
+.head h2{font-size:clamp(1.9rem,4vw,3rem)}.head .eyebrow{display:block;margin-bottom:.9rem}.head{margin-bottom:1.6rem}.head .lead{margin-top:.7rem;max-width:46rem}
+.center{text-align:center}.center .head .lead{margin-left:auto;margin-right:auto}.center .cta-row{justify-content:center}
 .btn{display:inline-flex;align-items:center;gap:.5em;background:var(--ivory);color:var(--graphite);border:0;border-radius:999px;padding:.95rem 1.9rem;font:inherit;font-size:.92rem;font-weight:600;cursor:pointer}
 .btn:hover{background:linear-gradient(135deg,var(--violet),var(--periwinkle));color:var(--ivory);transform:translateY(-2px)}
 .btn.ghost{background:rgba(255,255,255,.08);color:var(--ivory);border:1px solid var(--border);font-weight:500}.btn.ghost:hover{background:rgba(141,106,216,.2);border-color:var(--violet)}
 .btn .a{transition:transform .35s var(--ease-apple)}.btn:hover .a{transform:translateX(4px)}
 .cta-row{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.2rem}
 
-/* ===== sections à fond vidéo/photo (assets réels) ===== */
-.vsec{position:relative;overflow:hidden;display:flex;align-items:center;padding:clamp(4rem,8vw,7rem) clamp(1.2rem,5vw,4rem)}
-.vsec.full{min-height:100svh}
-.vsec-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
-.vsec-bg img,.vsec-bg video{width:100%;height:108%;object-fit:cover;will-change:transform}
-.vsec-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,10,15,.52),rgba(8,10,15,.72)),radial-gradient(ellipse at 28% 22%,rgba(141,106,216,.16),transparent 60%)}
-.vsec-bg .tint{position:absolute;inset:0;mix-blend-mode:soft-light;background:linear-gradient(120deg,rgba(141,106,216,.22),rgba(109,143,234,.12))}
-.vsec-inner{position:relative;z-index:1;width:100%;max-width:var(--maxw);margin:0 auto}
-.grain::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.04;z-index:2;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");mix-blend-mode:overlay}
-.head h2{font-size:clamp(1.9rem,4vw,3rem)}.head .eyebrow{display:block;margin-bottom:.9rem}.head{margin-bottom:1.6rem}.head .lead{margin-top:.7rem;max-width:46rem}
-.center{text-align:center}.center .head .lead{margin-left:auto;margin-right:auto}.center .cta-row{justify-content:center}
-
-/* ===== WIDGET glassmorphism Apple ===== */
-.widget{background:linear-gradient(135deg,rgba(255,255,255,.11),rgba(255,255,255,.04));
-  backdrop-filter:blur(30px) saturate(1.4);-webkit-backdrop-filter:blur(30px) saturate(1.4);
-  border:1px solid var(--border);border-radius:24px;box-shadow:0 10px 50px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.18);
-  padding:1.7rem 1.9rem}
+/* ===== WIDGET glass Apple ===== */
+.widget{background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.045));backdrop-filter:blur(32px) saturate(1.4);-webkit-backdrop-filter:blur(32px) saturate(1.4);border:1px solid var(--border);border-radius:24px;box-shadow:0 12px 54px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.2);padding:1.7rem 1.9rem}
 .widget.tight{padding:1.3rem 1.4rem}
 .widget h1{font-size:clamp(2.4rem,5.6vw,4.6rem);font-weight:600;line-height:1.04;letter-spacing:-.035em}
-.widget h2{font-size:clamp(1.7rem,3.4vw,2.6rem)}
-.widget h3{font-size:1.2rem;margin-bottom:.4rem}
+.widget h2{font-size:clamp(1.7rem,3.4vw,2.6rem)}.widget h3{font-size:1.2rem;margin-bottom:.4rem}
 .widget .e2{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;opacity:.6;margin-bottom:1rem}
-.widget .sub{margin-top:.9rem;opacity:.9;line-height:1.55;font-size:clamp(.98rem,1.3vw,1.12rem)}
+.widget .sub{margin-top:.9rem;opacity:.92;line-height:1.55;font-size:clamp(.98rem,1.3vw,1.12rem)}
 .hero-widget{max-width:760px}
 .dot-pulse{display:inline-block;width:9px;height:9px;border-radius:50%;vertical-align:middle;margin-left:.4em;background:linear-gradient(135deg,var(--violet),var(--periwinkle));box-shadow:0 0 24px rgba(141,106,216,.4);animation:pulse 3s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.7;transform:scale(.92)}}
@@ -64,23 +66,22 @@ a,button{transition:transform .4s var(--ease-apple),background .3s,color .3s,bor
 @media(max-width:760px){.wgrid.g2{grid-template-columns:1fr}}
 .chips{display:flex;gap:.55rem;flex-wrap:wrap;margin-top:1rem}.chip{border:1px solid var(--border);background:rgba(255,255,255,.06);padding:.5rem 1rem;border-radius:999px;font-size:.8rem}.chip b{color:var(--periwinkle)}
 .statline{display:flex;gap:2rem;flex-wrap:wrap;margin-top:1rem}.statline .n{font-size:clamp(1.6rem,3.2vw,2.4rem);font-weight:700}.statline .l{font-size:.74rem;opacity:.72}
-.plist{display:flex;flex-direction:column;gap:.5rem;margin-top:.9rem}.plist .p{display:flex;gap:.55rem;font-size:.9rem}.plist .p .c{color:var(--periwinkle);flex:0 0 auto}
 .idx{font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;color:var(--periwinkle);font-weight:500;margin-bottom:.7rem}
 .link{display:inline-block;margin-top:.9rem;font-size:.82rem;color:var(--periwinkle);border-bottom:1px solid rgba(109,143,234,.4);padding-bottom:2px}
 .pr{font-size:1.5rem;font-weight:700;margin:.3rem 0 .7rem}.pr s{opacity:.5;font-size:.85rem;font-weight:400}.pr .new{color:var(--periwinkle)}
 .feat ul{list-style:none;margin:.5rem 0}.feat ul li{padding:.35rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:.82rem;display:flex;gap:.5rem}.feat ul li:last-child{border-bottom:0}.feat ul li::before{content:"✓";color:var(--periwinkle)}
-.widget.featured{border-color:rgba(141,106,216,.4);box-shadow:0 10px 50px rgba(141,106,216,.25),inset 0 1px 0 rgba(255,255,255,.2)}
+.widget.featured{border-color:rgba(141,106,216,.42);box-shadow:0 12px 54px rgba(141,106,216,.28),inset 0 1px 0 rgba(255,255,255,.22)}
 .badge{display:inline-block;background:var(--lavender);color:var(--graphite);padding:.25rem .8rem;border-radius:999px;font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.6rem}
 .wcta{display:inline-block;margin-top:.9rem;padding:.7rem 1.3rem;border-radius:999px;font-size:.8rem;font-weight:600;border:1px solid var(--border);background:rgba(255,255,255,.06)}.wcta:hover{background:linear-gradient(135deg,var(--violet),var(--periwinkle))}
 .note{margin-top:1rem;font-size:.8rem;opacity:.72}
 .vimeo-wrap{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;margin-top:1rem}.vimeo-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
-/* chorégraphie pilotée par GSAP (joue même si l'OS réduit les animations) */
+/* ===== chorégraphie (GSAP) ===== */
 .js [data-anim],.js [data-stag]>*{opacity:0;will-change:transform,opacity}
 
 /* nav */
 nav.top{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.6rem;transition:padding .4s var(--ease-apple),background .3s,backdrop-filter .3s}
-nav.top.scrolled{padding:.6rem 1.6rem;background:rgba(17,18,20,.55);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);border-bottom:1px solid rgba(255,255,255,.08)}
+nav.top.scrolled{padding:.6rem 1.6rem;background:rgba(13,14,17,.5);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);border-bottom:1px solid rgba(255,255,255,.08)}
 nav.top.hide{transform:translateY(-115%)}nav.top .logo img{height:38px}
 nav.top .links{display:flex;gap:1.2rem;align-items:center}nav.top .links a{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;opacity:.78}nav.top .links a:hover{opacity:1}
 nav.top .links a.pill{background:var(--ivory);color:var(--graphite);padding:.45rem 1.1rem;border-radius:999px;font-weight:600}nav.top .links a.pill:hover{background:linear-gradient(135deg,var(--violet),var(--periwinkle));color:var(--ivory)}
@@ -106,14 +107,27 @@ nav.top .links a.pill{background:var(--ivory);color:var(--graphite);padding:.45r
 .foralt{text-align:center;margin-top:1rem;font-size:.84rem;opacity:.75}
 .faqd .it{border-bottom:1px solid rgba(255,255,255,.08)}.faqd .q{width:100%;text-align:left;padding:1rem 0;background:none;border:0;color:var(--ivory);font:inherit;font-size:.94rem;cursor:pointer;display:flex;justify-content:space-between;gap:1rem}.faqd .q .s{color:var(--periwinkle);font-size:1.2rem;transition:transform .4s var(--ease-apple)}.faqd .it.open .q .s{transform:rotate(45deg)}.faqd .ans{max-height:0;overflow:hidden;transition:max-height .5s var(--ease-apple)}.faqd .ans .in{padding-bottom:1rem;font-size:.85rem;opacity:.8;line-height:1.6}
 .crow{display:flex;gap:.9rem;align-items:center;padding:.5rem 0}.crow .ic{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.08);display:grid;place-items:center;font-size:1rem;flex:0 0 auto}.crow .lab{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;opacity:.55}.crow .val{font-size:.92rem;font-weight:500}
-footer.ft{background:var(--graphite);padding:3.5rem 1.5rem 2rem;border-top:1px solid rgba(255,255,255,.08)}footer.ft .cols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem}footer.ft img.logo{height:34px;margin-bottom:1rem}footer.ft .addr{font-size:.84rem;opacity:.65;line-height:1.7}footer.ft .ttl{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;opacity:.55;margin-bottom:.9rem}footer.ft .lst{display:grid;gap:.45rem;font-size:.84rem;opacity:.75}footer.ft .lst a:hover{opacity:1;color:var(--periwinkle)}footer.ft .copy{border-top:1px solid rgba(255,255,255,.08);padding-top:1.8rem;font-size:.8rem;opacity:.55;text-align:center}@media(max-width:760px){footer.ft .cols{grid-template-columns:1fr;gap:1.8rem}}
+footer.ft{position:relative;z-index:1;background:rgba(13,14,17,.6);backdrop-filter:blur(20px);padding:3.5rem 1.5rem 2rem;border-top:1px solid rgba(255,255,255,.08)}footer.ft .cols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem}footer.ft img.logo{height:34px;margin-bottom:1rem}footer.ft .addr{font-size:.84rem;opacity:.65;line-height:1.7}footer.ft .ttl{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;opacity:.55;margin-bottom:.9rem}footer.ft .lst{display:grid;gap:.45rem;font-size:.84rem;opacity:.75}footer.ft .lst a:hover{opacity:1;color:var(--periwinkle)}footer.ft .copy{border-top:1px solid rgba(255,255,255,.08);padding-top:1.8rem;font-size:.8rem;opacity:.55;text-align:center}@media(max-width:760px){footer.ft .cols{grid-template-columns:1fr;gap:1.8rem}}
 .mcursor{position:fixed;top:0;left:0;width:32px;height:32px;border:1px solid rgba(168,139,224,.6);border-radius:50%;pointer-events:none;z-index:200;transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s,border-color .25s;mix-blend-mode:difference;will-change:transform}.mcursor.big{width:60px;height:60px;background:rgba(168,139,224,.12);border-color:transparent}@media(max-width:1080px),(pointer:coarse){.mcursor{display:none}}
-/* mouvement assumé par défaut · Mode sobre = opt-out volontaire */
-body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:none!important}body.sober .dot-pulse{animation:none}body.sober .mcursor{display:none}
+body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:none!important}body.sober .dot-pulse{animation:none}body.sober .mcursor{display:none}body.sober .bglayer.active img,body.sober .bglayer.active video{animation:none}
 </style>
 </head>
 <body>
 <div class="mcursor" id="mcursor" aria-hidden="true"></div>
+
+<!-- FOND UNIQUE FIXE · vos vidéos + photos en fondu enchaîné -->
+<div id="bgstage">
+  <div class="bglayer" data-key="constellation"><video src="avalon/videos/2-1-constellation.mp4" poster="avalon/frames/2-1-constellation.png" muted loop playsinline preload="auto"></video></div>
+  <div class="bglayer" data-key="hublot"><video src="avalon/videos/1-2-hublot.mp4" poster="avalon/frames/1-2-hublot.png" muted loop playsinline preload="metadata"></video></div>
+  <div class="bglayer" data-key="cabine"><video src="avalon/videos/1-3-cabine-cockpit.mp4" poster="avalon/frames/1-3-cabine-cockpit.png" muted loop playsinline preload="metadata"></video></div>
+  <div class="bglayer" data-key="interface"><video src="avalon/videos/2-2-interface-holo.mp4" poster="avalon/frames/2-2-interface-holo.png" muted loop playsinline preload="metadata"></video></div>
+  <div class="bglayer" data-key="cascade"><video src="avalon/videos/2-3-cascade-code.mp4" poster="avalon/frames/2-3-cascade-code.png" muted loop playsinline preload="metadata"></video></div>
+  <div class="bglayer" data-key="trajectoires"><video src="avalon/videos/3-1-trajectoires.mp4" poster="avalon/frames/3-1-trajectoires.png" muted loop playsinline preload="metadata"></video></div>
+  <div class="bglayer" data-key="plongee"><img src="avalon/frames/1-1-plongee-cosmique.png" alt=""></div>
+  <div class="bglayer" data-key="sceaux"><img src="avalon/frames/3-2-sceaux-graves.png" alt=""></div>
+  <div class="bglayer" data-key="atterrissage"><img src="avalon/frames/3-3-atterrissage.png" alt=""></div>
+</div>
+<div id="bgveil"></div><div id="bggrain"></div>
 
 <nav class="top" id="nav">
   <a href="#top" class="logo" aria-label="Pinapp"><img src="avalon/logo-pinapp.png" alt="Pinapp"></a>
@@ -129,35 +143,25 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
 
 <main id="top">
 
-<!-- HERO · fond vidéo constellation -->
-<section class="vsec full grain center" id="hero">
-  <div class="vsec-bg"><video src="avalon/videos/2-1-constellation.mp4" poster="avalon/frames/2-1-constellation.png" autoplay muted loop playsinline preload="auto"></video><div class="tint"></div></div>
-  <div class="vsec-inner">
-    <div class="widget hero-widget" data-anim="depth" style="margin:0 auto">
-      <div class="e2">Pinapp Inc · Bordeaux · 2026 — Studio digital</div>
-      <h1>Vos outils travaillent.<br>Vous gagnez du <span class="grad">temps</span><span class="dot-pulse"></span></h1>
-      <p class="sub">Site vitrine, automatisations IA, films cinéma — par un duo bordelais. Un seul devis. 50 à 75 % moins cher qu'une agence. Diagnostic offert sous 24 h.</p>
-      <div class="cta-row" style="justify-content:center"><a href="#contact" class="btn" data-magnetic>Recevoir mon diagnostic sous 24h <span class="a">→</span></a><a href="#hook-film" class="btn ghost" data-magnetic>Voir la démo ↓</a></div>
-    </div>
-  </div>
+<section class="vsec full center" id="hero" data-bg="constellation">
+  <div class="vsec-inner"><div class="widget hero-widget" data-anim="depth" style="margin:0 auto">
+    <div class="e2">Pinapp Inc · Bordeaux · 2026 — Studio digital</div>
+    <h1>Vos outils travaillent.<br>Vous gagnez du <span class="grad">temps</span><span class="dot-pulse"></span></h1>
+    <p class="sub">Site vitrine, automatisations IA, films cinéma — par un duo bordelais. Un seul devis. 50 à 75 % moins cher qu'une agence. Diagnostic offert sous 24 h.</p>
+    <div class="cta-row" style="justify-content:center"><a href="#contact" class="btn" data-magnetic>Recevoir mon diagnostic sous 24h <span class="a">→</span></a><a href="#hook-film" class="btn ghost" data-magnetic>Voir la démo ↓</a></div>
+  </div></div>
 </section>
 
-<!-- DÉMO 60s · fond vidéo hublot -->
-<section class="vsec grain center" id="hook-film">
-  <div class="vsec-bg"><video src="avalon/videos/1-2-hublot.mp4" poster="avalon/frames/1-2-hublot.png" muted loop playsinline preload="metadata"></video><div class="tint"></div></div>
-  <div class="vsec-inner" style="max-width:760px">
-    <div class="widget" data-anim="up">
-      <span class="idx">★ Démo · tournée par Micha</span>
-      <h2>Voilà ce qu'on fait. <em class="peri">En 60 secondes.</em></h2>
-      <div class="vimeo-wrap"><iframe src="https://player.vimeo.com/video/1190745013?dnt=1" title="Pinapp · vidéo de présentation" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
-      <p class="note"><strong>8 000 € en agence</strong> · chez nous, <strong class="peri">à partir de 1 290 € HT</strong>.</p>
-    </div>
-  </div>
+<section class="vsec center" id="hook-film" data-bg="hublot">
+  <div class="vsec-inner" style="max-width:760px"><div class="widget" data-anim="up">
+    <span class="idx">★ Démo · tournée par Micha</span>
+    <h2>Voilà ce qu'on fait. <em class="peri">En 60 secondes.</em></h2>
+    <div class="vimeo-wrap"><iframe src="https://player.vimeo.com/video/1190745013?dnt=1" title="Pinapp · vidéo de présentation" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+    <p class="note"><strong>8 000 € en agence</strong> · chez nous, <strong class="peri">à partir de 1 290 € HT</strong>.</p>
+  </div></div>
 </section>
 
-<!-- ORIENTATION · fond photo -->
-<section class="vsec grain center" id="orientation">
-  <div class="vsec-bg"><img src="avalon/frames/3-3-atterrissage.png" alt=""><div class="tint"></div></div>
+<section class="vsec center" id="orientation" data-bg="atterrissage">
   <div class="vsec-inner">
     <div class="head center"><h2 data-anim="up">Vous êtes plutôt…</h2></div>
     <div class="wgrid g3" data-stag>
@@ -168,9 +172,7 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   </div>
 </section>
 
-<!-- DIAGNOSTIC · fond photo -->
-<section class="vsec grain" id="diagnostic">
-  <div class="vsec-bg"><img src="avalon/bg/corridor.png" alt=""><div class="tint"></div></div>
+<section class="vsec" id="diagnostic" data-bg="cabine">
   <div class="vsec-inner">
     <div class="head"><span class="eyebrow" data-anim="left">Le diagnostic</span><h2 data-anim="left">Reconnaissez-vous votre semaine ?</h2></div>
     <div class="wgrid g2" data-stag>
@@ -183,9 +185,7 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   </div>
 </section>
 
-<!-- POURQUOI MOINS CHER · fond photo -->
-<section class="vsec grain" id="pourquoi">
-  <div class="vsec-bg"><img src="avalon/bg/planete.png" alt=""><div class="tint"></div></div>
+<section class="vsec" id="pourquoi" data-bg="interface">
   <div class="vsec-inner">
     <div class="head"><span class="eyebrow" data-anim="right">La méthode</span><h2 data-anim="right">Pourquoi 50 à 75 % moins cher ?<br>Les 4 sources qu'on assume.</h2></div>
     <div class="wgrid g2" data-stag>
@@ -198,9 +198,7 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   </div>
 </section>
 
-<!-- DUO · fond photo -->
-<section class="vsec grain center" id="duo">
-  <div class="vsec-bg"><img src="avalon/bg/pod.png" alt=""><div class="tint"></div></div>
+<section class="vsec center" id="duo" data-bg="plongee">
   <div class="vsec-inner">
     <div class="head center"><span class="eyebrow" data-anim="up">Qui fait quoi</span><h2 data-anim="up">Lauralie + Michaël.<br>Deux experts. Un interlocuteur. Un devis.</h2></div>
     <div class="wgrid g2" data-stag style="text-align:left">
@@ -210,9 +208,7 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   </div>
 </section>
 
-<!-- AUTOMATISATIONS · fond vidéo cascade-code -->
-<section class="vsec grain" id="auto">
-  <div class="vsec-bg"><video src="avalon/videos/2-3-cascade-code.mp4" poster="avalon/frames/2-3-cascade-code.png" muted loop playsinline preload="metadata"></video><div class="tint"></div></div>
+<section class="vsec" id="auto" data-bg="cascade">
   <div class="vsec-inner">
     <div class="head"><span class="eyebrow" data-anim="left">Automatisations</span><h2 data-anim="left">Ce qui tourne pendant que vous bossez.</h2></div>
     <div class="wgrid g3" data-stag>
@@ -226,9 +222,7 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   </div>
 </section>
 
-<!-- ENGAGEMENTS · SUR LE VAISSEAU · fond vidéo cabine-cockpit -->
-<section class="vsec grain" id="engagements">
-  <div class="vsec-bg"><video src="avalon/videos/1-3-cabine-cockpit.mp4" poster="avalon/frames/1-3-cabine-cockpit.png" muted loop playsinline preload="metadata"></video><div class="tint"></div></div>
+<section class="vsec" id="engagements" data-bg="cabine">
   <div class="vsec-inner">
     <div class="head"><span class="eyebrow" data-anim="right">À bord du vaisseau</span><h2 data-anim="right">Sept engagements signés.</h2></div>
     <div class="wgrid g4" data-stag>
@@ -244,9 +238,7 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   </div>
 </section>
 
-<!-- PACK DUO · fond vidéo interface-holo -->
-<section class="vsec grain center" id="pack">
-  <div class="vsec-bg"><video src="avalon/videos/2-2-interface-holo.mp4" poster="avalon/frames/2-2-interface-holo.png" muted loop playsinline preload="metadata"></video><div class="tint"></div></div>
+<section class="vsec center" id="pack" data-bg="interface">
   <div class="vsec-inner">
     <div class="head center"><span class="eyebrow" data-anim="up">L'offre signature</span><h2 data-anim="up">Pack Duo. Tout en un seul devis.</h2></div>
     <div class="wgrid g2" data-stag style="text-align:left">
@@ -257,9 +249,7 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   </div>
 </section>
 
-<!-- RÉALISATIONS · fond photo -->
-<section class="vsec grain" id="realisations">
-  <div class="vsec-bg"><img src="avalon/bg/warp.png" alt=""><div class="tint"></div></div>
+<section class="vsec" id="realisations" data-bg="trajectoires">
   <div class="vsec-inner">
     <div class="head"><span class="eyebrow" data-anim="left">Studio Lauralie · prix fixes</span><h2 data-anim="left">5 démos sectorielles. Votre métier s'y retrouve.</h2></div>
     <div class="wgrid g3" data-stag>
@@ -278,9 +268,7 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   </div>
 </section>
 
-<!-- FILMS · fond photo -->
-<section class="vsec grain" id="films">
-  <div class="vsec-bg"><img src="avalon/bg/bridge.png" alt=""><div class="tint"></div></div>
+<section class="vsec" id="films" data-bg="hublot">
   <div class="vsec-inner">
     <div class="head"><span class="eyebrow" data-anim="right">Studio Micha · Cinéma IA</span><h2 data-anim="right">Du clip 30 secondes<br>au court-métrage 3 minutes.</h2></div>
     <div class="wgrid g2" data-stag>
@@ -293,24 +281,18 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   </div>
 </section>
 
-<!-- CINÉMA ARTISTES · fond photo -->
-<section class="vsec grain center" id="cinema-artistes">
-  <div class="vsec-bg"><img src="avalon/frames/1-1-plongee-cosmique.png" alt=""><div class="tint"></div></div>
-  <div class="vsec-inner" style="max-width:760px">
-    <div class="widget" data-anim="depth">
-      <span class="idx">Studio Pinapp · Cinéma IA pour artistes</span>
-      <h2>Vous avez la voix.<br>Nous avons le studio.</h2>
-      <p class="sub">Artiste, créateur, marque narrative : vous avez l'univers en tête, il vous manquait le budget studio. Plus maintenant.</p>
-      <div class="statline" style="justify-content:center"><div><div class="n">8-50 k€</div><div class="l">avant l'IA</div></div><div><div class="n grad">dès 1 500 €</div><div class="l">avec Pinapp</div></div><div><div class="n grad">-90 %</div><div class="l">économie</div></div></div>
-      <p class="note">Disponible été 2026 · 5 premiers projets à -30 %</p>
-      <div class="cta-row" style="justify-content:center"><a class="btn" href="#contact" data-magnetic>Devis clip sous 48h →</a></div>
-    </div>
-  </div>
+<section class="vsec center" id="cinema-artistes" data-bg="plongee">
+  <div class="vsec-inner" style="max-width:760px"><div class="widget" data-anim="depth">
+    <span class="idx">Studio Pinapp · Cinéma IA pour artistes</span>
+    <h2>Vous avez la voix.<br>Nous avons le studio.</h2>
+    <p class="sub">Artiste, créateur, marque narrative : vous avez l'univers en tête, il vous manquait le budget studio. Plus maintenant.</p>
+    <div class="statline" style="justify-content:center"><div><div class="n">8-50 k€</div><div class="l">avant l'IA</div></div><div><div class="n grad">dès 1 500 €</div><div class="l">avec Pinapp</div></div><div><div class="n grad">-90 %</div><div class="l">économie</div></div></div>
+    <p class="note">Disponible été 2026 · 5 premiers projets à -30 %</p>
+    <div class="cta-row" style="justify-content:center"><a class="btn" href="#contact" data-magnetic>Devis clip sous 48h →</a></div>
+  </div></div>
 </section>
 
-<!-- CAPTATION NA · fond photo -->
-<section class="vsec grain" id="captation">
-  <div class="vsec-bg"><img src="avalon/bg/corridor.png" alt=""><div class="tint"></div></div>
+<section class="vsec" id="captation" data-bg="cascade">
   <div class="vsec-inner">
     <div class="head"><span class="eyebrow" data-anim="left">Studio Micha · Nouvelle-Aquitaine</span><h2 data-anim="left">Micha filme votre événement —<br><em>déplacement régional inclus.</em></h2></div>
     <div class="wgrid g3" data-stag>
@@ -322,21 +304,15 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   </div>
 </section>
 
-<!-- POURQUOI / TRAJECTOIRES · fond vidéo trajectoires (6e vidéo) -->
-<section class="vsec grain center" id="trajectoires">
-  <div class="vsec-bg"><video src="avalon/videos/3-1-trajectoires.mp4" poster="avalon/frames/3-1-trajectoires.png" muted loop playsinline preload="metadata"></video><div class="tint"></div></div>
-  <div class="vsec-inner" style="max-width:760px">
-    <div class="widget" data-anim="depth">
-      <span class="idx">Deux voies</span>
-      <h2>Deux trajectoires.<br>La nôtre est directe.</h2>
-      <div class="statline" style="justify-content:center"><div><div class="n grad">−84 %</div><div class="l">8 000 € → dès 1 290 €</div></div><div><div class="n grad">2</div><div class="l">associés, pas 15</div></div><div><div class="n grad">1</div><div class="l">seul devis fixe</div></div></div>
-    </div>
-  </div>
+<section class="vsec center" id="trajectoires" data-bg="trajectoires">
+  <div class="vsec-inner" style="max-width:760px"><div class="widget" data-anim="depth">
+    <span class="idx">Deux voies</span>
+    <h2>Deux trajectoires.<br>La nôtre est directe.</h2>
+    <div class="statline" style="justify-content:center"><div><div class="n grad">−84 %</div><div class="l">8 000 € → dès 1 290 €</div></div><div><div class="n grad">2</div><div class="l">associés, pas 15</div></div><div><div class="n grad">1</div><div class="l">seul devis fixe</div></div></div>
+  </div></div>
 </section>
 
-<!-- MÉTHODE · fond photo -->
-<section class="vsec grain" id="methode">
-  <div class="vsec-bg"><img src="avalon/bg/seuil.png" alt=""><div class="tint"></div></div>
+<section class="vsec" id="methode" data-bg="sceaux">
   <div class="vsec-inner">
     <div class="head"><span class="eyebrow" data-anim="right">Ce qu'il y a derrière</span><h2 data-anim="right">Un site. Un film.<br>Tout ce que vous ne voyez pas.</h2></div>
     <div class="wgrid g2" data-stag style="text-align:left">
@@ -347,9 +323,7 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   </div>
 </section>
 
-<!-- FORMATIONS · fond photo -->
-<section class="vsec grain" id="formations">
-  <div class="vsec-bg"><img src="avalon/bg/pod.png" alt=""><div class="tint"></div></div>
+<section class="vsec" id="formations" data-bg="cabine">
   <div class="vsec-inner">
     <div class="head"><span class="eyebrow" data-anim="left">Piloter ses propres outils</span><h2 data-anim="left">Quatre niveaux. Du curieux au travailleur augmenté.</h2></div>
     <div class="wgrid g4" data-stag>
@@ -361,9 +335,7 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   </div>
 </section>
 
-<!-- TARIFS · fond photo -->
-<section class="vsec grain" id="tarifs">
-  <div class="vsec-bg"><img src="avalon/bg/planete.png" alt=""><div class="tint"></div></div>
+<section class="vsec" id="tarifs" data-bg="interface">
   <div class="vsec-inner">
     <div class="head"><span class="eyebrow" data-anim="right">Comment on travaille</span><h2 data-anim="right">Quatre étapes. Tous les tarifs. Pas de surprise.</h2></div>
     <div class="wgrid g4" data-stag>
@@ -382,22 +354,16 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   </div>
 </section>
 
-<!-- MÉMOIRE & PRÉSENCE · fond photo -->
-<section class="vsec grain center" id="mp">
-  <div class="vsec-bg"><img src="avalon/bg/bridge.png" alt=""><div class="tint"></div></div>
-  <div class="vsec-inner" style="max-width:720px">
-    <div class="widget" data-anim="depth">
-      <span class="idx">Projet parallèle · ce n'est pas une offre Pinapp</span>
-      <h2>Mémoire &amp; Présence</h2>
-      <p class="sub">Un service de transmission numérique pour les familles : hommage, lien, présence, mémoire — avec le soin que ce sujet exige. Même exigence technique : accessible, sobre, hébergement maîtrisé.</p>
-      <div class="cta-row" style="justify-content:center"><a class="btn ghost" href="https://lauraliedaguzay-lang.github.io/memoireetpresence/" target="_blank" rel="noopener noreferrer">Voir Mémoire &amp; Présence ↗</a></div>
-    </div>
-  </div>
+<section class="vsec center" id="mp" data-bg="atterrissage">
+  <div class="vsec-inner" style="max-width:720px"><div class="widget" data-anim="depth">
+    <span class="idx">Projet parallèle · ce n'est pas une offre Pinapp</span>
+    <h2>Mémoire &amp; Présence</h2>
+    <p class="sub">Un service de transmission numérique pour les familles : hommage, lien, présence, mémoire — avec le soin que ce sujet exige. Même exigence technique : accessible, sobre, hébergement maîtrisé.</p>
+    <div class="cta-row" style="justify-content:center"><a class="btn ghost" href="https://lauraliedaguzay-lang.github.io/memoireetpresence/" target="_blank" rel="noopener noreferrer">Voir Mémoire &amp; Présence ↗</a></div>
+  </div></div>
 </section>
 
-<!-- CONTACT + FORMULAIRE ADAPTATIF · fond photo -->
-<section class="vsec grain" id="contact">
-  <div class="vsec-bg"><img src="avalon/frames/3-2-sceaux-graves.png" alt=""><div class="tint"></div></div>
+<section class="vsec" id="contact" data-bg="sceaux">
   <div class="vsec-inner" style="max-width:760px">
     <div class="head center"><span class="eyebrow" data-anim="up">Pour démarrer</span><h2 data-anim="up">Un formulaire qui s'adapte à vous.</h2><p class="lead" data-anim="up">Un diagnostic écrit par mail · pas un appel · pas d'engagement.</p></div>
     <form class="widget pform" data-anim="up" id="pform" novalidate>
@@ -487,37 +453,42 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   document.getElementById('mclose').addEventListener('click',function(){mmenu.classList.remove('open');document.body.classList.remove('no-scroll');});
   mmenu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){mmenu.classList.remove('open');document.body.classList.remove('no-scroll');});});
   var lenis=null;
-  if(IMMERSIVE&&window.Lenis){lenis=new Lenis({duration:1.2,smoothWheel:true});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000);});gsap.ticker.lagSmoothing(0);}
+  if(hasGSAP&&window.Lenis&&!sober){lenis=new Lenis({duration:1.25,smoothWheel:true});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000);});gsap.ticker.lagSmoothing(0);}
   var nav=document.getElementById('nav'),lastY=0;
-  function onScroll(y){nav.classList.toggle('scrolled',y>50);if(y>lastY&&y>320)nav.classList.add('hide');else nav.classList.remove('hide');lastY=y;}
-  if(lenis)lenis.on('scroll',function(e){onScroll(e.scroll);});else addEventListener('scroll',function(){onScroll(scrollY);},{passive:true});
+  function navScroll(y){nav.classList.toggle('scrolled',y>50);if(y>lastY&&y>320)nav.classList.add('hide');else nav.classList.remove('hide');lastY=y;}
 
-  /* chorégraphie : widgets qui DANSENT — piloté GSAP, joue même en reduced-motion OS */
+  /* ===== FOND : fondu enchaîné selon la section au centre de l'écran ===== */
+  var layers={};[].slice.call(document.querySelectorAll('#bgstage .bglayer')).forEach(function(l){layers[l.getAttribute('data-key')]=l;});
+  var sections=[].slice.call(document.querySelectorAll('.vsec'));
+  var current=null;
+  function setBg(key){
+    if(!key||key===current||!layers[key])return; current=key;
+    Object.keys(layers).forEach(function(k){var l=layers[k],on=(k===key);l.classList.toggle('active',on);
+      var v=l.querySelector('video');if(v){if(on){v.play().catch(function(){});}else{v.pause();}}});
+  }
+  function pickBg(y){
+    var mid=(y||window.scrollY)+innerHeight*0.5,best=null,bd=1e9;
+    sections.forEach(function(s){var r=s.getBoundingClientRect();var top=r.top+(y||window.scrollY),c=top+r.height/2;var d=Math.abs(c-mid);if(d<bd){bd=d;best=s;}});
+    if(best)setBg(best.getAttribute('data-bg'));
+  }
+  setBg('constellation'); // état initial
+  if(lenis)lenis.on('scroll',function(e){navScroll(e.scroll);pickBg(e.scroll);});
+  else addEventListener('scroll',function(){navScroll(scrollY);pickBg(scrollY);},{passive:true});
+  addEventListener('resize',function(){pickBg(window.scrollY);});
+
+  /* ===== chorégraphie (GSAP, joue même en reduced-motion OS) ===== */
   var FROM={left:{x:-90},right:{x:90},up:{y:72},down:{y:-60},depth:{scale:.66},zoom:{scale:1.18}};
   function showAll(){document.querySelectorAll('[data-anim],[data-stag]>*').forEach(function(e){e.style.opacity=1;e.style.transform='none';e.style.filter='none';});}
   if(IMMERSIVE){
-    gsap.utils.toArray('[data-anim]').forEach(function(el){
-      var d=el.getAttribute('data-anim')||'up';var f=Object.assign({opacity:0,filter:'blur(12px)'},FROM[d]||FROM.up);
-      gsap.set(el,f);
-      ScrollTrigger.create({trigger:el,start:'top 84%',onEnter:function(){gsap.to(el,{opacity:1,x:0,y:0,scale:1,filter:'blur(0px)',duration:1.15,ease:'power3.out',clearProps:'filter,willChange'});}});
-    });
-    gsap.utils.toArray('[data-stag]').forEach(function(g){
-      var kids=[].slice.call(g.children);
-      kids.forEach(function(c,i){gsap.set(c,{opacity:0,x:i%2?90:-90,y:30,filter:'blur(10px)'});});
-      ScrollTrigger.create({trigger:g,start:'top 84%',onEnter:function(){gsap.to(kids,{opacity:1,x:0,y:0,filter:'blur(0px)',duration:1.05,ease:'power3.out',stagger:.13,clearProps:'filter,willChange'});}});
-    });
+    gsap.utils.toArray('[data-anim]').forEach(function(el){var d=el.getAttribute('data-anim')||'up';gsap.set(el,Object.assign({opacity:0,filter:'blur(12px)'},FROM[d]||FROM.up));
+      ScrollTrigger.create({trigger:el,start:'top 86%',onEnter:function(){gsap.to(el,{opacity:1,x:0,y:0,scale:1,filter:'blur(0px)',duration:1.15,ease:'power3.out',clearProps:'filter,willChange'});}});});
+    gsap.utils.toArray('[data-stag]').forEach(function(g){var kids=[].slice.call(g.children);
+      kids.forEach(function(c,i){gsap.set(c,{opacity:0,x:i%2?90:-90,y:28,filter:'blur(10px)'});});
+      ScrollTrigger.create({trigger:g,start:'top 86%',onEnter:function(){gsap.to(kids,{opacity:1,x:0,y:0,filter:'blur(0px)',duration:1.05,ease:'power3.out',stagger:.13,clearProps:'filter,willChange'});}});});
   } else { showAll(); }
   if(!hasGSAP) showAll();
 
-  /* Ken Burns sur chaque fond (photos ET vidéos) */
-  if(IMMERSIVE&&!SMALL){gsap.utils.toArray('.vsec-bg').forEach(function(bg,i){var m=bg.querySelector('img,video');if(!m)return;gsap.fromTo(m,{scale:1.05,yPercent:0},{scale:1.16,yPercent:-5,ease:'none',scrollTrigger:{trigger:bg.parentNode,start:'top bottom',end:'bottom top',scrub:.8}});});}
-
-  /* vidéos de fond : jouer seulement à l'écran */
-  (function(){var vids=[].slice.call(document.querySelectorAll('.vsec-bg video'));
-    if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;if(e.isIntersecting){v.play().catch(function(){});}else v.pause();});},{threshold:.15});vids.forEach(function(v){io.observe(v);});}
-    else vids.forEach(function(v){v.play().catch(function(){});});})();
-
-  /* form path selector + submit */
+  /* form */
   (function(){var f=document.getElementById('pform');if(!f)return;var conds=[].slice.call(f.querySelectorAll('.cond'));
     f.querySelectorAll('input[name="path"]').forEach(function(r){r.addEventListener('change',function(){conds.forEach(function(c){c.hidden=(c.getAttribute('data-path')!==r.value);});if(hasGSAP)ScrollTrigger.refresh();});});
     f.addEventListener('submit',function(e){e.preventDefault();var d=new FormData(f),get=function(k){return d.get(k)||'';};
@@ -531,7 +502,7 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   /* magnetic cursor */
   (function(){if(SMALL||COARSE)return;var c=document.getElementById('mcursor');if(!c)return;var x=innerWidth/2,y=innerHeight/2,cx=x,cy=y;addEventListener('mousemove',function(e){x=e.clientX;y=e.clientY;},{passive:true});document.querySelectorAll('a,button,[data-magnetic]').forEach(function(el){el.addEventListener('mouseenter',function(){c.classList.add('big');});el.addEventListener('mouseleave',function(){c.classList.remove('big');});});(function loop(){cx+=(x-cx)*.18;cy+=(y-cy)*.18;c.style.transform='translate('+cx+'px,'+cy+'px) translate(-50%,-50%)';requestAnimationFrame(loop);})();})();
 
-  addEventListener('load',function(){if(hasGSAP)ScrollTrigger.refresh();});
+  addEventListener('load',function(){if(hasGSAP)ScrollTrigger.refresh();pickBg(window.scrollY);});
 })();
 </script>
 </body>
