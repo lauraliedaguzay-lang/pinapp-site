@@ -75,6 +75,13 @@ a,button{transition:transform .4s var(--ease-apple),background .3s,color .3s,bor
 .wcta{display:inline-block;margin-top:.9rem;padding:.7rem 1.3rem;border-radius:999px;font-size:.8rem;font-weight:600;border:1px solid var(--border);background:rgba(255,255,255,.06)}.wcta:hover{background:linear-gradient(135deg,var(--violet),var(--periwinkle))}
 .note{margin-top:1rem;font-size:.8rem;opacity:.72}
 .vimeo-wrap{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;margin-top:1rem}.vimeo-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.demo-shot{width:100%;aspect-ratio:16/9;object-fit:cover;object-position:top;border-radius:12px;margin-bottom:.7rem;border:1px solid var(--border);display:block;transition:transform .5s var(--ease-apple)}
+.widget.tight:hover .demo-shot{transform:scale(1.03)}
+.film-thumb{position:relative;display:block;border-radius:12px;overflow:hidden;margin-bottom:.6rem;border:1px solid var(--border)}
+.film-thumb img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;transition:transform .5s var(--ease-apple)}
+.film-thumb:hover img{transform:scale(1.05)}
+.film-thumb::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:rgba(244,241,234,.92);box-shadow:0 6px 24px rgba(0,0,0,.45);z-index:1}
+.film-thumb::after{content:"";position:absolute;top:50%;left:50%;transform:translate(-38%,-50%);border-top:11px solid transparent;border-bottom:11px solid transparent;border-left:18px solid var(--graphite);z-index:2}
 
 /* ===== chorégraphie (GSAP) ===== */
 .js [data-anim],.js [data-stag]>*{opacity:0;will-change:transform,opacity}
@@ -268,11 +275,11 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
       <div class="widget tight"><h3 style="font-size:.95rem">✨ Assistants H24</h3><p class="lead" style="font-size:.84rem">Qualifier, répondre, brouillons à valider.</p><div class="peri" style="font-weight:600;margin-top:.4rem">890 € HT</div></div>
     </div>
     <div class="wgrid g3" data-stag style="margin-top:1rem">
-      <a class="widget tight" href="/demo/atelier-rivage/"><strong>Atelier Rivage</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Architecture · villas</span></a>
-      <a class="widget tight" href="/demo/restaurant/"><strong>Maison Aurore</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Restaurant</span></a>
-      <a class="widget tight" href="/demo/avocat/"><strong>Cabinet Renaud</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Avocat</span></a>
-      <a class="widget tight" href="/demo/esthetique/"><strong>Maison Solène</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Esthétique</span></a>
-      <a class="widget tight" href="/demo/extensions-cils/"><strong>Studio Léna</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Extensions cils</span></a>
+      <a class="widget tight" href="/demo/atelier-rivage/"><img class="demo-shot" src="avalon/demos/atelier-rivage.png" alt="Aperçu site Atelier Rivage" loading="lazy"><strong>Atelier Rivage</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Architecture · villas</span></a>
+      <a class="widget tight" href="/demo/restaurant/"><img class="demo-shot" src="avalon/demos/restaurant.png" alt="Aperçu site Maison Aurore" loading="lazy"><strong>Maison Aurore</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Restaurant</span></a>
+      <a class="widget tight" href="/demo/avocat/"><img class="demo-shot" src="avalon/demos/avocat.png" alt="Aperçu site Cabinet Renaud" loading="lazy"><strong>Cabinet Renaud</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Avocat</span></a>
+      <a class="widget tight" href="/demo/esthetique/"><img class="demo-shot" src="avalon/demos/esthetique.png" alt="Aperçu site Maison Solène" loading="lazy"><strong>Maison Solène</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Esthétique</span></a>
+      <a class="widget tight" href="/demo/extensions-cils/"><img class="demo-shot" src="avalon/demos/extensions-cils.png" alt="Aperçu site Studio Léna" loading="lazy"><strong>Studio Léna</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Extensions cils</span></a>
       <div class="widget tight"><strong>Bundle Site + Auto</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">1 590 € HT · -190 €</span></div>
     </div>
   </div>
@@ -282,8 +289,8 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   <div class="vsec-inner">
     <div class="head"><span class="eyebrow" data-anim="right">Studio Micha · Cinéma IA</span><h2 data-anim="right">Du clip 30 secondes<br>au court-métrage 3 minutes.</h2></div>
     <div class="wgrid g2" data-stag>
-      <div class="widget tight"><strong>Court-métrage premium</strong><p class="lead" style="font-size:.84rem">1 890 € HT · Resident Evil</p></div>
-      <div class="widget tight"><strong>Premium « vous dedans »</strong><p class="lead" style="font-size:.84rem">2 800 € HT · 3 min · SW Unity — votre univers.</p></div>
+      <a class="widget tight" href="https://vimeo.com/1184294871" target="_blank" rel="noopener noreferrer"><span class="film-thumb"><img src="avalon/demos/vimeo-resident-evil.jpg" alt="Court-métrage Resident Evil" loading="lazy"></span><strong>Court-métrage premium</strong><p class="lead" style="font-size:.84rem">1 890 € HT · Resident Evil</p></a>
+      <a class="widget tight" href="https://vimeo.com/1184294831" target="_blank" rel="noopener noreferrer"><span class="film-thumb"><img src="avalon/demos/vimeo-sw-unity.jpg" alt="Premium SW Unity" loading="lazy"></span><strong>Premium « vous dedans »</strong><p class="lead" style="font-size:.84rem">2 800 € HT · 3 min · SW Unity — votre univers.</p></a>
       <div class="widget tight"><strong>Film cadeau IA 30 s</strong><p class="lead" style="font-size:.84rem">390 € HT · anniversaire · naissance</p></div>
       <div class="widget tight"><strong>Branding · logos animés</strong><p class="lead" style="font-size:.84rem">Sur devis · identité motion</p></div>
     </div>
