@@ -132,7 +132,9 @@ nav.top .links a.pill{background:var(--ivory);color:var(--graphite);padding:.45r
 .mmenu{position:fixed;inset:0;z-index:99;background:rgba(10,12,18,.97);backdrop-filter:blur(20px);display:none;flex-direction:column;align-items:center;justify-content:center;gap:1.1rem}.mmenu.open{display:flex}.mmenu a{font-size:1.3rem;font-weight:500}.mmenu .close{position:absolute;top:1.4rem;right:1.6rem;font-size:1.6rem;background:none;border:0;color:var(--ivory);cursor:pointer}
 
 /* form */
-.pform legend{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--periwinkle);margin-bottom:.7rem}
+.pform{border:0;box-shadow:0 18px 50px rgba(0,0,0,.4)}
+.pform fieldset{border:0;padding:0;margin:0 0 1.1rem}
+.pform legend{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--periwinkle);margin-bottom:.7rem;padding:0}
 .path-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.7rem;margin-bottom:1.2rem}
 .path-card{position:relative;border:1px solid var(--border);border-radius:14px;padding:1rem;cursor:pointer;display:block;background:rgba(255,255,255,.05)}
 .path-card input{position:absolute;opacity:0}.path-card:has(input:checked){border-color:var(--violet);background:rgba(141,106,216,.14)}
@@ -523,12 +525,17 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
       </fieldset>
       <button type="submit">Envoyer mon brief — réponse écrite sous 24h</button>
       <p class="note" id="pformNote">Pas un appel. Pas un devis ferme. Un diagnostic écrit + estimation. Sans engagement.</p>
-      <div class="foralt">— OU — <a href="https://cal.com/lauralie-daguzay-hdglzw/diagnostic" target="_blank" rel="noopener noreferrer" class="peri">Prendre rendez-vous en ligne ↗</a></div>
+      <div class="foralt">— OU — réservez votre créneau juste en dessous ↓</div>
     </form>
     <div class="widget" data-anim="up" style="margin-top:1rem">
-      <a class="crow" href="https://wa.me/33786173715" rel="noopener noreferrer" target="_blank"><span class="ic">💬</span><span><span class="lab">WhatsApp</span><br><span class="val">07 86 17 37 15</span></span></a>
-      <a class="crow" href="mailto:contact@pinapp.fr"><span class="ic">✉</span><span><span class="lab">Email</span><br><span class="val">contact@pinapp.fr</span></span></a>
+      <a class="crow" href="mailto:lauralie.daguzay@pinapp.fr"><span class="ic">✉</span><span><span class="lab">Lauralie · tech &amp; systèmes</span><br><span class="val">lauralie.daguzay@pinapp.fr</span></span></a>
+      <a class="crow" href="mailto:contact@pinapp.fr"><span class="ic">✉</span><span><span class="lab">Michaël &amp; l'équipe · image</span><br><span class="val">contact@pinapp.fr</span></span></a>
       <div class="crow"><span class="ic">📍</span><span><span class="lab">Adresse</span><br><span class="val">49 av. Edmond Rostand, Mérignac</span></span></div>
+    </div>
+    <div class="widget" data-anim="up" style="margin-top:1rem;padding:1rem">
+      <div class="head center" style="margin-bottom:.6rem"><span class="eyebrow">Réservation en ligne</span><h3 style="font-size:1.25rem;margin-top:.35rem">Choisissez votre créneau — diagnostic offert</h3><p class="lead" style="font-size:.86rem">30 min en visio · confirmation, ajout au calendrier et rappels automatiques.</p></div>
+      <div id="cal-inline" style="width:100%;min-height:600px;border-radius:14px;overflow:hidden;background:rgba(13,14,17,.6)"></div>
+      <p class="foralt" style="margin-top:.6rem">Le calendrier ne s'affiche pas ? <a href="https://cal.com/lauralie-daguzay-hdglzw/diagnostic" target="_blank" rel="noopener noreferrer" class="peri">Ouvrir la réservation ↗</a></p>
     </div>
   </div>
 </section>
@@ -549,12 +556,12 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
 <button class="chatbtn" id="chatbtn" aria-label="Ouvrir l'assistant Pinapp" aria-expanded="false">💬</button>
 <div class="chatpanel" id="chatpanel" role="dialog" aria-label="Assistant Pinapp">
   <h4>Bonjour 👋 Une question ?</h4>
-  <p class="chint">Réponses immédiates. Pour un projet : <a href="#contact" class="peri" id="chatToForm">le formulaire</a> ou WhatsApp.</p>
+  <p class="chint">Réponses immédiates. Pour un projet : <a href="#contact" class="peri" id="chatToForm">le formulaire</a> ou par email.</p>
   <div class="qa"><button>Combien coûte un site ? <span>+</span></button><div class="a">Un site vitrine qui convertit démarre à <strong>1 290 € HT</strong>. Devis fixe écrit sous 48 h, sans surprise.</div></div>
   <div class="qa"><button>Vous faites des films / clips ? <span>+</span></button><div class="a">Oui — studio Micha. Du clip dès <strong>1 500 €</strong> au court-métrage 3 min dès <strong>2 800 €</strong>. Captation événement dès 1 200 €.</div></div>
   <div class="qa"><button>Quels délais ? <span>+</span></button><div class="a">Site livré sous <strong>3 semaines</strong>. Premiers leads sous 30 à 60 jours.</div></div>
   <div class="qa"><button>Je n'y connais rien en informatique <span>+</span></button><div class="a">Aucun souci : vous validez par mail, on gère tout. Pas de logiciel à apprendre.</div></div>
-  <div class="qa"><button>Comment vous joindre ? <span>+</span></button><div class="a">WhatsApp <strong>07 86 17 37 15</strong>, email <strong>contact@pinapp.fr</strong>, ou le formulaire en bas de page.</div></div>
+  <div class="qa"><button>Comment vous joindre ? <span>+</span></button><div class="a">Par email : <strong>contact@pinapp.fr</strong> (Michaël &amp; équipe) ou <strong>lauralie.daguzay@pinapp.fr</strong> (tech), ou le formulaire en bas de page. Réponse écrite sous 24h.</div></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
@@ -626,7 +633,7 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
     function mailFallback(d){var get=function(k){return d.get(k)||'';};
       var body=['Besoin: '+get('path'),'Prénom: '+get('prenom'),'Nom: '+get('nom'),'Entreprise: '+get('entreprise'),'Email: '+get('email'),'Tél: '+get('tel'),'CP: '+get('cp'),'Site: '+get('site'),'Activité: '+get('activite'),'Objectif: '+get('objectif'),'Cible: '+get('cible'),'Délai: '+get('delai'),'Budget: '+get('budget'),'','Projet:',get('projet'),'','Références: '+get('refs'),'Concurrents: '+get('concurrents'),'','Message:',get('message')].join('%0D%0A');
       window.location.href='mailto:contact@pinapp.fr?subject='+encodeURIComponent('Brief Pinapp — '+get('prenom')+' '+get('entreprise'))+'&body='+body;
-      note.innerHTML='Votre logiciel mail s\'ouvre. ⚠ Les pièces jointes ne passent pas par l\'email — joignez-les à la main, ou réessayez le formulaire. Sinon : contact@pinapp.fr · WhatsApp 07 86 17 37 15.';}
+      note.innerHTML='Votre logiciel mail s\'ouvre. ⚠ Les pièces jointes ne passent pas par l\'email — joignez-les à la main, ou réessayez le formulaire. Sinon : contact@pinapp.fr.';}
     f.addEventListener('submit',function(e){e.preventDefault();var d=new FormData(f);
       if(btn){btn.disabled=true;btn.textContent='Envoi en cours…';}
       note.textContent='Envoi de votre brief et de vos documents…';
@@ -670,6 +677,17 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   (function(){if(SMALL||COARSE)return;var c=document.getElementById('mcursor');if(!c)return;var x=innerWidth/2,y=innerHeight/2,cx=x,cy=y;addEventListener('mousemove',function(e){x=e.clientX;y=e.clientY;},{passive:true});document.querySelectorAll('a,button,[data-magnetic]').forEach(function(el){el.addEventListener('mouseenter',function(){c.classList.add('big');});el.addEventListener('mouseleave',function(){c.classList.remove('big');});});(function loop(){cx+=(x-cx)*.18;cy+=(y-cy)*.18;c.style.transform='translate('+cx+'px,'+cy+'px) translate(-50%,-50%)';requestAnimationFrame(loop);})();})();
 
   addEventListener('load',function(){if(hasGSAP)ScrollTrigger.refresh();pickBg(window.scrollY);});
+})();
+</script>
+<script>
+/* Cal.com — réservation en ligne inline (lazy : se charge quand la section approche) */
+(function(){var el=document.getElementById('cal-inline');if(!el)return;var booted=false;
+  function boot(){if(booted)return;booted=true;
+    (function(C,A,L){var p=function(a,ar){a.q.push(ar);};var d=C.document;C.Cal=C.Cal||function(){var cal=C.Cal;var ar=arguments;if(!cal.loaded){cal.ns={};cal.q=cal.q||[];d.head.appendChild(d.createElement("script")).src=A;cal.loaded=true;}if(ar[0]===L){var api=function(){p(api,arguments);};var ns=ar[1];api.q=api.q||[];if(typeof ns==="string"){cal.ns[ns]=cal.ns[ns]||api;p(cal.ns[ns],ar);p(cal,["initNamespace",ns]);}else p(cal,ar);return;}p(cal,ar);};})(window,"https://app.cal.com/embed/embed.js","init");
+    Cal("init","diag",{origin:"https://cal.com"});
+    Cal.ns.diag("inline",{elementOrSelector:"#cal-inline",config:{layout:"month_view",theme:"dark"},calLink:"lauralie-daguzay-hdglzw/diagnostic"});
+    Cal.ns.diag("ui",{theme:"dark",hideEventTypeDetails:false,layout:"month_view"});}
+  if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){boot();io.disconnect();}});},{rootMargin:'300px'});io.observe(el);}else boot();
 })();
 </script>
 </body>
