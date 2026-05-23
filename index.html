@@ -453,7 +453,7 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
 
 <section class="vsec" id="contact" data-bg="passerelle">
   <div class="vsec-inner" style="max-width:760px">
-    <div class="head center"><span class="eyebrow" data-anim="up">Pour démarrer</span><h2 data-anim="up">Un formulaire qui s'adapte à vous.</h2><p class="lead" data-anim="up">Un diagnostic écrit par mail · pas un appel · pas d'engagement.</p></div>
+    <div class="head center"><span class="eyebrow" data-anim="up">Pour démarrer</span><h2 data-anim="up">Racontez-nous tout. On s'occupe du reste.</h2><p class="lead" data-anim="up">Un diagnostic écrit par mail · pas un appel · pas d'engagement. <strong>Plus vous détaillez votre projet, plus votre devis est précis et rapide — et moins vous aurez à faire ensuite.</strong></p></div>
     <form class="widget pform" data-anim="up" id="pform" novalidate enctype="multipart/form-data">
       <fieldset><legend>Votre besoin</legend>
         <div class="path-cards">
@@ -488,6 +488,27 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
         <div class="field"><label for="pack_echeance">Échéance critique</label><input id="pack_echeance" name="pack_echeance" placeholder="Date ou flexible"></div>
         <div class="field full"><label for="pack_description">Description du projet</label><textarea id="pack_description" name="pack_description" rows="3"></textarea></div>
       </div></fieldset>
+      <fieldset><legend>Votre projet en détail</legend>
+        <p class="note" style="margin:0 0 .9rem">On lit <strong>tout</strong>, soyez généreux·se ✍️ — chaque détail nous évite un aller-retour et accélère votre livraison. Vous n'aurez quasiment rien à refaire ensuite : on s'occupe du reste.</p>
+        <div class="field full"><label for="projet">Racontez-nous votre projet *</label><textarea id="projet" name="projet" rows="5" required placeholder="Qui êtes-vous, ce que vous faites, ce que vous voulez créer, pourquoi maintenant, ce qui bloque aujourd'hui… N'hésitez pas à tout détailler, même les petites idées."></textarea></div>
+        <div class="fg2">
+          <div class="field"><label for="objectif">Votre objectif n°1</label><select id="objectif" name="objectif"><option value="">— Sélectionner —</option><option>Avoir (enfin) un site</option><option>Plus de clients / leads</option><option>Gagner du temps (automatiser)</option><option>Une image pro &amp; premium</option><option>Vendre en ligne</option><option>Me faire connaître (réseaux)</option><option>Un film / clip</option><option>Autre</option></select></div>
+          <div class="field"><label for="activite">Votre activité</label><input id="activite" name="activite" placeholder="Ex. restaurant, avocate, onglerie…"></div>
+        </div>
+        <div class="field full"><label for="cible">Votre clientèle cible</label><input id="cible" name="cible" placeholder="À qui vous adressez-vous ? (type de clients, âge, zone géographique…)"></div>
+        <div class="field full"><label>Ce que vous avez déjà</label>
+          <div style="display:flex;flex-wrap:wrap;gap:.45rem 1.2rem;margin-top:.3rem">
+            <label class="chk"><input type="checkbox" name="a_logo"> Un logo</label>
+            <label class="chk"><input type="checkbox" name="a_textes"> Des textes</label>
+            <label class="chk"><input type="checkbox" name="a_photos"> Des photos / vidéos</label>
+            <label class="chk"><input type="checkbox" name="a_charte"> Une charte / couleurs</label>
+            <label class="chk"><input type="checkbox" name="a_reseaux"> Des comptes réseaux</label>
+            <label class="chk"><input type="checkbox" name="a_rien"> Rien encore, on part de zéro</label>
+          </div>
+        </div>
+        <div class="field full"><label for="refs">Des sites ou visuels que vous adorez</label><textarea id="refs" name="refs" rows="2" placeholder="Collez des liens ou décrivez ce qui vous plaît (style, ambiance, couleurs) — ça nous aide à viser juste du premier coup."></textarea></div>
+        <div class="field full"><label for="concurrents">Vos concurrents</label><input id="concurrents" name="concurrents" placeholder="Noms ou liens — pour qu'on vous démarque d'eux"></div>
+      </fieldset>
       <fieldset><div class="fg2">
         <div class="field"><label for="delai">Délai souhaité</label><select id="delai" name="delai"><option value="">— Sélectionner —</option><option>Moins d'un mois</option><option>1 à 3 mois</option><option>Pas pressé</option></select></div>
         <div class="field"><label for="budget">Budget envisagé</label><select id="budget" name="budget"><option value="">— Sélectionner —</option><option>Moins de 500 €</option><option>500 - 2 000 €</option><option>2 000 - 5 000 €</option><option>Plus de 5 000 €</option><option>À discuter</option></select></div>
@@ -603,7 +624,7 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
     var note=document.getElementById('pformNote');
     var btn=f.querySelector('button[type="submit"]');
     function mailFallback(d){var get=function(k){return d.get(k)||'';};
-      var body=['Besoin: '+get('path'),'Prénom: '+get('prenom'),'Nom: '+get('nom'),'Entreprise: '+get('entreprise'),'Email: '+get('email'),'Tél: '+get('tel'),'CP: '+get('cp'),'Site: '+get('site'),'Délai: '+get('delai'),'Budget: '+get('budget'),'','Message:',get('message')].join('%0D%0A');
+      var body=['Besoin: '+get('path'),'Prénom: '+get('prenom'),'Nom: '+get('nom'),'Entreprise: '+get('entreprise'),'Email: '+get('email'),'Tél: '+get('tel'),'CP: '+get('cp'),'Site: '+get('site'),'Activité: '+get('activite'),'Objectif: '+get('objectif'),'Cible: '+get('cible'),'Délai: '+get('delai'),'Budget: '+get('budget'),'','Projet:',get('projet'),'','Références: '+get('refs'),'Concurrents: '+get('concurrents'),'','Message:',get('message')].join('%0D%0A');
       window.location.href='mailto:contact@pinapp.fr?subject='+encodeURIComponent('Brief Pinapp — '+get('prenom')+' '+get('entreprise'))+'&body='+body;
       note.innerHTML='Votre logiciel mail s\'ouvre. ⚠ Les pièces jointes ne passent pas par l\'email — joignez-les à la main, ou réessayez le formulaire. Sinon : contact@pinapp.fr · WhatsApp 07 86 17 37 15.';}
     f.addEventListener('submit',function(e){e.preventDefault();var d=new FormData(f);
