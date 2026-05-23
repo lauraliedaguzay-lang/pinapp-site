@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pinapp — Sites web, automatisations IA & films cinéma · Studio digital bordelais</title>
+<meta name="description" content="Studio digital bordelais : sites web, automatisations IA et films cinéma. Un seul devis, 50 à 75 % moins cher qu'une agence. Diagnostic offert sous 24 h.">
+<meta name="robots" content="noindex,nofollow">
+<meta property="og:title" content="Pinapp — Studio digital bordelais"><meta property="og:type" content="website">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<!-- PINAPP — fond unique fixe en FONDU ENCHAÎNÉ (vos vidéos/photos uniquement).
+     Contenu en widgets glass Apple qui dansent. Aucune barre, tout s'enchaîne. -->
+<style>
+:root{--graphite:#0d0e11;--smoked:#1A1A1D;--ivory:#F4F1EA;--smoked-gray:#7A746D;--champagne:#B8ADA1;
+--violet:#8E6AD8;--periwinkle:#6D8FEA;--lavender:#A88BE0;
+--border:rgba(255,255,255,.14);--ease-apple:cubic-bezier(.32,.72,0,1);--ease-out-expo:cubic-bezier(.16,1,.3,1);
+--ff:"Geist",-apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif;--maxw:1180px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;background:var(--graphite)}
+html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}.lenis.lenis-stopped{overflow:hidden}
+body{font-family:var(--ff);background:transparent;color:var(--ivory);font-size:16px;line-height:1.6;overflow-x:hidden}
+body.no-scroll{overflow:hidden}img,video{display:block;max-width:100%}a{color:inherit;text-decoration:none}
+::selection{background:var(--violet);color:var(--ivory)}h1,h2,h3,h4{margin:0;font-weight:600;letter-spacing:-.02em;line-height:1.08}
+a,button{transition:transform .4s var(--ease-apple),background .3s,color .3s,border-color .3s,box-shadow .4s,opacity .3s}
+.grad{background:linear-gradient(135deg,var(--violet),var(--periwinkle));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.eyebrow{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--periwinkle)}.muted{opacity:.82}.peri{color:var(--periwinkle)}
+.lead{font-size:clamp(1rem,1.35vw,1.16rem);opacity:.9;line-height:1.6}
+
+/* ===== FOND UNIQUE FIXE · fondu enchaîné (vos assets) ===== */
+#bgstage{position:fixed;inset:0;z-index:0;overflow:hidden;background:var(--graphite)}
+.bglayer{position:absolute;inset:0;opacity:0;transition:opacity 1.25s var(--ease-apple);will-change:opacity}
+.bglayer.active{opacity:1}
+.bglayer img,.bglayer video{width:100%;height:100%;object-fit:cover}
+.bglayer.active img,.bglayer.active video{animation:kb 20s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1.04) translateY(0)}to{transform:scale(1.16) translateY(-2%)}}
+#bgveil{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(8,9,13,.52),rgba(8,9,13,.72)),radial-gradient(ellipse at 28% 22%,rgba(141,106,216,.16),transparent 60%);}
+#bggrain{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ===== sections (transparentes, glissent sur le fond) ===== */
+.vsec{position:relative;z-index:1;display:flex;align-items:center;padding:clamp(4rem,8vw,7rem) clamp(1.2rem,5vw,4rem)}
+.vsec.full{min-height:100svh}
+.vsec-inner{width:100%;max-width:var(--maxw);margin:0 auto}
+.head h2{font-size:clamp(1.9rem,4vw,3rem)}.head .eyebrow{display:block;margin-bottom:.9rem}.head{margin-bottom:1.6rem}.head .lead{margin-top:.7rem;max-width:46rem}
+.center{text-align:center}.center .head .lead{margin-left:auto;margin-right:auto}.center .cta-row{justify-content:center}
+.btn{display:inline-flex;align-items:center;gap:.5em;background:var(--ivory);color:var(--graphite);border:0;border-radius:999px;padding:.95rem 1.9rem;font:inherit;font-size:.92rem;font-weight:600;cursor:pointer}
+.btn:hover{background:linear-gradient(135deg,var(--violet),var(--periwinkle));color:var(--ivory);transform:translateY(-2px)}
+.btn.ghost{background:rgba(255,255,255,.08);color:var(--ivory);border:1px solid var(--border);font-weight:500}.btn.ghost:hover{background:rgba(141,106,216,.2);border-color:var(--violet)}
+.btn .a{transition:transform .35s var(--ease-apple)}.btn:hover .a{transform:translateX(4px)}
+.cta-row{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.2rem}
+
+/* ===== WIDGET glass Apple ===== */
+.widget{background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.045));backdrop-filter:blur(32px) saturate(1.4);-webkit-backdrop-filter:blur(32px) saturate(1.4);border:1px solid var(--border);border-radius:24px;box-shadow:0 12px 54px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.2);padding:1.7rem 1.9rem}
+.widget.tight{padding:1.3rem 1.4rem}
+.widget{transition:transform .5s var(--ease-apple),box-shadow .5s var(--ease-apple),border-color .5s}
+.wgrid .widget{transform-style:preserve-3d;will-change:transform}
+.wgrid .widget:hover{box-shadow:0 22px 66px rgba(141,106,216,.32),inset 0 1px 0 rgba(255,255,255,.26);border-color:rgba(141,106,224,.5)}
+.wgrid a.widget:hover h3,.wgrid a.widget:hover strong{color:var(--periwinkle)}
+.ph-block{border:1px dashed var(--border);border-radius:14px;background:rgba(20,21,26,.4);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1.4rem 1rem;min-height:118px;gap:.4rem}
+.ph-block .pt{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--periwinkle)}.ph-block .pl{font-size:.78rem;opacity:.6}
+.ph-vid{position:relative;aspect-ratio:16/9;border:1px dashed var(--border);border-radius:16px;background:rgba(20,21,26,.4);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:.5rem}
+.ph-vid .play{width:48px;height:48px;border-radius:50%;background:rgba(244,241,234,.85);display:grid;place-items:center}.ph-vid .play::after{content:"";border-top:9px solid transparent;border-bottom:9px solid transparent;border-left:15px solid var(--graphite);margin-left:3px}
+.ph-vid .pt{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--periwinkle)}.ph-vid .pl{font-size:.78rem;opacity:.6}
+.chatbtn{position:fixed;bottom:20px;right:20px;z-index:120;width:56px;height:56px;border-radius:50%;border:0;cursor:pointer;background:linear-gradient(135deg,var(--violet),var(--periwinkle));color:#fff;font-size:1.4rem;box-shadow:0 10px 30px rgba(141,106,216,.45)}
+.chatpanel{position:fixed;bottom:88px;right:20px;z-index:120;width:min(360px,92vw);max-height:70vh;overflow:auto;border-radius:18px;background:rgba(20,22,28,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--border);padding:1.25rem;display:none}.chatpanel.open{display:block}
+.chatpanel h4{font-size:1rem;margin-bottom:.25rem}.chatpanel .chint{font-size:.78rem;opacity:.6;margin-bottom:1rem}
+.chatpanel .qa{border-top:1px solid rgba(255,255,255,.08)}.chatpanel .qa button{width:100%;text-align:left;background:none;border:0;color:var(--ivory);font:inherit;font-size:.85rem;padding:.7rem 0;cursor:pointer;display:flex;justify-content:space-between;gap:.5rem}.chatpanel .qa .a{max-height:0;overflow:hidden;transition:max-height .4s var(--ease-apple);font-size:.8rem;opacity:.78}.chatpanel .qa.open .a{max-height:220px;padding-bottom:.7rem}
+/* easter egg — pierres d'infinité */
+#valeurs .widget{position:relative}
+.istone{position:absolute;top:12px;right:12px;width:15px;height:15px;border-radius:50%;cursor:pointer;background:radial-gradient(circle at 35% 30%,#fff8,var(--gem) 55%,#0006);box-shadow:0 0 0 1px #fff2,0 0 8px 1px color-mix(in srgb,var(--gem) 55%,transparent);opacity:.4;transition:transform .3s var(--ease-apple),opacity .3s,box-shadow .3s}
+.istone:hover{opacity:.85;transform:scale(1.15)}
+.istone.got{opacity:1;transform:scale(1.05);box-shadow:0 0 0 1px #fff4,0 0 16px 3px color-mix(in srgb,var(--gem) 80%,transparent);animation:gempop .5s var(--ease-apple)}
+@keyframes gempop{0%{transform:scale(1.7)}60%{transform:scale(.9)}100%{transform:scale(1.05)}}
+.vhint .vcount{color:var(--periwinkle);font-weight:600}
+.gauntlet{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:1.5rem;background:rgba(8,8,11,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.gauntlet.open{display:flex;animation:gfade .5s ease}
+@keyframes gfade{from{opacity:0}to{opacity:1}}
+.gauntlet__card{max-width:480px;text-align:center;background:rgba(20,22,28,.96);border:1px solid var(--border);border-radius:22px;padding:2.2rem 1.8rem;box-shadow:0 30px 90px rgba(0,0,0,.6);animation:gpop .6s var(--ease-apple)}
+@keyframes gpop{0%{transform:scale(.8);opacity:0}100%{transform:scale(1);opacity:1}}
+.gauntlet__glove{font-size:3rem;line-height:1;filter:drop-shadow(0 0 18px rgba(141,106,216,.7))}
+.gauntlet.snap .gauntlet__glove{animation:snap .7s var(--ease-apple)}
+@keyframes snap{0%{transform:scale(1) rotate(0)}30%{transform:scale(1.3) rotate(-8deg)}100%{transform:scale(1) rotate(0)}}
+.gauntlet__gems{display:flex;gap:8px;justify-content:center;margin:.9rem 0 .2rem}
+.gauntlet__gems i{width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff9,var(--gem) 55%,#0006);box-shadow:0 0 10px 1px color-mix(in srgb,var(--gem) 70%,transparent)}
+.gauntlet__line{font-size:1.18rem;line-height:1.4;margin:.4rem 0 .6rem}.gauntlet__line .grad{background:linear-gradient(90deg,var(--violet),var(--periwinkle));-webkit-background-clip:text;background-clip:text;color:transparent}
+.gauntlet__sub{font-size:.9rem;opacity:.78;line-height:1.55}
+.gauntlet__close{margin-top:1rem;background:none;border:0;color:var(--ivory);opacity:.55;font:inherit;font-size:.82rem;cursor:pointer}.gauntlet__close:hover{opacity:.9}
+.widget h1{font-size:clamp(2.4rem,5.6vw,4.6rem);font-weight:600;line-height:1.04;letter-spacing:-.035em}
+.widget h2{font-size:clamp(1.7rem,3.4vw,2.6rem)}.widget h3{font-size:1.2rem;margin-bottom:.4rem}
+.widget .e2{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;opacity:.6;margin-bottom:1rem}
+.widget .sub{margin-top:.9rem;opacity:.92;line-height:1.55;font-size:clamp(.98rem,1.3vw,1.12rem)}
+.hero-widget{max-width:760px}
+.dot-pulse{display:inline-block;width:9px;height:9px;border-radius:50%;vertical-align:middle;margin-left:.4em;background:linear-gradient(135deg,var(--violet),var(--periwinkle));box-shadow:0 0 24px rgba(141,106,216,.4);animation:pulse 3s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.7;transform:scale(.92)}}
+.wgrid{display:grid;gap:1rem}.wgrid.g2{grid-template-columns:1fr 1fr}.wgrid.g3{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}.wgrid.g4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+@media(max-width:760px){.wgrid.g2{grid-template-columns:1fr}}
+.chips{display:flex;gap:.55rem;flex-wrap:wrap;margin-top:1rem}.chip{border:1px solid var(--border);background:rgba(255,255,255,.06);padding:.5rem 1rem;border-radius:999px;font-size:.8rem}.chip b{color:var(--periwinkle)}
+.statline{display:flex;gap:2rem;flex-wrap:wrap;margin-top:1rem}.statline .n{font-size:clamp(1.6rem,3.2vw,2.4rem);font-weight:700}.statline .l{font-size:.74rem;opacity:.72}
+.idx{font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;color:var(--periwinkle);font-weight:500;margin-bottom:.7rem}
+.link{display:inline-block;margin-top:.9rem;font-size:.82rem;color:var(--periwinkle);border-bottom:1px solid rgba(109,143,234,.4);padding-bottom:2px}
+.pr{font-size:1.5rem;font-weight:700;margin:.3rem 0 .7rem}.pr s{opacity:.5;font-size:.85rem;font-weight:400}.pr .new{color:var(--periwinkle)}
+.feat ul{list-style:none;margin:.5rem 0}.feat ul li{padding:.35rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:.82rem;display:flex;gap:.5rem}.feat ul li:last-child{border-bottom:0}.feat ul li::before{content:"✓";color:var(--periwinkle)}
+.widget.featured{border-color:rgba(141,106,216,.42);box-shadow:0 12px 54px rgba(141,106,216,.28),inset 0 1px 0 rgba(255,255,255,.22)}
+.badge{display:inline-block;background:var(--lavender);color:var(--graphite);padding:.25rem .8rem;border-radius:999px;font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.6rem}
+.wcta{display:inline-block;margin-top:.9rem;padding:.7rem 1.3rem;border-radius:999px;font-size:.8rem;font-weight:600;border:1px solid var(--border);background:rgba(255,255,255,.06)}.wcta:hover{background:linear-gradient(135deg,var(--violet),var(--periwinkle))}
+.note{margin-top:1rem;font-size:.8rem;opacity:.72}
+.vimeo-wrap{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;margin-top:1rem}.vimeo-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.demo-shot{width:100%;aspect-ratio:16/9;object-fit:cover;object-position:center;border-radius:12px;margin-bottom:.7rem;border:1px solid var(--border);display:block;transition:transform .5s var(--ease-apple)}
+.widget.tight:hover .demo-shot{transform:scale(1.03)}
+.film-thumb{position:relative;display:block;border-radius:12px;overflow:hidden;margin-bottom:.6rem;border:1px solid var(--border)}
+.film-thumb img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;transition:transform .5s var(--ease-apple)}
+.film-thumb:hover img{transform:scale(1.05)}
+.film-thumb::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:rgba(244,241,234,.92);box-shadow:0 6px 24px rgba(0,0,0,.45);z-index:1}
+.film-thumb::after{content:"";position:absolute;top:50%;left:50%;transform:translate(-38%,-50%);border-top:11px solid transparent;border-bottom:11px solid transparent;border-left:18px solid var(--graphite);z-index:2}
+
+/* ===== chorégraphie (GSAP) ===== */
+.js [data-anim],.js [data-stag]>*{opacity:0;will-change:transform,opacity}
+
+/* nav */
+nav.top{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.6rem;transition:padding .4s var(--ease-apple),background .3s,backdrop-filter .3s}
+nav.top.scrolled{padding:.6rem 1.6rem;background:rgba(13,14,17,.5);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);border-bottom:1px solid rgba(255,255,255,.08)}
+nav.top.hide{transform:translateY(-115%)}nav.top .logo img{height:58px;width:auto;display:block;transition:height .4s var(--ease-apple)}nav.top.scrolled .logo img{height:46px}@media(max-width:1080px){nav.top .logo img{height:46px}nav.top.scrolled .logo img{height:40px}}
+nav.top .links{display:flex;gap:1.2rem;align-items:center}nav.top .links a{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;opacity:.78}nav.top .links a:hover{opacity:1}
+nav.top .links a.pill{background:var(--ivory);color:var(--graphite);padding:.45rem 1.1rem;border-radius:999px;font-weight:600}nav.top .links a.pill:hover{background:linear-gradient(135deg,var(--violet),var(--periwinkle));color:var(--ivory)}
+.sober-toggle{background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--ivory);border-radius:999px;padding:.45rem .75rem;font:inherit;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:.45em}
+.sober-toggle .dot{width:7px;height:7px;border-radius:50%;background:var(--periwinkle);box-shadow:0 0 10px rgba(109,143,234,.6)}body.sober .sober-toggle .dot{background:var(--smoked-gray);box-shadow:none}
+.burger{display:none;background:none;border:0;color:var(--ivory);font-size:1.3rem;cursor:pointer}
+@media(max-width:1080px){nav.top .links a:not(.pill):not(.keep){display:none}.burger{display:block}}
+.mmenu{position:fixed;inset:0;z-index:99;background:rgba(10,12,18,.97);backdrop-filter:blur(20px);display:none;flex-direction:column;align-items:center;justify-content:center;gap:1.1rem}.mmenu.open{display:flex}.mmenu a{font-size:1.3rem;font-weight:500}.mmenu .close{position:absolute;top:1.4rem;right:1.6rem;font-size:1.6rem;background:none;border:0;color:var(--ivory);cursor:pointer}
+
+/* form */
+.pform{border:0;box-shadow:0 18px 50px rgba(0,0,0,.4)}
+.pform fieldset{border:0;padding:0;margin:0 0 1.1rem}
+.pform legend{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--periwinkle);margin-bottom:.7rem;padding:0}
+.path-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.7rem;margin-bottom:1.2rem}
+.path-card{position:relative;border:1px solid var(--border);border-radius:14px;padding:1rem;cursor:pointer;display:block;background:rgba(255,255,255,.05)}
+.path-card input{position:absolute;opacity:0}.path-card:has(input:checked){border-color:var(--violet);background:rgba(141,106,216,.14)}
+.path-card .pi{font-size:1.2rem}.path-card .pt{font-weight:600;display:block;margin:.25rem 0 .15rem}.path-card .pd{font-size:.76rem;opacity:.72;display:block}.path-card .pa{font-size:.7rem;color:var(--periwinkle);display:block;margin-top:.25rem}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}@media(max-width:600px){.fg2{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.8rem}.field.full{grid-column:1/-1}.field label{font-size:.74rem;opacity:.72}
+.pform input,.pform select,.pform textarea{background:rgba(10,12,18,.5);border:1px solid var(--border);border-radius:10px;padding:.8rem 1rem;color:var(--ivory);font:inherit;font-size:.9rem;width:100%}
+.pform input:focus,.pform select:focus,.pform textarea:focus{border-color:rgba(109,143,234,.6);box-shadow:0 0 0 3px rgba(109,143,234,.12);outline:none}.pform input::placeholder,.pform textarea::placeholder{color:rgba(244,241,234,.35)}
+.cond{margin:.9rem 0;padding:1rem;border:1px dashed var(--border);border-radius:12px}.cond[hidden]{display:none}
+.chk{font-size:.8rem;opacity:.86;display:flex;gap:.5rem;align-items:flex-start;margin-top:.6rem;cursor:pointer}.chk input{width:auto;margin-top:.2rem}
+.pform button[type=submit]{background:var(--ivory);color:var(--graphite);padding:1rem 2rem;border-radius:999px;border:0;font:inherit;font-weight:600;cursor:pointer;margin-top:.9rem;width:100%}.pform button[type=submit]:hover{background:linear-gradient(135deg,var(--violet),var(--periwinkle));color:var(--ivory)}
+.foralt{text-align:center;margin-top:1rem;font-size:.84rem;opacity:.75}
+.faqd .it{border-bottom:1px solid rgba(255,255,255,.08)}.faqd .q{width:100%;text-align:left;padding:1rem 0;background:none;border:0;color:var(--ivory);font:inherit;font-size:.94rem;cursor:pointer;display:flex;justify-content:space-between;gap:1rem}.faqd .q .s{color:var(--periwinkle);font-size:1.2rem;transition:transform .4s var(--ease-apple)}.faqd .it.open .q .s{transform:rotate(45deg)}.faqd .ans{max-height:0;overflow:hidden;transition:max-height .5s var(--ease-apple)}.faqd .ans .in{padding-bottom:1rem;font-size:.85rem;opacity:.8;line-height:1.6}
+.crow{display:flex;gap:.9rem;align-items:center;padding:.5rem 0}.crow .ic{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.08);display:grid;place-items:center;font-size:1rem;flex:0 0 auto}.crow .lab{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;opacity:.55}.crow .val{font-size:.92rem;font-weight:500}
+footer.ft{position:relative;z-index:1;background:rgba(13,14,17,.6);backdrop-filter:blur(20px);padding:3.5rem 1.5rem 2rem;border-top:1px solid rgba(255,255,255,.08)}footer.ft .cols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem}footer.ft img.logo{height:34px;margin-bottom:1rem}footer.ft .addr{font-size:.84rem;opacity:.65;line-height:1.7}footer.ft .ttl{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;opacity:.55;margin-bottom:.9rem}footer.ft .lst{display:grid;gap:.45rem;font-size:.84rem;opacity:.75}footer.ft .lst a:hover{opacity:1;color:var(--periwinkle)}footer.ft .copy{border-top:1px solid rgba(255,255,255,.08);padding-top:1.8rem;font-size:.8rem;opacity:.55;text-align:center}@media(max-width:760px){footer.ft .cols{grid-template-columns:1fr;gap:1.8rem}}
+.mcursor{position:fixed;top:0;left:0;width:32px;height:32px;border:1px solid rgba(168,139,224,.6);border-radius:50%;pointer-events:none;z-index:200;transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s,border-color .25s;mix-blend-mode:difference;will-change:transform}.mcursor.big{width:60px;height:60px;background:rgba(168,139,224,.12);border-color:transparent}@media(max-width:1080px),(pointer:coarse){.mcursor{display:none}}
+body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:none!important}body.sober .dot-pulse{animation:none}body.sober .mcursor{display:none}body.sober .bglayer.active img,body.sober .bglayer.active video{animation:none}
+</style>
+</head>
+<body>
+<div class="mcursor" id="mcursor" aria-hidden="true"></div>
+
+<!-- FOND UNIQUE FIXE · vos vidéos + photos en fondu enchaîné -->
+<div id="bgstage">
+  <div class="bglayer" data-key="constellation"><video src="avalon/videos/2-1-constellation.mp4" poster="avalon/frames/2-1-constellation.png" muted loop playsinline preload="auto"></video></div>
+  <div class="bglayer" data-key="hublot"><video src="avalon/videos/1-2-hublot.mp4" poster="avalon/frames/1-2-hublot.png" muted loop playsinline preload="metadata"></video></div>
+  <div class="bglayer" data-key="cabine"><video src="avalon/videos/1-3-cabine-cockpit.mp4" poster="avalon/frames/1-3-cabine-cockpit.png" muted loop playsinline preload="metadata"></video></div>
+  <div class="bglayer" data-key="interface"><video src="avalon/videos/2-2-interface-holo.mp4" poster="avalon/frames/2-2-interface-holo.png" muted loop playsinline preload="metadata"></video></div>
+  <div class="bglayer" data-key="cascade"><video src="avalon/videos/2-3-cascade-code.mp4" poster="avalon/frames/2-3-cascade-code.png" muted loop playsinline preload="metadata"></video></div>
+  <div class="bglayer" data-key="trajectoires"><video src="avalon/videos/3-1-trajectoires.mp4" poster="avalon/frames/3-1-trajectoires.png" muted loop playsinline preload="metadata"></video></div>
+  <div class="bglayer" data-key="plongee"><img src="avalon/frames/1-1-plongee-cosmique.png" alt=""></div>
+  <div class="bglayer" data-key="sceaux"><img src="avalon/frames/3-2-sceaux-graves.png" alt=""></div>
+  <div class="bglayer" data-key="atterrissage"><img src="avalon/frames/3-3-atterrissage.png" alt=""></div>
+  <div class="bglayer" data-key="vaisseau"><video src="avalon/videos/vaisseau.mp4" muted loop playsinline preload="metadata"></video></div>
+  <div class="bglayer" data-key="portes"><video src="avalon/videos/portes.mp4" muted loop playsinline preload="metadata"></video></div>
+  <div class="bglayer" data-key="salle-sceaux"><video src="avalon/videos/salle-sceaux.mp4" muted loop playsinline preload="metadata"></video></div>
+  <div class="bglayer" data-key="fusion"><video src="avalon/videos/fusion-duo.mp4" muted loop playsinline preload="metadata"></video></div>
+  <div class="bglayer" data-key="studio"><video src="avalon/videos/studio-cinema.mp4" muted loop playsinline preload="metadata"></video></div>
+  <div class="bglayer" data-key="scene"><video src="avalon/videos/scene-artiste.mp4" muted loop playsinline preload="metadata"></video></div>
+  <div class="bglayer" data-key="ascension"><video src="avalon/videos/ascension.mp4" muted loop playsinline preload="metadata"></video></div>
+  <div class="bglayer" data-key="tournage"><video src="avalon/videos/tournage.mp4" muted loop playsinline preload="metadata"></video></div>
+  <div class="bglayer" data-key="corridor"><video src="avalon/videos/corridor.mp4" muted loop playsinline preload="metadata"></video></div>
+  <div class="bglayer" data-key="passerelle"><video src="avalon/videos/passerelle.mp4" muted loop playsinline preload="metadata"></video></div>
+</div>
+<div id="bgveil"></div><div id="bggrain"></div>
+
+<nav class="top" id="nav">
+  <a href="#top" class="logo" aria-label="Pinapp"><img src="avalon/logo-pinapp-cut.png" alt="Pinapp"></a>
+  <div class="links">
+    <a href="#duo" data-magnetic>Le duo</a><a href="#pack" data-magnetic>Offres</a><a href="#realisations" data-magnetic>Réalisations</a><a href="#methode" data-magnetic>Méthode</a><a href="#formations" data-magnetic>Formations</a>
+    <a href="#contact" class="pill keep" data-magnetic>Diagnostic 24h</a>
+    <button class="sober-toggle keep" id="soberToggle" aria-pressed="false"><span class="dot"></span><span class="lbl">Mode sobre</span></button>
+    <button class="burger keep" id="burger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+<div class="mmenu" id="mmenu"><button class="close" id="mclose" aria-label="Fermer">✕</button>
+  <a href="#duo">Le duo</a><a href="#pack">Offres</a><a href="#realisations">Réalisations</a><a href="#methode">Méthode</a><a href="#formations">Formations</a><a href="#contact">Diagnostic 24h</a></div>
+
+<main id="top">
+
+<section class="vsec full center" id="hero" data-bg="vaisseau">
+  <div class="vsec-inner"><div class="widget hero-widget" data-anim="depth" style="margin:0 auto">
+    <div class="e2">Pinapp Inc · Bordeaux · 2026 — Studio digital</div>
+    <h1>Vos outils travaillent.<br>Vous gagnez du <span class="grad">temps</span><span class="dot-pulse"></span></h1>
+    <p class="sub">Site vitrine, automatisations IA, films cinéma — par un duo bordelais. Un seul devis. 50 à 75 % moins cher qu'une agence. Diagnostic offert sous 24 h.</p>
+    <div class="cta-row" style="justify-content:center"><a href="#contact" class="btn" data-magnetic>Recevoir mon diagnostic sous 24h <span class="a">→</span></a><a href="#hook-film" class="btn ghost" data-magnetic>Voir la démo ↓</a></div>
+  </div></div>
+</section>
+
+<section class="vsec center" id="hook-film" data-bg="hublot">
+  <div class="vsec-inner" style="max-width:760px"><div class="widget" data-anim="up">
+    <span class="idx">★ Démo · tournée par Micha</span>
+    <h2>Voilà ce qu'on fait. <em class="peri">En 60 secondes.</em></h2>
+    <div class="vimeo-wrap"><iframe src="https://player.vimeo.com/video/1190745013?dnt=1" title="Pinapp · vidéo de présentation" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+    <p class="note"><strong>8 000 € en agence</strong> · chez nous, <strong class="peri">à partir de 1 290 € HT</strong>.</p>
+  </div></div>
+</section>
+
+<section class="vsec center" id="orientation" data-bg="portes">
+  <div class="vsec-inner">
+    <div class="head center"><h2 data-anim="up">Vous êtes plutôt…</h2></div>
+    <div class="wgrid g3" data-stag>
+      <a class="widget tight" href="#contact"><h3>Dirigeant·e TPE/PME</h3><p class="lead" style="font-size:.9rem">Site, automatisations, pack duo — conversion et temps gagné.</p><span class="link">Suite → Diagnostic</span></a>
+      <a class="widget tight" href="#cinema-artistes"><h3>Artiste / créateur·trice</h3><p class="lead" style="font-size:.9rem">Clips IA, univers visuel, voix — présence scène numérique.</p><span class="link">Suite → Cinéma IA</span></a>
+      <a class="widget tight" href="#captation"><h3>Événement · captation</h3><p class="lead" style="font-size:.9rem">Séminaire, anniversaire — Micha filme en Nouvelle-Aquitaine.</p><span class="link">Suite → Captation</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="vsec" id="diagnostic" data-bg="cabine">
+  <div class="vsec-inner">
+    <div class="head"><span class="eyebrow" data-anim="left">Le diagnostic</span><h2 data-anim="left">Reconnaissez-vous votre semaine ?</h2></div>
+    <div class="wgrid g2" data-stag>
+      <div class="widget tight"><strong>01 Site qui dort.</strong> <span class="peri">→</span> Personne ne vous trouve.</div>
+      <div class="widget tight"><strong>02 Devis qui s'oublient.</strong> <span class="peri">→</span> Vous facturez en retard.</div>
+      <div class="widget tight"><strong>03 Avis Google rares.</strong> <span class="peri">→</span> Vous demandez. Personne répond.</div>
+      <div class="widget tight"><strong>04 Charge mentale H24.</strong> <span class="peri">→</span> Vous y pensez encore à 23h.</div>
+    </div>
+    <div class="widget" data-anim="up" style="margin-top:1rem"><div class="statline"><div><div class="n grad">24 h</div><div class="l">au lieu de 3 jours</div></div><div><div class="n grad">32 %</div><div class="l">closent (vs 12 %)</div></div></div><p class="note">Mesures sur nos propres ops · le diagnostic chiffre les vôtres.</p></div>
+  </div>
+</section>
+
+<section class="vsec" id="pourquoi" data-bg="interface">
+  <div class="vsec-inner">
+    <div class="head"><span class="eyebrow" data-anim="right">La méthode</span><h2 data-anim="right">Pourquoi 50 à 75 % moins cher ?<br>Les 4 sources qu'on assume.</h2></div>
+    <div class="wgrid g2" data-stag>
+      <div class="widget tight"><h3 style="font-size:.95rem">📊 McKinsey 2023</h3><p class="lead" style="font-size:.86rem">« −50 à −70 % temps production digitale »</p><a class="link" href="https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier" target="_blank" rel="noopener noreferrer">Lire ↗</a></div>
+      <div class="widget tight"><h3 style="font-size:.95rem">📊 Stanford AI Index 2025</h3><p class="lead" style="font-size:.86rem">« Coûts vidéo générative ÷ 4 (2023→2025) »</p><a class="link" href="https://hai.stanford.edu/ai-index/2025-ai-index-report" target="_blank" rel="noopener noreferrer">Lire ↗</a></div>
+      <div class="widget tight"><h3 style="font-size:.95rem">📊 OECD AI Observatory 2024</h3><p class="lead" style="font-size:.86rem">« +138 % adoption IA PME françaises »</p><a class="link" href="https://oecd.ai/en/" target="_blank" rel="noopener noreferrer">Lire ↗</a></div>
+      <div class="widget tight"><h3 style="font-size:.95rem">📊 ADEME 2024 · vue critique</h3><p class="lead" style="font-size:.86rem">« Coût environnemental de l'IA — transparence »</p><a class="link" href="https://www.ademe.fr/" target="_blank" rel="noopener noreferrer">Lire ↗</a></div>
+    </div>
+    <div class="widget" data-anim="up" style="margin-top:1rem">Un site agence : 4 200 à 8 000 €. Chez nous : à partir de 1 290 €. <span class="muted">L'IA a un coût environnemental — on le limite : hébergement européen, outils sobres, pas de génération inutile.</span></div>
+  </div>
+</section>
+
+<section class="vsec center" id="duo" data-bg="plongee">
+  <div class="vsec-inner">
+    <div class="head center"><span class="eyebrow" data-anim="up">Qui fait quoi</span><h2 data-anim="up">Lauralie + Michaël.<br>Deux experts. Un interlocuteur. Un devis.</h2></div>
+    <div class="wgrid g2" data-stag style="text-align:left">
+      <div class="widget"><img src="avalon/lauralie.jpg" alt="Lauralie Daguzay" style="width:120px;border-radius:14px;margin-bottom:.8rem;border:1px solid var(--border)"><span class="idx">Système &amp; conversion</span><h3>🔧 LAURALIE Daguzay</h3><p class="lead" style="font-size:.88rem">Elle conçoit votre présence en ligne et ce qui tourne derrière : site rapide et accessible, parcours client clair, automatisations (CRM, devis, relances, avis), assistants, formations. Du brief à la mise en ligne — Bordeaux, partout en France.</p></div>
+      <div class="widget"><img src="avalon/michael.jpg" alt="Michaël Bouilhac" style="width:120px;border-radius:14px;margin-bottom:.8rem;border:1px solid var(--border)"><span class="idx">Image &amp; cinéma</span><h3>🎬 MICHA · Michaël Bouilhac</h3><p class="lead" style="font-size:.88rem">Il réalise l'image et le mouvement : clips et films IA (du teaser au format long), captation en Nouvelle-Aquitaine, direction artistique. 10 ans d'événementiel, photo et vidéo. Du brief au fichier livré — Bordeaux et région.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="vsec" id="auto" data-bg="cascade">
+  <div class="vsec-inner">
+    <div class="head"><span class="eyebrow" data-anim="left">Automatisations</span><h2 data-anim="left">Ce qui tourne pendant que vous bossez.</h2></div>
+    <div class="wgrid g3" data-stag>
+      <div class="widget tight"><strong class="peri">1 · Contact</strong><p class="lead" style="font-size:.85rem;margin-top:.3rem">Formulaire ou message — tout au même endroit.</p></div>
+      <div class="widget tight"><strong class="peri">2 · Qualif</strong><p class="lead" style="font-size:.85rem;margin-top:.3rem">Réponse ou brouillon validé — rien sans votre OK.</p></div>
+      <div class="widget tight"><strong class="peri">3 · Devis</strong><p class="lead" style="font-size:.85rem;margin-top:.3rem">Génération, envoi, relances — moins d'oublis.</p></div>
+      <div class="widget tight"><strong class="peri">4 · Signature &amp; paiement</strong><p class="lead" style="font-size:.85rem;margin-top:.3rem">YouSign, Stripe — le fil se referme seul.</p></div>
+      <div class="widget tight"><strong class="peri">5 · Fidélisation</strong><p class="lead" style="font-size:.85rem;margin-top:.3rem">Avis, rappels, séquences — au bon moment.</p></div>
+      <div class="widget tight"><strong>8 à 14 h / semaine</strong><p class="lead" style="font-size:.85rem;margin-top:.3rem">récupérées (OECD 2024). On vous livre la doc et les accès : c'est à vous.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="vsec" id="engagements" data-bg="salle-sceaux">
+  <div class="vsec-inner">
+    <div class="head"><span class="eyebrow" data-anim="right">À bord du vaisseau</span><h2 data-anim="right">Sept engagements signés.</h2></div>
+    <div class="wgrid g4" data-stag>
+      <div class="widget tight"><strong>🟢 IA déclarée</strong><p class="lead" style="font-size:.82rem">Mention sur chaque contenu généré.</p></div>
+      <div class="widget tight"><strong>🟢 Stack européenne</strong><p class="lead" style="font-size:.82rem">Hébergement et outils EU.</p></div>
+      <div class="widget tight"><strong>🟢 Lisible par tous</strong><p class="lead" style="font-size:.82rem">WCAG 2.1 AA visé.</p></div>
+      <div class="widget tight"><strong>🟢 Page sous 1 Mo</strong><p class="lead" style="font-size:.82rem">0 tracker · CO₂/visite affiché.</p></div>
+      <div class="widget tight"><strong>🟢 Transparence radicale</strong><p class="lead" style="font-size:.82rem">Tarifs publics · code livré.</p></div>
+      <div class="widget tight"><strong>🟢 Inclusion numérique</strong><p class="lead" style="font-size:.82rem">-40 % assos · 1 pro-bono /trimestre.</p></div>
+      <div class="widget tight"><strong>🟢 Préparé pour 2030</strong><p class="lead" style="font-size:.82rem">Vos outils restent à vous.</p></div>
+      <div class="widget tight featured"><strong>Satisfait ou remboursé</strong><p class="lead" style="font-size:.82rem">Engagement non tenu = part remboursée.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="vsec center" id="pack" data-bg="fusion">
+  <div class="vsec-inner">
+    <div class="head center"><span class="eyebrow" data-anim="up">L'offre signature</span><h2 data-anim="up">Pack Duo. Tout en un seul devis.</h2></div>
+    <div class="wgrid g2" data-stag style="text-align:left">
+      <div class="widget feat"><h3>Pack Duo Essentiel</h3><p class="pr"><s>1 970 €</s> <span class="new">→ 1 890 € HT</span></p><ul><li>Site qui convertit</li><li>+ 1 film cadeau (30-60 s)</li><li>+ 30 jours d'accompagnement</li><li>+ Direction artistique unifiée</li></ul><p class="note">Livrable &lt; 30 jours</p><a class="wcta" href="#contact">Réserver →</a></div>
+      <div class="widget feat featured"><span class="badge">★ Le plus demandé</span><h3>Pack Duo Signature</h3><p class="pr">4 900 € HT</p><ul><li>Site qui convertit</li><li>+ 1 film de 3 minutes</li><li>+ Automatisations complètes</li><li>+ 90 jours d'accompagnement</li><li>+ Formation Niveau 3 (397 €) incluse</li><li>+ 1 mois de Pinapp Care offert</li></ul><p class="note">Livrable &lt; 45 jours · −1 277 € (-21 %)</p><a class="wcta" href="#contact">Réserver →</a></div>
+    </div>
+    <p class="note" data-anim="up">-40 % assos · ESS · TPE &lt; 5 salariés (SIRENE). On prend 3 projets par mois. Pas plus.</p>
+  </div>
+</section>
+
+<section class="vsec" id="realisations" data-bg="constellation">
+  <div class="vsec-inner">
+    <div class="head"><span class="eyebrow" data-anim="left">Studio Lauralie · prix fixes</span><h2 data-anim="left">6 démos sectorielles. Votre métier s'y retrouve.</h2></div>
+    <div class="wgrid g3" data-stag>
+      <div class="widget tight"><h3 style="font-size:.95rem">🌐 Sites qui convertissent</h3><p class="lead" style="font-size:.84rem">Message clair, contact, SEO et perf.</p><div class="peri" style="font-weight:600;margin-top:.4rem">à partir de 1 290 € HT</div></div>
+      <div class="widget tight"><h3 style="font-size:.95rem">⚙ Automatisations</h3><p class="lead" style="font-size:.84rem">Formulaire, CRM, devis, mails, avis.</p><div class="peri" style="font-weight:600;margin-top:.4rem">à partir de 490 € HT</div></div>
+      <div class="widget tight"><h3 style="font-size:.95rem">✨ Assistants H24</h3><p class="lead" style="font-size:.84rem">Qualifier, répondre, brouillons à valider.</p><div class="peri" style="font-weight:600;margin-top:.4rem">à partir de 890 € HT</div></div>
+    </div>
+    <div class="wgrid g3" data-stag style="margin-top:1rem">
+      <a class="widget tight" href="/demo/atelier-rivage/"><img class="demo-shot" src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=640&q=80" alt="Aperçu site Atelier Rivage" loading="lazy"><strong>Atelier Rivage</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Architecture · villas</span><span class="peri" style="font-size:.78rem;font-weight:600;display:block;margin-top:.25rem">Prestige · dès 6 900 € HT</span></a>
+      <a class="widget tight" href="/demo/restaurant/"><img class="demo-shot" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=640&q=80" alt="Aperçu site Maison Aurore" loading="lazy"><strong>Maison Aurore</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Restaurant</span><span class="peri" style="font-size:.78rem;font-weight:600;display:block;margin-top:.25rem">Signature · dès 3 890 € HT</span></a>
+      <a class="widget tight" href="/demo/avocat/"><img class="demo-shot" src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=640&q=80" alt="Aperçu site Cabinet Renaud" loading="lazy"><strong>Cabinet Renaud</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Avocat</span><span class="peri" style="font-size:.78rem;font-weight:600;display:block;margin-top:.25rem">Premium · dès 4 900 € HT</span></a>
+      <a class="widget tight" href="/demo/esthetique/"><img class="demo-shot" src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=640&q=80" alt="Aperçu site Maison Solène" loading="lazy"><strong>Maison Solène</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Esthétique</span><span class="peri" style="font-size:.78rem;font-weight:600;display:block;margin-top:.25rem">Signature · dès 3 890 € HT</span></a>
+      <a class="widget tight" href="/demo/extensions-cils/"><img class="demo-shot" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=640&q=80" alt="Aperçu site Studio Léna" loading="lazy"><strong>Studio Léna</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Extensions de cils · rose chic</span><span class="peri" style="font-size:.78rem;font-weight:600;display:block;margin-top:.25rem">Essentiel · dès 1 490 € HT</span></a>
+      <a class="widget tight" href="/demo/nails/"><img class="demo-shot" src="https://images.unsplash.com/photo-1571290274554-6a2eaa771e5f?auto=format&fit=crop&w=640&q=80" alt="Aperçu site NAÏLA" loading="lazy"><strong>NAÏLA 💅</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Onglerie baddie · 92</span><span class="peri" style="font-size:.78rem;font-weight:600;display:block;margin-top:.25rem">Avancé · dès 2 290 € HT</span></a>
+      <div class="widget tight"><strong>Votre secteur ?</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">On crée votre démo gratuitement avant tout devis.</span><span class="peri" style="font-size:.78rem;font-weight:600;display:block;margin-top:.25rem">Bundle Site + Auto · dès 1 590 € HT</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="vsec" id="films" data-bg="studio">
+  <div class="vsec-inner">
+    <div class="head"><span class="eyebrow" data-anim="right">Studio Micha · Cinéma IA</span><h2 data-anim="right">Du clip 30 secondes<br>au court-métrage 3 minutes.</h2></div>
+    <div class="widget" data-anim="up" style="padding:1rem">
+      <div class="vimeo-wrap" style="margin-top:0"><iframe src="https://player.vimeo.com/video/1184294831?dnt=1" title="Court-métrage 3 minutes — exemple Pack Signature" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+      <p class="note" style="margin-top:.7rem">★ Exemple Pack Signature · court-métrage 3 min · <strong class="peri">dès 2 800 € HT</strong> — votre univers, à votre image.</p>
+    </div>
+    <div class="head" style="margin-top:2.4rem;margin-bottom:1rem"><span class="eyebrow" data-anim="up">Ils nous ont fait confiance</span></div>
+    <div class="wgrid g4" data-stag>
+      <div class="ph-block"><span class="pt">Logo animé</span><span class="pl">Emplacement client</span></div>
+      <div class="ph-block"><span class="pt">Logo animé</span><span class="pl">Emplacement client</span></div>
+      <div class="ph-block"><span class="pt">Logo animé</span><span class="pl">Emplacement client</span></div>
+      <div class="ph-block"><span class="pt">Logo animé</span><span class="pl">Emplacement client</span></div>
+    </div>
+    <div class="widget" data-anim="up" style="margin-top:1.4rem">Avant l'IA : 8 000 € en agence. Avec Pinapp : à partir de 1 290 €. <strong class="peri">−84 %</strong>.</div>
+  </div>
+</section>
+
+<section class="vsec center" id="cinema-artistes" data-bg="scene">
+  <div class="vsec-inner" style="max-width:760px"><div class="widget" data-anim="depth">
+    <span class="idx">Studio Pinapp · Cinéma IA pour artistes</span>
+    <h2>Vous avez la voix.<br>Nous avons le studio.</h2>
+    <p class="sub">Artiste, créateur, marque narrative : vous avez l'univers en tête, il vous manquait le budget studio. Plus maintenant.</p>
+    <div class="statline" style="justify-content:center"><div><div class="n">8-50 k€</div><div class="l">avant l'IA</div></div><div><div class="n grad">dès 1 500 €</div><div class="l">avec Pinapp</div></div><div><div class="n grad">-90 %</div><div class="l">économie</div></div></div>
+    <div class="vimeo-wrap" data-anim="up" style="margin-top:1.4rem"><iframe src="https://player.vimeo.com/video/1187533794?dnt=1" title="Icebreaker — clip cinéma IA · Pinapp" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+    <p class="note" style="margin-top:.8rem">★ « Icebreaker » — clip cinéma IA réalisé par le studio · <strong class="peri">à partir de 1 500 € HT</strong></p>
+    <p class="note" style="margin-top:.4rem">Disponible été 2026 · 5 premiers projets à -30 %</p>
+    <div class="cta-row" style="justify-content:center"><a class="btn" href="#contact" data-magnetic>Devis clip sous 48h →</a></div>
+  </div></div>
+</section>
+
+<section class="vsec" id="captation" data-bg="tournage">
+  <div class="vsec-inner">
+    <div class="head"><span class="eyebrow" data-anim="left">Studio Micha · Nouvelle-Aquitaine</span><h2 data-anim="left">Micha filme votre événement —<br><em>déplacement régional inclus.</em></h2></div>
+    <div class="wgrid g3" data-stag>
+      <div class="widget tight"><strong>Séminaire entreprise</strong><p class="lead" style="font-size:.84rem">Captation 1 j · montage 7 j.</p><div class="peri" style="font-weight:600;margin-top:.4rem">dès 1 800 € HT</div></div>
+      <div class="widget tight"><strong>Anniversaire / privé</strong><p class="lead" style="font-size:.84rem">Captation 4-6 h · montage 5 j.</p><div class="peri" style="font-weight:600;margin-top:.4rem">dès 1 200 € HT</div></div>
+      <div class="widget tight"><strong>Direction artistique</strong><p class="lead" style="font-size:.84rem">Univers visuel d'une marque.</p><div class="peri" style="font-weight:600;margin-top:.4rem">sur devis</div></div>
+    </div>
+    <div class="vimeo-wrap" data-anim="up" style="margin-top:1.4rem"><iframe src="https://player.vimeo.com/video/1191622111?dnt=1" title="Séminaire d'entreprise — captation Studio Micha" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+    <p class="note" style="margin-top:.8rem">★ Captation séminaire d'entreprise — exemple de réalisation · <strong class="peri">à partir de 1 800 € HT</strong></p>
+    <p class="note" data-anim="up" style="margin-top:.4rem">⚠ Aucun mariage. Hors région : sur demande exceptionnelle.</p>
+  </div>
+</section>
+
+<section class="vsec center" id="trajectoires" data-bg="trajectoires">
+  <div class="vsec-inner" style="max-width:760px"><div class="widget" data-anim="depth">
+    <span class="idx">Deux voies</span>
+    <h2>Deux trajectoires.<br>La nôtre est directe.</h2>
+    <div class="statline" style="justify-content:center"><div><div class="n grad">−84 %</div><div class="l">8 000 € → dès 1 290 €</div></div><div><div class="n grad">2</div><div class="l">associés, pas 15</div></div><div><div class="n grad">1</div><div class="l">seul devis fixe</div></div></div>
+  </div></div>
+</section>
+
+<section class="vsec" id="methode" data-bg="sceaux">
+  <div class="vsec-inner">
+    <div class="head"><span class="eyebrow" data-anim="right">Ce qu'il y a derrière</span><h2 data-anim="right">Un site. Un film.<br>Tout ce que vous ne voyez pas.</h2></div>
+    <div class="wgrid g2" data-stag style="text-align:left">
+      <div class="widget"><strong class="peri">AVANT IA — 16 étapes humaines</strong><p class="lead" style="font-size:.82rem;margin-top:.5rem">Brief · architecture · wireframes · design system · tokens · code vanilla · WCAG AA · workflows · prompts IA · hébergement EU · monitoring · 0 tracker · perf &lt; 1 Mo · tests a11y · mise en ligne · 30 j d'accompagnement.</p></div>
+      <div class="widget"><strong class="peri">AVEC PINAPP — 4 étapes IA</strong><p class="lead" style="margin-top:.5rem">Brief minute → Génération assistée → Validation humaine → Mise en ligne.</p><div class="statline" style="margin-top:1rem"><div><div class="n grad">16→4</div><div class="l">étapes</div></div><div><div class="n grad">30→7</div><div class="l">jours</div></div></div></div>
+    </div>
+    <p class="note" data-anim="up" style="text-align:center">« La différence n'est pas dans le travail. Elle est dans qui le fait. »</p>
+  </div>
+</section>
+
+<section class="vsec" id="formations" data-bg="ascension">
+  <div class="vsec-inner">
+    <div class="head"><span class="eyebrow" data-anim="left">Piloter ses propres outils</span><h2 data-anim="left">Quatre niveaux. Du curieux au travailleur augmenté.</h2></div>
+    <div class="wgrid g4" data-stag>
+      <div class="widget feat"><h3>🌱 Éveil IA</h3><p class="pr">39 €</p><ul><li>1 h vidéo + checklist</li></ul><a class="wcta" href="/formations/">Démarrer</a></div>
+      <div class="widget feat"><h3>🟢 Découverte</h3><p class="pr">67 €</p><ul><li>2 h · comprendre l'assistant</li></ul><a class="wcta" href="/formations/">Démarrer</a></div>
+      <div class="widget feat featured"><span class="badge">★ Populaire</span><h3>🔵 Praticien</h3><p class="pr">147 €</p><ul><li>5 h · automatiser 5 tâches</li></ul><a class="wcta" href="/formations/">Démarrer</a></div>
+      <div class="widget feat"><h3>🟣 Augmenté</h3><p class="pr">397 €</p><ul><li>12 h · son assistant</li></ul><a class="wcta" href="/formations/">Démarrer</a></div>
+    </div>
+    <div class="head" style="margin-top:2.6rem"><span class="eyebrow" data-anim="up">Revenus passifs · produits numériques</span><h2 data-anim="up">Kits de prompts images Higgsfield.</h2><p class="lead" data-anim="up" style="max-width:42rem">Des prompts testés et améliorés pour générer des visuels dignes d'un studio (portraits, produits, réseaux) — livrés en PDF + Notion, prêts à copier-coller. Vous gardez tout, à vie.</p></div>
+    <div class="wgrid g3" data-stag>
+      <div class="widget feat"><h3>🎬 Starter</h3><p class="pr">à partir de 19 € TTC</p><ul style="font-size:.84rem"><li>10 prompts images premium</li><li>Portraits &amp; ambiances cinéma</li><li>PDF · copier-coller</li></ul><a class="wcta" href="/kits-higgsfield/">Voir le kit →</a></div>
+      <div class="widget feat featured"><span class="badge">★ Le plus complet</span><h3>✨ Créateur</h3><p class="pr">à partir de 29 € TTC</p><ul style="font-size:.84rem"><li>20 prompts (images + réglages)</li><li>Produit e-commerce, réseaux, mode</li><li>PDF + Notion · mises à jour 1 an</li></ul><a class="wcta" href="/kits-higgsfield/">Voir le kit →</a></div>
+      <div class="widget feat"><h3>🚀 Studio</h3><p class="pr">à partir de 39 € TTC</p><ul style="font-size:.84rem"><li>30 prompts pro + recettes</li><li>Toutes catégories + cohérence de marque</li><li>PDF + Notion · bonus négatifs</li></ul><a class="wcta" href="/kits-higgsfield/">Voir le kit →</a></div>
+    </div>
+    <p class="note" data-anim="up" style="text-align:center;margin-top:1rem">Prix tout compris, sans abonnement · livraison immédiate · vous gardez vos prompts à vie.</p>
+  </div>
+</section>
+
+<section class="vsec" id="tarifs" data-bg="corridor">
+  <div class="vsec-inner">
+    <div class="head"><span class="eyebrow" data-anim="right">Comment on travaille</span><h2 data-anim="right">Quatre étapes. Tous les tarifs. Pas de surprise.</h2></div>
+    <div class="wgrid g4" data-stag>
+      <div class="widget tight"><strong class="peri">01 BRIEF</strong><p class="lead" style="font-size:.83rem;margin-top:.3rem">30 min visio ou écrit. Vous racontez.</p></div>
+      <div class="widget tight"><strong class="peri">02 CADRAGE</strong><p class="lead" style="font-size:.83rem;margin-top:.3rem">Devis fixe écrit sous 48 h.</p></div>
+      <div class="widget tight"><strong class="peri">03 LIVRAISON</strong><p class="lead" style="font-size:.83rem;margin-top:.3rem">On produit. Vous corrigez.</p></div>
+      <div class="widget tight"><strong class="peri">04 ACCOMPAGNT</strong><p class="lead" style="font-size:.83rem;margin-top:.3rem">30 jours offerts après livraison.</p></div>
+    </div>
+    <div class="widget faqd" data-anim="up" style="margin-top:1rem">
+      <div class="it open"><button class="q">Et si je n'y connais rien en informatique ?<span class="s">+</span></button><div class="ans"><div class="in">Vous validez par mail. On gère tout. Pas de logiciel à apprendre.</div></div></div>
+      <div class="it"><button class="q">Combien de temps avant des résultats ?<span class="s">+</span></button><div class="ans"><div class="in">Site livré sous 3 semaines. Premiers leads sous 30 à 60 jours.</div></div></div>
+      <div class="it"><button class="q">Pourquoi moins chers qu'une agence ?<span class="s">+</span></button><div class="ans"><div class="in">On est 2, pas 15. On automatise notre travail. On ne sous-traite rien.</div></div></div>
+      <div class="it"><button class="q">Hébergement et nom de domaine inclus ?<span class="s">+</span></button><div class="ans"><div class="in"><strong>Non</strong> — l'hébergement et le nom de domaine restent à votre charge (≈ quelques € / mois) et vous appartiennent. On vous guide pas à pas pour les prendre. C'est plus sain : votre site reste 100 % le vôtre.</div></div></div>
+      <div class="it"><button class="q">Vous remboursez ? Et si je vous quitte ?<span class="s">+</span></button><div class="ans"><div class="in">Pas de remboursement une fois la prestation réalisée — mais vous <strong>gardez tout, à vie</strong> : code, accès, données, fichiers. Même si vous nous quittez, vous repartez avec l'intégralité. On ne vous enferme jamais.</div></div></div>
+      <div class="it"><button class="q">C'est en présentiel ?<span class="s">+</span></button><div class="ans"><div class="in"><strong>100 % à distance</strong> (visio, partage d'écran), où que vous soyez. Le parcours est guidé et automatisé : vous avancez en autonomie, on intervient au minimum.</div></div></div>
+      <div class="it"><button class="q">Après les 30 jours d'accompagnement ?<span class="s">+</span></button><div class="ans"><div class="in">Vous gardez tout : code, accès, données. Option Pinapp Care 190-390 €/mois (sans engagement).</div></div></div>
+      <div class="it"><button class="q">Vous travaillez avec mon secteur ?<span class="s">+</span></button><div class="ans"><div class="in">6 démos sectorielles. Sinon on en fait une gratuitement avant le devis.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="vsec" id="valeurs" data-bg="atterrissage">
+  <div class="vsec-inner">
+    <div class="head"><span class="eyebrow" data-anim="up">Ce qui nous tient</span><h2 data-anim="up">Les valeurs de l'entreprise.</h2><p class="lead" data-anim="up">Pinapp, c'est deux personnes et une conviction : la technologie doit servir l'humain, pas l'inverse.</p></div>
+    <div class="wgrid g3" data-stag style="text-align:left">
+      <div class="widget tight"><span class="istone" data-stone="power" style="--gem:#b56bff" role="button" tabindex="0" aria-label="Pierre du Pouvoir"></span><strong class="peri">L'humain d'abord</strong><p class="lead" style="font-size:.83rem;margin-top:.35rem">L'IA produit, l'humain décide. Chaque livrable passe par nos yeux avant les vôtres.</p></div>
+      <div class="widget tight"><span class="istone" data-stone="space" style="--gem:#3d7bff" role="button" tabindex="0" aria-label="Pierre de l'Espace"></span><strong class="peri">La connexion</strong><p class="lead" style="font-size:.83rem;margin-top:.35rem">Deux interlocuteurs, pas un standard. On se parle vraiment, on se rappelle de vous.</p></div>
+      <div class="widget tight"><span class="istone" data-stone="time" style="--gem:#36d399" role="button" tabindex="0" aria-label="Pierre du Temps"></span><strong class="peri">La sobriété</strong><p class="lead" style="font-size:.83rem;margin-top:.35rem">Sites légers, zéro tracker, hébergement EU. La performance plutôt que l'esbroufe.</p></div>
+      <div class="widget tight"><span class="istone" data-stone="mind" style="--gem:#ffd23f" role="button" tabindex="0" aria-label="Pierre de l'Esprit"></span><strong class="peri">La transmission</strong><p class="lead" style="font-size:.83rem;margin-top:.35rem">On vous laisse autonome : code, accès, données. Vous gardez tout, on ne vous enferme pas.</p></div>
+      <div class="widget tight"><span class="istone" data-stone="reality" style="--gem:#ff4d6d" role="button" tabindex="0" aria-label="Pierre de la Réalité"></span><strong class="peri">L'honnêteté</strong><p class="lead" style="font-size:.83rem;margin-top:.35rem">Devis fixe écrit, pas de surprise. On dit non aux projets qu'on ne sait pas faire.</p></div>
+      <div class="widget tight"><span class="istone" data-stone="soul" style="--gem:#ff944d" role="button" tabindex="0" aria-label="Pierre de l'Âme"></span><strong class="peri">L'égalité</strong><p class="lead" style="font-size:.83rem;margin-top:.35rem">La TPE du coin mérite le même soin qu'un grand compte. Le premium pour tous.</p></div>
+    </div>
+    <p class="note vhint" data-anim="up" style="margin-top:1.1rem">✦ Psst… 6 valeurs, 6 pierres. <span class="vcount">0/6</span> — saurez-vous reconstituer le gant ?</p>
+  </div>
+</section>
+
+<div class="gauntlet" id="gauntlet" role="dialog" aria-modal="true" aria-label="Le gant est complet">
+  <div class="gauntlet__card">
+    <div class="gauntlet__glove" aria-hidden="true">🫰</div>
+    <div class="gauntlet__gems" aria-hidden="true"><i style="--gem:#b56bff"></i><i style="--gem:#3d7bff"></i><i style="--gem:#36d399"></i><i style="--gem:#ffd23f"></i><i style="--gem:#ff4d6d"></i><i style="--gem:#ff944d"></i></div>
+    <h3 style="font-size:1.4rem;margin:.6rem 0 .2rem">Le gant est complet.</h3>
+    <p class="gauntlet__line">« Un grand pouvoir n'implique pas toujours de grandes responsabilités. »<br><strong class="grad">Chez Pinapp, si.</strong></p>
+    <p class="gauntlet__sub">Vos données, votre code, votre indépendance — on les protège comme l'univers tout entier. 🫰</p>
+    <div class="cta-row" style="justify-content:center;margin-top:1rem"><a class="btn" href="#contact" id="gauntletCta" data-magnetic>Confiez-nous votre univers →</a></div>
+    <button class="gauntlet__close" id="gauntletClose" aria-label="Fermer">Reprendre le voyage</button>
+  </div>
+</div>
+
+<section class="vsec" id="contact" data-bg="passerelle">
+  <div class="vsec-inner" style="max-width:760px">
+    <div class="head center"><span class="eyebrow" data-anim="up">Pour démarrer</span><h2 data-anim="up">Racontez-nous tout. On s'occupe du reste.</h2><p class="lead" data-anim="up">Un diagnostic écrit par mail · pas un appel · pas d'engagement. <strong>Plus vous détaillez votre projet, plus votre devis est précis et rapide — et moins vous aurez à faire ensuite.</strong></p></div>
+    <form class="widget pform" data-anim="up" id="pform" novalidate enctype="multipart/form-data">
+      <fieldset><legend>Votre besoin</legend>
+        <div class="path-cards">
+          <label class="path-card"><input type="radio" name="path" value="tech" required><span class="pi">🔧</span><span class="pt">Tech / Systèmes</span><span class="pd">Site, automatisations, assistant, formation</span><span class="pa">Lauralie</span></label>
+          <label class="path-card"><input type="radio" name="path" value="image"><span class="pi">🎬</span><span class="pt">Image / Mouvement</span><span class="pd">Clip, film IA, captation, DA</span><span class="pa">Michaël</span></label>
+          <label class="path-card"><input type="radio" name="path" value="pack_duo"><span class="pi">✨</span><span class="pt">Pack Duo complet</span><span class="pd">Les deux métiers, un seul devis</span><span class="pa">Lauralie + Michaël</span></label>
+        </div>
+      </fieldset>
+      <fieldset><div class="fg2">
+        <div class="field"><label for="prenom">Prénom *</label><input id="prenom" name="prenom" required></div>
+        <div class="field"><label for="nom">Nom (optionnel)</label><input id="nom" name="nom"></div>
+        <div class="field"><label for="entreprise">Entreprise / projet *</label><input id="entreprise" name="entreprise" required></div>
+        <div class="field"><label for="email">Email *</label><input id="email" name="email" type="email" required></div>
+        <div class="field"><label for="tel">Téléphone (optionnel)</label><input id="tel" name="tel" type="tel"></div>
+        <div class="field"><label for="cp">Code postal *</label><input id="cp" name="cp" inputmode="numeric" pattern="[0-9]{5}" required></div>
+        <div class="field full"><label for="site">Site actuel</label><input id="site" name="site" placeholder="URL ou « rien encore »"></div>
+      </div></fieldset>
+      <fieldset class="cond" data-path="tech" hidden><legend>Votre situation tech</legend><div class="fg2">
+        <div class="field"><label for="tech_type">Type de besoin</label><select id="tech_type" name="tech_type"><option value="">— Sélectionner —</option><option>Site vitrine</option><option>Automatisation</option><option>Assistant IA</option><option>Formation</option><option>Plusieurs</option></select></div>
+        <div class="field"><label for="tech_pain">Pain principal</label><select id="tech_pain" name="tech_pain"><option value="">— Sélectionner —</option><option>Site qui dort</option><option>Devis qui s'oublient</option><option>Avis Google rares</option><option>Charge mentale H24</option><option>Autre</option></select></div>
+        <div class="field full"><label for="tech_outils">Outils actuels</label><textarea id="tech_outils" name="tech_outils" rows="2"></textarea></div>
+      </div></fieldset>
+      <fieldset class="cond" data-path="image" hidden><legend>Votre projet image</legend><div class="fg2">
+        <div class="field"><label for="image_type">Type de livrable</label><select id="image_type" name="image_type"><option value="">— Sélectionner —</option><option>Clip / Film IA</option><option>Court-métrage IA</option><option>Captation événement</option><option>Direction artistique</option><option>Film cadeau IA</option></select></div>
+        <div class="field"><label for="image_duree">Durée souhaitée</label><select id="image_duree" name="image_duree"><option value="">— Sélectionner —</option><option>30 secondes</option><option>60 secondes</option><option>1-3 minutes</option><option>3-10 minutes</option></select></div>
+        <div class="field"><label for="image_date">Date événement</label><input id="image_date" name="image_date" type="date"></div>
+        <div class="field"><label for="image_lieu">Lieu</label><input id="image_lieu" name="image_lieu" placeholder="Ville ou région"></div>
+        <div class="field full"><label for="image_univers">Univers visuel souhaité</label><textarea id="image_univers" name="image_univers" rows="2" placeholder="Inspirations, références, ambiance"></textarea></div>
+      </div></fieldset>
+      <fieldset class="cond" data-path="pack_duo" hidden><legend>Votre Pack Duo</legend><div class="fg2">
+        <div class="field"><label for="pack_choix">Pack envisagé</label><select id="pack_choix" name="pack_choix"><option value="">— Sélectionner —</option><option>Essentiel · 1 890 €</option><option>Signature · 4 900 € ★</option><option>À discuter</option></select></div>
+        <div class="field"><label for="pack_echeance">Échéance critique</label><input id="pack_echeance" name="pack_echeance" placeholder="Date ou flexible"></div>
+        <div class="field full"><label for="pack_description">Description du projet</label><textarea id="pack_description" name="pack_description" rows="3"></textarea></div>
+      </div></fieldset>
+      <fieldset><legend>Votre projet en détail</legend>
+        <p class="note" style="margin:0 0 .9rem">On lit <strong>tout</strong>, soyez généreux·se ✍️ — chaque détail nous évite un aller-retour et accélère votre livraison. Vous n'aurez quasiment rien à refaire ensuite : on s'occupe du reste.</p>
+        <div class="field full"><label for="projet">Racontez-nous votre projet *</label><textarea id="projet" name="projet" rows="5" required placeholder="Qui êtes-vous, ce que vous faites, ce que vous voulez créer, pourquoi maintenant, ce qui bloque aujourd'hui… N'hésitez pas à tout détailler, même les petites idées."></textarea></div>
+        <div class="fg2">
+          <div class="field"><label for="objectif">Votre objectif n°1</label><select id="objectif" name="objectif"><option value="">— Sélectionner —</option><option>Avoir (enfin) un site</option><option>Plus de clients / leads</option><option>Gagner du temps (automatiser)</option><option>Une image pro &amp; premium</option><option>Vendre en ligne</option><option>Me faire connaître (réseaux)</option><option>Un film / clip</option><option>Autre</option></select></div>
+          <div class="field"><label for="activite">Votre activité</label><input id="activite" name="activite" placeholder="Ex. restaurant, avocate, onglerie…"></div>
+        </div>
+        <div class="field full"><label for="cible">Votre clientèle cible</label><input id="cible" name="cible" placeholder="À qui vous adressez-vous ? (type de clients, âge, zone géographique…)"></div>
+        <div class="field full"><label>Ce que vous avez déjà</label>
+          <div style="display:flex;flex-wrap:wrap;gap:.45rem 1.2rem;margin-top:.3rem">
+            <label class="chk"><input type="checkbox" name="a_logo"> Un logo</label>
+            <label class="chk"><input type="checkbox" name="a_textes"> Des textes</label>
+            <label class="chk"><input type="checkbox" name="a_photos"> Des photos / vidéos</label>
+            <label class="chk"><input type="checkbox" name="a_charte"> Une charte / couleurs</label>
+            <label class="chk"><input type="checkbox" name="a_reseaux"> Des comptes réseaux</label>
+            <label class="chk"><input type="checkbox" name="a_rien"> Rien encore, on part de zéro</label>
+          </div>
+        </div>
+        <div class="field full"><label for="refs">Des sites ou visuels que vous adorez</label><textarea id="refs" name="refs" rows="2" placeholder="Collez des liens ou décrivez ce qui vous plaît (style, ambiance, couleurs) — ça nous aide à viser juste du premier coup."></textarea></div>
+        <div class="field full"><label for="concurrents">Vos concurrents</label><input id="concurrents" name="concurrents" placeholder="Noms ou liens — pour qu'on vous démarque d'eux"></div>
+      </fieldset>
+      <fieldset><div class="fg2">
+        <div class="field"><label for="delai">Délai souhaité</label><select id="delai" name="delai"><option value="">— Sélectionner —</option><option>Moins d'un mois</option><option>1 à 3 mois</option><option>Pas pressé</option></select></div>
+        <div class="field"><label for="budget">Budget envisagé</label><select id="budget" name="budget"><option value="">— Sélectionner —</option><option>Moins de 500 €</option><option>500 - 2 000 €</option><option>2 000 - 5 000 €</option><option>Plus de 5 000 €</option><option>À discuter</option></select></div>
+      </div>
+      <div class="field full"><label for="message">Message libre</label><textarea id="message" name="message" rows="3" placeholder="Ce que vous voulez nous dire en plus"></textarea></div>
+      <div class="field full"><label for="pieces">Vos documents — déposez tout ce qui peut aider</label>
+        <input id="pieces" name="pieces" type="file" multiple accept="image/*,application/pdf,.doc,.docx,.txt,.zip,video/*" style="width:100%;padding:.85rem;background:rgba(255,255,255,.05);border:1px dashed var(--border);border-radius:12px;color:var(--ivory);font:inherit;font-size:.9rem;cursor:pointer">
+        <p class="note" style="margin-top:.4rem">📎 Logo, textes, photos, votre ancien site, des exemples que vous aimez, captures… <strong>Plus vous déposez, plus on automatise et plus vite vous êtes livré·e</strong> — vous, vous n'avez quasiment rien à faire ensuite. Tout reste chez Pinapp · hébergement européen · RGPD.</p></div>
+      <label class="chk"><input type="checkbox" name="discount"> Association loi 1901, ESS ou TPE &lt; 5 salariés (-40 % après SIRENE)</label>
+      <label class="chk"><input type="checkbox" name="newsletter"> Recevoir 1 article par mois sur l'IA pour TPE/PME</label>
+      <label class="chk"><input type="checkbox" name="consent" required> J'accepte d'être recontacté·e par écrit sous 24h. Mes données restent chez Pinapp.</label>
+      </fieldset>
+      <button type="submit">Envoyer mon brief — réponse écrite sous 24h</button>
+      <p class="note" id="pformNote">Pas un appel. Pas un devis ferme. Un diagnostic écrit + estimation. Sans engagement.</p>
+      <div class="foralt">— OU — réservez votre créneau juste en dessous ↓</div>
+    </form>
+    <div class="widget" data-anim="up" style="margin-top:1rem">
+      <a class="crow" href="mailto:lauralie.daguzay@pinapp.fr"><span class="ic">✉</span><span><span class="lab">Lauralie · tech &amp; systèmes</span><br><span class="val">lauralie.daguzay@pinapp.fr</span></span></a>
+      <a class="crow" href="mailto:contact@pinapp.fr"><span class="ic">✉</span><span><span class="lab">Michaël &amp; l'équipe · image</span><br><span class="val">contact@pinapp.fr</span></span></a>
+      <div class="crow"><span class="ic">📍</span><span><span class="lab">Adresse</span><br><span class="val">49 av. Edmond Rostand, Mérignac</span></span></div>
+    </div>
+    <div class="widget" data-anim="up" style="margin-top:1rem;padding:1rem">
+      <div class="head center" style="margin-bottom:.6rem"><span class="eyebrow">Réservation en ligne</span><h3 style="font-size:1.25rem;margin-top:.35rem">Choisissez votre créneau — diagnostic offert</h3><p class="lead" style="font-size:.86rem">30 min en visio · confirmation, ajout au calendrier et rappels automatiques.</p></div>
+      <div id="cal-inline" style="width:100%;min-height:600px;border-radius:14px;overflow:hidden;background:rgba(13,14,17,.6)"></div>
+      <p class="foralt" style="margin-top:.6rem">Le calendrier ne s'affiche pas ? <a href="https://cal.com/lauralie-daguzay-hdglzw/diagnostic" target="_blank" rel="noopener noreferrer" class="peri">Ouvrir la réservation ↗</a></p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="ft">
+  <div style="max-width:var(--maxw);margin:0 auto">
+    <div class="cols">
+      <div><img class="logo" src="avalon/logo-pinapp-cut.png" alt="Pinapp"><div class="addr">Pinapp Inc.<br>49 av. Edmond Rostand<br>33700 Mérignac<br>SIRET 523 884 898 00017</div></div>
+      <div><div class="ttl">Nav rapide</div><div class="lst"><a href="#pack">Offres</a><a href="#films">Films</a><a href="#formations">Formations</a><a href="#realisations">Réalisations</a><a href="#contact">Diagnostic</a></div></div>
+      <div><div class="ttl">Mentions légales</div><div class="lst"><a href="../mentions-legales/">Mentions légales</a><a href="../cgv/">CGV</a><a href="../confidentialite/">Confidentialité RGPD</a></div></div>
+    </div>
+    <div class="copy">© 2026 Pinapp Inc. · Lauralie Daguzay &amp; Michaël Bouilhac · Connecter. Construire. Transmettre.</div>
+  </div>
+</footer>
+
+<button class="chatbtn" id="chatbtn" aria-label="Ouvrir l'assistant Pinapp" aria-expanded="false">💬</button>
+<div class="chatpanel" id="chatpanel" role="dialog" aria-label="Assistant Pinapp">
+  <h4>Bonjour 👋 Une question ?</h4>
+  <p class="chint">Réponses immédiates. Pour un projet : <a href="#contact" class="peri" id="chatToForm">le formulaire</a> ou par email.</p>
+  <div class="qa"><button>Combien coûte un site ? <span>+</span></button><div class="a">Un site vitrine qui convertit démarre à <strong>1 290 € HT</strong>. Devis fixe écrit sous 48 h, sans surprise.</div></div>
+  <div class="qa"><button>Vous faites des films / clips ? <span>+</span></button><div class="a">Oui — studio Micha. Du clip dès <strong>1 500 €</strong> au court-métrage 3 min dès <strong>2 800 €</strong>. Captation événement dès 1 200 €.</div></div>
+  <div class="qa"><button>Quels délais ? <span>+</span></button><div class="a">Site livré sous <strong>3 semaines</strong>. Premiers leads sous 30 à 60 jours.</div></div>
+  <div class="qa"><button>Je n'y connais rien en informatique <span>+</span></button><div class="a">Aucun souci : vous validez par mail, on gère tout. Pas de logiciel à apprendre.</div></div>
+  <div class="qa"><button>Comment vous joindre ? <span>+</span></button><div class="a">Par email : <strong>contact@pinapp.fr</strong> (Michaël &amp; équipe) ou <strong>lauralie.daguzay@pinapp.fr</strong> (tech), ou le formulaire en bas de page. Réponse écrite sous 24h.</div></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+(function(){
+  "use strict";
+  var SMALL=matchMedia('(max-width: 1080px)').matches, COARSE=matchMedia('(pointer:coarse)').matches;
+  var sober=localStorage.getItem('pinapp-sober')==='1';
+  var hasGSAP=window.gsap&&window.ScrollTrigger; if(hasGSAP)gsap.registerPlugin(ScrollTrigger);
+  var IMMERSIVE=hasGSAP&&!sober;
+  var sb=document.getElementById('soberToggle');
+  function applySober(){document.body.classList.toggle('sober',sober);sb.setAttribute('aria-pressed',String(sober));sb.querySelector('.lbl').textContent=sober?'Mode immersif':'Mode sobre';}
+  applySober();
+  sb.addEventListener('click',function(){sober=!sober;localStorage.setItem('pinapp-sober',sober?'1':'0');location.reload();});
+  var mmenu=document.getElementById('mmenu');
+  document.getElementById('burger').addEventListener('click',function(){mmenu.classList.add('open');document.body.classList.add('no-scroll');});
+  document.getElementById('mclose').addEventListener('click',function(){mmenu.classList.remove('open');document.body.classList.remove('no-scroll');});
+  mmenu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){mmenu.classList.remove('open');document.body.classList.remove('no-scroll');});});
+  var lenis=null;
+  if(hasGSAP&&window.Lenis&&!sober){lenis=new Lenis({duration:1.25,smoothWheel:true});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000);});gsap.ticker.lagSmoothing(0);}
+  var nav=document.getElementById('nav'),lastY=0;
+  function navScroll(y){nav.classList.toggle('scrolled',y>50);if(y>lastY&&y>320)nav.classList.add('hide');else nav.classList.remove('hide');lastY=y;}
+
+  /* ===== FOND : fondu enchaîné selon la section au centre de l'écran ===== */
+  var layers={};[].slice.call(document.querySelectorAll('#bgstage .bglayer')).forEach(function(l){layers[l.getAttribute('data-key')]=l;});
+  var sections=[].slice.call(document.querySelectorAll('.vsec'));
+  var current=null;
+  function setBg(key){
+    if(!key||key===current||!layers[key])return; current=key;
+    Object.keys(layers).forEach(function(k){var l=layers[k],on=(k===key);l.classList.toggle('active',on);
+      var v=l.querySelector('video');if(v){if(on){v.play().catch(function(){});}else{v.pause();}}});
+  }
+  function pickBg(y){
+    var mid=(y||window.scrollY)+innerHeight*0.5,best=null,bd=1e9;
+    sections.forEach(function(s){var r=s.getBoundingClientRect();var top=r.top+(y||window.scrollY),c=top+r.height/2;var d=Math.abs(c-mid);if(d<bd){bd=d;best=s;}});
+    if(best)setBg(best.getAttribute('data-bg'));
+  }
+  setBg('constellation'); // état initial
+  if(lenis)lenis.on('scroll',function(e){navScroll(e.scroll);pickBg(e.scroll);});
+  else addEventListener('scroll',function(){navScroll(scrollY);pickBg(scrollY);},{passive:true});
+  addEventListener('resize',function(){pickBg(window.scrollY);});
+
+  /* ===== chorégraphie (GSAP, joue même en reduced-motion OS) ===== */
+  var FROM={left:{x:-90},right:{x:90},up:{y:72},down:{y:-60},depth:{scale:.66},zoom:{scale:1.18}};
+  function showAll(){document.querySelectorAll('[data-anim],[data-stag]>*').forEach(function(e){e.style.opacity=1;e.style.transform='none';e.style.filter='none';});}
+  if(IMMERSIVE){
+    gsap.utils.toArray('[data-anim]').forEach(function(el){var d=el.getAttribute('data-anim')||'up';gsap.set(el,Object.assign({opacity:0,filter:'blur(12px)'},FROM[d]||FROM.up));
+      ScrollTrigger.create({trigger:el,start:'top 86%',onEnter:function(){gsap.to(el,{opacity:1,x:0,y:0,scale:1,filter:'blur(0px)',duration:1.15,ease:'power3.out',clearProps:'transform,filter,willChange'});}});});
+    gsap.utils.toArray('[data-stag]').forEach(function(g){var kids=[].slice.call(g.children);
+      kids.forEach(function(c,i){gsap.set(c,{opacity:0,x:i%2?90:-90,y:28,filter:'blur(10px)'});});
+      ScrollTrigger.create({trigger:g,start:'top 86%',onEnter:function(){gsap.to(kids,{opacity:1,x:0,y:0,filter:'blur(0px)',duration:1.05,ease:'power3.out',stagger:.13,clearProps:'transform,filter,willChange'});}});});
+    // widgets interactifs : tilt 3D fluide au survol (la danse)
+    if(!SMALL&&!COARSE){document.querySelectorAll('.wgrid .widget').forEach(function(w){
+      w.addEventListener('mousemove',function(e){var r=w.getBoundingClientRect();var rx=((e.clientY-r.top)/r.height-.5)*-7,ry=((e.clientX-r.left)/r.width-.5)*8;w.style.transform='perspective(900px) rotateX('+rx+'deg) rotateY('+ry+'deg) translateY(-6px)';});
+      w.addEventListener('mouseleave',function(){w.style.transform='';});});}
+  } else { showAll(); }
+  if(!hasGSAP) showAll();
+
+  /* form */
+  (function(){var f=document.getElementById('pform');if(!f)return;var conds=[].slice.call(f.querySelectorAll('.cond'));
+    f.querySelectorAll('input[name="path"]').forEach(function(r){r.addEventListener('change',function(){conds.forEach(function(c){c.hidden=(c.getAttribute('data-path')!==r.value);});if(hasGSAP)ScrollTrigger.refresh();});});
+    /* n8n : reçoit le brief + les pièces jointes (multipart), automatise et résume sur Telegram.
+       ↓ Remplacer par votre vraie URL de webhook n8n. Tant qu'elle pointe sur l'exemple, on bascule sur l'email. */
+    var PINAPP_WEBHOOK='https://n8n.pinapp.fr/webhook/brief-pinapp';
+    var note=document.getElementById('pformNote');
+    var btn=f.querySelector('button[type="submit"]');
+    function mailFallback(d){var get=function(k){return d.get(k)||'';};
+      var body=['Besoin: '+get('path'),'Prénom: '+get('prenom'),'Nom: '+get('nom'),'Entreprise: '+get('entreprise'),'Email: '+get('email'),'Tél: '+get('tel'),'CP: '+get('cp'),'Site: '+get('site'),'Activité: '+get('activite'),'Objectif: '+get('objectif'),'Cible: '+get('cible'),'Délai: '+get('delai'),'Budget: '+get('budget'),'','Projet:',get('projet'),'','Références: '+get('refs'),'Concurrents: '+get('concurrents'),'','Message:',get('message')].join('%0D%0A');
+      window.location.href='mailto:contact@pinapp.fr?subject='+encodeURIComponent('Brief Pinapp — '+get('prenom')+' '+get('entreprise'))+'&body='+body;
+      note.innerHTML='Votre logiciel mail s\'ouvre. ⚠ Les pièces jointes ne passent pas par l\'email — joignez-les à la main, ou réessayez le formulaire. Sinon : contact@pinapp.fr.';}
+    f.addEventListener('submit',function(e){e.preventDefault();var d=new FormData(f);
+      if(btn){btn.disabled=true;btn.textContent='Envoi en cours…';}
+      note.textContent='Envoi de votre brief et de vos documents…';
+      fetch(PINAPP_WEBHOOK,{method:'POST',body:d}).then(function(r){if(!r.ok)throw new Error('http '+r.status);
+        f.reset();conds.forEach(function(c){c.hidden=true;});
+        if(btn){btn.disabled=false;btn.textContent='Brief envoyé ✓';}
+        note.innerHTML='✅ Reçu ! On a tout, y compris vos pièces jointes. Vous recevez une réponse écrite sous 24 h. Une copie vous est envoyée par mail.';
+      }).catch(function(){if(btn){btn.disabled=false;btn.textContent='Envoyer mon brief — réponse écrite sous 24h';}mailFallback(d);});
+    });})();
+
+  /* faq */
+  document.querySelectorAll('.faqd .it').forEach(function(it){var q=it.querySelector('.q'),a=it.querySelector('.ans');if(it.classList.contains('open'))a.style.maxHeight=a.scrollHeight+'px';q.addEventListener('click',function(){var open=it.classList.contains('open');it.parentNode.querySelectorAll('.it').forEach(function(o){o.classList.remove('open');o.querySelector('.ans').style.maxHeight='0px';});if(!open){it.classList.add('open');a.style.maxHeight=a.scrollHeight+'px';}});});
+
+  /* chatbot */
+  (function(){var b=document.getElementById('chatbtn'),p=document.getElementById('chatpanel');if(!b||!p)return;
+    function toggle(open){p.classList.toggle('open',open);b.setAttribute('aria-expanded',String(open));b.textContent=open?'✕':'💬';}
+    b.addEventListener('click',function(){toggle(!p.classList.contains('open'));});
+    p.querySelectorAll('.qa button').forEach(function(q){q.addEventListener('click',function(){var qa=q.parentNode,was=qa.classList.contains('open');p.querySelectorAll('.qa').forEach(function(o){o.classList.remove('open');});if(!was)qa.classList.add('open');});});
+    var tf=document.getElementById('chatToForm');if(tf)tf.addEventListener('click',function(){toggle(false);});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&p.classList.contains('open'))toggle(false);});})();
+
+  /* easter egg — gant de l'infini (6 valeurs = 6 pierres) */
+  (function(){
+    var stones=[].slice.call(document.querySelectorAll('.istone'));
+    var g=document.getElementById('gauntlet');if(!stones.length||!g)return;
+    var countEl=document.querySelector('.vhint .vcount');var got=0,total=stones.length;
+    function collect(s){if(s.classList.contains('got'))return;s.classList.add('got');got++;if(countEl)countEl.textContent=got+'/'+total;if(got===total)setTimeout(reveal,420);}
+    function reveal(){g.classList.add('open');requestAnimationFrame(function(){g.classList.add('snap');});document.body.classList.add('no-scroll');}
+    function close(){g.classList.remove('open','snap');document.body.classList.remove('no-scroll');}
+    stones.forEach(function(s){
+      s.addEventListener('click',function(){collect(s);});
+      s.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();collect(s);}});
+    });
+    var c=document.getElementById('gauntletClose');if(c)c.addEventListener('click',close);
+    var cta=document.getElementById('gauntletCta');if(cta)cta.addEventListener('click',close);
+    g.addEventListener('click',function(e){if(e.target===g)close();});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&g.classList.contains('open'))close();});
+  })();
+
+  /* magnetic cursor */
+  (function(){if(SMALL||COARSE)return;var c=document.getElementById('mcursor');if(!c)return;var x=innerWidth/2,y=innerHeight/2,cx=x,cy=y;addEventListener('mousemove',function(e){x=e.clientX;y=e.clientY;},{passive:true});document.querySelectorAll('a,button,[data-magnetic]').forEach(function(el){el.addEventListener('mouseenter',function(){c.classList.add('big');});el.addEventListener('mouseleave',function(){c.classList.remove('big');});});(function loop(){cx+=(x-cx)*.18;cy+=(y-cy)*.18;c.style.transform='translate('+cx+'px,'+cy+'px) translate(-50%,-50%)';requestAnimationFrame(loop);})();})();
+
+  addEventListener('load',function(){if(hasGSAP)ScrollTrigger.refresh();pickBg(window.scrollY);});
+})();
+</script>
+<script>
+/* Cal.com — réservation en ligne inline (lazy : se charge quand la section approche) */
+(function(){var el=document.getElementById('cal-inline');if(!el)return;var booted=false;
+  function boot(){if(booted)return;booted=true;
+    (function(C,A,L){var p=function(a,ar){a.q.push(ar);};var d=C.document;C.Cal=C.Cal||function(){var cal=C.Cal;var ar=arguments;if(!cal.loaded){cal.ns={};cal.q=cal.q||[];d.head.appendChild(d.createElement("script")).src=A;cal.loaded=true;}if(ar[0]===L){var api=function(){p(api,arguments);};var ns=ar[1];api.q=api.q||[];if(typeof ns==="string"){cal.ns[ns]=cal.ns[ns]||api;p(cal.ns[ns],ar);p(cal,["initNamespace",ns]);}else p(cal,ar);return;}p(cal,ar);};})(window,"https://app.cal.com/embed/embed.js","init");
+    Cal("init","diag",{origin:"https://cal.com"});
+    Cal.ns.diag("inline",{elementOrSelector:"#cal-inline",config:{layout:"month_view",theme:"dark"},calLink:"lauralie-daguzay-hdglzw/diagnostic"});
+    Cal.ns.diag("ui",{theme:"dark",hideEventTypeDetails:false,layout:"month_view"});}
+  if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){boot();io.disconnect();}});},{rootMargin:'300px'});io.observe(el);}else boot();
+})();
+</script>
+</body>
+</html>

@@ -357,10 +357,98 @@
       footer a {
         color: rgba(201, 168, 76, 0.45);
       }
+      .scroll-cue {
+        position: absolute;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.6rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(245, 240, 232, 0.5);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.7rem;
+        z-index: 3;
+      }
+      .scroll-cue span {
+        width: 1px;
+        height: 38px;
+        background: linear-gradient(to bottom, var(--or), transparent);
+        animation: cueline 2.2s ease-in-out infinite;
+        transform-origin: top;
+      }
+      @keyframes cueline {
+        0%, 100% { transform: scaleY(0.4); opacity: 0.4; }
+        50% { transform: scaleY(1); opacity: 1; }
+      }
+      /* Formules — gamme de prix premium */
+      .form-sec { background: #0d0b09; }
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        margin-top: 3rem;
+      }
+      .form-card {
+        border: 1px solid rgba(201, 168, 76, 0.16);
+        padding: 2.6rem 2rem;
+        text-align: center;
+        background: linear-gradient(180deg, rgba(201, 168, 76, 0.04), transparent);
+        transition: border-color 0.4s ease, transform 0.4s ease;
+      }
+      .form-card:hover { border-color: rgba(201, 168, 76, 0.45); transform: translateY(-6px); }
+      .form-card.feat { border-color: rgba(201, 168, 76, 0.4); background: linear-gradient(180deg, rgba(201, 168, 76, 0.08), transparent); }
+      .form-card .ftag { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--or); }
+      .form-card h3 {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.7rem;
+        font-weight: 300;
+        margin: 0.8rem 0 0.3rem;
+      }
+      .form-card .fprice {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 2.6rem;
+        color: var(--or);
+        margin: 0.6rem 0 0.2rem;
+      }
+      .form-card .fprice small { font-size: 0.85rem; color: rgba(245, 240, 232, 0.5); }
+      .form-card ul { list-style: none; margin: 1.4rem 0 0; padding: 0; }
+      .form-card li {
+        font-size: 0.8rem;
+        color: rgba(245, 240, 232, 0.62);
+        padding: 0.55rem 0;
+        border-top: 1px solid rgba(245, 240, 232, 0.07);
+        line-height: 1.5;
+      }
+      /* Ambiance — galerie */
+      .amb-sec { background: var(--noir); }
+      .amb-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: 220px;
+        gap: 4px;
+        margin-top: 3rem;
+      }
+      .amb-grid figure { overflow: hidden; position: relative; margin: 0; }
+      .amb-grid .tall { grid-row: span 2; }
+      .amb-grid .wide { grid-column: span 2; }
+      .amb-grid img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.72) sepia(0.06);
+        transition: transform 0.9s cubic-bezier(0.16,1,0.3,1), filter 0.6s ease;
+      }
+      .amb-grid figure:hover img { transform: scale(1.07); filter: brightness(0.85); }
       @media (max-width: 768px) {
         nav {
           padding: 1.25rem 1.5rem;
         }
+        .form-grid { grid-template-columns: 1fr; }
+        .amb-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 150px; }
+        .amb-grid .wide { grid-column: span 2; }
         .nav-links {
           display: none;
         }
@@ -384,6 +472,7 @@
 <link rel="stylesheet" href="/assets/css/pp-awwwards.css?v=20260471" />
 </head>
   <body>
+<div role="status" aria-label="Tarif Pinapp" style="position:fixed;top:78px;right:14px;z-index:90;display:flex;align-items:center;gap:7px;padding:7px 14px;background:rgba(10,8,6,.62);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);border:1px solid rgba(201,168,76,.3);border-radius:999px;font:500 11.5px/1.2 Inter,system-ui,sans-serif;letter-spacing:.03em;color:#f5f0e8"><span style="width:6px;height:6px;border-radius:50%;background:#c9a84c;flex-shrink:0"></span>Niveau Signature · à partir de 3&nbsp;890&nbsp;€&nbsp;HT</div>
 <div class="pp-cursor-dot" aria-hidden="true"></div>
 <div class="pp-cursor-circle" aria-hidden="true"></div>
 
@@ -397,32 +486,35 @@
       <ul class="nav-links">
         <li><a href="#histoire">Notre histoire</a></li>
         <li><a href="#carte">La carte</a></li>
+        <li><a href="#formules">Formules</a></li>
+        <li><a href="#ambiance">Ambiance</a></li>
         <li><a href="#reservation">Réserver</a></li>
       </ul>
-      <button class="nav-cta" onclick="document.getElementById('reservation').scrollIntoView({ behavior: 'smooth' })">
+      <button class="nav-cta pp-magnetic" onclick="document.getElementById('reservation').scrollIntoView({ behavior: 'smooth' })">
         Réserver
       </button>
     </nav>
     <section class="hero">
       <img
-        src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=85&fit=crop"
+        src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1900&q=85&fit=crop"
         alt="Restaurant gastronomique Maison Aurore"
         loading="eager" decoding="async" />
       <div class="hero-overlay"></div>
       <div class="hero-content">
-        <p class="eyebrow">Restaurant gastronomique · Bordeaux</p>
-        <h1>L'art de la table à son <em>apogée</em></h1>
-        <p>Une cuisine de saison, des producteurs locaux, un cadre feutré au cœur du Triangle d'Or bordelais.</p>
-        <a href="#reservation" class="btn-gold">Réserver votre soirée</a>
+        <p class="eyebrow pp-fade">Restaurant gastronomique · Bordeaux</p>
+        <h1 class="pp-fade">L'art de la table à son <em>apogée</em></h1>
+        <p class="pp-fade">Une cuisine de saison, des producteurs locaux, un cadre feutré au cœur du Triangle d'Or bordelais.</p>
+        <a href="#reservation" class="btn-gold pp-magnetic pp-fade">Réserver votre soirée</a>
       </div>
+      <div class="scroll-cue" aria-hidden="true"><span></span>Découvrir</div>
     </section>
     <section class="sig" id="histoire">
       <div class="wrap">
         <div class="sig-grid">
-          <img
-            src="https://images.unsplash.com/photo-1600803907087-f56d462fd26b?w=800&q=85&fit=crop"
+          <img class="pp-reveal"
+            src="https://images.unsplash.com/photo-1600803907087-f56d462fd26b?w=900&q=85&fit=crop"
             alt="Chef en cuisine" loading="lazy" decoding="async"   />
-          <div class="sig-text">
+          <div class="sig-text pp-fade">
             <p class="eyebrow">Notre philosophie</p>
             <h2 class="section-title">Une cuisine<br />de conviction</h2>
             <blockquote>"Chaque assiette raconte l'histoire d'un terroir, d'un producteur, d'une saison."</blockquote>
@@ -442,32 +534,86 @@
         <p class="eyebrow" style="text-align: center">La carte du moment</p>
         <h2 class="section-title" style="text-align: center; color: var(--creme)">Nos créations</h2>
         <div class="menu-grid">
-          <div class="menu-card">
+          <div class="menu-card pp-reveal">
             <img
-              src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&q=80&fit=crop"
-              alt="Saint-Jacques" loading="lazy" decoding="async"   />
+              src="https://images.unsplash.com/photo-1559847844-5315695dadae?w=600&q=80&fit=crop"
+              alt="Gambas rôties, bisque crémeuse" loading="lazy" decoding="async"   />
             <div class="menu-info">
-              <h3>Tartare de Saint-Jacques</h3>
-              <p>Caviar · Crème de chou-fleur · Huile de truffe</p>
+              <h3>Gambas, riz parfumé</h3>
+              <p>Jus corsé · coriandre · oignons nouveaux</p>
             </div>
             <span class="price">28€</span>
           </div>
-          <div class="menu-card">
-            <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?w=600&q=80&fit=crop" alt="Agneau" loading="lazy" decoding="async"   />
+          <div class="menu-card pp-reveal">
+            <img src="https://images.unsplash.com/photo-1558030006-450675393462?w=600&q=80&fit=crop" alt="Pièce de bœuf grillée" loading="lazy" decoding="async"   />
             <div class="menu-info">
-              <h3>Agneau de Pauillac</h3>
-              <p>Jus court · Légumes du potager · Herbes fraîches</p>
+              <h3>Pièce de bœuf grillée</h3>
+              <p>Grillée au feu de bois · tranchée · jus court</p>
             </div>
             <span class="price">48€</span>
           </div>
-          <div class="menu-card">
-            <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=80&fit=crop" alt="Dessert" loading="lazy" decoding="async"   />
+          <div class="menu-card pp-reveal">
+            <img src="https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?w=600&q=80&fit=crop" alt="Farandole de mignardises" loading="lazy" decoding="async"   />
             <div class="menu-info">
-              <h3>Soufflé Grand Marnier</h3>
-              <p>Crème anglaise · Zestes confits</p>
+              <h3>Farandole de mignardises</h3>
+              <p>Petits fours maison · fruits frais de saison</p>
             </div>
             <span class="price">18€</span>
           </div>
+        </div>
+      </div>
+    </section>
+    <section class="form-sec" id="formules">
+      <div class="wrap">
+        <p class="eyebrow pp-fade" style="text-align: center">Nos formules</p>
+        <h2 class="section-title pp-fade" style="text-align: center; color: var(--creme)">Choisissez votre table</h2>
+        <div class="form-grid">
+          <div class="form-card pp-fade">
+            <span class="ftag">Le midi</span>
+            <h3>Déjeuner du marché</h3>
+            <div class="fprice">42€ <small>/ pers.</small></div>
+            <ul>
+              <li>Entrée · plat · dessert</li>
+              <li>Produits du jour, de saison</li>
+              <li>Verre de vin de la propriété</li>
+              <li>Du mardi au vendredi</li>
+            </ul>
+          </div>
+          <div class="form-card feat pp-fade">
+            <span class="ftag">Signature ★</span>
+            <h3>Menu Signature</h3>
+            <div class="fprice">78€ <small>/ pers.</small></div>
+            <ul>
+              <li>5 services du chef</li>
+              <li>Accord mets &amp; vins en option</li>
+              <li>Pain &amp; beurre fermier maison</li>
+              <li>Le soir, du mardi au samedi</li>
+            </ul>
+          </div>
+          <div class="form-card pp-fade">
+            <span class="ftag">L'exception</span>
+            <h3>Menu Dégustation</h3>
+            <div class="fprice">135€ <small>/ pers.</small></div>
+            <ul>
+              <li>8 services, carte blanche au chef</li>
+              <li>Accord vins sommelier inclus</li>
+              <li>Visite de cave avant le service</li>
+              <li>Sur réservation, 6 couverts</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="amb-sec" id="ambiance">
+      <div class="wrap">
+        <p class="eyebrow pp-fade" style="text-align: center">L'ambiance</p>
+        <h2 class="section-title pp-fade" style="text-align: center; color: var(--creme)">Un écrin feutré</h2>
+        <div class="amb-grid">
+          <figure class="tall pp-reveal"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80&fit=crop" alt="Salle de restaurant" loading="lazy" decoding="async" /></figure>
+          <figure class="wide pp-reveal"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1000&q=80&fit=crop" alt="Dressage d'assiette" loading="lazy" decoding="async" /></figure>
+          <figure class="pp-reveal"><img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&q=80&fit=crop" alt="Cave à vins" loading="lazy" decoding="async" /></figure>
+          <figure class="pp-reveal"><img src="https://images.unsplash.com/photo-1592861956120-e524fc739696?w=600&q=80&fit=crop" alt="Détail de table" loading="lazy" decoding="async" /></figure>
+          <figure class="wide pp-reveal"><img src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=1000&q=80&fit=crop" alt="Plat gastronomique" loading="lazy" decoding="async" /></figure>
         </div>
       </div>
     </section>
@@ -486,28 +632,23 @@
           </div>
           <div class="exp-item">
             <p class="exp-num">★★</p>
-            <p class="exp-label">Guide Michelin 2024</p>
+            <p class="exp-label">Guide Michelin 2026</p>
           </div>
         </div>
       </div>
     </section>
     <section class="res-sec" id="reservation">
       <div class="wrap">
-        <p class="eyebrow">Une soirée mémorable</p>
-        <h2 class="section-title">Réserver votre table</h2>
-        <p>Ouvert du mardi au samedi, midi et soir. Réservation recommandée 2 semaines à l'avance.</p>
-        <a href="tel:+33556000000" class="btn-gold">05 56 00 00 00</a>
+        <p class="eyebrow pp-fade">Une soirée mémorable</p>
+        <h2 class="section-title pp-fade">Réserver votre table</h2>
+        <p class="pp-fade">Ouvert du mardi au samedi, midi et soir. Réservation recommandée 2 semaines à l'avance.</p>
+        <a href="tel:+33556000000" class="btn-gold pp-magnetic pp-fade">05 56 00 00 00</a>
       </div>
     </section>
     <footer>
       <p>
         Maison Aurore · 12 rue du Chapeau Rouge, Bordeaux ·
         <a href="https://pinapp.fr" target="_blank" rel="noopener noreferrer">Site conçu par Pinapp Studio</a>
-      </p>
-    
-      <p style="font-size:0.75rem;color:rgba(232,244,248,0.4);margin-top:1rem;text-align:center;max-width:36rem;margin-left:auto;margin-right:auto;line-height:1.5;">
-        🍍 Parrainage — Recommandez un client, recevez 10&nbsp;% sur votre prochaine prestation.
-        <a href="mailto:contact@pinapp.fr?subject=Parrainage" style="color:#00E5B0;">En savoir plus</a>
       </p>
     </footer>
     <script>

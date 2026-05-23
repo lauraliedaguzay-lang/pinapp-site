@@ -1,664 +1,522 @@
 <!doctype html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="pinapp-build" content="v15.5.0-pricing-aligned-2026-05-10" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="/demo/_shared/demo-banner.css" />
-    <link rel="canonical" href="https://pinapp.fr/demo/atelier-rivage/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="fr_FR" />
-    <meta property="og:site_name" content="Pinapp" />
-    <meta property="og:title" content="Atelier Rivage — Architecture d'exception" />
-    <meta
-      property="og:description"
-      content="Atelier Rivage — démo vitrine architecture résidentielle d'exception." />
-    <meta property="og:url" content="https://pinapp.fr/demo/atelier-rivage/" />
-    <meta property="og:image" content="/assets/images/og-pinapp-share.svg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="/assets/images/og-pinapp-share.svg" />
-    <meta
-      name="description"
-      content="Atelier Rivage — démo vitrine architecture résidentielle d'exception · Pinapp Studio." />
-    <title>Atelier Rivage — Architecture d'exception</title>
-    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
-    <link rel="dns-prefetch" href="https://images.unsplash.com" />
-    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
-    <link rel="stylesheet" href="https://fonts.bunny.net/css?family=cormorant-garamond:ital,wght@0,300;0,400;1,300;1,400&family=outfit:wght@200;300;400" />
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      html,
-      body {
-        height: 100%;
-        overflow: hidden;
-        background: #0a0a08;
-        font-family: 'Outfit', sans-serif;
-        color: #fff;
-      }
-      ::selection {
-        background: #c8a87a;
-        color: #fff;
-      }
+<head>
+<meta charset="UTF-8" />
+<meta name="pinapp-build" content="atelier-rivage-glowup-2026-05-23" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/demo/_shared/demo-banner.css" />
+<link rel="canonical" href="https://pinapp.fr/demo/atelier-rivage/" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="fr_FR" />
+<meta property="og:site_name" content="Pinapp" />
+<meta property="og:title" content="Atelier Rivage — Architecture d'exception" />
+<meta property="og:description" content="Atelier Rivage — démo vitrine architecture résidentielle d'exception · Pinapp Studio." />
+<meta property="og:url" content="https://pinapp.fr/demo/atelier-rivage/" />
+<meta property="og:image" content="/assets/images/og-pinapp-share.svg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="description" content="Atelier Rivage — vitrine architecture résidentielle d'exception · Bordeaux & Littoral atlantique · démo Pinapp Studio." />
+<title>Atelier Rivage — Architecture d'exception</title>
+<link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+<link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.bunny.net/css?family=cormorant-garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=outfit:wght@200;300;400;500" />
+<style>
+:root{
+  --ink:#0a0a08; --ink-2:#100f0c; --cream:#f4efe6; --cream-dim:rgba(244,239,230,.62); --cream-mute:rgba(244,239,230,.4);
+  --gold:#c8a87a; --gold-soft:#e8d5b8; --line:rgba(244,239,230,.14);
+  --serif:'Cormorant Garamond',Georgia,serif; --sans:'Outfit',-apple-system,system-ui,sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1); --ease2:cubic-bezier(.62,.05,.01,.99);
+  --pad:clamp(1.5rem,5vw,5rem);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;background:var(--ink)}
+html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}.lenis.lenis-stopped{overflow:hidden}
+body{background:var(--ink);color:var(--cream);font-family:var(--sans);font-weight:300;line-height:1.7;overflow-x:hidden}
+img{display:block;max-width:100%}a{color:inherit;text-decoration:none}
+::selection{background:var(--gold);color:var(--ink)}
+h1,h2,h3{font-weight:300;margin:0;line-height:1.04;letter-spacing:-.01em}
+.serif{font-family:var(--serif)}
+.eyebrow{font-size:.6rem;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);font-weight:400}
+.wrap{max-width:1400px;margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+em,.it{font-style:italic;color:var(--gold-soft)}
 
-      .slide {
-        position: absolute;
-        inset: 0;
-        opacity: 0;
-        transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        overflow: hidden;
-      }
-      .slide.active {
-        opacity: 1;
-      }
-      .slide img {
-        position: absolute;
-        width: 115%;
-        height: 115%;
-        top: -7.5%;
-        left: -7.5%;
-        object-fit: cover;
-        filter: brightness(0.5) saturate(0.85);
-        transition: transform 0.15s ease-out;
-        animation: ken 25s ease-in-out alternate infinite;
-      }
-      @keyframes ken {
-        0% {
-          transform: scale(1.02);
-        }
-        100% {
-          transform: scale(1.12) translate(-1%, -0.5%);
-        }
-      }
+/* reveals (GSAP-driven, fallback visible) */
+.js [data-rv]{opacity:0}
+.js [data-rv="img"]{clip-path:inset(0 0 100% 0)}
 
-      .vignette {
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(ellipse at 50% 50%, transparent 25%, rgba(10, 10, 8, 0.5) 100%);
-      }
-      .gradient {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          180deg,
-          rgba(10, 10, 8, 0.25) 0%,
-          transparent 30%,
-          transparent 50%,
-          rgba(10, 10, 8, 0.9) 100%
-        );
-      }
+/* nav */
+nav.nav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;
+  padding:1.5rem var(--pad);transition:padding .5s var(--ease),background .4s,backdrop-filter .4s}
+nav.nav.scrolled{padding:.9rem var(--pad);background:rgba(10,10,8,.6);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+nav.nav.hide{transform:translateY(-110%)}
+.logo{font-family:var(--serif);font-size:1.45rem;letter-spacing:.18em;font-weight:400}
+.logo span{color:var(--gold)}
+.nlinks{display:flex;gap:2.4rem;align-items:center}
+.nlinks a{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cream-mute);transition:color .3s}
+.nlinks a:hover{color:var(--gold)}
+.nlinks a.back{color:rgba(200,168,122,.85)}
+.burger{display:none;background:none;border:0;color:var(--cream);font-size:1.3rem;cursor:pointer}
+@media(max-width:920px){.nlinks a:not(.back){display:none}}
 
-      .nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 50;
-        padding: 1.5rem 3rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .nav-logo {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 1.4rem;
-        letter-spacing: 0.18em;
-        font-weight: 300;
-        color: #fff;
-        text-decoration: none;
-      }
-      .nav-links {
-        display: flex;
-        gap: 2.5rem;
-        align-items: center;
-      }
-      .nav-links a {
-        color: rgba(255, 255, 255, 0.4);
-        text-decoration: none;
-        font-size: 0.58rem;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        font-weight: 300;
-        transition: color 0.3s;
-      }
-      .nav-links a:hover {
-        color: #c8a87a;
-      }
-      .nav-links a.nav-back-demo {
-        color: rgba(200, 168, 122, 0.85);
-      }
+/* HERO */
+.hero{position:relative;height:100svh;overflow:hidden;display:flex;align-items:flex-end}
+.hero .bg{position:absolute;inset:0;overflow:hidden}
+.hero .bg img{width:100%;height:118%;object-fit:cover;filter:brightness(.62) saturate(.9);will-change:transform}
+.hero .veil{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,transparent 25%,rgba(10,10,8,.5)),linear-gradient(180deg,rgba(10,10,8,.4),transparent 30%,transparent 55%,rgba(10,10,8,.92))}
+.hero .inner{position:relative;z-index:2;width:100%;padding:0 var(--pad) clamp(3rem,7vw,6rem)}
+.hero .eyebrow{display:block;margin-bottom:1.4rem}
+.hero h1{font-family:var(--serif);font-size:clamp(3rem,9vw,8.5rem);line-height:.98}
+.hero .sub{margin-top:1.4rem;font-size:clamp(.95rem,1.3vw,1.15rem);color:var(--cream-dim);max-width:34rem}
+.scroll-cue{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:.6rem;font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--cream-mute)}
+.scroll-cue .l{width:1px;height:42px;background:linear-gradient(180deg,var(--gold),transparent);animation:cue 2.4s var(--ease) infinite}
+@keyframes cue{0%{transform:scaleY(.3);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}50.1%{transform-origin:bottom}100%{transform:scaleY(.3);transform-origin:bottom}}
 
-      .content {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 20;
-        padding: 0 4rem 4.5rem;
-      }
-      .eyebrow {
-        font-size: 0.5rem;
-        letter-spacing: 0.4em;
-        text-transform: uppercase;
-        color: #c8a87a;
-        margin-bottom: 1.2rem;
-      }
-      .title {
-        font-family: 'Cormorant Garamond', serif;
-        font-weight: 300;
-        line-height: 1.05;
-        text-shadow: 0 2px 50px rgba(0, 0, 0, 0.4);
-        transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-      .title-hero {
-        font-size: clamp(2.8rem, 7vw, 5.5rem);
-      }
-      .title-project {
-        font-size: clamp(2rem, 5vw, 3.5rem);
-      }
-      .title em {
-        font-style: italic;
-        color: #e8d5b8;
-      }
-      .subtitle {
-        font-size: 0.82rem;
-        color: rgba(255, 255, 255, 0.5);
-        margin-top: 0.6rem;
-        font-weight: 200;
-      }
+/* sections */
+section{position:relative}
+.block{padding:clamp(6rem,13vw,12rem) 0}
+.manifesto{text-align:center}
+.manifesto p{font-family:var(--serif);font-size:clamp(1.8rem,4.4vw,3.6rem);line-height:1.22;font-weight:300;max-width:24ch;margin:1.6rem auto 0}
+.manifesto p .it{font-style:italic;color:var(--gold-soft)}
 
-      .thumbs {
-        display: flex;
-        gap: 0.6rem;
-        margin-top: 2.5rem;
-        align-items: flex-end;
-      }
-      .thumb {
-        width: 75px;
-        height: 50px;
-        border-radius: 5px;
-        overflow: hidden;
-        cursor: pointer;
-        border: 2px solid rgba(255, 255, 255, 0.08);
-        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        opacity: 0.4;
-        flex-shrink: 0;
-      }
-      .thumb.active {
-        width: 130px;
-        height: 80px;
-        border-color: #c8a87a;
-        opacity: 1;
-      }
-      .thumb img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: filter 0.3s;
-      }
-      .thumb:not(.active) img {
-        filter: brightness(0.5) saturate(0.4);
-      }
-      .thumb:hover {
-        opacity: 0.8;
-      }
-      .thumb-label {
-        position: absolute;
-        bottom: 3px;
-        left: 5px;
-        font-size: 0.38rem;
-        color: #fff;
-        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
-        letter-spacing: 0.05em;
-      }
+/* DU PLAN À LA RÉALITÉ — wireframe qui devient bâti (profondeur / entrée) */
+.plan{height:340vh;position:relative}
+.plan-stage{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--ink)}
+.plan-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.4;filter:brightness(.5) saturate(.9);z-index:0}
+.plan-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:1}
+.plan-veil{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse at center,transparent 35%,rgba(10,10,8,.55))}
+.plan-wire{position:absolute;z-index:2;width:min(82vw,1080px);height:auto;opacity:.95}
+.plan-wire [data-draw]{fill:none;stroke:var(--gold);stroke-width:1.4;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round}
+.plan-cap{position:absolute;bottom:7vh;left:0;right:0;z-index:3;text-align:center;padding:0 var(--pad)}
+.plan-cap .eyebrow{display:block;margin-bottom:1rem}
+.plan-cap h2{font-family:var(--serif);font-size:clamp(2.2rem,6vw,5rem);text-shadow:0 2px 50px rgba(0,0,0,.6)}
+.plan-cap p{color:var(--cream-dim);margin-top:1rem;max-width:30rem;margin-left:auto;margin-right:auto;font-size:.9rem}
+.plan-stage-ind{display:flex;align-items:baseline;gap:.8rem;justify-content:center;margin-bottom:1.1rem}
+.plan-stage-ind .n{font-family:var(--serif);font-style:italic;font-size:2.4rem;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+.plan-stage-ind .t{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--cream-dim)}
 
-      .arrows {
-        display: flex;
-        gap: 0.6rem;
-        margin-top: 1.2rem;
-        align-items: center;
-      }
-      .arrow {
-        width: 38px;
-        height: 38px;
-        border-radius: 50%;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        background: rgba(255, 255, 255, 0.04);
-        color: #fff;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.9rem;
-        transition: all 0.3s;
-        backdrop-filter: blur(8px);
-      }
-      .arrow:hover {
-        border-color: #c8a87a;
-        background: rgba(200, 168, 122, 0.1);
-      }
-      .counter {
-        font-size: 0.5rem;
-        color: rgba(255, 255, 255, 0.2);
-        margin-left: 0.5rem;
-        letter-spacing: 0.12em;
-        font-variant-numeric: tabular-nums;
-      }
+/* index chapitres (esprit terminal) */
+.chapters{position:fixed;right:1.5rem;top:50%;transform:translateY(-50%);z-index:55;display:flex;flex-direction:column;gap:1rem}
+.chapters button{background:none;border:0;cursor:pointer;display:flex;align-items:center;gap:.6rem;color:var(--cream-mute);font:inherit;font-size:.56rem;letter-spacing:.14em;font-variant-numeric:tabular-nums;opacity:.5;transition:opacity .4s,color .4s}
+.chapters button .bar{width:16px;height:1px;background:currentColor;transition:width .4s}
+.chapters button .lab{text-transform:uppercase;opacity:0;transform:translateX(6px);transition:.4s;max-width:0;overflow:hidden;white-space:nowrap}
+.chapters button.active{opacity:1;color:var(--gold)}
+.chapters button.active .bar{width:34px}
+.chapters button.active .lab{opacity:1;transform:none;max-width:120px}
+.chapters button:hover{opacity:1}
+@media(max-width:900px){.chapters{display:none}}
 
-      .dots {
-        position: fixed;
-        right: 1.5rem;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 50;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-      .dot {
-        width: 3px;
-        height: 8px;
-        border: none;
-        padding: 0;
-        border-radius: 2px;
-        background: rgba(255, 255, 255, 0.12);
-        cursor: pointer;
-        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        font-size: 0;
-        color: transparent;
-      }
-      .dot.active {
-        height: 22px;
-        background: #c8a87a;
-      }
+/* curseur sur-mesure */
+.cursor{position:fixed;top:0;left:0;width:30px;height:30px;border:1px solid rgba(200,168,122,.6);border-radius:50%;pointer-events:none;z-index:200;transform:translate(-50%,-50%);transition:width .3s,height .3s,background .3s,border-color .3s;mix-blend-mode:difference;will-change:transform}
+.cursor.big{width:62px;height:62px;background:rgba(200,168,122,.12);border-color:transparent}
 
-      .scroll-hint {
-        margin-top: 2.5rem;
-        display: flex;
-        align-items: center;
-        gap: 0.6rem;
-        opacity: 0.35;
-        animation: breathe 3s infinite;
-      }
-      @keyframes breathe {
-        0%,
-        100% {
-          opacity: 0.2;
-        }
-        50% {
-          opacity: 0.5;
-        }
-      }
+/* HERO 3D — la villa 3D tourne au scroll puis devient la villa réelle */
+.hero3d{height:320vh;position:relative}
+.hero3d-stage{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;align-items:flex-end;background:var(--ink)}
+.hero3d-stage>#villa3d{position:absolute;inset:0;width:100%;height:100%;z-index:0;display:block}
+.hero3d-stage .hero-villa{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.62) saturate(.95);z-index:1;opacity:0;will-change:opacity}
+.hero3d-stage .veil{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse at 50% 42%,transparent 28%,rgba(10,10,8,.4)),linear-gradient(180deg,rgba(10,10,8,.3),transparent 35%,transparent 60%,rgba(10,10,8,.9))}
+.hero3d-stage .inner{position:relative;z-index:3;width:100%;padding:0 var(--pad) clamp(3rem,7vw,6rem)}
+.hero3d-stage .eyebrow{display:block;margin-bottom:1.4rem}
+.hero3d-stage h1{font-family:var(--serif);font-size:clamp(3rem,9vw,8.5rem);line-height:.98}
+.hero3d-stage .sub{margin-top:1.4rem;font-size:clamp(.95rem,1.3vw,1.15rem);color:var(--cream-dim);max-width:34rem}
+.hero3d-stage .scroll-cue{z-index:3}
+@media(max-width:900px),(pointer:coarse){.cursor{display:none}}
 
-      .demo-foot {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 40;
-        padding: 0.45rem 1rem;
-        text-align: center;
-        font-size: 10px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.42);
-        background: rgba(10, 10, 8, 0.78);
-        pointer-events: none;
-      }
+/* featured full-bleed */
+.featured{height:100svh;min-height:600px;overflow:hidden;display:flex;align-items:flex-end}
+.featured .bg{position:absolute;inset:0;overflow:hidden}
+.featured .bg img{width:100%;height:130%;object-fit:cover;filter:brightness(.58) saturate(.9);will-change:transform}
+.featured .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,8,.3),transparent 40%,rgba(10,10,8,.85))}
+.featured .inner{position:relative;z-index:2;width:100%;padding:0 var(--pad) clamp(3rem,7vw,6rem)}
+.featured .num{font-family:var(--serif);font-size:1rem;color:var(--gold);letter-spacing:.1em}
+.featured h2{font-family:var(--serif);font-size:clamp(2.4rem,6vw,5rem);margin-top:.4rem}
+.featured .meta{margin-top:.8rem;font-size:.9rem;color:var(--cream-dim);letter-spacing:.02em}
 
-      .badge {
-        position: fixed;
-        bottom: 1rem;
-        right: 1.5rem;
-        z-index: 50;
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-        padding: 0.35rem 0.8rem;
-        background: rgba(10, 10, 8, 0.5);
-        backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        border-radius: 100px;
-        text-decoration: none;
-      }
-      .badge-dot {
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        background: #6baf8d;
-        animation: breathe 3s infinite;
-      }
-      .badge-text {
-        font-size: 0.45rem;
-        color: rgba(255, 255, 255, 0.25);
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-      }
+/* sélection grid */
+.sel-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:clamp(2.5rem,5vw,4.5rem)}
+.sel-head h2{font-family:var(--serif);font-size:clamp(2.2rem,5vw,4rem)}
+.sel-head p{color:var(--cream-dim);max-width:26rem;font-size:.92rem}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(1rem,2.2vw,2rem)}
+.proj{position:relative;overflow:hidden;border-radius:2px;cursor:pointer;grid-column:span 4}
+.proj.wide{grid-column:span 6}.proj.tall{grid-column:span 6}
+.proj .ph{position:relative;overflow:hidden;aspect-ratio:4/5}
+.proj.wide .ph,.proj.tall .ph{aspect-ratio:16/11}
+.proj .ph img{width:100%;height:100%;object-fit:cover;filter:brightness(.85) saturate(.92);transition:transform 1.1s var(--ease),filter .6s}
+.proj:hover .ph img{transform:scale(1.06);filter:brightness(.86) saturate(1)}
+.proj .cap{position:absolute;left:0;right:0;bottom:0;padding:1.4rem 1.5rem;z-index:2;
+  background:linear-gradient(180deg,transparent,rgba(10,10,8,.85))}
+.proj .cap .nm{font-family:var(--serif);font-size:1.5rem}
+.proj .cap .lo{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-top:.3rem}
+.proj .cap .de{font-size:.78rem;color:var(--cream-dim);margin-top:.5rem;max-height:0;overflow:hidden;opacity:0;transition:all .5s var(--ease)}
+.proj:hover .cap .de{max-height:60px;opacity:1;margin-top:.5rem}
+@media(max-width:920px){.proj,.proj.wide,.proj.tall{grid-column:span 6}}
+@media(max-width:560px){.grid{grid-template-columns:1fr}.proj,.proj.wide,.proj.tall{grid-column:span 1}.proj .ph{aspect-ratio:4/3}}
+/* galerie intérieurs */
+.igrid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(.8rem,1.6vw,1.4rem)}
+.igrid figure{overflow:hidden;border-radius:2px;aspect-ratio:3/4;margin:0;position:relative}
+.igrid figure:nth-child(2),.igrid figure:nth-child(3){aspect-ratio:3/4;transform:translateY(clamp(1rem,3vw,3rem))}
+.igrid img{width:100%;height:100%;object-fit:cover;filter:brightness(.78) saturate(.9);transition:transform 1.1s var(--ease),filter .6s}
+.igrid figure:hover img{transform:scale(1.06);filter:brightness(.92) saturate(1)}
+.igrid figcaption{position:absolute;left:0;right:0;bottom:0;padding:1rem 1.1rem;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cream-dim);background:linear-gradient(180deg,transparent,rgba(10,10,8,.8))}
+@media(max-width:820px){.igrid{grid-template-columns:1fr 1fr}.igrid figure:nth-child(n){transform:none}}
 
-      @media (max-width: 768px) {
-        .content {
-          padding: 0 1.5rem 3rem;
-        }
-        .title-hero {
-          font-size: 2.5rem;
-        }
-        .title-project {
-          font-size: 1.8rem;
-        }
-        .nav {
-          padding: 1rem 1.5rem;
-        }
-        .nav-links {
-          display: none;
-        }
-        .thumbs {
-          gap: 0.4rem;
-        }
-        .thumb {
-          width: 50px;
-          height: 35px;
-        }
-        .thumb.active {
-          width: 90px;
-          height: 55px;
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .slide img {
-          animation: none;
-        }
-        .slide {
-          transition: opacity 0.35s ease;
-        }
-        .thumb,
-        .dot,
-        .title {
-          transition-duration: 0.2s;
-        }
-        .badge-dot,
-        .scroll-hint {
-          animation: none;
-          opacity: 0.35;
-        }
-      }
-    </style>
-  <link rel="stylesheet" href="/assets/css/pp-awwwards.css?v=20260471" />
+/* approche */
+.approche{background:var(--ink-2)}
+.app-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(2rem,4vw,4rem);margin-top:clamp(2.5rem,5vw,4rem)}
+.step .n{font-family:var(--serif);font-size:2.4rem;color:var(--gold);font-style:italic}
+.step h3{font-family:var(--serif);font-size:1.6rem;margin:.6rem 0 .6rem;border-top:1px solid var(--line);padding-top:1.4rem}
+.step p{color:var(--cream-dim);font-size:.9rem}
+
+/* chiffres */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:clamp(2rem,4vw,3rem);text-align:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:clamp(3rem,6vw,5rem) 0}
+.stat .n{font-family:var(--serif);font-size:clamp(3rem,7vw,5.5rem);line-height:1;color:var(--cream)}
+.stat .n em{color:var(--gold)}
+.stat .l{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cream-mute);margin-top:.8rem}
+
+/* studio */
+.studio{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+.studio .ph{overflow:hidden;border-radius:2px;aspect-ratio:4/5}
+.studio .ph img{width:100%;height:100%;object-fit:cover;filter:brightness(.8) saturate(.9);will-change:transform}
+.studio h2{font-family:var(--serif);font-size:clamp(2rem,4.5vw,3.4rem)}
+.studio p{color:var(--cream-dim);margin-top:1.4rem;max-width:34rem}
+.studio .sig{font-family:var(--serif);font-style:italic;font-size:1.3rem;color:var(--gold-soft);margin-top:1.6rem}
+@media(max-width:820px){.studio{grid-template-columns:1fr}.studio .ph{aspect-ratio:16/10}}
+
+/* contact */
+.contact{text-align:center;background:var(--ink-2)}
+.contact h2{font-family:var(--serif);font-size:clamp(2.6rem,7vw,6rem)}
+.contact .lead{color:var(--cream-dim);margin:1.2rem auto 0;max-width:36rem}
+.cbtn{display:inline-flex;align-items:center;gap:.6em;margin-top:2.4rem;border:1px solid var(--gold);color:var(--gold);
+  padding:1rem 2.4rem;border-radius:100px;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;transition:.4s var(--ease)}
+.cbtn:hover{background:var(--gold);color:var(--ink)}
+.coords{display:flex;gap:clamp(1.5rem,5vw,4rem);justify-content:center;flex-wrap:wrap;margin-top:3rem;font-size:.78rem;color:var(--cream-dim)}
+.coords .k{font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:.4rem}
+
+/* footer */
+footer.ft{padding:3rem var(--pad) 4rem;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:1.5rem;flex-wrap:wrap}
+footer.ft .logo{font-size:1.2rem}
+footer.ft .cc{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--cream-mute)}
+
+@media (prefers-reduced-motion:reduce){.scroll-cue .l{animation:none}}
+</style>
 </head>
-  <body>
-<div class="pp-cursor-dot" aria-hidden="true"></div>
-<div class="pp-cursor-circle" aria-hidden="true"></div>
+<body>
+<div role="status" aria-label="Tarif Pinapp" style="position:fixed;top:74px;right:16px;z-index:90;display:flex;align-items:center;gap:7px;padding:7px 14px;background:rgba(10,10,8,.6);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);border:1px solid rgba(200,168,122,.34);border-radius:999px;font:500 11.5px/1.2 Inter,system-ui,sans-serif;letter-spacing:.03em;color:#f4efe6"><span style="width:6px;height:6px;border-radius:50%;background:#c8a87a;flex-shrink:0"></span>Niveau Prestige · à partir de 6&nbsp;900&nbsp;€&nbsp;HT</div>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+<nav class="chapters" id="chapters" aria-label="Chapitres"></nav>
 
-    <nav class="nav">
-      <a href="#" class="nav-logo">Atelier Rivage</a>
-      <div class="nav-links">
-        <a class="nav-back-demo" href="/">Démos</a>
-        <a href="#">Villas</a>
-        <a href="#">Studio</a>
-        <a href="#">Contact</a>
-      </div>
-    </nav>
+<nav class="nav" id="nav">
+  <a href="#top" class="logo">Atelier <span>Rivage</span></a>
+  <div class="nlinks">
+    <a href="#projets">Villas</a>
+    <a href="#approche">Approche</a>
+    <a href="#studio">Studio</a>
+    <a href="#contact">Contact</a>
+    <a href="/" class="back">↩ Démos</a>
+  </div>
+  <button class="burger" id="burger" aria-label="Menu">☰</button>
+</nav>
 
-    <div id="slides">
-      <div class="slide active" data-i="0">
-        <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920&q=90" alt="Villa Lumière" />
-        <div class="vignette"></div>
-        <div class="gradient"></div>
-      </div>
-      <div class="slide" data-i="1">
-        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=90" alt="Les Jardins" />
-        <div class="vignette"></div>
-        <div class="gradient"></div>
-      </div>
-      <div class="slide" data-i="2">
-        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=90" alt="Maison Pierre" />
-        <div class="vignette"></div>
-        <div class="gradient"></div>
-      </div>
-      <div class="slide" data-i="3">
-        <img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=1920&q=90" alt="Villa Éclipse" />
-        <div class="vignette"></div>
-        <div class="gradient"></div>
-      </div>
-      <div class="slide" data-i="4">
-        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=90" alt="L'Intérieur" />
-        <div class="vignette"></div>
-        <div class="gradient"></div>
-      </div>
-      <div class="slide" data-i="5">
-        <img src="https://images.unsplash.com/photo-1574739782594-db4ead022697?w=1920&q=90" alt="Horizon Bleu" />
-        <div class="vignette"></div>
-        <div class="gradient"></div>
-      </div>
-      <div class="slide" data-i="6">
-        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=90" alt="Villa Littoral" />
-        <div class="vignette"></div>
-        <div class="gradient"></div>
-      </div>
-      <div class="slide" data-i="7">
-        <img src="https://images.unsplash.com/photo-1518005058771-92be0df73698?w=1920&q=90" alt="Résidence Verre" />
-        <div class="vignette"></div>
-        <div class="gradient"></div>
-      </div>
-      <div class="slide" data-i="8">
-        <img src="https://images.unsplash.com/photo-1487958449943-242a9dd376c3?w=1920&q=90" alt="Maison Ligne" />
-        <div class="vignette"></div>
-        <div class="gradient"></div>
-      </div>
-      <div class="slide" data-i="9">
-        <img src="https://images.unsplash.com/photo-1542317854553-046557184cfd?w=1920&q=90" alt="Atelier Béton" />
-        <div class="vignette"></div>
-        <div class="gradient"></div>
-      </div>
+<main id="top">
+
+<!-- HERO 3D — la villa 3D tourne au scroll puis devient la villa réelle -->
+<section class="hero3d" id="hero">
+  <div class="hero3d-stage">
+    <canvas id="villa3d" aria-hidden="true"></canvas>
+    <img class="hero-villa" src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=2200&q=85" alt="Villa Lumière — Cap Ferret" fetchpriority="high">
+    <div class="veil"></div>
+    <div class="inner">
+      <span class="eyebrow">Architecture résidentielle · Bordeaux &amp; Littoral atlantique</span>
+      <h1>Entrez dans<br>nos <em>créations.</em></h1>
+      <p class="sub">Des villas d'exception pensées pour le lieu, la lumière et ceux qui les habitent. Vingt ans de maisons sur-mesure entre Bordeaux et l'océan.</p>
+      <div class="cta-row" style="justify-content:flex-start"><a href="#projets" class="btn">Voir nos villas →</a></div>
     </div>
+    <div class="scroll-cue"><span>Construire</span><span class="l"></span></div>
+  </div>
+</section>
 
-    <div class="content" id="content">
-      <div class="eyebrow" id="eyebrow">Architecture résidentielle · Bordeaux &amp; Littoral</div>
-      <h1 class="title title-hero" id="title">Entrez dans nos <em>créations.</em></h1>
-      <p class="subtitle" id="subtitle">Naviguez à travers nos villas d'exception</p>
+<!-- MANIFESTO -->
+<section class="block manifesto"><div class="wrap">
+  <span class="eyebrow" data-rv>Le manifeste</span>
+  <p data-rv>Nous ne dessinons pas des maisons. Nous composons des <span class="it">lieux de vie</span> où la pierre, la lumière et l'horizon entrent en dialogue.</p>
+</div></section>
 
-      <div class="thumbs" id="thumbs"></div>
-      <div class="arrows">
-        <button type="button" class="arrow" id="prev" aria-label="Diapositive précédente">←</button>
-        <button type="button" class="arrow" id="next" aria-label="Diapositive suivante">→</button>
-        <span class="counter" id="counter">01 / 10</span>
-      </div>
-    </div>
+<!-- FEATURED 1 -->
+<section class="featured" id="projets">
+  <div class="bg" data-parallax><img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=2200&q=85" alt="Maison Pierre — Saint-Émilion"></div>
+  <div class="veil"></div>
+  <div class="inner"><div class="wrap" style="padding:0">
+    <div class="num" data-rv>Projet 01</div>
+    <h2 data-rv>Maison Pierre</h2>
+    <div class="meta" data-rv>Saint-Émilion · 420 m² — Pierre blonde et acier noir, au cœur des vignes.</div>
+  </div></div>
+</section>
 
-    <div class="dots" id="dots" role="navigation" aria-label="Projets"></div>
+<!-- SÉLECTION -->
+<section class="block" id="selection"><div class="wrap">
+  <div class="sel-head">
+    <div><span class="eyebrow" data-rv>La sélection</span><h2 data-rv style="margin-top:.8rem">Dix demeures,<br>un même geste.</h2></div>
+    <p data-rv>Chaque projet est unique. Tous partagent la même exigence : des volumes justes, des matériaux nobles, une lumière maîtrisée.</p>
+  </div>
+  <div class="grid" id="grid"></div>
+</div></section>
 
-    <p class="demo-foot" role="status">Démo Pinapp · visuels d'illustration (Unsplash) · données fictives</p>
+<!-- FEATURED 2 -->
+<section class="featured">
+  <div class="bg" data-parallax><img src="https://images.unsplash.com/photo-1574739782594-db4ead022697?w=2200&q=85" alt="Horizon Bleu — Hossegor"></div>
+  <div class="veil"></div>
+  <div class="inner"><div class="wrap" style="padding:0">
+    <div class="num" data-rv>Projet 06</div>
+    <h2 data-rv>Horizon Bleu</h2>
+    <div class="meta" data-rv>Hossegor · 310 m² — Face à l'océan, bois flotté et pierre brute.</div>
+  </div></div>
+</section>
 
-    <a href="https://pinapp.fr" target="_blank" rel="noopener noreferrer" class="badge">
-      <span class="badge-dot"></span>
-      <span class="badge-text">Niveau Pack Sur-Mesure · 5&nbsp;990&nbsp;€&nbsp;HT&nbsp;★&nbsp;PREMIUM</span>
-    </a>
+<!-- APPROCHE -->
+<section class="block approche" id="approche"><div class="wrap">
+  <span class="eyebrow" data-rv>L'approche</span>
+  <h2 class="serif" data-rv style="font-size:clamp(2rem,4.5vw,3.4rem);margin-top:.8rem;max-width:18ch">Du premier croquis<br>à la première lumière.</h2>
+  <div class="app-grid">
+    <div class="step" data-rv><div class="n">01</div><h3>Le lieu</h3><p>Lecture du terrain, de la lumière et des vues. Tout part du site : l'architecture s'y inscrit, jamais l'inverse.</p></div>
+    <div class="step" data-rv><div class="n">02</div><h3>Le dessin</h3><p>Volumes, matières, circulations. Maquettes et plans haute fidélité, jusqu'à ce que chaque ligne soit juste.</p></div>
+    <div class="step" data-rv><div class="n">03</div><h3>La matière</h3><p>Pierre locale, béton ciré, chêne, acier patiné. Des matériaux qui vieillissent avec grâce.</p></div>
+    <div class="step" data-rv><div class="n">04</div><h3>La livraison</h3><p>Suivi de chantier intégral et accompagnement jusqu'aux finitions. On reste jusqu'à la dernière lumière allumée.</p></div>
+  </div>
+</div></section>
 
-    <script>
-      var data = [
-        {
-          t: 'Villa Lumière',
-          l: 'Cap Ferret · 480m²',
-          d: "Piscine à débordement face à l'Atlantique",
-          img: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=400&q=70',
-        },
-        {
-          t: 'Les Jardins',
-          l: 'Biarritz · 350m²',
-          d: 'Terrasses végétalisées surplombant la côte',
-          img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400&q=70',
-        },
-        {
-          t: 'Maison Pierre',
-          l: 'Saint-Émilion · 420m²',
-          d: 'Pierre blonde et acier noir',
-          img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&q=70',
-        },
-        {
-          t: 'Villa Éclipse',
-          l: 'Arcachon · 290m²',
-          d: 'Infinity pool sur le Bassin',
-          img: 'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=400&q=70',
-        },
-        {
-          t: "L'Intérieur",
-          l: 'Bordeaux · 260m²',
-          d: 'Double hauteur et verrière zénithale',
-          img: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=70',
-        },
-        {
-          t: 'Horizon Bleu',
-          l: 'Hossegor · 310m²',
-          d: "Face à l'océan, bois flotté et pierre",
-          img: 'https://images.unsplash.com/photo-1574739782594-db4ead022697?w=400&q=70',
-        },
-        {
-          t: 'Villa Littoral',
-          l: 'Capbreton · 380m²',
-          d: 'Lignes basses, pierre locale et baies vitrées plein sud',
-          img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=70',
-        },
-        {
-          t: 'Résidence Verre',
-          l: 'Biarritz · 220m²',
-          d: 'Façade vitrée et patios intérieurs pour la lumière zénithale',
-          img: 'https://images.unsplash.com/photo-1518005058771-92be0df73698?w=400&q=70',
-        },
-        {
-          t: 'Maison Ligne',
-          l: 'Bordeaux · 195m²',
-          d: 'Volume minimal, béton ciré et chêne massif',
-          img: 'https://images.unsplash.com/photo-1487958449943-242a9dd376c3?w=400&q=70',
-        },
-        {
-          t: 'Atelier Béton',
-          l: 'Arcachon · 275m²',
-          d: 'Structure apparente, terrasse rooftop et vue bassin',
-          img: 'https://images.unsplash.com/photo-1542317854553-046557184cfd?w=400&q=70',
-        },
-      ];
+<!-- CHIFFRES -->
+<section class="block" style="padding-top:0"><div class="wrap">
+  <div class="stats">
+    <div class="stat" data-rv><div class="n serif"><em>120</em></div><div class="l">Demeures livrées</div></div>
+    <div class="stat" data-rv><div class="n serif"><em>20</em> ans</div><div class="l">D'exigence</div></div>
+    <div class="stat" data-rv><div class="n serif"><em>8</em></div><div class="l">Récompenses</div></div>
+    <div class="stat" data-rv><div class="n serif">100<em>%</em></div><div class="l">Sur-mesure</div></div>
+  </div>
+</div></section>
 
-      var cur = 0;
-      var slides = document.querySelectorAll('.slide');
-      var title = document.getElementById('title');
-      var subtitle = document.getElementById('subtitle');
-      var eyebrow = document.getElementById('eyebrow');
-      var counter = document.getElementById('counter');
-      var thumbsEl = document.getElementById('thumbs');
-      var dotsEl = document.getElementById('dots');
+<!-- INTÉRIEURS & MATIÈRES -->
+<section class="block" id="interieurs"><div class="wrap">
+  <div class="sel-head">
+    <div><span class="eyebrow" data-rv>Intérieurs &amp; matières</span><h2 data-rv style="margin-top:.8rem">La lumière,<br>de l'intérieur.</h2></div>
+    <p data-rv>Béton ciré, chêne massif, pierre blonde, verre toute hauteur — la matière au service du quotidien.</p>
+  </div>
+  <div class="igrid">
+    <figure data-rv="img"><img loading="lazy" src="https://images.unsplash.com/photo-1512699355324-f07e3106dae5?w=900&q=80" alt="Séjour double hauteur"><figcaption>Volumes</figcaption></figure>
+    <figure data-rv="img"><img loading="lazy" src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=900&q=80" alt="Cuisine sur-mesure"><figcaption>Matières</figcaption></figure>
+    <figure data-rv="img"><img loading="lazy" src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=900&q=80" alt="Escalier sculptural"><figcaption>Lignes</figcaption></figure>
+    <figure data-rv="img"><img loading="lazy" src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=900&q=80" alt="Lumière naturelle"><figcaption>Lumière</figcaption></figure>
+  </div>
+</div></section>
 
-      data.forEach(function (d, i) {
-        var th = document.createElement('div');
-        th.className = 'thumb' + (i === 0 ? ' active' : '');
-        th.style.position = 'relative';
-        th.setAttribute('role', 'button');
-        th.setAttribute('tabindex', '0');
-        th.setAttribute('aria-label', d.t);
-        th.innerHTML = '<img src="' + d.img + '" alt=""><span class="thumb-label">' + d.t + '</span>';
-        th.onclick = function () {
-          goTo(i);
-        };
-        th.onkeydown = function (e) {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            goTo(i);
-          }
-        };
-        thumbsEl.appendChild(th);
-      });
+<!-- STUDIO -->
+<section class="block" id="studio"><div class="wrap"><div class="studio">
+  <div class="ph" data-parallax-soft><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1400&q=85" alt="L'atelier"></div>
+  <div>
+    <span class="eyebrow" data-rv>Le studio</span>
+    <h2 data-rv style="margin-top:.8rem">Un atelier, pas une agence.</h2>
+    <p data-rv>Atelier Rivage réunit une poignée d'architectes et d'artisans autour d'une conviction : l'exception se construit dans le détail, à taille humaine. Nous ne livrons qu'une dizaine de projets par an, pour rester présents sur chacun.</p>
+    <p data-rv>Basés à Bordeaux, nous intervenons sur tout le littoral atlantique — du Cap Ferret à Hossegor.</p>
+    <div class="sig serif" data-rv>« Le luxe, c'est le temps qu'on accorde au lieu. »</div>
+  </div>
+</div></div></section>
 
-      data.forEach(function (d, i) {
-        var dot = document.createElement('button');
-        dot.type = 'button';
-        dot.className = 'dot' + (i === 0 ? ' active' : '');
-        dot.setAttribute('aria-label', d.t);
-        dot.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
-        dot.onclick = function () {
-          goTo(i);
-        };
-        dotsEl.appendChild(dot);
-      });
+<!-- CONTACT -->
+<section class="block contact" id="contact"><div class="wrap">
+  <span class="eyebrow" data-rv>Parlons de votre projet</span>
+  <h2 data-rv style="margin-top:1rem">Construisons<br>votre <em>lieu.</em></h2>
+  <p class="lead" data-rv>Un terrain, une envie, une intuition ? Racontez-nous. Nous répondons à chaque projet avec la même attention.</p>
+  <a class="cbtn" href="mailto:contact@atelier-rivage.fr" data-rv>Prendre rendez-vous →</a>
+  <div class="coords">
+    <div data-rv><span class="k">Atelier</span>12 quai des Chartrons<br>33000 Bordeaux</div>
+    <div data-rv><span class="k">Écrire</span>contact@atelier-rivage.fr<br>+33 5 56 00 00 00</div>
+    <div data-rv><span class="k">Suivre</span>Instagram<br>LinkedIn</div>
+  </div>
+</div></section>
 
-      function goTo(n) {
-        if (n === cur) return;
-        slides[cur].classList.remove('active');
-        thumbsEl.children[cur].classList.remove('active');
-        dotsEl.children[cur].classList.remove('active');
-        dotsEl.children[cur].setAttribute('aria-selected', 'false');
-        cur = n;
-        slides[cur].classList.add('active');
-        thumbsEl.children[cur].classList.add('active');
-        dotsEl.children[cur].classList.add('active');
-        dotsEl.children[cur].setAttribute('aria-selected', 'true');
+</main>
 
-        if (cur === 0) {
-          title.className = 'title title-hero';
-          title.innerHTML = 'Entrez dans<br>nos <em>créations.</em>';
-          subtitle.textContent = "Naviguez à travers nos villas d'exception";
-          eyebrow.style.display = 'block';
-        } else {
-          title.className = 'title title-project';
-          title.innerHTML = data[cur].t;
-          subtitle.textContent = data[cur].l + ' — ' + data[cur].d;
-          eyebrow.style.display = 'none';
-        }
-        counter.textContent = String(cur + 1).padStart(2, '0') + ' / ' + String(data.length).padStart(2, '0');
-      }
+<footer class="ft">
+  <a href="#top" class="logo">Atelier <span>Rivage</span></a>
+  <div class="cc">© 2026 Atelier Rivage · Architecture d'exception</div>
+</footer>
 
-      document.getElementById('prev').onclick = function () {
-        goTo(cur > 0 ? cur - 1 : data.length - 1);
-      };
-      document.getElementById('next').onclick = function () {
-        goTo(cur < data.length - 1 ? cur + 1 : 0);
-      };
+<p class="demo-foot" style="position:fixed;bottom:0;left:0;right:0;z-index:40;padding:.45rem 1rem;text-align:center;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:rgba(244,239,230,.42);background:rgba(10,10,8,.78);pointer-events:none">Démo Pinapp · visuels d'illustration (Unsplash) · données fictives</p>
 
-      document.addEventListener('mousemove', function (e) {
-        var x = (e.clientX / window.innerWidth - 0.5) * -20;
-        var y = (e.clientY / window.innerHeight - 0.5) * -12;
-        var img = slides[cur].querySelector('img');
-        if (img) img.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(1.08)';
-      });
+<a href="https://pinapp.fr" target="_blank" rel="noopener noreferrer" class="badge" style="position:fixed;bottom:2rem;right:1.5rem;z-index:50;display:flex;align-items:center;gap:.4rem;padding:.4rem .9rem;background:rgba(10,10,8,.5);backdrop-filter:blur(15px);border:1px solid rgba(244,239,230,.08);border-radius:100px">
+  <span style="width:4px;height:4px;border-radius:50%;background:#6baf8d"></span>
+  <span style="font-size:.5rem;color:rgba(244,239,230,.3);letter-spacing:.1em;text-transform:uppercase">Créé par Pinapp</span>
+</a>
 
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'ArrowRight' || e.key === ' ') {
-          e.preventDefault();
-          goTo(cur < data.length - 1 ? cur + 1 : 0);
-        }
-        if (e.key === 'ArrowLeft') goTo(cur > 0 ? cur - 1 : data.length - 1);
-      });
-
-      var touchX = 0;
-      document.addEventListener(
-        'touchstart',
-        function (e) {
-          touchX = e.touches[0].clientX;
-        },
-        { passive: true },
-      );
-      document.addEventListener(
-        'touchend',
-        function (e) {
-          var diff = e.changedTouches[0].clientX - touchX;
-          if (Math.abs(diff) > 50) {
-            diff < 0 ? goTo(cur < data.length - 1 ? cur + 1 : 0) : goTo(cur > 0 ? cur - 1 : data.length - 1);
-          }
-        },
-        { passive: true },
-      );
-    </script>
-      <link rel="stylesheet" href="/assets/css/pinapp-awwards.css?v=20260217" />
-    <script src="/assets/js/pinapp-awwards.js?v=20260217" defer></script>
-<script src="/assets/vendor/gsap.min.js?v=3.12.5" defer></script>
-<script src="/assets/vendor/ScrollTrigger.min.js?v=3.12.5" defer></script>
-<script src="/assets/vendor/lenis.min.js?v=1.1.18" defer></script>
-<script src="/assets/js/pp-awwwards-effects.js?v=20260470" defer></script>
 <aside class="pinapp-demo-banner" aria-label="Transparence démo">
   ✦ Site démo créé par <a href="https://pinapp.fr">Pinapp</a> · Marque fictive · Données fictives
 </aside>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
+<script src="/assets/vendor/gsap.min.js?v=3.12.5"></script>
+<script src="/assets/vendor/ScrollTrigger.min.js?v=3.12.5"></script>
+<script src="/assets/vendor/lenis.min.js?v=1.1.18"></script>
+<script>
+document.documentElement.classList.add('js');
+(function(){
+  "use strict";
+  var villas=[
+    {t:'Villa Lumière',l:'Cap Ferret · 480 m²',d:"Piscine à débordement face à l'Atlantique",img:'photo-1613490493576-7fde63acd811',c:'wide'},
+    {t:'Les Jardins',l:'Biarritz · 350 m²',d:'Terrasses végétalisées surplombant la côte',img:'photo-1512917774080-9991f1c4c750',c:'tall'},
+    {t:'Villa Éclipse',l:'Arcachon · 290 m²',d:'Infinity pool sur le Bassin',img:'photo-1582268611958-ebfd161ef9cf',c:''},
+    {t:"L'Intérieur",l:'Bordeaux · 260 m²',d:'Double hauteur et verrière zénithale',img:'photo-1600607687939-ce8a6c25118c',c:''},
+    {t:'Villa Littoral',l:'Capbreton · 380 m²',d:'Lignes basses, pierre locale et baies plein sud',img:'photo-1600585154340-be6161a56a0c',c:''},
+    {t:'Résidence Verre',l:'Biarritz · 220 m²',d:'Façade vitrée et patios intérieurs',img:'photo-1564013799919-ab600027ffc6',c:'tall'},
+    {t:'Maison Ligne',l:'Bordeaux · 195 m²',d:'Béton ciré et chêne massif',img:'photo-1523217582562-09d0def993a6',c:'wide'},
+    {t:'Atelier Béton',l:'Arcachon · 275 m²',d:'Structure apparente, rooftop vue bassin',img:'photo-1570129477492-45c003edd2be',c:''},
+    {t:'Villa Dune',l:'Lège-Cap-Ferret · 340 m²',d:'Bardage bois et toiture végétale',img:'photo-1505843513577-22bb7d21e455',c:'wide'},
+    {t:'Maison Belvédère',l:'Saint-Émilion · 310 m²',d:'Belvédère panoramique sur les vignes',img:'photo-1580587771525-78b9dba3b914',c:''}
+  ];
+  var grid=document.getElementById('grid');
+  villas.forEach(function(v){
+    var a=document.createElement('a');
+    a.className='proj'+(v.c?' '+v.c:''); a.href='#contact';
+    a.innerHTML='<div class="ph"><img src="https://images.unsplash.com/'+v.img+'?w=1000&q=80" alt="'+v.t+'"></div>'+
+      '<div class="cap"><div class="nm serif">'+v.t+'</div><div class="lo">'+v.l+'</div><div class="de">'+v.d+'</div></div>';
+    grid.appendChild(a);
+  });
+
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasGSAP=window.gsap&&window.ScrollTrigger;
+  if(hasGSAP)gsap.registerPlugin(ScrollTrigger);
+
+  function showAll(){document.querySelectorAll('[data-rv]').forEach(function(e){e.style.opacity=1;e.style.clipPath='none';});}
+
+  if(hasGSAP&&!reduce&&window.Lenis){
+    var lenis=new Lenis({duration:1.2,smoothWheel:true});
+    lenis.on('scroll',ScrollTrigger.update);
+    gsap.ticker.add(function(t){lenis.raf(t*1000);});gsap.ticker.lagSmoothing(0);
+  }
+
+  if(hasGSAP){
+    // reveals texte
+    gsap.utils.toArray('[data-rv]:not([data-rv="img"])').forEach(function(el){
+      gsap.set(el,{opacity:0,y:38});
+      ScrollTrigger.create({trigger:el,start:'top 88%',onEnter:function(){gsap.to(el,{opacity:1,y:0,duration:1.2,ease:'power3.out'});}});
+    });
+    // reveals image (clip)
+    gsap.utils.toArray('[data-rv="img"]').forEach(function(el){
+      gsap.set(el,{clipPath:'inset(0 0 100% 0)'});
+      ScrollTrigger.create({trigger:el,start:'top 90%',onEnter:function(){gsap.to(el,{clipPath:'inset(0 0 0% 0)',duration:1.3,ease:'power3.out'});}});
+    });
+    // grille "dix demeures" : images toujours visibles, fondu en bonus (robuste)
+    gsap.utils.toArray('#grid .proj .ph').forEach(function(ph){
+      ScrollTrigger.create({trigger:ph,start:'top 94%',once:true,onEnter:function(){gsap.from(ph,{opacity:0,scale:1.06,duration:1.1,ease:'power3.out'});}});
+    });
+    // profondeur : parallax multi-couches + zoom d'entrée (joue malgré reduced-motion OS)
+    {
+      gsap.utils.toArray('[data-parallax] img').forEach(function(img){
+        gsap.to(img,{yPercent:14,ease:'none',scrollTrigger:{trigger:img.closest('[data-parallax]'),start:'top bottom',end:'bottom top',scrub:.6}});
+      });
+      gsap.utils.toArray('[data-parallax-soft] img').forEach(function(img){
+        gsap.to(img,{yPercent:-10,ease:'none',scrollTrigger:{trigger:img,start:'top bottom',end:'bottom top',scrub:.8}});
+      });
+      // HERO — zoom d'entrée (pinned) : on rentre dans la villa
+      var heroBg=document.querySelector('[data-hero-bg] img');
+      if(heroBg){
+        gsap.timeline({scrollTrigger:{trigger:'.hero',start:'top top',end:'+=115%',pin:true,scrub:true}})
+          .to(heroBg,{scale:1.55,ease:'none'},0)
+          .to('.hero .inner',{yPercent:-26,opacity:0,ease:'none'},0)
+          .to('.hero .scroll-cue',{opacity:0,ease:'none'},0);
+      }
+    }
+    // DU PLAN À LA RÉALITÉ — vraie scène 3D (Three.js) : villa wireframe -> bâtie,
+    // caméra qui entre et tourne au scroll (esprit terminal-industries)
+    (function(){
+      var canvas=document.getElementById('villa3d');
+      if(!canvas||!window.THREE){return;}
+      try{
+        var renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true});
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+        renderer.setClearColor(0x0a0a08,1);
+        var scene=new THREE.Scene(); scene.fog=new THREE.FogExp2(0x0a0a08,0.05);
+        var camera=new THREE.PerspectiveCamera(42,1,0.1,200);
+        scene.add(new THREE.AmbientLight(0x8ea0c0,0.55));
+        var key=new THREE.DirectionalLight(0xffe6c2,1.2); key.position.set(7,11,6); scene.add(key);
+        var rim=new THREE.DirectionalLight(0x6d8fea,0.55); rim.position.set(-7,5,-7); scene.add(rim);
+        var villa=new THREE.Group(); scene.add(villa);
+        var solidMat=new THREE.MeshStandardMaterial({color:0x1b1813,metalness:0.25,roughness:0.65,transparent:true,opacity:0});
+        var glassMat=new THREE.MeshStandardMaterial({color:0x223247,metalness:0.7,roughness:0.18,transparent:true,opacity:0});
+        var lineMat=new THREE.LineBasicMaterial({color:0xc8a87a,transparent:true,opacity:1});
+        function block(w,h,d,x,y,z,mat){
+          var g=new THREE.BoxGeometry(w,h,d);
+          var m=new THREE.Mesh(g,mat||solidMat); m.position.set(x,y,z); villa.add(m);
+          var e=new THREE.LineSegments(new THREE.EdgesGeometry(g),lineMat); e.position.set(x,y,z); villa.add(e);
+        }
+        block(9,0.3,6, 0,0,0);                       // podium
+        block(4,2.6,4, -1.4,1.45,0);                 // volume principal
+        block(3,1.8,3, 1.7,1.0,-0.5, glassMat);      // volume verre
+        block(4.7,0.16,4.7, -1.4,2.86,0);            // dalle toit
+        block(3.4,0.1,1.7, 2.7,0.2,2.1, glassMat);   // piscine
+        block(0.12,2.6,0.12,-3.2,1.45,2.0); block(0.12,2.6,0.12,-1.4,1.45,2.0); block(0.12,2.6,0.12,0.4,1.45,2.0); // poteaux
+        villa.position.y=-1.2;
+        function resize(){var w=canvas.clientWidth||innerWidth,h=canvas.clientHeight||innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
+        var prog=0;
+        if(window.ScrollTrigger){
+          ScrollTrigger.create({trigger:'#hero',start:'top top',end:'bottom bottom',scrub:true,onUpdate:function(s){prog=s.progress;}});
+          ScrollTrigger.addEventListener('refresh',resize);
+        }
+        var heroVilla=document.querySelector('.hero-villa');
+        var t=0;
+        function loop(){
+          t+=0.0025; var p=prog;
+          // 1) le DESSIN : lignes or tenues puis dissoutes 0.55 -> 0.82 (pendant que la photo monte)
+          lineMat.opacity = p<0.55 ? 1 : Math.max(0,1-(p-0.55)/0.27);
+          // 2) la MATIÈRE : volumes pleins qui prennent corps SOUS le dessin 0.30 -> 0.66
+          var so=Math.max(0,(p-0.30)/0.36); if(so>1)so=1;
+          solidMat.opacity=so*0.96; glassMat.opacity=so*0.82;
+          // caméra : orbite qui se calme et se cale vers le 3/4 de la photo en fin de course
+          var ang=t*0.45*(1-p*0.9) + p*2.0 - 0.6, rad=17 - p*8.6;
+          camera.position.set(Math.sin(ang)*rad, 8.5 - p*5.6, Math.cos(ang)*rad);
+          camera.lookAt(0,0.5,0);
+          renderer.render(scene,camera);
+          // 3) le RÉEL : la villa photo se fond pendant que le dessin s'efface 0.60 -> 0.95
+          var fade=Math.max(0,(p-0.60)/0.35); if(fade>1)fade=1;
+          if(heroVilla)heroVilla.style.opacity=fade;
+          canvas.style.opacity=Math.max(0,1-fade);
+          requestAnimationFrame(loop);
+        }
+        resize(); addEventListener('resize',resize); setTimeout(resize,250); loop();
+      }catch(e){ canvas.style.display='none'; }
+    })();
+  } else { showAll(); }
+
+  // nav scroll
+  var nav=document.getElementById('nav'),last=0;
+  function onScroll(y){nav.classList.toggle('scrolled',y>40);if(y>last&&y>300)nav.classList.add('hide');else nav.classList.remove('hide');last=y;}
+  if(window.Lenis&&hasGSAP&&!reduce){/* lenis scroll already bound below */}
+  addEventListener('scroll',function(){onScroll(scrollY);},{passive:true});
+
+  document.getElementById('burger').addEventListener('click',function(){
+    var open=nav.getAttribute('data-open')==='1';nav.setAttribute('data-open',open?'0':'1');
+    document.querySelectorAll('.nlinks a:not(.back)').forEach(function(a){a.style.display=open?'':'inline';});
+  });
+
+  // index chapitres (esprit terminal) — numéroté, suit le scroll
+  var chapters=[{id:'hero',n:'01',t:'Ouverture'},{id:'projets',n:'02',t:'Projets'},{id:'selection',n:'03',t:'Sélection'},{id:'approche',n:'04',t:'Approche'},{id:'studio',n:'05',t:'Studio'},{id:'contact',n:'06',t:'Contact'}];
+  var chEl=document.getElementById('chapters');
+  chapters.forEach(function(c){var b=document.createElement('button');b.setAttribute('aria-label',c.n+' '+c.t);
+    b.innerHTML='<span class="bar"></span><span>'+c.n+'</span><span class="lab">'+c.t+'</span>';
+    b.onclick=function(){var t=document.getElementById(c.id);if(t)t.scrollIntoView({behavior:'smooth'});};
+    chEl.appendChild(b);});
+  function activeChapter(){var mid=innerHeight*0.42,best=0;chapters.forEach(function(c,i){var t=document.getElementById(c.id);if(t&&t.getBoundingClientRect().top<=mid)best=i;});
+    [].slice.call(chEl.children).forEach(function(b,i){b.classList.toggle('active',i===best);});}
+  addEventListener('scroll',activeChapter,{passive:true}); activeChapter();
+
+  // curseur sur-mesure
+  (function(){if(matchMedia('(max-width:900px)').matches||matchMedia('(pointer:coarse)').matches)return;
+    var c=document.getElementById('cursor');if(!c)return;var x=innerWidth/2,y=innerHeight/2,cx=x,cy=y;
+    addEventListener('mousemove',function(e){x=e.clientX;y=e.clientY;},{passive:true});
+    document.querySelectorAll('a,button,.proj,.igrid figure').forEach(function(el){el.addEventListener('mouseenter',function(){c.classList.add('big');});el.addEventListener('mouseleave',function(){c.classList.remove('big');});});
+    (function loop(){cx+=(x-cx)*.2;cy+=(y-cy)*.2;c.style.transform='translate('+cx+'px,'+cy+'px) translate(-50%,-50%)';requestAnimationFrame(loop);})();
+  })();
+
+  addEventListener('load',function(){if(hasGSAP)ScrollTrigger.refresh();activeChapter();});
+})();
+</script>
 </body>
 </html>

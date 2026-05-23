@@ -1,0 +1,58 @@
+{
+  "name": "Pinapp — Brief client → Telegram",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "brief-pinapp",
+        "options": {}
+      },
+      "id": "webhook-brief",
+      "name": "Webhook Brief (formulaire site)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 320],
+      "webhookId": "brief-pinapp"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Reçoit le formulaire (multipart) depuis pinapp.fr\nconst item = $input.first();\nconst b = (item.json.body) ? item.json.body : item.json;\nconst g = (k) => (b[k] !== undefined && b[k] !== '' ? b[k] : '—');\nconst nbFichiers = item.binary ? Object.keys(item.binary).length : 0;\nconst txt = [\n  '🍍 *NOUVEAU BRIEF PINAPP*',\n  '',\n  `*${g('prenom')} ${g('nom')}* — ${g('entreprise')}`,\n  `📧 ${g('email')}   📞 ${g('tel')}`,\n  `📍 CP ${g('cp')} · Site : ${g('site')}`,\n  '',\n  `*Besoin :* ${g('path')}`,\n  `*Activité :* ${g('activite')}`,\n  `*Objectif :* ${g('objectif')}`,\n  `*Cible :* ${g('cible')}`,\n  `*Délai :* ${g('delai')}   *Budget :* ${g('budget')}`,\n  '',\n  '*PROJET :*',\n  g('projet'),\n  '',\n  `*Références :* ${g('refs')}`,\n  `*Concurrents :* ${g('concurrents')}`,\n  `*Message :* ${g('message')}`,\n  '',\n  `📎 Pièces jointes : ${nbFichiers}`\n].join('\\n');\nreturn [{ json: { text: txt } }];"
+      },
+      "id": "format-msg",
+      "name": "Formater le message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 320]
+    },
+    {
+      "parameters": {
+        "chatId": "REMPLIR_VOTRE_CHAT_ID_TELEGRAM",
+        "text": "={{ $json.text }}",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "telegram-send",
+      "name": "Telegram → Lauralie",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [720, 320],
+      "credentials": {
+        "telegramApi": {
+          "id": "1",
+          "name": "Pinapp Bot (à créer)"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook Brief (formulaire site)": {
+      "main": [[{ "node": "Formater le message", "type": "main", "index": 0 }]]
+    },
+    "Formater le message": {
+      "main": [[{ "node": "Telegram → Lauralie", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {},
+  "active": false
+}

@@ -381,3 +381,140 @@ body.demo-beauty--light {
   font-size: 12px;
   color: rgba(44, 42, 39, 0.55);
 }
+
+/* Forfaits & cures — gamme de prix premium */
+.demo-grid--3 {
+  grid-template-columns: 1fr;
+}
+@media (min-width: 720px) {
+  .demo-grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.demo-card--pricing {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+}
+.demo-card--pricing:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 44px rgba(44, 42, 39, 0.1);
+  border-color: rgba(181, 143, 85, 0.5);
+}
+.demo-card--pricing .demo-card__body {
+  padding: 28px 24px 30px;
+}
+.demo-card--pricing .demo-kicker {
+  margin: 0 0 10px;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(181, 143, 85, 0.95);
+}
+.demo-card--pricing .demo-price {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 4px 0 12px;
+}
+.demo-old {
+  font-size: 0.85rem;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  color: rgba(44, 42, 39, 0.45);
+  margin-left: 6px;
+}
+.demo-card--feat {
+  border-color: rgba(181, 143, 85, 0.55);
+  background: linear-gradient(180deg, rgba(181, 143, 85, 0.08), var(--ms-card));
+  transform: translateY(-8px);
+}
+.demo-card--feat:hover {
+  transform: translateY(-12px);
+}
+@media (max-width: 719px) {
+  .demo-card--feat,
+  .demo-card--feat:hover {
+    transform: none;
+  }
+}
+
+/* La fondatrice — signature premium */
+.founder {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  align-items: center;
+}
+@media (min-width: 860px) {
+  .founder { grid-template-columns: 0.85fr 1.15fr; gap: 56px; }
+}
+.founder__media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid var(--ms-line);
+}
+.founder__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+.founder__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(44, 42, 39, 0.16));
+}
+.founder__eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(181, 143, 85, 0.95);
+  margin: 0 0 12px;
+}
+.founder__quote {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-style: italic;
+  line-height: 1.3;
+  color: var(--ms-text);
+  margin: 0 0 18px;
+}
+.founder__quote::before { content: "“"; color: rgba(181, 143, 85, 0.6); }
+.founder__quote::after { content: "”"; color: rgba(181, 143, 85, 0.6); }
+.founder__text { color: var(--ms-muted); line-height: 1.7; font-size: 15px; margin: 0 0 14px; }
+.founder__sign {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.6rem;
+  color: var(--ms-text);
+  margin: 6px 0 0;
+}
+.founder__role { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ms-muted); }
+
+/* Témoignages — preuve sociale premium */
+#avis { }
+.testi {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 22px;
+}
+@media (min-width: 720px) { .testi { grid-template-columns: repeat(3, 1fr); } }
+.testi__card {
+  border: 1px solid var(--ms-line);
+  border-radius: 18px;
+  background: var(--ms-card);
+  padding: 26px 22px;
+}
+.testi__stars { color: var(--ms-gold); letter-spacing: 0.18em; font-size: 13px; margin-bottom: 12px; }
+.testi__q { font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.2rem; font-style: italic; line-height: 1.45; color: var(--ms-text); margin: 0 0 14px; }
+.testi__who { font-size: 12px; letter-spacing: 0.05em; color: var(--ms-muted); }
+.demo-exclus {
+  text-align: center;
+  margin-top: 26px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(181, 143, 85, 0.95);
+}

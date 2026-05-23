@@ -4,24 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="robots" content="index, follow" />
-    <meta name="pinapp-build" content="v15.5.0-pricing-aligned-2026-05-10" />
+    <meta name="pinapp-build" content="v15.5.0-tier-easter-eco-2026-05-03" />
     <link rel="canonical" href="https://pinapp.fr/demo/extensions-cils/" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/demo/_shared/demo-banner.css" />
     <title>Studio Léna — Extensions de cils premium · Démo Pinapp</title>
-    <meta name="description" content="Démo vitrine extensions de cils : hero premium, tarifs & temps, avant/après (placeholders), réservation. Pinapp Studio." />
+    <meta name="description" content="Studio Léna — extensions de cils premium à Bordeaux : cil-à-cil, hybride, volume russe, rehaussement. Tarifs clairs et réservation en ligne. Démo Pinapp Studio." />
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:site_name" content="Pinapp" />
     <meta property="og:title" content="Studio Léna — Extensions de cils premium · Démo Pinapp" />
-    <meta property="og:description" content="Démo vitrine extensions de cils : hero premium, tarifs & temps, avant/après (placeholders), réservation." />
+    <meta property="og:description" content="Studio Léna — extensions de cils premium à Bordeaux : poses sur-mesure, tarifs clairs, réservation en ligne. Démo Pinapp Studio." />
     <meta property="og:url" content="https://pinapp.fr/demo/extensions-cils/" />
     <meta property="og:image" content="https://pinapp.fr/assets/images/og-pinapp-share.svg" />
     <meta property="og:image:type" content="image/svg+xml" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Studio Léna — Extensions de cils premium · Démo Pinapp" />
-    <meta name="twitter:description" content="Démo vitrine extensions de cils : hero premium, tarifs & temps, avant/après (placeholders), réservation." />
+    <meta name="twitter:description" content="Studio Léna — extensions de cils premium à Bordeaux : poses sur-mesure, tarifs clairs, réservation en ligne. Démo Pinapp Studio." />
     <meta name="twitter:image" content="https://pinapp.fr/assets/images/og-pinapp-share.svg" />
 
     <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
@@ -31,36 +31,158 @@
       href="https://fonts.bunny.net/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@400;500;600&display=swap"
     />
     <link rel="stylesheet" href="/assets/css/demo-base.css" />
-    <link rel="stylesheet" href="/assets/css/demo-tier-badge.css?v=v15.5.0-pricing-aligned-2026-05-10" />
+    <link rel="stylesheet" href="/assets/css/demo-tier-badge.css?v=v15.5.0-tier-easter-eco-2026-05-03" />
     <link rel="stylesheet" href="/assets/css/demo-eco-footer.css?v=v15.5.0-tier-easter-eco-2026-05-03" />
     <style>
+      /* ===== ROSE PRINCESSE — palette girly chic romantique moderne ===== */
       :root {
-        --bg: #1a1612;
-        --text: #f4ebd9;
-        --muted: rgba(244, 235, 217, 0.68);
-        --gold: #c9a96e;
-        --rose: #d9a89c;
-        --card: rgba(34, 28, 22, 0.72);
-        --line: rgba(244, 235, 217, 0.10);
-        --hero-a: #2a1f1a;
-        --hero-b: #0d0807;
+        --demo-bg: #fff4f9;
+        --demo-card: rgba(255, 255, 255, 0.74);
+        --demo-text: #4a2238;
+        --demo-muted: rgba(74, 34, 56, 0.66);
+        --demo-line: rgba(214, 72, 138, 0.16);
+        --demo-gold: #d6488a;
+        --demo-rose: #e86fa6;
+        --rose-soft: #ffd0e4;
+        --rose-gold: #e3a9a0;
+        --text: var(--demo-text);
+        --muted: var(--demo-muted);
+        --gold: var(--demo-gold);
+        --rose: var(--demo-rose);
+        --card: var(--demo-card);
+        --line: var(--demo-line);
       }
 
       body {
+        color: var(--demo-text);
         background:
-          radial-gradient(1200px 800px at 20% 15%, rgba(217, 168, 156, 0.18), transparent 55%),
-          radial-gradient(900px 700px at 85% 30%, rgba(201, 169, 110, 0.16), transparent 52%),
-          linear-gradient(180deg, var(--hero-a), var(--hero-b) 70%, var(--bg) 100%);
+          radial-gradient(1100px 760px at 16% 6%, rgba(232, 111, 166, 0.20), transparent 55%),
+          radial-gradient(900px 700px at 88% 16%, rgba(227, 169, 160, 0.24), transparent 55%),
+          radial-gradient(820px 820px at 72% 98%, rgba(255, 208, 228, 0.45), transparent 60%),
+          linear-gradient(180deg, #fff6fb 0%, #ffe9f2 55%, #ffdcec 100%);
+        background-attachment: fixed;
       }
 
-      .hero-mark {
-        width: min(520px, 78vw);
-        margin: 0 auto;
-        opacity: 0.95;
+      /* NAV */
+      .demo-nav {
+        position: sticky; top: 0; z-index: 100;
+        display: flex; align-items: center; justify-content: space-between; gap: 14px;
+        padding: 14px clamp(16px, 4vw, 30px);
+        background: rgba(255, 244, 249, 0.82);
+        backdrop-filter: blur(16px) saturate(150%);
+        -webkit-backdrop-filter: blur(16px) saturate(150%);
+        border-bottom: 1px solid var(--demo-line);
       }
+      .demo-nav__brand {
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 1.5rem; font-style: italic; font-weight: 600; letter-spacing: 0.01em;
+        color: var(--demo-text); text-decoration: none;
+      }
+      .demo-nav__brand::before { content: "♡ "; color: var(--demo-rose); }
+      .demo-nav__links { display: none; align-items: center; gap: 8px; }
+      @media (min-width: 880px) { .demo-nav__links { display: inline-flex; } }
+      .demo-nav__links a {
+        font-size: 13px; color: var(--demo-muted); text-decoration: none;
+        padding: 9px 12px; border-radius: 999px; transition: all .25s;
+      }
+      .demo-nav__links a:hover { background: rgba(232, 111, 166, 0.12); color: var(--demo-gold); }
+      .demo-nav__cta {
+        font-size: 13px; font-weight: 600; text-decoration: none; color: #fff;
+        padding: 10px 18px; border-radius: 999px;
+        background: linear-gradient(135deg, #e86fa6, #d6488a);
+        box-shadow: 0 8px 22px rgba(214, 72, 138, 0.32);
+      }
+      .demo-nav__back { color: var(--demo-muted); text-decoration: none; font-size: 13px; }
 
-      .hero-mark path {
-        stroke: rgba(201, 169, 110, 0.82);
+      /* HERO — split romantique avec photo réelle */
+      .demo-hero { position: relative; overflow: hidden; padding: clamp(36px,6vh,72px) 0 clamp(48px,8vh,88px); }
+      .hero-split { display: grid; grid-template-columns: 1fr; gap: 30px; align-items: center; }
+      @media (min-width: 900px) { .hero-split { grid-template-columns: 1.02fr 0.98fr; gap: 50px; } }
+      .hero-copy .kicker { color: var(--demo-gold); }
+      .hero-title {
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-weight: 600; font-style: italic; line-height: 1.02;
+        font-size: clamp(2.6rem, 6.5vw, 4.6rem);
+        margin: 14px 0 16px; letter-spacing: -0.02em;
+        background: linear-gradient(120deg, #4a2238 0%, #d6488a 60%, #e3a9a0 100%);
+        -webkit-background-clip: text; background-clip: text; color: transparent;
+      }
+      .hero-title em { font-style: italic; }
+      .lede { color: var(--demo-muted); }
+      .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+      .hero-photo {
+        position: relative; aspect-ratio: 4/5; border-radius: 28px; overflow: hidden;
+        border: 1px solid rgba(214, 72, 138, 0.22);
+        box-shadow: 0 30px 70px rgba(214, 72, 138, 0.20);
+      }
+      .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 32%; }
+      .hero-photo::after {
+        content: "✦"; position: absolute; top: 16px; right: 18px; font-size: 20px;
+        color: rgba(255, 255, 255, 0.92); text-shadow: 0 0 14px rgba(232, 111, 166, 0.9);
+      }
+      .hero-photo::before {
+        content: ""; position: absolute; inset: 0; z-index: 1;
+        background: linear-gradient(180deg, transparent 55%, rgba(214, 72, 138, 0.22));
+      }
+      .demo-hero .container { position: relative; z-index: 1; }
+
+      /* KICKER / SECTION */
+      .kicker {
+        font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
+        color: var(--demo-gold); font-weight: 600;
+      }
+      .kicker::before { content: "✦ "; }
+      .section h2 { color: var(--demo-text); }
+
+      /* CARDS (geste, tarifs, booking) */
+      .card { padding: 0; }
+      #geste .card, .pricing .card, .booking .card { padding: 24px 22px; }
+      .card__k {
+        font-family: "Cormorant Garamond", Georgia, serif; font-style: italic;
+        font-size: 1.35rem; font-weight: 600; color: var(--demo-text); margin: 0 0 6px;
+      }
+      .card__t { color: var(--demo-muted); font-size: 14px; line-height: 1.55; margin: 0; }
+      .card__meta { color: rgba(74, 34, 56, 0.5); font-size: 12px; letter-spacing: 0.04em; margin: 10px 0 0; }
+      .card:hover { border-color: rgba(214, 72, 138, 0.4); }
+
+      /* BTN rose */
+      .btn { border-color: rgba(214, 72, 138, 0.4); background: rgba(255, 255, 255, 0.6); color: var(--demo-text); }
+      .btn:hover { background: rgba(255, 255, 255, 0.85); border-color: rgba(214, 72, 138, 0.6); }
+      .btn-primary { color: #fff; background: linear-gradient(135deg, #e86fa6, #d6488a); border-color: transparent; box-shadow: 0 10px 26px rgba(214, 72, 138, 0.32); }
+      .btn-secondary { background: rgba(255, 255, 255, 0.55); }
+
+      /* TIER BADGE rose */
+      .tier-badge {
+        background: rgba(255, 255, 255, 0.82) !important;
+        border: 1px solid rgba(214, 72, 138, 0.3) !important;
+        color: #4a2238 !important;
+      }
+      .tier-badge::before { background: #e86fa6 !important; box-shadow: 0 0 0 1px rgba(214,72,138,.35) !important; }
+
+      /* FOOTER */
+      .demo-footer { text-align: center; padding: 40px 16px; color: var(--demo-muted); }
+      .demo-footer__line { margin: 4px 0; font-size: 13px; }
+
+      /* Galerie — photos réelles dans les cadres premium */
+      .frame--photo { padding: 0; }
+      .frame--photo img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .frame--photo:hover img { transform: scale(1.06); }
+      .frame--photo .frame__tag { z-index: 2; }
+      .gallery3 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 18px;
+      }
+      @media (max-width: 560px) {
+        .gallery3 { grid-template-columns: 1fr; }
       }
 
       .grid-2 {
@@ -76,27 +198,34 @@
 
       .pricing {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 18px;
         margin-top: 18px;
       }
       @media (max-width: 980px) {
+        .pricing {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 560px) {
         .pricing {
           grid-template-columns: 1fr;
         }
       }
 
       .price {
-        font-size: 22px;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 2rem; font-weight: 600;
         letter-spacing: -0.01em;
-        color: rgba(244, 235, 217, 0.92);
+        color: #d6488a;
+        margin-top: 8px;
       }
       .time {
         font-size: 12px;
-        letter-spacing: 0.16em;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
-        color: rgba(201, 169, 110, 0.74);
-        margin-top: 10px;
+        color: rgba(74, 34, 56, 0.55);
+        margin-top: 8px;
       }
 
       .before-after {
@@ -123,34 +252,31 @@
 
       .frame {
         aspect-ratio: 4 / 5;
-        border-radius: 18px;
-        border: 1px solid rgba(201, 169, 110, 0.22);
-        background: linear-gradient(180deg, rgba(244, 235, 217, 0.06), rgba(34, 28, 22, 0.62));
+        border-radius: 22px;
+        border: 1px solid rgba(214, 72, 138, 0.20);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 220, 236, 0.5));
         overflow: hidden;
         position: relative;
         display: grid;
         place-items: center;
-        padding: 16px;
-      }
-      .frame svg {
-        width: 86%;
-        height: auto;
-        opacity: 0.9;
+        box-shadow: 0 16px 40px rgba(214, 72, 138, 0.14);
       }
       .frame__tag {
         position: absolute;
-        top: 10px;
-        left: 10px;
-        padding: 6px 10px;
+        top: 12px;
+        left: 12px;
+        z-index: 2;
+        padding: 6px 12px;
         border-radius: 999px;
-        border: 1px solid rgba(201, 169, 110, 0.28);
-        background: rgba(34, 28, 22, 0.58);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        background: rgba(255, 255, 255, 0.78);
         backdrop-filter: blur(12px) saturate(160%);
         -webkit-backdrop-filter: blur(12px) saturate(160%);
         font-size: 10px;
-        letter-spacing: 0.28em;
+        letter-spacing: 0.22em;
         text-transform: uppercase;
-        color: rgba(201, 169, 110, 0.72);
+        color: #d6488a;
+        font-weight: 600;
       }
       .frame__note {
         position: absolute;
@@ -158,7 +284,7 @@
         left: 10px;
         right: 10px;
         font-size: 11px;
-        color: rgba(244, 235, 217, 0.55);
+        color: rgba(74, 34, 56, 0.62);
         letter-spacing: 0.02em;
       }
 
@@ -181,36 +307,34 @@
       .input {
         width: 100%;
         border-radius: 14px;
-        border: 1px solid rgba(244, 235, 217, 0.12);
-        background: rgba(34, 28, 22, 0.66);
+        border: 1px solid rgba(214, 72, 138, 0.22);
+        background: rgba(255, 255, 255, 0.7);
         padding: 14px 14px;
-        color: var(--text);
+        color: var(--demo-text);
         font: inherit;
         font-size: 16px;
       }
-      .input::placeholder {
-        color: rgba(244, 235, 217, 0.45);
-      }
+      .input::placeholder { color: rgba(74, 34, 56, 0.42); }
+      .input:focus { outline: 2px solid rgba(232, 111, 166, 0.5); outline-offset: 1px; border-color: transparent; }
+      label { font-size: 13px; color: var(--demo-muted); font-weight: 500; }
       .submit {
-        border: 1px solid rgba(201, 169, 110, 0.42);
-        background: rgba(201, 169, 110, 0.14);
-        color: rgba(244, 235, 217, 0.95);
+        border: none;
+        background: linear-gradient(135deg, #e86fa6, #d6488a);
+        color: #fff;
         border-radius: 999px;
-        padding: 12px 18px;
+        padding: 14px 18px;
         font-weight: 600;
-        letter-spacing: 0.12em;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
         cursor: pointer;
-        transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), background 200ms cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 10px 26px rgba(214, 72, 138, 0.32);
+        transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 200ms ease;
       }
-      .submit:hover {
-        transform: translateY(-1px);
-        background: rgba(201, 169, 110, 0.2);
-      }
+      .submit:hover { transform: translateY(-1px); box-shadow: 0 14px 32px rgba(214, 72, 138, 0.42); }
     </style>
   </head>
   <body class="demo-eco-context-dark">
-    <div class="tier-badge" role="status">Niveau Pack Code · 1&nbsp;490&nbsp;€&nbsp;HT</div>
+    <div class="tier-badge" role="status">Niveau Essentiel · à partir de 1&nbsp;490&nbsp;€&nbsp;HT</div>
     <div class="grain-overlay" aria-hidden="true">
       <svg class="grain-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <filter id="noise">
@@ -228,7 +352,7 @@
       <nav class="demo-nav__links" aria-label="Sections">
         <a href="#geste">Le geste</a>
         <a href="#tarifs">Tarifs</a>
-        <a href="#avant-apres">Avant/Après</a>
+        <a href="#avant-apres">Galerie</a>
         <a href="#reservation" class="demo-nav__cta">Réserver</a>
         <a href="/" class="demo-nav__back">← Pinapp</a>
       </nav>
@@ -237,54 +361,39 @@
     <main id="main">
       <section class="demo-hero" id="top" aria-label="Hero">
         <div class="container">
-          <p class="kicker">Extensions de cils · Bordeaux</p>
-          <h1 class="hero-title">Le regard, <em>sans le maquillage.</em></h1>
-          <p class="lede">
-            Structure premium V1 (placeholders). Les photos avant/après seront remplacées par les visuels réels de
-            Studio Léna.
-          </p>
-          <div class="hero-mark" aria-hidden="true">
-            <svg viewBox="0 0 820 220" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M86 132C196 44 358 44 468 132c48 38 110 56 166 54 40-2 70-12 92-30"
-                fill="none"
-                stroke-width="2.2"
-                stroke-linecap="round" />
-              <path
-                d="M214 116c-10-16-26-28-44-34M252 102c-8-18-20-32-38-42M294 94c-6-18-14-34-28-48M338 90c-3-18-8-36-18-52"
-                fill="none"
-                stroke-width="2.1"
-                stroke-linecap="round"
-                opacity="0.75" />
-              <path
-                d="M438 92c4-18 12-36 26-52M480 96c6-16 14-32 28-46M520 106c8-14 18-26 34-36M560 118c10-12 22-22 36-30"
-                fill="none"
-                stroke-width="2.1"
-                stroke-linecap="round"
-                opacity="0.75" />
-            </svg>
+          <div class="hero-split">
+            <div class="hero-copy">
+              <p class="kicker">Extensions de cils · Bordeaux</p>
+              <h1 class="hero-title">Le regard,<br><em>sans le maquillage.</em></h1>
+              <p class="lede">
+                Un réveil sans mascara, des cils qui semblent vôtres. Pose sur-mesure, mapping adapté
+                à la forme de votre regard, dans un cocon doux et feutré au cœur de Bordeaux.
+              </p>
+              <div class="hero-ctas">
+                <a class="btn btn-primary" href="#reservation">Réserver mon rendez-vous</a>
+                <a class="btn btn-secondary" href="#tarifs">Voir les poses</a>
+              </div>
+            </div>
+            <div class="hero-photo">
+              <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="Regard sublimé par des extensions de cils" loading="eager" fetchpriority="high" decoding="async" />
+            </div>
           </div>
-          <div class="hero-ctas">
-            <a class="btn btn-primary" href="#reservation">Réserver</a>
-            <a class="btn btn-secondary" href="#tarifs">Découvrir</a>
-          </div>
-          <p class="hero-note">Démo Pinapp Studio · structure &amp; design — données fictives</p>
         </div>
       </section>
 
       <section class="section" id="geste" aria-labelledby="h2-geste">
         <div class="container">
           <p class="kicker">Le geste</p>
-          <h2 id="h2-geste">Technique claire, résultat naturel.</h2>
+          <h2 id="h2-geste">Chaque regard, sa signature.</h2>
           <div class="grid-2" style="margin-top: 18px">
             <div class="card">
               <p class="card__k">Cil-à-cil</p>
-              <p class="card__t">Un cil synthétique, un cil naturel. Le rendu le plus discret.</p>
+              <p class="card__t">Un cil posé sur un cil naturel. L'effet « mes cils en mieux », tout en délicatesse.</p>
               <p class="card__meta">Idéal première pose · tenue 3–4 semaines</p>
             </div>
             <div class="card">
-              <p class="card__k">Hybride / Volume russe</p>
-              <p class="card__t">Densité modulée. Plus intense, toujours équilibré.</p>
+              <p class="card__k">Volume russe &amp; hybride</p>
+              <p class="card__t">Des éventails ultra-légers pour un regard intense, glamour, jamais lourd. Effet poupée maîtrisé.</p>
               <p class="card__meta">Selon morphologie · mapping sur-mesure</p>
             </div>
           </div>
@@ -296,6 +405,12 @@
           <p class="kicker">Tarifs &amp; temps</p>
           <h2 id="h2-tarifs">Des formules lisibles.</h2>
           <div class="pricing">
+            <article class="card">
+              <p class="card__k">Rehaussement</p>
+              <p class="card__t">Vos cils sublimés, sans pose</p>
+              <p class="price">75 €</p>
+              <p class="time">45 min · tenue 6–8 sem.</p>
+            </article>
             <article class="card">
               <p class="card__k">Pose complète</p>
               <p class="card__t">Cil-à-cil / Hybride</p>
@@ -315,92 +430,32 @@
               <p class="time">2h40</p>
             </article>
           </div>
-          <p class="note" style="margin-top: 14px">Tarifs fictifs · à calibrer selon l’offre réelle.</p>
+          <p class="note" style="margin-top: 14px">Diagnostic offert avant chaque première pose · cils premium, colle hypoallergénique.</p>
         </div>
       </section>
 
       <section class="section" id="avant-apres" aria-labelledby="h2-aa">
         <div class="container">
-          <p class="kicker">Avant / Après</p>
-          <h2 id="h2-aa">Une preuve visuelle, cadrée.</h2>
-          <p class="note">V1 placeholders premium · V2 photos réelles (sans compression agressive, lumière homogène).</p>
+          <p class="kicker">Le rendu</p>
+          <h2 id="h2-aa">Des regards, signés Studio Léna.</h2>
+          <p class="note">Chaque pose est pensée pour épouser votre morphologie — naturel ou intense, jamais artificiel.</p>
 
-          <div class="before-after">
-            <div class="pair">
-              <div class="pair__row">
-                <div class="frame" aria-label="Avant">
-                  <span class="frame__tag">Avant</span>
-                  <svg viewBox="0 0 300 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M24 140c40-62 92-92 156-90 46 2 82 22 112 62" fill="none" stroke="rgba(201,169,110,0.85)" stroke-width="2.2" stroke-linecap="round"/>
-                    <path d="M78 118c-10-18-22-30-40-38" fill="none" stroke="rgba(217,168,156,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M110 104c-8-18-16-32-30-44" fill="none" stroke="rgba(217,168,156,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M148 98c-4-18-8-36-16-54" fill="none" stroke="rgba(217,168,156,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <circle cx="176" cy="126" r="24" fill="rgba(244,235,217,0.06)" stroke="rgba(244,235,217,0.12)"/>
-                  </svg>
-                  <div class="frame__note">À documenter par Léna</div>
-                </div>
-                <div class="frame" aria-label="Après">
-                  <span class="frame__tag">Après</span>
-                  <svg viewBox="0 0 300 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M24 140c40-62 92-92 156-90 46 2 82 22 112 62" fill="none" stroke="rgba(201,169,110,0.95)" stroke-width="2.2" stroke-linecap="round"/>
-                    <path d="M78 116c-12-22-26-36-46-46" fill="none" stroke="rgba(201,169,110,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M112 102c-10-22-20-38-38-54" fill="none" stroke="rgba(201,169,110,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M152 96c-6-22-12-40-22-62" fill="none" stroke="rgba(201,169,110,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <circle cx="176" cy="126" r="24" fill="rgba(244,235,217,0.08)" stroke="rgba(201,169,110,0.22)"/>
-                  </svg>
-                  <div class="frame__note">PHOTO À FOURNIR · éclairage constant</div>
-                </div>
-              </div>
+          <div class="gallery3">
+            <div class="frame frame--photo" aria-label="Regard cil-à-cil naturel">
+              <span class="frame__tag">Cil-à-cil</span>
+              <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&amp;fit=crop&amp;w=800&amp;q=85" alt="Regard naturel sublimé, cil-à-cil" style="object-position:50% 22%" loading="lazy" decoding="async" />
             </div>
-
-            <div class="pair">
-              <div class="pair__row">
-                <div class="frame" aria-label="Avant">
-                  <span class="frame__tag">Avant</span>
-                  <svg viewBox="0 0 300 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M24 140c40-62 92-92 156-90 46 2 82 22 112 62" fill="none" stroke="rgba(201,169,110,0.85)" stroke-width="2.2" stroke-linecap="round"/>
-                    <path d="M94 122c-10-18-22-30-40-38" fill="none" stroke="rgba(217,168,156,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M126 108c-8-18-16-32-30-44" fill="none" stroke="rgba(217,168,156,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <circle cx="186" cy="130" r="22" fill="rgba(244,235,217,0.06)" stroke="rgba(244,235,217,0.12)"/>
-                  </svg>
-                  <div class="frame__note">À documenter par Léna</div>
-                </div>
-                <div class="frame" aria-label="Après">
-                  <span class="frame__tag">Après</span>
-                  <svg viewBox="0 0 300 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M24 140c40-62 92-92 156-90 46 2 82 22 112 62" fill="none" stroke="rgba(201,169,110,0.95)" stroke-width="2.2" stroke-linecap="round"/>
-                    <path d="M94 120c-12-22-26-36-46-46" fill="none" stroke="rgba(201,169,110,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M128 106c-10-22-20-38-38-54" fill="none" stroke="rgba(201,169,110,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <circle cx="186" cy="130" r="22" fill="rgba(244,235,217,0.08)" stroke="rgba(201,169,110,0.22)"/>
-                  </svg>
-                  <div class="frame__note">PHOTO À FOURNIR · même cadrage</div>
-                </div>
-              </div>
+            <div class="frame frame--photo" aria-label="Regard volume russe">
+              <span class="frame__tag">Volume russe</span>
+              <img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?auto=format&amp;fit=crop&amp;w=800&amp;q=85" alt="Regard intense et glamour, volume russe" style="object-position:50% 24%" loading="lazy" decoding="async" />
             </div>
-
-            <div class="pair">
-              <div class="pair__row">
-                <div class="frame" aria-label="Avant">
-                  <span class="frame__tag">Avant</span>
-                  <svg viewBox="0 0 300 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M24 140c40-62 92-92 156-90 46 2 82 22 112 62" fill="none" stroke="rgba(201,169,110,0.85)" stroke-width="2.2" stroke-linecap="round"/>
-                    <path d="M70 118c-10-18-22-30-40-38" fill="none" stroke="rgba(217,168,156,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M102 104c-8-18-16-32-30-44" fill="none" stroke="rgba(217,168,156,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <circle cx="166" cy="126" r="24" fill="rgba(244,235,217,0.06)" stroke="rgba(244,235,217,0.12)"/>
-                  </svg>
-                  <div class="frame__note">À documenter par Léna</div>
-                </div>
-                <div class="frame" aria-label="Après">
-                  <span class="frame__tag">Après</span>
-                  <svg viewBox="0 0 300 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M24 140c40-62 92-92 156-90 46 2 82 22 112 62" fill="none" stroke="rgba(201,169,110,0.95)" stroke-width="2.2" stroke-linecap="round"/>
-                    <path d="M70 116c-12-22-26-36-46-46" fill="none" stroke="rgba(201,169,110,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M104 102c-10-22-20-38-38-54" fill="none" stroke="rgba(201,169,110,0.55)" stroke-width="2" stroke-linecap="round"/>
-                    <circle cx="166" cy="126" r="24" fill="rgba(244,235,217,0.08)" stroke="rgba(201,169,110,0.22)"/>
-                  </svg>
-                  <div class="frame__note">PHOTO À FOURNIR · lumière diffuse</div>
-                </div>
-              </div>
+            <div class="frame frame--photo" aria-label="Regard hybride">
+              <span class="frame__tag">Hybride</span>
+              <img src="https://images.unsplash.com/photo-1614283233556-f35b0c801ef1?auto=format&amp;fit=crop&amp;w=800&amp;q=85" alt="Cils longs et soyeux, effet hybride" style="object-position:50% 28%" loading="lazy" decoding="async" />
+            </div>
+            <div class="frame frame--photo" aria-label="La pose au studio">
+              <span class="frame__tag">La pose</span>
+              <img src="https://images.unsplash.com/photo-1589710751893-f9a6770ad71b?auto=format&amp;fit=crop&amp;w=800&amp;q=85" alt="Pose d'extensions de cils en cabine" loading="lazy" decoding="async" />
             </div>
           </div>
         </div>
@@ -418,24 +473,24 @@
               <input class="input" id="e" name="email" type="email" placeholder="vous@exemple.fr" required />
               <label for="m">Message</label>
               <textarea class="input" id="m" name="message" rows="4" placeholder="Pose complète, remplissage…"></textarea>
-              <button class="submit" type="submit">Envoyer</button>
-              <p class="note" data-ok hidden style="margin: 0">Démo: demande enregistrée (aucune donnée transmise).</p>
+              <button class="submit" type="submit">Envoyer ma demande</button>
+              <p class="note" data-ok hidden style="margin: 0">Merci ! Votre demande est bien enregistrée, on vous répond sous 24h.</p>
             </form>
             <div class="card">
               <p class="card__k">Horaires</p>
               <p class="card__t">Lun–Sam · 9h–19h</p>
-              <p class="card__meta">Bordeaux centre · adresse fictive</p>
+              <p class="card__meta">Bordeaux centre · sur rendez-vous</p>
               <div style="height: 10px"></div>
-              <p class="card__k">CTA</p>
-              <p class="card__meta">Bouton “Réserver” à connecter à Cal.com / Planity en production.</p>
+              <p class="card__k">Réservation en ligne</p>
+              <p class="card__meta">Confirmation immédiate · rappel SMS la veille · annulation gratuite jusqu'à 24h avant.</p>
             </div>
           </div>
         </div>
       </section>
 
       <footer class="demo-footer">
-        <p class="demo-footer__line">Données fictives · placeholders V1 · photos réelles en V2</p>
-        <p class="demo-footer__line">Studio Léna · Bordeaux (fictif)</p>
+        <p class="demo-footer__line">Studio Léna · Extensions de cils premium · Bordeaux centre</p>
+        <p class="demo-footer__line">Site conçu par Pinapp Studio</p>
       </footer>
     </main>
 
@@ -455,7 +510,7 @@
     <aside class="pinapp-demo-banner" aria-label="Transparence démo">
       ✦ Site démo créé par <a href="https://pinapp.fr">Pinapp</a> · Marque fictive · Données fictives
     </aside>
-    <script src="/assets/js/demo-easter-egg.js?v=v15.5.0-pricing-aligned-2026-05-10" defer></script>
+    <script src="/assets/js/demo-easter-egg.js?v=v15.5.0-tier-easter-eco-2026-05-03" defer></script>
   </body>
 </html>
 
