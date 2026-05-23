@@ -10,317 +10,204 @@
 <meta property="og:description" content="Sites web, automatisations IA, films cinéma — par un duo. Un seul devis.">
 <meta property="og:type" content="website">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <!-- ============================================================
-     PINAPP — site complet · DA AVALON v2
-     Niveau de référence : sites primés Adveris 2026 (dont sunmetalon #9)
-     graphite #111214 + ivory + violet/periwinkle · ZÉRO doré / néon
-     Typo Geist · GSAP + ScrollTrigger + Lenis
-     Vidéos Higgsfield : chaque vidéo utilisée UNE fois (pas de répétition)
-     Garde-fous : prefers-reduced-motion (option) + Mode sobre
+     PINAPP — FILM scroll-driven (réf. wearebrand / sites primés Adveris 2026)
+     Le scroll dicte tout : chaque plan (vidéo OU photo) porte un bloc de
+     contenu animé en profondeur (caméra avance = blocs en pleine face / recule
+     = blocs qui s'éloignent). Photos animées en Ken Burns scrollé (zoom/rotate/pan).
+     DA : graphite #111214 + ivory + violet/periwinkle · Geist · ZÉRO doré/néon.
+     Chaque vidéo utilisée UNE seule fois. Garde-fous : Mode sobre.
      ============================================================ -->
 <style>
 :root{
-  --graphite:#111214;--smoked:#1A1A1D;--smoked-2:#16171a;
-  --ivory:#F4F1EA;--smoked-gray:#7A746D;--champagne:#B8ADA1;--tungsten:#D8C1A7;
+  --graphite:#111214;--smoked:#1A1A1D;--ivory:#F4F1EA;--smoked-gray:#7A746D;--champagne:#B8ADA1;--tungsten:#D8C1A7;
   --violet:#8E6AD8;--periwinkle:#6D8FEA;--lavender:#A88BE0;--cold-blue:#7FAEE8;--copper:#C8965A;
   --border:rgba(168,139,224,.12);--border-soft:rgba(168,139,224,.08);
   --ease-apple:cubic-bezier(.32,.72,0,1);--ease-out-expo:cubic-bezier(.16,1,.3,1);
-  --ff:"Geist",-apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif;
-  --header-h:64px;--maxw:1200px;
+  --ff:"Geist",-apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif;--maxw:1200px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;background:var(--graphite)}
 html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}.lenis.lenis-stopped{overflow:hidden}
 body{font-family:var(--ff);background:var(--graphite);color:var(--ivory);font-size:16px;line-height:1.6;overflow-x:hidden}
 body.no-scroll{overflow:hidden}
-img,video{display:block;max-width:100%}
-a{color:inherit;text-decoration:none}
+img,video{display:block;max-width:100%}a{color:inherit;text-decoration:none}
 ::selection{background:var(--violet);color:var(--ivory)}
-h1,h2,h3,h4{margin:0;font-weight:600;letter-spacing:-.02em;line-height:1.1}
-a,button{transition:transform .4s var(--ease-apple),background .3s var(--ease-apple),color .3s var(--ease-apple),border-color .3s var(--ease-apple),box-shadow .4s var(--ease-apple),opacity .3s var(--ease-apple)}
-
+h1,h2,h3,h4{margin:0;font-weight:600;letter-spacing:-.02em;line-height:1.08}
+a,button{transition:transform .4s var(--ease-apple),background .3s,color .3s,border-color .3s,box-shadow .4s,opacity .3s}
 .grad{background:linear-gradient(135deg,var(--violet),var(--periwinkle));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .eyebrow{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--smoked-gray)}
 .muted{opacity:.75}.peri{color:var(--periwinkle)}
-.wrap{max-width:var(--maxw);margin:0 auto}.wrap-sm{max-width:900px;margin:0 auto}.wrap-lg{max-width:1400px;margin:0 auto}
+.wrap{max-width:var(--maxw);margin:0 auto}.wrap-sm{max-width:900px;margin:0 auto}
 section.block{padding:clamp(4.5rem,9vw,9rem) 1.5rem;position:relative;overflow:hidden}
-.center{text-align:center}
-.sec-head{margin-bottom:3rem}
-.sec-head h2{font-size:clamp(2rem,4vw,3rem);line-height:1.1}
-.sec-head .eyebrow{display:block;margin-bottom:1.3rem}
-
-/* parallax atmospheric layers */
+.center{text-align:center}.sec-head{margin-bottom:3rem}.sec-head h2{font-size:clamp(2rem,4vw,3rem)}.sec-head .eyebrow{display:block;margin-bottom:1.3rem}
 .plx{position:absolute;inset:-10% 0;z-index:0;pointer-events:none;will-change:transform}
 .plx.v1{background:radial-gradient(ellipse at 20% 30%,rgba(141,106,216,.07),transparent 55%)}
 .plx.v2{background:radial-gradient(ellipse at 80% 60%,rgba(109,143,234,.06),transparent 55%)}
 .plx.v3{background:radial-gradient(ellipse at center,rgba(141,106,216,.06),rgba(109,143,234,.04) 45%,transparent 72%)}
-section.block>.wrap,section.block>.wrap-sm,section.block>.wrap-lg{position:relative;z-index:1}
-
-.grain::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.035;z-index:3;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");mix-blend-mode:overlay}
+section.block>.wrap,section.block>.wrap-sm{position:relative;z-index:1}
+.grain::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.04;z-index:5;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");mix-blend-mode:overlay}
 .line-peri{height:1px;background:linear-gradient(90deg,transparent,rgba(109,143,234,.3) 50%,transparent)}
-
-/* buttons */
 .btn{display:inline-flex;align-items:center;gap:.5em;background:var(--ivory);color:var(--graphite);border:0;border-radius:999px;padding:1rem 2rem;font:inherit;font-size:.95rem;font-weight:600;cursor:pointer}
 .btn:hover{background:linear-gradient(135deg,var(--violet),var(--periwinkle));color:var(--ivory);transform:translateY(-2px)}
 .btn.ghost{background:transparent;color:var(--ivory);border:1px solid rgba(244,241,234,.25);font-weight:500}
-.btn.ghost:hover{background:rgba(141,106,216,.12);border-color:var(--violet);transform:translateY(-2px)}
+.btn.ghost:hover{background:rgba(141,106,216,.12);border-color:var(--violet)}
 .btn .a{transition:transform .35s var(--ease-apple)}.btn:hover .a{transform:translateX(4px)}
-
-/* glass card */
 .card{background:rgba(26,26,29,.6);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid var(--border);border-radius:16px;transition:transform .5s var(--ease-apple),box-shadow .5s var(--ease-apple)}
 .card:hover{transform:translateY(-4px);box-shadow:0 24px 60px rgba(141,106,216,.15)}
-
-/* reveals */
 [data-reveal]{will-change:opacity,transform}
 [data-reveal="fade-up"]{opacity:0;transform:translateY(40px)}
 [data-reveal="fade-up"].is-in{opacity:1;transform:none;transition:opacity .9s var(--ease-out-expo),transform .9s var(--ease-out-expo)}
 [data-reveal="stagger"]>*{opacity:0;transform:translateY(30px)}
 [data-reveal="stagger"].is-in>*{opacity:1;transform:none;transition:opacity .8s var(--ease-out-expo) calc(var(--i,0)*70ms),transform .8s var(--ease-out-expo) calc(var(--i,0)*70ms)}
-/* color-in : la couleur arrive au scroll */
-.colorin{filter:saturate(.3) brightness(.82);transition:filter 1.2s var(--ease-apple)}
-.colorin.is-in{filter:none}
-
-/* media duotone overlay */
-.media{position:relative;overflow:hidden;border-radius:16px}
-.media>img,.media>video{width:100%;height:100%;object-fit:cover;display:block}
-.media::after{content:"";position:absolute;inset:0;mix-blend-mode:soft-light;
-  background:linear-gradient(135deg,rgba(141,106,216,.35),rgba(109,143,234,.18));pointer-events:none}
 
 /* nav */
-nav.top{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 2rem;transition:padding .4s var(--ease-apple),background .3s,backdrop-filter .3s}
+nav.top{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 2rem;transition:padding .4s var(--ease-apple),background .3s,backdrop-filter .3s}
 nav.top.scrolled{padding:.7rem 2rem;background:rgba(17,18,20,.6);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);border-bottom:1px solid var(--border-soft)}
 nav.top.hide{transform:translateY(-115%)}
 nav.top .logo img{height:40px;width:auto}
-nav.top .links{display:flex;gap:1.6rem;align-items:center}
-nav.top .links a{font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
+nav.top .links{display:flex;gap:1.5rem;align-items:center}
+nav.top .links a{font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
 nav.top .links a:hover{opacity:1;transform:translateY(-1px)}
-nav.top .links a.pill{background:var(--ivory);color:var(--graphite);padding:.5rem 1.25rem;border-radius:999px;font-weight:600;opacity:1}
+nav.top .links a.pill{background:var(--ivory);color:var(--graphite);padding:.5rem 1.2rem;border-radius:999px;font-weight:600;opacity:1}
 nav.top .links a.pill:hover{background:linear-gradient(135deg,var(--violet),var(--periwinkle));color:var(--ivory)}
-.sober-toggle{background:transparent;border:1px solid var(--border);color:var(--ivory);border-radius:999px;padding:.5rem .85rem;font:inherit;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:.5em}
+.sober-toggle{background:transparent;border:1px solid var(--border);color:var(--ivory);border-radius:999px;padding:.5rem .85rem;font:inherit;font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:.5em}
 .sober-toggle .dot{width:7px;height:7px;border-radius:50%;background:var(--periwinkle);box-shadow:0 0 10px rgba(109,143,234,.6)}
 body.sober .sober-toggle .dot{background:var(--smoked-gray);box-shadow:none}
 .burger{display:none;background:none;border:0;color:var(--ivory);font-size:1.4rem;cursor:pointer}
 @media(max-width:1040px){nav.top .links a:not(.pill):not(.keep){display:none}.burger{display:block}}
-
-/* mobile menu */
 .mmenu{position:fixed;inset:0;z-index:99;background:rgba(10,12,18,.97);backdrop-filter:blur(20px);display:none;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem}
-.mmenu.open{display:flex}
-.mmenu a{font-size:1.4rem;color:var(--ivory);font-weight:500}
-.mmenu .close{position:absolute;top:1.5rem;right:1.8rem;font-size:1.8rem;background:none;border:0;color:var(--ivory);cursor:pointer}
+.mmenu.open{display:flex}.mmenu a{font-size:1.4rem;font-weight:500}.mmenu .close{position:absolute;top:1.5rem;right:1.8rem;font-size:1.8rem;background:none;border:0;color:var(--ivory);cursor:pointer}
 
-/* HERO */
-.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:7rem 1.5rem 4rem;position:relative;overflow:hidden;
-  background:radial-gradient(ellipse at 20% 30%,rgba(141,106,216,.10),transparent 50%),radial-gradient(ellipse at 80% 70%,rgba(109,143,234,.08),transparent 50%),linear-gradient(180deg,var(--graphite),var(--smoked))}
-.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.40;filter:saturate(.95)}
-.hero-overlay{position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,rgba(17,18,20,.55),rgba(17,18,20,.84)),radial-gradient(ellipse at 30% 25%,rgba(141,106,216,.20),transparent 60%)}
-.hero .inner{max-width:1100px;position:relative;z-index:1}
-.hero .e1{margin-bottom:.6rem}
-.hero .e2{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;opacity:.55;margin-bottom:2.4rem}
-.hero h1{font-size:clamp(2.6rem,6.5vw,5.5rem);font-weight:600;line-height:1.04;letter-spacing:-.035em;margin-bottom:2rem}
-.hero .word{display:inline-block}
-.hero .sub{font-size:clamp(1rem,1.4vw,1.15rem);line-height:1.7;opacity:.78;max-width:640px;margin:0 auto 2.5rem}
-.hero .cta{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
+/* ===================== FILM ===================== */
+.film{position:relative}
+.film-canvas{position:sticky;top:0;height:100svh;width:100%;overflow:hidden;background:#0A0E1A}
+.scene{position:absolute;inset:0;opacity:0;will-change:opacity,transform;transform-origin:center center}
+.scene .media{position:absolute;inset:0;overflow:hidden}
+.scene .media>img,.scene .media>video{width:100%;height:100%;object-fit:cover;will-change:transform;transform-origin:center center}
+.scene .veil{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(8,10,16,.42),rgba(8,10,16,.74)),radial-gradient(ellipse at 50% 60%,transparent,rgba(8,10,16,.45) 80%)}
+.scene .tint{position:absolute;inset:0;pointer-events:none;mix-blend-mode:soft-light;background:linear-gradient(120deg,rgba(141,106,216,.30),rgba(109,143,234,.16))}
+.scene-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:6rem 1.5rem 9vh;z-index:60;pointer-events:none}
+.scene-content>*{pointer-events:auto;will-change:transform,opacity,filter;max-width:min(960px,90vw)}
+.scene-content .idx{font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--periwinkle);font-weight:500;margin-bottom:1.1rem}
+.scene-content .e2{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;opacity:.55;margin-bottom:1.6rem}
+.scene-content h1{font-size:clamp(2.6rem,6.4vw,5.4rem);font-weight:600;line-height:1.04;letter-spacing:-.035em}
+.scene-content h2{font-size:clamp(2rem,4.6vw,3.6rem);font-weight:600;line-height:1.08}
+.scene-content .sub{font-size:clamp(1rem,1.5vw,1.2rem);opacity:.82;line-height:1.6;margin-top:1.2rem;max-width:620px}
+.scene-content .cta{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:1.8rem}
 .dot-pulse{display:inline-block;width:9px;height:9px;border-radius:50%;vertical-align:middle;margin-left:.4em;background:linear-gradient(135deg,var(--violet),var(--periwinkle));box-shadow:0 0 24px rgba(141,106,216,.4);animation:pulse 3s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.7;transform:scale(.92)}}
-.scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;opacity:.5;display:flex;flex-direction:column;align-items:center;gap:8px;z-index:1}
-.scroll-hint .l{width:1px;height:36px;background:linear-gradient(180deg,var(--periwinkle),transparent)}
+.chips{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-top:1.6rem}
+.chip{border:1px solid var(--border);background:rgba(18,20,26,.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:.6rem 1.15rem;border-radius:999px;font-size:.82rem;font-weight:500}
+.chip b{color:var(--periwinkle);font-weight:600}
+.seals-film{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin-top:1.8rem;max-width:760px}
+.seals-film .s{border:1px solid var(--border);background:rgba(18,20,26,.45);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:12px;padding:1rem .6rem;font-size:.78rem;display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.seals-film .s .i{color:var(--periwinkle);font-size:1.1rem}
+.clients-film{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;margin-top:1.8rem;max-width:760px}
+.clients-film span{border:1px solid rgba(109,143,234,.25);border-radius:999px;padding:.6rem 1.1rem;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;opacity:.85;background:rgba(18,20,26,.4)}
+.stats-film{display:flex;gap:2.4rem;justify-content:center;flex-wrap:wrap;margin-top:1.8rem}
+.stats-film .n{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700}
+.stats-film .l{font-size:.74rem;opacity:.7;letter-spacing:.05em}
+.points-film{display:flex;flex-direction:column;gap:.7rem;margin-top:1.6rem;align-items:center}
+.points-film .p{display:flex;align-items:center;gap:.6rem;font-size:.92rem}
+.points-film .p .c{color:var(--periwinkle)}
+.scene-content .link{margin-top:1.4rem;font-size:.8rem;letter-spacing:.04em;color:var(--periwinkle);border-bottom:1px solid rgba(109,143,234,.4);padding-bottom:2px}
+.film-dot{position:absolute;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:var(--periwinkle);box-shadow:0 0 12px 3px rgba(109,143,234,.7),0 0 32px 8px rgba(141,106,216,.35);z-index:70;pointer-events:none;will-change:left,top}
+.film-progress{position:fixed;left:0;top:0;height:2px;width:0;background:linear-gradient(90deg,var(--violet),var(--periwinkle));z-index:101}
+.scroll-hint{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;opacity:.5;display:flex;flex-direction:column;align-items:center;gap:8px;z-index:62}
+.scroll-hint .l{width:1px;height:34px;background:linear-gradient(180deg,var(--periwinkle),transparent)}
+.film-canvas.flow{position:relative;height:auto;overflow:visible}
+@media(max-width:680px){.seals-film{grid-template-columns:repeat(2,1fr)}}
 
-/* AVALON */
-.avalon-wrap{position:relative}
-.avalon-canvas{position:sticky;top:0;height:100svh;width:100%;overflow:hidden;background:#0A0E1A}
-.avalon-scene{position:absolute;inset:0;opacity:0;will-change:opacity,transform}
-.avalon-scene>img,.avalon-scene>video{width:100%;height:100%;object-fit:cover}
-.avalon-scene .veil{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(10,14,26,0) 42%,rgba(10,14,26,.62) 100%)}
-.avalon-scene .tint{position:absolute;inset:0;pointer-events:none;mix-blend-mode:soft-light;background:linear-gradient(120deg,rgba(141,106,216,.30),rgba(109,143,234,.16))}
-.avalon-text{position:absolute;left:50%;bottom:14vh;transform:translateX(-50%);width:min(900px,86vw);text-align:center;opacity:0;will-change:opacity,transform;z-index:60}
-.avalon-text p{font-size:clamp(1.6rem,3.4vw,2.8rem);line-height:1.2;font-weight:600;letter-spacing:-.02em;color:var(--ivory)}
-.avalon-text .idx{display:block;font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--periwinkle);opacity:.9;margin-bottom:1rem;font-weight:500}
-.avalon-dot{position:absolute;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:var(--periwinkle);box-shadow:0 0 12px 3px rgba(109,143,234,.7),0 0 32px 8px rgba(141,106,216,.35);z-index:70;pointer-events:none;will-change:left,top}
-.avalon-canvas.flow{position:relative;height:auto;overflow:visible}
-
-/* statement */
+/* ===================== DETAIL SECTIONS ===================== */
 .statement h2{font-size:clamp(2rem,4vw,3rem);line-height:1.18;max-width:1000px}
 .statement h2 .muted{color:var(--champagne);font-weight:300}
-
-/* pilotes */
 .pilotes{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
 .pilote{display:flex;gap:1.25rem;align-items:center;padding:1.75rem}
 .pilote img{width:74px;height:74px;border-radius:50%;object-fit:cover;border:2px solid rgba(168,139,224,.25);flex:0 0 auto}
-.pilote .nm{font-size:.95rem;font-weight:600}
-.pilote .ro{font-size:.72rem;opacity:.6;text-transform:uppercase;letter-spacing:.1em;margin:.15rem 0 .4rem}
-.pilote .sk{font-size:.85rem;opacity:.8}
-.pilote .ct{font-size:.82rem;opacity:.7;margin-top:.3rem}
+.pilote .nm{font-size:.95rem;font-weight:600}.pilote .ro{font-size:.72rem;opacity:.6;text-transform:uppercase;letter-spacing:.1em;margin:.15rem 0 .4rem}.pilote .sk{font-size:.85rem;opacity:.8}.pilote .ct{font-size:.82rem;opacity:.7;margin-top:.3rem}
 @media(max-width:860px){.pilotes{grid-template-columns:1fr;gap:2rem}}
-
-/* process 9 steps */
 .psteps{display:grid;grid-template-columns:auto 1fr}
-.pstep{display:contents}
 .pstep .n{font-size:.85rem;color:var(--periwinkle);font-variant-numeric:tabular-nums;padding:1rem 1.5rem 1rem 0;border-bottom:1px solid var(--border-soft)}
 .pstep .c{padding:1rem 0;border-bottom:1px solid var(--border-soft);display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;align-items:center}
-.pstep .c .ti{font-size:.95rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
-.pstep .c .de{font-size:.85rem;opacity:.7}
+.pstep .c .ti{font-size:.95rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase}.pstep .c .de{font-size:.85rem;opacity:.7}
 .pstep:first-child .n,.pstep:first-child .c{border-top:1px solid var(--border-soft)}
-
-/* tiers / pricing */
-.tiers{display:grid;gap:1.25rem}
-.tiers.g7{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-.tiers.g4{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-.tiers.g3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.psteps .pstep{display:contents}
+.tiers{display:grid;gap:1.25rem}.tiers.g7,.tiers.g4{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}.tiers.g3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
 .tier{border-radius:16px;padding:1.85rem 1.5rem;background:rgba(26,26,29,.6);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid var(--border);position:relative}
 .tier.featured{background:rgba(141,106,216,.07);border-color:rgba(141,106,216,.30)}
 .tier .badge{position:absolute;top:-.7rem;left:50%;transform:translateX(-50%);background:var(--lavender);color:var(--graphite);padding:.3rem .9rem;border-radius:999px;font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
-.tier .t{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;opacity:.55}
-.tier .nm{font-size:1.35rem;font-weight:600;margin:.2rem 0 .25rem}
-.tier .lab{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-bottom:1.1rem}
-.tier .pr{font-size:1.85rem;font-weight:700;line-height:1;margin-bottom:1.3rem}
-.tier .pr span{font-size:.85rem;opacity:.6;font-weight:400}
-.tier ul{list-style:none;opacity:.85}
-.tier ul li{padding:.45rem 0;border-bottom:1px solid var(--border-soft);font-size:.8rem;display:flex;gap:.5rem}
-.tier ul li:last-child{border-bottom:0}.tier ul li .c{color:var(--periwinkle);flex:0 0 auto}
+.tier .t{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;opacity:.55}.tier .nm{font-size:1.35rem;font-weight:600;margin:.2rem 0 .25rem}.tier .lab{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-bottom:1.1rem}
+.tier .pr{font-size:1.85rem;font-weight:700;line-height:1;margin-bottom:1.3rem}.tier .pr span{font-size:.85rem;opacity:.6;font-weight:400}
+.tier ul{list-style:none;opacity:.85}.tier ul li{padding:.45rem 0;border-bottom:1px solid var(--border-soft);font-size:.8rem;display:flex;gap:.5rem}.tier ul li:last-child{border-bottom:0}.tier ul li .c{color:var(--periwinkle);flex:0 0 auto}
 .tier .cta{display:block;text-align:center;margin-top:1.3rem;padding:.8rem 1rem;border-radius:999px;font-size:.8rem;font-weight:600;border:1px solid rgba(168,139,224,.25);color:var(--ivory)}
-.tier.featured .cta{background:var(--ivory);color:var(--graphite);border-color:transparent}
-.tier .cta:hover{background:linear-gradient(135deg,var(--violet),var(--periwinkle));color:var(--ivory);border-color:transparent;transform:translateY(-2px)}
-
-/* offres horizontal */
+.tier.featured .cta{background:var(--ivory);color:var(--graphite);border-color:transparent}.tier .cta:hover{background:linear-gradient(135deg,var(--violet),var(--periwinkle));color:var(--ivory);border-color:transparent}
 .offres-track{display:flex;flex-direction:column;gap:1.25rem}
 .offres.is-h .offres-vp{height:100svh;overflow:hidden;display:flex;align-items:center}
-.offres.is-h .offres-track{flex-direction:row;gap:1.25rem;flex-wrap:nowrap;width:max-content;padding:0 6vw}
-.offres.is-h .tier{width:290px;flex:0 0 auto}
-
-/* care */
-.care{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
-.care h2{font-size:clamp(1.75rem,3.5vw,2.5rem)}
-@media(max-width:760px){.care{grid-template-columns:1fr;gap:1.5rem}}
-
-/* captation color-shift */
+.offres.is-h .offres-track{flex-direction:row;gap:1.25rem;flex-wrap:nowrap;width:max-content;padding:0 6vw}.offres.is-h .tier{width:290px;flex:0 0 auto}
+.care{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}.care h2{font-size:clamp(1.75rem,3.5vw,2.5rem)}@media(max-width:760px){.care{grid-template-columns:1fr;gap:1.5rem}}
 .captation{--c1:#0e0b18;--c2:#241a3a;background:var(--c1);background-image:linear-gradient(180deg,transparent,var(--c2));transition:--c1 .7s var(--ease-apple),--c2 .7s var(--ease-apple)}
 .cat-tabs{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:.8rem}
 .cat-tabs button{background:rgba(26,26,29,.5);color:var(--ivory);border:1px solid var(--border);padding:.7rem 1.25rem;border-radius:999px;cursor:pointer;font:inherit;font-size:.8rem;font-weight:600}
 .cat-tabs button.active{background:var(--ivory);color:var(--graphite);border-color:transparent}
 .cat-sub{text-align:center;margin-bottom:2.4rem;font-size:.74rem;opacity:.55;letter-spacing:.15em;text-transform:uppercase}
 .cat-group{display:none}.cat-group.active{display:grid}
-
-/* comparatif */
-.comp{display:grid;grid-template-columns:2fr 1fr;gap:3rem;align-items:center}
-.comp-table{display:grid;grid-template-columns:1fr 1.3fr 1.3fr;gap:1rem 1.5rem;font-size:.85rem;padding:2rem}
-.comp-table .h{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;opacity:.5}
-.comp-table .h.p{color:var(--periwinkle);opacity:1}
-.comp-row{display:contents}
-.comp-row>div{padding-top:.75rem;border-top:1px solid var(--border-soft)}
-.comp-row .k{font-weight:600}.comp-row .a{opacity:.7}.comp-row .v{color:var(--ivory)}
-.donut{position:relative;width:200px;height:200px;margin:0 auto}
-.donut .num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:2.5rem;font-weight:600}
-@media(max-width:860px){.comp{grid-template-columns:1fr;gap:2rem}.comp-table{grid-template-columns:1fr 1fr 1fr;gap:.6rem .8rem;padding:1.2rem}.comp-table,.comp-row>div{font-size:.74rem}}
-
-/* trajectoires */
-.traj-legend{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:2rem}
-.traj-legend .t{font-size:.95rem;margin-bottom:.4rem}
-.traj-legend .d{font-size:.85rem;opacity:.65}
-
-/* engagements */
 .seals{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:2rem;max-width:1100px}
 .seal{display:flex;flex-direction:column;align-items:center;gap:.75rem;text-align:center}
-.seal .disc{width:78px;height:78px;border-radius:50%;border:1px solid rgba(168,139,224,.25);background:radial-gradient(circle at 30% 30%,rgba(168,139,224,.2),rgba(26,26,29,.9));display:grid;place-items:center;color:var(--periwinkle);font-size:1.3rem}
-.seal .lbl{font-size:.8rem;opacity:.85;line-height:1.4}
-
-/* réalisations */
+.seal .disc{width:78px;height:78px;border-radius:50%;border:1px solid rgba(168,139,224,.25);background:radial-gradient(circle at 30% 30%,rgba(168,139,224,.2),rgba(26,26,29,.9));display:grid;place-items:center;color:var(--periwinkle);font-size:1.3rem}.seal .lbl{font-size:.8rem;opacity:.85;line-height:1.4}
 .rfilter{display:flex;gap:.5rem;margin-bottom:2rem;flex-wrap:wrap}
 .rfilter button{padding:.5rem 1rem;border-radius:999px;background:transparent;color:var(--ivory);opacity:.7;font:inherit;font-size:.8rem;border:1px solid var(--border);cursor:pointer}
 .rfilter button.active{background:var(--ivory);color:var(--graphite);opacity:1;border-color:transparent;font-weight:600}
 .realis{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem}
-.rcard{border-radius:12px;overflow:hidden;cursor:pointer}
-.rcard.hide{display:none}
+.rcard{border-radius:12px;overflow:hidden;cursor:pointer}.rcard.hide{display:none}
 .rcard .thumb{aspect-ratio:16/9;display:grid;place-items:center;position:relative}
 .rcard .play{width:48px;height:48px;border-radius:50%;background:rgba(244,241,234,.9);display:grid;place-items:center}
 .rcard .play::after{content:"";border-top:9px solid transparent;border-bottom:9px solid transparent;border-left:15px solid var(--graphite);margin-left:3px}
 .rcard .meta{padding:1rem 1.25rem}.rcard .meta .ti{font-size:.9rem;font-weight:600;margin-bottom:.2rem}.rcard .meta .su{font-size:.74rem;opacity:.6}
-
-/* témoignages */
 .temos{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem}
-.temo{padding:1.75rem}
-.temo .who{display:flex;gap:.75rem;align-items:center;margin-bottom:1rem}
-.temo .av{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,rgba(141,106,216,.4),rgba(109,143,234,.4));flex:0 0 auto}
-.temo .nm{font-size:.9rem;font-weight:600}.temo .ro{font-size:.74rem;opacity:.6}
-.temo p{font-size:1rem;opacity:.9;line-height:1.5}
-
-/* FAQ */
+.temo{padding:1.75rem}.temo .who{display:flex;gap:.75rem;align-items:center;margin-bottom:1rem}.temo .av{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,rgba(141,106,216,.4),rgba(109,143,234,.4));flex:0 0 auto}.temo .nm{font-size:.9rem;font-weight:600}.temo .ro{font-size:.74rem;opacity:.6}.temo p{font-size:1rem;opacity:.9;line-height:1.5}
 .faq .it{border-bottom:1px solid var(--border-soft)}
 .faq .q{width:100%;text-align:left;padding:1.25rem 0;background:transparent;border:0;color:var(--ivory);font:inherit;font-size:.98rem;cursor:pointer;display:flex;justify-content:space-between;gap:1rem;align-items:center}
-.faq .q .s{color:var(--periwinkle);font-size:1.3rem;transition:transform .4s var(--ease-apple);flex:0 0 auto}
-.faq .it.open .q .s{transform:rotate(45deg)}
-.faq .ans{max-height:0;overflow:hidden;transition:max-height .5s var(--ease-apple)}
-.faq .ans .in{padding-bottom:1.25rem;font-size:.88rem;opacity:.75;line-height:1.6;max-width:760px}
-
-/* diagnostic form */
-.dform{display:grid;gap:1rem;max-width:640px;margin:0 auto}
-.dform .row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.faq .q .s{color:var(--periwinkle);font-size:1.3rem;transition:transform .4s var(--ease-apple);flex:0 0 auto}.faq .it.open .q .s{transform:rotate(45deg)}
+.faq .ans{max-height:0;overflow:hidden;transition:max-height .5s var(--ease-apple)}.faq .ans .in{padding-bottom:1.25rem;font-size:.88rem;opacity:.75;line-height:1.6;max-width:760px}
+.dform{display:grid;gap:1rem;max-width:640px;margin:0 auto}.dform .row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 .dform input,.dform select,.dform textarea{background:rgba(26,26,29,.6);border:1px solid rgba(168,139,224,.15);border-radius:10px;padding:.9rem 1rem;color:var(--ivory);font:inherit;font-size:.9rem;width:100%}
 .dform input:focus,.dform select:focus,.dform textarea:focus{border-color:rgba(109,143,234,.5);box-shadow:0 0 0 3px rgba(109,143,234,.10);outline:none}
 .dform input::placeholder,.dform textarea::placeholder{color:rgba(244,241,234,.35)}
-.dform .chk{font-size:.8rem;opacity:.85;display:flex;gap:.5rem;align-items:center;cursor:pointer}
-.dform .chks{display:flex;gap:1.25rem;flex-wrap:wrap;margin-top:.5rem}
+.dform .chk{font-size:.8rem;opacity:.85;display:flex;gap:.5rem;align-items:center;cursor:pointer}.dform .chks{display:flex;gap:1.25rem;flex-wrap:wrap;margin-top:.5rem}
 .dform button[type=submit]{background:var(--ivory);color:var(--graphite);padding:1.1rem 2rem;border-radius:999px;border:0;font:inherit;font-weight:600;cursor:pointer;margin-top:.5rem}
 .dform button[type=submit]:hover{background:linear-gradient(135deg,var(--violet),var(--periwinkle));color:var(--ivory)}
 @media(max-width:600px){.dform .row2{grid-template-columns:1fr}}
-
-/* contact card */
-.contact-card{max-width:640px;margin:0 auto;padding:2rem}
-.crow{display:flex;gap:1rem;align-items:center;padding:.6rem 0}
-.crow .ic{width:44px;height:44px;border-radius:50%;background:rgba(168,139,224,.10);display:grid;place-items:center;font-size:1.1rem;flex:0 0 auto}
-.crow .lab{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;opacity:.55}
-.crow .val{font-size:.95rem;font-weight:500}
-
-/* atterrissage */
-.land{text-align:center;background:radial-gradient(ellipse at center bottom,rgba(216,193,167,.10),rgba(141,106,216,.06) 30%,transparent 70%),var(--graphite)}
-.land h2{font-size:clamp(3rem,7vw,5rem);font-weight:600;margin-bottom:1rem}
-
-/* footer */
+.contact-card{max-width:640px;margin:0 auto;padding:2rem}.crow{display:flex;gap:1rem;align-items:center;padding:.6rem 0}
+.crow .ic{width:44px;height:44px;border-radius:50%;background:rgba(168,139,224,.10);display:grid;place-items:center;font-size:1.1rem;flex:0 0 auto}.crow .lab{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;opacity:.55}.crow .val{font-size:.95rem;font-weight:500}
 footer.ft{background:var(--graphite);padding:4rem 1.5rem 2rem;border-top:1px solid var(--border-soft)}
 footer.ft .cols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
-footer.ft img.logo{height:36px;width:auto;margin-bottom:1rem}
-footer.ft .addr{font-size:.85rem;opacity:.65;line-height:1.7}
-footer.ft .ttl{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;opacity:.55;margin-bottom:1rem}
-footer.ft .lst{display:grid;gap:.5rem;font-size:.85rem;opacity:.75}
-footer.ft .lst a:hover{opacity:1;color:var(--periwinkle)}
+footer.ft img.logo{height:36px;width:auto;margin-bottom:1rem}.footer.ft .addr,footer.ft .addr{font-size:.85rem;opacity:.65;line-height:1.7}
+footer.ft .ttl{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;opacity:.55;margin-bottom:1rem}.footer .lst,footer.ft .lst{display:grid;gap:.5rem;font-size:.85rem;opacity:.75}footer.ft .lst a:hover{opacity:1;color:var(--periwinkle)}
 footer.ft .copy{border-top:1px solid var(--border-soft);padding-top:2rem;font-size:.8rem;opacity:.55;text-align:center}
 @media(max-width:760px){footer.ft .cols{grid-template-columns:1fr;gap:2rem}}
-
-/* chatbot */
 .chatbtn{position:fixed;bottom:20px;right:20px;z-index:120;width:56px;height:56px;border-radius:50%;border:0;cursor:pointer;background:linear-gradient(135deg,var(--violet),var(--periwinkle));color:#fff;font-size:1.4rem;box-shadow:0 10px 30px rgba(141,106,216,.4)}
-.chatpanel{position:fixed;bottom:88px;right:20px;z-index:120;width:min(360px,92vw);max-height:70vh;overflow:auto;border-radius:16px;background:rgba(20,22,28,.97);backdrop-filter:blur(20px);border:1px solid var(--border);padding:1.25rem;display:none}
-.chatpanel.open{display:block}
-.chatpanel h4{font-size:1rem;margin-bottom:.25rem}
-.chatpanel .hint{font-size:.78rem;opacity:.6;margin-bottom:1rem}
-.chatpanel .qa{border-top:1px solid var(--border-soft)}
-.chatpanel .qa button{width:100%;text-align:left;background:none;border:0;color:var(--ivory);font:inherit;font-size:.85rem;padding:.7rem 0;cursor:pointer;display:flex;justify-content:space-between;gap:.5rem}
-.chatpanel .qa .ans{max-height:0;overflow:hidden;transition:max-height .4s var(--ease-apple);font-size:.8rem;opacity:.75}
-.chatpanel .qa.open .ans{max-height:200px;padding-bottom:.7rem}
-
-/* magnetic cursor */
+.chatpanel{position:fixed;bottom:88px;right:20px;z-index:120;width:min(360px,92vw);max-height:70vh;overflow:auto;border-radius:16px;background:rgba(20,22,28,.97);backdrop-filter:blur(20px);border:1px solid var(--border);padding:1.25rem;display:none}.chatpanel.open{display:block}
+.chatpanel h4{font-size:1rem;margin-bottom:.25rem}.chatpanel .hint{font-size:.78rem;opacity:.6;margin-bottom:1rem}
+.chatpanel .qa{border-top:1px solid var(--border-soft)}.chatpanel .qa button{width:100%;text-align:left;background:none;border:0;color:var(--ivory);font:inherit;font-size:.85rem;padding:.7rem 0;cursor:pointer;display:flex;justify-content:space-between;gap:.5rem}
+.chatpanel .qa .ans{max-height:0;overflow:hidden;transition:max-height .4s var(--ease-apple);font-size:.8rem;opacity:.75}.chatpanel .qa.open .ans{max-height:200px;padding-bottom:.7rem}
 .mcursor{position:fixed;top:0;left:0;width:34px;height:34px;border:1px solid rgba(168,139,224,.6);border-radius:50%;pointer-events:none;z-index:200;transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s,border-color .25s;mix-blend-mode:difference;will-change:transform}
 .mcursor.big{width:64px;height:64px;background:rgba(168,139,224,.12);border-color:transparent}
 @media(max-width:1040px),(pointer:coarse){.mcursor{display:none}}
-
-/* reduced motion / sober */
-@media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1!important;transform:none!important}.colorin{filter:none}.dot-pulse{animation:none}}
+@media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1!important;transform:none!important}.dot-pulse{animation:none}}
 body.sober [data-reveal]{opacity:1!important;transform:none!important}
-body.sober .colorin{filter:none}
-body.sober .offres.is-h .offres-vp{height:auto;overflow:visible;display:block}
-body.sober .offres.is-h .offres-track{flex-direction:column;width:auto;padding:0 1.5rem}
-body.sober .offres.is-h .tier{width:auto}
+body.sober .offres.is-h .offres-vp{height:auto;overflow:visible;display:block}body.sober .offres.is-h .offres-track{flex-direction:column;width:auto;padding:0 1.5rem}body.sober .offres.is-h .tier{width:auto}
 body.sober .dot-pulse{animation:none}body.sober .mcursor{display:none}
 </style>
 </head>
 <body>
 
 <div class="mcursor" id="mcursor" aria-hidden="true"></div>
+<div class="film-progress" id="filmProgress"></div>
 
-<!-- NAV -->
 <nav class="top" id="nav">
   <a href="#top" class="logo" aria-label="Pinapp"><img src="avalon/logo-pinapp.png" alt="Pinapp"></a>
   <div class="links">
@@ -336,92 +223,144 @@ body.sober .dot-pulse{animation:none}body.sober .mcursor{display:none}
 </nav>
 <div class="mmenu" id="mmenu">
   <button class="close" id="mclose" aria-label="Fermer">✕</button>
-  <a href="#offres">Sites web</a><a href="#captation">Films</a><a href="#formations">Formations</a>
-  <a href="#realisations">Réalisations</a><a href="#apropos">À propos</a><a href="#diagnostic">Contact</a>
+  <a href="#offres">Sites web</a><a href="#captation">Films</a><a href="#formations">Formations</a><a href="#realisations">Réalisations</a><a href="#apropos">À propos</a><a href="#diagnostic">Contact</a>
 </div>
 
 <main id="top">
 
-<!-- HERO -->
-<section class="hero grain">
-  <video class="hero-video" src="avalon/videos/2-1-constellation.mp4" poster="avalon/frames/2-1-constellation.png" autoplay muted loop playsinline preload="auto"></video>
-  <div class="hero-overlay"></div>
-  <div class="inner">
-    <div class="eyebrow e1" data-reveal="fade-up">PINAPP INC · BORDEAUX · 2026</div>
-    <div class="e2" data-reveal="fade-up">STUDIO DIGITAL · SITES + AUTOMATISATIONS + FILMS IA</div>
-    <h1 data-hero-h1>Vos outils travaillent. Vous gagnez du <span class="grad">temps</span><span class="dot-pulse"></span></h1>
-    <p class="sub" data-reveal="fade-up">Sites web, automatisations IA, films cinéma — par un duo bordelais.<br>Un seul devis. 50 à 75 % moins cher qu'une agence.</p>
-    <div class="cta" data-reveal="fade-up">
-      <a href="#diagnostic" class="btn" data-magnetic>Diagnostic 24 h offert <span class="a">→</span></a>
-      <a href="#offres" class="btn ghost" data-magnetic>Voir les offres ↓</a>
-    </div>
-  </div>
-  <div class="scroll-hint"><span>Scroll</span><span class="l"></span></div>
-</section>
+<!-- ===================== FILM : 9 plans, contenu sur les vidéos/photos ===================== -->
+<div class="film" id="film" data-film>
+  <div class="film-canvas" data-canvas>
 
-<!-- AVALON VOYAGE (vidéos sans répétition : constellation = hero, scène 04 en frame statique) -->
-<div class="avalon-wrap" id="avalon" data-scene-wrap>
-  <div class="avalon-canvas" data-scene-canvas>
-    <div class="avalon-scene" data-scene="0"><img src="avalon/frames/1-1-plongee-cosmique.png" alt=""><div class="tint"></div><div class="veil"></div></div>
-    <div class="avalon-scene" data-scene="1"><video src="avalon/videos/1-2-hublot.mp4" poster="avalon/frames/1-2-hublot.png" muted loop playsinline preload="metadata"></video><div class="tint"></div><div class="veil"></div></div>
-    <div class="avalon-scene" data-scene="2"><video src="avalon/videos/1-3-cabine-cockpit.mp4" poster="avalon/frames/1-3-cabine-cockpit.png" muted loop playsinline preload="metadata"></video><div class="tint"></div><div class="veil"></div></div>
-    <div class="avalon-scene" data-scene="3"><img src="avalon/frames/2-1-constellation.png" alt=""><div class="tint"></div><div class="veil"></div></div>
-    <div class="avalon-scene" data-scene="4"><video src="avalon/videos/2-2-interface-holo.mp4" poster="avalon/frames/2-2-interface-holo.png" muted loop playsinline preload="metadata"></video><div class="tint"></div><div class="veil"></div></div>
-    <div class="avalon-scene" data-scene="5"><video src="avalon/videos/2-3-cascade-code.mp4" poster="avalon/frames/2-3-cascade-code.png" muted loop playsinline preload="metadata"></video><div class="tint"></div><div class="veil"></div></div>
-    <div class="avalon-scene" data-scene="6"><video src="avalon/videos/3-1-trajectoires.mp4" poster="avalon/frames/3-1-trajectoires.png" muted loop playsinline preload="metadata"></video><div class="tint"></div><div class="veil"></div></div>
-    <div class="avalon-scene" data-scene="7"><img src="avalon/frames/3-2-sceaux-graves.png" alt=""><div class="tint"></div><div class="veil"></div></div>
-    <div class="avalon-scene" data-scene="8"><img src="avalon/frames/3-3-atterrissage.png" alt=""><div class="tint"></div><div class="veil"></div></div>
-    <div class="avalon-text" data-scene-text="0"><p><span class="idx">01 · La plongée</span>Le digital qui travaille pendant que vous vivez.</p></div>
-    <div class="avalon-text" data-scene-text="1"><p><span class="idx">02 · L'observation</span>Voici l'instant où votre projet ouvre les yeux.</p></div>
-    <div class="avalon-text" data-scene-text="2"><p><span class="idx">03 · L'équipage</span>Les pilotes du vaisseau.</p></div>
-    <div class="avalon-text" data-scene-text="3"><p><span class="idx">04 · La constellation</span>Ils nous ont fait confiance.</p></div>
-    <div class="avalon-text" data-scene-text="4"><p><span class="idx">05 · L'interface</span>Une interface pensée, dessinée, sculptée dans la lumière.</p></div>
-    <div class="avalon-text" data-scene-text="5"><p><span class="idx">06 · Le code</span>Du code propre. Documenté. À vous.</p></div>
-    <div class="avalon-text" data-scene-text="6"><p><span class="idx">07 · Deux voies</span>Deux trajectoires. La nôtre est directe.</p></div>
-    <div class="avalon-text" data-scene-text="7"><p><span class="idx">08 · Les sceaux</span>Huit sceaux. Huit engagements signés.</p></div>
-    <div class="avalon-text" data-scene-text="8"><p><span class="idx">09 · L'arrivée</span>Embarquement.</p></div>
-    <div class="avalon-dot" data-scene-dot></div>
+    <!-- PLAN 0 — plongée (photo, caméra plonge) : HERO -->
+    <section class="scene" data-scene="0" data-type="img" data-dir="in">
+      <div class="media"><img src="avalon/frames/1-1-plongee-cosmique.png" alt=""></div><div class="tint"></div><div class="veil"></div>
+      <div class="scene-content">
+        <div class="e2">Pinapp Inc · Bordeaux · 2026 — Studio digital</div>
+        <h1>Vos outils travaillent.<br>Vous gagnez du <span class="grad">temps</span><span class="dot-pulse"></span></h1>
+        <p class="sub">Sites web, automatisations IA, films cinéma — par un duo bordelais. Un seul devis. 50 à 75 % moins cher qu'une agence.</p>
+        <div class="cta"><a href="#diagnostic" class="btn" data-magnetic>Diagnostic 24 h offert <span class="a">→</span></a></div>
+      </div>
+    </section>
+
+    <!-- PLAN 1 — hublot (vidéo, caméra avance vers le hublot) : EXPERTISES -->
+    <section class="scene" data-scene="1" data-type="video" data-dir="in">
+      <div class="media"><video src="avalon/videos/1-2-hublot.mp4" poster="avalon/frames/1-2-hublot.png" muted loop playsinline preload="metadata"></video></div><div class="tint"></div><div class="veil"></div>
+      <div class="scene-content">
+        <div class="idx">02 · L'observation</div>
+        <h2>Voici l'instant où votre projet ouvre les yeux.</h2>
+        <div class="chips"><span class="chip"><b>Sites</b> web</span><span class="chip"><b>Automatisations</b> IA</span><span class="chip"><b>Films</b> cinéma</span></div>
+      </div>
+    </section>
+
+    <!-- PLAN 2 — cabine/cockpit (vidéo, la pièce) : 8 ENGAGEMENTS posés sur la pièce -->
+    <section class="scene" data-scene="2" data-type="video" data-dir="out">
+      <div class="media"><video src="avalon/videos/1-3-cabine-cockpit.mp4" poster="avalon/frames/1-3-cabine-cockpit.png" muted loop playsinline preload="metadata"></video></div><div class="tint"></div><div class="veil"></div>
+      <div class="scene-content">
+        <div class="idx">03 · La cabine</div>
+        <h2>Huit engagements signés.</h2>
+        <div class="seals-film">
+          <div class="s"><span class="i">◈</span>Devis fixe</div><div class="s"><span class="i">◈</span>Délais respectés</div>
+          <div class="s"><span class="i">◈</span>Pas de surcoût</div><div class="s"><span class="i">◈</span>Code documenté</div>
+          <div class="s"><span class="i">◈</span>SEO inclus</div><div class="s"><span class="i">◈</span>Mobile-first</div>
+          <div class="s"><span class="i">◈</span>Maintenance simple</div><div class="s"><span class="i">◈</span>Satisfait ou refait</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PLAN 3 — constellation (vidéo, caméra recule sur les étoiles) : CLIENTS -->
+    <section class="scene" data-scene="3" data-type="video" data-dir="out">
+      <div class="media"><video src="avalon/videos/2-1-constellation.mp4" poster="avalon/frames/2-1-constellation.png" muted loop playsinline preload="metadata"></video></div><div class="tint"></div><div class="veil"></div>
+      <div class="scene-content">
+        <div class="idx">04 · La constellation</div>
+        <h2>Ils nous ont fait confiance.</h2>
+        <div class="clients-film"><span>Maison Bouna</span><span>Vignobles Rivière</span><span>Atelier Rivage</span><span>Cabinet Lemarchand</span><span>SW Female Unity</span><span>Mémoire &amp; Présence</span></div>
+      </div>
+    </section>
+
+    <!-- PLAN 4 — interface holo (vidéo, caméra avance dans l'interface) : SITES -->
+    <section class="scene" data-scene="4" data-type="video" data-dir="in">
+      <div class="media"><video src="avalon/videos/2-2-interface-holo.mp4" poster="avalon/frames/2-2-interface-holo.png" muted loop playsinline preload="metadata"></video></div><div class="tint"></div><div class="veil"></div>
+      <div class="scene-content">
+        <div class="idx">05 · L'interface</div>
+        <h2>Du landing express<br>au vaisseau signature.</h2>
+        <div class="chips"><span class="chip">T0 · <b>990 €</b></span><span class="chip">T3 · <b>2 290 €</b></span><span class="chip">T6 · <b>5 990 €</b></span></div>
+        <a href="#offres" class="link" data-magnetic>Voir les 7 formules ↓</a>
+      </div>
+    </section>
+
+    <!-- PLAN 5 — cascade code (vidéo, caméra avance dans le code) : CODE / IA -->
+    <section class="scene" data-scene="5" data-type="video" data-dir="in">
+      <div class="media"><video src="avalon/videos/2-3-cascade-code.mp4" poster="avalon/frames/2-3-cascade-code.png" muted loop playsinline preload="metadata"></video></div><div class="tint"></div><div class="veil"></div>
+      <div class="scene-content">
+        <div class="idx">06 · Le code</div>
+        <h2>Du code propre. Documenté. À vous.</h2>
+        <div class="points-film"><div class="p"><span class="c">✓</span>Workflows n8n — devis, factures, relances automatiques</div><div class="p"><span class="c">✓</span>Headless &amp; performant, jamais WordPress</div><div class="p"><span class="c">✓</span>Le code vous appartient, documentation incluse</div></div>
+      </div>
+    </section>
+
+    <!-- PLAN 6 — trajectoires (vidéo, caméra recule, deux voies) : POURQUOI -->
+    <section class="scene" data-scene="6" data-type="video" data-dir="out">
+      <div class="media"><video src="avalon/videos/3-1-trajectoires.mp4" poster="avalon/frames/3-1-trajectoires.png" muted loop playsinline preload="metadata"></video></div><div class="tint"></div><div class="veil"></div>
+      <div class="scene-content">
+        <div class="idx">07 · Deux voies</div>
+        <h2>Deux trajectoires.<br>La nôtre est directe.</h2>
+        <div class="stats-film"><div><div class="n grad">−75 %</div><div class="l">vs agence, en moyenne</div></div><div><div class="n grad">7-28 j</div><div class="l">au lieu de 3-6 mois</div></div><div><div class="n grad">1</div><div class="l">seul devis fixe</div></div></div>
+      </div>
+    </section>
+
+    <!-- PLAN 7 — sceaux gravés (photo, caméra recule) : GARANTIE -->
+    <section class="scene" data-scene="7" data-type="img" data-dir="out">
+      <div class="media"><img src="avalon/frames/3-2-sceaux-graves.png" alt=""></div><div class="tint"></div><div class="veil"></div>
+      <div class="scene-content">
+        <div class="idx">08 · Les sceaux</div>
+        <h2>Satisfait ou refait.</h2>
+        <p class="sub">2 rounds de révisions gratuits sur les formules T3+. Engagement signé, pas une promesse en l'air.</p>
+      </div>
+    </section>
+
+    <!-- PLAN 8 — atterrissage (photo, caméra plonge vers la lune) : CTA -->
+    <section class="scene" data-scene="8" data-type="img" data-dir="in">
+      <div class="media"><img src="avalon/frames/3-3-atterrissage.png" alt=""></div><div class="tint"></div><div class="veil"></div>
+      <div class="scene-content">
+        <div class="idx">09 · L'arrivée</div>
+        <h2>Prêt·e à embarquer ?</h2>
+        <p class="sub">Diagnostic 24 h offert. Sans engagement.</p>
+        <div class="cta"><a href="#diagnostic" class="btn" data-magnetic>Diagnostic 24 h offert <span class="a">→</span></a><a href="https://wa.me/33786173715" rel="noopener noreferrer" target="_blank" class="btn ghost" data-magnetic>WhatsApp</a></div>
+      </div>
+    </section>
+
+    <div class="film-dot" data-dot></div>
+    <div class="scroll-hint" id="scrollHint"><span>Scroll</span><span class="l"></span></div>
   </div>
 </div>
 
-<!-- STATEMENT -->
-<section class="block statement grain">
+<!-- ===================== DÉTAILS (après le film) ===================== -->
+
+<section class="block statement grain" style="background:var(--graphite)">
   <div class="plx v3" data-parallax="0.4"></div>
-  <div class="wrap">
-    <h2 data-reveal="fade-up"><span class="muted">Pinapp, c'est un studio digital bordelais.</span> Sites web, automatisations IA et films cinéma — conçus par un duo, pas par une agence à 15 intermédiaires. Un seul devis, des délais tenus, et le code vous appartient.</h2>
-  </div>
+  <div class="wrap"><h2 data-reveal="fade-up"><span class="muted">Pinapp, c'est un studio digital bordelais.</span> Sites web, automatisations IA et films cinéma — conçus par un duo, pas par une agence à 15 intermédiaires. Un seul devis, des délais tenus, et le code vous appartient.</h2></div>
 </section>
 
-<!-- À PROPOS / PILOTES -->
 <section class="block" id="apropos" style="background:var(--smoked)">
   <div class="plx v1" data-parallax="0.4"></div>
-  <div class="wrap">
-    <div class="pilotes">
-      <div data-reveal="fade-up">
-        <div class="eyebrow" style="margin-bottom:1.3rem">03 · L'ÉQUIPAGE</div>
-        <h2 style="font-size:clamp(2rem,4vw,3rem)">Les pilotes<br>du vaisseau.</h2>
-        <p class="muted" style="margin-top:1.2rem;max-width:420px">Deux associés, zéro intermédiaire. Lauralie conçoit les systèmes ; Michaël crée l'image. Vous parlez directement à ceux qui construisent.</p>
-      </div>
-      <div data-reveal="stagger" style="display:grid;gap:1.25rem">
-        <div class="pilote card">
-          <img src="avalon/lauralie.jpg" alt="Lauralie Daguzay">
-          <div><div class="nm">LAURALIE DAGUZAY</div><div class="ro">Co-fondatrice</div><div class="sk">Stratégie · Web · Automatisations</div><div class="ct" style="font-variant-numeric:tabular-nums">06 59 88 20 15</div></div>
-        </div>
-        <div class="pilote card">
-          <img src="avalon/michael.jpg" alt="Michaël Bouilhac">
-          <div><div class="nm">MICHAËL BOUILHAC</div><div class="ro">Co-fondateur</div><div class="sk">Image · Vidéo · Cinéma IA</div><div class="ct">bouilhacmichael@gmail.com</div></div>
-        </div>
-      </div>
+  <div class="wrap"><div class="pilotes">
+    <div data-reveal="fade-up">
+      <div class="eyebrow" style="margin-bottom:1.3rem">L'ÉQUIPAGE</div>
+      <h2 style="font-size:clamp(2rem,4vw,3rem)">Les pilotes<br>du vaisseau.</h2>
+      <p class="muted" style="margin-top:1.2rem;max-width:420px">Deux associés, zéro intermédiaire. Lauralie conçoit les systèmes ; Michaël crée l'image. Vous parlez à ceux qui construisent.</p>
     </div>
-  </div>
+    <div data-reveal="stagger" style="display:grid;gap:1.25rem">
+      <div class="pilote card"><img src="avalon/lauralie.jpg" alt="Lauralie Daguzay"><div><div class="nm">LAURALIE DAGUZAY</div><div class="ro">Co-fondatrice</div><div class="sk">Stratégie · Web · Automatisations</div><div class="ct" style="font-variant-numeric:tabular-nums">06 59 88 20 15</div></div></div>
+      <div class="pilote card"><img src="avalon/michael.jpg" alt="Michaël Bouilhac"><div><div class="nm">MICHAËL BOUILHAC</div><div class="ro">Co-fondateur</div><div class="sk">Image · Vidéo · Cinéma IA</div><div class="ct">bouilhacmichael@gmail.com</div></div></div>
+    </div>
+  </div></div>
 </section>
 
-<!-- PROCESS 9 chapitres -->
 <section class="block" id="process" style="background:var(--graphite)">
   <div class="plx v2" data-parallax="0.3"></div>
   <div class="wrap">
-    <div class="sec-head"><span class="eyebrow" data-reveal="fade-up">05 · LE PROCESS</span>
-      <h2 data-reveal="fade-up">9 chapitres. 14 jours.<br>Un seul devis.</h2></div>
+    <div class="sec-head"><span class="eyebrow" data-reveal="fade-up">LE PROCESS</span><h2 data-reveal="fade-up">9 chapitres. 14 jours.<br>Un seul devis.</h2></div>
     <div class="psteps" data-reveal="stagger">
       <div class="pstep"><div class="n">01</div><div class="c"><span class="ti">Embarquement</span><span class="de">Brief stratégique 1 h en visio</span></div></div>
       <div class="pstep"><div class="n">02</div><div class="c"><span class="ti">Moodboard</span><span class="de">Direction artistique calibrée à ta marque</span></div></div>
@@ -436,12 +375,8 @@ body.sober .dot-pulse{animation:none}body.sober .mcursor{display:none}
   </div>
 </section>
 
-<!-- OFFRES T0-T6 horizontal -->
 <section class="offres" id="offres" style="background:var(--smoked)">
-  <div class="sec-head center" style="padding:clamp(4rem,8vw,7rem) 1.5rem 2rem">
-    <span class="eyebrow" data-reveal="fade-up">06 · SITES WEB · 7 FORMULES</span>
-    <h2 data-reveal="fade-up" style="font-size:clamp(2rem,4vw,3rem)">Du landing express<br>au vaisseau signature.</h2>
-  </div>
+  <div class="sec-head center" style="padding:clamp(4rem,8vw,7rem) 1.5rem 2rem"><span class="eyebrow" data-reveal="fade-up">SITES WEB · 7 FORMULES</span><h2 data-reveal="fade-up" style="font-size:clamp(2rem,4vw,3rem)">Du landing express<br>au vaisseau signature.</h2></div>
   <div class="offres-vp"><div class="offres-track">
     <article class="tier"><div class="t">T0</div><div class="nm">Express</div><div class="pr">990 <span>€ HT</span></div><ul><li><span class="c">✓</span>Landing 1 page</li><li><span class="c">✓</span>Form basique</li><li><span class="c">✓</span>Responsive</li><li><span class="c">✓</span>En ligne 7 jours</li></ul><a href="#diagnostic" class="cta">Demander T0</a></article>
     <article class="tier"><div class="t">T1</div><div class="nm">Essentiel</div><div class="pr">1 490 <span>€ HT</span></div><ul><li><span class="c">✓</span>3-5 pages</li><li><span class="c">✓</span>SEO basique</li><li><span class="c">✓</span>CMS éditable</li><li><span class="c">✓</span>En ligne 10 jours</li></ul><a href="#diagnostic" class="cta">Demander T1</a></article>
@@ -453,59 +388,44 @@ body.sober .dot-pulse{animation:none}body.sober .mcursor{display:none}
   </div></div>
 </section>
 
-<!-- PINAPP CARE -->
 <section class="block" style="background:var(--graphite)">
   <div class="plx v1" data-parallax="0.3"></div>
   <div class="wrap-sm care">
-    <div data-reveal="fade-up">
-      <div class="eyebrow" style="margin-bottom:1rem">07 · MAINTENANCE</div>
-      <h2>Pinapp Care.<br><span class="peri">79 € / mois.</span></h2>
-      <p class="muted" style="margin-top:1rem">Hébergement + sauvegardes + mises à jour + 1 h évolution mensuelle. Sans engagement.</p>
-    </div>
+    <div data-reveal="fade-up"><div class="eyebrow" style="margin-bottom:1rem">MAINTENANCE</div><h2>Pinapp Care.<br><span class="peri">79 € / mois.</span></h2><p class="muted" style="margin-top:1rem">Hébergement + sauvegardes + mises à jour + 1 h évolution mensuelle. Sans engagement.</p></div>
     <div data-reveal="fade-up"><a href="#diagnostic" class="btn ghost">Demander Pinapp Care <span class="a">→</span></a></div>
   </div>
 </section>
 
-<!-- CAPTATION & FILMS (tabs color-shift) -->
 <section class="block captation" id="captation">
   <div class="wrap">
-    <div class="sec-head center"><span class="eyebrow" data-reveal="fade-up">08 · CAPTATION & FILMS</span>
-      <h2 data-reveal="fade-up">Captation & Films.</h2>
-      <p class="muted" data-reveal="fade-up" style="max-width:650px;margin:.6rem auto 0">Films pour entreprises, artistes, événements privés. Tournés à Bordeaux, livrés sous 14 jours.</p></div>
-    <div class="cat-tabs" id="catTabs">
-      <button class="active" data-cat="corporate">Captation corporate</button>
-      <button data-cat="clip">Clip artiste</button>
-      <button data-cat="anniversaire">Anniversaire / Privé</button>
-      <button data-cat="cinema-ia">Forfait Cinéma IA</button>
-    </div>
+    <div class="sec-head center"><span class="eyebrow" data-reveal="fade-up">CAPTATION & FILMS</span><h2 data-reveal="fade-up">Captation & Films.</h2><p class="muted" data-reveal="fade-up" style="max-width:650px;margin:.6rem auto 0">Films pour entreprises, artistes, événements privés. Tournés à Bordeaux, livrés sous 14 jours.</p></div>
+    <div class="cat-tabs" id="catTabs"><button class="active" data-cat="corporate">Captation corporate</button><button data-cat="clip">Clip artiste</button><button data-cat="anniversaire">Anniversaire / Privé</button><button data-cat="cinema-ia">Forfait Cinéma IA</button></div>
     <div class="cat-sub" id="catSub">Reportage · Pub · Séminaire</div>
     <div class="cat-group active tiers g3" data-cat="corporate">
-      <article class="tier"><div class="nm">L'embarquement</div><div class="lab">Essentiel</div><div class="pr">2 100 <span>€ HT</span></div><ul><li><span class="c">✓</span>Tournage 1 journée max</li><li><span class="c">✓</span>Montage 7 jours</li><li><span class="c">✓</span>Vidéo 90 s à 2 min</li><li><span class="c">✓</span>Formats 16:9 + 9:16</li><li><span class="c">✓</span>Master 4K · déplacement N-A inclus</li></ul><a href="#diagnostic" class="cta">Demander</a></article>
-      <article class="tier featured"><div class="badge">★ Choix studio</div><div class="nm">La traversée</div><div class="lab">Signature</div><div class="pr">2 990 <span>€ HT</span></div><ul><li><span class="c">✓</span>Montage 5 jours · 90 s à 3 min</li><li><span class="c">✓</span>16:9 + 9:16 + 1:1 + teaser 30 s</li><li><span class="c">✓</span>2 rounds révisions</li><li><span class="c">✓</span>Master 4K + color cinéma</li></ul><a href="#diagnostic" class="cta">Choisir</a></article>
-      <article class="tier"><div class="nm">Le voyage complet</div><div class="lab">Premium</div><div class="pr">3 990 <span>€ HT</span></div><ul><li><span class="c">✓</span>Montage priorité 3 j · 2 à 4 min</li><li><span class="c">✓</span>3 teasers 30 s · 3 rounds</li><li><span class="c">✓</span>4K + sound design + BTS 60 s</li><li><span class="c">✓</span>Déplacement France</li></ul><a href="#diagnostic" class="cta">Demander</a></article>
+      <article class="tier"><div class="nm">L'embarquement</div><div class="lab">Essentiel</div><div class="pr">2 100 <span>€ HT</span></div><ul><li><span class="c">✓</span>Tournage 1 j max · montage 7 j</li><li><span class="c">✓</span>Vidéo 90 s à 2 min · 16:9 + 9:16</li><li><span class="c">✓</span>Master 4K · déplacement N-A</li></ul><a href="#diagnostic" class="cta">Demander</a></article>
+      <article class="tier featured"><div class="badge">★ Choix studio</div><div class="nm">La traversée</div><div class="lab">Signature</div><div class="pr">2 990 <span>€ HT</span></div><ul><li><span class="c">✓</span>90 s à 3 min · 16:9 + 9:16 + 1:1</li><li><span class="c">✓</span>+ teaser 30 s · 2 rounds</li><li><span class="c">✓</span>4K + color cinéma</li></ul><a href="#diagnostic" class="cta">Choisir</a></article>
+      <article class="tier"><div class="nm">Le voyage complet</div><div class="lab">Premium</div><div class="pr">3 990 <span>€ HT</span></div><ul><li><span class="c">✓</span>2 à 4 min · 3 teasers 30 s</li><li><span class="c">✓</span>3 rounds · 4K + sound design</li><li><span class="c">✓</span>BTS 60 s · déplacement France</li></ul><a href="#diagnostic" class="cta">Demander</a></article>
     </div>
     <div class="cat-group tiers g3" data-cat="clip">
-      <article class="tier"><div class="nm">L'embarquement</div><div class="lab">Single live</div><div class="pr">1 990 <span>€ HT</span></div><ul><li><span class="c">✓</span>Tournage 1 journée</li><li><span class="c">✓</span>Clip 2-3 min · 16:9 + 9:16</li><li><span class="c">✓</span>1 round · Master 4K</li></ul><a href="#diagnostic" class="cta">Demander</a></article>
-      <article class="tier featured"><div class="badge">★ Choix studio</div><div class="nm">La traversée</div><div class="lab">Scénarisé</div><div class="pr">2 490 <span>€ HT</span></div><ul><li><span class="c">✓</span>Tournage + repérage</li><li><span class="c">✓</span>Clip 3-4 min · tous formats</li><li><span class="c">✓</span>2 rounds · 4K + color grade</li></ul><a href="#diagnostic" class="cta">Choisir</a></article>
-      <article class="tier"><div class="nm">Le voyage complet</div><div class="lab">Narratif premium</div><div class="pr">2 990 <span>€ HT</span></div><ul><li><span class="c">✓</span>Repérage premium</li><li><span class="c">✓</span>Clip 3-5 min + 3 teasers 15 s</li><li><span class="c">✓</span>3 rounds · 4K + sound design</li></ul><a href="#diagnostic" class="cta">Demander</a></article>
+      <article class="tier"><div class="nm">L'embarquement</div><div class="lab">Single live</div><div class="pr">1 990 <span>€ HT</span></div><ul><li><span class="c">✓</span>Tournage 1 j · clip 2-3 min</li><li><span class="c">✓</span>16:9 + 9:16 · 1 round</li><li><span class="c">✓</span>Master 4K</li></ul><a href="#diagnostic" class="cta">Demander</a></article>
+      <article class="tier featured"><div class="badge">★ Choix studio</div><div class="nm">La traversée</div><div class="lab">Scénarisé</div><div class="pr">2 490 <span>€ HT</span></div><ul><li><span class="c">✓</span>Tournage + repérage · 3-4 min</li><li><span class="c">✓</span>Tous formats · 2 rounds</li><li><span class="c">✓</span>4K + color grade</li></ul><a href="#diagnostic" class="cta">Choisir</a></article>
+      <article class="tier"><div class="nm">Le voyage complet</div><div class="lab">Narratif premium</div><div class="pr">2 990 <span>€ HT</span></div><ul><li><span class="c">✓</span>Repérage premium · 3-5 min</li><li><span class="c">✓</span>+ 3 teasers 15 s · 3 rounds</li><li><span class="c">✓</span>4K + sound design</li></ul><a href="#diagnostic" class="cta">Demander</a></article>
     </div>
     <div class="cat-group tiers g3" data-cat="anniversaire">
-      <article class="tier"><div class="nm">L'embarquement</div><div class="lab">Court</div><div class="pr">1 200 <span>€ HT</span></div><ul><li><span class="c">✓</span>Captation 4 h</li><li><span class="c">✓</span>Film 3-5 min · 16:9</li><li><span class="c">✓</span>Master HD</li></ul><a href="#diagnostic" class="cta">Demander</a></article>
-      <article class="tier featured"><div class="badge">★ Choix studio</div><div class="nm">La traversée</div><div class="lab">Standard</div><div class="pr">1 590 <span>€ HT</span></div><ul><li><span class="c">✓</span>Captation 6 h · film 4-6 min</li><li><span class="c">✓</span>16:9 + 9:16 + teaser 30 s</li><li><span class="c">✓</span>Master 4K</li></ul><a href="#diagnostic" class="cta">Choisir</a></article>
-      <article class="tier"><div class="nm">Le voyage complet</div><div class="lab">Journée</div><div class="pr">1 990 <span>€ HT</span></div><ul><li><span class="c">✓</span>Captation 8 h · film 6-10 min</li><li><span class="c">✓</span>Tous formats + 3 teasers 30 s</li><li><span class="c">✓</span>4K + color grade</li></ul><a href="#diagnostic" class="cta">Demander</a></article>
+      <article class="tier"><div class="nm">L'embarquement</div><div class="lab">Court</div><div class="pr">1 200 <span>€ HT</span></div><ul><li><span class="c">✓</span>Captation 4 h · film 3-5 min</li><li><span class="c">✓</span>16:9 · Master HD</li></ul><a href="#diagnostic" class="cta">Demander</a></article>
+      <article class="tier featured"><div class="badge">★ Choix studio</div><div class="nm">La traversée</div><div class="lab">Standard</div><div class="pr">1 590 <span>€ HT</span></div><ul><li><span class="c">✓</span>Captation 6 h · 4-6 min</li><li><span class="c">✓</span>16:9 + 9:16 + teaser 30 s</li><li><span class="c">✓</span>Master 4K</li></ul><a href="#diagnostic" class="cta">Choisir</a></article>
+      <article class="tier"><div class="nm">Le voyage complet</div><div class="lab">Journée</div><div class="pr">1 990 <span>€ HT</span></div><ul><li><span class="c">✓</span>Captation 8 h · 6-10 min</li><li><span class="c">✓</span>Tous formats + 3 teasers</li><li><span class="c">✓</span>4K + color grade</li></ul><a href="#diagnostic" class="cta">Demander</a></article>
     </div>
     <div class="cat-group tiers" data-cat="cinema-ia" style="max-width:440px;margin:0 auto;grid-template-columns:1fr">
-      <article class="tier featured"><div class="badge">★ 100 % IA</div><div class="nm">Solo</div><div class="lab">Tout-IA · pas de tournage</div><div class="pr">990 <span>€ HT</span></div><ul><li><span class="c">✓</span>Génération Higgsfield</li><li><span class="c">✓</span>1 clip 30 s à 90 s · 16:9 + 9:16</li><li><span class="c">✓</span>Montage IA · Master 4K</li><li><span class="c">✓</span>Idéal lancement artiste solo</li></ul><a href="#diagnostic" class="cta">Choisir</a></article>
+      <article class="tier featured"><div class="badge">★ 100 % IA</div><div class="nm">Solo</div><div class="lab">Tout-IA · pas de tournage</div><div class="pr">990 <span>€ HT</span></div><ul><li><span class="c">✓</span>Génération Higgsfield</li><li><span class="c">✓</span>1 clip 30 s à 90 s · 16:9 + 9:16</li><li><span class="c">✓</span>Montage IA · Master 4K</li></ul><a href="#diagnostic" class="cta">Choisir</a></article>
     </div>
   </div>
 </section>
 
-<!-- FORMATIONS -->
 <section class="block" id="formations" style="background:var(--smoked)">
   <div class="plx v2" data-parallax="0.3"></div>
   <div class="wrap">
-    <div class="sec-head center"><span class="eyebrow" data-reveal="fade-up">09 · FORMATIONS IA & WEB</span>
-      <h2 data-reveal="fade-up">4 niveaux pour passer de l'IA<br>basique au workflow complet.</h2></div>
+    <div class="sec-head center"><span class="eyebrow" data-reveal="fade-up">FORMATIONS IA & WEB</span><h2 data-reveal="fade-up">4 niveaux pour passer de l'IA<br>basique au workflow complet.</h2></div>
     <div class="tiers g4" data-reveal="stagger">
       <article class="tier"><div class="nm">Découverte</div><div class="lab">1 h replay</div><div class="pr">39 <span>€</span></div><ul><li><span class="c">✓</span>Bases IA + automatisations</li><li><span class="c">✓</span>PDF récap</li><li><span class="c">✓</span>Accès Telegram</li></ul><a href="#diagnostic" class="cta">Demander</a></article>
       <article class="tier"><div class="nm">Initiation</div><div class="lab">3 h replay</div><div class="pr">67 <span>€</span></div><ul><li><span class="c">✓</span>IA générative concrète</li><li><span class="c">✓</span>PDF + templates</li><li><span class="c">✓</span>Q&A asynchrone</li></ul><a href="#diagnostic" class="cta">Demander</a></article>
@@ -515,81 +435,10 @@ body.sober .dot-pulse{animation:none}body.sober .mcursor{display:none}
   </div>
 </section>
 
-<!-- COMPARATIF -->
-<section class="block" id="pourquoi" style="background:var(--graphite)">
-  <div class="plx v3" data-parallax="0.35"></div>
+<section class="block" id="realisations" style="background:var(--graphite)">
   <div class="wrap">
-    <div class="sec-head center"><span class="eyebrow" data-reveal="fade-up">10 · POURQUOI PINAPP</span></div>
-    <div class="comp">
-      <div class="card comp-table" data-reveal="fade-up">
-        <div></div><div class="h">Agence traditionnelle</div><div class="h p">Pinapp</div>
-        <div class="comp-row"><div class="k">Prix</div><div class="a">8 000 à 15 000 €</div><div class="v">990 à 5 990 €</div></div>
-        <div class="comp-row"><div class="k">Délai</div><div class="a">3 à 6 mois</div><div class="v">7 à 28 jours</div></div>
-        <div class="comp-row"><div class="k">Équipe</div><div class="a">5+ intermédiaires</div><div class="v">Duo direct : Lauralie &amp; Michaël</div></div>
-        <div class="comp-row"><div class="k">Devis</div><div class="a">À rallonge</div><div class="v">1 seul devis fixe</div></div>
-        <div class="comp-row"><div class="k">Maintenance</div><div class="a">Hors prix</div><div class="v">Pinapp Care 79 €/mois</div></div>
-        <div class="comp-row"><div class="k">Code</div><div class="a">Propriétaire fermé</div><div class="v">Livré, tu le possèdes</div></div>
-      </div>
-      <div class="center" data-reveal="fade-up">
-        <div class="donut">
-          <svg width="200" height="200" viewBox="0 0 200 200" style="transform:rotate(-90deg)">
-            <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(168,139,224,.15)" stroke-width="12"/>
-            <circle cx="100" cy="100" r="80" fill="none" stroke="url(#dg)" stroke-width="12" stroke-linecap="round" data-donut="0.75"/>
-            <defs><linearGradient id="dg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#8E6AD8"/><stop offset="100%" stop-color="#6D8FEA"/></linearGradient></defs>
-          </svg>
-          <div class="num">75 %</div>
-        </div>
-        <p class="muted" style="margin-top:1rem;font-size:.85rem">moins cher<br><span class="peri">en moyenne</span></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TRAJECTOIRES -->
-<section class="block" style="background:var(--smoked)">
-  <div class="plx v1" data-parallax="0.4"></div>
-  <div class="wrap" style="max-width:1100px">
-    <div class="sec-head"><span class="eyebrow" data-reveal="fade-up">11 · DEUX VOIES</span></div>
-    <svg data-reveal="fade-up" viewBox="0 0 1100 200" style="width:100%;height:auto">
-      <path d="M 50 150 Q 200 145 350 130 Q 500 110 650 95 Q 800 80 1050 70" stroke="rgba(122,116,109,.4)" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
-      <path d="M 50 150 Q 300 100 600 70 Q 850 50 1050 40" stroke="url(#tg)" stroke-width="2" fill="none" data-draw/>
-      <defs><linearGradient id="tg" x1="0%" x2="100%"><stop offset="0%" stop-color="#8E6AD8"/><stop offset="100%" stop-color="#6D8FEA"/></linearGradient></defs>
-    </svg>
-    <div class="traj-legend" data-reveal="stagger">
-      <div><div class="t">Le parcours agence.</div><div class="d">Complexe. Long. Cher.</div></div>
-      <div><div class="t peri">Le parcours Pinapp.</div><div class="d" style="color:var(--periwinkle)">Direct. Court. Net.</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ENGAGEMENTS -->
-<section class="block" id="engagements" style="background:var(--graphite)">
-  <div class="plx v2" data-parallax="0.3"></div>
-  <div class="wrap">
-    <div class="sec-head"><span class="eyebrow" data-reveal="fade-up">12 · NOS 8 ENGAGEMENTS</span>
-      <h2 data-reveal="fade-up">Huit sceaux.<br>Huit engagements signés.</h2></div>
-    <div class="seals" data-reveal="stagger">
-      <div class="seal"><div class="disc">◈</div><div class="lbl">Devis fixe</div></div>
-      <div class="seal"><div class="disc">◈</div><div class="lbl">Délais respectés</div></div>
-      <div class="seal"><div class="disc">◈</div><div class="lbl">Pas de surcoût</div></div>
-      <div class="seal"><div class="disc">◈</div><div class="lbl">Code propre &amp; documenté</div></div>
-      <div class="seal"><div class="disc">◈</div><div class="lbl">SEO inclus</div></div>
-      <div class="seal"><div class="disc">◈</div><div class="lbl">Mobile-first</div></div>
-      <div class="seal"><div class="disc">◈</div><div class="lbl">Maintenance simple</div></div>
-      <div class="seal"><div class="disc">◈</div><div class="lbl">Satisfait ou refait</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- RÉALISATIONS -->
-<section class="block" id="realisations" style="background:var(--smoked)">
-  <div class="wrap">
-    <div class="sec-head"><span class="eyebrow" data-reveal="fade-up">13 · NOS RÉALISATIONS</span>
-      <h2 data-reveal="fade-up" style="margin-bottom:1.4rem">Du code. Des films.</h2>
-      <div class="rfilter" data-reveal="fade-up" id="rfilter">
-        <button class="active" data-f="all">Tous</button><button data-f="code">🖥 Code</button><button data-f="video">🎬 Imagerie</button>
-      </div>
-    </div>
+    <div class="sec-head"><span class="eyebrow" data-reveal="fade-up">NOS RÉALISATIONS</span><h2 data-reveal="fade-up" style="margin-bottom:1.4rem">Du code. Des films.</h2>
+      <div class="rfilter" data-reveal="fade-up" id="rfilter"><button class="active" data-f="all">Tous</button><button data-f="code">🖥 Code</button><button data-f="video">🎬 Imagerie</button></div></div>
     <div class="realis" id="realis" data-reveal="stagger">
       <div class="rcard card" data-type="code"><div class="thumb" style="background:rgba(168,139,224,.15)"></div><div class="meta"><div class="ti">Atelier Rivage</div><div class="su">site architecte · Bordeaux 2026</div></div></div>
       <div class="rcard card" data-type="code"><div class="thumb" style="background:rgba(109,143,234,.15)"></div><div class="meta"><div class="ti">Cabinet Avocat</div><div class="su">site avocat · Bordeaux 2026</div></div></div>
@@ -604,10 +453,9 @@ body.sober .dot-pulse{animation:none}body.sober .mcursor{display:none}
   </div>
 </section>
 
-<!-- TÉMOIGNAGES -->
-<section class="block" style="background:var(--graphite)">
+<section class="block" style="background:var(--smoked)">
   <div class="wrap">
-    <div class="sec-head"><span class="eyebrow" data-reveal="fade-up">14 · ILS NOUS FONT CONFIANCE</span></div>
+    <div class="sec-head"><span class="eyebrow" data-reveal="fade-up">ILS NOUS FONT CONFIANCE</span></div>
     <div class="temos" data-reveal="stagger">
       <div class="temo card"><div class="who"><div class="av"></div><div><div class="nm">Marie L.</div><div class="ro">Cabinet Avocat Bordeaux</div></div></div><p>« Pinapp a livré notre site en 14 jours pile. On avait jamais vu ça ailleurs. »</p></div>
       <div class="temo card"><div class="who"><div class="av"></div><div><div class="nm">Thomas R.</div><div class="ro">Artiste indépendant</div></div></div><p>« Les vidéos cinéma IA pour notre EP ont fait exploser nos streams sur Spotify. »</p></div>
@@ -616,46 +464,34 @@ body.sober .dot-pulse{animation:none}body.sober .mcursor{display:none}
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="block faq" id="faq" style="background:var(--smoked)">
+<section class="block faq" id="faq" style="background:var(--graphite)">
   <div class="wrap-sm">
-    <div class="sec-head"><span class="eyebrow" data-reveal="fade-up">15 · QUESTIONS FRÉQUENTES</span></div>
+    <div class="sec-head"><span class="eyebrow" data-reveal="fade-up">QUESTIONS FRÉQUENTES</span></div>
     <div data-reveal="fade-up">
       <div class="it open"><button class="q">Combien de temps pour livrer mon site ?<span class="s">+</span></button><div class="ans"><div class="in">Entre 7 jours (T0 Express) et 28 jours (T6 Vaisseau). Délai contractuel fixe annoncé au devis.</div></div></div>
       <div class="it"><button class="q">Quel CMS utilisez-vous ?<span class="s">+</span></button><div class="ans"><div class="in">Selon ton besoin : Sanity, Strapi, ou CMS sur-mesure léger. Toujours headless, jamais WordPress.</div></div></div>
       <div class="it"><button class="q">L'hébergement est-il inclus ?<span class="s">+</span></button><div class="ans"><div class="in">Le 1er mois oui. Ensuite Pinapp Care 79 €/mois ou tu reprends sur ton propre Vercel/Netlify.</div></div></div>
       <div class="it"><button class="q">Puis-je modifier le site après livraison ?<span class="s">+</span></button><div class="ans"><div class="in">Oui. CMS éditable dès T1. Sur T0 on te forme 1 h sur le code. Tu possèdes le code.</div></div></div>
-      <div class="it"><button class="q">Le site est-il mobile responsive ?<span class="s">+</span></button><div class="ans"><div class="in">Oui sur toutes les formules. Mobile-first par défaut sur T2 et plus.</div></div></div>
-      <div class="it"><button class="q">Le SEO est-il inclus ?<span class="s">+</span></button><div class="ans"><div class="in">SEO technique sur T1. SEO + Analytics sur T2. SEO avancé (schema, metas, structure) sur T3 et plus.</div></div></div>
-      <div class="it"><button class="q">Que se passe-t-il si je ne suis pas satisfait·e ?<span class="s">+</span></button><div class="ans"><div class="in">Engagement #8 : satisfait ou refait. 2 rounds de révisions gratuits sur toutes les formules T3+.</div></div></div>
-      <div class="it"><button class="q">Le devis est-il sans engagement ?<span class="s">+</span></button><div class="ans"><div class="in">Oui. Le diagnostic 24 h est offert. Pas de carte bancaire demandée. Pas de relance.</div></div></div>
+      <div class="it"><button class="q">Le SEO est-il inclus ?<span class="s">+</span></button><div class="ans"><div class="in">SEO technique sur T1. SEO + Analytics sur T2. SEO avancé sur T3 et plus.</div></div></div>
+      <div class="it"><button class="q">Que se passe-t-il si je ne suis pas satisfait·e ?<span class="s">+</span></button><div class="ans"><div class="in">Engagement #8 : satisfait ou refait. 2 rounds de révisions gratuits sur les formules T3+.</div></div></div>
+      <div class="it"><button class="q">Le devis est-il sans engagement ?<span class="s">+</span></button><div class="ans"><div class="in">Oui. Le diagnostic 24 h est offert. Pas de carte bancaire. Pas de relance.</div></div></div>
       <div class="it"><button class="q">Les films sont-ils inclus dans les formules sites ?<span class="s">+</span></button><div class="ans"><div class="in">Non, c'est séparé. Mais on fait des packs combinés sur demande (-15 % en moyenne).</div></div></div>
-      <div class="it"><button class="q">Pinapp Care est-il utile pour mon cas ?<span class="s">+</span></button><div class="ans"><div class="in">Si tu ne veux pas gérer hébergement, SSL, mises à jour, sauvegardes : oui. Sinon prends juste le code et c'est OK.</div></div></div>
     </div>
   </div>
 </section>
 
-<!-- DIAGNOSTIC FORM -->
-<section class="block" id="diagnostic" style="background:var(--graphite)">
+<section class="block" id="diagnostic" style="background:var(--smoked)">
   <div class="plx v3" data-parallax="0.3"></div>
   <div class="wrap-sm">
-    <div class="sec-head center"><span class="eyebrow" data-reveal="fade-up">16 · DIAGNOSTIC 24 H OFFERT</span>
-      <h2 data-reveal="fade-up" style="font-size:clamp(1.75rem,3.5vw,2.5rem)">Décrivez votre projet.<br>On revient sous 24 h.</h2></div>
+    <div class="sec-head center"><span class="eyebrow" data-reveal="fade-up">DIAGNOSTIC 24 H OFFERT</span><h2 data-reveal="fade-up" style="font-size:clamp(1.75rem,3.5vw,2.5rem)">Décrivez votre projet.<br>On revient sous 24 h.</h2></div>
     <form class="dform" data-reveal="fade-up" id="dform">
       <div class="row2"><input name="prenom" placeholder="Prénom *" required><input name="nom" placeholder="Nom *" required></div>
-      <div class="row2"><input name="email" type="email" placeholder="Email *" required><input name="tel" type="tel" placeholder="Téléphone *"></div>
+      <div class="row2"><input name="email" type="email" placeholder="Email *" required><input name="tel" type="tel" placeholder="Téléphone"></div>
       <input name="entreprise" placeholder="Entreprise">
-      <select name="budget" defaultValue=""><option value="" disabled selected>Quel budget ?</option><option>T0 — 990 €</option><option>T1 — 1 490 €</option><option>T2 — 1 890 €</option><option>T3 — 2 290 €</option><option>T4 — 2 490 €</option><option>T5 — 3 890 €</option><option>T6 — 5 990 €</option><option>Film / Captation</option><option>Je ne sais pas encore</option></select>
+      <select name="budget"><option value="" disabled selected>Quel budget ?</option><option>T0 — 990 €</option><option>T1 — 1 490 €</option><option>T2 — 1 890 €</option><option>T3 — 2 290 €</option><option>T4 — 2 490 €</option><option>T5 — 3 890 €</option><option>T6 — 5 990 €</option><option>Film / Captation</option><option>Je ne sais pas encore</option></select>
       <select name="delai"><option value="" disabled selected>Quel délai ?</option><option>Urgent (&lt; 7 jours)</option><option>Standard (2-4 semaines)</option><option>Pas pressé</option></select>
       <textarea name="message" rows="5" placeholder="Description de votre besoin *" required></textarea>
-      <div style="font-size:.8rem;opacity:.7">J'ai aussi besoin de :
-        <div class="chks">
-          <label class="chk"><input type="checkbox" name="besoin" value="Logo"> Logo</label>
-          <label class="chk"><input type="checkbox" name="besoin" value="Films"> Films</label>
-          <label class="chk"><input type="checkbox" name="besoin" value="Automatisations"> Automatisations IA</label>
-          <label class="chk"><input type="checkbox" name="besoin" value="Formation"> Formation</label>
-        </div>
-      </div>
+      <div style="font-size:.8rem;opacity:.7">J'ai aussi besoin de :<div class="chks"><label class="chk"><input type="checkbox" name="besoin" value="Logo"> Logo</label><label class="chk"><input type="checkbox" name="besoin" value="Films"> Films</label><label class="chk"><input type="checkbox" name="besoin" value="Automatisations"> Automatisations IA</label><label class="chk"><input type="checkbox" name="besoin" value="Formation"> Formation</label></div></div>
       <label class="chk"><input type="checkbox" required> J'accepte la politique RGPD *</label>
       <button type="submit">Recevoir mon diagnostic →</button>
       <p class="muted" id="dformNote" style="font-size:.78rem;text-align:center"></p>
@@ -663,10 +499,9 @@ body.sober .dot-pulse{animation:none}body.sober .mcursor{display:none}
   </div>
 </section>
 
-<!-- CONTACT RAPIDE -->
-<section class="block" id="contact" style="background:var(--smoked)">
+<section class="block" id="contact" style="background:var(--graphite)">
   <div class="wrap-sm">
-    <div class="sec-head center"><span class="eyebrow" data-reveal="fade-up">17 · CONTACT RAPIDE</span></div>
+    <div class="sec-head center"><span class="eyebrow" data-reveal="fade-up">CONTACT RAPIDE</span></div>
     <div class="card contact-card" data-reveal="fade-up">
       <a class="crow" href="https://wa.me/33786173715" rel="noopener noreferrer" target="_blank"><span class="ic">💬</span><span><span class="lab">WhatsApp</span><br><span class="val">07 86 17 37 15</span></span></a>
       <div class="line-peri"></div>
@@ -678,45 +513,26 @@ body.sober .dot-pulse{animation:none}body.sober .mcursor{display:none}
   </div>
 </section>
 
-<!-- ATTERRISSAGE -->
-<section class="block land grain">
-  <div class="wrap-sm">
-    <h2 data-reveal="fade-up">Prêt·e à embarquer ?</h2>
-    <p class="muted" data-reveal="fade-up">Diagnostic 24 h offert. Sans engagement.</p>
-    <div data-reveal="fade-up" style="margin-top:2rem"><a href="#diagnostic" class="btn" data-magnetic>Diagnostic 24 h offert <span class="a">→</span></a></div>
-  </div>
-</section>
-
 </main>
 
-<!-- FOOTER -->
 <footer class="ft">
   <div class="wrap">
     <div class="cols">
-      <div>
-        <img class="logo" src="avalon/logo-pinapp.png" alt="Pinapp">
-        <div class="addr">Pinapp Inc.<br>49 av. Edmond Rostand<br>33700 Mérignac<br>SIRET 523 884 898 00017</div>
-      </div>
-      <div><div class="ttl">Nav rapide</div><div class="lst">
-        <a href="#offres">Sites web</a><a href="#captation">Captation & Films</a><a href="#formations">Formations</a><a href="#realisations">Réalisations</a><a href="#diagnostic">Diagnostic</a>
-      </div></div>
-      <div><div class="ttl">Mentions légales</div><div class="lst">
-        <a href="../mentions-legales/">Mentions légales</a><a href="../cgv/">CGV</a><a href="../confidentialite/">Confidentialité RGPD</a>
-      </div></div>
+      <div><img class="logo" src="avalon/logo-pinapp.png" alt="Pinapp"><div class="addr">Pinapp Inc.<br>49 av. Edmond Rostand<br>33700 Mérignac<br>SIRET 523 884 898 00017</div></div>
+      <div><div class="ttl">Nav rapide</div><div class="lst"><a href="#offres">Sites web</a><a href="#captation">Captation & Films</a><a href="#formations">Formations</a><a href="#realisations">Réalisations</a><a href="#diagnostic">Diagnostic</a></div></div>
+      <div><div class="ttl">Mentions légales</div><div class="lst"><a href="../mentions-legales/">Mentions légales</a><a href="../cgv/">CGV</a><a href="../confidentialite/">Confidentialité RGPD</a></div></div>
     </div>
     <div class="copy">© 2026 Pinapp Inc. · Lauralie Daguzay &amp; Michaël Bouilhac · Tous droits réservés.</div>
   </div>
 </footer>
 
-<!-- CHATBOT -->
 <button class="chatbtn" id="chatbtn" aria-label="Questions fréquentes">💬</button>
 <div class="chatpanel" id="chatpanel">
-  <h4>Une question rapide ?</h4>
-  <div class="hint">Réponses instantanées · ou WhatsApp 07 86 17 37 15</div>
-  <div class="qa"><button>Combien ça coûte ?<span>+</span></button><div class="ans">Sites de 990 € (T0) à 5 990 € (T6). Films dès 990 €. Devis fixe, sans surprise.</div></div>
-  <div class="qa"><button>En combien de temps ?<span>+</span></button><div class="ans">7 à 28 jours selon la formule. Délai contractuel annoncé au devis.</div></div>
-  <div class="qa"><button>C'est qui Pinapp ?<span>+</span></button><div class="ans">Un duo bordelais : Lauralie (web/IA) & Michaël (image/vidéo). Zéro sous-traitance.</div></div>
-  <div class="qa"><button>Comment démarrer ?<span>+</span></button><div class="ans">Diagnostic 24 h offert : remplissez le formulaire ou écrivez sur WhatsApp. Sans engagement.</div></div>
+  <h4>Une question rapide ?</h4><div class="hint">Réponses instantanées · ou WhatsApp 07 86 17 37 15</div>
+  <div class="qa"><button>Combien ça coûte ?<span>+</span></button><div class="ans">Sites de 990 € (T0) à 5 990 € (T6). Films dès 990 €. Devis fixe.</div></div>
+  <div class="qa"><button>En combien de temps ?<span>+</span></button><div class="ans">7 à 28 jours selon la formule. Délai contractuel au devis.</div></div>
+  <div class="qa"><button>C'est qui Pinapp ?<span>+</span></button><div class="ans">Un duo bordelais : Lauralie (web/IA) & Michaël (image/vidéo).</div></div>
+  <div class="qa"><button>Comment démarrer ?<span>+</span></button><div class="ans">Diagnostic 24 h offert : formulaire ou WhatsApp. Sans engagement.</div></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
@@ -725,182 +541,138 @@ body.sober .dot-pulse{animation:none}body.sober .mcursor{display:none}
 <script>
 (function(){
   "use strict";
-  var SMALL=matchMedia('(max-width: 1040px)').matches;
-  var COARSE=matchMedia('(pointer:coarse)').matches;
+  var SMALL=matchMedia('(max-width: 1040px)').matches, COARSE=matchMedia('(pointer:coarse)').matches;
   var sober=localStorage.getItem('pinapp-sober')==='1';
   var hasGSAP=window.gsap&&window.ScrollTrigger;
   if(hasGSAP)gsap.registerPlugin(ScrollTrigger);
-  var IMMERSIVE=hasGSAP&&!sober; // voyage par défaut ; Mode sobre = opt-out
+  var IMMERSIVE=hasGSAP&&!sober;
 
-  /* mode sobre */
   var sb=document.getElementById('soberToggle');
   function applySober(){document.body.classList.toggle('sober',sober);sb.setAttribute('aria-pressed',String(sober));sb.querySelector('.lbl').textContent=sober?'Mode immersif':'Mode sobre';}
   applySober();
   sb.addEventListener('click',function(){sober=!sober;localStorage.setItem('pinapp-sober',sober?'1':'0');location.reload();});
 
-  /* burger */
   var mmenu=document.getElementById('mmenu');
   document.getElementById('burger').addEventListener('click',function(){mmenu.classList.add('open');document.body.classList.add('no-scroll');});
   document.getElementById('mclose').addEventListener('click',function(){mmenu.classList.remove('open');document.body.classList.remove('no-scroll');});
   mmenu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){mmenu.classList.remove('open');document.body.classList.remove('no-scroll');});});
 
-  /* Lenis */
   var lenis=null;
   if(IMMERSIVE&&window.Lenis){
     lenis=new Lenis({duration:1.4,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t));},smoothWheel:true});
-    lenis.on('scroll',ScrollTrigger.update);
-    gsap.ticker.add(function(t){lenis.raf(t*1000);});
-    gsap.ticker.lagSmoothing(0);
+    lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000);});gsap.ticker.lagSmoothing(0);
   }
 
-  /* nav scrolled + hide */
-  var nav=document.getElementById('nav'),lastY=0;
-  function navScroll(y){nav.classList.toggle('scrolled',y>50);if(y>lastY&&y>320)nav.classList.add('hide');else nav.classList.remove('hide');lastY=y;}
-  if(lenis)lenis.on('scroll',function(e){navScroll(e.scroll);});else addEventListener('scroll',function(){navScroll(scrollY);},{passive:true});
+  var nav=document.getElementById('nav'),prog=document.getElementById('filmProgress'),lastY=0;
+  function onScroll(y){nav.classList.toggle('scrolled',y>50);if(y>lastY&&y>320)nav.classList.add('hide');else nav.classList.remove('hide');lastY=y;
+    var h=document.documentElement.scrollHeight-innerHeight;prog.style.width=(h>0?(y/h*100):0)+'%';}
+  if(lenis)lenis.on('scroll',function(e){onScroll(e.scroll);});else addEventListener('scroll',function(){onScroll(scrollY);},{passive:true});
 
-  /* reveals + color-in */
-  function observe(sel,cls){
-    if(IMMERSIVE){gsap.utils.toArray(sel).forEach(function(el){
-      Array.prototype.forEach.call(el.children,function(c,i){c.style.setProperty('--i',i);});
-      ScrollTrigger.create({trigger:el,start:'top 85%',onEnter:function(){el.classList.add(cls);}});});}
-    else{document.querySelectorAll(sel).forEach(function(el){el.classList.add(cls);});}
-  }
-  observe('[data-reveal]','is-in');
-  observe('.colorin','is-in');
-
-  /* hero word-split */
-  (function(){
-    var h1=document.querySelector('[data-hero-h1]');if(!h1)return;
-    if(!IMMERSIVE){h1.style.opacity=1;return;}
-    var html=h1.innerHTML;
-    h1.innerHTML=html.replace(/(<[^>]+>)|([^<\s]+)/g,function(m,tag,word){return tag?tag:'<span class="word">'+word+'</span>';});
-    gsap.from(h1.querySelectorAll('.word'),{opacity:0,y:40,duration:1.1,stagger:.06,ease:'power3.out',delay:.2});
-    gsap.from('.hero .e1, .hero .e2, .hero .sub, .hero .cta',{opacity:0,y:24,duration:1,stagger:.12,ease:'power3.out',delay:.5});
-    gsap.from('.dot-pulse',{scale:0,opacity:0,duration:1.4,delay:.6,ease:'elastic.out(1,.6)'});
-  })();
+  function observe(sel){if(IMMERSIVE){gsap.utils.toArray(sel).forEach(function(el){Array.prototype.forEach.call(el.children,function(c,i){c.style.setProperty('--i',i);});ScrollTrigger.create({trigger:el,start:'top 85%',onEnter:function(){el.classList.add('is-in');}});});}else{document.querySelectorAll(sel).forEach(function(el){el.classList.add('is-in');});}}
+  observe('[data-reveal]');
 
   /* parallax */
-  if(IMMERSIVE&&!SMALL){
-    gsap.utils.toArray('[data-parallax]').forEach(function(el){
-      var sp=parseFloat(el.getAttribute('data-parallax')||'0.5');
-      gsap.to(el,{yPercent:-20*sp,ease:'none',scrollTrigger:{trigger:el,start:'top bottom',end:'bottom top',scrub:.8}});
-    });
-  }
+  if(IMMERSIVE&&!SMALL){gsap.utils.toArray('[data-parallax]').forEach(function(el){var sp=parseFloat(el.getAttribute('data-parallax')||'.5');gsap.to(el,{yPercent:-20*sp,ease:'none',scrollTrigger:{trigger:el,start:'top bottom',end:'bottom top',scrub:.8}});});}
 
-  /* AVALON */
+  /* ===================== FILM ENGINE ===================== */
   (function(){
-    var wrap=document.querySelector('[data-scene-wrap]'),canvas=document.querySelector('[data-scene-canvas]'),dot=document.querySelector('[data-scene-dot]');
-    if(!wrap||!canvas)return;
-    var scenes=[].slice.call(canvas.querySelectorAll('[data-scene]')),texts=[].slice.call(canvas.querySelectorAll('[data-scene-text]'));
-    var DOT=[[78,42],[50,38],[50,30],[50,50],[40,45],[60,35],[48,60],[50,28],[30,40]];
-    var PIN=[false,true,false,true,false,false,true,false,false],CF=1,HOLD=110;
+    var film=document.querySelector('[data-film]'),canvas=document.querySelector('[data-canvas]'),dot=document.querySelector('[data-dot]'),hint=document.getElementById('scrollHint');
+    if(!film||!canvas)return;
+    var scenes=[].slice.call(canvas.querySelectorAll('.scene'));
+    var medias=scenes.map(function(s){return s.querySelector('.media>img,.media>video');});
+    var contents=scenes.map(function(s){return [].slice.call(s.querySelector('.scene-content').children);});
+    var dirs=scenes.map(function(s){return s.getAttribute('data-dir');});
+    var types=scenes.map(function(s){return s.getAttribute('data-type');});
+    var DOT=[[78,42],[50,38],[50,30],[50,52],[40,45],[60,35],[48,60],[50,28],[30,40]];
+    var PIN=[false,true,false,true,false,false,true,false,false];
+
+    /* fallback sobre / reduced : empilé, lisible, posters */
     if(!IMMERSIVE){
-      canvas.classList.add('flow');if(dot)dot.style.display='none';
-      scenes.forEach(function(el,i){el.style.position='relative';el.style.opacity='1';el.style.minHeight='100vh';el.style.display='flex';el.style.alignItems='flex-end';el.style.justifyContent='center';
-        var v=el.querySelector('video');if(v){var img=document.createElement('img');img.src=v.getAttribute('poster');img.alt='';img.style.cssText='width:100%;height:100%;object-fit:cover;position:absolute;inset:0';el.insertBefore(img,v);v.remove();}
-        var t=texts[i];if(t){t.style.position='relative';t.style.opacity='1';t.style.left='auto';t.style.bottom='auto';t.style.transform='none';t.style.margin='0 auto 12vh';el.appendChild(t);}});
+      canvas.classList.add('flow');if(dot)dot.style.display='none';if(hint)hint.style.display='none';
+      scenes.forEach(function(s){s.style.position='relative';s.style.opacity='1';s.style.minHeight='100svh';
+        var v=s.querySelector('video');if(v){var img=document.createElement('img');img.src=v.getAttribute('poster');img.alt='';img.style.cssText='width:100%;height:100%;object-fit:cover';v.parentNode.replaceChild(img,v);}});
       return;
     }
-    wrap.style.height=(scenes.length*100+HOLD)+'vh';
-    scenes.forEach(function(el,i){gsap.set(el,{opacity:i===0?1:0,scale:i===0?1:1.08});});
-    texts.forEach(function(el,i){gsap.set(el,{opacity:i===0?1:0,y:i===0?0:24});});
-    var vids=scenes.map(function(el){return{el:el,v:el.querySelector('video')};}).filter(function(s){return s.v;});
-    function syncV(){vids.forEach(function(s){var vis=parseFloat(getComputedStyle(s.el).opacity)>.1;if(vis&&s.v.paused)s.v.play().catch(function(){});else if(!vis&&!s.v.paused)s.v.pause();});}
-    var tl=gsap.timeline({scrollTrigger:{trigger:wrap,start:'top top',end:'bottom bottom',scrub:1,onUpdate:syncV}});
-    scenes.forEach(function(_,i){if(i===0)return;var L='s'+i;tl.addLabel(L);
-      tl.to(scenes[i-1],{opacity:0,scale:1.12,duration:CF},L);
-      tl.to(texts[i-1],{opacity:0,y:-20,duration:CF*.5},L);
-      tl.fromTo(scenes[i],{opacity:0,scale:1.08},{opacity:1,scale:1,duration:CF},L);
-      tl.fromTo(texts[i],{opacity:0,y:24},{opacity:1,y:0,duration:CF*.6},L+'+='+(CF*.4));
+
+    var CF=1, HOLD=1.7; // durées timeline par plan
+    film.style.height=(scenes.length*125+90)+'vh';
+
+    // états initiaux
+    scenes.forEach(function(s,i){gsap.set(s,{opacity:i===0?1:0,scale:i===0?1:1.06});});
+    medias.forEach(function(m,i){if(m)gsap.set(m,{scale:1.06,rotate:0,yPercent:0});});
+    contents.forEach(function(ch,i){ if(i===0){gsap.set(ch,{opacity:1,y:0,scale:1,filter:'blur(0px)'});} else {var dir=dirs[i];gsap.set(ch,{opacity:0,scale:dir==='in'?.72:1.26,y:dir==='in'?60:-44,filter:'blur(12px)'});} });
+
+    function vis(s){return parseFloat(getComputedStyle(s).opacity)>.12;}
+    var vids=scenes.map(function(s){return s.querySelector('video');});
+    function syncV(){vids.forEach(function(v,i){if(!v)return;if(vis(scenes[i])){if(v.paused)v.play().catch(function(){});}else if(!v.paused)v.pause();});}
+
+    var tl=gsap.timeline({scrollTrigger:{trigger:film,start:'top top',end:'bottom bottom',scrub:1,onUpdate:syncV}});
+
+    // Ken Burns plan 0 (au tout début)
+    tl.fromTo(medias[0],{scale:1.06,rotate:0,yPercent:0},{scale:1.22,rotate:1.4,yPercent:-4,ease:'none',duration:CF+HOLD},0);
+    tl.to({},{duration:HOLD},0); // temps de lecture plan 0
+
+    scenes.forEach(function(_,i){
+      if(i===0)return;
+      var L='p'+i, prevDir=dirs[i-1], dir=dirs[i];
+      tl.addLabel(L);
+      // sortie contenu précédent (vers la caméra si "in", s'éloigne si "out")
+      tl.to(contents[i-1],{opacity:0,scale:prevDir==='in'?1.45:.78,y:prevDir==='in'?-70:46,filter:'blur(8px)',stagger:.04,duration:CF*.7,ease:'power2.in'},L);
+      // crossfade visuels
+      tl.to(scenes[i-1],{opacity:0,scale:1.12,duration:CF,ease:'power1.inOut'},L);
+      tl.fromTo(scenes[i],{opacity:0,scale:1.06},{opacity:1,scale:1,duration:CF,ease:'power1.inOut'},L);
+      // Ken Burns du plan courant sur tout son segment (zoom + rotation + pan)
+      var kbRot=(i%2===0)?1.5:-1.5, strong=(types[i]==='img');
+      tl.fromTo(medias[i],{scale:1.06,rotate:0,yPercent:0},{scale:strong?1.26:1.14,rotate:kbRot,yPercent:strong?-5:-2,ease:'none',duration:CF+HOLD},L);
+      // entrée contenu (depuis la profondeur)
+      tl.fromTo(contents[i],{opacity:0,scale:dir==='in'?.72:1.26,y:dir==='in'?60:-44,filter:'blur(12px)'},{opacity:1,scale:1,y:0,filter:'blur(0px)',stagger:.07,duration:CF,ease:'power3.out'},L+'+='+(CF*.45));
+      // point fil rouge
       tl.to(dot,{left:DOT[i][0]+'%',top:DOT[i][1]+'%',duration:CF,ease:'power2.inOut'},L);
-      if(PIN[i])tl.to({},{duration:.6});});
-    tl.to({},{duration:CF*1.6});
-    dot.style.left=DOT[0][0]+'%';dot.style.top=DOT[0][1]+'%';syncV();
+      if(PIN[i])tl.to({},{duration:.5});
+      tl.to({},{duration:HOLD}); // temps de lecture
+    });
+    tl.to({},{duration:CF*1.4});
+
+    dot.style.left=DOT[0][0]+'%';dot.style.top=DOT[0][1]+'%';
+    if(hint){gsap.to(hint,{opacity:0,duration:.3,scrollTrigger:{trigger:film,start:'top top-=40',toggleActions:'play none none reverse'}});}
+    syncV();
   })();
 
   /* offres horizontal */
-  (function(){
-    var sec=document.getElementById('offres');if(!sec)return;
-    var track=sec.querySelector('.offres-track');if(!IMMERSIVE||SMALL)return;
-    sec.classList.add('is-h');var vp=sec.querySelector('.offres-vp');
-    var getX=function(){return track.scrollWidth-window.innerWidth;};
-    gsap.to(track,{x:function(){return -getX();},ease:'none',scrollTrigger:{trigger:sec,start:'top top',pin:vp,scrub:1,invalidateOnRefresh:true,end:function(){return '+='+getX();}}});
-  })();
+  (function(){var sec=document.getElementById('offres');if(!sec)return;var track=sec.querySelector('.offres-track');if(!IMMERSIVE||SMALL)return;
+    sec.classList.add('is-h');var vp=sec.querySelector('.offres-vp');var getX=function(){return track.scrollWidth-window.innerWidth;};
+    gsap.to(track,{x:function(){return -getX();},ease:'none',scrollTrigger:{trigger:sec,start:'top top',pin:vp,scrub:1,invalidateOnRefresh:true,end:function(){return '+='+getX();}}});})();
 
   /* captation tabs + color shift */
-  (function(){
-    var tabs=[].slice.call(document.querySelectorAll('#catTabs button')),groups=[].slice.call(document.querySelectorAll('.cat-group')),sub=document.getElementById('catSub'),sec=document.querySelector('.captation');
+  (function(){var tabs=[].slice.call(document.querySelectorAll('#catTabs button')),groups=[].slice.call(document.querySelectorAll('.cat-group')),sub=document.getElementById('catSub'),sec=document.querySelector('.captation');
     var SUB={corporate:'Reportage · Pub · Séminaire',clip:'Single · EP · Vidéo musicale',anniversaire:'Mariage · Anniversaire · Privé','cinema-ia':'100 % IA · pas de tournage'};
     var COL={corporate:['#0e0b18','#241a3a'],clip:['#0c1020','#1c2c52'],anniversaire:['#160e1c','#3a2236'],'cinema-ia':['#100b1c','#332252']};
-    tabs.forEach(function(b){b.addEventListener('click',function(){
-      var cat=b.getAttribute('data-cat');
-      tabs.forEach(function(x){x.classList.toggle('active',x===b);});
-      groups.forEach(function(g){g.classList.toggle('active',g.getAttribute('data-cat')===cat);});
-      sub.textContent=SUB[cat]||'';
-      var c=COL[cat];if(c){if(window.gsap)gsap.to(sec,{'--c1':c[0],'--c2':c[1],duration:.6});else{sec.style.setProperty('--c1',c[0]);sec.style.setProperty('--c2',c[1]);}}
-      if(hasGSAP)ScrollTrigger.refresh();
-    });});
-    if(sec){sec.style.setProperty('--c1',COL.corporate[0]);sec.style.setProperty('--c2',COL.corporate[1]);}
-  })();
-
-  /* SVG draw + donut */
-  if(IMMERSIVE){
-    document.querySelectorAll('path[data-draw]').forEach(function(p){
-      var len=p.getTotalLength();p.style.strokeDasharray=len;p.style.strokeDashoffset=len;
-      gsap.to(p,{strokeDashoffset:0,ease:'none',scrollTrigger:{trigger:p,start:'top 85%',end:'top 30%',scrub:.6}});
-    });
-    document.querySelectorAll('circle[data-donut]').forEach(function(c){
-      var t=parseFloat(c.getAttribute('data-donut')||'.75'),r=parseFloat(c.getAttribute('r')||'80'),circ=2*Math.PI*r;
-      c.style.strokeDasharray='0 '+circ;
-      gsap.to(c,{strokeDasharray:(t*circ)+' '+circ,duration:1.4,ease:'power2.out',scrollTrigger:{trigger:c,start:'top 80%'}});
-    });
-  }
+    tabs.forEach(function(b){b.addEventListener('click',function(){var cat=b.getAttribute('data-cat');tabs.forEach(function(x){x.classList.toggle('active',x===b);});groups.forEach(function(g){g.classList.toggle('active',g.getAttribute('data-cat')===cat);});sub.textContent=SUB[cat]||'';var c=COL[cat];if(c){if(window.gsap)gsap.to(sec,{'--c1':c[0],'--c2':c[1],duration:.6});else{sec.style.setProperty('--c1',c[0]);sec.style.setProperty('--c2',c[1]);}}if(hasGSAP)ScrollTrigger.refresh();});});
+    if(sec){sec.style.setProperty('--c1',COL.corporate[0]);sec.style.setProperty('--c2',COL.corporate[1]);}})();
 
   /* réalisations filter */
-  (function(){
-    var btns=[].slice.call(document.querySelectorAll('#rfilter button')),cards=[].slice.call(document.querySelectorAll('#realis .rcard'));
-    btns.forEach(function(b){b.addEventListener('click',function(){
-      var f=b.getAttribute('data-f');btns.forEach(function(x){x.classList.toggle('active',x===b);});
-      cards.forEach(function(c){c.classList.toggle('hide',!(f==='all'||c.getAttribute('data-type')===f));});
-      if(hasGSAP)ScrollTrigger.refresh();});});
-  })();
+  (function(){var btns=[].slice.call(document.querySelectorAll('#rfilter button')),cards=[].slice.call(document.querySelectorAll('#realis .rcard'));
+    btns.forEach(function(b){b.addEventListener('click',function(){var f=b.getAttribute('data-f');btns.forEach(function(x){x.classList.toggle('active',x===b);});cards.forEach(function(c){c.classList.toggle('hide',!(f==='all'||c.getAttribute('data-type')===f));});if(hasGSAP)ScrollTrigger.refresh();});});})();
 
   /* FAQ */
-  document.querySelectorAll('.faq .it').forEach(function(it){
-    var q=it.querySelector('.q'),a=it.querySelector('.ans');
-    if(it.classList.contains('open'))a.style.maxHeight=a.scrollHeight+'px';
-    q.addEventListener('click',function(){var open=it.classList.contains('open');
-      document.querySelectorAll('.faq .it').forEach(function(o){o.classList.remove('open');o.querySelector('.ans').style.maxHeight='0px';});
-      if(!open){it.classList.add('open');a.style.maxHeight=a.scrollHeight+'px';}});
-  });
+  document.querySelectorAll('.faq .it').forEach(function(it){var q=it.querySelector('.q'),a=it.querySelector('.ans');if(it.classList.contains('open'))a.style.maxHeight=a.scrollHeight+'px';
+    q.addEventListener('click',function(){var open=it.classList.contains('open');document.querySelectorAll('.faq .it').forEach(function(o){o.classList.remove('open');o.querySelector('.ans').style.maxHeight='0px';});if(!open){it.classList.add('open');a.style.maxHeight=a.scrollHeight+'px';}});});
 
   /* chatbot */
-  (function(){
-    var btn=document.getElementById('chatbtn'),panel=document.getElementById('chatpanel');
-    btn.addEventListener('click',function(){panel.classList.toggle('open');btn.textContent=panel.classList.contains('open')?'✕':'💬';});
-    panel.querySelectorAll('.qa button').forEach(function(b){b.addEventListener('click',function(){b.parentElement.classList.toggle('open');});});
-  })();
+  (function(){var btn=document.getElementById('chatbtn'),panel=document.getElementById('chatpanel');btn.addEventListener('click',function(){panel.classList.toggle('open');btn.textContent=panel.classList.contains('open')?'✕':'💬';});panel.querySelectorAll('.qa button').forEach(function(b){b.addEventListener('click',function(){b.parentElement.classList.toggle('open');});});})();
 
-  /* form -> mailto fallback (production-ready sans backend) */
-  (function(){
-    var f=document.getElementById('dform'),note=document.getElementById('dformNote');if(!f)return;
-    f.addEventListener('submit',function(e){
-      e.preventDefault();var d=new FormData(f);
-      var besoins=d.getAll('besoin').join(', ');
-      var body=['Prénom: '+(d.get('prenom')||''),'Nom: '+(d.get('nom')||''),'Email: '+(d.get('email')||''),'Téléphone: '+(d.get('tel')||''),'Entreprise: '+(d.get('entreprise')||''),'Budget: '+(d.get('budget')||''),'Délai: '+(d.get('delai')||''),'Besoins: '+besoins,'','Message:',(d.get('message')||'')].join('%0D%0A');
+  /* form -> mailto */
+  (function(){var f=document.getElementById('dform'),note=document.getElementById('dformNote');if(!f)return;
+    f.addEventListener('submit',function(e){e.preventDefault();var d=new FormData(f);var bes=d.getAll('besoin').join(', ');
+      var body=['Prénom: '+(d.get('prenom')||''),'Nom: '+(d.get('nom')||''),'Email: '+(d.get('email')||''),'Téléphone: '+(d.get('tel')||''),'Entreprise: '+(d.get('entreprise')||''),'Budget: '+(d.get('budget')||''),'Délai: '+(d.get('delai')||''),'Besoins: '+bes,'','Message:',(d.get('message')||'')].join('%0D%0A');
       window.location.href='mailto:contact@pinapp.fr?subject='+encodeURIComponent('Diagnostic Pinapp — '+(d.get('prenom')||'')+' '+(d.get('nom')||''))+'&body='+body;
-      note.textContent='Votre logiciel mail s\'ouvre… Sinon écrivez-nous directement à contact@pinapp.fr ou sur WhatsApp.';
-    });
-  })();
+      note.textContent='Votre logiciel mail s\'ouvre… Sinon : contact@pinapp.fr ou WhatsApp 07 86 17 37 15.';});})();
 
   /* magnetic cursor */
-  (function(){
-    if(SMALL||COARSE)return;var c=document.getElementById('mcursor');if(!c)return;
-    var x=innerWidth/2,y=innerHeight/2,cx=x,cy=y;
+  (function(){if(SMALL||COARSE)return;var c=document.getElementById('mcursor');if(!c)return;var x=innerWidth/2,y=innerHeight/2,cx=x,cy=y;
     addEventListener('mousemove',function(e){x=e.clientX;y=e.clientY;},{passive:true});
     document.querySelectorAll('a,button,[data-magnetic]').forEach(function(el){el.addEventListener('mouseenter',function(){c.classList.add('big');});el.addEventListener('mouseleave',function(){c.classList.remove('big');});});
-    (function loop(){cx+=(x-cx)*.18;cy+=(y-cy)*.18;c.style.transform='translate('+cx+'px,'+cy+'px) translate(-50%,-50%)';requestAnimationFrame(loop);})();
-  })();
+    (function loop(){cx+=(x-cx)*.18;cy+=(y-cy)*.18;c.style.transform='translate('+cx+'px,'+cy+'px) translate(-50%,-50%)';requestAnimationFrame(loop);})();})();
 
   addEventListener('load',function(){if(hasGSAP)ScrollTrigger.refresh();});
 })();
