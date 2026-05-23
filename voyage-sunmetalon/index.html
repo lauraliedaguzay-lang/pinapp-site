@@ -3,527 +3,536 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Le digital qui travaille pendant que vous vivez — Pinapp</title>
-<meta name="description" content="Pinapp reconstruit le digital des indépendants et TPE : sites, automatisations, IA sur-mesure et direction artistique. Vos outils travaillent. Vous décidez.">
+<title>Vos outils travaillent. Vous gagnez du temps. — Pinapp</title>
+<meta name="description" content="Studio digital bordelais : sites web, automatisations IA et films cinéma. Un seul devis, 50 à 75 % moins cher qu'une agence. Voyage AVALON.">
 <meta name="robots" content="noindex,nofollow">
-<meta property="og:title" content="Le digital qui travaille pendant que vous vivez — Pinapp">
-<meta property="og:description" content="Sites, automatisations, IA sur-mesure et image. Un interlocuteur. Deux expertises.">
+<meta property="og:title" content="Vos outils travaillent. Vous gagnez du temps. — Pinapp">
+<meta property="og:description" content="Sites web, automatisations IA, films cinéma — par un duo bordelais. Un seul devis.">
 <meta property="og:type" content="website">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <!-- ============================================================
-     PINAPP · voyage cinématique adapté de la structure Sun Metalon
-     Stack : HTML/CSS/JS vanilla + GSAP + ScrollTrigger + Lenis
-     Charte pinapp : nuit #050b14 · or #e6b973 · cyan #3ef5e0 · ivoire
-     Garde-fous CLAUDE.md : prefers-reduced-motion + Mode sobre
+     PINAPP v2 — voyage AVALON + structure/effets type Sun Metalon
+     DA v2 stricte : graphite #111214 + ivory + violet/periwinkle.
+     ZÉRO doré saturé · ZÉRO néon. Typo Geist (sans, pas d'italique).
+     Stack : HTML/CSS/JS vanilla + GSAP + ScrollTrigger + Lenis.
+     Garde-fous : prefers-reduced-motion + bouton Mode sobre.
+     Assets AVALON réels (storyboard-frames + videos Higgsfield).
      ============================================================ -->
 <style>
 :root{
-  --or:#e6b973;--or-light:#f7d99d;--or-glow:rgba(230,185,115,.18);
-  --ivoire:#f4ece0;--ivoire-dim:#c9bfae;--ivoire-mute:rgba(244,228,193,.62);
-  --cyan:#3ef5e0;--cyan-glow:rgba(62,245,224,.16);
-  --violet:#9d7bff;--violet-glow:rgba(157,123,255,.18);
-  --nuit:#050b14;--nuit-soft:#0a121f;--nuit-card:#0c1622;
-  --line:rgba(230,185,115,.16);--line-soft:rgba(244,228,193,.10);
-  --ff-sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
-  --ff-display:Georgia,"Times New Roman",serif;
-  --ease:cubic-bezier(.22,1,.36,1);--ease-cinema:cubic-bezier(.7,0,.3,1);
-  --header-h:60px;
+  /* BASE — 95% */
+  --graphite:#111214; --smoked:#1A1A1D; --smoked-2:#16171a;
+  --ivory:#F4F1EA; --smoked-gray:#7A746D; --champagne:#B8ADA1; --tungsten:#D8C1A7;
+  /* ACCENTS ATMOSPHÉRIQUES — ≤5% */
+  --violet:#8E6AD8; --periwinkle:#6D8FEA; --lavender:#A88BE0; --cold-blue:#7FAEE8; --copper:#C8965A;
+  /* lignes */
+  --border:rgba(168,139,224,.12); --border-soft:rgba(168,139,224,.08);
+  /* easings */
+  --ease-apple:cubic-bezier(.32,.72,0,1);
+  --ease-out-expo:cubic-bezier(.16,1,.3,1);
+  --ease-in-out:cubic-bezier(.65,0,.35,1);
+  --ff:"Geist",-apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif;
+  --header-h:64px;
 }
-*,*::before,*::after{box-sizing:border-box}
-html{background:var(--nuit);-webkit-text-size-adjust:100%;scroll-behavior:auto}
-body{margin:0;background:var(--nuit);color:var(--ivoire);font-family:var(--ff-sans);
-  font-size:17px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-body.modal-open,body.no-scroll{overflow:hidden}
-img{display:block;max-width:100%}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;background:var(--graphite)}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+body{font-family:var(--ff);background:var(--graphite);color:var(--ivory);font-size:16px;line-height:1.6;overflow-x:hidden}
+body.no-scroll{overflow:hidden}
+img,video{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
-::selection{background:var(--or);color:var(--nuit)}
+::selection{background:var(--violet);color:var(--ivory)}
+h1,h2,h3,h4{margin:0;font-weight:600;letter-spacing:-.02em;line-height:1.1}
 
-/* ---------- typo ---------- */
-h1,h2,h3,h4{margin:0;font-weight:400}
-.eyebrow{display:inline-block;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--or);font-weight:600}
-.display{font-family:var(--ff-display);font-weight:300;line-height:1.04;letter-spacing:-.01em}
-.h1{font-size:clamp(3.2rem,8vw,7rem)}
-.h2{font-size:clamp(2.2rem,5vw,4rem);line-height:1.05;letter-spacing:-.02em}
-.h2-sans{font-family:var(--ff-sans);font-weight:300}
-.lead{font-size:clamp(1.15rem,1.7vw,1.5rem);line-height:1.5;color:var(--ivoire-dim)}
-.muted{color:var(--ivoire-mute)}
-.small{font-size:.82rem;letter-spacing:.01em}
+a,button{transition:transform .4s var(--ease-apple),background .3s var(--ease-apple),color .3s var(--ease-apple),border-color .3s var(--ease-apple),box-shadow .4s var(--ease-apple),opacity .3s var(--ease-apple)}
+a:hover,button:hover{transform:translateY(-1px)}
+
+.grad{background:linear-gradient(135deg,var(--violet) 0%,var(--periwinkle) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.eyebrow{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--smoked-gray)}
+.muted{opacity:.75}
+
+/* ---------- helpers ---------- */
+.wrap{max-width:1200px;margin:0 auto}
+.wrap-sm{max-width:900px;margin:0 auto}
+section.block{padding:clamp(4.5rem,9vw,9rem) 1.5rem;position:relative}
+.grain::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.035;z-index:2;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode:overlay}
+.line-peri{height:1px;background:linear-gradient(90deg,transparent,rgba(109,143,234,.3) 50%,transparent)}
 
 /* ---------- buttons ---------- */
-.btn{display:inline-flex;align-items:center;gap:.5em;background:var(--ivoire);color:var(--nuit);
-  border:0;border-radius:999px;padding:.85em 1.5em;font:inherit;font-size:.78rem;font-weight:600;
-  letter-spacing:.01em;cursor:pointer;transition:background .35s var(--ease),color .35s var(--ease),transform .35s var(--ease)}
-.btn:hover{background:var(--or);color:var(--nuit);transform:translateY(-2px)}
-.btn .arrow{transition:transform .35s var(--ease)}
-.btn:hover .arrow{transform:translateX(4px)}
-.btn.ghost{background:transparent;color:var(--ivoire);border:1px solid var(--line)}
-.btn.ghost:hover{background:var(--or);color:var(--nuit);border-color:var(--or)}
+.btn{display:inline-flex;align-items:center;gap:.5em;background:var(--ivory);color:var(--graphite);
+  border:0;border-radius:999px;padding:1rem 2rem;font:inherit;font-size:.95rem;font-weight:600;cursor:pointer}
+.btn:hover{background:linear-gradient(135deg,var(--violet),var(--periwinkle));color:var(--ivory)}
+.btn.ghost{background:transparent;color:var(--ivory);border:1px solid rgba(244,241,234,.25);font-weight:500}
+.btn.ghost:hover{background:rgba(141,106,216,.12);border-color:var(--violet);color:var(--ivory)}
+.btn .a{transition:transform .35s var(--ease-apple)}
+.btn:hover .a{transform:translateX(4px)}
 
-/* ---------- reveal ---------- */
-.reveal{opacity:0;transform:translateY(28px)}
-.is-in .reveal,.reveal.is-in{opacity:1;transform:none;transition:opacity .9s var(--ease),transform .9s var(--ease)}
-.line-mask{display:block;overflow:hidden}
-.line-mask>span{display:block;transform:translateY(105%)}
-.is-in .line-mask>span{transform:none;transition:transform .95s var(--ease-cinema)}
+/* ---------- glass card ---------- */
+.card{background:rgba(26,26,29,.6);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border:1px solid var(--border);border-radius:16px;transition:transform .5s var(--ease-apple),box-shadow .5s var(--ease-apple)}
+.card:hover{transform:translateY(-4px);box-shadow:0 24px 60px rgba(141,106,216,.15)}
 
-/* ---------- header ---------- */
-header.nav{position:sticky;top:0;z-index:60;background:rgba(5,11,20,.72);
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line-soft);transition:transform .45s var(--ease)}
-header.nav.hide{transform:translateY(-110%)}
-.nav-bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
-.nav-bar ul{display:flex;margin:0;padding:0;list-style:none}
-.nav-bar .nav-right{justify-content:flex-end}
-.nav-bar a,.nav-bar .toggle{display:flex;align-items:center;height:var(--header-h);
-  padding:0 clamp(14px,2vw,34px);font-size:.74rem;font-weight:600;letter-spacing:.02em;
-  color:var(--ivoire);position:relative;background:none;border:0;font-family:inherit;cursor:pointer}
-.nav-bar a::after,.toggle::after{content:"";position:absolute;left:0;right:0;bottom:0;height:0;
-  background:var(--or);transition:height .18s ease}
-.nav-bar a:hover::after,.toggle:hover::after,.nav-bar a.active::after{height:3px}
-.brand{display:flex;align-items:center;justify-content:center;height:var(--header-h);
-  font-family:var(--ff-display);font-size:1.45rem;letter-spacing:.04em;color:var(--ivoire)}
-.brand b{color:var(--or);font-weight:400}
-.toggle .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);margin-right:.5em;
-  box-shadow:0 0 10px var(--cyan-glow);transition:background .3s,box-shadow .3s}
-body.sober .toggle .dot{background:var(--ivoire-mute);box-shadow:none}
-@media(max-width:860px){
-  .nav-bar{grid-template-columns:auto 1fr}
-  .nav-left{display:none!important}
-  .brand{justify-content:flex-start;padding-left:18px}
-}
+/* ---------- reveals ---------- */
+[data-reveal]{will-change:opacity,transform}
+[data-reveal="fade-up"]{opacity:0;transform:translateY(40px)}
+[data-reveal="stagger"]>*{opacity:0;transform:translateY(30px)}
+.is-in[data-reveal="fade-up"],.is-in [data-reveal="fade-up"]{opacity:1;transform:none;transition:opacity .9s var(--ease-out-expo),transform .9s var(--ease-out-expo)}
+[data-reveal="fade-up"].is-in{opacity:1;transform:none;transition:opacity .9s var(--ease-out-expo),transform .9s var(--ease-out-expo)}
+[data-reveal="stagger"].is-in>*{opacity:1;transform:none;transition:opacity .8s var(--ease-out-expo),transform .8s var(--ease-out-expo)}
+[data-reveal="stagger"].is-in>*{transition-delay:calc(var(--i,0)*70ms)}
+
+/* ---------- nav ---------- */
+nav.top{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+  padding:1.25rem 2rem;transition:padding .4s var(--ease-apple),background .3s,backdrop-filter .3s}
+nav.top.scrolled{padding:.75rem 2rem;background:rgba(17,18,20,.6);backdrop-filter:blur(24px) saturate(1.4);
+  -webkit-backdrop-filter:blur(24px) saturate(1.4);border-bottom:1px solid var(--border-soft)}
+nav.top.hide{transform:translateY(-110%)}
+nav.top .logo img{height:42px;width:auto}
+nav.top .links{display:flex;gap:1.8rem;align-items:center}
+nav.top .links a{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
+nav.top .links a:hover{opacity:1}
+nav.top .links a.pill{background:var(--ivory);color:var(--graphite);padding:.5rem 1.25rem;border-radius:999px;font-weight:600;opacity:1}
+nav.top .links a.pill:hover{background:linear-gradient(135deg,var(--violet),var(--periwinkle));color:var(--ivory)}
+.sober-toggle{background:transparent;border:1px solid var(--border);color:var(--ivory);border-radius:999px;
+  padding:.5rem .9rem;font:inherit;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;
+  display:inline-flex;align-items:center;gap:.5em}
+.sober-toggle .dot{width:7px;height:7px;border-radius:50%;background:var(--periwinkle);box-shadow:0 0 10px rgba(109,143,234,.6)}
+body.sober .sober-toggle .dot{background:var(--smoked-gray);box-shadow:none}
+@media(max-width:920px){nav.top .links a:not(.pill):not(.keep){display:none}}
 
 /* ---------- HERO ---------- */
-.hero{position:relative;min-height:calc(100svh - var(--header-h));display:flex;flex-direction:column;
-  align-items:center;justify-content:flex-end;overflow:hidden;text-align:center}
-.hero .eyebrow-row{position:absolute;top:46%;transform:translateY(-100%);width:96vw;z-index:3;
-  display:flex;align-items:center;justify-content:center;gap:14px}
-.hero .eyebrow-row .ln{flex:0 0 90px;height:1px;background:var(--line);position:relative}
-.hero .eyebrow-row .ln::before,.hero .eyebrow-row .ln::after{content:"";position:absolute;top:50%;width:7px;height:7px;
-  border:1px solid var(--line);transform:translateY(-50%) rotate(45deg)}
-.hero .eyebrow-row .ln.l::before{left:0}.hero .eyebrow-row .ln.l::after{right:0}
-.hero .eyebrow-row .ln.r::before{left:0}.hero .eyebrow-row .ln.r::after{right:0}
-.hero .htxt{font-size:clamp(1.05rem,1.5vw,1.4rem);font-family:var(--ff-display);color:var(--ivoire);font-weight:300}
-.hero figure{position:relative;z-index:4;width:min(52vw,640px);margin-bottom:-4vh}
-.hero figure img{width:100%;height:auto;max-height:62vh;object-fit:contain;
-  filter:drop-shadow(0 30px 80px rgba(0,0,0,.6))}
-.wordmark{position:relative;z-index:3;width:100vw;text-align:center;line-height:.82;
-  font-family:var(--ff-display);font-weight:300;
-  font-size:clamp(4rem,18.5vw,18rem);letter-spacing:-.02em;
-  color:var(--ivoire);margin-bottom:18px;padding:0 2vw;
-  -webkit-user-select:none;user-select:none}
-.glow{position:absolute;bottom:-6vh;left:50%;transform:translateX(-50%);
-  width:60vw;height:42vh;border-radius:50%;
-  background:radial-gradient(closest-side,var(--or-glow),transparent 70%);
-  filter:blur(60px);z-index:0;pointer-events:none}
-.glow.cyan{background:radial-gradient(closest-side,var(--cyan-glow),transparent 70%)}
+.hero-mesh{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:7rem 1.5rem 4rem;position:relative;overflow:hidden;
+  background:
+    radial-gradient(ellipse at 20% 30%,rgba(141,106,216,.10) 0%,transparent 50%),
+    radial-gradient(ellipse at 80% 70%,rgba(109,143,234,.08) 0%,transparent 50%),
+    linear-gradient(180deg,var(--graphite) 0%,var(--smoked) 100%)}
+.hero-mesh .inner{max-width:1100px}
+.hero-mesh .e1{margin-bottom:.6rem}
+.hero-mesh .e2{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;opacity:.5;margin-bottom:2.4rem}
+.hero-mesh h1{font-size:clamp(2.6rem,6.5vw,5.5rem);font-weight:600;line-height:1.04;letter-spacing:-.035em;margin-bottom:2rem}
+.hero-mesh .sub{font-size:clamp(1rem,1.4vw,1.15rem);line-height:1.7;opacity:.75;max-width:640px;margin:0 auto 2.5rem}
+.hero-mesh .cta{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
+.dot-pulse{display:inline-block;width:9px;height:9px;border-radius:50%;vertical-align:middle;margin-left:.4em;
+  background:linear-gradient(135deg,var(--violet),var(--periwinkle));box-shadow:0 0 24px rgba(141,106,216,.4);
+  animation:pulse 3s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.7;transform:scale(.92)}}
+.scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);font-size:.65rem;letter-spacing:.2em;
+  text-transform:uppercase;opacity:.5;display:flex;flex-direction:column;align-items:center;gap:8px}
+.scroll-hint .l{width:1px;height:38px;background:linear-gradient(180deg,var(--periwinkle),transparent)}
 
-/* ---------- shells ---------- */
-.section{position:relative}
-.pad-x{padding-left:max(2.2vw,18px);padding-right:max(2.2vw,18px)}
-.divider-top{border-top:1px solid var(--line-soft)}
+/* ====================================================================
+   AVALON — fixed canvas + scroll-driven crossfade (port SceneOrchestrator)
+   ==================================================================== */
+.avalon-wrap{position:relative}
+.avalon-canvas{position:sticky;top:0;height:100svh;width:100%;overflow:hidden;background:#0A0E1A}
+.avalon-scene{position:absolute;inset:0;opacity:0;will-change:opacity,transform}
+.avalon-scene>img,.avalon-scene>video{width:100%;height:100%;object-fit:cover}
+.avalon-scene .veil{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(10,14,26,0) 45%,rgba(10,14,26,.6) 100%)}
+.avalon-text{position:absolute;left:50%;bottom:14vh;transform:translateX(-50%);width:min(900px,86vw);
+  text-align:center;opacity:0;will-change:opacity,transform;z-index:60}
+.avalon-text p{font-size:clamp(1.6rem,3.4vw,2.8rem);line-height:1.2;font-weight:600;letter-spacing:-.02em;color:var(--ivory)}
+.avalon-text .idx{display:block;font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--periwinkle);
+  opacity:.85;margin-bottom:1rem;font-weight:500}
+.avalon-dot{position:absolute;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:var(--periwinkle);
+  box-shadow:0 0 12px 3px rgba(109,143,234,.7),0 0 32px 8px rgba(141,106,216,.35);z-index:70;pointer-events:none;
+  will-change:left,top}
+/* sober/reduced fallback handled in JS (flow layout) */
+body.sober .avalon-canvas,.avalon-canvas.flow{position:relative;height:auto;overflow:visible}
 
-/* ---------- full width statement ---------- */
-.statement{padding:clamp(56px,9vw,140px) max(2.2vw,18px)}
-.statement .h2{font-family:var(--ff-sans);font-weight:300;color:var(--ivoire-mute);max-width:1100px;white-space:pre-line}
-.statement .h2 b{color:var(--ivoire);font-weight:400}
-.statement .btn{margin-top:34px}
+/* ---------- statement ---------- */
+.statement h2{font-size:clamp(2rem,4vw,3rem);line-height:1.15;color:var(--ivory);max-width:1000px}
+.statement .muted{font-weight:300;color:var(--champagne)}
 
-/* ---------- benefits ---------- */
-.benefits{padding-top:clamp(80px,12vw,180px);border-top:1px solid var(--line-soft)}
-.benefits .big{display:flex;flex-direction:column;line-height:.92;text-align:center;
-  font-size:clamp(2.6rem,11vw,11rem);letter-spacing:-.03em;
-  font-family:var(--ff-display);font-weight:300;padding:0 4vw}
-.benefits .big .line-mask:nth-child(1){align-self:flex-end}
-.benefits .big .line-mask:nth-child(2){align-self:flex-start}
-.benefits .big .line-mask:nth-child(3){align-self:center}
-.benefits-wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,7vw,120px);
-  align-items:center;padding:clamp(40px,7vw,90px) max(2.2vw,18px)}
-.benefits-wrap figure{justify-self:end;width:100%;max-width:560px}
-.benefits-wrap figure img{width:100%;border-radius:14px}
-.benefits-list li{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start;
-  list-style:none;margin:0 0 40px;padding:0}
-.benefits-list .ic{width:40px;height:40px;border:1px solid var(--line);border-radius:10px;
-  display:grid;place-items:center;color:var(--or);font-size:1.1rem}
-.benefits-list h3{font-family:var(--ff-display);font-weight:300;font-size:clamp(1.4rem,2.4vw,2rem);line-height:1.15}
-@media(max-width:860px){
-  .benefits-wrap{grid-template-columns:1fr;gap:36px}
-  .benefits-wrap figure{order:-1;justify-self:center}
-}
-
-/* ---------- process (accordion) ---------- */
-.process{display:grid;grid-template-columns:1fr 1fr;min-height:100svh;border-top:1px solid var(--line-soft)}
-.process .left{border-right:1px solid var(--line-soft);display:grid;grid-template-rows:auto 1fr}
-.process .left .head{padding:clamp(28px,4vw,48px) max(2.2vw,18px)}
-.process .left .head .h2{color:var(--ivoire-mute)}
-.process .left .head .h2 b{color:var(--ivoire);font-weight:400}
-.proc-items{align-self:end;border-top:1px solid var(--line-soft)}
-.proc-items li{border-bottom:1px solid var(--line-soft);color:var(--ivoire-mute);cursor:pointer;
-  position:relative;transition:color .3s}
-.proc-items li .tog{display:flex;align-items:center;justify-content:space-between;
-  gap:18px;padding:clamp(20px,2.6vw,30px) max(2.2vw,18px);opacity:.62;transition:opacity .4s var(--ease)}
-.proc-items li .tog .name{font-family:var(--ff-display);font-weight:300;font-size:clamp(1.5rem,3vw,2.6rem)}
-.proc-items li .tog .price{font-size:.78rem;font-weight:600;color:var(--or);letter-spacing:.02em;white-space:nowrap}
-.proc-items li .plus{width:24px;height:24px;flex:0 0 24px;position:relative;transition:transform .5s var(--ease)}
-.proc-items li .plus::before,.proc-items li .plus::after{content:"";position:absolute;background:var(--ivoire);inset:0;margin:auto}
+/* ====================================================================
+   PROCESS — accordéon (effet Sun Metalon) : 4 expertises
+   ==================================================================== */
+.process{display:grid;grid-template-columns:1fr 1fr;min-height:90svh;border-top:1px solid var(--border-soft);background:var(--smoked)}
+.process .left{border-right:1px solid var(--border-soft);display:grid;grid-template-rows:auto 1fr}
+.process .left .head{padding:clamp(2rem,4vw,3.5rem) 1.5rem}
+.process .left .head h2{font-size:clamp(2rem,4vw,3rem);color:var(--ivory)}
+.proc-items{align-self:end;border-top:1px solid var(--border-soft)}
+.proc-items li{list-style:none;border-bottom:1px solid var(--border-soft);color:var(--champagne);cursor:pointer;position:relative}
+.proc-items li .tog{display:flex;align-items:center;justify-content:space-between;gap:18px;
+  padding:clamp(1.3rem,2.4vw,1.9rem) 1.5rem;opacity:.6;transition:opacity .4s var(--ease-apple)}
+.proc-items li .tog .name{font-size:clamp(1.4rem,2.8vw,2.2rem);font-weight:500;letter-spacing:-.02em}
+.proc-items li .tog .price{font-size:.74rem;font-weight:600;color:var(--periwinkle);white-space:nowrap;font-variant-numeric:tabular-nums}
+.proc-items li .plus{width:22px;height:22px;flex:0 0 22px;position:relative;transition:transform .5s var(--ease-apple)}
+.proc-items li .plus::before,.proc-items li .plus::after{content:"";position:absolute;inset:0;margin:auto;background:var(--ivory)}
 .proc-items li .plus::before{width:100%;height:1.5px}
 .proc-items li .plus::after{width:1.5px;height:100%}
-.proc-items li.active{color:var(--ivoire);border-right:2px solid var(--or)}
+.proc-items li.active{color:var(--ivory);border-right:2px solid var(--violet)}
 .proc-items li.active .tog{opacity:1}
 .proc-items li.active .plus{transform:rotate(45deg)}
-.proc-items li .body{max-height:0;overflow:hidden;transition:max-height .55s var(--ease)}
-.proc-items li .body p{padding:0 max(2.2vw,18px) 28px;margin:0;color:var(--ivoire-dim);max-width:520px}
+.proc-items li .body{max-height:0;overflow:hidden;transition:max-height .55s var(--ease-apple)}
+.proc-items li .body .in{padding:0 1.5rem 1.7rem;color:var(--champagne);max-width:520px}
+.proc-items li .body .mpic{display:none}
 .process .right{position:relative;overflow:hidden;display:grid;align-items:end}
-.process .right .pic{position:absolute;inset:0;opacity:0;transition:opacity .7s var(--ease),transform 8s linear}
+.process .right .pic{position:absolute;inset:0;opacity:0;transition:opacity .7s var(--ease-apple),transform 8s linear}
 .process .right .pic.on{opacity:1;transform:scale(1.06)}
 .process .right .pic img{width:100%;height:100%;object-fit:cover}
-.process .right .pic::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(0deg,rgba(5,11,20,.92),rgba(5,11,20,0) 60%)}
-.process .right .cap{position:relative;z-index:1;padding:clamp(28px,4vw,56px);max-width:560px}
-.process .right .cap h3{font-family:var(--ff-display);font-weight:300;font-size:clamp(1.6rem,2.6vw,2.4rem);margin-bottom:10px}
+.process .right .pic::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(17,18,20,.92),transparent 60%)}
+.process .right .cap{position:relative;z-index:1;padding:clamp(1.6rem,4vw,3rem)}
+.process .right .cap h3{font-size:clamp(1.4rem,2.4vw,2rem);font-weight:500;margin-bottom:.4rem}
 @media(max-width:860px){
   .process{grid-template-columns:1fr}
-  .process .left{border-right:0}
-  .proc-items li.active{border-right:0}
+  .process .left{border-right:0}.proc-items li.active{border-right:0}
   .process .right{display:none}
-  .proc-items li .body .mpic{display:block;width:100%;height:170px;margin:0 max(2.2vw,18px) 22px;
-    width:auto;border-radius:10px;overflow:hidden}
+  .proc-items li .body .mpic{display:block;margin:0 1.5rem 1.2rem;border-radius:12px;overflow:hidden;aspect-ratio:16/10}
   .proc-items li .body .mpic img{width:100%;height:100%;object-fit:cover}
 }
-.proc-items li .body .mpic{display:none}
 
-/* ---------- centered text image ---------- */
-.intro-product{border-top:1px solid var(--line-soft);text-align:center;overflow:hidden;
-  display:flex;flex-direction:column;align-items:center;position:relative}
-.intro-product .txt{padding:clamp(80px,12vw,180px) 6vw 0;position:relative;z-index:1}
-.intro-product .big{font-family:var(--ff-display);font-weight:300;
-  font-size:clamp(3.4rem,14vw,15rem);line-height:.92;letter-spacing:-.03em}
-.intro-product .big .hl{color:var(--or)}
-.intro-product figure{width:min(48vw,560px);margin-top:-3vh;position:relative;z-index:1}
-.intro-product figure img{width:100%;max-height:62vh;object-fit:contain;border-radius:14px}
-.intro-product .glow{bottom:-8vh;width:80vw;height:60vh}
+/* ====================================================================
+   OFFRES T0–T6 — scroll horizontal pinné (effet Sun Metalon)
+   ==================================================================== */
+.offres{border-top:1px solid var(--border-soft);background:var(--graphite);position:relative;overflow:hidden}
+.offres .head{padding:clamp(4rem,8vw,7rem) 1.5rem 2rem;text-align:center}
+.offres .head h2{font-size:clamp(2rem,4vw,3rem)}
+.offres-track{display:flex;flex-direction:column;gap:1.25rem;padding:0 1.5rem 4rem}
+.offres.is-h .offres-viewport{height:100svh;overflow:hidden;display:flex;align-items:center}
+.offres.is-h .offres-track{flex-direction:row;gap:1.25rem;flex-wrap:nowrap;width:max-content;padding:0 6vw}
+.tier{flex:0 0 auto;border-radius:16px;padding:1.9rem 1.6rem;background:rgba(26,26,29,.6);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid var(--border);position:relative}
+.offres.is-h .tier{width:300px;height:auto}
+.tier.featured{background:rgba(141,106,216,.07);border-color:rgba(141,106,216,.30)}
+.tier .badge{position:absolute;top:-.7rem;left:50%;transform:translateX(-50%);background:var(--lavender);color:var(--graphite);
+  padding:.3rem .9rem;border-radius:999px;font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.tier .t{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;opacity:.55}
+.tier .nm{font-size:1.4rem;font-weight:600;margin:.2rem 0 1.3rem}
+.tier .pr{font-size:1.9rem;font-weight:700;line-height:1;margin-bottom:1.4rem}
+.tier .pr span{font-size:.85rem;opacity:.6;font-weight:400}
+.tier ul{list-style:none;opacity:.85}
+.tier ul li{padding:.45rem 0;border-bottom:1px solid var(--border-soft);font-size:.82rem;display:flex;gap:.5rem}
+.tier ul li:last-child{border-bottom:0}
+.tier ul li .c{color:var(--periwinkle);flex:0 0 auto}
+.tier .cta{display:block;text-align:center;margin-top:1.4rem;padding:.8rem 1rem;border-radius:999px;font-size:.82rem;font-weight:600;
+  border:1px solid rgba(168,139,224,.25);color:var(--ivory)}
+.tier.featured .cta{background:var(--ivory);color:var(--graphite);border-color:transparent}
+.tier .cta:hover{background:linear-gradient(135deg,var(--violet),var(--periwinkle));color:var(--ivory);border-color:transparent}
 
-/* ---------- feature cards (horizontal) ---------- */
-.fcards{position:relative;border-top:1px solid var(--line-soft)}
-.fcards-track{display:flex;flex-direction:column}
-.fcards.is-h{height:100svh;overflow:hidden}
-.fcards.is-h .fcards-track{flex-direction:row;flex-wrap:nowrap;width:max-content;height:100svh}
-.fcard{flex:0 0 auto;position:relative;display:flex;flex-direction:column;justify-content:space-between;
-  padding:clamp(26px,3vw,40px);overflow:hidden;background:var(--nuit-card);
-  border-bottom:1px solid var(--line-soft);min-height:78svh}
-.fcards.is-h .fcard{width:min(46vw,720px);height:100svh;min-height:0;border-bottom:0;border-right:1px solid var(--line-soft)}
-.fcard.text{padding-top:clamp(40px,5vw,72px)}
-.fcard .blk{max-width:520px;position:relative;z-index:2}
-.fcard .blk h3{font-family:var(--ff-display);font-weight:300;font-size:clamp(2rem,4vw,3.4rem);
-  line-height:1.04;margin-bottom:18px}
-.fcard .blk p{color:var(--ivoire-dim)}
-.fcard .top,.fcard .bot{position:relative;z-index:2;max-width:520px}
-.fcard .tag{position:relative;z-index:2;padding-left:18px;font-size:.78rem;font-weight:600;max-width:460px}
-.fcard .tag::before{content:"";position:absolute;left:0;top:.55em;width:8px;height:8px;border-radius:50%;background:var(--or)}
-.fcard.media{justify-content:space-between}
-.fcard.media figure{position:absolute;inset:0;z-index:0}
-.fcard.media figure img{width:100%;height:100%;object-fit:cover;opacity:.55}
-.fcard.media::after{content:"";position:absolute;inset:0;z-index:1;
-  background:linear-gradient(180deg,rgba(5,11,20,.55),rgba(5,11,20,.15) 40%,rgba(5,11,20,.85))}
+/* ====================================================================
+   SERVICES — tabs à fond qui change de couleur (effet Sun Metalon)
+   ==================================================================== */
+.services{--c1:#0e0b18;--c2:#2a1e44;background:var(--c1);
+  background-image:linear-gradient(180deg,transparent,var(--c2));transition:--c1 .7s var(--ease-apple),--c2 .7s var(--ease-apple);
+  display:flex;flex-direction:column;align-items:center;padding:0 1.5rem clamp(4rem,7vw,6rem);overflow:hidden;border-top:1px solid var(--border-soft)}
+.services h2{margin:clamp(4rem,8vw,7rem) 0 0;text-align:center;font-size:clamp(2rem,4vw,3rem);max-width:16ch}
+.svc-stage{display:flex;flex-wrap:nowrap;width:max-content;will-change:transform}
+.svc-stage figure{width:min(38vw,420px);padding:2rem 11vw;display:grid;place-items:center}
+.svc-stage figure img{width:100%;border-radius:16px;border:1px solid var(--border)}
+.svc-tabs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:1.6rem}
+.svc-tabs button{background:rgba(244,241,234,.10);color:var(--ivory);border:0;border-radius:999px;padding:.7rem 1.25rem;
+  font:inherit;font-size:.8rem;font-weight:600;cursor:pointer}
+.svc-tabs button.active{background:var(--ivory);color:var(--graphite)}
+.svc-text{max-width:640px;text-align:center;min-height:84px}
+.svc-text p{color:var(--champagne)}
 
-/* ---------- output / color shift tabs ---------- */
-.output{--c1:#0a1822;--c2:#04323a;
-  background:var(--c1);background-image:linear-gradient(180deg,transparent,var(--c2));
-  display:flex;flex-direction:column;align-items:center;overflow:hidden;
-  padding:0 max(2.2vw,18px) clamp(40px,6vw,80px);transition:--c1 .7s var(--ease),--c2 .7s var(--ease)}
-.output h2{margin:clamp(70px,10vw,150px) 0 0;text-align:center;max-width:14ch}
-.output-stage{display:flex;flex-direction:row;flex-wrap:nowrap;width:max-content;will-change:transform}
-.output-stage figure{width:min(40vw,440px);padding:24px 12.5vw;display:grid;place-items:center}
-.output-stage figure img{width:100%;border-radius:16px}
-.out-tabs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:26px}
-.out-tabs button{background:rgba(244,236,224,.10);color:var(--ivoire);border:0;border-radius:999px;
-  padding:.7em 1.25em;font:inherit;font-size:.78rem;font-weight:600;cursor:pointer;transition:.3s}
-.out-tabs button.active{background:var(--ivoire);color:var(--nuit)}
-.out-text{max-width:640px;text-align:center;min-height:90px}
-.out-text p{margin:0;color:var(--ivoire-dim)}
-.output .speedbump{display:flex;align-items:center;justify-content:center;gap:48px;
-  border-top:1px solid rgba(244,236,224,.16);margin-top:42px;padding-top:48px;width:min(80vw,1000px);flex-wrap:wrap}
-.output .speedbump h3{font-family:var(--ff-display);font-weight:300;font-size:clamp(1.5rem,3vw,2.2rem)}
+/* ====================================================================
+   STACKING CARDS (effet Sun Metalon) — 3 promesses
+   ==================================================================== */
+.stack{padding:clamp(1.5rem,3vw,3rem) 1.5rem 3rem;background:var(--graphite)}
+.stack .head{margin-bottom:1rem}
+.stack .head h2{font-size:clamp(2rem,4vw,3rem)}
+.stack-cards{border:1px solid var(--border-soft);border-radius:16px;background:var(--graphite)}
+.stk{display:grid;grid-template-columns:34vw 1fr;gap:clamp(1.5rem,8vw,8rem);position:sticky;top:0;
+  background:var(--graphite);border-top:1px solid var(--border-soft);padding-top:2rem;transform-origin:center top}
+.stk:first-child{border-top:0}
+.stk .num{display:grid;place-items:center;border-right:1px solid var(--border-soft);
+  font-size:clamp(5rem,15vw,14rem);font-weight:300;line-height:.8;
+  background:linear-gradient(135deg,var(--violet),var(--periwinkle));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.stk .blk{padding:clamp(2.5rem,6vw,6rem) 8vw clamp(2.5rem,6vw,6rem) 0}
+.stk .blk h3{font-size:clamp(1.7rem,3.5vw,2.6rem);font-weight:600;margin-bottom:1rem}
+.stk .blk p{color:var(--champagne)}
+@media(max-width:860px){.stk{grid-template-columns:1fr;gap:0;padding:1rem}.stk .num{border-right:0;place-items:start;font-size:24vw}.stk .blk{padding:1rem 0}}
 
-/* ---------- stacking cards ---------- */
-.stack{padding:clamp(20px,3vw,40px) max(2.2vw,18px) 40px;position:relative}
-.stack .head h2{margin-bottom:8px}
-.stack-cards{border:1px solid var(--line-soft);border-radius:0 16px;background:var(--nuit);position:relative;z-index:1}
-.stack-card{display:grid;grid-template-columns:34vw 1fr;gap:clamp(24px,8vw,140px);
-  position:sticky;top:0;background:var(--nuit);border-top:1px solid var(--line-soft);
-  padding-top:32px;transform-origin:center top}
-.stack-card:first-child{border-top:0}
-.stack-card .num{display:grid;place-items:center;border-right:1px solid var(--line-soft);
-  font-family:var(--ff-display);font-weight:300;font-size:clamp(5rem,15vw,15rem);color:var(--or);line-height:.8}
-.stack-card .blk{padding:clamp(40px,7vw,96px) 8vw clamp(40px,7vw,96px) 0}
-.stack-card .blk h3{font-family:var(--ff-display);font-weight:300;font-size:clamp(1.8rem,3.5vw,2.8rem);margin-bottom:18px}
-.stack-card .blk p{color:var(--ivoire-dim)}
-@media(max-width:860px){
-  .stack-card{grid-template-columns:1fr;gap:0;padding:16px}
-  .stack-card .num{border-right:0;place-items:start;font-size:26vw}
-  .stack-card .blk{padding:14px 0}
-}
+/* ---------- engagements ---------- */
+.seals{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:2rem;max-width:1100px}
+.seal{display:flex;flex-direction:column;align-items:center;gap:.75rem;text-align:center}
+.seal .disc{width:78px;height:78px;border-radius:50%;border:1px solid rgba(168,139,224,.25);
+  background:radial-gradient(circle at 30% 30%,rgba(168,139,224,.2),rgba(26,26,29,.9));display:grid;place-items:center}
+.seal .lbl{font-size:.8rem;opacity:.85;line-height:1.4}
 
-/* ---------- link list / offres ---------- */
-.linklist{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,80px);
-  padding:clamp(56px,8vw,120px) max(2.2vw,18px);border-top:1px solid var(--line-soft)}
-.linklist .legal{margin-top:18px;color:var(--ivoire-mute)}
-.offer{display:block;border-bottom:1px solid var(--line-soft);padding:26px 0;position:relative}
-.offer .row{display:flex;align-items:baseline;justify-content:space-between;gap:18px}
-.offer h4{font-family:var(--ff-display);font-weight:300;font-size:clamp(1.2rem,2.2vw,1.7rem);
-  transition:color .35s;max-width:80%}
-.offer .price{font-size:.82rem;font-weight:600;color:var(--or);white-space:nowrap}
-.offer:hover h4{color:var(--or)}
-.offer .desc{margin:6px 0 0;color:var(--ivoire-mute);font-size:.85rem}
-.linklist .btn{margin-top:30px}
-@media(max-width:860px){.linklist{grid-template-columns:1fr;gap:30px}}
+/* ---------- réalisations ---------- */
+.realis{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem}
+.rcard{border-radius:12px;overflow:hidden}
+.rcard .thumb{aspect-ratio:16/9;display:grid;place-items:center;position:relative}
+.rcard .play{width:48px;height:48px;border-radius:50%;background:rgba(244,241,234,.9);display:grid;place-items:center}
+.rcard .play::after{content:"";border-top:9px solid transparent;border-bottom:9px solid transparent;border-left:15px solid var(--graphite);margin-left:3px}
+.rcard .meta{padding:1rem 1.25rem}
+.rcard .meta .ti{font-size:.9rem;font-weight:600;margin-bottom:.2rem}
+.rcard .meta .su{font-size:.74rem;opacity:.6}
+
+/* ---------- FAQ ---------- */
+.faq .it{border-bottom:1px solid var(--border-soft)}
+.faq .q{width:100%;text-align:left;padding:1.25rem 0;background:transparent;border:0;color:var(--ivory);
+  font:inherit;font-size:.98rem;cursor:pointer;display:flex;justify-content:space-between;gap:1rem;align-items:center}
+.faq .q .s{color:var(--periwinkle);font-size:1.3rem;transition:transform .4s var(--ease-apple);flex:0 0 auto}
+.faq .it.open .q .s{transform:rotate(45deg)}
+.faq .a{max-height:0;overflow:hidden;transition:max-height .5s var(--ease-apple)}
+.faq .a .in{padding-bottom:1.25rem;font-size:.88rem;opacity:.75;line-height:1.6;max-width:760px}
+
+/* ---------- contact / atterrissage ---------- */
+.land{text-align:center;background:
+  radial-gradient(ellipse at center bottom,rgba(216,193,167,.10) 0%,rgba(141,106,216,.06) 30%,transparent 70%),var(--graphite)}
+.land h2{font-size:clamp(3rem,7vw,5rem);font-weight:600;margin-bottom:1rem}
+.contact-card{max-width:640px;margin:2.5rem auto 0;padding:2rem;text-align:left}
+.crow{display:flex;gap:1rem;align-items:center;padding:.6rem 0}
+.crow .ic{width:44px;height:44px;border-radius:50%;background:rgba(168,139,224,.10);display:grid;place-items:center;font-size:1.1rem;flex:0 0 auto}
+.crow .lab{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;opacity:.55}
+.crow .val{font-size:.95rem;font-weight:500}
 
 /* ---------- footer ---------- */
-footer.ft{border-top:1px solid var(--line-soft);display:grid;
-  grid-template-columns:1fr auto;grid-template-areas:"top nav" "logo nav";gap:0 2vw}
-.ft .top{grid-area:top;padding:48px max(2.2vw,18px) 0}
-.ft .top h4{font-family:var(--ff-display);font-weight:300;font-size:clamp(1.3rem,2.4vw,2rem);
-  max-width:620px;line-height:1.25;color:var(--ivoire)}
-.ft .top p{margin-top:14px;color:var(--ivoire-mute);font-size:.82rem}
-.ft .logo{grid-area:logo;padding:80px max(2.2vw,18px) 36px;
-  font-family:var(--ff-display);font-size:clamp(3rem,11vw,9rem);color:var(--ivoire);line-height:.8}
-.ft .logo b{color:var(--or);font-weight:400}
-.ft .nav{grid-area:nav;width:min(26vw,360px)}
-.ft .nav ul{display:grid;grid-template-columns:1fr 1fr;border-left:1px solid var(--line-soft);
-  height:100%;margin:0;padding:0;list-style:none}
-.ft .nav li{grid-column:span 2;border-bottom:1px solid var(--line-soft);text-align:center}
-.ft .nav li:nth-last-child(-n+2){grid-column:span 1}
-.ft .nav li:last-child{border-left:1px solid var(--line-soft)}
-.ft .nav a{display:flex;align-items:center;justify-content:center;padding:30px 0;
-  font-size:.74rem;font-weight:600;width:100%;position:relative}
-.ft .nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:0;background:var(--or);transition:height .18s}
-.ft .nav a:hover::after{height:3px}
-@media(max-width:860px){
-  footer.ft{grid-template-columns:1fr;grid-template-areas:"top" "nav" "logo";gap:40px}
-  .ft .nav{width:100%}
-  .ft .nav ul{border-left:0;border-top:1px solid var(--line-soft)}
-  .ft .logo{padding-top:0}
-}
+footer.ft{background:var(--graphite);padding:4rem 1.5rem 2rem;border-top:1px solid var(--border-soft)}
+footer.ft .cols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+footer.ft img.logo{height:38px;width:auto;margin-bottom:1rem}
+footer.ft .addr{font-size:.85rem;opacity:.65;line-height:1.7}
+footer.ft .ttl{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;opacity:.55;margin-bottom:1rem}
+footer.ft .lst{display:grid;gap:.5rem;font-size:.85rem;opacity:.75}
+footer.ft .lst a:hover{opacity:1;color:var(--periwinkle)}
+footer.ft .copy{border-top:1px solid var(--border-soft);padding-top:2rem;font-size:.8rem;opacity:.55;text-align:center}
+@media(max-width:760px){footer.ft .cols{grid-template-columns:1fr;gap:2rem}}
 
-/* ---------- ananas filigrane ---------- */
-.filigrane{position:fixed;bottom:14px;right:14px;width:34px;opacity:.12;z-index:5;pointer-events:none}
+/* ---------- magnetic cursor ---------- */
+.mcursor{position:fixed;top:0;left:0;width:34px;height:34px;border:1px solid rgba(168,139,224,.6);border-radius:50%;
+  pointer-events:none;z-index:200;transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s,border-color .25s;
+  mix-blend-mode:difference;will-change:transform}
+.mcursor.big{width:64px;height:64px;background:rgba(168,139,224,.12);border-color:transparent}
+@media(max-width:920px),(pointer:coarse){.mcursor{display:none}}
 
 /* ---------- reduced motion / sober ---------- */
 @media (prefers-reduced-motion:reduce){
-  .reveal,.line-mask>span{opacity:1!important;transform:none!important;transition:none!important}
-  html{scroll-behavior:auto}
+  [data-reveal]{opacity:1!important;transform:none!important}
+  .dot-pulse{animation:none}
 }
-body.sober .reveal,body.sober .line-mask>span{opacity:1!important;transform:none!important}
-body.sober .fcards.is-h{height:auto;overflow:visible}
-body.sober .fcards.is-h .fcards-track{flex-direction:column;width:auto;height:auto}
-body.sober .fcards.is-h .fcard{width:auto;height:auto;min-height:60svh;border-right:0;border-bottom:1px solid var(--line-soft)}
+body.sober [data-reveal]{opacity:1!important;transform:none!important}
+body.sober .offres.is-h .offres-viewport{height:auto;overflow:visible;display:block}
+body.sober .offres.is-h .offres-track{flex-direction:column;width:auto;padding:0 1.5rem}
+body.sober .offres.is-h .tier{width:auto}
+body.sober .dot-pulse{animation:none}
+body.sober .mcursor{display:none}
 </style>
 </head>
 <body>
 
-<!-- ===================== HEADER ===================== -->
-<header class="nav" id="header">
-  <div class="nav-bar">
-    <ul class="nav-left">
-      <li><a href="#hero" class="active">Accueil</a></li>
-      <li><a href="../a-propos/">Société</a></li>
-      <li><a href="../offres/">Offres</a></li>
-    </ul>
-    <a href="#hero" class="brand" aria-label="Pinapp">Pin<b>app</b></a>
-    <ul class="nav-right">
-      <li><a href="../contact/">Contact</a></li>
-      <li><button class="toggle" id="soberToggle" aria-pressed="false">
-        <span class="dot"></span><span class="lbl">Mode sobre</span>
-      </button></li>
-    </ul>
-  </div>
-</header>
+<div class="mcursor" id="mcursor" aria-hidden="true"></div>
 
-<main>
+<!-- ===================== NAV ===================== -->
+<nav class="top" id="nav">
+  <a href="#top" class="logo" aria-label="Pinapp"><img src="avalon/logo-pinapp.png" alt="Pinapp"></a>
+  <div class="links">
+    <a href="#offres" data-magnetic>Sites web</a>
+    <a href="#services" data-magnetic>Films</a>
+    <a href="#process" data-magnetic>Process</a>
+    <a href="#realisations" data-magnetic>Réalisations</a>
+    <a href="#faq" data-magnetic>FAQ</a>
+    <a href="#contact" class="pill keep" data-magnetic>Contact</a>
+    <button class="sober-toggle keep" id="soberToggle" aria-pressed="false"><span class="dot"></span><span class="lbl">Mode sobre</span></button>
+  </div>
+</nav>
+
+<main id="top">
 
 <!-- ===================== HERO ===================== -->
-<section class="hero section" id="hero">
-  <h1 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Le digital qui travaille pendant que vous vivez</h1>
-  <div class="eyebrow-row">
-    <span class="htxt">Vos outils travaillent</span>
-    <span class="ln l"></span>
-    <span class="ln r"></span>
-    <span class="htxt">Vous décidez</span>
-  </div>
-  <figure class="reveal">
-    <img src="../assets/images/voyage/03-cockpit-planete-desktop-v1.png" alt="Vue cockpit Pinapp : une planète vue depuis le vaisseau" fetchpriority="high">
-  </figure>
-  <div class="glow"></div>
-  <div class="wordmark reveal">Pinapp</div>
-</section>
-
-<!-- ===================== STATEMENT 1 ===================== -->
-<section class="statement section">
-  <div class="reveal-wrap">
-    <h2 class="h2 reveal"><b>Nous reconstruisons le digital des indépendants.</b>
-Vos outils ont été conçus pour le bureau. Votre équipe, elle, travaille de partout. Pinapp connecte tout, automatise le reste, et vous rend vos heures — sans jargon, sans agence fantôme.</h2>
-    <div class="reveal"><a href="../contact/" class="btn">Premier échange offert <span class="arrow">→</span></a></div>
-  </div>
-</section>
-
-<!-- ===================== BENEFITS ===================== -->
-<section class="benefits section">
-  <div class="big js-lines">
-    <span class="line-mask"><span>Le digital</span></span>
-    <span class="line-mask"><span>qui travaille</span></span>
-    <span class="line-mask"><span>pendant que vous vivez</span></span>
-  </div>
-  <div class="benefits-wrap">
-    <figure class="reveal"><img src="../assets/images/voyage/04-pod-voie-lactee-desktop-v1.png" alt="Pod Pinapp devant la voie lactée"></figure>
-    <div class="list">
-      <ul class="benefits-list">
-        <li class="reveal"><span class="ic">◇</span><div><h3>Pensé pour toutes les tailles d'entreprise</h3></div></li>
-        <li class="reveal"><span class="ic">⬡</span><div><h3>Stack 100% européen, zéro outil superflu</h3></div></li>
-        <li class="reveal"><span class="ic">↺</span><div><h3>Vous gardez la main — documentation incluse, satisfait ou remboursé 30 jours</h3></div></li>
-      </ul>
+<section class="hero-mesh grain">
+  <div class="inner">
+    <div class="eyebrow e1" data-reveal="fade-up">PINAPP INC · BORDEAUX · 2026</div>
+    <div class="e2" data-reveal="fade-up">STUDIO DIGITAL · SITES + AUTOMATISATIONS + FILMS IA</div>
+    <h1 data-reveal="fade-up">Vos outils travaillent.<br>Vous gagnez du <span class="grad">temps</span><span class="dot-pulse"></span></h1>
+    <p class="sub" data-reveal="fade-up">Sites web, automatisations IA, films cinéma — par un duo bordelais.<br>Un seul devis. 50 à 75 % moins cher qu'une agence.</p>
+    <div class="cta" data-reveal="fade-up">
+      <a href="#contact" class="btn" data-magnetic>Diagnostic 24 h offert <span class="a">→</span></a>
+      <a href="#offres" class="btn ghost" data-magnetic>Voir les offres ↓</a>
     </div>
   </div>
+  <div class="scroll-hint"><span>Scroll</span><span class="l"></span></div>
 </section>
 
-<!-- ===================== PROCESS (accordion) ===================== -->
-<section class="process section" id="proc">
+<!-- ===================== AVALON VOYAGE ===================== -->
+<div class="avalon-wrap" id="avalon" data-scene-wrap>
+  <div class="avalon-canvas" data-scene-canvas>
+    <!-- 9 scènes superposées -->
+    <div class="avalon-scene" data-scene="0"><img src="avalon/frames/1-1-plongee-cosmique.png" alt=""><div class="veil"></div></div>
+    <div class="avalon-scene" data-scene="1"><video src="avalon/videos/1-2-hublot.mp4" poster="avalon/frames/1-2-hublot.png" muted loop playsinline preload="metadata"></video><div class="veil"></div></div>
+    <div class="avalon-scene" data-scene="2"><video src="avalon/videos/1-3-cabine-cockpit.mp4" poster="avalon/frames/1-3-cabine-cockpit.png" muted loop playsinline preload="metadata"></video><div class="veil"></div></div>
+    <div class="avalon-scene" data-scene="3"><video src="avalon/videos/2-1-constellation.mp4" poster="avalon/frames/2-1-constellation.png" muted loop playsinline preload="metadata"></video><div class="veil"></div></div>
+    <div class="avalon-scene" data-scene="4"><video src="avalon/videos/2-2-interface-holo.mp4" poster="avalon/frames/2-2-interface-holo.png" muted loop playsinline preload="metadata"></video><div class="veil"></div></div>
+    <div class="avalon-scene" data-scene="5"><video src="avalon/videos/2-3-cascade-code.mp4" poster="avalon/frames/2-3-cascade-code.png" muted loop playsinline preload="metadata"></video><div class="veil"></div></div>
+    <div class="avalon-scene" data-scene="6"><video src="avalon/videos/3-1-trajectoires.mp4" poster="avalon/frames/3-1-trajectoires.png" muted loop playsinline preload="metadata"></video><div class="veil"></div></div>
+    <div class="avalon-scene" data-scene="7"><img src="avalon/frames/3-2-sceaux-graves.png" alt=""><div class="veil"></div></div>
+    <div class="avalon-scene" data-scene="8"><img src="avalon/frames/3-3-atterrissage.png" alt=""><div class="veil"></div></div>
+    <!-- 9 textes -->
+    <div class="avalon-text" data-scene-text="0"><p><span class="idx">01 · La plongée</span>Le digital qui travaille pendant que vous vivez.</p></div>
+    <div class="avalon-text" data-scene-text="1"><p><span class="idx">02 · L'observation</span>Voici l'instant où votre projet ouvre les yeux.</p></div>
+    <div class="avalon-text" data-scene-text="2"><p><span class="idx">03 · L'équipage</span>Les pilotes du vaisseau.</p></div>
+    <div class="avalon-text" data-scene-text="3"><p><span class="idx">04 · La constellation</span>Ils nous ont fait confiance.</p></div>
+    <div class="avalon-text" data-scene-text="4"><p><span class="idx">05 · L'interface</span>Une interface pensée, dessinée, sculptée dans la lumière.</p></div>
+    <div class="avalon-text" data-scene-text="5"><p><span class="idx">06 · Le code</span>Du code propre. Documenté. À vous.</p></div>
+    <div class="avalon-text" data-scene-text="6"><p><span class="idx">07 · Deux voies</span>Deux trajectoires. La nôtre est directe.</p></div>
+    <div class="avalon-text" data-scene-text="7"><p><span class="idx">08 · Les sceaux</span>Huit sceaux. Huit engagements signés.</p></div>
+    <div class="avalon-text" data-scene-text="8"><p><span class="idx">09 · L'arrivée</span>Embarquement.</p></div>
+    <!-- fil rouge -->
+    <div class="avalon-dot" data-scene-dot></div>
+  </div>
+</div>
+
+<!-- ===================== STATEMENT ===================== -->
+<section class="block statement grain">
+  <div class="wrap">
+    <h2 data-reveal="fade-up"><span class="muted">Pinapp, c'est un studio digital bordelais.</span> Sites web, automatisations IA et films cinéma — conçus par un duo, pas par une agence à 15 intermédiaires. Un seul devis, des délais tenus, et le code vous appartient.</h2>
+  </div>
+</section>
+
+<!-- ===================== PROCESS (accordéon) ===================== -->
+<section class="process" id="process">
   <div class="left">
-    <div class="head">
-      <h2 class="h2 reveal"><b>Quatre expertises.</b><br>Un seul résultat.</h2>
-    </div>
+    <div class="head"><div class="eyebrow" style="margin-bottom:1.2rem" data-reveal="fade-up">04 · NOS MÉTIERS</div>
+      <h2 data-reveal="fade-up">Quatre expertises.<br>Un seul interlocuteur.</h2></div>
     <div class="items">
       <ul class="proc-items">
         <li data-pic="0" class="active">
-          <div class="tog"><span class="name">Sites &amp; vitrines</span><span class="price">dès 1 290 € HT</span><span class="plus"></span></div>
-          <div class="body"><div class="mpic"><img src="../assets/images/monde-super-heros.webp" alt=""></div><p>Un site rapide, soigné, que vous partagez fièrement. Livré, pas promis — généralement sous 7 jours.</p></div>
+          <div class="tog"><span class="name">Sites web</span><span class="price">dès 990 € HT</span><span class="plus"></span></div>
+          <div class="body"><div class="in"><div class="mpic"><img src="avalon/frames/2-2-interface-holo.png" alt=""></div>Du landing express au vaisseau signature. 7 formules, code propre, SEO inclus, livré en 7 à 28 jours.</div></div>
         </li>
         <li data-pic="1">
-          <div class="tog"><span class="name">Automatisation</span><span class="price">dès 490 € HT</span><span class="plus"></span></div>
-          <div class="body"><div class="mpic"><img src="../assets/images/voyage/02-corridor-desktop.png" alt=""></div><p>Devis, factures, relances, RDV : générés pendant que vous êtes sur le terrain. Une seule source de vérité.</p></div>
+          <div class="tog"><span class="name">Automatisations IA</span><span class="price">workflows n8n</span><span class="plus"></span></div>
+          <div class="body"><div class="in"><div class="mpic"><img src="avalon/frames/2-3-cascade-code.png" alt=""></div>Devis, factures, relances, RDV : générés pendant que vous êtes ailleurs. Une seule source de vérité.</div></div>
         </li>
         <li data-pic="2">
-          <div class="tog"><span class="name">IA sur-mesure</span><span class="price">dès 890 € HT</span><span class="plus"></span></div>
-          <div class="body"><div class="mpic"><img src="../assets/images/voyage/03-cockpit-planete-desktop-v2.png" alt=""></div><p>Une IA entraînée sur vos données, vos mots. Elle répond pendant que vous vivez. Livrée sous 48h.</p></div>
+          <div class="tog"><span class="name">Films cinéma IA</span><span class="price">par Michaël</span><span class="plus"></span></div>
+          <div class="body"><div class="in"><div class="mpic"><img src="avalon/frames/1-2-hublot.png" alt=""></div>Clips, teasers, courts-métrages générés en IA. L'image qui fait ressentir ce que les mots ne disent pas.</div></div>
         </li>
         <li data-pic="3">
-          <div class="tog"><span class="name">Vidéo &amp; image</span><span class="price">Pack Duo</span><span class="plus"></span></div>
-          <div class="body"><div class="mpic"><img src="../assets/images/monde-sakura-kai.webp" alt=""></div><p>Micha crée les visuels qui font ressentir ce que les mots ne disent pas. Direction artistique, shooting, branding Adobe.</p></div>
+          <div class="tog"><span class="name">Formations</span><span class="price">reprendre la main</span><span class="plus"></span></div>
+          <div class="body"><div class="in"><div class="mpic"><img src="avalon/frames/1-3-cabine-cockpit.png" alt=""></div>1 h de coaching pour piloter votre outil en autonomie. Documentation incluse — vous n'êtes jamais captifs.</div></div>
         </li>
       </ul>
     </div>
   </div>
   <div class="right">
-    <div class="pic on" data-pic="0"><img src="../assets/images/monde-super-heros.webp" alt="Démo site secteur">
-      <div class="cap"><h3>Sites &amp; vitrines</h3><p class="muted small">Un site que vous partagez fièrement.</p></div></div>
-    <div class="pic" data-pic="1"><img src="../assets/images/voyage/02-corridor-desktop.png" alt="Corridor des métiers Pinapp">
-      <div class="cap"><h3>Automatisation</h3><p class="muted small">Vos process tournent pendant que vous êtes ailleurs.</p></div></div>
-    <div class="pic" data-pic="2"><img src="../assets/images/voyage/03-cockpit-planete-desktop-v2.png" alt="IA Pinapp">
-      <div class="cap"><h3>IA sur-mesure</h3><p class="muted small">Elle répond avec vos mots, vos données.</p></div></div>
-    <div class="pic" data-pic="3"><img src="../assets/images/monde-sakura-kai.webp" alt="Direction artistique Pinapp">
-      <div class="cap"><h3>Vidéo &amp; image</h3><p class="muted small">L'image à la hauteur de votre travail.</p></div></div>
+    <div class="pic on" data-pic="0"><img src="avalon/frames/2-2-interface-holo.png" alt="Interface"><div class="cap"><h3>Sites web</h3><p class="muted">Une interface dessinée dans la lumière.</p></div></div>
+    <div class="pic" data-pic="1"><img src="avalon/frames/2-3-cascade-code.png" alt="Code"><div class="cap"><h3>Automatisations IA</h3><p class="muted">Vos process tournent seuls.</p></div></div>
+    <div class="pic" data-pic="2"><img src="avalon/frames/1-2-hublot.png" alt="Films"><div class="cap"><h3>Films cinéma IA</h3><p class="muted">L'instant où votre projet ouvre les yeux.</p></div></div>
+    <div class="pic" data-pic="3"><img src="avalon/frames/1-3-cabine-cockpit.png" alt="Formation"><div class="cap"><h3>Formations</h3><p class="muted">Vous reprenez les commandes.</p></div></div>
   </div>
 </section>
 
-<!-- ===================== INTRO PRODUCT ===================== -->
-<section class="intro-product section">
-  <div class="txt">
-    <span class="eyebrow reveal">Le pack signature</span>
-    <h2 class="big reveal">Pack <span class="hl">Duo</span></h2>
-  </div>
-  <figure class="reveal"><img src="../assets/images/voyage/06-bridge-lune-desktop-v1.png" alt="Bridge lune — Pack Duo Pinapp"></figure>
-  <div class="glow cyan"></div>
-</section>
-
-<!-- ===================== FEATURE CARDS (horizontal) ===================== -->
-<section class="fcards section" id="fcards">
-  <div class="fcards-track">
-    <article class="fcard text">
-      <div class="blk">
-        <h3>Pack Complet Duo</h3>
-        <p>Un interlocuteur. Deux expertises. De votre site à votre IA, de vos visuels à vos automatisations — clé en main.</p>
-      </div>
-      <p class="tag">Site + automatisation + IA + shooting + branding</p>
-    </article>
-    <article class="fcard media">
-      <p class="top tag">Un interlocuteur</p>
-      <figure><img src="../assets/images/voyage/05-warp-desktop.png" alt=""></figure>
-      <p class="bot tag">Lauralie + Micha. Une seule équipe, jamais de sous-traitance.</p>
-    </article>
-    <article class="fcard media">
-      <p class="top tag">Deux expertises</p>
-      <figure><img src="../assets/images/voyage/04-pod-voie-lactee-desktop-v2.png" alt=""></figure>
-      <p class="bot tag">Systèmes &amp; IA d'un côté, direction artistique &amp; image de l'autre.</p>
-    </article>
-    <article class="fcard media">
-      <p class="top tag">Clé en main</p>
-      <figure><img src="../assets/images/voyage/06-bridge-lune-desktop-v2.png" alt=""></figure>
-      <p class="bot tag">Zéro coordination à gérer. Environ 1 600 € économisés vs. séparé.</p>
-    </article>
-  </div>
-</section>
-
-<!-- ===================== OUTPUT / COLOR-SHIFT TABS ===================== -->
-<section class="output section" id="output">
-  <h2 class="h2 display reveal">Le résultat ? Des outils qui bossent pour vous.</h2>
-  <div class="output-stage" id="outStage">
-    <figure data-tab="0"><img src="../assets/images/voyage/03-cockpit-planete-desktop-v1.png" alt="Sites & vitrines Pinapp"></figure>
-    <figure data-tab="1"><img src="../assets/images/voyage/03-cockpit-planete-desktop-v2.png" alt="Automatisations Pinapp"></figure>
-    <figure data-tab="2"><img src="../assets/images/voyage/03-cockpit-planete-desktop-v3.png" alt="IA sur-mesure Pinapp"></figure>
-  </div>
-  <div class="out-tabs" id="outTabs">
-    <button class="active" data-tab="0">Sites &amp; vitrines</button>
-    <button data-tab="1">Automatisations</button>
-    <button data-tab="2">IA sur-mesure</button>
-  </div>
-  <div class="out-text" id="outText">
-    <p>Un site rapide, soigné, que vous partagez fièrement. Livré en 7 jours, et qui vous ressemble.</p>
-  </div>
-  <div class="speedbump">
-    <h3>On en parle ? Le premier échange est offert.</h3>
-    <a href="../contact/" class="btn">Nous écrire <span class="arrow">→</span></a>
-  </div>
-</section>
-
-<!-- ===================== STATEMENT 2 (mission) ===================== -->
-<section class="statement section divider-top">
-  <h2 class="h2 reveal"><b>Notre mission est simple.</b>
-La technologie doit servir les gens, pas les remplacer. On a construit ces outils pour nous d'abord — pour gérer notre propre complexité. Aujourd'hui, on les construit pour vous.</h2>
-  <div class="reveal"><a href="../a-propos/" class="btn ghost">Notre société <span class="arrow">→</span></a></div>
-</section>
-
-<!-- ===================== STACKING CARDS ===================== -->
-<section class="stack section" id="stack">
-  <div class="head reveal"><h2 class="h2 display">Bénéfices</h2></div>
-  <div class="stack-cards">
-    <div class="stack-card">
-      <div class="num">01</div>
-      <div class="blk"><h3>Vos heures</h3><p>Vous payez des outils pensés pour le bureau pendant que votre équipe court partout. Récupérez vos heures : l'IA répond, les relances partent seules, les factures se génèrent à la signature.</p></div>
-    </div>
-    <div class="stack-card">
-      <div class="num">02</div>
-      <div class="blk"><h3>Votre indépendance</h3><p>Stack 100% européen, sobre, sans abonnement superflu. Vous gardez tout : code, accès, données. Documentation incluse — vous êtes autonomes, pas captifs.</p></div>
-    </div>
-    <div class="stack-card">
-      <div class="num">03</div>
-      <div class="blk"><h3>Votre image</h3><p>Un site et des visuels dont vous n'avez plus honte. Direction artistique, shooting, branding : l'image à la hauteur de votre travail, partagée fièrement.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== OFFRES / LINK LIST ===================== -->
-<section class="linklist section">
+<!-- ===================== OFFRES T0–T6 (scroll horizontal) ===================== -->
+<section class="offres grain" id="offres">
   <div class="head">
-    <h2 class="h2 display reveal">Nos offres</h2>
-    <p class="legal small reveal">Prix HT · TVA non applicable art. 293 B CGI · Paiement sur livrable · Satisfait ou remboursé 30 jours.</p>
+    <div class="eyebrow" data-reveal="fade-up" style="margin-bottom:1.2rem">06 · SITES WEB · 7 FORMULES</div>
+    <h2 data-reveal="fade-up">Du landing express<br>au vaisseau signature.</h2>
   </div>
-  <div class="list">
-    <a href="../offres/" class="offer reveal"><div class="row"><h4>Site Vitrine — livré sous 7 jours</h4><span class="price">1 290 € HT</span></div></a>
-    <a href="../offres/" class="offer reveal"><div class="row"><h4>Automatisation Messages — entrée de gamme</h4><span class="price">490 € HT</span></div><p class="desc">~1 jour/mois récupéré</p></a>
-    <a href="../offres/" class="offer reveal"><div class="row"><h4>IA sur-mesure — livrée sous 48h</h4><span class="price">890 € HT</span></div></a>
-    <a href="../offres/" class="offer reveal"><div class="row"><h4>Système Complet — sur devis</h4><span class="price">dès 2 400 € HT</span></div></a>
-    <a href="../offres/" class="offer reveal"><div class="row"><h4>Pack Duo Lauralie + Micha</h4><span class="price">dès 3 900 € HT</span></div><p class="desc">~1 600 € économisés vs séparé</p></a>
-    <a href="../offres/" class="btn reveal">Voir toutes les offres <span class="arrow">→</span></a>
+  <div class="offres-viewport">
+    <div class="offres-track">
+      <article class="tier"><div class="t">T0</div><div class="nm">Express</div><div class="pr">990 <span>€ HT</span></div><ul><li><span class="c">✓</span>Landing 1 page</li><li><span class="c">✓</span>Form basique</li><li><span class="c">✓</span>Responsive</li><li><span class="c">✓</span>En ligne 7 jours</li></ul><a href="#contact" class="cta">Demander T0</a></article>
+      <article class="tier"><div class="t">T1</div><div class="nm">Essentiel</div><div class="pr">1 490 <span>€ HT</span></div><ul><li><span class="c">✓</span>3-5 pages</li><li><span class="c">✓</span>SEO basique</li><li><span class="c">✓</span>CMS éditable</li><li><span class="c">✓</span>En ligne 10 jours</li></ul><a href="#contact" class="cta">Demander T1</a></article>
+      <article class="tier"><div class="t">T2</div><div class="nm">Pro</div><div class="pr">1 890 <span>€ HT</span></div><ul><li><span class="c">✓</span>5-8 pages</li><li><span class="c">✓</span>SEO + Analytics</li><li><span class="c">✓</span>Automatisations</li><li><span class="c">✓</span>En ligne 12 jours</li></ul><a href="#contact" class="cta">Demander T2</a></article>
+      <article class="tier featured"><div class="badge">★ Choix studio</div><div class="t">T3</div><div class="nm">Pro+</div><div class="pr">2 290 <span>€ HT</span></div><ul><li><span class="c">✓</span>8-12 pages</li><li><span class="c">✓</span>SEO avancé</li><li><span class="c">✓</span>Blog + IA</li><li><span class="c">✓</span>En ligne 14 jours</li></ul><a href="#contact" class="cta">Choisir T3</a></article>
+      <article class="tier"><div class="t">T4</div><div class="nm">Premium</div><div class="pr">2 490 <span>€ HT</span></div><ul><li><span class="c">✓</span>Sur-mesure</li><li><span class="c">✓</span>Motion.dev</li><li><span class="c">✓</span>Workflows n8n</li><li><span class="c">✓</span>En ligne 14 jours</li></ul><a href="#contact" class="cta">Demander T4</a></article>
+      <article class="tier"><div class="t">T5</div><div class="nm">Signature</div><div class="pr">3 890 <span>€ HT</span></div><ul><li><span class="c">✓</span>Niveau Awwwards</li><li><span class="c">✓</span>Vidéo IA hero</li><li><span class="c">✓</span>Automatisations complètes</li><li><span class="c">✓</span>En ligne 21 jours</li></ul><a href="#contact" class="cta">Demander T5</a></article>
+      <article class="tier"><div class="t">T6</div><div class="nm">Vaisseau</div><div class="pr">5 990 <span>€ HT</span></div><ul><li><span class="c">✓</span>Multi-pages premium</li><li><span class="c">✓</span>WebGL Three.js</li><li><span class="c">✓</span>Suite IA complète</li><li><span class="c">✓</span>En ligne 28 jours</li></ul><a href="#contact" class="cta">Demander T6</a></article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SERVICES (tabs color-shift) ===================== -->
+<section class="services" id="services">
+  <h2 data-reveal="fade-up">Trois manières de gagner du temps.</h2>
+  <div class="svc-stage" id="svcStage">
+    <figure data-tab="0"><img src="avalon/frames/2-2-interface-holo.png" alt="Sites web"></figure>
+    <figure data-tab="1"><img src="avalon/frames/1-2-hublot.png" alt="Films cinéma IA"></figure>
+    <figure data-tab="2"><img src="avalon/frames/2-3-cascade-code.png" alt="Automatisations IA"></figure>
+  </div>
+  <div class="svc-tabs" id="svcTabs">
+    <button class="active" data-tab="0">Sites web</button>
+    <button data-tab="1">Films cinéma IA</button>
+    <button data-tab="2">Automatisations IA</button>
+  </div>
+  <div class="svc-text" id="svcText"><p>Un site rapide, soigné, que vous partagez fièrement. Livré sous 7 à 28 jours, et le code est à vous.</p></div>
+</section>
+
+<!-- ===================== STACKING (3 promesses) ===================== -->
+<section class="stack" id="promesses">
+  <div class="head"><div class="eyebrow" data-reveal="fade-up" style="margin-bottom:1rem">10 · CE QUI CHANGE</div><h2 data-reveal="fade-up">Trois promesses.</h2></div>
+  <div class="stack-cards">
+    <div class="stk"><div class="num">01</div><div class="blk"><h3>Un seul devis</h3><p>Pas d'agence à 15 intermédiaires, pas de coûts cachés. Un duo bordelais, un interlocuteur, un prix annoncé au devis. 50 à 75 % moins cher qu'une agence.</p></div></div>
+    <div class="stk"><div class="num">02</div><div class="blk"><h3>Des délais tenus</h3><p>De 7 jours (T0 Express) à 28 jours (T6 Vaisseau). Délai contractuel fixe, annoncé au devis, respecté. Engagement signé, pas une promesse en l'air.</p></div></div>
+    <div class="stk"><div class="num">03</div><div class="blk"><h3>Le code est à vous</h3><p>Code propre, documenté, headless — jamais WordPress. Vous gardez tout : accès, données, code. Pinapp Care 79 €/mois si vous voulez, sinon vous reprenez la main.</p></div></div>
+  </div>
+</section>
+
+<!-- ===================== ENGAGEMENTS ===================== -->
+<section class="block" style="background:var(--smoked)" id="engagements">
+  <div class="wrap">
+    <div class="eyebrow" data-reveal="fade-up" style="margin-bottom:1.2rem">12 · NOS 8 ENGAGEMENTS</div>
+    <h2 data-reveal="fade-up" style="font-size:clamp(2rem,4vw,3rem);margin-bottom:3rem">Huit sceaux.<br>Huit engagements signés.</h2>
+    <div class="seals" data-reveal="stagger">
+      <div class="seal"><div class="disc">◈</div><div class="lbl">Devis fixe</div></div>
+      <div class="seal"><div class="disc">◈</div><div class="lbl">Délais respectés</div></div>
+      <div class="seal"><div class="disc">◈</div><div class="lbl">Pas de surcoût</div></div>
+      <div class="seal"><div class="disc">◈</div><div class="lbl">Code propre &amp; documenté</div></div>
+      <div class="seal"><div class="disc">◈</div><div class="lbl">SEO inclus</div></div>
+      <div class="seal"><div class="disc">◈</div><div class="lbl">Mobile-first</div></div>
+      <div class="seal"><div class="disc">◈</div><div class="lbl">Maintenance simple</div></div>
+      <div class="seal"><div class="disc">◈</div><div class="lbl">Satisfait ou refait</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RÉALISATIONS ===================== -->
+<section class="block" style="background:var(--graphite)" id="realisations">
+  <div class="wrap">
+    <div class="eyebrow" data-reveal="fade-up" style="margin-bottom:1.2rem">13 · NOS RÉALISATIONS</div>
+    <h2 data-reveal="fade-up" style="font-size:clamp(2rem,4vw,3rem);margin-bottom:3rem">Du code. Des films.</h2>
+    <div class="realis" data-reveal="stagger">
+      <div class="rcard card"><div class="thumb" style="background:rgba(168,139,224,.15)"></div><div class="meta"><div class="ti">Atelier Rivage</div><div class="su">site architecte · Bordeaux 2026</div></div></div>
+      <div class="rcard card"><div class="thumb" style="background:rgba(109,143,234,.15)"></div><div class="meta"><div class="ti">Cabinet Avocat</div><div class="su">site avocat · Bordeaux 2026</div></div></div>
+      <div class="rcard card"><div class="thumb" style="background:rgba(141,106,216,.20)"></div><div class="meta"><div class="ti">Mémoire &amp; Présence ★</div><div class="su">service mémoriel premium</div></div></div>
+      <div class="rcard card"><div class="thumb" style="background:rgba(109,143,234,.18)"><div class="play"></div></div><div class="meta"><div class="ti">Vimeo Icebreaker</div><div class="su">Clip cinéma IA · 2:18</div></div></div>
+      <div class="rcard card"><div class="thumb" style="background:rgba(168,139,224,.18)"><div class="play"></div></div><div class="meta"><div class="ti">SW Female Unity</div><div class="su">Court-métrage · 3:49</div></div></div>
+      <div class="rcard card"><div class="thumb" style="background:rgba(141,106,216,.18)"><div class="play"></div></div><div class="meta"><div class="ti">Clip M&amp;P ★</div><div class="su">Notre projet · 1:46</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section class="block faq" style="background:var(--smoked)" id="faq">
+  <div class="wrap-sm">
+    <div class="eyebrow" data-reveal="fade-up" style="margin-bottom:2rem">15 · QUESTIONS FRÉQUENTES</div>
+    <div data-reveal="fade-up">
+      <div class="it open"><button class="q">Combien de temps pour livrer mon site ?<span class="s">+</span></button><div class="a"><div class="in">Entre 7 jours (T0 Express) et 28 jours (T6 Vaisseau). Délai contractuel fixe annoncé au devis.</div></div></div>
+      <div class="it"><button class="q">Quel CMS utilisez-vous ?<span class="s">+</span></button><div class="a"><div class="in">Selon ton besoin : Sanity, Strapi, ou CMS sur-mesure léger. Toujours headless, jamais WordPress.</div></div></div>
+      <div class="it"><button class="q">L'hébergement est-il inclus ?<span class="s">+</span></button><div class="a"><div class="in">Le 1er mois oui. Ensuite Pinapp Care 79 €/mois ou tu reprends sur ton propre Vercel/Netlify.</div></div></div>
+      <div class="it"><button class="q">Puis-je modifier le site après livraison ?<span class="s">+</span></button><div class="a"><div class="in">Oui. CMS éditable dès T1. Sur T0 on te forme 1 h sur le code. Tu possèdes le code.</div></div></div>
+      <div class="it"><button class="q">Que se passe-t-il si je ne suis pas satisfait·e ?<span class="s">+</span></button><div class="a"><div class="in">Engagement #8 : satisfait ou refait. 2 rounds de révisions gratuits sur toutes les formules T3+.</div></div></div>
+      <div class="it"><button class="q">Le devis est-il sans engagement ?<span class="s">+</span></button><div class="a"><div class="in">Oui. Le diagnostic 24 h est offert. Pas de carte bancaire demandée. Pas de relance.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ATTERRISSAGE + CONTACT ===================== -->
+<section class="block land grain" id="contact">
+  <div class="wrap-sm">
+    <h2 data-reveal="fade-up">Prêt·e à embarquer ?</h2>
+    <p class="muted" data-reveal="fade-up">Diagnostic 24 h offert. Sans engagement.</p>
+    <div class="card contact-card" data-reveal="fade-up">
+      <a class="crow" href="https://wa.me/33786173715" rel="noopener noreferrer" target="_blank"><span class="ic">💬</span><span><span class="lab">WhatsApp</span><br><span class="val">07 86 17 37 15</span></span></a>
+      <div class="line-peri"></div>
+      <a class="crow" href="mailto:contact@pinapp.fr"><span class="ic">✉</span><span><span class="lab">Email</span><br><span class="val">contact@pinapp.fr</span></span></a>
+      <div class="line-peri"></div>
+      <div class="crow"><span class="ic">📍</span><span><span class="lab">Adresse</span><br><span class="val">49 av. Edmond Rostand, Mérignac</span></span></div>
+    </div>
+    <p class="muted" style="margin-top:1.5rem;font-size:.85rem" data-reveal="fade-up">Réponse sous 2 h en journée.</p>
   </div>
 </section>
 
@@ -531,24 +540,22 @@ La technologie doit servir les gens, pas les remplacer. On a construit ces outil
 
 <!-- ===================== FOOTER ===================== -->
 <footer class="ft">
-  <div class="top">
-    <h4>Connecter. Construire. Transmettre.</h4>
-    <p>© 2026 Pinapp Inc. · Lauralie &amp; Micha · Prix HT · TVA non applicable art. 293 B CGI</p>
-  </div>
-  <div class="logo">Pin<b>app</b></div>
-  <div class="nav">
-    <ul>
-      <li><a href="#hero">Accueil</a></li>
-      <li><a href="../a-propos/">Société</a></li>
-      <li><a href="../offres/">Offres</a></li>
-      <li><a href="../contact/">Contact</a></li>
-      <li><a href="https://www.linkedin.com/" rel="noopener noreferrer" target="_blank">LinkedIn</a></li>
-      <li><a href="../mentions-legales/">Mentions légales</a></li>
-    </ul>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <img class="logo" src="avalon/logo-pinapp.png" alt="Pinapp">
+        <div class="addr">Pinapp Inc.<br>49 av. Edmond Rostand<br>33700 Mérignac<br>SIRET 523 884 898 00017</div>
+      </div>
+      <div><div class="ttl">Nav rapide</div><div class="lst">
+        <a href="#offres">Sites web</a><a href="#services">Films</a><a href="#process">Process</a><a href="#contact">Diagnostic</a><a href="#contact">Contact</a>
+      </div></div>
+      <div><div class="ttl">Mentions légales</div><div class="lst">
+        <a href="../mentions-legales/">Mentions légales</a><a href="../cgv/">CGV</a><a href="../confidentialite/">Confidentialité RGPD</a>
+      </div></div>
+    </div>
+    <div class="copy">© 2026 Pinapp Inc. · Lauralie Daguzay &amp; Michaël Bouilhac · Tous droits réservés.</div>
   </div>
 </footer>
-
-<img class="filigrane" src="../assets/images/ananas-filigrane.svg" alt="" aria-hidden="true">
 
 <!-- ===================== VENDORS ===================== -->
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
@@ -557,164 +564,191 @@ La technologie doit servir les gens, pas les remplacer. On a construit ces outil
 <script>
 (function(){
   "use strict";
-  var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var SMALL  = window.matchMedia('(max-width: 860px)').matches;
-  var sober  = localStorage.getItem('pinapp-sober') === '1';
-  var hasGSAP = window.gsap && window.ScrollTrigger;
-  if (hasGSAP) gsap.registerPlugin(ScrollTrigger);
+  var REDUCE=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var SMALL=matchMedia('(max-width: 860px)').matches;
+  var sober=localStorage.getItem('pinapp-sober')==='1';
+  var hasGSAP=window.gsap&&window.ScrollTrigger;
+  if(hasGSAP)gsap.registerPlugin(ScrollTrigger);
+  var IMMERSIVE=hasGSAP&&!REDUCE&&!sober;
 
-  /* ---------- mode sobre toggle ---------- */
-  var soberBtn = document.getElementById('soberToggle');
-  function applySober(){
-    document.body.classList.toggle('sober', sober);
-    soberBtn.setAttribute('aria-pressed', String(sober));
-    soberBtn.querySelector('.lbl').textContent = sober ? 'Mode immersif' : 'Mode sobre';
-  }
+  /* ---- mode sobre ---- */
+  var sb=document.getElementById('soberToggle');
+  function applySober(){document.body.classList.toggle('sober',sober);sb.setAttribute('aria-pressed',String(sober));
+    sb.querySelector('.lbl').textContent=sober?'Mode immersif':'Mode sobre';}
   applySober();
-  soberBtn.addEventListener('click', function(){
-    sober = !sober;
-    localStorage.setItem('pinapp-sober', sober ? '1' : '0');
-    location.reload(); // re-init clean (ScrollTrigger teardown is heavy otherwise)
-  });
+  sb.addEventListener('click',function(){sober=!sober;localStorage.setItem('pinapp-sober',sober?'1':'0');location.reload();});
 
-  var IMMERSIVE = hasGSAP && !REDUCE && !sober;
-
-  /* ---------- Lenis smooth scroll ---------- */
-  var lenis = null;
-  if (IMMERSIVE && window.Lenis){
-    lenis = new Lenis({ duration: 1.1, smoothWheel: true });
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add(function(t){ lenis.raf(t * 1000); });
+  /* ---- Lenis ---- */
+  var lenis=null;
+  if(IMMERSIVE&&window.Lenis){
+    lenis=new Lenis({duration:1.1,smoothWheel:true});
+    lenis.on('scroll',ScrollTrigger.update);
+    gsap.ticker.add(function(t){lenis.raf(t*1000);});
     gsap.ticker.lagSmoothing(0);
   }
 
-  /* ---------- header hide on scroll down ---------- */
-  var header = document.getElementById('header'), lastY = 0;
-  function onScrollHeader(y){
-    if (y > lastY && y > 200) header.classList.add('hide');
-    else header.classList.remove('hide');
-    lastY = y;
+  /* ---- nav scroll state + hide ---- */
+  var nav=document.getElementById('nav'),lastY=0;
+  function navScroll(y){
+    nav.classList.toggle('scrolled',y>50);
+    if(y>lastY&&y>300)nav.classList.add('hide');else nav.classList.remove('hide');
+    lastY=y;
   }
-  if (lenis) lenis.on('scroll', function(e){ onScrollHeader(e.scroll); });
-  else window.addEventListener('scroll', function(){ onScrollHeader(window.scrollY); }, {passive:true});
+  if(lenis)lenis.on('scroll',function(e){navScroll(e.scroll);});
+  else addEventListener('scroll',function(){navScroll(scrollY);},{passive:true});
 
-  /* ---------- hero pre-anim ---------- */
-  if (IMMERSIVE){
-    gsap.from('.hero figure', {y:40, opacity:0, duration:1.2, ease:'power3.out', delay:.1});
-    gsap.from('.hero .wordmark', {y:60, opacity:0, duration:1.3, ease:'power3.out', delay:.25});
-    gsap.from('.hero .eyebrow-row', {opacity:0, duration:1, delay:.5});
-    // hero parallax
-    gsap.to('.hero figure', {yPercent:-12, ease:'none',
-      scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:true}});
-    gsap.to('.hero .wordmark', {yPercent:18, ease:'none',
-      scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:true}});
-  }
-
-  /* ---------- generic reveal ---------- */
-  if (IMMERSIVE){
-    gsap.utils.toArray('.reveal').forEach(function(el){
-      ScrollTrigger.create({
-        trigger: el, start:'top 88%',
-        onEnter: function(){ el.classList.add('is-in'); }
-      });
+  /* ---- reveals ---- */
+  if(IMMERSIVE){
+    gsap.utils.toArray('[data-reveal]').forEach(function(el){
+      Array.prototype.forEach.call(el.children,function(c,i){c.style.setProperty('--i',i);});
+      ScrollTrigger.create({trigger:el,start:'top 88%',onEnter:function(){el.classList.add('is-in');}});
     });
-    // line masks
-    gsap.utils.toArray('.js-lines, .line-mask').forEach(function(el){
-      var host = el.classList.contains('js-lines') ? el : el;
-      ScrollTrigger.create({
-        trigger: el, start:'top 85%',
-        onEnter: function(){ el.classList.add('is-in'); }
-      });
-    });
-  } else {
-    document.querySelectorAll('.reveal,.js-lines,.line-mask').forEach(function(el){ el.classList.add('is-in'); });
+  }else{
+    document.querySelectorAll('[data-reveal]').forEach(function(el){el.classList.add('is-in');});
   }
 
-  /* ---------- process accordion ---------- */
+  /* ====================================================================
+     AVALON — port vanilla de SceneOrchestrator
+     ==================================================================== */
   (function(){
-    var items = Array.prototype.slice.call(document.querySelectorAll('.proc-items li'));
-    var pics  = Array.prototype.slice.call(document.querySelectorAll('.process .right .pic'));
-    function setBody(li, open){
-      var body = li.querySelector('.body');
-      body.style.maxHeight = open ? (body.scrollHeight + 'px') : '0px';
+    var wrap=document.querySelector('[data-scene-wrap]');
+    var canvas=document.querySelector('[data-scene-canvas]');
+    var dot=document.querySelector('[data-scene-dot]');
+    if(!wrap||!canvas)return;
+    var scenes=Array.prototype.slice.call(canvas.querySelectorAll('[data-scene]'));
+    var texts=Array.prototype.slice.call(canvas.querySelectorAll('[data-scene-text]'));
+    var DOT=[[78,42],[50,38],[50,30],[50,50],[40,45],[60,35],[48,60],[50,28],[30,40]];
+    var PIN=[false,true,false,true,false,false,true,false,false];
+    var CF=1, HOLD=110;
+
+    // fallback statique (sobre / reduced) : flux, texte rattaché, posters
+    if(!IMMERSIVE){
+      canvas.classList.add('flow');
+      if(dot)dot.style.display='none';
+      scenes.forEach(function(el,i){
+        el.style.position='relative';el.style.opacity='1';el.style.minHeight='100vh';
+        el.style.display='flex';el.style.alignItems='flex-end';el.style.justifyContent='center';
+        var v=el.querySelector('video');
+        if(v){var img=document.createElement('img');img.src=v.getAttribute('poster');img.alt='';
+          img.style.cssText='width:100%;height:100%;object-fit:cover;position:absolute;inset:0';
+          el.insertBefore(img,v);v.remove();}
+        var t=texts[i];if(t){t.style.position='relative';t.style.opacity='1';t.style.left='auto';
+          t.style.bottom='auto';t.style.transform='none';t.style.margin='0 auto 12vh';el.appendChild(t);}
+      });
+      return;
     }
+
+    wrap.style.height=(scenes.length*100+HOLD)+'vh';
+    scenes.forEach(function(el,i){gsap.set(el,{opacity:i===0?1:0,scale:i===0?1:1.08});});
+    texts.forEach(function(el,i){gsap.set(el,{opacity:i===0?1:0,y:i===0?0:24});});
+
+    var vids=scenes.map(function(el){return{el:el,v:el.querySelector('video')};}).filter(function(s){return s.v;});
+    function syncV(){vids.forEach(function(s){var vis=parseFloat(getComputedStyle(s.el).opacity)>0.1;
+      if(vis&&s.v.paused)s.v.play().catch(function(){});else if(!vis&&!s.v.paused)s.v.pause();});}
+
+    var tl=gsap.timeline({scrollTrigger:{trigger:wrap,start:'top top',end:'bottom bottom',scrub:1,onUpdate:syncV}});
+    scenes.forEach(function(_,i){
+      if(i===0)return;
+      var L='s'+i;tl.addLabel(L);
+      tl.to(scenes[i-1],{opacity:0,scale:1.12,duration:CF},L);
+      tl.to(texts[i-1],{opacity:0,y:-20,duration:CF*0.5},L);
+      tl.fromTo(scenes[i],{opacity:0,scale:1.08},{opacity:1,scale:1,duration:CF},L);
+      tl.fromTo(texts[i],{opacity:0,y:24},{opacity:1,y:0,duration:CF*0.6},L+'+='+(CF*0.4));
+      tl.to(dot,{left:DOT[i][0]+'%',top:DOT[i][1]+'%',duration:CF,ease:'power2.inOut'},L);
+      if(PIN[i])tl.to({},{duration:0.6});
+    });
+    tl.to({},{duration:CF*1.6});
+    dot.style.left=DOT[0][0]+'%';dot.style.top=DOT[0][1]+'%';
+    syncV();
+  })();
+
+  /* ---- process accordion ---- */
+  (function(){
+    var items=Array.prototype.slice.call(document.querySelectorAll('.proc-items li'));
+    var pics=Array.prototype.slice.call(document.querySelectorAll('.process .right .pic'));
+    function setB(li,open){var b=li.querySelector('.body');b.style.maxHeight=open?(b.scrollHeight+'px'):'0px';}
     items.forEach(function(li){
-      setBody(li, li.classList.contains('active'));
-      li.querySelector('.tog').addEventListener('click', function(){
-        var idx = li.getAttribute('data-pic');
-        items.forEach(function(o){ o.classList.remove('active'); setBody(o, false); });
-        li.classList.add('active'); setBody(li, true);
-        pics.forEach(function(p){ p.classList.toggle('on', p.getAttribute('data-pic') === idx); });
+      setB(li,li.classList.contains('active'));
+      li.querySelector('.tog').addEventListener('click',function(){
+        var idx=li.getAttribute('data-pic');
+        items.forEach(function(o){o.classList.remove('active');setB(o,false);});
+        li.classList.add('active');setB(li,true);
+        pics.forEach(function(p){p.classList.toggle('on',p.getAttribute('data-pic')===idx);});
       });
     });
   })();
 
-  /* ---------- feature cards horizontal pin ---------- */
+  /* ---- offres horizontal pin ---- */
   (function(){
-    var sec = document.getElementById('fcards');
-    var track = sec.querySelector('.fcards-track');
-    if (!IMMERSIVE || SMALL){ return; } // vertical fallback by CSS
+    var sec=document.getElementById('offres');
+    var track=sec.querySelector('.offres-track');
+    if(!IMMERSIVE||SMALL)return;
     sec.classList.add('is-h');
-    var getX = function(){ return track.scrollWidth - window.innerWidth; };
-    gsap.to(track, {
-      x: function(){ return -getX(); },
-      ease:'none',
-      scrollTrigger:{
-        trigger: sec, start:'top top', pin:true, scrub:1, invalidateOnRefresh:true,
-        end: function(){ return '+=' + getX(); }
-      }
-    });
+    var vp=sec.querySelector('.offres-viewport');
+    var getX=function(){return track.scrollWidth-window.innerWidth;};
+    gsap.to(track,{x:function(){return -getX();},ease:'none',
+      scrollTrigger:{trigger:sec,start:'top top',pin:vp,scrub:1,invalidateOnRefresh:true,end:function(){return '+='+getX();}}});
   })();
 
-  /* ---------- output : color shift tabs + horizontal drift ---------- */
+  /* ---- services color-shift tabs ---- */
   (function(){
-    var sec = document.getElementById('output');
-    var tabs = Array.prototype.slice.call(document.querySelectorAll('#outTabs button'));
-    var stage = document.getElementById('outStage');
-    var outText = document.getElementById('outText').querySelector('p');
-    var palette = [
-      {c1:'#08161f', c2:'#063b42', txt:"Un site rapide, soigné, que vous partagez fièrement. Livré en 7 jours, et qui vous ressemble."},
-      {c1:'#1a1408', c2:'#4a3410', txt:"Vos devis, factures et relances tournent seuls. ~1 jour/mois récupéré dès l'entrée de gamme."},
-      {c1:'#120a22', c2:'#34215e', txt:"Une IA entraînée sur vos données qui répond pendant que vous êtes ailleurs. Livrée sous 48h."}
+    var sec=document.getElementById('services');
+    var tabs=Array.prototype.slice.call(document.querySelectorAll('#svcTabs button'));
+    var stage=document.getElementById('svcStage');
+    var txt=document.getElementById('svcText').querySelector('p');
+    var P=[
+      {c1:'#0e0b18',c2:'#2a1e44',t:"Un site rapide, soigné, que vous partagez fièrement. Livré sous 7 à 28 jours, et le code est à vous."},
+      {c1:'#0c1020',c2:'#1c2c52',t:"Clips, teasers, courts-métrages en cinéma IA. L'image qui fait ressentir ce que les mots ne disent pas."},
+      {c1:'#100b1c',c2:'#332252',t:"Devis, factures, relances, RDV : générés pendant que vous êtes ailleurs. Jusqu'à 8 h/semaine récupérées."}
     ];
-    function select(i){
-      tabs.forEach(function(b,k){ b.classList.toggle('active', k===i); });
-      var p = palette[i];
-      if (window.gsap){ gsap.to(sec, {'--c1':p.c1, '--c2':p.c2, duration:.65, ease:'power2.out'}); }
-      else { sec.style.setProperty('--c1', p.c1); sec.style.setProperty('--c2', p.c2); }
-      outText.textContent = p.txt;
-      // center the matching figure
-      var fig = stage.querySelector('figure[data-tab="'+i+'"]');
-      if (fig){
-        if (IMMERSIVE && !SMALL){
-          var target = fig.offsetLeft + fig.offsetWidth/2 - window.innerWidth/2;
-          gsap.to(stage, {x: -target, duration:.7, ease:'power2.out'});
-        } else {
-          fig.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
-        }
-      }
+    function sel(i){
+      tabs.forEach(function(b,k){b.classList.toggle('active',k===i);});
+      var p=P[i];
+      if(window.gsap)gsap.to(sec,{'--c1':p.c1,'--c2':p.c2,duration:.65,ease:'power2.out'});
+      else{sec.style.setProperty('--c1',p.c1);sec.style.setProperty('--c2',p.c2);}
+      txt.textContent=p.t;
+      var fig=stage.querySelector('figure[data-tab="'+i+'"]');
+      if(fig){if(IMMERSIVE&&!SMALL){var tgt=fig.offsetLeft+fig.offsetWidth/2-window.innerWidth/2;
+        gsap.to(stage,{x:-tgt,duration:.7,ease:'power2.out'});}else fig.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});}
     }
-    tabs.forEach(function(b,i){ b.addEventListener('click', function(){ select(i); }); });
-    // init colors
-    sec.style.setProperty('--c1', palette[0].c1);
-    sec.style.setProperty('--c2', palette[0].c2);
+    tabs.forEach(function(b,i){b.addEventListener('click',function(){sel(i);});});
+    sec.style.setProperty('--c1',P[0].c1);sec.style.setProperty('--c2',P[0].c2);
   })();
 
-  /* ---------- stacking cards scale ---------- */
+  /* ---- stacking scale ---- */
   (function(){
-    if (!IMMERSIVE || SMALL) return;
-    var cards = gsap.utils.toArray('.stack-card');
-    cards.forEach(function(card, i){
-      if (i === cards.length - 1) return;
-      gsap.to(card, {
-        scale:.92, filter:'brightness(.7)', ease:'none',
-        scrollTrigger:{ trigger: card, start:'top top', end:'bottom top', scrub:true }
-      });
-    });
+    if(!IMMERSIVE||SMALL)return;
+    var cards=gsap.utils.toArray('.stk');
+    cards.forEach(function(c,i){if(i===cards.length-1)return;
+      gsap.to(c,{scale:.92,filter:'brightness(.7)',ease:'none',
+        scrollTrigger:{trigger:c,start:'top top',end:'bottom top',scrub:true}});});
   })();
 
-  /* ---------- refresh after images load ---------- */
-  window.addEventListener('load', function(){ if (hasGSAP) ScrollTrigger.refresh(); });
+  /* ---- FAQ ---- */
+  document.querySelectorAll('.faq .it').forEach(function(it){
+    var q=it.querySelector('.q'),a=it.querySelector('.a');
+    if(it.classList.contains('open'))a.style.maxHeight=a.scrollHeight+'px';
+    q.addEventListener('click',function(){
+      var open=it.classList.contains('open');
+      document.querySelectorAll('.faq .it').forEach(function(o){o.classList.remove('open');o.querySelector('.a').style.maxHeight='0px';});
+      if(!open){it.classList.add('open');a.style.maxHeight=a.scrollHeight+'px';}
+    });
+  });
+
+  /* ---- magnetic cursor ---- */
+  (function(){
+    if(SMALL||matchMedia('(pointer:coarse)').matches)return;
+    var c=document.getElementById('mcursor');if(!c)return;
+    var x=innerWidth/2,y=innerHeight/2,cx=x,cy=y;
+    addEventListener('mousemove',function(e){x=e.clientX;y=e.clientY;},{passive:true});
+    document.querySelectorAll('a,button,[data-magnetic]').forEach(function(el){
+      el.addEventListener('mouseenter',function(){c.classList.add('big');});
+      el.addEventListener('mouseleave',function(){c.classList.remove('big');});
+    });
+    (function loop(){cx+=(x-cx)*.18;cy+=(y-cy)*.18;c.style.transform='translate('+cx+'px,'+cy+'px) translate(-50%,-50%)';requestAnimationFrame(loop);})();
+  })();
+
+  addEventListener('load',function(){if(hasGSAP)ScrollTrigger.refresh();});
 })();
 </script>
 </body>
