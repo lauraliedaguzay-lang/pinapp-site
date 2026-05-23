@@ -70,11 +70,22 @@ function copyTree(srcDir, rel = '') {
 }
 
 /**
- * Promote voyage-v9/ HTML to _site root so pinapp.fr/ serves the new home.
- * Repo source unchanged — only the publish artifact is rewritten.
- * _site/voyage-v9/ stays (staging mirror + static assets for promoted pages).
+ * Promote voyage-v9/ HTML to _site root (legacy home) when racine is still l’ancienne DA.
+ * Si index.html racine est déjà la home AVALON (voyage-sunmetalon), ne pas écraser.
+ * _site/voyage-v9/ reste (miroir + assets pour pages qui y pointent encore).
  */
 function promoteVoyageV9(siteDir) {
+  const rootIndex = path.join(siteDir, 'index.html');
+  if (fs.existsSync(rootIndex)) {
+    const raw = fs.readFileSync(rootIndex, 'utf8');
+    if (raw.includes('voyage-sunmetalon') || raw.includes('#bgstage')) {
+      console.log(
+        '[promoteVoyageV9] skip — racine déjà home AVALON (voyage-sunmetalon), pas de promotion v9',
+      );
+      return;
+    }
+  }
+
   const v9Dir = path.join(siteDir, 'voyage-v9');
   if (!fs.existsSync(v9Dir)) {
     console.log('[promoteVoyageV9] voyage-v9/ absent dans _site, skip');
