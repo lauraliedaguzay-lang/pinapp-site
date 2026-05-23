@@ -21,7 +21,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;background:var(--graphite)}
 html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}.lenis.lenis-stopped{overflow:hidden}
-body{font-family:var(--ff);background:var(--graphite);color:var(--ivory);font-size:16px;line-height:1.6;overflow-x:hidden}
+body{font-family:var(--ff);background:transparent;color:var(--ivory);font-size:16px;line-height:1.6;overflow-x:hidden}
 body.no-scroll{overflow:hidden}img,video{display:block;max-width:100%}a{color:inherit;text-decoration:none}
 ::selection{background:var(--violet);color:var(--ivory)}h1,h2,h3,h4{margin:0;font-weight:600;letter-spacing:-.02em;line-height:1.08}
 a,button{transition:transform .4s var(--ease-apple),background .3s,color .3s,border-color .3s,box-shadow .4s,opacity .3s}
@@ -30,15 +30,15 @@ a,button{transition:transform .4s var(--ease-apple),background .3s,color .3s,bor
 .lead{font-size:clamp(1rem,1.35vw,1.16rem);opacity:.9;line-height:1.6}
 
 /* ===== FOND UNIQUE FIXE · fondu enchaîné (vos assets) ===== */
-#bgstage{position:fixed;inset:0;z-index:-2;overflow:hidden;background:var(--graphite)}
+#bgstage{position:fixed;inset:0;z-index:0;overflow:hidden;background:var(--graphite)}
 .bglayer{position:absolute;inset:0;opacity:0;transition:opacity 1.25s var(--ease-apple);will-change:opacity}
 .bglayer.active{opacity:1}
 .bglayer img,.bglayer video{width:100%;height:100%;object-fit:cover}
 .bglayer.active img,.bglayer.active video{animation:kb 20s ease-in-out infinite alternate}
 @keyframes kb{from{transform:scale(1.04) translateY(0)}to{transform:scale(1.16) translateY(-2%)}}
-#bgveil{position:fixed;inset:0;z-index:-1;pointer-events:none;
+#bgveil{position:fixed;inset:0;z-index:0;pointer-events:none;
   background:linear-gradient(180deg,rgba(8,9,13,.52),rgba(8,9,13,.72)),radial-gradient(ellipse at 28% 22%,rgba(141,106,216,.16),transparent 60%);}
-#bggrain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+#bggrain{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
 /* ===== sections (transparentes, glissent sur le fond) ===== */
 .vsec{position:relative;z-index:1;display:flex;align-items:center;padding:clamp(4rem,8vw,7rem) clamp(1.2rem,5vw,4rem)}
