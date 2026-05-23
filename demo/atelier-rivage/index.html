@@ -79,13 +79,14 @@ section{position:relative}
 .manifesto p .it{font-style:italic;color:var(--gold-soft)}
 
 /* DU PLAN À LA RÉALITÉ — wireframe qui devient bâti (profondeur / entrée) */
-.plan{height:260vh;position:relative}
+.plan{height:340vh;position:relative}
 .plan-stage{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--ink)}
-.plan-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;filter:brightness(.55) saturate(.9);will-change:opacity,transform,filter}
-.plan-veil{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse at center,transparent 25%,rgba(10,10,8,.7))}
+.plan-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.4;filter:brightness(.5) saturate(.9);z-index:0}
+.plan-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:1}
+.plan-veil{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse at center,transparent 35%,rgba(10,10,8,.55))}
 .plan-wire{position:absolute;z-index:2;width:min(82vw,1080px);height:auto;opacity:.95}
 .plan-wire [data-draw]{fill:none;stroke:var(--gold);stroke-width:1.4;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round}
-.plan-cap{position:relative;z-index:3;text-align:center;padding:0 var(--pad)}
+.plan-cap{position:absolute;bottom:7vh;left:0;right:0;z-index:3;text-align:center;padding:0 var(--pad)}
 .plan-cap .eyebrow{display:block;margin-bottom:1rem}
 .plan-cap h2{font-family:var(--serif);font-size:clamp(2.2rem,6vw,5rem);text-shadow:0 2px 50px rgba(0,0,0,.6)}
 .plan-cap p{color:var(--cream-dim);margin-top:1rem;max-width:30rem;margin-left:auto;margin-right:auto;font-size:.9rem}
@@ -226,19 +227,9 @@ footer.ft .cc{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;colo
 <!-- DU PLAN À LA RÉALITÉ -->
 <section class="plan" id="plan">
   <div class="plan-stage">
-    <img class="plan-photo" src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=2000&q=85" alt="Villa bâtie" loading="lazy">
+    <img class="plan-fallback" src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1600&q=80" alt="" aria-hidden="true">
+    <canvas id="villa3d" class="plan-canvas" aria-hidden="true"></canvas>
     <div class="plan-veil"></div>
-    <svg class="plan-wire" viewBox="0 0 1200 560" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-      <line data-draw x1="40" y1="470" x2="1160" y2="470"/>
-      <path data-draw d="M200 470 V170 H700 V470"/>
-      <path data-draw d="M700 300 H1000 V470"/>
-      <path data-draw d="M200 170 L450 92 L700 170"/>
-      <path data-draw d="M260 250 H560 V410 H260 Z"/>
-      <line data-draw x1="410" y1="250" x2="410" y2="410"/>
-      <line data-draw x1="260" y1="330" x2="560" y2="330"/>
-      <path data-draw d="M760 350 H940 V470 H760 Z"/>
-      <line data-draw x1="850" y1="350" x2="850" y2="470"/>
-    </svg>
     <div class="plan-cap">
       <div class="plan-stage-ind"><span class="n" id="planN">01</span><span class="t" id="planT">Le trait</span></div>
       <span class="eyebrow">Du plan à la réalité</span>
@@ -358,6 +349,7 @@ footer.ft .cc{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;colo
   ✦ Site démo créé par <a href="https://pinapp.fr">Pinapp</a> · Marque fictive · Données fictives
 </aside>
 
+<script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
 <script src="/assets/vendor/gsap.min.js?v=3.12.5"></script>
 <script src="/assets/vendor/ScrollTrigger.min.js?v=3.12.5"></script>
 <script src="/assets/vendor/lenis.min.js?v=1.1.18"></script>
@@ -430,21 +422,62 @@ document.documentElement.classList.add('js');
           .to('.hero .scroll-cue',{opacity:0,ease:'none'},0);
       }
     }
-    // DU PLAN À LA RÉALITÉ — le wireframe se dessine, puis devient bâti (.plan-stage sticky en CSS)
-    var plan=document.querySelector('.plan');
-    if(plan){
-      var wires=[].slice.call(plan.querySelectorAll('.plan-wire [data-draw]'));
-      wires.forEach(function(p){var len=400;try{len=p.getTotalLength();}catch(e){}p.style.strokeDasharray=len;p.style.strokeDashoffset=len;});
-      var ptl=gsap.timeline({scrollTrigger:{trigger:plan,start:'top top',end:'bottom bottom',scrub:1,onUpdate:function(self){
-        var p=self.progress;var st=p<.4?['01','Le trait']:(p<.78?['02','La structure']:['03','Le bâti']);
-        var nE=document.getElementById('planN'),tE=document.getElementById('planT');
-        if(nE&&nE.textContent!==st[0]){nE.textContent=st[0];tE.textContent=st[1];}
-      }}});
-      ptl.to(wires,{strokeDashoffset:0,stagger:.06,ease:'none'},0);
-      ptl.fromTo('.plan-photo',{opacity:0,scale:1.14,filter:'blur(10px)'},{opacity:.78,scale:1,filter:'blur(0px)',ease:'none'},.42);
-      ptl.to('.plan-wire',{opacity:.22,ease:'none'},.62);
-      ptl.fromTo('.plan-cap',{opacity:0,y:34},{opacity:1,y:0,ease:'none'},.5);
-    }
+    // DU PLAN À LA RÉALITÉ — vraie scène 3D (Three.js) : villa wireframe -> bâtie,
+    // caméra qui entre et tourne au scroll (esprit terminal-industries)
+    (function(){
+      var canvas=document.getElementById('villa3d');
+      if(!canvas||!window.THREE){return;}
+      try{
+        var renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true});
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+        renderer.setClearColor(0x0a0a08,1);
+        var scene=new THREE.Scene(); scene.fog=new THREE.FogExp2(0x0a0a08,0.05);
+        var camera=new THREE.PerspectiveCamera(42,1,0.1,200);
+        scene.add(new THREE.AmbientLight(0x8ea0c0,0.55));
+        var key=new THREE.DirectionalLight(0xffe6c2,1.2); key.position.set(7,11,6); scene.add(key);
+        var rim=new THREE.DirectionalLight(0x6d8fea,0.55); rim.position.set(-7,5,-7); scene.add(rim);
+        var villa=new THREE.Group(); scene.add(villa);
+        var solidMat=new THREE.MeshStandardMaterial({color:0x1b1813,metalness:0.25,roughness:0.65,transparent:true,opacity:0});
+        var glassMat=new THREE.MeshStandardMaterial({color:0x223247,metalness:0.7,roughness:0.18,transparent:true,opacity:0});
+        var lineMat=new THREE.LineBasicMaterial({color:0xc8a87a,transparent:true,opacity:1});
+        function block(w,h,d,x,y,z,mat){
+          var g=new THREE.BoxGeometry(w,h,d);
+          var m=new THREE.Mesh(g,mat||solidMat); m.position.set(x,y,z); villa.add(m);
+          var e=new THREE.LineSegments(new THREE.EdgesGeometry(g),lineMat); e.position.set(x,y,z); villa.add(e);
+        }
+        block(9,0.3,6, 0,0,0);                       // podium
+        block(4,2.6,4, -1.4,1.45,0);                 // volume principal
+        block(3,1.8,3, 1.7,1.0,-0.5, glassMat);      // volume verre
+        block(4.7,0.16,4.7, -1.4,2.86,0);            // dalle toit
+        block(3.4,0.1,1.7, 2.7,0.2,2.1, glassMat);   // piscine
+        block(0.12,2.6,0.12,-3.2,1.45,2.0); block(0.12,2.6,0.12,-1.4,1.45,2.0); block(0.12,2.6,0.12,0.4,1.45,2.0); // poteaux
+        villa.position.y=-1.2;
+        function resize(){var w=canvas.clientWidth||innerWidth,h=canvas.clientHeight||innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
+        var prog=0;
+        if(window.ScrollTrigger){
+          ScrollTrigger.create({trigger:'#plan',start:'top top',end:'bottom bottom',scrub:true,onUpdate:function(s){
+            prog=s.progress;
+            var st=prog<.4?['01','Le volume']:(prog<.78?['02','La structure']:['03','Le lieu']);
+            var nE=document.getElementById('planN'),tE=document.getElementById('planT');
+            if(nE&&nE.textContent!==st[0]){nE.textContent=st[0];tE.textContent=st[1];}
+          }});
+          ScrollTrigger.addEventListener('refresh',resize);
+        }
+        var t=0;
+        function loop(){
+          t+=0.0025; var p=prog;
+          lineMat.opacity=Math.max(0,1-p*1.5);
+          var so=Math.max(0,(p-0.22)/0.78);
+          solidMat.opacity=so*0.96; glassMat.opacity=so*0.78;
+          var ang=t*0.5 + p*0.9 - 0.6, rad=18 - p*10.5;
+          camera.position.set(Math.sin(ang)*rad, 8.5 - p*5.6, Math.cos(ang)*rad);
+          camera.lookAt(0,0.5,0);
+          renderer.render(scene,camera);
+          requestAnimationFrame(loop);
+        }
+        resize(); addEventListener('resize',resize); setTimeout(resize,250); loop();
+      }catch(e){ canvas.style.display='none'; }
+    })();
   } else { showAll(); }
 
   // nav scroll
