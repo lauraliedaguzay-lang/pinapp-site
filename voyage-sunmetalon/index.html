@@ -10,6 +10,7 @@
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
 <!-- PINAPP — contenu réel sur fonds vidéo/photo (assets fournis uniquement).
      Texte en widgets glassmorphism Apple qui dansent au scroll. Scroll réduit. -->
 <style>
@@ -74,15 +75,8 @@ a,button{transition:transform .4s var(--ease-apple),background .3s,color .3s,bor
 .note{margin-top:1rem;font-size:.8rem;opacity:.72}
 .vimeo-wrap{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;margin-top:1rem}.vimeo-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
-/* ===== chorégraphie : widgets qui dansent ===== */
-[data-anim]{opacity:0;will-change:transform,opacity}
-[data-anim="left"]{transform:translateX(-80px)}[data-anim="right"]{transform:translateX(80px)}
-[data-anim="up"]{transform:translateY(60px)}[data-anim="down"]{transform:translateY(-50px)}
-[data-anim="depth"]{transform:scale(.7)}[data-anim="zoom"]{transform:scale(1.2)}
-.is-in[data-anim]{opacity:1;transform:none;transition:opacity .9s var(--ease-out-expo),transform 1s var(--ease-out-expo)}
-[data-stag]>*{opacity:0;will-change:transform,opacity}
-[data-stag]>*:nth-child(odd){transform:translateX(-70px)}[data-stag]>*:nth-child(even){transform:translateX(70px)}
-[data-stag].is-in>*{opacity:1;transform:none;transition:opacity .8s var(--ease-out-expo) calc(var(--i,0)*100ms),transform .9s var(--ease-out-expo) calc(var(--i,0)*100ms)}
+/* chorégraphie pilotée par GSAP (joue même si l'OS réduit les animations) */
+.js [data-anim],.js [data-stag]>*{opacity:0;will-change:transform,opacity}
 
 /* nav */
 nav.top{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.6rem;transition:padding .4s var(--ease-apple),background .3s,backdrop-filter .3s}
@@ -95,7 +89,6 @@ nav.top .links a.pill{background:var(--ivory);color:var(--graphite);padding:.45r
 .burger{display:none;background:none;border:0;color:var(--ivory);font-size:1.3rem;cursor:pointer}
 @media(max-width:1080px){nav.top .links a:not(.pill):not(.keep){display:none}.burger{display:block}}
 .mmenu{position:fixed;inset:0;z-index:99;background:rgba(10,12,18,.97);backdrop-filter:blur(20px);display:none;flex-direction:column;align-items:center;justify-content:center;gap:1.1rem}.mmenu.open{display:flex}.mmenu a{font-size:1.3rem;font-weight:500}.mmenu .close{position:absolute;top:1.4rem;right:1.6rem;font-size:1.6rem;background:none;border:0;color:var(--ivory);cursor:pointer}
-.film-progress{position:fixed;left:0;top:0;height:2px;width:0;background:linear-gradient(90deg,var(--violet),var(--periwinkle));z-index:101}
 
 /* form */
 .pform legend{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--periwinkle);margin-bottom:.7rem}
@@ -115,13 +108,12 @@ nav.top .links a.pill{background:var(--ivory);color:var(--graphite);padding:.45r
 .crow{display:flex;gap:.9rem;align-items:center;padding:.5rem 0}.crow .ic{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.08);display:grid;place-items:center;font-size:1rem;flex:0 0 auto}.crow .lab{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;opacity:.55}.crow .val{font-size:.92rem;font-weight:500}
 footer.ft{background:var(--graphite);padding:3.5rem 1.5rem 2rem;border-top:1px solid rgba(255,255,255,.08)}footer.ft .cols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem}footer.ft img.logo{height:34px;margin-bottom:1rem}footer.ft .addr{font-size:.84rem;opacity:.65;line-height:1.7}footer.ft .ttl{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;opacity:.55;margin-bottom:.9rem}footer.ft .lst{display:grid;gap:.45rem;font-size:.84rem;opacity:.75}footer.ft .lst a:hover{opacity:1;color:var(--periwinkle)}footer.ft .copy{border-top:1px solid rgba(255,255,255,.08);padding-top:1.8rem;font-size:.8rem;opacity:.55;text-align:center}@media(max-width:760px){footer.ft .cols{grid-template-columns:1fr;gap:1.8rem}}
 .mcursor{position:fixed;top:0;left:0;width:32px;height:32px;border:1px solid rgba(168,139,224,.6);border-radius:50%;pointer-events:none;z-index:200;transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s,border-color .25s;mix-blend-mode:difference;will-change:transform}.mcursor.big{width:60px;height:60px;background:rgba(168,139,224,.12);border-color:transparent}@media(max-width:1080px),(pointer:coarse){.mcursor{display:none}}
-@media (prefers-reduced-motion:reduce){[data-anim],[data-stag]>*{opacity:1!important;transform:none!important}.dot-pulse{animation:none}}
+/* mouvement assumé par défaut · Mode sobre = opt-out volontaire */
 body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:none!important}body.sober .dot-pulse{animation:none}body.sober .mcursor{display:none}
 </style>
 </head>
 <body>
 <div class="mcursor" id="mcursor" aria-hidden="true"></div>
-<div class="film-progress" id="filmProgress"></div>
 
 <nav class="top" id="nav">
   <a href="#top" class="logo" aria-label="Pinapp"><img src="avalon/logo-pinapp.png" alt="Pinapp"></a>
@@ -496,14 +488,26 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   mmenu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){mmenu.classList.remove('open');document.body.classList.remove('no-scroll');});});
   var lenis=null;
   if(IMMERSIVE&&window.Lenis){lenis=new Lenis({duration:1.2,smoothWheel:true});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000);});gsap.ticker.lagSmoothing(0);}
-  var nav=document.getElementById('nav'),prog=document.getElementById('filmProgress'),lastY=0;
-  function onScroll(y){nav.classList.toggle('scrolled',y>50);if(y>lastY&&y>320)nav.classList.add('hide');else nav.classList.remove('hide');lastY=y;var h=document.documentElement.scrollHeight-innerHeight;prog.style.width=(h>0?(y/h*100):0)+'%';}
+  var nav=document.getElementById('nav'),lastY=0;
+  function onScroll(y){nav.classList.toggle('scrolled',y>50);if(y>lastY&&y>320)nav.classList.add('hide');else nav.classList.remove('hide');lastY=y;}
   if(lenis)lenis.on('scroll',function(e){onScroll(e.scroll);});else addEventListener('scroll',function(){onScroll(scrollY);},{passive:true});
 
-  /* chorégraphie : widgets qui dansent */
-  document.querySelectorAll('[data-stag]').forEach(function(g){Array.prototype.forEach.call(g.children,function(c,i){c.style.setProperty('--i',i);});});
-  if(IMMERSIVE){gsap.utils.toArray('[data-anim],[data-stag]').forEach(function(el){ScrollTrigger.create({trigger:el,start:'top 88%',onEnter:function(){el.classList.add('is-in');}});});}
-  else{document.querySelectorAll('[data-anim],[data-stag]').forEach(function(el){el.classList.add('is-in');});}
+  /* chorégraphie : widgets qui DANSENT — piloté GSAP, joue même en reduced-motion OS */
+  var FROM={left:{x:-90},right:{x:90},up:{y:72},down:{y:-60},depth:{scale:.66},zoom:{scale:1.18}};
+  function showAll(){document.querySelectorAll('[data-anim],[data-stag]>*').forEach(function(e){e.style.opacity=1;e.style.transform='none';e.style.filter='none';});}
+  if(IMMERSIVE){
+    gsap.utils.toArray('[data-anim]').forEach(function(el){
+      var d=el.getAttribute('data-anim')||'up';var f=Object.assign({opacity:0,filter:'blur(12px)'},FROM[d]||FROM.up);
+      gsap.set(el,f);
+      ScrollTrigger.create({trigger:el,start:'top 84%',onEnter:function(){gsap.to(el,{opacity:1,x:0,y:0,scale:1,filter:'blur(0px)',duration:1.15,ease:'power3.out',clearProps:'filter,willChange'});}});
+    });
+    gsap.utils.toArray('[data-stag]').forEach(function(g){
+      var kids=[].slice.call(g.children);
+      kids.forEach(function(c,i){gsap.set(c,{opacity:0,x:i%2?90:-90,y:30,filter:'blur(10px)'});});
+      ScrollTrigger.create({trigger:g,start:'top 84%',onEnter:function(){gsap.to(kids,{opacity:1,x:0,y:0,filter:'blur(0px)',duration:1.05,ease:'power3.out',stagger:.13,clearProps:'filter,willChange'});}});
+    });
+  } else { showAll(); }
+  if(!hasGSAP) showAll();
 
   /* Ken Burns sur chaque fond (photos ET vidéos) */
   if(IMMERSIVE&&!SMALL){gsap.utils.toArray('.vsec-bg').forEach(function(bg,i){var m=bg.querySelector('img,video');if(!m)return;gsap.fromTo(m,{scale:1.05,yPercent:0},{scale:1.16,yPercent:-5,ease:'none',scrollTrigger:{trigger:bg.parentNode,start:'top bottom',end:'bottom top',scrub:.8}});});}
