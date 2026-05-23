@@ -109,7 +109,7 @@ section{position:relative}
 .proj.wide{grid-column:span 6}.proj.tall{grid-column:span 6}
 .proj .ph{position:relative;overflow:hidden;aspect-ratio:4/5}
 .proj.wide .ph,.proj.tall .ph{aspect-ratio:16/11}
-.proj .ph img{width:100%;height:100%;object-fit:cover;filter:brightness(.74) saturate(.88);transition:transform 1.1s var(--ease),filter .6s}
+.proj .ph img{width:100%;height:100%;object-fit:cover;filter:brightness(.85) saturate(.92);transition:transform 1.1s var(--ease),filter .6s}
 .proj:hover .ph img{transform:scale(1.06);filter:brightness(.86) saturate(1)}
 .proj .cap{position:absolute;left:0;right:0;bottom:0;padding:1.4rem 1.5rem;z-index:2;
   background:linear-gradient(180deg,transparent,rgba(10,10,8,.85))}
@@ -359,7 +359,7 @@ document.documentElement.classList.add('js');
   villas.forEach(function(v){
     var a=document.createElement('a');
     a.className='proj'+(v.c?' '+v.c:''); a.href='#contact';
-    a.innerHTML='<div class="ph" data-rv="img"><img loading="lazy" src="https://images.unsplash.com/'+v.img+'?w=1000&q=80" alt="'+v.t+'"></div>'+
+    a.innerHTML='<div class="ph"><img src="https://images.unsplash.com/'+v.img+'?w=1000&q=80" alt="'+v.t+'"></div>'+
       '<div class="cap"><div class="nm serif">'+v.t+'</div><div class="lo">'+v.l+'</div><div class="de">'+v.d+'</div></div>';
     grid.appendChild(a);
   });
@@ -386,6 +386,10 @@ document.documentElement.classList.add('js');
     gsap.utils.toArray('[data-rv="img"]').forEach(function(el){
       gsap.set(el,{clipPath:'inset(0 0 100% 0)'});
       ScrollTrigger.create({trigger:el,start:'top 90%',onEnter:function(){gsap.to(el,{clipPath:'inset(0 0 0% 0)',duration:1.3,ease:'power3.out'});}});
+    });
+    // grille "dix demeures" : images toujours visibles, fondu en bonus (robuste)
+    gsap.utils.toArray('#grid .proj .ph').forEach(function(ph){
+      ScrollTrigger.create({trigger:ph,start:'top 94%',once:true,onEnter:function(){gsap.from(ph,{opacity:0,scale:1.06,duration:1.1,ease:'power3.out'});}});
     });
     // profondeur : parallax multi-couches + zoom d'entrée (joue malgré reduced-motion OS)
     {
