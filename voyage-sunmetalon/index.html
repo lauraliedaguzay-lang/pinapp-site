@@ -59,6 +59,35 @@ a,button{transition:transform .4s var(--ease-apple),background .3s,color .3s,bor
 .wgrid .widget{transform-style:preserve-3d;will-change:transform}
 .wgrid .widget:hover{box-shadow:0 22px 66px rgba(141,106,216,.32),inset 0 1px 0 rgba(255,255,255,.26);border-color:rgba(141,106,224,.5)}
 .wgrid a.widget:hover h3,.wgrid a.widget:hover strong{color:var(--periwinkle)}
+.ph-block{border:1px dashed var(--border);border-radius:14px;background:rgba(20,21,26,.4);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1.4rem 1rem;min-height:118px;gap:.4rem}
+.ph-block .pt{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--periwinkle)}.ph-block .pl{font-size:.78rem;opacity:.6}
+.ph-vid{position:relative;aspect-ratio:16/9;border:1px dashed var(--border);border-radius:16px;background:rgba(20,21,26,.4);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:.5rem}
+.ph-vid .play{width:48px;height:48px;border-radius:50%;background:rgba(244,241,234,.85);display:grid;place-items:center}.ph-vid .play::after{content:"";border-top:9px solid transparent;border-bottom:9px solid transparent;border-left:15px solid var(--graphite);margin-left:3px}
+.ph-vid .pt{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--periwinkle)}.ph-vid .pl{font-size:.78rem;opacity:.6}
+.chatbtn{position:fixed;bottom:20px;right:20px;z-index:120;width:56px;height:56px;border-radius:50%;border:0;cursor:pointer;background:linear-gradient(135deg,var(--violet),var(--periwinkle));color:#fff;font-size:1.4rem;box-shadow:0 10px 30px rgba(141,106,216,.45)}
+.chatpanel{position:fixed;bottom:88px;right:20px;z-index:120;width:min(360px,92vw);max-height:70vh;overflow:auto;border-radius:18px;background:rgba(20,22,28,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--border);padding:1.25rem;display:none}.chatpanel.open{display:block}
+.chatpanel h4{font-size:1rem;margin-bottom:.25rem}.chatpanel .chint{font-size:.78rem;opacity:.6;margin-bottom:1rem}
+.chatpanel .qa{border-top:1px solid rgba(255,255,255,.08)}.chatpanel .qa button{width:100%;text-align:left;background:none;border:0;color:var(--ivory);font:inherit;font-size:.85rem;padding:.7rem 0;cursor:pointer;display:flex;justify-content:space-between;gap:.5rem}.chatpanel .qa .a{max-height:0;overflow:hidden;transition:max-height .4s var(--ease-apple);font-size:.8rem;opacity:.78}.chatpanel .qa.open .a{max-height:220px;padding-bottom:.7rem}
+/* easter egg — pierres d'infinité */
+#valeurs .widget{position:relative}
+.istone{position:absolute;top:12px;right:12px;width:15px;height:15px;border-radius:50%;cursor:pointer;background:radial-gradient(circle at 35% 30%,#fff8,var(--gem) 55%,#0006);box-shadow:0 0 0 1px #fff2,0 0 8px 1px color-mix(in srgb,var(--gem) 55%,transparent);opacity:.4;transition:transform .3s var(--ease-apple),opacity .3s,box-shadow .3s}
+.istone:hover{opacity:.85;transform:scale(1.15)}
+.istone.got{opacity:1;transform:scale(1.05);box-shadow:0 0 0 1px #fff4,0 0 16px 3px color-mix(in srgb,var(--gem) 80%,transparent);animation:gempop .5s var(--ease-apple)}
+@keyframes gempop{0%{transform:scale(1.7)}60%{transform:scale(.9)}100%{transform:scale(1.05)}}
+.vhint .vcount{color:var(--periwinkle);font-weight:600}
+.gauntlet{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:1.5rem;background:rgba(8,8,11,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.gauntlet.open{display:flex;animation:gfade .5s ease}
+@keyframes gfade{from{opacity:0}to{opacity:1}}
+.gauntlet__card{max-width:480px;text-align:center;background:rgba(20,22,28,.96);border:1px solid var(--border);border-radius:22px;padding:2.2rem 1.8rem;box-shadow:0 30px 90px rgba(0,0,0,.6);animation:gpop .6s var(--ease-apple)}
+@keyframes gpop{0%{transform:scale(.8);opacity:0}100%{transform:scale(1);opacity:1}}
+.gauntlet__glove{font-size:3rem;line-height:1;filter:drop-shadow(0 0 18px rgba(141,106,216,.7))}
+.gauntlet.snap .gauntlet__glove{animation:snap .7s var(--ease-apple)}
+@keyframes snap{0%{transform:scale(1) rotate(0)}30%{transform:scale(1.3) rotate(-8deg)}100%{transform:scale(1) rotate(0)}}
+.gauntlet__gems{display:flex;gap:8px;justify-content:center;margin:.9rem 0 .2rem}
+.gauntlet__gems i{width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff9,var(--gem) 55%,#0006);box-shadow:0 0 10px 1px color-mix(in srgb,var(--gem) 70%,transparent)}
+.gauntlet__line{font-size:1.18rem;line-height:1.4;margin:.4rem 0 .6rem}.gauntlet__line .grad{background:linear-gradient(90deg,var(--violet),var(--periwinkle));-webkit-background-clip:text;background-clip:text;color:transparent}
+.gauntlet__sub{font-size:.9rem;opacity:.78;line-height:1.55}
+.gauntlet__close{margin-top:1rem;background:none;border:0;color:var(--ivory);opacity:.55;font:inherit;font-size:.82rem;cursor:pointer}.gauntlet__close:hover{opacity:.9}
 .widget h1{font-size:clamp(2.4rem,5.6vw,4.6rem);font-weight:600;line-height:1.04;letter-spacing:-.035em}
 .widget h2{font-size:clamp(1.7rem,3.4vw,2.6rem)}.widget h3{font-size:1.2rem;margin-bottom:.4rem}
 .widget .e2{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;opacity:.6;margin-bottom:1rem}
@@ -79,7 +108,7 @@ a,button{transition:transform .4s var(--ease-apple),background .3s,color .3s,bor
 .wcta{display:inline-block;margin-top:.9rem;padding:.7rem 1.3rem;border-radius:999px;font-size:.8rem;font-weight:600;border:1px solid var(--border);background:rgba(255,255,255,.06)}.wcta:hover{background:linear-gradient(135deg,var(--violet),var(--periwinkle))}
 .note{margin-top:1rem;font-size:.8rem;opacity:.72}
 .vimeo-wrap{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;margin-top:1rem}.vimeo-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.demo-shot{width:100%;aspect-ratio:16/9;object-fit:cover;object-position:top;border-radius:12px;margin-bottom:.7rem;border:1px solid var(--border);display:block;transition:transform .5s var(--ease-apple)}
+.demo-shot{width:100%;aspect-ratio:16/9;object-fit:cover;object-position:center;border-radius:12px;margin-bottom:.7rem;border:1px solid var(--border);display:block;transition:transform .5s var(--ease-apple)}
 .widget.tight:hover .demo-shot{transform:scale(1.03)}
 .film-thumb{position:relative;display:block;border-radius:12px;overflow:hidden;margin-bottom:.6rem;border:1px solid var(--border)}
 .film-thumb img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;transition:transform .5s var(--ease-apple)}
@@ -93,7 +122,7 @@ a,button{transition:transform .4s var(--ease-apple),background .3s,color .3s,bor
 /* nav */
 nav.top{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.6rem;transition:padding .4s var(--ease-apple),background .3s,backdrop-filter .3s}
 nav.top.scrolled{padding:.6rem 1.6rem;background:rgba(13,14,17,.5);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);border-bottom:1px solid rgba(255,255,255,.08)}
-nav.top.hide{transform:translateY(-115%)}nav.top .logo img{height:38px}
+nav.top.hide{transform:translateY(-115%)}nav.top .logo img{height:58px;width:auto;display:block;transition:height .4s var(--ease-apple)}nav.top.scrolled .logo img{height:46px}@media(max-width:1080px){nav.top .logo img{height:46px}nav.top.scrolled .logo img{height:40px}}
 nav.top .links{display:flex;gap:1.2rem;align-items:center}nav.top .links a{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;opacity:.78}nav.top .links a:hover{opacity:1}
 nav.top .links a.pill{background:var(--ivory);color:var(--graphite);padding:.45rem 1.1rem;border-radius:999px;font-weight:600}nav.top .links a.pill:hover{background:linear-gradient(135deg,var(--violet),var(--periwinkle));color:var(--ivory)}
 .sober-toggle{background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--ivory);border-radius:999px;padding:.45rem .75rem;font:inherit;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:.45em}
@@ -151,7 +180,7 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
 <div id="bgveil"></div><div id="bggrain"></div>
 
 <nav class="top" id="nav">
-  <a href="#top" class="logo" aria-label="Pinapp"><img src="avalon/logo-pinapp.png" alt="Pinapp"></a>
+  <a href="#top" class="logo" aria-label="Pinapp"><img src="avalon/logo-pinapp-cut.png" alt="Pinapp"></a>
   <div class="links">
     <a href="#duo" data-magnetic>Le duo</a><a href="#pack" data-magnetic>Offres</a><a href="#realisations" data-magnetic>Réalisations</a><a href="#methode" data-magnetic>Méthode</a><a href="#formations" data-magnetic>Formations</a>
     <a href="#contact" class="pill keep" data-magnetic>Diagnostic 24h</a>
@@ -272,19 +301,20 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
 
 <section class="vsec" id="realisations" data-bg="constellation">
   <div class="vsec-inner">
-    <div class="head"><span class="eyebrow" data-anim="left">Studio Lauralie · prix fixes</span><h2 data-anim="left">5 démos sectorielles. Votre métier s'y retrouve.</h2></div>
+    <div class="head"><span class="eyebrow" data-anim="left">Studio Lauralie · prix fixes</span><h2 data-anim="left">6 démos sectorielles. Votre métier s'y retrouve.</h2></div>
     <div class="wgrid g3" data-stag>
-      <div class="widget tight"><h3 style="font-size:.95rem">🌐 Sites qui convertissent</h3><p class="lead" style="font-size:.84rem">Message clair, contact, SEO et perf.</p><div class="peri" style="font-weight:600;margin-top:.4rem">1 290 € HT</div></div>
-      <div class="widget tight"><h3 style="font-size:.95rem">⚙ Automatisations</h3><p class="lead" style="font-size:.84rem">Formulaire, CRM, devis, mails, avis.</p><div class="peri" style="font-weight:600;margin-top:.4rem">490 € HT</div></div>
-      <div class="widget tight"><h3 style="font-size:.95rem">✨ Assistants H24</h3><p class="lead" style="font-size:.84rem">Qualifier, répondre, brouillons à valider.</p><div class="peri" style="font-weight:600;margin-top:.4rem">890 € HT</div></div>
+      <div class="widget tight"><h3 style="font-size:.95rem">🌐 Sites qui convertissent</h3><p class="lead" style="font-size:.84rem">Message clair, contact, SEO et perf.</p><div class="peri" style="font-weight:600;margin-top:.4rem">à partir de 1 290 € HT</div></div>
+      <div class="widget tight"><h3 style="font-size:.95rem">⚙ Automatisations</h3><p class="lead" style="font-size:.84rem">Formulaire, CRM, devis, mails, avis.</p><div class="peri" style="font-weight:600;margin-top:.4rem">à partir de 490 € HT</div></div>
+      <div class="widget tight"><h3 style="font-size:.95rem">✨ Assistants H24</h3><p class="lead" style="font-size:.84rem">Qualifier, répondre, brouillons à valider.</p><div class="peri" style="font-weight:600;margin-top:.4rem">à partir de 890 € HT</div></div>
     </div>
     <div class="wgrid g3" data-stag style="margin-top:1rem">
-      <a class="widget tight" href="/demo/atelier-rivage/"><img class="demo-shot" src="avalon/demos/atelier-rivage.png" alt="Aperçu site Atelier Rivage" loading="lazy"><strong>Atelier Rivage</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Architecture · villas</span></a>
-      <a class="widget tight" href="/demo/restaurant/"><img class="demo-shot" src="avalon/demos/restaurant.png" alt="Aperçu site Maison Aurore" loading="lazy"><strong>Maison Aurore</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Restaurant</span></a>
-      <a class="widget tight" href="/demo/avocat/"><img class="demo-shot" src="avalon/demos/avocat.png" alt="Aperçu site Cabinet Renaud" loading="lazy"><strong>Cabinet Renaud</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Avocat</span></a>
-      <a class="widget tight" href="/demo/esthetique/"><img class="demo-shot" src="avalon/demos/esthetique.png" alt="Aperçu site Maison Solène" loading="lazy"><strong>Maison Solène</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Esthétique</span></a>
-      <a class="widget tight" href="/demo/extensions-cils/"><img class="demo-shot" src="avalon/demos/extensions-cils.png" alt="Aperçu site Studio Léna" loading="lazy"><strong>Studio Léna</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Extensions cils</span></a>
-      <div class="widget tight"><strong>Bundle Site + Auto</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">1 590 € HT · -190 €</span></div>
+      <a class="widget tight" href="/demo/atelier-rivage/"><img class="demo-shot" src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=640&q=80" alt="Aperçu site Atelier Rivage" loading="lazy"><strong>Atelier Rivage</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Architecture · villas</span><span class="peri" style="font-size:.78rem;font-weight:600;display:block;margin-top:.25rem">Prestige · dès 6 900 € HT</span></a>
+      <a class="widget tight" href="/demo/restaurant/"><img class="demo-shot" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=640&q=80" alt="Aperçu site Maison Aurore" loading="lazy"><strong>Maison Aurore</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Restaurant</span><span class="peri" style="font-size:.78rem;font-weight:600;display:block;margin-top:.25rem">Signature · dès 3 890 € HT</span></a>
+      <a class="widget tight" href="/demo/avocat/"><img class="demo-shot" src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=640&q=80" alt="Aperçu site Cabinet Renaud" loading="lazy"><strong>Cabinet Renaud</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Avocat</span><span class="peri" style="font-size:.78rem;font-weight:600;display:block;margin-top:.25rem">Premium · dès 4 900 € HT</span></a>
+      <a class="widget tight" href="/demo/esthetique/"><img class="demo-shot" src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=640&q=80" alt="Aperçu site Maison Solène" loading="lazy"><strong>Maison Solène</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Esthétique</span><span class="peri" style="font-size:.78rem;font-weight:600;display:block;margin-top:.25rem">Signature · dès 3 890 € HT</span></a>
+      <a class="widget tight" href="/demo/extensions-cils/"><img class="demo-shot" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=640&q=80" alt="Aperçu site Studio Léna" loading="lazy"><strong>Studio Léna</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Extensions de cils · rose chic</span><span class="peri" style="font-size:.78rem;font-weight:600;display:block;margin-top:.25rem">Essentiel · dès 1 490 € HT</span></a>
+      <a class="widget tight" href="/demo/nails/"><img class="demo-shot" src="https://images.unsplash.com/photo-1571290274554-6a2eaa771e5f?auto=format&fit=crop&w=640&q=80" alt="Aperçu site NAÏLA" loading="lazy"><strong>NAÏLA 💅</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">Onglerie baddie · 92</span><span class="peri" style="font-size:.78rem;font-weight:600;display:block;margin-top:.25rem">Avancé · dès 2 290 € HT</span></a>
+      <div class="widget tight"><strong>Votre secteur ?</strong><span class="lead" style="font-size:.78rem;display:block;opacity:.6">On crée votre démo gratuitement avant tout devis.</span><span class="peri" style="font-size:.78rem;font-weight:600;display:block;margin-top:.25rem">Bundle Site + Auto · dès 1 590 € HT</span></div>
     </div>
   </div>
 </section>
@@ -296,13 +326,14 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
       <div class="vimeo-wrap" style="margin-top:0"><iframe src="https://player.vimeo.com/video/1184294831?dnt=1" title="Court-métrage 3 minutes — exemple Pack Signature" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>
       <p class="note" style="margin-top:.7rem">★ Exemple Pack Signature · court-métrage 3 min · <strong class="peri">dès 2 800 € HT</strong> — votre univers, à votre image.</p>
     </div>
-    <div class="wgrid g4" data-stag style="margin-top:1rem">
-      <a class="widget tight" href="https://vimeo.com/1184294871" target="_blank" rel="noopener noreferrer"><span class="film-thumb"><img src="avalon/demos/vimeo-resident-evil.jpg" alt="Court-métrage premium" loading="lazy"></span><strong>Court-métrage premium</strong><p class="lead" style="font-size:.82rem">dès 1 890 € HT</p></a>
-      <div class="widget tight"><strong>Clip artiste IA</strong><p class="lead" style="font-size:.82rem">dès 1 500 € HT · single · EP · vidéo musicale</p></div>
-      <div class="widget tight"><strong>Film cadeau IA 30 s</strong><p class="lead" style="font-size:.82rem">dès 390 € HT · anniversaire · naissance</p></div>
-      <div class="widget tight"><strong>Branding · logos animés</strong><p class="lead" style="font-size:.82rem">sur devis · identité motion</p></div>
+    <div class="head" style="margin-top:2.4rem;margin-bottom:1rem"><span class="eyebrow" data-anim="up">Ils nous ont fait confiance</span></div>
+    <div class="wgrid g4" data-stag>
+      <div class="ph-block"><span class="pt">Logo animé</span><span class="pl">Emplacement client</span></div>
+      <div class="ph-block"><span class="pt">Logo animé</span><span class="pl">Emplacement client</span></div>
+      <div class="ph-block"><span class="pt">Logo animé</span><span class="pl">Emplacement client</span></div>
+      <div class="ph-block"><span class="pt">Logo animé</span><span class="pl">Emplacement client</span></div>
     </div>
-    <div class="widget" data-anim="up" style="margin-top:1rem">Avant l'IA : 8 000 € en agence. Avec Pinapp : à partir de 1 290 €. <strong class="peri">−84 %</strong>.</div>
+    <div class="widget" data-anim="up" style="margin-top:1.4rem">Avant l'IA : 8 000 € en agence. Avec Pinapp : à partir de 1 290 €. <strong class="peri">−84 %</strong>.</div>
   </div>
 </section>
 
@@ -312,7 +343,9 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
     <h2>Vous avez la voix.<br>Nous avons le studio.</h2>
     <p class="sub">Artiste, créateur, marque narrative : vous avez l'univers en tête, il vous manquait le budget studio. Plus maintenant.</p>
     <div class="statline" style="justify-content:center"><div><div class="n">8-50 k€</div><div class="l">avant l'IA</div></div><div><div class="n grad">dès 1 500 €</div><div class="l">avec Pinapp</div></div><div><div class="n grad">-90 %</div><div class="l">économie</div></div></div>
-    <p class="note">Disponible été 2026 · 5 premiers projets à -30 %</p>
+    <div class="vimeo-wrap" data-anim="up" style="margin-top:1.4rem"><iframe src="https://player.vimeo.com/video/1187533794?dnt=1" title="Icebreaker — clip cinéma IA · Pinapp" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+    <p class="note" style="margin-top:.8rem">★ « Icebreaker » — clip cinéma IA réalisé par le studio · <strong class="peri">à partir de 1 500 € HT</strong></p>
+    <p class="note" style="margin-top:.4rem">Disponible été 2026 · 5 premiers projets à -30 %</p>
     <div class="cta-row" style="justify-content:center"><a class="btn" href="#contact" data-magnetic>Devis clip sous 48h →</a></div>
   </div></div>
 </section>
@@ -325,7 +358,9 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
       <div class="widget tight"><strong>Anniversaire / privé</strong><p class="lead" style="font-size:.84rem">Captation 4-6 h · montage 5 j.</p><div class="peri" style="font-weight:600;margin-top:.4rem">dès 1 200 € HT</div></div>
       <div class="widget tight"><strong>Direction artistique</strong><p class="lead" style="font-size:.84rem">Univers visuel d'une marque.</p><div class="peri" style="font-weight:600;margin-top:.4rem">sur devis</div></div>
     </div>
-    <p class="note" data-anim="up">⚠ Aucun mariage. Hors région : sur demande exceptionnelle.</p>
+    <div class="vimeo-wrap" data-anim="up" style="margin-top:1.4rem"><iframe src="https://player.vimeo.com/video/1191622111?dnt=1" title="Séminaire d'entreprise — captation Studio Micha" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+    <p class="note" style="margin-top:.8rem">★ Captation séminaire d'entreprise — exemple de réalisation · <strong class="peri">à partir de 1 800 € HT</strong></p>
+    <p class="note" data-anim="up" style="margin-top:.4rem">⚠ Aucun mariage. Hors région : sur demande exceptionnelle.</p>
   </div>
 </section>
 
@@ -357,6 +392,13 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
       <div class="widget feat featured"><span class="badge">★ Populaire</span><h3>🔵 Praticien</h3><p class="pr">147 €</p><ul><li>5 h · automatiser 5 tâches</li></ul><a class="wcta" href="/formations/">Démarrer</a></div>
       <div class="widget feat"><h3>🟣 Augmenté</h3><p class="pr">397 €</p><ul><li>12 h · son assistant</li></ul><a class="wcta" href="/formations/">Démarrer</a></div>
     </div>
+    <div class="head" style="margin-top:2.6rem"><span class="eyebrow" data-anim="up">Revenus passifs · produits numériques</span><h2 data-anim="up">Kits de prompts images Higgsfield.</h2><p class="lead" data-anim="up" style="max-width:42rem">Des prompts testés et améliorés pour générer des visuels dignes d'un studio (portraits, produits, réseaux) — livrés en PDF + Notion, prêts à copier-coller. Vous gardez tout, à vie.</p></div>
+    <div class="wgrid g3" data-stag>
+      <div class="widget feat"><h3>🎬 Starter</h3><p class="pr">à partir de 19 € TTC</p><ul style="font-size:.84rem"><li>10 prompts images premium</li><li>Portraits &amp; ambiances cinéma</li><li>PDF · copier-coller</li></ul><a class="wcta" href="/kits-higgsfield/">Voir le kit →</a></div>
+      <div class="widget feat featured"><span class="badge">★ Le plus complet</span><h3>✨ Créateur</h3><p class="pr">à partir de 29 € TTC</p><ul style="font-size:.84rem"><li>20 prompts (images + réglages)</li><li>Produit e-commerce, réseaux, mode</li><li>PDF + Notion · mises à jour 1 an</li></ul><a class="wcta" href="/kits-higgsfield/">Voir le kit →</a></div>
+      <div class="widget feat"><h3>🚀 Studio</h3><p class="pr">à partir de 39 € TTC</p><ul style="font-size:.84rem"><li>30 prompts pro + recettes</li><li>Toutes catégories + cohérence de marque</li><li>PDF + Notion · bonus négatifs</li></ul><a class="wcta" href="/kits-higgsfield/">Voir le kit →</a></div>
+    </div>
+    <p class="note" data-anim="up" style="text-align:center;margin-top:1rem">Prix tout compris, sans abonnement · livraison immédiate · vous gardez vos prompts à vie.</p>
   </div>
 </section>
 
@@ -373,16 +415,46 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
       <div class="it open"><button class="q">Et si je n'y connais rien en informatique ?<span class="s">+</span></button><div class="ans"><div class="in">Vous validez par mail. On gère tout. Pas de logiciel à apprendre.</div></div></div>
       <div class="it"><button class="q">Combien de temps avant des résultats ?<span class="s">+</span></button><div class="ans"><div class="in">Site livré sous 3 semaines. Premiers leads sous 30 à 60 jours.</div></div></div>
       <div class="it"><button class="q">Pourquoi moins chers qu'une agence ?<span class="s">+</span></button><div class="ans"><div class="in">On est 2, pas 15. On automatise notre travail. On ne sous-traite rien.</div></div></div>
-      <div class="it"><button class="q">Après les 30 jours d'accompagnement ?<span class="s">+</span></button><div class="ans"><div class="in">Vous gardez tout : code, accès, données. Option Pinapp Care 190-390 €/mois.</div></div></div>
-      <div class="it"><button class="q">Vous travaillez avec mon secteur ?<span class="s">+</span></button><div class="ans"><div class="in">5 démos sectorielles. Sinon on en fait une gratuitement avant le devis.</div></div></div>
+      <div class="it"><button class="q">Hébergement et nom de domaine inclus ?<span class="s">+</span></button><div class="ans"><div class="in"><strong>Non</strong> — l'hébergement et le nom de domaine restent à votre charge (≈ quelques € / mois) et vous appartiennent. On vous guide pas à pas pour les prendre. C'est plus sain : votre site reste 100 % le vôtre.</div></div></div>
+      <div class="it"><button class="q">Vous remboursez ? Et si je vous quitte ?<span class="s">+</span></button><div class="ans"><div class="in">Pas de remboursement une fois la prestation réalisée — mais vous <strong>gardez tout, à vie</strong> : code, accès, données, fichiers. Même si vous nous quittez, vous repartez avec l'intégralité. On ne vous enferme jamais.</div></div></div>
+      <div class="it"><button class="q">C'est en présentiel ?<span class="s">+</span></button><div class="ans"><div class="in"><strong>100 % à distance</strong> (visio, partage d'écran), où que vous soyez. Le parcours est guidé et automatisé : vous avancez en autonomie, on intervient au minimum.</div></div></div>
+      <div class="it"><button class="q">Après les 30 jours d'accompagnement ?<span class="s">+</span></button><div class="ans"><div class="in">Vous gardez tout : code, accès, données. Option Pinapp Care 190-390 €/mois (sans engagement).</div></div></div>
+      <div class="it"><button class="q">Vous travaillez avec mon secteur ?<span class="s">+</span></button><div class="ans"><div class="in">6 démos sectorielles. Sinon on en fait une gratuitement avant le devis.</div></div></div>
     </div>
   </div>
 </section>
 
+<section class="vsec" id="valeurs" data-bg="atterrissage">
+  <div class="vsec-inner">
+    <div class="head"><span class="eyebrow" data-anim="up">Ce qui nous tient</span><h2 data-anim="up">Les valeurs de l'entreprise.</h2><p class="lead" data-anim="up">Pinapp, c'est deux personnes et une conviction : la technologie doit servir l'humain, pas l'inverse.</p></div>
+    <div class="wgrid g3" data-stag style="text-align:left">
+      <div class="widget tight"><span class="istone" data-stone="power" style="--gem:#b56bff" role="button" tabindex="0" aria-label="Pierre du Pouvoir"></span><strong class="peri">L'humain d'abord</strong><p class="lead" style="font-size:.83rem;margin-top:.35rem">L'IA produit, l'humain décide. Chaque livrable passe par nos yeux avant les vôtres.</p></div>
+      <div class="widget tight"><span class="istone" data-stone="space" style="--gem:#3d7bff" role="button" tabindex="0" aria-label="Pierre de l'Espace"></span><strong class="peri">La connexion</strong><p class="lead" style="font-size:.83rem;margin-top:.35rem">Deux interlocuteurs, pas un standard. On se parle vraiment, on se rappelle de vous.</p></div>
+      <div class="widget tight"><span class="istone" data-stone="time" style="--gem:#36d399" role="button" tabindex="0" aria-label="Pierre du Temps"></span><strong class="peri">La sobriété</strong><p class="lead" style="font-size:.83rem;margin-top:.35rem">Sites légers, zéro tracker, hébergement EU. La performance plutôt que l'esbroufe.</p></div>
+      <div class="widget tight"><span class="istone" data-stone="mind" style="--gem:#ffd23f" role="button" tabindex="0" aria-label="Pierre de l'Esprit"></span><strong class="peri">La transmission</strong><p class="lead" style="font-size:.83rem;margin-top:.35rem">On vous laisse autonome : code, accès, données. Vous gardez tout, on ne vous enferme pas.</p></div>
+      <div class="widget tight"><span class="istone" data-stone="reality" style="--gem:#ff4d6d" role="button" tabindex="0" aria-label="Pierre de la Réalité"></span><strong class="peri">L'honnêteté</strong><p class="lead" style="font-size:.83rem;margin-top:.35rem">Devis fixe écrit, pas de surprise. On dit non aux projets qu'on ne sait pas faire.</p></div>
+      <div class="widget tight"><span class="istone" data-stone="soul" style="--gem:#ff944d" role="button" tabindex="0" aria-label="Pierre de l'Âme"></span><strong class="peri">L'égalité</strong><p class="lead" style="font-size:.83rem;margin-top:.35rem">La TPE du coin mérite le même soin qu'un grand compte. Le premium pour tous.</p></div>
+    </div>
+    <p class="note vhint" data-anim="up" style="margin-top:1.1rem">✦ Psst… 6 valeurs, 6 pierres. <span class="vcount">0/6</span> — saurez-vous reconstituer le gant ?</p>
+  </div>
+</section>
+
+<div class="gauntlet" id="gauntlet" role="dialog" aria-modal="true" aria-label="Le gant est complet">
+  <div class="gauntlet__card">
+    <div class="gauntlet__glove" aria-hidden="true">🫰</div>
+    <div class="gauntlet__gems" aria-hidden="true"><i style="--gem:#b56bff"></i><i style="--gem:#3d7bff"></i><i style="--gem:#36d399"></i><i style="--gem:#ffd23f"></i><i style="--gem:#ff4d6d"></i><i style="--gem:#ff944d"></i></div>
+    <h3 style="font-size:1.4rem;margin:.6rem 0 .2rem">Le gant est complet.</h3>
+    <p class="gauntlet__line">« Un grand pouvoir n'implique pas toujours de grandes responsabilités. »<br><strong class="grad">Chez Pinapp, si.</strong></p>
+    <p class="gauntlet__sub">Vos données, votre code, votre indépendance — on les protège comme l'univers tout entier. 🫰</p>
+    <div class="cta-row" style="justify-content:center;margin-top:1rem"><a class="btn" href="#contact" id="gauntletCta" data-magnetic>Confiez-nous votre univers →</a></div>
+    <button class="gauntlet__close" id="gauntletClose" aria-label="Fermer">Reprendre le voyage</button>
+  </div>
+</div>
+
 <section class="vsec" id="contact" data-bg="passerelle">
   <div class="vsec-inner" style="max-width:760px">
     <div class="head center"><span class="eyebrow" data-anim="up">Pour démarrer</span><h2 data-anim="up">Un formulaire qui s'adapte à vous.</h2><p class="lead" data-anim="up">Un diagnostic écrit par mail · pas un appel · pas d'engagement.</p></div>
-    <form class="widget pform" data-anim="up" id="pform" novalidate>
+    <form class="widget pform" data-anim="up" id="pform" novalidate enctype="multipart/form-data">
       <fieldset><legend>Votre besoin</legend>
         <div class="path-cards">
           <label class="path-card"><input type="radio" name="path" value="tech" required><span class="pi">🔧</span><span class="pt">Tech / Systèmes</span><span class="pd">Site, automatisations, assistant, formation</span><span class="pa">Lauralie</span></label>
@@ -421,6 +493,9 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
         <div class="field"><label for="budget">Budget envisagé</label><select id="budget" name="budget"><option value="">— Sélectionner —</option><option>Moins de 500 €</option><option>500 - 2 000 €</option><option>2 000 - 5 000 €</option><option>Plus de 5 000 €</option><option>À discuter</option></select></div>
       </div>
       <div class="field full"><label for="message">Message libre</label><textarea id="message" name="message" rows="3" placeholder="Ce que vous voulez nous dire en plus"></textarea></div>
+      <div class="field full"><label for="pieces">Vos documents — déposez tout ce qui peut aider</label>
+        <input id="pieces" name="pieces" type="file" multiple accept="image/*,application/pdf,.doc,.docx,.txt,.zip,video/*" style="width:100%;padding:.85rem;background:rgba(255,255,255,.05);border:1px dashed var(--border);border-radius:12px;color:var(--ivory);font:inherit;font-size:.9rem;cursor:pointer">
+        <p class="note" style="margin-top:.4rem">📎 Logo, textes, photos, votre ancien site, des exemples que vous aimez, captures… <strong>Plus vous déposez, plus on automatise et plus vite vous êtes livré·e</strong> — vous, vous n'avez quasiment rien à faire ensuite. Tout reste chez Pinapp · hébergement européen · RGPD.</p></div>
       <label class="chk"><input type="checkbox" name="discount"> Association loi 1901, ESS ou TPE &lt; 5 salariés (-40 % après SIRENE)</label>
       <label class="chk"><input type="checkbox" name="newsletter"> Recevoir 1 article par mois sur l'IA pour TPE/PME</label>
       <label class="chk"><input type="checkbox" name="consent" required> J'accepte d'être recontacté·e par écrit sous 24h. Mes données restent chez Pinapp.</label>
@@ -442,13 +517,24 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
 <footer class="ft">
   <div style="max-width:var(--maxw);margin:0 auto">
     <div class="cols">
-      <div><img class="logo" src="avalon/logo-pinapp.png" alt="Pinapp"><div class="addr">Pinapp Inc.<br>49 av. Edmond Rostand<br>33700 Mérignac<br>SIRET 523 884 898 00017</div></div>
+      <div><img class="logo" src="avalon/logo-pinapp-cut.png" alt="Pinapp"><div class="addr">Pinapp Inc.<br>49 av. Edmond Rostand<br>33700 Mérignac<br>SIRET 523 884 898 00017</div></div>
       <div><div class="ttl">Nav rapide</div><div class="lst"><a href="#pack">Offres</a><a href="#films">Films</a><a href="#formations">Formations</a><a href="#realisations">Réalisations</a><a href="#contact">Diagnostic</a></div></div>
       <div><div class="ttl">Mentions légales</div><div class="lst"><a href="../mentions-legales/">Mentions légales</a><a href="../cgv/">CGV</a><a href="../confidentialite/">Confidentialité RGPD</a></div></div>
     </div>
     <div class="copy">© 2026 Pinapp Inc. · Lauralie Daguzay &amp; Michaël Bouilhac · Connecter. Construire. Transmettre.</div>
   </div>
 </footer>
+
+<button class="chatbtn" id="chatbtn" aria-label="Ouvrir l'assistant Pinapp" aria-expanded="false">💬</button>
+<div class="chatpanel" id="chatpanel" role="dialog" aria-label="Assistant Pinapp">
+  <h4>Bonjour 👋 Une question ?</h4>
+  <p class="chint">Réponses immédiates. Pour un projet : <a href="#contact" class="peri" id="chatToForm">le formulaire</a> ou WhatsApp.</p>
+  <div class="qa"><button>Combien coûte un site ? <span>+</span></button><div class="a">Un site vitrine qui convertit démarre à <strong>1 290 € HT</strong>. Devis fixe écrit sous 48 h, sans surprise.</div></div>
+  <div class="qa"><button>Vous faites des films / clips ? <span>+</span></button><div class="a">Oui — studio Micha. Du clip dès <strong>1 500 €</strong> au court-métrage 3 min dès <strong>2 800 €</strong>. Captation événement dès 1 200 €.</div></div>
+  <div class="qa"><button>Quels délais ? <span>+</span></button><div class="a">Site livré sous <strong>3 semaines</strong>. Premiers leads sous 30 à 60 jours.</div></div>
+  <div class="qa"><button>Je n'y connais rien en informatique <span>+</span></button><div class="a">Aucun souci : vous validez par mail, on gère tout. Pas de logiciel à apprendre.</div></div>
+  <div class="qa"><button>Comment vous joindre ? <span>+</span></button><div class="a">WhatsApp <strong>07 86 17 37 15</strong>, email <strong>contact@pinapp.fr</strong>, ou le formulaire en bas de page.</div></div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
@@ -511,13 +597,53 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   /* form */
   (function(){var f=document.getElementById('pform');if(!f)return;var conds=[].slice.call(f.querySelectorAll('.cond'));
     f.querySelectorAll('input[name="path"]').forEach(function(r){r.addEventListener('change',function(){conds.forEach(function(c){c.hidden=(c.getAttribute('data-path')!==r.value);});if(hasGSAP)ScrollTrigger.refresh();});});
-    f.addEventListener('submit',function(e){e.preventDefault();var d=new FormData(f),get=function(k){return d.get(k)||'';};
+    /* n8n : reçoit le brief + les pièces jointes (multipart), automatise et résume sur Telegram.
+       ↓ Remplacer par votre vraie URL de webhook n8n. Tant qu'elle pointe sur l'exemple, on bascule sur l'email. */
+    var PINAPP_WEBHOOK='https://n8n.pinapp.fr/webhook/brief-pinapp';
+    var note=document.getElementById('pformNote');
+    var btn=f.querySelector('button[type="submit"]');
+    function mailFallback(d){var get=function(k){return d.get(k)||'';};
       var body=['Besoin: '+get('path'),'Prénom: '+get('prenom'),'Nom: '+get('nom'),'Entreprise: '+get('entreprise'),'Email: '+get('email'),'Tél: '+get('tel'),'CP: '+get('cp'),'Site: '+get('site'),'Délai: '+get('delai'),'Budget: '+get('budget'),'','Message:',get('message')].join('%0D%0A');
       window.location.href='mailto:contact@pinapp.fr?subject='+encodeURIComponent('Brief Pinapp — '+get('prenom')+' '+get('entreprise'))+'&body='+body;
-      document.getElementById('pformNote').textContent='Votre logiciel mail s\'ouvre… Sinon : contact@pinapp.fr · WhatsApp 07 86 17 37 15.';});})();
+      note.innerHTML='Votre logiciel mail s\'ouvre. ⚠ Les pièces jointes ne passent pas par l\'email — joignez-les à la main, ou réessayez le formulaire. Sinon : contact@pinapp.fr · WhatsApp 07 86 17 37 15.';}
+    f.addEventListener('submit',function(e){e.preventDefault();var d=new FormData(f);
+      if(btn){btn.disabled=true;btn.textContent='Envoi en cours…';}
+      note.textContent='Envoi de votre brief et de vos documents…';
+      fetch(PINAPP_WEBHOOK,{method:'POST',body:d}).then(function(r){if(!r.ok)throw new Error('http '+r.status);
+        f.reset();conds.forEach(function(c){c.hidden=true;});
+        if(btn){btn.disabled=false;btn.textContent='Brief envoyé ✓';}
+        note.innerHTML='✅ Reçu ! On a tout, y compris vos pièces jointes. Vous recevez une réponse écrite sous 24 h. Une copie vous est envoyée par mail.';
+      }).catch(function(){if(btn){btn.disabled=false;btn.textContent='Envoyer mon brief — réponse écrite sous 24h';}mailFallback(d);});
+    });})();
 
   /* faq */
   document.querySelectorAll('.faqd .it').forEach(function(it){var q=it.querySelector('.q'),a=it.querySelector('.ans');if(it.classList.contains('open'))a.style.maxHeight=a.scrollHeight+'px';q.addEventListener('click',function(){var open=it.classList.contains('open');it.parentNode.querySelectorAll('.it').forEach(function(o){o.classList.remove('open');o.querySelector('.ans').style.maxHeight='0px';});if(!open){it.classList.add('open');a.style.maxHeight=a.scrollHeight+'px';}});});
+
+  /* chatbot */
+  (function(){var b=document.getElementById('chatbtn'),p=document.getElementById('chatpanel');if(!b||!p)return;
+    function toggle(open){p.classList.toggle('open',open);b.setAttribute('aria-expanded',String(open));b.textContent=open?'✕':'💬';}
+    b.addEventListener('click',function(){toggle(!p.classList.contains('open'));});
+    p.querySelectorAll('.qa button').forEach(function(q){q.addEventListener('click',function(){var qa=q.parentNode,was=qa.classList.contains('open');p.querySelectorAll('.qa').forEach(function(o){o.classList.remove('open');});if(!was)qa.classList.add('open');});});
+    var tf=document.getElementById('chatToForm');if(tf)tf.addEventListener('click',function(){toggle(false);});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&p.classList.contains('open'))toggle(false);});})();
+
+  /* easter egg — gant de l'infini (6 valeurs = 6 pierres) */
+  (function(){
+    var stones=[].slice.call(document.querySelectorAll('.istone'));
+    var g=document.getElementById('gauntlet');if(!stones.length||!g)return;
+    var countEl=document.querySelector('.vhint .vcount');var got=0,total=stones.length;
+    function collect(s){if(s.classList.contains('got'))return;s.classList.add('got');got++;if(countEl)countEl.textContent=got+'/'+total;if(got===total)setTimeout(reveal,420);}
+    function reveal(){g.classList.add('open');requestAnimationFrame(function(){g.classList.add('snap');});document.body.classList.add('no-scroll');}
+    function close(){g.classList.remove('open','snap');document.body.classList.remove('no-scroll');}
+    stones.forEach(function(s){
+      s.addEventListener('click',function(){collect(s);});
+      s.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();collect(s);}});
+    });
+    var c=document.getElementById('gauntletClose');if(c)c.addEventListener('click',close);
+    var cta=document.getElementById('gauntletCta');if(cta)cta.addEventListener('click',close);
+    g.addEventListener('click',function(e){if(e.target===g)close();});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&g.classList.contains('open'))close();});
+  })();
 
   /* magnetic cursor */
   (function(){if(SMALL||COARSE)return;var c=document.getElementById('mcursor');if(!c)return;var x=innerWidth/2,y=innerHeight/2,cx=x,cy=y;addEventListener('mousemove',function(e){x=e.clientX;y=e.clientY;},{passive:true});document.querySelectorAll('a,button,[data-magnetic]').forEach(function(el){el.addEventListener('mouseenter',function(){c.classList.add('big');});el.addEventListener('mouseleave',function(){c.classList.remove('big');});});(function loop(){cx+=(x-cx)*.18;cy+=(y-cy)*.18;c.style.transform='translate('+cx+'px,'+cy+'px) translate(-50%,-50%)';requestAnimationFrame(loop);})();})();

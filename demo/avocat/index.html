@@ -116,11 +116,145 @@
       }
       .hero-bg {
         position: absolute;
-        inset: 0;
-        background: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1400&q=85&fit=crop')
+        top: -8%;
+        left: 0;
+        right: 0;
+        height: 116%;
+        background: url('https://images.unsplash.com/photo-1505664194779-8beaceb93744?w=1900&q=85&fit=crop')
           center/cover no-repeat;
-        filter: brightness(0.5) saturate(1.1);
+        filter: brightness(0.42) saturate(1.05) contrast(1.05);
+        will-change: transform;
       }
+      .hero-trust {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2.2rem;
+        margin-top: 2.5rem;
+        padding-top: 1.6rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+      }
+      .hero-trust div { color: rgba(255, 255, 255, 0.85); }
+      .hero-trust .n {
+        font-family: var(--ff);
+        font-size: 1.9rem;
+        font-weight: 700;
+        color: #fff;
+        line-height: 1;
+      }
+      .hero-trust .l {
+        font-size: 0.72rem;
+        letter-spacing: 0.06em;
+        color: rgba(255, 255, 255, 0.55);
+        margin-top: 0.35rem;
+      }
+      .scroll-cue {
+        position: absolute;
+        bottom: 1.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 3;
+        font-size: 0.6rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.55);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      .scroll-cue span {
+        width: 1px;
+        height: 34px;
+        background: linear-gradient(to bottom, var(--acc), transparent);
+        transform-origin: top;
+        animation: cueline 2.2s ease-in-out infinite;
+      }
+      @keyframes cueline {
+        0%, 100% { transform: scaleY(0.4); opacity: 0.4; }
+        50% { transform: scaleY(1); opacity: 1; }
+      }
+      /* DOMAINES */
+      .dom-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+      }
+      .dom-card {
+        background: #fff;
+        border: 1px solid rgba(15, 23, 41, 0.1);
+        border-radius: 14px;
+        padding: 2rem 1.8rem;
+        transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+      }
+      .dom-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 16px 40px rgba(15, 23, 41, 0.12);
+        border-color: var(--c2);
+      }
+      .dom-card .dn {
+        font-size: 0.62rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--c2);
+        font-weight: 700;
+      }
+      .dom-card h3 {
+        font-family: var(--ff);
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: var(--c1);
+        margin: 0.6rem 0 0.6rem;
+      }
+      .dom-card p {
+        font-size: 0.86rem;
+        color: rgba(15, 23, 41, 0.62);
+        line-height: 1.65;
+      }
+      /* HONORAIRES — gamme de prix */
+      #honoraires { background: #f9f9fb; }
+      .hon-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        margin-top: 3rem;
+        align-items: stretch;
+      }
+      .hon-card {
+        background: #fff;
+        border: 1px solid rgba(15, 23, 41, 0.1);
+        border-radius: 16px;
+        padding: 2.2rem 1.6rem;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.35s ease;
+      }
+      .hon-card.feat {
+        background: var(--c1);
+        border-color: var(--c1);
+        color: #fff;
+        transform: translateY(-8px);
+      }
+      .hon-card.feat .ht, .hon-card.feat .hp { color: #fff; }
+      .hon-card.feat li { color: rgba(255,255,255,0.72); border-color: rgba(255,255,255,0.12); }
+      .hon-card:hover { box-shadow: 0 16px 40px rgba(15,23,41,0.12); }
+      .hon-card .htag { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--c2); font-weight: 700; }
+      .hon-card.feat .htag { color: var(--acc); }
+      .hon-card .ht { font-family: var(--ff); font-size: 1.3rem; font-weight: 700; color: var(--c1); margin: 0.7rem 0 0.4rem; }
+      .hon-card .hp { font-family: var(--ff); font-size: 2.1rem; font-weight: 800; color: var(--c2); }
+      .hon-card.feat .hp { color: var(--acc); }
+      .hon-card .hp small { font-size: 0.8rem; font-weight: 400; opacity: 0.6; }
+      .hon-card ul { list-style: none; margin: 1.3rem 0 0; padding: 0; }
+      .hon-card li { font-size: 0.8rem; color: rgba(15,23,41,0.62); padding: 0.5rem 0; border-top: 1px solid rgba(15,23,41,0.07); line-height: 1.45; }
+      .hon-note { text-align: center; font-size: 0.82rem; color: rgba(15,23,41,0.5); margin-top: 2rem; }
+      /* TÉMOIGNAGES */
+      #avis { background: var(--c1); color: #fff; }
+      #avis h2, #avis .eyebrow { color: #fff; }
+      #avis .eyebrow { color: var(--acc); }
+      .avis-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 2.5rem; }
+      .avis-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 2rem; }
+      .avis-card .stars { color: var(--acc); font-size: 0.85rem; letter-spacing: 0.15em; margin-bottom: 1rem; }
+      .avis-card p { font-family: var(--ff); font-size: 1.1rem; font-style: italic; line-height: 1.5; color: rgba(255,255,255,0.9); margin-bottom: 1.2rem; }
+      .avis-card .who { font-size: 0.8rem; color: rgba(255,255,255,0.55); }
       .hero-overlay {
         position: absolute;
         inset: 0;
@@ -402,11 +536,16 @@
           display: none;
         }
         .services-grid,
+        .dom-grid,
+        .hon-grid,
+        .avis-grid,
         .about-grid,
         .contact-grid {
           grid-template-columns: 1fr;
           gap: 2rem;
         }
+        .hon-card.feat { transform: none; }
+        .hero-trust { gap: 1.4rem; }
         section {
           padding: 3.5rem 0;
         }
@@ -419,6 +558,7 @@
 <link rel="stylesheet" href="/assets/css/pp-awwwards.css?v=20260471" />
 </head>
   <body>
+<div role="status" aria-label="Tarif Pinapp" style="position:fixed;top:74px;right:14px;z-index:90;display:flex;align-items:center;gap:7px;padding:7px 14px;background:rgba(15,23,41,.72);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);border:1px solid rgba(96,165,250,.34);border-radius:999px;font:500 11.5px/1.2 Inter,system-ui,sans-serif;letter-spacing:.03em;color:#fff"><span style="width:6px;height:6px;border-radius:50%;background:#60a5fa;flex-shrink:0"></span>Niveau Premium · à partir de 4&nbsp;900&nbsp;€&nbsp;HT</div>
 <div class="pp-cursor-dot" aria-hidden="true"></div>
 <div class="pp-cursor-circle" aria-hidden="true"></div>
 
@@ -427,79 +567,158 @@
     <nav>
       <a class="nav-brand" href="#">Cabinet Renaud</a>
       <ul class="nav-links">
-        <li><a href="#services">Services</a></li>
-        <li><a href="#about">À propos</a></li>
+        <li><a href="#domaines">Domaines</a></li>
+        <li><a href="#honoraires">Honoraires</a></li>
+        <li><a href="#about">Le cabinet</a></li>
+        <li><a href="#avis">Avis</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <a class="nav-cta" href="#contact">Prendre rendez-vous</a>
+      <a class="nav-cta pp-magnetic" href="#contact">Prendre rendez-vous</a>
     </nav>
 
     <section class="hero" id="top">
-      <div class="hero-bg"></div>
+      <div class="hero-bg" data-parallax="0.16"></div>
       <div class="hero-overlay"></div>
       <div class="hero-content">
-        <p class="hero-eyebrow">Droit & Contentieux · Bordeaux</p>
-        <h1>Votre droit, défendu avec précision.</h1>
-        <p class="hero-sub">
-          Le Cabinet Renaud accompagne particuliers et entreprises en droit des affaires, droit social et contentieux
-          civil.
+        <p class="hero-eyebrow pp-fade">Droit des affaires & Contentieux · Bordeaux</p>
+        <h1 class="pp-fade">Votre droit,<br />défendu avec précision.</h1>
+        <p class="hero-sub pp-fade">
+          Le Cabinet Renaud accompagne particuliers et entreprises en droit des affaires, droit social,
+          droit immobilier et contentieux civil — avec exigence et discrétion.
         </p>
-        <a href="#contact" class="hero-cta">Prendre rendez-vous →</a>
+        <a href="#contact" class="hero-cta pp-magnetic pp-fade">Prendre rendez-vous →</a>
+        <div class="hero-trust pp-fade">
+          <div><div class="n">18 ans</div><div class="l">d'expérience au barreau</div></div>
+          <div><div class="n">+400</div><div class="l">dossiers traités</div></div>
+          <div><div class="n">24h</div><div class="l">délai de réponse garanti</div></div>
+        </div>
+      </div>
+      <div class="scroll-cue" aria-hidden="true"><span></span>Découvrir</div>
+    </section>
+
+    <section id="domaines">
+      <div class="wrap">
+        <p class="eyebrow pp-fade">Nos expertises</p>
+        <h2 class="pp-fade">Domaines de compétence.</h2>
+        <p class="section-desc pp-fade">
+          Une pratique transversale du droit, au service des dirigeants, des entreprises et des particuliers
+          de la région bordelaise.
+        </p>
+        <div class="dom-grid">
+          <div class="dom-card pp-fade">
+            <span class="dn">01 — Affaires</span>
+            <h3>Droit des sociétés</h3>
+            <p>Création, cession, pactes d'associés, gouvernance, restructurations et contentieux entre associés.</p>
+          </div>
+          <div class="dom-card pp-fade">
+            <span class="dn">02 — Travail</span>
+            <h3>Droit social</h3>
+            <p>Contrats, ruptures, licenciements, prud'hommes, négociations collectives et conformité RH.</p>
+          </div>
+          <div class="dom-card pp-fade">
+            <span class="dn">03 — Immobilier</span>
+            <h3>Droit immobilier</h3>
+            <p>Baux commerciaux, copropriété, transactions, vices cachés et litiges de construction.</p>
+          </div>
+          <div class="dom-card pp-fade">
+            <span class="dn">04 — Civil</span>
+            <h3>Contentieux civil</h3>
+            <p>Recouvrement, responsabilité, exécution des contrats et défense devant les juridictions civiles.</p>
+          </div>
+          <div class="dom-card pp-fade">
+            <span class="dn">05 — Famille</span>
+            <h3>Droit de la famille</h3>
+            <p>Divorce, séparation, garde d'enfants, successions et protection des personnes vulnérables.</p>
+          </div>
+          <div class="dom-card pp-fade">
+            <span class="dn">06 — Pénal</span>
+            <h3>Pénal des affaires</h3>
+            <p>Défense des dirigeants, abus de biens sociaux, fraude et accompagnement lors des enquêtes.</p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section id="services">
+    <section id="honoraires">
       <div class="wrap">
-        <p class="eyebrow">Ce qu'on vous propose</p>
-        <h2>Nos services.</h2>
-        <p class="section-desc">
-          Des prestations pensées pour vous, à des tarifs clairs. Réservez en ligne, payez à la prestation.
+        <p class="eyebrow pp-fade" style="text-align:center">Une transparence totale</p>
+        <h2 class="pp-fade" style="text-align:center">Honoraires.</h2>
+        <p class="section-desc pp-fade" style="text-align:center;margin:0 auto 0">
+          Des honoraires annoncés dès le premier rendez-vous, par écrit. Pas de surprise sur la facture.
         </p>
-        <div class="services-grid">
-          <div class="service-card">
-            <div class="service-icon">⭐</div>
-            <div class="service-name">Consultation initiale</div>
-            <div class="service-desc">
-              Prestation complète avec suivi personnalisé. Réservation en ligne disponible 24h/24.
-            </div>
-            <div class="service-price">À partir de 150€/h</div>
+        <div class="hon-grid">
+          <div class="hon-card pp-fade">
+            <span class="htag">Premier contact</span>
+            <div class="ht">Consultation</div>
+            <div class="hp">150€ <small>/ h</small></div>
+            <ul>
+              <li>Analyse de votre situation</li>
+              <li>Stratégie et options chiffrées</li>
+              <li>Compte-rendu écrit</li>
+              <li>En cabinet ou en visio</li>
+            </ul>
           </div>
-          <div class="service-card">
-            <div class="service-icon">✨</div>
-            <div class="service-name">Rédaction d'actes</div>
-            <div class="service-desc">Formule premium. Résultat garanti ou remboursé. Consultation incluse.</div>
-            <div class="service-price">À partir de Sur devis</div>
+          <div class="hon-card feat pp-fade">
+            <span class="htag">Le plus demandé ★</span>
+            <div class="ht">Forfait acte</div>
+            <div class="hp">dès 600€</div>
+            <ul>
+              <li>Rédaction d'actes &amp; contrats</li>
+              <li>Statuts, baux, transactions</li>
+              <li>Consultation préalable incluse</li>
+              <li>Prix ferme annoncé d'avance</li>
+            </ul>
           </div>
-          <div class="service-card">
-            <div class="service-icon">🏆</div>
-            <div class="service-name">Représentation</div>
-            <div class="service-desc">Notre offre signature. Pour ceux qui veulent le meilleur. Sur mesure.</div>
-            <div class="service-price">À partir de Sur devis</div>
+          <div class="hon-card pp-fade">
+            <span class="htag">Entreprises</span>
+            <div class="ht">Abonnement</div>
+            <div class="hp">dès 490€ <small>/ mois</small></div>
+            <ul>
+              <li>Conseil juridique illimité</li>
+              <li>Relecture de vos contrats</li>
+              <li>Veille &amp; alertes sur mesure</li>
+              <li>Tarif préférentiel au contentieux</li>
+            </ul>
+          </div>
+          <div class="hon-card pp-fade">
+            <span class="htag">Procédures</span>
+            <div class="ht">Représentation</div>
+            <div class="hp">sur devis</div>
+            <ul>
+              <li>Plaidoirie &amp; suivi de dossier</li>
+              <li>Honoraire fixe + résultat possible</li>
+              <li>Toutes juridictions</li>
+              <li>Devis écrit avant engagement</li>
+            </ul>
           </div>
         </div>
+        <p class="hon-note pp-fade">Aide juridictionnelle et conventions d'honoraires possibles · Devis gratuit à la première demande.</p>
       </div>
     </section>
 
     <section id="about">
       <div class="wrap">
         <div class="about-grid">
-          <div class="about-img">
+          <div class="about-img pp-reveal">
             <img
-              src="https://images.unsplash.com/photo-1436450412740-6b988f486c6b?w=800&q=80&fit=crop"
-              alt="Cabinet Renaud — Droit & Contentieux Bordeaux"
+              src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900&q=85&fit=crop"
+              alt="Maître Renaud — avocat à Bordeaux"
               loading="lazy" decoding="async" />
           </div>
-          <div class="about-text">
-            <p class="eyebrow">Notre histoire</p>
-            <h2>L'expertise,<br />le soin du détail.</h2>
+          <div class="about-text pp-fade">
+            <p class="eyebrow">Le cabinet</p>
+            <h2>L'exigence,<br />le soin du détail.</h2>
             <p>
-              Le Cabinet Renaud accompagne particuliers et entreprises en droit des affaires, droit social et
-              contentieux civil. Nous mettons un point d'honneur à offrir une expérience irréprochable à chaque client.
-              La qualité n'est pas une option — c'est notre standard.
+              Inscrit au barreau de Bordeaux, Maître Renaud défend ses clients depuis 2008. Le cabinet conjugue
+              une connaissance fine du tissu économique régional et la rigueur des grands dossiers.
             </p>
             <p>
-              Prise de rendez-vous en ligne, paiement sécurisé, rappels automatiques. Tout est pensé pour que vous vous
-              concentriez sur ce qui compte : votre temps.
+              Chaque dossier est traité personnellement, sans sous-traitance. Prise de rendez-vous en ligne,
+              honoraires écrits, points d'étape réguliers : vous savez toujours où en est votre affaire.
+            </p>
+            <p style="font-size:0.8rem;color:rgba(15,23,41,0.5);line-height:1.7">
+              Barreau de Bordeaux · DESS Droit des affaires (Bordeaux IV) · Membre de l'AFA ·
+              Médiateur agréé
             </p>
             <a
               href="#contact"
@@ -513,6 +732,7 @@
                 font-size: 0.9rem;
                 border-bottom: 2px solid var(--c2);
                 padding-bottom: 2px;
+                margin-top: 1rem;
               "
               >Prendre rendez-vous →</a
             >
@@ -521,10 +741,34 @@
       </div>
     </section>
 
+    <section id="avis">
+      <div class="wrap">
+        <p class="eyebrow pp-fade" style="text-align:center">Ce qu'ils en disent</p>
+        <h2 class="pp-fade" style="text-align:center">La confiance de nos clients.</h2>
+        <div class="avis-grid">
+          <div class="avis-card pp-fade">
+            <div class="stars">★★★★★</div>
+            <p>"Un accompagnement d'une clarté rare. J'ai compris chaque étape de ma procédure."</p>
+            <div class="who">— Hélène M., dirigeante de PME</div>
+          </div>
+          <div class="avis-card pp-fade">
+            <div class="stars">★★★★★</div>
+            <p>"Honoraires annoncés dès le départ, tenus à l'euro près. Très professionnel."</p>
+            <div class="who">— Karim B., particulier</div>
+          </div>
+          <div class="avis-card pp-fade">
+            <div class="stars">★★★★★</div>
+            <p>"Réactif, disponible, et redoutable à l'audience. Je recommande sans réserve."</p>
+            <div class="who">— Sophie L., commerçante</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="contact">
       <div class="wrap">
         <div class="contact-grid">
-          <div class="contact-info">
+          <div class="contact-info pp-fade">
             <p class="eyebrow">Nous trouver</p>
             <h2>Prenez contact.</h2>
             <p>Réponse garantie sous 24h. Devis gratuit pour toute première demande.</p>
@@ -576,24 +820,9 @@
     </div>
 
     <script>
-      // Scroll animations
-      const obs = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) {
-              e.target.style.opacity = '1';
-              e.target.style.transform = 'translateY(0)';
-              obs.unobserve(e.target);
-            }
-          });
-        },
-        { threshold: 0.1 },
-      );
-      document.querySelectorAll('.service-card,.about-grid,.contact-grid').forEach((el) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(24px)';
-        el.style.transition = 'opacity .6s ease,transform .6s ease';
-        obs.observe(el);
+      // Nav scrolled state
+      window.addEventListener('scroll', function () {
+        document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 60);
       });
     </script>
   <script src="/assets/vendor/gsap.min.js?v=3.12.5" defer></script>

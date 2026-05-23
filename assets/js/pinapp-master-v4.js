@@ -190,7 +190,7 @@
   document.addEventListener('DOMContentLoaded', function () {
     initBurger();
     replaceEmojis();
-    initIntroIA();
+    /* initIntroIA(); — intro « système différent » retirée (hors DA AVALON) */
     fixSnap();
     initAnim();
     initCountUp();
