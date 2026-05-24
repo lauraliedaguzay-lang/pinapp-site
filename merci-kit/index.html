@@ -126,8 +126,8 @@
         </p>
 
         <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px">
-          <!-- Déployez le PDF sur Hostinger dans /assets/files/ -->
-          <a class="btn btn--primary" href="/assets/files/kit-prompt-artisan-v1.pdf" download
+          <!-- Déposez le PDF dans /assets/files/ : le bouton le détecte et le télécharge automatiquement. Sinon il bascule sur l'envoi par email (pas de 404). -->
+          <a class="btn btn--primary" id="kit-pdf-btn" href="/assets/files/kit-prompt-artisan-v1.pdf" download
             >Télécharger le PDF →</a
           >
           <!-- Remplacez NOTION_KIT dans le script ci-dessous par l’URL publique de votre page Notion -->
@@ -191,6 +191,19 @@
         btn.setAttribute('href', NOTION_KIT);
         btn.setAttribute('target', '_blank');
         btn.setAttribute('rel', 'noopener noreferrer');
+      })();
+      /* Bouton PDF : télécharge le fichier s'il existe, sinon bascule sur l'envoi par email (jamais de 404). */
+      (function () {
+        var pdf = '/assets/files/kit-prompt-artisan-v1.pdf';
+        var btn = document.getElementById('kit-pdf-btn');
+        if (!btn) return;
+        fetch(pdf, { method: 'HEAD' })
+          .then(function (r) { if (!r.ok) throw 0; })
+          .catch(function () {
+            btn.removeAttribute('download');
+            btn.setAttribute('href', 'mailto:contact@pinapp.fr?subject=Kit%20Prompt%20Artisan%20%E2%80%94%20envoi%20du%20PDF');
+            btn.textContent = 'Recevoir le PDF par email →';
+          });
       })();
     </script>
   <script src="/assets/vendor/gsap.min.js?v=3.12.5" defer></script>
