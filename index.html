@@ -188,7 +188,8 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   try{sober=localStorage.getItem('pinapp-sober')==='1';}catch(e){}
   try{reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
   try{played=sessionStorage.getItem('pnpIntroDone')==='1';}catch(e){}
-  if(sober||reduce||played){el.parentNode&&el.parentNode.removeChild(el);return;}
+  var force=/[?&]intro(=|&|$)/.test(location.search);
+  if(!force&&(sober||reduce||played)){el.parentNode&&el.parentNode.removeChild(el);return;}
   var de=document.documentElement;de.style.overflow='hidden';document.body.style.overflow='hidden';
   window.__pnpIntro=true;
   window.__pnpIntroKill=function(){if(el.getAttribute('data-killed')==='1')return;el.setAttribute('data-killed','1');
