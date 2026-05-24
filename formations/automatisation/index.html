@@ -22,6 +22,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/assets/css/formations-avalon.css?v=3" />
+    <link rel="stylesheet" href="/assets/css/formation-quiz.css?v=1" />
     <script>document.documentElement.classList.add('js');</script>
     <script defer data-domain="pinapp.fr" src="https://plausible.io/js/script.js"></script>
   </head>
@@ -75,6 +76,53 @@
           <li>Vous voulez des preuves sur VOS canaux (SMS, mail, calendrier)</li>
         </ul>
 
+        <h2 class="fblock-title" id="autonomie" data-rev>Apprendre en autonomie <span class="distance-chip" style="vertical-align:middle">✦ accès libre</span></h2>
+        <p data-rev="60" style="color:var(--muted);line-height:1.6;max-width:46rem">Lisez, refaites chez vous, puis auto-évaluez-vous avec le quiz en bas. Tout est expliqué pas à pas : <strong>vous n'avez personne à appeler</strong>. La session en visio reste là si vous voulez aller plus vite — mais elle n'est pas obligatoire.</p>
+
+        <h3 class="fblock-title" style="font-size:1.05rem" data-rev>La règle d'or : déclencheur → action → notification</h3>
+        <p data-rev="60" style="color:var(--muted);line-height:1.6;max-width:46rem">Toute automatisation, sur n8n comme ailleurs, tient en 3 temps. <strong>1) Un déclencheur</strong> (un formulaire rempli, un rendez-vous dans l'agenda, une heure précise). <strong>2) Une ou plusieurs actions</strong> (générer un PDF, envoyer un SMS, écrire dans un Google Sheet). <strong>3) Une notification</strong> pour garder l'œil (un mail récap). Si vous savez décrire ces 3 lignes, vous savez automatiser.</p>
+
+        <h3 class="fblock-title" style="font-size:1.05rem" data-rev>3 automatisations qui rapportent (le process exact)</h3>
+        <div data-rev="60">
+          <div class="fblock"><div class="ic">1</div><div><strong>Rappel SMS la veille du RDV</strong><p>Déclencheur : l'agenda (Google Calendar) → n8n lit les RDV du lendemain → action : SMS via votre fournisseur (Brevo, Twilio…) → notification : récap du matin par mail. Résultat : moins de lapins, zéro relance à la main.</p></div></div>
+          <div class="fblock"><div class="ic">2</div><div><strong>Demande d'avis Google à J+7</strong><p>Déclencheur : prestation marquée « terminée » (formulaire ou Google Sheet) → attente 7 jours → action : mail/SMS avec votre lien d'avis Google → notification : suivi des envois. Résultat : plus d'avis, sans y penser.</p></div></div>
+          <div class="fblock"><div class="ic">3</div><div><strong>Devis PDF depuis un formulaire</strong><p>Déclencheur : un formulaire de demande rempli → action : génération d'un PDF (votre modèle + les données) + envoi au client → notification : copie pour vous + ligne ajoutée au suivi. Résultat : un devis part en minutes, pas en jours.</p></div></div>
+        </div>
+
+        <h3 class="fblock-title" style="font-size:1.05rem" data-rev>Votre checklist avant de lancer</h3>
+        <ul class="flist checks" data-rev="60">
+          <li>J'ai écrit mon automatisation en une phrase : « quand X, faire Y, me prévenir par Z »</li>
+          <li>Mes clés API (SMS, mail) sont dans les « Credentials » n8n — jamais en clair dans un nœud</li>
+          <li>J'ai testé avec un faux rendez-vous / un faux client avant de brancher en vrai</li>
+          <li>J'ai une notification de contrôle : je vois que ça tourne sans ouvrir n8n</li>
+          <li>J'active progressivement : une automatisation, je vérifie 3 jours, puis la suivante</li>
+        </ul>
+
+        <h3 class="fblock-title" style="font-size:1.05rem" data-rev>Dépannage — les blocages courants (avant de nous écrire)</h3>
+        <div class="ffaq" data-rev="60">
+          <details><summary>Mon workflow ne se déclenche pas</summary><p>Vérifiez qu'il est <strong>activé</strong> (l'interrupteur en haut à droite), pas seulement enregistré. Pour un déclencheur planifié, contrôlez le fuseau horaire. Pour un formulaire/webhook, faites un « Execute workflow » puis envoyez une vraie soumission pour tester.</p></details>
+          <details><summary>Le SMS / l'e-mail ne part pas</summary><p>9 fois sur 10 c'est la « Credential » : clé API expirée, expéditeur non vérifié, ou crédit épuisé chez le fournisseur. Ouvrez le nœud, retestez la connexion et lisez le message d'erreur rouge — il dit précisément quoi corriger.</p></details>
+          <details><summary>Ça envoie en double</summary><p>Ajoutez une condition « déjà traité ? » : une colonne « envoyé = oui » dans votre Google Sheet, vérifiée avant l'action, pour ne pas retraiter la même ligne.</p></details>
+          <details><summary>J'ai peur de tout casser</summary><p>Dupliquez le workflow avant de le modifier et travaillez sur des données de test. n8n garde l'historique des exécutions : vous revoyez exactement ce qui s'est passé, étape par étape.</p></details>
+          <details><summary>Et le RGPD ?</summary><p>Données de test tant que possible, clés API sur vos propres comptes, hébergement européen. Ne stockez que le nécessaire et prévoyez une durée de conservation.</p></details>
+        </div>
+
+        <div class="fquiz" data-quiz data-rev="60">
+          <script type="application/json">
+          {
+            "title": "Quiz — êtes-vous prêt·e à automatiser ?",
+            "intro": "5 questions, correction immédiate. Visez 4/5 avant de lancer votre premier workflow.",
+            "questions": [
+              { "q": "Quels sont les 3 temps de toute automatisation ?", "options": ["Déclencheur → action → notification", "Site → logo → réseaux", "Devis → facture → relance"], "answer": 0, "explain": "Un déclencheur lance le flux, une ou des actions font le travail, une notification vous tient informé·e." },
+              { "q": "Où ranger vos clés API (SMS, e-mail) dans n8n ?", "options": ["En clair dans le nœud, c'est plus simple", "Dans les « Credentials » dédiées", "Dans le nom du workflow"], "answer": 1, "explain": "Les Credentials sont chiffrées et réutilisables. On ne colle jamais une clé en clair dans un nœud." },
+              { "q": "Avant de brancher en vrai, on…", "options": ["lance directement sur les vrais clients", "teste avec un faux RDV / un faux client", "attend qu'un client se plaigne"], "answer": 1, "explain": "On teste toujours avec des données fictives : on voit le résultat sans aucun risque." },
+              { "q": "Le workflow est enregistré mais rien ne se passe. Le réflexe ?", "options": ["Vérifier qu'il est bien ACTIVÉ", "Le supprimer et recommencer", "Appeler Pinapp tout de suite"], "answer": 0, "explain": "Enregistré ≠ activé : l'interrupteur doit être sur ON (et vérifiez le fuseau horaire pour un planifié)." },
+              { "q": "Quelle tâche est la MEILLEURE candidate à l'automatisation ?", "options": ["Répétitive et clairement règle-able (rappel de RDV)", "Un choix créatif qui demande votre jugement", "Une décision juridique délicate"], "answer": 0, "explain": "On automatise le répétitif et cadré. Ce qui demande jugement ou création reste humain — l'IA produit, l'humain décide." }
+            ]
+          }
+          </script>
+        </div>
+
         <blockquote class="fquote" data-rev>« Premier retour terrain à venir — nous publions un témoignage dès qu'un client valide le contenu. Pas de faux avis chez nous. »</blockquote>
 
         <h2 class="fblock-title" data-rev>Questions fréquentes</h2>
@@ -102,5 +150,6 @@
     </footer>
 
     <script src="/assets/js/formations-avalon.js" defer></script>
+    <script src="/assets/js/formation-quiz.js" defer></script>
   </body>
 </html>
