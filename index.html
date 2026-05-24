@@ -166,8 +166,39 @@ footer.ft{position:relative;z-index:1;background:rgba(13,14,17,.6);backdrop-filt
 .mcursor{position:fixed;top:0;left:0;width:32px;height:32px;border:1px solid rgba(168,139,224,.6);border-radius:50%;pointer-events:none;z-index:200;transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s,border-color .25s;mix-blend-mode:difference;will-change:transform}.mcursor.big{width:60px;height:60px;background:rgba(168,139,224,.12);border-color:transparent}@media(max-width:1080px),(pointer:coarse){.mcursor{display:none}}
 body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:none!important}body.sober .dot-pulse{animation:none}body.sober .mcursor{display:none}body.sober .bglayer.active img,body.sober .bglayer.active video{animation:none}
 </style>
+<style>
+#pnp-intro{position:fixed;inset:0;z-index:100000;background:radial-gradient(120% 120% at 50% 42%,#16121f 0%,#0b0c10 62%,#070709 100%);display:flex;align-items:center;justify-content:center;overflow:hidden}
+#pnp-intro canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+#pnp-intro .pnp-fallback{position:relative;width:min(62vw,520px);height:auto;filter:drop-shadow(0 12px 48px rgba(123,91,238,.5));opacity:0;transform:scale(.84);animation:pnpFallIn 1.5s cubic-bezier(.2,.7,.2,1) forwards}
+#pnp-intro.pnp-webgl .pnp-fallback{display:none}
+#pnp-intro.pnp-hide{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .8s ease,visibility 0s linear .8s}
+@keyframes pnpFallIn{60%{opacity:1}to{opacity:1;transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){#pnp-intro{display:none!important}}
+</style>
+<noscript><style>#pnp-intro{display:none!important}</style></noscript>
 </head>
 <body>
+<div id="pnp-intro" role="presentation" aria-hidden="true">
+  <img class="pnp-fallback" src="/assets/images/pinapp-logo-trans.png" alt="">
+  <canvas id="pnp-intro-canvas"></canvas>
+</div>
+<script>
+(function(){var el=document.getElementById('pnp-intro');if(!el)return;
+  var sober=false,reduce=false,played=false;
+  try{sober=localStorage.getItem('pinapp-sober')==='1';}catch(e){}
+  try{reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
+  try{played=sessionStorage.getItem('pnpIntroDone')==='1';}catch(e){}
+  if(sober||reduce||played){el.parentNode&&el.parentNode.removeChild(el);return;}
+  var de=document.documentElement;de.style.overflow='hidden';document.body.style.overflow='hidden';
+  window.__pnpIntro=true;
+  window.__pnpIntroKill=function(){if(el.getAttribute('data-killed')==='1')return;el.setAttribute('data-killed','1');
+    try{sessionStorage.setItem('pnpIntroDone','1');}catch(e){}
+    el.classList.add('pnp-hide');de.style.overflow='';document.body.style.overflow='';
+    setTimeout(function(){el&&el.parentNode&&el.parentNode.removeChild(el);},850);};
+  window.__pnpDefaultKill=setTimeout(window.__pnpIntroKill,2300);
+  setTimeout(function(){window.__pnpIntro=false;window.__pnpIntroKill();},6500);
+})();
+</script>
 <div class="mcursor" id="mcursor" aria-hidden="true"></div>
 
 <!-- FOND UNIQUE FIXE · vos vidéos + photos en fondu enchaîné -->
@@ -703,5 +734,6 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){boot();io.disconnect();}});},{rootMargin:'300px'});io.observe(el);}else boot();
 })();
 </script>
+<script type="module" src="/assets/js/pinapp-intro.js"></script>
 </body>
 </html>
