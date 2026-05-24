@@ -138,6 +138,14 @@
     attributeFilter: ['data-theme', 'data-pinapp-calm'],
   });
 
+  function applyMotionState() {
+    if (motionOff()) {
+      stop();
+      return;
+    }
+    active ? start() : stop();
+  }
+
   window.addEventListener('pinapp-neuro-calm-changed', applyMotionState);
   if (window.matchMedia) {
     try {
