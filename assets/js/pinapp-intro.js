@@ -12,7 +12,7 @@
     var probe = document.createElement('canvas');
     webglOk = !!(window.WebGLRenderingContext && (probe.getContext('webgl') || probe.getContext('experimental-webgl')));
   } catch (e) { webglOk = false; }
-  if (!webglOk) return; // fallback CSS + __pnpDefaultKill s'en chargent
+  if (!webglOk || window.__pnpLite) return; // fallback CSS (fondu) + __pnpDefaultKill s'en chargent
 
   function killed() { return el.getAttribute('data-killed') === '1'; }
 

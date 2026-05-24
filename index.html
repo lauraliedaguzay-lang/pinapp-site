@@ -173,7 +173,8 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
 #pnp-intro.pnp-webgl .pnp-fallback{display:none}
 #pnp-intro.pnp-hide{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .8s ease,visibility 0s linear .8s}
 @keyframes pnpFallIn{60%{opacity:1}to{opacity:1;transform:scale(1)}}
-@media (prefers-reduced-motion:reduce){#pnp-intro{display:none!important}}
+@keyframes pnpFadeOnly{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){#pnp-intro .pnp-fallback{animation:pnpFadeOnly .9s ease forwards;transform:none}}
 </style>
 <noscript><style>#pnp-intro{display:none!important}</style></noscript>
 </head>
@@ -189,7 +190,8 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   try{reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
   try{played=sessionStorage.getItem('pnpIntroDone')==='1';}catch(e){}
   var force=/[?&]intro(=|&|$)/.test(location.search);
-  if(!force&&(sober||reduce||played)){el.parentNode&&el.parentNode.removeChild(el);return;}
+  if(!force&&(sober||played)){el.parentNode&&el.parentNode.removeChild(el);return;}
+  window.__pnpLite=!force&&reduce;
   var de=document.documentElement;de.style.overflow='hidden';document.body.style.overflow='hidden';
   window.__pnpIntro=true;
   window.__pnpIntroKill=function(){if(el.getAttribute('data-killed')==='1')return;el.setAttribute('data-killed','1');
@@ -204,7 +206,7 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
 
 <!-- FOND UNIQUE FIXE · vos vidéos + photos en fondu enchaîné -->
 <div id="bgstage">
-  <div class="bglayer" data-key="constellation"><video src="/voyage-sunmetalon/avalon/videos/2-1-constellation.mp4" poster="/voyage-sunmetalon/avalon/frames/2-1-constellation.png" muted loop playsinline preload="auto"></video></div>
+  <div class="bglayer" data-key="constellation"><video src="/voyage-sunmetalon/avalon/videos/2-1-constellation.mp4" poster="/voyage-sunmetalon/avalon/frames/2-1-constellation.png" muted loop playsinline preload="metadata"></video></div>
   <div class="bglayer" data-key="hublot"><video src="/voyage-sunmetalon/avalon/videos/1-2-hublot.mp4" poster="/voyage-sunmetalon/avalon/frames/1-2-hublot.png" muted loop playsinline preload="metadata"></video></div>
   <div class="bglayer" data-key="cabine"><video src="/voyage-sunmetalon/avalon/videos/1-3-cabine-cockpit.mp4" poster="/voyage-sunmetalon/avalon/frames/1-3-cabine-cockpit.png" muted loop playsinline preload="metadata"></video></div>
   <div class="bglayer" data-key="interface"><video src="/voyage-sunmetalon/avalon/videos/2-2-interface-holo.mp4" poster="/voyage-sunmetalon/avalon/frames/2-2-interface-holo.png" muted loop playsinline preload="metadata"></video></div>
