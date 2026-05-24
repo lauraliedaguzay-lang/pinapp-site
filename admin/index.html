@@ -1,211 +1,26 @@
 <!doctype html>
-<html lang="fr" data-theme="dark">
-  <head>
-    <script>
-      (function () {
-        var t = localStorage.getItem('pinapp-theme') || localStorage.getItem('pinapp-mode');
-        var m = t === 'light' || t === 'jour' ? 'jour' : t === 'dark' || t === 'nuit' ? 'nuit' : 'nuit';
-        document.documentElement.setAttribute('data-mode', m);
-        document.documentElement.setAttribute('data-theme', m === 'jour' ? 'light' : 'dark');
-        document.addEventListener('DOMContentLoaded', function () {
-          document.body.classList.add('mode-' + m);
-        });
-      })();
-    </script>
-    <meta charset="UTF-8" />
-    <meta name="pinapp-build" content="v14-clean-2026-04-28" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <!-- PINAPP_SEO_MANAGED -->
-    <meta name="robots" content="index, follow" />
-    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
-    <link rel="dns-prefetch" href="https://fonts.bunny.net" />
-    <link rel="canonical" href="https://pinapp.fr/admin/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="fr_FR" />
-    <meta property="og:site_name" content="Pinapp" />
-    <meta property="og:title" content="Admin — Console Pinapp" />
-    <meta property="og:description" content="Console Pinapp (accès privé) — pilotage, catalogue et pages publiques." />
-    <meta property="og:url" content="https://pinapp.fr/admin/" />
-    <meta property="og:image" content="https://pinapp.fr/assets/images/og-pinapp-share.jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Admin — Console Pinapp" />
-    <meta name="twitter:description" content="Console Pinapp (accès privé) — pilotage, catalogue et pages publiques." />
-    <meta name="twitter:image" content="https://pinapp.fr/assets/images/og-pinapp-share.jpg" />
-    <!-- /PINAPP_SEO_MANAGED -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="googlebot" content="noindex, nofollow" />
-    <meta name="theme-color" content="#050A14" />
-    <title>Admin — Console interne · Pinapp</title>
-    <meta name="description" content="Console Pinapp (accès privé) — pilotage, catalogue et pages publiques." />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="stylesheet" href="/assets/variables.css" />
-    <link rel="stylesheet" href="/assets/css/admin-dashboard.css" />
-    <link rel="stylesheet" href="/assets/css/pinapp-master-v3.css" />
-    <link rel="stylesheet" href="/assets/css/pinapp-master-v4.css" />
-    <link rel="apple-touch-icon" href="/assets/images/pinapp-icon.png" />
-
-    <script defer data-domain="pinapp.fr" src="https://plausible.io/js/script.js"></script>
-    <link rel="dns-prefetch" href="https://plausible.io" />
-  <link rel="stylesheet" href="/assets/css/pp-awwwards.css?v=20260471" />
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Administration · Pinapp</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+:root{color-scheme:dark}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0d0e11;color:#F4F1EA;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;text-align:center;padding:2rem;line-height:1.6}
+main{max-width:32em}
+h1{font-size:1.4rem;font-weight:600;margin:0 0 .6rem}
+p{opacity:.72;margin:.4rem 0}
+a{color:#6D8FEA}
+</style>
 </head>
-  <body class="admin-root admin-root--login">
-<div class="pp-cursor-dot" aria-hidden="true"></div>
-<div class="pp-cursor-circle" aria-hidden="true"></div>
-
-    <a href="#main" class="skip-link">Aller au contenu principal</a>
-
-    <div class="pinapp-refonte-noise" aria-hidden="true"></div>
-    <main id="main" tabindex="-1">
-      <div id="admin-login-root" tabindex="-1">
-        <div class="admin-login">
-          <h1>Pinapp — console studio</h1>
-          <p>
-            Gestion studio (Lauralie &amp; Michaël), catalogue, pages publiques et JSON. En production sur Netlify, le
-            mot de passe est vérifié par la fonction
-            <code style="font-size: 0.75rem">/.netlify/functions/admin-session</code> (variable
-            <code style="font-size: 0.75rem">PINAPP_ADMIN_PASSWORD</code>). Sans cette variable, un mot de passe de
-            secours dans <code style="font-size: 0.75rem">assets/js/admin-dashboard.js</code> sert pour le dev local
-            uniquement — complétez par Basic Auth ou règles Netlify si besoin.
-          </p>
-          <form id="admin-login-form" autocomplete="off">
-            <label for="admin-pass">Mot de passe</label>
-            <input id="admin-pass" type="password" name="password" required autocomplete="current-password" />
-            <button type="submit">Entrer</button>
-            <p id="admin-login-error" class="admin-error" role="alert"></p>
-          </form>
-        </div>
-      </div>
-
-      <div id="admin-app-root" hidden>
-        <header class="admin-bar">
-          <h2 class="admin-bar__title">Studio — pilotage, catalogue &amp; aperçu</h2>
-          <div class="admin-bar__actions">
-            <button type="button" class="admin-btn" id="admin-logout">Déconnexion</button>
-          </div>
-        </header>
-
-        <p class="admin-warn">
-          <strong>Sécurité :</strong> avec <code>PINAPP_ADMIN_PASSWORD</code> sur Netlify, la connexion passe par le
-          back-end ; le jeton de session est stocké en <code>sessionStorage</code>. Le mot de passe dans le JS ne doit
-          servir qu’en secours (dev / sans env). Pour un accès renforcé, gardez une protection hébergeur (Basic Auth,
-          etc.).
-        </p>
-
-        <div class="admin-tabs" role="tablist" aria-label="Sections admin">
-          <button type="button" role="tab" aria-selected="true" aria-controls="panel-programs">
-            Formations (vue data)
-          </button>
-          <button type="button" role="tab" aria-selected="false" aria-controls="panel-studio">Gestion studio</button>
-          <button type="button" role="tab" aria-selected="false" aria-controls="panel-pages">Pages publiques</button>
-          <button type="button" role="tab" aria-selected="false" aria-controls="panel-preview">Prévisualisation</button>
-          <button type="button" role="tab" aria-selected="false" aria-controls="panel-api">API JSON</button>
-        </div>
-
-        <div id="panel-programs" class="admin-panel" role="tabpanel">
-          <p class="meta" style="margin: 0 0 1rem; font-size: 0.875rem; color: var(--text-muted)">
-            Contenu aligné sur les pages <strong>formation-gratuite</strong> et <strong>offres/formation</strong>.
-            Modifier le fichier
-            <code style="color: var(--teal); font-size: 0.8rem">assets/data/pinapp-catalog.json</code> pour mettre à
-            jour l’API et les listes.
-          </p>
-          <div id="admin-programs"></div>
-        </div>
-
-        <div id="panel-studio" class="admin-panel" role="tabpanel" hidden>
-          <p class="admin-studio-lede">
-            Pilotage administratif <strong>léger</strong> : tâches récurrentes par rôle, mémoire locale, récap à coller
-            dans un message (Slack, WhatsApp, e-mail). Les automatisations lourdes restent dans n8n / Netlify / Notion —
-            voir
-            <code style="font-size: 0.8rem; color: var(--teal)">docs/studio/ADMINISTRATION-INTELLIGENTE.md</code> sur le
-            dépôt.
-          </p>
-          <ul class="admin-studio-links" aria-label="Raccourcis utiles">
-            <li>
-              <a class="refonte-link-teal" href="/diagnostic/index.html" target="_blank" rel="noopener noreferrer"
-                >Formulaire diagnostic (vue publique)</a
-              >
-            </li>
-            <li>
-              <a class="refonte-link-teal" href="/assets/js/config.js" target="_blank" rel="noopener noreferrer"
-                >config.js — webhooks &amp; feature flags</a
-              >
-            </li>
-            <li>
-              <a class="refonte-link-teal" href="/AUTOMATIONS.md" target="_blank" rel="noopener noreferrer"
-                >AUTOMATIONS.md</a
-              >
-            </li>
-            <li>
-              <a
-                class="refonte-link-teal"
-                href="/docs/studio/PROCESSUS-UNIQUE-PINAPP.md"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Processus unique (Lauralie · Michaël · client) + consignes Claude</a
-              >
-            </li>
-          </ul>
-          <div id="admin-studio-mount"></div>
-        </div>
-
-        <div id="panel-pages" class="admin-panel" role="tabpanel" hidden>
-          <div id="admin-pages"></div>
-        </div>
-
-        <div id="panel-preview" class="admin-panel" role="tabpanel" hidden>
-          <p class="meta" style="margin: 0 0 0.75rem; font-size: 0.875rem; color: var(--text-muted)">
-            Même origine que le site : la page se charge comme pour un visiteur (cookies, thème, scripts actifs).
-          </p>
-          <div class="admin-preview-toolbar">
-            <label class="visually-hidden" for="admin-preview-url">URL à prévisualiser</label>
-            <select id="admin-preview-url" aria-label="Choisir une page à prévisualiser"></select>
-            <button type="button" class="admin-btn admin-btn--primary" id="admin-preview-reload">
-              Recharger l’iframe
-            </button>
-          </div>
-          <div class="admin-preview-frame-wrap">
-            <iframe
-              id="admin-preview-iframe"
-              title="Aperçu page client"
-              sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
-          </div>
-        </div>
-
-        <div id="panel-api" class="admin-panel" role="tabpanel" hidden>
-          <p id="admin-api-endpoint" class="admin-api-url"></p>
-          <p style="margin: 0 0 0.75rem">
-            <button type="button" class="admin-btn admin-btn--primary" id="admin-copy-json">Copier le JSON</button>
-          </p>
-          <pre id="admin-json-pre" class="admin-pre" aria-label="Contenu JSON du catalogue"></pre>
-        </div>
-      </div>
-    </main>
-
-    <style>
-      .visually-hidden {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
-      }
-    </style>
-    <script src="/assets/js/admin-studio.js" defer></script>
-    <script src="/assets/js/admin-dashboard.js" defer></script>
-    <script src="/assets/js/pinapp-a11y-bootstrap.js" defer></script>
-    <script src="/assets/js/pinapp-master-v3.js" defer></script>
-    <script src="/assets/js/pinapp-master-v4.js" defer></script>
-      <link rel="stylesheet" href="/assets/css/pinapp-awwards.css?v=20260217" />
-    <script src="/assets/js/pinapp-awwards.js?v=20260217" defer></script>
-<script src="/assets/vendor/gsap.min.js?v=3.12.5" defer></script>
-<script src="/assets/vendor/ScrollTrigger.min.js?v=3.12.5" defer></script>
-<script src="/assets/vendor/lenis.min.js?v=1.1.18" defer></script>
-<script src="/assets/js/pp-awwwards-effects.js?v=20260470" defer></script>
+<body>
+<main>
+<h1>Administration</h1>
+<p>Cet espace n'est pas accessible publiquement.</p>
+<p>Pour toute demande : <a href="mailto:contact@pinapp.fr">contact@pinapp.fr</a></p>
+<p style="margin-top:1.4rem"><a href="/">← Retour à l'accueil</a></p>
+</main>
 </body>
 </html>
