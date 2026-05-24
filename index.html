@@ -170,14 +170,14 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
 #pnp-intro{position:fixed;inset:0;z-index:100000;background:radial-gradient(120% 120% at 50% 42%,#16121f 0%,#0b0c10 62%,#070709 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(1.3rem,4.5vh,3rem);padding:7vw;overflow:hidden}
 #pnp-intro.pnp-hide{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .7s ease,visibility 0s linear .7s}
 #pnp-intro .pnp-logo-wrap{position:relative;width:min(74vw,540px);filter:drop-shadow(0 16px 54px rgba(123,91,238,.45))}
-#pnp-intro .pnp-logo{display:block;width:100%;height:auto;clip-path:inset(0 100% 0 0);animation:pnpReveal 1.6s cubic-bezier(.66,0,.34,1) .25s forwards}
+#pnp-intro .pnp-logo{display:block;width:100%;height:auto;-webkit-clip-path:inset(0 100% 0 0);clip-path:inset(0 100% 0 0);animation:pnpReveal 1.6s cubic-bezier(.66,0,.34,1) .25s forwards}
 #pnp-intro .pnp-wipe{position:absolute;top:-5%;bottom:-5%;left:0;width:6px;border-radius:6px;background:linear-gradient(180deg,transparent,#cdbcff 25%,#6D8FEA 75%,transparent);box-shadow:0 0 22px 6px rgba(155,124,255,.65);opacity:0;animation:pnpWipe 1.6s cubic-bezier(.66,0,.34,1) .25s forwards}
 #pnp-intro .pnp-tagline{width:min(90vw,640px);max-width:100%;text-align:center;margin:0;font-family:var(--ff,inherit);font-size:clamp(.98rem,4.2vw,1.45rem);line-height:1.55;color:#ECE8FF;text-shadow:0 2px 24px rgba(0,0,0,.55);overflow-wrap:normal;word-break:normal}
 #pnp-intro .pnp-quote{white-space:normal}
 #pnp-intro .pnp-quote .wd{display:inline-block;white-space:nowrap}
 #pnp-intro .pnp-quote .ch{opacity:0;animation:pnpType .26s ease forwards}
 #pnp-intro .pnp-punch{display:block;margin-top:.55em;font-weight:700;font-size:1.08em;background:linear-gradient(90deg,#9A6BF2,#6D8FEA 70%);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:0;transform:scale(.9);animation:pnpPunch .6s cubic-bezier(.2,.7,.2,1) forwards}
-@keyframes pnpReveal{to{clip-path:inset(0 0 0 0)}}
+@keyframes pnpReveal{to{-webkit-clip-path:inset(0 0 0 0);clip-path:inset(0 0 0 0)}}
 @keyframes pnpWipe{0%{opacity:0;left:0}8%{opacity:1}90%{opacity:1}100%{opacity:0;left:100%}}
 @keyframes pnpType{to{opacity:1}}
 @keyframes pnpPunch{to{opacity:1;transform:scale(1)}}
@@ -214,6 +214,8 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
       q.appendChild(wd);
     });
     if(punch)punch.style.animationDelay=(base+i*step+0.2).toFixed(3)+'s';}
+  /* garde-fou : si l'animation clip-path échoue (vieux Safari), on force le logo visible */
+  setTimeout(function(){var lg=el.querySelector('.pnp-logo');if(lg){lg.style.webkitClipPath='none';lg.style.clipPath='none';}},2200);
   function kill(){if(el.getAttribute('data-killed')==='1')return;el.setAttribute('data-killed','1');
     try{sessionStorage.setItem('pnpIntroDone','1');}catch(e){}
     el.classList.add('pnp-hide');de.style.overflow='';document.body.style.overflow='';
