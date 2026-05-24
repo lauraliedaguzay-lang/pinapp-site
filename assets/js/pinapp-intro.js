@@ -63,6 +63,12 @@
       var plane = new THREE.Mesh(new THREE.PlaneGeometry(pw, ph), mat);
       group.add(plane);
 
+      // Ajuste l'échelle pour que le logo tienne dans la largeur visible (mobile/portrait inclus)
+      function visibleWidth() { var d = Math.max(0.1, cam.position.z); var vh = 2 * d * Math.tan(cam.fov * Math.PI / 360); return vh * cam.aspect; }
+      var fit = 1;
+      function recomputeFit() { fit = Math.min(1, (visibleWidth() * 0.84) / pw); }
+      recomputeFit();
+
       el.classList.add('pnp-webgl');
       clearTimeout(window.__pnpDefaultKill);
 
@@ -76,6 +82,7 @@
         W = window.innerWidth; H = window.innerHeight;
         cam.aspect = W / H; cam.updateProjectionMatrix();
         renderer.setSize(W, H, false);
+        recomputeFit();
       }
       window.addEventListener('resize', onResize);
 
@@ -95,14 +102,14 @@
           group.position.z = -4 + 4 * t;
           group.rotation.y = -0.65 * (1 - t);
           group.rotation.x = 0.10 * (1 - t);
-          s = 0.72 + 0.28 * t; group.scale.set(s, s, s);
+          s = (0.72 + 0.28 * t) * fit; group.scale.set(s, s, s);
         } else if (e < IN + HOLD) {
           group.position.y = Math.sin((e - IN) / HOLD * Math.PI) * 0.05;
           group.rotation.y = Math.sin(now * 0.0009) * 0.05;
         } else if (e < total) {
           t = easeInOut((e - IN - HOLD) / OUT);
           group.position.z = t * 2.4;
-          s = 1 + 0.28 * t; group.scale.set(s, s, s);
+          s = (1 + 0.28 * t) * fit; group.scale.set(s, s, s);
           mat.opacity = 1 - t; pmat.opacity = 0.55 * (1 - t);
           if (t > 0.12) el.classList.add('pnp-hide');
         } else { done(); return; }

@@ -171,6 +171,9 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
 #pnp-intro canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 #pnp-intro .pnp-fallback{position:relative;width:min(62vw,520px);height:auto;filter:drop-shadow(0 12px 48px rgba(123,91,238,.5));opacity:0;transform:scale(.84);animation:pnpFallIn 1.5s cubic-bezier(.2,.7,.2,1) forwards}
 #pnp-intro.pnp-webgl .pnp-fallback{display:none}
+#pnp-intro .pnp-tagline{position:absolute;left:50%;bottom:13%;transform:translateX(-50%);width:min(88vw,640px);text-align:center;margin:0;padding:0 1rem;font-family:var(--ff,inherit);font-size:clamp(1.02rem,2.5vw,1.5rem);line-height:1.55;color:#ECE8FF;text-shadow:0 2px 24px rgba(0,0,0,.55);opacity:0;animation:pnpTagIn 1.1s cubic-bezier(.2,.7,.2,1) .65s forwards}
+#pnp-intro .pnp-tagline .accent{font-weight:700;background:linear-gradient(90deg,#9A6BF2,#6D8FEA 70%);-webkit-background-clip:text;background-clip:text;color:transparent}
+@keyframes pnpTagIn{from{opacity:0;transform:translate(-50%,14px)}to{opacity:1;transform:translate(-50%,0)}}
 #pnp-intro.pnp-hide{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .8s ease,visibility 0s linear .8s}
 @keyframes pnpFallIn{60%{opacity:1}to{opacity:1;transform:scale(1)}}
 @keyframes pnpFadeOnly{from{opacity:0}to{opacity:1}}
@@ -182,6 +185,7 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
 <div id="pnp-intro" role="presentation" aria-hidden="true">
   <img class="pnp-fallback" src="/assets/images/pinapp-logo-trans.png" alt="">
   <canvas id="pnp-intro-canvas"></canvas>
+  <p class="pnp-tagline" aria-hidden="true">« Un grand pouvoir n'implique pas toujours de grandes responsabilités. »<br><span class="accent">Chez Pinapp, si.</span></p>
 </div>
 <script>
 (function(){var el=document.getElementById('pnp-intro');if(!el)return;
