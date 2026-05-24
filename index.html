@@ -167,18 +167,84 @@ footer.ft{position:relative;z-index:1;background:rgba(13,14,17,.6);backdrop-filt
 body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:none!important}body.sober .dot-pulse{animation:none}body.sober .mcursor{display:none}body.sober .bglayer.active img,body.sober .bglayer.active video{animation:none}
 </style>
 <style>
-#pnp-intro{position:fixed;inset:0;z-index:100000;background:radial-gradient(120% 120% at 50% 42%,#16121f 0%,#0b0c10 62%,#070709 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(1.3rem,4.5vh,3rem);padding:7vw;overflow:hidden}
+#pnp-intro{position:fixed;inset:0;z-index:100000;background:radial-gradient(120% 120% at 50% 40%,#1a1530 0%,#0c0d14 60%,#070709 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(1.3rem,4.5vh,3rem);padding:7vw;overflow:hidden}
+#pnp-intro::before{content:"";position:absolute;inset:-15%;z-index:0;pointer-events:none;background:
+    radial-gradient(closest-side at 22% 28%, rgba(123,79,232,.30), transparent 70%),
+    radial-gradient(closest-side at 80% 72%, rgba(62,235,214,.16), transparent 70%),
+    radial-gradient(closest-side at 62% 18%, rgba(233,196,106,.12), transparent 70%);
+  filter:blur(26px);animation:pnpNebula 16s ease-in-out infinite alternate}
+#pnp-intro::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:
+    radial-gradient(1.9px 1.9px at 32.4% 15.1%, rgba(255,255,255,0.39), transparent),
+    radial-gradient(1.1px 1.1px at 53.6% 36.6%, rgba(255,255,255,0.65), transparent),
+    radial-gradient(1.1px 1.1px at 3.7% 43.4%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1.2px 1.2px at 42.5% 82.7%, rgba(255,255,255,0.48), transparent),
+    radial-gradient(1.8px 1.8px at 62.7% 94.8%, rgba(255,255,255,0.59), transparent),
+    radial-gradient(2.2px 2.2px at 97.6% 4.7%, rgba(255,255,255,0.52), transparent),
+    radial-gradient(1.4px 1.4px at 14.4% 11.8%, rgba(255,255,255,0.84), transparent),
+    radial-gradient(1.9px 1.9px at 18.1% 58.2%, rgba(255,255,255,0.57), transparent),
+    radial-gradient(1.1px 1.1px at 54.8% 6.3%, rgba(255,255,255,0.47), transparent),
+    radial-gradient(1.4px 1.4px at 68.0% 42.8%, rgba(255,255,255,0.7), transparent),
+    radial-gradient(2.1px 2.1px at 45.3% 30.0%, rgba(255,255,255,0.77), transparent),
+    radial-gradient(1.7px 1.7px at 24.4% 57.4%, rgba(255,255,255,0.88), transparent),
+    radial-gradient(2.4px 2.4px at 72.9% 28.8%, rgba(255,255,255,0.42), transparent),
+    radial-gradient(1.2px 1.2px at 41.8% 75.7%, rgba(255,255,255,0.64), transparent),
+    radial-gradient(2.1px 2.1px at 3.9% 66.8%, rgba(255,255,255,0.69), transparent),
+    radial-gradient(2.0px 2.0px at 87.5% 31.4%, rgba(255,255,255,0.71), transparent),
+    radial-gradient(2.2px 2.2px at 58.0% 45.6%, rgba(255,255,255,0.92), transparent),
+    radial-gradient(1.1px 1.1px at 47.4% 66.4%, rgba(255,255,255,0.77), transparent),
+    radial-gradient(2.2px 2.2px at 64.7% 99.3%, rgba(255,255,255,0.52), transparent),
+    radial-gradient(1.0px 1.0px at 38.6% 66.9%, rgba(255,255,255,0.63), transparent),
+    radial-gradient(1.1px 1.1px at 16.8% 11.7%, rgba(255,255,255,0.81), transparent),
+    radial-gradient(1.5px 1.5px at 12.9% 24.8%, rgba(255,255,255,0.87), transparent),
+    radial-gradient(1.8px 1.8px at 8.1% 44.9%, rgba(255,255,255,0.88), transparent),
+    radial-gradient(1.4px 1.4px at 81.9% 86.4%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(2.3px 2.3px at 35.9% 88.4%, rgba(255,255,255,0.44), transparent),
+    radial-gradient(1.3px 1.3px at 17.6% 23.2%, rgba(255,255,255,0.64), transparent),
+    radial-gradient(1.0px 1.0px at 58.9% 26.3%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(2.3px 2.3px at 36.9% 56.6%, rgba(255,255,255,0.76), transparent),
+    radial-gradient(1.9px 1.9px at 51.5% 61.8%, rgba(255,255,255,0.38), transparent),
+    radial-gradient(2.2px 2.2px at 90.0% 78.0%, rgba(255,255,255,0.83), transparent),
+    radial-gradient(1.1px 1.1px at 39.2% 39.9%, rgba(255,255,255,0.73), transparent),
+    radial-gradient(1.3px 1.3px at 6.2% 6.7%, rgba(255,255,255,0.45), transparent),
+    radial-gradient(1.0px 1.0px at 34.0% 5.3%, rgba(255,255,255,0.44), transparent),
+    radial-gradient(1.0px 1.0px at 10.1% 36.4%, rgba(255,255,255,0.87), transparent),
+    radial-gradient(1.4px 1.4px at 61.4% 14.9%, rgba(255,255,255,0.56), transparent),
+    radial-gradient(2.2px 2.2px at 36.4% 12.3%, rgba(255,255,255,0.95), transparent),
+    radial-gradient(1.1px 1.1px at 46.6% 48.4%, rgba(255,255,255,0.41), transparent),
+    radial-gradient(2.2px 2.2px at 34.3% 26.5%, rgba(255,255,255,0.45), transparent),
+    radial-gradient(1.7px 1.7px at 2.3% 95.1%, rgba(255,255,255,0.44), transparent),
+    radial-gradient(1.7px 1.7px at 54.3% 2.7%, rgba(255,255,255,0.94), transparent),
+    radial-gradient(1.4px 1.4px at 86.3% 69.6%, rgba(255,255,255,0.57), transparent),
+    radial-gradient(1.7px 1.7px at 16.7% 77.2%, rgba(255,255,255,0.82), transparent);
+  background-repeat:no-repeat;animation:pnpStars 7s ease-in-out infinite alternate}
+#pnp-intro .pnp-logo-wrap,#pnp-intro .pnp-tagline{position:relative;z-index:2}
+@keyframes pnpNebula{from{transform:translate3d(-2%,-1%,0) scale(1)}to{transform:translate3d(2%,2%,0) scale(1.1)}}
+@keyframes pnpStars{0%{opacity:.45;transform:translateY(0)}100%{opacity:.85;transform:translateY(-8px)}}
 #pnp-intro.pnp-hide{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .7s ease,visibility 0s linear .7s}
-#pnp-intro .pnp-logo-wrap{position:relative;width:min(74vw,540px);filter:drop-shadow(0 16px 54px rgba(123,91,238,.45))}
-#pnp-intro .pnp-logo{display:block;width:100%;height:auto;-webkit-clip-path:inset(0 100% 0 0);clip-path:inset(0 100% 0 0);animation:pnpReveal 1.6s cubic-bezier(.66,0,.34,1) .25s forwards}
-#pnp-intro .pnp-wipe{position:absolute;top:-5%;bottom:-5%;left:0;width:6px;border-radius:6px;background:linear-gradient(180deg,transparent,#cdbcff 25%,#6D8FEA 75%,transparent);box-shadow:0 0 22px 6px rgba(155,124,255,.65);opacity:0;animation:pnpWipe 1.6s cubic-bezier(.66,0,.34,1) .25s forwards}
+#pnp-intro .pnp-logo-wrap{position:relative;width:min(80vw,560px);aspect-ratio:676/292;filter:drop-shadow(0 16px 54px rgba(123,91,238,.4))}
+#pnp-intro .pnp-gold,#pnp-intro .pnp-logo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block}
+#pnp-intro .pnp-gold{-webkit-clip-path:inset(0 100% 0 0);clip-path:inset(0 100% 0 0);filter:drop-shadow(0 0 9px rgba(233,196,106,.7));animation:pnpDraw 1.8s cubic-bezier(.62,0,.38,1) .3s forwards,pnpGoldOut .7s ease 2s forwards}
+#pnp-intro .pnp-logo{opacity:0;transform:scale(.985);animation:pnpLogoIn .85s cubic-bezier(.2,.7,.2,1) 1.9s forwards}
+#pnp-intro .pnp-wipe{position:absolute;top:-7%;bottom:-7%;left:0;width:5px;border-radius:6px;background:linear-gradient(180deg,transparent,#ffe9a8 30%,#e9c46a 70%,transparent);box-shadow:0 0 26px 8px rgba(233,196,106,.8);opacity:0;animation:pnpWipe 1.8s cubic-bezier(.62,0,.38,1) .3s forwards}
+#pnp-intro .pnp-sparks i{position:absolute;width:12px;height:12px;border-radius:50%;background:radial-gradient(circle,#fff 0%,#ffe9a8 35%,rgba(233,196,106,0) 70%);opacity:0;animation:pnpSpark 1.7s ease-in-out infinite}
+#pnp-intro .pnp-sparks i:nth-child(1){left:6%;top:16%;animation-delay:.3s}
+#pnp-intro .pnp-sparks i:nth-child(2){left:20%;top:72%;animation-delay:.7s}
+#pnp-intro .pnp-sparks i:nth-child(3){left:34%;top:28%;animation-delay:1s;width:8px;height:8px}
+#pnp-intro .pnp-sparks i:nth-child(4){left:50%;top:62%;animation-delay:1.3s}
+#pnp-intro .pnp-sparks i:nth-child(5){left:64%;top:20%;animation-delay:1.5s;width:9px;height:9px}
+#pnp-intro .pnp-sparks i:nth-child(6){left:78%;top:66%;animation-delay:1s}
+#pnp-intro .pnp-sparks i:nth-child(7){left:90%;top:34%;animation-delay:.6s;width:8px;height:8px}
+#pnp-intro .pnp-sparks i:nth-child(8){left:44%;top:10%;animation-delay:1.7s}
 #pnp-intro .pnp-tagline{width:min(90vw,640px);max-width:100%;text-align:center;margin:0;font-family:var(--ff,inherit);font-size:clamp(.98rem,4.2vw,1.45rem);line-height:1.55;color:#ECE8FF;text-shadow:0 2px 24px rgba(0,0,0,.55);overflow-wrap:normal;word-break:normal}
 #pnp-intro .pnp-quote{white-space:normal}
 #pnp-intro .pnp-quote .wd{display:inline-block;white-space:nowrap}
 #pnp-intro .pnp-quote .ch{opacity:0;animation:pnpType .26s ease forwards}
 #pnp-intro .pnp-punch{display:block;margin-top:.55em;font-weight:700;font-size:1.08em;background:linear-gradient(90deg,#9A6BF2,#6D8FEA 70%);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:0;transform:scale(.9);animation:pnpPunch .6s cubic-bezier(.2,.7,.2,1) forwards}
-@keyframes pnpReveal{to{-webkit-clip-path:inset(0 0 0 0);clip-path:inset(0 0 0 0)}}
-@keyframes pnpWipe{0%{opacity:0;left:0}8%{opacity:1}90%{opacity:1}100%{opacity:0;left:100%}}
+@keyframes pnpDraw{to{-webkit-clip-path:inset(0 0 0 0);clip-path:inset(0 0 0 0)}}
+@keyframes pnpGoldOut{to{opacity:0}}
+@keyframes pnpLogoIn{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
+@keyframes pnpWipe{0%{opacity:0;left:0}8%{opacity:1}88%{opacity:1}100%{opacity:0;left:100%}}
+@keyframes pnpSpark{0%,100%{opacity:0;transform:scale(.2)}50%{opacity:1;transform:scale(1)}}
 @keyframes pnpType{to{opacity:1}}
 @keyframes pnpPunch{to{opacity:1;transform:scale(1)}}
 </style>
@@ -187,8 +253,10 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
 <body>
 <div id="pnp-intro" role="presentation" aria-hidden="true">
   <div class="pnp-logo-wrap">
+    <img class="pnp-gold" src="/assets/images/pinapp-logo-gold.png" alt="" aria-hidden="true">
     <img class="pnp-logo" src="/assets/images/pinapp-logo-trans.png" alt="Pinapp">
     <span class="pnp-wipe" aria-hidden="true"></span>
+    <span class="pnp-sparks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
   </div>
   <p class="pnp-tagline">
     <span class="pnp-quote" data-text="« Un grand pouvoir n'implique pas toujours de grandes responsabilités. »"></span>
@@ -202,11 +270,11 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   try{sober=localStorage.getItem('pinapp-sober')==='1';}catch(e){}
   try{played=sessionStorage.getItem('pnpIntroDone')==='1';}catch(e){}
   var force=/[?&]intro(=|&|$)/.test(location.search);
-  if(!force&&(sober||played)){el.parentNode&&el.parentNode.removeChild(el);return;}
+  if(!force&&sober){el.parentNode&&el.parentNode.removeChild(el);return;}
   var de=document.documentElement;de.style.overflow='hidden';document.body.style.overflow='hidden';
   /* La phrase s'écrit lettre par lettre */
   var q=el.querySelector('.pnp-quote'),punch=el.querySelector('.pnp-punch');
-  if(q){var txt=q.getAttribute('data-text')||'',base=1.75,step=0.03,i=0;
+  if(q){var txt=q.getAttribute('data-text')||'',base=2.7,step=0.03,i=0;
     txt.split(' ').forEach(function(w,wi){
       if(wi>0){q.appendChild(document.createTextNode(' '));i++;}
       var wd=document.createElement('span');wd.className='wd';
@@ -215,13 +283,13 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
     });
     if(punch)punch.style.animationDelay=(base+i*step+0.2).toFixed(3)+'s';}
   /* garde-fou : si l'animation clip-path échoue (vieux Safari), on force le logo visible */
-  setTimeout(function(){var lg=el.querySelector('.pnp-logo');if(lg){lg.style.webkitClipPath='none';lg.style.clipPath='none';}},2200);
+  setTimeout(function(){var lg=el.querySelector('.pnp-logo');if(lg){lg.style.opacity='1';lg.style.transform='none';}var gd=el.querySelector('.pnp-gold');if(gd)gd.style.opacity='0';},3000);
   function kill(){if(el.getAttribute('data-killed')==='1')return;el.setAttribute('data-killed','1');
     try{sessionStorage.setItem('pnpIntroDone','1');}catch(e){}
     el.classList.add('pnp-hide');de.style.overflow='';document.body.style.overflow='';
     setTimeout(function(){el&&el.parentNode&&el.parentNode.removeChild(el);},750);}
-  setTimeout(kill,5400);   /* fin normale (après écriture) */
-  setTimeout(kill,7500);   /* garde-fou */
+  setTimeout(kill,6300);   /* fin normale (après écriture) */
+  setTimeout(kill,8800);   /* garde-fou */
 })();
 </script>
 <div class="mcursor" id="mcursor" aria-hidden="true"></div>
