@@ -280,7 +280,7 @@ if ($pack_envisage === '' || !in_array($pack_envisage, $allowedPacks, true)) {
   exit;
 }
 
-$allowedContact = ['email', 'telephone', 'whatsapp', 'visio'];
+$allowedContact = ['email', 'telephone', 'visio'];
 if ($contact_preference === '' || !in_array($contact_preference, $allowedContact, true)) {
   http_response_code(400);
   echo json_encode(['ok' => false, 'error' => 'Préférence de contact invalide']);
@@ -332,7 +332,6 @@ $delaiLabels = [
 $contactLabels = [
   'email' => 'Email',
   'telephone' => 'Téléphone',
-  'whatsapp' => 'WhatsApp / SMS',
   'visio' => 'Visio (Google Meet)',
 ];
 $budget_h = $budgetLabels[$budget] ?? $budget;

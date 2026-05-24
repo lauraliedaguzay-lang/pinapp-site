@@ -639,11 +639,10 @@ h2 { color: #3D6B4F; border-bottom: 2px solid #E8DCC8; padding-bottom: 0.5rem; }
 </div>
 
 <h2>Pour envoyer les fichiers a Lauralie</h2>
-<p>1. Zipper tous les fichiers<br>2. Envoyer par WeTransfer ou Google Drive<br>3. Prevenir par WhatsApp</p>
+<p>1. Zipper tous les fichiers<br>2. Envoyer par WeTransfer ou Google Drive<br>3. Prevenir par email</p>
 
 <div class="contact">
-<strong>Contact Lauralie :</strong> 07 86 17 37 15<br>
-<strong>Email :</strong> lauralie.daguzay@pinapp.fr<br>
+<strong>Contact Lauralie (email) :</strong> lauralie.daguzay@pinapp.fr<br>
 <strong>SIRET Micha :</strong> 523 884 898 00017
 </div>
 </body>

@@ -166,8 +166,7 @@ function render_diagnostic_client(array $d): string
 
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F4EEDF;border:1px solid #E0D5BC;border-radius:10px;margin-bottom:24px"><tr><td style="padding:18px 22px">
     <p style="margin:0 0 8px 0;font-family:Inter,Helvetica Neue,Arial,sans-serif;font-size:14px;color:#1A1A1A"><strong>Contacts urgents</strong></p>
-    <p style="margin:0;font-family:Inter,Helvetica Neue,Arial,sans-serif;font-size:14px;color:#1A1A1A">WhatsApp · <a href="https://wa.me/33786173715" style="color:#B8975A;text-decoration:none">07&nbsp;86&nbsp;17&nbsp;37&nbsp;15</a></p>
-    <p style="margin:8px 0 0 0;font-family:Inter,Helvetica Neue,Arial,sans-serif;font-size:14px;color:#1A1A1A">Email · <a href="mailto:contact@pinapp.fr" style="color:#B8975A;text-decoration:none">contact@pinapp.fr</a></p>
+    <p style="margin:0;font-family:Inter,Helvetica Neue,Arial,sans-serif;font-size:14px;color:#1A1A1A">Email · <a href="mailto:contact@pinapp.fr" style="color:#B8975A;text-decoration:none">contact@pinapp.fr</a></p>
   </td></tr></table>
 
   <table role="presentation" width="120" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 24px auto"><tr><td style="border-top:1px solid #B8975A;font-size:0;line-height:0">&nbsp;</td></tr></table>
