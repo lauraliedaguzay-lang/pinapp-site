@@ -20,12 +20,11 @@
     { id: 'realisations-films', num: '09', label: 'RÉALISATIONS' },
     { id: 'cinema-artistes', num: '10', label: 'CINÉMA ARTISTES' },
     { id: 'captation-na', num: '11', label: 'CAPTATION NA' },
-    { id: 'mp', num: '12', label: 'MÉMOIRE & PRÉSENCE' },
-    { id: 'methode', num: '13', label: 'MÉTHODE' },
-    { id: 'methode-formations', num: '13', label: 'MÉTHODE' },
-    { id: 'methode-tarifs', num: '13', label: 'MÉTHODE' },
-    { id: 's09b', num: '13', label: 'MÉTHODE' },
-    { id: 'contact', num: '14', label: 'CONTACT' }
+    { id: 'methode', num: '12', label: 'MÉTHODE' },
+    { id: 'methode-formations', num: '12', label: 'MÉTHODE' },
+    { id: 'methode-tarifs', num: '12', label: 'MÉTHODE' },
+    { id: 's09b', num: '12', label: 'MÉTHODE' },
+    { id: 'contact', num: '13', label: 'CONTACT' }
   ];
 
   var reduced = false;

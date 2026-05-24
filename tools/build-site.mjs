@@ -50,6 +50,17 @@ const excludeTop = new Set([
   'pinapp-automation.env',
   '.htpasswd',
   'dist',
+  // Projet Mémoire & Présence abandonné : conservé dans le dépôt, jamais publié sur le site.
+  'memoire-et-presence',
+]);
+
+// Fichiers M&P imbriqués dans des dossiers partagés : gardés dans le dépôt, exclus du site publié.
+const excludePathRel = new Set([
+  'storyboard/memoire-presence-guide-micha.html',
+  'assets/css/mp-v6.css',
+  'n8n-workflows/06-mp-contact-entrant.json',
+  'n8n-workflows/W5-mp-contact.json',
+  'n8n-workflows/W10-mp-micha-telegram-approval.json',
 ]);
 
 function copyTree(srcDir, rel = '') {
@@ -58,6 +69,7 @@ function copyTree(srcDir, rel = '') {
     if (rel === '' && excludeTop.has(e.name)) continue;
     const from = path.join(srcDir, e.name);
     const r = path.join(rel, e.name);
+    if (excludePathRel.has(r.split(path.sep).join('/'))) continue;
     const to = path.join(dest, r);
     if (e.isDirectory()) {
       fs.mkdirSync(to, { recursive: true });

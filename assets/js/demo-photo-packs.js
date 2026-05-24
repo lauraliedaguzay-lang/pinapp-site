@@ -434,7 +434,7 @@
       apropos: {
         titre: 'Chaque histoire mérite une présence digne',
         texte:
-          'Vitrine sur-mesure au standard Pinapp : sections plein écran, galerie dense, témoignages, formulaire détaillé — même ligne éditoriale et visuelle qu’un projet type Mémoire & Présence. Sur un mandat réel, textes, photos et parcours sont les vôtres ; ici, scénario avec visuels Unsplash.',
+          'Vitrine sur-mesure au standard Pinapp : sections plein écran, galerie dense, témoignages, formulaire détaillé — même ligne éditoriale et visuelle qu’un projet signature. Sur un mandat réel, textes, photos et parcours sont les vôtres ; ici, scénario avec visuels Unsplash.',
         photo: img('1513506003901-1e6ad229e2d7', qM),
       },
       servicesTitle: 'Ce que nous composons pour vous',

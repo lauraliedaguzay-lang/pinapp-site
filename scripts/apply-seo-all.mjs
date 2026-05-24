@@ -237,7 +237,7 @@ function fallbackMeta(relPosix) {
 
 // Internal/utility sections that must never be indexed (mirrors sitemap exclusions).
 function noindexRel(relPosix) {
-  return /^(admin|dashboard|client|interne|tools|emails|storyboard|docs)\//.test(relPosix);
+  return /^(admin|dashboard|client|interne|tools|emails|storyboard|docs|memoire-et-presence)\//.test(relPosix);
 }
 
 const SEO_BLOCK_TMPL = (canonical, title, desc, robots = 'index, follow') => `<!-- PINAPP_SEO_MANAGED -->
@@ -467,6 +467,7 @@ function sitemapSkip(relPosix) {
     /^_site\//.test(relPosix) ||
     /backup|legacy|archived|tdah-backup|og-image\.html$/i.test(relPosix) ||
     /^(admin|dashboard|client|interne|tools|emails|storyboard|docs|assets)\//.test(relPosix) ||
+    relPosix.startsWith('memoire-et-presence/') ||
     relPosix.startsWith('pinapp-site-vitrine/') ||
     relPosix.startsWith('_site/')
   );

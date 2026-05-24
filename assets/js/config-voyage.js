@@ -13,6 +13,5 @@
       diagnostic: 'https://cal.com/lauralie-daguzay-hdglzw/diagnostic',
       audit: 'https://cal.com/lauralie-daguzay-hdglzw/diagnostic',
     },
-    mpExternal: 'https://lauraliedaguzay-lang.github.io/memoireetpresence/',
   };
 })();
