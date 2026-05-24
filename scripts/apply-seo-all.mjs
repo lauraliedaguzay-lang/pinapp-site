@@ -235,8 +235,13 @@ function fallbackMeta(relPosix) {
   };
 }
 
-const SEO_BLOCK_TMPL = (canonical, title, desc) => `<!-- PINAPP_SEO_MANAGED -->
-    <meta name="robots" content="index, follow" />
+// Internal/utility sections that must never be indexed (mirrors sitemap exclusions).
+function noindexRel(relPosix) {
+  return /^(admin|dashboard|client|interne|tools|emails|storyboard|docs)\//.test(relPosix);
+}
+
+const SEO_BLOCK_TMPL = (canonical, title, desc, robots = 'index, follow') => `<!-- PINAPP_SEO_MANAGED -->
+    <meta name="robots" content="${robots}" />
     <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
     <link rel="dns-prefetch" href="https://fonts.bunny.net" />
     <link rel="canonical" href="${canonical}" />
@@ -410,7 +415,8 @@ function processFile(absPath) {
   const { title, desc } = fallbackMeta(relPosix);
   const canonical = canonicalFromRel(relPosix);
 
-  html = replaceSeoBlock(html, SEO_BLOCK_TMPL(canonical, title, desc));
+  const robots = noindexRel(relPosix) ? 'noindex, nofollow' : 'index, follow';
+  html = replaceSeoBlock(html, SEO_BLOCK_TMPL(canonical, title, desc, robots));
   html = replaceTitle(html, title);
   html = replaceDesc(html, desc);
   html = ensureViewport(html);
