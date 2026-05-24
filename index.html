@@ -195,14 +195,15 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   try{played=sessionStorage.getItem('pnpIntroDone')==='1';}catch(e){}
   var force=/[?&]intro(=|&|$)/.test(location.search);
   if(!force&&(sober||played)){el.parentNode&&el.parentNode.removeChild(el);return;}
-  window.__pnpLite=!force&&reduce;
+  /* L'intro 3D joue même en reduced-motion (choix de marque ; le Mode sobre reste l'option calme). */
+  window.__pnpLite=false;void reduce;
   var de=document.documentElement;de.style.overflow='hidden';document.body.style.overflow='hidden';
   window.__pnpIntro=true;
   window.__pnpIntroKill=function(){if(el.getAttribute('data-killed')==='1')return;el.setAttribute('data-killed','1');
     try{sessionStorage.setItem('pnpIntroDone','1');}catch(e){}
     el.classList.add('pnp-hide');de.style.overflow='';document.body.style.overflow='';
     setTimeout(function(){el&&el.parentNode&&el.parentNode.removeChild(el);},850);};
-  window.__pnpDefaultKill=setTimeout(window.__pnpIntroKill,2300);
+  window.__pnpDefaultKill=setTimeout(window.__pnpIntroKill,3000);
   setTimeout(function(){window.__pnpIntro=false;window.__pnpIntroKill();},9000);
 })();
 </script>
