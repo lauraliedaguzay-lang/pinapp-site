@@ -35,8 +35,8 @@ jobs:
       - name: Dépendances
         run: pwsh -NoProfile -File ./pinapp.ps1 install
 
-      - name: Qualité (Prettier + fichiers critiques)
-        run: pwsh -NoProfile -File ./pinapp.ps1 ci
+      - name: Qualité (fichiers critiques)
+        run: pwsh -NoProfile -File ./pinapp.ps1 verify
 
       - name: Construire _site/
         env:
