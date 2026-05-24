@@ -16,6 +16,10 @@
 
   function killed() { return el.getAttribute('data-killed') === '1'; }
 
+  // On s'engage sur le WebGL : annuler le retrait court (2,3 s) pour laisser three.js (1,3 Mo)
+  // charger sur une vraie connexion. Pendant le chargement, le logo (fallback CSS) reste visible.
+  try { clearTimeout(window.__pnpDefaultKill); } catch (e) {}
+
   import('/assets/vendor/three-0.170.module.js').then(function (THREE) {
     if (killed()) return;
     var lowPerf = (navigator.hardwareConcurrency || 4) < 4;
@@ -110,5 +114,8 @@
     }, undefined, function () {
       try { renderer.dispose(); } catch (e) {} // erreur texture → fallback + kill par défaut
     });
-  }).catch(function () { /* import three échoué → fallback CSS + kill par défaut */ });
+  }).catch(function () {
+    // import three échoué (réseau) : laisser le logo fallback un instant puis retirer
+    setTimeout(function () { if (window.__pnpIntroKill) window.__pnpIntroKill(); }, 1500);
+  });
 })();
