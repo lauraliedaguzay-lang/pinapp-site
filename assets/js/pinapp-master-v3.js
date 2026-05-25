@@ -244,107 +244,106 @@
     });
   }
 
-  /* ── INTRO IA FUTURISTE ──
-     PDF : "style comme les IA dans les films futuristes"
-     Style : HAL 9000 × Jarvis × Ex Machina ── */
+  /* ── INTRO VECTORIELLE PREMIUM (pinapp.fr) ──
+     Glyph Pinapp vectoriel : tracé + glow violet→periwinkle, ~2,3 s,
+     skippable. Désactivée si prefers-reduced-motion. Une fois / session. ── */
   function initIntroIA() {
-    // Ne pas rejouer si déjà vu cette session
     if (sessionStorage.getItem('pinapp-intro-done')) return;
+    var reduce =
+      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) {
+      sessionStorage.setItem('pinapp-intro-done', '1');
+      return;
+    }
 
     var intro = document.getElementById('pinapp-intro');
     if (!intro) {
-      // Créer l'intro si elle n'existe pas
+      var bodyPath =
+        'M30 19 C42 19 47 29 47 38 C47 48 39 54 30 54 C21 54 13 48 13 38 C13 29 18 19 30 19 Z';
       intro = document.createElement('div');
       intro.id = 'pinapp-intro';
       intro.setAttribute('role', 'status');
-      intro.setAttribute('aria-live', 'polite');
+      intro.setAttribute('aria-label', 'Pinapp');
       intro.innerHTML = [
-        '<div class="pi-scan" aria-hidden="true"></div>',
-        '<div class="pi-grid" aria-hidden="true"></div>',
-        '<div class="pi-content">',
-        '  <div class="pi-status"><span class="pi-dot"></span><span class="pi-status-txt">PINAPP · SYSTÈME ACTIF</span></div>',
-        '  <div class="pi-text" id="pi-text"></div>',
-        '  <div class="pi-cursor" aria-hidden="true">_</div>',
-        '  <button class="pi-skip" id="pi-skip">Passer →</button>',
+        '<div class="pi-aura" aria-hidden="true"></div>',
+        '<div class="pi-stage">',
+        '  <svg class="pi-mark" viewBox="0 0 60 60" aria-hidden="true">',
+        '    <defs>',
+        '      <linearGradient id="piGrad" x1="14%" y1="6%" x2="78%" y2="100%">',
+        '        <stop offset="0%" stop-color="#9A6BF2"/>',
+        '        <stop offset="52%" stop-color="#7B5BEE"/>',
+        '        <stop offset="100%" stop-color="#4A6CF0"/>',
+        '      </linearGradient>',
+        '      <clipPath id="piBody"><path d="' + bodyPath + '"/></clipPath>',
+        '    </defs>',
+        '    <g class="pi-crown" fill="url(#piGrad)">',
+        '      <path d="M30 3 C33 9 33 16 30 22 C27 16 27 9 30 3 Z"/>',
+        '      <path d="M30 22 C25 16 21 12 16 9 C21 8 27 12 30 20 Z"/>',
+        '      <path d="M30 22 C35 16 39 12 44 9 C39 8 33 12 30 20 Z"/>',
+        '      <path d="M30 23 C23 21 17 18 12 14 C18 13 26 16 30 22 Z"/>',
+        '      <path d="M30 23 C37 21 43 18 48 14 C42 13 34 16 30 22 Z"/>',
+        '    </g>',
+        '    <path class="pi-body" fill="url(#piGrad)" d="' + bodyPath + '"/>',
+        '    <path class="pi-bodyline" fill="none" stroke="url(#piGrad)" stroke-width="1.4" stroke-linecap="round" d="' +
+          bodyPath +
+          '"/>',
+        '    <g class="pi-mesh" clip-path="url(#piBody)" stroke="#FFFFFF" stroke-width="1" stroke-opacity="0.45" stroke-linecap="round">',
+        '      <path d="M9 24 L51 45"/><path d="M9 33 L51 54"/><path d="M9 42 L51 63"/><path d="M9 51 L51 72"/>',
+        '      <path d="M51 24 L9 45"/><path d="M51 33 L9 54"/><path d="M51 42 L9 63"/><path d="M51 51 L9 72"/>',
+        '    </g>',
+        '  </svg>',
+        '  <div class="pi-word">pinapp</div>',
         '</div>',
+        '<button class="pi-skip" id="pi-skip" type="button">Passer</button>',
       ].join('');
 
       var style = document.createElement('style');
       style.textContent = [
-        '#pinapp-intro{position:fixed;inset:0;z-index:9999;background:#020408;display:flex;align-items:center;justify-content:center;transition:opacity 0.8s ease}',
+        '#pinapp-intro{position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(120% 90% at 50% 42%,#161329 0%,#0b0c12 58%,#08080d 100%);opacity:1;transition:opacity .7s ease}',
         '#pinapp-intro.pi-out{opacity:0;pointer-events:none}',
         '#pinapp-intro.pi-gone{display:none}',
-        '.pi-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,229,176,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,176,.03) 1px,transparent 1px);background-size:40px 40px;animation:pi-grid-p 4s ease-in-out infinite}',
-        '@keyframes pi-grid-p{0%,100%{opacity:.5}50%{opacity:1}}',
-        '.pi-scan{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,229,176,.8),transparent);box-shadow:0 0 20px rgba(0,229,176,.4);animation:pi-scan 3s linear infinite}',
-        '@keyframes pi-scan{0%{top:0}100%{top:100%}}',
-        '.pi-content{position:relative;z-index:1;text-align:center;max-width:580px;padding:0 24px}',
-        '.pi-status{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border:1px solid rgba(0,229,176,.2);border-radius:100px;margin-bottom:40px;background:rgba(0,229,176,.05)}',
-        '.pi-dot{width:6px;height:6px;border-radius:50%;background:#00e5b0;box-shadow:0 0 8px #00e5b0;animation:pi-blink 1s ease-in-out infinite}',
-        '@keyframes pi-blink{0%,100%{opacity:1}50%{opacity:.2}}',
-        '.pi-status-txt{font-size:10px;letter-spacing:.20em;text-transform:uppercase;color:#00e5b0;font-family:-apple-system,BlinkMacSystemFont,sans-serif}',
-        '#pi-text{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;font-size:clamp(20px,5vw,38px);font-weight:300;color:#f0f8ff;line-height:1.4;letter-spacing:-.02em;min-height:120px;display:flex;align-items:center;justify-content:center;text-align:center}',
-        '.pi-cursor{font-size:28px;color:#00e5b0;animation:pi-cur .8s step-end infinite;margin-top:8px}',
-        '@keyframes pi-cur{0%,100%{opacity:1}50%{opacity:0}}',
-        '.pi-skip{position:fixed;bottom:max(env(safe-area-inset-bottom,0px),24px);right:24px;background:transparent;border:1px solid rgba(0,229,176,.2);border-radius:100px;color:rgba(240,248,255,.4);font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:12px;letter-spacing:.08em;padding:8px 16px;cursor:pointer;min-height:44px;transition:color .2s,border-color .2s}',
-        '.pi-skip:hover,.pi-skip:focus{color:#f0f8ff;border-color:rgba(0,229,176,.5)}',
+        '.pi-aura{position:absolute;width:min(62vw,520px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(142,106,216,.34),rgba(109,143,234,.12) 45%,transparent 70%);filter:blur(8px);transform:scale(.6);opacity:0;animation:pi-aura 2.2s ease forwards}',
+        '@keyframes pi-aura{16%{opacity:1;transform:scale(1)}78%{opacity:.9}100%{opacity:0;transform:scale(1.16)}}',
+        '.pi-stage{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:22px;will-change:transform;animation:pi-stage 2.3s ease forwards}',
+        '@keyframes pi-stage{0%,82%{transform:scale(1)}100%{transform:scale(1.05)}}',
+        '.pi-mark{width:clamp(86px,12vw,124px);height:auto;filter:drop-shadow(0 0 26px rgba(142,106,216,.55));opacity:0;transform:scale(.86);animation:pi-mark .7s cubic-bezier(.2,.7,.2,1) .05s forwards}',
+        '@keyframes pi-mark{0%{opacity:0;transform:scale(.86)}100%{opacity:1;transform:scale(1)}}',
+        '.pi-crown path{opacity:0;transform-box:fill-box;transform-origin:center bottom;animation:pi-crown .5s ease forwards}',
+        '.pi-crown path:nth-child(1){animation-delay:.30s}.pi-crown path:nth-child(2){animation-delay:.38s}.pi-crown path:nth-child(3){animation-delay:.38s}.pi-crown path:nth-child(4){animation-delay:.46s}.pi-crown path:nth-child(5){animation-delay:.46s}',
+        '@keyframes pi-crown{0%{opacity:0;transform:translateY(5px) scale(.8)}100%{opacity:1;transform:translateY(0) scale(1)}}',
+        '.pi-body{opacity:0;animation:pi-fade .6s ease .35s forwards}',
+        '.pi-bodyline{stroke-dasharray:160;stroke-dashoffset:160;animation:pi-draw .9s cubic-bezier(.6,0,.2,1) .05s forwards}',
+        '@keyframes pi-draw{100%{stroke-dashoffset:0}}',
+        '.pi-mesh{opacity:0;animation:pi-fade .6s ease .55s forwards}',
+        '@keyframes pi-fade{to{opacity:1}}',
+        '.pi-word{font-family:"Geist",Poppins,-apple-system,BlinkMacSystemFont,sans-serif;font-weight:600;font-size:clamp(22px,4.5vw,34px);text-transform:lowercase;padding-left:.22em;background:linear-gradient(92deg,#A88BE0,#8E6AD8 45%,#6D8FEA);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:0;animation:pi-word .75s cubic-bezier(.2,.7,.2,1) .55s forwards}',
+        '@keyframes pi-word{0%{opacity:0;transform:translateY(12px);filter:blur(7px);letter-spacing:.4em}100%{opacity:1;transform:translateY(0);filter:blur(0);letter-spacing:.22em}}',
+        '.pi-skip{position:fixed;bottom:max(env(safe-area-inset-bottom,0px),22px);right:22px;background:rgba(255,255,255,.04);border:1px solid rgba(168,139,224,.28);border-radius:100px;color:rgba(244,241,234,.66);font:500 12px/1 "Geist",system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:11px 18px;min-height:40px;cursor:pointer;opacity:0;animation:pi-fade .5s ease 1s forwards;transition:color .2s,border-color .2s,background .2s}',
+        '.pi-skip:hover,.pi-skip:focus-visible{color:#F4F1EA;border-color:rgba(168,139,224,.6);background:rgba(168,139,224,.12)}',
       ].join('');
       document.head.appendChild(style);
       document.body.insertBefore(intro, document.body.firstChild);
     }
 
-    var textEl = document.getElementById('pi-text');
     var skipBtn = document.getElementById('pi-skip');
-    if (!textEl) return;
-
-    var lines = [
-      { text: 'Bienvenue.', delay: 600 },
-      { text: "Vous êtes sur le point d'entrer\ndans un système différent.", delay: 2200 },
-      { text: "Le problème n'est plus\nle manque d'outils.", delay: 4200 },
-      { text: "C'est le manque de structure.", delay: 6200 },
-      { text: 'Nous construisons la structure.\nVous récoltez.', delay: 8000 },
-      { text: 'Pinapp Inc.', delay: 10000 },
-    ];
-
-    var timers = [];
-
-    function showLine(line) {
-      textEl.style.opacity = '0';
-      textEl.style.transition = 'opacity 0.4s';
-      setTimeout(function () {
-        textEl.innerHTML = line.text.replace(/\n/g, '<br/>');
-        textEl.style.opacity = '1';
-      }, 400);
-    }
-
-    lines.forEach(function (line) {
-      timers.push(
-        setTimeout(function () {
-          showLine(line);
-        }, line.delay),
-      );
-    });
+    var closed = false;
+    var autoT;
 
     function closeIntro() {
-      timers.forEach(function (t) {
-        clearTimeout(t);
-      });
+      if (closed) return;
+      closed = true;
+      clearTimeout(autoT);
       intro.classList.add('pi-out');
       setTimeout(function () {
         intro.classList.add('pi-gone');
-      }, 900);
+      }, 750);
       sessionStorage.setItem('pinapp-intro-done', '1');
     }
 
-    // Auto-ferme après 12s
-    timers.push(setTimeout(closeIntro, 12000));
-
-    if (skipBtn) {
-      skipBtn.addEventListener('click', closeIntro);
-    }
-    // Fermer sur tap
+    autoT = setTimeout(closeIntro, 2350);
+    if (skipBtn) skipBtn.addEventListener('click', closeIntro);
     intro.addEventListener('click', function (e) {
-      if (e.target === intro || e.target.classList.contains('pi-content')) closeIntro();
+      if (e.target === intro) closeIntro();
     });
   }
 
@@ -665,6 +664,6 @@
       initLightbox();
     }
     replaceEmojis();
-    /* initIntroIA(); — splash « PINAPP · SYSTÈME ACTIF » / teal retiré (hors charte, aligné v4) */
+    initIntroIA();
   });
 })();
