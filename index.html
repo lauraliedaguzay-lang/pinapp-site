@@ -3,10 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pinapp — Création de sites web, IA & films cinéma · Studio digital à Bordeaux</title>
+<title>Pinapp — Sites web, IA & films cinéma · Studio digital Bordeaux</title>
 <meta name="description" content="Studio digital bordelais : création de sites web sur-mesure, automatisations IA et films cinéma pour artisans, commerçants et PME de Nouvelle-Aquitaine. Diagnostic offert sous 24 h.">
 <meta property="og:title" content="Pinapp — Studio digital bordelais"><meta property="og:type" content="website">
 <link rel="canonical" href="https://pinapp.fr/">
+<link rel="alternate" hreflang="fr" href="https://pinapp.fr/">
+<link rel="alternate" hreflang="en" href="https://pinapp.fr/en/">
+<link rel="alternate" hreflang="x-default" href="https://pinapp.fr/">
 <meta name="robots" content="index, follow">
 <meta property="og:url" content="https://pinapp.fr/">
 <meta property="og:site_name" content="Pinapp">
@@ -37,6 +40,8 @@ body{font-family:var(--ff);background:transparent;color:var(--ivory);font-size:1
 body.no-scroll{overflow:hidden}img,video{display:block;max-width:100%}a{color:inherit;text-decoration:none}
 ::selection{background:var(--violet);color:var(--ivory)}h1,h2,h3,h4{margin:0;font-weight:600;letter-spacing:-.02em;line-height:1.08}
 a,button{transition:transform .4s var(--ease-apple),background .3s,color .3s,border-color .3s,box-shadow .4s,opacity .3s}
+a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--periwinkle);outline-offset:3px;border-radius:2px}
+.skip{position:absolute;left:8px;top:-64px;z-index:1000;background:var(--ivory);color:var(--graphite);padding:.6rem 1rem;border-radius:8px;font-weight:600;transition:top .2s var(--ease-apple)}.skip:focus{top:8px}
 .grad{background:linear-gradient(135deg,var(--violet),var(--periwinkle));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .eyebrow{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--periwinkle)}.muted{opacity:.82}.peri{color:var(--periwinkle)}
 .lead{font-size:clamp(1rem,1.35vw,1.16rem);opacity:.9;line-height:1.6}
@@ -217,8 +222,9 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
 <noscript><style>#pnp-intro{display:none!important}</style></noscript>
 </head>
 <body>
+<a class="skip" href="#top">Aller au contenu</a>
 <div id="pnp-intro" role="presentation" aria-hidden="true">
-  <video class="pnp-bgvid" autoplay muted loop playsinline preload="auto" poster="/assets/images/bg-cosmic.jpg" src="/voyage-sunmetalon/avalon/videos/2-1-constellation.mp4"></video>
+  <video class="pnp-bgvid" autoplay muted loop playsinline preload="metadata" poster="/assets/images/bg-cosmic.jpg" src="/voyage-sunmetalon/avalon/videos/2-1-constellation.mp4"></video>
   <div class="pnp-veil" aria-hidden="true"></div>
   <span class="pnp-sparks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
   <div class="pnp-logo-wrap">
@@ -237,8 +243,9 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   var sober=false,played=false;
   try{sober=localStorage.getItem('pinapp-sober')==='1';}catch(e){}
   try{played=sessionStorage.getItem('pnpIntroDone')==='1';}catch(e){}
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var force=/[?&]intro(=|&|$)/.test(location.search);
-  if(!force&&sober){el.parentNode&&el.parentNode.removeChild(el);return;}
+  if(!force&&(sober||reduce)){el.parentNode&&el.parentNode.removeChild(el);return;}
   var de=document.documentElement;de.style.overflow='hidden';document.body.style.overflow='hidden';
   /* La phrase s'écrit lettre par lettre */
   var q=el.querySelector('.pnp-quote'),punch=el.querySelector('.pnp-punch');
@@ -264,25 +271,25 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
 
 <!-- FOND UNIQUE FIXE · vos vidéos + photos en fondu enchaîné -->
 <div id="bgstage">
-  <div class="bglayer" data-key="constellation"><video src="/voyage-sunmetalon/avalon/videos/2-1-constellation.mp4" poster="/voyage-sunmetalon/avalon/frames/2-1-constellation.png" muted loop playsinline preload="metadata"></video></div>
-  <div class="bglayer" data-key="hublot"><video src="/voyage-sunmetalon/avalon/videos/1-2-hublot.mp4" poster="/voyage-sunmetalon/avalon/frames/1-2-hublot.png" muted loop playsinline preload="metadata"></video></div>
-  <div class="bglayer" data-key="cabine"><video src="/voyage-sunmetalon/avalon/videos/1-3-cabine-cockpit.mp4" poster="/voyage-sunmetalon/avalon/frames/1-3-cabine-cockpit.png" muted loop playsinline preload="metadata"></video></div>
-  <div class="bglayer" data-key="interface"><video src="/voyage-sunmetalon/avalon/videos/2-2-interface-holo.mp4" poster="/voyage-sunmetalon/avalon/frames/2-2-interface-holo.png" muted loop playsinline preload="metadata"></video></div>
-  <div class="bglayer" data-key="cascade"><video src="/voyage-sunmetalon/avalon/videos/2-3-cascade-code.mp4" poster="/voyage-sunmetalon/avalon/frames/2-3-cascade-code.png" muted loop playsinline preload="metadata"></video></div>
-  <div class="bglayer" data-key="trajectoires"><video src="/voyage-sunmetalon/avalon/videos/3-1-trajectoires.mp4" poster="/voyage-sunmetalon/avalon/frames/3-1-trajectoires.png" muted loop playsinline preload="metadata"></video></div>
+  <div class="bglayer" data-key="constellation"><video src="/voyage-sunmetalon/avalon/videos/2-1-constellation.mp4" poster="/voyage-sunmetalon/avalon/frames/2-1-constellation.png" muted loop playsinline preload="none"></video></div>
+  <div class="bglayer" data-key="hublot"><video src="/voyage-sunmetalon/avalon/videos/1-2-hublot.mp4" poster="/voyage-sunmetalon/avalon/frames/1-2-hublot.png" muted loop playsinline preload="none"></video></div>
+  <div class="bglayer" data-key="cabine"><video src="/voyage-sunmetalon/avalon/videos/1-3-cabine-cockpit.mp4" poster="/voyage-sunmetalon/avalon/frames/1-3-cabine-cockpit.png" muted loop playsinline preload="none"></video></div>
+  <div class="bglayer" data-key="interface"><video src="/voyage-sunmetalon/avalon/videos/2-2-interface-holo.mp4" poster="/voyage-sunmetalon/avalon/frames/2-2-interface-holo.png" muted loop playsinline preload="none"></video></div>
+  <div class="bglayer" data-key="cascade"><video src="/voyage-sunmetalon/avalon/videos/2-3-cascade-code.mp4" poster="/voyage-sunmetalon/avalon/frames/2-3-cascade-code.png" muted loop playsinline preload="none"></video></div>
+  <div class="bglayer" data-key="trajectoires"><video src="/voyage-sunmetalon/avalon/videos/3-1-trajectoires.mp4" poster="/voyage-sunmetalon/avalon/frames/3-1-trajectoires.png" muted loop playsinline preload="none"></video></div>
   <div class="bglayer" data-key="plongee"><img src="/voyage-sunmetalon/avalon/frames/1-1-plongee-cosmique.png" alt=""></div>
   <div class="bglayer" data-key="sceaux"><img src="/voyage-sunmetalon/avalon/frames/3-2-sceaux-graves.png" alt=""></div>
   <div class="bglayer" data-key="atterrissage"><img src="/voyage-sunmetalon/avalon/frames/3-3-atterrissage.png" alt=""></div>
-  <div class="bglayer" data-key="vaisseau"><video src="/voyage-sunmetalon/avalon/videos/vaisseau.mp4" poster="/assets/images/bg-cosmic.jpg" muted loop playsinline preload="metadata"></video></div>
-  <div class="bglayer" data-key="portes"><video src="/voyage-sunmetalon/avalon/videos/portes.mp4" poster="/assets/images/bg-cosmic.jpg" muted loop playsinline preload="metadata"></video></div>
-  <div class="bglayer" data-key="salle-sceaux"><video src="/voyage-sunmetalon/avalon/videos/salle-sceaux.mp4" poster="/assets/images/bg-cosmic.jpg" muted loop playsinline preload="metadata"></video></div>
-  <div class="bglayer" data-key="fusion"><video src="/voyage-sunmetalon/avalon/videos/fusion-duo.mp4" poster="/assets/images/bg-cosmic.jpg" muted loop playsinline preload="metadata"></video></div>
-  <div class="bglayer" data-key="studio"><video src="/voyage-sunmetalon/avalon/videos/studio-cinema.mp4" poster="/assets/images/bg-cosmic.jpg" muted loop playsinline preload="metadata"></video></div>
-  <div class="bglayer" data-key="scene"><video src="/voyage-sunmetalon/avalon/videos/scene-artiste.mp4" poster="/assets/images/bg-cosmic.jpg" muted loop playsinline preload="metadata"></video></div>
-  <div class="bglayer" data-key="ascension"><video src="/voyage-sunmetalon/avalon/videos/ascension.mp4" muted loop playsinline preload="metadata"></video></div>
-  <div class="bglayer" data-key="tournage"><video src="/voyage-sunmetalon/avalon/videos/tournage.mp4" muted loop playsinline preload="metadata"></video></div>
-  <div class="bglayer" data-key="corridor"><video src="/voyage-sunmetalon/avalon/videos/corridor.mp4" muted loop playsinline preload="metadata"></video></div>
-  <div class="bglayer" data-key="passerelle"><video src="/voyage-sunmetalon/avalon/videos/passerelle.mp4" muted loop playsinline preload="metadata"></video></div>
+  <div class="bglayer" data-key="vaisseau"><video src="/voyage-sunmetalon/avalon/videos/vaisseau.mp4" poster="/assets/images/bg-cosmic.jpg" muted loop playsinline preload="none"></video></div>
+  <div class="bglayer" data-key="portes"><video src="/voyage-sunmetalon/avalon/videos/portes.mp4" poster="/assets/images/bg-cosmic.jpg" muted loop playsinline preload="none"></video></div>
+  <div class="bglayer" data-key="salle-sceaux"><video src="/voyage-sunmetalon/avalon/videos/salle-sceaux.mp4" poster="/assets/images/bg-cosmic.jpg" muted loop playsinline preload="none"></video></div>
+  <div class="bglayer" data-key="fusion"><video src="/voyage-sunmetalon/avalon/videos/fusion-duo.mp4" poster="/assets/images/bg-cosmic.jpg" muted loop playsinline preload="none"></video></div>
+  <div class="bglayer" data-key="studio"><video src="/voyage-sunmetalon/avalon/videos/studio-cinema.mp4" poster="/assets/images/bg-cosmic.jpg" muted loop playsinline preload="none"></video></div>
+  <div class="bglayer" data-key="scene"><video src="/voyage-sunmetalon/avalon/videos/scene-artiste.mp4" poster="/assets/images/bg-cosmic.jpg" muted loop playsinline preload="none"></video></div>
+  <div class="bglayer" data-key="ascension"><video src="/voyage-sunmetalon/avalon/videos/ascension.mp4" muted loop playsinline preload="none"></video></div>
+  <div class="bglayer" data-key="tournage"><video src="/voyage-sunmetalon/avalon/videos/tournage.mp4" muted loop playsinline preload="none"></video></div>
+  <div class="bglayer" data-key="corridor"><video src="/voyage-sunmetalon/avalon/videos/corridor.mp4" muted loop playsinline preload="none"></video></div>
+  <div class="bglayer" data-key="passerelle"><video src="/voyage-sunmetalon/avalon/videos/passerelle.mp4" muted loop playsinline preload="none"></video></div>
 </div>
 <div id="bgveil"></div><div id="bggrain"></div>
 
@@ -679,8 +686,9 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   "use strict";
   var SMALL=matchMedia('(max-width: 1080px)').matches, COARSE=matchMedia('(pointer:coarse)').matches;
   var sober=localStorage.getItem('pinapp-sober')==='1';
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var hasGSAP=window.gsap&&window.ScrollTrigger; if(hasGSAP)gsap.registerPlugin(ScrollTrigger);
-  var IMMERSIVE=hasGSAP&&!sober;
+  var IMMERSIVE=hasGSAP&&!sober&&!reduce;
   var sb=document.getElementById('soberToggle');
   function applySober(){document.body.classList.toggle('sober',sober);sb.setAttribute('aria-pressed',String(sober));sb.querySelector('.lbl').textContent=sober?'Mode immersif':'Mode sobre';}
   applySober();
@@ -690,7 +698,7 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   document.getElementById('mclose').addEventListener('click',function(){mmenu.classList.remove('open');document.body.classList.remove('no-scroll');});
   mmenu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){mmenu.classList.remove('open');document.body.classList.remove('no-scroll');});});
   var lenis=null;
-  if(hasGSAP&&window.Lenis&&!sober&&!COARSE){lenis=new Lenis({duration:1.25,smoothWheel:true});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000);});gsap.ticker.lagSmoothing(0);}
+  if(hasGSAP&&window.Lenis&&!sober&&!COARSE&&!reduce){lenis=new Lenis({duration:1.25,smoothWheel:true});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000);});gsap.ticker.lagSmoothing(0);}
   var nav=document.getElementById('nav'),lastY=0;
   function navScroll(y){nav.classList.toggle('scrolled',y>50);if(y>lastY&&y>320)nav.classList.add('hide');else nav.classList.remove('hide');lastY=y;}
 
@@ -752,13 +760,13 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
     });})();
 
   /* faq */
-  document.querySelectorAll('.faqd .it').forEach(function(it){var q=it.querySelector('.q'),a=it.querySelector('.ans');if(it.classList.contains('open'))a.style.maxHeight=a.scrollHeight+'px';q.addEventListener('click',function(){var open=it.classList.contains('open');it.parentNode.querySelectorAll('.it').forEach(function(o){o.classList.remove('open');o.querySelector('.ans').style.maxHeight='0px';});if(!open){it.classList.add('open');a.style.maxHeight=a.scrollHeight+'px';}});});
+  document.querySelectorAll('.faqd .it').forEach(function(it){var q=it.querySelector('.q'),a=it.querySelector('.ans');q.setAttribute('aria-expanded',it.classList.contains('open')?'true':'false');if(it.classList.contains('open'))a.style.maxHeight=a.scrollHeight+'px';q.addEventListener('click',function(){var open=it.classList.contains('open');it.parentNode.querySelectorAll('.it').forEach(function(o){o.classList.remove('open');o.querySelector('.ans').style.maxHeight='0px';o.querySelector('.q').setAttribute('aria-expanded','false');});if(!open){it.classList.add('open');a.style.maxHeight=a.scrollHeight+'px';q.setAttribute('aria-expanded','true');}});});
 
   /* chatbot */
   (function(){var b=document.getElementById('chatbtn'),p=document.getElementById('chatpanel');if(!b||!p)return;
     function toggle(open){p.classList.toggle('open',open);b.setAttribute('aria-expanded',String(open));b.textContent=open?'✕':'💬';}
     b.addEventListener('click',function(){toggle(!p.classList.contains('open'));});
-    p.querySelectorAll('.qa button').forEach(function(q){q.addEventListener('click',function(){var qa=q.parentNode,was=qa.classList.contains('open');p.querySelectorAll('.qa').forEach(function(o){o.classList.remove('open');});if(!was)qa.classList.add('open');});});
+    p.querySelectorAll('.qa button').forEach(function(q){q.setAttribute('aria-expanded','false');q.addEventListener('click',function(){var qa=q.parentNode,was=qa.classList.contains('open');p.querySelectorAll('.qa').forEach(function(o){o.classList.remove('open');var ob=o.querySelector('button');if(ob)ob.setAttribute('aria-expanded','false');});if(!was){qa.classList.add('open');q.setAttribute('aria-expanded','true');}});});
     var tf=document.getElementById('chatToForm');if(tf)tf.addEventListener('click',function(){toggle(false);});
     document.addEventListener('keydown',function(e){if(e.key==='Escape'&&p.classList.contains('open'))toggle(false);});})();
 
