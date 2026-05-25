@@ -253,7 +253,7 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   try{played=sessionStorage.getItem('pnpIntroDone')==='1';}catch(e){}
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var force=/[?&]intro(=|&|$)/.test(location.search);
-  if(!force&&sober){el.parentNode&&el.parentNode.removeChild(el);return;}
+  if(!force&&(sober||played)){el.parentNode&&el.parentNode.removeChild(el);return;}
   var de=document.documentElement;de.style.overflow='hidden';document.body.style.overflow='hidden';
   /* La phrase s'écrit lettre par lettre */
   var q=el.querySelector('.pnp-quote'),punch=el.querySelector('.pnp-punch');
