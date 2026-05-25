@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="supported-color-schemes" content="dark">
+<link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+<link href="https://fonts.bunny.net/css?family=cormorant-garamond:400i,500i|inter:400,500&display=swap" rel="stylesheet">
+<title>Activer Stripe pour les paiements — Pinapp</title>
+</head>
+<body style="margin:0;padding:0;background:#050505;-webkit-text-size-adjust:100%">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:#050505;font-size:1px;line-height:1px">Dernière étape avant d'encaisser les formations : activer le compte Stripe.</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#050505">
+  <tr><td align="center" style="padding:40px 16px">
+    <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:100%">
+
+      <!-- Logo -->
+      <tr><td align="center" style="padding:0 0 28px">
+        <img src="https://pinapp.fr/assets/images/pinapp-logo-gold.png" width="132" alt="Pinapp" style="display:block;border:0;height:auto;max-width:132px;font-family:'Cormorant Garamond', Georgia, 'Times New Roman', serif;font-style:italic;font-size:24px;color:#c9a96e">
+      </td></tr>
+
+      <!-- Carte -->
+      <tr><td style="background:#0d0f14;border:1px solid rgba(201,169,110,0.28);border-radius:4px;padding:40px 36px">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+
+          <tr><td style="padding:0 0 10px">
+            <span style="font-family:Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;font-size:11px;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:#c9a96e">Interne · Équipe Pinapp</span>
+          </td></tr>
+
+          <tr><td style="padding:0 0 22px">
+            <h1 style="margin:0;font-family:'Cormorant Garamond', Georgia, 'Times New Roman', serif;font-style:italic;font-weight:500;font-size:34px;line-height:1.15;color:#f4ebd9">Activer Stripe pour les paiements</h1>
+          </td></tr>
+
+          <tr><td style="padding:0 0 24px;font-family:Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;font-size:16px;line-height:1.7;color:#f4ebd9">Salut Michaël,<br><br>J'ai besoin que tu prennes en charge l'activation Stripe du site : c'est la dernière étape avant qu'on encaisse de vrais paiements sur les formations. Tout le code est prêt, il ne manque que ça côté Stripe.</td></tr>
+          
+    <tr><td style="padding:0 0 24px">
+      <p style="margin:0 0 8px;font-family:Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:#c9a96e">D'abord — vérifier le bon compte</p>
+      <div style="font-family:Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;font-size:16px;line-height:1.65;color:#f4ebd9;font-weight:400">Sur <strong>dashboard.stripe.com</strong>, ouvre le sélecteur de compte (en haut à gauche). Le compte branché s'appelle « Environnement de test PINAPP » : s'il est listé sous « Sandboxes », il ne passera jamais en réel — il faut alors activer le vrai compte Pinapp.</div>
+    </td></tr>
+    <tr><td style="padding:0 0 24px">
+      <p style="margin:0 0 8px;font-family:Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:#c9a96e">Étape A — Activer le compte (10–15 min)</p>
+      <div style="font-family:Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;font-size:16px;line-height:1.65;color:#f4ebd9;font-weight:400">Clique « Activer le compte », puis prépare :
+          <ul style="margin:10px 0 0;padding-left:20px">
+            <li style="margin:0 0 6px">Statut + SIRET (auto-entrepreneur ou société)</li>
+            <li style="margin:0 0 6px">IBAN / RIB — voir le point ci-dessus</li>
+            <li style="margin:0 0 6px">Pièce d'identité (recto / verso)</li>
+            <li style="margin:0 0 6px">Téléphone + l'URL du site : pinapp.fr</li>
+          </ul></div>
+    </td></tr>
+    <tr><td style="padding:0 0 24px">
+      <p style="margin:0 0 8px;font-family:Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:#c9a96e">Étape B — Récupérer la clé live</p>
+      <div style="font-family:Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;font-size:16px;line-height:1.65;color:#f4ebd9;font-weight:400">Bascule l'interrupteur Test → Live, puis Développeurs → Clés API, et copie la clé secrète qui commence par <strong>sk_live_</strong> (et non sk_test_). Cette clé donne accès à l'argent du compte : ne la transmets que par un canal privé.</div>
+    </td></tr>
+    <tr><td style="padding:0 0 24px">
+      <p style="margin:0 0 8px;font-family:Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:#c9a96e">Étape C — Me transmettre la clé</p>
+      <div style="font-family:Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;font-size:16px;line-height:1.65;color:#f4ebd9;font-weight:400">Envoie-moi la clé sk_live_ en privé. Je m'occupe du reste : la création des produits, prix et liens de paiement réels est automatique (~30 s).</div>
+    </td></tr>
+          
+    <tr><td style="padding:0 0 24px">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td style="width:3px;background:#c9a96e"></td>
+          <td style="padding:16px 20px;background:rgba(201,169,110,0.14)">
+            <p style="margin:0 0 6px;font-family:Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;font-size:13px;font-weight:500;letter-spacing:0.04em;color:#c9a96e">Point à trancher — RIB</p>
+            <div style="font-family:Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;font-size:15px;line-height:1.6;color:#f4ebd9">Il faut renseigner un IBAN / RIB pour recevoir l'argent des ventes : le tien ou celui de ton père, à voir ensemble.</div>
+          </td>
+        </tr>
+      </table>
+    </td></tr>
+          
+    <tr><td style="padding:8px 0 28px">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+        <tr><td style="background:#c9a96e;border-radius:4px">
+          <a href="https://dashboard.stripe.com" style="display:inline-block;padding:13px 28px;font-family:Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;font-size:14px;font-weight:500;letter-spacing:0.05em;color:#050505;text-decoration:none">Ouvrir le dashboard Stripe &rarr;</a>
+        </td></tr>
+      </table>
+    </td></tr>
+          
+    <tr><td style="padding:8px 0 0;border-top:1px solid rgba(201,169,110,0.28)">
+      <p style="margin:20px 0 0;font-family:'Cormorant Garamond', Georgia, 'Times New Roman', serif;font-style:italic;font-size:22px;line-height:1.2;color:#f4ebd9">Lauralie</p>
+      <p style="margin:4px 0 0;font-family:Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;font-size:12px;letter-spacing:0.06em;color:rgba(244,235,217,0.62)">Studio Pinapp · Bordeaux</p>
+    </td></tr>
+
+        </table>
+      </td></tr>
+
+      <!-- Footer -->
+      <tr><td align="center" style="padding:28px 16px 8px">
+        <p style="margin:0;font-family:Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;font-size:11px;line-height:1.7;letter-spacing:0.04em;color:rgba(244,235,217,0.38)">Pinapp — Studio digital premium · Bordeaux<br><a href="https://pinapp.fr" style="color:#c9a96e;text-decoration:none">pinapp.fr</a> · contact@pinapp.fr</p>
+      </td></tr>
+
+    </table>
+  </td></tr>
+</table>
+</body>
+</html>
