@@ -156,7 +156,7 @@
         twinklePhase: Math.random() * Math.PI * 2,
         layer: 2,
         hasCross: Math.random() > 0.6,
-        color: Math.random() > 0.7 ? '#8E6AD8' : Math.random() > 0.5 ? '#5B4FE8' : '#ffffff',
+        color: Math.random() > 0.7 ? '#00E5B0' : Math.random() > 0.5 ? '#5B4FE8' : '#ffffff',
         vx: 0,
         vy: 0,
       });
@@ -164,7 +164,7 @@
 
     function pickVortexColor() {
       var r = Math.random();
-      if (r < 0.4) return '#8E6AD8';
+      if (r < 0.4) return '#00E5B0';
       if (r < 0.7) return '#5B4FE8';
       if (r < 0.85) return '#ffffff';
       if (r < 0.95) return '#85B7EB';
@@ -314,7 +314,7 @@
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.size * 2.2, 0, Math.PI * 2);
           ctx.globalAlpha = p.alpha * (p.color === '#ffffff' ? 0.14 : 0.08);
-          ctx.fillStyle = p.color === '#8E6AD8' ? '#8E6AD8' : p.color === '#5B4FE8' ? '#5B4FE8' : '#ffffff';
+          ctx.fillStyle = p.color === '#00E5B0' ? '#00E5B0' : p.color === '#5B4FE8' ? '#5B4FE8' : '#ffffff';
           ctx.fill();
         }
         ctx.globalAlpha = 1;

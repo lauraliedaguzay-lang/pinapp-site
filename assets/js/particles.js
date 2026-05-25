@@ -11,7 +11,7 @@
   }
 
   var ctx = canvas.getContext('2d');
-  var C = ['#8E6AD8', '#A88BE0', '#6D8FEA', '#9A6BF2'];
+  var C = ['#00E5B0', '#B388FF', '#7FFFEA', '#E040FB'];
   var N = window.innerWidth < 768 ? 35 : 80,
     L = 110,
     W,
