@@ -84,6 +84,15 @@ async function stripePost(path, params) {
   return json;
 }
 
+async function stripeGet(path) {
+  const res = await fetch(`https://api.stripe.com/v1/${path}`, {
+    headers: { Authorization: `Bearer ${KEY}` },
+  });
+  const json = await res.json();
+  if (!res.ok) throw new Error(`GET ${path} → ${json.error?.message || res.status}`);
+  return json;
+}
+
 async function findProductBySlug(slug) {
   const q = encodeURIComponent(`metadata['pinapp_slug']:'${slug}'`);
   const res = await fetch(`https://api.stripe.com/v1/products/search?query=${q}`, {
@@ -106,6 +115,16 @@ async function patchFiche(slug, oldTest, liveUrl) {
   if (after !== before) await writeFile(file, after);
   return after !== before;
 }
+
+// Préflight : refuser net si la clé n'est pas réellement en mode LIVE.
+const balance = await stripeGet('balance');
+if (!balance.livemode) {
+  console.error('✗ Connecteur en mode TEST (livemode=false). Ouvre une NOUVELLE session avec une clé sk_live_… activée, puis relance.');
+  process.exit(1);
+}
+const account = await stripeGet('account');
+const accountName = account.settings?.dashboard?.display_name || account.business_profile?.name || account.id;
+console.log(`Compte Stripe LIVE : ${accountName} (${account.id})\n`);
 
 const results = [];
 for (const f of FORMATIONS) {
