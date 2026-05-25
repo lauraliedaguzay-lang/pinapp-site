@@ -254,10 +254,10 @@ document.addEventListener('DOMContentLoaded', function () {
     var r = 44,
       circ = 2 * Math.PI * r,
       data = [
-        { p: 45, c: '#00e5b0' },
+        { p: 45, c: '#8E6AD8' },
         { p: 30, c: '#b388ff' },
-        { p: 15, c: '#7fffea' },
-        { p: 10, c: '#e040fb' },
+        { p: 15, c: '#A88BE0' },
+        { p: 10, c: '#6D8FEA' },
       ],
       offset = 0;
     data.forEach(function (d) {
@@ -381,7 +381,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var parHtml =
     '<p class="pinapp-footer-parrainage" style="font-size:0.75rem;color:rgba(232,244,248,0.4);margin-top:1rem;">' +
     '🍍 Parrainage — Recommandez un client, recevez 10% sur votre prochaine prestation. ' +
-    '<a href="mailto:contact@pinapp.fr?subject=Parrainage" style="color:#00E5B0;">En savoir plus</a></p>';
+    '<a href="mailto:contact@pinapp.fr?subject=Parrainage" style="color:#A88BE0;">En savoir plus</a></p>';
   document.querySelectorAll('footer').forEach(function (foot) {
     if (foot.querySelector('.pinapp-footer-parrainage')) return;
     var w = document.createElement('div');
