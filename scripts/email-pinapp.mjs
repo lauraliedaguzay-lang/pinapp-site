@@ -1,10 +1,12 @@
 /**
- * PINAPP — moteur de templates e-mail (DA V15).
+ * PINAPP — moteur de templates e-mail (DA du site live · index.html).
  *
- * Source de vérité marque : docs/pinapp-brand.md
- *   Palette 4 teintes — Noir #050505 · Ivoire #F4EBD9 · Or #C9A96E · Bleu #1B2C3E
- *   Typo — Cormorant Garamond (display, italique) + Inter (corps)
- *   Zéro emoji · radius 4px · symboles autorisés : ·  —  /  (→ toléré en CTA)
+ * Référence : index.html (home "voyage cinéma")
+ *   Fond near-black #0b0c12 (dégradé #12121d → #08090c) · texte ivory #F4F1EA
+ *   Dégradé signature champagne → violet → periwinkle  (#E9C46A → #9A6BF2 → #6D8FEA)
+ *   Accent violet #8E6AD8 / lavender #A88BE0 · accents biolumi
+ *   Typo : Poppins (display) + Geist (corps) via Google Fonts
+ *   Logo : /assets/images/pinapp-logo-trans.png
  *
  * Usage :
  *   import { renderPinappEmail } from "./email-pinapp.mjs";
@@ -15,21 +17,28 @@
  */
 
 const C = {
-  noir: "#050505",
-  noirPanel: "#0d0f14",
-  ivoire: "#f4ebd9",
-  ivoire60: "rgba(244,235,217,0.62)",
-  ivoire38: "rgba(244,235,217,0.38)",
-  or: "#c9a96e",
-  orSoft: "rgba(201,169,110,0.14)",
-  orBorder: "rgba(201,169,110,0.28)",
-  bleu: "#1b2c3e",
+  bg: "#0b0c12",
+  bgDeep: "#08090c",
+  panel: "#13131d",
+  panelBorder: "rgba(142,106,216,0.28)",
+  ivory: "#f4f1ea",
+  ivory60: "rgba(244,241,234,0.60)",
+  ivory38: "rgba(244,241,234,0.38)",
+  violet: "#8e6ad8",
+  violetDeep: "#7b5bee",
+  lavender: "#a88be0",
+  periwinkle: "#6d8fea",
+  champagne: "#e9c46a",
+  calloutBg: "rgba(142,106,216,0.12)",
 };
 
-const F_DISPLAY = `'Cormorant Garamond', Georgia, 'Times New Roman', serif`;
-const F_BODY = `Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif`;
+const GRAD = "linear-gradient(90deg,#e9c46a 0%,#9a6bf2 45%,#6d8fea 100%)";
+const GRAD_CTA = "linear-gradient(90deg,#7b5bee 0%,#6d8fea 100%)";
 
-const LOGO_URL = "https://pinapp.fr/assets/images/pinapp-logo-gold.png";
+const F_DISPLAY = `'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif`;
+const F_BODY = `'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif`;
+
+const LOGO_URL = "https://pinapp.fr/assets/images/pinapp-logo-trans.png";
 
 function esc(s = "") {
   return String(s)
@@ -43,44 +52,44 @@ function eyebrowFor(variant) {
   return variant === "interne" ? "Interne · Équipe Pinapp" : "Pinapp · Studio digital";
 }
 
-/** Un bloc section : titre or + corps HTML libre. */
+/** Un bloc section : titre lavande + corps HTML libre. */
 function sectionHtml({ heading, body }) {
   const h = heading
-    ? `<p style="margin:0 0 8px;font-family:${F_BODY};font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:${C.or}">${esc(heading)}</p>`
+    ? `<p style="margin:0 0 8px;font-family:${F_DISPLAY};font-size:12px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:${C.lavender}">${esc(heading)}</p>`
     : "";
   return `
     <tr><td style="padding:0 0 24px">
       ${h}
-      <div style="font-family:${F_BODY};font-size:16px;line-height:1.65;color:${C.ivoire};font-weight:400">${body}</div>
+      <div style="font-family:${F_BODY};font-size:16px;line-height:1.65;color:${C.ivory};font-weight:400">${body}</div>
     </td></tr>`;
 }
 
-/** Encadré mis en avant (bordure or à gauche). */
+/** Encadré mis en avant (bordure violette à gauche, fond violet voilé). */
 function calloutHtml({ title, body }) {
   const t = title
-    ? `<p style="margin:0 0 6px;font-family:${F_BODY};font-size:13px;font-weight:500;letter-spacing:0.04em;color:${C.or}">${esc(title)}</p>`
+    ? `<p style="margin:0 0 6px;font-family:${F_DISPLAY};font-size:13px;font-weight:600;letter-spacing:0.03em;color:${C.lavender}">${esc(title)}</p>`
     : "";
   return `
-    <tr><td style="padding:0 0 24px">
-      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr><td style="padding:0 0 26px">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${C.calloutBg};border-radius:10px">
         <tr>
-          <td style="width:3px;background:${C.or}"></td>
-          <td style="padding:16px 20px;background:${C.orSoft}">
+          <td style="width:3px;background:${C.violet};border-radius:10px 0 0 10px"></td>
+          <td style="padding:16px 20px">
             ${t}
-            <div style="font-family:${F_BODY};font-size:15px;line-height:1.6;color:${C.ivoire}">${body}</div>
+            <div style="font-family:${F_BODY};font-size:15px;line-height:1.6;color:${C.ivory}">${body}</div>
           </td>
         </tr>
       </table>
     </td></tr>`;
 }
 
-/** Bouton CTA (or plein, texte noir). */
+/** Bouton CTA (dégradé violet → periwinkle, texte blanc). */
 function ctaHtml({ label, url }) {
   return `
-    <tr><td style="padding:8px 0 28px">
+    <tr><td style="padding:6px 0 30px">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0">
-        <tr><td style="background:${C.or};border-radius:4px">
-          <a href="${esc(url)}" style="display:inline-block;padding:13px 28px;font-family:${F_BODY};font-size:14px;font-weight:500;letter-spacing:0.05em;color:${C.noir};text-decoration:none">${esc(label)} &rarr;</a>
+        <tr><td style="background:${C.violetDeep};background:${GRAD_CTA};border-radius:10px">
+          <a href="${esc(url)}" style="display:inline-block;padding:14px 30px;font-family:${F_DISPLAY};font-size:14px;font-weight:600;letter-spacing:0.04em;color:#ffffff;text-decoration:none">${esc(label)} &rarr;</a>
         </td></tr>
       </table>
     </td></tr>`;
@@ -98,11 +107,11 @@ export function renderPinappEmail(opts = {}) {
     cta = null,
     signoff = "Lauralie Daguzay",
     signoffRole = "Studio Pinapp · Bordeaux",
-    footer = `Pinapp — Studio digital premium · Bordeaux<br><a href="https://pinapp.fr" style="color:${C.or};text-decoration:none">pinapp.fr</a> · contact@pinapp.fr`,
+    footer = `Pinapp — Studio digital · Bordeaux<br>49 av. Edmond Rostand · 33700 Mérignac<br><a href="https://pinapp.fr" style="color:${C.lavender};text-decoration:none">pinapp.fr</a> · contact@pinapp.fr`,
   } = opts;
 
   const introHtml = intro
-    ? `<tr><td style="padding:0 0 24px;font-family:${F_BODY};font-size:16px;line-height:1.7;color:${C.ivoire}">${intro}</td></tr>`
+    ? `<tr><td style="padding:0 0 24px;font-family:${F_BODY};font-size:16px;line-height:1.7;color:${C.ivory}">${intro}</td></tr>`
     : "";
 
   const sectionsHtml = sections.map(sectionHtml).join("");
@@ -110,9 +119,9 @@ export function renderPinappEmail(opts = {}) {
   const ctaBlock = cta ? ctaHtml(cta) : "";
 
   const signoffHtml = `
-    <tr><td style="padding:8px 0 0;border-top:1px solid ${C.orBorder}">
-      <p style="margin:20px 0 0;font-family:${F_DISPLAY};font-style:italic;font-size:22px;line-height:1.2;color:${C.ivoire}">${esc(signoff)}</p>
-      ${signoffRole ? `<p style="margin:4px 0 0;font-family:${F_BODY};font-size:12px;letter-spacing:0.06em;color:${C.ivoire60}">${esc(signoffRole)}</p>` : ""}
+    <tr><td style="padding:6px 0 0;border-top:1px solid ${C.panelBorder}">
+      <p style="margin:20px 0 0;font-family:${F_DISPLAY};font-weight:600;font-size:18px;line-height:1.2;color:${C.ivory}">${esc(signoff)}</p>
+      ${signoffRole ? `<p style="margin:4px 0 0;font-family:${F_BODY};font-size:12px;letter-spacing:0.05em;color:${C.ivory60}">${esc(signoffRole)}</p>` : ""}
     </td></tr>`;
 
   return `<!doctype html>
@@ -122,45 +131,55 @@ export function renderPinappEmail(opts = {}) {
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="dark">
 <meta name="supported-color-schemes" content="dark">
-<link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
-<link href="https://fonts.bunny.net/css?family=cormorant-garamond:400i,500i|inter:400,500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <title>${esc(title)} — Pinapp</title>
 </head>
-<body style="margin:0;padding:0;background:${C.noir};-webkit-text-size-adjust:100%">
-<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:${C.noir};font-size:1px;line-height:1px">${esc(preheader)}</div>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${C.noir}">
+<body style="margin:0;padding:0;background:${C.bg};-webkit-text-size-adjust:100%">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:${C.bg};font-size:1px;line-height:1px">${esc(preheader)}</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${C.bg};background:linear-gradient(160deg,#12121d 0%,#0b0c12 55%,#08090c 100%)">
   <tr><td align="center" style="padding:40px 16px">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:100%">
 
       <!-- Logo -->
       <tr><td align="center" style="padding:0 0 28px">
-        <img src="${LOGO_URL}" width="132" alt="Pinapp" style="display:block;border:0;height:auto;max-width:132px;font-family:${F_DISPLAY};font-style:italic;font-size:24px;color:${C.or}">
+        <a href="https://pinapp.fr" style="text-decoration:none">
+          <img src="${LOGO_URL}" width="158" alt="Pinapp" style="display:block;border:0;width:158px;max-width:158px;height:auto">
+        </a>
       </td></tr>
 
       <!-- Carte -->
-      <tr><td style="background:${C.noirPanel};border:1px solid ${C.orBorder};border-radius:4px;padding:40px 36px">
+      <tr><td style="background:${C.panel};border:1px solid ${C.panelBorder};border-radius:16px;padding:0">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
 
-          <tr><td style="padding:0 0 10px">
-            <span style="font-family:${F_BODY};font-size:11px;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:${C.or}">${esc(eyebrow)}</span>
+          <!-- Filet dégradé signature -->
+          <tr><td style="height:4px;line-height:4px;font-size:0;background:${C.violet};background:${GRAD};border-radius:16px 16px 0 0">&nbsp;</td></tr>
+
+          <tr><td style="padding:36px 34px">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+
+              <tr><td style="padding:0 0 12px">
+                <span style="font-family:${F_DISPLAY};font-size:11px;font-weight:600;letter-spacing:0.26em;text-transform:uppercase;color:${C.lavender}">${esc(eyebrow)}</span>
+              </td></tr>
+
+              <tr><td style="padding:0 0 22px">
+                <h1 style="margin:0;font-family:${F_DISPLAY};font-weight:600;font-size:30px;line-height:1.2;color:${C.ivory}">${esc(title)}</h1>
+              </td></tr>
+
+              ${introHtml}
+              ${sectionsHtml}
+              ${calloutBlock}
+              ${ctaBlock}
+              ${signoffHtml}
+
+            </table>
           </td></tr>
-
-          <tr><td style="padding:0 0 22px">
-            <h1 style="margin:0;font-family:${F_DISPLAY};font-style:italic;font-weight:500;font-size:34px;line-height:1.15;color:${C.ivoire}">${esc(title)}</h1>
-          </td></tr>
-
-          ${introHtml}
-          ${sectionsHtml}
-          ${calloutBlock}
-          ${ctaBlock}
-          ${signoffHtml}
-
         </table>
       </td></tr>
 
       <!-- Footer -->
-      <tr><td align="center" style="padding:28px 16px 8px">
-        <p style="margin:0;font-family:${F_BODY};font-size:11px;line-height:1.7;letter-spacing:0.04em;color:${C.ivoire38}">${footer}</p>
+      <tr><td align="center" style="padding:26px 16px 8px">
+        <p style="margin:0;font-family:${F_BODY};font-size:11px;line-height:1.7;letter-spacing:0.03em;color:${C.ivory38}">${footer}</p>
       </td></tr>
 
     </table>
