@@ -219,6 +219,13 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
 @keyframes pnpBgZoom{from{transform:scale(1.05)}to{transform:scale(1.18)}}
 @keyframes pnpType{to{opacity:1;filter:blur(0);transform:translateY(0)}}
 @keyframes pnpPunch{to{opacity:1;transform:translateY(0) scale(1)}}
+@media (prefers-reduced-motion: reduce){
+  #pnp-intro,#pnp-intro::before,#pnp-intro::after,#pnp-intro *{animation:none!important;transition:none!important}
+  #pnp-intro .pnp-bgvid,#pnp-intro .pnp-gold,#pnp-intro .pnp-spark,#pnp-intro .pnp-sparks{display:none!important}
+  #pnp-intro .pnp-logo{opacity:1!important;transform:none!important}
+  #pnp-intro .pnp-quote .ch{opacity:1!important;filter:none!important;transform:none!important}
+  #pnp-intro .pnp-punch{opacity:1!important;transform:none!important}
+}
 </style>
 <noscript><style>#pnp-intro{display:none!important}</style></noscript>
 </head>
@@ -246,7 +253,7 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   try{played=sessionStorage.getItem('pnpIntroDone')==='1';}catch(e){}
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var force=/[?&]intro(=|&|$)/.test(location.search);
-  if(!force&&(sober||reduce)){el.parentNode&&el.parentNode.removeChild(el);return;}
+  if(!force&&sober){el.parentNode&&el.parentNode.removeChild(el);return;}
   var de=document.documentElement;de.style.overflow='hidden';document.body.style.overflow='hidden';
   /* La phrase s'écrit lettre par lettre */
   var q=el.querySelector('.pnp-quote'),punch=el.querySelector('.pnp-punch');
@@ -264,8 +271,8 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
     try{sessionStorage.setItem('pnpIntroDone','1');}catch(e){}
     el.classList.add('pnp-hide');de.style.overflow='';document.body.style.overflow='';
     setTimeout(function(){el&&el.parentNode&&el.parentNode.removeChild(el);},750);}
-  setTimeout(kill,6300);   /* fin normale (après écriture) */
-  setTimeout(kill,8800);   /* garde-fou */
+  if(!force&&reduce){setTimeout(kill,2600);}   /* reduced-motion : intro statique, fermeture rapide */
+  else{setTimeout(kill,6300);setTimeout(kill,8800);}   /* fin normale (après écriture) + garde-fou */
 })();
 </script>
 <div class="mcursor" id="mcursor" aria-hidden="true"></div>
