@@ -298,7 +298,7 @@ CTA : "Voir le site ->" -> lien vers memoireetpresence.fr (target \_blank)
 
 Micha Bouilhac mentionne comme partenaire video :
 Photo : utiliser l'image assets/images/micha.jpg (a creer depuis la photo fournie)
-"MichaÃ«l Bouilhac -- Videaste & monteur partenaire"
+"Michaël Bouilhac -- Videaste & monteur partenaire"
 "06 59 88 20 15"
 
 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -356,7 +356,7 @@ Photo : assets/images/lauralie.png (existante)
 
 Carte Micha :
 Photo : assets/images/micha.jpg (a creer depuis photo fournie)
-"MichaÃ«l Bouilhac"
+"Michaël Bouilhac"
 "Videaste & partenaire Memoire et Presence"
 "Production video, montage, hommages digitaux"
 SIRET : 523 884 898 00017

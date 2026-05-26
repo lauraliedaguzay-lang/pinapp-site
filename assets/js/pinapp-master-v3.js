@@ -665,6 +665,6 @@
       initLightbox();
     }
     replaceEmojis();
-    initIntroIA();
+    /* initIntroIA(); — splash « PINAPP · SYSTÈME ACTIF » / teal retiré (hors charte, aligné v4) */
   });
 })();
