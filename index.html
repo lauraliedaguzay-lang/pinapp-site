@@ -301,7 +301,7 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
     <a href="#duo" data-magnetic>Le duo</a><a href="#pack" data-magnetic>Offres</a><a href="#realisations" data-magnetic>Réalisations</a><a href="#methode" data-magnetic>Méthode</a><a href="#formations" data-magnetic>Formations</a>
     <a href="#contact" class="pill keep" data-magnetic>Diagnostic 24h</a>
     <button class="sober-toggle keep" id="soberToggle" aria-pressed="false" aria-label="Mode sobre" title="Mode sobre"><span class="dot"></span><span class="lbl">Mode sobre</span></button>
-    <button class="burger keep" id="burger" aria-label="Menu">☰</button>
+    <button class="burger keep" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="mmenu">☰</button>
   </div>
 </nav>
 <div class="mmenu" id="mmenu"><button class="close" id="mclose" aria-label="Fermer">✕</button>
@@ -650,7 +650,7 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
     </div>
     <div class="widget" data-anim="up" style="margin-top:1rem;padding:1rem">
       <div class="head center" style="margin-bottom:.6rem"><span class="eyebrow">Réservation en ligne</span><h3 style="font-size:1.25rem;margin-top:.35rem">Choisissez votre créneau — diagnostic offert</h3><p class="lead" style="font-size:.86rem">30 min en visio · confirmation, ajout au calendrier et rappels automatiques.</p></div>
-      <div id="cal-inline" style="width:100%;min-height:600px;border-radius:14px;overflow:hidden;background:rgba(13,14,17,.6)"></div>
+      <div id="cal-inline" role="region" aria-label="Réservation de créneau Cal.com" style="width:100%;min-height:600px;border-radius:14px;overflow:hidden;background:rgba(13,14,17,.6)"></div>
       <p class="foralt" style="margin-top:.6rem">Le calendrier ne s'affiche pas ? <a href="https://cal.com/lauralie-daguzay-hdglzw/diagnostic" target="_blank" rel="noopener noreferrer" class="peri">Ouvrir la réservation ↗</a></p>
     </div>
   </div>
@@ -695,10 +695,11 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   function applySober(){document.body.classList.toggle('sober',sober);sb.setAttribute('aria-pressed',String(sober));sb.querySelector('.lbl').textContent=sober?'Mode immersif':'Mode sobre';}
   applySober();
   sb.addEventListener('click',function(){sober=!sober;localStorage.setItem('pinapp-sober',sober?'1':'0');location.reload();});
-  var mmenu=document.getElementById('mmenu');
-  document.getElementById('burger').addEventListener('click',function(){mmenu.classList.add('open');document.body.classList.add('no-scroll');});
-  document.getElementById('mclose').addEventListener('click',function(){mmenu.classList.remove('open');document.body.classList.remove('no-scroll');});
-  mmenu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){mmenu.classList.remove('open');document.body.classList.remove('no-scroll');});});
+  var mmenu=document.getElementById('mmenu'),burger=document.getElementById('burger');
+  function setMenu(open){mmenu.classList.toggle('open',open);document.body.classList.toggle('no-scroll',open);burger.setAttribute('aria-expanded',String(open));}
+  burger.addEventListener('click',function(){setMenu(true);});
+  document.getElementById('mclose').addEventListener('click',function(){setMenu(false);});
+  mmenu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false);});});
   var lenis=null;
   if(hasGSAP&&window.Lenis&&!sober&&!COARSE&&!reduce){lenis=new Lenis({duration:1.25,smoothWheel:true});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000);});gsap.ticker.lagSmoothing(0);}
   var nav=document.getElementById('nav'),lastY=0;
