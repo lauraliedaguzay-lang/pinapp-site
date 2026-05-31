@@ -199,11 +199,7 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
 #pnp-intro .pnp-sparks i:nth-child(8){left:54%;top:84%;width:4px;height:4px;--d:3.2s;--dl:2.4s}
 #pnp-intro .pnp-logo-wrap{position:relative;z-index:2;width:min(80vw,580px);transform-style:preserve-3d;filter:drop-shadow(0 18px 60px rgba(123,79,232,.42));opacity:0;animation:pnpEnter 1s cubic-bezier(.2,.7,.2,1) forwards,pnpDance 5.5s ease-in-out 3.4s infinite alternate}
 #pnp-intro .pnp-svg{width:100%;height:auto;display:block;overflow:visible}
-#pnp-intro .pnp-svg .d{fill:none;stroke:url(#pnpGrad);stroke-width:1;stroke-linecap:round;stroke-linejoin:round}
-#pnp-intro .pnp-svg .leaf{stroke-dasharray:55;stroke-dashoffset:55;animation:pnpStroke .9s ease forwards,pnpFill .55s ease 1.45s forwards}
-#pnp-intro .pnp-svg .body{stroke-dasharray:140;stroke-dashoffset:140;animation:pnpStroke 1.35s ease .15s forwards,pnpFill .55s ease 1.55s forwards}
-#pnp-intro .pnp-svg .hatch .d{stroke-width:.6;stroke-opacity:.55;stroke-dasharray:62;stroke-dashoffset:62;animation:pnpStroke .5s ease 1.55s forwards}
-#pnp-intro .pnp-svg .pnp-word{font-family:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:34px;font-weight:700;letter-spacing:-.02em;fill:url(#pnpGrad);opacity:0;animation:pnpWordIn .9s cubic-bezier(.2,.7,.2,1) 2.2s forwards}
+#pnp-intro .pnp-svg .d{fill:none;stroke:url(#pnpGrad);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;fill-rule:evenodd;stroke-dasharray:1;stroke-dashoffset:1;animation:pnpStroke 1.9s cubic-bezier(.45,0,.25,1) forwards,pnpFill .7s ease 1.95s forwards}
 #pnp-intro .pnp-tagline{width:min(90vw,640px);max-width:100%;text-align:center;margin:0;font-family:'Poppins',var(--ff,inherit);font-size:clamp(1rem,4.2vw,1.4rem);line-height:1.6;letter-spacing:.015em;color:#F0ECFF;text-shadow:0 2px 26px rgba(0,0,0,.55);overflow-wrap:normal;word-break:normal;position:relative;z-index:2}
 #pnp-intro .pnp-quote{white-space:normal;opacity:0;animation:pnpQuoteIn 1s ease 3.9s forwards}
 #pnp-intro .pnp-punch{display:block;margin-top:.6em;font-weight:600;font-size:1.1em;letter-spacing:.02em;background:linear-gradient(90deg,#E9C46A,#9A6BF2 45%,#6D8FEA);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:0;transform:translateY(8px) scale(.97);animation:pnpPunch .9s cubic-bezier(.2,.7,.2,1) forwards}
@@ -222,9 +218,7 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   #pnp-intro,#pnp-intro::before,#pnp-intro::after,#pnp-intro *{animation:none!important;transition:none!important}
   #pnp-intro .pnp-bgposter,#pnp-intro .pnp-sparks{display:none!important}
   #pnp-intro .pnp-logo-wrap{opacity:1!important;transform:none!important}
-  #pnp-intro .pnp-svg .leaf,#pnp-intro .pnp-svg .body{stroke-dashoffset:0!important;fill:url(#pnpGrad)!important;stroke-opacity:0!important}
-  #pnp-intro .pnp-svg .hatch .d{stroke-dashoffset:0!important;stroke-opacity:.55!important}
-  #pnp-intro .pnp-svg .pnp-word{opacity:1!important}
+  #pnp-intro .pnp-svg .d{stroke-dashoffset:0!important;fill:url(#pnpGrad)!important;stroke-opacity:0!important}
   #pnp-intro .pnp-quote{opacity:1!important}
   #pnp-intro .pnp-punch{opacity:1!important;transform:none!important}
 }
@@ -238,34 +232,41 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   <div class="pnp-veil" aria-hidden="true"></div>
   <span class="pnp-sparks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
   <div class="pnp-logo-wrap">
-    <svg class="pnp-svg" viewBox="0 0 240 70" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pinapp">
+    <svg class="pnp-svg" viewBox="0 0 673 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pinapp">
       <defs>
         <linearGradient id="pnpGrad" x1="14%" y1="6%" x2="78%" y2="100%">
           <stop offset="0%" stop-color="#9A6BF2"/>
           <stop offset="52%" stop-color="#7B5BEE"/>
           <stop offset="100%" stop-color="#4A6CF0"/>
         </linearGradient>
-        <clipPath id="pnpBody"><path d="M30 19 C42 19 47 29 47 38 C47 48 39 54 30 54 C21 54 13 48 13 38 C13 29 18 19 30 19 Z"/></clipPath>
       </defs>
-      <g transform="translate(2 4)">
-        <path class="d leaf" d="M30 3 C33 9 33 16 30 22 C27 16 27 9 30 3 Z"/>
-        <path class="d leaf" d="M30 22 C25 16 21 12 16 9 C21 8 27 12 30 20 Z"/>
-        <path class="d leaf" d="M30 22 C35 16 39 12 44 9 C39 8 33 12 30 20 Z"/>
-        <path class="d leaf" d="M30 23 C23 21 17 18 12 14 C18 13 26 16 30 22 Z"/>
-        <path class="d leaf" d="M30 23 C37 21 43 18 48 14 C42 13 34 16 30 22 Z"/>
-        <path class="d body" d="M30 19 C42 19 47 29 47 38 C47 48 39 54 30 54 C21 54 13 48 13 38 C13 29 18 19 30 19 Z"/>
-        <g clip-path="url(#pnpBody)" class="hatch">
-          <path class="d" d="M9 24 L51 45"/>
-          <path class="d" d="M9 33 L51 54"/>
-          <path class="d" d="M9 42 L51 63"/>
-          <path class="d" d="M9 51 L51 72"/>
-          <path class="d" d="M51 24 L9 45"/>
-          <path class="d" d="M51 33 L9 54"/>
-          <path class="d" d="M51 42 L9 63"/>
-          <path class="d" d="M51 51 L9 72"/>
-        </g>
-      </g>
-      <text class="pnp-word" x="76" y="50">PINAPP</text>
+      <g transform="translate(-10.646503,300.000000) scale(0.100000,-0.100000)"
+fill="#000000" stroke="none">
+<path class="d" pathLength="1" d="M877 2963 c-40 -63 -45 -77 -63 -154 -31 -135 -7 -275 59 -346 54 -60 128 12 157 154 14 71 9 133 -20 226 -24 73 -74 157 -95 157 -8 0 -25 -17 -38 -37z m113 -189 c18 -68 19 -86 9 -134 -21 -97 -69 -171 -96 -148 -27 22 -61 103 -68 160 -9 70 15 182 53 250 l26 47 28 -48 c16 -27 37 -84 48 -127z"/>
+<path class="d" pathLength="1" d="M280 2724 c0 -9 101 -118 224 -243 240 -241 248 -250 290 -323 16 -27 34 -48 41 -48 26 0 33 139 11 232 -20 84 -54 143 -124 219 -79 86 -186 142 -307 164 -108 19 -135 19 -135 -1z m154 -39 c144 -38 288 -152 347 -276 29 -59 53 -162 47 -198 -3 -21 -6 -19 -33 22 -16 25 -124 141 -238 257 -115 115 -203 210 -195 210 8 0 40 -7 72 -15z"/>
+<path class="d" pathLength="1" d="M1383 2720 c-86 -22 -128 -43 -209 -103 -73 -54 -150 -156 -176 -235 -28 -85 -24 -292 6 -292 7 0 17 15 24 33 22 62 79 128 306 358 124 126 226 236 226 244 0 21 -86 19 -177 -5z m-96 -225 c-116 -119 -226 -237 -244 -262 l-33 -47 0 56 c0 152 122 322 293 410 32 16 161 55 189 57 4 1 -88 -96 -205 -214z"/>
+<path class="d" pathLength="1" d="M150 2383 c0 -10 19 -30 43 -45 23 -15 60 -44 82 -64 167 -151 343 -253 438 -254 25 0 27 3 27 43 0 60 -40 139 -102 200 -92 92 -220 137 -390 137 -87 0 -98 -2 -98 -17z m226 -28 c141 -33 259 -120 309 -227 34 -73 33 -78 -15 -62 -111 38 -210 102 -346 221 -33 29 -69 59 -79 68 -19 13 -17 14 25 15 25 0 73 -7 106 -15z"/>
+<path class="d" pathLength="1" d="M1423 2386 c-177 -43 -316 -179 -325 -316 -3 -40 -1 -45 20 -48 36 -5 151 35 224 79 37 23 111 79 165 125 54 46 117 97 140 112 24 15 43 32 43 38 0 26 -174 32 -267 10z m160 -41 c-17 -14 -67 -56 -112 -94 -120 -105 -225 -167 -309 -186 -39 -8 -41 1 -8 70 61 130 237 232 406 234 l55 1 -32 -25z"/>
+<path class="d" pathLength="1" d="M830 1944 c-91 -11 -200 -53 -200 -77 0 -26 186 -182 268 -226 30 -16 30 -16 143 64 104 75 179 142 179 162 0 15 -45 39 -109 59 -48 14 -219 25 -281 18z m255 -50 c76 -22 83 -28 60 -54 -11 -12 -66 -55 -122 -95 l-102 -73 -98 72 c-120 89 -143 113 -123 127 71 45 266 57 385 23z"/>
+<path class="d" pathLength="1" d="M1275 1798 c-16 -12 -32 -25 -35 -29 -5 -6 -120 -90 -202 -148 -21 -14 -37 -32 -35 -40 2 -14 118 -102 285 -217 98 -68 88 -70 222 41 91 76 92 78 87 115 -9 73 -116 213 -206 271 -53 34 -76 36 -116 7z m101 -47 c75 -55 184 -194 184 -235 0 -8 -41 -49 -91 -90 l-92 -75 -63 44 c-35 25 -100 72 -145 105 -44 33 -88 64 -97 69 -19 11 -15 14 116 108 42 31 79 59 82 62 7 10 53 41 61 41 3 0 24 -13 45 -29z"/>
+<path class="d" pathLength="1" d="M425 1762 c-120 -96 -203 -245 -167 -298 9 -14 119 -104 154 -127 15 -9 37 -17 48 -17 12 0 85 43 163 96 175 119 217 152 217 169 0 7 -39 40 -87 74 -49 33 -114 81 -146 106 -79 60 -104 60 -182 -3z m185 -52 c25 -20 73 -56 108 -79 34 -23 62 -44 62 -48 0 -8 -14 -18 -176 -129 -131 -88 -144 -95 -165 -83 -27 14 -140 106 -151 122 -18 28 80 169 167 239 67 54 61 55 155 -22z"/>
+<path class="d" pathLength="1" d="M840 1490 c-30 -22 -62 -46 -70 -53 -8 -7 -63 -46 -122 -86 -70 -48 -108 -80 -108 -92 0 -17 51 -57 284 -221 44 -32 85 -58 90 -58 12 0 168 106 284 193 54 41 92 77 92 87 0 26 -340 270 -374 270 -12 0 -46 -19 -76 -40z m158 -54 c43 -30 114 -81 159 -113 45 -32 82 -60 82 -63 0 -7 -113 -91 -229 -170 l-95 -65 -71 50 c-192 136 -252 180 -248 186 2 4 45 35 96 70 51 34 95 66 98 69 7 9 122 90 128 90 2 0 38 -25 80 -54z"/>
+<path class="d" pathLength="1" d="M2417 1403 c-4 -3 -7 -145 -7 -315 l0 -308 69 0 c80 0 81 0 81 116 l0 72 158 4 c131 4 166 8 213 26 96 38 132 92 132 199 0 63 -3 76 -28 109 -34 45 -112 82 -198 95 -72 10 -410 12 -420 2z m478 -53 c37 -14 74 -38 98 -62 33 -34 37 -45 37 -89 0 -83 -40 -136 -129 -171 -47 -18 -82 -22 -213 -26 l-158 -4 0 -72 c0 -106 -5 -116 -51 -116 l-39 0 0 278 c0 153 3 282 8 286 4 5 93 6 197 3 166 -4 197 -7 250 -27z"/>
+<path class="d" pathLength="1" d="M2528 1343 c-2 -5 -4 -75 -3 -158 l0 -150 64 -9 c35 -4 111 -5 168 -1 157 11 193 42 193 171 0 81 -19 116 -76 140 -36 15 -340 21 -346 7z m316 -37 c18 -7 43 -26 55 -42 19 -24 22 -38 19 -81 -5 -56 -23 -85 -70 -109 -30 -15 -179 -24 -250 -15 l-43 6 2 125 c2 69 3 126 3 128 0 1 56 2 125 2 84 0 137 -5 159 -14z"/>
+<path class="d" pathLength="1" d="M3235 1397 c-3 -7 -4 -147 -3 -312 l3 -300 70 0 70 0 2 250 c1 138 0 278 -3 313 l-6 62 -64 0 c-43 0 -66 -4 -69 -13z m107 -64 c2 -27 4 -154 4 -283 l-1 -235 -40 0 -40 0 -3 270 c-1 148 0 275 3 282 2 7 20 13 38 13 34 0 35 -1 39 -47z"/>
+<path class="d" pathLength="1" d="M3607 1403 c-4 -3 -7 -145 -7 -315 l0 -308 55 0 55 0 1 203 c0 111 4 211 8 221 8 21 18 12 366 -326 l100 -98 63 0 62 0 -2 313 -3 312 -52 3 -53 3 -1 -203 c0 -112 -4 -211 -8 -222 -6 -15 -45 19 -233 203 l-226 221 -59 0 c-33 0 -63 -3 -66 -7z m320 -243 c201 -197 228 -220 258 -220 25 0 34 5 39 23 3 12 6 111 6 220 l0 198 23 -3 22 -3 3 -282 2 -283 -32 0 c-28 0 -48 15 -133 98 -351 340 -353 342 -389 342 -26 0 -35 -5 -40 -22 -3 -13 -6 -112 -6 -220 l0 -198 -25 0 -25 0 0 278 c0 153 3 282 7 285 3 4 20 7 36 7 25 0 64 -34 254 -220z"/>
+<path class="d" pathLength="1" d="M4744 1378 c-9 -18 -35 -67 -57 -108 -21 -41 -64 -122 -94 -180 -31 -58 -78 -146 -104 -196 -27 -50 -49 -97 -49 -103 0 -7 22 -11 58 -11 l57 0 40 75 40 75 45 1 c40 1 195 1 287 -1 29 0 35 -6 70 -72 l38 -73 78 -3 c54 -2 77 1 77 9 0 17 -128 259 -290 549 l-36 65 -71 3 -72 3 -17 -33z m166 -68 c73 -131 159 -288 215 -393 l57 -108 -38 3 c-37 3 -41 6 -77 76 -36 69 -40 72 -75 74 -95 4 -244 5 -312 0 l-76 -4 -39 -74 c-27 -50 -46 -74 -58 -74 -16 0 -14 8 16 63 19 34 63 116 97 182 35 66 80 152 100 190 20 39 45 85 54 103 16 30 20 33 59 30 39 -3 43 -6 77 -68z"/>
+<path class="d" pathLength="1" d="M4749 1238 c-17 -35 -44 -86 -60 -115 -33 -59 -39 -127 -13 -137 9 -3 81 -6 160 -6 l144 0 0 38 c0 26 -18 73 -62 160 l-63 122 -37 0 c-36 0 -39 -3 -69 -62z m139 -90 c34 -68 62 -126 62 -130 0 -11 -232 -9 -250 2 -12 8 -11 15 8 52 13 24 41 78 63 121 21 42 43 77 47 77 4 0 35 -55 70 -122z"/>
+<path class="d" pathLength="1" d="M5368 1404 c-5 -4 -8 -146 -8 -316 l0 -308 69 0 68 0 6 86 c2 47 8 88 11 91 3 3 77 9 163 14 203 9 265 31 318 111 23 35 28 53 29 109 0 92 -28 135 -121 181 l-68 33 -230 3 c-126 2 -233 0 -237 -4z m505 -62 c115 -57 149 -144 91 -232 -52 -78 -115 -100 -317 -109 -86 -5 -160 -11 -163 -14 -3 -3 -9 -44 -11 -91 l-6 -86 -38 0 -39 0 0 278 c0 153 3 282 8 286 4 4 97 6 207 4 l200 -3 68 -33z"/>
+<path class="d" pathLength="1" d="M5477 1343 c-9 -8 -9 -276 -1 -297 5 -14 29 -16 160 -16 169 0 205 8 242 54 27 36 37 118 20 175 -11 37 -21 49 -57 68 -41 21 -56 23 -201 23 -86 0 -160 -3 -163 -7z m334 -46 c35 -19 46 -31 55 -63 13 -46 4 -97 -23 -126 -34 -38 -76 -48 -207 -48 -104 0 -125 3 -130 16 -8 21 -8 229 1 237 3 4 63 7 133 7 113 0 131 -2 171 -23z"/>
+<path class="d" pathLength="1" d="M6165 1398 c-3 -7 -4 -148 -3 -313 l3 -300 73 -3 72 -3 0 91 c0 49 3 90 8 91 4 0 81 4 172 8 151 7 170 10 223 36 104 49 146 141 113 243 -21 61 -67 106 -137 134 -49 20 -77 22 -286 26 -189 3 -234 1 -238 -10z m496 -46 c65 -26 113 -72 132 -127 26 -74 -16 -146 -110 -191 -53 -25 -72 -28 -219 -34 -88 -4 -166 -10 -172 -14 -8 -5 -12 -37 -12 -92 l0 -85 -42 3 -43 3 -3 270 c-1 148 0 276 3 283 4 12 43 13 208 10 178 -4 209 -7 258 -26z"/>
+<path class="d" pathLength="1" d="M6282 1193 l3 -158 150 -3 c170 -4 212 5 249 49 23 27 26 39 26 109 0 69 -3 82 -24 107 -36 43 -84 53 -255 53 l-152 0 3 -157z m310 115 c119 -35 119 -203 0 -238 -21 -6 -91 -10 -157 -8 l-120 3 -3 128 -3 127 122 0 c67 0 139 -5 161 -12z"/>
+<path class="d" pathLength="1" d="M191 1367 c-16 -43 -45 -159 -56 -229 -5 -29 -3 -38 9 -38 8 0 62 32 121 72 84 56 105 76 103 92 -3 22 -131 126 -154 126 -8 0 -18 -10 -23 -23z m126 -103 c1 -5 -31 -30 -71 -55 l-73 -47 9 37 c5 20 16 60 24 89 l15 53 47 -35 c25 -18 47 -38 49 -42z"/>
+<path class="d" pathLength="1" d="M1559 1354 c-72 -49 -99 -74 -99 -93 0 -9 50 -50 115 -93 106 -72 145 -90 145 -70 0 14 -58 237 -69 265 -14 36 -28 34 -92 -9z m82 -86 c34 -119 34 -111 11 -99 -60 32 -143 94 -136 101 17 17 89 69 96 69 4 1 17 -32 29 -71z"/>
+<path class="d" pathLength="1" d="M355 1155 c-248 -171 -234 -158 -245 -235 -9 -67 1 -186 21 -250 17 -52 58 -130 68 -130 34 0 624 367 629 391 2 10 -18 30 -50 52 -29 20 -96 68 -148 107 -120 90 -166 120 -182 120 -8 0 -49 -25 -93 -55z m203 -64 c42 -31 107 -79 144 -106 52 -39 65 -52 55 -61 -14 -14 -267 -174 -347 -219 -30 -18 -86 -51 -124 -75 -80 -49 -79 -49 -118 49 -17 45 -22 78 -22 164 l-1 107 30 25 c17 14 53 41 80 60 28 19 82 57 120 84 80 56 69 58 183 -28z"/>
+<path class="d" pathLength="1" d="M1259 1136 c-53 -40 -133 -98 -178 -130 -47 -33 -81 -64 -81 -74 0 -11 43 -44 113 -88 352 -222 492 -306 515 -307 23 -2 29 6 55 68 39 92 56 172 57 267 0 97 -9 108 -173 221 -129 89 -178 117 -199 117 -7 -1 -56 -34 -109 -74z m278 -73 c148 -102 173 -129 173 -188 0 -64 -17 -139 -52 -227 l-30 -77 -51 32 c-29 18 -113 71 -187 117 -74 46 -181 112 -237 148 l-103 65 70 49 c39 27 111 80 162 118 106 80 79 84 255 -37z"/>
+<path class="d" pathLength="1" d="M794 815 c-54 -35 -130 -83 -169 -105 -38 -22 -137 -82 -220 -133 -178 -111 -180 -115 -111 -199 60 -74 152 -142 261 -193 118 -56 197 -76 326 -82 195 -10 358 35 521 143 82 55 188 167 188 200 0 26 -61 69 -265 188 -55 32 -122 73 -150 91 -124 79 -254 155 -267 155 -8 0 -59 -29 -114 -65z m184 -16 c37 -23 101 -63 142 -89 41 -26 116 -71 165 -100 50 -29 129 -77 177 -108 l88 -54 -19 -27 c-30 -42 -114 -117 -174 -155 -194 -125 -411 -163 -617 -110 -90 22 -233 92 -307 148 -71 54 -150 143 -137 155 11 9 298 186 369 227 28 16 93 57 145 91 52 35 96 63 98 63 1 0 33 -19 70 -41z"/>
+</g>
     </svg>
   </div>
   <p class="pnp-tagline">
