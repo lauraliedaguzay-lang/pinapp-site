@@ -1,0 +1,45 @@
+name: '💳 Stripe seed LIVE (one-shot)'
+# Déclenchement manuel uniquement.
+# Pré-requis : secret repo STRIPE_SECRET_KEY (clé sk_live_...).
+# Effet : crée/met à jour les produits + prix + Payment Links des 5 formations
+# en mode LIVE, puis commit les fiches HTML mises à jour.
+# Idempotent : relançable sans créer de doublon.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  seed:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Stripe seed LIVE
+        env:
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+        run: |
+          if [ -z "$STRIPE_SECRET_KEY" ]; then
+            echo "✗ Le secret STRIPE_SECRET_KEY n'est pas configuré sur le repo."
+            echo "  → Settings > Secrets and variables > Actions > New repository secret"
+            exit 1
+          fi
+          node scripts/stripe-seed-live.mjs
+
+      - name: Commit changes (si fichiers modifiés)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Aucun changement à committer (idempotent : produits déjà seedés)."
+          else
+            git commit -m "chore(stripe): seed live products + update payment links"
+            git push
+          fi
