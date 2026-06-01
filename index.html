@@ -975,7 +975,7 @@ fill="#000000" stroke="none">
   window.__pnpBootCal=boot;
   /* Lazy load only when consent is given */
   function tryStart(){
-    var ok=false;try{ok=localStorage.getItem('pinapp-cookies-v1')==='accept';}catch(e){}
+    var ok=false;try{ok=localStorage.getItem('cookie-consent')==='accepted';}catch(e){}
     if(!ok)return false;
     if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){boot();io.disconnect();}});},{rootMargin:'300px'});io.observe(el);}else boot();
     return true;
@@ -995,9 +995,11 @@ fill="#000000" stroke="none">
   </div>
 </div>
 <script>
-/* Gestion du consentement cookies + gating des iframes Vimeo + Cal.com */
+/* Gestion du consentement cookies + gating des iframes Vimeo + Cal.com
+   Cle "cookie-consent" partagee avec pinapp-master-v3.js (pages secondaires)
+   => un seul prompt RGPD quelle que soit la page d'entree. */
 (function(){
-  var KEY='pinapp-cookies-v1';
+  var KEY='cookie-consent', V_ACC='accepted', V_DEC='refused';
   var consent=null;try{consent=localStorage.getItem(KEY);}catch(e){}
   var banner=document.getElementById('pnp-cookies');if(!banner)return;
 
@@ -1018,22 +1020,22 @@ fill="#000000" stroke="none">
   function setConsent(v){
     try{localStorage.setItem(KEY,v);}catch(e){}
     consent=v;banner.classList.remove('show');
-    if(v==='accept')activateAll();else showPlaceholders();
+    if(v===V_ACC)activateAll();else showPlaceholders();
   }
 
-  if(consent==='accept'){activateAll();}
-  else if(consent==='decline'){showPlaceholders();}
+  if(consent===V_ACC){activateAll();}
+  else if(consent===V_DEC){showPlaceholders();}
   else{showPlaceholders();setTimeout(function(){banner.classList.add('show');},1400);}
 
-  banner.querySelector('.acc').addEventListener('click',function(){setConsent('accept');});
-  banner.querySelector('.dec').addEventListener('click',function(){setConsent('decline');});
+  banner.querySelector('.acc').addEventListener('click',function(){setConsent(V_ACC);});
+  banner.querySelector('.dec').addEventListener('click',function(){setConsent(V_DEC);});
 
   /* Click sur un placeholder = raccourci "tout accepter" */
   document.addEventListener('click',function(e){
     var t=e.target;
     while(t&&t!==document){
       if(t.classList&&(t.classList.contains('vimeo-wrap')&&t.classList.contains('gated')||t.id==='cal-inline'&&t.classList.contains('gated'))){
-        e.preventDefault();setConsent('accept');return;
+        e.preventDefault();setConsent(V_ACC);return;
       }
       t=t.parentNode;
     }
