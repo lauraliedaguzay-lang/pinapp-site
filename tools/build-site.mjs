@@ -46,6 +46,11 @@ const excludeTop = new Set([
   'scripts',
   'infra',
   'api',
+  'apps-script',
+  'n8n-workflows',
+  'storyboard',
+  'emails',
+  'docs',
   'pinapp.ps1',
   '.cursor',
   '.cursorrules',
@@ -67,13 +72,21 @@ const excludePathRel = new Set([
   'n8n-workflows/W10-mp-micha-telegram-approval.json',
 ]);
 
+/** Fichiers a ne JAMAIS copier dans _site/ (a tout niveau de profondeur).
+ *  - .htaccess : sert sur Apache (Hostinger), inutile sur GitHub Pages et leak des chemins serveur en clair.
+ *  - .gs : Google Apps Script source (mentionne souvent ANTHROPIC_API_KEY / autres secrets en commentaire).
+ */
+const excludeFilePattern = /(^|\/)\.htaccess$|\.gs$/;
+
 function copyTree(srcDir, rel = '') {
   const entries = fs.readdirSync(srcDir, { withFileTypes: true });
   for (const e of entries) {
     if (rel === '' && excludeTop.has(e.name)) continue;
     const from = path.join(srcDir, e.name);
     const r = path.join(rel, e.name);
-    if (excludePathRel.has(r.split(path.sep).join('/'))) continue;
+    const rPosix = r.split(path.sep).join('/');
+    if (excludePathRel.has(rPosix)) continue;
+    if (!e.isDirectory() && excludeFilePattern.test(rPosix)) continue;
     const to = path.join(dest, r);
     if (e.isDirectory()) {
       fs.mkdirSync(to, { recursive: true });
