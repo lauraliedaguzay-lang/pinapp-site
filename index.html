@@ -233,7 +233,28 @@ body.sober [data-anim],body.sober [data-stag]>*{opacity:1!important;transform:no
   #pnp-intro .pnp-punch{opacity:1!important;transform:none!important}
 }
 </style>
-<noscript><style>#pnp-intro{display:none!important}</style></noscript>
+<style>
+/* Bandeau cookies RGPD */
+#pnp-cookies{position:fixed;left:50%;bottom:1rem;transform:translateX(-50%) translateY(20px);z-index:99999;width:min(620px,calc(100vw - 2rem));background:rgba(13,14,17,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:1.1rem 1.3rem;color:var(--ivory,#f4f1ea);font-size:.9rem;line-height:1.5;box-shadow:0 18px 60px rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:opacity .35s ease,transform .35s ease,visibility 0s linear .35s}
+#pnp-cookies.show{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);transition:opacity .35s ease,transform .35s ease}
+#pnp-cookies p{margin:0 0 .85rem;font-size:.86rem}
+#pnp-cookies .acts{display:flex;gap:.55rem;justify-content:flex-end;align-items:center;flex-wrap:wrap}
+#pnp-cookies button{background:none;border:1px solid rgba(255,255,255,.18);color:var(--ivory,#f4f1ea);padding:.55rem 1.1rem;border-radius:999px;cursor:pointer;font:inherit;font-size:.84rem;font-weight:500}
+#pnp-cookies button:hover{border-color:rgba(255,255,255,.4)}
+#pnp-cookies button.acc{background:#f4f1ea;color:#0d0e11;border-color:#f4f1ea;font-weight:600}
+#pnp-cookies button.acc:hover{background:#fff}
+#pnp-cookies .more{color:rgba(154,171,229,.9);font-size:.78rem;text-decoration:none;margin-right:auto}
+#pnp-cookies .more:hover{color:rgba(154,171,229,1);text-decoration:underline}
+@media (max-width:520px){#pnp-cookies{left:1rem;right:1rem;width:auto;transform:translateY(20px);border-radius:16px;padding:1rem 1.1rem}#pnp-cookies.show{transform:translateY(0)}#pnp-cookies p{font-size:.84rem}#pnp-cookies .acts{justify-content:stretch}#pnp-cookies .more{margin-right:0;flex-basis:100%;text-align:center;margin-bottom:.4rem}#pnp-cookies button{flex:1 1 auto;text-align:center}}
+
+/* Placeholders pour iframes en attente de consentement */
+.vimeo-wrap.gated{cursor:pointer}
+.vimeo-wrap.gated::before{content:"▶ Cliquez pour activer la vidéo · Vimeo dépose des cookies";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:1rem;font-size:.86rem;color:rgba(244,241,234,.7);background:linear-gradient(135deg,rgba(154,107,242,.08),rgba(106,143,234,.08));border:1px dashed rgba(255,255,255,.12);border-radius:14px;z-index:2;transition:background .2s ease}
+.vimeo-wrap.gated:hover::before{background:linear-gradient(135deg,rgba(154,107,242,.16),rgba(106,143,234,.16))}
+.vimeo-wrap.gated iframe{visibility:hidden}
+#cal-inline.gated{display:flex;align-items:center;justify-content:center;text-align:center;padding:3rem 1.5rem;color:rgba(244,241,234,.7);font-size:.9rem;border:1px dashed rgba(255,255,255,.12);background:linear-gradient(135deg,rgba(154,107,242,.05),rgba(106,143,234,.05));cursor:pointer;min-height:auto!important}
+#cal-inline.gated::before{content:"📅 Cliquez pour activer la réservation · Cal.com dépose des cookies"}
+</style>
 </head>
 <body>
 <a class="skip" href="#top">Aller au contenu</a>
@@ -468,7 +489,7 @@ fill="#000000" stroke="none">
   <div class="vsec-inner" style="max-width:760px"><div class="widget" data-anim="up">
     <span class="idx">★ Démo · tournée par Michaël</span>
     <h2>Voilà ce qu'on fait. <em class="peri">En 60 secondes.</em></h2>
-    <div class="vimeo-wrap"><iframe src="https://player.vimeo.com/video/1190745013?dnt=1" title="Pinapp · vidéo de présentation" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+    <div class="vimeo-wrap"><iframe data-src="https://player.vimeo.com/video/1190745013?dnt=1" title="Pinapp · vidéo de présentation" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
     <p class="note">Du sur-mesure premium, <strong class="peri">dès 1 290 € HT</strong> — sans compromis.</p>
   </div></div>
 </section>
@@ -585,15 +606,15 @@ fill="#000000" stroke="none">
   <div class="vsec-inner">
     <div class="head"><span class="eyebrow" data-anim="right">Studio MB EVENTS · Cinéma IA</span><h2 data-anim="right">Du clip 30 secondes<br>au court-métrage 3 minutes.</h2></div>
     <div class="widget" data-anim="up" style="padding:1rem">
-      <div class="vimeo-wrap" style="margin-top:0"><iframe src="https://player.vimeo.com/video/1184294831?dnt=1" title="Court-métrage 3 minutes — exemple Pack Signature" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="vimeo-wrap" style="margin-top:0"><iframe data-src="https://player.vimeo.com/video/1184294831?dnt=1" title="Court-métrage 3 minutes — exemple Pack Signature" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>
       <p class="note" style="margin-top:.7rem">★ Exemple Pack Signature · court-métrage 3 min · <strong class="peri">dès 2 800 € HT</strong> — votre univers, à votre image.</p>
     </div>
     <div class="head" style="margin-top:2.4rem;margin-bottom:1rem"><span class="eyebrow" data-anim="up">Ils nous ont fait confiance</span></div>
     <div class="wgrid g4" data-stag>
-      <div class="vimeo-wrap" style="margin-top:0"><iframe src="https://player.vimeo.com/video/1195021307?dnt=1&amp;title=0&amp;byline=0&amp;portrait=0&amp;loop=1&amp;muted=1" title="Logo animé — réalisation client Pinapp (1)" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
-      <div class="vimeo-wrap" style="margin-top:0"><iframe src="https://player.vimeo.com/video/1195021167?dnt=1&amp;title=0&amp;byline=0&amp;portrait=0&amp;loop=1&amp;muted=1" title="Logo animé — réalisation client Pinapp (2)" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
-      <div class="vimeo-wrap" style="margin-top:0"><iframe src="https://player.vimeo.com/video/1195021035?dnt=1&amp;title=0&amp;byline=0&amp;portrait=0&amp;loop=1&amp;muted=1" title="Logo animé — réalisation client Pinapp (3)" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
-      <div class="vimeo-wrap" style="margin-top:0"><iframe src="https://player.vimeo.com/video/1195020838?dnt=1&amp;title=0&amp;byline=0&amp;portrait=0&amp;loop=1&amp;muted=1" title="Logo animé — réalisation client Pinapp (4)" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="vimeo-wrap" style="margin-top:0"><iframe data-src="https://player.vimeo.com/video/1195021307?dnt=1&amp;title=0&amp;byline=0&amp;portrait=0&amp;loop=1&amp;muted=1" title="Logo animé — réalisation client Pinapp (1)" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="vimeo-wrap" style="margin-top:0"><iframe data-src="https://player.vimeo.com/video/1195021167?dnt=1&amp;title=0&amp;byline=0&amp;portrait=0&amp;loop=1&amp;muted=1" title="Logo animé — réalisation client Pinapp (2)" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="vimeo-wrap" style="margin-top:0"><iframe data-src="https://player.vimeo.com/video/1195021035?dnt=1&amp;title=0&amp;byline=0&amp;portrait=0&amp;loop=1&amp;muted=1" title="Logo animé — réalisation client Pinapp (3)" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="vimeo-wrap" style="margin-top:0"><iframe data-src="https://player.vimeo.com/video/1195020838?dnt=1&amp;title=0&amp;byline=0&amp;portrait=0&amp;loop=1&amp;muted=1" title="Logo animé — réalisation client Pinapp (4)" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
     </div>
     <div class="widget" data-anim="up" style="margin-top:1.4rem">Le film de marque, sur-mesure et à votre image — <strong class="peri">dès 1 290 € HT</strong>.</div>
   </div>
@@ -605,7 +626,7 @@ fill="#000000" stroke="none">
     <h2>Vous avez la voix.<br>Nous avons le studio.</h2>
     <p class="sub">Artiste, créateur, marque narrative : vous avez l'univers en tête, il vous manquait le budget studio. Plus maintenant.</p>
     <div class="statline" style="justify-content:center"><div><div class="n grad">dès 1 500 €</div><div class="l">clip cinéma sur-mesure</div></div><div><div class="n">48 h</div><div class="l">pour votre devis</div></div><div><div class="n">100 %</div><div class="l">votre univers</div></div></div>
-    <div class="vimeo-wrap" data-anim="up" style="margin-top:1.4rem"><iframe src="https://player.vimeo.com/video/1187533794?dnt=1" title="Icebreaker — clip cinéma IA · Pinapp" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+    <div class="vimeo-wrap" data-anim="up" style="margin-top:1.4rem"><iframe data-src="https://player.vimeo.com/video/1187533794?dnt=1" title="Icebreaker — clip cinéma IA · Pinapp" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>
     <p class="note" style="margin-top:.8rem">★ « Icebreaker » — clip cinéma IA réalisé par le studio · <strong class="peri">à partir de 1 500 € HT</strong></p>
     <p class="note" style="margin-top:.4rem">Disponible été 2026 · 5 premiers projets à -30 %</p>
     <div class="cta-row" style="justify-content:center"><a class="btn" href="#contact" data-magnetic>Devis clip sous 48h →</a></div>
@@ -620,7 +641,7 @@ fill="#000000" stroke="none">
       <div class="widget tight"><strong>Anniversaire / privé</strong><p class="lead" style="font-size:.84rem">Captation 4-6 h · montage 5 j.</p><div class="peri" style="font-weight:600;margin-top:.4rem">dès 1 200 € HT</div></div>
       <div class="widget tight"><strong>Direction artistique</strong><p class="lead" style="font-size:.84rem">Univers visuel d'une marque.</p><div class="peri" style="font-weight:600;margin-top:.4rem">sur devis</div></div>
     </div>
-    <div class="vimeo-wrap" data-anim="up" style="margin-top:1.4rem"><iframe src="https://player.vimeo.com/video/1191622111?dnt=1" title="Séminaire d'entreprise — captation Studio MB EVENTS" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+    <div class="vimeo-wrap" data-anim="up" style="margin-top:1.4rem"><iframe data-src="https://player.vimeo.com/video/1191622111?dnt=1" title="Séminaire d'entreprise — captation Studio MB EVENTS" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>
     <p class="note" style="margin-top:.8rem">★ Captation séminaire d'entreprise — exemple de réalisation · <strong class="peri">à partir de 1 800 € HT</strong></p>
     <p class="note" data-anim="up" style="margin-top:.4rem">⚠ Aucun mariage. Hors région : sur demande exceptionnelle.</p>
   </div>
@@ -944,14 +965,79 @@ fill="#000000" stroke="none">
 })();
 </script>
 <script>
-/* Cal.com — réservation en ligne inline (lazy : se charge quand la section approche) */
+/* Cal.com — réservation en ligne inline (lazy + consent-aware) */
 (function(){var el=document.getElementById('cal-inline');if(!el)return;var booted=false;
   function boot(){if(booted)return;booted=true;
     (function(C,A,L){var p=function(a,ar){a.q.push(ar);};var d=C.document;C.Cal=C.Cal||function(){var cal=C.Cal;var ar=arguments;if(!cal.loaded){cal.ns={};cal.q=cal.q||[];d.head.appendChild(d.createElement("script")).src=A;cal.loaded=true;}if(ar[0]===L){var api=function(){p(api,arguments);};var ns=ar[1];api.q=api.q||[];if(typeof ns==="string"){cal.ns[ns]=cal.ns[ns]||api;p(cal.ns[ns],ar);p(cal,["initNamespace",ns]);}else p(cal,ar);return;}p(cal,ar);};})(window,"https://app.cal.com/embed/embed.js","init");
     Cal("init","diag",{origin:"https://cal.com"});
     Cal.ns.diag("inline",{elementOrSelector:"#cal-inline",config:{layout:"month_view",theme:"dark"},calLink:"lauralie-daguzay-hdglzw/diagnostic"});
     Cal.ns.diag("ui",{theme:"dark",hideEventTypeDetails:false,layout:"month_view"});}
-  if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){boot();io.disconnect();}});},{rootMargin:'300px'});io.observe(el);}else boot();
+  window.__pnpBootCal=boot;
+  /* Lazy load only when consent is given */
+  function tryStart(){
+    var ok=false;try{ok=localStorage.getItem('pinapp-cookies-v1')==='accept';}catch(e){}
+    if(!ok)return false;
+    if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){boot();io.disconnect();}});},{rootMargin:'300px'});io.observe(el);}else boot();
+    return true;
+  }
+  tryStart();
+  document.addEventListener('pinapp:consent-accepted',function(){tryStart();});
+})();
+</script>
+
+<!-- Bandeau cookies RGPD -->
+<div id="pnp-cookies" role="dialog" aria-label="Consentement aux cookies" aria-live="polite">
+  <p><strong>Pinapp respecte votre vie privée.</strong> Notre analytique <a class="more" href="https://plausible.io/privacy" target="_blank" rel="noopener">Plausible</a> ne dépose aucun cookie. En revanche, les vidéos (Vimeo) et la réservation (Cal.com) déposent des cookies tiers. À vous de choisir.</p>
+  <div class="acts">
+    <a class="more" href="/confidentialite/">En savoir plus →</a>
+    <button type="button" class="dec">Refuser</button>
+    <button type="button" class="acc">Tout accepter</button>
+  </div>
+</div>
+<script>
+/* Gestion du consentement cookies + gating des iframes Vimeo + Cal.com */
+(function(){
+  var KEY='pinapp-cookies-v1';
+  var consent=null;try{consent=localStorage.getItem(KEY);}catch(e){}
+  var banner=document.getElementById('pnp-cookies');if(!banner)return;
+
+  function activateAll(){
+    document.querySelectorAll('iframe[data-src]').forEach(function(f){
+      var s=f.getAttribute('data-src');if(s&&!f.src)f.src=s;
+    });
+    document.querySelectorAll('.vimeo-wrap.gated').forEach(function(w){w.classList.remove('gated');});
+    var cal=document.getElementById('cal-inline');if(cal)cal.classList.remove('gated');
+    document.dispatchEvent(new Event('pinapp:consent-accepted'));
+  }
+  function showPlaceholders(){
+    document.querySelectorAll('.vimeo-wrap').forEach(function(w){
+      if(w.querySelector('iframe[data-src]'))w.classList.add('gated');
+    });
+    var cal=document.getElementById('cal-inline');if(cal)cal.classList.add('gated');
+  }
+  function setConsent(v){
+    try{localStorage.setItem(KEY,v);}catch(e){}
+    consent=v;banner.classList.remove('show');
+    if(v==='accept')activateAll();else showPlaceholders();
+  }
+
+  if(consent==='accept'){activateAll();}
+  else if(consent==='decline'){showPlaceholders();}
+  else{showPlaceholders();setTimeout(function(){banner.classList.add('show');},1400);}
+
+  banner.querySelector('.acc').addEventListener('click',function(){setConsent('accept');});
+  banner.querySelector('.dec').addEventListener('click',function(){setConsent('decline');});
+
+  /* Click sur un placeholder = raccourci "tout accepter" */
+  document.addEventListener('click',function(e){
+    var t=e.target;
+    while(t&&t!==document){
+      if(t.classList&&(t.classList.contains('vimeo-wrap')&&t.classList.contains('gated')||t.id==='cal-inline'&&t.classList.contains('gated'))){
+        e.preventDefault();setConsent('accept');return;
+      }
+      t=t.parentNode;
+    }
+  });
 })();
 </script>
 </body>
