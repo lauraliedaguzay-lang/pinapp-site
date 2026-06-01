@@ -39,9 +39,13 @@ loadDotEnvFiles();
 const excludeTop = new Set([
   '.git',
   '.github',
+  '.claude',
   'node_modules',
   '_site',
   'tools',
+  'scripts',
+  'infra',
+  'api',
   'pinapp.ps1',
   '.cursor',
   '.cursorrules',
