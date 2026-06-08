@@ -315,7 +315,11 @@ fill="#000000" stroke="none">
   try{played=sessionStorage.getItem('pnpIntroDone')==='1';}catch(e){}
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var force=/[?&]intro(=|&|$)/.test(location.search);
-  if(!force&&sober){el.parentNode&&el.parentNode.removeChild(el);return;}
+  /* Si l'URL contient une ancre (#contact, #offres, etc.) ou ?nointro, l'intro est skipped
+     → utile pour les liens marketing (LinkedIn, Insta) qui doivent arriver direct sur une section. */
+  var hasAnchor=location.hash&&location.hash.length>1;
+  var noIntro=/[?&]nointro(=|&|$)/.test(location.search);
+  if(!force&&(sober||hasAnchor||noIntro)){el.parentNode&&el.parentNode.removeChild(el);return;}
   var de=document.documentElement;de.style.overflow='hidden';document.body.style.overflow='hidden';
   var q=el.querySelector('.pnp-quote'),punch=el.querySelector('.pnp-punch');
   if(q){q.textContent=q.getAttribute('data-text')||'';if(punch)punch.style.animationDelay='6.2s';}
