@@ -33,10 +33,10 @@ jobs:
             echo "sha=${GITHUB_SHA:0:7}"
           } >> "$GITHUB_OUTPUT"
 
-      - name: Claude analyze
+      - name: Gemini analyze
         id: claude
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           COMMIT_MSG: ${{ steps.ch.outputs.msg }}
           FILES: ${{ steps.ch.outputs.files }}
           SHA_SHORT: ${{ steps.ch.outputs.sha }}
@@ -51,19 +51,21 @@ jobs:
           ⏭️ PROCHAINE ÉTAPE : [quoi faire maintenant]
           Si CSS/JS modifié → rappeler Ctrl+Shift+R"
 
-          BODY="$(jq -n --arg p "$PROMPT" '{model:"claude-sonnet-4-6",max_tokens:500,messages:[{role:"user",content:$p}]}')"
-          RESPONSE="$(curl -sS https://api.anthropic.com/v1/messages \
-            -H "x-api-key: ${ANTHROPIC_API_KEY}" \
-            -H "anthropic-version: 2023-06-01" \
-            -H "content-type: application/json" \
-            -d "$BODY")"
-          # Skip Telegram si cle Anthropic absente ou reponse en erreur (evite spam)
-          if [ -z "${ANTHROPIC_API_KEY:-}" ] || echo "$RESPONSE" | jq -e '.type == "error"' >/dev/null 2>&1; then
-            echo "::notice::Anthropic API indisponible — Telegram skip"
+          if [ -z "${GEMINI_API_KEY:-}" ]; then
+            echo "::notice::GEMINI_API_KEY absent — ajoutez-le dans Settings > Secrets"
             echo "skip=1" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          MSG="$(echo "$RESPONSE" | jq -r '.content[0].text // empty' | head -c 2000)"
+          BODY="$(jq -n --arg p "$PROMPT" '{contents:[{parts:[{text:$p}]}],generationConfig:{maxOutputTokens:500,temperature:0.7}}')"
+          RESPONSE="$(curl -sS "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}" \
+            -H "content-type: application/json" \
+            -d "$BODY")"
+          if echo "$RESPONSE" | jq -e '.error' >/dev/null 2>&1; then
+            echo "::notice::Gemini API erreur — Telegram skip"
+            echo "skip=1" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          MSG="$(echo "$RESPONSE" | jq -r '.candidates[0].content.parts[0].text // empty' | head -c 2000)"
           if [ -z "$MSG" ]; then
             echo "::notice::Reponse Anthropic vide — Telegram skip"
             echo "skip=1" >> "$GITHUB_OUTPUT"
